@@ -33,6 +33,17 @@
 1. Execute `java -jar online-services-web/target/online-services-web-*.jar`.
 1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
+
+### Logging
+The logs analysis can be performed by using Zipkin - an application that collects tracing data and displays detailed data about it in a web UI.
+An instance of Zipkin can be started locally by starting a Docker image:
+
+```docker run -d -p 9411:9411 openzipkin/zipkin
+```
+
+
+
+
 ### Run docker image
 
 1. Execute `docker run -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/online-services:<project.version>`.
@@ -42,7 +53,7 @@
 
 ### Formatting
 
-Formatting is defined by `.editorconfig` file. 
+Formatting is defined by `.editorconfig` file.
 
 To apply this formatting automatically by IntelliJ IDEA, you need to do the following:
 
