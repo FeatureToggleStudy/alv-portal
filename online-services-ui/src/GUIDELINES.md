@@ -19,34 +19,13 @@ The document describes the guidelines for the frontend development.
 * Try to write as little CSS code as possible. Use bootstrap classes wherever possible.
 * Use CSS classes according to [BEM methodology](http://getbem.com/naming/).
 * Use `data-test` attributes for e2e tests, as described [here](https://medium.com/@colecodes/test-your-dom-with-data-attributes-44fccc43ed4b).
-* If you have a lot of html attributes, stack them. For example, this is less readable: 
-
-```html
-
-<a [routerLink]="" *ngIf="articles.length < totalItems" (click)="onClickReadMore()"
-       class="btn btn-primary btn-lg active" role="button" aria-pressed="true">{{'news.list.more' | translate}}
-    </a>
-```
-and this is more readable: 
-```html
-<a [routerLink]=""
-   *ngIf="articles.length < totalItems" 
-   (click)="onClickReadMore()"
-   class="btn btn-primary btn-lg active"
-   role="button"
-   aria-pressed="true">
-   {{'news.list.more' | translate}}
-</a>
-``` 
-
-In IntelliJ IDEA you can make it part of a code style by going to `Settings > Editor > Code style > HTML > Other > Wrap attribute > Wrap always`. 
    
 ### Bootstrap, 3rd party libs and custom components
 
 Should I use the existing component, change its CSS or wrap it in my own Angular Component Wrapper? 
 
 * If there's a ng-bootstrap component that provides the same functions but doesn't look the same as needed: us ng-bootstrap component, create a new scss file in `commons` directory and style it there. Don't create angular wrapper for it.
-* If there's no 3rd party component, or it has missing js-functionality, create own component in `shared` folder forking the exising one, or from scratch. 
+* If there's no 3rd party component, or it has missing js-functionality, create own component in `shared` folder forking the existing one, or from scratch. 
  
 ## Unit tests
 
@@ -84,7 +63,7 @@ Make sure your tests are not fragile. Changes in html layout or visual design no
 
 * Avoid 
 
-* Avoid complex selectors in tests, because they are dependent of your HTML structure. For example, this selector in your test is bad:
+* Avoid complex selectors in tests, because they are dependent on your HTML structure. For example, this selector in your test is bad:
 
 ```js
 const mainNavLink = nativeElement.querySelector('.news-details > div > a');
