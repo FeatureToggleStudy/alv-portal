@@ -7,8 +7,7 @@
     "callable-types": true,
     "class-name": true,
     "comment-format": [
-      true,
-      "check-space"
+      false
     ],
     "curly": true,
     "deprecation": {
@@ -107,7 +106,13 @@
       }
     ],
     "unified-signatures": true,
-    "variable-name": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ],
     "whitespace": [
       true,
       "check-branch",
