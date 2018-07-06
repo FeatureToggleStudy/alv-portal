@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotificationComponent } from './notification/notification.component';
+import { NotificationComponent } from './components/notification/notification.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   providers: []
 })
-export class UiModule {
+export class SharedModule {
 }
 
 

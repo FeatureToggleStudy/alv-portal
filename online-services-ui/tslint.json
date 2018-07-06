@@ -2,7 +2,9 @@
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
+  "extends": ["tslint-angular"],
   "rules": {
+    "angular-whitespace": [false],
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
