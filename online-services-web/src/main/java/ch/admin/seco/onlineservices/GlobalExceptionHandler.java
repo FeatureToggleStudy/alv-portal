@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class ErrorHandler {
+public class GlobalExceptionHandler {
 
-    private Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
+    private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ResponseStatus(value = INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
