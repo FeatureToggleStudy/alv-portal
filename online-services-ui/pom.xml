@@ -5,6 +5,7 @@
 
     <groupId>ch.admin.seco</groupId>
     <artifactId>online-services-ui</artifactId>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>ch.admin.seco</groupId>
