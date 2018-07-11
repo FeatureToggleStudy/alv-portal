@@ -3,11 +3,20 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run start:dev",
+    "start:dev": "ng serve --watch",
+    "start:prod": "ng serve --watch --prod --aot --source-map",
+    "build": "npm run build:dev",
+    "build:dev": "ng build",
+    "build:prod": "ng build --aot --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "clean": "npm cache verify && rimraf -- node_modules doc target/dist",
+    "docs": "npm run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./src/",
+    "docs:compodoc": "compodoc -p tsconfig.json",
+    "docs:compodoc:serve": "compodoc -p tsconfig.json -s",
+    "docs:compodoc:serve:watch": "compodoc -p tsconfig.json -s -w"
   },
   "private": true,
   "dependencies": {
@@ -31,11 +40,14 @@
     "@angular/cli": "6.0.8",
     "@angular/compiler-cli": "6.0.7",
     "@angular/language-service": "6.0.7",
+    "@compodoc/compodoc": "1.1.3",
     "@types/jasmine": "2.8.8",
     "@types/jasmine-matchers": "0.2.30",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "10.5.1",
     "codelyzer": "4.4.2",
+    "cross-var": "1.1.0",
+    "crossenv": "0.0.2-security",
     "jasmine-core": "3.1.0",
     "jasmine-expect": "3.8.3",
     "jasmine-spec-reporter": "4.2.1",
@@ -46,9 +58,22 @@
     "karma-jasmine": "1.1.2",
     "karma-jasmine-html-reporter": "1.2.0",
     "protractor": "5.3.2",
+    "rimraf": "2.6.2",
+    "source-map-explorer": "1.5.0",
     "ts-node": "7.0.0",
     "tslint": "5.10.0",
     "tslint-angular": "1.1.2",
     "typescript": "2.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alv-ch/online-services.git"
+  },
+  "//": [
+    "rimraf, crossenv and crossvar are needed for cross-browser compatibility of the npm scripts (including Windows)"
+  ],
+  "engines": {
+    "node": ">= 10.6.0",
+    "npm": ">= 6"
   }
 }
