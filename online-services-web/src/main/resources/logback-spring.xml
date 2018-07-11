@@ -5,10 +5,10 @@
     <springProperty scope="context" name="springAppName"
                     source="spring.application.name"/>
 
-    <property name="LOG_FILE" value="${BUILD_FOLDER:-build}/${springAppName}"/>​
-
     <property name="CONSOLE_LOG_PATTERN"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [${springAppName},%X{X-B3-TraceId:-}] %m%n"/>
+
+    <property name="LOG_FILE" value="${LOG_PATH:-logs}/${springAppName}"/>​
 
     <!-- Appender to log to console -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -22,23 +22,25 @@
         </encoder>
     </appender>
 
-    <!-- Appender to log to file -->​
-    <appender name="flatfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_FILE}</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
-            <maxHistory>7</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>utf8</charset>
-        </encoder>
-    </appender>
+    <springProfile name="prod,dev">
+        <appender name="flatfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_FILE}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+                <charset>utf8</charset>
+            </encoder>
+        </appender>
+    </springProfile>
 
-    ​
     <root level="INFO">
         <appender-ref ref="console"/>
-
-        <appender-ref ref="flatfile"/>
+        <springProfile name="prod,dev">
+            <appender-ref ref="flatfile"/>
+        </springProfile>
     </root>
+
 </configuration>

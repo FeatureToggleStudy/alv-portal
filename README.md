@@ -1,5 +1,7 @@
 # Online Services
 
+[![Build Status](https://travis-ci.com/alv-ch/online-services.svg?branch=master)](https://travis-ci.com/alv-ch/online-services)
+
 ## Development Setup
 
 ### Prerequisites
@@ -31,15 +33,26 @@
 ### Run JAR
 
 1. Execute `java -jar online-services-web/target/online-services-web-*.jar`.
-1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
-
+    1. Project can be run wih one of the profiles : `dev, local, prod, zipkin`. 
+    2. Each profile has corresponding properties file which conforms the following convention `application-{profile-postfix}.properties`
+2. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
 ### Logging
-The logs analysis can be performed by using Zipkin - an application that collects tracing data and displays detailed data about it in a web UI.
+The logs analysis can be performed by using Zipkin - an application that collects tracing data and displays detailed data about it in a web UI. To be able to benefit of it project has to be build with profile `zipkin`.
+
+`./mvnw clean build -P zipkin`
+
+Afterwards it must executed with Spring profile `local` or any profile which includes 'zipkin` profile, e.g.
+
+`java -jar .\online-services-web\target\online-services-web-0.0.0-SNAPSHOT.jar --spring.profiles.active=local
+`   
+
+ 
+
 An instance of Zipkin can be started locally by starting a Docker image:
 
-```docker run -d -p 9411:9411 openzipkin/zipkin
-```
+`docker run -d -p 9411:9411 openzipkin/zipkin
+`
 
 
 
