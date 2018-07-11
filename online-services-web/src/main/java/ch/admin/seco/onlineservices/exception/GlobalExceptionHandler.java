@@ -1,5 +1,6 @@
-package ch.admin.seco.onlineservices;
+package ch.admin.seco.onlineservices.exception;
 
+import static ch.admin.seco.onlineservices.exception.ErrorFormat.INTERNAL_ERROR;
 import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
@@ -21,8 +22,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public String handleInternalError(Exception e) {
-        logger.error("internal server error", e);
-        return format("Internal Server Error (traceId: %s)", MDC.get("X-B3-TraceId"));
+        return handleError(INTERNAL_ERROR, e);
     }
 
+    private String handleError(ErrorFormat format, Exception e) {
+        logger.error(format.getLogFormat(), e);
+        return format(format.getResposeFormat(), MDC.get("X-B3-TraceId"));
+    }
 }

@@ -29,7 +29,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- Import dependency management from Spring Boot -->
+            <!-- Import dependency management from Spring Sleuth -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-sleuth</artifactId>
@@ -70,7 +70,6 @@
             <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
         <dependency>
-
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
@@ -93,5 +92,17 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>zipkin</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-zipkin</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>
+
