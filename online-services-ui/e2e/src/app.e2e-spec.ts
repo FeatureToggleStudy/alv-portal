@@ -1,14 +1,14 @@
-import { AppPage } from './app.po';
+import {AppPage} from './app.po';
 
 describe('workspace-project App', () => {
   let page: AppPage;
+
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should redirect to default page', () => {
+  it('should display browser title', () => {
     page.navigateTo();
-
-    expect(page.getCurrentUrl()).toContain(DEFAULT_URL);
+    expect(page.getBrowserTitle()).toEqual('ALV Online Services');
   });
 });
