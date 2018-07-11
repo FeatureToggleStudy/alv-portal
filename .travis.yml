@@ -18,6 +18,13 @@ env:
     # ARTIFACTORY_PASSWORD
     - secure: ddIwCTUjoUMG30FFA4/ZtJMlqbKp4eN75ckGm1WCT3aI0oKMjyZkYH8WuMNTopvUVXeGE/rES84L+ng+oEMCLEEw+6Bdr9NJ/5a0ZIXcosULMwiwLvLX1ANXmZI59sbZ5rcgRH8/7Qv/5fm7295aoBwRFuoO2FxL83irnM3NAi93j2R3qu70M9l7+NtEW/Yf0uRe3NMSXgyeMZfeEUkjiXlfHOkBAMjEeZpxzN9CNA/1/cYapdO7+mO3dRqs7I20ai4hAegGd1kwQ+rSWK/4kj6FbtT8EH6uo/qwxiKhhcae+tJCudb+3zEhi7MwvEx4XftfQuqT6FuMBrppN27+hYWMM5ekr3urAEb350z6hEAEqVmRJq7yLD05IWofLLmMO92ToWfNsNsZGEcnNdPhzLXjpTzZCeRY6oFTOACN2nWk4I8uR4O/5S3SIYQ4CprQ20bjhLieYSiImBmdH3ZLrHm/BqLeW6BSm3lL4okgaXwyxGqR67rZenC2CanKd433Iwi10OI9+P7vuWb4BZAwxTikG6aMcTTHf0/sx5klMO6dEZawWbmLRtGLxMHvRHsrhRBypls6tWVTAHp9iTxxUKPq6ZurV0VwR2r27PHi4wX4ZXtXCMO8l7HBKxDtpYaexqpuCmQYtzlsyriK2d8V52q4BXCOK/+h0IqQTKRnWRI=
 
+cache:
+  directories:
+    - $HOME/.m2
+    - online-services-ui/node_modules
+before_cache:
+  - rm -rf $HOME/.m2/repository/ch/admin/seco/online-services-*
+
 install:
   # install nodejs
   - nvm install ${NODE_VERSION}
@@ -31,4 +38,4 @@ script:
   - export BRANCH_VERSION_SUFFIX=$([ "${TRAVIS_BRANCH}" == "master" ] && echo "" || echo "-${TRAVIS_BRANCH//\//-}")
   - export BUILD_VERSION=${PROJECT_VERSION}-build-${TRAVIS_BUILD_NUMBER}${BRANCH_VERSION_SUFFIX}
   - ./mvnw initialize -DnewVersion=${BUILD_VERSION}
-  - ./mvnw clean install -P docker-build-push -Ddockerfile.username=${ARTIFACTORY_USERNAME} -Ddockerfile.password=${ARTIFACTORY_PASSWORD}
+  - ./mvnw install -P docker-build-push -Ddockerfile.username=${ARTIFACTORY_USERNAME} -Ddockerfile.password=${ARTIFACTORY_PASSWORD}

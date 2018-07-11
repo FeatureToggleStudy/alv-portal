@@ -72,6 +72,7 @@
                         <buildArgs>
                             <JAR_FILE>target/${project.artifactId}-${project.version}.jar</JAR_FILE>
                         </buildArgs>
+                        <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
                     </configuration>
                 </plugin>
             </plugins>
