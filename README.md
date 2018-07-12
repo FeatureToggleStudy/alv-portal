@@ -22,8 +22,8 @@
 
 1. First authenticate locally against the internal docker repository as follows: `docker login alvch-dockerv2-local.jfrog.io`.
     * Once executed, the credentials will be stored permanently in your docker config file.
-1. To build the image, execute `./mvnw clean install -P docker-build`
-1. To build and push the image, execute `./mvnw clean install -P docker-build-push`
+1. To build the image, execute `./mvnw clean install -P docker`
+1. To build and push the image, execute `./mvnw clean install -P docker -Ddocker-push`
     * Pushing docker images locally is usually not needed. It will be performed by the CICD toolchain automatically.
 
 ### Run
@@ -41,7 +41,7 @@
 ### Run docker image with docker-compose (recommended approach)
 
 1. First build the project including building of the docker image as described above.
-1. Execute `docker-compose -f online-services-web/target/docker/docker-compose.yml up`. 
+1. Execute `docker-compose -f online-services-web/target/docker-compose/docker-compose.yml up`. 
 
 ## Development Conventions
 
