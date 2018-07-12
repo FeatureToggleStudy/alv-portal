@@ -32,9 +32,9 @@
 
 ### Run JAR
 
-1. Execute `java -jar online-services-web/target/online-services-web-*.jar`.
+1. Execute `java -jar online-services-web/target/online-services-web-*.jar --spring.profiles.active=<profile>`.
     1. Project can be run wih one of the profiles : `dev, local, prod, zipkin`. 
-    2. Each profile has corresponding properties file which conforms the following convention `application-{profile-postfix}.properties`
+    2. Each profile has corresponding properties file which conforms the following convention `application-<profile>.properties`
 2. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
 ### Logging
