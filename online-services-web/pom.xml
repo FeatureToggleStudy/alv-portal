@@ -60,6 +60,19 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/docker</directory>
+                <filtering>true</filtering>
+                <targetPath>${project.build.directory}/docker</targetPath>
+                <includes>
+                    <include>**/*.yml</include>
+                </includes>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
