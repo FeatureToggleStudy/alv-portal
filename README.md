@@ -41,7 +41,19 @@
 ### Run docker image with docker-compose (recommended approach)
 
 1. First build the project including building of the docker image as described above.
-1. Execute `docker-compose -f online-services-web/target/docker-compose/docker-compose.yml up`. 
+1. Execute `docker-compose -f online-services-web/target/docker-compose/docker-compose.yml up`.
+1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
+
+### Run docker image in docker swarm mode (locally)
+
+1. Execute `docker swarm init`
+* Execute only once. This command will initialize a docker swarm cluster on your localhost.
+1. Execute `docker stack deploy --compose-file online-services-web/target/docker-compose/docker-compose.yml os-stack`.
+* This command will deploy a new stack called _os-stack_ with network and service definitions provided by the _docker-compose.yml_ file.
+* To check that the stack is running, execute: `docker stack services os-stack`
+* To verify that the application is running, visit _http://localhost:8080_.
+* To remove the stack, execute `docker stack rm os-stack`.
+* To remove the swarm local cluster, execute `docker swarm leave`.
 
 ## Development Conventions
 
