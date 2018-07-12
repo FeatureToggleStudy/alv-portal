@@ -37,6 +37,15 @@
     2. Each profile has corresponding properties file which conforms the following convention `application-<profile>.properties`
 2. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
+### Run docker image
+
+1. Execute `docker run -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/online-services:<project.version>`.
+1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
+1. Execute `java -jar online-services-web/target/online-services-web-*.jar`.
+    1. Project can be run wih one of the profiles : `dev, local, prod, zipkin`. 
+    2. Each profile has corresponding properties file which conforms the following convention `application-{profile-postfix}.properties`
+2. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
+
 ### Logging
 The logs analysis can be performed by using Zipkin - an application that collects tracing data and displays detailed data about it in a web UI. To be able to benefit of it project has to be build with profile `zipkin`.
 
@@ -47,20 +56,10 @@ Afterwards it must executed with Spring profile `local` or any profile which inc
 `java -jar .\online-services-web\target\online-services-web-0.0.0-SNAPSHOT.jar --spring.profiles.active=local
 `   
 
- 
-
 An instance of Zipkin can be started locally by starting a Docker image:
 
 `docker run -d -p 9411:9411 openzipkin/zipkin
 `
-
-
-
-
-### Run docker image
-
-1. Execute `docker run -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/online-services:<project.version>`.
-1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
 ## Development Conventions
 
