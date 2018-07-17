@@ -95,8 +95,26 @@
 
     <profiles>
         <profile>
-            <id>docker-build</id>
+            <id>docker</id>
+            <activation>
+                <property>
+                    <name>docker-push</name>
+                </property>
+            </activation>
             <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/docker</directory>
+                        <filtering>true</filtering>
+                        <targetPath>${project.build.directory}/docker-compose</targetPath>
+                        <includes>
+                            <include>**/*.yml</include>
+                        </includes>
+                    </resource>
+                </resources>
                 <plugins>
                     <plugin>
                         <groupId>com.spotify</groupId>
@@ -115,20 +133,18 @@
             </build>
         </profile>
         <profile>
-            <id>docker-build-push</id>
+            <id>docker-push</id>
+            <activation>
+                <property>
+                    <name>docker-push</name>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>com.spotify</groupId>
                         <artifactId>dockerfile-maven-plugin</artifactId>
                         <executions>
-                            <execution>
-                                <id>build-image</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
                             <execution>
                                 <id>push-image</id>
                                 <phase>install</phase>
