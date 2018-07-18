@@ -12,6 +12,7 @@
     <modules>
         <module>online-services-web</module>
         <module>online-services-ui</module>
+        <module>online-services-docs</module>
     </modules>
 
     <properties>

@@ -1,0 +1,12 @@
+@startuml
+
+rectangle "Online Services" as OS
+rectangle AVAM
+rectangle "AVAM-DMS" as AVAMDMS
+rectangle "ASAL-DMS" as ASALDMS
+
+OS <--> AVAM
+OS --> AVAMDMS
+OS --> ASALDMS
+
+@enduml
