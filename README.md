@@ -1,5 +1,9 @@
 # Online Services
 
+## Development Guidelines
+
+See the [Guidelines](GUIDELINES.md).
+
 ## Development Setup
 
 ### Prerequisites
@@ -38,7 +42,7 @@
 1. Execute `docker run -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/online-services:<project.version>`.
 1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
-### Run docker image with docker-compose (recommended approach)
+### Run docker image with docker-compose (the recommended simplest approach)
 
 1. First build the project including building of the docker image as described above.
 1. Execute `docker-compose -f online-services-web/target/docker-compose/docker-compose.yml up`.
@@ -54,14 +58,3 @@
 * To verify that the application is running, visit _http://localhost:8080_.
 * To remove the stack, execute `docker stack rm os-stack`.
 * To remove the swarm local cluster, execute `docker swarm leave`.
-
-## Development Conventions
-
-### Formatting
-
-Formatting is defined by `.editorconfig` file. 
-
-To apply this formatting automatically by IntelliJ IDEA, you need to do the following:
-
-1. Install [EditorConfig plugin](https://plugins.jetbrains.com/plugin/7294-editorconfig)
-1. Enable EditorConfig support on the *Settings -> Editor -> Code Style* page.    
