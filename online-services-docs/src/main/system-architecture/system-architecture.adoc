@@ -10,7 +10,7 @@ v{project-version}
 :toc-title: Table of Contents
 :imagesdir: ./images
 :toc: left
-:keywords: alv, online-services
+:keywords: alv, online-services, system-architecture
 
 include::content/about.adoc[]
 
