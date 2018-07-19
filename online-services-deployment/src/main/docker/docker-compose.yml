@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  online-services-web:
+    image: "alvch-dockerv2-local.jfrog.io/alvch/online-services-web:${project.version}"
+    ports:
+      - 8999:8080
