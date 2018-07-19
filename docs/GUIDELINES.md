@@ -13,4 +13,4 @@ To apply this formatting automatically by IntelliJ IDEA, you need to do the foll
 
 ## UI Guidelines
 
-See [UI Guidelines](./online-services-ui/GUIDELINES.md). 
+See [UI Guidelines](GUIDELINES-UI.md). 
