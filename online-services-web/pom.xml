@@ -16,7 +16,7 @@
     <properties>
         <java.version>1.8</java.version>
         <spring.boot.version>2.0.3.RELEASE</spring.boot.version>
-        <docker.repository>alvch-dockerv2-local.jfrog.io/alvch/online-services</docker.repository>
+        <docker.repository>alvch-dockerv2-local.jfrog.io/alvch/online-services-web</docker.repository>
     </properties>
 
     <dependencyManagement>
@@ -101,20 +101,7 @@
                     <name>docker-push</name>
                 </property>
             </activation>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/docker</directory>
-                        <filtering>true</filtering>
-                        <targetPath>${project.build.directory}/docker-compose</targetPath>
-                        <includes>
-                            <include>**/*.yml</include>
-                        </includes>
-                    </resource>
-                </resources>
+           <build>
                 <plugins>
                     <plugin>
                         <groupId>com.spotify</groupId>
