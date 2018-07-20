@@ -10,11 +10,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>online-services-docs</artifactId>
+    <packaging>jar</packaging>
 
     <properties>
         <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
         <asciidoctorj.pdf.version>1.5.0-alpha.16</asciidoctorj.pdf.version>
         <asciidoctorj.diagram.version>1.5.9</asciidoctorj.diagram.version>
+        <docs.output.dir>${project.build.directory}/generated-docs/static</docs.output.dir>
+        <system.arch.output.dir>${docs.output.dir}/system-architecture</system.arch.output.dir>
+        <install.ops.guide.output.dir>${docs.output.dir}/installation-operations-guide</install.ops.guide.output.dir>
     </properties>
 
     <build>
@@ -44,9 +48,8 @@
                         <configuration>
                             <sourceDirectory>src/main/system-architecture</sourceDirectory>
                             <sourceDocumentName>system-architecture.adoc</sourceDocumentName>
-                            <imagesDir>${project.build.directory}/generated-docs/system-architecture/images</imagesDir>
-                            <outputDirectory>${project.build.directory}/generated-docs/system-architecture
-                            </outputDirectory>
+                            <imagesDir>${system.arch.output.dir}/images</imagesDir>
+                            <outputDirectory>${system.arch.output.dir}</outputDirectory>
                             <backend>html</backend>
                         </configuration>
                     </execution>
@@ -59,9 +62,36 @@
                         <configuration>
                             <sourceDirectory>src/main/system-architecture</sourceDirectory>
                             <sourceDocumentName>system-architecture.adoc</sourceDocumentName>
-                            <imagesDir>${project.build.directory}/generated-docs/system-architecture/images</imagesDir>
-                            <outputDirectory>${project.build.directory}/generated-docs/system-architecture
-                            </outputDirectory>
+                            <imagesDir>${system.arch.output.dir}/images</imagesDir>
+                            <outputDirectory>${system.arch.output.dir}</outputDirectory>
+                            <backend>pdf</backend>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-ops-guide-output-html</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>src/main/installation-operations-guide</sourceDirectory>
+                            <sourceDocumentName>installation-operations-guide.adoc</sourceDocumentName>
+                            <imagesDir>${install.ops.guide.output.dir}/images</imagesDir>
+                            <outputDirectory>${install.ops.guide.output.dir}</outputDirectory>
+                            <backend>html</backend>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-ops-guide-output-pdf</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>src/main/installation-operations-guide</sourceDirectory>
+                            <sourceDocumentName>installation-operations-guide.adoc</sourceDocumentName>
+                            <imagesDir>${install.ops.guide.output.dir}/images</imagesDir>
+                            <outputDirectory>${install.ops.guide.output.dir}</outputDirectory>
                             <backend>pdf</backend>
                         </configuration>
                     </execution>
@@ -78,6 +108,17 @@
                         <version>${asciidoctorj.diagram.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <classesDirectory>target/generated-docs</classesDirectory>
+                    <includes>
+                        <include>static/system-architecture/system-architecture.html</include>
+                        <include>static/system-architecture/system-architecture.pdf</include>
+                    </includes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
