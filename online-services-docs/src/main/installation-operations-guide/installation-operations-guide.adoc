@@ -1,0 +1,34 @@
+// header file,
+// including all help texts
+//
+// ====================================
+
+= image:alv-logo.png[role="related right"] eALV Online Services - Installation & Operations Guide
+by SECO
+v{project-version}
+// toc-title definition MUST follow document title without blank line!
+:toc-title: Table of Contents
+:imagesdir: ./images
+:toc: left
+:keywords: alv, online-services, installation, operations
+
+include::content/about.adoc[]
+
+// horizontal line
+***
+
+// numbering from here on
+:numbered:
+
+<<<<
+// 1. Installation
+include::content/01_installation.adoc[]
+
+<<<<
+// 2. Configuration
+include::content/02_configuration.adoc[]
+
+<<<<
+// 3. Operations
+include::content/03_operations.adoc[]
+
