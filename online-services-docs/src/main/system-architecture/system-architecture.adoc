@@ -1,0 +1,71 @@
+// header file,
+// including all help texts
+//
+// ====================================
+
+= image:alv-logo.png[role="related right"] eALV Online Services - System Architecture
+by SECO
+v{project-version}
+// toc-title definition MUST follow document title without blank line!
+:toc-title: Table of Contents
+:imagesdir: ./images
+:toc: left
+:keywords: alv, online-services, system-architecture
+
+include::content/about.adoc[]
+
+// horizontal line
+***
+
+// numbering from here on
+:numbered:
+
+<<<<
+// 1. Introduction and Goals
+include::content/01_introduction_and_goals.adoc[]
+
+<<<<
+// 2. Architecture Constraints
+include::content/02_architecture_constraints.adoc[]
+
+<<<<
+// 3. System Scope and Context
+include::content/03_system_scope_and_context.adoc[]
+
+<<<<
+// 4. Solution Strategy
+include::content/04_solution_strategy.adoc[]
+
+<<<<
+// 5. Building Block View
+include::content/05_building_block_view.adoc[]
+
+<<<<
+// 6. Runtime View
+include::content/06_runtime_view.adoc[]
+
+<<<<
+// 7. Deployment View
+include::content/07_deployment_view.adoc[]
+
+<<<<
+// 8. Concepts
+include::content/08_concepts.adoc[]
+
+<<<<
+// 9. Design Decisions
+include::content/09_design_decisions.adoc[]
+
+<<<<
+// 10. Quality Scenarios
+include::content/10_quality_scenarios.adoc[]
+
+<<<<
+// 11. Technical Risks
+include::content/11_technical_risks.adoc[]
+
+<<<<
+// 12. Glossary
+include::content/12_glossary.adoc[]
+
+

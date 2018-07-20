@@ -17,7 +17,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>cleanup-node-modules-folder</id>
@@ -112,7 +111,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
                 <configuration>
                     <classesDirectory>target/dist</classesDirectory>
                 </configuration>
