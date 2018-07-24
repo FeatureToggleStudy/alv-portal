@@ -1,0 +1,7 @@
+**About eALV Online Services**
+
+eALV Online Services is an online portal providing various services for unemployed persons.
+
+This document describes the system architecture of the implemented solution.
+
+
