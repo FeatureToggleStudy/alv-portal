@@ -1,4 +1,4 @@
-package ch.admin.seco.onlineservices.config;
+package ch.admin.seco.onlineservices.web.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

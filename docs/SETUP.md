@@ -52,3 +52,13 @@
 * To verify that the application is running, visit _http://localhost:8080_.
 * To remove the stack, execute `docker stack rm os-stack`.
 * To remove the swarm local cluster, execute `docker swarm leave`.
+
+## Logging
+
+The logs analysis can be performed by using _Zipkin_ - an application that collects tracing data and displays detailed data about it in a web UI.
+
+To use zipkin:
+1. Build your application with Maven _zipkin_ profile: `./mvnw clean install -Pzipkin`
+1. Start Zipkin: `docker run -d -p 9411:9411 openzipkin/zipkin`
+1. Start the application with your local profile: `java -jar online-services-web/target/online-services-web-*.jar --spring.profiles.active=local`
+1. Browse the logs at __http://localhost:9411/zipkin/__.

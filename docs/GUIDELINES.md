@@ -14,3 +14,9 @@ To apply this formatting automatically by IntelliJ IDEA, you need to do the foll
 ## UI Guidelines
 
 See [UI Guidelines](GUIDELINES-UI.md). 
+
+## Logging
+
+Every logged message gets automatically assigned a __trace-Id__ (aka correlation Id) by Spring Sleuth.
+Normally you don't have to care about this at all. 
+At the moment a manual creation of a span is not required, since only one backend service is involved. 
