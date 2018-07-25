@@ -13,7 +13,7 @@ env:
   global:
     - PROJECT_VERSION=0.0.1
     - NODE_VERSION=10.6.0
-    - CHROME_VERSION=67.0.3396.99-1
+    - CHROME_VERSION=68.0.3440.75-1
     - ENV_SLUG=dev
     - DEV_ENV_URL=dev.job-room.ch:8999
     - DEPLOY_DIR=/tmp/os-deployment
