@@ -26,3 +26,5 @@ Just run `../mvnw clean package` from the _online-services-docs_ module.
 * or access the documentation under the following URLs:
   * _<app-url>/docs/system-architecture/html_
   * _<app-url>/docs/system-architecture/pdf_
+* To check the current state of system architecture, visit: 
+  * [http://dev.job-room.ch:8999/docs/system-architecture/html](http://dev.job-room.ch:8999/docs/system-architecture/html)   
