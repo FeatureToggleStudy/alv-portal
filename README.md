@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.com/alv-ch/online-services.svg?branch=master)](https://travis-ci.com/alv-ch/online-services)
 
-[![Build Status](https://travis-ci.com/alv-ch/online-services.svg?branch=master)](https://travis-ci.com/alv-ch/online-services)
-
 eALV Online Services is an online portal providing various services for unemployed persons.
 
 Below you will find all necessary information to help you get started.
