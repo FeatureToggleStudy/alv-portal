@@ -1,10 +1,10 @@
 # Documentation
 
-## Project specification
+## Project Specification
 
 A complete project specification can be found on [Online Services Wiki](https://alv-ch.atlassian.net/wiki/spaces/OS/overview).
 
-## Project documentation
+## Project Documentation
 
 ### Maintain
 
@@ -28,3 +28,19 @@ Just run `../mvnw clean package` from the _online-services-docs_ module.
   * _<app-url>/docs/system-architecture/pdf_
 * To check the current state of system architecture, visit: 
   * [http://dev.job-room.ch:8999/docs/system-architecture/html](http://dev.job-room.ch:8999/docs/system-architecture/html)   
+
+## API Documentation
+
+API Documentation is available in the following form:
+
+### Swagger JSON
+
+Available during the application runtime at:
+* _<app-url>/docs/swagger/json_
+* To check the current state of API documentation, visit: [http://dev.job-room.ch:8999/docs/swagger/json](http://dev.job-room.ch:8999/docs/swagger/json)
+
+### Swagger UI
+
+Available during the application runtime at:
+* _<app-url>/swagger-ui.html_
+* To check the current state of API documentation, visit: [http://dev.job-room.ch:8999/swagger-ui.html](http://dev.job-room.ch:8999/swagger-ui.html)
