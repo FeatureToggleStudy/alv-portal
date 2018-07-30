@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorResponse handleInternalError(Exception e) {
-        return handleError(ErrorCode.UNKNOWN_ERROR,"Unexpected internal server error occurred", e);
+        return handleError(ErrorCode.UNKNOWN_ERROR,"Unexpected internal server error", e);
     }
 
     private ErrorResponse handleError(ErrorCode errorCode, String message, Exception e) {
