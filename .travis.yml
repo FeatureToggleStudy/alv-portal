@@ -45,7 +45,7 @@ script:
   - export BRANCH_VERSION_SUFFIX=$([ "${TRAVIS_BRANCH}" == "master" ] && echo "" || echo "-${TRAVIS_BRANCH//\//-}")
   - export BUILD_VERSION=${PROJECT_VERSION}-build-${TRAVIS_BUILD_NUMBER}${BRANCH_VERSION_SUFFIX}
   - ./mvnw initialize -DnewVersion=${BUILD_VERSION}
-  - ./mvnw install -P docker -Ddocker-push -Ddockerfile.username=${ARTIFACTORY_USERNAME} -Ddockerfile.password=${ARTIFACTORY_PASSWORD}
+  - ./mvnw install -Pdev,docker -Ddocker-push -Ddockerfile.username=${ARTIFACTORY_USERNAME} -Ddockerfile.password=${ARTIFACTORY_PASSWORD}
 
 before_deploy:
   - curl ipinfo.io/ip
