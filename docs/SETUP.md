@@ -10,6 +10,12 @@
 
 1. Execute `./mvnw clean install`.
 
+The **_local_ maven profile** is activated by default. This profile activates also the following profiles:
+    * _zipkin_ - see _Logging_ section below for more information
+
+To make IntelliJ IDEA use Maven Wrapper by default, install and enable the following plugin:
+* https://plugins.jetbrains.com/plugin/10633-maven-wrapper-support
+
 ### Build without tests
 
 * To skip unit tests, execute `./mvnw clean install -DskipTests`.
@@ -25,8 +31,8 @@
     1. To build the image, execute `./mvnw -pl online-services-web dockerfile:build`
     1. To push the image, execute `./mvnw -pl online-services-web dockerfile:push`
 1. Alternatively you can build or/and push the image together with building the whole project:
-    1. To build the project and image, execute: `./mvnw clean install -P docker`
-    1. To build the project inl. building and pushing the image, execute: `./mvnw clean install -P docker -Ddocker-push`
+    1. To build the project and image, execute: `./mvnw clean install -Pdocker`
+    1. To build the project inl. building and pushing the image, execute: `./mvnw clean install -Pdocker -Ddocker-push`
 
 Please note, that pushing docker images locally is usually not needed. It will be performed by the CICD toolchain automatically.
 
@@ -34,7 +40,7 @@ Please note, that pushing docker images locally is usually not needed. It will b
 
 ### Run app JAR
 
-1. Execute `java -jar online-services-web/target/online-services-web-*.jar`.
+1. Execute `java -jar online-services-web/target/online-services-web-*.jar --spring.profiles.active=local`.
 1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
 ### Run app docker image
@@ -64,7 +70,7 @@ Please note, that pushing docker images locally is usually not needed. It will b
 The logs analysis can be performed by using _Zipkin_ - an application that collects tracing data and displays detailed data about it in a web UI.
 
 To use zipkin:
-1. Build your application with Maven _zipkin_ profile: `./mvnw clean install -Pzipkin`
+1. Build your application with Maven _zipkin_ profile (activated by default, i.e. by the _local_ profile): `./mvnw clean install -Pzipkin`
 1. Start Zipkin: `docker run -d -p 9411:9411 openzipkin/zipkin`
 1. Start the application with your local profile: `java -jar online-services-web/target/online-services-web-*.jar --spring.profiles.active=local`
 1. Browse the logs at __http://localhost:9411/zipkin/__.
