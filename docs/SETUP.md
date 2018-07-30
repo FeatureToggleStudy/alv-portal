@@ -20,9 +20,15 @@
 
 1. First authenticate locally against the internal docker repository as follows: `docker login alvch-dockerv2-local.jfrog.io`.
     * Once executed, the credentials will be stored permanently in your docker config file.
-1. To build the image, execute `./mvnw clean install -P docker`
-1. To build and push the image, execute `./mvnw clean install -P docker -Ddocker-push`
-    * Pushing docker images locally is usually not needed. It will be performed by the CICD toolchain automatically.
+1. Build or/and push the image separately:
+    1. Build the project as usually with: `./mvnw clean install` 
+    1. To build the image, execute `./mvnw -pl online-services-web dockerfile:build`
+    1. To push the image, execute `./mvnw -pl online-services-web dockerfile:push`
+1. Alternatively you can build or/and push the image together with building the whole project:
+    1. To build the project and image, execute: `./mvnw clean install -P docker`
+    1. To build the project inl. building and pushing the image, execute: `./mvnw clean install -P docker -Ddocker-push`
+
+Please note, that pushing docker images locally is usually not needed. It will be performed by the CICD toolchain automatically.
 
 ## Run
 
@@ -39,17 +45,17 @@
 ### Run app docker image incl. all dependencies using docker-compose (recommended, if you want to test docker setup locally)
 
 1. First build the project including building of the docker image as described above.
-1. Execute `docker-compose -f online-services-web/target/docker-compose/docker-compose.yml up`.
-1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
+1. Execute `docker-compose -f online-services-deployment/target/docker-compose/docker-compose.yml up`.
+1. Verify that the application is running by visiting the following URL: _http://localhost:8999_.
 
 ### Run app docker image incl. all dependencies in docker swarm mode (locally)
 
 1. Execute `docker swarm init`
 * Execute only once. This command will initialize a docker swarm cluster on your localhost.
-1. Execute `docker stack deploy --compose-file online-services-web/target/docker-compose/docker-compose.yml os-stack`.
+1. Execute `docker stack deploy --compose-file online-services-deployment/target/docker/docker-compose.yml os-stack`.
 * This command will deploy a new stack called _os-stack_ with network and service definitions provided by the _docker-compose.yml_ file.
 * To check that the stack is running, execute: `docker stack services os-stack`
-* To verify that the application is running, visit _http://localhost:8080_.
+* To verify that the application is running, visit _http://localhost:8999_.
 * To remove the stack, execute `docker stack rm os-stack`.
 * To remove the swarm local cluster, execute `docker swarm leave`.
 
