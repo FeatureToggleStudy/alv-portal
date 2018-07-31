@@ -36,8 +36,8 @@ API Documentation is available in the following form:
 ### Swagger JSON
 
 Available during the application runtime at:
-* _<app-url>/docs/swagger/json_
-* To check the current state of API documentation, visit: [http://dev.job-room.ch:8999/docs/swagger/json](http://dev.job-room.ch:8999/docs/swagger/json)
+* _<app-url>/docs/api/swagger/json_
+* To check the current state of API documentation, visit: [http://dev.job-room.ch:8999/docs/api/swagger/json](http://dev.job-room.ch:8999/docs/api/swagger/json)
 
 ### Swagger UI
 
