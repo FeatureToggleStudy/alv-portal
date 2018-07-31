@@ -45,6 +45,22 @@
     </build>
 
     <profiles>
+        <!-- environment profiles -->
+        <!-- if necessary, an environment profile needs to be redefined also in the corresponding child pom
+             (there is no such thing as profile inheritance in maven) -->
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>dev</id>
+        </profile>
+        <profile>
+            <id>prod</id>
+        </profile>
+
         <profile>
             <id>set-version</id>
             <activation>

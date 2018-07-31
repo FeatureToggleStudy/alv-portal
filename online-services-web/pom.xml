@@ -135,6 +135,15 @@
 
     <profiles>
         <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profile.depends>zipkin</profile.depends>
+            </properties>
+        </profile>
+        <profile>
             <id>docker</id>
             <activation>
                 <property>
