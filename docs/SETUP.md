@@ -45,8 +45,11 @@ Please note, that pushing docker images locally is usually not needed. It will b
 
 ### Run app docker image
 
-1. Execute `docker run -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/online-services:<project.version>`.
+1. Execute `docker run -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/online-services-web:<project.version>`.
 1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
+1. To change the default spring profiles, execute `docker run -e SPRING_PROFILES_ACTIVE="<active.spring.profiles>" -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/online-services-web:<project.version>`
+1. To enable remote-debugging, execute `docker run -e JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n" -p 8080:8080 -p 8000:8000 alvch-dockerv2-local.jfrog.io/alvch/online-services-web:<project.version>`.
+In IntelliJ you can then connect to the debugger by adding a new debug remote configuration with host: 127.0.0.1 and Port: 8000.
 
 ### Run app docker image incl. all dependencies using docker-compose (recommended, if you want to test docker setup locally)
 
