@@ -13,9 +13,9 @@ env:
   global:
     - PROJECT_VERSION=0.0.1
     - NODE_VERSION=10.6.0
-    - ENV_SLUG=dev
+    - DEV_ENV_SLUG=dev
+    - DEV_DEPLOY_KEY=ci/travis/deploy/deploy_key_dev.enc
     - DEV_ENV_URL=dev.job-room.ch:8999
-    - DEPLOY_DIR=/tmp/os-deployment
     - secure: Hqr5fZyxofOv5Hx6jDcdc5vKglSgHYzgq0vOosSkXYGiXVVUeByxe+mllBSnJvmRk34pVY5obe5fZHbERUbLAGvKAs8WKqNGJKNtYJM5YNmognBwdA/MPib0v6OYmJE1cwE+HeaNt/gKJuY+pDfBOYqB+PnPxBR9XC7Z+9m9Pry9JpzMGVBhzRxH3pZGtOBvdJLEgYZSh8qgmf3oaNbOOAj53EQydmwcD86Ggm+CdL6Vtyf3v1CrGP+bsatiPZKzCl+QssyLe0KHU4Rb3NIM3MJUwMuRLp6hDtYpavw3XSwwrgDaA+R6pqV9GapTbEuWhv7CfXpD4Z+bBcsAK0GuuvPdx7dUFy63oermfbpoX4Dk1/c9M7t8XIr9CkGjaDtu/mHfKqaqCRkN8ia3v54FwdVqzOVakRdD/qw+wrRAxY70/PJbkhLNvFVAwQq0RVBhfyvVpwc5xrNooxipWTOw3TTNoJ4X0vtB1qIVeKUOAG9N6TYLKh9v6R9edxJ7Cg9wuCX9eVnuU64ePvuDnNpU/6JqF+RTNOj1BNoTg1ldQwthClofWF1wh3GLzJzK9fQbu9IsMKQp5MqbUfa+uAZDNozsPUpZotgMWKyw+77qFCSMtfm5Yd6ZyUGGflIyZFGM/dYJTNl8h5t9XfT2Prr60rV3q02Joh8phZAzH6V8oaw=
     - secure: ddIwCTUjoUMG30FFA4/ZtJMlqbKp4eN75ckGm1WCT3aI0oKMjyZkYH8WuMNTopvUVXeGE/rES84L+ng+oEMCLEEw+6Bdr9NJ/5a0ZIXcosULMwiwLvLX1ANXmZI59sbZ5rcgRH8/7Qv/5fm7295aoBwRFuoO2FxL83irnM3NAi93j2R3qu70M9l7+NtEW/Yf0uRe3NMSXgyeMZfeEUkjiXlfHOkBAMjEeZpxzN9CNA/1/cYapdO7+mO3dRqs7I20ai4hAegGd1kwQ+rSWK/4kj6FbtT8EH6uo/qwxiKhhcae+tJCudb+3zEhi7MwvEx4XftfQuqT6FuMBrppN27+hYWMM5ekr3urAEb350z6hEAEqVmRJq7yLD05IWofLLmMO92ToWfNsNsZGEcnNdPhzLXjpTzZCeRY6oFTOACN2nWk4I8uR4O/5S3SIYQ4CprQ20bjhLieYSiImBmdH3ZLrHm/BqLeW6BSm3lL4okgaXwyxGqR67rZenC2CanKd433Iwi10OI9+P7vuWb4BZAwxTikG6aMcTTHf0/sx5klMO6dEZawWbmLRtGLxMHvRHsrhRBypls6tWVTAHp9iTxxUKPq6ZurV0VwR2r27PHi4wX4ZXtXCMO8l7HBKxDtpYaexqpuCmQYtzlsyriK2d8V52q4BXCOK/+h0IqQTKRnWRI=
     - secure: V4Xy7NHoaaTuQfUL6MuxBk2joxu6ic4ken8tlmi47gdvMuPqmMcbeOa/SK9t2ol9yoas0EP4cLSm8EnsPcssQWn21uCBdh7Ku41FVjW6AUBQovmO4YWX0ieCISO67Fc9f63hyZ1xPhoQu2TCc5lNw1eFDBBs21KDVKtZ2JxhRQdIHFhkPQf4dgRP17tOnqhMGw4t6ntiRXFxWCOVgUyZvTEEnTb90x6F6WJjXG20VjAfyh8WXY4JB980Y8V0An+LVUvMlkIbj2rP+Tc48xo3avPjmOP8x2whXzz9lHEjqEntQpGR/uMg3mLCqeQ1iX1RCI4uKnSDIEnUP95cQyZu9MW7Jif7r0N+V8LJklwx7q5V198K+LBWVsbbc9a/grygq9jDhzanfVBIks0MKuEhuGNxmJSwYw/FP34yThlohOBkdeyGFJaAAOtKjxSEOdpdv6FhOgStOC35KFwTb9U7NCLDIlt54blyA/WQ65QD8zBwMwquY0zgsPoKkgFFfJiSJAyWOHE7SELrYnzKKqxwVtmelDQMvmHg2l/yhogZE46endyFEVGvRJNM+HEi5r672I4/jIQ43EAmqmO/sPw17ntvqvWsPYvYhIe3k+oN9dGIGnU430cQr2C4EdMwtVhF8V6VQtJ0PauHmJ27DqmUhin4mwBwZxO3ha1Q3HMVWX8=
@@ -30,35 +30,23 @@ cache:
     - online-services-ui/node_modules
 
 install:
-  # install nodejs
-  - nvm install ${NODE_VERSION}
-  # install chrome
-  - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-  - sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-  - sudo apt-get update
-  - sudo apt-get install google-chrome-stable
-  # install graphviz (required by plantuml diagrams)
-  - sudo apt-get install graphviz
+  - ci/travis/install/install-nodejs.sh ${NODE_VERSION}
+  - ci/travis/install/install-chrome.sh
+  - ci/travis/install/install-graphviz.sh
+  - ci/travis/install/install-realpath.sh
 
 script:
-  - export BRANCH_VERSION_SUFFIX=$([ "${TRAVIS_BRANCH}" == "master" ] && echo "" || echo "-${TRAVIS_BRANCH//\//-}")
-  - export BUILD_VERSION=${PROJECT_VERSION}-build-${TRAVIS_BUILD_NUMBER}${BRANCH_VERSION_SUFFIX}
-  - ./mvnw initialize -DnewVersion=${BUILD_VERSION}
-  - ./mvnw install -Pdev,docker -Ddocker-push -Ddockerfile.username=${ARTIFACTORY_USERNAME} -Ddockerfile.password=${ARTIFACTORY_PASSWORD}
+  - ci/travis/build/build.sh ${PROJECT_VERSION} ${TRAVIS_BRANCH} ${TRAVIS_BUILD_NUMBER}
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then ci/travis/build/build-push-image.sh ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}; fi
 
 before_deploy:
-  - curl ipinfo.io/ip
-  - openssl aes-256-cbc -K $encrypted_8010cca7bd1e_key -iv $encrypted_8010cca7bd1e_iv -in deploy_key.enc -out deploy_key -d
-  - chmod 600 deploy_key
+  - ci/utils/print-ip.sh
 
 deploy:
   - provider: script
     skip_cleanup: true
     on:
-       branch: master
+      branch: master
     script: >-
-      ssh -i deploy_key -o "StrictHostKeyChecking no" ${DEPLOY_USER}@${DEPLOY_HOST} "rm -rf ${DEPLOY_DIR} && mkdir ${DEPLOY_DIR}"
-      && scp -r -i deploy_key -o "StrictHostKeyChecking no" online-services-deployment/target/docker/* ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIR}
-      && ssh -i deploy_key -o "StrictHostKeyChecking no" ${DEPLOY_USER}@${DEPLOY_HOST} "chmod +x ${DEPLOY_DIR}/*.sh"
-      && ssh -i deploy_key -o "StrictHostKeyChecking no" ${DEPLOY_USER}@${DEPLOY_HOST} "cd ${DEPLOY_DIR} && ./deploy-docker-stack.sh ${ENV_SLUG}"
-      && ssh -i deploy_key -o "StrictHostKeyChecking no" ${DEPLOY_USER}@${DEPLOY_HOST} "cd ${DEPLOY_DIR} && ./check-health.sh ${DEV_ENV_URL}"
+      ci/travis/deploy/deploy.sh ${DEPLOY_USER} ${DEPLOY_HOST} ${DEV_DEPLOY_KEY} ${DEV_ENV_SLUG}
+      && ci/utils/check-health.sh ${DEV_ENV_URL}
