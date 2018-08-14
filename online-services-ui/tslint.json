@@ -28,6 +28,7 @@
     ],
     "interface-over-type-literal": true,
     "label-position": true,
+    "max-classes-per-file": [false],
     "max-line-length": [
       false
     ],

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col">
+    <input type="text"
+           class="form-control"
+           #fromPicker
+           (click)="toggleDatepicker()"
+           placeholder="from"
+           value="{{fromDate?.day}}.{{fromDate?.month}}.{{fromDate?.year}}">
+  </div>
+  <div class="col">
+    <input type="text"
+           #toPicker
+           class="form-control"
+           placeholder="to"
+           (click)="toggleDatepicker()"
+           value="{{toDate?.day}}.{{toDate?.month}}.{{toDate?.year}}">
+  </div>
+</div>
+
+<div class="input-group-append"></div>
+From: {{fromDate | json}} To: {{toDate | json}}
+
+<ngb-datepicker #dp
+                *ngIf="datePickerVisible"
+                (select)="onDateSelection($event)"
+                [displayMonths]="2"
+                [startDate]="fromDate"
+                [dayTemplate]="t">
+</ngb-datepicker>
+
+<ng-template #t
+             let-date="date"
+             let-focused="focused">
+  <span class="custom-day"
+        [class.focused]="focused"
+        [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
+        [class.faded]="isHovered(date) || isInside(date)"
+        (mouseenter)="hoveredDate = date"
+        (mouseleave)="hoveredDate = null">
+    {{ date.day }}
+  </span>
+</ng-template>

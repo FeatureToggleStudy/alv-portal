@@ -1,3 +1,4 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NotificationComponent } from './notification.component';
@@ -8,9 +9,10 @@ describe('NotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotificationComponent ]
-    })
-    .compileComponents();
+          declarations: [NotificationComponent],
+          schemas: [NO_ERRORS_SCHEMA]
+        })
+        .compileComponents();
   }));
 
   beforeEach(() => {

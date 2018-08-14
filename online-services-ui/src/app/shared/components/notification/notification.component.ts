@@ -12,21 +12,22 @@ export class NotificationComponent implements OnInit {
   @Input() message: string;
   @Input() additionalText?: string;
 
-  constructor() { }
+  constructor() {
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   getIconClass(type: NotificationType): string {
     switch (type) {
-      case NotificationType.ERROR:
-        return 'fas fa-ban';
-      case NotificationType.INFO:
-        return 'fas fa-info';
-      case NotificationType.SUCCESS:
-        return 'fas fa-check';
-      case NotificationType.WARNING:
-        return 'fas fa-exclamation';
+    case NotificationType.ERROR:
+      return 'fas fa-ban';
+    case NotificationType.INFO:
+      return 'fas fa-info';
+    case NotificationType.SUCCESS:
+      return 'fas fa-check';
+    case NotificationType.WARNING:
+      return 'fas fa-exclamation';
     }
   }
 

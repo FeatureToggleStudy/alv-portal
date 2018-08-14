@@ -1,20 +1,16 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { throwIfAlreadyLoaded } from './module-import-guard';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { throwIfAlreadyLoaded } from './module-import-guard';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forChild([]),
+    RouterModule.forChild([])
   ],
-  exports: [
-  ],
-  providers: [
-
-  ]
+  exports: [],
+  providers: []
 })
 export class CoreModule {
   /**
