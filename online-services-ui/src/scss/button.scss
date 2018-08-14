@@ -1,0 +1,70 @@
+@import "colors";
+button.btn, a.btn {
+  padding: 8px 20px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 16px;
+  border-radius: 0;
+  &.btn-link {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: $color-blue;
+    &:hover:not(:disabled) {
+      background-color: $color-super-light-grey;
+      border-color: $color-medium-grey;
+      color: $color-black;
+      text-decoration: none;
+    }
+    &:disabled {
+      color: $color-medium-grey;
+      cursor: default;
+    }
+  }
+
+  &.btn-secondary {
+    background-color: $color-super-light-grey;
+    border: 1px solid $color-medium-grey;
+    color: $color-black;
+
+    &:hover:not(:disabled) {
+      background-color: $color-medium-grey;
+    }
+    &:disabled {
+      color: $color-medium-grey;
+      cursor: default;
+    }
+  }
+
+  &.btn-primary {
+    background-color: $color-blue;
+    border: 1px solid $color-blue;
+    color: $color-white;
+
+    &:hover:not(:disabled) {
+      background-color: $color-dark-blue;
+      border-color: $color-dark-blue;
+    }
+    &:disabled {
+      background-color: $color-super-light-blue;
+      border-color: $color-super-light-blue;
+      cursor: default;
+    }
+  }
+
+  &.btn-icon {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: $color-blue;
+    padding: 8px;
+    width: 42px;
+    &:hover:not(:disabled) {
+      background-color: $color-super-light-grey;
+      border-color: $color-medium-grey;
+      color: $color-black;
+    }
+    &:disabled {
+      color: $color-medium-grey;
+      cursor: default;
+    }
+  }
+}
