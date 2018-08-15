@@ -1,4 +1,7 @@
 import { CommonModule } from '@angular/common';
+import { StampComponent } from './components/message/stamp/stamp.component';
+import { StampGroupComponent } from './components/message/stamp-group/stamp-group.component';
+
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDatepickerModule, NgbDropdownModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,14 +15,16 @@ import { FileIconComponent } from './components/upload/files-upload/file-icon/fi
 import { FilesUploadComponent } from './components/upload/files-upload/files-upload.component';
 import { HumanizeBytesPipe } from './components/upload/files-upload/humanize-bytes.pipe';
 import { UploadedFilePresentationComponent } from './components/upload/files-upload/uploaded-file/uploaded-file-presentation.component';
-import { NotificationComponent } from './components/notification/notification.component';
 import { YesNoInputComponent } from './components/yes-no-input/yes-no-input.component';
 import { DocumentGroupUploadComponent } from './components/upload/document-group-upload/document-group-upload.component';
 import { UploadedFileComponent } from './components/upload/files-upload/uploaded-file/uploaded-file/uploaded-file.component';
+import { NotificationComponent } from './components/message/notification/notification.component';
 
 @NgModule({
   declarations: [
     NotificationComponent,
+    StampComponent,
+    StampGroupComponent,
     AddressInputComponent,
     YesNoInputComponent,
     DateIntervalInputComponent,
@@ -46,13 +51,15 @@ import { UploadedFileComponent } from './components/upload/files-upload/uploaded
   entryComponents: [],
   exports: [
     NotificationComponent,
+    StampComponent,
+    StampGroupComponent,
+    NotificationComponent,
     AddressInputComponent,
     YesNoInputComponent,
     DateIntervalInputComponent,
     FilesUploadComponent,
     DocumentUploadComponent,
     UploadedFilePresentationComponent
-
   ],
   providers: []
 })

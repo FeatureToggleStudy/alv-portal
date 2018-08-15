@@ -1,22 +1,22 @@
 @import "../../../../scss/colors";
-.notification {
+
+:host {
   width: 100%;
   display: flex;
+
   .icon {
-    padding: 10px;
+    color: $color-white;
+    display: flex;
     text-align: center;
     i {
-      width: 16px;
-      color: $color-white;
-    }
-  }
-  .text {
-    padding: 10px;
-    .line-1 {
-      font-weight: 700;
+      flex-grow: 1;
+      align-self: center;
     }
   }
 
+  .text {
+    align-self: center;
+  }
 
   &.info {
     background-color: $color-light-blue;
@@ -42,6 +42,14 @@
       background-color: $color-green;
     }
   }
-
+  &.empty {
+    background-color: $color-super-light-grey;
+    border: 1px solid $color-medium-grey;
+    .text {
+      text-align: center;
+      color: $color-dark-grey;
+      width: 100%;
+    }
+  }
 }
 
