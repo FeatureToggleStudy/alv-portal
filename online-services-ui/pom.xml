@@ -150,21 +150,6 @@
                                     </arguments>
                                 </configuration>
                             </execution>
-                            <execution>
-                                <id>create-ui-version-file</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <workingDirectory>online-services-ui</workingDirectory>
-                                    <executable>echo</executable>
-                                    <arguments>
-                                        <argument>export const version = '${project.version}';</argument>
-                                    </arguments>
-                                    <outputFile>src/version.ts</outputFile>
-                                </configuration>
-                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
