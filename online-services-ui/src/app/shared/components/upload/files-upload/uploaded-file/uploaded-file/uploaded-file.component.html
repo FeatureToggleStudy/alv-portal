@@ -1,0 +1,8 @@
+<ng-container *ngIf="file$ | async as file; else trobber">
+  <os-uploaded-file-presentation file="file"></os-uploaded-file-presentation>
+  <!--todo add file input to presentation component-->
+</ng-container>
+<ng-container #trobber>
+  <i class="fa fa-circle-o-notch fa-spin"></i>
+</ng-container>
+

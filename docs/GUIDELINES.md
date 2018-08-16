@@ -15,6 +15,10 @@ To apply this formatting automatically by IntelliJ IDEA, you need to do the foll
 
 See [UI Guidelines](GUIDELINES-UI.md). 
 
+## Accessibility Guidelines
+
+See [Accessibility Guidelines](GUIDELINES-ACCESSIBILITY.md). 
+
 ## Logging
 
 Every logged message gets automatically assigned a __trace-Id__ (aka correlation Id) by Spring Sleuth.

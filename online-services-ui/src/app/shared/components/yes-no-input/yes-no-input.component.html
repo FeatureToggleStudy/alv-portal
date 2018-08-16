@@ -1,0 +1,25 @@
+<div class="form-group"
+     [formGroup]="form">
+  <p>{{help}}</p>
+  <label>{{question}}</label>
+  <div>
+    <div class="form-check form-check-inline">
+      <label class="form-check-label">
+        <input type="radio"
+               formControlName="answer"
+               class="form-check-input"
+               [value]="true">
+        Yes
+      </label>
+    </div>
+    <div class="form-check form-check-inline">
+      <label class="form-check-label">
+        <input type="radio"
+               formControlName="answer"
+               class="form-check-input"
+               [value]="false">
+        No
+      </label>
+    </div>
+  </div>
+</div>

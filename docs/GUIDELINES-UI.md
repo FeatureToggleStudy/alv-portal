@@ -1,3 +1,5 @@
+# UI Guidelines
+
 The document describes the guidelines for the frontend development. 
 
 ## TypeScript

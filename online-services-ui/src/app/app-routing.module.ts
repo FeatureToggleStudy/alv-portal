@@ -1,15 +1,15 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {AvpInfoComponent} from './forms/avp-info/avp-info.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AvpFormComponent } from './forms/avp-form/avp-form.component';
 
 const appRoutes: Routes = [
   {
-    path: 'avp-info',
-    component: AvpInfoComponent
+    path: 'avp-form',
+    component: AvpFormComponent
   },
   {
     path: '**',
-    redirectTo: 'avp-info'
+    redirectTo: 'avp-form'
   }
 ];
 

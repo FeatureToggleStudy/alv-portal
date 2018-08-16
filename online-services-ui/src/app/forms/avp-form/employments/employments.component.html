@@ -1,0 +1,66 @@
+<div class="row">
+  <form [formGroup]="form"
+        class="col-md-6">
+
+    <os-yes-no-input question="Did you work for one or more employers in March 2018?"
+                     formControlName="worked"
+    ></os-yes-no-input>
+    <div formArrayName="employments"
+         *ngIf="form.value.worked">
+      <div *ngFor="let employment of employments.controls; let i=index">
+
+        <div [formGroupName]="i">
+          <div class="form-group">
+            <label>
+              Employer:
+            </label>
+
+            <input type="text"
+                   class="form-control"
+                   formControlName="employer">
+          </div>
+          <os-date-interval-input
+              formControlName="period"
+          ></os-date-interval-input>
+          <os-address-input formControlName="address"></os-address-input>
+        </div>
+        <os-document-upload></os-document-upload>
+        <button class="btn btn-success"
+                (click)="addEmployment()">Add Employment
+        </button>
+        <button class="btn btn-danger"
+                (click)="removeEmployment(i)">Remove Employment
+        </button>
+      </div>
+    </div>
+
+    <os-yes-no-input question="Have you been self-employed in March 2018?"
+                     formControlName="selfEmployed"></os-yes-no-input>
+
+    <os-files-upload *ngIf="form.value.selfEmployed"></os-files-upload>
+
+    <os-yes-no-input question="Did you participate in a labor market measure in March 2018?"
+                     formControlName="labourMarketMeasures">
+    </os-yes-no-input>
+
+    <div class="form-group">
+      <button name="submit"
+              type="submit"
+              class="btn btn-primary">Submit
+      </button>
+    </div>
+
+  </form>
+  <div class="col-md-6">
+    <h4>form.value for monthly employments component</h4>
+    <pre>
+    {{form.value|json}}
+  </pre>
+    <h4>Validity</h4>
+    <p>form.valid:</p>
+    <pre>
+    {{form.valid}}
+  </pre>
+  </div>
+
+</div>
