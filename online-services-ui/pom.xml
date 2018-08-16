@@ -118,4 +118,58 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>set-version</id>
+            <activation>
+                <property>
+                    <name>newVersion</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <id>set-npm-version</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <workingDirectory>online-services-ui</workingDirectory>
+                                    <executable>npm</executable>
+                                    <arguments>
+                                        <argument>version</argument>
+                                        <argument>${newVersion}</argument>
+                                        <argument>--allow-same-version</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>create-ui-version-file</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <workingDirectory>online-services-ui</workingDirectory>
+                                    <executable>echo</executable>
+                                    <arguments>
+                                        <argument>export const version = '${project.version}';</argument>
+                                    </arguments>
+                                    <outputFile>src/version.ts</outputFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
