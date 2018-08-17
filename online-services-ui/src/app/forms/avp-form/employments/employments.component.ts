@@ -17,7 +17,7 @@ export class EmploymentsComponent implements OnInit {
   constructor(private fb: FormBuilder) {
   }
 
-  get employments() {
+  get employments(): FormArray {
     return this.form.get('employments') as FormArray;
   }
 

@@ -1,0 +1,21 @@
+@import "../../../../scss/colors";
+.panel {
+  background-color: $color-light-grey;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+  margin: 0.25em;
+  border: 2px solid transparent;
+  ::ng-deep .panel-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    .panel-subtitle {
+      font-weight: 500;
+    }
+  }
+  &.invalid {
+    border: 2px solid $color-red;
+    ::ng-deep .panel-title {
+      color: $color-red;
+    }
+  }
+}

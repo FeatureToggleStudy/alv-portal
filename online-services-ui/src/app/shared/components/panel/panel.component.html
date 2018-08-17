@@ -1,0 +1,7 @@
+<div class="arrow-container" *ngIf="showArrow">
+  <div class="arrow-down" [class.colorized]="colorizeArrow"></div>
+</div>
+<div class="panel m-1 px-4 pt-3 pb-2" [class.invalid]="invalid">
+  <ng-content></ng-content>
+</div>
+
