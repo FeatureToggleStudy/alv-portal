@@ -15,6 +15,7 @@ import { ConfirmationComponent } from './forms/avp-form/confirmation/confirmatio
 import { AttachmentsOverviewComponent } from './forms/avp-form/attachments-overview/attachments-overview.component';
 import { MiscellaneousComponent } from './forms/avp-form/miscellaneous/miscellaneous.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgbTabsetModule.forRoot(),
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

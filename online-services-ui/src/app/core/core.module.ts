@@ -2,14 +2,17 @@ import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { throwIfAlreadyLoaded } from './module-import-guard';
+import { VersionComponent } from './version/version.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [],
+  declarations: [VersionComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild([])
+    RouterModule.forChild([]),
+    HttpClientModule
   ],
-  exports: [],
+  exports: [VersionComponent],
   providers: []
 })
 export class CoreModule {
