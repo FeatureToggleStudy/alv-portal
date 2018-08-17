@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { StampComponent } from './components/message/stamp/stamp.component';
 import { StampGroupComponent } from './components/message/stamp-group/stamp-group.component';
-
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbDatepickerModule, NgbDropdownModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDatepickerModule,
+  NgbDropdownModule,
+  NgbProgressbarModule
+} from '@ng-bootstrap/ng-bootstrap';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AddressInputComponent } from './components/address-input/address-input.component';
@@ -15,6 +18,8 @@ import { FileIconComponent } from './components/upload/files-upload/file-icon/fi
 import { FilesUploadComponent } from './components/upload/files-upload/files-upload.component';
 import { HumanizeBytesPipe } from './components/upload/files-upload/humanize-bytes.pipe';
 import { UploadedFilePresentationComponent } from './components/upload/files-upload/uploaded-file/uploaded-file-presentation.component';
+import { PanelComponent } from './components/panel/panel.component';
+import { PanelGroupComponent } from './components/panel-group/panel-group.component';
 import { YesNoInputComponent } from './components/yes-no-input/yes-no-input.component';
 import { DocumentGroupUploadComponent } from './components/upload/document-group-upload/document-group-upload.component';
 import { UploadedFileComponent } from './components/upload/files-upload/uploaded-file/uploaded-file/uploaded-file.component';
@@ -23,6 +28,8 @@ import { NotificationComponent } from './components/message/notification/notific
 @NgModule({
   declarations: [
     NotificationComponent,
+    PanelComponent,
+    PanelGroupComponent,
     StampComponent,
     StampGroupComponent,
     AddressInputComponent,
@@ -51,6 +58,8 @@ import { NotificationComponent } from './components/message/notification/notific
   entryComponents: [],
   exports: [
     NotificationComponent,
+    PanelComponent,
+    PanelGroupComponent,
     StampComponent,
     StampGroupComponent,
     NotificationComponent,
