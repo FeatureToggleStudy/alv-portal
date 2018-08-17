@@ -23,16 +23,48 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/docker</directory>
-                <filtering>true</filtering>
-                <targetPath>${project.build.directory}/docker</targetPath>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-            </resource>
-        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                    <finalName>docker-deploy-dist</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <ignorePermissions>false</ignorePermissions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly-docker-compose</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/docker-compose-dist.xml</descriptor>
+                            </descriptors>
+                            <finalName>docker-compose-dist</finalName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>make-assembly-docker-swarm</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/docker-swarm-dist.xml</descriptor>
+                            </descriptors>
+                            <finalName>docker-swarm-dist</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>
