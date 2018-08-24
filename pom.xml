@@ -5,17 +5,8 @@
 
     <groupId>ch.admin.seco</groupId>
     <artifactId>online-services-parent</artifactId>
-    <!--real version is set by the CI toolchain -->
+    <!-- don't change the version manually, it is set by the CI toolchain -->
     <version>0.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>online-services-web</module>
-        <module>online-services-ui</module>
-        <module>online-services-deployment</module>
-        <module>online-services-docs</module>
-    </modules>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -23,7 +14,47 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <skipTests>false</skipTests>
         <skipITs>false</skipITs>
+        <java.version>1.8</java.version>
+        <spring.boot.version>2.0.4.RELEASE</spring.boot.version>
+        <!-- make sure the spring version defined here is the same as spring boot uses -->
+        <spring.version>5.0.8.RELEASE</spring.version>
     </properties>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>online-services-webapp</module>
+        <module>online-services-deployment</module>
+        <module>online-services-docs</module>
+        <module>online-services-core</module>
+        <module>online-services-infra-db</module>
+        <module>online-services-ui</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ch.admin.seco</groupId>
+                <artifactId>online-services-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.admin.seco</groupId>
+                <artifactId>online-services-infra-db</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.admin.seco</groupId>
+                <artifactId>online-services-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.admin.seco</groupId>
+                <artifactId>online-services-docs</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
