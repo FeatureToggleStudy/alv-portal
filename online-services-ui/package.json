@@ -9,7 +9,7 @@
     "build": "npm run build:dev",
     "build:dev": "ng build",
     "build:prod": "ng build --aot --prod",
-    "test": "ng test",
+    "test": "ng test --source-map=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "clean": "npm cache verify && rimraf -- node_modules doc target/dist",
