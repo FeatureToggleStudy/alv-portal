@@ -7,5 +7,5 @@ echo "Using artifactory username: $ARTIFACTORY_USERNAME..."
 echo "Using artifactory password: $ARTIFACTORY_PASSWORD..."
 
 echo "Building and pushing the project docker image..."
-./mvnw -pl online-services-web dockerfile:build dockerfile:push -Ddockerfile.username=${ARTIFACTORY_USERNAME} -Ddockerfile.password=${ARTIFACTORY_PASSWORD}
+./mvnw -pl online-services-webapp dockerfile:build dockerfile:push -Ddockerfile.username=${ARTIFACTORY_USERNAME} -Ddockerfile.password=${ARTIFACTORY_PASSWORD}
 

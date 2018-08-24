@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  online-services-web:
+  online-services-webapp:
     environment:
       - SPRING_PROFILES_ACTIVE
       - JAVA_OPTS
-    image: "alvch-dockerv2-local.jfrog.io/alvch/online-services-web:${project.version}"
+    image: "alvch-dockerv2-local.jfrog.io/alvch/online-services-webapp:${project.version}"
     ports:
       - ${PORT}:8080
