@@ -29,11 +29,29 @@ export class ValidationMessagesComponent implements OnInit {
     this.validationMessages = this.validationService.prepareValidationMessages(this.customValidationMessages);
   }
 
-  replaceVariables(message: string, properties: any): string {
+  getErrorMessage(message: ValidationMessage, properties: any): string {
+    let resultMessage = message.message;
+    for (const property in properties) {
+      if (properties.hasOwnProperty(property)) {
+        // Check for error specific messages
+        if (message[property]) {
+          resultMessage = message[property];
+        }
+      }
+    }
+    return this.replaceVariables(resultMessage, properties);
+  }
+
+  private replaceVariables(message: string, properties: any): string {
     let resultMessage = message;
     for (const property in properties) {
       if (properties.hasOwnProperty(property)) {
-        resultMessage = resultMessage.replace('{{' + property + '}}', properties[property]);
+
+        if (typeof properties[property] === 'object') {
+          resultMessage = this.replaceVariables(resultMessage, properties[property]);
+        } else {
+          resultMessage = resultMessage.replace('{{' + property + '}}', properties[property]);
+        }
       }
     }
     return resultMessage;

@@ -3,6 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mockDocument1 } from '../../forms.mock';
 import { EmploymentsModel } from './employments.model';
 import { AddressFormGroup } from '../../../shared/components/address-input/address-form-group';
+import { DateIntervalFormGroup } from '../../../shared/components/date-interval-input/date-interval-form-group';
+import { NgbDate } from '../../../../../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
 
 @Component({
   selector: 'os-employments',
@@ -28,19 +30,11 @@ export class EmploymentsComponent implements OnInit {
       ownField: this.fb.control('', Validators.required),
       employments: this.fb.array([
         this.fb.group({
-          period: this.fb.control({
-            from: {
-              year: 2018,
-              month: 9,
-              day: 29
-            },
-            to: {
-              year: 2018,
-              month: 10,
-              day: 18
-            }
-          }),
-          employer: this.fb.control('someone'),
+          period: this.fb.group(new DateIntervalFormGroup(this.fb, {
+            from: new NgbDate(2018, 9, 29),
+            to: new NgbDate(2018, 10, 18)
+          })),
+          employer: this.fb.control('someone', Validators.required),
           address: this.fb.group(new AddressFormGroup(this.fb)),
           docs: this.fb.control(mockDocument1) // here multiple docs will be instead of one
 
@@ -55,7 +49,7 @@ export class EmploymentsComponent implements OnInit {
     this.employments.push(this.fb.group({
       employer: this.fb.control(''),
       address: this.fb.group(new AddressFormGroup(this.fb)),
-      period: this.fb.control('')
+      period: this.fb.group(new DateIntervalFormGroup(this.fb))
     }));
   }
 

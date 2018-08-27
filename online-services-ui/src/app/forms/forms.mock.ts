@@ -1,4 +1,5 @@
 import { Address, Document, File, Period } from './forms.model';
+import { NgbDate } from '../../../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
 
 export const mockAddress1: Address = {
   street: 'rue du Simplon',
@@ -43,15 +44,7 @@ export const mockDocument1: Document = {
 };
 
 export const mockPeriod1: Period = {
-  from: {
-    year: 2011,
-    month: 9,
-    day: 20
-  },
-  to: {
-    year: 2012,
-    month: 9,
-    day: 20
-  }
+  from: new NgbDate(2018, 7, 10),
+  to: new NgbDate(2018, 7, 20)
 };
 

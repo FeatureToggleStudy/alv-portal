@@ -1,13 +1,6 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  Validators
-} from '@angular/forms';
-import { SubForm } from '../sub-form';
-import { AddressFormGroup } from './address-form-group';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'os-address-input',
@@ -18,8 +11,30 @@ export class AddressInputComponent implements OnInit {
 
   @Input() form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  // TODO: Get countries list from backend
+  countries = of([
+    {
+      label: 'Switzerland',
+      value: 'CH'
+    },
+    {
+      label: 'Germany',
+      value: 'DE'
+    },
+    {
+      label: 'Austria',
+      value: 'AT'
+    },
+    {
+      label: 'France',
+      value: 'FR'
+    },
+    {
+      label: 'Italy',
+      value: 'IT'
+    }]);
 
+  constructor() {
   }
 
   ngOnInit(): void {

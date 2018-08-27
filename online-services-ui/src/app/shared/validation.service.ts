@@ -31,6 +31,12 @@ export class ValidationService {
     {
       error: 'pattern',
       message: 'Please enter the format {{requiredPattern}}'
+    },
+    {
+      error: 'ngbDate',
+      message: 'Invalid date format',
+      requiredBefore: 'Date must be after {{day}}.{{month}}.{{year}}' ,
+      requiredAfter: 'Date must be before {{day}}.{{month}}.{{year}}'
     }
   ];
 

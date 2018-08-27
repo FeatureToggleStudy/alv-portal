@@ -1,28 +1,33 @@
 <form *ngIf="form"
-      [formGroup]="form" >
-  <os-input-field label="Street"
-                  [control]="form.get('street')">
-  </os-input-field>
-  <os-input-field label="Number"
-                  [control]="form.get('number')">
-  </os-input-field>
-  <os-input-field label="Postcode"
-                  [control]="form.get('zip')">
-  </os-input-field>
-  <os-input-field label="City"
-                  [control]="form.get('city')">
-  </os-input-field>
-  <div class="form-group">
-    <label for="address__country">Country</label>
-    <select id="address__country"
-            name="address__country"
-            formControlName="country"
-            required="required"
-            class="form-control">
-      <option value="Switzerland">Switzerland</option>
-      <option value="Russia">Russia</option>
-      <option value="Slovakia">Slovakia</option>
-      <option value="Poland">Poland</option>
-    </select>
+      [formGroup]="form">
+  <div class="form-row">
+    <div class="col-8">
+      <os-input-field label="Street"
+                      [control]="form.get('street')">
+      </os-input-field>
+    </div>
+    <div class="col-4">
+      <os-input-field label="Number"
+                      [control]="form.get('number')">
+      </os-input-field>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-4">
+      <os-input-field label="Postcode"
+                      [control]="form.get('zip')">
+      </os-input-field>
+    </div>
+    <div class="col-8">
+      <os-input-field label="City"
+                      [control]="form.get('city')">
+      </os-input-field>
+    </div>
+    <div class="col-12">
+      <os-select [control]="form.get('country')"
+                 [label]="'Country'"
+                 [options$]="countries">
+      </os-select>
+    </div>
   </div>
 </form>
