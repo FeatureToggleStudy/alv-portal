@@ -1,0 +1,107 @@
+@import "../../../../scss/colors";
+
+.required-indicator {
+  border-right: 5px solid $color-blue;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.input-group .input-group-append,
+.input-group .input-group-prepend {
+  button.btn {
+    border-radius: 0;
+    height: 40px;
+  }
+  .input-group-text {
+    border-radius: 0;
+  }
+
+}
+
+input.form-control, select.form-control, textarea.form-control {
+  border: 1px solid $color-medium-grey;
+  border-radius: 0;
+  &.ng-invalid.ng-touched {
+    border: 1px solid $color-red;
+    &:focus {
+      box-shadow: 0 0 0 0.2rem $color-red-transparent;
+    }
+  }
+}
+
+.invalid {
+  .required-indicator {
+    border-color: $color-red;
+  }
+  &.form-label-group > label {
+    color: $color-red;
+  }
+}
+
+/* floating label CSS */
+.form-label-group {
+  user-select: none;
+  cursor: text;
+  // Hide placeholder
+  input::placeholder, textarea::placeholder {
+    color: transparent;
+  }
+
+  &> input,
+  &> textarea,
+  &> select,
+  &> label,
+  &> .readonly-input {
+    padding: 10px 10px;
+  }
+
+  &> label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+    line-height: 1.5;
+    color: $color-grey-black;
+    border: 1px solid transparent;
+    transition: all .1s ease-in-out;
+    pointer-events: none;
+  }
+  /* Set the class "placeholder-shown" with JS if the input value is empty */
+  input:not(.placeholder-shown),
+  textarea:not(.placeholder-shown),
+  select:not(.placeholder-shown),
+  .readonly-input:not(.placeholder-shown) {
+    padding-top: 16px;
+    padding-bottom: 4px;
+  }
+
+  input:not(.placeholder-shown) ~ label,
+  textarea:not(.placeholder-shown) ~ label,
+  select:not(.placeholder-shown) ~ label,
+  .readonly-input:not(.placeholder-shown) ~ label {
+    padding-top: 2px;
+    padding-bottom: 1px;
+    font-size: 12px;
+    color: $color-dark-grey;
+  }
+  .readonly-input:not(.placeholder-shown) ~ label {
+    color: $color-grey-black;
+  }
+
+  input:not(.placeholder-shown):focus ~ label,
+  textarea:not(.placeholder-shown):focus ~ label,
+  select:not(.placeholder-shown):focus ~ label {
+    color: $color-dark-blue;
+  }
+  &:not(.invalid) > input:focus + label {
+    color: $color-dark-blue;
+  }
+  .readonly-input {
+    min-height: 46px;
+  }
+}
+
+

@@ -1,0 +1,9 @@
+<ng-container *ngIf="control && control.touched && control.invalid">
+  <ng-container *ngFor="let validationMessage of validationMessages">
+    <small class="form-text" *ngIf="control.hasError(validationMessage.error)"
+         [attr.id]="id">
+      <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+      {{replaceVariables(validationMessage.message, control.errors[validationMessage.error])}}
+    </small>
+  </ng-container>
+</ng-container>

@@ -24,6 +24,8 @@ import { YesNoInputComponent } from './components/yes-no-input/yes-no-input.comp
 import { DocumentGroupUploadComponent } from './components/upload/document-group-upload/document-group-upload.component';
 import { UploadedFileComponent } from './components/upload/files-upload/uploaded-file/uploaded-file/uploaded-file.component';
 import { NotificationComponent } from './components/message/notification/notification.component';
+import { InputFieldComponent } from './components/input-field/input-field.component';
+import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { NotificationComponent } from './components/message/notification/notific
     HumanizeBytesPipe,
     FileIconComponent,
     DocumentGroupUploadComponent,
-    UploadedFileComponent
+    UploadedFileComponent,
+    InputFieldComponent,
+    ValidationMessagesComponent
   ],
   imports: [
     CommonModule,
@@ -68,7 +72,9 @@ import { NotificationComponent } from './components/message/notification/notific
     DateIntervalInputComponent,
     FilesUploadComponent,
     DocumentUploadComponent,
-    UploadedFilePresentationComponent
+    UploadedFilePresentationComponent,
+    InputFieldComponent,
+    ValidationMessagesComponent
   ],
   providers: []
 })

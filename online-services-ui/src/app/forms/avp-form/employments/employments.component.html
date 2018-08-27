@@ -25,7 +25,7 @@
               </div>
               <os-date-interval-input formControlName="period">
               </os-date-interval-input>
-              <os-address-input formControlName="address"></os-address-input>
+              <os-address-input [form]="employment.get('address')"></os-address-input>
             </div>
           </os-panel>
           <os-panel [showArrow]="true"
@@ -42,7 +42,29 @@
           </button>
         </ng-container>
 
+        <div *ngIf="employment.get('address').invalid">Just a demo</div>
+        <div [formGroupName]="i">
+          <div class="form-group">
+            <label>
+              Employer:
+            </label>
 
+            <input type="text"
+                   class="form-control"
+                   formControlName="employer">
+          </div>
+          <os-date-interval-input
+              formControlName="period"
+          ></os-date-interval-input>
+          <os-address-input [form]="employment.get('address')"></os-address-input>
+        </div>
+        <os-document-upload></os-document-upload>
+        <button class="btn btn-success"
+                (click)="addEmployment()">Add Employment
+        </button>
+        <button class="btn btn-danger"
+                (click)="removeEmployment(i)">Remove Employment
+        </button>
       </os-panel-group>
     </ng-container>
 

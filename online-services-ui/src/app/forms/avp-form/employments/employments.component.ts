@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mockDocument1 } from '../../forms.mock';
 import { EmploymentsModel } from './employments.model';
+import { AddressFormGroup } from '../../../shared/components/address-input/address-form-group';
 
 @Component({
   selector: 'os-employments',
@@ -40,7 +41,7 @@ export class EmploymentsComponent implements OnInit {
             }
           }),
           employer: this.fb.control('someone'),
-          address: this.fb.control(''),
+          address: this.fb.group(new AddressFormGroup(this.fb)),
           docs: this.fb.control(mockDocument1) // here multiple docs will be instead of one
 
         })
@@ -53,7 +54,7 @@ export class EmploymentsComponent implements OnInit {
   addEmployment() {
     this.employments.push(this.fb.group({
       employer: this.fb.control(''),
-      address: this.fb.control(''),
+      address: this.fb.group(new AddressFormGroup(this.fb)),
       period: this.fb.control('')
     }));
   }
