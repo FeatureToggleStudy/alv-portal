@@ -7,6 +7,8 @@ import {
   NgbDateParserFormatter,
   NgbDatepickerModule,
   NgbDropdownModule,
+  NgbPopoverConfig,
+  NgbPopoverModule,
   NgbProgressbarModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { PrettyJsonModule } from 'angular2-prettyjson';
@@ -29,6 +31,7 @@ import { InputFieldComponent } from './components/input-field/input-field.compon
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import { DateInputComponent } from './components/date-input/date-input.component';
 import { DateParserFormatter } from './components/date-input/date-parser-formatter';
+import { HelpButtonComponent } from './components/help-button/help-button.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import { DateParserFormatter } from './components/date-input/date-parser-formatt
     FileIconComponent,
     DocumentGroupUploadComponent,
     UploadedFileComponent,
+    HelpButtonComponent,
     SelectComponent,
     InputFieldComponent,
     ValidationMessagesComponent,
@@ -59,6 +63,7 @@ import { DateParserFormatter } from './components/date-input/date-parser-formatt
     NgbDatepickerModule.forRoot(),
     NgbProgressbarModule.forRoot(),
     NgbDropdownModule.forRoot(),
+    NgbPopoverModule,
     FileUploadModule,
     PrettyJsonModule
 
@@ -77,12 +82,14 @@ import { DateParserFormatter } from './components/date-input/date-parser-formatt
     FilesUploadComponent,
     DocumentUploadComponent,
     UploadedFilePresentationComponent,
+    HelpButtonComponent,
     SelectComponent,
     InputFieldComponent,
     ValidationMessagesComponent,
     DateInputComponent
   ],
   providers: [
+    NgbPopoverConfig,
     {provide: NgbDateParserFormatter, useClass: DateParserFormatter}
   ]
 })
