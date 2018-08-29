@@ -5,6 +5,7 @@ import { EmploymentsModel } from './employments.model';
 import { AddressFormGroup } from '../../../shared/components/address-input/address-form-group';
 import { DateIntervalFormGroup } from '../../../shared/components/date-interval-input/date-interval-form-group';
 import { NgbDate } from '../../../../../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
+import { HelpTextService } from '../../../shared/components/help-button/help-text.service';
 
 @Component({
   selector: 'os-employments',
@@ -17,7 +18,8 @@ export class EmploymentsComponent implements OnInit {
   model: EmploymentsModel;
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              public helpTextService: HelpTextService) {
   }
 
   get employments(): FormArray {

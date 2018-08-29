@@ -13,13 +13,8 @@
                       formArrayName="employments"
                       *ngFor="let employment of employments.controls; let i=index">
         <ng-container class="content">
-          <os-panel [invalid]="employment.touched && employment.invalid">
+          <os-panel [panelTitle]="'Employer ' + (i + 1)">
             <div [formGroupName]="i">
-              <div class="form-group">
-                <label class="panel-title">
-                  Employer {{i + 1}}
-                </label>
-              </div>
               <os-input-field label="Employer Name"
                               [control]="employment.get('employer')">
               </os-input-field>
@@ -53,12 +48,12 @@
                        formControlName="selfEmployed"></os-yes-no-input>
     </os-panel>
 
-    <os-panel [showArrow]="true"
+    <os-panel *ngIf="form.value.selfEmployed"
+              [showArrow]="true"
               [colorizeArrow]="true"
-              *ngIf="form.value.selfEmployed">
-      <div class="panel-title">
-        Please attach scanned receipts and settlements. <span class="panel-subtitle">Optional</span>
-      </div>
+              [panelTitle]="'Please attach scanned receipts and settlements.'"
+              [panelSubtitle]="'Optional'"
+              [helpEntries]="helpTextService.uploads">
       <os-files-upload></os-files-upload>
     </os-panel>
 
