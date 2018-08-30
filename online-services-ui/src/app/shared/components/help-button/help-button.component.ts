@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { HelpEntry } from './help-entry.model';
 
 /**
  * Component to display a help button with popover
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
- * @param helpEntries   an array of HelpEntry that will be displayed in the popover
  * @example <os-help-button
  *            [helpEntries]="[{title: 'Help Title', text: 'Help Text}]"
  *          </os-help-button>
@@ -17,8 +16,9 @@ import { HelpEntry } from './help-entry.model';
 })
 export class HelpButtonComponent {
 
+  /**
+   * array of HelpEntry that will be displayed in the popover
+   */
   @Input() helpEntries: Array<HelpEntry>;
-
-  constructor() { }
 
 }

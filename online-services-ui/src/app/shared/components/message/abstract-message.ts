@@ -12,7 +12,14 @@ export abstract class AbstractMessage implements OnInit {
   @HostBinding('class.error') isError;
   @HostBinding('class.empty') isEmpty;
 
+  /**
+   * message to be displayed
+   */
   @Input() message: string;
+
+  /**
+   * message type
+   */
   @Input() type: MessageType;
 
   ngOnInit() {

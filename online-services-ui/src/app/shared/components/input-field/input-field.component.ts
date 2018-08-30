@@ -14,16 +14,6 @@ let nextInputFieldId = 0;
 /**
  * Component to display an input field or textarea.
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
- * @param type                type of the input, e.g. number, date, email, password, etc. Defaults to text.
- * @param label               the label of the input
- * @param control             the FormControl object that should be bound to the input
- * @param validationMessages  (optional) add custom validation messages or override the default ones
- * @param min                 (optional) minimum value (this HTML validation only works on number input field, not on FormControl)
- * @param max                 (optional) maximum value (this HTML validation only works on number input field, not on FormControl)
- * @param minLength           (optional) minimum length (this HTML validation only works on text input field, not on FormControl)
- * @param maxLength           (optional) maximum length (this HTML validation only works on text input field, not on FormControl)
- * @param multiline           (optional) if true, multiline input (textarea) is displayed instead of ordinary input
- * @param readonly            (optional) if ture, the field will be readonly without background color and without border
  * @example <os-input-field
  *            type="number"
  *            label="Demo Input Field"
@@ -45,17 +35,59 @@ let nextInputFieldId = 0;
 })
 export class InputFieldComponent implements OnInit {
 
+  /**
+   * (readonly) CSS classes of host element
+   */
   @HostBinding('class') readonly class = 'form-group d-block d-md-flex';
 
+  /**
+   * type of the input, e.g. number, date, email, password, etc. Defaults to text.
+   */
   @Input() type = 'text';
+
+  /**
+   * label of the input
+   */
   @Input() label: string;
+
+  /**
+   * FormControl object that should be bound to the input
+   */
   @Input() control: FormControl;
+
+  /**
+   * (optional) add custom validation messages or override the default ones
+   */
   @Input() validationMessages?: Array<ValidationMessage>;
+
+  /**
+   * minimum value (this HTML validation only works on number input field, not on FormControl)
+   */
   @Input() min?: number;
+
+  /**
+   * (optional) maximum value (this HTML validation only works on number input field, not on FormControl)
+   */
   @Input() max?: number;
+
+  /**
+   * (optional) minimum length (this HTML validation only works on text input field, not on FormControl)
+   */
   @Input() minLength?: number;
+
+  /**
+   * (optional) maximum value (this HTML validation only works on number input field, not on FormControl)
+   */
   @Input() maxLength?: number;
+
+  /**
+   * (optional) if true, multiline input (textarea) is displayed instead of ordinary input
+   */
   @Input() multiline?: boolean;
+
+  /**
+   * (optional) if true, the field will be readonly without background color and without border
+   */
   @Input() readonly?: boolean;
 
   id = 'os-input-field-' + nextInputFieldId++;

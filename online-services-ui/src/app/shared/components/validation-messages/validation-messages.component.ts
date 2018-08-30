@@ -1,13 +1,15 @@
-import {
-  Component,
-  HostBinding,
-  Input,
-  OnInit
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ValidationMessage } from './validation-message.model';
 import { ValidationService } from '../../validation.service';
 
+/**
+ * Component to display validation messages of associated FormControl objects
+ * @example <os-validation-messages
+ *            [control]="myFormControl"
+ *            [customValidationMessages]="[{error: 'require', message: 'Custom message'}]"
+ *            [id]="myValidationId"
+ */
 @Component({
   selector: 'os-validation-messages',
   templateUrl: './validation-messages.component.html',
@@ -15,11 +17,21 @@ import { ValidationService } from '../../validation.service';
 })
 export class ValidationMessagesComponent implements OnInit {
 
-  @HostBinding('class') readonly class = 'invalid-';
-
+  /**
+   * FormControl object that should be validated
+   */
   @Input() control: FormControl;
-  @Input() customValidationMessages?: Array<ValidationMessage>;
+
+  /**
+   * Unique ID to associate the validation message with the (HTML) input, textarea or select
+   * field using their "aria-describedby" attribute (needed for accessibility).
+   */
   @Input() id: string;
+
+  /**
+   * (optional) add custom validation messages or override the default ones
+   */
+  @Input() customValidationMessages?: Array<ValidationMessage>;
 
   validationMessages: Array<ValidationMessage>;
 

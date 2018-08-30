@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AbstractMessage } from '../abstract-message';
 import { MessageType } from '../message-type.enum';
 
 /**
- *  Component for stamp type of message, e.g.
- *  <os-stamp
- *    type="warning"
- *    message="This is a stamp!">
- *  </os-stamp>
+ * Component for stamp type of message
+ * @example <os-stamp
+ *            type="warning"
+ *            message="This is a stamp!">
+ *          </os-stamp>
  */
 @Component({
   selector: 'os-stamp',

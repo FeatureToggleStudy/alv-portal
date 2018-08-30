@@ -9,10 +9,6 @@ let nextSelectId = 0;
 /**
  * Component to display a select dropdown
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
- * @param label               the label of the select
- * @param control             the FormControl object that should be bound to the select
- * @param options$            observable with selectable options which is subscribed to automatically
- * @param validationMessages  (optional) add custom validation messages or override the default ones
  * @example  <os-select
  *             label="Demo Select"
  *             [control]="form.get('myControl')"
@@ -28,9 +24,24 @@ let nextSelectId = 0;
 })
 export class SelectComponent {
 
+  /**
+   * the label of the select
+   */
   @Input() label: string;
+
+  /**
+   * FormControl object that should be bound to the select
+   */
   @Input() control: FormControl;
+
+  /**
+   * observable with selectable options which is subscribed to automatically
+   */
   @Input() options$: Observable<Array<SelectOption>>;
+
+  /**
+   * (optional) add custom validation messages or override the default ones
+   */
   @Input() validationMessages?: Array<ValidationMessage>;
 
   id = 'os-select-' + nextSelectId++;
