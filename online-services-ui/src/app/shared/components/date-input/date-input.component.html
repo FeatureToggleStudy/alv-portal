@@ -46,9 +46,11 @@
 </div>
 <ng-template #dayTemplate
              let-date="date"
-             let-focused="focused">
+             let-focused="focused"
+             let-disabled="disabled">
   <span class="custom-day"
-        [class.focused]="focused">
+        [class.focused]="focused"
+        [class.disabled]="disabled">
     {{ date.day }}
   </span>
 </ng-template>

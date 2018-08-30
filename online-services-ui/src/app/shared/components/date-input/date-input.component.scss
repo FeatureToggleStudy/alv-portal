@@ -19,16 +19,15 @@
   display: inline-block;
   height: 2rem;
   width: 2rem;
+
+  &.focused {
+    background-color: $color-medium-grey;
+  }
+  &:hover:not(.disabled) {
+    background-color: $color-blue;
+    color: white;
+  }
+  &.disabled {
+    opacity: 0.5;
+  }
 }
-
-.custom-day.focused {
-  background-color: $color-medium-grey;
-}
-
-.custom-day:hover {
-  background-color: $color-blue;
-  color: white;
-}
-
-
-
