@@ -17,7 +17,8 @@
     "docs:compodoc": "compodoc -p tsconfig.json",
     "docs:compodoc:serve": "compodoc -p tsconfig.json -s",
     "docs:compodoc:serve:watch": "compodoc -p tsconfig.json -s -w",
-    "postinstall": "node version.js"
+    "postinstall": "node version.js",
+    "extract": "ngx-translate-extract --input ./src ./translation-keys --output ../portal-configurator/src/main/resources/i18n/*.json --clean --sort --format namespaced-json -m _"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +36,8 @@
     "@fortawesome/fontawesome-svg-core": "1.2.2",
     "@fortawesome/free-solid-svg-icons": "5.2.0",
     "@ng-bootstrap/ng-bootstrap": "2.2.0",
+    "@ngx-translate/core": "10.0.2",
+    "@ngx-translate/http-loader": "3.0.1",
     "@types/pretty-bytes": "5.1.0",
     "angular2-prettyjson": "3.0.1",
     "bootstrap": "4.1.1",
@@ -49,6 +52,7 @@
     "@angular/cli": "6.0.8",
     "@angular/compiler-cli": "6.0.7",
     "@angular/language-service": "6.0.7",
+    "@biesbjerg/ngx-translate-extract": "2.3.4",
     "@compodoc/compodoc": "1.1.3",
     "@types/jasmine": "2.8.8",
     "@types/jasmine-matchers": "0.2.30",
