@@ -18,7 +18,7 @@
     "docs:compodoc:serve": "compodoc -p tsconfig.json -s",
     "docs:compodoc:serve:watch": "compodoc -p tsconfig.json -s -w",
     "postinstall": "node version.js",
-    "extract": "ngx-translate-extract --input ./src ./translation-keys --output ../portal-configurator/src/main/resources/i18n/*.json --clean --sort --format namespaced-json -m _"
+    "extract": "ngx-translate-extract --input ./src/app --output ./src/assets/i18n/{en,fr,de,it}.json --clean --sort --format namespaced-json --format-indentation ' ' "
   },
   "private": true,
   "dependencies": {

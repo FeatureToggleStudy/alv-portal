@@ -36,7 +36,6 @@ import { environment } from '../../environments/environment';
  * @param http
  */
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
-
   return new TranslateHttpLoader(http, environment.translationBaseUrl, '.json');
 }
 
