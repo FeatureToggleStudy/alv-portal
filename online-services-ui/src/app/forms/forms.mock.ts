@@ -47,4 +47,13 @@ export const mockPeriod1: Period = {
   from: new NgbDate(2018, 7, 10),
   to: new NgbDate(2018, 7, 20)
 };
+export const mockPeriod2: Period = {
+  from: new NgbDate(2012, 10, 21),
+  to: new NgbDate(2013, 10, 22),
+};
+
+export const mockPeriod3: Period = {
+  from: new NgbDate(2014, 11, 24),
+  to: new NgbDate(2015, 12, 25),
+};
 
