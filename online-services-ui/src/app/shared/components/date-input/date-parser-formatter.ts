@@ -5,7 +5,10 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 export class DateParserFormatter {
 
   parse(value: string): NgbDateStruct {
-    const dateParts = value.split('.');
+    const dateParts = value.length === 8 ?
+        [value.substr(0, 2),
+         value.substr(2, 2),
+         value.substr(4, 4)] : value.split('.');
     return <NgbDateStruct>{
       day: parseInt(dateParts[0], 10),
       month: parseInt(dateParts[1], 10),

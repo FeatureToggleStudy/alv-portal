@@ -8,7 +8,7 @@ import {
 import { FormControl } from '@angular/forms';
 import { ValidationMessage } from '../validation-messages/validation-message.model';
 import { ValidationService } from '../../validation.service';
-import { NgbDate } from '../../../../../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 let nextDateId = 0;
 

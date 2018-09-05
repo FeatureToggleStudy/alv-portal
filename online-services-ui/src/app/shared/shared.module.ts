@@ -9,7 +9,7 @@ import {
   NgbDropdownModule,
   NgbPopoverConfig,
   NgbPopoverModule,
-  NgbProgressbarModule
+  NgbProgressbarModule, NgbTooltipModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -60,10 +60,11 @@ import { HelpButtonComponent } from './components/help-button/help-button.compon
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbDatepickerModule.forRoot(),
-    NgbProgressbarModule.forRoot(),
-    NgbDropdownModule.forRoot(),
+    NgbDatepickerModule,
+    NgbProgressbarModule,
+    NgbDropdownModule,
     NgbPopoverModule,
+    NgbTooltipModule,
     FileUploadModule,
     PrettyJsonModule
 
