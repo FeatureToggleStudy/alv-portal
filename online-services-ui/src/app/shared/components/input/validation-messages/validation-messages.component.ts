@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ValidationMessage } from './validation-message.model';
-import { ValidationService } from '../../validation.service';
+import { ValidationService } from '../../../validation.service';
 
 /**
  * Component to display validation messages of associated FormControl objects

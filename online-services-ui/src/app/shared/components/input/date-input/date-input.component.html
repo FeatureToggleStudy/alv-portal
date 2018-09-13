@@ -14,6 +14,7 @@
            [minDate]="minDate"
            [maxDate]="maxDate"
            [attr.required]="required"
+           [attr.aria-required]="!!required"
            [placement]="placement"
            [formControl]="control"
            [dayTemplate]="dayTemplate"
@@ -41,7 +42,8 @@
     </span>
   </div>
 
-  <os-validation-messages [control]="control"
+  <os-validation-messages *ngIf="!readonly"
+                          [control]="control"
                           [id]="validationId"
                           [customValidationMessages]="validationMessages">
   </os-validation-messages>

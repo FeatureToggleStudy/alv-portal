@@ -3,13 +3,15 @@
   <input class="form-check-input"
          type="checkbox"
          [formControl]="control"
-         [id]="id">
+         [attr.id]="id"
+         (click)="!readonly">
   <label class="form-check-label"
          [for]="id">
     {{label}}
   </label>
 </div>
-<os-validation-messages [control]="control"
+<os-validation-messages *ngIf="!readonly && control"
+                        [control]="control"
                         [id]="validationId"
                         [customValidationMessages]="validationMessages">
 </os-validation-messages>

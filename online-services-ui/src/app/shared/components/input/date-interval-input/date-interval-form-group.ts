@@ -14,7 +14,6 @@ export type DateInterval = {
   to: AbstractControl;
 };
 
-
 export class DateIntervalFormGroup extends FormGroup {
 
   constructor(controls: DateInterval, validatorOrOpts?: Validator, asyncValidator?: AsyncValidator) {
@@ -22,5 +21,3 @@ export class DateIntervalFormGroup extends FormGroup {
   }
 
 }
-
-

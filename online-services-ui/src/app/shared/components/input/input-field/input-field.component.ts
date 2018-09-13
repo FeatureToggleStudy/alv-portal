@@ -5,11 +5,10 @@ import {
   Input,
   OnInit
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ValidationService } from '../../validation.service';
-import { ValidationMessage } from '../validation-messages/validation-message.model';
+import { ValidationService } from '../../../validation.service';
+import { AbstractInput } from '../abstract-input';
+import { InputType } from '../input-type.enum';
 
-let nextInputFieldId = 0;
 
 /**
  * Component to display an input field or textarea.
@@ -30,10 +29,10 @@ let nextInputFieldId = 0;
 @Component({
   selector: 'os-input-field',
   templateUrl: './input-field.component.html',
-  styleUrls: ['./input-field.component.scss'],
+  styleUrls: ['../abstract-input.scss', './input-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputFieldComponent implements OnInit {
+export class InputFieldComponent extends AbstractInput implements OnInit {
 
   /**
    * (readonly) CSS classes of host element
@@ -44,21 +43,6 @@ export class InputFieldComponent implements OnInit {
    * type of the input, e.g. number, date, email, password, etc. Defaults to text.
    */
   @Input() type = 'text';
-
-  /**
-   * label of the input
-   */
-  @Input() label: string;
-
-  /**
-   * FormControl object that should be bound to the input
-   */
-  @Input() control: FormControl;
-
-  /**
-   * (optional) add custom validation messages or override the default ones
-   */
-  @Input() validationMessages?: Array<ValidationMessage>;
 
   /**
    * minimum value (this HTML validation only works on number input field, not on FormControl)
@@ -85,20 +69,12 @@ export class InputFieldComponent implements OnInit {
    */
   @Input() multiline?: boolean;
 
-  /**
-   * (optional) if true, the field will be readonly without background color and without border
-   */
-  @Input() readonly?: boolean;
-
-  id = 'os-input-field-' + nextInputFieldId++;
-  validationId = this.id + '-validation';
-  required: string;
-
   constructor(private validationService: ValidationService) {
+    super(InputType.INPUT_FIELD);
   }
 
   ngOnInit() {
-    this.required = this.validationService.isRequired(this.control) ? 'required' : null;
+    this.initInput(this.validationService);
   }
 
   getRows() {

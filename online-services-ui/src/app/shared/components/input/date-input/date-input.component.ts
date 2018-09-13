@@ -1,16 +1,15 @@
 import {
   ChangeDetectionStrategy,
-  Component, ElementRef,
+  Component,
+  ElementRef,
   Input,
   OnInit,
   ViewChild
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ValidationMessage } from '../validation-messages/validation-message.model';
-import { ValidationService } from '../../validation.service';
+import { ValidationService } from '../../../validation.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
-
-let nextDateId = 0;
+import { AbstractInput } from '../abstract-input';
+import { InputType } from '../input-type.enum';
 
 /**
  * Component to display a single date picker
@@ -27,20 +26,10 @@ let nextDateId = 0;
 @Component({
   selector: 'os-date-input',
   templateUrl: './date-input.component.html',
-  styleUrls: ['./date-input.component.scss', '../input-field/input-field.component.scss'],
+  styleUrls: ['../abstract-input.scss', './date-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateInputComponent implements OnInit {
-
-  /**
-   * label of the input
-   */
-  @Input() label: string;
-
-  /**
-   * FormControl object that should be bound to the input
-   */
-  @Input() control: FormControl;
+export class DateInputComponent extends AbstractInput implements OnInit {
 
   /**
    * minimal selectable date
@@ -53,31 +42,18 @@ export class DateInputComponent implements OnInit {
   @Input() maxDate?: NgbDate;
 
   /**
-   * (optional) add custom validation messages or override the default ones
-   */
-  @Input() validationMessages?: Array<ValidationMessage>;
-
-  /**
-   * (optional) if true, the field will be readonly without background color and without border
-   */
-  @Input() readonly?: boolean;
-
-  /**
    * (optional) where to display the date picker: bottom-left (default) or bottom-right
    */
-  @Input() placement  = 'bottom-left';
+  @Input() placement: 'bottom-left' | 'bottom-right'  = 'bottom-left';
 
   @ViewChild('datePicker') datePicker: ElementRef;
 
-  id = 'date-input-' + nextDateId++;
-  validationId = this.id + '-validation';
-  required: string;
-
   constructor(private validationService: ValidationService) {
+    super(InputType.DATE_INPUT);
   }
 
   ngOnInit() {
-    this.required = this.validationService.isRequired(this.control) ? 'required' : null;
+    this.initInput(this.validationService);
   }
 
 }

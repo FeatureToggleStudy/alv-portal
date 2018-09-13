@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { SelectOption } from '../select/select-option.model';
+import { SelectableOption } from '../selectable-option.model';
 import { ValidationMessage } from '../validation-messages/validation-message.model';
-
-let nextRadioId = 0;
+import { AbstractInput } from '../abstract-input';
+import { ValidationService } from '../../../validation.service';
+import { InputType } from '../input-type.enum';
+import { AbstractSelectableInput } from '../abstract-selectable-input';
 
 @Component({
   selector: 'os-radio-button',
@@ -12,24 +14,18 @@ let nextRadioId = 0;
   styleUrls: ['./radio-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RadioButtonComponent implements OnInit {
+export class RadioButtonComponent extends AbstractSelectableInput implements OnInit {
 
-  @Input() control: FormControl;
-
-  @Input() label?: string;
-
-  @Input() validationMessages?: Array<ValidationMessage>;
-
-  @Input() options$?: Observable<Array<SelectOption>>;
-
-  id = 'os-radio-' + nextRadioId++;
-  validationId = this.id + '-validation';
+  constructor(private validationService: ValidationService) {
+    super(InputType.RADIO_BUTTON);
+  }
 
   ngOnInit() {
+    this.initInput(this.validationService);
     this.options$ = this.options$ || this.getDefaultOptions();
   }
 
-  private getDefaultOptions(): Observable<Array<SelectOption>> {
+  private getDefaultOptions(): Observable<Array<SelectableOption>> {
     return of([
       {
         label: 'Yes',

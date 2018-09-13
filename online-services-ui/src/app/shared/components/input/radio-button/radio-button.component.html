@@ -10,15 +10,18 @@
            type="radio"
            [formControl]="control"
            [name]="id"
-           [id]="id + '-' + option.value"
-           [value]="option.value">
+           [value]="option.value"
+           [attr.id]="id + '-' + option.value"
+           [attr.aria-readonly]="readonly"
+           (click)="!readonly">
     <label class="form-check-label"
            [for]="id + '-' + option.value">
       {{option.label}}
     </label>
   </div>
 </div>
-<os-validation-messages [control]="control"
+<os-validation-messages *ngIf="!readonly && control"
+                        [control]="control"
                         [id]="validationId"
                         [customValidationMessages]="validationMessages">
 </os-validation-messages>

@@ -15,8 +15,8 @@
            [attr.minlength]="minLength"
            [attr.maxlength]="maxLength"
            [attr.required]="required"
+           [attr.aria-required]="!!required"
            [attr.aria-describedby]="validationId"
-           [attr.readonly]="readonly"
            [class.placeholder-shown]="!control.value"
            class="form-control">
 
@@ -38,7 +38,8 @@
       {{label}}
     </label>
   </div>
-  <os-validation-messages [control]="control"
+  <os-validation-messages *ngIf="!readonly"
+                          [control]="control"
                           [id]="validationId"
                           [customValidationMessages]="validationMessages">
   </os-validation-messages>

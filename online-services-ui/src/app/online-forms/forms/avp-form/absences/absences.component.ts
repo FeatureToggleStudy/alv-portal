@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SelectOption } from '../../../../shared/components/select/select-option.model';
-import { DateIntervalFormGroup } from '../../../../shared/components/date-interval-input/date-interval-form-group';
 import { Observable } from 'rxjs/internal/Observable';
 import { AbsencesModel } from './absences.model';
 import { of } from 'rxjs/internal/observable/of';
+import { SelectableOption } from '../../../../shared/components/input/selectable-option.model';
+import { DateIntervalFormGroup } from '../../../../shared/components/input/date-interval-input/date-interval-form-group';
 
 @Component({
   selector: 'os-absences',
@@ -16,7 +16,7 @@ export class AbsencesComponent implements OnInit {
   model: AbsencesModel;
   form: FormGroup;
 
-  possibleReasons$: Observable<SelectOption[]>;
+  possibleReasons$: Observable<SelectableOption[]>;
 
   constructor(private fb: FormBuilder) {
   }

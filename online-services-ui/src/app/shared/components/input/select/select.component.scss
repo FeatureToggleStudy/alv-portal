@@ -1,6 +1,7 @@
-@import "../../../../scss/colors";
+@import "../../../../../scss/colors";
 
-.form-label-group {
+.form-label-group:not(.readonly) {
+
   background-color: $color-white;
   border: 1px solid $color-medium-grey;
   border-radius: 0;

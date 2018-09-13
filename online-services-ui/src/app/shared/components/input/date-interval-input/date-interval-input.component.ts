@@ -14,7 +14,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'os-date-interval-input',
   templateUrl: './date-interval-input.component.html',
-  styleUrls: ['./date-interval-input.component.scss', '../input-field/input-field.component.scss'],
+  styleUrls: ['../abstract-input.scss', './date-interval-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateIntervalInputComponent {

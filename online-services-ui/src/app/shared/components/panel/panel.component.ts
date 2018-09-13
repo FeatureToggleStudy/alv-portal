@@ -7,7 +7,7 @@ import {
   QueryList
 } from '@angular/core';
 import { HelpEntry } from '../help-button/help-entry.model';
-import { RadioButtonComponent } from '../radio-button/radio-button.component';
+import { RadioButtonComponent } from '../input/radio-button/radio-button.component';
 
 /**
  * Component to display a (form) panel.
