@@ -2,7 +2,10 @@
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
-  "extends": ["tslint-angular"],
+  "extends": [
+    "tslint-angular",
+    "rxjs-tslint-rules"
+  ],
   "rules": {
     "angular-whitespace": [false],
     "arrow-return-shorthand": true,
@@ -89,6 +92,12 @@
       "single"
     ],
     "radix": true,
+    "rxjs-no-unsafe-takeuntil": {
+      "options": [{
+        "allow": ["publish", "publishBehavior", "publishLast", "publishReplay", "share", "shareReplay"]
+      }],
+      "severity": "error"
+    },
     "semicolon": [
       true,
       "always"
