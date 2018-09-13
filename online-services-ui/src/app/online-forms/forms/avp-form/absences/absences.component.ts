@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AbsencesModel } from './absences.model';
-import { Observable, of } from 'rxjs';
 import { SelectOption } from '../../../../shared/components/select/select-option.model';
 import { DateIntervalFormGroup } from '../../../../shared/components/date-interval-input/date-interval-form-group';
+import { Observable } from 'rxjs/internal/Observable';
+import { AbsencesModel } from './absences.model';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'os-absences',

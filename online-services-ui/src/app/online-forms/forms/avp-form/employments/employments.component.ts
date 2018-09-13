@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mockDocument1 } from '../../forms.mock';
 import { EmploymentsModel } from './employments.model';
-import { of } from 'rxjs';
 import { HelpTextService } from '../../../../shared/components/help-button/help-text.service';
 import { DateIntervalFormGroup } from '../../../../shared/components/date-interval-input/date-interval-form-group';
 import { AddressFormGroup } from '../../../../shared/components/address-input/address-form-group';
@@ -17,18 +16,6 @@ export class EmploymentsComponent implements OnInit {
   @Input()
   model: EmploymentsModel;
   form: FormGroup;
-
-  options$ = of([
-    {
-      label: 'Yes',
-      value: true
-    },
-    {
-      label: 'No',
-      value: false
-    }
-
-  ]);
 
   constructor(private fb: FormBuilder,
               public helpTextService: HelpTextService) {
