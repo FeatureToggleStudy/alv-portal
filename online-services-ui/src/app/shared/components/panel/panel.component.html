@@ -4,14 +4,15 @@
        [class.colorized]="colorizeArrow"></div>
 </div>
 <fieldset class="panel m-1 px-2 px-md-4 pt-3 pb-2"
-          [class.invalid]="invalid">
+          [class.invalid]="invalid"
+          [attr.aria-describedby]="validationId">
   <legend *ngIf="panelTitle"
           class="sr-only">
     {{panelTitle}} {{panelSubtitle}}
   </legend>
   <div class="d-flex mb-2"
        *ngIf="panelTitle || helpEntries?.length">
-    <div class="panel-title flex-grow-1">
+    <div class="panel-title flex-grow-1" aria-hidden="true">
       {{panelTitle}} <span class="panel-subtitle">{{panelSubtitle}}</span>
     </div>
     <os-help-button *ngIf="helpEntries?.length"

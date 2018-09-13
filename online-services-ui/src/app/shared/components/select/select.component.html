@@ -1,11 +1,10 @@
 <div class="form-group" *ngIf="control">
   <div class="form-label-group position-relative" [class.invalid]="control.touched && control.invalid">
-        <span
-              class="required-indicator">
-    </span>
+    <span class="required-indicator"></span>
     <select [attr.id]="id"
             [formControl]="control"
             [attr.required]="true"
+            [attr.aria-describedby]="validationId"
             [class.placeholder-shown]="!control.value"
             class="form-control custom-select">
       <option *ngFor="let option of options$ | async" [value]="option.value">{{option.label}}</option>

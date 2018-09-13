@@ -32,6 +32,8 @@ import { ValidationMessagesComponent } from './components/validation-messages/va
 import { DateInputComponent } from './components/date-input/date-input.component';
 import { DateParserFormatter } from './components/date-input/date-parser-formatter';
 import { HelpButtonComponent } from './components/help-button/help-button.component';
+import { RadioButtonComponent } from './components/radio-button/radio-button.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { HelpButtonComponent } from './components/help-button/help-button.compon
     SelectComponent,
     InputFieldComponent,
     ValidationMessagesComponent,
-    DateInputComponent
+    DateInputComponent,
+    RadioButtonComponent,
+    CheckboxComponent
   ],
   imports: [
     CommonModule,
@@ -87,7 +91,9 @@ import { HelpButtonComponent } from './components/help-button/help-button.compon
     SelectComponent,
     InputFieldComponent,
     ValidationMessagesComponent,
-    DateInputComponent
+    DateInputComponent,
+    RadioButtonComponent,
+    CheckboxComponent
   ],
   providers: [
     NgbPopoverConfig,

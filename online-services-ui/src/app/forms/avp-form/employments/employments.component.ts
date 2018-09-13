@@ -5,6 +5,7 @@ import { EmploymentsModel } from './employments.model';
 import { AddressFormGroup } from '../../../shared/components/address-input/address-form-group';
 import { DateIntervalFormGroup } from '../../../shared/components/date-interval-input/date-interval-form-group';
 import { HelpTextService } from '../../../shared/components/help-button/help-text.service';
+import { of } from 'rxjs';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -17,6 +18,18 @@ export class EmploymentsComponent implements OnInit {
   @Input()
   model: EmploymentsModel;
   form: FormGroup;
+
+  options$ = of([
+    {
+      label: 'Yes',
+      value: true
+    },
+    {
+      label: 'No',
+      value: false
+    }
+
+  ]);
 
   constructor(private fb: FormBuilder,
               public helpTextService: HelpTextService) {

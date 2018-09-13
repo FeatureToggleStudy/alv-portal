@@ -1,7 +1,14 @@
 import { Component, forwardRef, Input } from '@angular/core';
-import { FormBuilder, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR
+} from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { SubForm } from '../sub-form';
+import { Observable, of } from 'rxjs';
+import { SelectOption } from '../select/select-option.model';
 
 /**
  * Why do inherit from SubForm<YesNoQuestion> and not just SubForm<boolean>?
@@ -9,49 +16,27 @@ import { SubForm } from '../sub-form';
  * That's why we wrap the boolean model into an object.
  */
 @Component({
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => YesNoInputComponent),
-    multi: true
-  }, {
-    provide: NG_VALIDATORS,
-    useExisting: forwardRef(() => YesNoInputComponent),
-    multi: true
-  }],
   selector: 'os-yes-no-input',
   templateUrl: './yes-no-input.component.html',
   styleUrls: ['./yes-no-input.component.scss']
 })
-export class YesNoInputComponent extends SubForm {
+export class YesNoInputComponent {
 
-  @Input()
-  question: string;
+  @Input() control: FormControl;
+  @Input() label: string;
 
-  @Input()
-  help: string;
-
-  constructor(private fb: FormBuilder) {
-    super();
-    this.form = this.fb.group({
-      answer: ''
-    } as { [p: string]: any });
-  }
-
-  public writeValue(value: any): void {
-    if (typeof(value) === 'boolean') {
-      this.form.setValue({answer: value}, {emitEvent: false});
-      this.onTouched();
+  yesNoOptions$: Observable<Array<SelectOption>> = of([
+    {
+      label: 'Yes',
+      value: true
+    },
+    {
+      label: 'No',
+      value: false
     }
-  }
+  ]);
 
-  /**
-   * reading only the "answer" part
-   * @param {(x: any) => void} fn
-   */
-  public registerOnChange(fn: (x: any) => void): void {
-    this.form.valueChanges
-        .pipe(map(x => x.answer))
-        .subscribe(fn);
+  constructor() {
   }
 
 }

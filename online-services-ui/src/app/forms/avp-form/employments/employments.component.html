@@ -1,11 +1,11 @@
-<div class="row">
+<div class="row m-4">
   <form [formGroup]="form"
-        class="col-md-8"
+        class="col-md-12"
         novalidate>
-    <os-panel>
-      <os-yes-no-input question="Did you work for one or more employers in March 2018?"
-                       formControlName="worked">
-      </os-yes-no-input>
+    <os-notification class="mb-4" type="error" [message]="'You have errors in your form'" [additionalText]="'Please check for invalid fields'"></os-notification>
+    <os-panel [panelTitle]="'Did you work for one or more employers in March 2018?'">
+      <os-radio-button [control]="form.get('worked')">
+      </os-radio-button>
     </os-panel>
     <ng-container *ngIf="form.value.worked">
       <os-panel-group [showArrow]="true"
@@ -39,13 +39,12 @@
                   (click)="addEmployment()">Add Employment
           </button>
         </ng-container>
-
       </os-panel-group>
     </ng-container>
 
-    <os-panel [showArrow]="true">
-      <os-yes-no-input question="Have you been self-employed in March 2018?"
-                       formControlName="selfEmployed"></os-yes-no-input>
+    <os-panel [showArrow]="true"
+              [panelTitle]="'Have you been self-employed in March 2018?'">
+      <os-radio-button [control]="form.get('selfEmployed')"></os-radio-button>
     </os-panel>
 
     <os-panel *ngIf="form.value.selfEmployed"
@@ -57,10 +56,10 @@
       <os-files-upload></os-files-upload>
     </os-panel>
 
-    <os-panel [showArrow]="true">
-      <os-yes-no-input question="Did you participate in a labor market measure in March 2018?"
-                       formControlName="labourMarketMeasures">
-      </os-yes-no-input>
+    <os-panel [showArrow]="true"
+              [panelTitle]="'Did you participate in a labor market measure in March 2018?'">
+      <os-radio-button [control]="form.get('labourMarketMeasures')">
+      </os-radio-button>
     </os-panel>
 
     <div class="d-flex my-4 mx-1">
@@ -77,7 +76,7 @@
   </form>
   <!-- For debugging purposes -->
   <div class="col-md-4"
-       *ngIf="true">
+       *ngIf="false">
     <h4>form.value for monthly employments component</h4>
     <pre>
     {{form.value|json}}
@@ -90,3 +89,4 @@
   </div>
 
 </div>
+

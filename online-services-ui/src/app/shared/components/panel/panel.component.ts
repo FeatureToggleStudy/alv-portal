@@ -1,5 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChildren,
+  Input,
+  QueryList
+} from '@angular/core';
 import { HelpEntry } from '../help-button/help-entry.model';
+import { RadioButtonComponent } from '../radio-button/radio-button.component';
 
 /**
  * Component to display a (form) panel.
@@ -19,7 +27,9 @@ import { HelpEntry } from '../help-button/help-entry.model';
   styleUrls: ['./panel.component.scss', './panel-arrow.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PanelComponent {
+export class PanelComponent implements AfterContentInit {
+
+  @ContentChildren(RadioButtonComponent) radioButtons: QueryList<RadioButtonComponent>;
 
   /**
    * (optional) the title of the panel
@@ -51,4 +61,14 @@ export class PanelComponent {
    */
   @Input() invalid?: boolean;
 
+  validationId: string;
+
+  ngAfterContentInit() {
+    // Needed for accessibility: set the validationId of the surrounding <fieldset>
+    this.radioButtons.forEach(radio => {
+      if (!radio.label) {
+        this.validationId = radio.validationId;
+      }
+    });
+  }
 }

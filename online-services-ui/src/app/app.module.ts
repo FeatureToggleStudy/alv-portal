@@ -33,7 +33,7 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
-    NgbTabsetModule.forRoot(),
+    NgbTabsetModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
