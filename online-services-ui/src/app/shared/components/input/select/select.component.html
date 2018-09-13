@@ -1,0 +1,38 @@
+<div class="form-group"
+     *ngIf="control">
+  <div class="form-label-group position-relative"
+       [class.invalid]="control.touched && control.invalid"
+       [class.readonly]="readonly">
+    <span class="required-indicator"
+          *ngIf="required && !readonly"></span>
+    <select class="form-control custom-select"
+            *ngIf="!readonly"
+            [attr.id]="id"
+            [formControl]="control"
+            [attr.required]="required"
+            [attr.aria-required]="!!required"
+            [attr.aria-describedby]="validationId"
+            [class.placeholder-shown]="!control.value">
+      <option *ngFor="let option of options$ | async"
+              [value]="option.value">{{option.label}}
+      </option>
+    </select>
+    <div *ngIf="readonly"
+         [class.placeholder-shown]="!control.value"
+         class="readonly-input">
+      <ng-container *ngFor="let option of options$ | async">
+        <ng-container *ngIf="option.value === control.value">
+          {{option.label}}
+        </ng-container>
+      </ng-container>
+    </div>
+    <label [for]="id">{{label}}</label>
+    <i class="fas fa-caret-down dropdown-icon"
+       *ngIf="!readonly"></i>
+  </div>
+  <os-validation-messages *ngIf="!readonly"
+                          [control]="control"
+                          [id]="validationId"
+                          [customValidationMessages]="validationMessages">
+  </os-validation-messages>
+</div>
