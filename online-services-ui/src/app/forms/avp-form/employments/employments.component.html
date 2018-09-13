@@ -1,6 +1,7 @@
 <div class="row">
   <form [formGroup]="form"
-        class="col-md-8">
+        class="col-md-8"
+        novalidate>
     <os-panel>
       <os-yes-no-input question="Did you work for one or more employers in March 2018?"
                        formControlName="worked">
@@ -14,18 +15,12 @@
                       formArrayName="employments"
                       *ngFor="let employment of employments.controls; let i=index">
         <ng-container class="content">
-          <os-panel>
+          <os-panel [panelTitle]="'Employer ' + (i + 1)">
             <div [formGroupName]="i">
-              <div class="form-group">
-                <label class="panel-title">
-                  Employer {{i + 1}}
-                </label>
-
-                <input type="text"
-                       class="form-control"
-                       formControlName="employer">
-              </div>
-              <os-date-interval-input formControlName="period">
+              <os-input-field label="Employer Name"
+                              [control]="employment.get('employer')">
+              </os-input-field>
+              <os-date-interval-input [form]="employment.get('period')">
               </os-date-interval-input>
               <os-address-input [form]="employment.get('address')"></os-address-input>
             </div>
@@ -36,37 +31,17 @@
           </os-panel>
         </ng-container>
         <ng-container class="actions">
-          <button class="btn btn-secondary mr-1" *ngIf="employments.controls.length > 1"
+          <button class="btn btn-secondary mr-1"
+                  *ngIf="employments.controls.length > 1"
+                  type="button"
                   (click)="removeEmployment(i)">Remove Employment
           </button>
           <button class="btn btn-primary"
+                  type="button"
                   (click)="addEmployment()">Add Employment
           </button>
         </ng-container>
 
-        <div *ngIf="employment.get('address').invalid">Just a demo</div>
-        <div [formGroupName]="i">
-          <div class="form-group">
-            <label>
-              Employer:
-            </label>
-
-            <input type="text"
-                   class="form-control"
-                   formControlName="employer">
-          </div>
-          <os-date-interval-input
-              formControlName="period"
-          ></os-date-interval-input>
-          <os-address-input [form]="employment.get('address')"></os-address-input>
-        </div>
-        <os-document-upload></os-document-upload>
-        <button class="btn btn-success"
-                (click)="addEmployment()">Add Employment
-        </button>
-        <button class="btn btn-danger"
-                (click)="removeEmployment(i)">Remove Employment
-        </button>
       </os-panel-group>
     </ng-container>
 
@@ -75,9 +50,12 @@
                        formControlName="selfEmployed"></os-yes-no-input>
     </os-panel>
 
-    <os-panel [showArrow]="true" [colorizeArrow]="true" *ngIf="form.value.selfEmployed">
-      <div class="panel-title">
-        Please attach scanned receipts and settlements. <span class="panel-subtitle">Optional</span></div>
+    <os-panel *ngIf="form.value.selfEmployed"
+              [showArrow]="true"
+              [colorizeArrow]="true"
+              [panelTitle]="'Please attach scanned receipts and settlements.'"
+              [panelSubtitle]="'Optional'"
+              [helpEntries]="helpTextService.uploads">
       <os-files-upload></os-files-upload>
     </os-panel>
 
@@ -93,15 +71,15 @@
       </button>
       <button class="btn btn-secondary mr-1">Save
       </button>
-      <button name="submit"
-              type="submit"
-              class="btn btn-primary">Submit
+      <button
+          class="btn btn-primary">Submit
       </button>
     </div>
 
   </form>
   <!-- For debugging purposes -->
-  <div class="col-md-4" *ngIf="true">
+  <div class="col-md-4"
+       *ngIf="true">
     <h4>form.value for monthly employments component</h4>
     <pre>
     {{form.value|json}}

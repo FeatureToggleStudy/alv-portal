@@ -1,0 +1,58 @@
+<div class="form-group"
+     *ngIf="control">
+  <div class="form-label-group position-relative d-flex"
+       [class.invalid]="control.touched && control.invalid">
+    <span *ngIf="!readonly"
+          class="required-indicator h-100">
+    </span>
+    <input type="text"
+           [attr.id]="id"
+           [attr.aria-describedby]="validationId"
+           #datePicker="ngbDatepicker"
+           ngbDatepicker
+           (click)="datePicker.toggle()"
+           [minDate]="minDate"
+           [maxDate]="maxDate"
+           [attr.required]="required"
+           [placement]="placement"
+           [formControl]="control"
+           [dayTemplate]="dayTemplate"
+           [class.placeholder-shown]="!control.value"
+           *ngIf="!readonly"
+           class="form-control">
+    <div *ngIf="readonly"
+         [class.placeholder-shown]="!control.value"
+         class="readonly-input">
+      {{control.value | date:'dd.MM.yyyy'}}
+    </div>
+    <label [for]="id">
+      {{label}}
+    </label>
+    <span *ngIf="!readonly"
+          class="input-group-append">
+      <button class="btn btn-secondary"
+              aria-label="Open Calendar"
+              type="button"
+              (click)="datePicker.toggle()"
+              placement="top"
+              ngbTooltip="Open Calendar">
+        <i class="fas fa-calendar"></i>
+      </button>
+    </span>
+  </div>
+
+  <os-validation-messages [control]="control"
+                          [id]="validationId"
+                          [customValidationMessages]="validationMessages">
+  </os-validation-messages>
+</div>
+<ng-template #dayTemplate
+             let-date="date"
+             let-focused="focused"
+             let-disabled="disabled">
+  <span class="custom-day"
+        [class.focused]="focused"
+        [class.disabled]="disabled">
+    {{ date.day }}
+  </span>
+</ng-template>

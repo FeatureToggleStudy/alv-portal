@@ -4,14 +4,16 @@ import { StampGroupComponent } from './components/message/stamp-group/stamp-grou
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
+  NgbDateParserFormatter,
   NgbDatepickerModule,
   NgbDropdownModule,
-  NgbProgressbarModule
+  NgbPopoverConfig,
+  NgbPopoverModule,
+  NgbProgressbarModule, NgbTooltipModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AddressInputComponent } from './components/address-input/address-input.component';
-import { DateIntervalBasicInputComponent } from './components/date-interval-basic-input/date-interval-basic-input.component';
 import { DateIntervalInputComponent } from './components/date-interval-input/date-interval-input.component';
 import { DocumentUploadComponent } from './components/upload/document-upload/document-upload.component';
 import { FileIconComponent } from './components/upload/files-upload/file-icon/file-icon.component';
@@ -24,12 +26,17 @@ import { YesNoInputComponent } from './components/yes-no-input/yes-no-input.comp
 import { DocumentGroupUploadComponent } from './components/upload/document-group-upload/document-group-upload.component';
 import { UploadedFileComponent } from './components/upload/files-upload/uploaded-file/uploaded-file/uploaded-file.component';
 import { NotificationComponent } from './components/message/notification/notification.component';
+import { SelectComponent } from './components/select/select.component';
 import { InputFieldComponent } from './components/input-field/input-field.component';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../../environments/environment';
+import { DateInputComponent } from './components/date-input/date-input.component';
+import { DateParserFormatter } from './components/date-input/date-parser-formatter';
+import { HelpButtonComponent } from './components/help-button/help-button.component';
+
 
 /**
  * Setting up the ngx-translate
@@ -51,14 +58,16 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     DateIntervalInputComponent,
     FilesUploadComponent,
     DocumentUploadComponent,
-    DateIntervalBasicInputComponent,
     UploadedFilePresentationComponent,
     HumanizeBytesPipe,
     FileIconComponent,
     DocumentGroupUploadComponent,
     UploadedFileComponent,
+    HelpButtonComponent,
+    SelectComponent,
     InputFieldComponent,
-    ValidationMessagesComponent
+    ValidationMessagesComponent,
+    DateInputComponent
   ],
   imports: [
     CommonModule,
@@ -67,6 +76,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     NgbDatepickerModule.forRoot(),
     NgbProgressbarModule.forRoot(),
     NgbDropdownModule.forRoot(),
+    NgbPopoverModule.forRoot(),
+    NgbTooltipModule.forRoot(),
     FileUploadModule,
     PrettyJsonModule,
     TranslateModule.forRoot({
@@ -93,10 +104,16 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     FilesUploadComponent,
     DocumentUploadComponent,
     UploadedFilePresentationComponent,
+    HelpButtonComponent,
+    SelectComponent,
     InputFieldComponent,
-    ValidationMessagesComponent
+    ValidationMessagesComponent,
+    DateInputComponent
   ],
-  providers: []
+  providers: [
+    NgbPopoverConfig,
+    {provide: NgbDateParserFormatter, useClass: DateParserFormatter}
+  ]
 })
 export class SharedModule {
 }

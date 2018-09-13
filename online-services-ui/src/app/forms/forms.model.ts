@@ -1,6 +1,7 @@
 /**
  * Interfaces that are common for all the forms
  */
+import { NgbDate } from '../../../node_modules/@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
 
 export interface Address {
   street: string;
@@ -50,12 +51,6 @@ export interface Document {
   name: string;
   category: string;
   files: File[];
-}
-
-export interface NgbDate {
-  year: number;
-  month: number;
-  day: number;
 }
 
 export interface Period {

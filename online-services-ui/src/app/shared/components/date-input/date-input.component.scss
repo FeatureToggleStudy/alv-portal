@@ -1,0 +1,33 @@
+@import '../../../../scss/colors';
+
+.input-group-append {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 46px;
+}
+
+.invalid .input-group-append button.btn {
+  border-top-color: $color-red;
+  border-right-color: $color-red;
+  border-bottom-color: $color-red;
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+
+  &.focused {
+    background-color: $color-medium-grey;
+  }
+  &:hover:not(.disabled) {
+    background-color: $color-blue;
+    color: white;
+  }
+  &.disabled {
+    opacity: 0.5;
+  }
+}

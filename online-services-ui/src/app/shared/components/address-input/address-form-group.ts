@@ -8,8 +8,8 @@ export class AddressFormGroup {
   zip: AbstractControl;
   country: AbstractControl;
 
-  constructor(private fb: FormBuilder,
-              private address?: Address) {
+  constructor(fb: FormBuilder,
+              address?: Address) {
     this.street = fb.control(address ? address.street : '', Validators.required);
     this.number = fb.control(address ? address.number : '', Validators.required);
     this.city = fb.control(address ? address.city : '', Validators.required);

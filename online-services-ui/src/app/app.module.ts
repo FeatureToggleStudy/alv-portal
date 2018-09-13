@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +34,7 @@ import { CoreModule } from './core/core.module';
     SharedModule,
     AppRoutingModule,
     NgbTabsetModule.forRoot(),
-    SharedModule,
+    NgbDatepickerModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     CoreModule
