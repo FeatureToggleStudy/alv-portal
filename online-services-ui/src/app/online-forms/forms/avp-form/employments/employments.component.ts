@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mockDocument1 } from '../../forms.mock';
 import { EmploymentsModel } from './employments.model';
-import { AddressFormGroup } from '../../../shared/components/address-input/address-form-group';
-import { DateIntervalFormGroup } from '../../../shared/components/date-interval-input/date-interval-form-group';
-import { HelpTextService } from '../../../shared/components/help-button/help-text.service';
+import { HelpTextService } from '../../../../shared/components/help-button/help-text.service';
 import { of } from 'rxjs';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { DateIntervalFormGroup } from '../../../../shared/components/date-interval-input/date-interval-form-group';
+import { AddressFormGroup } from '../../../../shared/components/address-input/address-form-group';
 
 @Component({
   selector: 'os-employments',

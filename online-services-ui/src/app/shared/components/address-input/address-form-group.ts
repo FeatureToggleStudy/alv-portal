@@ -1,5 +1,5 @@
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { Address } from '../../../forms/forms.model';
+import { Address } from '../../../online-forms/forms/forms.model';
 
 export class AddressFormGroup {
   street: AbstractControl;

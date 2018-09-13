@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { File } from '../../../../../../forms/forms.model';
+import { File } from '../../../../../../online-forms/forms/forms.model';
 import { FileInfoService } from '../../../../../file-info.service';
 
 @Component({

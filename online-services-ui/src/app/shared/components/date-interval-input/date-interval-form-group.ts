@@ -1,5 +1,5 @@
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { Period } from '../../../forms/forms.model';
+import { Period } from '../../../online-forms/forms/forms.model';
 
 export class DateIntervalFormGroup {
   from: AbstractControl;

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { mockFile1 } from '../forms/forms.mock';
-import { File } from '../forms/forms.model';
+import { mockFile1 } from '../online-forms/forms/forms.mock';
+import { File } from '../online-forms/forms/forms.model';
 
 @Injectable({
   providedIn: 'root'
