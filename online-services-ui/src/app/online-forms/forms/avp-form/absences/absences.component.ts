@@ -2,10 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbsencesModel } from './absences.model';
 import { Observable, of } from 'rxjs';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { SelectOption } from '../../../../shared/components/select/select-option.model';
 import { DateIntervalFormGroup } from '../../../../shared/components/date-interval-input/date-interval-form-group';
-
 
 @Component({
   selector: 'os-absences',
@@ -19,11 +17,11 @@ export class AbsencesComponent implements OnInit {
 
   possibleReasons$: Observable<SelectOption[]>;
 
-  get absences(): FormArray {
-    return this.form.get('absences') as FormArray;
+  constructor(private fb: FormBuilder) {
   }
 
-  constructor(private fb: FormBuilder) {
+  get absences(): FormArray {
+    return this.form.get('absences') as FormArray;
   }
 
   ngOnInit(): void {
@@ -48,14 +46,15 @@ export class AbsencesComponent implements OnInit {
 
   getDefaultAbsence() {
     return this.fb.group({
-      period: this.fb.group(new DateIntervalFormGroup(this.fb, {
-        from: new NgbDate(2018, 9, 29),
-        to: new NgbDate(2018, 10, 18)
-      })),
+      period: new DateIntervalFormGroup({
+        from: this.fb.control({ year: 2018, month: 9, day: 29 }, Validators.required),
+        to: this.fb.control({ year: 2018, month: 10, day: 18 }, Validators.required)
+      }),
       reason: this.fb.control('', Validators.required),
       note: this.fb.control(''),
     });
   }
+
   removeAbsence(i: number) {
     this.absences.removeAt(i);
   }

@@ -2,9 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mockDocument1 } from '../../forms.mock';
 import { EmploymentsModel } from './employments.model';
-import { HelpTextService } from '../../../../shared/components/help-button/help-text.service';
 import { of } from 'rxjs';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { HelpTextService } from '../../../../shared/components/help-button/help-text.service';
 import { DateIntervalFormGroup } from '../../../../shared/components/date-interval-input/date-interval-form-group';
 import { AddressFormGroup } from '../../../../shared/components/address-input/address-form-group';
 
@@ -45,10 +44,10 @@ export class EmploymentsComponent implements OnInit {
       ownField: this.fb.control('', Validators.required),
       employments: this.fb.array([
         this.fb.group({
-          period: this.fb.group(new DateIntervalFormGroup(this.fb, {
-            from: new NgbDate(2018, 9, 29),
-            to: new NgbDate(2018, 10, 18)
-          })),
+          period: new DateIntervalFormGroup({
+            from: this.fb.control({year: 2018, month: 9, day: 29}, Validators.required),
+            to: this.fb.control({year: 2018, month: 10, day: 18}, Validators.required)
+          }),
           employer: this.fb.control('someone', Validators.required),
           address: this.fb.group(new AddressFormGroup(this.fb)),
           docs: this.fb.control(mockDocument1) // here multiple docs will be instead of one
@@ -64,7 +63,10 @@ export class EmploymentsComponent implements OnInit {
     this.employments.push(this.fb.group({
       employer: this.fb.control(''),
       address: this.fb.group(new AddressFormGroup(this.fb)),
-      period: this.fb.group(new DateIntervalFormGroup(this.fb))
+      period: new DateIntervalFormGroup({
+        from: this.fb.control('', Validators.required),
+        to: this.fb.control('', Validators.required)
+      })
     }));
   }
 

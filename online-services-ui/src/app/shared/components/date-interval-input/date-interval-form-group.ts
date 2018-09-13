@@ -1,14 +1,26 @@
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { Period } from '../../../online-forms/forms/forms.model';
+import {
+  AbstractControl,
+  AbstractControlOptions,
+  AsyncValidatorFn,
+  FormGroup,
+  ValidatorFn
+} from '@angular/forms';
 
-export class DateIntervalFormGroup {
+export type Validator = ValidatorFn | ValidatorFn[] | AbstractControlOptions | null;
+export type AsyncValidator = AsyncValidatorFn | AsyncValidatorFn[] | null;
+
+export type DateInterval = {
   from: AbstractControl;
   to: AbstractControl;
+};
 
-  constructor(fb: FormBuilder,
-              period?: Period) {
-    this.from = fb.control(period ? period.from : '', Validators.required);
-    this.to = fb.control(period ? period.to : '', Validators.required);
+
+export class DateIntervalFormGroup extends FormGroup {
+
+  constructor(controls: DateInterval, validatorOrOpts?: Validator, asyncValidator?: AsyncValidator) {
+    super(controls, validatorOrOpts, asyncValidator);
   }
 
 }
+
+
