@@ -3,13 +3,12 @@ import { FormControl } from '@angular/forms';
 import { ValidationMessage } from './validation-messages/validation-message.model';
 import { InputType } from './input-type.enum';
 import { ValidationService } from '../../validation.service';
-
-const inputIds: any = {};
+import { InputService } from './input.service';
 
 /**
  * Abstract input
  */
-export abstract class AbstractInput {
+export abstract class AbstractInput implements OnInit {
 
   /**
    * label of the input
@@ -39,21 +38,15 @@ export abstract class AbstractInput {
   validationId: string;
   required: string;
 
-  protected constructor(private inputType: InputType) {
+  protected constructor(private inputType: InputType,
+                        private inputService: InputService,
+                        private validationService: ValidationService) {
   }
 
-  protected initInput(validationService: ValidationService) {
-    this.id = this.id || `os-${this.getNextInputId(this.inputType, this.label)}`;
+  ngOnInit() {
+    this.id = this.id || this.inputService.getNextInputId(this.inputType, this.label);
     this.validationId = `${this.id}-validation`;
-    this.required = validationService.isRequired(this.control) ? 'required' : null;
-  }
-
-  private getNextInputId(inputType: InputType, label: string): string {
-    const labelKey = label ? label.replace(/ /g, '-').toLowerCase() : '';
-    if (!inputIds[inputType + labelKey]) {
-      inputIds[inputType + labelKey] = 0;
-    }
-    return inputType + '-' + labelKey + '-' + inputIds[inputType + labelKey]++;
+    this.required = this.validationService.isRequired(this.control) ? 'required' : null;
   }
 
 }

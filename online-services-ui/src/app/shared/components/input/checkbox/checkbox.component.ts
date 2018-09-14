@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ValidationMessage } from '../validation-messages/validation-message.model';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { ValidationService } from '../../../validation.service';
 import { InputType } from '../input-type.enum';
+import { InputService } from '../input.service';
 
 @Component({
   selector: 'os-checkbox',
@@ -11,13 +10,11 @@ import { InputType } from '../input-type.enum';
   styleUrls: ['./checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckboxComponent extends AbstractInput implements OnInit {
+export class CheckboxComponent extends AbstractInput {
 
-  constructor(private validationService: ValidationService) {
-    super(InputType.CHECKBOX);
+  constructor(inputService: InputService,
+              validationService: ValidationService) {
+    super(InputType.CHECKBOX, inputService, validationService);
   }
 
-  ngOnInit() {
-    this.initInput(this.validationService);
-  }
 }

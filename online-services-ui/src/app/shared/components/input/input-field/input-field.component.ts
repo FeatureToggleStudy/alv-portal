@@ -1,13 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  Input,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 import { ValidationService } from '../../../validation.service';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
+import { InputService } from '../input.service';
 
 
 /**
@@ -32,7 +27,7 @@ import { InputType } from '../input-type.enum';
   styleUrls: ['../abstract-input.scss', './input-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputFieldComponent extends AbstractInput implements OnInit {
+export class InputFieldComponent extends AbstractInput {
 
   /**
    * (readonly) CSS classes of host element
@@ -69,12 +64,9 @@ export class InputFieldComponent extends AbstractInput implements OnInit {
    */
   @Input() multiline?: boolean;
 
-  constructor(private validationService: ValidationService) {
-    super(InputType.INPUT_FIELD);
-  }
-
-  ngOnInit() {
-    this.initInput(this.validationService);
+  constructor(inputService: InputService,
+              validationService: ValidationService) {
+    super(InputType.INPUT_FIELD, inputService, validationService);
   }
 
   getRows() {

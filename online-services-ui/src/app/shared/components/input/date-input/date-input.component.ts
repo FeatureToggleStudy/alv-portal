@@ -3,13 +3,13 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild
 } from '@angular/core';
 import { ValidationService } from '../../../validation.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
+import { InputService } from '../input.service';
 
 /**
  * Component to display a single date picker
@@ -29,7 +29,7 @@ import { InputType } from '../input-type.enum';
   styleUrls: ['../abstract-input.scss', './date-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DateInputComponent extends AbstractInput implements OnInit {
+export class DateInputComponent extends AbstractInput {
 
   /**
    * minimal selectable date
@@ -48,12 +48,9 @@ export class DateInputComponent extends AbstractInput implements OnInit {
 
   @ViewChild('datePicker') datePicker: ElementRef;
 
-  constructor(private validationService: ValidationService) {
-    super(InputType.DATE_INPUT);
-  }
-
-  ngOnInit() {
-    this.initInput(this.validationService);
+  constructor(inputService: InputService,
+              validationService: ValidationService) {
+    super(InputType.DATE_INPUT, inputService, validationService);
   }
 
 }
