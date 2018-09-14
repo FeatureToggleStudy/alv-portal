@@ -40,13 +40,7 @@ import { RadioButtonComponent } from './components/input/radio-button/radio-butt
 import { CheckboxComponent } from './components/input/checkbox/checkbox.component';
 
 
-/**
- * Setting up the ngx-translate
- * @param http
- */
-export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, environment.translationBaseUrl, '.json');
-}
+
 
 @NgModule({
   declarations: [
@@ -83,14 +77,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     NgbTooltipModule,
     FileUploadModule,
     PrettyJsonModule,
-    TranslateModule.forChild({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-    })
-
   ],
   entryComponents: [],
   exports: [
