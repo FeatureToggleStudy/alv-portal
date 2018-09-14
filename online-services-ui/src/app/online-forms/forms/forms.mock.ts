@@ -1,5 +1,5 @@
 import { Address, Document, File, Period } from './forms.model';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 export const mockAddress1: Address = {
   street: 'rue du Simplon',

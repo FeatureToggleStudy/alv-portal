@@ -7,7 +7,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { ValidationService } from '../../../validation.service';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
 
