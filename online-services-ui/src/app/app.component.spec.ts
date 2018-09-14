@@ -21,7 +21,7 @@ describe('AppComponent', () => {
         BrowserAnimationsModule],
 
       declarations: [AppComponent],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas: [NO_ERRORS_SCHEMA]
     });
 
     router = TestBed.get(Router);
