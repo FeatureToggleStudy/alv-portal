@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  translationBaseUrl: 'assets/i18n/'
 };

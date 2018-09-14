@@ -31,9 +31,22 @@ import { InputFieldComponent } from './components/input/input-field/input-field.
 import { ValidationMessagesComponent } from './components/input/validation-messages/validation-messages.component';
 import { DateInputComponent } from './components/input/date-input/date-input.component';
 import { DateParserFormatter } from './components/input/date-input/date-parser-formatter';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { environment } from '../../environments/environment';
 import { HelpButtonComponent } from './components/help-button/help-button.component';
 import { RadioButtonComponent } from './components/input/radio-button/radio-button.component';
 import { CheckboxComponent } from './components/input/checkbox/checkbox.component';
+
+
+/**
+ * Setting up the ngx-translate
+ * @param http
+ */
+export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http, environment.translationBaseUrl, '.json');
+}
 
 @NgModule({
   declarations: [
@@ -69,11 +82,19 @@ import { CheckboxComponent } from './components/input/checkbox/checkbox.componen
     NgbPopoverModule,
     NgbTooltipModule,
     FileUploadModule,
-    PrettyJsonModule
+    PrettyJsonModule,
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
 
   ],
   entryComponents: [],
   exports: [
+    TranslateModule,
     NotificationComponent,
     PanelComponent,
     PanelGroupComponent,
