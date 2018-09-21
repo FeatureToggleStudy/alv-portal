@@ -1,0 +1,21 @@
+@import "../../../scss/colors";
+
+:host {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: 102px;
+  z-index: 0;
+  @media(max-width: 991px) {
+    margin-top: 41px;
+  }
+
+  main {
+    overflow-y: auto;
+  }
+
+}

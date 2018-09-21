@@ -1,0 +1,20 @@
+<form [formGroup]="form">
+  <div *ngIf="name"
+       class="form-group">
+    <label for="exampleFormControlInput1">Name</label>
+    <input type="text"
+           formControlName="name"
+           class="form-control"
+           id="exampleFormControlInput1"
+           placeholder="Enter the name of document">
+  </div>
+  <div *ngIf="categories"
+       class="form-group">
+    <label>Category</label>
+    <select class="form-control"
+            formControlName="category">
+      <option *ngFor="let category of categories">{{category}}</option>
+    </select>
+  </div>
+  <os-files-upload></os-files-upload>
+</form>

@@ -1,0 +1,16 @@
+<div class="form-row"
+     *ngIf="form?.get('from')">
+  <div class="col-6">
+    <os-date-input [control]="form.get('from')"
+                   [label]="fromLabel  || 'From'"
+                   [maxDate]="form.get('to')?.value">
+    </os-date-input>
+  </div>
+  <div class="col-6">
+    <os-date-input [control]="form.get('to')"
+                   [label]="toLabel || 'To'"
+                   [minDate]="form.get('from')?.value"
+                   placement="bottom-right">
+    </os-date-input>
+  </div>
+</div>

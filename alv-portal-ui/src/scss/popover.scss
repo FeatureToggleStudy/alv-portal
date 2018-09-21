@@ -1,0 +1,19 @@
+@import "colors";
+
+.custom-popover {
+  background-color: $color-black;
+  width: 276px;
+  .popover-body {
+    color: $color-white;
+    line-height: 1.2;
+  }
+
+  .arrow:after {
+    border-bottom-color: $color-black;
+  }
+
+  /* Help popover global styling: arrow positioning */
+  &.help-popover.bs-popover-bottom-right .arrow {
+    right: 7px !important;
+  }
+}
