@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../selectable-option.model';
-import { ValidationMessage } from '../validation-messages/validation-message.model';
-import { AbstractInput } from '../abstract-input';
 import { ValidationService } from '../../../validation.service';
 import { InputType } from '../input-type.enum';
 import { AbstractSelectableInput } from '../abstract-selectable-input';
+import { InputService } from '../input.service';
 
 @Component({
   selector: 'os-radio-button',
@@ -16,12 +14,13 @@ import { AbstractSelectableInput } from '../abstract-selectable-input';
 })
 export class RadioButtonComponent extends AbstractSelectableInput implements OnInit {
 
-  constructor(private validationService: ValidationService) {
-    super(InputType.RADIO_BUTTON);
+  constructor(inputService: InputService,
+              validationService: ValidationService) {
+    super(InputType.RADIO_BUTTON, inputService, validationService);
   }
 
   ngOnInit() {
-    this.initInput(this.validationService);
+    super.ngOnInit();
     this.options$ = this.options$ || this.getDefaultOptions();
   }
 

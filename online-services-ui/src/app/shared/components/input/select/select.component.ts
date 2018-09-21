@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ValidationService } from '../../../validation.service';
 import { InputType } from '../input-type.enum';
 import { AbstractSelectableInput } from '../abstract-selectable-input';
+import { InputService } from '../input.service';
 
 /**
  * Component to display a select dropdown
@@ -19,13 +20,11 @@ import { AbstractSelectableInput } from '../abstract-selectable-input';
   styleUrls: ['../abstract-input.scss', './select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectComponent extends AbstractSelectableInput implements OnInit {
+export class SelectComponent extends AbstractSelectableInput {
 
-  constructor(private validationService: ValidationService) {
-    super(InputType.SELECT);
+  constructor(inputService: InputService,
+              validationService: ValidationService) {
+    super(InputType.SELECT, inputService, validationService);
   }
 
-  ngOnInit() {
-    this.initInput(this.validationService);
-  }
 }

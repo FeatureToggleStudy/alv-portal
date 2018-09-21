@@ -6,6 +6,14 @@
   border: 1px solid $color-medium-grey;
   border-radius: 0;
 
+  &.invalid {
+    border-color: $color-red;
+
+    .dropdown-icon {
+      color: $color-red;
+    }
+  }
+
   select {
     background: transparent;
     border: none;
