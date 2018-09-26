@@ -16,7 +16,7 @@ export class MessageBusService {
   }
 
   emit<T>(messageType: MessageType, message?: T) {
-    this.getChannel(messageType).emit(this.stringifyValue(message));
+    this.getChannel(messageType).emit(message);
   }
 
   of<T>(messageType: MessageType): Observable<T> {
@@ -31,17 +31,10 @@ export class MessageBusService {
     return this.eventEmitters[messageType];
   }
 
-  private stringifyValue(value: any): any {
-    if (typeof value === 'object') {
-      return JSON.stringify(value);
-    }
-    return value;
-  }
 }
 
 export enum MessageType {
-  LOGOUT,
-  LOGIN,
+  CURRENT_USER,
   TOGGLE_NAVIGATION
 }
 

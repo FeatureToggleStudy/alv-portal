@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Credentials, User } from './user.model';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, flatMap, map } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { SessionManagerService } from './session-manager.service';
 import { MessageBusService, MessageType } from '../message-bus.service';
@@ -24,6 +24,7 @@ export class AuthenticationService {
         map(response => {
           this.sessionManagerService.setToken(response.headers.get('Authorization'));
           this.currentUser = response.body;
+          this.messageBusService.emit<User>(MessageType.CURRENT_USER, this.currentUser);
           return response.body;
         })
     );
@@ -36,11 +37,9 @@ export class AuthenticationService {
           // TODO: show error notification
           return of(null);
         }),
-        map(response => {
+        flatMap(response => {
           this.sessionManagerService.setToken(response.headers.get('Authorization'));
-          this.currentUser = response.body;
-          this.messageBusService.emit<User>(MessageType.LOGIN, this.currentUser);
-          return response.body;
+          return this.session();
         })
     );
   }
@@ -49,7 +48,7 @@ export class AuthenticationService {
     // TODO: Get logout URL from backend config
     this.sessionManagerService.clearToken();
     this.currentUser = null;
-    this.messageBusService.emit(MessageType.LOGOUT);
+    this.messageBusService.emit<User>(MessageType.CURRENT_USER, null);
     return of(null);
   }
 
