@@ -1,4 +1,7 @@
+### build output ###
 */target/**
+
+### mvn wrapper ###
 !.mvn/wrapper/maven-wrapper.jar
 
 ### IntelliJ IDEA ###

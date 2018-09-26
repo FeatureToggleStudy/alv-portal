@@ -13,25 +13,7 @@
         <version>0.0.0-SNAPSHOT</version>
     </parent>
 
-    <properties>
-        <docker.repository>alvch-dockerv2-local.jfrog.io/alvch/alv-portal</docker.repository>
-    </properties>
-
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>dockerfile-maven-plugin</artifactId>
-                    <version>1.4.3</version>
-                    <configuration>
-                        <repository>${docker.repository}</repository>
-                        <tag>${project.version}</tag>
-                        <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -129,6 +111,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
                     <classesDirectory>target/dist</classesDirectory>
                 </configuration>
@@ -183,56 +166,6 @@
                                         <argument>--allow-same-version</argument>
                                     </arguments>
                                 </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>docker</id>
-            <activation>
-                <property>
-                    <name>docker-push</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>dockerfile-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>build-image</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>docker-push</id>
-            <activation>
-                <property>
-                    <name>docker-push</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.spotify</groupId>
-                        <artifactId>dockerfile-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>push-image</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>push</goal>
-                                </goals>
                             </execution>
                         </executions>
                     </plugin>

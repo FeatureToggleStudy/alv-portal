@@ -19,6 +19,61 @@
 
     <modules>
         <module>alv-portal-ui</module>
+        <module>alv-portal-webapp</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ch.admin.seco</groupId>
+                <artifactId>alv-portal-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>set-version</id>
+            <activation>
+                <property>
+                    <name>newVersion</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                        <version>2.5</version>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <id>set-mvn-version</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>set</goal>
+                                </goals>
+                                <configuration>
+                                    <newVersion>${newVersion}</newVersion>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

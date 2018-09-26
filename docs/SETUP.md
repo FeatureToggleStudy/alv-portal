@@ -36,16 +36,26 @@ To make IntelliJ IDEA use Maven Wrapper by default, install and enable the follo
 
 Please note, that pushing docker images locally is usually not needed. It will be performed by the CICD toolchain automatically.
 
+### Run app JAR
+
+1. Execute `java -jar alv-portal-webapp/target/alv-portal-webapp-<project.version>.jar`.    
+1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
+
 ### Run app docker image
 
-1. Execute `docker run -p 8080:80 alvch-dockerv2-local.jfrog.io/alvch/alv-portal:<project.version>`.   
+1. Execute `docker run -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:<project.version>`.   
 1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
 ## Build & run with Angular CLI (for local development) 
 
+Before executing any of the following commands:
+1. Switch to the **alv-portal-ui** directory.
+1. Install NPM dependencies by executing `npm install` command.
+
 ### Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the _target/dist_ directory.
+* If you don't have installed _ng_ client globally, replace _ng_ command with a full path as follows: `node_modules/.bin/ng build`
 
 ### Running unit tests
 
