@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageBusService, MessageType } from '../message-bus.service';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Component({
   selector: 'os-header',
@@ -8,13 +9,15 @@ import { MessageBusService, MessageType } from '../message-bus.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private messageBusService: MessageBusService) { }
+  constructor(private messageBusService: MessageBusService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.authenticationService.session().subscribe();
   }
 
   toggleNavigation() {
-    this.messageBusService.emit(MessageType.TOGGLE_NAVIGATION, 'toggle');
+    this.messageBusService.emit<string>(MessageType.TOGGLE_NAVIGATION, 'toggle');
   }
 
 }

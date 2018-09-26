@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { isObject } from "util";
 
 /**
  * Message bus service, simple implementation.
@@ -9,25 +10,32 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class MessageBusService {
 
-  private eventEmitters = new Array<EventEmitter<string>>();
+  private eventEmitters = new Array<EventEmitter<any>>();
 
   constructor() {
   }
 
-  emit(messageType: MessageType, message?: string) {
-    this.getChannel(messageType).emit(message);
+  emit<T>(messageType: MessageType, message?: T) {
+    this.getChannel(messageType).emit(this.stringifyValue(message));
   }
 
-  of(messageType: MessageType): Observable<string> {
-    return this.getChannel(messageType).asObservable();
+  of<T>(messageType: MessageType): Observable<T> {
+    return this.getChannel<T>(messageType).asObservable();
   }
 
-  private getChannel(messageType: MessageType): EventEmitter<string> {
+  private getChannel<T>(messageType: MessageType): EventEmitter<T> {
     if (!this.eventEmitters[messageType]) {
-      this.eventEmitters[messageType] = new EventEmitter<string>(false);
+      this.eventEmitters[messageType] = new EventEmitter<T>(false);
     }
 
     return this.eventEmitters[messageType];
+  }
+
+  private stringifyValue(value: any): any {
+    if (typeof value === 'object') {
+      return JSON.stringify(value);
+    }
+    return value;
   }
 }
 
