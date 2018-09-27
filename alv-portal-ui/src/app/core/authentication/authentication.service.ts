@@ -4,7 +4,6 @@ import { Credentials, User } from './user.model';
 import { HttpClient } from '@angular/common/http';
 import { flatMap } from 'rxjs/operators';
 import { SessionManagerService } from './session-manager.service';
-import { MessageBusService } from '../message-bus.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -21,9 +20,9 @@ export class AuthenticationService {
   /**
    * Refreshes the getCurrentUser, will return 401 if unauthorized
    */
-  getCurrentUser(): Observable<User> {
+  getCurrentUser(force?: boolean): Observable<User> {
 
-    if (this.currentUser.getValue() === null) {
+    if (force) {
       return this.httpClient.get<User>('/api/current-user', { observe: 'response' }).pipe(
           flatMap(response => {
             this.sessionManagerService.setToken(response.headers.get('Authorization'));
@@ -43,7 +42,7 @@ export class AuthenticationService {
     return this.httpClient.post<User>('/api/authenticate', credentials, { observe: 'response' }).pipe(
         flatMap(response => {
           this.sessionManagerService.setToken(response.headers.get('Authorization'));
-          return this.getCurrentUser();
+          return this.getCurrentUser(true);
         })
     );
   }

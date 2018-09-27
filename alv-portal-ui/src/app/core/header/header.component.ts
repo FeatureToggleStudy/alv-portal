@@ -20,7 +20,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit() {
-    this.authenticationService.getCurrentUser()
+    this.authenticationService.getCurrentUser(true)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(user => {
       this.user = user;

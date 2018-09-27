@@ -7,7 +7,7 @@ import { AuthenticationService } from './core/authentication/authentication.serv
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
   constructor(translate: TranslateService,
               private authenticationService: AuthenticationService) {
@@ -16,10 +16,6 @@ export class AppComponent implements OnInit {
 
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use('en');
-  }
-
-  ngOnInit() {
-    this.authenticationService.getCurrentUser().subscribe();
   }
 
 }

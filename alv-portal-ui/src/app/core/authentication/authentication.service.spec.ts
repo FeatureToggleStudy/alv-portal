@@ -19,12 +19,9 @@ describe('AuthenticationService', () => {
 
   it('should refresh getCurrentUser', inject([HttpTestingController, AuthenticationService],
       (httpMock: HttpTestingController, service: AuthenticationService) => {
-        service.getCurrentUser().subscribe(data => {
+        service.getCurrentUser(true).subscribe(data => {
           expect(data.login).toBe('login');
           expect(service.isAuthenticated()).toBeTruthy();
-          service.getCurrentUser().subscribe(user => {
-            expect(user.login).toBe('login');
-          });
         });
 
         const req = httpMock.expectOne('/api/current-user');
@@ -39,9 +36,6 @@ describe('AuthenticationService', () => {
             .subscribe(data => {
               expect(data.login).toBe('login');
               expect(service.isAuthenticated()).toBeTruthy();
-              service.getCurrentUser().subscribe(user => {
-                expect(user.login).toBe('login');
-              });
             });
 
         const req1 = httpMock.expectOne('/api/authenticate');
@@ -56,7 +50,7 @@ describe('AuthenticationService', () => {
 
   it('should logout', inject([HttpTestingController, AuthenticationService],
       (httpMock: HttpTestingController, service: AuthenticationService) => {
-        service.getCurrentUser().subscribe(user => {
+        service.getCurrentUser(true).subscribe(user => {
           expect(user.login).toEqual('login');
           expect(service.isAuthenticated()).toBeTruthy();
 
