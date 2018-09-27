@@ -2,21 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { MessageBusService, MessageType } from '../message-bus.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { User } from '../authentication/user.model';
+import { takeUntil } from 'rxjs/operators';
+import { AbstractSubscriber } from '../../shared/components/abstract-subscriber';
 
 @Component({
   selector: 'os-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   user: User;
 
   constructor(private messageBusService: MessageBusService,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService) {
+    super();
+  }
 
   ngOnInit() {
-    this.messageBusService.of<User>(MessageType.CURRENT_USER).subscribe(user => {
+    this.messageBusService.of<User>(MessageType.CURRENT_USER)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(user => {
       this.user = user;
     });
   }
@@ -26,17 +32,16 @@ export class HeaderComponent implements OnInit {
   }
 
   login() {
-    // TODO: remove fake login with modal
+    // TODO: replace fake login with modal
     this.authenticationService.login({
       username: 'admin',
       password: 'admin',
       rememberMe: true
-    }).subscribe(user => {
-      //this.user = user;
-    });
+    }).subscribe();
   }
 
   logout() {
-    this.authenticationService.logout().subscribe();
+    this.authenticationService.logout()
+        .subscribe();
   }
 }
