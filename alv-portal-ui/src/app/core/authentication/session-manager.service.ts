@@ -10,15 +10,15 @@ export class SessionManagerService {
   constructor() { }
 
   setToken(token: string): void {
-    localStorage.setItem(SessionManagerService.TOKEN_NAME, token);
+    sessionStorage.setItem(SessionManagerService.TOKEN_NAME, token);
   }
 
   clearToken(): void {
-    localStorage.removeItem(SessionManagerService.TOKEN_NAME);
+    sessionStorage.removeItem(SessionManagerService.TOKEN_NAME);
   }
 
   getToken(): string {
-    return localStorage.getItem(SessionManagerService.TOKEN_NAME);
+    return sessionStorage.getItem(SessionManagerService.TOKEN_NAME);
   }
 
 }

@@ -16,7 +16,6 @@ import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 import { SessionManagerService } from './core/authentication/session-manager.service';
 import { AuthExpiredInterceptor } from './core/interceptor/auth-expired.interceptor';
 import { AuthenticationService } from './core/authentication/authentication.service';
-import { UrlInterceptor } from './core/interceptor/url.interceptor';
 
 /**
  * Setting up the ngx-translate
@@ -60,11 +59,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
       deps: [
         AuthenticationService
       ]
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: UrlInterceptor,
-      multi: true
     }
   ],
   bootstrap: [AppComponent]

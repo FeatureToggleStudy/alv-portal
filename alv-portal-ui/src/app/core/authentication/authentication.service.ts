@@ -17,11 +17,7 @@ export class AuthenticationService {
               private sessionManagerService: SessionManagerService) {
   }
 
-  /**
-   * Refreshes the getCurrentUser, will return 401 if unauthorized
-   */
   getCurrentUser(force?: boolean): Observable<User> {
-
     if (force) {
       return this.httpClient.get<User>('/api/current-user', { observe: 'response' }).pipe(
           flatMap(response => {
@@ -34,10 +30,6 @@ export class AuthenticationService {
     return this.currentUser;
   }
 
-  /**
-   * Login without eIAM, only needed for local development
-   * @param credentials
-   */
   login(credentials: Credentials): Observable<User> {
     return this.httpClient.post<User>('/api/authenticate', credentials, { observe: 'response' }).pipe(
         flatMap(response => {
@@ -47,12 +39,11 @@ export class AuthenticationService {
     );
   }
 
-  /**
-   * Logout and clear all getCurrentUser data
-   */
   logout(): void {
-    this.sessionManagerService.clearToken();
-    this.currentUser.next(null);
+    if (this.isAuthenticated()) {
+      this.sessionManagerService.clearToken();
+      this.currentUser.next(null);
+    }
   }
 
   isAuthenticated(): boolean {

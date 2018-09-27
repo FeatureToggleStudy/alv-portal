@@ -33,7 +33,6 @@ export class MessageBusService {
 }
 
 export enum MessageType {
-  CURRENT_USER,
   TOGGLE_NAVIGATION
 }
 
