@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authenticationService.session().subscribe();
+    this.authenticationService.getCurrentUser().subscribe();
   }
 
 }

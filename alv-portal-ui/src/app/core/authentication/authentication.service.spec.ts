@@ -17,12 +17,14 @@ describe('AuthenticationService', () => {
 
   const headers = { headers: new HttpHeaders({ 'Authorization': 'token' }) };
 
-  it('should refresh session', inject([HttpTestingController, AuthenticationService],
+  it('should refresh getCurrentUser', inject([HttpTestingController, AuthenticationService],
       (httpMock: HttpTestingController, service: AuthenticationService) => {
-        service.session().subscribe(data => {
+        service.getCurrentUser().subscribe(data => {
           expect(data.login).toBe('login');
-          expect(service.getCurrentUser().login).toBe('login');
           expect(service.isAuthenticated()).toBeTruthy();
+          service.getCurrentUser().subscribe(user => {
+            expect(user.login).toBe('login');
+          });
         });
 
         const req = httpMock.expectOne('/api/current-user');
@@ -36,8 +38,10 @@ describe('AuthenticationService', () => {
         service.login({ username: 'user', password: 'pw', rememberMe: true })
             .subscribe(data => {
               expect(data.login).toBe('login');
-              expect(service.getCurrentUser().login).toBe('login');
               expect(service.isAuthenticated()).toBeTruthy();
+              service.getCurrentUser().subscribe(user => {
+                expect(user.login).toBe('login');
+              });
             });
 
         const req1 = httpMock.expectOne('/api/authenticate');
@@ -52,13 +56,13 @@ describe('AuthenticationService', () => {
 
   it('should logout', inject([HttpTestingController, AuthenticationService],
       (httpMock: HttpTestingController, service: AuthenticationService) => {
-        service.session().subscribe(data => {
+        service.getCurrentUser().subscribe(user => {
+          expect(user.login).toEqual('login');
           expect(service.isAuthenticated()).toBeTruthy();
 
-          service.logout().subscribe(() => {
-            expect(service.isAuthenticated()).toBeFalsy();
-          });
+          service.logout();
 
+          expect(service.isAuthenticated()).toBeFalsy();
         });
 
         const req = httpMock.expectOne('/api/current-user');

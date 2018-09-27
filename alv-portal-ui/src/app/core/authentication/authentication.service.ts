@@ -2,35 +2,37 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Credentials, User } from './user.model';
 import { HttpClient } from '@angular/common/http';
-import { catchError, flatMap, map } from 'rxjs/operators';
-import { of } from 'rxjs/internal/observable/of';
+import { flatMap } from 'rxjs/operators';
 import { SessionManagerService } from './session-manager.service';
-import { MessageBusService, MessageType } from '../message-bus.service';
+import { MessageBusService } from '../message-bus.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private currentUser: User;
+  private currentUser = new BehaviorSubject<User>(null);
 
   constructor(private httpClient: HttpClient,
-              private sessionManagerService: SessionManagerService,
-              private messageBusService: MessageBusService) {
+              private sessionManagerService: SessionManagerService) {
   }
 
   /**
-   * Refreshes the session, will return 401 if unauthorized
+   * Refreshes the getCurrentUser, will return 401 if unauthorized
    */
-  session(): Observable<User> {
-    return this.httpClient.get<User>('/api/current-user', { observe: 'response' }).pipe(
-        map(response => {
-          this.sessionManagerService.setToken(response.headers.get('Authorization'));
-          this.currentUser = response.body;
-          this.messageBusService.emit<User>(MessageType.CURRENT_USER, this.currentUser);
-          return response.body;
-        })
-    );
+  getCurrentUser(): Observable<User> {
+
+    if (this.currentUser.getValue() === null) {
+      return this.httpClient.get<User>('/api/current-user', { observe: 'response' }).pipe(
+          flatMap(response => {
+            this.sessionManagerService.setToken(response.headers.get('Authorization'));
+            this.currentUser.next(response.body);
+            return this.currentUser;
+          })
+      );
+    }
+    return this.currentUser;
   }
 
   /**
@@ -39,34 +41,23 @@ export class AuthenticationService {
    */
   login(credentials: Credentials): Observable<User> {
     return this.httpClient.post<User>('/api/authenticate', credentials, { observe: 'response' }).pipe(
-        catchError(error => {
-          console.log(error);
-          // TODO: show error notification
-          return of(null);
-        }),
         flatMap(response => {
           this.sessionManagerService.setToken(response.headers.get('Authorization'));
-          return this.session();
+          return this.getCurrentUser();
         })
     );
   }
 
   /**
-   * Logout and clear all session data
+   * Logout and clear all getCurrentUser data
    */
-  logout(): Observable<null> {
-    // TODO: Get logout URL from backend config
+  logout(): void {
     this.sessionManagerService.clearToken();
-    this.currentUser = null;
-    this.messageBusService.emit<User>(MessageType.CURRENT_USER, null);
-    return of(null);
+    this.currentUser.next(null);
   }
 
   isAuthenticated(): boolean {
-    return !!this.sessionManagerService.getToken();
+    return !!this.currentUser.getValue();
   }
 
-  getCurrentUser(): User {
-    return this.currentUser;
-  }
 }

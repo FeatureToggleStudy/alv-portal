@@ -20,7 +20,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit() {
-    this.messageBusService.of<User>(MessageType.CURRENT_USER)
+    this.authenticationService.getCurrentUser()
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(user => {
       this.user = user;
@@ -41,7 +41,6 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout()
-        .subscribe();
+    this.authenticationService.logout();
   }
 }
