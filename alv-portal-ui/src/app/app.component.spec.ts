@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientTestingBackend } from '../../node_modules/@angular/common/http/testing/src/backend';
+import { HttpClientTestingModule } from '../../node_modules/@angular/common/http/testing';
 
 describe('AppComponent', () => {
 
@@ -16,6 +18,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
         RouterTestingModule,
         TranslateModule.forRoot(),
         BrowserAnimationsModule],
