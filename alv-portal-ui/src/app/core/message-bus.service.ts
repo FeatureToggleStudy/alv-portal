@@ -9,31 +9,30 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class MessageBusService {
 
-  private eventEmitters = new Array<EventEmitter<string>>();
+  private eventEmitters = new Array<EventEmitter<any>>();
 
   constructor() {
   }
 
-  emit(messageType: MessageType, message?: string) {
+  emit<T>(messageType: MessageType, message?: T) {
     this.getChannel(messageType).emit(message);
   }
 
-  of(messageType: MessageType): Observable<string> {
-    return this.getChannel(messageType).asObservable();
+  of<T>(messageType: MessageType): Observable<T> {
+    return this.getChannel<T>(messageType).asObservable();
   }
 
-  private getChannel(messageType: MessageType): EventEmitter<string> {
+  private getChannel<T>(messageType: MessageType): EventEmitter<T> {
     if (!this.eventEmitters[messageType]) {
-      this.eventEmitters[messageType] = new EventEmitter<string>(false);
+      this.eventEmitters[messageType] = new EventEmitter<T>(false);
     }
 
     return this.eventEmitters[messageType];
   }
+
 }
 
 export enum MessageType {
-  LOGOUT,
-  LOGIN,
   TOGGLE_NAVIGATION
 }
 

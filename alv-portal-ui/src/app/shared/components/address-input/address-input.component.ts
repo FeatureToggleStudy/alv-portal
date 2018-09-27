@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { of } from 'rxjs';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'os-address-input',
