@@ -19,6 +19,9 @@ export class AuthenticationService {
               private messageBusService: MessageBusService) {
   }
 
+  /**
+   * Refreshes the session, will return 401 if unauthorized
+   */
   session(): Observable<User> {
     return this.httpClient.get<User>('/api/current-user', { observe: 'response' }).pipe(
         map(response => {
@@ -30,6 +33,10 @@ export class AuthenticationService {
     );
   }
 
+  /**
+   * Login without eIAM, only needed for local development
+   * @param credentials
+   */
   login(credentials: Credentials): Observable<User> {
     return this.httpClient.post<User>('/api/authenticate', credentials, { observe: 'response' }).pipe(
         catchError(error => {
@@ -44,6 +51,9 @@ export class AuthenticationService {
     );
   }
 
+  /**
+   * Logout and clear all session data
+   */
   logout(): Observable<null> {
     // TODO: Get logout URL from backend config
     this.sessionManagerService.clearToken();
