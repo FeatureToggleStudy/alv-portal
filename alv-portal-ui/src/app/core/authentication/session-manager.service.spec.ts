@@ -9,7 +9,15 @@ describe('SessionManagerService', () => {
     });
   });
 
-  it('should be created', inject([SessionManagerService], (service: SessionManagerService) => {
-    expect(service).toBeTruthy();
+  it('should set token', inject([SessionManagerService], (service: SessionManagerService) => {
+    service.setToken('token');
+    expect(service.getToken()).toEqual('token');
   }));
+
+  it('should clear token', inject([SessionManagerService], (service: SessionManagerService) => {
+    service.setToken('token');
+    service.clearToken();
+    expect(service.getToken()).toEqual(null);
+  }));
+
 });

@@ -1,6 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { isObject } from "util";
 
 /**
  * Message bus service, simple implementation.
