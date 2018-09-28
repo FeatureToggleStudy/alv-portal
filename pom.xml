@@ -20,6 +20,7 @@
     <modules>
         <module>alv-portal-ui</module>
         <module>alv-portal-webapp</module>
+        <module>alv-portal-deployment</module>
     </modules>
 
     <dependencyManagement>
