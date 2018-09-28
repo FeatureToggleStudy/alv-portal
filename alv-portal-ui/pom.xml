@@ -158,7 +158,7 @@
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <workingDirectory>online-services-ui</workingDirectory>
+                                    <workingDirectory>alv-portal-ui</workingDirectory>
                                     <executable>npm</executable>
                                     <arguments>
                                         <argument>version</argument>
