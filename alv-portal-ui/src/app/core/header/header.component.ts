@@ -43,8 +43,6 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   login() {
     const modalRef = this.modalService.open(LocalLoginComponent);
-    // TODO: replace fake login with modal
-
   }
 
   logout() {
