@@ -7,18 +7,25 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { NavigationContainerComponent } from './navigation-container/navigation-container.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
+import { LocalLoginComponent } from './local-login/local-login.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     VersionComponent,
     HeaderComponent,
     NavigationContainerComponent,
-    MainNavigationComponent
+    MainNavigationComponent,
+    LocalLoginComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([]),
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
+  ],
+  entryComponents: [
+      LocalLoginComponent
   ],
   exports: [
     VersionComponent,
