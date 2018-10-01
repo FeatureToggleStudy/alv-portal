@@ -15,6 +15,7 @@
 
     <properties>
         <spring.boot.version>2.0.5.RELEASE</spring.boot.version>
+        <spring.cloud.version>2.0.1.RELEASE</spring.cloud.version>
         <docker.repository>alvch-dockerv2-local.jfrog.io/alvch/${project.artifactId}</docker.repository>
     </properties>
 
@@ -57,6 +58,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- spring cloud -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+            <version>${spring.cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>${spring.cloud.version}</version>
         </dependency>
 
     </dependencies>
@@ -120,20 +133,48 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <descriptors>
-                        <descriptor>src/assembly/docker-dist.xml</descriptor>
-                    </descriptors>
-                    <finalName>docker-dist</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <ignorePermissions>false</ignorePermissions>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>assembly-docker-dist</id>
+                        <id>assembly-docker-local-dist</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/docker-local-dist.xml</descriptor>
+                            </descriptors>
+                            <finalName>docker-local-dist</finalName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>assembly-docker-local-cloud-dist</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/docker-local-cloud-dist.xml</descriptor>
+                            </descriptors>
+                            <finalName>docker-local-cloud-dist</finalName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>assembly-docker-dev-dist</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assembly/docker-dev-dist.xml</descriptor>
+                            </descriptors>
+                            <finalName>docker-dev-dist</finalName>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

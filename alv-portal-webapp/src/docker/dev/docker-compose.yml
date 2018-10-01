@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  alv-portal-webapp:
+    image: "alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:${project.version}"
+    environment:
+    - SPRING_PROFILES_ACTIVE=dev
+    ports:
+    - 8899:8080
+    secrets:
+    - source: bootstrap.yml-1
+      target: bootstrap.yml
+
+secrets:
+  bootstrap.yml-1:
+    external: true
