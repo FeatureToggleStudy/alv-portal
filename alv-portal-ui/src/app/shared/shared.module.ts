@@ -70,6 +70,7 @@ import { CheckboxComponent } from './components/input/checkbox/checkbox.componen
     NgbDropdownModule,
     NgbPopoverModule,
     NgbModalModule,
+    NgbDropdownModule,
     NgbTooltipModule,
     FileUploadModule,
     PrettyJsonModule,
@@ -95,6 +96,7 @@ import { CheckboxComponent } from './components/input/checkbox/checkbox.componen
     DateInputComponent,
     RadioButtonComponent,
     CheckboxComponent,
+    NgbDropdownModule,
     NgbModalModule
   ],
   providers: [

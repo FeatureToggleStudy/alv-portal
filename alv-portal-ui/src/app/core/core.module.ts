@@ -9,6 +9,7 @@ import { NavigationContainerComponent } from './navigation-container/navigation-
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { LocalLoginComponent } from './local-login/local-login.component';
 import { SharedModule } from '../shared/shared.module';
+import { UserMenuComponent } from './user-menu/user-menu.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SharedModule } from '../shared/shared.module';
     HeaderComponent,
     NavigationContainerComponent,
     MainNavigationComponent,
-    LocalLoginComponent
+    LocalLoginComponent,
+    UserMenuComponent
   ],
   imports: [
     CommonModule,
