@@ -4,17 +4,33 @@
           id="userMenu"
           ngbDropdownAnchor
           (focus)="userDropdown.open()">
+    <span *ngIf="!hasCompletedRegistration"
+          class="fa fa-exclamation-triangle mr-1"
+          aria-hidden="true"></span>
     {{user.firstName}} {{user.lastName}}
   </button>
   <div ngbDropdownMenu
        aria-label="User Menu">
+    <!-- Finish registration -->
+    <button *ngIf="!hasCompletedRegistration"
+            class="dropdown-item highlight"
+            (click)="completeRegistration()">
+      <i class="fas fa-hand-point-right mr-2"></i> Complete Registration
+    </button>
+    <!-- eIAM profile -->
+    <button *ngIf="!noEiam"
+            class="dropdown-item"
+            (click)="goToEiamProfile()">
+      <i class="fas fa-user-circle mr-2"></i> Profile
+    </button>
+    <!-- Logout -->
     <button class="dropdown-item"
             (click)="logout()">
       <i class="fas fa-power-off mr-2"></i> Logout
     </button>
   </div>
-<!--  TODO we also need the following menus
-1. Profile (only for eiam)
-2. Registrations Abschluss (if user.registrationStatus is not REGISTERED)
--->
+  <!--  TODO we also need the following menus
+  1. Profile (only for eiam)
+  2. Registrations Abschluss (if user.registrationStatus is not REGISTERED)
+  -->
 </div>

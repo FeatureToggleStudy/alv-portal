@@ -10,6 +10,7 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
 import { LocalLoginComponent } from './local-login/local-login.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserMenuComponent } from './user-menu/user-menu.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
     CommonModule,
     RouterModule.forChild([]),
     HttpClientModule,
+    ReactiveFormsModule,
     SharedModule
   ],
   entryComponents: [

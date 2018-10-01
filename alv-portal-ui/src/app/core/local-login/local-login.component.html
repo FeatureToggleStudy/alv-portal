@@ -8,7 +8,9 @@
   </button>
 </div>
 
-<form novalidate autocomplete="off" (submit)="login()">
+<form novalidate autocomplete="off"
+      (ngSubmit)="login()"
+      [formGroup]="form">
   <div class="modal-body">
     <os-notification *ngIf="showErrorNotification"
                      class="mt-2 mb-3"
