@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs/internal/observable/of';
+import { EMPTY } from 'rxjs/internal/observable/empty';
 
 @Component({
   selector: 'os-local-login',
@@ -39,7 +39,7 @@ export class LocalLoginComponent implements OnInit {
       }).pipe(
           catchError(err => {
             this.showErrorNotification = true;
-            return of(null);
+            return EMPTY;
           })
       ).subscribe(user => {
         if (user) {

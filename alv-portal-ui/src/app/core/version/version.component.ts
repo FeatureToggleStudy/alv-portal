@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { BackendVersion } from './backend-version.model';
 import { VERSION } from '../../../environments/version';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs/internal/observable/of';
+import { EMPTY } from 'rxjs/internal/observable/empty';
 
 @Component({
   selector: 'os-version',
@@ -27,7 +27,7 @@ export class VersionComponent implements OnInit {
   private getBackendVersion(): Observable<BackendVersion> {
     return this.httpClient.get<BackendVersion>('/manage/info').pipe(
         catchError(err => {
-          return of(null);
+          return EMPTY;
         })
     );
   }
