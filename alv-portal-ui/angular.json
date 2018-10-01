@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "online-services-ui": {
+    "alv-portal-ui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -52,18 +52,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "online-services-ui:build"
+            "browserTarget": "alv-portal-ui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "online-services-ui:build:production"
+              "browserTarget": "alv-portal-ui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "online-services-ui:build"
+            "browserTarget": "alv-portal-ui:build"
           }
         },
         "test": {
@@ -97,7 +97,7 @@
         }
       }
     },
-    "online-services-ui-e2e": {
+    "alv-portal-ui-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -105,11 +105,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "online-services-ui:serve"
+            "devServerTarget": "alv-portal-ui:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "online-services-ui:serve:production"
+              "devServerTarget": "alv-portal-ui:serve:production"
             }
           }
         },
@@ -125,7 +125,7 @@
       }
     }
   },
-  "defaultProject": "online-services-ui",
+  "defaultProject": "alv-portal-ui",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "os",
