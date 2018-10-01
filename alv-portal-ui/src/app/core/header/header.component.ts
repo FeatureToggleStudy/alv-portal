@@ -7,6 +7,7 @@ import { AbstractSubscriber } from '../../shared/components/abstract-subscriber'
 import { ProfileInfoService } from '../profile-info.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocalLoginComponent } from '../local-login/local-login.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'os-header',
@@ -21,6 +22,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   constructor(private messageBusService: MessageBusService,
               private authenticationService: AuthenticationService,
               private profileInfoService: ProfileInfoService,
+              private router: Router,
               private modalService: NgbModal) {
     super();
   }
@@ -42,10 +44,17 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   }
 
   login() {
-    const modalRef = this.modalService.open(LocalLoginComponent);
+    if (this.noEiam) {
+      const modalRef = this.modalService.open(LocalLoginComponent);
+    } else {
+      window.open = '/samllogin';
+    }
   }
 
   logout() {
     this.authenticationService.logout();
+    if (!this.noEiam) {
+      document.location.href = '/api/redirect/logout';
+    }
   }
 }

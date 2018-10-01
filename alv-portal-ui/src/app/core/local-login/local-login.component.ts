@@ -37,6 +37,9 @@ export class LocalLoginComponent implements OnInit {
       }).pipe(
           catchError(err => {
             this.showErrorNotification = true;
+            setTimeout(() => {
+              this.showErrorNotification = false;
+            }, 3000);
             return of(null);
           })
       ).subscribe(success => {

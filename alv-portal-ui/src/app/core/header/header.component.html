@@ -27,7 +27,7 @@
     <!-- TODO: Search Field -->
 
     <!-- TODO: Profile Dropdown -->
-    <button *ngIf="!user"
+    <button *ngIf="!user && noEiam"
             class="btn btn-primary"
             (click)="login()">Login</button>
     <button *ngIf="user"
