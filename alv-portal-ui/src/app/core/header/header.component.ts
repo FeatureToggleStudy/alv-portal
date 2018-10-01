@@ -51,10 +51,4 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
     }
   }
 
-  logout() {
-    this.authenticationService.logout();
-    if (!this.noEiam) {
-      document.location.href = '/api/redirect/logout';
-    }
-  }
 }

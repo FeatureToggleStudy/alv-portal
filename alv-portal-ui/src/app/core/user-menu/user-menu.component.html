@@ -1,3 +1,16 @@
-<p>
-  user-menu works!
-</p>
+<div ngbDropdown
+     #userDropdown="ngbDropdown">
+  <button class="btn btn-icon mr-2"
+          id="userMenu"
+          ngbDropdownAnchor
+          (focus)="userDropdown.open()">
+    {{user.firstName}} {{user.lastName}}
+  </button>
+  <div ngbDropdownMenu
+       aria-label="User Menu">
+    <button class="dropdown-item"
+            (click)="logout()">
+      <i class="fas fa-power-off mr-2"></i> Logout
+    </button>
+  </div>
+</div>

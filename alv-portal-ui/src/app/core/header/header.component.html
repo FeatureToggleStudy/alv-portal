@@ -26,21 +26,15 @@
 
     <!-- TODO: Search Field -->
 
-    <!-- TODO: Profile Dropdown -->
-    <button *ngIf="!user && noEiam"
+    <button *ngIf="!user"
             class="btn btn-primary"
-            (click)="login()">Login</button>
-    <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
-      <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Toggle dropdown</button>
-      <div ngbDropdownMenu aria-labelledby="dropdownManual">
-        <button class="dropdown-item">Action - 1</button>
-        <button class="dropdown-item">Another Action</button>
-        <button class="dropdown-item">Something else is here</button>
-      </div>
-    </div>
-    <button *ngIf="user"
-            class="btn btn-secondary"
-            (click)="logout()">{{user.firstName}} {{user.lastName}}</button>
+            (click)="login()">Login
+    </button>
+
+    <os-user-menu *ngIf="user"
+                  [user]="user"
+                  [noEiam]="noEiam">
+    </os-user-menu>
 
     <div class="header-buttons ml-3 d-flex align-items-center">
       <button class="profile-button d-md-block d-lg-none"><i class="fas fa-user"></i></button>
