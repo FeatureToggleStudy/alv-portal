@@ -38,16 +38,18 @@ export class UserMenuComponent implements OnInit {
   }
 
   completeRegistration() {
+    /*
     switch (this.user.registrationStatus) {
       case RegistrationStatus.REGISTERED:
         // TODO: to be adapted to the real URLs
-        // this.router.navigate(['/registration/initial']);
+        this.router.navigate(['/registration/initial']);
         break;
       case RegistrationStatus.VALIDATION_EMP:
       case RegistrationStatus.VALIDATION_PAV:
         // TODO: to be adapted to the real URLs
-        // this.router.navigate(['/registration/access-code']);
+        this.router.navigate(['/registration/access-code']);
         break;
     }
+    */
   }
 }
