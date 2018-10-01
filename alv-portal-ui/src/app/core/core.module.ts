@@ -7,13 +7,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { NavigationContainerComponent } from './navigation-container/navigation-container.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
+import { JobSeekerLandingPageComponent } from './landing/job-seeker-landing-page/job-seeker-landing-page.component';
+import { PvaLandingPageComponent } from './landing/pva-landing-page/pva-landing-page.component';
+import { OrganizationLandingPageComponent } from './landing/organization-landing-page/organization-landing-page.component';
+import { LandingPageComponent } from './landing/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
     VersionComponent,
     HeaderComponent,
     NavigationContainerComponent,
-    MainNavigationComponent
+    MainNavigationComponent,
+    JobSeekerLandingPageComponent,
+    PvaLandingPageComponent,
+    OrganizationLandingPageComponent,
+    LandingPageComponent
   ],
   imports: [
     CommonModule,

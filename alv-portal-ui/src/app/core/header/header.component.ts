@@ -34,7 +34,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   login() {
     // TODO: replace fake login with modal
     this.authenticationService.login({
-      username: 'admin',
+      username: 'company',
       password: 'admin',
       rememberMe: true
     }).subscribe();
