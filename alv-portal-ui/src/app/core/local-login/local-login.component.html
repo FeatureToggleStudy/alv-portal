@@ -15,7 +15,8 @@
     <os-notification *ngIf="showErrorNotification"
                      class="mt-2 mb-3"
                      type="error"
-                     [message]="'Wrong username or password'"></os-notification>
+                     [message]="'Wrong username or password'">
+    </os-notification>
 
     <os-input-field [label]="'Username'"
                     [control]="form.get('username')">
