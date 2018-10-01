@@ -8,28 +8,28 @@
   </button>
 </div>
 
-<div class="modal-body">
-  <os-notification *ngIf="showErrorNotification"
-                   class="mt-2 mb-3"
-                   type="error"
-                   [message]="'Wrong username or password'"></os-notification>
+<form novalidate autocomplete="off" (submit)="login()">
+  <div class="modal-body">
+    <os-notification *ngIf="showErrorNotification"
+                     class="mt-2 mb-3"
+                     type="error"
+                     [message]="'Wrong username or password'"></os-notification>
 
-  <os-input-field [label]="'Username'"
-                  [control]="form.get('username')">
-  </os-input-field>
-  <os-input-field [label]="'Password'"
-                  [control]="form.get('password')"
-                  type="password">
-  </os-input-field>
-</div>
-<div class="modal-footer">
-  <button type="button"
-          class="btn btn-secondary"
-          (click)="activeModal.dismiss('cancel')">Cancel
-  </button>
-  <button type="button"
-          class="btn btn-primary"
-          (click)="login()">Login
-  </button>
-</div>
+    <os-input-field [label]="'Username'"
+                    [control]="form.get('username')">
+    </os-input-field>
+    <os-input-field [label]="'Password'"
+                    [control]="form.get('password')"
+                    type="password">
+    </os-input-field>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-secondary"
+            (click)="activeModal.dismiss('cancel')">Cancel
+    </button>
+    <button type="submit" class="btn btn-primary">Login
+    </button>
+  </div>
+</form>
 

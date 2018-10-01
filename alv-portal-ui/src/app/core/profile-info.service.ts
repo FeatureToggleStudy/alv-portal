@@ -15,7 +15,7 @@ export class ProfileInfoService {
 
   getProfileInfo(): Observable<ProfileInfo> {
     if (!this.profileInfo) {
-      this.profileInfo = this.httpClient.get<ProfileInfo>('/api/profile-info').pipe(
+      this.profileInfo = this.httpClient.get<ProfileInfoResource>('/api/profile-info').pipe(
           map((data) => {
             return <ProfileInfo>{
               activeProfiles: data.activeProfiles,
@@ -30,6 +30,11 @@ export class ProfileInfoService {
     return this.profileInfo;
   }
 
+}
+
+interface ProfileInfoResource {
+  activeProfiles: string[];
+  ribbonEnv: string;
 }
 
 export interface ProfileInfo {

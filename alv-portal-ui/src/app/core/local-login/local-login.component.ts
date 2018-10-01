@@ -13,6 +13,7 @@ import { of } from 'rxjs/internal/observable/of';
 export class LocalLoginComponent implements OnInit {
 
   form: FormGroup;
+
   showErrorNotification: boolean;
 
   constructor(public activeModal: NgbActiveModal,
@@ -29,6 +30,7 @@ export class LocalLoginComponent implements OnInit {
   }
 
   login() {
+    this.showErrorNotification = false;
     if (this.form.valid) {
       this.authenticationService.login({
         username: this.form.get('username').value,
@@ -37,18 +39,13 @@ export class LocalLoginComponent implements OnInit {
       }).pipe(
           catchError(err => {
             this.showErrorNotification = true;
-            setTimeout(() => {
-              this.showErrorNotification = false;
-            }, 3000);
             return of(null);
           })
-      ).subscribe(success => {
-        if (success) {
+      ).subscribe(user => {
+        if (user) {
           this.activeModal.close(true);
         }
-
       });
     }
-
   }
 }
