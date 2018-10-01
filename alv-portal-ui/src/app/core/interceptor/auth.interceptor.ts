@@ -1,4 +1,9 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+} from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { SessionManagerService } from '../authentication/session-manager.service';
 import { environment } from '../../../environments/environment';

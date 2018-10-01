@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from './core/authentication/authentication.service';
-import { takeUntil } from 'rxjs/operators';
+import { LandingNavigationService } from './core/landing-navigation.service';
 
 @Component({
   selector: 'os-root',
@@ -11,7 +11,9 @@ import { takeUntil } from 'rxjs/operators';
 export class AppComponent implements OnInit {
 
   constructor(translate: TranslateService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private landingNavigationService: LandingNavigationService
+  ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
 
@@ -21,7 +23,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authenticationService.getCurrentUser(true)
-        .subscribe();
+        .subscribe(currentUser => this.landingNavigationService.navigateUser(currentUser));
   }
 
 }

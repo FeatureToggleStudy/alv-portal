@@ -9,7 +9,8 @@ import { NavigationContainerComponent } from './navigation-container/navigation-
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { JobSeekerLandingPageComponent } from './landing/job-seeker-landing-page/job-seeker-landing-page.component';
 import { PvaLandingPageComponent } from './landing/pva-landing-page/pva-landing-page.component';
-import { OrganizationLandingPageComponent } from './landing/organization-landing-page/organization-landing-page.component';
+import { NzaPageComponent } from './nza-page/nza-page.component';
+import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './landing/landing-page/landing-page.component';
 
 @NgModule({
@@ -20,7 +21,8 @@ import { LandingPageComponent } from './landing/landing-page/landing-page.compon
     MainNavigationComponent,
     JobSeekerLandingPageComponent,
     PvaLandingPageComponent,
-    OrganizationLandingPageComponent,
+    NzaPageComponent,
+    HomeComponent,
     LandingPageComponent
   ],
   imports: [
