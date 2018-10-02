@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authenticationService.getCurrentUser(true)
-        .subscribe(currentUser => this.landingNavigationService.navigateUser(currentUser));
+        .subscribe();
   }
 
 }
