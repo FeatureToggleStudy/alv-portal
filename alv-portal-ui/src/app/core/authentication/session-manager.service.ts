@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+// The service manages the session tokens and other information that must be stored unlit the session is expired
 @Injectable({
   providedIn: 'root'
 })
