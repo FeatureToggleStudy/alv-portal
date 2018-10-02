@@ -38,8 +38,7 @@ Please note, that pushing docker images locally is usually not needed. It will b
 
 ### Run app JAR
 
-1. Execute `java -jar alv-portal-webapp/target/alv-portal-webapp-<project.version>.jar`.
-    * By default, Spring **local** profile is activated (Spring Cloud is disabled).     
+1. Execute `java -jar alv-portal-webapp/target/alv-portal-webapp-<project.version>.jar --spring.profiles.active=local`
 1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
 In case you want to run the application locally and enable Spring Cloud capabilities:
@@ -50,7 +49,7 @@ In case you want to run the application locally and enable Spring Cloud capabili
 
 ### Run app docker image
 
-1. Execute `docker run -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:<project.version>`.   
+1. Execute `docker run -e SPRING_PROFILES_ACTIVE=local -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:<project.version>`.   
 1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
 ### Run app docker image with docker-compose
