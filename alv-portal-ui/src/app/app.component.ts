@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from './core/authentication/authentication.service';
-import { LandingNavigationService } from './core/landing-navigation.service';
 
 @Component({
   selector: 'os-root',
@@ -11,9 +10,7 @@ import { LandingNavigationService } from './core/landing-navigation.service';
 export class AppComponent implements OnInit {
 
   constructor(translate: TranslateService,
-              private authenticationService: AuthenticationService,
-              private landingNavigationService: LandingNavigationService
-  ) {
+              private authenticationService: AuthenticationService) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
 

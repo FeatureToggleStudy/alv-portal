@@ -32,7 +32,7 @@ export class LandingNavigationService {
 
     // For authorised user without permissions - navigate to NZA:
     if (!roles || !roles.length) {
-      this.router.navigate(['nza'])
+      this.router.navigate(['finish-registration'])
     }
     // For jobseekers: to dashboard page for jobseeker
     if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {

@@ -56,7 +56,7 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'nza',
+    path: 'finish-registration',
     component: FinishRegistrationPageComponent
   },
   {
