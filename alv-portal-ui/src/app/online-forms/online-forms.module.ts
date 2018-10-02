@@ -30,7 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     SharedModule,
     OnlineFormsRoutingModule,
-    NgbTabsetModule.forRoot(),
+    //NgbTabsetModule.forRoot(),
     SharedModule,
     FormsModule,
     ReactiveFormsModule
