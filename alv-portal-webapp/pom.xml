@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ch.admin.seco</groupId>
     <artifactId>alv-portal-webapp</artifactId>
+
     <packaging>jar</packaging>
 
     <parent>
@@ -12,25 +13,6 @@
         <artifactId>alv-portal-parent</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </parent>
-
-    <properties>
-        <spring.boot.version>2.0.5.RELEASE</spring.boot.version>
-        <spring.cloud.version>2.0.1.RELEASE</spring.cloud.version>
-        <docker.repository>alvch-dockerv2-local.jfrog.io/alvch/${project.artifactId}</docker.repository>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!-- project dependencies -->
@@ -64,12 +46,10 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
-            <version>${spring.cloud.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>${spring.cloud.version}</version>
         </dependency>
 
     </dependencies>
@@ -84,9 +64,12 @@
                     <configuration>
                         <repository>${docker.repository}</repository>
                         <tag>${project.version}</tag>
-                        <googleContainerRegistryEnabled>false</googleContainerRegistryEnabled>
+                        <googleContainerRegistryEnabled>false
+                        </googleContainerRegistryEnabled>
                         <buildArgs>
-                            <JAR_FILE>target/${project.artifactId}-${project.version}.jar</JAR_FILE>
+                            <JAR_FILE>
+                                target/${project.artifactId}-${project.version}.jar
+                            </JAR_FILE>
                         </buildArgs>
                     </configuration>
                 </plugin>
@@ -97,37 +80,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
-                <executions>
-                    <execution>
-                        <id>repackage</id>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>build-info</id>
-                        <goals>
-                            <goal>build-info</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-                <version>2.2.4</version>
-                <configuration>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>get-the-git-infos</id>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -145,7 +101,8 @@
                         </goals>
                         <configuration>
                             <descriptors>
-                                <descriptor>src/assembly/docker-local-dist.xml</descriptor>
+                                <descriptor>src/assembly/docker-local-dist.xml
+                                </descriptor>
                             </descriptors>
                             <finalName>docker-local-dist</finalName>
                         </configuration>
@@ -158,7 +115,8 @@
                         </goals>
                         <configuration>
                             <descriptors>
-                                <descriptor>src/assembly/docker-local-cloud-dist.xml</descriptor>
+                                <descriptor>src/assembly/docker-local-cloud-dist.xml
+                                </descriptor>
                             </descriptors>
                             <finalName>docker-local-cloud-dist</finalName>
                         </configuration>
