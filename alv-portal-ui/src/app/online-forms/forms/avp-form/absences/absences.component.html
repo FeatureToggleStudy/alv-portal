@@ -1,48 +1,48 @@
 <div class="row">
   <form [formGroup]="form"
         class="col-md-8">
-    <os-panel [panelTitle]="'Were you away in the month of March 2018? (eg holidays, military or civilian service)'">
-      <os-radio-button [control]="form.get('away')">
-      </os-radio-button>
-    </os-panel>
+    <alv-panel [panelTitle]="'Were you away in the month of March 2018? (eg holidays, military or civilian service)'">
+      <alv-radio-button [control]="form.get('away')">
+      </alv-radio-button>
+    </alv-panel>
     <div *ngIf="form.value.away">
-      <os-panel-group [showArrow]="true"
-                      [colorizeArrow]="true"
-                      formArrayName="absences"
-                      *ngFor="let absence of absences.controls; let i=index">
+      <alv-panel-group [showArrow]="true"
+                       [colorizeArrow]="true"
+                       formArrayName="absences"
+                       *ngFor="let absence of absences.controls; let i=index">
         <ng-container class="content"
-             [formGroupName]="i">
-          <os-panel>
+                      [formGroupName]="i">
+          <alv-panel>
             <label class="panel-title">
               Absence {{i + 1}}
             </label>
-            <os-date-interval-input [form]="absence.get('period')">
-            </os-date-interval-input>
-          </os-panel>
+            <alv-date-interval-input [form]="absence.get('period')">
+            </alv-date-interval-input>
+          </alv-panel>
 
-          <os-panel *ngIf="absence?.value?.period?.from && absence?.value?.period?.to"
-                    [showArrow]="true"
-                    [colorizeArrow]="true">
-            <os-select label="Reason of absence"
-                       [control]="absence.get('reason')"
-                       [options$]="possibleReasons$"
-            ></os-select>
-          </os-panel>
+          <alv-panel *ngIf="absence?.value?.period?.from && absence?.value?.period?.to"
+                     [showArrow]="true"
+                     [colorizeArrow]="true">
+            <alv-select label="Reason of absence"
+                        [control]="absence.get('reason')"
+                        [options$]="possibleReasons$"
+            ></alv-select>
+          </alv-panel>
           <ng-container *ngIf="absence?.value?.reason as reason">
-            <os-panel *ngIf="reason !=='vacation'"
-                      [showArrow]="true"
-                      [colorizeArrow]="true">
+            <alv-panel *ngIf="reason !=='vacation'"
+                       [showArrow]="true"
+                       [colorizeArrow]="true">
               <ng-container [ngSwitch]="reason">
-                <os-input-field *ngSwitchCase="'other'"
-                                label="Please describe the reason of absence"
-                                [multiline]="true"
-                                [control]="absence.get('note')">
+                <alv-input-field *ngSwitchCase="'other'"
+                                 label="Please describe the reason of absence"
+                                 [multiline]="true"
+                                 [control]="absence.get('note')">
 
-                </os-input-field>
-                <os-document-upload *ngSwitchCase="'military'"></os-document-upload>
+                </alv-input-field>
+                <alv-document-upload *ngSwitchCase="'military'"></alv-document-upload>
               </ng-container>
 
-            </os-panel>
+            </alv-panel>
 
           </ng-container>
         </ng-container>
@@ -55,7 +55,7 @@
                   (click)="addAbsence()">Add Absence
           </button>
         </ng-container>
-      </os-panel-group>
+      </alv-panel-group>
     </div>
   </form>
   <!-- For debugging purposes -->

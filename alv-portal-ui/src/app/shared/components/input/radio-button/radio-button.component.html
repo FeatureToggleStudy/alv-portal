@@ -3,7 +3,8 @@
      [attr.role]="label ? 'group' : null"
      [attr.aria-describedby]="label ? validationId : null">
   <legend class="label mb-2"
-          *ngIf="label">{{label}}</legend>
+          *ngIf="label">{{label}}
+  </legend>
   <div class="form-check mb-2"
        *ngFor="let option of options$ | async">
     <input class="form-check-input"
@@ -20,8 +21,8 @@
     </label>
   </div>
 </div>
-<os-validation-messages *ngIf="!readonly && control"
-                        [control]="control"
-                        [id]="validationId"
-                        [customValidationMessages]="validationMessages">
-</os-validation-messages>
+<alv-validation-messages *ngIf="!readonly && control"
+                         [control]="control"
+                         [id]="validationId"
+                         [customValidationMessages]="validationMessages">
+</alv-validation-messages>

@@ -46,7 +46,7 @@
       <!--When the file is uploaded successfully we show the file details with menu to move, remove and rename it.-->
       <ng-container *ngIf="item.isSuccess">
         <div class="col-md-11">
-          <os-uploaded-file-presentation
+          <alv-uploaded-file-presentation
               [id]="item?.response"
               [fileName]="item?.file?.name"
               [fileSize]="item?.file?.size"
@@ -54,7 +54,7 @@
               [uploadDate]="item?.file?.lastModifiedDate"
               fileUrl="http://google.com"
           >
-          </os-uploaded-file-presentation>
+          </alv-uploaded-file-presentation>
         </div>
         <div class="col-md-1">
           <div class="btn-group"

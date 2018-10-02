@@ -2,24 +2,25 @@ import { Component } from '@angular/core';
 
 /**
  *  Component for grouping stamps, e.g.
- *  <os-stamp-group>
- *    <os-stamp
+ *  <alv-stamp-group>
+ *    <alv-stamp
  *      type="warning"
  *      message="First stamp!">
- *    </os-stamp>
- *    <os-stamp
+ *    </alv-stamp>
+ *    <alv-stamp
  *      type="error"
  *      message="Second stamp!">
- *    </os-stamp>
- *  </os-stamp-group>
+ *    </alv-stamp>
+ *  </alv-stamp-group>
  */
 @Component({
-  selector: 'os-stamp-group',
+  selector: 'alv-stamp-group',
   templateUrl: './stamp-group.component.html',
   styleUrls: ['./stamp-group.component.scss']
 })
 export class StampGroupComponent {
 
-  constructor() { }
+  constructor() {
+  }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'os-miscellaneous',
+  selector: 'alv-miscellaneous',
   templateUrl: './miscellaneous.component.html',
   styleUrls: ['./miscellaneous.component.scss']
 })

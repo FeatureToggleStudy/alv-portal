@@ -7,15 +7,15 @@ import { InputService } from '../input.service';
 /**
  * Component to display a select dropdown
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
- * @example  <os-select
+ * @example  <alv-select
  *             label="Demo Select"
  *             [control]="form.get('myControl')"
  *             [options$]="optionsObservable$"
  *             [validationMessages]="[{error: 'require', message: 'Custom message'}]">
- *           </os-select>
+ *           </alv-select>
  */
 @Component({
-  selector: 'os-select',
+  selector: 'alv-select',
   templateUrl: './select.component.html',
   styleUrls: ['../abstract-input.scss', './select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
