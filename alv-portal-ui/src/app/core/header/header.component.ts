@@ -4,6 +4,10 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { User } from '../authentication/user.model';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../shared/components/abstract-subscriber';
+import { ProfileInfoService } from '../profile-info.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LocalLoginComponent } from '../local-login/local-login.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'os-header',
@@ -13,9 +17,13 @@ import { AbstractSubscriber } from '../../shared/components/abstract-subscriber'
 export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   user: User;
+  noEiam: boolean;
 
   constructor(private messageBusService: MessageBusService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private profileInfoService: ProfileInfoService,
+              private router: Router,
+              private modalService: NgbModal) {
     super();
   }
 
@@ -25,6 +33,10 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
         .subscribe(user => {
       this.user = user;
     });
+    this.profileInfoService.getProfileInfo()
+        .subscribe(profileInfo => {
+          this.noEiam = profileInfo.noEiam;
+        });
   }
 
   toggleNavigation() {
@@ -32,12 +44,11 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   }
 
   login() {
-    // TODO: replace fake login with modal
-    this.authenticationService.login({
-      username: 'company',
-      password: 'admin',
-      rememberMe: true
-    }).subscribe();
+    if (this.noEiam) {
+      const modalRef = this.modalService.open(LocalLoginComponent);
+    } else {
+      document.location.href = '/samllogin';
+    }
   }
 
   logout() {

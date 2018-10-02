@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title">Login</h4>
+  <button type="button"
+          class="close"
+          aria-label="Close"
+          (click)="activeModal.dismiss('cancel')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<form novalidate autocomplete="off"
+      (ngSubmit)="login()"
+      [formGroup]="form">
+  <div class="modal-body">
+    <os-notification *ngIf="showErrorNotification"
+                     class="mt-2 mb-3"
+                     type="error"
+                     [message]="'Wrong username or password'">
+    </os-notification>
+
+    <os-input-field [label]="'Username'"
+                    [control]="form.get('username')">
+    </os-input-field>
+    <os-input-field [label]="'Password'"
+                    [control]="form.get('password')"
+                    type="password">
+    </os-input-field>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-secondary"
+            (click)="activeModal.dismiss('cancel')">Cancel
+    </button>
+    <button type="submit" class="btn btn-primary">Login
+    </button>
+  </div>
+</form>
+

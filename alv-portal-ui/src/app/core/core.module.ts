@@ -7,6 +7,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { NavigationContainerComponent } from './navigation-container/navigation-container.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
+import { LocalLoginComponent } from './local-login/local-login.component';
+import { SharedModule } from '../shared/shared.module';
+import { UserMenuComponent } from './user-menu/user-menu.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { JobSeekerLandingPageComponent } from './landing/job-seeker-landing-page/job-seeker-landing-page.component';
 import { PvaLandingPageComponent } from './landing/pva-landing-page/pva-landing-page.component';
 import { NzaPageComponent } from './nza-page/nza-page.component';
@@ -19,6 +23,9 @@ import { LandingPageComponent } from './landing/landing-page/landing-page.compon
     HeaderComponent,
     NavigationContainerComponent,
     MainNavigationComponent,
+    LocalLoginComponent,
+    UserMenuComponent,
+    MainNavigationComponent,
     JobSeekerLandingPageComponent,
     PvaLandingPageComponent,
     NzaPageComponent,
@@ -28,7 +35,12 @@ import { LandingPageComponent } from './landing/landing-page/landing-page.compon
   imports: [
     CommonModule,
     RouterModule.forChild([]),
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    SharedModule
+  ],
+  entryComponents: [
+      LocalLoginComponent
   ],
   exports: [
     VersionComponent,

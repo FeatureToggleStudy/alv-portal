@@ -26,13 +26,15 @@
 
     <!-- TODO: Search Field -->
 
-    <!-- TODO: Profile Dropdown -->
     <button *ngIf="!user"
             class="btn btn-primary"
-            (click)="login()">Login</button>
-    <button *ngIf="user"
-            class="btn btn-secondary"
-            (click)="logout()">{{user.firstName}} {{user.lastName}}</button>
+            (click)="login()">Login
+    </button>
+
+    <os-user-menu *ngIf="user"
+                  [user]="user"
+                  [noEiam]="noEiam">
+    </os-user-menu>
 
     <div class="header-buttons ml-3 d-flex align-items-center">
       <button class="profile-button d-md-block d-lg-none"><i class="fas fa-user"></i></button>

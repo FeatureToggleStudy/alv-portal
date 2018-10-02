@@ -11,10 +11,12 @@
 
   @media(max-width: 991px) {
     margin-left: 0;
+    min-width: inherit;
   }
 
-  max-width: 295px;
   min-width: 295px;
+  max-width: 295px;
+
   /* Collapsed desktop menu style */
   &.collapsed {
     max-width: 55px;
