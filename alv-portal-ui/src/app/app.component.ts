@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from './core/authentication/authentication.service';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'os-root',
