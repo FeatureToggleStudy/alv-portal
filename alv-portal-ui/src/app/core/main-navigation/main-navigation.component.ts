@@ -52,7 +52,6 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
     this.router.events.pipe(
         filter(e => e instanceof NavigationEnd)
     ).subscribe((routerEvent: any) => {
-      console.log('Navigated to: ' + this.findLabel(routerEvent.urlAfterRedirects));
       this.a11yMessage = 'Navigated to: ' + this.findLabel(routerEvent.urlAfterRedirects);
     });
 
