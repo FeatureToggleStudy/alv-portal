@@ -1,0 +1,19 @@
+@import "../scss/colors";
+
+.dropdown-menu {
+  border-radius: 0;
+  padding: .1rem 0;
+  .dropdown-item {
+    border-left: 5px solid transparent;
+    padding: .25rem 1rem;
+    height: 42px;
+    &.highlight {
+      font-weight: 700;
+    }
+    &:hover {
+      border-left: 5px solid $color-blue;
+      color: $color-blue;
+      cursor: pointer;
+    }
+  }
+}
