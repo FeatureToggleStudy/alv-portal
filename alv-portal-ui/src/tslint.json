@@ -10,7 +10,7 @@
     "component-selector": [
       true,
       "element",
-      "os",
+      "alv",
       "kebab-case"
     ]
   }
