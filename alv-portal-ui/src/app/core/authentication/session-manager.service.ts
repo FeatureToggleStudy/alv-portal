@@ -22,6 +22,4 @@ export class SessionManagerService {
     return sessionStorage.getItem(SessionManagerService.TOKEN_NAME);
   }
 
-
-
 }
