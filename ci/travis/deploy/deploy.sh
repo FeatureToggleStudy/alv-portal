@@ -15,7 +15,7 @@ echo "Using deploy key file: $DEPLOY_KEY..."
 echo "Using env slug: $ENV_SLUG..."
 
 echo "Decrypting deployment key..."
-openssl aes-256-cbc -K $encrypted_8010cca7bd1e_key -iv $encrypted_8010cca7bd1e_iv -in $DEPLOY_KEY -out $DEPLOY_KEY_DECRYPTED -d
+openssl aes-256-cbc -K $encrypted_84930ea2e051_key -iv $encrypted_84930ea2e051_iv -in $DEPLOY_KEY -out $DEPLOY_KEY_DECRYPTED -d
 chmod 600 $DEPLOY_KEY_DECRYPTED
 
 echo "Deploying the application..."
