@@ -12,12 +12,13 @@
   </legend>
   <div class="d-flex mb-2"
        *ngIf="panelTitle || helpEntries?.length">
-    <div class="panel-title flex-grow-1" aria-hidden="true">
+    <div class="panel-title flex-grow-1"
+         aria-hidden="true">
       {{panelTitle}} <span class="panel-subtitle">{{panelSubtitle}}</span>
     </div>
-    <os-help-button *ngIf="helpEntries?.length"
-                    [helpEntries]="helpEntries">
-    </os-help-button>
+    <alv-help-button *ngIf="helpEntries?.length"
+                     [helpEntries]="helpEntries">
+    </alv-help-button>
   </div>
   <ng-content></ng-content>
 </fieldset>

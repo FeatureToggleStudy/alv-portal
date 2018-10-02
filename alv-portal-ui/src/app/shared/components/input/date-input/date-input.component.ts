@@ -14,17 +14,17 @@ import { InputService } from '../input.service';
 /**
  * Component to display a single date picker
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
- * @example <os-date-input
+ * @example <alv-date-input
  *            label="Date picker label"
  *            [control]="myFormControl"
  *            [minDate]="myMinDate"
  *            [validationMessages]="[{error: 'require', message: 'Custom message'}]"
  *            [readonly]="false"
  *            placement="bottom-right"
- *          </os-date-input>
+ *          </alv-date-input>
  */
 @Component({
-  selector: 'os-date-input',
+  selector: 'alv-date-input',
   templateUrl: './date-input.component.html',
   styleUrls: ['../abstract-input.scss', './date-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

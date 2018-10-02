@@ -42,11 +42,11 @@
     </span>
   </div>
 
-  <os-validation-messages *ngIf="!readonly"
-                          [control]="control"
-                          [id]="validationId"
-                          [customValidationMessages]="validationMessages">
-  </os-validation-messages>
+  <alv-validation-messages *ngIf="!readonly"
+                           [control]="control"
+                           [id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
 </div>
 <ng-template #dayTemplate
              let-date="date"

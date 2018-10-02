@@ -10,7 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
  * - links to a preview
  */
 @Component({
-  selector: 'os-uploaded-file-presentation',
+  selector: 'alv-uploaded-file-presentation',
   templateUrl: './uploaded-file-presentation.component.html',
   styleUrls: ['./uploaded-file-presentation.component.scss']
 })

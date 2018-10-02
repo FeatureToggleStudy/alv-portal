@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
 
 @Component({
-  selector: 'os-local-login',
+  selector: 'alv-local-login',
   templateUrl: './local-login.component.html',
   styleUrls: ['./local-login.component.scss']
 })

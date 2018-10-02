@@ -7,7 +7,7 @@ import { AddressFormGroup } from '../../../../shared/components/address-input/ad
 import { DateIntervalFormGroup } from '../../../../shared/components/input/date-interval-input/date-interval-form-group';
 
 @Component({
-  selector: 'os-employments',
+  selector: 'alv-employments',
   templateUrl: './employments.component.html',
   styleUrls: ['./employments.component.scss']
 })

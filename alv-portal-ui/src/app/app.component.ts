@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from './core/authentication/authentication.service';
 
 @Component({
-  selector: 'os-root',
+  selector: 'alv-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

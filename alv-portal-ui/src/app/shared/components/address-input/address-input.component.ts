@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { of } from 'rxjs/internal/observable/of';
 
 @Component({
-  selector: 'os-address-input',
+  selector: 'alv-address-input',
   templateUrl: './address-input.component.html',
   styleUrls: ['./address-input.component.scss']
 })

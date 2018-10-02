@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'os-navigation-container',
+  selector: 'alv-navigation-container',
   templateUrl: './navigation-container.component.html',
   styleUrls: ['./navigation-container.component.scss']
 })

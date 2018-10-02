@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'os-job-seeker-dashboard-page',
+  selector: 'alv-job-seeker-dashboard-page',
   templateUrl: './job-seeker-dashboard-page.component.html',
   styleUrls: ['./job-seeker-dashboard-page.component.scss']
 })

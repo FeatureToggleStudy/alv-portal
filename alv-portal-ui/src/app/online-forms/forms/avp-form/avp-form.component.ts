@@ -3,7 +3,7 @@ import { mockMonthlyEmployments } from './employments/employments.mock';
 import { EmploymentsModel } from './employments/employments.model';
 
 @Component({
-  selector: 'os-avp-form',
+  selector: 'alv-avp-form',
   templateUrl: './avp-form.component.html',
   styleUrls: ['./avp-form.component.scss']
 })

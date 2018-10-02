@@ -15,7 +15,7 @@ export class InputService {
     if (!this.inputIds[inputType + labelKey]) {
       this.inputIds[inputType + labelKey] = 0;
     }
-    return `os-${inputType}-${labelKey}-${this.inputIds[inputType + labelKey]++}`;
+    return `alv-${inputType}-${labelKey}-${this.inputIds[inputType + labelKey]++}`;
   }
 
 }
