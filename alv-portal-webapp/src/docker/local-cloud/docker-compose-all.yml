@@ -1,0 +1,30 @@
+version: '3.3'
+
+services:
+  alv-portal-webapp:
+    image: "alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:${project.version}"
+    environment:
+      - SPRING.CLOUD.CONFIG.URI=http://admin:admin@jhipster-registry:8761/config
+    ports:
+    - 8080:8080
+    depends_on:
+    - "jhipster-registry"
+    volumes:
+    - .:/script
+    entrypoint: /script/wait-for.sh jhipster-registry:8761 -t 60 -- java -Djava.security.egd=file:/dev/./urandom -jar /alv-portal-webapp.jar
+
+  jhipster-registry:
+    image: jhipster/jhipster-registry:v3.2.4
+    environment:
+    - SPRING_PROFILES_ACTIVE=dev,native,swagger
+    - SECURITY_USER_PASSWORD=admin
+    - JHIPSTER_REGISTRY_PASSWORD=admin
+    - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS=file:./central-config/
+    volumes:
+    - ./jhipster-registry-config:/central-config
+    # When run with the "dev" Spring profile, the JHipster Registry will
+    # read the config from the local filesystem (central-config directory)
+    # When run with the "prod" Spring profile, it will read the configuration from a Git repository
+    # See http://www.jhipster.tech/microservices-architecture/#registry_app_configuration
+    ports:
+    - 8761:8761
