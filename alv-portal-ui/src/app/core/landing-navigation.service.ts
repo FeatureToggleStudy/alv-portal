@@ -19,33 +19,30 @@ export class LandingNavigationService {
    */
   public navigate() {
     this.authenticationService.getCurrentUser()
-        .subscribe(user => this.navigateUser(user))
+        .subscribe(user => this.navigateUser(user));
   }
 
   public navigateUser(user: User) {
 
     console.log('trying to navigate... ', user);
     if (user === null) {
-      return
+      return;
     }
     const roles = user.authorities;
 
     // For authorised user without permissions - navigate to NZA:
     if (!roles || !roles.length) {
-      this.router.navigate(['finish-registration'])
+      this.router.navigate(['finish-registration']);
     }
     // For jobseekers: to dashboard page for jobseeker
     if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {
-      this.router.navigate(['dashboard', 'job-seeker'])
-    }
-    // For company: to dashboard page for companies
-    else if (roles.includes('ROLE_COMPANY')) {
-      this.router.navigate(['dashboard', 'company'])
-    }
-    // For PAVs: to page for headhunters
-    else if (roles.includes('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
-      this.router.navigate(['dashboard', 'pav'])
-
+      this.router.navigate(['dashboard', 'job-seeker']);
+    } else if (roles.includes('ROLE_COMPANY')) {
+      // For company: to dashboard page for companies
+      this.router.navigate(['dashboard', 'company']);
+    } else if (roles.includes('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
+      // For PAVs: to page for headhunters
+      this.router.navigate(['dashboard', 'pav']);
     }
   }
 }
