@@ -128,11 +128,11 @@
   "defaultProject": "alv-portal-ui",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "os",
+      "prefix": "alv",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "os"
+      "prefix": "alv"
     }
   }
 }
