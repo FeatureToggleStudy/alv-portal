@@ -46,7 +46,7 @@ export class LocalLoginComponent implements OnInit {
       ).subscribe(user => {
         if (user) {
           this.activeModal.close(true);
-          this.router.navigate(['/landing'])
+          this.router.navigate(['/landing']);
         }
       });
     }
