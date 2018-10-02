@@ -5,7 +5,7 @@ import { MessageBusService, MessageType } from '../message-bus.service';
 import { AbstractSubscriber } from '../../shared/components/abstract-subscriber';
 
 @Component({
-  selector: 'os-main-navigation',
+  selector: 'alv-main-navigation',
   templateUrl: './main-navigation.component.html',
   styleUrls: ['./main-navigation.component.scss']
 })

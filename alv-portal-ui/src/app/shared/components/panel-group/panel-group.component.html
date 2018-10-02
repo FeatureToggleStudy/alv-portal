@@ -1,5 +1,7 @@
-<div class="arrow-container" *ngIf="showArrow">
-  <div class="arrow-down" [class.colorized]="colorizeArrow"></div>
+<div class="arrow-container"
+     *ngIf="showArrow">
+  <div class="arrow-down"
+       [class.colorized]="colorizeArrow"></div>
 </div>
 <div class="panel-group-content">
   <ng-content select=".content"></ng-content>

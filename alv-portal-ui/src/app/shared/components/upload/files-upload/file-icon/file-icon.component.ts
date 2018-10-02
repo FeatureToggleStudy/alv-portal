@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
  * depends on fontawesome
  */
 @Component({
-  selector: 'os-file-icon',
+  selector: 'alv-file-icon',
   templateUrl: './file-icon.component.html',
   styleUrls: ['./file-icon.component.scss']
 })

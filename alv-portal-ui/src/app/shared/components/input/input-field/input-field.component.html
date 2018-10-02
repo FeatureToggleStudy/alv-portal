@@ -1,7 +1,8 @@
 <div class="w-100"
      *ngIf="control">
 
-  <div class="form-label-group position-relative" [class.invalid]="control.touched && control.invalid">
+  <div class="form-label-group position-relative"
+       [class.invalid]="control.touched && control.invalid">
     <span *ngIf="required && !readonly"
           class="required-indicator h-100">
     </span>
@@ -38,9 +39,9 @@
       {{label}}
     </label>
   </div>
-  <os-validation-messages *ngIf="!readonly"
-                          [control]="control"
-                          [id]="validationId"
-                          [customValidationMessages]="validationMessages">
-  </os-validation-messages>
+  <alv-validation-messages *ngIf="!readonly"
+                           [control]="control"
+                           [id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
 </div>

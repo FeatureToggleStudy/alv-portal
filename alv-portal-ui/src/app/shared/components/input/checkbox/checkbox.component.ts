@@ -5,7 +5,7 @@ import { InputType } from '../input-type.enum';
 import { InputService } from '../input.service';
 
 @Component({
-  selector: 'os-checkbox',
+  selector: 'alv-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

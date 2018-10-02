@@ -8,7 +8,7 @@ import { InputService } from '../input.service';
 /**
  * Component to display an input field or textarea.
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
- * @example <os-input-field
+ * @example <alv-input-field
  *            type="number"
  *            label="Demo Input Field"
  *            [control]="form.get('myControl')"
@@ -19,10 +19,10 @@ import { InputService } from '../input.service';
  *            [maxLength]="3"
  *            [multiline]="false"
  *            [readonly]="false"
- *          </os-input-field>
+ *          </alv-input-field>
  */
 @Component({
-  selector: 'os-input-field',
+  selector: 'alv-input-field',
   templateUrl: './input-field.component.html',
   styleUrls: ['../abstract-input.scss', './input-field.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

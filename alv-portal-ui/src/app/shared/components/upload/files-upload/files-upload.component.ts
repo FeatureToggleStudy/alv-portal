@@ -18,7 +18,7 @@ export class EncapsulatedFileItem extends FileItem {
  * Takes the array of Files as an input
  */
 @Component({
-  selector: 'os-files-upload',
+  selector: 'alv-files-upload',
   templateUrl: './files-upload.component.html',
   styleUrls: ['./files-upload.component.scss'],
   providers: [{

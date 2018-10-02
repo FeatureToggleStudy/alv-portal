@@ -7,7 +7,7 @@ import { SelectableOption } from '../../../../shared/components/input/selectable
 import { DateIntervalFormGroup } from '../../../../shared/components/input/date-interval-input/date-interval-form-group';
 
 @Component({
-  selector: 'os-absences',
+  selector: 'alv-absences',
   templateUrl: './absences.component.html',
 })
 export class AbsencesComponent implements OnInit {

@@ -4,7 +4,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'os-user-menu',
+  selector: 'alv-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss']
 })

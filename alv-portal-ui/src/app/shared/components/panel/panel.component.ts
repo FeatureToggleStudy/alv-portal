@@ -13,16 +13,16 @@ import { RadioButtonComponent } from '../input/radio-button/radio-button.compone
  * Component to display a (form) panel.
  * Use the CSS class "panel-title" and "panel-subtitle" to style the title and subtitle of the panel (see example).
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).ß
- * @example <os-panel [panelTitle]="'Panel Title'"
+ * @example <alv-panel [panelTitle]="'Panel Title'"
  *                    [helpEntries]="[{title: 'Help Title', text: 'Help Text}]"
  *                    [showArrow]="true"
  *                    [colorizeArrow]="true"
  *                    [invalid]="true">
  *            <div>...</div>
- *          </os-panel>
+ *          </alv-panel>
  */
 @Component({
-  selector: 'os-panel',
+  selector: 'alv-panel',
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.scss', './panel-arrow.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -5,13 +5,13 @@ import { ValidationService } from '../../../validation.service';
 
 /**
  * Component to display validation messages of associated FormControl objects
- * @example <os-validation-messages
+ * @example <alv-validation-messages
  *            [control]="myFormControl"
  *            [customValidationMessages]="[{error: 'require', message: 'Custom message'}]"
  *            [id]="myValidationId"
  */
 @Component({
-  selector: 'os-validation-messages',
+  selector: 'alv-validation-messages',
   templateUrl: './validation-messages.component.html',
   styleUrls: ['./validation-messages.component.scss']
 })

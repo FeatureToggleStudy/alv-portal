@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
 
 @Component({
-  selector: 'os-version',
+  selector: 'alv-version',
   templateUrl: './version.component.html',
   styleUrls: ['./version.component.scss']
 })
