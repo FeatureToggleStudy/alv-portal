@@ -7,7 +7,7 @@ import { AbstractSelectableInput } from '../abstract-selectable-input';
 import { InputService } from '../input.service';
 
 @Component({
-  selector: 'os-radio-button',
+  selector: 'alv-radio-button',
   templateUrl: './radio-button.component.html',
   styleUrls: ['./radio-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

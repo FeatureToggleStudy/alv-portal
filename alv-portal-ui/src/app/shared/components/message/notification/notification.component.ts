@@ -3,14 +3,14 @@ import { AbstractMessage } from '../abstract-message';
 
 /**
  * Component for notification type of message
- * @example <os-notification
+ * @example <alv-notification
  *            type="success"
  *            message="This is a notification!"
  *            additionalText="with additional text">
- *          </os-notification>
+ *          </alv-notification>
  */
 @Component({
-  selector: 'os-notification',
+  selector: 'alv-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['../abstract-message.scss', './notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

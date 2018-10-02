@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'os-incapacities',
+  selector: 'alv-incapacities',
   templateUrl: './incapacities.component.html',
   styleUrls: ['./incapacities.component.scss']
 })

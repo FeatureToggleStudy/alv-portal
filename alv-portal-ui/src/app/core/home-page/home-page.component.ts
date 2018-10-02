@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
  * it provides the ability to quickly start the work with the portal.
  */
 @Component({
-  selector: 'os-home',
+  selector: 'alv-home',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })

@@ -10,7 +10,7 @@ import { LocalLoginComponent } from '../local-login/local-login.component';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'os-header',
+  selector: 'alv-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

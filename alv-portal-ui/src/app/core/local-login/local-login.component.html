@@ -12,19 +12,19 @@
       (ngSubmit)="login()"
       [formGroup]="form">
   <div class="modal-body">
-    <os-notification *ngIf="showErrorNotification"
-                     class="mt-2 mb-3"
-                     type="error"
-                     [message]="'Wrong username or password'">
-    </os-notification>
+    <alv-notification *ngIf="showErrorNotification"
+                      class="mt-2 mb-3"
+                      type="error"
+                      [message]="'Wrong username or password'">
+    </alv-notification>
 
-    <os-input-field [label]="'Username'"
-                    [control]="form.get('username')">
-    </os-input-field>
-    <os-input-field [label]="'Password'"
-                    [control]="form.get('password')"
-                    type="password">
-    </os-input-field>
+    <alv-input-field [label]="'Username'"
+                     [control]="form.get('username')">
+    </alv-input-field>
+    <alv-input-field [label]="'Password'"
+                     [control]="form.get('password')"
+                     type="password">
+    </alv-input-field>
   </div>
   <div class="modal-footer">
     <button type="button"

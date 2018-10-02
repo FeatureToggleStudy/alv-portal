@@ -5,14 +5,14 @@ import { FormGroup } from '@angular/forms';
  * Sub-form component to display a date interval input (2 date pickers)
  * Use the TS class DateIntervalFormGroup to create the input FormGroup object.
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
- * @example <os-date-interval-input
+ * @example <alv-date-interval-input
  *            [form]="myDateIntervalFormGroup"
  *            fromLabel="From"
  *            toLabel="To"
- *          </os-date-interval-input>
+ *          </alv-date-interval-input>
  */
 @Component({
-  selector: 'os-date-interval-input',
+  selector: 'alv-date-interval-input',
   templateUrl: './date-interval-input.component.html',
   styleUrls: ['../abstract-input.scss', './date-interval-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

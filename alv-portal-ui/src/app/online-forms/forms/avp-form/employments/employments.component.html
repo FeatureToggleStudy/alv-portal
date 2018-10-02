@@ -2,31 +2,31 @@
   <form [formGroup]="form"
         class="col-md-12"
         novalidate>
-    <os-notification class="mb-4" type="error" [message]="'You have errors in your form'" [additionalText]="'Please check for invalid fields'"></os-notification>
-    <os-panel [panelTitle]="'Did you work for one or more employers in March 2018?'">
-      <os-radio-button [control]="form.get('worked')">
-      </os-radio-button>
-    </os-panel>
+    <alv-notification class="mb-4" type="error" [message]="'You have errors in your form'" [additionalText]="'Please check for invalid fields'"></alv-notification>
+    <alv-panel [panelTitle]="'Did you work for one or more employers in March 2018?'">
+      <alv-radio-button [control]="form.get('worked')">
+      </alv-radio-button>
+    </alv-panel>
     <ng-container *ngIf="form.value.worked">
-      <os-panel-group [showArrow]="true"
-                      [colorizeArrow]="true"
-                      formArrayName="employments"
-                      *ngFor="let employment of employments.controls; let i=index">
+      <alv-panel-group [showArrow]="true"
+                       [colorizeArrow]="true"
+                       formArrayName="employments"
+                       *ngFor="let employment of employments.controls; let i=index">
         <ng-container class="content">
-          <os-panel [panelTitle]="'Employer ' + (i + 1)">
+          <alv-panel [panelTitle]="'Employer ' + (i + 1)">
             <div [formGroupName]="i">
-              <os-input-field label="Employer Name"
-                              [control]="employment.get('employer')">
-              </os-input-field>
-              <os-date-interval-input [form]="employment.get('period')">
-              </os-date-interval-input>
-              <os-address-input [form]="employment.get('address')"></os-address-input>
+              <alv-input-field label="Employer Name"
+                               [control]="employment.get('employer')">
+              </alv-input-field>
+              <alv-date-interval-input [form]="employment.get('period')">
+              </alv-date-interval-input>
+              <alv-address-input [form]="employment.get('address')"></alv-address-input>
             </div>
-          </os-panel>
-          <os-panel [showArrow]="true"
-                    [colorizeArrow]="true">
-            <os-document-upload></os-document-upload>
-          </os-panel>
+          </alv-panel>
+          <alv-panel [showArrow]="true"
+                     [colorizeArrow]="true">
+            <alv-document-upload></alv-document-upload>
+          </alv-panel>
         </ng-container>
         <ng-container class="actions">
           <button class="btn btn-secondary mr-1"
@@ -39,28 +39,28 @@
                   (click)="addEmployment()">Add Employment
           </button>
         </ng-container>
-      </os-panel-group>
+      </alv-panel-group>
     </ng-container>
 
-    <os-panel [showArrow]="true"
-              [panelTitle]="'Have you been self-employed in March 2018?'">
-      <os-radio-button [control]="form.get('selfEmployed')"></os-radio-button>
-    </os-panel>
+    <alv-panel [showArrow]="true"
+               [panelTitle]="'Have you been self-employed in March 2018?'">
+      <alv-radio-button [control]="form.get('selfEmployed')"></alv-radio-button>
+    </alv-panel>
 
-    <os-panel *ngIf="form.value.selfEmployed"
-              [showArrow]="true"
-              [colorizeArrow]="true"
-              [panelTitle]="'Please attach scanned receipts and settlements.'"
-              [panelSubtitle]="'Optional'"
-              [helpEntries]="helpTextService.uploads">
-      <os-files-upload></os-files-upload>
-    </os-panel>
+    <alv-panel *ngIf="form.value.selfEmployed"
+               [showArrow]="true"
+               [colorizeArrow]="true"
+               [panelTitle]="'Please attach scanned receipts and settlements.'"
+               [panelSubtitle]="'Optional'"
+               [helpEntries]="helpTextService.uploads">
+      <alv-files-upload></alv-files-upload>
+    </alv-panel>
 
-    <os-panel [showArrow]="true"
-              [panelTitle]="'Did you participate in a labor market measure in March 2018?'">
-      <os-radio-button [control]="form.get('labourMarketMeasures')">
-      </os-radio-button>
-    </os-panel>
+    <alv-panel [showArrow]="true"
+               [panelTitle]="'Did you participate in a labor market measure in March 2018?'">
+      <alv-radio-button [control]="form.get('labourMarketMeasures')">
+      </alv-radio-button>
+    </alv-panel>
 
     <div class="d-flex my-4 mx-1">
       <div class="flex-grow-1"></div>

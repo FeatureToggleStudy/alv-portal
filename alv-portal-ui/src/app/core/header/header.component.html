@@ -4,7 +4,10 @@
 
   <div class="banner d-none d-lg-flex w-100 align-items-center">
 
-    <img src="../../../assets/img/derbund.png" alt="Logo Bund" aria-hidden="true" class="ml-3">
+    <img src="../../../assets/img/derbund.png"
+         alt="Logo Bund"
+         aria-hidden="true"
+         class="ml-3">
 
     <div class="banner-text ml-2">
       Arbeitslosenversicherung ALV
@@ -14,7 +17,8 @@
   <div class="header p-0 pt-lg-3 pb-lg-3 d-flex align-items-center">
     <div class="logo p-3 d-none d-lg-block">
       <a routerLink="/">
-        <img src="../../../assets/img/logo_alv.png" alt="Logo Arbeitslosenversicherung">
+        <img src="../../../assets/img/logo_alv.png"
+             alt="Logo Arbeitslosenversicherung">
       </a>
     </div>
     <button class="header-menu d-md-block d-lg-none align-self-center"
@@ -31,13 +35,14 @@
             (click)="login()">Login
     </button>
 
-    <os-user-menu *ngIf="user"
-                  [user]="user"
-                  [noEiam]="noEiam">
-    </os-user-menu>
+    <alv-user-menu *ngIf="user"
+                   [user]="user"
+                   [noEiam]="noEiam">
+    </alv-user-menu>
 
     <div class="header-buttons ml-3 d-flex align-items-center">
-      <button class="profile-button d-md-block d-lg-none"><i class="fas fa-user"></i></button>
+      <button class="profile-button d-md-block d-lg-none"><i class="fas fa-user"></i>
+      </button>
       <button class="d-md-block d-lg-none"><i class="fas fa-search"></i></button>
       <button class="d-md-block d-lg-none"><i class="fas fa-question"></i></button>
       <button><strong>DE</strong></button>

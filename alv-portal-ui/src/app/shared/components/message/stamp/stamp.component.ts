@@ -4,13 +4,13 @@ import { MessageType } from '../message-type.enum';
 
 /**
  * Component for stamp type of message
- * @example <os-stamp
+ * @example <alv-stamp
  *            type="warning"
  *            message="This is a stamp!">
- *          </os-stamp>
+ *          </alv-stamp>
  */
 @Component({
-  selector: 'os-stamp',
+  selector: 'alv-stamp',
   templateUrl: './stamp.component.html',
   styleUrls: ['../abstract-message.scss', './stamp.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
