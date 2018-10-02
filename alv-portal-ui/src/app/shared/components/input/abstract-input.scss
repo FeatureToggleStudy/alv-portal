@@ -23,6 +23,7 @@
 input.form-control, select.form-control, textarea.form-control {
   border: 1px solid $color-medium-grey;
   border-radius: 0;
+  height: 46px;
   &.ng-invalid.ng-touched {
     border: 1px solid $color-red;
     &:focus {
