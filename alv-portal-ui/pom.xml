@@ -102,7 +102,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>node_modules/.bin/ng</executable>
+                            <executable>${ng-exec}</executable>
                             <arguments>
                                 <argument>e2e</argument>
                             </arguments>
