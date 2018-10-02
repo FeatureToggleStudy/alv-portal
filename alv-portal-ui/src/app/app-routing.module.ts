@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingPageComponent } from './core/landing/landing-page/landing-page.component';
-import { JobSeekerLandingPageComponent } from './core/landing/job-seeker-landing-page/job-seeker-landing-page.component';
-import { PvaLandingPageComponent } from './core/landing/pva-landing-page/pva-landing-page.component';
-import { NzaPageComponent } from './core/nza-page/nza-page.component';
-import { HomeComponent } from './core/home/home.component';
+import { JobSeekerDashboardPageComponent } from './core/landing/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
+import { PavDashboardPageComponent } from './core/landing/pav-dashboard-page/pav-dashboard-page.component';
+import { FinishRegistrationPageComponent } from './core/finish-registation-page/finish-registration-page.component';
+import { HomePageComponent } from './core/home-page/home-page.component';
 
 const appRoutes: Routes = [
   {
@@ -14,40 +14,36 @@ const appRoutes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomePageComponent
   },
   {
     path: 'dashboard',
     children: [
       {
         path: 'job-seeker',
-        component: JobSeekerLandingPageComponent
+        component: JobSeekerDashboardPageComponent
       },
       {
-        path: 'pva',
-        component: PvaLandingPageComponent
+        path: 'pav',
+        component: PavDashboardPageComponent
       },
       {
         path: 'company',
-        component: PvaLandingPageComponent //right now we provide the same page for pva and the company
+        component: PavDashboardPageComponent //right now we provide the same page for pva and the company
       }
     ]
   },
   {
     path: 'nza',
-    component: NzaPageComponent
+    component: FinishRegistrationPageComponent
   },
   {
     path: 'landing',
     component: LandingPageComponent,
   },
   {
-    path: 'online-forms',
-    loadChildren: './online-forms/online-forms.module#OnlineFormsModule'
-  },
-  {
     path: '**',
-    redirectTo: 'online-forms'
+    redirectTo: 'home'
   }
 ];
 

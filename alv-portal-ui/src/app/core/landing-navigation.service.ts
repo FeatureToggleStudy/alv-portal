@@ -44,7 +44,7 @@ export class LandingNavigationService {
     }
     // For PAVs: to page for headhunters
     else if (roles.includes('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
-      this.router.navigate(['dashboard', 'pva'])
+      this.router.navigate(['dashboard', 'pav'])
 
     }
   }
