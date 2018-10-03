@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from './authentication/user.model';
+import { RegistrationStatus, User } from './authentication/user.model';
 import { AuthenticationService } from './authentication/authentication.service';
 
 @Injectable({
@@ -30,9 +30,13 @@ export class LandingNavigationService {
     }
     const roles = user.authorities;
 
-    // For authorised user without permissions - navigate to NZA:
-    if (!roles || !roles.length) {
-      this.router.navigate(['finish-registration']);
+    // For authorised user without permissions - navigate to finish registration page:
+    if (user.registrationStatus === RegistrationStatus.UNREGISTERED) {
+      this.router.navigate(['registration', 'finish']);
+    }
+    if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
+        user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
+      this.router.navigate(['registration', 'access-code']);
     }
     // For jobseekers: to dashboard page for jobseeker
     if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {
