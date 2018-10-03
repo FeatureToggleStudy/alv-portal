@@ -19,6 +19,8 @@ import { LandingPageComponent } from './landing/landing-page/landing-page.compon
 import { JobSeekerHomePageComponent } from './home-page/job-seeker-home-page/job-seeker-home-page.component';
 import { CompanyHomePageComponent } from './home-page/company-home-page/company-home-page.component';
 import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.component';
+import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-authority.directive';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.co
     LandingPageComponent,
     JobSeekerHomePageComponent,
     CompanyHomePageComponent,
-    PavHomePageComponent
+    PavHomePageComponent,
+    HasAnyAuthorityDirective
   ],
   imports: [
     CommonModule,
@@ -51,7 +54,8 @@ import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.co
   exports: [
     VersionComponent,
     HeaderComponent,
-    NavigationContainerComponent
+    NavigationContainerComponent,
+    HasAnyAuthorityDirective
   ],
   providers: []
 })

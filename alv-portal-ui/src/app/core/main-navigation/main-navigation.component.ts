@@ -14,31 +14,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   @HostBinding('class') readonly class = 'side-nav expanded navbar navbar-expand-lg p-0';
   @HostBinding('class.collapsed') collapsed = false;
 
-  menuEntries: any = [
-    {
-      label: 'Onlineformulare',
-      icon: 'pencil-alt',
-      path: 'online-forms/overview',
-      basePath: '/online-forms',
-      submenuEntries: [
-        {
-          label: 'Angaben versicherte Person',
-          icon: 'circle',
-          path: '/online-forms/avp-form',
-        },
-        {
-          label: 'Anmeldung Arbeitsvermittlung',
-          icon: 'circle',
-          path: '/online-forms/aav-form',
-        },
-        {
-          label: 'Antrag Arbeitslosenentschädigung',
-          icon: 'circle',
-          path: '/online-forms/aae-form',
-        }
-      ]
-    }
-  ];
+  menuEntries: any = [];
 
   open: boolean;
   a11yMessage: string;

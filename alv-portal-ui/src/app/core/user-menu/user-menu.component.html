@@ -1,13 +1,19 @@
 <div ngbDropdown
+     [placement]="'bottom-right'"
      #userDropdown="ngbDropdown">
-  <button class="btn btn-icon mr-2"
+  <button class="btn btn-header mr-1"
           id="userMenu"
           ngbDropdownAnchor
           (focus)="userDropdown.open()">
-    <span *ngIf="!hasCompletedRegistration"
-          class="fa fa-exclamation-triangle mr-1"
-          aria-hidden="true"></span>
-    {{user.firstName}} {{user.lastName}}
+    <i *ngIf="!hasCompletedRegistration"
+       class="fa fa-exclamation-triangle mr-1"
+       aria-hidden="true">
+    </i>
+    <i class="fa fa-user">
+    </i>
+    <span class="d-none d-lg-inline">
+      {{user.firstName}} {{user.lastName}}
+    </span>
   </button>
   <div ngbDropdownMenu
        aria-label="User Menu">
