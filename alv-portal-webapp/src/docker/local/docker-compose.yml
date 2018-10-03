@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+  alv-portal-webapp:
+    image: "alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:${project.version}"
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    ports:
+    - 8080:8080
+

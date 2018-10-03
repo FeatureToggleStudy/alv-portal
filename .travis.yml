@@ -1,0 +1,50 @@
+os: linux
+dist: trusty
+group: stable
+sudo: required
+
+language: java
+jdk: openjdk8
+
+services:
+  - docker
+
+env:
+  global:
+    - PROJECT_VERSION=0.0.1
+    - NODE_VERSION=10.6.0
+    - DEV_ENV_SLUG=dev
+    - DEV_DEPLOY_KEY=ci/travis/deploy/deploy_key_dev.enc
+    - DEV_ENV_URL=dev.job-room.ch:8899
+    - secure: hHDQd/B3ZjAlHID3e/r1mfMYIRbiTPGdfOY6/HpeecrNE+8pZQOwkM+jUtSr98pZ9xEPiDNj2Ixe6ecfMWPuP+Ngo1iC6jV/xaIBOAlHw7mfJPYX+LYfwFUY6nm2baRnI085V0QKQ9HRtLyibnEJdx4ao+Ye7pUUQj0DPRvVVT/3XpA5GMn4r670H3065vxKn5X3Mofl5avUehDgp7whKCamrM65IjrXCanNVw9vQth1sJDBGYsPHYBLLbTR7WMUWfgnVvdLoTRfRALyj6NlJvACjOSp+h6mpbvW9zQR7p3j0uLE2751oiRqGplCt8JYAP9mBbexHOyScneU6UYC8wDM9qXdQ/3VSh+DSaXStm2+7UiRsLenL5Q6+KcVXnFEp1r/a/x1Rdlq+f2mvA0NzzMzj+9DaTP28lz+zwaC8BiAID6D4Bu3CJyfZ4h7B8x+NgvIqKtv9fviaiYHoKY4wSC1MnBLFZaA7gPRYPonWdDfFtrZ8aoDi0k426A+9BDqijQF9Tu05wKEz7WVVCla1v36pfOfv7xkkqv+wuyKSLyWGdlJnZP2dLTFL4ZVSdrINqNqvnYZorpvB6ceOf0Y/gR9npz0R0fiy74chqAxRrgkzJoKSt0hK3XGP2tN68DfFZIBNPHbSkT6LzW/tl0CdJFoBtVGBzKFnIWv97lkr70=
+    - secure: bR4PbA7WLTglr0b5sl3P5ukMbBCOv1lZo0r1kSbXBf5JKSsA0xMWS7KqyBp/u3Bs6sxXEuHmvi2ZwxS3KnGeg0pwxsVt4D8ai1HtJPqui3kfyQNvptXLsiDDF8hhtVcOlZ/5kcME+TOMuqrg0NwEv7wMjSX/ntPueHdvel8rJJ17DW+WxMv0wHXeMMEW3ztrtQB2OwixZySiFN5eUN9CC6uuP21/o3AZ5p2HxwDNMcTPluxjF+0veBQq25ZBiuaGXr9eqdPwcy6DYGenpLhdxOfMORF1LocdsFItlTZrId2boCsYh2dD/vLnRjIXl6QNbkilSJOGQpQdnWRSrqDqA2t0cRVIUCdu5A67Y3HoVj+BZmvVSQKUAu6YUK3GLzk+ipkdqiBWwCyhkyNxn3/0fWk3sfGwbHjseQ9BWJv/nzW/D2EPWhnMygMTmQ/kmdrpAJMXgKl/NY2GyIsd2GvY50cpbF7su0pMn8uPUUuGwfM3jVSlVoeGKJJnD7b0jdxd0jvm7Gh98QpoiBTqCLKQkfxL3Vs5uMFYbxbZ8OeAZj41iKyhT5LsbLHGucg69OlqertEtaAUc7uCJqVEnq9XjzBFWYBRRF/7nXjZ0bSKGxnVdOURpPNqVO7ZuiootkhJb6N+797KxotcVU6kh+MO57inPAnD8zNJlbpL70UEq30=
+    - secure: fYzUnZVjUT45E+jsClZDvu6utQaSpuy5Px80trteVLV8wRSW3mOAEZmBLe4rnx4bNgMfwqk7ulVSI6oxw2C0FCwyO+EQlKsb54QvvJKPxljGeYpXKadDRnljGE0qB3KHEod8Cnf9WsNkpFqsl1yRYfDwyowbcX4s4Mw3d1bKeT9N6L4VJ4H84d2jIujSRTda8ZkpmoWp2xK1082yKO/oP4uPQ0+9ERlVfUNTd4ie2ciwtr28QPQQTgzEYGselAzRAum+i02VRB9rZXCf7NfmB0Ut1qOChOQINXi2WjK5v5CWKUCNBn/f5lQwUgjTJ9muf1FuA8ay22exBia6EW+Q1fKBbmj5f4JqUEzEFfX8l+yEZXiCMumH9bWpvZgYhJ9cyvMeFZ4341iF2nUw2yDsgq/pVnhc2zWeI0d8HWgYBcjh1LAO1pII8rZR1k4r2h7ZcVvQRSD1XmD4wRK/5HBLnoKtks8Y13bXBYYxr/LNurt4GHRoC703CNM/icB4Sy1WpTVBq5xcQWcm/kO/NdRsiHHbru4CA2oLqoJZGe26xos2FVPuTjDud2ccuPV2mQhFwrZn8bUk6/yr94Jp486aNsVYXa9wW9lJAStZ/P2upOgsMOw3IA0QPEBJadT82XZxqmykvUk6DtQULAS8Nfh7I6znhaemTUFHMct3HWdZhvM=
+    - secure: KEERc2tg3IhBZcEp8IHRp3XhrGExVZAnpJUseCO19edzLWIkyEeO2ziciW/v5nzOVXKetppJJTxcUswXWhihlhg3s/ly6IBlcXDIwFv3V07GUZVpxetAAekudqP45svvr4y/xnn/it0cXYFbXs24Ma90netbfhGYk5zsNJ9ObrVPazAj3UA35f1JtUyT1DOz7iycf5/v/X5MN/hfGnkoQzu1yUIsHVDL/dtt+tbI5s1tb7AoDBoLrCVQC7faxSnBzofKRR5NrgFx536cxSZA/EfYgcOKYSY3FCtO7cFbcHVVBa6S7pxrb5VFeBrTIKL2WaAeNdCuIuqkX0/U2nB+W0V3wvzRJ25Y6CkfdUgHvdT1obI/SLZleXw9D+YCF9gMShyyHHbH2SHV/+kVjfN94HbhgkUao1+1kORlyx1HHNawc3yfcZ3jcJgCf8mcXCEPEa1jqc6lBDMqBZu7o8DMvzsELM6w+2DOkkZVywiiCAKMD+BC4Ug+/l2QNyWruWJL9akd61NaFv13736QI5s6oYZ08gstTCLGssRt1NpUV7Jt3JF4HK/ZFzqzs824hMi1c0T3uD+6Xde9jdBOE7K+Ta0t+FRBvjuERyOWzcJPC5i43Ag4nyQYo1dAjJtKvDxeTsyajgJCMTV27EhvJEJu3SVd7m9qC3nrKzz7gdIyBAc=
+
+before_cache:
+  - rm -rf $HOME/.m2/repository/ch/admin/seco/alv-portal-*
+
+cache:
+  directories:
+    - $HOME/.m2
+    - alv-portal-ui/node_modules
+
+install:
+  - ci/travis/install/install-nodejs.sh ${NODE_VERSION}
+  - ci/travis/install/install-chrome.sh
+
+script:
+  - ci/travis/build/build.sh ${PROJECT_VERSION} ${TRAVIS_BRANCH} ${TRAVIS_BUILD_NUMBER}
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then ci/travis/build/build-push-image.sh ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}; fi
+
+before_deploy:
+  - ci/utils/print-ip.sh
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    on:
+      branch: master
+    script: >-
+      ci/travis/deploy/deploy.sh ${DEPLOY_USER} ${DEPLOY_HOST} ${DEV_DEPLOY_KEY} ${DEV_ENV_SLUG}
+      && ci/utils/wait-for-it.sh -t 60 ${DEV_ENV_URL} -- echo "ALV Portal is UP!"

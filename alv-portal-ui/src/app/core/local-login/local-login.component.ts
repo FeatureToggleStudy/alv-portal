@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'alv-local-login',
@@ -18,7 +19,8 @@ export class LocalLoginComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               private authenticationService: AuthenticationService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -44,6 +46,7 @@ export class LocalLoginComponent implements OnInit {
       ).subscribe(user => {
         if (user) {
           this.activeModal.close(true);
+          this.router.navigate(['/landing']);
         }
       });
     }
