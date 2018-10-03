@@ -19,7 +19,6 @@ export class AuthenticationService {
 
   private static toUser(userDto) {
     const user = new User();
-
     user.id = userDto.id;
     user.firstName = userDto.firstName;
     user.lastName = userDto.lastName;
