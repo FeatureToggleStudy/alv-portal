@@ -1,10 +1,7 @@
-<div ngbDropdown
-     #userDropdown="ngbDropdown">
+<div ngbDropdown>
   <button class="btn btn-icon mr-2"
           id="userMenu"
-          ngbDropdownAnchor
-          (click)="userDropdown.open()"
-          (focus)="userDropdown.open()">
+          ngbDropdownToggle>
     <span *ngIf="!hasCompletedRegistration"
           class="fa fa-exclamation-triangle mr-1"
           aria-hidden="true"></span>
