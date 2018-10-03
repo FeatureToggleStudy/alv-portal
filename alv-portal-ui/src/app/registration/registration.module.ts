@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { AccessCodeRegistrationPageComponent } from './access-code-registration-page/access-code-registration-page.component';
-import { FinishRegistrationPageComponent } from './finish-registation-page/finish-registration-page.component';
+import { AccessCodeComponent } from './access-code/access-code.component';
+import { FinishRegistrationComponent } from './finish-registation/finish-registration.component';
 import { RegistrationRoutingModule } from './registration-routing.module';
 
 @NgModule({
   declarations: [
-    AccessCodeRegistrationPageComponent,
-    FinishRegistrationPageComponent
+    AccessCodeComponent,
+    FinishRegistrationComponent
   ],
   imports: [
       RegistrationRoutingModule

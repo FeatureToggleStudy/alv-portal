@@ -1,16 +1,16 @@
-import { FinishRegistrationPageComponent } from './finish-registation-page/finish-registration-page.component';
-import { AccessCodeRegistrationPageComponent } from './access-code-registration-page/access-code-registration-page.component';
+import { FinishRegistrationComponent } from './finish-registation/finish-registration.component';
+import { AccessCodeComponent } from './access-code/access-code.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const registrationRoutes: Routes = [
   {
     path: 'finish',
-    component: FinishRegistrationPageComponent
+    component: FinishRegistrationComponent
   },
   {
     path: 'access-code',
-    component: AccessCodeRegistrationPageComponent
+    component: AccessCodeComponent
   },
   {
     path: '**',
