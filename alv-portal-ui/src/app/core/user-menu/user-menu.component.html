@@ -3,6 +3,7 @@
   <button class="btn btn-icon mr-2"
           id="userMenu"
           ngbDropdownAnchor
+          (click)="userDropdown.open()"
           (focus)="userDropdown.open()">
     <span *ngIf="!hasCompletedRegistration"
           class="fa fa-exclamation-triangle mr-1"
