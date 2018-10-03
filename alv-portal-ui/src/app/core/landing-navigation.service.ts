@@ -32,18 +32,26 @@ export class LandingNavigationService {
     // For authorised user without permissions - navigate to finish registration page:
     if (user.registrationStatus === RegistrationStatus.UNREGISTERED) {
       this.router.navigate(['registration', 'finish']);
-    } else if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
+      return;
+    }
+    // For PAV and companies with open validation - navigate to access code page
+    if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
         user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
-      // For PAV and companies with open validation - navigate to access code page
       this.router.navigate(['registration', 'access-code']);
-    } else if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {
-      // For jobseekers: to dashboard page for jobseeker
+      return;
+    }
+    // For jobseekers: to dashboard page for jobseeker
+    if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {
       this.router.navigate(['dashboard', 'job-seeker']);
-    } else if (roles.includes('ROLE_COMPANY')) {
-      // For company: to dashboard page for companies
+      return;
+    }
+    // For company: to dashboard page for companies
+    if (roles.includes('ROLE_COMPANY')) {
       this.router.navigate(['dashboard', 'company']);
-    } else if (roles.includes('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
-      // For PAVs: to page for headhunters
+      return;
+    }
+    // For PAVs: to page for headhunters
+    if (roles.includes('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
       this.router.navigate(['dashboard', 'pav']);
     }
   }
