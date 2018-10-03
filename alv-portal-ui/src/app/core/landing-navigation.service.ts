@@ -24,7 +24,6 @@ export class LandingNavigationService {
 
   public navigateUser(user: User) {
 
-    console.log('trying to navigate... ', user);
     if (user === null) {
       return;
     }
@@ -33,13 +32,12 @@ export class LandingNavigationService {
     // For authorised user without permissions - navigate to finish registration page:
     if (user.registrationStatus === RegistrationStatus.UNREGISTERED) {
       this.router.navigate(['registration', 'finish']);
-    }
-    if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
+    } else if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
         user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
+      // For PAV and companies with open validation - navigate to access code page
       this.router.navigate(['registration', 'access-code']);
-    }
-    // For jobseekers: to dashboard page for jobseeker
-    if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {
+    } else if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {
+      // For jobseekers: to dashboard page for jobseeker
       this.router.navigate(['dashboard', 'job-seeker']);
     } else if (roles.includes('ROLE_COMPANY')) {
       // For company: to dashboard page for companies
