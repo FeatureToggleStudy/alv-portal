@@ -20,6 +20,7 @@ import { JobSeekerHomePageComponent } from './home-page/job-seeker-home-page/job
 import { CompanyHomePageComponent } from './home-page/company-home-page/company-home-page.component';
 import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-authority.directive';
+import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticated.directive';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-autho
     JobSeekerHomePageComponent,
     CompanyHomePageComponent,
     PavHomePageComponent,
-    HasAnyAuthorityDirective
+    HasAnyAuthorityDirective,
+    IsAuthenticatedDirective
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-autho
     VersionComponent,
     HeaderComponent,
     NavigationContainerComponent,
-    HasAnyAuthorityDirective
+    HasAnyAuthorityDirective,
+    IsAuthenticatedDirective
   ],
   providers: []
 })

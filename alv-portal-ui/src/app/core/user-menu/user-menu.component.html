@@ -6,10 +6,11 @@
           ngbDropdownAnchor
           (focus)="userDropdown.open()">
     <i *ngIf="!hasCompletedRegistration"
-       class="fa fa-exclamation-triangle mr-1"
+       class="fa fa-exclamation-triangle mr-2"
        aria-hidden="true">
     </i>
-    <i class="fa fa-user">
+    <i class="fa fa-user mr-1"
+       aria-hidden="true">
     </i>
     <span class="d-none d-lg-inline">
       {{user.firstName}} {{user.lastName}}

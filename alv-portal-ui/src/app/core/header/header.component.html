@@ -23,14 +23,11 @@
     </div>
     <button class="header-menu d-md-block d-lg-none align-self-center"
             aria-label="Open Navigation"
+            *alvIsAuthenticated
             (click)="toggleNavigation()">
       <i class="navbar-toggler-icon fas fa-bars"></i>
     </button>
     <div class="flex-grow-1"></div>
-
-    <!-- TODO: Search Field -->
-
-
 
     <alv-user-menu *ngIf="user"
                    [user]="user"
