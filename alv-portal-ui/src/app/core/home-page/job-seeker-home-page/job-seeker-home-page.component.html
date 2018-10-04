@@ -1,3 +1,25 @@
-<p>
-  job-seeker-home-page works!
-</p>
+<alv-panel panelTitle=" Find suitable positions"
+           class="container"
+           [formGroup]="findPositionsForm">
+  <div class="row">
+    <div class="col-sm-12">
+      <alv-input-field type="text"
+                       label="Profession"
+                       [control]="findPositionsForm.get('profession')">
+      </alv-input-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <alv-input-field type="text"
+                       label="City"
+                       [control]="findPositionsForm.get('canton')">
+      </alv-input-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-primary">Show job offers</button>
+    </div>
+  </div>
+</alv-panel>

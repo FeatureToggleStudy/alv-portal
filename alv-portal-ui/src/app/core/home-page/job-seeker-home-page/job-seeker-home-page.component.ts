@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'alv-job-seeker-home-page',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./job-seeker-home-page.component.scss']
 })
 export class JobSeekerHomePageComponent implements OnInit {
+  findPositionsForm: FormGroup;
 
-  constructor() { }
 
-  ngOnInit() {
+  constructor(private fb: FormBuilder) {
   }
 
+  ngOnInit() {
+    this.findPositionsForm = this.fb.group({
+      profession: this.fb.control('Designer'),
+      canton: this.fb.control('Zurich')
+    });
+  }
 }
