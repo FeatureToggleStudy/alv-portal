@@ -60,7 +60,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.currentUser.getValue();
+    return !!this.sessionManagerService.getToken();
   }
 
 }
