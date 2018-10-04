@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { NavigationContainerComponent } from './navigation-container/navigation-container.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
-import { LocalLoginComponent } from './local-login/local-login.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +19,7 @@ import { CompanyHomePageComponent } from './home-page/company-home-page/company-
 import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-authority.directive';
 import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticated.directive';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -28,7 +28,6 @@ import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticat
     HeaderComponent,
     NavigationContainerComponent,
     MainNavigationComponent,
-    LocalLoginComponent,
     UserMenuComponent,
     MainNavigationComponent,
     JobSeekerDashboardPageComponent,
@@ -37,20 +36,17 @@ import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticat
     LandingPageComponent,
     JobSeekerHomePageComponent,
     CompanyHomePageComponent,
-    PavHomePageComponent,
-    HasAnyAuthorityDirective,
-    IsAuthenticatedDirective
+    PavHomePageComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([]),
     HttpClientModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    AuthModule
   ],
-  entryComponents: [
-      LocalLoginComponent
-  ],
+  entryComponents: [],
   exports: [
     VersionComponent,
     HeaderComponent,

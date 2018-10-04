@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageBusService, MessageType } from '../message-bus.service';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { User } from '../authentication/user.model';
+import { AuthenticationService } from '../auth/authentication.service';
+import { User } from '../auth/user.model';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../shared/components/abstract-subscriber';
 import { ProfileInfoService } from '../profile-info.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LocalLoginComponent } from '../local-login/local-login.component';
+import { LocalLoginComponent } from '../auth/local-login/local-login.component';
 import { Router } from '@angular/router';
 
 @Component({

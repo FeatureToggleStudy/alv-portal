@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Credentials, RegistrationStatus, User } from './user.model';
 import { HttpClient } from '@angular/common/http';
 import { flatMap } from 'rxjs/operators';
-import { SessionManagerService } from './session-manager.service';
+import { SessionManagerService } from './session-manager/session-manager.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -60,7 +60,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.currentUser.getValue();
+    return !!this.sessionManagerService.getToken();
   }
 
 }

@@ -9,13 +9,9 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AuthInterceptor } from './core/interceptor/auth.interceptor';
-import { SessionManagerService } from './core/authentication/session-manager.service';
-import { AuthExpiredInterceptor } from './core/interceptor/auth-expired.interceptor';
-import { AuthenticationService } from './core/authentication/authentication.service';
 
 /**
  * Setting up the ngx-translate
@@ -24,6 +20,7 @@ import { AuthenticationService } from './core/authentication/authentication.serv
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, environment.translationBaseUrl, '.json');
 }
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -43,24 +40,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     ReactiveFormsModule,
     CoreModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-      deps: [
-        SessionManagerService
-      ]
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthExpiredInterceptor,
-      multi: true,
-      deps: [
-        AuthenticationService
-      ]
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

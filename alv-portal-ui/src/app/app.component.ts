@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthenticationService } from './core/authentication/authentication.service';
+import { AuthenticationService } from './core/auth/authentication.service';
+import { filter, map, mergeMap } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'alv-root',
@@ -9,7 +12,12 @@ import { AuthenticationService } from './core/authentication/authentication.serv
 })
 export class AppComponent implements OnInit {
 
+  a11yMessage: string;
+
   constructor(translate: TranslateService,
+              private titleService: Title,
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
@@ -21,6 +29,26 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authenticationService.getCurrentUser(true)
         .subscribe();
+    // Based on the idea: https://toddmotto.com/dynamic-page-titles-angular-2-router-events
+    this.router.events.pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => this.activatedRoute),
+        map((route) => {
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        }),
+        filter((route) => route.outlet === 'primary'),
+        mergeMap((route) => route.data),
+        map((event) => event['titleKey']))
+        .subscribe((titleKey: string) => {
+          if (titleKey) {
+            // TODO i18n
+            this.a11yMessage = titleKey;
+            this.titleService.setTitle(titleKey);
+          }
+        });
   }
 
 }

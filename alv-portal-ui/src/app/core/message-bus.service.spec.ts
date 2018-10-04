@@ -1,6 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { MessageBusService, MessageType } from './message-bus.service';
-import { User } from './authentication/user.model';
 
 
 describe('MessageBusService', () => {

@@ -1,4 +1,4 @@
-import {AppPage} from './app.po';
+import { AppPage } from './app.po';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -9,6 +9,6 @@ describe('workspace-project App', () => {
 
   it('should display browser title', () => {
     page.navigateTo();
-    expect(page.getBrowserTitle()).toEqual('ALV Online Services');
+    expect(page.getBrowserTitle()).toEqual('JOB_SEEKER_HOME_PAGE');
   });
 });

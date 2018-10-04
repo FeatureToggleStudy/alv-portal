@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { catchError } from 'rxjs/operators';
+import { AuthenticationService } from '../authentication.service';
+import { catchError, take } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
 import { Router } from '@angular/router';
 
@@ -42,7 +42,8 @@ export class LocalLoginComponent implements OnInit {
           catchError(err => {
             this.showErrorNotification = true;
             return EMPTY;
-          })
+          }),
+          take(1)
       ).subscribe(user => {
         if (user) {
           this.activeModal.close(true);
@@ -51,4 +52,6 @@ export class LocalLoginComponent implements OnInit {
       });
     }
   }
+
+
 }
