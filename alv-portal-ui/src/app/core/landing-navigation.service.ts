@@ -35,12 +35,12 @@ export class LandingNavigationService {
       this.router.navigate(['finish-registration']);
     }
     // For jobseekers: to dashboard page for jobseeker
-    if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {
+    if (user.containsAuthority('ROLE_JOBSEEKER_CLIENT')) {
       this.router.navigate(['dashboard', 'job-seeker']);
-    } else if (roles.includes('ROLE_COMPANY')) {
+    } else if (user.containsAuthority('ROLE_COMPANY')) {
       // For company: to dashboard page for companies
       this.router.navigate(['dashboard', 'company']);
-    } else if (roles.includes('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
+    } else if (user.containsAuthority('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
       // For PAVs: to page for headhunters
       this.router.navigate(['dashboard', 'pav']);
     }
