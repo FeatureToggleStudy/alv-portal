@@ -67,12 +67,12 @@
       }
     }
     &:hover {
-      color: $color-blue;
+      color: $color-primary;
     }
     &:hover, &.active {
-      border-left: 5px solid $color-blue;
+      border-left: 5px solid $color-primary;
       &:not(.child-nav-item) {
-        color: $color-blue;
+        color: $color-primary;
       }
     }
     &.active {
@@ -147,9 +147,9 @@
         background-color: lighten($color-grey-black, 10%);
       }
       &.active, &:hover {
-        color: $color-blue;
+        color: $color-primary;
         background-color: $color-dark-grey;
-        border-left: 5px solid $color-blue;
+        border-left: 5px solid $color-primary;
       }
     }
 

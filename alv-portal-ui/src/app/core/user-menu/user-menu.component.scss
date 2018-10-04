@@ -3,9 +3,9 @@
 button.btn-header {
   padding: 6px 15px;
   background-color: $color-white;
-  color: $color-blue;
+  color: $color-primary;
   &:hover {
-    background-color: $color-blue;
+    background-color: $color-primary;
     color: $color-white;
   }
   @media(max-width: 991px) {

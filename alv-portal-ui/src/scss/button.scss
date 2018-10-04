@@ -5,10 +5,13 @@ button.btn, a.btn {
   user-select: none;
   font-size: 16px;
   border-radius: 0;
+  &.focus, &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(202,0,0,.5);
+  }
   &.btn-link {
     background-color: transparent;
     border: 1px solid transparent;
-    color: $color-blue;
+    color: $color-primary;
     &:hover:not(:disabled) {
       background-color: $color-super-light-grey;
       border-color: $color-medium-grey;
@@ -36,17 +39,17 @@ button.btn, a.btn {
   }
 
   &.btn-primary {
-    background-color: $color-blue;
-    border: 1px solid $color-blue;
+    background-color: $color-primary;
+    border: 1px solid $color-primary;
     color: $color-white;
 
     &:hover:not(:disabled) {
-      background-color: $color-dark-blue;
-      border-color: $color-dark-blue;
+      background-color: darken($color-primary, 10%);
+      border-color: darken($color-primary, 10%);
     }
     &:disabled {
-      background-color: $color-super-light-blue;
-      border-color: $color-super-light-blue;
+      background-color: lighten($color-primary, 20%);
+      border-color: lighten($color-primary, 20%);
       cursor: default;
     }
   }
@@ -54,7 +57,7 @@ button.btn, a.btn {
   &.btn-icon {
     background-color: transparent;
     border: 1px solid transparent;
-    color: $color-blue;
+    color: $color-primary;
     padding: 8px;
     width: 42px;
     &:hover:not(:disabled) {
