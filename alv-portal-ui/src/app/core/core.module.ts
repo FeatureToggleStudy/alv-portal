@@ -13,7 +13,6 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JobSeekerDashboardPageComponent } from './landing/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
 import { PavDashboardPageComponent } from './landing/pav-dashboard-page/pav-dashboard-page.component';
-import { FinishRegistrationPageComponent } from './finish-registation-page/finish-registration-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LandingPageComponent } from './landing/landing-page/landing-page.component';
 import { JobSeekerHomePageComponent } from './home-page/job-seeker-home-page/job-seeker-home-page.component';
@@ -21,6 +20,9 @@ import { CompanyHomePageComponent } from './home-page/company-home-page/company-
 import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.component';
 import { ToolbarComponent } from './home-page/toolbar/toolbar.component';
 import { ToolbarItemComponent } from './home-page/toolbar-item/toolbar-item.component';
+import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-authority.directive';
+import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticated.directive';
+
 
 @NgModule({
   declarations: [
@@ -33,14 +35,16 @@ import { ToolbarItemComponent } from './home-page/toolbar-item/toolbar-item.comp
     MainNavigationComponent,
     JobSeekerDashboardPageComponent,
     PavDashboardPageComponent,
-    FinishRegistrationPageComponent,
     HomePageComponent,
     LandingPageComponent,
     JobSeekerHomePageComponent,
     CompanyHomePageComponent,
     PavHomePageComponent,
     ToolbarComponent,
-    ToolbarItemComponent
+    ToolbarItemComponent,
+    PavHomePageComponent,
+    HasAnyAuthorityDirective,
+    IsAuthenticatedDirective
   ],
   imports: [
     CommonModule,
@@ -55,7 +59,9 @@ import { ToolbarItemComponent } from './home-page/toolbar-item/toolbar-item.comp
   exports: [
     VersionComponent,
     HeaderComponent,
-    NavigationContainerComponent
+    NavigationContainerComponent,
+    HasAnyAuthorityDirective,
+    IsAuthenticatedDirective
   ],
   providers: []
 })

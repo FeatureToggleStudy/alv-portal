@@ -1,5 +1,14 @@
 @import "../../../scss/colors";
 
-button.btn-icon {
-  width: initial;
+button.btn-header {
+  padding: 6px 15px;
+  background-color: $color-white;
+  color: $color-blue;
+  &:hover {
+    background-color: $color-blue;
+    color: $color-white;
+  }
+  @media(max-width: 991px) {
+    padding: 2px 5px;
+  }
 }

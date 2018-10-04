@@ -1,4 +1,4 @@
-export interface User {
+export class User {
   id: string;
   login: string;
   firstName: string;
@@ -8,6 +8,15 @@ export interface User {
   langKey: string;
   authorities: Array<string>;
   registrationStatus: RegistrationStatus;
+
+  containsAuthority(authorities: string | Array<string>): boolean {
+    for (let i = 0; i < authorities.length; i++) {
+      if (this.authorities.includes(authorities[i])) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 export interface Credentials {
