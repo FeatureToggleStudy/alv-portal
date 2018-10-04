@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authenticationService.getCurrentUser(true)
         .subscribe();
+    // Based on the idea: https://toddmotto.com/dynamic-page-titles-angular-2-router-events
     this.router.events.pipe(
         filter((event) => event instanceof NavigationEnd),
         map(() => this.activatedRoute),
