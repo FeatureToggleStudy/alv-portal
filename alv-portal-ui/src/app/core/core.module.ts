@@ -19,6 +19,8 @@ import { LandingPageComponent } from './landing/landing-page/landing-page.compon
 import { JobSeekerHomePageComponent } from './home-page/job-seeker-home-page/job-seeker-home-page.component';
 import { CompanyHomePageComponent } from './home-page/company-home-page/company-home-page.component';
 import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.component';
+import { ToolbarComponent } from './home-page/toolbar/toolbar.component';
+import { ToolbarItemComponent } from './home-page/toolbar-item/toolbar-item.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.co
     LandingPageComponent,
     JobSeekerHomePageComponent,
     CompanyHomePageComponent,
-    PavHomePageComponent
+    PavHomePageComponent,
+    ToolbarComponent,
+    ToolbarItemComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +50,7 @@ import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.co
     SharedModule
   ],
   entryComponents: [
-      LocalLoginComponent
+    LocalLoginComponent
   ],
   exports: [
     VersionComponent,
