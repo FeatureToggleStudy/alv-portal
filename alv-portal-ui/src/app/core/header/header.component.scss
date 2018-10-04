@@ -65,9 +65,9 @@ header {
 
         &.profile-button {
           background-color: $color-white;
-          color: $color-blue;
+          color: $color-primary;
           &:hover {
-            background-color: $color-blue;
+            background-color: $color-primary;
             color: $color-white;
           }
         }

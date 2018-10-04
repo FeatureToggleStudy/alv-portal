@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'alv-pav-home-page',
@@ -8,18 +7,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class PavHomePageComponent implements OnInit {
 
-  form: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-  }
+  constructor() { }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      occupations: this.fb.control(''),
-      skills: this.fb.control(''),
-      location: this.fb.control('')
-    });
-
   }
 
 }

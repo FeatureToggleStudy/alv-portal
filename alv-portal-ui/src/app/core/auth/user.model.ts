@@ -8,18 +8,13 @@ export class User {
   authorities: Array<string>;
   registrationStatus: RegistrationStatus;
 
-  /**
-   * Returns true if the user has any of the authorities mentioned in `authorities` param.
-   * @example If user.authorities is ['1', '2', '3']
-   *
-   * user.hasAnyAuthorities(['1']) -> true
-   * user.hasAnyAuthorities(['1','3']) -> true
-   * user.hasAnyAuthorities(['nono', '1']) -> true
-   * user.hasAnyAuthorities(['nono']) -> false
-   * @param authorities
-   */
-  hasAnyAuthorities(authorities: Array<string>): boolean {
-    return this.authorities.some(value => -1 !== authorities.indexOf(value));
+  containsAuthority(authorities: string | Array<string>): boolean {
+    for (let i = 0; i < authorities.length; i++) {
+      if (this.authorities.includes(authorities[i])) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
