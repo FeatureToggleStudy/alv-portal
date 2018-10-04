@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RegistrationStatus, User } from '../authentication/user.model';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { RegistrationStatus, User } from '../auth/user.model';
+import { AuthenticationService } from '../auth/authentication.service';
 import { Router } from '@angular/router';
 import { LandingNavigationService } from '../landing-navigation.service';
 

@@ -1,12 +1,12 @@
 import {
+  HttpEvent,
+  HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpHandler,
-  HttpEvent,
 } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { SessionManagerService } from '../authentication/session-manager.service';
-import { environment } from '../../../environments/environment';
+import { SessionManagerService } from '../session-manager/session-manager.service';
+import { environment } from '../../../../environments/environment';
 
 export class AuthInterceptor implements HttpInterceptor {
 

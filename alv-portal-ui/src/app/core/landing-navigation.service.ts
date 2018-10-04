@@ -1,24 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RegistrationStatus, User } from './authentication/user.model';
-import { AuthenticationService } from './authentication/authentication.service';
+import { Router } from '@angular/router';
+import { RegistrationStatus, User } from './auth/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LandingNavigationService {
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private authenticationService: AuthenticationService) {
-  }
-
-  /**
-   * Navigates the user to his landing page depending on his roles
-   */
-  public navigate() {
-    this.authenticationService.getCurrentUser()
-        .subscribe(user => this.navigateUser(user));
+  constructor(private router: Router) {
   }
 
   public navigateUser(user: User) {

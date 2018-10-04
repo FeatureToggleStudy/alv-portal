@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LandingNavigationService } from '../../landing-navigation.service';
-import { AuthenticationService } from '../../authentication/authentication.service';
+import { AuthenticationService } from '../../auth/authentication.service';
 import { AbstractSubscriber } from '../../../shared/components/abstract-subscriber';
 import { takeUntil } from 'rxjs/operators';
 

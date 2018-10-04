@@ -1,5 +1,5 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthenticationService } from '../../authentication/authentication.service';
+import { AuthenticationService } from '../authentication.service';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../shared/components/abstract-subscriber';
 

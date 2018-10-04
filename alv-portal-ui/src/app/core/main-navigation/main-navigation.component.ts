@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter, takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 import { MessageBusService, MessageType } from '../message-bus.service';
 import { AbstractSubscriber } from '../../shared/components/abstract-subscriber';
 
@@ -17,7 +17,6 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   menuEntries: any = [];
 
   open: boolean;
-  a11yMessage: string;
 
   constructor(private router: Router,
               private messageBusService: MessageBusService) {
@@ -25,19 +24,13 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnInit() {
-    this.router.events.pipe(
-        filter(e => e instanceof NavigationEnd)
-    ).subscribe((routerEvent: any) => {
-      this.a11yMessage = 'Navigated to: ' + this.findLabel(routerEvent.urlAfterRedirects);
-    });
-
     this.messageBusService.of(MessageType.TOGGLE_NAVIGATION)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(
-        message => {
-          this.toggleMobileSideNav();
-        }
-    );
+            message => {
+              this.toggleMobileSideNav();
+            }
+        );
   }
 
   toggleMobileSideNav() {
@@ -46,21 +39,6 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   toggleDesktopSideNav() {
     this.collapsed = !this.collapsed;
-  }
-
-  private findLabel(path: string): string {
-    for (const menuEntry of this.menuEntries) {
-      if (menuEntry.path === path) {
-        return menuEntry.label;
-      }
-      if (menuEntry.submenuEntries) {
-        for (const submenuEntry of menuEntry.submenuEntries) {
-          if (submenuEntry.path === path) {
-            return submenuEntry.label;
-          }
-        }
-      }
-    }
   }
 
 }
