@@ -11,7 +11,6 @@ export class LandingNavigationService {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private authenticationService: AuthenticationService) {
-
   }
 
   /**
@@ -27,7 +26,6 @@ export class LandingNavigationService {
     if (user === null) {
       return;
     }
-    const roles = user.authorities;
 
     // For authorised user without permissions - navigate to finish registration page:
     if (user.registrationStatus === RegistrationStatus.UNREGISTERED) {
@@ -39,15 +37,15 @@ export class LandingNavigationService {
       return this.router.navigate(['registration', 'access-code']);
     }
     // For jobseekers: to dashboard page for jobseeker
-    if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {
+    if (user.containsAuthority('ROLE_JOBSEEKER_CLIENT')) {
       return this.router.navigate(['dashboard', 'job-seeker']);
     }
     // For company: to dashboard page for companies
-    if (roles.includes('ROLE_COMPANY')) {
+    if (user.containsAuthority('ROLE_COMPANY')) {
       return this.router.navigate(['dashboard', 'company']);
     }
     // For PAVs: to page for headhunters
-    if (roles.includes('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
+    if (user.containsAuthority('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
       this.router.navigate(['dashboard', 'pav']);
     }
   }
