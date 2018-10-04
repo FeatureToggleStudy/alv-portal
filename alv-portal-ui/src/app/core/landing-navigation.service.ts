@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from './authentication/user.model';
+import { RegistrationStatus, User } from './authentication/user.model';
 import { AuthenticationService } from './authentication/authentication.service';
 
 @Injectable({
@@ -11,7 +11,6 @@ export class LandingNavigationService {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private authenticationService: AuthenticationService) {
-
   }
 
   /**
@@ -24,24 +23,29 @@ export class LandingNavigationService {
 
   public navigateUser(user: User) {
 
-    console.log('trying to navigate... ', user);
     if (user === null) {
       return;
     }
-    const roles = user.authorities;
 
-    // For authorised user without permissions - navigate to NZA:
-    if (!roles || !roles.length) {
-      this.router.navigate(['finish-registration']);
+    // For authorised user without permissions - navigate to finish registration page:
+    if (user.registrationStatus === RegistrationStatus.UNREGISTERED) {
+      return this.router.navigate(['registration', 'finish']);
+    }
+    // For PAV and companies with open validation - navigate to access code page
+    if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
+        user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
+      return this.router.navigate(['registration', 'access-code']);
     }
     // For jobseekers: to dashboard page for jobseeker
     if (user.containsAuthority('ROLE_JOBSEEKER_CLIENT')) {
-      this.router.navigate(['dashboard', 'job-seeker']);
-    } else if (user.containsAuthority('ROLE_COMPANY')) {
-      // For company: to dashboard page for companies
-      this.router.navigate(['dashboard', 'company']);
-    } else if (user.containsAuthority('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
-      // For PAVs: to page for headhunters
+      return this.router.navigate(['dashboard', 'job-seeker']);
+    }
+    // For company: to dashboard page for companies
+    if (user.containsAuthority('ROLE_COMPANY')) {
+      return this.router.navigate(['dashboard', 'company']);
+    }
+    // For PAVs: to page for headhunters
+    if (user.containsAuthority('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
       this.router.navigate(['dashboard', 'pav']);
     }
   }
