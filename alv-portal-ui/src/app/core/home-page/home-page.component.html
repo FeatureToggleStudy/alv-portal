@@ -1,7 +1,35 @@
-<p>
-  home works
-  <a [routerLink]="['job-seeker']">Job seekers</a>
-  <a [routerLink]="['company']">Employers</a>
-  <a [routerLink]="['pav']">Recruitment agencies</a>
-</p>
+<div class="jumbotron jumbotron-fluid">
+
+<alv-toolbar class="list-inline">
+  <li class="nav-title list-inline-item">
+    <!-- DESKTOP -->
+    <h2 class="d-none d-sm-block">{{'home.toolbar.title' | translate}}</h2>
+    <!-- MOBILE -->
+    <h2 class="d-sm-none">{{'home.toolbar.title' | translate}}</h2>
+  </li>
+  <alv-toolbar-item [icon]="'binoculars'"
+                    routerLink="jobseekers"
+                    queryParamsHandling="preserve"
+                    class="list-inline-item"
+                    [ngClass]="{show: !isSubnavCollapsed}">
+    {{'home.toolbar.jobSeekers' | translate}}
+  </alv-toolbar-item>
+  <alv-toolbar-item [icon]="'building'"
+                    routerLink="company"
+                    class="list-inline-item"
+
+                    queryParamsHandling="preserve"
+                    [ngClass]="{show: !isSubnavCollapsed}">
+    {{'home.toolbar.companies' | translate}}
+  </alv-toolbar-item>
+  <alv-toolbar-item [icon]="'eye'"
+                    routerLink="pav"
+                    class="list-inline-item"
+
+                    queryParamsHandling="preserve"
+                    [ngClass]="{show: !isSubnavCollapsed}">
+    {{'home.toolbar.recruitmentAgencies' | translate}}
+  </alv-toolbar-item>
+</alv-toolbar>
 <router-outlet></router-outlet>
+</div>

@@ -1,3 +1,10 @@
 {
- "HELLO": ""
+  "home": {
+    "toolbar": {
+      "companies": "Arbeitgeber",
+      "jobSeekers": "Stellensuchende",
+      "recruitmentAgencies": "Arbeitsvermittler",
+      "title": "Job-Room bietet Leistungen f\u00fcr"
+    }
+  }
 }
