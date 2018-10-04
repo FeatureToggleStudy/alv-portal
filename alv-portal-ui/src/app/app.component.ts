@@ -26,19 +26,6 @@ export class AppComponent implements OnInit {
     translate.use('en');
   }
 
-  /**
-   this.router.events
-   .filter((event) => event instanceof NavigationEnd)
-   .map(() => this.activatedRoute)
-   .map((route) => {
-        while (route.firstChild) route = route.firstChild;
-        return route;
-      })
-   .filter((route) => route.outlet === 'primary')
-   .mergeMap((route) => route.data)
-   .subscribe((event) => this.titleService.setTitle(event['title']));
-   */
-
   ngOnInit() {
     this.authenticationService.getCurrentUser(true)
         .subscribe();
