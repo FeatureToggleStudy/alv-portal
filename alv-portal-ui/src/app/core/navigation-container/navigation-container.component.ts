@@ -2,9 +2,9 @@ import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 const PATH_TO_PICTURE = {
-  '/home/job-seeker': "jobseeker-home",
-  '/home/company': "company-home",
-  '/home/pav': "pav-home"
+  '/home/job-seeker': 'jobseeker-home',
+  '/home/company': 'company-home',
+  '/home/pav': 'pav-home'
 };
 @Component({
   selector: 'alv-navigation-container',

@@ -21,7 +21,7 @@ export class JobSeekerDashboardPageComponent implements OnInit {
       profession: this.fb.control('Designer'),
       city: this.fb.control('Zurich')
     });
-    this.currentUser$  =  this.authenticationService.getCurrentUser()
+    this.currentUser$  =  this.authenticationService.getCurrentUser();
   }
 
 }
