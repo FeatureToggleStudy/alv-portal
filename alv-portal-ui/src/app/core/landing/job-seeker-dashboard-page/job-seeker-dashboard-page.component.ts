@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../authentication/authentication.service';
 import { Observable } from 'rxjs';
-import { User } from '../../authentication/user.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthenticationService } from '../../auth/authentication.service';
+import { User } from '../../auth/user.model';
 
 @Component({
   selector: 'alv-job-seeker-dashboard-page',
