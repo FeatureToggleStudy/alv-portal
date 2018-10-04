@@ -7,7 +7,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./job-seeker-home-page.component.scss']
 })
 export class JobSeekerHomePageComponent implements OnInit {
-  findPositionsForm: FormGroup
+  findPositionsForm: FormGroup;
+
 
   constructor(private fb: FormBuilder) {
   }
