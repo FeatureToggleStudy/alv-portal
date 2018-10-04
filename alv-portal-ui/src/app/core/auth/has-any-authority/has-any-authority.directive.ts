@@ -8,7 +8,7 @@ import { AbstractSubscriber } from '../../../shared/components/abstract-subscrib
 })
 export class HasAnyAuthorityDirective extends AbstractSubscriber {
 
-  private hasAnyAuthority: string | Array<string>;
+  private hasAnyAuthority: Array<string>;
 
   constructor(private authenticationService: AuthenticationService,
               private templateRef: TemplateRef<any>,
@@ -23,7 +23,7 @@ export class HasAnyAuthorityDirective extends AbstractSubscriber {
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(user => {
           this.viewContainerRef.clear();
-          if (user && user.containsAuthority(this.hasAnyAuthority)) {
+          if (user && user.hasAnyAuthorities(this.hasAnyAuthority)) {
             this.viewContainerRef.createEmbeddedView(this.templateRef);
           }
         });
