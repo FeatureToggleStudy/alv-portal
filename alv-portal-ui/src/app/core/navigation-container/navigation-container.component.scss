@@ -1,4 +1,8 @@
 @import "../../../scss/colors";
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
 
 :host {
   flex: 1 1 auto;
@@ -18,4 +22,25 @@
     overflow-y: auto;
   }
 
+}
+
+main {
+  background-size: cover;
+}
+
+/**
+ * we don't load  pictures for phones
+ */
+@include media-breakpoint-up(md) {
+  main.jobseeker-home {
+    background-image: url("/assets/img/backgrounds/helmet-bg.jpeg");
+  }
+
+  main.company-home {
+    background-image: url("/assets/img/backgrounds/handshake.jpeg");
+  }
+
+  main.pav-home {
+    background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
+  }
 }
