@@ -23,14 +23,22 @@
 main {
   background-size: cover;
 }
-main.jobseeker-home {
-  background-image: url("https://www.job-room.ch/content/dda12ac946fce1aeb698d0741311574c.jpeg");
-}
 
-main.pav-home {
-  background-image: url("https://www.job-room.ch/content/01cd43abf557855ac742ae31b47a0bab.jpeg");
-}
+/**
+ * we don't load  pictures for phones
+ */
+@media (min-width: 415px) {
+  main.jobseeker-home {
+    background-image: url("/assets/img/backgrounds/helmet-bg.jpeg");
+  }
 
-main.company-home {
-  background-image: url("https://www.job-room.ch/content/e21300d5cd7a259a17768149bbc28011.jpeg");
+  main.company-home {
+    background-image: url("/assets/img/backgrounds/handshake.jpeg");
+  }
+
+  main.pav-home {
+    background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
+  }
+
+
 }
