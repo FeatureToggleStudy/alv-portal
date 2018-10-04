@@ -4,7 +4,6 @@ export class User {
   firstName: string;
   lastName: string;
   email: string;
-  // todo registrationStatus will be added (see ch.admin.seco.jobroom.domain.enumeration.RegistrationStatus)
   langKey: string;
   authorities: Array<string>;
   registrationStatus: RegistrationStatus;
