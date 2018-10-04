@@ -7,6 +7,7 @@ import { HomePageComponent } from './core/home-page/home-page.component';
 import { JobSeekerHomePageComponent } from './core/home-page/job-seeker-home-page/job-seeker-home-page.component';
 import { CompanyHomePageComponent } from './core/home-page/company-home-page/company-home-page.component';
 import { PavHomePageComponent } from './core/home-page/pav-home-page/pav-home-page.component';
+import { AuthGuardService } from './core/auth/auth-guard.service';
 
 const appRoutes: Routes = [
   {
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'dashboard',
+    canActivateChild: [AuthGuardService],
     children: [
       {
         path: 'job-seeker',
