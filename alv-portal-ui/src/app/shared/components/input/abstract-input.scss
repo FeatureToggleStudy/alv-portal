@@ -100,10 +100,10 @@ input.form-control, select.form-control, textarea.form-control {
     input:not(.placeholder-shown):focus ~ label,
     textarea:not(.placeholder-shown):focus ~ label,
     select:not(.placeholder-shown):focus ~ label {
-      color: $color-dark-blue;
+      color: $color-grey-black;
     }
     > input:focus + label {
-      color: $color-dark-blue;
+      color: $color-grey-black;
     }
   }
   .readonly-input {

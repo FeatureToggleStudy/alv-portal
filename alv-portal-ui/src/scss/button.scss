@@ -5,6 +5,9 @@ button.btn, a.btn {
   user-select: none;
   font-size: 16px;
   border-radius: 0;
+  &.focus, &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(202,0,0,.5);
+  }
   &.btn-link {
     background-color: transparent;
     border: 1px solid transparent;
