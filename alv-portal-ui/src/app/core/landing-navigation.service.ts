@@ -31,24 +31,20 @@ export class LandingNavigationService {
 
     // For authorised user without permissions - navigate to finish registration page:
     if (user.registrationStatus === RegistrationStatus.UNREGISTERED) {
-      this.router.navigate(['registration', 'finish']);
-      return;
+      return this.router.navigate(['registration', 'finish']);
     }
     // For PAV and companies with open validation - navigate to access code page
     if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
         user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
-      this.router.navigate(['registration', 'access-code']);
-      return;
+      return this.router.navigate(['registration', 'access-code']);
     }
     // For jobseekers: to dashboard page for jobseeker
     if (roles.includes('ROLE_JOBSEEKER_CLIENT')) {
-      this.router.navigate(['dashboard', 'job-seeker']);
-      return;
+      return this.router.navigate(['dashboard', 'job-seeker']);
     }
     // For company: to dashboard page for companies
     if (roles.includes('ROLE_COMPANY')) {
-      this.router.navigate(['dashboard', 'company']);
-      return;
+      return this.router.navigate(['dashboard', 'company']);
     }
     // For PAVs: to page for headhunters
     if (roles.includes('ROLE_PRIVATE_EMPLOYMENT_AGENT')) {
