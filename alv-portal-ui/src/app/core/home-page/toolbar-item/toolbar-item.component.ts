@@ -1,33 +1,17 @@
-import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'alv-toolbar-item',
-    templateUrl: './toolbar-item.component.html',
-    styleUrls: ['./toolbar-item.component.scss']
+  selector: 'alv-toolbar-item',
+  templateUrl: './toolbar-item.component.html',
+  styleUrls: ['./toolbar-item.component.scss']
 })
 export class ToolbarItemComponent implements OnInit {
-    @Input() icon: string;
-    @Input() active: boolean;
-    @Output() select = new EventEmitter();
+  @Input() icon: string;
+  @Input() active: boolean;
 
-    private readonly ENTER_KEY_CODE = 13;
+  constructor(private elRef: ElementRef) {
+  }
 
-    constructor(private elRef: ElementRef) {
-    }
-
-    ngOnInit() {
-    }
-
-    handleClick() {
-        this.select.emit();
-    }
-
-
+  ngOnInit() {
+  }
 }
