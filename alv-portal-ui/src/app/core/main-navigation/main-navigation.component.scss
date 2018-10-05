@@ -7,7 +7,6 @@
   background-color: $color-white;
   overflow-y: auto;
   overflow-x: visible;
-  margin-left: 5%;
 
   @media(max-width: 991px) {
     margin-left: 0;
@@ -23,9 +22,6 @@
     min-width: 55px;
     .nav-text {
       display: none;
-    }
-    .nav-fill-item {
-      width: calc(100% + 5px);
     }
     .nav-item {
       .fas.warn {
