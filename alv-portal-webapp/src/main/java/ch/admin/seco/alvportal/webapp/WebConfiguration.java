@@ -4,13 +4,9 @@ package ch.admin.seco.alvportal.webapp;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.core.io.Resource;
 import org.springframework.http.CacheControl;
-import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -31,14 +27,6 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "index.html");
-    }
-
-    @Bean
-    FilterRegistrationBean forwardedHeaderFilter() {
-        FilterRegistrationBean<ForwardedHeaderFilter> filterRegBean = new FilterRegistrationBean<>();
-        filterRegBean.setFilter(new ForwardedHeaderFilter());
-        filterRegBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return filterRegBean;
     }
 
     class SinglePageAppResourceResolver extends PathResourceResolver {
