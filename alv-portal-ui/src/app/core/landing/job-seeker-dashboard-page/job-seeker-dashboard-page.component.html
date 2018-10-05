@@ -1,33 +1,41 @@
-<ng-container *ngIf="currentUser$ |async as currentUser"
-              class="container">
-  <div class="row">
-    <div class="col-sm-2">
+<ng-container *ngIf="currentUser$ |async as currentUser">
+  <div class="d-flex align-items-center">
+    <div class="mr-4">
       <div class="photo-user"><i class="fas fa-user"></i>
       </div>
     </div>
-    <div class="col-sm-10">
-      <span class="greeting">Guten morgen, {{currentUser.firstName}} {{currentUser.lastName}}</span>
+    <div class="flex-grow-1">
+      <div class="">Guten Morgen,</div>
+      <div class="greeting">{{currentUser.firstName}} {{currentUser.lastName}}</div>
     </div>
   </div>
 
-  <alv-panel panelTitle="Stellen finden"
+  <alv-panel class="d-block mt-4"
+             panelTitle="Stellen finden"
+             panelIcon="search"
              [formGroup]="findWorkerForm">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-6">
         <alv-input-field type="text"
                          label="Profession"
                          [control]="findWorkerForm.get('profession')">
         </alv-input-field>
       </div>
-      <div class="col-sm-6">
-        <alv-input-field type="text"
+      <div class="col-6 d-flex align-items-start">
+        <alv-input-field class="flex-grow-1"
+                         type="text"
                          label="City"
                          [control]="findWorkerForm.get('city')">
         </alv-input-field>
+        <button class="btn btn-primary ml-2">
+          <i class="fas fa-search"></i>
+        </button>
       </div>
     </div>
   </alv-panel>
-  <alv-panel panelTitle="Ihre Aufgaben">
+  <alv-panel class="d-block mt-4"
+             panelTitle="Ihre Aufgaben"
+             panelIcon="list-ol">
     <div class="row">
       <div class="col-sm-12">
         Bitte erfassen Sie Arbeitsbemühung Nr. 4 für diesen Monat
@@ -43,9 +51,11 @@
 
   </alv-panel>
 
+  <!--
   <alv-panel panelTitle="Jobfavoriten">
   </alv-panel>
 
   <alv-panel panelTitle="Jobwecker">
   </alv-panel>
+  -->
 </ng-container>

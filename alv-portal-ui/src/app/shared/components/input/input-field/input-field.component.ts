@@ -32,7 +32,7 @@ export class InputFieldComponent extends AbstractInput {
   /**
    * (readonly) CSS classes of host element
    */
-  @HostBinding('class') readonly class = 'form-group d-block d-md-flex';
+  @HostBinding('class.form-group') readonly formGroupClass = true;
 
   /**
    * type of the input, e.g. number, date, email, password, etc. Defaults to text.
