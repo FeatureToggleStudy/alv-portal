@@ -4,22 +4,11 @@ header {
   background-color: $color-light-grey;
   border-bottom: 1px solid $color-medium-grey;
 
-  .banner {
-    height: 30px;
-    background-color: $color-grey-black;
-    color: $color-white;
-
-    .banner-text {
-      font-size: 16px;
-      font-family: 'Calibri Regular', 'Calibri';
-    }
-  }
-
   .header {
     .logo {
       position: absolute;
       left: 0;
-      top: 30px;
+      top: 0;
       width: 295px;
       height: 83px;
       box-sizing: border-box;
