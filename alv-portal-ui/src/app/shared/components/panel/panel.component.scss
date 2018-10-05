@@ -4,10 +4,11 @@
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
   margin: 0.25em;
   border: 2px solid transparent;
-  ::ng-deep .panel-title {
-    font-size: 18px;
-    font-weight: 700;
+  .panel-title {
+    font-size: 24px;
+    font-weight: 600;
     margin-bottom: 10px;
+    color: $color-dark-grey;
     .panel-subtitle {
       font-weight: 500;
     }
@@ -17,7 +18,7 @@
   }
   &.invalid {
     border: 2px solid $color-red;
-    ::ng-deep .panel-title {
+    .panel-title {
       color: $color-red;
     }
   }

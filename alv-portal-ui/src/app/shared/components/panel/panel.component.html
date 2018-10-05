@@ -14,6 +14,9 @@
        *ngIf="panelTitle || helpEntries?.length">
     <div class="panel-title flex-grow-1"
          aria-hidden="true">
+      <i class="mr-2 fas"
+         [ngClass]="'fa-' + panelIcon"
+         *ngIf="panelIcon"></i>
       {{panelTitle}} <span class="panel-subtitle">{{panelSubtitle}}</span>
     </div>
     <alv-help-button *ngIf="helpEntries?.length"

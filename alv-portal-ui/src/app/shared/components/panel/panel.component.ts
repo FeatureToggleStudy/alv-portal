@@ -37,6 +37,11 @@ export class PanelComponent implements AfterContentInit {
   @Input() panelTitle?: string;
 
   /**
+   * (optional) the icon of the panel
+   */
+  @Input() panelIcon?: string;
+
+  /**
    * (optional) the subtitle of the panel
    */
   @Input() panelSubtitle?: string;
