@@ -1,3 +1,33 @@
-<p>
-  pav-home-page works!
-</p>
+<alv-panel panelTitle="Find suitable candidates"
+           class="container"
+           [formGroup]="form">
+  <div class="row">
+    <div class="col-sm-12">
+      <alv-input-field type="text"
+                       label="Occupations"
+                       [control]="form.get('occupations')">
+      </alv-input-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <alv-input-field type="text"
+                       label="Skills"
+                       [control]="form.get('skills')">
+      </alv-input-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <alv-input-field type="text"
+                       label="Location"
+                       [control]="form.get('location')">
+      </alv-input-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-primary">Post job ad</button>
+    </div>
+  </div>
+</alv-panel>
