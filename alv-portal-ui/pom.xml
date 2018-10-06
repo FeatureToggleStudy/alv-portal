@@ -72,7 +72,7 @@
                         </goals>
                         <configuration>
                             <executable>npm</executable>
-                            <commandlineArgs>run build:dev</commandlineArgs>
+                            <commandlineArgs>run build:prod</commandlineArgs>
                         </configuration>
                     </execution>
                     <execution>
