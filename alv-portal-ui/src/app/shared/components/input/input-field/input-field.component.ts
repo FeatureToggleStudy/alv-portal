@@ -30,9 +30,14 @@ import { InputService } from '../input.service';
 export class InputFieldComponent extends AbstractInput {
 
   /**
-   * (readonly) CSS classes of host element
+   * (readonly) CSS class of host element
    */
-  @HostBinding('class') readonly class = 'form-group d-block d-md-flex';
+  @HostBinding('class.form-group') readonly formGroupClass = true;
+
+  /**
+   * (readonly) CSS class of host element
+   */
+  @HostBinding('class.d-block') readonly blockClass = true;
 
   /**
    * type of the input, e.g. number, date, email, password, etc. Defaults to text.
