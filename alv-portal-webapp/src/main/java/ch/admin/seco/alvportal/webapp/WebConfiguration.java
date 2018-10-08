@@ -29,7 +29,6 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addRedirectViewController("/", "index.html");
     }
 
-
     class SinglePageAppResourceResolver extends PathResourceResolver {
 
         private static final String FRONT_CONTROLLER = "/index.html";

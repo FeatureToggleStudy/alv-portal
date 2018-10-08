@@ -14,7 +14,7 @@
     </parent>
 
     <properties>
-        <ng-exec>node_modules/.bin/ng</ng-exec>
+        <npm-exec>npm</npm-exec>
     </properties>
 
     <build>
@@ -50,62 +50,52 @@
                         <phase>generate-sources</phase>
                         <configuration>
                             <executable>npm</executable>
-                            <arguments>
-                                <argument>install</argument>
-                            </arguments>
+                            <commandlineArgs>install</commandlineArgs>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>ng-lint</id>
+                        <id>npm-lint</id>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <phase>process-sources</phase>
                         <configuration>
-                            <executable>${ng-exec}</executable>
-                            <arguments>
-                                <argument>lint</argument>
-                            </arguments>
+                            <executable>npm</executable>
+                            <commandlineArgs>run lint</commandlineArgs>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>ng-build</id>
+                        <id>npm-build</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${ng-exec}</executable>
-                            <arguments>
-                                <argument>build</argument>
-                            </arguments>
+                            <executable>npm</executable>
+                            <commandlineArgs>run build:prod</commandlineArgs>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>ng-test</id>
+                        <id>npm-test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${ng-exec}</executable>
-                            <arguments>
-                                <argument>test</argument>
-                            </arguments>
+                            <executable>npm</executable>
+                            <commandlineArgs>run test</commandlineArgs>
                             <skip>${skipTests}</skip>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>ng-e2e</id>
+                        <id>npm-e2e</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>${ng-exec}</executable>
-                            <arguments>
-                                <argument>e2e</argument>
-                            </arguments>
+                            <executable>npm</executable>
+                            <commandlineArgs>run e2e</commandlineArgs>
                             <skip>${skipITs}</skip>
                         </configuration>
                     </execution>
@@ -161,18 +151,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>windows</id>
-            <activation>
-                <property>
-                    <name>windows</name>
-                </property>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ng-exec>node_modules\\.bin\\ng.cmd</ng-exec>
-            </properties>
         </profile>
     </profiles>
 

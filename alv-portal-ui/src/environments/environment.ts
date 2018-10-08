@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  translationBaseUrl: 'assets/i18n/',
-  apiEndpoint: 'http://localhost:8080'
+  translationBaseUrl: 'assets/i18n/'
 };
 
 /*

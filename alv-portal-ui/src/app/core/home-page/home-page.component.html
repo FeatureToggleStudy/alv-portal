@@ -10,24 +10,19 @@
   <alv-toolbar-item [icon]="'binoculars'"
                     routerLink="jobseekers"
                     queryParamsHandling="preserve"
-                    class="list-inline-item"
-                    [ngClass]="{show: !isSubnavCollapsed}">
+                    class="list-inline-item">
     {{'home.toolbar.jobSeekers' | translate}}
   </alv-toolbar-item>
   <alv-toolbar-item [icon]="'building'"
                     routerLink="company"
                     class="list-inline-item"
-
-                    queryParamsHandling="preserve"
-                    [ngClass]="{show: !isSubnavCollapsed}">
+                    queryParamsHandling="preserve">
     {{'home.toolbar.companies' | translate}}
   </alv-toolbar-item>
   <alv-toolbar-item [icon]="'eye'"
                     routerLink="pav"
                     class="list-inline-item"
-
-                    queryParamsHandling="preserve"
-                    [ngClass]="{show: !isSubnavCollapsed}">
+                    queryParamsHandling="preserve">
     {{'home.toolbar.recruitmentAgencies' | translate}}
   </alv-toolbar-item>
 </alv-toolbar>
