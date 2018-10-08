@@ -23,6 +23,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { ToolbarComponent } from './home-page/toolbar/toolbar.component';
 import { ToolbarItemComponent } from './home-page/toolbar-item/toolbar-item.component';
+import { DashboardHeaderComponent } from './dashboard/dashboard-header/dashboard-header.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ToolbarItemComponent } from './home-page/toolbar-item/toolbar-item.comp
     CompanyHomePageComponent,
     PavHomePageComponent,
     ToolbarComponent,
-    ToolbarItemComponent
+    ToolbarItemComponent,
+    DashboardHeaderComponent
   ],
   imports: [
     CommonModule,

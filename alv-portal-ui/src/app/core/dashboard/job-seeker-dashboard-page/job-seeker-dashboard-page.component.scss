@@ -1,24 +1,5 @@
 @import "../../../../scss/colors";
-.photo-user {
-  font-size: 42px;
-  border: lighten($color-primary, 40%) solid 2px;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  padding: 5px;
-  text-align: center;
-  color: $color-grey;
-}
-
-.greeting {
-  font-size: 2em
-}
-
 
 .add-work-effort {
   width: 100%;
-}
-
-alv-input-field {
-  margin-bottom: 0;
 }
