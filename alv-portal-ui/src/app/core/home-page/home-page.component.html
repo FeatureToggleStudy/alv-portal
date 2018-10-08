@@ -1,23 +1,32 @@
-<div class="jumbotron jumbotron-fluid">
-
-<div class="nav d-flex align-items-center justify-content-end mr-5">
-  <alv-toolbar-button icon="binoculars"
-                      routerLink="jobseekers"
-                      class="nav-link active">
-    {{'home.toolbar.jobSeekers' | translate}}
-  </alv-toolbar-button>
-  <alv-toolbar-button icon="building"
-                      routerLink="company"
-                      class="nav-link"
-  >
-    {{'home.toolbar.companies' | translate}}
-  </alv-toolbar-button>
-  <alv-toolbar-button icon="eye"
-                      routerLink="pav"
-                      class="nav-link"
-  >
-    {{'home.toolbar.recruitmentAgencies' | translate}}
-  </alv-toolbar-button>
+<div class="w-100 banner d-none d-md-block">
 </div>
-<router-outlet></router-outlet>
+
+<div class="container container-fluid">
+  <div class="nav d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
+    <alv-toolbar-button icon="binoculars"
+                        routerLink="job-seeker"
+                        routerLinkActive="active"
+                        queryParamsHandling="preserve"
+                        class="nav-link">
+      {{'home.toolbar.jobSeekers' | translate}}
+    </alv-toolbar-button>
+    <alv-toolbar-button icon="building"
+                        routerLink="company"
+                        class="nav-link"
+                        routerLinkActive="active"
+                        queryParamsHandling="preserve">
+      {{'home.toolbar.companies' | translate}}
+    </alv-toolbar-button>
+    <alv-toolbar-button icon="eye"
+                        routerLink="pav"
+                        class="nav-link"
+                        routerLinkActive="active"
+                        queryParamsHandling="preserve">
+      {{'home.toolbar.recruitmentAgencies' | translate}}
+    </alv-toolbar-button>
+  </div>
+</div>
+
+<div class="container container-fluid">
+  <router-outlet></router-outlet>
 </div>
