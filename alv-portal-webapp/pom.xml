@@ -120,16 +120,16 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>assembly-docker-dev-dist</id>
+                        <id>assembly-docker-development-dist</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
                         <configuration>
                             <descriptors>
-                                <descriptor>src/assembly/docker-dev-dist.xml</descriptor>
+                                <descriptor>src/assembly/docker-development-dist.xml</descriptor>
                             </descriptors>
-                            <finalName>docker-dev-dist</finalName>
+                            <finalName>docker-development-dist</finalName>
                         </configuration>
                     </execution>
                 </executions>
