@@ -21,8 +21,7 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-autho
 import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticated.directive';
 import { AuthModule } from './auth/auth.module';
 
-import { ToolbarComponent } from './home-page/toolbar/toolbar.component';
-import { ToolbarItemComponent } from './home-page/toolbar-item/toolbar-item.component';
+import { ToolbarButtonComponent } from './home-page/toolbar-button/toolbar-button.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +38,7 @@ import { ToolbarItemComponent } from './home-page/toolbar-item/toolbar-item.comp
     JobSeekerHomePageComponent,
     CompanyHomePageComponent,
     PavHomePageComponent,
-    ToolbarComponent,
-    ToolbarItemComponent
+    ToolbarButtonComponent
   ],
   imports: [
     CommonModule,
