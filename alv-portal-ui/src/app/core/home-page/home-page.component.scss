@@ -2,10 +2,18 @@
 .banner {
   background-color: white;
   opacity: 0.7;
-  height: 140px;
+  height: 98px;
   position: absolute;
   left: 0;
   top: 0;
+  right: 0;
+}
+
+.toolbar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
 }
 
 alv-toolbar-button {

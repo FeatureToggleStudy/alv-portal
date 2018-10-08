@@ -34,13 +34,16 @@ main {
 @include media-breakpoint-up(md) {
   main.jobseeker-home {
     background-image: url("/assets/img/backgrounds/helmet-bg.jpeg");
+    transition: background-image 0.5s ease-out;
   }
 
   main.company-home {
     background-image: url("/assets/img/backgrounds/handshake.jpeg");
+    transition: background-image 0.5s ease-out;
   }
 
   main.pav-home {
     background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
+    transition: background-image 0.5s ease-out;
   }
 }
