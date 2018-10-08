@@ -15,6 +15,7 @@
 
   min-width: 295px;
   max-width: 295px;
+  transition: min-width 0.15s ease-out;
 
   /* Collapsed desktop menu style */
   &.collapsed {
