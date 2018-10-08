@@ -9,6 +9,7 @@ import { CompanyDashboardPageComponent } from './pages/company-dashboard-page/co
 import { JobSeekerDashboardPageComponent } from './pages/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
 import { PavDashboardPageComponent } from './pages/pav-dashboard-page/pav-dashboard-page.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardPageComponent } from './pages/dashboard-page.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     FindCandidateWidgetComponent,
     CompanyDashboardPageComponent,
     JobSeekerDashboardPageComponent,
-    PavDashboardPageComponent
+    PavDashboardPageComponent,
+    DashboardPageComponent
   ],
   imports: [
     ReactiveFormsModule,

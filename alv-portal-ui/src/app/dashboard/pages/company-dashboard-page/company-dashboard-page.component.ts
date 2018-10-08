@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { User } from '../../../core/auth/user.model';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 
 @Component({
@@ -11,13 +8,10 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 })
 export class CompanyDashboardPageComponent implements OnInit {
 
-  currentUser$: Observable<User>;
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor() { }
 
   ngOnInit() {
-
-    this.currentUser$  =  this.authenticationService.getCurrentUser();
   }
 
 }
