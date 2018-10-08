@@ -8,6 +8,7 @@ import { AuthenticationService } from './authentication.service';
 import { LandingNavigationService } from '../landing-navigation.service';
 import { User } from './user.model';
 import { flatMap } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,14 @@ export class NavigationGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.authenticationService.getCurrentUser()
+    this.authenticationService.getCurrentUser()
         .pipe(
             flatMap((user: User) => {
-              return this.landingNavigationService.navigateUser(user);
+              return from(this.landingNavigationService.navigateUser(user));
             })
-        );
+        )
+        .subscribe();
+    // it looks like we can not return the observable since the navigationUser observable is swallowed
+    return true;
   }
 }
