@@ -1,0 +1,20 @@
+<ng-container *ngIf="currentUser$ |async as currentUser">
+
+  <alv-dashboard-header [user]="currentUser"></alv-dashboard-header>
+
+  <alv-find-job-widget></alv-find-job-widget>
+
+  <div class="alv-panel d-block mt-4">
+    <h3 class="panel-title"><i class="fas fa-list-ol mr-2"></i> Ihre Aufgaben</h3>
+    <p class="mb-2">Bitte erfassen Sie Arbeitsbemühung Nr. 4 für diesen Monat</p>
+    <div class="row">
+      <div class="col-sm-12">
+        <button class="btn btn-secondary add-work-effort">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</ng-container>
