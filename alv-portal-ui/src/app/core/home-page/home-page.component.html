@@ -1,30 +1,23 @@
 <div class="jumbotron jumbotron-fluid">
 
-<alv-toolbar class="list-inline">
-  <li class="nav-title list-inline-item">
-    <!-- DESKTOP -->
-    <h2 class="d-none d-sm-block">{{'home.toolbar.title' | translate}}</h2>
-    <!-- MOBILE -->
-    <h2 class="d-sm-none">{{'home.toolbar.title' | translate}}</h2>
-  </li>
-  <alv-toolbar-item [icon]="'binoculars'"
-                    routerLink="jobseekers"
-                    queryParamsHandling="preserve"
-                    class="list-inline-item">
+<div class="nav d-flex align-items-center justify-content-end mr-5">
+  <alv-toolbar-button icon="binoculars"
+                      routerLink="jobseekers"
+                      class="nav-link active">
     {{'home.toolbar.jobSeekers' | translate}}
-  </alv-toolbar-item>
-  <alv-toolbar-item [icon]="'building'"
-                    routerLink="company"
-                    class="list-inline-item"
-                    queryParamsHandling="preserve">
+  </alv-toolbar-button>
+  <alv-toolbar-button icon="building"
+                      routerLink="company"
+                      class="nav-link"
+  >
     {{'home.toolbar.companies' | translate}}
-  </alv-toolbar-item>
-  <alv-toolbar-item [icon]="'eye'"
-                    routerLink="pav"
-                    class="list-inline-item"
-                    queryParamsHandling="preserve">
+  </alv-toolbar-button>
+  <alv-toolbar-button icon="eye"
+                      routerLink="pav"
+                      class="nav-link"
+  >
     {{'home.toolbar.recruitmentAgencies' | translate}}
-  </alv-toolbar-item>
-</alv-toolbar>
+  </alv-toolbar-button>
+</div>
 <router-outlet></router-outlet>
 </div>
