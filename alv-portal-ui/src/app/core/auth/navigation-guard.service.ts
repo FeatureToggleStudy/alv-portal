@@ -23,6 +23,6 @@ export class NavigationGuard implements CanActivate {
             flatMap((user: User) => {
               return this.landingNavigationService.navigateUser(user);
             })
-        )
+        );
   }
 }
