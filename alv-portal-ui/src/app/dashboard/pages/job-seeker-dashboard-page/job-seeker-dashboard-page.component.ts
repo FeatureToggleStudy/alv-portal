@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthenticationService } from '../../../auth/authentication.service';
-import { User } from '../../../auth/user.model';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { User } from '../../../core/auth/user.model';
 
 @Component({
   selector: 'alv-job-seeker-dashboard-page',
@@ -11,13 +10,15 @@ import { User } from '../../../auth/user.model';
 })
 export class JobSeekerDashboardPageComponent implements OnInit {
 
-  constructor(public authenticationService: AuthenticationService) { }
+  constructor(public authenticationService: AuthenticationService) {
+  }
+
   currentUser$: Observable<User>;
 
 
   ngOnInit() {
 
-    this.currentUser$  =  this.authenticationService.getCurrentUser();
+    this.currentUser$ = this.authenticationService.getCurrentUser();
   }
 
 }

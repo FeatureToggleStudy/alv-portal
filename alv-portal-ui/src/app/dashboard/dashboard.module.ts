@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { DashboardHeaderComponent } from './widgets/dashboard-header/dashboard-header.component';
 import { FindJobWidgetComponent } from './widgets/find-job-widget/find-job-widget.component';
@@ -8,8 +8,7 @@ import { FindCandidateWidgetComponent } from './widgets/find-candidate-widget/fi
 import { CompanyDashboardPageComponent } from './pages/company-dashboard-page/company-dashboard-page.component';
 import { JobSeekerDashboardPageComponent } from './pages/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
 import { PavDashboardPageComponent } from './pages/pav-dashboard-page/pav-dashboard-page.component';
-import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,13 +17,13 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
     FindCandidateWidgetComponent,
     CompanyDashboardPageComponent,
     JobSeekerDashboardPageComponent,
-    PavDashboardPageComponent,
-    LandingPageComponent
+    PavDashboardPageComponent
   ],
   imports: [
     ReactiveFormsModule,
     SharedModule,
-    CommonModule
+    CommonModule,
+    DashboardRoutingModule
   ],
   entryComponents: [],
   exports: [
@@ -33,8 +32,7 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
     FindCandidateWidgetComponent,
     CompanyDashboardPageComponent,
     JobSeekerDashboardPageComponent,
-    PavDashboardPageComponent,
-    LandingPageComponent
+    PavDashboardPageComponent
   ],
   providers: []
 })

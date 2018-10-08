@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../../auth/authentication.service';
 import { Observable } from 'rxjs';
-import { User } from '../../../auth/user.model';
+import { User } from '../../../core/auth/user.model';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+
 
 @Component({
   selector: 'alv-company-dashboard-page',

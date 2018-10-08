@@ -1,13 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LandingPageComponent } from './core/dashboard/pages/landing-page/landing-page.component';
-import { JobSeekerDashboardPageComponent } from './core/dashboard/pages/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
-import { PavDashboardPageComponent } from './core/dashboard/pages/pav-dashboard-page/pav-dashboard-page.component';
-import { HomePageComponent } from './core/home-page/home-page.component';
-import { JobSeekerHomePageComponent } from './core/home-page/job-seeker-home-page/job-seeker-home-page.component';
-import { CompanyHomePageComponent } from './core/home-page/company-home-page/company-home-page.component';
-import { PavHomePageComponent } from './core/home-page/pav-home-page/pav-home-page.component';
 import { AuthGuardService } from './core/auth/auth-guard.service';
+import { LandingPageComponent } from './core/landing-page/landing-page.component';
 
 const appRoutes: Routes = [
   {
@@ -17,50 +11,12 @@ const appRoutes: Routes = [
   },
   {
     path: 'home',
-    component: HomePageComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: '/home/job-seeker',
-        pathMatch: 'full',
-      },
-      {
-        path: 'job-seeker',
-        component: JobSeekerHomePageComponent,
-        data: { titleKey: 'JOB_SEEKER_HOME_PAGE' }
-      },
-      {
-        path: 'company',
-        component: CompanyHomePageComponent,
-        data: { titleKey: 'COMPANY_HOME_PAGE' }
-      },
-      {
-        path: 'pav',
-        component: PavHomePageComponent,
-        data: { titleKey: 'PAV_HOME_PAGE' }
-      }
-    ]
+    loadChildren: './home/home.module#HomeModule',
   },
   {
     path: 'dashboard',
+    loadChildren: './dashboard/dashboard.module#DashboardModule',
     canActivateChild: [AuthGuardService],
-    children: [
-      {
-        path: 'job-seeker',
-        component: JobSeekerDashboardPageComponent,
-        data: { titleKey: 'JOB_SEEKER_DASHBOARD_PAGE' }
-      },
-      {
-        path: 'pav',
-        component: PavDashboardPageComponent,
-        data: { titleKey: 'PAV_DASHBOARD_PAGE' }
-      },
-      {
-        path: 'company',
-        component: PavDashboardPageComponent,
-        data: { titleKey: 'COMPANY_DASHBOARD_PAGE' }
-      }
-    ]
   },
   {
     path: 'registration',
