@@ -29,14 +29,14 @@ export class UserMenuComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     if (!this.noEiam) {
-      document.location.href = '/api/redirect/logout';
+      document.location.href = '/authentication/logout';
     } else {
       this.router.navigate(['']);
     }
   }
 
   goToEiamProfile() {
-    document.location.href = 'api/redirect/profile';
+    document.location.href = '/authentication/profile';
   }
 
   completeRegistration() {

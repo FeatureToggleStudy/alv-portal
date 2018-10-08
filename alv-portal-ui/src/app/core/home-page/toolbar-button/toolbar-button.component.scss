@@ -1,0 +1,20 @@
+@import "../../../../scss/colors";
+
+.nav-link__icon {
+  border: double $color-primary;
+  border-radius: 50%;
+  color: $color-primary;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+}
+
+.nav-item:hover {
+  background: white;
+  cursor: pointer;
+}
+
+.nav-item__text {
+  color: $color-red;
+  font-weight: bold;
+}

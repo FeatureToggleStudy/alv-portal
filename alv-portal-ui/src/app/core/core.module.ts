@@ -11,17 +11,14 @@ import { SharedModule } from '../shared/shared.module';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomePageComponent } from './home-page/home-page.component';
-import { LandingPageComponent } from './dashboard/pages/landing-page/landing-page.component';
 import { JobSeekerHomePageComponent } from './home-page/job-seeker-home-page/job-seeker-home-page.component';
 import { CompanyHomePageComponent } from './home-page/company-home-page/company-home-page.component';
 import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-authority.directive';
 import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticated.directive';
 import { AuthModule } from './auth/auth.module';
-
-import { ToolbarComponent } from './home-page/toolbar/toolbar.component';
-import { ToolbarItemComponent } from './home-page/toolbar-item/toolbar-item.component';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ToolbarButtonComponent } from './home-page/toolbar-button/toolbar-button.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +32,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     JobSeekerHomePageComponent,
     CompanyHomePageComponent,
     PavHomePageComponent,
-    ToolbarComponent,
-    ToolbarItemComponent
+    ToolbarButtonComponent
   ],
   imports: [
     CommonModule,
