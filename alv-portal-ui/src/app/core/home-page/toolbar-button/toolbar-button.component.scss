@@ -7,14 +7,40 @@
   width: 60px;
   height: 60px;
   text-align: center;
+  flex: 0 0 auto;
+}
+.inner-circle {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  i.fa {
+    line-height: 1.7em;
+  }
 }
 
-.nav-item:hover {
-  background: white;
+:host:hover, :host.active {
+  &:not(.active) {
+    background: white;
+  }
+
   cursor: pointer;
+  color: $color-white;
+  .inner-circle {
+    background-color: $color-red;
+  }
+  .nav-link__icon {
+    color: $color-white;
+  }
 }
 
 .nav-item__text {
+  color: $color-dark-grey;
+  font-weight: 500;
+}
+
+
+:host.active .nav-item__text {
   color: $color-red;
-  font-weight: bold;
+  font-weight: 700;
 }

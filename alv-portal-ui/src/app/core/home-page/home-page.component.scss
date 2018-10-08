@@ -1,3 +1,14 @@
-.jumbotron {
-  opacity: 0.8;
+
+.banner {
+  background-color: white;
+  opacity: 0.7;
+  height: 140px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+alv-toolbar-button {
+  z-index: 1;
+  width: 30%;
 }

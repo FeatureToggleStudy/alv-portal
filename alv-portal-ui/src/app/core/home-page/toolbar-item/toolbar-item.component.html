@@ -1,0 +1,15 @@
+<li class="nav-item d-md-inline-flex align-items-center pr-3"
+    [ngClass]="{'active': active}">
+		<div class="nav-link__icon d-none d-md-flex justify-content-center align-items-center text-center">
+
+      <div class="inner-circle">
+        <i class="fa fa-2x x fa-{{icon}}"
+           aria-hidden="true">
+        </i>
+      </div>
+
+		</div>
+    <div class="ml-3 nav-item__text">
+          <ng-content></ng-content>
+    </div>
+</li>
