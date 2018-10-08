@@ -2,11 +2,16 @@ package ch.admin.seco.alvportal.webapp;
 
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.io.Resource;
 import org.springframework.http.CacheControl;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -17,10 +22,28 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     private static final String WEB_APP_LOCATION = "classpath:/ch/admin/seco/alvportal/ui/";
 
+    private final ResourceProperties resourceProperties;
+
+    public WebConfiguration(ResourceProperties resourceProperties) {
+        this.resourceProperties = resourceProperties;
+    }
+
+    @Bean
+    FilterRegistrationBean forwardedHeaderFilter() {
+        FilterRegistrationBean<ForwardedHeaderFilter> filterRegBean = new FilterRegistrationBean<>();
+        filterRegBean.setFilter(new ForwardedHeaderFilter());
+        filterRegBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return filterRegBean;
+    }
+
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        Duration cachePeriod = this.resourceProperties.getCache().getPeriod();
+        CacheControl cacheControl = this.resourceProperties.getCache()
+                .getCachecontrol().toHttpCacheControl();
         registry.addResourceHandler("/**")
                 .addResourceLocations(WEB_APP_LOCATION)
-                .setCacheControl(CacheControl.maxAge(7, TimeUnit.DAYS))
+                .setCachePeriod(getSeconds(cachePeriod))
+                .setCacheControl(cacheControl)
                 .resourceChain(true)
                 .addResolver(new SinglePageAppResourceResolver());
     }
@@ -29,6 +52,9 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addRedirectViewController("/", "index.html");
     }
 
+    private Integer getSeconds(Duration cachePeriod) {
+        return (cachePeriod != null) ? (int) cachePeriod.getSeconds() : null;
+    }
 
     class SinglePageAppResourceResolver extends PathResourceResolver {
 

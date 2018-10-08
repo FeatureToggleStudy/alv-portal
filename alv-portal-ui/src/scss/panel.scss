@@ -1,0 +1,22 @@
+@import "colors";
+.alv-panel {
+  background-color: $color-light-grey;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+  margin: 0.25em;
+  border: 2px solid transparent;
+  .panel-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: $color-dark-grey;
+    .panel-subtitle {
+      font-weight: 500;
+    }
+  }
+  &.invalid {
+    border: 2px solid $color-red;
+    .panel-title {
+      color: $color-red;
+    }
+  }
+}
