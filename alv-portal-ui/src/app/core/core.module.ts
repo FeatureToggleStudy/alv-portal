@@ -10,10 +10,10 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
 import { SharedModule } from '../shared/shared.module';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { JobSeekerDashboardPageComponent } from './landing/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
-import { PavDashboardPageComponent } from './landing/pav-dashboard-page/pav-dashboard-page.component';
+import { JobSeekerDashboardPageComponent } from './dashboard/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
+import { PavDashboardPageComponent } from './dashboard/pav-dashboard-page/pav-dashboard-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { LandingPageComponent } from './landing/landing-page/landing-page.component';
+import { LandingPageComponent } from './dashboard/landing-page/landing-page.component';
 import { JobSeekerHomePageComponent } from './home-page/job-seeker-home-page/job-seeker-home-page.component';
 import { CompanyHomePageComponent } from './home-page/company-home-page/company-home-page.component';
 import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.component';
