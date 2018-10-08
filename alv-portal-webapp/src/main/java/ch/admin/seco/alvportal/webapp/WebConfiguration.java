@@ -4,9 +4,13 @@ package ch.admin.seco.alvportal.webapp;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.io.Resource;
 import org.springframework.http.CacheControl;
+import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -16,6 +20,15 @@ import org.springframework.web.servlet.resource.PathResourceResolver;
 public class WebConfiguration implements WebMvcConfigurer {
 
     private static final String WEB_APP_LOCATION = "classpath:/ch/admin/seco/alvportal/ui/";
+
+
+    @Bean
+    FilterRegistrationBean forwardedHeaderFilter() {
+        FilterRegistrationBean<ForwardedHeaderFilter> filterRegBean = new FilterRegistrationBean<>();
+        filterRegBean.setFilter(new ForwardedHeaderFilter());
+        filterRegBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return filterRegBean;
+    }
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
