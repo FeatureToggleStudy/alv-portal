@@ -3,9 +3,9 @@ version: '3.3'
 services:
   alv-portal-webapp:
     image: "alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:${project.version}"
-    environment:
-    - SPRING_PROFILES_ACTIVE=dev
-    - SPRING.CLOUD.CONFIG.URI=http://admin:${jhipster.registry.password}@dev.job-room:8761/config
+    env_file: env.properties
+    networks:
+    - jobroom_data2
     ports:
     - 8899:8080
     secrets:
@@ -14,4 +14,9 @@ services:
 
 secrets:
   bootstrap.yml-1:
+    external: true
+
+
+networks:
+  jobroom_data2:
     external: true

@@ -5,7 +5,7 @@ DEPLOY_HOST=$2
 DEPLOY_KEY=$3
 ENV_SLUG=$4
 
-DEPLOY_SOURCE_DIR=alv-portal-webapp/target/docker-dist
+DEPLOY_SOURCE_DIR=alv-portal-webapp/target/docker-development-dist
 DEPLOY_DEST_DIR=/tmp/alv-portal-deployment
 DEPLOY_KEY_DECRYPTED=deploy_key.dec
 
