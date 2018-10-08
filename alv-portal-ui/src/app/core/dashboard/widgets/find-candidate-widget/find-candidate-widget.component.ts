@@ -14,9 +14,9 @@ export class FindCandidateWidgetComponent implements OnInit {
 
   ngOnInit() {
     this.findCandidateForm = this.fb.group({
-      profession: this.fb.control('Designer'),
+      profession: this.fb.control(''),
       skills: this.fb.control(''),
-      city: this.fb.control('Zurich')
+      city: this.fb.control('')
     });
   }
 

@@ -2,7 +2,7 @@
 .banner {
   background-color: white;
   opacity: 0.7;
-  height: 98px;
+  height: 114px;
   position: absolute;
   left: 0;
   top: 0;
@@ -14,12 +14,21 @@
   left: 0;
   top: 0;
   right: 0;
+  height: 114px;
 }
 
 alv-toolbar-button {
   z-index: 1;
-  width: 30%;
+  @media (min-width: 768px) {
+    width: 30%;
+  }
 }
+
 .home-page-content {
   margin-top: 98px;
+
+  @media(max-width: 991px) {
+    margin-top: 150px;
+  }
+
 }

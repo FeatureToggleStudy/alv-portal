@@ -14,8 +14,8 @@ export class FindJobWidgetComponent implements OnInit {
 
   ngOnInit() {
     this.findJobForm = this.fb.group({
-      profession: this.fb.control('Designer'),
-      city: this.fb.control('Zurich')
+      profession: this.fb.control(''),
+      city: this.fb.control('')
     });
   }
 
