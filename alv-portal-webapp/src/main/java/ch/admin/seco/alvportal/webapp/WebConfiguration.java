@@ -2,8 +2,9 @@ package ch.admin.seco.alvportal.webapp;
 
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,11 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     private static final String WEB_APP_LOCATION = "classpath:/ch/admin/seco/alvportal/ui/";
 
+    private final ResourceProperties resourceProperties;
+
+    public WebConfiguration(ResourceProperties resourceProperties) {
+        this.resourceProperties = resourceProperties;
+    }
 
     @Bean
     FilterRegistrationBean forwardedHeaderFilter() {
@@ -31,15 +37,23 @@ public class WebConfiguration implements WebMvcConfigurer {
     }
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        Duration cachePeriod = this.resourceProperties.getCache().getPeriod();
+        CacheControl cacheControl = this.resourceProperties.getCache()
+                .getCachecontrol().toHttpCacheControl();
         registry.addResourceHandler("/**")
                 .addResourceLocations(WEB_APP_LOCATION)
-                .setCacheControl(CacheControl.maxAge(7, TimeUnit.DAYS))
+                .setCachePeriod(getSeconds(cachePeriod))
+                .setCacheControl(cacheControl)
                 .resourceChain(true)
                 .addResolver(new SinglePageAppResourceResolver());
     }
 
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "index.html");
+    }
+
+    private Integer getSeconds(Duration cachePeriod) {
+        return (cachePeriod != null) ? (int) cachePeriod.getSeconds() : null;
     }
 
     class SinglePageAppResourceResolver extends PathResourceResolver {
