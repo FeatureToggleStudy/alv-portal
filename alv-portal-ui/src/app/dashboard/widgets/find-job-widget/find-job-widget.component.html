@@ -9,14 +9,20 @@
       <alv-input-field class="mb-0"
                        type="text"
                        label="Profession"
-                       [control]="findJobForm?.get('profession')">
+                       [control]="findJobForm?.get('profession')"
+                       placement="bottom"
+                       [container]="'body'"
+                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
       </alv-input-field>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
       <alv-input-field class="flex-grow-1 mb-0"
                        type="text"
                        label="City"
-                       [control]="findJobForm?.get('city')">
+                       [control]="findJobForm?.get('city')"
+                       placement="bottom"
+                       [container]="'body'"
+                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
       </alv-input-field>
 
     </div>

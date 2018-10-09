@@ -18,7 +18,15 @@ header {
       background-color: $color-white;
       z-index: 10;
       img {
-        height: 75px;
+        height: 80px;
+      }
+      .logo-text {
+        font-size: 18px;
+        margin-top: 13px;
+        margin-left: 5px;
+        color: $color-grey;
+        user-focus: none;
+        user-select: none;
       }
     }
 
@@ -48,10 +56,10 @@ header {
         cursor: pointer;
         padding: 2px 5px;
         background-color: $color-light-grey;
+        color: $color-black;
         &:hover {
           background-color: $color-white;
           text-decoration: none;
-          color: $color-black;
         }
 
         &.profile-button {

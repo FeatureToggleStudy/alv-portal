@@ -4,7 +4,10 @@
   left: 0;
   top: 0;
   right: 0;
-  height: 114px;
+  height: 130px;
+  .nav {
+    max-width: 1000px;
+  }
 }
 
 alv-toolbar-button {
@@ -16,9 +19,5 @@ alv-toolbar-button {
 
 .home-page-content {
   margin-top: 150px;
-
-  @media(max-width: 991px) {
-    margin-top: 150px;
-  }
-
+  max-width: 1000px;
 }

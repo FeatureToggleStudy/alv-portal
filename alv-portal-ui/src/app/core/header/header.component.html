@@ -3,12 +3,14 @@
   <h1 class="sr-only">Header</h1>
 
   <div class="header p-0 pt-lg-3 pb-lg-3 d-flex align-items-center">
-    <div class="logo pl-3 d-none d-lg-block">
-      <a routerLink="/">
+    <a routerLink="/">
+      <div class="logo pl-2 d-none d-lg-flex">
+
         <img src="assets/img/logo_arbeit_swiss.svg"
              alt="Logo Arbeitslosenversicherung">
-      </a>
-    </div>
+        <span class="logo-text">e-services</span>
+      </div>
+    </a>
     <button class="header-menu d-md-block d-lg-none align-self-center"
             aria-label="Open Navigation"
             *alvIsAuthenticated
