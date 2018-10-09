@@ -20,10 +20,10 @@ describe('NotificationsService', () => {
   }));
 
   it('should arrange added elements according to their type', inject([NotificationsService], (service: NotificationsService) => {
-    service.info("Avesome info message");
-    service.error("Avesome info message");
-    service.warning("Avesome info message");
-    service.default("Avesome info message");
+    service.info("Awesome info message");
+    service.error("Awesome info message");
+    service.warning("Awesome info message");
+    service.default("Awesome info message");
     expect(isNotificationsSorted(service.notifications))
         .toBeTrue('notifications array must be sorted');
 

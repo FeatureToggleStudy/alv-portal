@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import { Notification, NotificationType } from './notification.model';
 
 export const STICKY_TIMEOUT = 5000;
 
@@ -93,19 +94,4 @@ export class NotificationsService {
     });
   }
 
-}
-
-export interface Notification {
-  id?: number;
-  type: NotificationType;
-  messageKey: string;
-  isSticky: boolean;
-}
-
-export enum NotificationType {
-  DEFAULT,
-  INFO,
-  SUCCESS,
-  WARNING,
-  ERROR
 }

@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AbstractMessage } from '../abstract-message';
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
+import { Notification, NotificationType } from '../notification.model';
 
 /**
  * Component for notification type of message
@@ -12,17 +12,58 @@ import { AbstractMessage } from '../abstract-message';
 @Component({
   selector: 'alv-notification',
   templateUrl: './notification.component.html',
+  styleUrls: ['../abstract-message.scss', './notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NotificationComponent extends AbstractMessage {
+export class NotificationComponent {
 
-  /**
-   * (optional) additional text to be displayed with less emphasis
-   */
-  @Input() additionalText?: string;
 
-  constructor() {
-    super();
+  @HostBinding('class.info') isInfo;
+  @HostBinding('class.warning') isWarning;
+  @HostBinding('class.success') isSuccess;
+  @HostBinding('class.error') isError;
+  @HostBinding('class.empty') isEmpty;
+
+
+  @Input() notification: Notification;
+
+  ngOnInit() {
+    this.setMessageType(this.notification.type);
+  }
+
+  getIconClass(type: NotificationType): string {
+    switch (type) {
+      case NotificationType.ERROR:
+        return 'fas fa-ban';
+      case NotificationType.INFO:
+        return 'fas fa-info';
+      case NotificationType.SUCCESS:
+        return 'fas fa-check';
+      case NotificationType.WARNING:
+        return 'fas fa-exclamation';
+      default:
+        return '';
+    }
+  }
+
+  private setMessageType(type: NotificationType): void {
+    switch (type) {
+      case NotificationType.ERROR:
+        this.isError = true;
+        break;
+      case NotificationType.INFO:
+        this.isInfo = true;
+        break;
+      case NotificationType.SUCCESS:
+        this.isSuccess = true;
+        break;
+      case NotificationType.WARNING:
+        this.isWarning = true;
+        break;
+      default:
+        this.isEmpty = true;
+        break;
+    }
   }
 
 }

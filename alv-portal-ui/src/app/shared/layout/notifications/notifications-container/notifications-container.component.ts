@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Notification, NotificationsService } from '../notifications.service';
+import { Notification } from '../notification.model';
 
 @Component({
   selector: 'alv-notifications-container',
@@ -8,11 +8,8 @@ import { Notification, NotificationsService } from '../notifications.service';
 })
 export class NotificationsContainerComponent implements OnInit {
 
-  public notifications: Array<Notification> = [];
-
-  constructor(private notificationsService: NotificationsService) {
-    this.notifications = notificationsService.notifications;
-  }
+  public notifications: Notification[];
+  constructor(){ }
 
   ngOnInit() {
   }
