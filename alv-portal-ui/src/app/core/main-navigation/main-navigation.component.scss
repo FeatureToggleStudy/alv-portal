@@ -21,7 +21,11 @@
   &.collapsed {
     max-width: 55px;
     min-width: 55px;
-    .nav-text {
+    @media(max-width: 991px) {
+      min-width: 0;
+    }
+
+    :not(.side-nav) > .nav-item > .nav-text {
       display: none;
     }
     .nav-item {
