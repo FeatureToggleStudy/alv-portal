@@ -1,0 +1,66 @@
+@import "../../../../scss/colors";
+
+header {
+  background-color: $color-light-grey;
+  border-bottom: 1px solid $color-medium-grey;
+
+  .header {
+    .logo {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 295px;
+      height: 83px;
+      box-sizing: border-box;
+      box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 5px;
+      border: 1px solid $color-medium-grey;
+      border-radius: 0 0 24px;
+      background-color: $color-white;
+      z-index: 10;
+      img {
+        height: 50px;
+      }
+    }
+
+    .header-menu {
+      margin: 0 4px;
+      padding: 2px 5px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      height: 29px;
+      background-color: $color-light-grey;
+      i.fa-bars {
+        vertical-align: initial;
+      }
+      &:hover {
+        background-color: $color-white;
+      }
+    }
+
+    .header-buttons {
+      height: 40px;
+      button {
+        margin-right: 4px;
+        font-size: 16px;
+        height: 29px;
+        border: none;
+        cursor: pointer;
+        padding: 2px 5px;
+        background-color: $color-light-grey;
+        &:hover {
+          background-color: $color-white;
+        }
+
+        &.profile-button {
+          background-color: $color-white;
+          color: $color-primary;
+          &:hover {
+            background-color: $color-primary;
+            color: $color-white;
+          }
+        }
+      }
+    }
+  }
+}
