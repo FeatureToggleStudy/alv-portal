@@ -5,7 +5,11 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
 import { NavigationContainerComponent } from './navigation-container/navigation-container.component';
 import { VersionComponent } from './version/version.component';
 import { HeaderComponent } from './header/header.component';
-import { NgbDropdownModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDropdownModule,
+  NgbModalModule,
+  NgbPopoverModule
+} from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { PanelComponent } from './panel/panel.component';
@@ -20,6 +24,7 @@ import { HelpButtonComponent } from './help-button/help-button.component';
     CommonModule,
     NgbDropdownModule,
     NgbPopoverModule,
+    NgbModalModule,
     RouterModule,
     HttpClientModule
   ],
