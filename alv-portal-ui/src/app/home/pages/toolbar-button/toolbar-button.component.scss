@@ -32,7 +32,7 @@
   cursor: pointer;
   color: $color-white;
   .inner-circle {
-    background-color: $color-red;
+    background-color: $color-primary;
   }
   .nav-link__icon {
     color: $color-white;
@@ -44,6 +44,6 @@
 }
 
 :host.active .nav-item__text {
-  color: $color-red;
+  color: $color-primary;
   font-weight: 700;
 }

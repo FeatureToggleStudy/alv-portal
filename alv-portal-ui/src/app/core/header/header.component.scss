@@ -40,7 +40,7 @@ header {
 
     .header-buttons {
       height: 40px;
-      button {
+      button, a {
         margin-right: 4px;
         font-size: 16px;
         height: 29px;
@@ -50,6 +50,8 @@ header {
         background-color: $color-light-grey;
         &:hover {
           background-color: $color-white;
+          text-decoration: none;
+          color: $color-black;
         }
 
         &.profile-button {

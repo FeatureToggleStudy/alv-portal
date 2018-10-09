@@ -5,11 +5,6 @@ import { LandingPageComponent } from './core/landing-page/landing-page.component
 
 const appRoutes: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
     path: 'home',
     loadChildren: './home/home.module#HomeModule',
   },
