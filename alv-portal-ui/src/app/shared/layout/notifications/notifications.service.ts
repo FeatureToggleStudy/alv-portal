@@ -11,7 +11,7 @@ export const STICKY_TIMEOUT = 5000;
  * @author pado in Panta project, minor modifications by iuka
  */
 @Injectable()
-export class NotificationService {
+export class NotificationsService {
 
   public notifications: Notification[] = [];
 

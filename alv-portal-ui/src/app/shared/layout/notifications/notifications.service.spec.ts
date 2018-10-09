@@ -1,25 +1,25 @@
 import { inject, TestBed } from '@angular/core/testing';
 import 'jasmine-expect';
 
-import { NotificationService } from './notification.service';
+import { NotificationsService } from './notifications.service';
 
 const isNotificationsSorted = (arr) => {
   return arr.every((cur, index) =>
       !index || cur.type >= arr[index - 1].type)
 };
 
-describe('NotificationService', () => {
+describe('NotificationsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [NotificationService]
+      providers: [NotificationsService]
     });
   });
 
-  it('should be created', inject([NotificationService], (service: NotificationService) => {
+  it('should be created', inject([NotificationsService], (service: NotificationsService) => {
     expect(service).toBeTruthy();
   }));
 
-  it('should arrange added elements according to their type', inject([NotificationService], (service: NotificationService) => {
+  it('should arrange added elements according to their type', inject([NotificationsService], (service: NotificationsService) => {
     service.info("Avesome info message");
     service.error("Avesome info message");
     service.warning("Avesome info message");

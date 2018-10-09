@@ -14,11 +14,11 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { PanelComponent } from './panel/panel.component';
 import { PanelGroupComponent } from './panel-group/panel-group.component';
-import { NotificationComponent } from './message/notification/notification.component';
-import { StampComponent } from './message/stamp/stamp.component';
-import { StampGroupComponent } from './message/stamp-group/stamp-group.component';
+import { NotificationComponent } from './notifications/notification/notification.component';
 import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
+import { NotificationsContainerComponent } from './notifications/notifications-container/notifications-container.component';
+import { NotificationsService } from './notifications/notifications.service';
 
 @NgModule({
   imports: [
@@ -39,9 +39,8 @@ import { SharedAuthModule } from '../auth/shared-auth.module';
     PanelComponent,
     PanelGroupComponent,
     NotificationComponent,
-    StampComponent,
-    StampGroupComponent,
-    HelpButtonComponent
+    HelpButtonComponent,
+    NotificationsContainerComponent
   ],
   exports: [
     NavigationContainerComponent,
@@ -50,9 +49,11 @@ import { SharedAuthModule } from '../auth/shared-auth.module';
     PanelComponent,
     PanelGroupComponent,
     NotificationComponent,
-    StampComponent,
-    StampGroupComponent,
-    HelpButtonComponent
+    HelpButtonComponent,
+    NotificationsContainerComponent
+  ],
+  providers: [
+      NotificationsService
   ]
 })
 export class LayoutModule {

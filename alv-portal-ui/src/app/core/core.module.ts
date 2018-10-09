@@ -11,7 +11,8 @@ import { AuthModule } from './auth/auth.module';
   exports: [
     AuthModule
   ],
-  providers: []
+  providers: [
+  ]
 })
 export class CoreModule {
   /**
