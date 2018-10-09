@@ -1,7 +1,7 @@
 import { Directive, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { takeUntil } from 'rxjs/operators';
-import { AbstractSubscriber } from '../../abstract-subscriber';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 @Directive({
   selector: '[alvIsAuthenticated]'

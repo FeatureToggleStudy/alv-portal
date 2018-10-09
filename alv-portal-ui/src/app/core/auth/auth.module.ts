@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core';
-import { HasAnyAuthorityDirective } from './has-any-authority/has-any-authority.directive';
-import { IsAuthenticatedDirective } from './is-authenticated/is-authenticated.directive';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { SessionManagerService } from './session-manager/session-manager.service';
@@ -14,8 +12,6 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    HasAnyAuthorityDirective,
-    IsAuthenticatedDirective,
     LocalLoginComponent,
   ],
   imports: [
@@ -27,8 +23,6 @@ import { CommonModule } from '@angular/common';
     LocalLoginComponent
   ],
   exports: [
-    HasAnyAuthorityDirective,
-    IsAuthenticatedDirective,
     LocalLoginComponent
   ],
   providers: [

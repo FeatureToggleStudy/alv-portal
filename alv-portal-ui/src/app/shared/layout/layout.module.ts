@@ -18,6 +18,8 @@ import { NotificationComponent } from './message/notification/notification.compo
 import { StampComponent } from './message/stamp/stamp.component';
 import { StampGroupComponent } from './message/stamp-group/stamp-group.component';
 import { HelpButtonComponent } from './help-button/help-button.component';
+import { IsAuthenticatedDirective } from './is-authenticated/is-authenticated.directive';
+import { HasAnyAuthorityDirective } from './has-any-authority/has-any-authority.directive';
 
 @NgModule({
   imports: [
@@ -40,6 +42,8 @@ import { HelpButtonComponent } from './help-button/help-button.component';
     StampComponent,
     StampGroupComponent,
     HelpButtonComponent,
+    IsAuthenticatedDirective,
+    HasAnyAuthorityDirective
   ],
   exports: [
     NavigationContainerComponent,
@@ -51,6 +55,8 @@ import { HelpButtonComponent } from './help-button/help-button.component';
     StampComponent,
     StampGroupComponent,
     HelpButtonComponent,
+    IsAuthenticatedDirective,
+    HasAnyAuthorityDirective
   ]
 })
 export class LayoutModule {
