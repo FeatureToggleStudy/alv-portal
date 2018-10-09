@@ -13,7 +13,7 @@ export class LandingNavigationService {
   public navigateUser(user: User): Promise<boolean> {
 
     if (user === null) {
-      return;
+      return this.router.navigate(['home']);
     }
 
     // For authorised user without permissions - navigate to finish registration page:
