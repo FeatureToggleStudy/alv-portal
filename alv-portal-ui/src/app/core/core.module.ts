@@ -10,15 +10,10 @@ import { MainNavigationComponent } from './main-navigation/main-navigation.compo
 import { SharedModule } from '../shared/shared.module';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HomePageComponent } from './home-page/home-page.component';
-import { JobSeekerHomePageComponent } from './home-page/job-seeker-home-page/job-seeker-home-page.component';
-import { CompanyHomePageComponent } from './home-page/company-home-page/company-home-page.component';
-import { PavHomePageComponent } from './home-page/pav-home-page/pav-home-page.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-authority.directive';
 import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticated.directive';
 import { AuthModule } from './auth/auth.module';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { ToolbarButtonComponent } from './home-page/toolbar-button/toolbar-button.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +23,7 @@ import { ToolbarButtonComponent } from './home-page/toolbar-button/toolbar-butto
     MainNavigationComponent,
     UserMenuComponent,
     MainNavigationComponent,
-    HomePageComponent,
-    JobSeekerHomePageComponent,
-    CompanyHomePageComponent,
-    PavHomePageComponent,
-    ToolbarButtonComponent
+    LandingPageComponent
   ],
   imports: [
     CommonModule,
@@ -40,8 +31,7 @@ import { ToolbarButtonComponent } from './home-page/toolbar-button/toolbar-butto
     HttpClientModule,
     ReactiveFormsModule,
     SharedModule,
-    AuthModule,
-    DashboardModule
+    AuthModule
   ],
   entryComponents: [],
   exports: [
@@ -49,7 +39,8 @@ import { ToolbarButtonComponent } from './home-page/toolbar-button/toolbar-butto
     HeaderComponent,
     NavigationContainerComponent,
     HasAnyAuthorityDirective,
-    IsAuthenticatedDirective
+    IsAuthenticatedDirective,
+    LandingPageComponent
   ],
   providers: []
 })
