@@ -12,7 +12,6 @@ import { AbstractMessage } from '../abstract-message';
 @Component({
   selector: 'alv-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['../abstract-message.scss', './notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationComponent extends AbstractMessage {

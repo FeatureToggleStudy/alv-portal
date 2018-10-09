@@ -14,6 +14,7 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-autho
 import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticated.directive';
 import { AuthModule } from './auth/auth.module';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { NotificationService } from './notification.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     NavigationContainerComponent,
     HasAnyAuthorityDirective,
     IsAuthenticatedDirective,
-    LandingPageComponent
+    LandingPageComponent,
+    NotificationService
   ],
   providers: []
 })
