@@ -4,6 +4,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LayoutModule } from './layout/layout.module';
 import { FormsModule as AlvFormsModule } from './forms/forms.module';
+import { SharedAuthModule } from './auth/shared-auth.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { FormsModule as AlvFormsModule } from './forms/forms.module';
   imports: [
     AlvFormsModule,
     PrettyJsonModule,
-    LayoutModule
+    LayoutModule,
+    SharedAuthModule
   ],
   entryComponents: [],
   exports: [

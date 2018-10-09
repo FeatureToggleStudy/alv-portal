@@ -18,8 +18,7 @@ import { NotificationComponent } from './message/notification/notification.compo
 import { StampComponent } from './message/stamp/stamp.component';
 import { StampGroupComponent } from './message/stamp-group/stamp-group.component';
 import { HelpButtonComponent } from './help-button/help-button.component';
-import { IsAuthenticatedDirective } from './is-authenticated/is-authenticated.directive';
-import { HasAnyAuthorityDirective } from './has-any-authority/has-any-authority.directive';
+import { SharedAuthModule } from '../auth/shared-auth.module';
 
 @NgModule({
   imports: [
@@ -28,7 +27,8 @@ import { HasAnyAuthorityDirective } from './has-any-authority/has-any-authority.
     NgbPopoverModule,
     NgbModalModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedAuthModule
   ],
   declarations: [
     UserMenuComponent,
@@ -41,9 +41,7 @@ import { HasAnyAuthorityDirective } from './has-any-authority/has-any-authority.
     NotificationComponent,
     StampComponent,
     StampGroupComponent,
-    HelpButtonComponent,
-    IsAuthenticatedDirective,
-    HasAnyAuthorityDirective
+    HelpButtonComponent
   ],
   exports: [
     NavigationContainerComponent,
@@ -54,9 +52,7 @@ import { HasAnyAuthorityDirective } from './has-any-authority/has-any-authority.
     NotificationComponent,
     StampComponent,
     StampGroupComponent,
-    HelpButtonComponent,
-    IsAuthenticatedDirective,
-    HasAnyAuthorityDirective
+    HelpButtonComponent
   ]
 })
 export class LayoutModule {
