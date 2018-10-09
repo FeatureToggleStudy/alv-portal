@@ -8,6 +8,9 @@ import { ToolbarButtonComponent } from './pages/toolbar-button/toolbar-button.co
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FindCandidateHomeWidgetComponent } from './widgets/find-candidate-home-widget/find-candidate-home-widget.component';
+import { FindJobHomeWidgetComponent } from './widgets/find-job-home-widget/find-job-home-widget.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -15,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     SharedModule,
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    NgbTooltipModule
   ],
   declarations: [
     HomePageComponent,
@@ -23,6 +27,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     CompanyHomePageComponent,
     PavHomePageComponent,
     ToolbarButtonComponent,
+    FindCandidateHomeWidgetComponent,
+    FindJobHomeWidgetComponent
+  ],
+  exports: [
+    FindCandidateHomeWidgetComponent,
+    FindJobHomeWidgetComponent
   ]
 })
 export class HomeModule {
