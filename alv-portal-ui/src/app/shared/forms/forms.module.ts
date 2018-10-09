@@ -15,8 +15,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { DateParserFormatter } from './input/date-input/date-parser-formatter';
 import { FormsModule as NgFormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IsAuthenticatedDirective } from '../layout/is-authenticated/is-authenticated.directive';
-import { HasAnyAuthorityDirective } from '../layout/has-any-authority/has-any-authority.directive';
 
 @NgModule({
   imports: [
