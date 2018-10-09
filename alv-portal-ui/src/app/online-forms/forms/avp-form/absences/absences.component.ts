@@ -3,8 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/internal/Observable';
 import { AbsencesModel } from './absences.model';
 import { of } from 'rxjs/internal/observable/of';
-import { SelectableOption } from '../../../../shared/components/input/selectable-option.model';
-import { DateIntervalFormGroup } from '../../../../shared/components/input/date-interval-input/date-interval-form-group';
+import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
+import { DateIntervalFormGroup } from '../../../../shared/forms/input/date-interval-input/date-interval-form-group';
 
 @Component({
   selector: 'alv-absences',
