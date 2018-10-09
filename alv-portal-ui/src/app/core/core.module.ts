@@ -1,19 +1,15 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { throwIfAlreadyLoaded } from './module-import-guard';
-import { HasAnyAuthorityDirective } from './auth/has-any-authority/has-any-authority.directive';
-import { IsAuthenticatedDirective } from './auth/is-authenticated/is-authenticated.directive';
 import { AuthModule } from './auth/auth.module';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [
     AuthModule
   ],
   entryComponents: [],
   exports: [
-    HasAnyAuthorityDirective,
-    IsAuthenticatedDirective
+    AuthModule
   ],
   providers: []
 })
