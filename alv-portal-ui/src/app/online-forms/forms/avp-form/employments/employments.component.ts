@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mockDocument1 } from '../../forms.mock';
 import { EmploymentsModel } from './employments.model';
-import { HelpTextService } from '../../../../shared/components/help-button/help-text.service';
-import { AddressFormGroup } from '../../../../shared/components/address-input/address-form-group';
-import { DateIntervalFormGroup } from '../../../../shared/components/input/date-interval-input/date-interval-form-group';
+import { AddressFormGroup } from '../../../../shared/forms/address-input/address-form-group';
+import { DateIntervalFormGroup } from '../../../../shared/forms/input/date-interval-input/date-interval-form-group';
+import { HelpTextService } from '../../../../shared/layout/help-button/help-text.service';
 
 @Component({
   selector: 'alv-employments',
