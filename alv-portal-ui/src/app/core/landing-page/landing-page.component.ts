@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LandingNavigationService } from '../../../landing-navigation.service';
-import { AuthenticationService } from '../../../auth/authentication.service';
-import { AbstractSubscriber } from '../../../../shared/components/abstract-subscriber';
 import { takeUntil } from 'rxjs/operators';
+import { AbstractSubscriber } from '../../shared/components/abstract-subscriber';
+import { LandingNavigationService } from '../landing-navigation.service';
+import { AuthenticationService } from '../auth/authentication.service';
 
 /**
  * the sole purpose of this component is to route the user to the respective landing page
