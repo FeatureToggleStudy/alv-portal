@@ -134,27 +134,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/assembly/docker-dist.xml</descriptor>
-                    </descriptors>
-                    <finalName>docker-dist</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <ignorePermissions>false</ignorePermissions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>assembly-docker-dist</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
