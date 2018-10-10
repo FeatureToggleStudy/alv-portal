@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Host,
-  OnInit,
-  Optional,
-  SkipSelf
-} from '@angular/core';
+import { Component, Host, OnInit, Optional, SkipSelf } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../selectable-option.model';
 import { InputType } from '../input-type.enum';
@@ -16,8 +9,7 @@ import { ControlContainer } from '@angular/forms';
 @Component({
   selector: 'alv-radio-button',
   templateUrl: './radio-button.component.html',
-  styleUrls: ['./radio-button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./radio-button.component.scss']
 })
 export class RadioButtonComponent extends AbstractSelectableInput implements OnInit {
 

@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Host,
-  Optional,
-  SkipSelf
-} from '@angular/core';
+import { Component, Host, Optional, SkipSelf } from '@angular/core';
 import { InputType } from '../input-type.enum';
 import { AbstractSelectableInput } from '../abstract-selectable-input';
 import { InputIdGenerationService } from '../input-id-generation.service';
@@ -23,8 +17,7 @@ import { ControlContainer } from '@angular/forms';
 @Component({
   selector: 'alv-select',
   templateUrl: './select.component.html',
-  styleUrls: ['../abstract-input.scss', './select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['../abstract-input.scss', './select.component.scss']
 })
 export class SelectComponent extends AbstractSelectableInput {
 

@@ -15,6 +15,7 @@ import { DateInputComponent } from './input/date-input/date-input.component';
 import { SelectComponent } from './input/select/select.component';
 import { DateIntervalInputComponent } from './input/date-interval-input/date-interval-input.component';
 import { AddressInputComponent } from './address-input/address-input.component';
+import { FormSubmitValidationDirective } from './form-submit-validation.directive';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { AddressInputComponent } from './address-input/address-input.component';
     ValidationMessagesComponent,
     DateInputComponent,
     RadioButtonComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    FormSubmitValidationDirective
   ],
   exports: [
     AddressInputComponent,
@@ -41,7 +43,8 @@ import { AddressInputComponent } from './address-input/address-input.component';
     ValidationMessagesComponent,
     DateInputComponent,
     RadioButtonComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    FormSubmitValidationDirective
   ],
   providers: [
     NgbPopoverConfig,

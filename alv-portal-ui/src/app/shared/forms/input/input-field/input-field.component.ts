@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Host,
-  HostBinding,
-  Input,
-  Optional,
-  SkipSelf
-} from '@angular/core';
+import { Component, Host, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
 import { ControlContainer } from '@angular/forms';
@@ -32,8 +24,7 @@ import { InputIdGenerationService } from '../input-id-generation.service';
 @Component({
   selector: 'alv-input-field',
   templateUrl: './input-field.component.html',
-  styleUrls: ['../abstract-input.scss', './input-field.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['../abstract-input.scss', './input-field.component.scss']
 })
 export class InputFieldComponent extends AbstractInput {
 

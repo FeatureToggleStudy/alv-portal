@@ -8,8 +8,8 @@
   </button>
 </div>
 
-<form novalidate autocomplete="off"
-      (ngSubmit)="login()"
+<form alvFormSubmitValidation
+      (validSubmit)="login()"
       [formGroup]="form">
   <div class="modal-body">
     <alv-notification *ngIf="showErrorNotification"

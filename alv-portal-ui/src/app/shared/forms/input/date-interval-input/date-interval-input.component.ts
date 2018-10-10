@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 /**
@@ -14,8 +14,7 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'alv-date-interval-input',
   templateUrl: './date-interval-input.component.html',
-  styleUrls: ['../abstract-input.scss', './date-interval-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['../abstract-input.scss', './date-interval-input.component.scss']
 })
 export class DateIntervalInputComponent {
 

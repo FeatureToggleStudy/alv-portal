@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Host,
@@ -29,8 +28,7 @@ import { ControlContainer } from '@angular/forms';
 @Component({
   selector: 'alv-date-input',
   templateUrl: './date-input.component.html',
-  styleUrls: ['../abstract-input.scss', './date-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['../abstract-input.scss', './date-input.component.scss']
 })
 export class DateInputComponent extends AbstractInput {
 
