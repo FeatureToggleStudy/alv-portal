@@ -1,22 +1,21 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, Host, OnInit, Optional, SkipSelf } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../selectable-option.model';
-import { ValidationService } from '../../validation.service';
 import { InputType } from '../input-type.enum';
 import { AbstractSelectableInput } from '../abstract-selectable-input';
-import { InputService } from '../input.service';
+import { InputIdGenerationService } from '../input-id-generation.service';
+import { ControlContainer } from '@angular/forms';
 
 @Component({
   selector: 'alv-radio-button',
   templateUrl: './radio-button.component.html',
-  styleUrls: ['./radio-button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./radio-button.component.scss']
 })
 export class RadioButtonComponent extends AbstractSelectableInput implements OnInit {
 
-  constructor(inputService: InputService,
-              validationService: ValidationService) {
-    super(InputType.RADIO_BUTTON, inputService, validationService);
+  constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.RADIO_BUTTON, inputIdGenerationService);
   }
 
   ngOnInit() {

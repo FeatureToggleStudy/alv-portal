@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ValidationService } from '../../validation.service';
+import { Component, Host, Optional, SkipSelf } from '@angular/core';
 import { InputType } from '../input-type.enum';
 import { AbstractSelectableInput } from '../abstract-selectable-input';
-import { InputService } from '../input.service';
+import { InputIdGenerationService } from '../input-id-generation.service';
+import { ControlContainer } from '@angular/forms';
 
 /**
  * Component to display a select dropdown
@@ -17,14 +17,13 @@ import { InputService } from '../input.service';
 @Component({
   selector: 'alv-select',
   templateUrl: './select.component.html',
-  styleUrls: ['../abstract-input.scss', './select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['../abstract-input.scss', './select.component.scss']
 })
 export class SelectComponent extends AbstractSelectableInput {
 
-  constructor(inputService: InputService,
-              validationService: ValidationService) {
-    super(InputType.SELECT, inputService, validationService);
+  constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.SELECT, inputIdGenerationService);
   }
 
 }

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ValidationMessage } from './input/validation-messages/validation-message.model';
 
 @Injectable({
@@ -35,36 +34,24 @@ export class ValidationService {
     {
       error: 'ngbDate',
       message: 'Invalid date format',
-      requiredBefore: 'Date must be after {{day}}.{{month}}.{{year}}' ,
+      requiredBefore: 'Date must be after {{day}}.{{month}}.{{year}}',
       requiredAfter: 'Date must be before {{day}}.{{month}}.{{year}}'
     }
   ];
 
-  constructor() { }
-
-  getValidator(validator: string, formControl: FormControl): any {
-    console.log(JSON.stringify(formControl.validator(new FormControl())));
-    return formControl.validator(new FormControl(''))[validator];
-    // returns true if control has the validator
+  constructor() {
   }
 
   prepareValidationMessages(customValidationMessages?: Array<ValidationMessage>): Array<ValidationMessage> {
-      if (!customValidationMessages || customValidationMessages.length === 0) {
-        return this.defaultValidationMessages;
-      } else {
-        return this.defaultValidationMessages.map(
-            validationMessage => customValidationMessages.find(
-                customValidationMessage => customValidationMessage.error === validationMessage.error)
-                || validationMessage);
-      }
-  }
-
-  isRequired(formControl: FormControl): boolean {
-    if (!formControl || !formControl.validator) {
-      return false;
+    if (!customValidationMessages || customValidationMessages.length === 0) {
+      return this.defaultValidationMessages;
+    } else {
+      return this.defaultValidationMessages.map(
+          validationMessage => customValidationMessages.find(
+              customValidationMessage => customValidationMessage.error === validationMessage.error)
+              || validationMessage);
     }
-    const validators = formControl.validator(new FormControl(''));
-
-    return validators && validators['required'];
   }
+
+
 }

@@ -1,20 +1,19 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, Host, Optional, SkipSelf } from '@angular/core';
 import { AbstractInput } from '../abstract-input';
-import { ValidationService } from '../../validation.service';
 import { InputType } from '../input-type.enum';
-import { InputService } from '../input.service';
+import { InputIdGenerationService } from '../input-id-generation.service';
+import { ControlContainer } from '@angular/forms';
 
 @Component({
   selector: 'alv-checkbox',
   templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent extends AbstractInput {
 
-  constructor(inputService: InputService,
-              validationService: ValidationService) {
-    super(InputType.CHECKBOX, inputService, validationService);
+  constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.CHECKBOX, inputIdGenerationService);
   }
 
 }
