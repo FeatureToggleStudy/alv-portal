@@ -49,11 +49,11 @@ export abstract class AbstractInput implements OnInit {
 
   ngOnInit() {
     if (this.formCtrl && this.formCtrlName) {
-      throw Error("Must not define both 'formCtrl' and 'formCtrlName'");
+      throw Error(`Must not define both 'formCtrl' and 'formCtrlName'`);
     }
 
     if (!!this.formCtrl && !!this.formCtrlName) {
-      throw Error("Must define one of 'formCtrl' xor 'formCtrlName'");
+      throw Error(`Must define one of 'formCtrl' xor 'formCtrlName'`);
     }
 
     this.id = this.id || this.inputService.getNextInputId(this.inputType, this.label);
@@ -64,7 +64,7 @@ export abstract class AbstractInput implements OnInit {
     if (this.formCtrl) {
       return this.formCtrl;
     }
-    let control = this.controlContainer.control.get(this.formCtrlName);
+    const control = this.controlContainer.control.get(this.formCtrlName);
     if (!control) {
       const path = this.controlContainer.path && this.controlContainer.path.length !== 0 ? this.controlContainer.path : 'root';
       throw new Error(`no control was found with name: ${this.formCtrlName} in ControlContainer: ${path}`);
