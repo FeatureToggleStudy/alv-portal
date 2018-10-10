@@ -23,9 +23,6 @@ export class NotificationsService {
   };
 
   constructor() {
-    this.info('dsdsdsd');
-    this.error('dsdsdsd');
-    this.info('dsdsdsd');
   }
 
   public default(messageKey: string, isSticky?: boolean) {
