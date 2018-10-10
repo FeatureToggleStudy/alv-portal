@@ -1,18 +1,19 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component, EventEmitter,
+  HostBinding,
+  Input,
+  Output
+} from '@angular/core';
 import { Notification, NotificationType } from '../notification.model';
 
 /**
  * Component for notification type of message
- * @example <alv-notification
- *            type="success"
- *            message="This is a notification!"
- *            additionalText="with additional text">
- *          </alv-notification>
  */
 @Component({
   selector: 'alv-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['../abstract-message.scss', './notification.component.scss'],
+  styleUrls: ['./notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationComponent {
@@ -27,8 +28,14 @@ export class NotificationComponent {
 
   @Input() notification: Notification;
 
+  @Output() dismiss = new EventEmitter<Notification>(true);
+
   ngOnInit() {
     this.setMessageType(this.notification.type);
+  }
+
+  public doDismiss(notification) {
+    this.dismiss.emit(notification);
   }
 
   getIconClass(type: NotificationType): string {

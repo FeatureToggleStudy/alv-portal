@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Notification } from '../notification.model';
+import { NotificationsService } from '../notifications.service';
 
 @Component({
   selector: 'alv-notifications-container',
@@ -9,8 +10,13 @@ import { Notification } from '../notification.model';
 export class NotificationsContainerComponent implements OnInit {
 
   public notifications: Notification[];
-  constructor(){ }
+  constructor(private notificationsService: NotificationsService){
+    this.notifications = this.notificationsService.notifications;
+  }
 
+  dismiss(notification: Notification) {
+    this.notificationsService.remove(notification.id);
+  }
   ngOnInit() {
   }
 
