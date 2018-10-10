@@ -82,7 +82,6 @@ export abstract class AbstractInput implements OnInit {
       return false;
     }
     const validators = control.validator(new FormControl(''));
-    console.log("validators: " + validators);
     return validators && validators['required'];
   }
 
