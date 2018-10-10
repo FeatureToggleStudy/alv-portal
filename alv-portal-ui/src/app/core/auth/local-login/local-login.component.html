@@ -8,8 +8,8 @@
   </button>
 </div>
 
-<form novalidate autocomplete="off"
-      (ngSubmit)="login()"
+<form alvFormSubmitValidation
+      (validSubmit)="login()"
       [formGroup]="form">
   <div class="modal-body">
     <alv-notification *ngIf="showErrorNotification"
@@ -19,10 +19,10 @@
     </alv-notification>
 
     <alv-input-field [label]="'Username'"
-                     [control]="form.get('username')">
+                     alvFormControlName="username">
     </alv-input-field>
     <alv-input-field [label]="'Password'"
-                     [control]="form.get('password')"
+                     alvFormControlName="password"
                      type="password">
     </alv-input-field>
   </div>

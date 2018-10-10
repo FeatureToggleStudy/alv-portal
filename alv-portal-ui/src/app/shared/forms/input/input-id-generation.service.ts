@@ -4,7 +4,7 @@ import { InputType } from './input-type.enum';
 @Injectable({
   providedIn: 'root'
 })
-export class InputService {
+export class InputIdGenerationService {
 
   private inputIds: any = {};
 

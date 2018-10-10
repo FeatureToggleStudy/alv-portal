@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
-import { ValidationService } from '../../validation.service';
+import { Component, Host, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
-import { InputService } from '../input.service';
+import { ControlContainer } from '@angular/forms';
+import { InputIdGenerationService } from '../input-id-generation.service';
 
 
 /**
@@ -24,8 +24,7 @@ import { InputService } from '../input.service';
 @Component({
   selector: 'alv-input-field',
   templateUrl: './input-field.component.html',
-  styleUrls: ['../abstract-input.scss', './input-field.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['../abstract-input.scss', './input-field.component.scss']
 })
 export class InputFieldComponent extends AbstractInput {
 
@@ -69,9 +68,10 @@ export class InputFieldComponent extends AbstractInput {
    */
   @Input() multiline?: boolean;
 
-  constructor(inputService: InputService,
-              validationService: ValidationService) {
-    super(InputType.INPUT_FIELD, inputService, validationService);
+
+  constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.INPUT_FIELD, inputIdGenerationService);
   }
 
   getRows() {

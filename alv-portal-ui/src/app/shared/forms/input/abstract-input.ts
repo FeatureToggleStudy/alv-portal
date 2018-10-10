@@ -1,9 +1,8 @@
 import { Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { ControlContainer, FormControl } from '@angular/forms';
 import { ValidationMessage } from './validation-messages/validation-message.model';
 import { InputType } from './input-type.enum';
-import { ValidationService } from '../validation.service';
-import { InputService } from './input.service';
+import { InputIdGenerationService } from './input-id-generation.service';
 
 /**
  * Abstract input
@@ -11,14 +10,19 @@ import { InputService } from './input.service';
 export abstract class AbstractInput implements OnInit {
 
   /**
-   * label of the input
+   * FormControlName that should be bound to the input
    */
-  @Input() label: string;
+  @Input() alvFormControlName: string;
 
   /**
    * FormControl object that should be bound to the input
    */
-  @Input() control: FormControl;
+  @Input() alvControl: FormControl;
+
+  /**
+   * label of the input
+   */
+  @Input() label: string;
 
   /**
    * (optional) explicit id that will be set on the input element
@@ -36,17 +40,49 @@ export abstract class AbstractInput implements OnInit {
   @Input() readonly?: boolean;
 
   validationId: string;
-  required: string;
 
-  protected constructor(private inputType: InputType,
-                        private inputService: InputService,
-                        private validationService: ValidationService) {
+  protected constructor(
+      private controlContainer: ControlContainer,
+      private inputType: InputType,
+      private inputIdGenerationService: InputIdGenerationService) {
   }
 
   ngOnInit() {
-    this.id = this.id || this.inputService.getNextInputId(this.inputType, this.label);
+    if (this.alvControl && this.alvFormControlName) {
+      throw Error(`Must not define both 'formCtrl' and 'formCtrlName'`);
+    }
+
+    if (!!this.alvControl && !!this.alvFormControlName) {
+      throw Error(`Must define one of 'formCtrl' xor 'formCtrlName'`);
+    }
+
+    this.id = this.id || this.inputIdGenerationService.getNextInputId(this.inputType, this.label);
     this.validationId = `${this.id}-validation`;
-    this.required = this.validationService.isRequired(this.control) ? 'required' : null;
+  }
+
+  public get control() {
+    if (this.alvControl) {
+      return this.alvControl;
+    }
+    return this.currentReferencedFormControl();
+  }
+
+  private currentReferencedFormControl() {
+    const control = this.controlContainer.control.get(this.alvFormControlName);
+    if (!control) {
+      const path = this.controlContainer.path && this.controlContainer.path.length !== 0 ? this.controlContainer.path : 'root';
+      throw new Error(`no control was found with name: ${this.alvFormControlName} in ControlContainer: ${path}`);
+    }
+    return control;
+  }
+
+  public get required(): boolean {
+    const control = this.control;
+    if (!control || !control.validator) {
+      return false;
+    }
+    const validators = control.validator(new FormControl(''));
+    return validators && validators['required'];
   }
 
 }
