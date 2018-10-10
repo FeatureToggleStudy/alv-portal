@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
-import { InputService } from '../input.service';
 import { ControlContainer } from '@angular/forms';
+import { InputIdGenerationService } from '../input-id-generation.service';
 
 
 /**
@@ -79,8 +79,8 @@ export class InputFieldComponent extends AbstractInput {
 
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
-              inputService: InputService) {
-    super(controlContainer, InputType.INPUT_FIELD, inputService);
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.INPUT_FIELD, inputIdGenerationService);
   }
 
   getRows() {

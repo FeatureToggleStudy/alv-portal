@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { InputType } from '../input-type.enum';
 import { AbstractSelectableInput } from '../abstract-selectable-input';
-import { InputService } from '../input.service';
+import { InputIdGenerationService } from '../input-id-generation.service';
 import { ControlContainer } from '@angular/forms';
 
 /**
@@ -29,8 +29,8 @@ import { ControlContainer } from '@angular/forms';
 export class SelectComponent extends AbstractSelectableInput {
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
-              inputService: InputService) {
-    super(controlContainer, InputType.SELECT, inputService);
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.SELECT, inputIdGenerationService);
   }
 
 }

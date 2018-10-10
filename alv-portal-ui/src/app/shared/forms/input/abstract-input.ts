@@ -2,7 +2,7 @@ import { Input, OnInit } from '@angular/core';
 import { ControlContainer, FormControl } from '@angular/forms';
 import { ValidationMessage } from './validation-messages/validation-message.model';
 import { InputType } from './input-type.enum';
-import { InputService } from './input.service';
+import { InputIdGenerationService } from './input-id-generation.service';
 
 /**
  * Abstract input
@@ -44,7 +44,7 @@ export abstract class AbstractInput implements OnInit {
   protected constructor(
       private controlContainer: ControlContainer,
       private inputType: InputType,
-      private inputService: InputService) {
+      private inputIdGenerationService: InputIdGenerationService) {
   }
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export abstract class AbstractInput implements OnInit {
       throw Error(`Must define one of 'formCtrl' xor 'formCtrlName'`);
     }
 
-    this.id = this.id || this.inputService.getNextInputId(this.inputType, this.label);
+    this.id = this.id || this.inputIdGenerationService.getNextInputId(this.inputType, this.label);
     this.validationId = `${this.id}-validation`;
   }
 

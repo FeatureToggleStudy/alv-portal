@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
-import { InputService } from '../input.service';
+import { InputIdGenerationService } from '../input-id-generation.service';
 import { ControlContainer } from '@angular/forms';
 
 @Component({
@@ -19,8 +19,8 @@ import { ControlContainer } from '@angular/forms';
 export class CheckboxComponent extends AbstractInput {
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
-              inputService: InputService) {
-    super(controlContainer, InputType.CHECKBOX, inputService);
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.CHECKBOX, inputIdGenerationService);
   }
 
 }

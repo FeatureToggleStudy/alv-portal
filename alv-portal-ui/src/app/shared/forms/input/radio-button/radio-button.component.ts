@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../selectable-option.model';
 import { InputType } from '../input-type.enum';
 import { AbstractSelectableInput } from '../abstract-selectable-input';
-import { InputService } from '../input.service';
+import { InputIdGenerationService } from '../input-id-generation.service';
 import { ControlContainer } from '@angular/forms';
 
 @Component({
@@ -22,8 +22,8 @@ import { ControlContainer } from '@angular/forms';
 export class RadioButtonComponent extends AbstractSelectableInput implements OnInit {
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
-              inputService: InputService) {
-    super(controlContainer, InputType.RADIO_BUTTON, inputService);
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.RADIO_BUTTON, inputIdGenerationService);
   }
 
   ngOnInit() {

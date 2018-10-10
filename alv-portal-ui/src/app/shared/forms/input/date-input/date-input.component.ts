@@ -11,7 +11,7 @@ import {
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
-import { InputService } from '../input.service';
+import { InputIdGenerationService } from '../input-id-generation.service';
 import { ControlContainer } from '@angular/forms';
 
 /**
@@ -51,8 +51,9 @@ export class DateInputComponent extends AbstractInput {
 
   @ViewChild('datePicker') datePicker: ElementRef;
 
-  constructor(@Optional() @Host() @SkipSelf()controlContainer: ControlContainer, inputService: InputService) {
-    super(controlContainer, InputType.DATE_INPUT, inputService);
+  constructor(@Optional() @Host() @SkipSelf()controlContainer: ControlContainer,
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.DATE_INPUT, inputIdGenerationService);
   }
 
 }
