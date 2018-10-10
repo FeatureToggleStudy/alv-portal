@@ -3,28 +3,28 @@
   <div class="form-row">
     <div class="col-8">
       <alv-input-field label="Street"
-                       formCtrlName="street">
+                       alvFormControlName="street">
       </alv-input-field>
     </div>
     <div class="col-4">
       <alv-input-field label="Number"
-                       formCtrlName="number">
+                       alvFormControlName="number">
       </alv-input-field>
     </div>
   </div>
   <div class="form-row">
     <div class="col-4">
       <alv-input-field label="Postcode"
-                       formCtrlName="zip">
+                       alvFormControlName="zip">
       </alv-input-field>
     </div>
     <div class="col-8">
       <alv-input-field label="City"
-                       formCtrlName="city">
+                       alvFormControlName="city">
       </alv-input-field>
     </div>
     <div class="col-12">
-      <alv-select formCtrlName="country"
+      <alv-select alvFormControlName="country"
                   [label]="'Country'"
                   [options$]="countries">
       </alv-select>

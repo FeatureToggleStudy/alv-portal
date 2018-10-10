@@ -12,17 +12,17 @@ export abstract class AbstractInput implements OnInit {
   /**
    * FormControlName that should be bound to the input
    */
-  @Input() formCtrlName: string;
+  @Input() alvFormControlName: string;
+
+  /**
+   * FormControl object that should be bound to the input
+   */
+  @Input() alvControl: FormControl;
 
   /**
    * label of the input
    */
   @Input() label: string;
-
-  /**
-   * FormControl object that should be bound to the input
-   */
-  @Input() formCtrl: FormControl;
 
   /**
    * (optional) explicit id that will be set on the input element
@@ -48,11 +48,11 @@ export abstract class AbstractInput implements OnInit {
   }
 
   ngOnInit() {
-    if (this.formCtrl && this.formCtrlName) {
+    if (this.alvControl && this.alvFormControlName) {
       throw Error(`Must not define both 'formCtrl' and 'formCtrlName'`);
     }
 
-    if (!!this.formCtrl && !!this.formCtrlName) {
+    if (!!this.alvControl && !!this.alvFormControlName) {
       throw Error(`Must define one of 'formCtrl' xor 'formCtrlName'`);
     }
 
@@ -61,13 +61,17 @@ export abstract class AbstractInput implements OnInit {
   }
 
   public get control() {
-    if (this.formCtrl) {
-      return this.formCtrl;
+    if (this.alvControl) {
+      return this.alvControl;
     }
-    const control = this.controlContainer.control.get(this.formCtrlName);
+    return this.currentReferencedFormControl();
+  }
+
+  private currentReferencedFormControl() {
+    const control = this.controlContainer.control.get(this.alvFormControlName);
     if (!control) {
       const path = this.controlContainer.path && this.controlContainer.path.length !== 0 ? this.controlContainer.path : 'root';
-      throw new Error(`no control was found with name: ${this.formCtrlName} in ControlContainer: ${path}`);
+      throw new Error(`no control was found with name: ${this.alvFormControlName} in ControlContainer: ${path}`);
     }
     return control;
   }
@@ -78,6 +82,7 @@ export abstract class AbstractInput implements OnInit {
       return false;
     }
     const validators = control.validator(new FormControl(''));
+    console.log("validators: " + validators);
     return validators && validators['required'];
   }
 

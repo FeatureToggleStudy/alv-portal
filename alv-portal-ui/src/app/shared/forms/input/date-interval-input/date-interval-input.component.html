@@ -1,13 +1,13 @@
 <div class="form-row"
      *ngIf="form?.get('from')">
   <div class="col-6">
-    <alv-date-input formCtrlName="from"
+    <alv-date-input alvFormControlName="from"
                     [label]="fromLabel  || 'From'"
                     [maxDate]="form.get('to')?.value">
     </alv-date-input>
   </div>
   <div class="col-6">
-    <alv-date-input formCtrlName="to"
+    <alv-date-input alvFormControlName="to"
                     [label]="toLabel || 'To'"
                     [minDate]="form.get('from')?.value"
                     placement="bottom-right">
