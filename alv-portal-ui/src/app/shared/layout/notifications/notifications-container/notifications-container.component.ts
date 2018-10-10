@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Notification } from '../notification.model';
-import { NotificationsService } from '../notifications.service';
+import { NotificationsService } from '../../../../core/notifications.service';
 
 @Component({
   selector: 'alv-notifications-container',

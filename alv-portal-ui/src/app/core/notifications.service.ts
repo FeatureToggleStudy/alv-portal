@@ -1,5 +1,8 @@
 import {Injectable} from "@angular/core";
-import { Notification, NotificationType } from './notification.model';
+import {
+  Notification,
+  NotificationType
+} from '../shared/layout/notifications/notification.model';
 
 export const STICKY_TIMEOUT = 5000;
 

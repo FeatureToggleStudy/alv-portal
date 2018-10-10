@@ -18,7 +18,7 @@ import { NotificationComponent } from './notifications/notification/notification
 import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
 import { NotificationsContainerComponent } from './notifications/notifications-container/notifications-container.component';
-import { NotificationsService } from './notifications/notifications.service';
+import { NotificationsService } from '../../core/notifications.service';
 
 @NgModule({
   imports: [
