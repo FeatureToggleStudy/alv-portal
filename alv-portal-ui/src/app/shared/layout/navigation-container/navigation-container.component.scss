@@ -1,8 +1,7 @@
-@import "../../../../scss/colors";
+@import "../../../../scss/common/colors";
 @import '../../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
-
 
 :host {
   flex: 1 1 auto;
@@ -34,13 +33,16 @@ main {
 @include media-breakpoint-up(md) {
   main.jobseeker-home {
     background-image: url("/assets/img/backgrounds/helmet-bg.jpeg");
+    transition: background-image 0.5s ease-out;
   }
 
   main.company-home {
     background-image: url("/assets/img/backgrounds/handshake.jpeg");
+    transition: background-image 0.5s ease-out;
   }
 
   main.pav-home {
     background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
+    transition: background-image 0.5s ease-out;
   }
 }

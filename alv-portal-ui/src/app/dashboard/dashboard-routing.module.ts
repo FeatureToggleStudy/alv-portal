@@ -30,7 +30,7 @@ const routes: Routes = [
         data: { titleKey: 'COMPANY_DASHBOARD_PAGE' }
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

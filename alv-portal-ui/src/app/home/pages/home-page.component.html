@@ -1,32 +1,31 @@
-<div class="w-100 banner d-none d-md-block">
-</div>
-
-<div class="container container-fluid">
-  <div class="nav d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
-    <alv-toolbar-button icon="binoculars"
-                        routerLink="job-seeker"
-                        routerLinkActive="active"
-                        queryParamsHandling="preserve"
-                        class="nav-link">
-      {{'home.toolbar.jobSeekers' | translate}}
-    </alv-toolbar-button>
-    <alv-toolbar-button icon="building"
-                        routerLink="company"
-                        class="nav-link"
-                        routerLinkActive="active"
-                        queryParamsHandling="preserve">
-      {{'home.toolbar.companies' | translate}}
-    </alv-toolbar-button>
-    <alv-toolbar-button icon="eye"
-                        routerLink="pav"
-                        class="nav-link"
-                        routerLinkActive="active"
-                        queryParamsHandling="preserve">
-      {{'home.toolbar.recruitmentAgencies' | translate}}
-    </alv-toolbar-button>
+<div class="toolbar px-3 pt-3 pt-md-4">
+  <div class="px-xl-5 px-lg-4 px-md-3 px-sm-2 px-xs-1">
+    <div class="nav d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
+      <alv-toolbar-button icon="binoculars"
+                          routerLink="job-seeker"
+                          routerLinkActive="active"
+                          queryParamsHandling="preserve"
+                          class="nav-link p-1 p-md-3">
+        {{'home.toolbar.jobSeekers' | translate}}
+      </alv-toolbar-button>
+      <alv-toolbar-button icon="building"
+                          routerLink="company"
+                          class="nav-link p-1 p-md-3"
+                          routerLinkActive="active"
+                          queryParamsHandling="preserve">
+        {{'home.toolbar.companies' | translate}}
+      </alv-toolbar-button>
+      <alv-toolbar-button icon="eye"
+                          routerLink="pav"
+                          class="nav-link p-1 p-md-3"
+                          routerLinkActive="active"
+                          queryParamsHandling="preserve">
+        {{'home.toolbar.recruitmentAgencies' | translate}}
+      </alv-toolbar-button>
+    </div>
   </div>
 </div>
 
-<div class="container container-fluid">
+<div class="home-page-content">
   <router-outlet></router-outlet>
 </div>

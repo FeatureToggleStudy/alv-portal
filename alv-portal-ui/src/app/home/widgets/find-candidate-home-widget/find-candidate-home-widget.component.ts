@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'alv-find-candidate-widget',
-  templateUrl: './find-candidate-widget.component.html',
-  styleUrls: ['./find-candidate-widget.component.scss']
+  selector: 'alv-find-candidate-home-widget',
+  templateUrl: './find-candidate-home-widget.component.html',
+  styleUrls: ['./find-candidate-home-widget.component.scss']
 })
-export class FindCandidateWidgetComponent implements OnInit {
+export class FindCandidateHomeWidgetComponent implements OnInit {
 
   findCandidateForm: FormGroup;
 

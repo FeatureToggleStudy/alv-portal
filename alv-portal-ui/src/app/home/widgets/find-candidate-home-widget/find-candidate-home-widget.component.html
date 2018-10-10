@@ -1,15 +1,15 @@
 <div class="alv-panel d-block mt-4"
-     [formGroup]="findJobForm">
-  <h2 class="panel-title mb-3">
+     [formGroup]="findCandidateForm">
+  <h2 class="panel-title">
     <i class="panel-icon fas fa-search mr-2"></i>
-    Stellen finden
+    Kandidaten finden
   </h2>
-  <div class="d-flex flex-column flex-md-row my-1 my-md-3">
+  <div class="zoom d-flex flex-column flex-md-row my-1 my-md-3">
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
       <alv-input-field class="mb-0"
                        type="text"
                        label="Berufsbezeichnung"
-                       [control]="findJobForm?.get('profession')"
+                       [control]="findCandidateForm?.get('profession')"
                        placement="bottom"
                        [container]="'body'"
                        ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
@@ -19,7 +19,7 @@
       <alv-input-field class="flex-grow-1 mb-0"
                        type="text"
                        label="Fähigkeiten, Skills"
-                       [control]="findJobForm?.get('skills')"
+                       [control]="findCandidateForm?.get('skills')"
                        placement="bottom"
                        [container]="'body'"
                        ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
@@ -29,7 +29,7 @@
       <alv-input-field class="flex-grow-1 mb-0"
                        type="text"
                        label="Kanton, PLZ, Ort"
-                       [control]="findJobForm?.get('city')"
+                       [control]="findCandidateForm?.get('city')"
                        placement="bottom"
                        [container]="'body'"
                        ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
