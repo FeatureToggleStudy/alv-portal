@@ -14,7 +14,7 @@ import { FormGroup } from '@angular/forms';
 export class FormSubmitValidationDirective {
 
   @HostBinding('attr.autocomplete')
-  readonly autocompleteAttr = "off";
+  readonly autocompleteAttr = 'off';
 
   @HostBinding('attr.novalidate')
   readonly novalidateAttr = true;
