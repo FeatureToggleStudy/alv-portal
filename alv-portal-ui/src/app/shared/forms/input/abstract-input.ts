@@ -73,7 +73,7 @@ export abstract class AbstractInput implements OnInit {
   }
 
   public get required(): boolean {
-    let control = this.control;
+    const control = this.control;
     if (!control || !control.validator) {
       return false;
     }
