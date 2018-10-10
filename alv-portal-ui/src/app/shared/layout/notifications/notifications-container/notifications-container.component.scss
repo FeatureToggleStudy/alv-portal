@@ -1,7 +1,19 @@
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../../node_modules/bootstrap/scss/mixins';
+
 :host {
   position: absolute;
   z-index: 999;
   right: 10px;
   top: 70px;
   width: 25%;
+}
+
+@include media-breakpoint-down(md) {
+  :host {
+    right: 10%;
+    top: 30px;
+    width: 80%;
+  }
 }
