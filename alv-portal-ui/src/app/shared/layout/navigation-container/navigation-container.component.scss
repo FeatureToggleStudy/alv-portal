@@ -35,14 +35,16 @@
   }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
   :host {
     margin-top: 41px;
+  }
+}
 
-    main {
-      &.jobseeker-home, &.company-home, &.pav-home {
-        background-image: none;
-      }
+@include media-breakpoint-down(sm) {
+  :host main {
+    &.jobseeker-home, &.company-home, &.pav-home {
+      background-image: none;
     }
   }
 }
