@@ -2,7 +2,7 @@
   <form [formGroup]="form"
         class="col-md-8">
     <alv-panel [panelTitle]="'Were you away in the month of March 2018? (eg holidays, military or civilian service)'">
-      <alv-radio-button [control]="form.get('away')">
+      <alv-radio-button [formCtrl]="form.get('away')">
       </alv-radio-button>
     </alv-panel>
     <div *ngIf="form.value.away">
@@ -24,7 +24,7 @@
                      [showArrow]="true"
                      [colorizeArrow]="true">
             <alv-select label="Reason of absence"
-                        [control]="absence.get('reason')"
+                        [formCtrl]="absence.get('reason')"
                         [options$]="possibleReasons$"
             ></alv-select>
           </alv-panel>
@@ -36,7 +36,7 @@
                 <alv-input-field *ngSwitchCase="'other'"
                                  label="Please describe the reason of absence"
                                  [multiline]="true"
-                                 [control]="absence.get('note')">
+                                 [formCtrl]="absence.get('note')">
 
                 </alv-input-field>
                 <!--<alv-document-upload *ngSwitchCase="'military'"></alv-document-upload>-->
