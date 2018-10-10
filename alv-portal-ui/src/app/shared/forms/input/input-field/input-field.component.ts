@@ -1,8 +1,16 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
-import { ValidationService } from '../../validation.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Host,
+  HostBinding,
+  Input,
+  Optional,
+  SkipSelf
+} from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
 import { InputService } from '../input.service';
+import { ControlContainer } from '@angular/forms';
 
 
 /**
@@ -69,9 +77,10 @@ export class InputFieldComponent extends AbstractInput {
    */
   @Input() multiline?: boolean;
 
-  constructor(inputService: InputService,
-              validationService: ValidationService) {
-    super(InputType.INPUT_FIELD, inputService, validationService);
+
+  constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
+              inputService: InputService) {
+    super(controlContainer, InputType.INPUT_FIELD, inputService);
   }
 
   getRows() {

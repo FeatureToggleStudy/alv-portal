@@ -1,14 +1,18 @@
 import { Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { ControlContainer, FormControl } from '@angular/forms';
 import { ValidationMessage } from './validation-messages/validation-message.model';
 import { InputType } from './input-type.enum';
-import { ValidationService } from '../validation.service';
 import { InputService } from './input.service';
 
 /**
  * Abstract input
  */
 export abstract class AbstractInput implements OnInit {
+
+  /**
+   * FormControlName that should be bound to the input
+   */
+  @Input() formCtrlName: string;
 
   /**
    * label of the input
@@ -18,7 +22,7 @@ export abstract class AbstractInput implements OnInit {
   /**
    * FormControl object that should be bound to the input
    */
-  @Input() control: FormControl;
+  @Input() formCtrl: FormControl;
 
   /**
    * (optional) explicit id that will be set on the input element
@@ -36,17 +40,45 @@ export abstract class AbstractInput implements OnInit {
   @Input() readonly?: boolean;
 
   validationId: string;
-  required: string;
 
-  protected constructor(private inputType: InputType,
-                        private inputService: InputService,
-                        private validationService: ValidationService) {
+  protected constructor(
+      private controlContainer: ControlContainer,
+      private inputType: InputType,
+      private inputService: InputService) {
   }
 
   ngOnInit() {
+    if (this.formCtrl && this.formCtrlName) {
+      throw Error("Must not define both 'formCtrl' and 'formCtrlName'");
+    }
+
+    if (!!this.formCtrl && !!this.formCtrlName) {
+      throw Error("Must define one of 'formCtrl' xor 'formCtrlName'");
+    }
+
     this.id = this.id || this.inputService.getNextInputId(this.inputType, this.label);
     this.validationId = `${this.id}-validation`;
-    this.required = this.validationService.isRequired(this.control) ? 'required' : null;
+  }
+
+  public get control() {
+    if (this.formCtrl) {
+      return this.formCtrl;
+    }
+    let control = this.controlContainer.control.get(this.formCtrlName);
+    if (!control) {
+      const path = this.controlContainer.path && this.controlContainer.path.length !== 0 ? this.controlContainer.path : 'root';
+      throw new Error(`no control was found with name: ${this.formCtrlName} in ControlContainer: ${path}`);
+    }
+    return control;
+  }
+
+  public get required(): boolean {
+    let control = this.control;
+    if (!control || !control.validator) {
+      return false;
+    }
+    const validators = control.validator(new FormControl(''));
+    return validators && validators['required'];
   }
 
 }

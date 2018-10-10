@@ -2,14 +2,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Host,
   Input,
+  Optional,
+  SkipSelf,
   ViewChild
 } from '@angular/core';
-import { ValidationService } from '../../validation.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
 import { InputService } from '../input.service';
+import { ControlContainer } from '@angular/forms';
 
 /**
  * Component to display a single date picker
@@ -44,13 +47,12 @@ export class DateInputComponent extends AbstractInput {
   /**
    * (optional) where to display the date picker: bottom-left (default) or bottom-right
    */
-  @Input() placement: 'bottom-left' | 'bottom-right'  = 'bottom-left';
+  @Input() placement: 'bottom-left' | 'bottom-right' = 'bottom-left';
 
   @ViewChild('datePicker') datePicker: ElementRef;
 
-  constructor(inputService: InputService,
-              validationService: ValidationService) {
-    super(InputType.DATE_INPUT, inputService, validationService);
+  constructor(@Optional() @Host() @SkipSelf()controlContainer: ControlContainer, inputService: InputService) {
+    super(controlContainer, InputType.DATE_INPUT, inputService);
   }
 
 }

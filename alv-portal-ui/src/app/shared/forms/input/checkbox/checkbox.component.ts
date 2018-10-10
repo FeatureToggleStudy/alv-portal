@@ -1,8 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Host,
+  Optional,
+  SkipSelf
+} from '@angular/core';
 import { AbstractInput } from '../abstract-input';
-import { ValidationService } from '../../validation.service';
 import { InputType } from '../input-type.enum';
 import { InputService } from '../input.service';
+import { ControlContainer } from '@angular/forms';
 
 @Component({
   selector: 'alv-checkbox',
@@ -12,9 +18,9 @@ import { InputService } from '../input.service';
 })
 export class CheckboxComponent extends AbstractInput {
 
-  constructor(inputService: InputService,
-              validationService: ValidationService) {
-    super(InputType.CHECKBOX, inputService, validationService);
+  constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
+              inputService: InputService) {
+    super(controlContainer, InputType.CHECKBOX, inputService);
   }
 
 }

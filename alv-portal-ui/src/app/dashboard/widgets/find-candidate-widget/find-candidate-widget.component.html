@@ -9,14 +9,14 @@
       <alv-input-field class="mb-0"
                        type="text"
                        label="Berufsbezeichnung"
-                       [control]="findCandidateForm?.get('profession')">
+                       formCtrlName="profession">
       </alv-input-field>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
       <alv-input-field class="flex-grow-1 mb-0"
                        type="text"
                        label="Fähigkeiten, Skills"
-                       [control]="findCandidateForm?.get('skills')">
+                       formCtrlName="skills">
       </alv-input-field>
 
     </div>
@@ -24,7 +24,7 @@
       <alv-input-field class="flex-grow-1 mb-0"
                        type="text"
                        label="Kanton, PLZ, Ort"
-                       [control]="findCandidateForm?.get('city')">
+                       formCtrlName="city">
       </alv-input-field>
 
     </div>

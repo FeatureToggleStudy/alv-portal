@@ -1,8 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ValidationService } from '../../validation.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Host,
+  Optional,
+  SkipSelf
+} from '@angular/core';
 import { InputType } from '../input-type.enum';
 import { AbstractSelectableInput } from '../abstract-selectable-input';
 import { InputService } from '../input.service';
+import { ControlContainer } from '@angular/forms';
 
 /**
  * Component to display a select dropdown
@@ -22,9 +28,9 @@ import { InputService } from '../input.service';
 })
 export class SelectComponent extends AbstractSelectableInput {
 
-  constructor(inputService: InputService,
-              validationService: ValidationService) {
-    super(InputType.SELECT, inputService, validationService);
+  constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
+              inputService: InputService) {
+    super(controlContainer, InputType.SELECT, inputService);
   }
 
 }
