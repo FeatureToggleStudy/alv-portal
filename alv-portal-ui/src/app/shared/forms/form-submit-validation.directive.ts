@@ -13,17 +13,13 @@ import { FormGroup } from '@angular/forms';
 })
 export class FormSubmitValidationDirective {
 
-  @HostBinding('attr.autocomplete')
-  readonly autocompleteAttr = 'off';
+  @HostBinding('attr.autocomplete') readonly autocompleteAttr = 'off';
 
-  @HostBinding('attr.novalidate')
-  readonly novalidateAttr = true;
+  @HostBinding('attr.novalidate') readonly novalidateAttr = true;
 
-  @Input()
-  public formGroup: FormGroup;
+  @Input() public formGroup: FormGroup;
 
-  @Output()
-  public validSubmit = new EventEmitter<any>();
+  @Output() public validSubmit = new EventEmitter<any>();
 
   @HostListener('submit')
   public onSubmit() {
