@@ -18,4 +18,9 @@ echo "Setting the project version (mvn and npm) to the version: $BUILD_VERSION..
 ./mvnw initialize -DnewVersion=$BUILD_VERSION
 
 echo "Building and deploying Maven artifacts..."
-./mvnw deploy -Powasp-dependency-check
+if [ "$TRAVIS_BRANCH" == "master" ];
+then
+  ./mvnw deploy -Powasp-dependency-check;
+else
+  ./mvnw package;
+fi
