@@ -103,4 +103,55 @@
         </pluginManagement>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>libs-releases-local</id>
+            <name>libs-releases-local</name>
+            <url>https://alvch.jfrog.io/alvch/libs-releases-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>libs-snapshots-local</id>
+            <name>libs-snapshots-local</name>
+            <url>https://alvch.jfrog.io/alvch/libs-snapshots-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>libs-releases</id>
+            <name>libs-releases</name>
+            <url>https://alvch.jfrog.io/alvch/libs-releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>libs-snapshots</id>
+            <name>libs-snapshots</name>
+            <url>https://alvch.jfrog.io/alvch/libs-snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>plugins-releases</id>
+            <name>plugins-releases</name>
+            <url>https://alvch.jfrog.io/alvch/plugins-releases</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>plugins-snapshots</id>
+            <name>plugins-snapshots</name>
+            <url>https://alvch.jfrog.io/alvch/plugins-snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
 </project>

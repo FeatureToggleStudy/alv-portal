@@ -4,7 +4,7 @@
         novalidate>
     <alv-notification class="mb-4" type="error" [message]="'You have errors in your form'" [additionalText]="'Please check for invalid fields'"></alv-notification>
     <alv-panel [panelTitle]="'Did you work for one or more employers in March 2018?'">
-      <alv-radio-button [control]="form.get('worked')">
+      <alv-radio-button [alvControl]="form.get('worked')">
       </alv-radio-button>
     </alv-panel>
     <ng-container *ngIf="form.value.worked">
@@ -16,7 +16,7 @@
           <alv-panel [panelTitle]="'Employer ' + (i + 1)">
             <div [formGroupName]="i">
               <alv-input-field label="Employer Name"
-                               [control]="employment.get('employer')">
+                               [alvControl]="employment.get('employer')">
               </alv-input-field>
               <alv-date-interval-input [form]="employment.get('period')">
               </alv-date-interval-input>
@@ -44,7 +44,7 @@
 
     <alv-panel [showArrow]="true"
                [panelTitle]="'Have you been self-employed in March 2018?'">
-      <alv-radio-button [control]="form.get('selfEmployed')"></alv-radio-button>
+      <alv-radio-button [alvControl]="form.get('selfEmployed')"></alv-radio-button>
     </alv-panel>
 
     <alv-panel *ngIf="form.value.selfEmployed"
@@ -58,7 +58,7 @@
 
     <alv-panel [showArrow]="true"
                [panelTitle]="'Did you participate in a labor market measure in March 2018?'">
-      <alv-radio-button [control]="form.get('labourMarketMeasures')">
+      <alv-radio-button [alvControl]="form.get('labourMarketMeasures')">
       </alv-radio-button>
     </alv-panel>
 

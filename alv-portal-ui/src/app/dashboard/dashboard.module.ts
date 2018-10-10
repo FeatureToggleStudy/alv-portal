@@ -10,6 +10,7 @@ import { JobSeekerDashboardPageComponent } from './pages/job-seeker-dashboard-pa
 import { PavDashboardPageComponent } from './pages/pav-dashboard-page/pav-dashboard-page.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardPageComponent } from './pages/dashboard-page.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DashboardPageComponent } from './pages/dashboard-page.component';
     ReactiveFormsModule,
     SharedModule,
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    NgbTooltipModule
   ],
   entryComponents: [],
   exports: [

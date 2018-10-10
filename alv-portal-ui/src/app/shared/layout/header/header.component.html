@@ -3,12 +3,14 @@
   <h1 class="sr-only">Header</h1>
 
   <div class="header p-0 pt-lg-3 pb-lg-3 d-flex align-items-center">
-    <div class="logo p-3 d-none d-lg-block">
-      <a routerLink="/">
-        <img src="assets/img/logo_alv.png"
+    <a routerLink="/">
+      <div class="logo pl-2 d-none d-lg-flex">
+
+        <img src="assets/img/logo_arbeit_swiss.svg"
              alt="Logo Arbeitslosenversicherung">
-      </a>
-    </div>
+        <span class="logo-text">e-services</span>
+      </div>
+    </a>
     <button class="header-menu d-md-block d-lg-none align-self-center"
             aria-label="Open Navigation"
             *alvIsAuthenticated
@@ -25,10 +27,15 @@
     <button *ngIf="!user"
             class="btn btn-primary"
             (click)="login()">
-      Login
+      Login | Registrierung
     </button>
 
+
     <div class="header-buttons ml-1 d-flex align-items-center">
+      <a href="https://www.arbeit.swiss"
+         target="_blank"
+         rel="noopener"
+         class="mx-2">Hilfe</a>
       <button><strong>DE</strong></button>
       <button class="d-none d-lg-block">FR</button>
       <button class="d-none d-lg-block">IT</button>

@@ -8,21 +8,21 @@
   </button>
 </div>
 
-<form novalidate
-      autocomplete="off"
-      (ngSubmit)="login()"
+<form alvFormSubmitValidation
+      (validSubmit)="login()"
       [formGroup]="form">
   <div class="modal-body">
-    <div *ngIf="showErrorNotification"
-         class="mt-2 mb-3">
+    <span *ngIf="showErrorNotification"
+                      class="mt-2 mb-3 text-danger"
+                      type="error">
       Wrong username or password
-    </div>
+    </span>
 
     <alv-input-field [label]="'Username'"
-                     [control]="form.get('username')">
+                     alvFormControlName="username">
     </alv-input-field>
     <alv-input-field [label]="'Password'"
-                     [control]="form.get('password')"
+                     alvFormControlName="password"
                      type="password">
     </alv-input-field>
   </div>
@@ -31,8 +31,7 @@
             class="btn btn-secondary"
             (click)="activeModal.dismiss('cancel')">Cancel
     </button>
-    <button type="submit"
-            class="btn btn-primary">Login
+    <button type="submit" class="btn btn-primary">Login
     </button>
   </div>
 </form>

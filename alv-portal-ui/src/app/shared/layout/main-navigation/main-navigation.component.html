@@ -74,6 +74,13 @@
       <i class="nav-icon fas fa-home"></i>
       <span class="nav-text">Startseite</span>
     </li>
+    <li routerLink="/dashboard"
+       class="nav-item"
+       routerLinkActive="active"
+       (click)="toggleMobileSideNav()">
+      <i class="nav-icon fas fa-th-large"></i>
+      <span class="nav-text">Dashboard</span>
+    </li>
     <!-- Menu Entries -->
     <ng-container *ngFor="let menuEntry of menuEntries">
       <li [routerLink]="menuEntry.path"

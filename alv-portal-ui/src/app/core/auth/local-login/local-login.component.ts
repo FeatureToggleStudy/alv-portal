@@ -33,24 +33,22 @@ export class LocalLoginComponent implements OnInit {
 
   login() {
     this.showErrorNotification = false;
-    if (this.form.valid) {
-      this.authenticationService.login({
-        username: this.form.get('username').value,
-        password: this.form.get('password').value,
-        rememberMe: true
-      }).pipe(
-          catchError(err => {
-            this.showErrorNotification = true;
-            return EMPTY;
-          }),
-          take(1)
-      ).subscribe(user => {
-        if (user) {
-          this.activeModal.close(true);
-          this.router.navigate(['/landing']);
-        }
-      });
-    }
+    this.authenticationService.login({
+      username: this.form.get('username').value,
+      password: this.form.get('password').value,
+      rememberMe: true
+    }).pipe(
+        catchError(err => {
+          this.showErrorNotification = true;
+          return EMPTY;
+        }),
+        take(1)
+    ).subscribe(user => {
+      if (user) {
+        this.activeModal.close(true);
+        this.router.navigate(['/landing']);
+      }
+    });
   }
 
 

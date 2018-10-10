@@ -1,24 +1,39 @@
 <div class="alv-panel d-block mt-4"
      [formGroup]="findJobForm">
-  <h3 class="panel-title mb-3">
-    <i class="fas fa-search mr-2"></i>
+  <h2 class="panel-title mb-3">
+    <i class="panel-icon fas fa-search mr-2"></i>
     Stellen finden
-  </h3>
-  <div class="d-flex flex-column flex-md-row">
+  </h2>
+  <div class="d-flex flex-column flex-md-row my-1 my-md-3">
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
       <alv-input-field class="mb-0"
                        type="text"
-                       label="Profession"
-                       [control]="findJobForm?.get('profession')">
+                       label="Berufsbezeichnung"
+                       alvFormControlName="profession"
+                       placement="bottom"
+                       [container]="'body'"
+                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
       </alv-input-field>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
       <alv-input-field class="flex-grow-1 mb-0"
                        type="text"
-                       label="City"
-                       [control]="findJobForm?.get('city')">
+                       label="Fähigkeiten, Skills"
+                       alvFormControlName="skills"
+                       placement="bottom"
+                       [container]="'body'"
+                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
       </alv-input-field>
-
+    </div>
+    <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
+      <alv-input-field class="flex-grow-1 mb-0"
+                       type="text"
+                       label="Kanton, PLZ, Ort"
+                       alvFormControlName="city"
+                       placement="bottom"
+                       [container]="'body'"
+                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
+      </alv-input-field>
     </div>
     <button class="btn btn-primary"
             aria-label="Search ">
