@@ -4,7 +4,8 @@ body {
   font-family: 'Open Sans', Calibri, sans-serif;
 }
 
-@import "scss/button";
-@import "scss/popover";
-@import "scss/dropdown";
-@import "scss/panel";
+@import "scss/overrides/button";
+@import "scss/overrides/popover";
+@import "scss/overrides/dropdown";
+@import "scss/overrides/typography";
+@import "scss/common/panel";

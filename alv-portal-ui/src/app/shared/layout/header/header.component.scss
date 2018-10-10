@@ -1,4 +1,4 @@
-@import "../../../../scss/colors";
+@import "../../../../scss/common/colors";
 
 header {
   background-color: $color-light-grey;
@@ -18,7 +18,15 @@ header {
       background-color: $color-white;
       z-index: 10;
       img {
-        height: 50px;
+        height: 80px;
+      }
+      .logo-text {
+        font-size: 18px;
+        margin-top: 13px;
+        margin-left: 5px;
+        color: $color-grey;
+        user-focus: none;
+        user-select: none;
       }
     }
 
@@ -40,7 +48,7 @@ header {
 
     .header-buttons {
       height: 40px;
-      button {
+      button, a {
         margin-right: 4px;
         font-size: 16px;
         height: 29px;
@@ -48,8 +56,10 @@ header {
         cursor: pointer;
         padding: 2px 5px;
         background-color: $color-light-grey;
+        color: $color-black;
         &:hover {
           background-color: $color-white;
+          text-decoration: none;
         }
 
         &.profile-button {
