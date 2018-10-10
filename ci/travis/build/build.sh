@@ -17,5 +17,5 @@ source ~/.nvm/nvm.sh
 echo "Setting the project version (mvn and npm) to the version: $BUILD_VERSION.."
 ./mvnw initialize -DnewVersion=$BUILD_VERSION
 
-echo "Building the project..."
-./mvnw package
+echo "Building and deploying Maven artifacts..."
+./mvnw deploy
