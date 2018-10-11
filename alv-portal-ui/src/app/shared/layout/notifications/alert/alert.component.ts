@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NotificationComponent } from '../notification/notification.component';
 
 /**
@@ -9,7 +9,7 @@ import { NotificationComponent } from '../notification/notification.component';
   templateUrl: '../notification/notification.component.html',
   styleUrls: ['../notification/notification.component.scss']
 })
-export class AlertComponent extends NotificationComponent {
+export class AlertComponent extends NotificationComponent implements OnInit {
 
   constructor() {
     super();

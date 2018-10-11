@@ -17,7 +17,7 @@ import { PanelGroupComponent } from './panel-group/panel-group.component';
 import { NotificationComponent } from './notifications/notification/notification.component';
 import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
-import { NotificationsContainerComponent } from './notifications/notifications-container/notifications-container.component';
+import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { NotificationsService } from '../../core/notifications.service';
 import { AlertComponent } from './notifications/alert/alert.component';
 
@@ -41,7 +41,7 @@ import { AlertComponent } from './notifications/alert/alert.component';
     PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
-    NotificationsContainerComponent,
+    NotificationsComponent,
     AlertComponent
   ],
   exports: [
@@ -52,7 +52,7 @@ import { AlertComponent } from './notifications/alert/alert.component';
     PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
-    NotificationsContainerComponent,
+    NotificationsComponent,
     AlertComponent
   ],
   providers: [

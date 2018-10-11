@@ -23,11 +23,16 @@ export class NotificationsService {
 
   private currentId = 0;
 
-  private context = {
-    timeout: STICKY_TIMEOUT
-  };
+  private timeout = STICKY_TIMEOUT;
 
   constructor() {
+    this.warning('sssss');
+    this.warning('sssss');
+    this.warning('sssss');
+    this.error('sssss');
+    this.info('sssss');
+    this.warning('sssss');
+    this.error('sssss');
   }
 
   default(messageKey: string, isSticky?: boolean) {
@@ -66,7 +71,7 @@ export class NotificationsService {
     if (!notification.isSticky) {
       setTimeout(() => {
         this.remove(notification.id);
-      }, this.context.timeout);
+      }, this.timeout);
     }
     this.currentId++;
   }
