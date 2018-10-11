@@ -9,7 +9,7 @@ import { NotificationComponent } from '../notification/notification.component';
   templateUrl: '../notification/notification.component.html',
   styleUrls: ['../notification/notification.component.scss']
 })
-export class AlertComponent extends NotificationComponent implements OnInit{
+export class AlertComponent extends NotificationComponent implements OnInit {
 
   constructor() {
     super();
