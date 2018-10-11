@@ -2,7 +2,6 @@
   <form [formGroup]="form"
         class="col-md-12"
         novalidate>
-    <alv-notification class="mb-4" type="error" [message]="'You have errors in your form'" [additionalText]="'Please check for invalid fields'"></alv-notification>
     <alv-panel [panelTitle]="'Did you work for one or more employers in March 2018?'">
       <alv-radio-button [alvControl]="form.get('worked')">
       </alv-radio-button>
