@@ -1,3 +1,7 @@
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
+
 .toolbar {
   background-color: rgba(255, 255, 255, 0.7);
   position: absolute;
@@ -12,12 +16,16 @@
 
 alv-toolbar-button {
   z-index: 1;
-  @media (min-width: 768px) {
-    width: 30%;
-  }
 }
 
 .home-page-content {
   margin-top: 150px;
   max-width: 1000px;
 }
+
+@include media-breakpoint-up(md) {
+  alv-toolbar-button {
+    width: 30%;
+  }
+}
+
