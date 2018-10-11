@@ -20,7 +20,8 @@ import { Notification, NotificationType } from '../notification.model';
 })
 export class NotificationComponent implements OnInit {
 
-  @HostBinding('class') hostClass: string = 'empty';
+  @HostBinding('class') hostClass = 'empty';
+  icon = '';
 
   @Input() notification: Notification;
 
@@ -48,6 +49,7 @@ export class NotificationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.icon = this.decorateClass[this.notification.type].icon;
     this.hostClass = this.decorateClass[this.notification.type].background;
   }
 

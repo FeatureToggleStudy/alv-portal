@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpErrorResponse} from '@angular/common/http';
-import {RestError} from './error';
+import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { RestError } from './error';
 import { NotificationsService } from '../notifications.service';
 import { NotificationType } from '../../shared/layout/notifications/notification.model';
 
@@ -22,7 +22,7 @@ export class ErrorHandlerService {
   }
 
   handleError(error) {
-    this.showFixedMessage('API.EXCEPTION.STATUS.DEFAULT.MESSAGE', NotificationType.ERROR);
+    this.showFixedMessage('An error on the server occured', NotificationType.ERROR);
     console.error(error);
   }
 
@@ -43,7 +43,7 @@ export class ErrorHandlerService {
   }
 
   private handleAny(httpErrorResponse: HttpErrorResponse) {
-    this.showFixedMessage('API.EXCEPTION.STATUS.DEFAULT.MESSAGE', NotificationType.ERROR);
+    this.showFixedMessage('An error on the server occured', NotificationType.ERROR);
   }
 
   private handleByExceptionName(httpErrorResponse: HttpErrorResponse) {
