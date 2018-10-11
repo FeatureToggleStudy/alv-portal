@@ -10,13 +10,15 @@ import { NotificationsService } from '../../../../core/notifications.service';
 export class NotificationsContainerComponent implements OnInit {
 
   public notifications: Notification[];
-  constructor(private notificationsService: NotificationsService){
+
+  constructor(private notificationsService: NotificationsService) {
     this.notifications = this.notificationsService.notifications;
   }
 
   dismiss(notification: Notification) {
     this.notificationsService.remove(notification.id);
   }
+
   ngOnInit() {
   }
 
