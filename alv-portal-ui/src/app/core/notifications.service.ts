@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from "@angular/core";
 import {
   Notification,
   NotificationType
@@ -17,7 +17,7 @@ export const STICKY_TIMEOUT = 5000;
 @Injectable()
 export class NotificationsService {
 
-  public notifications: Notification[] = [];
+  notifications: Notification[] = [];
 
   private currentId = 0;
 
@@ -28,52 +28,36 @@ export class NotificationsService {
   constructor() {
   }
 
-  public default(messageKey: string, isSticky?: boolean) {
+  default(messageKey: string, isSticky?: boolean) {
+    this.addByKey(messageKey, NotificationType.DEFAULT, isSticky);
+  }
+
+  info(messageKey: string, isSticky?: boolean) {
+    this.addByKey(messageKey, NotificationType.INFO, isSticky);
+  }
+
+  success(messageKey: string, isSticky?: boolean) {
+    this.addByKey(messageKey, NotificationType.SUCCESS, isSticky);
+  }
+
+  warning(messageKey: string, isSticky?: boolean) {
+    this.addByKey(messageKey, NotificationType.WARNING, isSticky);
+  }
+
+  error(messageKey: string, isSticky?: boolean) {
+    this.addByKey(messageKey, NotificationType.ERROR, isSticky ? isSticky : true);
+  }
+
+  private addByKey(messageKey: string, type: NotificationType, isSticky: boolean) {
     this.add({
       id: this.currentId,
-      type: NotificationType.DEFAULT,
+      type: type,
       messageKey: messageKey,
       isSticky: isSticky
     });
   }
 
-  public info(messageKey: string, isSticky?: boolean) {
-    this.add({
-      id: this.currentId,
-      type: NotificationType.INFO,
-      messageKey: messageKey,
-      isSticky: isSticky
-    });
-  }
-
-  public success(messageKey: string, isSticky?: boolean) {
-    this.add({
-      id: this.currentId,
-      type: NotificationType.SUCCESS,
-      messageKey: messageKey,
-      isSticky: isSticky
-    });
-  }
-
-  public warning(messageKey: string, isSticky?: boolean) {
-    this.add({
-      id: this.currentId,
-      type: NotificationType.WARNING,
-      messageKey: messageKey,
-      isSticky: isSticky
-    });
-  }
-
-  public error(messageKey: string, isSticky?: boolean) {
-    this.add({
-      id: this.currentId,
-      type: NotificationType.ERROR,
-      messageKey: messageKey,
-      isSticky: (isSticky ? isSticky : true)
-    });
-  }
-
-  public add(notification: Notification) {
+  private add(notification: Notification) {
     notification.id = this.currentId;
     this.notifications.unshift(notification);
     this.notifications.sort((n1: Notification, n2: Notification) => n1.type - n2.type);
@@ -85,11 +69,11 @@ export class NotificationsService {
     this.currentId++;
   }
 
-  public clear() {
+  clear() {
     this.notifications.length = 0;
   }
 
-  public remove(notificationId: number) {
+  remove(notificationId: number) {
     this.notifications.forEach((notification, index) => {
       if (notificationId === notification.id) {
         this.notifications.splice(index, 1);
