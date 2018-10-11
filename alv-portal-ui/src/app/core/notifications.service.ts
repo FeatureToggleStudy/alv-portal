@@ -14,7 +14,9 @@ export const STICKY_TIMEOUT = 5000;
  * Sticky notifications are removed automatically
  * @author pado in Panta project, minor modifications by iuka
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NotificationsService {
 
   notifications: Notification[] = [];
