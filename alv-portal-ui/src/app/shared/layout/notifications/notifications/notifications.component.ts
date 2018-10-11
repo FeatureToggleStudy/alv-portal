@@ -4,10 +4,10 @@ import { NotificationsService } from '../../../../core/notifications.service';
 
 @Component({
   selector: 'alv-notifications-container',
-  templateUrl: './notifications-container.component.html',
-  styleUrls: ['./notifications-container.component.scss']
+  templateUrl: './notifications.component.html',
+  styleUrls: ['./notifications.component.scss']
 })
-export class NotificationsContainerComponent implements OnInit {
+export class NotificationsComponent implements OnInit {
 
   public notifications: Notification[];
 

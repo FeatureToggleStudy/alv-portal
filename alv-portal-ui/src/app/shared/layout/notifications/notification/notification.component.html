@@ -1,5 +1,5 @@
 <div class="icon">
-  <i [class]="getIconClass(notification.type)"></i>
+  <i [class]="decorateClass[notification.type].icon"></i>
 </div>
 <div class="text">
   <div class="line-1 text-truncate"> {{ notification.messageKey }}</div>
