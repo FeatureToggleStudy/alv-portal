@@ -1,6 +1,7 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { ErrorHandler, NgModule, Optional, SkipSelf } from '@angular/core';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { AuthModule } from './auth/auth.module';
+import { GlobalErrorHandler } from './error-handler/global-error-handler';
 
 @NgModule({
   declarations: [],
@@ -12,6 +13,10 @@ import { AuthModule } from './auth/auth.module';
     AuthModule
   ],
   providers: [
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    }
   ]
 })
 export class CoreModule {

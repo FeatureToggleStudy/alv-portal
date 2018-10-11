@@ -48,7 +48,7 @@ export class NotificationsService {
     this.addByKey(messageKey, NotificationType.ERROR, isSticky ? isSticky : true);
   }
 
-  private addByKey(messageKey: string, type: NotificationType, isSticky: boolean) {
+  addByKey(messageKey: string, type: NotificationType, isSticky: boolean) {
     this.add({
       id: this.currentId,
       type: type,
@@ -57,7 +57,7 @@ export class NotificationsService {
     });
   }
 
-  private add(notification: Notification) {
+  add(notification: Notification) {
     notification.id = this.currentId;
     this.notifications.unshift(notification);
     this.notifications.sort((n1: Notification, n2: Notification) => n1.type - n2.type);
