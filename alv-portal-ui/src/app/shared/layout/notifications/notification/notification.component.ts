@@ -3,7 +3,7 @@ import {
   Component,
   EventEmitter,
   HostBinding,
-  Input,
+  Input, OnInit,
   Output
 } from '@angular/core';
 import { Notification, NotificationType } from '../notification.model';
@@ -17,7 +17,7 @@ import { Notification, NotificationType } from '../notification.model';
   styleUrls: ['./notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NotificationComponent {
+export class NotificationComponent implements OnInit {
 
 
   @HostBinding('class.info') isInfo;
