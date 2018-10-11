@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
-  Component, EventEmitter,
+  Component,
+  EventEmitter,
   HostBinding,
   Input,
   Output
@@ -8,7 +9,7 @@ import {
 import { Notification, NotificationType } from '../notification.model';
 
 /**
- * Component for notification type of message
+ * Notifications are global messages for the website
  */
 @Component({
   selector: 'alv-notification',
@@ -31,10 +32,10 @@ export class NotificationComponent {
   @Output() dismiss = new EventEmitter<Notification>(true);
 
   ngOnInit() {
-    this.setMessageType(this.notification.type);
+    this.setNotificationType(this.notification.type);
   }
 
-  public doDismiss(notification) {
+  doDismiss(notification) {
     this.dismiss.emit(notification);
   }
 
@@ -53,7 +54,7 @@ export class NotificationComponent {
     }
   }
 
-  private setMessageType(type: NotificationType): void {
+  private setNotificationType(type: NotificationType): void {
     switch (type) {
       case NotificationType.ERROR:
         this.isError = true;

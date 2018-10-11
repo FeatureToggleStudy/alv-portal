@@ -19,6 +19,7 @@ import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
 import { NotificationsContainerComponent } from './notifications/notifications-container/notifications-container.component';
 import { NotificationsService } from '../../core/notifications.service';
+import { AlertComponent } from './notifications/alert/alert.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { NotificationsService } from '../../core/notifications.service';
     PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
-    NotificationsContainerComponent
+    NotificationsContainerComponent,
+    AlertComponent
   ],
   exports: [
     NavigationContainerComponent,
@@ -50,10 +52,11 @@ import { NotificationsService } from '../../core/notifications.service';
     PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
-    NotificationsContainerComponent
+    NotificationsContainerComponent,
+    AlertComponent
   ],
   providers: [
-      NotificationsService
+    NotificationsService
   ]
 })
 export class LayoutModule {

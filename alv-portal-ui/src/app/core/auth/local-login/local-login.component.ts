@@ -5,7 +5,18 @@ import { AuthenticationService } from '../authentication.service';
 import { catchError, take } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
 import { Router } from '@angular/router';
+import {
+  Notification,
+  NotificationType
+} from '../../../shared/layout/notifications/notification.model';
 
+const ERRORS = {
+  invalidUsernamePassword: {
+    type: NotificationType.WARNING,
+    messageKey: 'Invalid username or password',
+    isSticky: true
+  } as Notification
+};
 @Component({
   selector: 'alv-local-login',
   templateUrl: './local-login.component.html',
@@ -15,7 +26,7 @@ export class LocalLoginComponent implements OnInit {
 
   form: FormGroup;
 
-  showErrorNotification: boolean;
+  errorMessage: Notification;
 
   constructor(public activeModal: NgbActiveModal,
               private authenticationService: AuthenticationService,
@@ -32,14 +43,13 @@ export class LocalLoginComponent implements OnInit {
   }
 
   login() {
-    this.showErrorNotification = false;
     this.authenticationService.login({
       username: this.form.get('username').value,
       password: this.form.get('password').value,
       rememberMe: true
     }).pipe(
         catchError(err => {
-          this.showErrorNotification = true;
+          this.errorMessage = ERRORS.invalidUsernamePassword;
           return EMPTY;
         }),
         take(1)

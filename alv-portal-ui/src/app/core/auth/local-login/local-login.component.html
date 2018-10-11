@@ -12,11 +12,10 @@
       (validSubmit)="login()"
       [formGroup]="form">
   <div class="modal-body">
-    <span *ngIf="showErrorNotification"
-                      class="mt-2 mb-3 text-danger"
-                      type="error">
+    <alv-alert *ngIf="errorMessage"
+               [notification]="errorMessage">
       Wrong username or password
-    </span>
+    </alv-alert>
 
     <alv-input-field [label]="'Username'"
                      alvFormControlName="username">
