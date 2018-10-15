@@ -1,0 +1,6 @@
+<div *ngFor="let notification of notifications">
+
+  <alv-notification [notification]="notification"
+                    (dismiss)="dismiss($event)"></alv-notification>
+
+</div>
