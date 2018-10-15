@@ -1,4 +1,7 @@
 @import "../../../../scss/common/colors";
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
 
 button.btn-header {
   padding: 6px 15px;
@@ -8,7 +11,10 @@ button.btn-header {
     background-color: $color-primary;
     color: $color-white;
   }
-  @media(max-width: 991px) {
+}
+
+@include media-breakpoint-down(md) {
+  button.btn-header {
     padding: 2px 5px;
   }
 }

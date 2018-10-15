@@ -1,4 +1,8 @@
 @import "colors";
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+
 .alv-panel {
   background-color: $color-grey-transparent;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
@@ -6,19 +10,24 @@
   padding: 1em 1.5em 0.5em;
   border: 2px solid transparent;
   border-bottom-right-radius: 15px;
-  @media(max-width: 991px) {
-    padding: 1em 0.5em 0.5em;
+
+  &.invalid {
+    border: 2px solid $color-red;
+    .panel-title {
+      color: $color-red;
+    }
   }
+
   .panel-title {
     color: $color-dark-grey;
     .panel-icon {
       color: $color-primary;
     }
   }
-  &.invalid {
-    border: 2px solid $color-red;
-    .panel-title {
-      color: $color-red;
-    }
+}
+
+@include media-breakpoint-down(md) {
+  .alv-panel {
+    padding: 1em 0.5em 0.5em;
   }
 }
