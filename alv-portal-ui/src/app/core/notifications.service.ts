@@ -26,13 +26,6 @@ export class NotificationsService {
   private timeout = STICKY_TIMEOUT;
 
   constructor() {
-    this.warning('sssss');
-    this.warning('sssss');
-    this.warning('sssss');
-    this.error('sssss');
-    this.info('sssss');
-    this.warning('sssss');
-    this.error('sssss');
   }
 
   default(messageKey: string, isSticky?: boolean) {
