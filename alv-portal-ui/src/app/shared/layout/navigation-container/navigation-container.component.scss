@@ -13,36 +13,38 @@
   right: 0;
   margin-top: 72px;
   z-index: 0;
-  @media(max-width: 991px) {
-    margin-top: 41px;
-  }
 
   main {
     overflow-y: auto;
-  }
+    background-size: cover;
+    transition: background-image 0.5s ease-out;
 
+    &.jobseeker-home {
+      background-image: url("/assets/img/backgrounds/helmet-bg.jpeg");
+    }
+
+    &.company-home {
+      background-image: url("/assets/img/backgrounds/handshake.jpeg");
+    }
+
+    &.pav-home {
+      background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
+    }
+  }
 }
 
-main {
-  background-size: cover;
+@include media-breakpoint-down(md) {
+  :host {
+    margin-top: 41px;
+  }
 }
 
-/**
- * we don't load  pictures for phones
- */
-@include media-breakpoint-up(md) {
-  main.jobseeker-home {
-    background-image: url("/assets/img/backgrounds/helmet-bg.jpeg");
-    transition: background-image 0.5s ease-out;
-  }
-
-  main.company-home {
-    background-image: url("/assets/img/backgrounds/handshake.jpeg");
-    transition: background-image 0.5s ease-out;
-  }
-
-  main.pav-home {
-    background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
-    transition: background-image 0.5s ease-out;
+@include media-breakpoint-down(sm) {
+  :host main {
+    &.jobseeker-home,
+    &.company-home,
+    &.pav-home {
+      background-image: none;
+    }
   }
 }
