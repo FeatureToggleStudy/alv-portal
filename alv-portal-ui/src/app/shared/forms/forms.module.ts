@@ -5,7 +5,7 @@ import { ValidationMessagesComponent } from './input/validation-messages/validat
 import {
   NgbDateParserFormatter,
   NgbDatepickerModule,
-  NgbPopoverConfig
+  NgbPopoverConfig, NgbTypeaheadModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { DateParserFormatter } from './input/date-input/date-parser-formatter';
 import { FormsModule as NgFormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,13 +16,15 @@ import { SelectComponent } from './input/select/select.component';
 import { DateIntervalInputComponent } from './input/date-interval-input/date-interval-input.component';
 import { AddressInputComponent } from './address-input/address-input.component';
 import { FormSubmitValidationDirective } from './form-submit-validation.directive';
+import { TypeaheadComponent } from './input/typeahead/typeahead.component';
 
 @NgModule({
   imports: [
     CommonModule,
     NgFormsModule,
     ReactiveFormsModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    NgbTypeaheadModule
   ],
   declarations: [
     AddressInputComponent,
@@ -33,7 +35,8 @@ import { FormSubmitValidationDirective } from './form-submit-validation.directiv
     DateInputComponent,
     RadioButtonComponent,
     CheckboxComponent,
-    FormSubmitValidationDirective
+    FormSubmitValidationDirective,
+    TypeaheadComponent
   ],
   exports: [
     AddressInputComponent,

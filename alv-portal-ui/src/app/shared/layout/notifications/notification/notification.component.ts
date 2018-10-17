@@ -62,5 +62,5 @@ interface ClassDecoration {
   [s: number]: {
     icon: string;
     background: string
-  }
+  };
 }

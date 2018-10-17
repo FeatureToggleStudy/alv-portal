@@ -1,0 +1,59 @@
+<div class="w-100"
+     *ngIf="control">
+
+  <div class="form-label-group position-relative"
+       [class.invalid]="control.touched && control.invalid">
+    <span *ngIf="required && !readonly"
+          class="required-indicator h-100">
+    </span>
+
+    <input *ngIf="!readonly"
+           [attr.id]="id"
+           [formControl]="control"
+           [attr.required]="required"
+           [attr.aria-required]="!!required"
+           [attr.aria-describedby]="validationId"
+           [class.placeholder-shown]="showPlaceholder()"
+           (keydown)="handleKeyDown($event); closeTooltip()"
+           (focus)="openTooltip()"
+           [(ngModel)]="inputValue"
+           [ngbTypeahead]="wrappedItemLoader"
+           [resultFormatter]="formatResultItem"
+           (selectItem)="selectItem($event)"
+           [resultTemplate]="template"
+           [focusFirst]="focusFirst"
+           [style.width]="getInputWidth()"
+           [size]="inputValue?.length+2"
+           [editable]="editable"
+           class="form-control">
+
+    <ng-template #template
+                 let-result="result"
+                 let-term="term"
+                 let-formatter="formatter">
+      <div *ngIf="result.firstInGroup"
+           class="typeahead-multiselect__type-label pull-right"
+           [ngClass]="getTypeClass(result.model)">
+        {{'typeahead-multiselect.type.' + result.model.type  }}
+      </div>
+      <div [ngClass]="{'first-in-group-item': result.firstInGroup && !result.first}">
+        <ngb-highlight [result]="formatter(result.model)"
+                       [term]="term"></ngb-highlight>
+      </div>
+    </ng-template>
+
+    <div *ngIf="readonly"
+         [class.placeholder-shown]="!control.value"
+         class="readonly-input">
+      {{control.value}}
+    </div>
+    <label [for]="id">
+      {{label}}
+    </label>
+  </div>
+  <alv-validation-messages *ngIf="!readonly"
+                           [control]="control"
+                           [id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
+</div>
