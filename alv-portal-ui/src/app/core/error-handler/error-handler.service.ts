@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RestError } from './error';
+import { RestError } from './rest-error.model';
 import { NotificationsService } from '../notifications.service';
 import { NotificationType } from '../../shared/layout/notifications/notification.model';
 
