@@ -68,7 +68,7 @@ export class FindJobHomeWidgetComponent implements OnInit {
   search(text: string) {
     const text$ = of(text);
     return text$.pipe(
-        debounceTime(1000),
+        debounceTime(200),
         distinctUntilChanged(),
         map(term => defaultLocalityAutocompleteMapper(states))
     );

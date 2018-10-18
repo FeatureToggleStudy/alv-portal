@@ -19,12 +19,12 @@
       background: transparent;
       padding: 0 !important;
       border: 0;
-      //width: inherit;
     }
     .typeahead-badge {
       color: $color-white;
       font-weight: 500;
       margin: 2px 1px 0;
+      border-radius: 1px;
       .remove-button {
         cursor: pointer;
         color: $color-white;

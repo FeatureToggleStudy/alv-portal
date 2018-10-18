@@ -7,12 +7,13 @@
   <div class="zoom d-flex flex-column flex-md-row my-1 my-md-3">
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
       <alv-typeahead class="mb-0"
-                       label="Berufsbezeichnung"
-                       [itemLoader]="search"
-                       alvFormControlName="profession"
-                     ><!--   placement="bottom"
-                       [container]="'body'"
-                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen." -->
+                     label="Berufsbezeichnung"
+                     [itemLoader]="search"
+                     [limit]="2"
+                     alvFormControlName="profession"
+                     placement="bottom"
+                     [container]="'body'"
+                     [ngbTooltip]="tooltip">
       </alv-typeahead>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
@@ -22,17 +23,17 @@
                        alvFormControlName="skills"
                        placement="bottom"
                        [container]="'body'"
-                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
+                       [ngbTooltip]="tooltip">
       </alv-input-field>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
-      <alv-input-field class=" mb-0"
+      <alv-input-field class="mb-0"
                        type="text"
                        label="Kanton, PLZ, Ort"
                        alvFormControlName="city"
                        placement="bottom"
                        [container]="'body'"
-                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
+                       [ngbTooltip]="tooltip">
       </alv-input-field>
     </div>
     <button class="btn btn-primary"
@@ -41,3 +42,6 @@
     </button>
   </div>
 </div>
+<ng-template #tooltip>
+  Sie können <strong>mehrere</strong> Suchbegriffe eingeben. Drücken Sie nach Eingabe "Enter", um weitere Suchbegriffe hinzuzufügen.
+</ng-template>

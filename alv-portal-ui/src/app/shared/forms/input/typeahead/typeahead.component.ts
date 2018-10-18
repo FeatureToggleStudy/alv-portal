@@ -1,6 +1,6 @@
 import {
   Component, ElementRef,
-  Host,
+  Host, Inject,
   Input,
   OnInit,
   Optional,
@@ -17,6 +17,7 @@ import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-boot
 import { TypeaheadItemDisplayModel } from './typeahead-item-display.model';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'alv-typeahead',
@@ -41,14 +42,17 @@ export class TypeaheadComponent extends AbstractInput {
 
   inputValue: string;
 
+  helpId = this.id + '-help';
+
   selectedItems = [];
 
   wrappedItemLoaderFn = this.wrappedItemLoader.bind(this);
 
-  private readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
+  readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
-              inputIdGenerationService: InputIdGenerationService) {
+              inputIdGenerationService: InputIdGenerationService,
+              @Inject(DOCUMENT) private document: any) {
     super(controlContainer, InputType.TYPEAHEAD, inputIdGenerationService);
   }
 
@@ -92,7 +96,7 @@ export class TypeaheadComponent extends AbstractInput {
   getInputWidth() {
     const value = this.getTypeaheadNativeElement().value || '';
     if (value.length > 0) {
-      return `${value.length / 1.7}em`;
+      return `${value.length}em`;
     } else if (this.selectedItems.length > 0) {
       return '0.5em';
     } else {
@@ -108,7 +112,7 @@ export class TypeaheadComponent extends AbstractInput {
   }
 
   hasFocus() {
-    return document.activeElement.id === this.id;
+    return this.document.activeElement.id === this.id;
   }
 
   private toDisplayModelArray(items: TypeaheadItemModel[]): Array<TypeaheadItemDisplayModel> {
