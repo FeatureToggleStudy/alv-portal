@@ -6,17 +6,17 @@
   </h2>
   <div class="zoom d-flex flex-column flex-md-row my-1 my-md-3">
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
-      <alv-input-field class="mb-0"
-                       type="text"
+      <alv-typeahead class="mb-0"
                        label="Berufsbezeichnung"
+                       [itemLoader]="search"
                        alvFormControlName="profession"
-                       placement="bottom"
+                     ><!--   placement="bottom"
                        [container]="'body'"
-                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
-      </alv-input-field>
+                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen." -->
+      </alv-typeahead>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
-      <alv-input-field class="flex-grow-1 mb-0"
+      <alv-input-field class="mb-0"
                        type="text"
                        label="Fähigkeiten, Skills"
                        alvFormControlName="skills"
@@ -26,7 +26,7 @@
       </alv-input-field>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
-      <alv-input-field class="flex-grow-1 mb-0"
+      <alv-input-field class=" mb-0"
                        type="text"
                        label="Kanton, PLZ, Ort"
                        alvFormControlName="city"

@@ -47,7 +47,8 @@ import { TypeaheadComponent } from './input/typeahead/typeahead.component';
     DateInputComponent,
     RadioButtonComponent,
     CheckboxComponent,
-    FormSubmitValidationDirective
+    FormSubmitValidationDirective,
+    TypeaheadComponent
   ],
   providers: [
     NgbPopoverConfig,

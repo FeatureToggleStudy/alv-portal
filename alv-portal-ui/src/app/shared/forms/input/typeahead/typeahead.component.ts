@@ -1,11 +1,19 @@
-import { Component, Host, Input, OnInit, Optional, SkipSelf } from '@angular/core';
+import {
+  Component, ElementRef,
+  Host,
+  Input,
+  OnInit,
+  Optional,
+  SkipSelf,
+  ViewChild
+} from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
 import { InputType } from '../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { TypeaheadItemModel } from './typeahead-item.model';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { TypeaheadItemDisplayModel } from './typeahead-item-display.model';
 import { map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
@@ -15,11 +23,9 @@ import { of } from 'rxjs/internal/observable/of';
   templateUrl: './typeahead.component.html',
   styleUrls: ['../abstract-input.scss', './typeahead.component.scss']
 })
-export class TypeaheadComponent extends AbstractInput implements OnInit {
+export class TypeaheadComponent extends AbstractInput {
 
   @Input() itemLoader: (text: string) => Observable<TypeaheadItemModel[]>;
-
-  @Input() placeholder: string;
 
   @Input() editable = true;
 
@@ -31,9 +37,13 @@ export class TypeaheadComponent extends AbstractInput implements OnInit {
 
   @Input() size: 'sm' | 'lg' = 'sm';
 
+  @ViewChild(NgbTypeahead) ngbTypeahead;
+
   inputValue: string;
 
   selectedItems = [];
+
+  wrappedItemLoaderFn = this.wrappedItemLoader.bind(this);
 
   private readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
@@ -42,11 +52,8 @@ export class TypeaheadComponent extends AbstractInput implements OnInit {
     super(controlContainer, InputType.TYPEAHEAD, inputIdGenerationService);
   }
 
-  ngOnInit() {
-  }
-
   showPlaceholder(): boolean {
-    return this.selectedItems.length === 0;
+    return this.selectedItems.length === 0 && !this.inputValue;
   }
 
   formatResultItem(item: TypeaheadItemModel) {
@@ -54,40 +61,71 @@ export class TypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   selectItem(event: NgbTypeaheadSelectItemEvent) {
-
+    event.preventDefault();
     if (!this.canSelect()) {
-      event.preventDefault();
       return;
     }
-
-    this.control.setValue([...this.selectedItems, event.item.model]);
+    this.selectedItems = [...this.selectedItems, event.item.model];
+    this.control.setValue(this.selectedItems);
 
     this.clearInput();
+    this.getTypeaheadNativeElement().focus();
   }
 
-  wrappedItemLoader = (text$: Observable<string>): Observable<TypeaheadItemDisplayModel[]> => {
-
-    const toDisplayModel = (m: TypeaheadItemModel, idx: number, array: TypeaheadItemModel[]) => {
-      let fistInGroup = false;
-      if (idx === 0 || m.type !== array[idx - 1].type) {
-        fistInGroup = true;
-      }
-      return new TypeaheadItemDisplayModel(m, idx === 0, fistInGroup);
-    };
-
-    const toDisplayModelArray = (items: TypeaheadItemModel[]) => items
-        .filter((m: TypeaheadItemModel) => !this.exists(m))
-        .sort((o1: TypeaheadItemModel, o2: TypeaheadItemModel) => o1.compare(o2))
-        .map(toDisplayModel);
-
+  wrappedItemLoader(text$: Observable<string>): Observable<TypeaheadItemDisplayModel[]> {
     return text$.pipe(
         switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
             ? this.itemLoader(query)
             : of([])),
-          map(toDisplayModelArray)
-    )
-        ;
-  };
+        map(this.toDisplayModelArray.bind(this))
+    );
+  }
+
+  getItemClass(item: TypeaheadItemModel) {
+    return `typeahead-${item.type}`;
+  }
+
+  getTypeClass(item: TypeaheadItemModel) {
+    return `typeahead-${item.type}`;
+  }
+
+  getInputWidth() {
+    const value = this.getTypeaheadNativeElement().value || '';
+    if (value.length > 0) {
+      return `${value.length / 1.7}em`;
+    } else if (this.selectedItems.length > 0) {
+      return '0.5em';
+    } else {
+      return '100%';
+    }
+  }
+
+  removeItem(item: TypeaheadItemModel) {
+    this.selectedItems = this.selectedItems.filter((i: TypeaheadItemModel) => !item.equals(i));
+    this.control.setValue(this.selectedItems);
+    this.inputValue = '';
+    this.getTypeaheadNativeElement().focus();
+  }
+
+  hasFocus() {
+    return document.activeElement.id === this.id;
+  }
+
+  private toDisplayModelArray(items: TypeaheadItemModel[]): Array<TypeaheadItemDisplayModel> {
+    return items.filter((m: TypeaheadItemModel) => !this.exists(m))
+        .sort((o1: TypeaheadItemModel, o2: TypeaheadItemModel) => {
+          return o1.compare(o2);
+        })
+        .map(this.toDisplayModel.bind(this));
+  }
+
+  private toDisplayModel(m: TypeaheadItemModel, idx: number, array: TypeaheadItemModel[]): TypeaheadItemDisplayModel {
+    let firstInGroup = false;
+    if (idx === 0 || m.type !== array[idx - 1].type) {
+      firstInGroup = true;
+    }
+    return new TypeaheadItemDisplayModel(m, idx === 0, firstInGroup);
+  }
 
   private exists(model: TypeaheadItemModel) {
     return !!this.selectedItems.find((i: TypeaheadItemModel) => model.equals(i));
@@ -98,11 +136,10 @@ export class TypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   private clearInput(): void {
-    // This hack removes the invalid value from the input field.
-    // The idea is from this PR: https://github.com/ng-bootstrap/ng-bootstrap/pull/1468
-    //
-    // todo: We have to review this after updating to the next ng-bootstrap versions.
-    // this.ngbTypeahead._userInput = '';
     this.inputValue = '';
+  }
+
+  private getTypeaheadNativeElement() {
+    return this.ngbTypeahead && this.ngbTypeahead._elementRef.nativeElement || {};
   }
 }

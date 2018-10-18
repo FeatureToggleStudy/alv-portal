@@ -1,0 +1,73 @@
+@import "../../../../../scss/common/colors";
+
+.form-label-group {
+  &.invalid .typeahead-form-control.has-focus {
+    box-shadow: 0 0 0 0.2rem $color-red-transparent;
+  }
+  .typeahead-form-control {
+    display: flex;
+    height: inherit !important;
+    &.has-focus {
+      box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+    input {
+      &:focus {
+        border: none;
+        box-shadow: none;
+        outline: none;
+      }
+      background: transparent;
+      padding: 0 !important;
+      border: 0;
+      //width: inherit;
+    }
+    .typeahead-badge {
+      color: $color-white;
+      font-weight: 500;
+      margin: 2px 1px 0;
+      .remove-button {
+        cursor: pointer;
+        color: $color-white;
+        padding: 0.1rem;
+        border: none;
+        background-color: transparent;
+        &:hover {
+          color: darken($color-white, 10%);
+        }
+      }
+    }
+  }
+}
+
+
+.typeahead-group-label {
+  color: $color-white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 80%;
+  margin-top: -.75em;
+  padding: 0 .25rem;
+}
+.first-in-group-item {
+  border-top: 1px solid $color-grey;
+  padding: .75rem 0 0;
+}
+
+.typeahead-classification {
+  background-color: $color-yellow;
+  color: $color-dark-grey;
+}
+
+.typeahead-occupation {
+  background-color: $color-green;
+}
+
+.typeahead-canton {
+  background-color: $color-blue;
+}
+
+.typeahead-locality {
+  background-color: $color-green;
+}
+
