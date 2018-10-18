@@ -4,7 +4,7 @@ import { RestError } from './rest-error.model';
 import { NotificationsService } from '../notifications.service';
 import { NotificationType } from '../../shared/layout/notifications/notification.model';
 
-function isNil(value){
+function isNil(value) {
   return value === undefined || value === null;
 }
 
@@ -19,6 +19,10 @@ export class ErrorHandlerService {
 
   constructor(private notificationsService: NotificationsService) {
 
+  }
+
+  private static isRestError(errorContent: RestError) {
+    return !isNil(errorContent) && !isNil(errorContent.correlationId) && !isNil(errorContent.exceptionName);
   }
 
   handleError(error) {
@@ -59,14 +63,10 @@ export class ErrorHandlerService {
       this.showFixedMessage(
           'API.EXCEPTION.STATUS.DEFAULT.MESSAGE.CORRELATIONID',
           NotificationType.ERROR,
-          {'correlationId': errorContent.correlationId}
+          { 'correlationId': errorContent.correlationId }
       );
     }
     return true;
-  }
-
-  private static isRestError(errorContent: RestError) {
-    return !isNil(errorContent) && !isNil(errorContent.correlationId) && !isNil(errorContent.exceptionName);
   }
 
   private handleByStatus(httpErrorResponse: HttpErrorResponse) {
@@ -87,7 +87,11 @@ export class ErrorHandlerService {
   }
 
   private showMessage(messageKey: string, sticky: boolean, type: NotificationType, messageVariables?: any) {
-    this.notificationsService.add({type: type, messageKey: messageKey, isSticky: sticky});
+    this.notificationsService.add({
+      type: type,
+      messageKey: messageKey,
+      isSticky: sticky
+    });
   }
 }
 
