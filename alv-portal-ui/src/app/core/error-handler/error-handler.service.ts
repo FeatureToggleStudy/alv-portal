@@ -35,11 +35,8 @@ export class ErrorHandlerService {
       throw new Error('The given ErrorResponse is not type HttpErrorResponse');
     }
 
-    if (this.handleByStatus(httpErrorResponse)) {
-      return;
-    }
-
-    if (this.handleByExceptionName(httpErrorResponse)) {
+    if (this.handleByStatus(httpErrorResponse)
+        || this.handleByExceptionName(httpErrorResponse)) {
       return;
     }
 
