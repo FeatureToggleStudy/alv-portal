@@ -43,15 +43,20 @@
 .typeahead-group-label {
   color: $color-white;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -.25rem;
+  right: -1.5rem;
   font-size: 80%;
-  margin-top: -.75em;
+
   padding: 0 .25rem;
 }
+
 .first-in-group-item {
-  border-top: 1px solid $color-grey;
-  padding: .75rem 0 0;
+  padding-top: .25rem;
+  .first-in-group-border {
+    border-top: 1px solid $color-grey;
+    margin: -.5rem -1.5rem .5rem;
+  }
+
 }
 
 .typeahead-classification {
