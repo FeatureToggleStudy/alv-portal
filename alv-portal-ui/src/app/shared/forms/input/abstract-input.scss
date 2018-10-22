@@ -23,7 +23,7 @@
 input.form-control,
 select.form-control,
 textarea.form-control,
-a.typeahead-form-control.form-control {
+.typeahead-form-control.form-control {
   border: 1px solid $color-medium-grey;
   border-radius: 0;
   height: 46px;
@@ -43,7 +43,7 @@ a.typeahead-form-control.form-control {
   &.form-label-group > input,
   &.form-label-group > textarea,
   &.form-label-group > select,
-  &.form-label-group > a.typeahead-form-control {
+  &.form-label-group > .typeahead-form-control {
     color: $color-red !important;
     border: 1px solid $color-red;
     &:focus, &.has-focus {
@@ -68,7 +68,7 @@ a.typeahead-form-control.form-control {
   &> textarea,
   &> select,
   &> label,
-  &> a.typeahead-form-control,
+  &> .typeahead-form-control,
   &> .readonly-input {
     padding: 10px 10px;
   }
@@ -90,7 +90,7 @@ a.typeahead-form-control.form-control {
   input:not(.placeholder-shown),
   textarea:not(.placeholder-shown),
   select:not(.placeholder-shown),
-  a.typeahead-form-control:not(.placeholder-shown),
+  .typeahead-form-control:not(.placeholder-shown),
   .readonly-input:not(.placeholder-shown) {
     padding-top: 16px;
     padding-bottom: 4px;
@@ -98,7 +98,7 @@ a.typeahead-form-control.form-control {
   input:not(.placeholder-shown) ~ label,
   textarea:not(.placeholder-shown) ~ label,
   select:not(.placeholder-shown) ~ label,
-  a.typeahead-form-control:not(.placeholder-shown) ~ label,
+  .typeahead-form-control:not(.placeholder-shown) ~ label,
   .readonly-input:not(.placeholder-shown) ~ label {
     padding-top: 2px;
     padding-bottom: 1px;
@@ -113,7 +113,7 @@ a.typeahead-form-control.form-control {
     input:not(.placeholder-shown):focus ~ label,
     textarea:not(.placeholder-shown):focus ~ label,
     select:not(.placeholder-shown):focus ~ label,
-    a.typeahead-form-control.has-focus ~ label {
+    .typeahead-form-control.has-focus ~ label {
       color: $color-primary;
     }
     > input:focus + label {
