@@ -66,8 +66,13 @@
         Limit of {{ limit }} reached. Press Shift + Tab to delete selected items.
       </ng-container>
       <ng-template #helpText>
-        Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of selectable items.
-        <ng-container *ngIf="selectedItems.length">Press Shift + Tab to delete selected items.</ng-container>
+        Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of selectable items. Select by using the up and down arrow keys.
+        <ng-container *ngIf="editable">
+          You can add free text items by hitting Tab or Enter without selection.
+        </ng-container>
+        <ng-container *ngIf="selectedItems.length">
+          Press Shift + Tab to delete selected items.
+        </ng-container>
         <ng-container *ngIf="limit">
           You can select up to {{ limit }} items.
         </ng-container>

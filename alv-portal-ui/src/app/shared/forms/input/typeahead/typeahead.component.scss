@@ -25,7 +25,6 @@
       margin: 2px 1px 0;
       border-radius: 1px;
       .remove-button {
-
         cursor: pointer;
         padding: 0.1rem;
         border: none;
@@ -49,10 +48,10 @@
 }
 
 .first-in-group-item {
-  padding-top: .5rem;
+  padding-top: 1rem;
   .first-in-group-border {
     border-top: 1px solid $color-grey;
-    margin: -.75rem -1.5rem .5rem;
+    margin: -1.25rem -1.5rem .5rem;
   }
 }
 

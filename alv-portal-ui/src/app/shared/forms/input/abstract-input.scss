@@ -125,3 +125,7 @@ textarea.form-control,
   }
 }
 
+/* FF only: Removes the red box-shadow */
+:not(output):-moz-ui-invalid {
+  box-shadow: none;
+}
