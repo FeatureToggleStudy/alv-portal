@@ -22,6 +22,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
 
 enum Key {
+  Return = 8,
   Tab = 9,
   Enter = 13,
 }
@@ -106,6 +107,10 @@ export class TypeaheadComponent extends AbstractInput {
       if (this.selectFreeText()) {
         event.preventDefault();
         event.stopPropagation();
+      }
+    } else if (event.which === Key.Return) {
+      if (!this.inputValue && this.selectedItems.length) {
+        this.selectedItems.splice(this.selectedItems.length - 1, 1);
       }
     } else if (!this.canSelect()) {
       event.preventDefault();
