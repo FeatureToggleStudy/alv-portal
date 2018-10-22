@@ -1,8 +1,10 @@
 import {
-  Component, ElementRef,
-  Host, Inject,
+  Component,
+  ElementRef,
+  Host,
+  HostListener,
+  Inject,
   Input,
-  OnInit,
   Optional,
   SkipSelf,
   ViewChild
@@ -15,9 +17,14 @@ import { Observable } from 'rxjs/internal/Observable';
 import { TypeaheadItemModel } from './typeahead-item.model';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { TypeaheadItemDisplayModel } from './typeahead-item-display.model';
-import { map, switchMap } from 'rxjs/operators';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
+
+enum Key {
+  Tab = 9,
+  Enter = 13,
+}
 
 @Component({
   selector: 'alv-typeahead',
@@ -26,17 +33,17 @@ import { DOCUMENT } from '@angular/common';
 })
 export class TypeaheadComponent extends AbstractInput {
 
+  readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
+
+  readonly TYPEAHEAD_DEBOUNCE_TIME = 200;
+
   @Input() itemLoader: (text: string) => Observable<TypeaheadItemModel[]>;
 
   @Input() editable = true;
 
   @Input() focusFirst = false;
 
-  //@Input() tooltip: string;
-
   @Input() limit = 0;
-
-  @Input() size: 'sm' | 'lg' = 'sm';
 
   @ViewChild(NgbTypeahead) ngbTypeahead;
 
@@ -48,12 +55,23 @@ export class TypeaheadComponent extends AbstractInput {
 
   wrappedItemLoaderFn = this.wrappedItemLoader.bind(this);
 
-  readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
-
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService,
-              @Inject(DOCUMENT) private document: any) {
+              @Inject(DOCUMENT) private document: any,
+              private elRef: ElementRef) {
     super(controlContainer, InputType.TYPEAHEAD, inputIdGenerationService);
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  onClick(targetElement: HTMLElement): void {
+    if (!targetElement) {
+      return;
+    }
+    if (!this.elRef.nativeElement.contains(targetElement)) {
+      if (!this.selectFreeText()) {
+        this.clearInput();
+      }
+    }
   }
 
   showPlaceholder(): boolean {
@@ -62,6 +80,36 @@ export class TypeaheadComponent extends AbstractInput {
 
   formatResultItem(item: TypeaheadItemModel) {
     return item.label;
+  }
+
+  getTypeClass(item: TypeaheadItemModel) {
+    return `typeahead-${item.type}`;
+  }
+
+  hasFocus() {
+    return this.document.activeElement.id === this.id;
+  }
+
+  getInputWidth() {
+    const value = this.getTypeaheadNativeElement().value || '';
+    if (value.length > 0) {
+      return `${value.length}em`;
+    } else if (this.selectedItems.length > 0) {
+      return '0.5em';
+    } else {
+      return '100%';
+    }
+  }
+
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.which === Key.Enter || event.which === Key.Tab) {
+      if (this.selectFreeText()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    } else if (!this.canSelect()) {
+      event.preventDefault();
+    }
   }
 
   selectItem(event: NgbTypeaheadSelectItemEvent) {
@@ -76,43 +124,35 @@ export class TypeaheadComponent extends AbstractInput {
     this.getTypeaheadNativeElement().focus();
   }
 
-  wrappedItemLoader(text$: Observable<string>): Observable<TypeaheadItemDisplayModel[]> {
-    return text$.pipe(
-        switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
-            ? this.itemLoader(query)
-            : of([])),
-        map(this.toDisplayModelArray.bind(this))
-    );
-  }
+  selectFreeText() {
+    const freeText = new TypeaheadItemModel('free-text', this.inputValue, this.inputValue);
+    if (this.canSelect() && this.editable && !this.exists(freeText) && freeText.code
+        && freeText.code.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH) {
 
-  getItemClass(item: TypeaheadItemModel) {
-    return `typeahead-${item.type}`;
-  }
+      this.selectedItems = [...this.selectedItems, freeText];
+      this.control.setValue(this.selectedItems);
 
-  getTypeClass(item: TypeaheadItemModel) {
-    return `typeahead-${item.type}`;
-  }
-
-  getInputWidth() {
-    const value = this.getTypeaheadNativeElement().value || '';
-    if (value.length > 0) {
-      return `${value.length}em`;
-    } else if (this.selectedItems.length > 0) {
-      return '0.5em';
-    } else {
-      return '100%';
+      this.clearInput();
+      return freeText;
     }
+    return null;
   }
 
   removeItem(item: TypeaheadItemModel) {
     this.selectedItems = this.selectedItems.filter((i: TypeaheadItemModel) => !item.equals(i));
     this.control.setValue(this.selectedItems);
-    this.inputValue = '';
+    this.clearInput();
     this.getTypeaheadNativeElement().focus();
   }
 
-  hasFocus() {
-    return this.document.activeElement.id === this.id;
+  wrappedItemLoader(text$: Observable<string>): Observable<TypeaheadItemDisplayModel[]> {
+    return text$.pipe(
+        debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
+        switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
+            ? this.itemLoader(query)
+            : of([])),
+        map(this.toDisplayModelArray.bind(this))
+    );
   }
 
   private toDisplayModelArray(items: TypeaheadItemModel[]): Array<TypeaheadItemDisplayModel> {
@@ -140,6 +180,9 @@ export class TypeaheadComponent extends AbstractInput {
   }
 
   private clearInput(): void {
+    // This hack removes the invalid value from the input field on blur.
+    this.ngbTypeahead._inputValueBackup = '';
+
     this.inputValue = '';
   }
 

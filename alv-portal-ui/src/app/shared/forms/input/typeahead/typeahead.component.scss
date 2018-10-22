@@ -21,13 +21,12 @@
       border: 0;
     }
     .typeahead-badge {
-      color: $color-white;
       font-weight: 500;
       margin: 2px 1px 0;
       border-radius: 1px;
       .remove-button {
+
         cursor: pointer;
-        color: $color-white;
         padding: 0.1rem;
         border: none;
         background-color: transparent;
@@ -39,6 +38,7 @@
   }
 }
 
+/* Grouping styles */
 .typeahead-group-label {
   color: $color-white;
   position: absolute;
@@ -49,28 +49,37 @@
 }
 
 .first-in-group-item {
-  padding-top: .25rem;
+  padding-top: .5rem;
   .first-in-group-border {
     border-top: 1px solid $color-grey;
-    margin: -.5rem -1.5rem .5rem;
+    margin: -.75rem -1.5rem .5rem;
   }
-
 }
 
-.typeahead-classification {
-  background-color: $color-yellow;
-  color: $color-dark-grey;
+/* Mixin to create color schemes for typeahead types like occupation, free-text, etc. */
+@mixin typeaheadColorScheme($background, $foreground) {
+  background-color: $background;
+  color: $foreground;
+  .remove-button {
+    color: $foreground;
+  }
+}
+
+.typeahead-free-text {
+  @include typeaheadColorScheme($color-yellow, $color-dark-grey);
 }
 
 .typeahead-occupation {
-  background-color: $color-green;
+  @include typeaheadColorScheme($color-green, $color-white);
 }
 
 .typeahead-canton {
-  background-color: $color-blue;
+  @include typeaheadColorScheme($color-blue, $color-white);
 }
 
 .typeahead-locality {
-  background-color: $color-green;
+  @include typeaheadColorScheme($color-green, $color-white);
 }
+
+
 
