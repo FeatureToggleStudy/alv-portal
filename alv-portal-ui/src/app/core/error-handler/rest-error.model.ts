@@ -1,5 +1,6 @@
 export interface RestError {
-  correlationId: string;
-  exceptionName: string;
-  exceptionMessage: string;
+  type: string;
+  status: number;
+  path: string;
+  message: string;
 }

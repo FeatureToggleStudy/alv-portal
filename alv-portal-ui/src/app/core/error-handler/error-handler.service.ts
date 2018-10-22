@@ -18,11 +18,11 @@ export class ErrorHandlerService {
   private exceptionNameRegistry: { [id: string]: ErrorMappingEntry; } = {};
 
   constructor(private notificationsService: NotificationsService) {
-
+    // the registry will need to be populated with specific errors
   }
 
   private static isRestError(errorContent: RestError) {
-    return !isNil(errorContent) && !isNil(errorContent.correlationId) && !isNil(errorContent.exceptionName);
+    return !isNil(errorContent) && !isNil(errorContent.type);
   }
 
   handleError(error) {
@@ -52,15 +52,13 @@ export class ErrorHandlerService {
     if (!ErrorHandlerService.isRestError(errorContent)) {
       return false;
     }
-    const errorMappingEntry = this.exceptionNameRegistry[errorContent.exceptionName];
+    const errorMappingEntry = this.exceptionNameRegistry[errorContent.type];
     if (errorMappingEntry) {
       this.showFixedMessage(errorMappingEntry.messageKey, errorMappingEntry.type, errorMappingEntry.messageParams(errorContent));
     } else {
-      // DEFAULT WITH CORRELATION-ID
       this.showFixedMessage(
-          'API.EXCEPTION.STATUS.DEFAULT.MESSAGE.CORRELATIONID',
-          NotificationType.ERROR,
-          { 'correlationId': errorContent.correlationId }
+          'The error has occurred.',
+          NotificationType.ERROR
       );
     }
     return true;
