@@ -61,6 +61,6 @@ export class NotificationComponent implements OnInit {
 interface ClassDecoration {
   [s: number]: {
     icon: string;
-    background: string
+    background: string;
   };
 }
