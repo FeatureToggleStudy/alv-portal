@@ -55,29 +55,37 @@
   }
 }
 
-/* Mixin to create color schemes for typeahead types like occupation, free-text, etc. */
-@mixin typeaheadColorScheme($background, $foreground) {
-  background-color: $background;
-  color: $foreground;
+/* Type depending styles */
+.typeahead-free-text {
+  background-color: $color-yellow;
+  color: $color-dark-grey;
   .remove-button {
-    color: $foreground;
+    color: $color-dark-grey;
   }
 }
 
-.typeahead-free-text {
-  @include typeaheadColorScheme($color-yellow, $color-dark-grey);
-}
-
 .typeahead-occupation {
-  @include typeaheadColorScheme($color-green, $color-white);
+  background-color: $color-green;
+  color: $color-white;
+  .remove-button {
+    color: $color-white;
+  }
 }
 
 .typeahead-canton {
-  @include typeaheadColorScheme($color-blue, $color-white);
+  background-color: $color-blue;
+  color: $color-white;
+  .remove-button {
+    color: $color-white;
+  }
 }
 
 .typeahead-locality {
-  @include typeaheadColorScheme($color-green, $color-white);
+  background-color: $color-green;
+  color: $color-white;
+  .remove-button {
+    color: $color-white;
+  }
 }
 
 
