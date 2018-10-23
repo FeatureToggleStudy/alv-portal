@@ -31,11 +31,11 @@
              [attr.required]="required"
              [attr.aria-required]="!!required"
              [attr.aria-describedby]="validationId + ' ' + helpId"
+             [style.width]="getInputWidth()"
              [ngbTypeahead]="wrappedItemLoaderFn"
              [container]="'body'"
              [resultTemplate]="template"
              [focusFirst]="focusFirst"
-             [style.width]="getInputWidth()"
              [editable]="editable"
              [readonly]="limit && selectedItems.length >= limit"
              [(ngModel)]="inputValue"
@@ -59,7 +59,7 @@
       {{control.value}}
     </div>
 
-    <!-- a11y -->
+    <!-- a11y help texts -->
     <div class="sr-only"
          [attr.id]="helpId">
       <ng-container *ngIf="limit && selectedItems.length >= limit; else helpText">
@@ -71,7 +71,7 @@
           You can add free text items by hitting Tab or Enter without selection.
         </ng-container>
         <ng-container *ngIf="selectedItems.length">
-          Press Shift + Tab to delete selected items.
+          Press Shift + Tab or use Return to delete selected items.
         </ng-container>
         <ng-container *ngIf="limit">
           You can select up to {{ limit }} items.
