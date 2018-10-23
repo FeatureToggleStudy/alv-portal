@@ -6,16 +6,14 @@
   </h2>
   <div class="zoom d-flex flex-column flex-md-row my-1 my-md-3">
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
-      <alv-typeahead class="mb-0"
-                     label="Berufsbezeichnung"
-                     [itemLoader]="searchFn"
-                     [limit]="4"
-                     [editable]="true"
-                     alvFormControlName="profession"
-                     placement="top"
-                     [container]="'body'"
-                     [ngbTooltip]="tooltip">
-      </alv-typeahead>
+      <alv-input-field class="mb-0"
+                       type="text"
+                       label="Berufsbezeichnung"
+                       alvFormControlName="profession"
+                       placement="top"
+                       [container]="'body'"
+                       [ngbTooltip]="tooltip">
+      </alv-input-field>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
       <alv-input-field class="mb-0"
