@@ -12,6 +12,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ShowcaseComponent } from './showcase/showcase.component';
 
 /**
  * Setting up the ngx-translate
@@ -22,7 +23,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ShowcaseComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
