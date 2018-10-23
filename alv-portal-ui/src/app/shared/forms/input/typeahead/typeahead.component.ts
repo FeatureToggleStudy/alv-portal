@@ -22,7 +22,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
 
 enum Key {
-  Return = 8,
+  Backspace = 8,
   Tab = 9,
   Enter = 13,
 }
@@ -92,7 +92,7 @@ export class TypeaheadComponent extends AbstractInput {
   }
 
   getInputWidth() {
-    const value = this.getTypeaheadNativeElement().value || '';
+    const value = this.inputValue || '';
     if (value.length > 0) {
       return `${value.length}em`;
     } else if (this.selectedItems.length > 0) {
@@ -108,7 +108,7 @@ export class TypeaheadComponent extends AbstractInput {
         event.preventDefault();
         event.stopPropagation();
       }
-    } else if (event.which === Key.Return) {
+    } else if (event.which === Key.Backspace) {
       if (!this.inputValue && this.selectedItems.length) {
         this.selectedItems.splice(this.selectedItems.length - 1, 1);
       }
