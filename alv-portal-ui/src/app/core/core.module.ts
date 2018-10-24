@@ -1,6 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { AuthModule } from './auth/auth.module';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [],
@@ -12,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
     AuthModule
   ],
   providers: [
+    CookieService
   ]
 })
 export class CoreModule {

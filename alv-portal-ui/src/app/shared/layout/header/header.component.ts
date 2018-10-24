@@ -8,6 +8,7 @@ import { ProfileInfoService } from './profile-info.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocalLoginComponent } from '../../../core/auth/local-login/local-login.component';
 import { Router } from '@angular/router';
+import { I18nService } from '../../../core/i18n.service';
 
 @Component({
   selector: 'alv-header',
@@ -23,7 +24,8 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
               private authenticationService: AuthenticationService,
               private profileInfoService: ProfileInfoService,
               private router: Router,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private i18n: I18nService) {
     super();
   }
 
@@ -49,6 +51,10 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
     } else {
       document.location.href = '/login';
     }
+  }
+
+  changeLanguage(lang) {
+    this.i18n.changeLanguage(lang);
   }
 
 }
