@@ -1,7 +1,7 @@
 export class TypeaheadItemModel {
 
     constructor(public type: string,
-                public code: string,
+                public code: string, // represents ZIP code for cities or the AVAM code when you select a profession
                 public label: string,
                 public order = 0) {
     }
