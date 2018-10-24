@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TypeaheadItemModel } from '../shared/forms/input/typeahead/typeahead-item.model';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -16,7 +16,8 @@ export class ShowcaseComponent implements OnInit {
 
   itemLoaderFn = this.fetchSuggestions.bind(this);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit() {
   }
@@ -29,7 +30,7 @@ export class ShowcaseComponent implements OnInit {
 
     const _resultMapper = this.defaultLocalityAutocompleteMapper;
 
-  return this.http.get('/referenceservice/api/_search/localities', { params })
+    return this.http.get('/referenceservice/api/_search/localities', { params })
         .pipe(
             map(_resultMapper)
         );

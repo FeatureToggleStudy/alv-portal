@@ -17,7 +17,7 @@ describe('TypeaheadComponent', () => {
       imports: [NgbTypeaheadModule],
       declarations: [TypeaheadComponent, ValidationMessagesComponent],
     })
-        .overrideTemplate(TypeaheadComponent, '<input [ngbTypeahead]="wrappedItemLoaderFn"/>') // we need only the @ViewChild
+        .overrideTemplate(TypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
         .compileComponents();
   }));
 
@@ -104,7 +104,7 @@ describe('TypeaheadComponent', () => {
     });
   });
 
-  describe('wrappedItemLoader', () => {
+  describe('loadItemsGuarded', () => {
     let input$;
     beforeEach(() => {
       input$ = new BehaviorSubject('');
@@ -112,30 +112,30 @@ describe('TypeaheadComponent', () => {
 
     it('should not load items if the input is shorter than 2 characters', fakeAsync(() => {
       // GIVEN
-      component.itemLoader = (value: string) => of([]);
-      spyOn(component, 'itemLoader').and.callThrough();
-      component.wrappedItemLoader(input$).subscribe((o: any) => '');
+      component.loadItems = (value: string) => of([]);
+      spyOn(component, 'loadItems').and.callThrough();
+      component.loadItemsGuardedFn(input$).subscribe((o: any) => '');
 
       // WHEN
       input$.next('1');
       tick(201);
 
       // THAN
-      expect(component.itemLoader).not.toHaveBeenCalled();
+      expect(component.loadItems).not.toHaveBeenCalled();
     }));
 
     it('should load items if the input is longer than 2 characters (inclusive)', fakeAsync(() => {
       // GIVEN
-      component.itemLoader = (value: string) => of([]);
-      spyOn(component, 'itemLoader').and.callThrough();
-      component.wrappedItemLoader(input$).subscribe((o: any) => '');
+      component.loadItems = (value: string) => of([]);
+      spyOn(component, 'loadItems').and.callThrough();
+      component.loadItemsGuardedFn(input$).subscribe((o: any) => '');
 
       // WHEN
       input$.next('12');
       tick(201);
 
       // THAN
-      expect(component.itemLoader).toHaveBeenCalledWith('12');
+      expect(component.loadItems).toHaveBeenCalledWith('12');
     }));
 
     it('should filter the already selected values from the loaded items', fakeAsync(() => {
@@ -143,8 +143,8 @@ describe('TypeaheadComponent', () => {
 
       // GIVEN
       component.selectedItems = [new TypeaheadItemModel('type', 'code', 'label')];
-      component.itemLoader = (value: string) => of([new TypeaheadItemModel('type', 'code', 'label')]);
-      component.wrappedItemLoader(input$).subscribe((items: any) => loadedItems = items);
+      component.loadItems = (value: string) => of([new TypeaheadItemModel('type', 'code', 'label')]);
+      component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
       // WHEN
       input$.next('123');
@@ -158,13 +158,13 @@ describe('TypeaheadComponent', () => {
       let loadedItems: Array<any>;
 
       // GIVEN
-      component.itemLoader = (value: string) => of([
+      component.loadItems = (value: string) => of([
         new TypeaheadItemModel('type', 'code0', 'label0', 3),
         new TypeaheadItemModel('type', 'code1', 'label1', 2),
         new TypeaheadItemModel('type', 'code2', 'label2', 0),
         new TypeaheadItemModel('type', 'code3', 'label3', 1)
       ]);
-      component.wrappedItemLoader(input$).subscribe((items: any) => loadedItems = items);
+      component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
       // WHEN
       input$.next('123');
@@ -183,13 +183,13 @@ describe('TypeaheadComponent', () => {
       let loadedItems: Array<any>;
 
       // GIVEN
-      component.itemLoader = (value: string) => of([
+      component.loadItems = (value: string) => of([
         new TypeaheadItemModel('type0', 'code0', 'label0', 0),
         new TypeaheadItemModel('type0', 'code1', 'label1', 0),
         new TypeaheadItemModel('type1', 'code2', 'label2', 1),
         new TypeaheadItemModel('type1', 'code3', 'label3', 1)
       ]);
-      component.wrappedItemLoader(input$).subscribe((items: any) => loadedItems = items);
+      component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
       // WHEN
       input$.next('123');

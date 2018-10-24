@@ -38,7 +38,7 @@ export class TypeaheadComponent extends AbstractInput {
 
   readonly TYPEAHEAD_DEBOUNCE_TIME = 200;
 
-  @Input() itemLoader: (text: string) => Observable<TypeaheadItemModel[]>;
+  @Input() loadItems: (text: string) => Observable<TypeaheadItemModel[]>;
 
   @Input() editable = true;
 
@@ -54,7 +54,7 @@ export class TypeaheadComponent extends AbstractInput {
 
   selectedItems = [];
 
-  wrappedItemLoaderFn = this.wrappedItemLoader.bind(this);
+  loadItemsGuardedFn = this.loadItemsGuarded.bind(this);
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService,
@@ -63,6 +63,9 @@ export class TypeaheadComponent extends AbstractInput {
     super(controlContainer, InputType.TYPEAHEAD, inputIdGenerationService);
   }
 
+  /**
+   * Listens for an outside click and selects free text if applicable
+   */
   @HostListener('document:click', ['$event.target'])
   onClick(targetElement: HTMLElement): void {
     if (!targetElement) {
@@ -95,11 +98,11 @@ export class TypeaheadComponent extends AbstractInput {
     const value = this.inputValue || '';
     if (value.length > 0) {
       return `${value.length}em`;
-    } else if (this.selectedItems.length > 0) {
-      return '0.5em';
-    } else {
-      return '100%';
     }
+    if (this.selectedItems.length > 0) {
+      return '0.5em';
+    }
+    return '100%';
   }
 
   handleKeyDown(event: KeyboardEvent) {
@@ -108,18 +111,26 @@ export class TypeaheadComponent extends AbstractInput {
         event.preventDefault();
         event.stopPropagation();
       }
-    } else if (event.which === Key.Backspace) {
+      return;
+    }
+    if (event.which === Key.Backspace) {
       if (!this.inputValue && this.selectedItems.length) {
         this.selectedItems.splice(this.selectedItems.length - 1, 1);
       }
-    } else if (!this.canSelect()) {
+      return;
+    }
+    if (this.itemLimitReached()) {
       event.preventDefault();
+      return;
     }
   }
 
   selectItem(event: NgbTypeaheadSelectItemEvent) {
+    // preventDefault() has to be called to suppress the default selection behaviour of ng-bootstrap
+    // (puts the item in the input field)
     event.preventDefault();
-    if (!this.canSelect()) {
+
+    if (this.itemLimitReached()) {
       return;
     }
     this.selectedItems = [...this.selectedItems, event.item.model];
@@ -131,7 +142,7 @@ export class TypeaheadComponent extends AbstractInput {
 
   selectFreeText() {
     const freeText = new TypeaheadItemModel('free-text', this.inputValue, this.inputValue);
-    if (this.canSelect() && this.editable && !this.exists(freeText) && freeText.code
+    if (!this.itemLimitReached() && this.editable && !this.exists(freeText) && freeText.code
         && freeText.code.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH) {
 
       this.selectedItems = [...this.selectedItems, freeText];
@@ -150,38 +161,37 @@ export class TypeaheadComponent extends AbstractInput {
     this.getTypeaheadNativeElement().focus();
   }
 
-  wrappedItemLoader(text$: Observable<string>): Observable<TypeaheadItemDisplayModel[]> {
+  private loadItemsGuarded(text$: Observable<string>): Observable<TypeaheadItemDisplayModel[]> {
     return text$.pipe(
         debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
         switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
-            ? this.itemLoader(query)
+            ? this.loadItems(query)
             : of([])),
         map(this.toDisplayModelArray.bind(this))
     );
   }
 
   private toDisplayModelArray(items: TypeaheadItemModel[]): Array<TypeaheadItemDisplayModel> {
-    return items.filter((m: TypeaheadItemModel) => !this.exists(m))
-        .sort((o1: TypeaheadItemModel, o2: TypeaheadItemModel) => {
-          return o1.compare(o2);
-        })
-        .map(this.toDisplayModel.bind(this));
+    return items
+        .filter((item: TypeaheadItemModel) => !this.exists(item))
+        .sort((item1: TypeaheadItemModel, item2: TypeaheadItemModel) => item1.compare(item2))
+        .map(this.toDisplayModel);
   }
 
-  private toDisplayModel(m: TypeaheadItemModel, idx: number, array: TypeaheadItemModel[]): TypeaheadItemDisplayModel {
+  private toDisplayModel(item: TypeaheadItemModel, idx: number, array: TypeaheadItemModel[]): TypeaheadItemDisplayModel {
     let firstInGroup = false;
-    if (idx === 0 || m.type !== array[idx - 1].type) {
+    if (idx === 0 || item.type !== array[idx - 1].type) {
       firstInGroup = true;
     }
-    return new TypeaheadItemDisplayModel(m, idx === 0, firstInGroup);
+    return new TypeaheadItemDisplayModel(item, idx === 0, firstInGroup);
   }
 
   private exists(model: TypeaheadItemModel) {
-    return !!this.selectedItems.find((i: TypeaheadItemModel) => model.equals(i));
+    return !!this.selectedItems.find((itemModel: TypeaheadItemModel) => model.equals(itemModel));
   }
 
-  private canSelect(): boolean {
-    return !this.limit || this.selectedItems.length < this.limit;
+  private itemLimitReached(): boolean {
+    return this.limit && this.selectedItems.length >= this.limit;
   }
 
   private clearInput(): void {
