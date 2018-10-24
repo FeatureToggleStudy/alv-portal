@@ -5,6 +5,29 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+export class LocalityInputType {
+  static LOCALITY = 'locality';
+  static CANTON = 'canton';
+}
+
+export interface LocalitySuggestion {
+  city: string;
+  communalCode: number;
+  cantonCode: string;
+  regionCode: string;
+  zipCode: string;
+}
+
+export interface CantonSuggestion {
+  code: string;
+  name: string;
+}
+
+export interface LocalityAutocomplete {
+  localities: LocalitySuggestion[];
+  cantons: CantonSuggestion[];
+}
+
 @Component({
   selector: 'alv-showcase',
   templateUrl: './showcase.component.html',
@@ -48,28 +71,5 @@ export class ShowcaseComponent implements OnInit {
 
     return [...localities, ...cantons];
   }
-}
-
-export class LocalityInputType {
-  static LOCALITY = 'locality';
-  static CANTON = 'canton';
-}
-
-export interface LocalitySuggestion {
-  city: string;
-  communalCode: number;
-  cantonCode: string;
-  regionCode: string;
-  zipCode: string;
-}
-
-export interface CantonSuggestion {
-  code: string;
-  name: string;
-}
-
-export interface LocalityAutocomplete {
-  localities: LocalitySuggestion[];
-  cantons: CantonSuggestion[];
 }
 
