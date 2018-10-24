@@ -52,7 +52,7 @@ export class I18nService {
   }
 
   private isPersistentLanguageExists() {
-    return (this.persistentMemoryService.check(LANGUAGE_KEY))
+    return (this.persistentMemoryService.check(LANGUAGE_KEY));
   }
 
   private setPersistentLanguage(language: string) {
@@ -73,8 +73,7 @@ export class I18nService {
       if (this.isValid(persistedLanguage)) {
         return persistedLanguage;
       }
-    }
-    else { // if the language has never been saved in persistent memory
+    } else { // if the language has never been saved in persistent memory
       const browserLanguage = this.ngxTranslateService.getBrowserLang();
       if (this.isValid(browserLanguage)) {
         return browserLanguage;
