@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
-import { LANGUAGES } from './languages.constants';
+import { FALLBACK_LANGUAGE, LANGUAGES } from './languages.constants';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 const LANGUAGE_KEY = 'NG_TRANSLATE_LANG_KEY';
-const FALLBACK_LANGUAGE = 'en';
 
 
 /**
