@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/internal/Observable';
 import { BackendVersion } from './backend-version.model';
 import { VERSION } from '../../../../environments/version';
 import { catchError } from 'rxjs/operators';
-import { EMPTY } from 'rxjs/internal/observable/empty';
+import { EMPTY, Observable } from 'rxjs';
 
 @Component({
   selector: 'alv-version',
