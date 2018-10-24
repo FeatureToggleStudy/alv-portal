@@ -82,11 +82,11 @@ export class TypeaheadComponent extends AbstractInput {
     return this.selectedItems.length === 0 && !this.inputValue;
   }
 
-  formatResultItem(item: TypeaheadItemModel) {
+  formatResultItem(item: TypeaheadItemModel): string {
     return item.label;
   }
 
-  getTypeClass(item: TypeaheadItemModel) {
+  getTypeClass(item: TypeaheadItemModel): string {
     return `typeahead-${item.type}`;
   }
 
@@ -94,7 +94,7 @@ export class TypeaheadComponent extends AbstractInput {
     return this.document.activeElement.id === this.id;
   }
 
-  getInputWidth() {
+  getInputWidth(): string {
     const value = this.inputValue || '';
     if (value.length > 0) {
       return `${value.length}em`;
@@ -105,7 +105,7 @@ export class TypeaheadComponent extends AbstractInput {
     return '100%';
   }
 
-  handleKeyDown(event: KeyboardEvent) {
+  handleKeyDown(event: KeyboardEvent): void {
     if (event.which === Key.Enter || event.which === Key.Tab) {
       if (this.selectFreeText()) {
         event.preventDefault();
@@ -125,7 +125,7 @@ export class TypeaheadComponent extends AbstractInput {
     }
   }
 
-  selectItem(event: NgbTypeaheadSelectItemEvent) {
+  selectItem(event: NgbTypeaheadSelectItemEvent): void {
     // preventDefault() has to be called to suppress the default selection behaviour of ng-bootstrap
     // (puts the item in the input field)
     event.preventDefault();
@@ -140,7 +140,7 @@ export class TypeaheadComponent extends AbstractInput {
     this.getTypeaheadNativeElement().focus();
   }
 
-  selectFreeText() {
+  selectFreeText(): TypeaheadItemModel {
     const freeText = new TypeaheadItemModel('free-text', this.inputValue, this.inputValue);
     if (!this.itemLimitReached() && this.editable && !this.exists(freeText) && freeText.code
         && freeText.code.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH) {
@@ -154,7 +154,7 @@ export class TypeaheadComponent extends AbstractInput {
     return null;
   }
 
-  removeItem(item: TypeaheadItemModel) {
+  removeItem(item: TypeaheadItemModel): void {
     this.selectedItems = this.selectedItems.filter((i: TypeaheadItemModel) => !item.equals(i));
     this.control.setValue(this.selectedItems);
     this.clearInput();
@@ -171,7 +171,7 @@ export class TypeaheadComponent extends AbstractInput {
     );
   }
 
-  private toDisplayModelArray(items: TypeaheadItemModel[]): Array<TypeaheadItemDisplayModel> {
+  private toDisplayModelArray(items: TypeaheadItemModel[]): TypeaheadItemDisplayModel[] {
     return items
         .filter((item: TypeaheadItemModel) => !this.exists(item))
         .sort((item1: TypeaheadItemModel, item2: TypeaheadItemModel) => item1.compare(item2))
@@ -186,7 +186,7 @@ export class TypeaheadComponent extends AbstractInput {
     return new TypeaheadItemDisplayModel(item, idx === 0, firstInGroup);
   }
 
-  private exists(model: TypeaheadItemModel) {
+  private exists(model: TypeaheadItemModel): boolean {
     return !!this.selectedItems.find((itemModel: TypeaheadItemModel) => model.equals(itemModel));
   }
 
@@ -201,7 +201,7 @@ export class TypeaheadComponent extends AbstractInput {
     this.inputValue = '';
   }
 
-  private getTypeaheadNativeElement() {
+  private getTypeaheadNativeElement(): any  {
     return this.ngbTypeahead && this.ngbTypeahead._elementRef.nativeElement || {};
   }
 }
