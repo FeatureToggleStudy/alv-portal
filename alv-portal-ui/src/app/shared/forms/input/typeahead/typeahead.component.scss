@@ -24,6 +24,9 @@
       font-weight: 500;
       margin: 2px 1px 0;
       border-radius: 1px;
+      .typeahead-badge-label {
+        max-width: 120px;
+      }
       .remove-button {
         cursor: pointer;
         padding: 0.1rem;

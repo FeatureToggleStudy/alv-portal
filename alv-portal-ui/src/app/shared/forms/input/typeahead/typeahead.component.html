@@ -14,10 +14,12 @@
 
       <fieldset>
         <legend class="sr-only">Selected Items</legend>
-        <div class="badge typeahead-badge"
+        <div class="badge typeahead-badge d-inline-flex align-items-center"
              *ngFor="let item of selectedItems; let i = index"
              [ngClass]="getTypeClass(item)">
-          {{item.label}}
+          <div class="typeahead-badge-label text-truncate">
+            {{item.label}}
+          </div>
           <button class="remove-button ml-1"
                   (click)="removeItem(item)"
                   [attr.aria-label]="'Remove Item ' + item.label">
@@ -32,7 +34,7 @@
              [attr.aria-required]="!!required"
              [attr.aria-describedby]="validationId + ' ' + helpId"
              [style.width]="getInputWidth()"
-             [ngbTypeahead]="wrappedItemLoaderFn"
+             [ngbTypeahead]="loadItemsGuardedFn"
              [container]="'body'"
              [resultTemplate]="template"
              [focusFirst]="focusFirst"
@@ -66,7 +68,8 @@
         Limit of {{ limit }} reached. Press Shift + Tab to delete selected items.
       </ng-container>
       <ng-template #helpText>
-        Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of selectable items. Select by using the up and down arrow keys.
+        Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of
+        selectable items. Select by using the up and down arrow keys.
         <ng-container *ngIf="editable">
           You can add free text items by hitting Tab or Enter without selection.
         </ng-container>
