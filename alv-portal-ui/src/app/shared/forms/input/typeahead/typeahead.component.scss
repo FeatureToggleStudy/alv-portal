@@ -58,42 +58,6 @@
   padding-top: 1.25rem;
   .first-in-group-border {
     border-top: 1px solid $color-grey;
-    margin: -1.25rem -1.5rem 1rem;
+    margin: -1.5rem -1.5rem 1rem;
   }
 }
-
-/* Type depending styles */
-.typeahead-free-text {
-  background-color: $color-yellow;
-  color: $color-dark-grey;
-  .remove-button {
-    color: $color-dark-grey;
-  }
-}
-
-.typeahead-occupation {
-  background-color: $color-green;
-  color: $color-white;
-  .remove-button {
-    color: $color-white;
-  }
-}
-
-.typeahead-canton {
-  background-color: $color-blue;
-  color: $color-white;
-  .remove-button {
-    color: $color-white;
-  }
-}
-
-.typeahead-locality {
-  background-color: $color-green;
-  color: $color-white;
-  .remove-button {
-    color: $color-white;
-  }
-}
-
-
-
