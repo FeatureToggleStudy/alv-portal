@@ -182,7 +182,7 @@ export class TypeaheadComponent extends AbstractInput {
   }
 
   private exists(model: TypeaheadItemModel): boolean {
-    return !!this.control.value.find((itemModel: TypeaheadItemModel) => model.equals(itemModel));
+    return this.control.value && !!this.control.value.find((itemModel: TypeaheadItemModel) => model.equals(itemModel));
   }
 
   private itemLimitReached(): boolean {

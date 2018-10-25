@@ -35,20 +35,20 @@ describe('TypeaheadComponent', () => {
   describe('removeItem', () => {
     it('should remove an existing item', () => {
       // GIVEN
-      component.selectedItems = [new TypeaheadItemModel('type', 'code', 'label')];
+      component.control.setValue([new TypeaheadItemModel('type', 'code', 'label')]);
 
       // WHEN
       component.removeItem(new TypeaheadItemModel('type', 'code', 'label'));
 
       // THAN
-      expect(component.selectedItems.length).toEqual(0);
+      expect(component.control.value.length).toEqual(0);
     });
   });
 
   describe('selectFreeText', () => {
     it('should add a new model with type: free-text ', () => {
       // GIVEN
-      component.selectedItems = [new TypeaheadItemModel('type', 'code', 'label')];
+      component.control.setValue([new TypeaheadItemModel('type', 'code', 'label')]);
 
       // WHEN
       component.inputValue = 'free';
@@ -57,14 +57,14 @@ describe('TypeaheadComponent', () => {
       // THAN
       const expectedFreeText = new TypeaheadItemModel('free-text', 'free', 'free');
       expect(freeText).toEqual(expectedFreeText);
-      expect(component.selectedItems.length).toEqual(2);
-      expect(component.selectedItems).toContain(new TypeaheadItemModel('type', 'code', 'label'));
-      expect(component.selectedItems).toContain(freeText);
+      expect(component.control.value.length).toEqual(2);
+      expect(component.control.value).toContain(new TypeaheadItemModel('type', 'code', 'label'));
+      expect(component.control.value).toContain(freeText);
     });
 
     it('should not allow duplicates', () => {
       // GIVEN
-      component.selectedItems = [new TypeaheadItemModel('free-text', 'free text value', 'free text value')];
+      component.control.setValue([new TypeaheadItemModel('free-text', 'free text value', 'free text value')]);
 
       // WHEN
       component.inputValue = 'free text value';
@@ -72,8 +72,8 @@ describe('TypeaheadComponent', () => {
 
       // THAN
       expect(freeText).toEqual(null);
-      expect(component.selectedItems.length).toEqual(1);
-      expect(component.selectedItems).toContain(new TypeaheadItemModel('free-text', 'free text value', 'free text value'));
+      expect(component.control.value.length).toEqual(1);
+      expect(component.control.value).toContain(new TypeaheadItemModel('free-text', 'free text value', 'free text value'));
     });
 
     it('should not allow free text value with length < TYPEAHEAD_QUERY_MIN_LENGTH', () => {
@@ -83,14 +83,14 @@ describe('TypeaheadComponent', () => {
 
       // THAN
       expect(freeText).toEqual(null);
-      expect(component.selectedItems.length).toEqual(0);
+      expect(component.control.value).toEqual(null);
     });
   });
 
   describe('selectItem', () => {
     it('should add the selected item to the model', () => {
       // GIVEN
-      component.selectedItems = [new TypeaheadItemModel('type', 'code', 'label')];
+      component.control.setValue([new TypeaheadItemModel('type', 'code', 'label')]);
 
       // WHEN
       const event = jasmine.createSpyObj('event', ['preventDefault']);
@@ -98,9 +98,9 @@ describe('TypeaheadComponent', () => {
       component.selectItem(event);
 
       // THAN
-      expect(component.selectedItems.length).toEqual(2);
-      expect(component.selectedItems).toContain(new TypeaheadItemModel('type', 'code', 'label'));
-      expect(component.selectedItems).toContain(new TypeaheadItemModel('type', 'code1', 'label1'));
+      expect(component.control.value.length).toEqual(2);
+      expect(component.control.value).toContain(new TypeaheadItemModel('type', 'code', 'label'));
+      expect(component.control.value).toContain(new TypeaheadItemModel('type', 'code1', 'label1'));
     });
   });
 
@@ -142,7 +142,7 @@ describe('TypeaheadComponent', () => {
       let loadedItems: Array<any>;
 
       // GIVEN
-      component.selectedItems = [new TypeaheadItemModel('type', 'code', 'label')];
+      component.control.setValue([new TypeaheadItemModel('type', 'code', 'label')]);
       component.loadItems = (value: string) => of([new TypeaheadItemModel('type', 'code', 'label')]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
