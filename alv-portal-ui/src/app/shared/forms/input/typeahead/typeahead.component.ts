@@ -52,8 +52,6 @@ export class TypeaheadComponent extends AbstractInput {
 
   helpId = this.id + '-help';
 
-  selectedItems = [];
-
   loadItemsGuardedFn = this.loadItemsGuarded.bind(this);
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
@@ -79,7 +77,7 @@ export class TypeaheadComponent extends AbstractInput {
   }
 
   showPlaceholder(): boolean {
-    return this.selectedItems.length === 0 && !this.inputValue;
+    return this.control.value && this.control.value.length === 0 && !this.inputValue;
   }
 
   formatResultItem(item: TypeaheadItemModel): string {
@@ -99,7 +97,7 @@ export class TypeaheadComponent extends AbstractInput {
     if (value.length > 0) {
       return `${value.length}em`;
     }
-    if (this.selectedItems.length > 0) {
+    if (this.control.value && this.control.value.length > 0) {
       return '0.5em';
     }
     return '100%';
@@ -114,8 +112,8 @@ export class TypeaheadComponent extends AbstractInput {
       return;
     }
     if (event.which === Key.Backspace) {
-      if (!this.inputValue && this.selectedItems.length) {
-        this.selectedItems.splice(this.selectedItems.length - 1, 1);
+      if (!this.inputValue && this.control.value && this.control.value.length) {
+        this.control.value.splice(this.control.value.length - 1, 1);
       }
       return;
     }
@@ -133,8 +131,7 @@ export class TypeaheadComponent extends AbstractInput {
     if (this.itemLimitReached()) {
       return;
     }
-    this.selectedItems = [...this.selectedItems, event.item.model];
-    this.control.setValue(this.selectedItems);
+    this.control.setValue([...this.control.value || [], event.item.model]);
 
     this.clearInput();
     this.getTypeaheadNativeElement().focus();
@@ -145,8 +142,7 @@ export class TypeaheadComponent extends AbstractInput {
     if (!this.itemLimitReached() && this.editable && !this.exists(freeText) && freeText.code
         && freeText.code.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH) {
 
-      this.selectedItems = [...this.selectedItems, freeText];
-      this.control.setValue(this.selectedItems);
+      this.control.setValue([...this.control.value || [], freeText]);
 
       this.clearInput();
       return freeText;
@@ -155,8 +151,7 @@ export class TypeaheadComponent extends AbstractInput {
   }
 
   removeItem(item: TypeaheadItemModel): void {
-    this.selectedItems = this.selectedItems.filter((i: TypeaheadItemModel) => !item.equals(i));
-    this.control.setValue(this.selectedItems);
+    this.control.setValue(this.control.value.filter((i: TypeaheadItemModel) => !item.equals(i)));
     this.clearInput();
     this.getTypeaheadNativeElement().focus();
   }
@@ -187,11 +182,11 @@ export class TypeaheadComponent extends AbstractInput {
   }
 
   private exists(model: TypeaheadItemModel): boolean {
-    return !!this.selectedItems.find((itemModel: TypeaheadItemModel) => model.equals(itemModel));
+    return !!this.control.value.find((itemModel: TypeaheadItemModel) => model.equals(itemModel));
   }
 
   private itemLimitReached(): boolean {
-    return this.limit && this.selectedItems.length >= this.limit;
+    return this.limit && this.control.value && this.control.value.length >= this.limit;
   }
 
   private clearInput(): void {

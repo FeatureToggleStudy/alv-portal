@@ -15,7 +15,7 @@
       <fieldset>
         <legend class="sr-only">Selected Items</legend>
         <div class="badge typeahead-badge d-inline-flex align-items-center"
-             *ngFor="let item of selectedItems; let i = index"
+             *ngFor="let item of control.value; let i = index"
              [ngClass]="getTypeClass(item)">
           <div class="typeahead-badge-label text-truncate">
             {{item.label}}
@@ -39,7 +39,7 @@
              [resultTemplate]="template"
              [focusFirst]="focusFirst"
              [editable]="editable"
-             [readonly]="limit && selectedItems.length >= limit"
+             [readonly]="limit && control.value?.length >= limit"
              [(ngModel)]="inputValue"
              (selectItem)="selectItem($event)"
              (keydown)="handleKeyDown($event)"
@@ -49,8 +49,8 @@
            [for]="id">
       {{label}}
       <span class="flex-grow-1"></span>
-      <span *ngIf="limit && selectedItems.length">
-        {{selectedItems.length + '/' + limit}}
+      <span *ngIf="limit && control.value?.length">
+        {{control.value?.length + '/' + limit}}
         <span class="sr-only">Items</span>
       </span>
     </label>
@@ -64,7 +64,7 @@
     <!-- a11y help texts -->
     <div class="sr-only"
          [attr.id]="helpId">
-      <ng-container *ngIf="limit && selectedItems.length >= limit; else helpText">
+      <ng-container *ngIf="limit && control.value?.length >= limit; else helpText">
         Limit of {{ limit }} reached. Press Shift + Tab to delete selected items.
       </ng-container>
       <ng-template #helpText>
@@ -73,7 +73,7 @@
         <ng-container *ngIf="editable">
           You can add free text items by hitting Tab or Enter without selection.
         </ng-container>
-        <ng-container *ngIf="selectedItems.length">
+        <ng-container *ngIf="control.value?.length">
           Press Shift + Tab or use Return to delete selected items.
         </ng-container>
         <ng-container *ngIf="limit">
