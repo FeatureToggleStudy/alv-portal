@@ -20,6 +20,7 @@ import { SharedAuthModule } from '../auth/shared-auth.module';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { NotificationsService } from '../../core/notifications.service';
 import { AlertComponent } from './notifications/alert/alert.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { AlertComponent } from './notifications/alert/alert.component';
     NgbModalModule,
     RouterModule,
     HttpClientModule,
-    SharedAuthModule
+    SharedAuthModule,
+    TranslateModule
   ],
   declarations: [
     UserMenuComponent,

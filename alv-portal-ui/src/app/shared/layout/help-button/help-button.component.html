@@ -11,13 +11,13 @@
   <div class="help-content"
        role="alert"
        *ngFor="let helpEntry of helpEntries">
-    <h3 class="help-title">{{helpEntry.title}}</h3>
+    <h3 class="help-title">{{helpEntry.title| translate}}</h3>
     <div class="help-text"
-         *ngIf="helpEntry.text">{{helpEntry.text}}
+         *ngIf="helpEntry.text">{{helpEntry.text | translate}}
     </div>
     <ul class="help-list-items"
         *ngIf="helpEntry.listItems?.length">
-      <li *ngFor="let listItem of helpEntry.listItems">{{listItem}}</li>
+      <li *ngFor="let listItem of helpEntry.listItems">{{listItem | translate}}</li>
     </ul>
   </div>
 </ng-template>

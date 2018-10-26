@@ -22,13 +22,13 @@
      class="nav-item"
      routerLinkActive="active">
     <i class="nav-icon fas fa-home"></i>
-    <span class="nav-text">Startseite</span>
+    <span class="nav-text">{{'global.menu.home' | translate}}</span>
   </a>
   <a routerLink="/dashboard"
      class="nav-item"
      routerLinkActive="active">
     <i class="nav-icon fas fa-th-large"></i>
-    <span class="nav-text">Dashboard</span>
+    <span class="nav-text">{{'global.menu.dashboard' | translate}}</span>
   </a>
   <!-- Menu Entries -->
   <ng-container *ngFor="let menuEntry of menuEntries">
@@ -36,7 +36,7 @@
        class="nav-item"
        routerLinkActive="active">
       <i [class]="'nav-icon fas fa-' + menuEntry.icon"></i>
-      <span class="nav-text">{{menuEntry.label}}</span>
+      <span class="nav-text">{{menuEntry.label | translate}}</span>
     </a>
     <!-- Submenu Entries -->
     <div class="child-nav-container"
@@ -48,7 +48,7 @@
          [routerLink]="subMenuEntry.path"
          routerLinkActive="active">
         <i [class]="'nav-icon fas fa-' + subMenuEntry.icon"></i>
-        <span class="nav-text">{{subMenuEntry.label}}</span>
+        <span class="nav-text">{{subMenuEntry.label | translate}}</span>
       </a>
     </div>
   </ng-container>
@@ -72,14 +72,14 @@
         routerLinkActive="active"
         (click)="toggleMobileSideNav()">
       <i class="nav-icon fas fa-home"></i>
-      <span class="nav-text">Startseite</span>
+      <span class="nav-text">{{'global.menu.home' | translate}}</span>
     </li>
     <li routerLink="/dashboard"
        class="nav-item"
        routerLinkActive="active"
        (click)="toggleMobileSideNav()">
       <i class="nav-icon fas fa-th-large"></i>
-      <span class="nav-text">Dashboard</span>
+      <span class="nav-text">{{'global.menu.dashboard' | translate}}</span>
     </li>
     <!-- Menu Entries -->
     <ng-container *ngFor="let menuEntry of menuEntries">
@@ -88,7 +88,7 @@
           routerLinkActive="active"
           (click)="toggleMobileSideNav()">
         <i [class]="'nav-icon fas fa-' + menuEntry.icon"></i>
-        <span class="nav-text">{{menuEntry.label}}</span>
+        <span class="nav-text">{{menuEntry.label | translate}}</span>
       </li>
       <!-- Submenu Entries -->
       <li class="child-nav-container"
@@ -101,7 +101,7 @@
            routerLinkActive="active"
            (click)="toggleMobileSideNav()">
           <i [class]="'nav-icon fas fa-' + subMenuEntry.icon"></i>
-          <span class="nav-text">{{subMenuEntry.label}}</span>
+          <span class="nav-text">{{subMenuEntry.label | translate}}</span>
         </a>
       </li>
     </ng-container>
