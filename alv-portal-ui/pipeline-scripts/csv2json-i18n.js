@@ -43,7 +43,7 @@ function getLanguages(line) {
 
 function transformCsv2Json(acc, line) {
   for (let lang of getLanguages(line)) {
-    _.setWith(acc, lang + '.' + line.page + '.' + line.key, line[lang], Object)
+    _.setWith(acc, lang + '.' + line.key, line[lang], Object)
   }
   return acc;
 }
@@ -75,12 +75,11 @@ function keyComparator(a, b) {
 function onCsvParsed (parsedCsv) {
   const allLanguagesObj = parsedCsv.data.reduce(transformCsv2Json, {});
   for (let [language, languageFile] of Object.entries(allLanguagesObj)) {
-    for (let [pageName, page] of Object.entries(languageFile)) {
-      const fileName = `${output}/${language}/${pageName}.json`;
-      createDir(`${output}/${language}`);
+    createDir(`${output}`);
+    const fileName = `${output}/${language}.json`;
       fs.writeFile(fileName,
           // JSON.stringify(page, null, 2),
-          stringify(page, {space: 2}),
+          stringify(languageFile, {space: 2}),
           (err, data) => {
             if (err) {
               console.error(err);
@@ -88,7 +87,6 @@ function onCsvParsed (parsedCsv) {
             }
             console.log(`Successfully written to file ${fileName}`);
           })
-    }
   }
 }
 
