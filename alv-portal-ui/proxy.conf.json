@@ -3,5 +3,10 @@
         "target": "http://localhost:8080",
         "secure": false,
         "loglevel": "debug"
+    },
+    "/referenceservice/api/*": {
+      "target": "https://staging.job-room.ch",
+      "secure": false,
+      "loglevel": "debug"
     }
 }

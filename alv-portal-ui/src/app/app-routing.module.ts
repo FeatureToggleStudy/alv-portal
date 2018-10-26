@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './core/auth/auth-guard.service';
 import { LandingPageComponent } from './shared/landing-page/landing-page.component';
+import { ShowcaseComponent } from './showcase/showcase.component';
 
 const appRoutes: Routes = [
   {
@@ -20,6 +21,10 @@ const appRoutes: Routes = [
   {
     path: 'landing',
     component: LandingPageComponent,
+  },
+  {
+    path: 'showcase',
+    component: ShowcaseComponent,
   },
   {
     path: '**',

@@ -6,7 +6,7 @@ button.btn, a.btn {
   font-size: 16px;
   border-radius: 0;
   &.focus, &:focus {
-    box-shadow: 0 0 0 0.2rem rgba(202,0,0,.5);
+    box-shadow: 0 0 0 0.2rem $color-red-transparent;
   }
   &.btn-link {
     background-color: transparent;

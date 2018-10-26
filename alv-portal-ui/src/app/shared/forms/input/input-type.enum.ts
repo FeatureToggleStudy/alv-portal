@@ -3,5 +3,6 @@ export enum InputType {
   DATE_INPUT = 'date-input',
   CHECKBOX = 'checkbox',
   RADIO_BUTTON = 'radio-button',
-  SELECT = 'select'
+  SELECT = 'select',
+  TYPEAHEAD = 'typeahead'
 }

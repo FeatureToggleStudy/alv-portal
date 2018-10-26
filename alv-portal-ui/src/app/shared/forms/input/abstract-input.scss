@@ -1,7 +1,7 @@
 @import "../../../../scss/common/colors";
 
 .required-indicator {
-  border-right: 5px solid $color-dark-grey;
+  border-right: 5px solid $color-grey;
   position: absolute;
   left: 0;
   top: 0;
@@ -20,13 +20,16 @@
 
 }
 
-input.form-control, select.form-control, textarea.form-control {
+input.form-control,
+select.form-control,
+textarea.form-control,
+.typeahead-form-control.form-control {
   border: 1px solid $color-medium-grey;
   border-radius: 0;
   height: 46px;
   &.ng-invalid.ng-touched {
     border: 1px solid $color-red;
-    &:focus {
+    &:focus, &.has-focus {
       box-shadow: 0 0 0 0.2rem $color-red-transparent;
     }
   }
@@ -40,6 +43,13 @@ input.form-control, select.form-control, textarea.form-control {
   &.form-label-group > input,
   &.form-label-group > textarea,
   &.form-label-group > select,
+  &.form-label-group > .typeahead-form-control {
+    color: $color-red !important;
+    border: 1px solid $color-red;
+    &:focus, &.has-focus {
+      box-shadow: 0 0 0 0.2rem $color-red-transparent;
+    }
+  }
   &.form-label-group > label {
     color: $color-red !important;
   }
@@ -58,6 +68,7 @@ input.form-control, select.form-control, textarea.form-control {
   &> textarea,
   &> select,
   &> label,
+  &> .typeahead-form-control,
   &> .readonly-input {
     padding: 10px 10px;
   }
@@ -79,6 +90,7 @@ input.form-control, select.form-control, textarea.form-control {
   input:not(.placeholder-shown),
   textarea:not(.placeholder-shown),
   select:not(.placeholder-shown),
+  .typeahead-form-control:not(.placeholder-shown),
   .readonly-input:not(.placeholder-shown) {
     padding-top: 16px;
     padding-bottom: 4px;
@@ -86,6 +98,7 @@ input.form-control, select.form-control, textarea.form-control {
   input:not(.placeholder-shown) ~ label,
   textarea:not(.placeholder-shown) ~ label,
   select:not(.placeholder-shown) ~ label,
+  .typeahead-form-control:not(.placeholder-shown) ~ label,
   .readonly-input:not(.placeholder-shown) ~ label {
     padding-top: 2px;
     padding-bottom: 1px;
@@ -99,7 +112,8 @@ input.form-control, select.form-control, textarea.form-control {
   &:not(.invalid) {
     input:not(.placeholder-shown):focus ~ label,
     textarea:not(.placeholder-shown):focus ~ label,
-    select:not(.placeholder-shown):focus ~ label {
+    select:not(.placeholder-shown):focus ~ label,
+    .typeahead-form-control.has-focus ~ label {
       color: $color-primary;
     }
     > input:focus + label {
@@ -111,3 +125,7 @@ input.form-control, select.form-control, textarea.form-control {
   }
 }
 
+/* FF only: Removes the red box-shadow */
+:not(output):-moz-ui-invalid {
+  box-shadow: none;
+}
