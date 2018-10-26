@@ -9,6 +9,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocalLoginComponent } from '../../../core/auth/local-login/local-login.component';
 import { Router } from '@angular/router';
 import { I18nService } from '../../../core/i18n.service';
+import { LANGUAGES } from '../../../core/languages.constants';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'alv-header',
@@ -19,14 +21,17 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   user: User;
   noEiam: boolean;
+  LANGUAGES: string[] = LANGUAGES;
+  currentLanguage$: Observable<string>;
 
   constructor(private messageBusService: MessageBusService,
               private authenticationService: AuthenticationService,
               private profileInfoService: ProfileInfoService,
               private router: Router,
               private modalService: NgbModal,
-              private i18n: I18nService) {
+              private i18nService: I18nService) {
     super();
+    this.currentLanguage$ = this.i18nService.currentLanguage;
   }
 
   ngOnInit() {
@@ -53,8 +58,8 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
     }
   }
 
-  changeLanguage(lang) {
-    this.i18n.changeLanguage(lang);
+  changeLanguage(lang: string) {
+    this.i18nService.changeLanguage(lang);
   }
 
 }
