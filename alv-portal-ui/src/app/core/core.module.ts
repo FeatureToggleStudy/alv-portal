@@ -1,6 +1,7 @@
 import { ErrorHandler, NgModule, Optional, SkipSelf } from '@angular/core';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { AuthModule } from './auth/auth.module';
+import { CookieService } from 'ngx-cookie-service';
 import { GlobalErrorHandler } from './error-handler/global-error-handler';
 
 @NgModule({
@@ -13,10 +14,12 @@ import { GlobalErrorHandler } from './error-handler/global-error-handler';
     AuthModule
   ],
   providers: [
+    CookieService,
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandler
     }
+
   ]
 })
 export class CoreModule {
