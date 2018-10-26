@@ -72,5 +72,13 @@ header {
         }
       }
     }
+    .language-switchers {
+      .language-switch-button {
+        text-transform: uppercase;
+        &.active {
+          font-weight: bold;
+        }
+      }
+    }
   }
 }

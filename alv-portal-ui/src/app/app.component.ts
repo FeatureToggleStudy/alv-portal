@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from './core/auth/authentication.service';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { I18nService } from './core/i18n.service';
 
 @Component({
   selector: 'alv-root',
@@ -14,19 +14,17 @@ export class AppComponent implements OnInit {
 
   a11yMessage: string;
 
-  constructor(translate: TranslateService,
+  constructor(private i18nService: I18nService,
               private titleService: Title,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
 
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    translate.use('en');
   }
 
   ngOnInit() {
+    this.i18nService.initAppDefaultLanguage();
+
     this.authenticationService.getCurrentUser(true)
         .subscribe();
     // Based on the idea: https://toddmotto.com/dynamic-page-titles-angular-2-router-events

@@ -31,15 +31,36 @@
     </button>
 
 
-    <div class="header-buttons ml-1 d-flex align-items-center">
-      <a href="https://www.arbeit.swiss"
-         target="_blank"
-         rel="noopener"
-         class="mx-2">Hilfe</a>
-      <button><strong>DE</strong></button>
-      <button class="d-none d-lg-block">FR</button>
-      <button class="d-none d-lg-block">IT</button>
-      <button class="d-none d-lg-block">EN</button>
+    <div *ngIf="currentLanguage$|async as currentLanguage"
+         class="language-switchers">
+      <div class="header-buttons ml-1 d-none d-lg-flex align-items-center">
+        <a href="https://www.arbeit.swiss"
+           target="_blank"
+           rel="noopener"
+           class="mx-2">Hilfe</a>
+        <ng-container *ngFor="let language of LANGUAGES">
+          <button (click)="changeLanguage(language)"
+                  class="language-switch-button"
+                  [ngClass]="{active: language===currentLanguage}">{{language}}
+          </button>
+        </ng-container>
+      </div>
+      <div ngbDropdown
+           class="d-block d-lg-none d-xl-none">
+        <button class="btn btn-secondary language-switch-button"
+                id="dropdownBasic1"
+                ngbDropdownToggle>{{currentLanguage}}
+        </button>
+        <div ngbDropdownMenu>
+          <ng-container *ngFor="let language of LANGUAGES">
+            <button (click)="changeLanguage(language)"
+                    class="dropdown-item language-switch-button"
+                    [ngClass]="{active: language===currentLanguage}">{{language}}
+            </button>
+          </ng-container>
+        </div>
+      </div>
     </div>
+
   </div>
 </header>
