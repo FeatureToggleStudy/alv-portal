@@ -1,0 +1,51 @@
+@import "../common/colors";
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+
+.modal-dialog .modal-content {
+  border-radius: 0 0 15px 0;
+  background-color: $color-super-light-grey;
+
+  .modal-header {
+    flex-direction: column;
+    border-color: $color-medium-grey;
+    .modal-title {
+      font-size: 1.5em;
+      font-weight: 500;
+      color: $color-dark-grey;
+      margin-bottom: 0.25em;
+    }
+    .modal-subtitle {
+      font-size: 1em;
+    }
+  }
+
+  .modal-footer {
+    border-color: $color-medium-grey;
+  }
+
+  .modal-header, .modal-body, .modal-footer {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .modal-dialog .modal-content {
+    .modal-header {
+      .modal-title {
+        font-size: 1.25em;
+        font-weight: 700;
+        margin-bottom: 0.25em;
+      }
+      .modal-subtitle {
+        font-size: 80%;
+      }
+    }
+
+    .modal-header, .modal-body, .modal-footer {
+      padding: 0.75rem 1rem;
+    }
+  }
+
+}
