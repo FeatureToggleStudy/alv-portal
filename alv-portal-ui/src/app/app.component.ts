@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.i18nService.init();
+    this.i18nService.initAppDefaultLanguage();
 
     this.authenticationService.getCurrentUser(true)
         .subscribe();
