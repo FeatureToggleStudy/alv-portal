@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'alv-find-job-home-widget',
@@ -10,7 +11,8 @@ export class FindJobHomeWidgetComponent implements OnInit {
 
   findJobForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private http: HttpClient) { }
 
   ngOnInit() {
     this.findJobForm = this.fb.group({
