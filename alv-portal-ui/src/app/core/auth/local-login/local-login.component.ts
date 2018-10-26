@@ -28,6 +28,8 @@ export class LocalLoginComponent implements OnInit {
 
   errorMessage: Notification;
 
+  loginFn = this.login.bind(this);
+
   constructor(public activeModal: NgbActiveModal,
               private authenticationService: AuthenticationService,
               private fb: FormBuilder,
@@ -42,7 +44,7 @@ export class LocalLoginComponent implements OnInit {
     );
   }
 
-  login() {
+  private login() {
     this.authenticationService.login({
       username: this.form.get('username').value,
       password: this.form.get('password').value,

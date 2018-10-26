@@ -20,6 +20,9 @@ import { SharedAuthModule } from '../auth/shared-auth.module';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { NotificationsService } from '../../core/notifications.service';
 import { AlertComponent } from './notifications/alert/alert.component';
+import { ModalComponent } from './modal/modal.component';
+import { ModalButtonsComponent } from './modal-buttons/modal-buttons.component';
+import { FormsModule } from '../forms/forms.module';
 
 @NgModule({
   imports: [
@@ -29,7 +32,8 @@ import { AlertComponent } from './notifications/alert/alert.component';
     NgbModalModule,
     RouterModule,
     HttpClientModule,
-    SharedAuthModule
+    SharedAuthModule,
+    FormsModule
   ],
   declarations: [
     UserMenuComponent,
@@ -42,7 +46,9 @@ import { AlertComponent } from './notifications/alert/alert.component';
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
-    AlertComponent
+    AlertComponent,
+    ModalComponent,
+    ModalButtonsComponent
   ],
   exports: [
     NavigationContainerComponent,
@@ -53,7 +59,9 @@ import { AlertComponent } from './notifications/alert/alert.component';
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
-    AlertComponent
+    AlertComponent,
+    ModalComponent,
+    ModalButtonsComponent
   ],
   providers: [
     NotificationsService

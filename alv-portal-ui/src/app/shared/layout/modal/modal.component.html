@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h2 class="modal-title">
+    {{title}}
+  </h2>
+  <div *ngIf="subtitle"
+       class="modal-subtitle">
+    {{subtitle}}
+  </div>
+</div>
+
+<form alvFormSubmitValidation
+      (validSubmit)="primaryAction()"
+      [formGroup]="formGroup">
+  <div class="modal-body">
+    <ng-content select="[alvModalContent]"></ng-content>
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="backAction"
+            type="button"
+            class="btn btn-icon"
+            (click)="backAction()">
+      <i class="fas fa-caret-left"></i>
+    </button>
+    <div class="flex-grow-1"></div>
+    <button *ngIf="secondaryLabel"
+            type="button"
+            class="btn btn-link"
+            (click)="secondaryAction ? secondaryAction() : activeModal.dismiss('cancel')">
+      {{secondaryLabel}}
+    </button>
+    <button type="submit"
+            class="btn btn-primary">
+      {{primaryLabel}}
+    </button>
+  </div>
+</form>
+

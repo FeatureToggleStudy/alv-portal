@@ -1,30 +1,22 @@
-<div class="modal-header">
-  <h2 class="modal-title">Login</h2>
-</div>
-
-<form alvFormSubmitValidation
-      (validSubmit)="login()"
-      [formGroup]="form">
-  <div class="modal-body">
+<alv-modal [title]="'Login'"
+           [subtitle]="'This is a subtitle. Wooooow!!'"
+           [primaryLabel]="'Login'"
+           [primaryAction]="loginFn"
+           [secondaryLabel]="'Cancel'"
+           [backAction]="loginFn"
+           [formGroup]="form">
+  <ng-container alvModalContent>
     <alv-alert *ngIf="errorMessage"
                [notification]="errorMessage">
     </alv-alert>
 
     <alv-input-field [label]="'Username'"
-                     alvFormControlName="username">
+                     alvFormControlName="username"
+                      ngbAutofocus>
     </alv-input-field>
     <alv-input-field [label]="'Password'"
                      alvFormControlName="password"
                      type="password">
     </alv-input-field>
-  </div>
-  <div class="modal-footer">
-    <button type="button"
-            class="btn btn-link"
-            (click)="activeModal.dismiss('cancel')">Cancel
-    </button>
-    <button type="submit" class="btn btn-primary">Login
-    </button>
-  </div>
-</form>
-
+  </ng-container>
+</alv-modal>
