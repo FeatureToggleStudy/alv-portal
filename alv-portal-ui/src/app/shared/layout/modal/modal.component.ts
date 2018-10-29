@@ -11,7 +11,7 @@ export class ModalComponent implements OnInit {
 
   @Input() title: string;
 
-  @Input() subtitle: string;
+  @Input() subtitle?: string;
 
   @Input() primaryLabel: string;
 
