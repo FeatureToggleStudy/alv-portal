@@ -22,6 +22,7 @@ import { NotificationsService } from '../../core/notifications.service';
 import { AlertComponent } from './notifications/alert/alert.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { FormsModule } from '../forms/forms.module';
     RouterModule,
     HttpClientModule,
     SharedAuthModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
   declarations: [
     UserMenuComponent,
