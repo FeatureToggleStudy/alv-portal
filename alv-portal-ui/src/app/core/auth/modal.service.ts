@@ -12,16 +12,20 @@ export class ModalService {
   }
 
   openSmall(content: any): NgbModalRef {
-    return this.modalService.open(content, {size: 'sm'});
+    return this.modalService.open(content, { size: 'sm' });
+  }
+
+  openMedium(content: any): NgbModalRef {
+    return this.modalService.open(content);
   }
 
   openBig(content: any): NgbModalRef {
-    return this.modalService.open(content, {size: 'lg'});
+    return this.modalService.open(content, { size: 'lg' });
   }
 
   openConfirm(config: ConfirmModalConfig): NgbModalRef {
 
-    const modalRef = this.modalService.open(ConfirmModalComponent, {size: 'sm', backdrop: 'static'});
+    const modalRef = this.modalService.open(ConfirmModalComponent, { backdrop: 'static' });
     modalRef.componentInstance.title = config.title;
     modalRef.componentInstance.textHtml = config.textHtml;
     modalRef.componentInstance.confirmLabel = config.confirmLabel;

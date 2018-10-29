@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { I18nService } from '../../../core/i18n.service';
 import { LANGUAGES } from '../../../core/languages.constants';
 import { Observable } from 'rxjs';
+import { ModalService } from '../../../core/auth/modal.service';
 
 @Component({
   selector: 'alv-header',
@@ -28,7 +29,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
               private authenticationService: AuthenticationService,
               private profileInfoService: ProfileInfoService,
               private router: Router,
-              private modalService: NgbModal,
+              private modalService: ModalService,
               private i18nService: I18nService) {
     super();
     this.currentLanguage$ = this.i18nService.currentLanguage;
@@ -52,7 +53,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   login() {
     if (this.noEiam) {
-      const modalRef = this.modalService.open(LocalLoginComponent);
+      const modalRef = this.modalService.openMedium(LocalLoginComponent);
     } else {
       document.location.href = '/login';
     }
