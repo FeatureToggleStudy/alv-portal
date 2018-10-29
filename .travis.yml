@@ -35,15 +35,3 @@ install:
 
 script:
   - ci/travis/build/build.sh ${PROJECT_VERSION} ${TRAVIS_BRANCH} ${TRAVIS_BUILD_NUMBER} ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}
-
-before_deploy:
-  - ci/utils/print-ip.sh
-
-deploy:
-  - provider: script
-    skip_cleanup: true
-    on:
-      branch: master
-    script: >-
-      ci/travis/deploy/deploy.sh ${DEPLOY_USER} ${DEPLOY_HOST} ${DEV_DEPLOY_KEY} ${DEV_ENV_SLUG}
-      && ci/utils/wait-for-it.sh -t 60 ${DEV_ENV_URL} -- echo "ALV Portal is UP!"
