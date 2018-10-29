@@ -34,8 +34,7 @@ install:
   - ci/travis/install/install-chrome.sh
 
 script:
-  - ci/travis/build/build.sh ${PROJECT_VERSION} ${TRAVIS_BRANCH} ${TRAVIS_BUILD_NUMBER}
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then ci/travis/build/build-push-image.sh ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}; fi
+  - ci/travis/build/build.sh ${PROJECT_VERSION} ${TRAVIS_BRANCH} ${TRAVIS_BUILD_NUMBER} ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}
 
 before_deploy:
   - ci/utils/print-ip.sh
