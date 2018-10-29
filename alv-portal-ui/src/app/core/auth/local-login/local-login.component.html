@@ -1,17 +1,15 @@
-<alv-modal [title]="'Login'"
-           [subtitle]="'This is a subtitle. Wooooow!!'"
-           [primaryLabel]="'Login'"
+<alv-modal title="Login"
+           primaryLabel="Login"
            [primaryAction]="loginFn"
-           [secondaryLabel]="'Cancel'"
-           [backAction]="loginFn"
+           secondaryLabel="Cancel"
            [formGroup]="form">
     <alv-alert *ngIf="errorMessage"
                [notification]="errorMessage">
     </alv-alert>
-    <alv-input-field [label]="'Username'"
+    <alv-input-field label="Username"
                      alvFormControlName="username">
     </alv-input-field>
-    <alv-input-field [label]="'Password'"
+    <alv-input-field label="Password"
                      alvFormControlName="password"
                      type="password">
     </alv-input-field>

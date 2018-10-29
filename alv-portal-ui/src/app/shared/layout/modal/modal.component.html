@@ -1,10 +1,10 @@
 <div class="modal-header">
   <h2 class="modal-title">
-    {{title}}
+    {{title | translate}}
   </h2>
   <div *ngIf="subtitle"
        class="modal-subtitle">
-    {{subtitle}}
+    {{subtitle | translate}}
   </div>
 </div>
 
@@ -26,11 +26,11 @@
             type="button"
             class="btn btn-link"
             (click)="secondaryAction ? secondaryAction() : activeModal.dismiss('cancel')">
-      {{secondaryLabel}}
+      {{secondaryLabel | translate}}
     </button>
     <button type="submit"
             class="btn btn-primary">
-      {{primaryLabel}}
+      {{primaryLabel | translate}}
     </button>
   </div>
 </form>
