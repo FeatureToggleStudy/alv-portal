@@ -2,27 +2,28 @@
      [formGroup]="findCandidateForm">
   <h2 class="panel-title">
     <i class="panel-icon fas fa-search mr-2"></i>
-    Kandidaten finden
+    {{'home.tools.candidateSearchTab'|translate}}
   </h2>
   <div class="d-flex flex-column flex-md-row my-1 my-md-3">
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
       <alv-input-field class="mb-0"
                        type="text"
-                       label="Berufsbezeichnung"
+                       label="{{'candidate-search.experience.label' | translate}}"
                        alvFormControlName="profession"
                        placement="bottom"
                        [container]="'body'"
-                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
+                       ngbTooltip="{{'candidate-search.skills.tooltip'| translate}}">
       </alv-input-field>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
       <alv-input-field class="flex-grow-1 mb-0"
                        type="text"
-                       label="Fähigkeiten, Skills"
+                       label="{{'candidate-search.skills'|translate}}"
                        alvFormControlName="skills"
                        placement="bottom"
                        [container]="'body'"
-                       ngbTooltip="Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe 'Enter', um weitere Suchbegriffe hinzuzufügen.">
+                       ngbTooltip="{{'candidate-search.skills.tooltip'| translate}}">
+
       </alv-input-field>
     </div>
     <div class="flex-grow-1 mr-md-2 mb-md-0 mb-2">
