@@ -25,10 +25,11 @@
     <button *ngIf="secondaryLabel"
             type="button"
             class="btn btn-link"
-            (click)="secondaryAction ? secondaryAction() : activeModal.dismiss('cancel')">
+            (click)="handleSecondaryClick()">
       {{secondaryLabel | translate}}
     </button>
-    <button type="submit"
+    <button [attr.type]="formGroup ? 'submit' : 'button'"
+            (click)="handlePrimaryClick()"
             class="btn btn-primary">
       {{primaryLabel | translate}}
     </button>

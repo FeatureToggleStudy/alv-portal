@@ -23,6 +23,7 @@ import { AlertComponent } from './notifications/alert/alert.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
   imports: [
@@ -48,7 +49,11 @@ import { TranslateModule } from '@ngx-translate/core';
     HelpButtonComponent,
     NotificationsComponent,
     AlertComponent,
-    ModalComponent
+    ModalComponent,
+    ConfirmModalComponent
+  ],
+  entryComponents: [
+    ConfirmModalComponent
   ],
   exports: [
     NavigationContainerComponent,
