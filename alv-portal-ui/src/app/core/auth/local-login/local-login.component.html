@@ -5,18 +5,14 @@
            [secondaryLabel]="'Cancel'"
            [backAction]="loginFn"
            [formGroup]="form">
-  <ng-container alvModalContent>
     <alv-alert *ngIf="errorMessage"
                [notification]="errorMessage">
     </alv-alert>
-
     <alv-input-field [label]="'Username'"
-                     alvFormControlName="username"
-                      ngbAutofocus>
+                     alvFormControlName="username">
     </alv-input-field>
     <alv-input-field [label]="'Password'"
                      alvFormControlName="password"
                      type="password">
     </alv-input-field>
-  </ng-container>
 </alv-modal>

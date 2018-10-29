@@ -21,7 +21,6 @@ import { NotificationsComponent } from './notifications/notifications/notificati
 import { NotificationsService } from '../../core/notifications.service';
 import { AlertComponent } from './notifications/alert/alert.component';
 import { ModalComponent } from './modal/modal.component';
-import { ModalButtonsComponent } from './modal-buttons/modal-buttons.component';
 import { FormsModule } from '../forms/forms.module';
 
 @NgModule({
@@ -47,8 +46,7 @@ import { FormsModule } from '../forms/forms.module';
     HelpButtonComponent,
     NotificationsComponent,
     AlertComponent,
-    ModalComponent,
-    ModalButtonsComponent
+    ModalComponent
   ],
   exports: [
     NavigationContainerComponent,
@@ -60,8 +58,7 @@ import { FormsModule } from '../forms/forms.module';
     HelpButtonComponent,
     NotificationsComponent,
     AlertComponent,
-    ModalComponent,
-    ModalButtonsComponent
+    ModalComponent
   ],
   providers: [
     NotificationsService
