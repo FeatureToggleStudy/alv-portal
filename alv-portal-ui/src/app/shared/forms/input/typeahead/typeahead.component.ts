@@ -77,7 +77,7 @@ export class TypeaheadComponent extends AbstractInput {
   }
 
   showPlaceholder(): boolean {
-    return this.control.value && this.control.value.length === 0 && !this.inputValue;
+    return !this.inputValue && (!this.control.value || this.control.value && this.control.value.length === 0);
   }
 
   formatResultItem(item: TypeaheadItemModel): string {
