@@ -42,13 +42,13 @@ export class ShowcaseComponent implements OnInit {
 
   confirmModalDemoText: string;
 
-  private confirmAction$ = of('confirmed').pipe(
+  private confirmAction$ = of('Yes Click').pipe(
       tap((result) => {
         this.confirmModalDemoText = result;
       })
   );
 
-  private cancelAction$ = of('cancelled').pipe(
+  private cancelAction$ = of('No Click').pipe(
       tap((reason) => {
         this.confirmModalDemoText = reason;
       })
@@ -88,6 +88,7 @@ export class ShowcaseComponent implements OnInit {
         },
         reason => {
           // Do something after the modal was dismissed
+          this.confirmModalDemoText = reason;
         });
   }
 
