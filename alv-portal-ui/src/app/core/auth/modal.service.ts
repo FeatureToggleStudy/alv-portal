@@ -11,21 +11,21 @@ export class ModalService {
   constructor(private modalService: NgbModal) {
   }
 
-  openSmall(content: any): NgbModalRef {
-    return this.modalService.open(content, { size: 'sm' });
+  openSmall(content: any, escapable?: boolean): NgbModalRef {
+    return this.open(content, 'sm', escapable);
   }
 
-  openMedium(content: any): NgbModalRef {
-    return this.modalService.open(content);
+  openMedium(content: any, escapable?: boolean): NgbModalRef {
+    return this.open(content, null, escapable);
   }
 
-  openBig(content: any): NgbModalRef {
-    return this.modalService.open(content, { size: 'lg' });
+  openBig(content: any, escapable?: boolean): NgbModalRef {
+    return this.open(content, 'lg', escapable);
   }
 
   openConfirm(config: ConfirmModalConfig): NgbModalRef {
 
-    const modalRef = this.modalService.open(ConfirmModalComponent, { backdrop: 'static' });
+    const modalRef = this.open(ConfirmModalComponent, null, false);
     modalRef.componentInstance.title = config.title;
     modalRef.componentInstance.textHtml = config.textHtml;
     modalRef.componentInstance.confirmLabel = config.confirmLabel;
@@ -34,5 +34,9 @@ export class ModalService {
     modalRef.componentInstance.cancelAction = config.cancelAction;
 
     return modalRef;
+  }
+
+  private open(content: any, size?: 'sm' | 'lg', escapable?: boolean): NgbModalRef {
+    return this.modalService.open(content, {size: size, backdrop: escapable ? null : 'static'});
   }
 }
