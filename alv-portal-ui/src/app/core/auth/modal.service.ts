@@ -37,6 +37,11 @@ export class ModalService {
   }
 
   private open(content: any, size?: 'sm' | 'lg', escapable?: boolean): NgbModalRef {
-    return this.modalService.open(content, {size: size, backdrop: escapable ? null : 'static'});
+    return this.modalService.open(content,
+        {
+          size: size,
+          backdrop: escapable ? null : 'static',
+          keyboard: !escapable
+        });
   }
 }

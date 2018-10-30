@@ -1,11 +1,12 @@
+import { Observable } from 'rxjs';
 
 export interface ConfirmModalConfig {
   title: string;
   textHtml: string;
   confirmLabel?: string;
-  confirmAction: (closeModal: (result) => void) => void;
+  confirmAction: Observable<any>;
   cancelLabel?: string;
-  cancelAction?: (dismissModal: (reason) => void) => void;
+  cancelAction?: Observable<any>;
 }
 
 

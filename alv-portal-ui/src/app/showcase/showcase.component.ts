@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TypeaheadItemModel } from '../shared/forms/input/typeahead/typeahead-item.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ModalService } from '../core/auth/modal.service';
 
@@ -42,6 +42,18 @@ export class ShowcaseComponent implements OnInit {
 
   confirmModalDemoText: string;
 
+  private confirmAction$ = of('confirmed').pipe(
+      tap((result) => {
+        this.confirmModalDemoText = result;
+      })
+  );
+
+  private cancelAction$ = of('cancelled').pipe(
+      tap((reason) => {
+        this.confirmModalDemoText = reason;
+      })
+  );
+
   constructor(private http: HttpClient,
               private modalService: ModalService) {
   }
@@ -68,20 +80,15 @@ export class ShowcaseComponent implements OnInit {
       title: 'Confirm Title',
       textHtml: '<em>This is</em> <code>HTML</code> <strong>text</strong>.',
       confirmLabel: 'Yes',
-      confirmAction: this.confirmAction.bind(this),
+      confirmAction: this.confirmAction$,
       cancelLabel: 'No',
-      cancelAction: this.cancelAction.bind(this)
-    });
-  }
-
-  private confirmAction(closeModal: () => void) {
-    this.confirmModalDemoText = 'Confirmed';
-    closeModal();
-  }
-
-  private cancelAction(closeModal: () => void) {
-    this.confirmModalDemoText = 'Cancelled';
-    closeModal();
+      cancelAction: this.cancelAction$
+    }).result.then(result => {
+          // Do something after the modal was closed
+        },
+        reason => {
+          // Do something after the modal was dismissed
+        });
   }
 
   private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): TypeaheadItemModel[] {

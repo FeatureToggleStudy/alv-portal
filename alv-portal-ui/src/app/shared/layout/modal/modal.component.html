@@ -1,7 +1,11 @@
 <div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="dismissModal('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
   <h2 class="modal-title">
     {{title | translate}}
   </h2>
+
   <div *ngIf="subtitle"
        class="modal-subtitle">
     {{subtitle | translate}}
@@ -9,19 +13,12 @@
 </div>
 
 <form alvFormSubmitValidation
-      (validSubmit)="primaryAction()"
+      (validSubmit)="handlePrimaryClick(true)"
       [formGroup]="formGroup">
   <div class="modal-body">
     <ng-content></ng-content>
   </div>
   <div class="modal-footer">
-    <button *ngIf="backAction"
-            type="button"
-            class="btn btn-icon"
-            (click)="backAction()">
-      <i class="fas fa-caret-left"></i>
-    </button>
-    <div class="flex-grow-1"></div>
     <button *ngIf="secondaryLabel"
             type="button"
             class="btn btn-link"

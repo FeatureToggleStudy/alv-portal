@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'alv-modal',
@@ -15,33 +16,43 @@ export class ModalComponent {
 
   @Input() primaryLabel: string;
 
-  @Input() primaryAction: (closeModal: (result) => void) => void;
+  @Input() primaryAction: Observable<any>;
 
   @Input() secondaryLabel?: string;
 
-  @Input() secondaryAction?: (dismissModal: (reason) => void) => void;
-
-  @Input() backAction?: () => void;
+  @Input() secondaryAction?: Observable<any>;
 
   @Input() formGroup?: FormGroup;
 
   constructor(private activeModal: NgbActiveModal) { }
 
-  handlePrimaryClick() {
-    if (!this.formGroup) {
-      this.primaryAction(this.closeModal.bind(this));
+  handlePrimaryClick(ignoreFormGroup?: boolean) {
+    if (ignoreFormGroup || !this.formGroup) {
+      this.primaryAction.subscribe(result => {
+        if (result !== null && result !== undefined) {
+          this.closeModal(result);
+        }
+      });
     }
   }
 
   handleSecondaryClick() {
-    this.secondaryAction ? this.secondaryAction(this.closeModal.bind(this)) : this.activeModal.dismiss('cancel');
+    if (this.secondaryAction) {
+      this.secondaryAction.subscribe(reason => {
+        if (reason !== null && reason !== undefined) {
+          this.dismissModal(reason);
+        }
+      });
+    } else {
+      this.dismissModal('cancel');
+    }
   }
 
-  closeModal(result: any) {
+  closeModal(result?: any) {
     this.activeModal.close(result);
   }
 
-  dismissModal(reason: any) {
+  dismissModal(reason?: any) {
     this.activeModal.dismiss(reason);
   }
 
