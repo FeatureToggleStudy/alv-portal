@@ -29,22 +29,6 @@ export class LocalLoginComponent implements OnInit {
 
   errorMessage: Notification;
 
-  login$ = this.authenticationService.login({
-    username: this.form.get('username').value,
-    password: this.form.get('password').value,
-    rememberMe: true
-  }).pipe(
-      catchError(err => {
-        this.errorMessage = ERRORS.invalidUsernamePassword;
-        return EMPTY;
-      }),
-      take(1),
-      map(() => {
-        this.router.navigate(['/landing']);
-        return true;
-      })
-  );
-
   constructor(private authenticationService: AuthenticationService,
               private fb: FormBuilder,
               private router: Router) {
@@ -55,6 +39,24 @@ export class LocalLoginComponent implements OnInit {
           username: this.fb.control('', Validators.required),
           password: this.fb.control('', Validators.required)
         }
+    );
+  }
+
+  login(): Observable<any> {
+    return this.authenticationService.login({
+      username: this.form.get('username').value,
+      password: this.form.get('password').value,
+      rememberMe: true
+    }).pipe(
+        catchError(err => {
+          this.errorMessage = ERRORS.invalidUsernamePassword;
+          return EMPTY;
+        }),
+        take(1),
+        map(() => {
+          this.router.navigate(['/landing']);
+          return true;
+        })
     );
   }
 

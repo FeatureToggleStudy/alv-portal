@@ -26,12 +26,13 @@ export class ModalService {
   openConfirm(config: ConfirmModalConfig): NgbModalRef {
 
     const modalRef = this.open(ConfirmModalComponent, null, false);
-    modalRef.componentInstance.title = config.title;
-    modalRef.componentInstance.textHtml = config.textHtml;
-    modalRef.componentInstance.confirmLabel = config.confirmLabel;
-    modalRef.componentInstance.confirmAction = config.confirmAction;
-    modalRef.componentInstance.cancelLabel = config.cancelLabel;
-    modalRef.componentInstance.cancelAction = config.cancelAction;
+    const component = modalRef.componentInstance;
+    component.title = config.title;
+    component.textHtml = config.textHtml;
+    component.confirmLabel = config.confirmLabel || component.confirmLabel;
+    component.confirmAction = config.confirmAction;
+    component.cancelLabel = config.cancelLabel || component.cancelLabel;
+    component.cancelAction = config.cancelAction || component.cancelAction;
 
     return modalRef;
   }

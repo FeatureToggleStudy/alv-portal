@@ -11,11 +11,11 @@ export class ConfirmModalComponent {
 
   textHtml: string;
 
-  confirmLabel: string;
+  confirmLabel = 'portal.modal.confirm.yes';
 
   confirmAction: (closeModal: (result) => void) => void;
 
-  cancelLabel: string;
+  cancelLabel = 'portal.modal.confirm.no';
 
   cancelAction?: (dismissModal: (reason) => void) => void;
 

@@ -79,9 +79,7 @@ export class ShowcaseComponent implements OnInit {
     this.modalService.openConfirm({
       title: 'Confirm Title',
       textHtml: '<em>This is</em> <code>HTML</code> <strong>text</strong>.',
-      confirmLabel: 'Yes',
       confirmAction: this.confirmAction$,
-      cancelLabel: 'No',
       cancelAction: this.cancelAction$
     }).result.then(result => {
           // Do something after the modal was closed
