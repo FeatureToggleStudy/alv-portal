@@ -11,7 +11,10 @@
     </div>
   </div>
 
-  <button type="button" class="close" aria-label="Close" (click)="dismissModal('Cross click')">
+  <button type="button"
+          class="close"
+          [attr.aria-label]="'portal.modal.a11y.close' | translate"
+          (click)="handleSecondaryClick()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -19,7 +22,7 @@
 <!-- Surround the modal content with a form element if a formGroup is present to enable the form submit behaviour -->
 <form *ngIf="formGroup; else modalContent"
       alvFormSubmitValidation
-      (validSubmit)="handlePrimaryClick(true)"
+      (validSubmit)="handlePrimaryClick()"
       [formGroup]="formGroup">
   <ng-container *ngTemplateOutlet="modalContent"></ng-container>
 </form>

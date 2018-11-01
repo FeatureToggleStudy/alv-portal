@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 
@@ -29,9 +29,7 @@ export class ModalComponent {
   @Input() primaryLabel?: string;
 
   /**
-   * Action to execute on primary button click. If the Observable returns a value other than
-   * null or undefined, the modal will be closed and this value is set as modal result.
-   * Otherwise, the modal stays open.
+   * Action to execute on primary button click. Use the closeModal() method to close the modal.
    */
   @Input() primaryAction: (closeModal: (result?) => void) => void;
 
@@ -42,9 +40,7 @@ export class ModalComponent {
   @Input() secondaryLabel?: string;
 
   /**
-   * Action to execute on primary button click. If the Observable returns a value other than
-   * null or undefined, the modal will be closed and this value is set as modal result.
-   * Otherwise, the modal stays open.
+   * Action to execute on secondary button click. Use the dismissModal() method to dismiss the modal.
    */
   @Input() secondaryAction?: (dismissModal: (reason?) => void) => void;
 
@@ -56,8 +52,8 @@ export class ModalComponent {
 
   constructor(private activeModal: NgbActiveModal) { }
 
-  handlePrimaryClick(isSubmit?: boolean) {
-    if (isSubmit || !this.formGroup) {
+  handlePrimaryClick() {
+    if (!this.formGroup) {
       this.primaryAction(this.closeModal.bind(this));
     }
   }

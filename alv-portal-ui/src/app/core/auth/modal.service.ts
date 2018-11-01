@@ -42,7 +42,7 @@ export class ModalService {
         {
           size: size,
           backdrop: escapable ? null : 'static',
-          keyboard: !escapable
+          keyboard: escapable
         });
   }
 }
