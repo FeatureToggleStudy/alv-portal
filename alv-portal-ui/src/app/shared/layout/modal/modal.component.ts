@@ -34,7 +34,8 @@ export class ModalComponent {
    * null or undefined, the modal will be closed and this value is set as modal result.
    * Otherwise, the modal stays open.
    */
-  @Input() primaryAction: Observable<any>;
+  @Input() primaryAction: (closeModal: (result?) => void) => void;
+
 
   /**
    * (optional) Label of the secondary button
@@ -46,7 +47,7 @@ export class ModalComponent {
    * null or undefined, the modal will be closed and this value is set as modal result.
    * Otherwise, the modal stays open.
    */
-  @Input() secondaryAction?: Observable<any>;
+  @Input() secondaryAction?: (dismissModal: (reason?) => void) => void;
 
   /**
    * If the custom modal contains a form, just set the formGroup to wrap the whole modal
@@ -58,21 +59,13 @@ export class ModalComponent {
 
   handlePrimaryClick(isSubmit?: boolean) {
     if (isSubmit || !this.formGroup) {
-      this.primaryAction.subscribe(result => {
-        if (result !== null && result !== undefined) {
-          this.closeModal(result);
-        }
-      });
+      this.primaryAction(this.closeModal.bind(this));
     }
   }
 
   handleSecondaryClick() {
     if (this.secondaryAction) {
-      this.secondaryAction.subscribe(reason => {
-        if (reason !== null && reason !== undefined) {
-          this.dismissModal(reason);
-        }
-      });
+      this.secondaryAction(this.dismissModal.bind(this));
     } else {
       this.dismissModal('cancel');
     }

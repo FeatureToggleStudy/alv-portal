@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TypeaheadItemModel } from '../shared/forms/input/typeahead/typeahead-item.model';
 import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ModalService } from '../core/auth/modal.service';
 
@@ -42,18 +42,6 @@ export class ShowcaseComponent implements OnInit {
 
   confirmModalDemoText: string;
 
-  private confirmAction$ = of('Yes Click').pipe(
-      tap((result) => {
-        this.confirmModalDemoText = result;
-      })
-  );
-
-  private cancelAction$ = of('No Click').pipe(
-      tap((reason) => {
-        this.confirmModalDemoText = reason;
-      })
-  );
-
   constructor(private http: HttpClient,
               private modalService: ModalService) {
   }
@@ -79,16 +67,29 @@ export class ShowcaseComponent implements OnInit {
     this.modalService.openConfirm({
       title: 'Confirm Title',
       textHtml: '<em>This is</em> <code>HTML</code> <strong>text</strong>.',
-      confirmAction: this.confirmAction$,
-      cancelAction: this.cancelAction$
+      confirmAction: this.confirmAction.bind(this),
+      cancelAction: this.cancelAction.bind(this)
     }).result.then(result => {
           // Do something after the modal was closed
+          this.confirmModalDemoText = result;
         },
         reason => {
           // Do something after the modal was dismissed
           this.confirmModalDemoText = reason;
         });
   }
+
+  private confirmAction(closeModal: (result?) => void) {
+    of('some backend request').subscribe(result => {
+      closeModal('Yes Click');
+    });
+
+  }
+
+  private cancelAction(dismissModal: (reason?) => void) {
+    dismissModal('No Click');
+  }
+
 
   private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): TypeaheadItemModel[] {
     const localities = localityAutocomplete.localities

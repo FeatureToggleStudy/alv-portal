@@ -4,9 +4,9 @@ export interface ConfirmModalConfig {
   title: string;
   textHtml: string;
   confirmLabel?: string;
-  confirmAction: Observable<any>;
+  confirmAction: (closeModal: (result?) => void) => void;
   cancelLabel?: string;
-  cancelAction?: Observable<any>;
+  cancelAction?: (dismissModal: (reason?) => void) => void;
 }
 
 

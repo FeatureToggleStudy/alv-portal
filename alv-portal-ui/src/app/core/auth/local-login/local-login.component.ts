@@ -29,6 +29,8 @@ export class LocalLoginComponent implements OnInit {
 
   errorMessage: Notification;
 
+  loginFn = this.login.bind(this);
+
   constructor(private authenticationService: AuthenticationService,
               private fb: FormBuilder,
               private router: Router) {
@@ -42,8 +44,9 @@ export class LocalLoginComponent implements OnInit {
     );
   }
 
-  login(): Observable<any> {
-    return this.authenticationService.login({
+
+  private login(closeModal: (result?) => void) {
+    this.authenticationService.login({
       username: this.form.get('username').value,
       password: this.form.get('password').value,
       rememberMe: true
@@ -52,12 +55,15 @@ export class LocalLoginComponent implements OnInit {
           this.errorMessage = ERRORS.invalidUsernamePassword;
           return EMPTY;
         }),
-        take(1),
-        map(() => {
-          this.router.navigate(['/landing']);
-          return true;
-        })
-    );
+        take(1)
+    ).subscribe(user => {
+      if (user) {
+        closeModal();
+        this.router.navigate(['/landing']);
+      }
+    });
   }
+
+
 
 }
