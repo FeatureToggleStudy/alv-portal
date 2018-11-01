@@ -8,6 +8,8 @@ import { LocalLoginComponent } from './local-login/local-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { NotificationsService } from '../notifications.service';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { CommonModule } from '@angular/common';
       useClass: AuthExpiredInterceptor,
       multi: true,
       deps: [
-        AuthenticationService
+        AuthenticationService,
+        NotificationsService,
+        Router
       ]
     }
   ]

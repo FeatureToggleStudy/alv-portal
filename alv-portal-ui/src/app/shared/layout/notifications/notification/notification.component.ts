@@ -21,6 +21,7 @@ import { Notification, NotificationType } from '../notification.model';
 export class NotificationComponent implements OnInit {
 
   @HostBinding('class') hostClass = 'empty';
+
   icon = '';
 
   @Input() notification: Notification;
