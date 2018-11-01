@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
-import { catchError, finalize, map, take } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
 import { Router } from '@angular/router';
 import {
   Notification,
   NotificationType
 } from '../../../shared/layout/notifications/notification.model';
-import { Observable } from 'rxjs';
 
 const ERRORS = {
   invalidUsernamePassword: {
