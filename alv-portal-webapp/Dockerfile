@@ -10,4 +10,4 @@ EXPOSE 8080
 
 ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /alv-portal-webapp.jar
 
-LABEL ch.admin.seco.app=alv-portal-webapp
+LABEL ch.admin.seco.app=portal
