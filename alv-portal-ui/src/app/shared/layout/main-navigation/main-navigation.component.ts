@@ -39,11 +39,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(
             user => {
-              this.homeRouterLink = user.hasAnyAuthorities([
-                'ROLE_JOBSEEKER_CLIENT',
-                'ROLE_COMPANY',
-                'ROLE_PRIVATE_EMPLOYMENT_AGENT'
-              ]) ? '/dashboard' : '/home';
+              this.homeRouterLink = user && user.isRegistered() ? '/dashboard' : '/home';
             }
         );
   }

@@ -21,6 +21,10 @@ export class User {
   hasAnyAuthorities(authorities: Array<string>): boolean {
     return this.authorities.some(value => -1 !== authorities.indexOf(value));
   }
+
+  isRegistered(): boolean {
+    return this.registrationStatus === RegistrationStatus.REGISTERED;
+  }
 }
 
 export interface Credentials {
