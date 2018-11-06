@@ -63,11 +63,7 @@ export class ModalComponent {
   }
 
   handleSecondaryClick() {
-    if (this.secondaryAction) {
-      this.secondaryAction.emit(this.dismissModal.bind(this));
-    } else {
-      this.dismissModal('cancel');
-    }
+    this.secondaryAction.emit(this.dismissModal.bind(this));
   }
 
   closeModal(result?: any) {

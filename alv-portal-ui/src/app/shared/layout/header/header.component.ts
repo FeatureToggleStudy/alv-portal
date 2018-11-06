@@ -53,7 +53,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   login() {
     if (this.noEiam) {
-      const modalRef = this.modalService.openMedium(LocalLoginComponent);
+      this.modalService.openMedium(LocalLoginComponent, true);
     } else {
       document.location.href = '/login';
     }
