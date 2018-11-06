@@ -8,15 +8,13 @@ button.btn, a.btn {
   &.focus, &:focus {
     box-shadow: 0 0 0 0.2rem $color-red-transparent;
   }
-  &.btn-link {
+  &.btn-text {
     background-color: transparent;
     border: 1px solid transparent;
-    color: $color-primary;
+    color: $color-black;
     &:hover:not(:disabled) {
-      background-color: $color-super-light-grey;
-      border-color: $color-medium-grey;
-      color: $color-black;
-      text-decoration: none;
+      border-color: $color-primary;
+      color: $color-primary;
     }
     &:disabled {
       color: $color-medium-grey;
@@ -55,15 +53,16 @@ button.btn, a.btn {
   }
 
   &.btn-icon {
-    background-color: transparent;
-    border: 1px solid transparent;
-    color: $color-primary;
-    padding: 8px;
-    width: 42px;
+    background-color: $color-super-light-grey;
+    border-color: $color-medium-grey;
+    color: $color-dark-grey;
+    padding: 2px;
+    font-size: 1.5em;
+    width: 40px;
     &:hover:not(:disabled) {
-      background-color: $color-super-light-grey;
-      border-color: $color-medium-grey;
-      color: $color-black;
+      background-color: $color-primary;
+      border: 1px solid $color-primary;
+      color: $color-white;
     }
     &:disabled {
       color: $color-medium-grey;

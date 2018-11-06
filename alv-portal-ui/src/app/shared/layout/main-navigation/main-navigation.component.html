@@ -18,17 +18,11 @@
     <i class="fas fa-caret-right"
        *ngIf="collapsed"></i>
   </button>
-  <a routerLink="/home"
+  <a [routerLink]="homeRouterLink"
      class="nav-item"
      routerLinkActive="active">
     <i class="nav-icon fas fa-home"></i>
     <span class="nav-text">{{'global.menu.home' | translate}}</span>
-  </a>
-  <a routerLink="/dashboard"
-     class="nav-item"
-     routerLinkActive="active">
-    <i class="nav-icon fas fa-th-large"></i>
-    <span class="nav-text">{{'global.menu.dashboard' | translate}}</span>
   </a>
   <!-- Menu Entries -->
   <ng-container *ngFor="let menuEntry of menuEntries">
@@ -67,19 +61,12 @@
       <i class="nav-icon fas fa-caret-left"></i>
       <span class="nav-text">Schliessen</span>
     </li>
-    <li routerLink="/home"
+    <li [routerLink]="homeRouterLink"
         class="nav-item"
         routerLinkActive="active"
         (click)="toggleMobileSideNav()">
       <i class="nav-icon fas fa-home"></i>
       <span class="nav-text">{{'global.menu.home' | translate}}</span>
-    </li>
-    <li routerLink="/dashboard"
-       class="nav-item"
-       routerLinkActive="active"
-       (click)="toggleMobileSideNav()">
-      <i class="nav-icon fas fa-th-large"></i>
-      <span class="nav-text">{{'global.menu.dashboard' | translate}}</span>
     </li>
     <!-- Menu Entries -->
     <ng-container *ngFor="let menuEntry of menuEntries">

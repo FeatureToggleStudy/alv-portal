@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { MessageBusService, MessageType } from '../../../core/message-bus.service';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-main-navigation',
@@ -18,8 +19,11 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   open: boolean;
 
+  homeRouterLink: string;
+
   constructor(private router: Router,
-              private messageBusService: MessageBusService) {
+              private messageBusService: MessageBusService,
+              private authenticationService: AuthenticationService) {
     super();
   }
 
@@ -29,6 +33,13 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
         .subscribe(
             message => {
               this.toggleMobileSideNav();
+            }
+        );
+    this.authenticationService.getCurrentUser()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(
+            user => {
+              this.homeRouterLink = user && user.isRegistered() ? '/dashboard' : '/home';
             }
         );
   }

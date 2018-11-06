@@ -6,7 +6,8 @@
            (secondaryAction)="modal.dismissModal()"
            [formGroup]="form">
     <alv-alert *ngIf="errorMessage"
-               [notification]="errorMessage">
+               [notification]="errorMessage"
+               (dismiss)="errorMessage = null">
     </alv-alert>
     <alv-input-field label="Username"
                      alvFormControlName="username">

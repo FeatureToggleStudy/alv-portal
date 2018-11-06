@@ -1276,3 +1276,5 @@ blacklisted-agent,blacklisted-agent.change-status-dialog.cancel,Cancel,Cancel,Ca
 portal,portal.modal.a11y.close,Schliessen,Close,Fermer,Invalida
 portal,portal.modal.confirm.yes,Ja,Yes,Oui,Sì
 portal,portal.modal.confirm.no,Nein,No,Non,No
+
+portal,portal.authentication.notification.expired,Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.,Your session has expired. Please log in again.,La session a expiré. Veuillez vous reconnecter.,La sessione è scaduto. Per favore accedi di nuovo.

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Credentials, RegistrationStatus, User } from './user.model';
 import { HttpClient } from '@angular/common/http';
-import { flatMap } from 'rxjs/operators';
+import { catchError, flatMap } from 'rxjs/operators';
 import { SessionManagerService } from './session-manager/session-manager.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, EMPTY, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,13 @@ export class AuthenticationService {
   getCurrentUser(force?: boolean): Observable<User> {
     if (force) {
       return this.httpClient.get<UserDto>('/api/current-user', { observe: 'response' }).pipe(
+          catchError(err => {
+            if (err.status === 401) {
+              return EMPTY;
+            } else {
+              return throwError(err);
+            }
+          }),
           flatMap(response => {
             this.sessionManagerService.setToken(response.headers.get('Authorization'));
             this.currentUser.next(AuthenticationService.toUser(response.body));
