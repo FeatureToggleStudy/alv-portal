@@ -1,6 +1,7 @@
 <div class="container mt-4">
   <h1>Typeahead</h1>
-  <p>A typeahead that accepts free text, enables searching for items and limits the selectable items to 4</p>
+  <p>A typeahead that accepts free text, enables searching for items and limits the
+    selectable items to 4</p>
   <alv-typeahead label="Typeahead Showcase"
                  [alvControl]="typeaheadControl"
                  [loadItems]="itemLoaderFn"
@@ -11,6 +12,8 @@
   <p>{{typeaheadControl.value | json}}</p>
 
   <h1>Confirm Modal</h1>
-  <button class="btn btn-primary" (click)="openConfirmModal()">Open Confirm Modal</button>
+  <button class="btn btn-primary"
+          (click)="openConfirmModal()">Open Confirm Modal
+  </button>
   {{confirmModalDemoText}}
 </div>

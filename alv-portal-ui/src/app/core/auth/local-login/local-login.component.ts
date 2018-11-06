@@ -27,8 +27,6 @@ export class LocalLoginComponent implements OnInit {
 
   errorMessage: Notification;
 
-  loginFn = this.login.bind(this);
-
   constructor(private authenticationService: AuthenticationService,
               private fb: FormBuilder,
               private router: Router) {
@@ -43,7 +41,7 @@ export class LocalLoginComponent implements OnInit {
   }
 
 
-  private login(closeModal: (result?) => void) {
+  login(closeModal: (result?) => void) {
     this.authenticationService.login({
       username: this.form.get('username').value,
       password: this.form.get('password').value,

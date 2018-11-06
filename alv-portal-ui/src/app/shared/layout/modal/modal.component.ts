@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 
@@ -29,10 +29,9 @@ export class ModalComponent {
   @Input() primaryLabel?: string;
 
   /**
-   * Action to execute on primary button click. Use the closeModal() method to close the modal.
+   * Emitted event on primary button click. Use the closeModal() method to close the modal.
    */
-  @Input() primaryAction: (closeModal: (result?) => void) => void;
-
+  @Output() primaryAction = new EventEmitter<(result?) => void>();
 
   /**
    * (optional) Label of the secondary button
@@ -40,9 +39,9 @@ export class ModalComponent {
   @Input() secondaryLabel?: string;
 
   /**
-   * Action to execute on secondary button click. Use the dismissModal() method to dismiss the modal.
+   * Emitted event on secondary button click. Use the dismissModal() method to dismiss the modal.
    */
-  @Input() secondaryAction?: (dismissModal: (reason?) => void) => void;
+  @Output() secondaryAction = new EventEmitter<(reason?) => void>();
 
   /**
    * If the custom modal contains a form, just set the formGroup to wrap the whole modal
@@ -50,17 +49,22 @@ export class ModalComponent {
    */
   @Input() formGroup?: FormGroup;
 
-  constructor(private activeModal: NgbActiveModal) { }
+  constructor(private activeModal: NgbActiveModal) {
+  }
 
   handlePrimaryClick() {
     if (!this.formGroup) {
-      this.primaryAction(this.closeModal.bind(this));
+      this.handleSubmitClick();
     }
+  }
+
+  handleSubmitClick() {
+    this.primaryAction.emit(this.closeModal.bind(this));
   }
 
   handleSecondaryClick() {
     if (this.secondaryAction) {
-      this.secondaryAction(this.dismissModal.bind(this));
+      this.secondaryAction.emit(this.dismissModal.bind(this));
     } else {
       this.dismissModal('cancel');
     }
