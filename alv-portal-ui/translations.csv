@@ -1272,3 +1272,5 @@ blacklisted-agent,blacklisted-agent.change-status-dialog.title,Change Status of 
 blacklisted-agent,blacklisted-agent.change-status-dialog.message,Do you really want to change status of the blacklisted agent?,Do you really want to change status of the blacklisted agent?,Do you really want to change status of the blacklisted agent?,Do you really want to change status of the blacklisted agent?
 blacklisted-agent,blacklisted-agent.change-status-dialog.change-status,Change Status,Change Status,Change Status,Change Status
 blacklisted-agent,blacklisted-agent.change-status-dialog.cancel,Cancel,Cancel,Cancel,Cancel
+
+portal,portal.authentication.notification.expired,Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.,Your session has expired. Please log in again.,La session a expiré. Veuillez vous reconnecter.,La sessione è scaduto. Per favore accedi di nuovo.
