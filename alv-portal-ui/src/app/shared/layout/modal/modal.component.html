@@ -2,7 +2,7 @@
 
   <div class="d-flex flex-column">
     <h2 class="modal-title">
-      {{title | translate}}
+      {{modalTitle | translate}}
     </h2>
 
     <div *ngIf="subtitle"
@@ -13,7 +13,7 @@
 
   <button type="button"
           class="close"
-          [attr.aria-label]="'portal.modal.a11y.close' | translate"
+          [attr.aria-label]="'portal.modal.close' | translate"
           (click)="handleSecondaryClick()">
     <span aria-hidden="true">&times;</span>
   </button>

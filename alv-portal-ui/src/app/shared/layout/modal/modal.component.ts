@@ -16,7 +16,7 @@ export class ModalComponent {
   /**
    * Title of the modal
    */
-  @Input() title: string;
+  @Input() modalTitle: string;
 
   /**
    * (optional) Subtitle of the modal
