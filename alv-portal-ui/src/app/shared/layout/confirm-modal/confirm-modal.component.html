@@ -1,7 +1,7 @@
 <alv-modal [title]="title"
            [primaryLabel]="confirmLabel"
-           (primaryAction)="confirmAction($event)"
+           (primaryAction)="modal.close('confirm')"
            [secondaryLabel]="cancelLabel"
-           (secondaryAction)="cancelAction($event)">
+           (secondaryAction)="modal.dismiss('cancel')">
   <span [innerHTML]="textHtml"></span>
 </alv-modal>

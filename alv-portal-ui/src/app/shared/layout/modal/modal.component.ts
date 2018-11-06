@@ -31,7 +31,7 @@ export class ModalComponent {
   /**
    * Emitted event on primary button click. Use the closeModal() method to close the modal.
    */
-  @Output() primaryAction = new EventEmitter<(result?) => void>();
+  @Output() primaryAction = new EventEmitter<void>();
 
   /**
    * (optional) Label of the secondary button
@@ -41,7 +41,7 @@ export class ModalComponent {
   /**
    * Emitted event on secondary button click. Use the dismissModal() method to dismiss the modal.
    */
-  @Output() secondaryAction = new EventEmitter<(reason?) => void>();
+  @Output() secondaryAction = new EventEmitter<void>();
 
   /**
    * If the custom modal contains a form, just set the formGroup to wrap the whole modal
@@ -49,7 +49,7 @@ export class ModalComponent {
    */
   @Input() formGroup?: FormGroup;
 
-  constructor(private activeModal: NgbActiveModal) {
+  constructor() {
   }
 
   handlePrimaryClick() {
@@ -59,19 +59,11 @@ export class ModalComponent {
   }
 
   handleSubmitClick() {
-    this.primaryAction.emit(this.closeModal.bind(this));
+    this.primaryAction.emit();
   }
 
   handleSecondaryClick() {
-    this.secondaryAction.emit(this.dismissModal.bind(this));
-  }
-
-  closeModal(result?: any) {
-    this.activeModal.close(result);
-  }
-
-  dismissModal(reason?: any) {
-    this.activeModal.dismiss(reason);
+    this.secondaryAction.emit();
   }
 
 }

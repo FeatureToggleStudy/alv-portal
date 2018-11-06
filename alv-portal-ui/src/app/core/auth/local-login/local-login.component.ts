@@ -8,6 +8,7 @@ import {
   Notification,
   NotificationType
 } from '../../../shared/layout/notifications/notification.model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 const ERRORS = {
   invalidUsernamePassword: {
@@ -16,6 +17,7 @@ const ERRORS = {
     isSticky: true
   } as Notification
 };
+
 @Component({
   selector: 'alv-local-login',
   templateUrl: './local-login.component.html',
@@ -27,7 +29,8 @@ export class LocalLoginComponent implements OnInit {
 
   errorMessage: Notification;
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(public modal: NgbActiveModal,
+              private authenticationService: AuthenticationService,
               private fb: FormBuilder,
               private router: Router) {
   }
@@ -41,7 +44,7 @@ export class LocalLoginComponent implements OnInit {
   }
 
 
-  login(closeModal: (result?) => void) {
+  login() {
     this.authenticationService.login({
       username: this.form.get('username').value,
       password: this.form.get('password').value,
@@ -54,12 +57,10 @@ export class LocalLoginComponent implements OnInit {
         take(1)
     ).subscribe(user => {
       if (user) {
-        closeModal();
+        this.modal.close();
         this.router.navigate(['/landing']);
       }
     });
   }
-
-
 
 }

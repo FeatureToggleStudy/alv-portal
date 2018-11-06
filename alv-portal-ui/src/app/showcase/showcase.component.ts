@@ -66,30 +66,22 @@ export class ShowcaseComponent implements OnInit {
   openConfirmModal() {
     this.modalService.openConfirm({
       title: 'Confirm Title',
-      textHtml: '<em>This is</em> <code>HTML</code> <strong>text</strong>.',
-      confirmAction: this.confirmAction.bind(this),
-      cancelAction: this.cancelAction.bind(this)
+      textHtml: '<em>This is</em> <code>HTML</code> <strong>text</strong>.'
     }).result.then(result => {
-          // Do something after the modal was closed
+          // On confirm
           this.confirmModalDemoText = result;
+          this.confirmAction();
         },
         reason => {
-          // Do something after the modal was dismissed
+          // On cancel
           this.confirmModalDemoText = reason;
         });
   }
 
-  private confirmAction(closeModal: (result?) => void) {
+  private confirmAction() {
     of('some backend request').subscribe(result => {
-      closeModal('Yes Click');
     });
-
   }
-
-  private cancelAction(dismissModal: (reason?) => void) {
-    dismissModal('No Click');
-  }
-
 
   private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): TypeaheadItemModel[] {
     const localities = localityAutocomplete.localities

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'alv-confirm-modal',
@@ -13,13 +14,9 @@ export class ConfirmModalComponent {
 
   confirmLabel = 'portal.modal.confirm.yes';
 
-  confirmAction: (closeModal: (result?) => void) => void;
-
   cancelLabel = 'portal.modal.confirm.no';
 
-  cancelAction?: (dismissModal: (reason?) => void) => void;
-
-  constructor() {
+  constructor(public modal: NgbActiveModal) {
   }
 
 }
