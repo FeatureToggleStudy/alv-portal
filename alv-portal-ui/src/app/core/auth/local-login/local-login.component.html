@@ -7,7 +7,8 @@
       [formGroup]="form">
   <div class="modal-body">
     <alv-alert *ngIf="errorMessage"
-               [notification]="errorMessage">
+               [notification]="errorMessage"
+               (dismiss)="errorMessage = null">
     </alv-alert>
 
     <alv-input-field [label]="'Username'"
