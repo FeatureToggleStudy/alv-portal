@@ -29,7 +29,7 @@ export class ModalComponent {
   @Input() primaryLabel?: string;
 
   /**
-   * Emitted event on primary button click. Use the closeModal() method to close the modal.
+   * Emitted event on primary button click.
    */
   @Output() primaryAction = new EventEmitter<void>();
 
@@ -39,7 +39,7 @@ export class ModalComponent {
   @Input() secondaryLabel?: string;
 
   /**
-   * Emitted event on secondary button click. Use the dismissModal() method to dismiss the modal.
+   * Emitted event on secondary button click.
    */
   @Output() secondaryAction = new EventEmitter<void>();
 
