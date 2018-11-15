@@ -43,7 +43,7 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
   selectRole() {
     switch (this.roleSelectionForm.get('role').value) {
       case 'jobseeker':
-        this.updateStep.emit(RegistrationStep.JOBSEEKER_PERSON_NR_STEP);
+        this.updateStep.emit(RegistrationStep.JOBSEEKER_IDENTIFICATION_STEP);
         break;
       case 'company':
         this.updateStep.emit(RegistrationStep.COMPANY_UID_STEP);
