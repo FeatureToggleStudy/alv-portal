@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { NotificationsService } from '../../../core/notifications.service';
 import { EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -15,6 +16,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./jobseeker-identification.component.scss']
 })
 export class JobseekerIdentificationComponent extends AbstractRegistrationStep implements OnInit {
+
+  readonly BIRTHDAY_MIN_DATE = this.toNgbDate(new Date(1900, 1, 1));
+  readonly BIRTHDAY_MAX_DATE = this.toNgbDate(new Date());
+  readonly BIRTHDAY_START_DATE = this.toNgbDate(new Date(new Date().getFullYear() - 30, 0));
 
   jobseekerIdentificationForm: FormGroup;
 
@@ -64,6 +69,14 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
 
   cancelAction() {
     this.router.navigate(['home']);
+  }
+
+  private toNgbDate(date: Date): NgbDateStruct {
+    return {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()
+    };
   }
 
 }
