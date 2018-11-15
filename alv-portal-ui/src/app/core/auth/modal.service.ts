@@ -19,7 +19,7 @@ export class ModalService {
     return this.open(content, null, escapable);
   }
 
-  openBig(content: any, escapable?: boolean): NgbModalRef {
+  openLarge(content: any, escapable?: boolean): NgbModalRef {
     return this.open(content, 'lg', escapable);
   }
 
