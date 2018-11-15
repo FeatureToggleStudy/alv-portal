@@ -1,12 +1,7 @@
-<alv-registration-panel panelTitle="portal.registration.company.uid.title"
-                        (primaryAction)="findCompanyByUid()"
-                        primaryLabel="navigation.next"
-                        (secondaryAction)="cancelAction()"
-                        secondaryLabel="registration.customer.cancel"
-                        (backAction)="backAction()"
-                        [formGroup]="companyUidForm">
+<alv-registration-panel panelTitle="portal.registration.request.access.code"
+                        (backAction)="backAction()">
   <alv-company-step-indicator class="step-indicator panel-full-width"
-                                   [currentStep]="1">
+                              [currentStep]="2">
   </alv-company-step-indicator>
   <p>{{'registrationCompanyDialog.title' | translate}}</p>
   <alv-input-field label="portal.registration.company.uid.label"

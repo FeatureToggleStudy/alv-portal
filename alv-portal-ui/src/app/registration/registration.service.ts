@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JobSeekerDetails } from './registration.model';
+import { Company, JobSeekerDetails } from './registration.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class RegistrationService {
     return this.http.post(this.REQUEST_COMPANY_ACCESS_CODE_URL, uid);
   }
 
-  getCompanyByUid(uid: number): Observable<any> {
+  getCompanyByUid(uid: number): Observable<Company> {
     return this.http.post(this.COMPANY_BY_UID_URL, uid, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

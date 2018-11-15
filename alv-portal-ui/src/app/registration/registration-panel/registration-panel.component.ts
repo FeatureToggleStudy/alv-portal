@@ -14,8 +14,6 @@ export class RegistrationPanelComponent implements OnInit {
 
   @Input() primaryLabel: string;
 
-  @Input() primaryButtonDisabled: boolean;
-
   @Output() primaryAction = new EventEmitter<void>();
 
   @Input() secondaryLabel: string;

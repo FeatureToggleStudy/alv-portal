@@ -1,4 +1,4 @@
-import { FinishRegistrationComponent } from './finish-registation/finish-registration.component';
+import { FinishRegistrationComponent } from './finish-registration/finish-registration.component';
 import { AccessCodeComponent } from './access-code/access-code.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';

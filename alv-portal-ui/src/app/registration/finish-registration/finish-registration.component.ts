@@ -6,6 +6,9 @@ import {
   PERSON_NUMBER_REGEX
 } from '../../shared/forms/regex-patterns';
 import { RegistrationStep } from '../registration-step.enum';
+import { Step } from '../step-indicator/step.model';
+import { Company } from '../registration.model';
+import { OrganizationSuggestion } from '../organization/organization.model';
 
 @Component({
   selector: 'alv-finish-registration',
@@ -18,14 +21,16 @@ export class FinishRegistrationComponent implements OnInit {
 
   registrationStep = RegistrationStep.SELECT_ROLE_STEP;
 
-  registrationSelection = new FormControl();
+  company: Company;
+
+  organization: OrganizationSuggestion;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-
-
   }
 
-
+  updateStep(step: RegistrationStep) {
+    this.registrationStep = step;
+  }
 }

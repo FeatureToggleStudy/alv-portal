@@ -1277,3 +1277,4 @@ portal,portal.authentication.notification.expired,Ihre Sitzung ist abgelaufen. B
 
 portal,portal.registration.company.uid.label,UID,UID,IDE,IDI
 portal,portal.registration.company.uid.title,Unternehmens-Identifikationsnummer eingeben,Enter Company Identification Number,Numéro d'identification des entreprises,Numero d'identificazione delle imprese
+portal,portal.registration.request.access.code,Freischaltcode anfordern,Request activation code,Demander le code de déverrouillage,Richiedere il codice di attivazione
