@@ -26,10 +26,11 @@
         </ng-container>
       </ng-container>
     </div>
-    <label [for]="id">{{label}}</label>
+    <label [for]="id">{{label | translate}}</label>
     <i class="fas fa-caret-down dropdown-icon"
        *ngIf="!readonly"></i>
   </div>
+  <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
                            [id]="validationId"

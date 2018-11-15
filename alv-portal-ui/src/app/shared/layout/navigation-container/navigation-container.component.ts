@@ -4,7 +4,8 @@ import { NavigationEnd, Router } from '@angular/router';
 const PATH_TO_PICTURE = {
   '/home/job-seeker': 'jobseeker-home',
   '/home/company': 'company-home',
-  '/home/pav': 'pav-home'
+  '/home/pav': 'pav-home',
+  '/registration/finish': 'jobseeker-home'
 };
 @Component({
   selector: 'alv-navigation-container',

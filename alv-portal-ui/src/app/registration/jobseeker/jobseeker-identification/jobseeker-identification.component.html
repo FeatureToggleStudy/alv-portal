@@ -1,0 +1,19 @@
+<alv-registration-panel panelTitle="registration.customer.title"
+                        panelSubtitle="registration.customer.text"
+                        (primaryAction)="registerJobSeeker()"
+                        primaryLabel="registration.customer.login"
+                        secondaryLabel="registration.customer.cancel"
+                        (backAction)="backAction()"
+                        [formGroup]="jobseekerIdentificationForm">
+  <alv-input-field label="registration.customer.pn.label"
+                   alvFormControlName="personNr"
+                   [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'},
+                     {error: 'pattern', message: 'registration.customer.messages.validate.pn'}]">
+  </alv-input-field>
+
+  <alv-date-input label="registration.customer.birthdate.label"
+                  alvFormControlName="birthDate"
+                  [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'},
+                    {error: 'ngbDate', message: 'registration.customer.messages.validate.birthdate'}]">
+  </alv-date-input>
+</alv-registration-panel>

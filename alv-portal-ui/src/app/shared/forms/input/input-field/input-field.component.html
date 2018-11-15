@@ -36,9 +36,10 @@
       {{control.value}}
     </div>
     <label [for]="id">
-      {{label}}
+      {{label | translate}}
     </label>
   </div>
+  <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
                            [id]="validationId"

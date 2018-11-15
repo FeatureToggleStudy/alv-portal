@@ -1,0 +1,16 @@
+<alv-registration-panel panelTitle="portal.registration.company.uid.title"
+                        (primaryAction)="selectRole()"
+                        primaryLabel="navigation.next"
+                        (secondaryAction)="cancelAction()"
+                        secondaryLabel="registration.customer.cancel"
+                        (backAction)="backAction()"
+                        [formGroup]="companyUidForm">
+  <p>{{'registrationCompanyDialog.title' | translate}}</p>
+  <alv-input-field label="portal.registration.company.uid.label"
+                   helpText="registrationCompanyDialog.placeholder"
+                   alvFormControlName="uid"
+                   [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'},
+                     {error: 'pattern', message: 'registrationCompanyDialog.validation.error.uid'}]">
+  </alv-input-field>
+
+</alv-registration-panel>

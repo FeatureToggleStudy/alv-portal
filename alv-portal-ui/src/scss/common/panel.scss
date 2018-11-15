@@ -24,10 +24,24 @@
       color: $color-primary;
     }
   }
+
+  .panel-divider {
+    border-top: 1px solid $color-medium-grey;
+    margin: 1em calc(-1.5em - 2px) 1em calc(-1.5em - 2px);
+  }
+
+  .panel-footer {
+    display: flex;
+    align-content: flex-end;
+  }
 }
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(sm) {
   .alv-panel {
     padding: 1em 0.5em 0.5em;
+
+    .panel-divider {
+      margin: 1em calc(-0.5em - 2px) 1em calc(-0.5em - 2px);
+    }
   }
 }

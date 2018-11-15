@@ -1,3 +1,16 @@
-<p>
-  finish-registraiton-page works!
-</p>
+<div class="container pt-4"
+     [ngSwitch]="registrationStep">
+  <alv-role-selection *ngSwitchCase="registrationSteps.SELECT_ROLE_STEP"
+                      (updateStep)="registrationStep = $event">
+  </alv-role-selection>
+
+  <alv-jobseeker-identification *ngSwitchCase="registrationSteps.JOBSEEKER_PERSON_NR_STEP"
+                                (updateStep)="registrationStep = $event">
+  </alv-jobseeker-identification>
+
+  <alv-company-uid *ngSwitchCase="registrationSteps.COMPANY_UID_STEP"
+                   (updateStep)="registrationStep = $event">
+  </alv-company-uid>
+
+
+</div>

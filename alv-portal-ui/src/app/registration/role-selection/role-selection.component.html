@@ -1,0 +1,14 @@
+
+<alv-registration-panel panelTitle="registrationQuestionnaire.header"
+                        panelSubtitle="registrationQuestionnaire.placeholder"
+                        (primaryAction)="selectRole()"
+                        primaryLabel="navigation.next"
+                        (secondaryAction)="cancelAction()"
+                        secondaryLabel="registration.customer.cancel"
+                        [hideBackButton]="true"
+                        [formGroup]="roleSelectionForm">
+  <alv-radio-button alvFormControlName="role"
+                    [options$]="registrationOptions$">
+  </alv-radio-button>
+
+</alv-registration-panel>

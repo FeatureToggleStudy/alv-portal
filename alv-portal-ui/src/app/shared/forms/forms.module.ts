@@ -17,6 +17,7 @@ import { DateIntervalInputComponent } from './input/date-interval-input/date-int
 import { AddressInputComponent } from './address-input/address-input.component';
 import { FormSubmitValidationDirective } from './form-submit-validation.directive';
 import { TypeaheadComponent } from './input/typeahead/typeahead.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { TypeaheadComponent } from './input/typeahead/typeahead.component';
     NgFormsModule,
     ReactiveFormsModule,
     NgbDatepickerModule,
-    NgbTypeaheadModule
+    NgbTypeaheadModule,
+    TranslateModule
   ],
   declarations: [
     AddressInputComponent,

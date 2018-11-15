@@ -47,7 +47,7 @@
     </div>
     <label class="d-flex"
            [for]="id">
-      {{label}}
+      {{label | translate}}
       <span class="flex-grow-1"></span>
       <span *ngIf="limit && control.value?.length">
         {{control.value?.length + '/' + limit}}
@@ -105,6 +105,7 @@
     </ng-template>
 
   </div>
+  <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
                            [id]="validationId"

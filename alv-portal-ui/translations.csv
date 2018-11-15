@@ -1274,3 +1274,6 @@ blacklisted-agent,blacklisted-agent.change-status-dialog.change-status,Change St
 blacklisted-agent,blacklisted-agent.change-status-dialog.cancel,Cancel,Cancel,Cancel,Cancel
 
 portal,portal.authentication.notification.expired,Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.,Your session has expired. Please log in again.,La session a expiré. Veuillez vous reconnecter.,La sessione è scaduto. Per favore accedi di nuovo.
+
+portal,portal.registration.company.uid.label,UID,UID,IDE,IDI
+portal,portal.registration.company.uid.title,Unternehmens-Identifikationsnummer eingeben,Enter Company Identification Number,Numéro d'identification des entreprises,Numero d'identificazione delle imprese

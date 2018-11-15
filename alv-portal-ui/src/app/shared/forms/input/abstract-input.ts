@@ -39,6 +39,11 @@ export abstract class AbstractInput implements OnInit {
    */
   @Input() readonly?: boolean;
 
+  /**
+   * (optional) help text to be displayed below the input
+   */
+  @Input() helpText?: string;
+
   validationId: string;
 
   protected constructor(

@@ -6,8 +6,8 @@
          [attr.id]="id"
          (click)="!readonly">
   <label class="form-check-label"
-         [for]="id">
-    {{label}}
+         [for]="id"
+         [innerHTML]="label | translate">
   </label>
 </div>
 <alv-validation-messages *ngIf="!readonly && control"
