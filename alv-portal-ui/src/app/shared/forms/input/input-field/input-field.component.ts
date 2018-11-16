@@ -1,4 +1,12 @@
-import { Component, Host, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
+import {
+  Component, ElementRef,
+  Host,
+  HostBinding,
+  Input,
+  Optional,
+  SkipSelf,
+  ViewChild
+} from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
 import { ControlContainer } from '@angular/forms';
@@ -68,6 +76,11 @@ export class InputFieldComponent extends AbstractInput {
    */
   @Input() multiline?: boolean;
 
+  @Input() autofocus?: boolean;
+
+  @ViewChild('input') input: ElementRef;
+
+  @ViewChild('textarea') textarea: ElementRef;
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {
@@ -78,4 +91,7 @@ export class InputFieldComponent extends AbstractInput {
     return (this.control.value.match(/\n/g) || []).length + 1;
   }
 
+  focus() {
+    this.multiline ? this.textarea.nativeElement.focus() : this.input.nativeElement.focus();
+  }
 }

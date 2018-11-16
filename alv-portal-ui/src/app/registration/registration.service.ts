@@ -21,16 +21,12 @@ export class RegistrationService {
     return this.http.post(this.REGISTER_JOB_SEEKER_URL, jobSeekerDetails, {observe: 'response'});
   }
 
-  requestEmployerAccessCode(uid: number): Observable<any> {
-    return this.http.post(this.REQUEST_COMPANY_ACCESS_CODE_URL, uid);
+  requestEmployerAccessCode(uid: string): Observable<any> {
+    return this.http.post(this.REQUEST_COMPANY_ACCESS_CODE_URL, this.extractCompanyUid(uid));
   }
 
-  getCompanyByUid(uid: number): Observable<Company> {
-    return this.http.post(this.COMPANY_BY_UID_URL, uid, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    });
+  getCompanyByUid(uid: string): Observable<Company> {
+    return this.http.post(this.COMPANY_BY_UID_URL, this.extractCompanyUid(uid));
   }
 
   requestAgentAccessCode(avgId: string): Observable<any> {
@@ -41,4 +37,11 @@ export class RegistrationService {
     return this.http.post(this.REGISTER_BY_ACCESS_CODE, accessCode);
   }
 
+  // e.g. CHE-123.456.789 -> 123456789
+  private extractCompanyUid(uid: string): number {
+    return parseInt(uid
+        .replace(new RegExp('CHE\-', 'g'), '')
+        .replace(new RegExp('\\.', 'g'), '')
+        .replace(new RegExp('\-', 'g'), ''), 10);
+  }
 }

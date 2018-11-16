@@ -4,28 +4,34 @@
   <ng-content select=".step-indicator"></ng-content>
   <div class="panel-divider"></div>
 
-  <form alvFormSubmitValidation
+  <form *ngIf="formGroup; else modalContent"
+        alvFormSubmitValidation
         [formGroup]="formGroup"
         (validSubmit)="handlePrimaryClick()">
-    <ng-content></ng-content>
+    <ng-container *ngTemplateOutlet="modalContent"></ng-container>
 
-    <div class="panel-divider"></div>
-
-    <div class="panel-footer">
-      <button *ngIf="!hideBackButton"
-              class="btn btn-icon"
-              type="button"
-              (click)="handleBackClick()"><i class="fas fa-caret-left"></i></button>
-      <div class="flex-grow-1"></div>
-      <button *ngIf="secondaryLabel"
-              class="btn btn-text"
-              type="button"
-              (click)="handleSecondaryClick()">{{secondaryLabel| translate}}</button>
-      <button *ngIf="primaryLabel"
-              class="btn btn-primary ml-2"
-              [type]="submit"
-              [disabled]="formGroup.invalid">{{primaryLabel | translate}}</button>
-    </div>
   </form>
 
 </div>
+
+<ng-template #modalContent>
+  <ng-content></ng-content>
+
+  <div class="panel-divider"></div>
+
+  <div class="panel-footer">
+    <button *ngIf="!hideBackButton"
+            class="btn btn-icon"
+            type="button"
+            (click)="handleBackClick()"><i class="fas fa-caret-left"></i></button>
+    <div class="flex-grow-1"></div>
+    <button *ngIf="secondaryLabel"
+            class="btn btn-text"
+            type="button"
+            (click)="handleSecondaryClick()">{{secondaryLabel| translate}}</button>
+    <button *ngIf="primaryLabel"
+            class="btn btn-primary ml-2"
+            [type]="submit"
+            [disabled]="formGroup.invalid">{{primaryLabel | translate}}</button>
+  </div>
+</ng-template>

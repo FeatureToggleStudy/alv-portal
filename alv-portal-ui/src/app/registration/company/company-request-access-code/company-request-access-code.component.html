@@ -1,14 +1,20 @@
 <alv-registration-panel panelTitle="portal.registration.request.access.code"
+                        [secondaryLabel]="homeLabel"
                         (backAction)="backAction()">
   <alv-company-step-indicator class="step-indicator panel-full-width"
                               [currentStep]="2">
   </alv-company-step-indicator>
-  <p>{{'registrationCompanyDialog.title' | translate}}</p>
-  <alv-input-field label="portal.registration.company.uid.label"
-                   helpText="registrationCompanyDialog.placeholder"
-                   alvFormControlName="uid"
-                   [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'},
-                     {error: 'pattern', message: 'registrationCompanyDialog.validation.error.uid'}]">
-  </alv-input-field>
+  <p [innerHTML]="'registrationCompanyDialog.postal.description' | translate"></p>
+  <p>
+    {{company.name}}<br>
+    {{company.additionalName}}<br>
+    {{company.address.street}} {{company.address.buildingNum}}<br>
+    {{company.address.zip}} {{company.address.city}}<br>
+  </p>
+  <p [innerHTML]="'registrationCompanyDialog.login.description' | translate"></p>
+  <button class="btn btn-primary w-100"
+          (click)="homeLabel = 'Zurück zur Startseite'">
+    {{'registrationCompanyDialog.requestActivationCode' | translate}}
+  </button>
 
 </alv-registration-panel>

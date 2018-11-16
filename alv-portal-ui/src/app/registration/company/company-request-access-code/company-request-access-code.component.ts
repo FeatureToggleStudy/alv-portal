@@ -4,6 +4,7 @@ import { RegistrationStep } from '../../registration-step.enum';
 import { Router } from '@angular/router';
 import { Company } from '../../registration.model';
 import { FormGroup } from '@angular/forms';
+import { RegistrationService } from '../../registration.service';
 
 @Component({
   selector: 'alv-company-request-access-code',
@@ -14,18 +15,21 @@ export class CompanyRequestAccessCodeComponent extends AbstractRegistrationStep 
 
   @Input() company: Company;
 
-  companyRequestAccessCodeForm ;
+  homeLabel: string;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private registrationService: RegistrationService) {
     super();
   }
 
   ngOnInit() {
 
   }
-
-  setCompany(company: Company) {
-    this.company = company;
+  requestActivationCode() {
+    this.disableSubmit = true;
+    this.registrationService.requestEmployerAccessCode(this.getCompanyUid())
+        .finally(() => this.disableSubmit = false)
+        .subscribe(() => this.isSubmitted = true);
   }
 
   backAction() {

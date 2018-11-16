@@ -34,7 +34,7 @@ export class CompanyUidComponent extends AbstractRegistrationStep implements OnI
   }
 
   findCompanyByUid() {
-    this.registrationService.getCompanyByUid(this.getCompanyUid())
+    this.registrationService.getCompanyByUid(this.companyUidForm.get('uid').value)
         .subscribe(
             (company) => {
               this.company.emit(company);
@@ -53,12 +53,4 @@ export class CompanyUidComponent extends AbstractRegistrationStep implements OnI
     this.router.navigate(['home']);
   }
 
-  // e.g. CHE-123.456.789 -> 123456789
-  private getCompanyUid(): number {
-    return parseInt(this.companyUidForm.get('uid')
-        .value
-        .replace(new RegExp('CHE\-', 'g'), '')
-        .replace(new RegExp('\\.', 'g'), '')
-        .replace(new RegExp('\-', 'g'), ''), 10);
-  }
 }
