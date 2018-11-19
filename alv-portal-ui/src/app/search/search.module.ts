@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JobSearchPageComponent } from './pages/job-search-page/job-search-page.component';
 import { CounterComponent } from './componentns/counter/counter.component';
 import { FilterPanelComponent } from './componentns/filter-panel/filter-panel.component';
-import { ResultComponent } from './result/result.component';
+import { ResultComponent } from './componentns/result/result.component';
 import { SearchRoutingModule } from './search-routing.module';
 
 @NgModule({
