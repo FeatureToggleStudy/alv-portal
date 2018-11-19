@@ -7,10 +7,13 @@ import { RegistrationPanelComponent } from './registration-panel/registration-pa
 import { ReactiveFormsModule } from '@angular/forms';
 import { JobseekerIdentificationComponent } from './jobseeker/jobseeker-identification/jobseeker-identification.component';
 import { RoleSelectionComponent } from './role-selection/role-selection.component';
-import { CompanyUidComponent } from './company/company-uid/company-uid.component';
+import { CompanyIdentificationComponent } from './company/company-identification/company-identification.component';
 import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
 import { CompanyStepIndicatorComponent } from './company/company-step-indicator/company-step-indicator.component';
 import { CompanyRequestAccessCodeComponent } from './company/company-request-access-code/company-request-access-code.component';
+import { PavIdentificationComponent } from './pav/pav-identification/pav-identification.component';
+import { PavRequestAccessCodeComponent } from './pav/pav-request-access-code/pav-request-access-code.component';
+import { PavStepIndicatorComponent } from './pav/pav-step-indicator/pav-step-indicator.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +22,13 @@ import { CompanyRequestAccessCodeComponent } from './company/company-request-acc
     RegistrationPanelComponent,
     JobseekerIdentificationComponent,
     RoleSelectionComponent,
-    CompanyUidComponent,
+    CompanyIdentificationComponent,
     StepIndicatorComponent,
     CompanyStepIndicatorComponent,
-    CompanyRequestAccessCodeComponent
+    CompanyRequestAccessCodeComponent,
+    PavIdentificationComponent,
+    PavRequestAccessCodeComponent,
+    PavStepIndicatorComponent
   ],
   imports: [
       ReactiveFormsModule,

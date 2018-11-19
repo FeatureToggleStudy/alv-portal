@@ -26,7 +26,7 @@ export class RegistrationService {
   }
 
   getCompanyByUid(uid: string): Observable<Company> {
-    return this.http.post(this.COMPANY_BY_UID_URL, this.extractCompanyUid(uid));
+    return this.http.post<Company>(this.COMPANY_BY_UID_URL, this.extractCompanyUid(uid));
   }
 
   requestAgentAccessCode(avgId: string): Observable<any> {

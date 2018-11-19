@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { OrganizationAutocomplete } from './organization.model';
-import { createRequestOption, ResponseWrapper } from '../';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 

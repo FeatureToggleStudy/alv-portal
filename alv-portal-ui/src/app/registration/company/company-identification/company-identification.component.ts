@@ -9,11 +9,11 @@ import { NotificationsService } from '../../../core/notifications.service';
 import { RegistrationService } from '../../registration.service';
 
 @Component({
-  selector: 'alv-company-uid',
-  templateUrl: './company-uid.component.html',
-  styleUrls: ['./company-uid.component.scss']
+  selector: 'alv-company-identification',
+  templateUrl: './company-identification.component.html',
+  styleUrls: ['./company-identification.component.scss']
 })
-export class CompanyUidComponent extends AbstractRegistrationStep implements OnInit {
+export class CompanyIdentificationComponent extends AbstractRegistrationStep implements OnInit {
 
   @Output() company = new EventEmitter<Company>();
 

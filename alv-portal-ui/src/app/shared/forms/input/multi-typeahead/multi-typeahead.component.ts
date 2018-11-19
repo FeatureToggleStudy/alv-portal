@@ -14,9 +14,9 @@ import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
 import { InputType } from '../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
-import { TypeaheadItemModel } from './typeahead-item.model';
+import { MultiTypeaheadItemModel } from './multi-typeahead-item.model';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { TypeaheadItemDisplayModel } from './typeahead-item-display.model';
+import { MultiTypeaheadItemDisplayModel } from './multi-typeahead-item-display.model';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
@@ -28,17 +28,17 @@ enum Key {
 }
 
 @Component({
-  selector: 'alv-typeahead',
-  templateUrl: './typeahead.component.html',
-  styleUrls: ['../abstract-input.scss', './typeahead.component.scss']
+  selector: 'alv-multi-typeahead',
+  templateUrl: './multi-typeahead.component.html',
+  styleUrls: ['../abstract-input.scss', './multi-typeahead.component.scss']
 })
-export class TypeaheadComponent extends AbstractInput {
+export class MultiTypeaheadComponent extends AbstractInput {
 
   readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
   readonly TYPEAHEAD_DEBOUNCE_TIME = 200;
 
-  @Input() loadItems: (text: string) => Observable<TypeaheadItemModel[]>;
+  @Input() loadItems: (text: string) => Observable<MultiTypeaheadItemModel[]>;
 
   @Input() editable = true;
 
@@ -80,11 +80,11 @@ export class TypeaheadComponent extends AbstractInput {
     return this.control.value && this.control.value.length === 0 && !this.inputValue;
   }
 
-  formatResultItem(item: TypeaheadItemModel): string {
+  formatResultItem(item: MultiTypeaheadItemModel): string {
     return item.label;
   }
 
-  getTypeClass(item: TypeaheadItemModel): string {
+  getTypeClass(item: MultiTypeaheadItemModel): string {
     return `typeahead-${item.type}`;
   }
 
@@ -137,8 +137,8 @@ export class TypeaheadComponent extends AbstractInput {
     this.getTypeaheadNativeElement().focus();
   }
 
-  selectFreeText(): TypeaheadItemModel {
-    const freeText = new TypeaheadItemModel('free-text', this.inputValue, this.inputValue);
+  selectFreeText(): MultiTypeaheadItemModel {
+    const freeText = new MultiTypeaheadItemModel('free-text', this.inputValue, this.inputValue);
     if (!this.itemLimitReached() && this.editable && !this.exists(freeText) && freeText.code
         && freeText.code.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH) {
 
@@ -150,13 +150,13 @@ export class TypeaheadComponent extends AbstractInput {
     return null;
   }
 
-  removeItem(item: TypeaheadItemModel): void {
-    this.control.setValue(this.control.value.filter((i: TypeaheadItemModel) => !item.equals(i)));
+  removeItem(item: MultiTypeaheadItemModel): void {
+    this.control.setValue(this.control.value.filter((i: MultiTypeaheadItemModel) => !item.equals(i)));
     this.clearInput();
     this.getTypeaheadNativeElement().focus();
   }
 
-  private loadItemsGuarded(text$: Observable<string>): Observable<TypeaheadItemDisplayModel[]> {
+  private loadItemsGuarded(text$: Observable<string>): Observable<MultiTypeaheadItemDisplayModel[]> {
     return text$.pipe(
         debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
         switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
@@ -166,23 +166,23 @@ export class TypeaheadComponent extends AbstractInput {
     );
   }
 
-  private toDisplayModelArray(items: TypeaheadItemModel[]): TypeaheadItemDisplayModel[] {
+  private toDisplayModelArray(items: MultiTypeaheadItemModel[]): MultiTypeaheadItemDisplayModel[] {
     return items
-        .filter((item: TypeaheadItemModel) => !this.exists(item))
-        .sort((item1: TypeaheadItemModel, item2: TypeaheadItemModel) => item1.compare(item2))
+        .filter((item: MultiTypeaheadItemModel) => !this.exists(item))
+        .sort((item1: MultiTypeaheadItemModel, item2: MultiTypeaheadItemModel) => item1.compare(item2))
         .map(this.toDisplayModel);
   }
 
-  private toDisplayModel(item: TypeaheadItemModel, idx: number, array: TypeaheadItemModel[]): TypeaheadItemDisplayModel {
+  private toDisplayModel(item: MultiTypeaheadItemModel, idx: number, array: MultiTypeaheadItemModel[]): MultiTypeaheadItemDisplayModel {
     let firstInGroup = false;
     if (idx === 0 || item.type !== array[idx - 1].type) {
       firstInGroup = true;
     }
-    return new TypeaheadItemDisplayModel(item, idx === 0, firstInGroup);
+    return new MultiTypeaheadItemDisplayModel(item, idx === 0, firstInGroup);
   }
 
-  private exists(model: TypeaheadItemModel): boolean {
-    return this.control.value && !!this.control.value.find((itemModel: TypeaheadItemModel) => model.equals(itemModel));
+  private exists(model: MultiTypeaheadItemModel): boolean {
+    return this.control.value && !!this.control.value.find((itemModel: MultiTypeaheadItemModel) => model.equals(itemModel));
   }
 
   private itemLimitReached(): boolean {

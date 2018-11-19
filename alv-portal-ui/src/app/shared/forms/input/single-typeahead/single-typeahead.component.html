@@ -1,0 +1,67 @@
+<div class="w-100"
+     *ngIf="control">
+  <div class="form-label-group position-relative"
+       [class.invalid]="control.touched && control.invalid">
+    <span *ngIf="required && !readonly"
+          class="required-indicator h-100">
+    </span>
+
+    <div *ngIf="!readonly"
+         class="form-control typeahead-form-control d-flex flex-row flex-wrap"
+         [class.has-focus]="hasFocus()"
+         [class.placeholder-shown]="showPlaceholder()"
+         (click)="inputField?.focus()">
+
+
+      <input #inputField
+             [attr.id]="id"
+             [attr.required]="required"
+             [attr.aria-required]="!!required"
+             [attr.aria-describedby]="validationId + ' ' + helpId"
+             [ngbTypeahead]="loadItemsGuardedFn"
+             [container]="'body'"
+             [resultTemplate]="template"
+             [focusFirst]="focusFirst"
+             [editable]="false"
+             [(ngModel)]="inputValue"
+             (selectItem)="selectItem($event)"
+             (keydown)="handleKeyDown($event)"
+             (blur)="control.markAsTouched()">
+    </div>
+    <label class="d-flex"
+           [for]="id">
+      {{label | translate}}
+    </label>
+
+    <div *ngIf="readonly"
+         [class.placeholder-shown]="!control.value"
+         class="readonly-input">
+      {{control.value}}
+    </div>
+
+    <!-- a11y help texts -->
+    <div class="sr-only"
+         [attr.id]="helpId">
+      Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of
+      selectable items. Select by using the up and down arrow keys.
+    </div>
+
+    <ng-template #template
+                 let-result="result"
+                 let-term="term"
+                 let-formatter="formatter">
+        <ngb-highlight [result]="formatResultItem(result.model)"
+                       [term]="term">
+        </ngb-highlight>
+    </ng-template>
+
+  </div>
+  <small *ngIf="helpText && !(control.touched && control.invalid)">
+    {{helpText | translate}}
+  </small>
+  <alv-validation-messages *ngIf="!readonly"
+                           [control]="control"
+                           [id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
+</div>

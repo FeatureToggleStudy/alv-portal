@@ -25,13 +25,14 @@ export class CompanyRequestAccessCodeComponent extends AbstractRegistrationStep 
   ngOnInit() {
 
   }
+  /*
   requestActivationCode() {
     this.disableSubmit = true;
     this.registrationService.requestEmployerAccessCode(this.getCompanyUid())
         .finally(() => this.disableSubmit = false)
         .subscribe(() => this.isSubmitted = true);
   }
-
+*/
   backAction() {
     this.updateStep.emit(RegistrationStep.COMPANY_UID_STEP);
   }

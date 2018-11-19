@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Step } from '../../step-indicator/step.model';
 
 @Component({
-  selector: 'alv-company-step-indicator',
-  templateUrl: './company-step-indicator.component.html',
-  styleUrls: ['./company-step-indicator.component.scss']
+  selector: 'alv-pav-step-indicator',
+  templateUrl: './pav-step-indicator.component.html',
+  styleUrls: ['./pav-step-indicator.component.scss']
 })
-export class CompanyStepIndicatorComponent {
+export class PavStepIndicatorComponent implements OnInit {
 
   @Input() currentStep: number;
 
@@ -26,5 +26,8 @@ export class CompanyStepIndicatorComponent {
   ];
 
   constructor() { }
+
+  ngOnInit() {
+  }
 
 }

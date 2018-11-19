@@ -1,4 +1,3 @@
-import { BaseEntity } from '../';
 
 export const enum CompanyType {
     'AVG',
@@ -19,7 +18,7 @@ export function formatOrganizationName(organization: Organization | Organization
     return formattedName;
 }
 
-export class Organization implements BaseEntity {
+export class Organization {
     constructor(public id?: number,
                 public externalId?: string,
                 public name?: string,

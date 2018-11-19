@@ -16,8 +16,9 @@ import { SelectComponent } from './input/select/select.component';
 import { DateIntervalInputComponent } from './input/date-interval-input/date-interval-input.component';
 import { AddressInputComponent } from './address-input/address-input.component';
 import { FormSubmitValidationDirective } from './form-submit-validation.directive';
-import { TypeaheadComponent } from './input/typeahead/typeahead.component';
+import { MultiTypeaheadComponent } from './input/multi-typeahead/multi-typeahead.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SingleTypeaheadComponent } from './input/single-typeahead/single-typeahead.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { TranslateModule } from '@ngx-translate/core';
     RadioButtonComponent,
     CheckboxComponent,
     FormSubmitValidationDirective,
-    TypeaheadComponent
+    MultiTypeaheadComponent,
+    SingleTypeaheadComponent
   ],
   exports: [
     AddressInputComponent,
@@ -50,7 +52,8 @@ import { TranslateModule } from '@ngx-translate/core';
     RadioButtonComponent,
     CheckboxComponent,
     FormSubmitValidationDirective,
-    TypeaheadComponent
+    MultiTypeaheadComponent,
+    SingleTypeaheadComponent
   ],
   providers: [
     NgbPopoverConfig,
