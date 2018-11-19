@@ -1,0 +1,7 @@
+<alv-modal [title]="title"
+           [primaryLabel]="confirmLabel"
+           (primaryAction)="modal.close('confirm')"
+           [secondaryLabel]="cancelLabel"
+           (secondaryAction)="modal.dismiss('cancel')">
+  <span [innerHTML]="textHtml"></span>
+</alv-modal>
