@@ -1,31 +1,18 @@
-<div class="modal-header">
-  <h2 class="modal-title">Login</h2>
-</div>
-
-<form alvFormSubmitValidation
-      (validSubmit)="login()"
-      [formGroup]="form">
-  <div class="modal-body">
-    <alv-alert *ngIf="errorMessage"
-               [notification]="errorMessage"
-               (dismiss)="errorMessage = null">
-    </alv-alert>
-
-    <alv-input-field [label]="'Username'"
-                     alvFormControlName="username">
-    </alv-input-field>
-    <alv-input-field [label]="'Password'"
-                     alvFormControlName="password"
-                     type="password">
-    </alv-input-field>
-  </div>
-  <div class="modal-footer">
-    <button type="button"
-            class="btn btn-text"
-            (click)="activeModal.dismiss('cancel')">Cancel
-    </button>
-    <button type="submit" class="btn btn-primary">Login
-    </button>
-  </div>
-</form>
-
+<alv-modal modalTitle="Login"
+           primaryLabel="Login"
+           (primaryAction)="login()"
+           secondaryLabel="Cancel"
+           (secondaryAction)="modal.dismiss()"
+           [formGroup]="form">
+  <alv-alert *ngIf="errorMessage"
+             [notification]="errorMessage"
+             (dismiss)="errorMessage = null">
+  </alv-alert>
+  <alv-input-field label="Username"
+                   alvFormControlName="username">
+  </alv-input-field>
+  <alv-input-field label="Password"
+                   alvFormControlName="password"
+                   type="password">
+  </alv-input-field>
+</alv-modal>

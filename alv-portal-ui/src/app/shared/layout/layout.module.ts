@@ -20,7 +20,10 @@ import { SharedAuthModule } from '../auth/shared-auth.module';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { NotificationsService } from '../../core/notifications.service';
 import { AlertComponent } from './notifications/alert/alert.component';
+import { ModalComponent } from './modal/modal.component';
+import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
   imports: [
@@ -31,6 +34,7 @@ import { TranslateModule } from '@ngx-translate/core';
     RouterModule,
     HttpClientModule,
     SharedAuthModule,
+    FormsModule,
     TranslateModule
   ],
   declarations: [
@@ -44,7 +48,12 @@ import { TranslateModule } from '@ngx-translate/core';
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
-    AlertComponent
+    AlertComponent,
+    ModalComponent,
+    ConfirmModalComponent
+  ],
+  entryComponents: [
+    ConfirmModalComponent
   ],
   exports: [
     NavigationContainerComponent,
@@ -55,7 +64,8 @@ import { TranslateModule } from '@ngx-translate/core';
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
-    AlertComponent
+    AlertComponent,
+    ModalComponent
   ],
   providers: [
     NotificationsService

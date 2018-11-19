@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TypeaheadItemModel } from '../shared/forms/input/typeahead/typeahead-item.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { ModalService } from '../core/auth/modal.service';
 
 export class LocalityInputType {
   static LOCALITY = 'locality';
@@ -39,7 +40,10 @@ export class ShowcaseComponent implements OnInit {
 
   itemLoaderFn = this.fetchSuggestions.bind(this);
 
-  constructor(private http: HttpClient) {
+  confirmModalDemoText: string;
+
+  constructor(private http: HttpClient,
+              private modalService: ModalService) {
   }
 
   ngOnInit() {
@@ -57,6 +61,26 @@ export class ShowcaseComponent implements OnInit {
         .pipe(
             map(_resultMapper)
         );
+  }
+
+  openConfirmModal() {
+    this.modalService.openConfirm({
+      title: 'Confirm Title',
+      textHtml: '<em>This is</em> <code>HTML</code> <strong>text</strong>.'
+    }).result.then(result => {
+          // On confirm
+          this.confirmModalDemoText = result;
+          this.confirmAction();
+        },
+        reason => {
+          // On cancel
+          this.confirmModalDemoText = reason;
+        });
+  }
+
+  private confirmAction() {
+    of('some backend request').subscribe(result => {
+    });
   }
 
   private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): TypeaheadItemModel[] {
