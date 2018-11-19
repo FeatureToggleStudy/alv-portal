@@ -19,6 +19,10 @@ const appRoutes: Routes = [
     loadChildren: './registration/registration.module#RegistrationModule'
   },
   {
+    path: 'search',
+    loadChildren: './search/search.module#SearchModule'
+  },
+  {
     path: 'landing',
     component: LandingPageComponent,
   },
