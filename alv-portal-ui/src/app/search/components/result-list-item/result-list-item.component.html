@@ -1,3 +1,24 @@
-<p>
-  result-list-item works!
-</p>
+<div *ngIf="result.description"
+     class="logo-box flex-height result-list__item md-whiteframe-1dp"
+     [routerLink]="result.routerLink"
+     [ngClass]="{'result-list__item--visited' : result.visited}">
+  <div class="result-list__item__content d-flex w-100 flex-column flex-sm-row justify-content-between mb-1">
+    <h4 class="text--primary-color order-2 order-sm-1">
+      <span [innerHtml]="result.title | safeHtml"></span></h4>
+    <div class="order-1 order-sm-2 w-100">
+      <small class="result-list__item__date">{{ result.header }}</small>
+    </div>
+  </div>
+
+  <div>
+    <span class="text--primary-color">{{result.subtitle}}</span>
+    <span *ngFor="let badge of result.badges"
+          class="badge"
+          [ngClass]="badge.cssClass">
+        {{badge.label}}
+    </span>
+  </div>
+
+  <div class="line-clamp"
+       [innerHtml]="result.description | markdownEscape | safeHtml"></div>
+</div>

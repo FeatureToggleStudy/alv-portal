@@ -24,6 +24,8 @@ import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { SafeHtmlPipe } from './safe-html.pipe';
+import { MarkdownEscapePipe } from './markdown-escape.pipe';
 
 @NgModule({
   imports: [
@@ -50,7 +52,9 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     NotificationsComponent,
     AlertComponent,
     ModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    SafeHtmlPipe,
+    MarkdownEscapePipe
   ],
   entryComponents: [
     ConfirmModalComponent
@@ -65,7 +69,9 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     HelpButtonComponent,
     NotificationsComponent,
     AlertComponent,
-    ModalComponent
+    ModalComponent,
+    SafeHtmlPipe,
+    MarkdownEscapePipe
   ],
   providers: [
     NotificationsService

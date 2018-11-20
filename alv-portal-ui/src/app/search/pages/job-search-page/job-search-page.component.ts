@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { resultListItemMock } from '../../components/result-list-item/result-list-item.model';
 
 @Component({
   selector: 'alv-job-search-page',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobSearchPageComponent implements OnInit {
 
+  resultListItemMock = resultListItemMock;
   constructor() {
   }
 
