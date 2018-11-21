@@ -71,7 +71,6 @@ import { StepIndicatorComponent } from './step-indicator/step-indicator.componen
     StepIndicatorComponent
   ],
   providers: [
-    NotificationsService
   ]
 })
 export class LayoutModule {

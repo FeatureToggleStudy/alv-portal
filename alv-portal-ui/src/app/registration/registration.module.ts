@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { JobseekerIdentificationComponent } from './finish-registration/jobseeker/jobseeker-identification/jobseeker-identification.component';
 import { RoleSelectionComponent } from './finish-registration/role-selection/role-selection.component';
 import { CompanyIdentificationComponent } from './finish-registration/company/company-identification/company-identification.component';
-import { StepIndicatorComponent } from '../shared/layout/step-indicator/step-indicator.component';
 import { CompanyRequestAccessCodeComponent } from './finish-registration/company/company-request-access-code/company-request-access-code.component';
 import { PavIdentificationComponent } from './finish-registration/pav/pav-identification/pav-identification.component';
 import { PavRequestAccessCodeComponent } from './finish-registration/pav/pav-request-access-code/pav-request-access-code.component';
