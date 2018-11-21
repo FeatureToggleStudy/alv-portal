@@ -23,34 +23,6 @@ export class OrganizationService {
         .pipe(
             map((autocomplete: OrganizationAutocomplete) => autocomplete ? autocomplete.organizations : [])
         );
-/*
-    return of({
-      organizations: [{
-        externalId: '1231232',
-        name: 'mimacom',
-        street: 'Galgenfeldweg 16',
-        city: 'Bern',
-        zipCode: '3003'
-      },
-        {
-          externalId: '1231232',
-          name: 'mimacom',
-          street: 'Galgenfeldweg 16',
-          city: 'Bern',
-          zipCode: '3003'
-        },
-        {
-          externalId: '1231232',
-          name: 'mimacom',
-          street: 'Galgenfeldweg 16',
-          city: 'Bern',
-          zipCode: '3003'
-        }]
-
-    }).pipe(
-        map((autocomplete: OrganizationAutocomplete) => autocomplete ? autocomplete.organizations : [])
-    );
-*/
   }
 
 }
