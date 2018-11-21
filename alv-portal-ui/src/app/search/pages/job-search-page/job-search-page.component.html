@@ -1,4 +1,8 @@
-<p>
-  job-search-page works!
-</p>
-<alv-result-list-item [result]="resultListItemMock"></alv-result-list-item>
+<div class="row">
+  <div class="col-xs-12 col-md-3">
+    <alv-filter-panel (filtersChange)="onFiltersChange($event)"></alv-filter-panel>
+  </div>
+  <div class="col-xs-12 col-md-9">
+    <alv-result-list-item [result]="resultListItemMock"></alv-result-list-item>
+  </div>
+</div>

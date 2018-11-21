@@ -15,4 +15,8 @@ export class JobSearchPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  onFiltersChange($event) {
+    console.log($event);
+  }
+
 }
