@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { OrganizationAutocomplete, OrganizationSuggestion } from './organization.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators';
 })
 export class OrganizationService {
 
-  private resourceUrl = 'api/organizations';
   private resourceSearchUrl = 'api/_search/organizations';
 
   constructor(private http: HttpClient) {
@@ -20,11 +19,11 @@ export class OrganizationService {
     const params = new HttpParams()
         .set('prefix', prefix)
         .set('resultSize', resultSize.toString());
-    /*return this.http.get<OrganizationAutocomplete>(`${this.resourceSearchUrl}/suggest`, { params })
+    return this.http.get<OrganizationAutocomplete>(`${this.resourceSearchUrl}/suggest`, { params })
         .pipe(
             map((autocomplete: OrganizationAutocomplete) => autocomplete ? autocomplete.organizations : [])
-        );*/
-
+        );
+/*
     return of({
       organizations: [{
         externalId: '1231232',
@@ -47,10 +46,11 @@ export class OrganizationService {
           city: 'Bern',
           zipCode: '3003'
         }]
+
     }).pipe(
         map((autocomplete: OrganizationAutocomplete) => autocomplete ? autocomplete.organizations : [])
     );
-
+*/
   }
 
 }

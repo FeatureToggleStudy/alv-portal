@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MultiTypeaheadItemModel } from '../shared/forms/input/multi-typeahead/multi-typeahead-item.model';
-import { Observable } from 'rxjs';
-import { MultiTypeaheadItemModel } from '../shared/forms/input/multi-typeahead/multi-typeahead-item.model';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ModalService } from '../core/auth/modal.service';
+import { SelectableOption } from '../shared/forms/input/selectable-option.model';
+import { NotificationsService } from '../core/notifications.service';
 
 export class LocalityInputType {
   static LOCALITY = 'locality';
@@ -42,9 +42,26 @@ export class ShowcaseComponent implements OnInit {
 
   itemLoaderFn = this.fetchSuggestions.bind(this);
 
+  selectControl = new FormControl();
+
+  selectOptions$: Observable<SelectableOption[]> = of([
+    {
+      label: 'Demo Value 1',
+      value: 'value1'
+    },
+    {
+      label: 'Demo Value 2',
+      value: 'value1'
+    },
+    {
+      label: 'Demo Value 3',
+      value: 'value1'
+    }
+  ]);
   confirmModalDemoText: string;
 
   constructor(private http: HttpClient,
+              private notificationService: NotificationsService,
               private modalService: ModalService) {
   }
 
@@ -64,6 +81,7 @@ export class ShowcaseComponent implements OnInit {
             map(_resultMapper)
         );
   }
+
 
   openConfirmModal() {
     this.modalService.openConfirm({

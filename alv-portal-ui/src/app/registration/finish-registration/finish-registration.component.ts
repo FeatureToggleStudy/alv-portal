@@ -8,7 +8,7 @@ import {
 import { RegistrationStep } from '../registration-step.enum';
 import { Step } from '../step-indicator/step.model';
 import { Company } from '../registration.model';
-import { OrganizationSuggestion } from '../organization/organization.model';
+import { OrganizationSuggestion } from '../../service/organization/organization.model';
 
 @Component({
   selector: 'alv-finish-registration',

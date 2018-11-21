@@ -2,9 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   formatOrganizationName,
   OrganizationSuggestion
-} from '../../organization/organization.model';
+} from '../../../service/organization/organization.model';
 import { Observable } from 'rxjs';
-import { OrganizationService } from '../../organization/organization.service';
+import { OrganizationService } from '../../../service/organization/organization.service';
 import { map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SingleTypeaheadItem } from '../../../shared/forms/input/single-typeahead/single-typeahead-item.model';

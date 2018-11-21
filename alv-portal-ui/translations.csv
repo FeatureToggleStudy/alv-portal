@@ -1279,10 +1279,13 @@ portal,portal.modal.confirm.no,Nein,No,Non,No
 
 portal,portal.authentication.notification.expired,Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.,Your session has expired. Please log in again.,La session a expiré. Veuillez vous reconnecter.,La sessione è scaduto. Per favore accedi di nuovo.
 
+portal,portal.registration.termsOfUse.link,https://www.arbeit.swiss/dam/secoalv/de/bilder/unternehmen/Stellenmeldepflicht/Nutzungsbedingungen_Job-Room.pdf.download.pdf/AGB_Job-Room_Juni_2018_de.pdf,https://www.arbeit.swiss/dam/secoalv/en/bilder/unternehmen/Stellenmeldepflicht/Nutzungsbedingungen_Job-Room.pdf.download.pdf/AGB_Job-Room_Juni_2018_en.pdf,https://www.arbeit.swiss/dam/secoalv/fr/bilder/unternehmen/Stellenmeldepflicht/Nutzungsbedingungen_Job-Room.pdf.download.pdf/AGB_Job-Room_Juni_2018_fr.pdf,https://www.arbeit.swiss/dam/secoalv/fr/bilder/unternehmen/Stellenmeldepflicht/Nutzungsbedingungen_Job-Room.pdf.download.pdf/AGB_Job-Room_Juni_2018_fr.pdf
+portal,portal.registration.termsOfUse.label,Nutzungsbedingungen anzeigen,Show terms and conditions,Afficher les conditions d'utilisation,Mostra le condizioni di utilizzo
 portal,portal.registration.company.uid.label,UID,UID,IDE,IDI
 portal,portal.registration.company.uid.title,Unternehmens-Identifikationsnummer eingeben,Enter Company Identification Number,Numéro d'identification des entreprises,Numero d'identificazione delle imprese
 portal,portal.registration.company.uid.help.info,Ihre Unternehmens-Identifikationsnummer (UID) finden Sie unter folgendem Link:,You can get your unique business identification number (UID) under the following link:,Vous trouverez votre numéro d’identification (IDE) au moyen du lien suivant:,‌Clicca sul link per accedere al tuo IDI (Numero d’identificazione delle imprese):
 portal,portal.registration.company.uid.help.label,Bundesamt für Statistik – UID Register,Federal Statistical Office FSO UID Register,Office fédéral de la statistique OFS – Registre IDE,Ufficio federale di statistica UST Registro IDI
+portal,portal.registration.company.uid.help.link,https://www.uid.admin.ch/Search.aspx?lang=de,https://www.uid.admin.ch/Search.aspx?lang=en,https://www.uid.admin.ch/Search.aspx?lang=fr,https://www.uid.admin.ch/Search.aspx?lang=it
 portal,portal.registration.company.step1,UID eingeben,Enter UID,Saisir l'IDE,Inserire l'IDI
 portal,portal.registration.company.step2,Freischaltcode anfordern,Request activation code,Demander le code de déverrouillage,Richiedere il codice di attivazione
 portal,portal.registration.company.step3,Freischaltcode eingeben,Enter activation code,Saisir le code de déverrouillage,Inserire il codice di attivazione
@@ -1298,4 +1301,3 @@ portal,portal.forms.validation.ngbDate,"Datumsformat ungültig, richtiges Format
 portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{day}}.{{month}}.{{year}} liegen,Date must be before {{day}}.{{month}}.{{year}},La date doit être antérieure au {{day}}.{{month}}.{{year}},La data deve essere precedente all'{{day}}.{{month}}.{{year}}
 portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{day}}.{{month}}.{{year}} liegen,Date must be after {{day}}.{{month}}.{{year}},La date doit être après le {{day}}.{{month}}.{{year}},La data deve essere successiva all'{{day}}.{{month}}.{{year}}
 
-Ihre Unternehmens-Identifikationsnummer (UID) finden Sie unter folgendem Link:

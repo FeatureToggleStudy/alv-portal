@@ -34,4 +34,23 @@
           (click)="openConfirmModal()">Open Confirm Modal
   </button>
   {{confirmModalDemoText}}
+
+  <h1 class="mt-2">Buttons</h1>
+  <div class="d-flex mb-2">
+    <button class="btn btn-primary btn-icon mr-2"><i class="fas fa-wrench"></i></button>
+    <button class="btn btn-primary mr-2">Primary</button>
+    <button class="btn btn-primary" [disabled]="true">Primary</button>
+  </div>
+  <div class="d-flex mb-2">
+    <button class="btn btn-secondary btn-icon mr-2"><i class="fas fa-caret-left"></i></button>
+    <button class="btn btn-secondary mr-2">Sedondary</button>
+    <button class="btn btn-secondary" [disabled]="true">Secondary Disabled</button>
+  </div>
+  <div class="d-flex mb-2">
+    <button class="btn btn-text btn-icon mr-2"><i class="fas fa-info"></i></button>
+    <button class="btn btn-text mr-2">Text</button>
+    <button class="btn btn-text" [disabled]="true">Text</button>
+  </div>
+
+
 </div>

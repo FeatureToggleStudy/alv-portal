@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { OrganizationSuggestion } from '../../organization/organization.model';
+import { OrganizationSuggestion } from '../../../service/organization/organization.model';
 import { AbstractRegistrationStep } from '../../abstract-registration-step';
 import { RegistrationStep } from '../../registration-step.enum';
 import { Router } from '@angular/router';

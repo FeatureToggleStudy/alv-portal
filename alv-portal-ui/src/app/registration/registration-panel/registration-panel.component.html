@@ -22,12 +22,13 @@
 
   <div class="panel-footer">
     <button *ngIf="!hideBackButton"
-            class="btn btn-icon"
+            class="btn btn-secondary btn-icon"
             type="button"
             (click)="handleBackClick()"><i class="fas fa-caret-left"></i></button>
     <div class="flex-grow-1"></div>
     <button *ngIf="secondaryLabel"
-            class="btn btn-text"
+            class="btn"
+            [ngClass]="primaryLabel ? 'btn-text' : 'btn-secondary'"
             type="button"
             (click)="handleSecondaryClick()">{{secondaryLabel| translate}}</button>
     <button *ngIf="primaryLabel"
