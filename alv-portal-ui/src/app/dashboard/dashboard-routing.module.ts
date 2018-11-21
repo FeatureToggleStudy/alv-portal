@@ -17,17 +17,17 @@ const routes: Routes = [
       {
         path: 'job-seeker',
         component: JobSeekerDashboardPageComponent,
-        data: { titleKey: 'JOB_SEEKER_DASHBOARD_PAGE' }
+        data: { titleKey: 'JOB_SEEKER_DASHBOARD_PAGE', collapsed: true }
       },
       {
         path: 'pav',
         component: PavDashboardPageComponent,
-        data: { titleKey: 'PAV_DASHBOARD_PAGE' }
+        data: { titleKey: 'PAV_DASHBOARD_PAGE', collapsed: true }
       },
       {
         path: 'company',
         component: PavDashboardPageComponent,
-        data: { titleKey: 'COMPANY_DASHBOARD_PAGE' }
+        data: { titleKey: 'COMPANY_DASHBOARD_PAGE', collapsed: true }
       }
     ]
   }

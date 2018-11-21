@@ -13,7 +13,7 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 export class MainNavigationComponent extends AbstractSubscriber implements OnInit {
 
   @HostBinding('class') readonly class = 'side-nav expanded navbar navbar-expand-lg p-0';
-  @HostBinding('class.collapsed') collapsed = false;
+  @HostBinding('class.collapsed') collapsed = true;
 
   menuEntries: any = [];
 
@@ -28,11 +28,18 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnInit() {
-    this.messageBusService.of(MessageType.TOGGLE_NAVIGATION)
+    this.messageBusService.of(MessageType.TOGGLE_MOBILE_NAVIGATION)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(
             message => {
               this.toggleMobileSideNav();
+            }
+        );
+    this.messageBusService.of<boolean>(MessageType.TOGGLE_DESKTOP_NAVIGATION)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(
+            collapsed => {
+              this.collapseDesktopSideNav(collapsed);
             }
         );
     this.authenticationService.getCurrentUser()
@@ -52,4 +59,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
     this.collapsed = !this.collapsed;
   }
 
+  collapseDesktopSideNav(collapsed: boolean) {
+    this.collapsed = collapsed;
+  }
 }
