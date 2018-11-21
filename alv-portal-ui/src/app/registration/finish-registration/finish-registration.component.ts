@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {
-  COMPANY_UID_REGEX,
-  PERSON_NUMBER_REGEX
-} from '../../shared/forms/regex-patterns';
+import { FormBuilder } from '@angular/forms';
 import { RegistrationStep } from '../registration-step.enum';
-import { Step } from '../../shared/layout/step-indicator/step.model';
-import { Company } from '../registration.model';
 import { OrganizationSuggestion } from '../../service/organization/organization.model';
+import { Company } from '../../service/company/company.model';
 
 @Component({
   selector: 'alv-finish-registration',

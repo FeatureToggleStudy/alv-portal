@@ -1,11 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AbstractRegistrationStep } from '../../abstract-registration-step';
-import { RegistrationStep } from '../../registration-step.enum';
+import { Component, Input } from '@angular/core';
+import { AbstractRegistrationStep } from '../../../abstract-registration-step';
+import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
-import { Company } from '../../registration.model';
-import { FormGroup } from '@angular/forms';
-import { RegistrationService } from '../../registration.service';
+import { RegistrationService } from '../../../registration.service';
 import { finalize } from 'rxjs/operators';
+import { Company } from '../../../../service/company/company.model';
 
 @Component({
   selector: 'alv-company-request-access-code',

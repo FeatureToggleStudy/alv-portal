@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationStep } from '../registration-step.enum';
+import { RegistrationStep } from '../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
-import { AbstractRegistrationStep } from '../abstract-registration-step';
+import { AbstractRegistrationStep } from '../../abstract-registration-step';
 import { Router } from '@angular/router';
 
 @Component({

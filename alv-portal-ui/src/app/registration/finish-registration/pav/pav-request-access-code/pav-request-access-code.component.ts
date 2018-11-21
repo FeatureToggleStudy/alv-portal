@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { OrganizationSuggestion } from '../../../service/organization/organization.model';
-import { AbstractRegistrationStep } from '../../abstract-registration-step';
-import { RegistrationStep } from '../../registration-step.enum';
+import { OrganizationSuggestion } from '../../../../service/organization/organization.model';
+import { AbstractRegistrationStep } from '../../../abstract-registration-step';
+import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
-import { RegistrationService } from '../../registration.service';
+import { RegistrationService } from '../../../registration.service';
 import { finalize } from 'rxjs/operators';
 
 @Component({

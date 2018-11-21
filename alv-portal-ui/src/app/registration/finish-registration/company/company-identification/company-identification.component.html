@@ -10,7 +10,7 @@
                       [activeStep]="1">
   </alv-step-indicator>
   <alv-alert [hideDismiss]="true"
-             [notification]="{type: 'info', messageKey: 'portal.registration.company.uid.help.info', isSticky: false}">
+             [notification]="uidInfoNotification">
     <a [href]="'portal.registration.company.uid.help.link' | translate"
        class="link"
        target="_blank"

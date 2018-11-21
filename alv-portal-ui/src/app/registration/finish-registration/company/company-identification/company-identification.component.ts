@@ -1,12 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { COMPANY_UID_REGEX } from '../../../shared/forms/regex-patterns';
-import { AbstractRegistrationStep } from '../../abstract-registration-step';
-import { RegistrationStep } from '../../registration-step.enum';
+import { COMPANY_UID_REGEX } from '../../../../shared/forms/regex-patterns';
+import { AbstractRegistrationStep } from '../../../abstract-registration-step';
+import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
-import { Company } from '../../registration.model';
-import { NotificationsService } from '../../../core/notifications.service';
-import { RegistrationService } from '../../registration.service';
+import { NotificationsService } from '../../../../core/notifications.service';
+import { RegistrationService } from '../../../registration.service';
+import { CompanyService } from '../../../../service/company/company.service';
+import { Company } from '../../../../service/company/company.model';
+import { NotificationType } from '../../../../shared/layout/notifications/notification.model';
 
 @Component({
   selector: 'alv-company-identification',
@@ -21,9 +23,16 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
 
   companySteps = this.registrationService.companySteps;
 
+  uidInfoNotification = {
+    type: NotificationType.INFO,
+    messageKey: 'portal.registration.company.uid.help.info',
+    isSticky: true
+  };
+
   constructor(private fb: FormBuilder,
               private router: Router,
               private registrationService: RegistrationService,
+              private companyService: CompanyService,
               private notificationsService: NotificationsService) {
     super();
   }
@@ -35,9 +44,8 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
   }
 
   findCompanyByUid() {
-    this.registrationService.getCompanyByUid(
-        this.registrationService.extractCompanyUid(this.companyUidForm.get('uid').value)
-    )
+    const extractedUid = this.companyService.extractCompanyUid(this.companyUidForm.get('uid').value);
+    this.companyService.getCompanyByUid(extractedUid)
         .subscribe(
             (company) => {
               this.companySelected.emit(company);

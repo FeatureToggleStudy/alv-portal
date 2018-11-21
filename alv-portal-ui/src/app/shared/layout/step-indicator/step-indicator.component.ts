@@ -1,20 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Step } from './step.model';
+import { Component, Input } from '@angular/core';
+import { StepIndicatorItem } from './step.model';
 
 @Component({
   selector: 'alv-step-indicator',
   templateUrl: './step-indicator.component.html',
   styleUrls: ['./step-indicator.component.scss']
 })
-export class StepIndicatorComponent implements OnInit {
+export class StepIndicatorComponent {
 
-  @Input() steps: Step[];
+  @Input() steps: StepIndicatorItem[];
 
   @Input() activeStep: number;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
   }
 
 }

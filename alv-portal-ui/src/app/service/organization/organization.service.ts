@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class OrganizationService {
 
-  private resourceSearchUrl = 'api/_search/organizations';
+  readonly RESOURCE_SEARCH_URL = 'api/_search/organizations';
 
   constructor(private http: HttpClient) {
   }
@@ -19,10 +19,38 @@ export class OrganizationService {
     const params = new HttpParams()
         .set('prefix', prefix)
         .set('resultSize', resultSize.toString());
-    return this.http.get<OrganizationAutocomplete>(`${this.resourceSearchUrl}/suggest`, { params })
+    return this.http.get<OrganizationAutocomplete>(`${this.RESOURCE_SEARCH_URL}/suggest`, { params })
         .pipe(
             map((autocomplete: OrganizationAutocomplete) => autocomplete ? autocomplete.organizations : [])
         );
+/*
+    return of({
+      organizations: [{
+        externalId: '1231232',
+        name: 'mimacom',
+        street: 'Galgenfeldweg 16',
+        city: 'Bern',
+        zipCode: '3003'
+      },
+        {
+          externalId: '1231232',
+          name: 'mimacom',
+          street: 'Galgenfeldweg 16',
+          city: 'Bern',
+          zipCode: '3003'
+        },
+        {
+          externalId: '1231232',
+          name: 'mimacom',
+          street: 'Galgenfeldweg 16',
+          city: 'Bern',
+          zipCode: '3003'
+        }]
+
+    }).pipe(
+        map((autocomplete: OrganizationAutocomplete) => autocomplete ? autocomplete.organizations : [])
+    );
+*/
   }
 
 }

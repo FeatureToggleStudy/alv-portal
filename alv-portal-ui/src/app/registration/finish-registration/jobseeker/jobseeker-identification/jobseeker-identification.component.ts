@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AbstractRegistrationStep } from '../../abstract-registration-step';
-import { RegistrationStep } from '../../registration-step.enum';
+import { AbstractRegistrationStep } from '../../../abstract-registration-step';
+import { RegistrationStep } from '../../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PERSON_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
-import { RegistrationService } from '../../registration.service';
+import { PERSON_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
+import { RegistrationService } from '../../../registration.service';
 import { catchError } from 'rxjs/operators';
-import { NotificationsService } from '../../../core/notifications.service';
+import { NotificationsService } from '../../../../core/notifications.service';
 import { EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -31,6 +31,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
   }
 
   ngOnInit() {
+    this.notificationsService.error('registration.customer.identificaton.technical.error');
     this.jobseekerIdentificationForm = this.fb.group({
       personNr: ['', [Validators.required, Validators.pattern(PERSON_NUMBER_REGEX)]],
       birthDate: ['', Validators.required]

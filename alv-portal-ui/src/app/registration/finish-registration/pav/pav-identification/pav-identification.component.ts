@@ -2,16 +2,16 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   formatOrganizationName,
   OrganizationSuggestion
-} from '../../../service/organization/organization.model';
+} from '../../../../service/organization/organization.model';
 import { Observable } from 'rxjs';
-import { OrganizationService } from '../../../service/organization/organization.service';
+import { OrganizationService } from '../../../../service/organization/organization.service';
 import { map } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SingleTypeaheadItem } from '../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
+import { SingleTypeaheadItem } from '../../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
 import { Router } from '@angular/router';
-import { RegistrationStep } from '../../registration-step.enum';
-import { AbstractRegistrationStep } from '../../abstract-registration-step';
-import { RegistrationService } from '../../registration.service';
+import { RegistrationStep } from '../../../registration-step.enum';
+import { AbstractRegistrationStep } from '../../../abstract-registration-step';
+import { RegistrationService } from '../../../registration.service';
 
 @Component({
   selector: 'alv-pav-identification',
