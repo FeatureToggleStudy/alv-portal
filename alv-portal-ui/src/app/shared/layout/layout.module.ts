@@ -24,6 +24,7 @@ import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     NotificationsComponent,
     AlertComponent,
     ModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    StepIndicatorComponent
   ],
   entryComponents: [
     ConfirmModalComponent
@@ -65,7 +67,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     HelpButtonComponent,
     NotificationsComponent,
     AlertComponent,
-    ModalComponent
+    ModalComponent,
+    StepIndicatorComponent
   ],
   providers: [
     NotificationsService

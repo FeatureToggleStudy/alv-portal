@@ -6,7 +6,7 @@ import {
   PERSON_NUMBER_REGEX
 } from '../../shared/forms/regex-patterns';
 import { RegistrationStep } from '../registration-step.enum';
-import { Step } from '../step-indicator/step.model';
+import { Step } from '../../shared/layout/step-indicator/step.model';
 import { Company } from '../registration.model';
 import { OrganizationSuggestion } from '../../service/organization/organization.model';
 

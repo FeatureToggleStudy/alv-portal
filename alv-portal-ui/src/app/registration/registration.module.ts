@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { JobseekerIdentificationComponent } from './jobseeker/jobseeker-identification/jobseeker-identification.component';
 import { RoleSelectionComponent } from './role-selection/role-selection.component';
 import { CompanyIdentificationComponent } from './company/company-identification/company-identification.component';
-import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
+import { StepIndicatorComponent } from '../shared/layout/step-indicator/step-indicator.component';
 import { CompanyRequestAccessCodeComponent } from './company/company-request-access-code/company-request-access-code.component';
 import { PavIdentificationComponent } from './pav/pav-identification/pav-identification.component';
 import { PavRequestAccessCodeComponent } from './pav/pav-request-access-code/pav-request-access-code.component';
@@ -21,7 +21,6 @@ import { PavRequestAccessCodeComponent } from './pav/pav-request-access-code/pav
     JobseekerIdentificationComponent,
     RoleSelectionComponent,
     CompanyIdentificationComponent,
-    StepIndicatorComponent,
     CompanyRequestAccessCodeComponent,
     PavIdentificationComponent,
     PavRequestAccessCodeComponent
