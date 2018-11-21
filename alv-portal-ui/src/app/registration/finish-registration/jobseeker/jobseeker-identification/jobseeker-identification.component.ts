@@ -31,7 +31,6 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
   }
 
   ngOnInit() {
-    this.notificationsService.error('registration.customer.identificaton.technical.error');
     this.jobseekerIdentificationForm = this.fb.group({
       personNr: ['', [Validators.required, Validators.pattern(PERSON_NUMBER_REGEX)]],
       birthDate: ['', Validators.required]
@@ -53,8 +52,9 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
             if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
               this.notificationsService.error('registration.customer.identificaton.already-taken.error');
             }
+          } else {
+            this.notificationsService.error('registration.customer.identificaton.technical.error');
           }
-          this.notificationsService.error('registration.customer.identificaton.technical.error');
           return EMPTY;
         })
     ).subscribe(success => {

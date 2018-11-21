@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { RegistrationStatus } from '../../core/auth/user.model';
 import { StepIndicatorItem } from '../../shared/layout/step-indicator/step.model';
+import { NotificationsService } from '../../core/notifications.service';
 
 @Component({
   selector: 'alv-access-code',
@@ -24,6 +25,7 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
   constructor(private fb: FormBuilder,
               private registrationService: RegistrationService,
               private router: Router,
+              private notificationsService: NotificationsService,
               private authenticationService: AuthenticationService) {
     super();
   }
@@ -37,7 +39,19 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
   }
 
   submitAccessCode() {
-    this.registrationService.registerEmployerOrAgent(this.accessCodeForm.get('accessCode').value).subscribe()
+    this.registrationService.registerEmployerOrAgent(this.accessCodeForm.get('accessCode').value)
+        .subscribe((response: { success: boolean, type: string }) => {
+          if (response.success) {
+            // Force refresh current user from server
+            this.authenticationService.getCurrentUser(true)
+                .subscribe((user) => {
+                  this.router.navigate(['/dashboard']);
+                });
+          } else {
+            this.notificationsService.error('registrationAccessCode.accessCode.error.invalid');
+            this.accessCodeForm.reset();
+          }
+        });
   }
 
   returnToHome() {
@@ -56,6 +70,8 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
             this.steps = this.registrationService.pavSteps;
           } else if (user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
             this.steps = this.registrationService.companySteps;
+          } else {
+            this.router.navigate(['home']);
           }
         });
   }

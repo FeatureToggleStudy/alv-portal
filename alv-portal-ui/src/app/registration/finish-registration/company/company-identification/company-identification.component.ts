@@ -53,6 +53,7 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
             },
             () => {
               this.notificationsService.error('registrationCompanyDialog.validation.error.notFound');
+              this.companyUidForm.reset();
             });
   }
 

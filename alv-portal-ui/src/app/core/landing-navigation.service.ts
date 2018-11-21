@@ -37,6 +37,7 @@ export class LandingNavigationService {
     if (user.hasAnyAuthorities(['ROLE_PRIVATE_EMPLOYMENT_AGENT'])) {
       return this.router.navigate(['dashboard', 'pav']);
     }
+    return this.router.navigate(['home']);
   }
 }
 

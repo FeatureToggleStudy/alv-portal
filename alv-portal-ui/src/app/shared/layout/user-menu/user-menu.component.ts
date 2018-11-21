@@ -11,7 +11,15 @@ import { LandingNavigationService } from '../../../core/landing-navigation.servi
 })
 export class UserMenuComponent implements OnInit {
 
-  @Input() user: User;
+  private _user: User;
+
+  @Input() set user(user: User) {
+    this._user = user;
+    this.hasCompletedRegistration = this._user.registrationStatus === RegistrationStatus.REGISTERED;
+  }
+  get user() {
+    return this._user;
+  }
 
   @Input() noEiam: boolean;
 
@@ -23,7 +31,7 @@ export class UserMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.hasCompletedRegistration = this.user.registrationStatus === RegistrationStatus.REGISTERED;
+
   }
 
   logout() {
