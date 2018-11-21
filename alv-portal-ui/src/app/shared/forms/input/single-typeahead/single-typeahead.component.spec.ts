@@ -1,7 +1,7 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { SingleTypeaheadComponent } from './single-typeahead.component';
-import { SingleTypeaheadItemModel } from './single-typeahead-item.model';
+import { SingleTypeaheadItem } from './single-typeahead-item.model';
 import { BehaviorSubject, of } from 'rxjs';
 import { SingleTypeaheadItemDisplayModel } from './single-typeahead-item-display.model';
 import { ValidationMessagesComponent } from '../validation-messages/validation-messages.component';
@@ -35,10 +35,10 @@ describe('SingleTypeaheadComponent', () => {
   describe('removeItem', () => {
     it('should remove an existing item', () => {
       // GIVEN
-      component.control.setValue([new SingleTypeaheadItemModel('type', 'code', 'label')]);
+      component.control.setValue([new SingleTypeaheadItem('type', 'code', 'label')]);
 
       // WHEN
-      component.removeItem(new SingleTypeaheadItemModel('type', 'code', 'label'));
+      component.removeItem(new SingleTypeaheadItem('type', 'code', 'label'));
 
       // THEN
       expect(component.control.value.length).toEqual(0);
@@ -48,23 +48,23 @@ describe('SingleTypeaheadComponent', () => {
   describe('selectFreeText', () => {
     it('should add a new model with type: free-text ', () => {
       // GIVEN
-      component.control.setValue([new SingleTypeaheadItemModel('type', 'code', 'label')]);
+      component.control.setValue([new SingleTypeaheadItem('type', 'code', 'label')]);
 
       // WHEN
       component.inputValue = 'free';
       const freeText = component.selectFreeText();
 
       // THEN
-      const expectedFreeText = new SingleTypeaheadItemModel('free-text', 'free', 'free');
+      const expectedFreeText = new SingleTypeaheadItem('free-text', 'free', 'free');
       expect(freeText).toEqual(expectedFreeText);
       expect(component.control.value.length).toEqual(2);
-      expect(component.control.value).toContain(new SingleTypeaheadItemModel('type', 'code', 'label'));
+      expect(component.control.value).toContain(new SingleTypeaheadItem('type', 'code', 'label'));
       expect(component.control.value).toContain(freeText);
     });
 
     it('should not allow duplicates', () => {
       // GIVEN
-      component.control.setValue([new SingleTypeaheadItemModel('free-text', 'free text value', 'free text value')]);
+      component.control.setValue([new SingleTypeaheadItem('free-text', 'free text value', 'free text value')]);
 
       // WHEN
       component.inputValue = 'free text value';
@@ -73,7 +73,7 @@ describe('SingleTypeaheadComponent', () => {
       // THEN
       expect(freeText).toEqual(null);
       expect(component.control.value.length).toEqual(1);
-      expect(component.control.value).toContain(new SingleTypeaheadItemModel('free-text', 'free text value', 'free text value'));
+      expect(component.control.value).toContain(new SingleTypeaheadItem('free-text', 'free text value', 'free text value'));
     });
 
     it('should not allow free text value with length < TYPEAHEAD_QUERY_MIN_LENGTH', () => {
@@ -90,17 +90,17 @@ describe('SingleTypeaheadComponent', () => {
   describe('selectItem', () => {
     it('should add the selected item to the model', () => {
       // GIVEN
-      component.control.setValue([new SingleTypeaheadItemModel('type', 'code', 'label')]);
+      component.control.setValue([new SingleTypeaheadItem('type', 'code', 'label')]);
 
       // WHEN
       const event = jasmine.createSpyObj('event', ['preventDefault']);
-      event.item = { model: new SingleTypeaheadItemModel('type', 'code1', 'label1') };
+      event.item = { model: new SingleTypeaheadItem('type', 'code1', 'label1') };
       component.selectItem(event);
 
       // THEN
       expect(component.control.value.length).toEqual(2);
-      expect(component.control.value).toContain(new SingleTypeaheadItemModel('type', 'code', 'label'));
-      expect(component.control.value).toContain(new SingleTypeaheadItemModel('type', 'code1', 'label1'));
+      expect(component.control.value).toContain(new SingleTypeaheadItem('type', 'code', 'label'));
+      expect(component.control.value).toContain(new SingleTypeaheadItem('type', 'code1', 'label1'));
     });
   });
 
@@ -142,8 +142,8 @@ describe('SingleTypeaheadComponent', () => {
       let loadedItems: Array<any>;
 
       // GIVEN
-      component.control.setValue([new SingleTypeaheadItemModel('type', 'code', 'label')]);
-      component.loadItems = (value: string) => of([new SingleTypeaheadItemModel('type', 'code', 'label')]);
+      component.control.setValue([new SingleTypeaheadItem('type', 'code', 'label')]);
+      component.loadItems = (value: string) => of([new SingleTypeaheadItem('type', 'code', 'label')]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
       // WHEN
@@ -159,10 +159,10 @@ describe('SingleTypeaheadComponent', () => {
 
       // GIVEN
       component.loadItems = (value: string) => of([
-        new SingleTypeaheadItemModel('type', 'code0', 'label0', 3),
-        new SingleTypeaheadItemModel('type', 'code1', 'label1', 2),
-        new SingleTypeaheadItemModel('type', 'code2', 'label2', 0),
-        new SingleTypeaheadItemModel('type', 'code3', 'label3', 1)
+        new SingleTypeaheadItem('type', 'code0', 'label0', 3),
+        new SingleTypeaheadItem('type', 'code1', 'label1', 2),
+        new SingleTypeaheadItem('type', 'code2', 'label2', 0),
+        new SingleTypeaheadItem('type', 'code3', 'label3', 1)
       ]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
@@ -172,10 +172,10 @@ describe('SingleTypeaheadComponent', () => {
 
       // THEN
       expect(loadedItems).toEqual([
-        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItemModel('type', 'code2', 'label2', 0), true, true),
-        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItemModel('type', 'code3', 'label3', 1), false, false),
-        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItemModel('type', 'code1', 'label1', 2), false, false),
-        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItemModel('type', 'code0', 'label0', 3), false, false)
+        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItem('type', 'code2', 'label2', 0), true, true),
+        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItem('type', 'code3', 'label3', 1), false, false),
+        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItem('type', 'code1', 'label1', 2), false, false),
+        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItem('type', 'code0', 'label0', 3), false, false)
       ]);
     }));
 
@@ -184,10 +184,10 @@ describe('SingleTypeaheadComponent', () => {
 
       // GIVEN
       component.loadItems = (value: string) => of([
-        new SingleTypeaheadItemModel('type0', 'code0', 'label0', 0),
-        new SingleTypeaheadItemModel('type0', 'code1', 'label1', 0),
-        new SingleTypeaheadItemModel('type1', 'code2', 'label2', 1),
-        new SingleTypeaheadItemModel('type1', 'code3', 'label3', 1)
+        new SingleTypeaheadItem('type0', 'code0', 'label0', 0),
+        new SingleTypeaheadItem('type0', 'code1', 'label1', 0),
+        new SingleTypeaheadItem('type1', 'code2', 'label2', 1),
+        new SingleTypeaheadItem('type1', 'code3', 'label3', 1)
       ]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
@@ -197,10 +197,10 @@ describe('SingleTypeaheadComponent', () => {
 
       // THEN
       expect(loadedItems).toEqual([
-        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItemModel('type0', 'code0', 'label0', 0), true, true),
-        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItemModel('type0', 'code1', 'label1', 0), false, false),
-        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItemModel('type1', 'code2', 'label2', 1), false, true),
-        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItemModel('type1', 'code3', 'label3', 1), false, false)
+        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItem('type0', 'code0', 'label0', 0), true, true),
+        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItem('type0', 'code1', 'label1', 0), false, false),
+        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItem('type1', 'code2', 'label2', 1), false, true),
+        new SingleTypeaheadItemDisplayModel(new SingleTypeaheadItem('type1', 'code3', 'label3', 1), false, false)
       ]);
     }));
   });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AbstractRegistrationStep } from '../../abstract-registration-step';
 import { RegistrationStep } from '../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -59,6 +59,8 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
     ).subscribe(success => {
       if (success) {
         this.router.navigate(['home']);
+      } else {
+        this.notificationsService.error('registration.customer.identificaton.technical.error');
       }
     });
   }

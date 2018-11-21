@@ -9,6 +9,7 @@
   <alv-input-field label="registration.customer.pn.label"
                    alvFormControlName="personNr"
                    [maxLength]="8"
+                   [autofocus]="true"
                    [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'},
                      {error: 'pattern', message: 'registration.customer.messages.validate.pn'}]">
   </alv-input-field>

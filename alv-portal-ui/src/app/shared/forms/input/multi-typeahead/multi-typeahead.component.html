@@ -33,6 +33,7 @@
              [attr.required]="required"
              [attr.aria-required]="!!required"
              [attr.aria-describedby]="validationId + ' ' + helpId"
+             [alvAutofocus]="autofocus"
              [style.width]="getInputWidth()"
              [ngbTypeahead]="loadItemsGuardedFn"
              [container]="'body'"

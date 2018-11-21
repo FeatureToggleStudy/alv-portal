@@ -16,6 +16,7 @@
            [startDate]="startDate"
            [attr.required]="required"
            [attr.aria-required]="!!required"
+           [alvAutofocus]="autofocus"
            [placement]="placement"
            [formControl]="control"
            [dayTemplate]="dayTemplate"
@@ -38,7 +39,7 @@
               (click)="datePicker.toggle()"
               placement="top"
               ngbTooltip="Open Calendar">
-        <i class="fas fa-calendar"></i>
+        <i class="fas fa-calendar-alt"></i>
       </button>
     </span>
   </div>

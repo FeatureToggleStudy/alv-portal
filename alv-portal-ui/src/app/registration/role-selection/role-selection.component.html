@@ -11,4 +11,11 @@
                     [options$]="registrationOptions$">
   </alv-radio-button>
 
+  <div class="panel-divider"></div>
+
+  <alv-checkbox label="registrationQuestionnaire.termsOfUse.accept"
+                alvFormControlName="termsAndConditions"></alv-checkbox>
+
+  <div [innerHTML]="'registrationQuestionnaire.termsOfUse.link' | translate"></div>
+
 </alv-registration-panel>

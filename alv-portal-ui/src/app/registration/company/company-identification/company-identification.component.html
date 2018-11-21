@@ -1,13 +1,24 @@
 <alv-registration-panel panelTitle="portal.registration.company.uid.title"
                         (primaryAction)="findCompanyByUid()"
                         primaryLabel="navigation.next"
-                        (secondaryAction)="cancelAction()"
+                        (secondaryAction)="returnToHome()"
                         secondaryLabel="registration.customer.cancel"
-                        (backAction)="backAction()"
+                        (backAction)="returnToRoleSelection()"
                         [formGroup]="companyUidForm">
-  <alv-company-step-indicator class="step-indicator panel-full-width"
-                                   [currentStep]="1">
-  </alv-company-step-indicator>
+  <alv-step-indicator class="step-indicator panel-full-width"
+                      [steps]="companySteps"
+                      [activeStep]="1">
+  </alv-step-indicator>
+  <alv-alert [hideDismiss]="true"
+             [notification]="{type: 'info', messageKey: 'portal.registration.company.uid.help.info', isSticky: false}">
+    <a href="https://www.google.com"
+       target="_blank"
+       rel="noopener"
+       class="link-panel">
+      <i class="fas fa-caret-right"></i>
+      {{'portal.registration.company.uid.help.label' | translate}}
+    </a>
+  </alv-alert>
   <p>{{'registrationCompanyDialog.title' | translate}}</p>
   <alv-input-field label="portal.registration.company.uid.label"
                    helpText="registrationCompanyDialog.placeholder"

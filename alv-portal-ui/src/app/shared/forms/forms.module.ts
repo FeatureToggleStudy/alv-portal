@@ -19,6 +19,7 @@ import { FormSubmitValidationDirective } from './form-submit-validation.directiv
 import { MultiTypeaheadComponent } from './input/multi-typeahead/multi-typeahead.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SingleTypeaheadComponent } from './input/single-typeahead/single-typeahead.component';
+import { AutofocusDirective } from './autofocus.directive';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { SingleTypeaheadComponent } from './input/single-typeahead/single-typeah
     CheckboxComponent,
     FormSubmitValidationDirective,
     MultiTypeaheadComponent,
-    SingleTypeaheadComponent
+    SingleTypeaheadComponent,
+    AutofocusDirective
   ],
   exports: [
     AddressInputComponent,

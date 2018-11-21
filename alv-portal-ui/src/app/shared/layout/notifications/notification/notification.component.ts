@@ -26,6 +26,8 @@ export class NotificationComponent implements OnInit {
 
   @Input() notification: Notification;
 
+  @Input() hideDismiss?: boolean;
+
   @Output() dismiss = new EventEmitter<Notification>(true);
 
   public decorateClass: ClassDecoration = {};

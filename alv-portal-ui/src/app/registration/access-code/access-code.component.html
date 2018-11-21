@@ -1,3 +1,25 @@
-<p>
-  access-code-registration-page works!
-</p>
+<div class="container py-4">
+  <alv-registration-panel panelTitle="registrationAccessCode.title"
+                          (primaryAction)="submitAccessCode()"
+                          primaryLabel="navigation.next"
+                          (secondaryAction)="returnToHome()"
+                          secondaryLabel="registration.customer.cancel"
+                          (backAction)="returnToRoleSelection()"
+                          [formGroup]="accessCodeForm">
+    <alv-step-indicator class="step-indicator panel-full-width"
+                        [steps]="companySteps"
+                        [activeStep]="3">
+    </alv-step-indicator>
+    <p>{{'registrationAccessCode.placeholder' | translate}}</p>
+    <alv-input-field label="registrationAccessCode.accessCode.label"
+                     alvFormControlName="accessCode"
+                     [maxLength]="ACCESS_CODE_LENGTH"
+                     [autofocus]="true"
+                     [validationMessages]="[
+                     {error: 'required', message: 'registrationAccessCode.accessCode.error.required'},
+                     {error: 'minlength', message: 'registrationAccessCode.accessCode.error.minlength'}]">
+    </alv-input-field>
+
+  </alv-registration-panel>
+</div>
+

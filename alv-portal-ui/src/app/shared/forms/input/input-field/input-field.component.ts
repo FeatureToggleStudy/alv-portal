@@ -76,8 +76,6 @@ export class InputFieldComponent extends AbstractInput {
    */
   @Input() multiline?: boolean;
 
-  @Input() autofocus?: boolean;
-
   @ViewChild('input') input: ElementRef;
 
   @ViewChild('textarea') textarea: ElementRef;

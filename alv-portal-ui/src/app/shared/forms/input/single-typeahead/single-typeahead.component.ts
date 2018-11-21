@@ -1,11 +1,11 @@
 import {
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   Host,
   HostListener,
   Inject,
   Input,
-  Optional,
+  Optional, Output,
   SkipSelf,
   ViewChild
 } from '@angular/core';
@@ -14,7 +14,7 @@ import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
 import { InputType } from '../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
-import { SingleTypeaheadItemModel } from './single-typeahead-item.model';
+import { SingleTypeaheadItem } from './single-typeahead-item.model';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { SingleTypeaheadItemDisplayModel } from './single-typeahead-item-display.model';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
@@ -28,7 +28,7 @@ enum Key {
 }
 
 @Component({
-  selector: 'alv-typeahead',
+  selector: 'alv-single-typeahead',
   templateUrl: './single-typeahead.component.html',
   styleUrls: ['../abstract-input.scss', './single-typeahead.component.scss']
 })
@@ -38,101 +38,35 @@ export class SingleTypeaheadComponent extends AbstractInput {
 
   readonly TYPEAHEAD_DEBOUNCE_TIME = 200;
 
-  @Input() loadItems: (text: string) => Observable<SingleTypeaheadItemModel[]>;
+  @Input() loadItems: (text: string) => Observable<SingleTypeaheadItem[]>;
 
-  @Input() editable = true;
+  @Input() focusFirst = true;
 
-  @Input() focusFirst = false;
+  @Output() itemSelected = new EventEmitter<SingleTypeaheadItem>();
 
   @ViewChild(NgbTypeahead) ngbTypeahead;
-
-  inputValue: string;
 
   helpId = this.id + '-help';
 
   loadItemsGuardedFn = this.loadItemsGuarded.bind(this);
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
-              inputIdGenerationService: InputIdGenerationService,
-              @Inject(DOCUMENT) private document: any,
-              private elRef: ElementRef) {
-    super(controlContainer, InputType.TYPEAHEAD, inputIdGenerationService);
+              inputIdGenerationService: InputIdGenerationService) {
+    super(controlContainer, InputType.SINGLE_TYPEAHEAD, inputIdGenerationService);
   }
 
-  /**
-   * Listens for an outside click and selects free text if applicable
-   */
-  @HostListener('document:click', ['$event.target'])
-  onClick(targetElement: HTMLElement): void {
-    if (!targetElement) {
-      return;
-    }
-    if (!this.elRef.nativeElement.contains(targetElement)) {
-      if (!this.selectFreeText()) {
-        this.clearInput();
-      }
-    }
-  }
-
-  showPlaceholder(): boolean {
-    return this.control.value && this.control.value.length === 0 && !this.inputValue;
-  }
-
-  formatResultItem(item: SingleTypeaheadItemModel): string {
+  formatResultItem(item: SingleTypeaheadItem): string {
     return item.label;
   }
 
-  hasFocus() {
-    return this.document.activeElement.id === this.id;
-  }
-
-  handleKeyDown(event: KeyboardEvent): void {
-    if (event.which === Key.Enter || event.which === Key.Tab) {
-      if (this.selectFreeText()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      return;
-    }
-    if (event.which === Key.Backspace) {
-      if (!this.inputValue && this.control.value && this.control.value.length) {
-        this.control.value.splice(this.control.value.length - 1, 1);
-      }
-      return;
-    }
-  }
-
   selectItem(event: NgbTypeaheadSelectItemEvent): void {
-    // preventDefault() has to be called to suppress the default selection behaviour of ng-bootstrap
-    // (puts the item in the input field)
-    event.preventDefault();
 
-    this.control.setValue(event.item.model);
+    this.control.setValue(event.item);
 
-    this.clearInput();
-    this.getTypeaheadNativeElement().focus();
+    this.itemSelected.emit(event.item);
   }
 
-  selectFreeText(): SingleTypeaheadItemModel {
-    const freeText = new SingleTypeaheadItemModel(this.inputValue, this.inputValue);
-    if (this.editable && !this.exists(freeText) && freeText.id
-        && freeText.id.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH) {
-
-      this.control.setValue(freeText);
-
-      this.clearInput();
-      return freeText;
-    }
-    return null;
-  }
-
-  removeItem(item: SingleTypeaheadItemModel): void {
-    this.control.setValue(this.control.value.filter((i: SingleTypeaheadItemModel) => !item.equals(i)));
-    this.clearInput();
-    this.getTypeaheadNativeElement().focus();
-  }
-
-  private loadItemsGuarded(text$: Observable<string>): Observable<SingleTypeaheadItemDisplayModel[]> {
+  private loadItemsGuarded(text$: Observable<string>): Observable<SingleTypeaheadItem[]> {
     return text$.pipe(
         debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
         switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
@@ -142,21 +76,14 @@ export class SingleTypeaheadComponent extends AbstractInput {
     );
   }
 
-  private toModelArray(items: SingleTypeaheadItemModel[]): SingleTypeaheadItemModel[] {
+  private toModelArray(items: SingleTypeaheadItem[]): SingleTypeaheadItem[] {
     return items
-        .filter((item: SingleTypeaheadItemModel) => !this.exists(item))
-        .sort((item1: SingleTypeaheadItemModel, item2: SingleTypeaheadItemModel) => item1.compare(item2));
+        .filter((item: SingleTypeaheadItem) => !this.exists(item))
+        .sort((item1: SingleTypeaheadItem, item2: SingleTypeaheadItem) => item1.compare(item2));
   }
 
-  private exists(model: SingleTypeaheadItemModel): boolean {
-    return this.control.value && this.control.value && this.control.value.equals(model);
-  }
-
-  private clearInput(): void {
-    // This hack removes the invalid value from the input field on blur.
-    this.ngbTypeahead._inputValueBackup = '';
-
-    this.inputValue = '';
+  private exists(model: SingleTypeaheadItem): boolean {
+    return this.control.value && this.control.value === model;
   }
 
   private getTypeaheadNativeElement(): any  {

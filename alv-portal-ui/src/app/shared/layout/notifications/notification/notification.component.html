@@ -4,8 +4,10 @@
 
 <div class="text">
   <div class="line-1"> {{notification.messageKey | translate}}</div>
+  <ng-content></ng-content>
 </div>
-<button type="button"
+<button *ngIf="!hideDismiss"
+        type="button"
         class="close close-button"
         (click)="doDismiss(notification)">&times;
 </button>

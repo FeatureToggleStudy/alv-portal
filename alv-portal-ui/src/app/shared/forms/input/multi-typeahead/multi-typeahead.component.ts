@@ -1,11 +1,11 @@
 import {
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   Host,
   HostListener,
   Inject,
   Input,
-  Optional,
+  Optional, Output,
   SkipSelf,
   ViewChild
 } from '@angular/core';
@@ -20,6 +20,7 @@ import { MultiTypeaheadItemDisplayModel } from './multi-typeahead-item-display.m
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
+import { SingleTypeaheadItem } from '../single-typeahead/single-typeahead-item.model';
 
 enum Key {
   Backspace = 8,
@@ -46,6 +47,8 @@ export class MultiTypeaheadComponent extends AbstractInput {
 
   @Input() limit = 0;
 
+  @Output() itemSelected = new EventEmitter<MultiTypeaheadItemModel>();
+
   @ViewChild(NgbTypeahead) ngbTypeahead;
 
   inputValue: string;
@@ -58,7 +61,7 @@ export class MultiTypeaheadComponent extends AbstractInput {
               inputIdGenerationService: InputIdGenerationService,
               @Inject(DOCUMENT) private document: any,
               private elRef: ElementRef) {
-    super(controlContainer, InputType.TYPEAHEAD, inputIdGenerationService);
+    super(controlContainer, InputType.MULTI_TYPEAHEAD, inputIdGenerationService);
   }
 
   /**
@@ -132,6 +135,8 @@ export class MultiTypeaheadComponent extends AbstractInput {
       return;
     }
     this.control.setValue([...this.control.value || [], event.item.model]);
+
+    this.itemSelected.emit(event.item.model);
 
     this.clearInput();
     this.getTypeaheadNativeElement().focus();

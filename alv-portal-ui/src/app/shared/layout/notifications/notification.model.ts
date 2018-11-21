@@ -6,9 +6,9 @@ export interface Notification {
 }
 
 export enum NotificationType {
-  DEFAULT,
-  INFO,
-  SUCCESS,
-  WARNING,
-  ERROR
+  DEFAULT = 'default',
+  INFO = 'info',
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  ERROR = 'error'
 }

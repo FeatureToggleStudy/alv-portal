@@ -5,7 +5,8 @@ const PATH_TO_PICTURE = {
   '/home/job-seeker': 'jobseeker-home',
   '/home/company': 'company-home',
   '/home/pav': 'pav-home',
-  '/registration/finish': 'jobseeker-home'
+  '/registration/finish': 'jobseeker-home',
+  '/registration/access-code': 'jobseeker-home'
 };
 @Component({
   selector: 'alv-navigation-container',

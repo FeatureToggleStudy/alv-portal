@@ -44,6 +44,11 @@ export abstract class AbstractInput implements OnInit {
    */
   @Input() helpText?: string;
 
+  /**
+   * (optional) if true, the autofocus attribute will be set on the input
+   */
+  @Input() autofocus?: boolean;
+
   validationId: string;
 
   protected constructor(

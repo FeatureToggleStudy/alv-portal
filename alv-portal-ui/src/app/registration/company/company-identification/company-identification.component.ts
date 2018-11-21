@@ -15,9 +15,11 @@ import { RegistrationService } from '../../registration.service';
 })
 export class CompanyIdentificationComponent extends AbstractRegistrationStep implements OnInit {
 
-  @Output() company = new EventEmitter<Company>();
+  @Output() companySelected = new EventEmitter<Company>();
 
   companyUidForm: FormGroup;
+
+  companySteps = this.registrationService.companySteps;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -30,14 +32,15 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
     this.companyUidForm = this.fb.group({
       uid: ['', [Validators.required, Validators.pattern(COMPANY_UID_REGEX)]]
     });
-
   }
 
   findCompanyByUid() {
-    this.registrationService.getCompanyByUid(this.companyUidForm.get('uid').value)
+    this.registrationService.getCompanyByUid(
+        this.registrationService.extractCompanyUid(this.companyUidForm.get('uid').value)
+    )
         .subscribe(
             (company) => {
-              this.company.emit(company);
+              this.companySelected.emit(company);
               this.updateStep.emit(RegistrationStep.COMPANY_REQUEST_ACCESS_STEP);
             },
             () => {
@@ -45,11 +48,11 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
             });
   }
 
-  backAction() {
+  returnToRoleSelection() {
     this.updateStep.emit(RegistrationStep.SELECT_ROLE_STEP);
   }
 
-  cancelAction() {
+  returnToHome() {
     this.router.navigate(['home']);
   }
 

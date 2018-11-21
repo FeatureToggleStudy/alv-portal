@@ -14,6 +14,7 @@
            [value]="option.value"
            [attr.id]="id + '-' + option.value"
            [attr.aria-readonly]="readonly"
+           [alvAutofocus]="autofocus"
            (click)="!readonly">
     <label class="form-check-label"
            [for]="id + '-' + option.value" [innerHTML]="option.label | translate">

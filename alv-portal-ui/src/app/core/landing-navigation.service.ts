@@ -10,7 +10,7 @@ export class LandingNavigationService {
   constructor(private router: Router) {
   }
 
-  public navigateUser(user: User): Promise<boolean> {
+  navigateUser(user: User): Promise<boolean> {
 
     if (user === null) {
       return this.router.navigate(['home']);

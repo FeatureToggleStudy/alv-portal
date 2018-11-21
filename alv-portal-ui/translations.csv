@@ -289,7 +289,7 @@ global,entity.validation.maxbytes,Dieses Feld sollte nicht mehr als {{max}} byte
 global,entity.validation.maxlength,Dieses Feld darf max. {{max}} Zeichen lang sein.,This field cannot be longer than {{ max }} characters.,Ce champ doit comporter au maximum {{max}} caractères.,Questo campo non può essere più di {{ max }} caratteri.
 global,entity.validation.min,Dieses Feld muss grösser als {{min}} sein.,This field must be at least {{ min }}.,Ce champ doit être supérieur à {{min}}.,Questo campo dovrebbe essere più di {{ min }}.
 global,entity.validation.minbytes,Dieses Feld sollte mehr als {{min}} bytes haben.,This field should be at least {{ min }} bytes.,Ce champ doit être supérieur à {{min}} bytes.,Questo campo dovrebbe essere più di {{ min }} byte.
-global,entity.validation.minlength,Dieses Feld muss mind. {{min}} Zeichen lang sein.,This field must be at least {{ min }} characters.,Ce champ doit avoir au minimum {{min}} caractères.,Questo campo deve essere di almeno {{ min }} caratteri.
+global,entity.validation.minlength,Dieses Feld muss mind. {{requiredLength}} Zeichen lang sein.,This field must be at least {{ min }} characters.,Ce champ doit avoir au minimum {{min}} caractères.,Questo campo deve essere di almeno {{ min }} caratteri.
 global,entity.validation.number,Dieses Feld muss eine Zahl sein.,This field must be a number.,Ce champ doit être un nombre.,Questo campo dovrebbe essere un numero.
 global,entity.validation.pattern,Dieses Feld muss das Muster {{pattern}} erfüllen.,This field must follow the pattern {{ pattern }}.,Ce champ doit respecter le modèle {{pattern}}.,Questo campo dovrebbe corrispondere al modello {{ pattern }}.
 global,entity.validation.required,Pflichtfeld,This field is required.,Ce champ est obligatoire.,Questo campo è obbligatorio.
@@ -1248,7 +1248,7 @@ registration-pav-dialog,registrationPavDialog.returnToHomepage,Zurück zur Start
 registration-access-code,registrationAccessCode.title,Freischaltcode eingeben,Enter activation code,Saisir le code de déverrouillage,Inserire il codice di attivazione
 registration-access-code,registrationAccessCode.header,Freischaltcode,Activation code,Code de déverrouillage,Codice di attivazione
 registration-access-code,registrationAccessCode.placeholder,Freischaltcode eingeben,Enter activation code,Saisir le code de déverrouillage,Inserire il codice di attivazione
-registration-access-code,registrationAccessCode.accessCode,Freischaltcode,Activation code,Code de déverrouillage,Codice di attivazione
+registration-access-code,registrationAccessCode.accessCode.label,Freischaltcode,Activation code,Code de déverrouillage,Codice di attivazione
 registration-access-code,registrationAccessCode.accessCode.error.required,Freischaltcode wird benötigt,Activation code is required,Un code de déverrouillage est nécessaire ,È necessario il codice di attivazione
 registration-access-code,registrationAccessCode.accessCode.error.minlength,Freischaltcode muss aus 8 Stellen bestehen,Activation code must contain 8 characters,Le code de déverrouillage doit se composer de 8 caractères,Il codice di attivazione deve avere 8 caratteri
 registration-access-code,registrationAccessCode.accessCode.error.invalid,Freischaltcode ungültig,Activation code is invalid,Code de déverrouillage non valable,Codice di attivazione non valido
@@ -1281,6 +1281,8 @@ portal,portal.authentication.notification.expired,Ihre Sitzung ist abgelaufen. B
 
 portal,portal.registration.company.uid.label,UID,UID,IDE,IDI
 portal,portal.registration.company.uid.title,Unternehmens-Identifikationsnummer eingeben,Enter Company Identification Number,Numéro d'identification des entreprises,Numero d'identificazione delle imprese
+portal,portal.registration.company.uid.help.info,Ihre Unternehmens-Identifikationsnummer (UID) finden Sie unter folgendem Link:,You can get your unique business identification number (UID) under the following link:,Vous trouverez votre numéro d’identification (IDE) au moyen du lien suivant:,‌Clicca sul link per accedere al tuo IDI (Numero d’identificazione delle imprese):
+portal,portal.registration.company.uid.help.label,Bundesamt für Statistik – UID Register,Federal Statistical Office FSO UID Register,Office fédéral de la statistique OFS – Registre IDE,Ufficio federale di statistica UST Registro IDI
 portal,portal.registration.company.step1,UID eingeben,Enter UID,Saisir l'IDE,Inserire l'IDI
 portal,portal.registration.company.step2,Freischaltcode anfordern,Request activation code,Demander le code de déverrouillage,Richiedere il codice di attivazione
 portal,portal.registration.company.step3,Freischaltcode eingeben,Enter activation code,Saisir le code de déverrouillage,Inserire il codice di attivazione
@@ -1288,3 +1290,12 @@ portal,portal.registration.pav.step1,Organisation wählen,Select organisation,S�
 portal,portal.registration.pav.step2,Freischaltcode anfordern,Request activation code,Demander le code de déverrouillage,Richiedere il codice di attivazione
 portal,portal.registration.pav.step3,Freischaltcode eingeben,Enter activation code,Saisir le code de déverrouillage,Inserire il codice di attivazione
 portal,portal.registration.request.access.code,Freischaltcode anfordern,Request activation code,Demander le code de déverrouillage,Richiedere il codice di attivazione
+
+portal,portal.forms.validation.maxlength,Dieses Feld darf max. {{ requiredLength }} Zeichen lang sein.,This field cannot be longer than {{ requiredLength }} characters.,Ce champ doit comporter au maximum {{ requiredLength }} caractères.,Questo campo non può essere più di {{ requiredLength }} caratteri.
+portal,portal.forms.validation.minlength,Dieses Feld muss mind. {{ requiredLength }} Zeichen lang sein.,This field must be at least {{ requiredLength }} characters.,Ce champ doit avoir au minimum {{ requiredLength }} caractères.,Questo campo deve essere di almeno {{ requiredLength }} caratteri.
+portal,portal.forms.validation.pattern,Dieses Feld muss das Muster {{ requiredPattern }} erfüllen.,This field must follow the pattern {{ requiredPattern }}.,Ce champ doit respecter le modèle {{ requiredPattern }}.,Questo campo dovrebbe corrispondere al modello {{ requiredPattern }}.
+portal,portal.forms.validation.ngbDate,"Datumsformat ungültig, richtiges Format: TT.MM.JJJJ","Invalid date format, correct format: DD.MM.YYYY",Le format de la date n’est pas conforme. Format correct: JJ.MM.AAAA,Il formato della data non è corretto. Formato corretto: GG.MM.AAAA
+portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{day}}.{{month}}.{{year}} liegen,Date must be before {{day}}.{{month}}.{{year}},La date doit être antérieure au {{day}}.{{month}}.{{year}},La data deve essere precedente all'{{day}}.{{month}}.{{year}}
+portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{day}}.{{month}}.{{year}} liegen,Date must be after {{day}}.{{month}}.{{year}},La date doit être après le {{day}}.{{month}}.{{year}},La data deve essere successiva all'{{day}}.{{month}}.{{year}}
+
+Ihre Unternehmens-Identifikationsnummer (UID) finden Sie unter folgendem Link:

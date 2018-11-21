@@ -3,14 +3,31 @@
 
   <p>A typeahead that accepts free text, enables searching for items and limits the
     selectable items to 4</p>
-  <alv-multi-typeahead label="Typeahead Showcase"
-                 [alvControl]="typeaheadControl"
-                 [loadItems]="itemLoaderFn"
-                 [limit]="4">
+  <alv-multi-typeahead label="Multi Typeahead Showcase"
+                       [alvControl]="typeaheadControl"
+                       [loadItems]="itemLoaderFn"
+                       [limit]="4">
   </alv-multi-typeahead>
 
   <p>Form Control Value:</p>
   <p>{{typeaheadControl.value | json}}</p>
+
+  <p>A typeahead that accepts free text, enables searching for items and limits the
+    selectable items to 4</p>
+  <alv-single-typeahead label="Single Typeahead Showcase"
+                        [alvControl]="typeaheadControl"
+                        [loadItems]="itemLoaderFn">
+  </alv-single-typeahead>
+
+  <p>Form Control Value:</p>
+  <p>{{typeaheadControl.value | json}}</p>
+
+  <alv-select
+      label="Demo Select"
+      [alvControl]="selectControl"
+      [options$]="selectOptions$"
+      [validationMessages]="[{error: 'require', message: 'Custom message'}]">
+  </alv-select>
 
   <h1>Confirm Modal</h1>
   <button class="btn btn-primary"

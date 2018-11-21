@@ -1,7 +1,7 @@
-import { SingleTypeaheadItemModel } from './single-typeahead-item.model';
+import { SingleTypeaheadItem } from './single-typeahead-item.model';
 
 export class SingleTypeaheadItemDisplayModel {
-    constructor(public model: SingleTypeaheadItemModel,
+    constructor(public model: SingleTypeaheadItem,
                 public first = false,
                 public firstInGroup = false) {
     }

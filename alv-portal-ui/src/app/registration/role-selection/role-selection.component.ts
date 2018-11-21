@@ -37,6 +37,7 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
   ngOnInit() {
     this.roleSelectionForm = this.fb.group({
       role: ['', Validators.required],
+      termsAndConditions: [false, Validators.requiredTrue]
     });
   }
 
@@ -46,10 +47,10 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
         this.updateStep.emit(RegistrationStep.JOBSEEKER_IDENTIFICATION_STEP);
         break;
       case 'company':
-        this.updateStep.emit(RegistrationStep.COMPANY_UID_STEP);
+        this.updateStep.emit(RegistrationStep.COMPANY_IDENTIFICATION_STEP);
         break;
       case 'pav':
-        this.updateStep.emit(RegistrationStep.PAV_ADDRESS);
+        this.updateStep.emit(RegistrationStep.PAV_IDENTIFICATION_STEP);
         break;
     }
   }

@@ -10,7 +10,7 @@ export interface Company {
   additionalName: string;
   chId: string;
   uidPrefix: string;
-  uid: string;
+  uid: number;
   active: string;
   commercialRegisterEntryDate: string;
   address: CompanyAddress;

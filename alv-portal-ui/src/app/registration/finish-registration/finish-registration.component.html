@@ -8,8 +8,8 @@
                                 (updateStep)="updateStep($event)">
   </alv-jobseeker-identification>
 
-  <alv-company-identification *ngSwitchCase="registrationSteps.COMPANY_UID_STEP"
-                   (company)="company = $event"
+  <alv-company-identification *ngSwitchCase="registrationSteps.COMPANY_IDENTIFICATION_STEP"
+                   (companySelected)="company = $event"
                    (updateStep)="updateStep($event)">
   </alv-company-identification>
 
@@ -19,4 +19,13 @@
 
   </alv-company-request-access-code>
 
+  <alv-pav-identification *ngSwitchCase="registrationSteps.PAV_IDENTIFICATION_STEP"
+                          (organisationSelected)="organization = $event"
+                          (updateStep)="updateStep($event)">
+  </alv-pav-identification>
+
+  <alv-pav-request-access-code *ngSwitchCase="registrationSteps.PAV_REQUEST_ACCESS_STEP"
+                               [organization]="organization"
+                               (updateStep)="updateStep($event)">
+  </alv-pav-request-access-code>
 </div>

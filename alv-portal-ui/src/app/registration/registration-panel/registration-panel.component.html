@@ -1,7 +1,8 @@
 <div class="alv-panel">
   <h2 class="panel-title">{{panelTitle | translate}}</h2>
   <div class="panel-subtitle">{{panelSubtitle | translate}}</div>
-  <ng-content select=".step-indicator"></ng-content>
+  <ng-content select="alv-step-indicator"></ng-content>
+  <ng-content select="alv-alert"></ng-content>
   <div class="panel-divider"></div>
 
   <form *ngIf="formGroup; else modalContent"
@@ -32,6 +33,6 @@
     <button *ngIf="primaryLabel"
             class="btn btn-primary ml-2"
             [type]="submit"
-            [disabled]="formGroup.invalid">{{primaryLabel | translate}}</button>
+            [disabled]="formGroup?.invalid">{{primaryLabel | translate}}</button>
   </div>
 </ng-template>
