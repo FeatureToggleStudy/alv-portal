@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
-  formatOrganizationName,
   OrganizationSuggestion
 } from '../../../../service/organization/organization.model';
 import { Observable } from 'rxjs';
@@ -64,7 +63,7 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
   }
 
   private mapOrganizationItem(item: OrganizationSuggestion): SingleTypeaheadItem {
-    return new SingleTypeaheadItem(item.externalId, formatOrganizationName(item), item);
+    return new SingleTypeaheadItem(item.externalId, OrganizationService.formatOrganizationName(item), item);
   }
 
 }

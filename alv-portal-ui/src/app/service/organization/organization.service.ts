@@ -35,7 +35,7 @@ export class OrganizationService {
     return formattedName;
   }
 
-  suggest(prefix: string, resultSize? = this.DEFAULT_SUGGEST_SIZE): Observable<OrganizationSuggestion[]> {
+  suggest(prefix: string, resultSize = this.DEFAULT_SUGGEST_SIZE): Observable<OrganizationSuggestion[]> {
     const params = new HttpParams()
         .set('prefix', prefix)
         .set('resultSize', resultSize.toString());
