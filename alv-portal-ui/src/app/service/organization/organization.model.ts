@@ -1,21 +1,8 @@
+import { OrganizationService } from './organization.service';
 
 export const enum CompanyType {
     'AVG',
     'RAV'
-}
-
-export function formatOrganizationName(organization: Organization | OrganizationSuggestion): string {
-    let formattedName = organization.name;
-    if (organization.city || organization.zipCode) {
-        formattedName = organization.city ?
-            `${formattedName}, ${organization.zipCode} ${organization.city}`
-            : `${formattedName}, ${organization.zipCode}`;
-
-    }
-    if (organization.street) {
-        formattedName = `${formattedName}, ${organization.street}`;
-    }
-    return formattedName;
 }
 
 export class Organization {
@@ -34,7 +21,7 @@ export class Organization {
     }
 
     toString(): string {
-        return formatOrganizationName(this);
+        return OrganizationService.formatOrganizationName(this);
     }
 }
 

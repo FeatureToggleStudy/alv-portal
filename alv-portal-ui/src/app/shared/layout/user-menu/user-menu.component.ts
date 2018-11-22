@@ -9,7 +9,7 @@ import { LandingNavigationService } from '../../../core/landing-navigation.servi
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss']
 })
-export class UserMenuComponent implements OnInit {
+export class UserMenuComponent {
 
   private _user: User;
 
@@ -28,10 +28,6 @@ export class UserMenuComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
               private router: Router,
               private landingNavigationService: LandingNavigationService) {
-  }
-
-  ngOnInit() {
-
   }
 
   logout() {

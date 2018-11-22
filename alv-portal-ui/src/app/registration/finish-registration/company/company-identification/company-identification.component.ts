@@ -32,8 +32,7 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
   constructor(private fb: FormBuilder,
               private router: Router,
               private registrationService: RegistrationService,
-              private companyService: CompanyService,
-              private notificationsService: NotificationsService) {
+              private companyService: CompanyService) {
     super();
   }
 
@@ -52,7 +51,6 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
               this.updateStep.emit(RegistrationStep.COMPANY_REQUEST_ACCESS_STEP);
             },
             () => {
-              this.notificationsService.error('registrationCompanyDialog.validation.error.notFound');
               this.companyUidForm.reset();
             });
   }

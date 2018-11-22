@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, throwError } from 'rxjs';
 import { JobSeekerDetails } from './registration.model';
 import { StepIndicatorItem } from '../shared/layout/step-indicator/step.model';
+import { catchError } from 'rxjs/operators';
+import { NotificationsService } from '../core/notifications.service';
 
 @Injectable({
   providedIn: 'root'
@@ -47,11 +49,26 @@ export class RegistrationService {
     }
   ];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private notificationsService: NotificationsService) {
   }
 
   registerJobSeeker(jobSeekerDetails: JobSeekerDetails): Observable<any> {
-    return this.http.post(this.REGISTER_JOB_SEEKER_URL, jobSeekerDetails);
+    return this.http.post(this.REGISTER_JOB_SEEKER_URL, jobSeekerDetails).pipe(
+        catchError((error) => {
+          if (error.error.reason) {
+            if (error.error.reason === 'InvalidPersonenNumberException') {
+              this.notificationsService.error('registration.customer.identificaton.mismatch.error');
+            }
+            if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
+              this.notificationsService.error('registration.customer.identificaton.already-taken.error');
+            }
+          } else {
+            this.notificationsService.error('registration.customer.identificaton.technical.error');
+          }
+          return throwError(error);
+        })
+    );
   }
 
   requestEmployerAccessCode(uid: number): Observable<any> {

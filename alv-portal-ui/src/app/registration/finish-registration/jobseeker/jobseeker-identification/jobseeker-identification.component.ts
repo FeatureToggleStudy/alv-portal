@@ -1,14 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PERSON_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
 import { RegistrationService } from '../../../registration.service';
-import { catchError } from 'rxjs/operators';
 import { NotificationsService } from '../../../../core/notifications.service';
-import { EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { MappingService } from '../../../../service/mapping/mapping.service';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -17,16 +15,15 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 })
 export class JobseekerIdentificationComponent extends AbstractRegistrationStep implements OnInit {
 
-  readonly BIRTHDAY_MIN_DATE = this.toNgbDate(new Date(1900, 1, 1));
-  readonly BIRTHDAY_MAX_DATE = this.toNgbDate(new Date());
-  readonly BIRTHDAY_START_DATE = this.toNgbDate(new Date(new Date().getFullYear() - 30, 0));
+  readonly BIRTHDAY_MIN_DATE = MappingService.toNgbDate(new Date(1900, 1, 1));
+  readonly BIRTHDAY_MAX_DATE = MappingService.toNgbDate(new Date());
+  readonly BIRTHDAY_START_DATE = MappingService.toNgbDate(new Date(new Date().getFullYear() - 30, 0));
 
   jobseekerIdentificationForm: FormGroup;
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private registrationService: RegistrationService,
-              private notificationsService: NotificationsService) {
+              private registrationService: RegistrationService) {
     super();
   }
 
@@ -43,25 +40,9 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
       birthdateDay: this.jobseekerIdentificationForm.get('birthDate').value.day,
       birthdateMonth: this.jobseekerIdentificationForm.get('birthDate').value.month,
       birthdateYear: this.jobseekerIdentificationForm.get('birthDate').value.year
-    }).pipe(
-        catchError((error) => {
-          if (error.error.reason) {
-            if (error.error.reason === 'InvalidPersonenNumberException') {
-              this.notificationsService.error('registration.customer.identificaton.mismatch.error');
-            }
-            if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
-              this.notificationsService.error('registration.customer.identificaton.already-taken.error');
-            }
-          } else {
-            this.notificationsService.error('registration.customer.identificaton.technical.error');
-          }
-          return EMPTY;
-        })
-    ).subscribe(success => {
+    }).subscribe(success => {
       if (success) {
         this.router.navigate(['home']);
-      } else {
-        this.notificationsService.error('registration.customer.identificaton.technical.error');
       }
     });
   }
@@ -72,14 +53,6 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
 
   cancelAction() {
     this.router.navigate(['home']);
-  }
-
-  private toNgbDate(date: Date): NgbDateStruct {
-    return {
-      year: date.getFullYear(),
-      month: date.getMonth() + 1,
-      day: date.getDate()
-    };
   }
 
 }
