@@ -4,7 +4,6 @@ import { RegistrationStep } from '../../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PERSON_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
 import { RegistrationService } from '../../../registration.service';
-import { NotificationsService } from '../../../../core/notifications.service';
 import { Router } from '@angular/router';
 import { MappingService } from '../../../../service/mapping/mapping.service';
 
@@ -44,6 +43,8 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
       if (success) {
         this.router.navigate(['home']);
       }
+    }, err => {
+        this.jobseekerIdentificationForm.reset();
     });
   }
 
