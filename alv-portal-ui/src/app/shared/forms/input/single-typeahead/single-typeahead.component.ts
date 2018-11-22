@@ -41,8 +41,6 @@ export class SingleTypeaheadComponent extends AbstractInput {
 
   @Output() itemSelected = new EventEmitter<SingleTypeaheadItem>();
 
-  @ViewChild(NgbTypeahead) ngbTypeahead;
-
   helpId = this.id + '-help';
 
   loadItemsGuardedFn = this.loadItemsGuarded.bind(this);
@@ -81,9 +79,5 @@ export class SingleTypeaheadComponent extends AbstractInput {
 
   private exists(model: SingleTypeaheadItem): boolean {
     return this.control.value && this.control.value === model;
-  }
-
-  private getTypeaheadNativeElement(): any  {
-    return this.ngbTypeahead && this.ngbTypeahead._elementRef.nativeElement || {};
   }
 }
