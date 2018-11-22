@@ -95,31 +95,6 @@ describe('SingleTypeaheadComponent', () => {
       // THEN
       expect(loadedItems.length).toEqual(0);
     }));
-
-    it('should sort the loaded items by the order property', fakeAsync(() => {
-      let loadedItems: Array<any>;
-
-      // GIVEN
-      component.loadItems = (value: string) => of([
-        new SingleTypeaheadItem('id1', 'label', 'model0'),
-        new SingleTypeaheadItem('id2', 'label', 'model1'),
-        new SingleTypeaheadItem('id3', 'label', 'model2'),
-        new SingleTypeaheadItem('id4', 'label', 'model3')
-      ]);
-      component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
-
-      // WHEN
-      input$.next('123');
-      tick(201);
-
-      // THEN
-      expect(loadedItems).toEqual([
-        new SingleTypeaheadItem('id1', 'label', 'model0'),
-        new SingleTypeaheadItem('id2', 'label', 'model1'),
-        new SingleTypeaheadItem('id3', 'label', 'model2'),
-        new SingleTypeaheadItem('id4', 'label', 'model3')
-      ]);
-    }));
-
+    
   });
 });
