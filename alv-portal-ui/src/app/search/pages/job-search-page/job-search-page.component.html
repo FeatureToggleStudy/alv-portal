@@ -4,5 +4,7 @@
   </div>
   <div class="col-xs-12 col-md-9">
     <alv-result-list-item [result]="resultListItemMock"></alv-result-list-item>
+    <pre>{{resultList$|async|json}}</pre>
   </div>
+
 </div>

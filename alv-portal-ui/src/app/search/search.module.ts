@@ -6,12 +6,16 @@ import { FilterPanelComponent } from './components/filter-panel/filter-panel.com
 import { SearchRoutingModule } from './search-routing.module';
 import { ResultListItemComponent } from './components/result-list-item/result-list-item.component';
 import { SharedModule } from '../shared/shared.module';
+import { JobAdvertisementService } from './services/job-advertisement/job-advertisement.service';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     SearchRoutingModule
+  ],
+  providers: [
+    JobAdvertisementService
   ],
   declarations: [JobSearchPageComponent, CounterComponent, FilterPanelComponent, ResultListItemComponent]
 })

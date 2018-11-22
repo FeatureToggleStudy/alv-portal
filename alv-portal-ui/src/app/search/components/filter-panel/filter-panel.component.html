@@ -8,7 +8,7 @@
   ></alv-select>
   <alv-input-field
     label="Employer"
-    [alvControl]="form.get('employer')"
+    [alvControl]="form.get('company')"
   >
   </alv-input-field>
   <alv-select
@@ -22,14 +22,14 @@
     <div class="col-6">
       <alv-select
         label="from"
-        [alvControl]="form.get('workloadFrom')"
+        [alvControl]="form.get('workloadPercentageMin')"
         [options$]="percentages$"
       ></alv-select>
     </div>
     <div class="col-6">
       <alv-select
         label="to"
-        [alvControl]="form.get('workloadTo')"
+        [alvControl]="form.get('workloadPercentageMax')"
         [options$]="percentages$"
       ></alv-select>
     </div>
