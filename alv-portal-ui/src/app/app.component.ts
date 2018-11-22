@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './core/auth/authentication.service';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import { filter, map, mergeMap, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
+import { MessageBusService, MessageType } from './core/message-bus.service';
 
 @Component({
   selector: 'alv-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
               private titleService: Title,
               private router: Router,
               private activatedRoute: ActivatedRoute,
+              private messageBusService: MessageBusService,
               private authenticationService: AuthenticationService) {
 
   }
@@ -38,13 +40,17 @@ export class AppComponent implements OnInit {
           return route;
         }),
         filter((route) => route.outlet === 'primary'),
-        mergeMap((route) => route.data),
-        map((event) => event['titleKey']))
-        .subscribe((titleKey: string) => {
-          if (titleKey) {
+        mergeMap((route) => route.data)
+    )
+        .subscribe((data: {titleKey: string, collapsed?: boolean}) => {
+          if (data.titleKey) {
             // TODO i18n
-            this.a11yMessage = titleKey;
-            this.titleService.setTitle(titleKey);
+            this.a11yMessage = data.titleKey;
+            this.titleService.setTitle(data.titleKey);
+
+          }
+          if (data.collapsed != null) {
+            this.messageBusService.emit<boolean>(MessageType.TOGGLE_DESKTOP_NAVIGATION, data.collapsed);
           }
         });
   }

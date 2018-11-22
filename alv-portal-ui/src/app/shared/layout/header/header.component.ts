@@ -48,7 +48,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   }
 
   toggleNavigation() {
-    this.messageBusService.emit(MessageType.TOGGLE_NAVIGATION);
+    this.messageBusService.emit(MessageType.TOGGLE_MOBILE_NAVIGATION);
   }
 
   login() {
