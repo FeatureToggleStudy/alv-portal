@@ -1,11 +1,10 @@
 import {
   Component,
-  ElementRef, EventEmitter,
+  EventEmitter,
   Host,
-  HostListener,
-  Inject,
   Input,
-  Optional, Output,
+  Optional,
+  Output,
   SkipSelf,
   ViewChild
 } from '@angular/core';
@@ -16,10 +15,8 @@ import { InputType } from '../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { SingleTypeaheadItem } from './single-typeahead-item.model';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { SingleTypeaheadItemDisplayModel } from './single-typeahead-item-display.model';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
-import { DOCUMENT } from '@angular/common';
 
 enum Key {
   Backspace = 8,
