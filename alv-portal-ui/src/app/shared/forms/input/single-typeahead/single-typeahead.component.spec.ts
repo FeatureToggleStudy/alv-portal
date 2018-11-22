@@ -95,6 +95,5 @@ describe('SingleTypeaheadComponent', () => {
       // THEN
       expect(loadedItems.length).toEqual(0);
     }));
-    
   });
 });
