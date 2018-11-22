@@ -3,9 +3,9 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { SingleTypeaheadComponent } from './single-typeahead.component';
 import { SingleTypeaheadItem } from './single-typeahead-item.model';
 import { BehaviorSubject, of } from 'rxjs';
-import { SingleTypeaheadItemDisplayModel } from './single-typeahead-item-display.model';
 import { ValidationMessagesComponent } from '../validation-messages/validation-messages.component';
 import { FormControl } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SingleTypeaheadComponent', () => {
 
@@ -14,7 +14,7 @@ describe('SingleTypeaheadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgbTypeaheadModule],
+      imports: [NgbTypeaheadModule, TranslateModule],
       declarations: [SingleTypeaheadComponent, ValidationMessagesComponent],
     })
         .overrideTemplate(SingleTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
@@ -38,7 +38,7 @@ describe('SingleTypeaheadComponent', () => {
 
       // WHEN
       const event = jasmine.createSpyObj('event', ['preventDefault']);
-      event.item = { model: new SingleTypeaheadItem('id1', 'label1', 'model1') };
+      event.item = new SingleTypeaheadItem('id1', 'label1', 'model1');
       component.selectItem(event);
 
       // THEN
@@ -78,22 +78,6 @@ describe('SingleTypeaheadComponent', () => {
 
       // THEN
       expect(component.loadItems).toHaveBeenCalledWith('12');
-    }));
-
-    it('should filter the already selected values from the loaded items', fakeAsync(() => {
-      let loadedItems: Array<any>;
-
-      // GIVEN
-      component.control.setValue(new SingleTypeaheadItem('id', 'label', 'model'));
-      component.loadItems = (value: string) => of([new SingleTypeaheadItem('id', 'label', 'model')]);
-      component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
-
-      // WHEN
-      input$.next('123');
-      tick(201);
-
-      // THEN
-      expect(loadedItems.length).toEqual(0);
     }));
   });
 });

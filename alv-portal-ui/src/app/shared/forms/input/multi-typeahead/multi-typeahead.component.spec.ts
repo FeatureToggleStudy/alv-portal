@@ -6,15 +6,16 @@ import { BehaviorSubject, of } from 'rxjs';
 import { MultiTypeaheadItemDisplayModel } from './multi-typeahead-item-display.model';
 import { ValidationMessagesComponent } from '../validation-messages/validation-messages.component';
 import { FormControl } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
-describe('SingleTypeaheadComponent', () => {
+describe('MultiTypeaheadComponent', () => {
 
   let component: MultiTypeaheadComponent;
   let fixture: ComponentFixture<MultiTypeaheadComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgbTypeaheadModule],
+      imports: [NgbTypeaheadModule, TranslateModule],
       declarations: [MultiTypeaheadComponent, ValidationMessagesComponent],
     })
         .overrideTemplate(MultiTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
