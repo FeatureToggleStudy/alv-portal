@@ -15,8 +15,12 @@ import { MappingService } from '../../../../service/mapping/mapping.service';
 export class JobseekerIdentificationComponent extends AbstractRegistrationStep implements OnInit {
 
   readonly BIRTHDAY_MIN_DATE = MappingService.toNgbDate(new Date(1900, 1, 1));
+
   readonly BIRTHDAY_MAX_DATE = MappingService.toNgbDate(new Date());
+
   readonly BIRTHDAY_START_DATE = MappingService.toNgbDate(new Date(new Date().getFullYear() - 30, 0));
+
+  readonly PERSON_NR_MAX_LENGTH = 8;
 
   jobseekerIdentificationForm: FormGroup;
 

@@ -16,7 +16,7 @@
   <button *ngIf="!isSubmitted; else confirmMessage"
           class="btn btn-primary w-100"
           (click)="requestActivationCode()"
-          [disabled]="">
+          [disabled]="disableSubmit">
     {{'registrationPavDialog.requestActivationCode' | translate}}
   </button>
 
