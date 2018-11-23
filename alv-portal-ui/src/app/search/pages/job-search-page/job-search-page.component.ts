@@ -8,6 +8,7 @@ import {
 } from '../../services/job-advertisement/job-advertisement-search-request';
 import { JobSearchFilter } from './job-search.model';
 import { JobSearchRequestMapperService } from './job-search-request-mapper.service';
+import { JobAdvertisement } from '../../services/job-advertisement/job-advertisement.model';
 
 export const ITEMS_PER_PAGE = 10;
 @Component({
@@ -18,7 +19,7 @@ export const ITEMS_PER_PAGE = 10;
 export class JobSearchPageComponent implements OnInit {
 
   resultListItemMock = resultListItemMock;
-  resultList$: Observable<any>;
+  resultList$: Observable<JobAdvertisement[]>;
 
   constructor(private jobAdsService: JobAdvertisementService,
               private mapper: JobSearchRequestMapperService) {
@@ -45,9 +46,7 @@ export class JobSearchPageComponent implements OnInit {
       sort: this.mapper.mapSort(filtersValues.sort),
       body: body
     };
-    console.log(searchRequest);
     this.resultList$ = this.jobAdsService.search(searchRequest);
-    // this.resultList$ = this.jobAdsService.search();
   }
 
 }

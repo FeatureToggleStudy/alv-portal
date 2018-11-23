@@ -7,6 +7,7 @@ import { SearchRoutingModule } from './search-routing.module';
 import { ResultListItemComponent } from './components/result-list-item/result-list-item.component';
 import { SharedModule } from '../shared/shared.module';
 import { JobAdvertisementService } from './services/job-advertisement/job-advertisement.service';
+import { JobSearchResultComponent } from './pages/job-search-page/job-search-result/job-search-result.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { JobAdvertisementService } from './services/job-advertisement/job-advert
   providers: [
     JobAdvertisementService
   ],
-  declarations: [JobSearchPageComponent, CounterComponent, FilterPanelComponent, ResultListItemComponent]
+  declarations: [JobSearchPageComponent, CounterComponent, FilterPanelComponent, ResultListItemComponent, JobSearchResultComponent]
 })
 export class SearchModule {
 }

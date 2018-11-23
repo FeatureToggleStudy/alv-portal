@@ -4,7 +4,11 @@
   </div>
   <div class="col-xs-12 col-md-9">
     <alv-result-list-item [result]="resultListItemMock"></alv-result-list-item>
-    <pre>{{resultList$|async|json}}</pre>
+    <ng-container *ngIf="resultList$ | async as resultList">
+      <ng-container *ngFor="let result of resultList">
+        <alv-job-search-result [jobSearchResult]="result"></alv-job-search-result>
+      </ng-container>
+    </ng-container>
   </div>
 
 </div>

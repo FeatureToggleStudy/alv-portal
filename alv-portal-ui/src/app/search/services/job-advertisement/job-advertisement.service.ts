@@ -42,13 +42,13 @@ export class JobAdvertisementService {
       map((resp) => new ResponseWrapper(resp.headers, resp.body, resp.status)));
   }
 
-  search(request: JobAdvertisementSearchRequest): Observable<ResponseWrapper> {
+  search(request: JobAdvertisementSearchRequest): Observable<JobAdvertisement[]> {
     const params = createPageableURLSearchParams(request);
     return this.http.post(this.searchUrl, request.body, {
       params,
       observe: 'response'
     }).pipe(
-      map((resp) => new ResponseWrapper(resp.headers, resp.body, resp.status)));
+      map((resp) => <JobAdvertisement[]>resp.body));
   }
 
   count(request: JobAdvertisementSearchRequestBody): Observable<number> {
