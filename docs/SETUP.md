@@ -49,7 +49,7 @@ In case you want to run the application locally and enable Spring Cloud capabili
 
 ### Run app docker image
 
-1. Execute `docker run -e SPRING_PROFILES_ACTIVE=local -p 8080:8080 alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:<project.version>`.   
+1. Execute `docker run -e SPRING_PROFILES_ACTIVE=local -p 8080:8080 alvch-dockerv2-local.jfrog.io/portal:<project.version>`.   
 1. Verify that the application is running by visiting the following URL: _http://localhost:8080_.
 
 ### Run app docker image with docker-compose
