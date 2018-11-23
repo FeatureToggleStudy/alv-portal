@@ -2,6 +2,6 @@ version: '3'
 
 services:
   alv-portal-webapp:
-    image: "alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:${project.version}"
+    image: "alvch-dockerv2-local.jfrog.io/portal:${project.version}"
     ports:
       - 8899:8080
