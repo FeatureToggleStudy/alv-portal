@@ -33,6 +33,7 @@ export class MessageBusService {
 }
 
 export enum MessageType {
-  TOGGLE_NAVIGATION
+  TOGGLE_MOBILE_NAVIGATION,
+  TOGGLE_DESKTOP_NAVIGATION
 }
 

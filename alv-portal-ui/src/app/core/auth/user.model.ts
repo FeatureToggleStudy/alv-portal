@@ -1,3 +1,10 @@
+export enum RegistrationStatus {
+  UNREGISTERED = <any>'UNREGISTERED',
+  REGISTERED = <any>'REGISTERED',
+  VALIDATION_EMP = <any>'VALIDATION_EMP',
+  VALIDATION_PAV = <any>'VALIDATION_PAV'
+}
+
 export class User {
   id: string;
   login: string;
@@ -21,17 +28,14 @@ export class User {
   hasAnyAuthorities(authorities: Array<string>): boolean {
     return this.authorities.some(value => -1 !== authorities.indexOf(value));
   }
+
+  isRegistered(): boolean {
+    return this.registrationStatus === RegistrationStatus.REGISTERED;
+  }
 }
 
 export interface Credentials {
   username: string;
   password: string;
   rememberMe: boolean;
-}
-
-export enum RegistrationStatus {
-  UNREGISTERED = <any>'UNREGISTERED',
-  REGISTERED = <any>'REGISTERED',
-  VALIDATION_EMP = <any>'VALIDATION_EMP',
-  VALIDATION_PAV = <any>'VALIDATION_PAV'
 }

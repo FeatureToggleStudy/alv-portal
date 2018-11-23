@@ -26,13 +26,8 @@ To make IntelliJ IDEA use Maven Wrapper by default, install and enable the follo
 1. First authenticate locally against the internal docker repository as follows: `docker login alvch-dockerv2-local.jfrog.io`.
     * Once executed, the credentials will be stored permanently in your docker config file.
     * For credentials, ask project team members.
-1. Build or/and push the image separately:
-    1. Build the project as usually with: `./mvnw clean install` 
-    1. To build the image, execute `./mvnw dockerfile:build`
-    1. To push the image, execute `./mvnw dockerfile:push`
-1. Alternatively you can build or/and push the image together with building the whole project:
-    1. To build the project and image, execute: `./mvnw clean install -Pdocker`
-    1. To build the project inl. building and pushing the image, execute: `./mvnw clean install -Pdocker -Ddocker-push`
+1. To build and push the image, execute `./mvnw clean install -Pdocker`
+    * If you want skip pushing images, add the following property: *-Ddockerfile.push.skip*
 
 Please note, that pushing docker images locally is usually not needed. It will be performed by the CICD toolchain automatically.
 
