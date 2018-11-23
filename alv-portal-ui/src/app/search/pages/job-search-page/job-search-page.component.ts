@@ -18,7 +18,7 @@ export const ITEMS_PER_PAGE = 10;
 export class JobSearchPageComponent implements OnInit {
 
   resultListItemMock = resultListItemMock;
-  resultList$: Observable<any[]>;
+  resultList$: Observable<any>;
 
   constructor(private jobAdsService: JobAdvertisementService,
               private mapper: JobSearchRequestMapperService) {
@@ -46,7 +46,7 @@ export class JobSearchPageComponent implements OnInit {
       body: body
     };
     console.log(searchRequest);
-    // this.resultList$ = this.jobAdsService.search(searchRequest)
+    this.resultList$ = this.jobAdsService.search(searchRequest);
     // this.resultList$ = this.jobAdsService.search();
   }
 
