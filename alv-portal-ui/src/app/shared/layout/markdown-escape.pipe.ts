@@ -7,7 +7,7 @@ export class MarkdownEscapePipe implements PipeTransform {
 
   transform(value: any): any {
     if (value) {
-      return this.escapeMarkdown(value)
+      return this.escapeMarkdown(value);
     }
     return value;
   }

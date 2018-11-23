@@ -16,12 +16,12 @@ export interface Badge {
 }
 
 export const badgeMock: Badge = {
-  label: "100%",
+  label: '100%',
   cssClass: 'badge-secondary'
 };
 
 export const resultListItemMock: ResultListItem = {
-  title: "Digital applications full-stack Developer - New project within an international and tech environment",
+  title: 'Digital applications full-stack Developer - New project within an international and tech environment',
   subtitle: 'Academic Work Switzerland SA',
   header: 'Nov 16, 2018',
   description: 'Il y a 2 semainesAdvert-ID: 15014787 Digital applications full-stack Developer - New project within an international and tech environment Save job To save a job, please login Share this ad Quick facts City:Lausanne Extent:Full time, 100% Type of work:Temp job, Poste fixe Job Category:Application Developer Start date:1er janvier 2019Apply here!Apply here',

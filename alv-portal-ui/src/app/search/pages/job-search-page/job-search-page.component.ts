@@ -7,7 +7,6 @@ import {
   JobAdvertisementSearchRequestBody
 } from '../../services/job-advertisement/job-advertisement-search-request';
 import { JobSearchFilter } from './job-search.model';
-import { mapContractType, mapSort } from './job-search-request-mapper';
 import { JobSearchRequestMapperService } from './job-search-request-mapper.service';
 
 export const ITEMS_PER_PAGE = 10;
@@ -47,7 +46,7 @@ export class JobSearchPageComponent implements OnInit {
       body: body
     };
     console.log(searchRequest);
-    this.resultList$ = this.jobAdsService.search(searchRequest)
+    // this.resultList$ = this.jobAdsService.search(searchRequest)
     // this.resultList$ = this.jobAdsService.search();
   }
 

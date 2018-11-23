@@ -1,6 +1,6 @@
 export interface ProfessionCode {
   type: string;
-  value: string
+  value: string;
 }
 
 export interface JobAdvertisementSearchRequestBody {

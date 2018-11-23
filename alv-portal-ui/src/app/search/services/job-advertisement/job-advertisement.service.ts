@@ -65,7 +65,7 @@ export class JobAdvertisementService {
   }
 
   findByFingerprint(fingerprint: string): Observable<JobAdvertisement> {
-    return this.http.get<JobAdvertisement>(`${this.resourceUrl}/byFingerprint/${fingerprint}`)
+    return this.http.get<JobAdvertisement>(`${this.resourceUrl}/byFingerprint/${fingerprint}`);
   }
 
   cancel(jobAdCancelRequest: JobAdvertisementCancelRequest): Observable<number> {
