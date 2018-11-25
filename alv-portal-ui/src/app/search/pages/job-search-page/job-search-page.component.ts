@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { resultListItemMock } from '../../components/result-list-item/result-list-item.model';
 import { JobAdvertisementService } from '../../services/job-advertisement/job-advertisement.service';
 import { Observable } from 'rxjs';
 import {
@@ -18,7 +17,6 @@ export const ITEMS_PER_PAGE = 10;
 })
 export class JobSearchPageComponent implements OnInit {
 
-  resultListItemMock = resultListItemMock;
   resultList$: Observable<JobAdvertisement[]>;
 
   constructor(private jobAdsService: JobAdvertisementService,
