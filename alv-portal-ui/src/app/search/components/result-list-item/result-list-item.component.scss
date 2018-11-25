@@ -1,5 +1,13 @@
 @import "../../../../scss/common/colors";
 
+.line-clamp {
+  overflow: hidden;
+  position: relative;
+  line-height: 1.5em;
+  max-height: 3em;
+  height: auto;
+}
+
 $text-weight-light: 300;
 $margin-x-general: 1.5rem;
 $margin-x-filter: $margin-x-general;
