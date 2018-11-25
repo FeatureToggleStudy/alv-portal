@@ -7,6 +7,7 @@ import {
   JobSearchFilter,
   Sort
 } from '../../pages/job-search-page/job-search.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'alv-filter-panel',
@@ -26,15 +27,17 @@ export class FilterPanelComponent implements OnInit {
 
   sortOptions$: Observable<SelectableOption[]> = of([{
     value: Sort.RELEVANCE_DESC,
-    label: 'Relevance'
+    label: this.translateService.instant('job-search.filter.sort.option.RELEVANCE_DESC')
+    //FIXME instant only updates once! need to change the structure of the select
+    // (maybe making options transcluded)
   },
     {
       value: Sort.DATE_ASC,
-      label: 'Dateasc'
+      label: this.translateService.instant('job-search.filter.sort.option.DATE_ASC')
     },
     {
       value: Sort.DATE_DESC,
-      label: 'Datedesc'
+      label: this.translateService.instant('job-search.filter.sort.option.DATE_DESC')
     }]);
 
   percentages$: Observable<SelectableOption[]> = of([
@@ -54,19 +57,19 @@ export class FilterPanelComponent implements OnInit {
   contractTypeOptions$: Observable<SelectableOption[]> = of([
     {
       value: ContractType.PERMANENT,
-      label: 'permanent'
+      label: this.translateService.instant('job-search.filter.contract-type.option.PERMANENT')
     },
     {
       value: ContractType.TEMPORARY,
-      label: 'temporary'
+      label: this.translateService.instant('job-search.filter.contract-type.option.TEMPORARY')
     },
     {
       value: ContractType.ALL,
-      label: 'all'
+      label: this.translateService.instant('job-search.filter.contract-type.option.ALL')
     }
   ]);
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private translateService: TranslateService) {
   }
 
   ngOnInit() {

@@ -8,12 +8,14 @@ import { ResultListItemComponent } from './components/result-list-item/result-li
 import { SharedModule } from '../shared/shared.module';
 import { JobAdvertisementService } from './services/job-advertisement/job-advertisement.service';
 import { JobSearchResultComponent } from './pages/job-search-page/job-search-result/job-search-result.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    SearchRoutingModule
+    SearchRoutingModule,
+    InfiniteScrollModule
   ],
   providers: [
     JobAdvertisementService

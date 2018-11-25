@@ -1,24 +1,24 @@
-<h3>Filter search results</h3>
+<h3>{{'job-search.filter.title' | translate}}</h3>
 <br>
 <form formGroupName="form">
   <alv-select
-    label="Demo Select"
+    label="{{'job-search.filter.sort.label' | translate}}"
     [alvControl]="form.get('sort')"
     [options$]="sortOptions$"
     [validationMessages]="[{error: 'require', message: 'Custom message'}]"
   ></alv-select>
   <alv-input-field
-    label="Employer"
+    label="{{'job-search.filter.company-name.label' | translate}}"
     [alvControl]="form.get('company')"
   >
   </alv-input-field>
   <alv-select
-    label="Contract Type"
+    label="{{'job-search.filter.contract-type.label' | translate}}"
     [alvControl]="form.get('contractType')"
     [options$]="contractTypeOptions$"
   >
   </alv-select>
-  <p>Workload</p>
+  <p>{{'job-search.filter.working-time.label' | translate}}</p>
   <div class="row">
     <div class="col-6">
       <alv-select

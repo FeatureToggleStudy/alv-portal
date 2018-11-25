@@ -11,11 +11,16 @@
   </div>
 
   <div>
-    <span class="text--primary-color">{{result.subtitle}}</span>
+    <span class="text--primary-color">{{result.subtitle}}&nbsp;</span>
     <span *ngFor="let badge of result.badges"
           class="badge"
           [ngClass]="badge.cssClass">
-        {{badge.label}}
+      <span *ngIf="badge.doNotTranslate; else translatedBadge">
+                {{badge.label}}
+      </span>
+      <ng-template #translatedBadge>
+        {{badge.label|translate}}
+      </ng-template>
     </span>
   </div>
 
