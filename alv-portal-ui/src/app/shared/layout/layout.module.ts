@@ -24,8 +24,15 @@ import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
-import { SafeHtmlPipe } from './safe-html.pipe';
-import { MarkdownEscapePipe } from './markdown-escape.pipe';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { MarkdownEscapePipe } from './pipes/markdown-escape.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { KeysPipe } from './pipes/enum-keys.pipe';
+import { LocaleAwareDatePipe } from './pipes/locale-aware-date.pipe';
+import { LocaleAwareDecimalPipe } from './pipes/locale-aware-number.pipe';
+import { PhoneNumberPipe } from './pipes/phone-number.pipe';
+import { ShortenPipe } from './pipes/shorten.pipe';
+import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
 
 @NgModule({
   imports: [
@@ -54,7 +61,14 @@ import { MarkdownEscapePipe } from './markdown-escape.pipe';
     ModalComponent,
     ConfirmModalComponent,
     SafeHtmlPipe,
-    MarkdownEscapePipe
+    MarkdownEscapePipe,
+    CapitalizePipe,
+    KeysPipe,
+    LocaleAwareDatePipe,
+    LocaleAwareDecimalPipe,
+    PhoneNumberPipe,
+    ShortenPipe,
+    WorkingTimeRangePipe,
   ],
   entryComponents: [
     ConfirmModalComponent
@@ -71,7 +85,14 @@ import { MarkdownEscapePipe } from './markdown-escape.pipe';
     AlertComponent,
     ModalComponent,
     SafeHtmlPipe,
-    MarkdownEscapePipe
+    MarkdownEscapePipe,
+    CapitalizePipe,
+    KeysPipe,
+    LocaleAwareDatePipe,
+    LocaleAwareDecimalPipe,
+    PhoneNumberPipe,
+    ShortenPipe,
+    WorkingTimeRangePipe
   ],
   providers: [
     NotificationsService

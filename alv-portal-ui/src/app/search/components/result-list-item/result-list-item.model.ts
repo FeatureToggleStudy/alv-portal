@@ -13,6 +13,7 @@ export interface Badge {
   label: string;
   description?: string;
   cssClass: string;
+  doNotTranslate?: boolean;
 }
 
 export const badgeMock: Badge = {
