@@ -10,7 +10,7 @@
       <alv-filter-panel (filtersChange)="onFiltersChange($event)"></alv-filter-panel>
     </div>
     <div class="col-xs-12 col-md-9">
-      <ng-container *ngFor="let result of resultList">
+      <ng-container *ngFor="let result of (resultList$|async)">
         <alv-job-search-result [jobSearchResult]="result"></alv-job-search-result>
       </ng-container>
     </div>
