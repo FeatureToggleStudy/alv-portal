@@ -41,6 +41,7 @@
       <nouislider [min]="1"
                   [max]="60"
                   [config]="{step: 1}"
+                  (change)="updateSliderValue($event)"
                   class="range-input"
                   [formControl]="form.get('onlineSince')"></nouislider>
       <span class="range-slider__value range-slider__value--unit small text-nowrap"

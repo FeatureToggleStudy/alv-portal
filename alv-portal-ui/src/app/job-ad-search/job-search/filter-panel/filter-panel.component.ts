@@ -71,4 +71,8 @@ export class FilterPanelComponent implements OnInit {
   ngOnInit() {
   }
 
+  updateSliderValue(value: number) {
+    this.form.controls.onlineSince.setValue(value);
+  }
+
 }
