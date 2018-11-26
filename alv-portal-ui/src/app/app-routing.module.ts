@@ -20,7 +20,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'job-search',
-    loadChildren: './job-ad-search.module#JobAdSearchModule'
+    loadChildren: './job-ad-search/job-ad-search.module#JobAdSearchModule'
   },
   {
     path: 'landing',

@@ -5,7 +5,7 @@ import { JobDetailComponent } from './job-detail/job-detail.component';
 
 const routes: Routes = [
   {
-    path: '/',
+    path: '',
     component: JobSearchComponent
   },
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/'
+    redirectTo: ''
   }
 ];
 
