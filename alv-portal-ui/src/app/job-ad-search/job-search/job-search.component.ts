@@ -54,10 +54,9 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
       }),
       switchAll(),
       takeUntil(this.ngUnsubscribe)
-    )
-      .subscribe((resultsFromServer: JobAdvertisement[]) => {
-        this.resultList.push(...resultsFromServer);
-      })
+    ).subscribe((resultsFromServer: JobAdvertisement[]) => {
+      this.resultList.push(...resultsFromServer);
+    });
   }
 
   onFiltersChange(jobSearchFilter: JobSearchFilter, page = 0) {

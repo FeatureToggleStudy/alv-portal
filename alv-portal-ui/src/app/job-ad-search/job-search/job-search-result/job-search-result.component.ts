@@ -33,7 +33,7 @@ export class JobSearchResultComponent implements OnInit {
       badges: this.generateBadges(job),
       routerLink: ['/job-detail', job.id],
       subtitle: job.jobContent.company.name
-    }
+    };
   }
 
   private generateBadges(job: JobAdvertisement): Badge[] {
@@ -42,19 +42,19 @@ export class JobSearchResultComponent implements OnInit {
       badges.push({
         label: 'job-search.job-search-list-item.badge.permanent',
         cssClass: 'badge-green'
-      })
+      });
     } else {
       badges.push({
           label: 'job-search.job-search-list-item.badge.temporary',
           cssClass: 'badge-yellow'
         }
-      )
+      );
     }
     if (job.reportingObligation) {
       badges.push({
         label: 'job-search.job-search-list-item.badge.restricted',
         cssClass: 'badge-danger'
-      })
+      });
     }
     badges.push({
       label: formatTimeRange([job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax]),
@@ -63,7 +63,6 @@ export class JobSearchResultComponent implements OnInit {
     });
     return badges;
   }
-
 
 }
 
