@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { JobSearchRequestMapperService } from './job-search-request-mapper.service';
+import { JobSearchRequestMapper } from './job-search-request-mapper.service';
 import { JobAdvertisementService } from '../shared/backend-services/job-advertisement/job-advertisement.service';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { map, switchAll } from 'rxjs/operators';
+import { flatMap, map, switchAll } from 'rxjs/operators';
 import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.model';
+import { JobAdvertisementSearchResponse } from '../shared/backend-services/job-advertisement/job-advertisement-search-response';
 
 
 @Injectable({
@@ -17,16 +18,26 @@ export class JobSearchModel {
 
   private filtersChange$: Subject<JobSearchFilter> = new Subject();
 
+  private totalCount = 0;
+
   constructor(private jobAdsService: JobAdvertisementService) {
-    combineLatest(this.filtersChange$, this.scroll$).pipe(
-      map(([filtersValues, page]) => {
-        const searchRequest = JobSearchRequestMapperService.mapToRequest(filtersValues, page);
-        return this.jobAdsService.search(searchRequest);
-      }),
-      switchAll()
-    ).subscribe((resultsFromServer: JobAdvertisement[]) => {
-      this.resultList$.next(this.resultList$.getValue().concat(...resultsFromServer));
-    });
+    combineLatest<JobSearchFilter, number>(this.filtersChange$, this.scroll$)
+      .pipe(
+        flatMap(([filtersValues, page]) => {
+          return JobSearchRequestMapper.mapToRequest(filtersValues, page);
+        }),
+        map((jobAdvertisementSearchRequest) => {
+          return this.jobAdsService.search(jobAdvertisementSearchRequest);
+        }),
+        flatMap((jobAdvertisementSearchResponse: JobAdvertisementSearchResponse) => {
+          this.totalCount = jobAdvertisementSearchResponse.totalCount;
+          return jobAdvertisementSearchResponse.result;
+        }),
+        switchAll()
+      )
+      .subscribe((resultsFromServer: JobAdvertisement[]) => {
+        this.resultList$.next(this.resultList$.getValue().concat(...resultsFromServer));
+      });
   }
 
   get resultList$() {
@@ -43,12 +54,25 @@ export class JobSearchModel {
     this.scroll$.next(this.scroll$.getValue() + 1);
   }
 
+  hasNextPage() {
+    return this._resultList$.getValue().length !== this.totalCount;
+  }
+
+  isFirst(jobAdvertisement: JobAdvertisement) {
+    return this._resultList$.getValue().id === jobAdvertisement.id;
+  }
+
+  isLast(jobAdvertisement: JobAdvertisement) {
+    return !this.hasNextPage()
+      && this._resultList$.getValue()[this._resultList$.getValue().length - 1].id === jobAdvertisement.id;
+  }
+
   private resetPage() {
     this.scroll$.next(0);
   }
 
   private clearResults() {
-    this.resultList$.next([]);
+    this._resultList$.next([]);
   }
 }
 

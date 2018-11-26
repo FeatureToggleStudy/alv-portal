@@ -3,20 +3,17 @@ import { JobAdvertisementSearchRequest } from '../shared/backend-services/job-ad
 
 export const ITEMS_PER_PAGE = 20;
 
-export class JobSearchRequestMapperService {
-
-  constructor() {
-  }
+export class JobSearchRequestMapper {
 
   static mapToRequest(jobSearchFilter: JobSearchFilter, page: number): JobAdvertisementSearchRequest {
     return {
       page: page,
       size: ITEMS_PER_PAGE,
-      sort: JobSearchRequestMapperService.mapSort(jobSearchFilter.sort),
+      sort: JobSearchRequestMapper.mapSort(jobSearchFilter.sort),
       body: {
         workloadPercentageMin: jobSearchFilter.workloadPercentageMin,
         workloadPercentageMax: jobSearchFilter.workloadPercentageMax,
-        permanent: JobSearchRequestMapperService.mapContractType(jobSearchFilter.contractType),
+        permanent: JobSearchRequestMapper.mapContractType(jobSearchFilter.contractType),
         companyName: jobSearchFilter.company,
         onlineSince: 50,
         displayRestricted: false

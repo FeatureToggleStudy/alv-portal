@@ -15,6 +15,7 @@ import { PEAJobAdsSearchRequest } from './pea-job-ads-search-request';
 import { ResponseWrapper } from '../../model/response-wrapper.model';
 import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../../model/request-util';
+import { JobAdvertisementSearchResponse } from './job-advertisement-search-response';
 
 @Injectable()
 export class JobAdvertisementService {
@@ -42,13 +43,18 @@ export class JobAdvertisementService {
       map((resp) => new ResponseWrapper(resp.headers, resp.body, resp.status)));
   }
 
-  search(request: JobAdvertisementSearchRequest): Observable<JobAdvertisement[]> {
+  search(request: JobAdvertisementSearchRequest): Observable<JobAdvertisementSearchResponse> {
     const params = createPageableURLSearchParams(request);
     return this.http.post(this.searchUrl, request.body, {
       params,
       observe: 'response'
     }).pipe(
-      map((resp) => <JobAdvertisement[]>resp.body));
+      map((resp) => {
+        return {
+          totalCount: resp.headers.get('X-Total-Count'),
+          result: resp.body
+        };
+      }));
   }
 
   count(request: JobAdvertisementSearchRequestBody): Observable<number> {

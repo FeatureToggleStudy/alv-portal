@@ -13,6 +13,7 @@ export class JobSearchResultComponent implements OnInit {
 
   @Input()
   jobSearchResult: JobAdvertisement;
+
   listItem: ResultListItem;
 
   constructor() {
@@ -21,7 +22,6 @@ export class JobSearchResultComponent implements OnInit {
   ngOnInit() {
     this.listItem = this.jobSearchResultToResultListItemMapper(this.jobSearchResult);
   }
-
 
   private jobSearchResultToResultListItemMapper(job: JobAdvertisement): ResultListItem {
     const jobDescription = JobAdvertisementUtils.getJobDescription(job);
