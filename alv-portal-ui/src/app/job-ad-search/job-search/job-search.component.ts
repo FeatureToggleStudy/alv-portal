@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JobSearchFilter, JobSearchModel } from '../job-search.model';
-import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.model';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { Subject } from 'rxjs';
 
-export const ITEMS_PER_PAGE = 10;
 
 @Component({
   selector: 'alv-job-search',
@@ -12,8 +9,6 @@ export const ITEMS_PER_PAGE = 10;
   styleUrls: ['./job-search.component.scss']
 })
 export class JobSearchComponent extends AbstractSubscriber implements OnInit {
-  resultList$: Subject<JobAdvertisement[]> = this.jobSearchModel.resultList$;
-
 
   constructor(private jobSearchModel: JobSearchModel) {
     super();
@@ -21,6 +16,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  get resultList$() {
+    return this.jobSearchModel.resultList$;
   }
 
   onFiltersChange(jobSearchFilter: JobSearchFilter) {

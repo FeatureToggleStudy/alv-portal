@@ -3,51 +3,31 @@ import { JobSearchRequestMapperService } from './job-search-request-mapper.servi
 import { JobAdvertisementService } from '../shared/backend-services/job-advertisement/job-advertisement.service';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { map, switchAll } from 'rxjs/operators';
-import {
-  JobAdvertisementSearchRequest,
-  JobAdvertisementSearchRequestBody
-} from '../shared/backend-services/job-advertisement/job-advertisement-search-request';
 import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.model';
-import { ITEMS_PER_PAGE } from './job-search/job-search.component';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobSearchModel {
 
+  private _resultList$ = new BehaviorSubject<JobAdvertisement[]>([]);
+
   private scroll$: BehaviorSubject<number> = new BehaviorSubject(0);
+
   private filtersChange$: Subject<JobSearchFilter> = new Subject();
 
-  constructor(private mapper: JobSearchRequestMapperService,
-              private jobAdsService: JobAdvertisementService) {
+  constructor(private jobAdsService: JobAdvertisementService) {
     combineLatest(this.filtersChange$, this.scroll$).pipe(
       map(([filtersValues, page]) => {
-        const body: JobAdvertisementSearchRequestBody = {
-          workloadPercentageMin: filtersValues.workloadPercentageMin,
-          workloadPercentageMax: filtersValues.workloadPercentageMax,
-          permanent: this.mapper.mapContractType(filtersValues.contractType),
-          companyName: filtersValues.company,
-          onlineSince: 50,
-          displayRestricted: false
-        };
-
-        const searchRequest: JobAdvertisementSearchRequest = {
-          page: page,
-          size: ITEMS_PER_PAGE,
-          sort: this.mapper.mapSort(filtersValues.sort),
-          body: body
-        };
+        const searchRequest = JobSearchRequestMapperService.mapToRequest(filtersValues, page);
         return this.jobAdsService.search(searchRequest);
       }),
       switchAll()
-    )
-      .subscribe((resultsFromServer: JobAdvertisement[]) => {
-        this.resultList$.next(this.resultList$.getValue().concat(...resultsFromServer));
-      })
-
+    ).subscribe((resultsFromServer: JobAdvertisement[]) => {
+      this.resultList$.next(this.resultList$.getValue().concat(...resultsFromServer));
+    });
   }
-
-  private _resultList$ = new BehaviorSubject<JobAdvertisement[]>([]);
 
   get resultList$() {
     return this._resultList$;
@@ -55,7 +35,7 @@ export class JobSearchModel {
 
   filter(jobSearchFilter: JobSearchFilter) {
     this.clearResults();
-    this.resetScroll();
+    this.resetPage();
     this.filtersChange$.next(jobSearchFilter);
   }
 
@@ -63,7 +43,7 @@ export class JobSearchModel {
     this.scroll$.next(this.scroll$.getValue() + 1);
   }
 
-  private resetScroll() {
+  private resetPage() {
     this.scroll$.next(0);
   }
 

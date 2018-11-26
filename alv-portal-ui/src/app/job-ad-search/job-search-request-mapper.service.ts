@@ -1,41 +1,46 @@
-import { Injectable } from '@angular/core';
-import { ContractType, Sort } from './job-search.model';
+import { ContractType, JobSearchFilter, Sort } from './job-search.model';
+import { JobAdvertisementSearchRequest } from '../shared/backend-services/job-advertisement/job-advertisement-search-request';
 
 export const ITEMS_PER_PAGE = 20;
 
-@Injectable({
-  providedIn: 'root'
-})
 export class JobSearchRequestMapperService {
 
   constructor() {
   }
 
-  // TODO map the full search-stuff to a JobAdvertisementSearchRequestBody
+  static mapToRequest(jobSearchFilter: JobSearchFilter, page: number): JobAdvertisementSearchRequest {
+    return {
+      page: page,
+      size: ITEMS_PER_PAGE,
+      sort: JobSearchRequestMapperService.mapSort(jobSearchFilter.sort),
+      body: {
+        workloadPercentageMin: jobSearchFilter.workloadPercentageMin,
+        workloadPercentageMax: jobSearchFilter.workloadPercentageMax,
+        permanent: JobSearchRequestMapperService.mapContractType(jobSearchFilter.contractType),
+        companyName: jobSearchFilter.company,
+        onlineSince: 50,
+        displayRestricted: false
+      }
+    };
+  }
 
-
-  mapContractType(contractType: ContractType): boolean | null {
-    let contractTypeFlag;
+  private static mapContractType(contractType: ContractType): boolean | null {
     if (contractType === ContractType.PERMANENT) {
-      contractTypeFlag = true;
+      return true;
     } else if (contractType === ContractType.TEMPORARY) {
-      contractTypeFlag = false;
+      return false;
     } else {
-      contractTypeFlag = null;
+      return null;
     }
-    return contractTypeFlag;
   }
 
-  mapSort(sort: Sort): string {
-    let sortArray;
+  private static mapSort(sort: Sort): string {
     if (sort === Sort.DATE_ASC) {
-      sortArray = ['date_asc'];
+      return 'date_asc';
     } else if (sort === Sort.DATE_DESC) {
-      sortArray = ['date_desc'];
+      return 'date_desc';
     } else {
-      sortArray = ['score'];
+      return 'score';
     }
-    return sortArray;
   }
-
 }
