@@ -11,7 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'alv-filter-panel',
-  templateUrl: './filter-panel.component.html'
+  templateUrl: './filter-panel.component.html',
+  styleUrls: ['./filter-panel.component.scss']
 })
 export class FilterPanelComponent implements OnInit {
   form: FormGroup = this.fb.group({
@@ -19,7 +20,8 @@ export class FilterPanelComponent implements OnInit {
     company: [''],
     contractType: [''],
     workloadPercentageMin: [0],
-    workloadPercentageMax: [100]
+    workloadPercentageMax: [100],
+    onlineSince: [30]
   });
 
   @Output()
