@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   alv-portal-webapp:
-    image: "alvch-dockerv2-local.jfrog.io/alvch/alv-portal-webapp:${project.version}"
+    image: "alvch-dockerv2-local.jfrog.io/portal:${project.version}"
     environment:
       - SPRING_CLOUD_CONFIG_URI=http://admin:admin@jhipster-registry:8761/config
     ports:
