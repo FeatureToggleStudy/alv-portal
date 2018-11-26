@@ -15,7 +15,7 @@
   </p>
   <p [innerHTML]="'registrationCompanyDialog.login.description' | translate"></p>
   <button *ngIf="!isSubmitted; else confirmMessage"
-          class="btn btn-primary w-100"
+          class="btn btn-primary w-100 submit-button"
           (click)="requestActivationCode()"
           [disabled]="disableSubmit">
     {{'registrationCompanyDialog.requestActivationCode' | translate}}

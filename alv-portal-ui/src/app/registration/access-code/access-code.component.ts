@@ -66,9 +66,9 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
     this.authenticationService.getCurrentUser()
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(user => {
-          if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV) {
+          if (user && user.registrationStatus === RegistrationStatus.VALIDATION_PAV) {
             this.steps = this.registrationService.pavSteps;
-          } else if (user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
+          } else if (user && user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
             this.steps = this.registrationService.companySteps;
           } else {
             this.router.navigate(['home']);
