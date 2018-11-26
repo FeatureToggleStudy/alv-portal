@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CounterComponent } from './counter.component';
+import { JobSearchComponent } from './job-search-page.component';
 
-describe('CounterComponent', () => {
-  let component: CounterComponent;
-  let fixture: ComponentFixture<CounterComponent>;
+describe('JobSearchPageComponent', () => {
+  let component: JobSearchComponent;
+  let fixture: ComponentFixture<JobSearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CounterComponent]
+      declarations: [JobSearchComponent]
     })
         .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CounterComponent);
+    fixture = TestBed.createComponent(JobSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

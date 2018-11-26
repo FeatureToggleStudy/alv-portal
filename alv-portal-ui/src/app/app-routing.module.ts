@@ -19,8 +19,8 @@ const appRoutes: Routes = [
     loadChildren: './registration/registration.module#RegistrationModule'
   },
   {
-    path: 'search',
-    loadChildren: './search/search.module#SearchModule'
+    path: 'job-search',
+    loadChildren: './job-ad-search.module#JobAdSearchModule'
   },
   {
     path: 'landing',

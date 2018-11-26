@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { JobAdvertisement } from '../../../services/job-advertisement/job-advertisement.model';
-import {
-  Badge,
-  ResultListItem
-} from '../../../components/result-list-item/result-list-item.model';
-import { JobAdvertisementUtils } from '../../../services/job-advertisement/job-advertisement.utils';
-import { formatTimeRange } from '../../../../shared/layout/pipes/working-time-range.pipe';
+import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.model';
+import { Badge, ResultListItem } from '../result-list-item/result-list-item.model';
+import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
+import { formatTimeRange } from '../../../shared/layout/pipes/working-time-range.pipe';
 
 @Component({
   selector: 'alv-job-search-result',
@@ -28,6 +25,7 @@ export class JobSearchResultComponent implements OnInit {
 
   private jobSearchResultToResultListItemMapper(job: JobAdvertisement): ResultListItem {
     const jobDescription = JobAdvertisementUtils.getJobDescription(job);
+    // TODO create a MapperService called JobAdSearchResultMapper
     return {
       title: jobDescription.title,
       description: jobDescription.description,

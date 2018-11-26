@@ -11,6 +11,8 @@ export class JobSearchRequestMapperService {
   constructor() {
   }
 
+  // TODO map the full search-stuff to a JobAdvertisementSearchRequestBody
+
 
   mapContractType(contractType: ContractType): boolean | null {
     let contractTypeFlag;

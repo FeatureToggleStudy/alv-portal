@@ -1,3 +1,11 @@
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class JobSearchModel {
+  //
+
+}
+
 export enum Sort {
   RELEVANCE_DESC = 'RELEVANCE_DESC',
   DATE_DESC = 'DATE_DESC',
@@ -19,3 +27,4 @@ export interface JobSearchFilter {
   company?: string;
   onlineSince: number;
 }
+

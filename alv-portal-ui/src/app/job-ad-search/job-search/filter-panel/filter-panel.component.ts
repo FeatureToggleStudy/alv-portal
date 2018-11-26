@@ -2,11 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import {
-  ContractType,
-  JobSearchFilter,
-  Sort
-} from '../../pages/job-search-page/job-search.model';
+import { ContractType, JobSearchFilter, Sort } from '../../job-search.model';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

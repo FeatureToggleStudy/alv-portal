@@ -12,9 +12,9 @@ import {
   JobAdvertisementSearchRequestBody
 } from './job-advertisement-search-request';
 import { PEAJobAdsSearchRequest } from './pea-job-ads-search-request';
-import { ResponseWrapper } from '../../../shared/model/response-wrapper.model';
+import { ResponseWrapper } from '../../model/response-wrapper.model';
 import { map } from 'rxjs/operators';
-import { createPageableURLSearchParams } from '../../../shared/model/request-util';
+import { createPageableURLSearchParams } from '../../model/request-util';
 
 @Injectable()
 export class JobAdvertisementService {

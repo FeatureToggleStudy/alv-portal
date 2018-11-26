@@ -1,4 +1,4 @@
-import { CEFR_Level } from '../../../shared/model/shared-types';
+import { CEFR_Level } from '../../model/shared-types';
 
 export enum JobAdvertisementStatus {
   CREATED,
