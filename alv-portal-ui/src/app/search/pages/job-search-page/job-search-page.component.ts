@@ -30,7 +30,6 @@ export class JobSearchPageComponent extends AbstractSubscriber implements OnInit
   }
 
   ngOnInit() {
-    //fixme should be moved to a server
     combineLatest(this.filtersChange$, this.scroll$).pipe(
       map(([filtersValues, page]) => {
         const body: JobAdvertisementSearchRequestBody = {
@@ -51,17 +50,28 @@ export class JobSearchPageComponent extends AbstractSubscriber implements OnInit
         return this.jobAdsService.search(searchRequest);
       }),
       switchAll(),
-      takeUntil(this.ngUnsubscribe))
+      takeUntil(this.ngUnsubscribe)
+    )
       .subscribe((resultsFromServer: JobAdvertisement[]) => {
         this.resultList.push(...resultsFromServer);
       })
   }
 
   onFiltersChange(filtersValues: JobSearchFilter, page = 0) {
+    this.clearResults();
+    this.resetScroll();
     this.filtersChange$.next(filtersValues);
   }
 
   onScroll(e) {
     this.scroll$.next(this.scroll$.getValue() + 1);
+  }
+
+  resetScroll() {
+    this.scroll$.next(0);
+  }
+
+  clearResults() {
+    this.resultList.length = 0;
   }
 }
