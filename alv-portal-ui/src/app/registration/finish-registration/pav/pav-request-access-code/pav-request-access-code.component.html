@@ -1,6 +1,7 @@
 <alv-registration-panel panelTitle="portal.registration.request.access.code"
                         [secondaryLabel]="homeLabel"
                         (secondaryAction)="returnToHome()"
+                        [hideBackButton]="isSubmitted"
                         (backAction)="returnToPavIdentification()">
   <alv-step-indicator class="step-indicator panel-full-width"
                       [steps]="pavSteps"

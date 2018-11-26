@@ -4,7 +4,7 @@
                           primaryLabel="navigation.next"
                           (secondaryAction)="returnToHome()"
                           secondaryLabel="registration.customer.cancel"
-                          (backAction)="returnToRoleSelection()"
+                          [hideBackButton]="true"
                           [formGroup]="accessCodeForm">
     <alv-step-indicator class="step-indicator panel-full-width"
                         [steps]="steps"

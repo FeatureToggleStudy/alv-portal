@@ -29,6 +29,8 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
     isSticky: true
   };
 
+  readonly UID_MAX_LENGTH = 15;
+
   constructor(private fb: FormBuilder,
               private router: Router,
               private registrationService: RegistrationService,

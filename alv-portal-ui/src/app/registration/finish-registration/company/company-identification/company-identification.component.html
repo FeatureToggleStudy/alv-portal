@@ -22,6 +22,7 @@
   <alv-input-field label="portal.registration.company.uid.label"
                    helpText="registrationCompanyDialog.placeholder"
                    alvFormControlName="uid"
+                   [maxLength]="UID_MAX_LENGTH"
                    [autofocus]="true"
                    [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'},
                      {error: 'pattern', message: 'registrationCompanyDialog.validation.error.uid'}]">
