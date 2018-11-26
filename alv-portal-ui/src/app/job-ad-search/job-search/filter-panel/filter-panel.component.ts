@@ -1,9 +1,19 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { TranslateService } from '@ngx-translate/core';
 import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
+
+const defaultFilters: JobSearchFilter = {
+  sort: Sort.RELEVANCE_DESC,
+  displayRestricted: false,//fixme related to jobseeker role
+  company: '',
+  contractType: ContractType.ALL,
+  workloadPercentageMin: 0,
+  workloadPercentageMax: 100,
+  onlineSince: 30
+};
 
 @Component({
   selector: 'alv-filter-panel',
@@ -12,16 +22,17 @@ import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.typ
 })
 export class FilterPanelComponent implements OnInit {
   form: FormGroup = this.fb.group({
-    sort: [''],
-    company: [''],
-    contractType: [''],
-    workloadPercentageMin: [0],
-    workloadPercentageMax: [100],
-    onlineSince: [30]
+    sort: [defaultFilters.sort],
+    company: [defaultFilters.company],
+    contractType: [defaultFilters.contractType],
+    workloadPercentageMin: [defaultFilters.workloadPercentageMin],
+    workloadPercentageMax: [defaultFilters.workloadPercentageMax],
+    onlineSince: [defaultFilters.onlineSince]
   });
 
   @Output()
-  filtersChange: Observable<JobSearchFilter> = this.form.valueChanges;
+  filtersChange: BehaviorSubject<JobSearchFilter> = new BehaviorSubject<JobSearchFilter>(defaultFilters);
+
 
   sortOptions$: Observable<SelectableOption[]> = of([{
     value: Sort.RELEVANCE_DESC,
@@ -69,8 +80,7 @@ export class FilterPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
+    this.form.valueChanges.subscribe(changedValues => this.filtersChange.next(changedValues))
   }
 
   updateSliderValue(value: number) {
