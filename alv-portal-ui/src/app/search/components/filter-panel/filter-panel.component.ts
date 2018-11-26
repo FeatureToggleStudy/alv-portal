@@ -73,7 +73,6 @@ export class FilterPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   updateSliderValue(value: number) {
