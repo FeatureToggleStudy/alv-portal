@@ -1,7 +1,7 @@
 import { ContractType, JobSearchFilter, Sort } from './job-search.model';
 import { JobAdvertisementSearchRequest } from '../shared/backend-services/job-advertisement/job-advertisement-search-request';
 
-export const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 20;
 
 export class JobSearchRequestMapper {
 

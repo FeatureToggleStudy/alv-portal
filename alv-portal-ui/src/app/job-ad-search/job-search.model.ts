@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { JobSearchRequestMapper } from './job-search-request-mapper.service';
 import { JobAdvertisementService } from '../shared/backend-services/job-advertisement/job-advertisement.service';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { flatMap, map, switchAll } from 'rxjs/operators';
+import { flatMap, map, switchMap, tap } from 'rxjs/operators';
 import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.model';
-import { JobAdvertisementSearchResponse } from '../shared/backend-services/job-advertisement/job-advertisement-search-response';
+import { JobSearchRequestMapper } from './job-search-request.mapper';
 
 
 @Injectable({
@@ -12,7 +11,7 @@ import { JobAdvertisementSearchResponse } from '../shared/backend-services/job-a
 })
 export class JobSearchModel {
 
-  private _resultList$ = new BehaviorSubject<JobAdvertisement[]>([]);
+  private _resultList$ = new BehaviorSubject<Array<JobAdvertisement>>([]);
 
   private scroll$: BehaviorSubject<number> = new BehaviorSubject(0);
 
@@ -21,22 +20,18 @@ export class JobSearchModel {
   private totalCount = 0;
 
   constructor(private jobAdsService: JobAdvertisementService) {
-    combineLatest<JobSearchFilter, number>(this.filtersChange$, this.scroll$)
+    combineLatest(this.filtersChange$, this.scroll$)
       .pipe(
-        flatMap(([filtersValues, page]) => {
-          return JobSearchRequestMapper.mapToRequest(filtersValues, page);
-        }),
-        map((jobAdvertisementSearchRequest) => {
-          return this.jobAdsService.search(jobAdvertisementSearchRequest);
-        }),
-        flatMap((jobAdvertisementSearchResponse: JobAdvertisementSearchResponse) => {
-          this.totalCount = jobAdvertisementSearchResponse.totalCount;
-          return jobAdvertisementSearchResponse.result;
-        }),
-        switchAll()
+        map(([filtersValues, page]) => JobSearchRequestMapper.mapToRequest(filtersValues, page)),
+        flatMap((jobAdvertisementSearchRequest) => this.jobAdsService.search(jobAdvertisementSearchRequest)),
+        tap((jobAdvertisementSearchResponse) => this.totalCount = jobAdvertisementSearchResponse.totalCount),
+        map((jobAdvertisementSearchResponse) => jobAdvertisementSearchResponse.result),
+        switchMap((jobAdvertisements: JobAdvertisement[]) => {
+          this.resultList$.next(this._resultList$.getValue().concat(jobAdvertisements));
+          return this.resultList$;
+        })
       )
-      .subscribe((resultsFromServer: JobAdvertisement[]) => {
-        this.resultList$.next(this.resultList$.getValue().concat(...resultsFromServer));
+      .subscribe(() => {
       });
   }
 
@@ -59,7 +54,7 @@ export class JobSearchModel {
   }
 
   isFirst(jobAdvertisement: JobAdvertisement) {
-    return this._resultList$.getValue().id === jobAdvertisement.id;
+    return this._resultList$.getValue()[0].id === jobAdvertisement.id;
   }
 
   isLast(jobAdvertisement: JobAdvertisement) {

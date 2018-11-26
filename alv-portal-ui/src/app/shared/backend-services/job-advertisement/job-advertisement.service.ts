@@ -51,7 +51,7 @@ export class JobAdvertisementService {
     }).pipe(
       map((resp) => {
         return {
-          totalCount: resp.headers.get('X-Total-Count'),
+          totalCount: parseInt(resp.headers.get('X-Total-Count')),
           result: resp.body
         };
       }));
