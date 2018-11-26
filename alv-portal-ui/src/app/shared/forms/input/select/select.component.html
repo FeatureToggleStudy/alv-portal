@@ -14,7 +14,7 @@
             [attr.aria-describedby]="validationId"
             [class.placeholder-shown]="control.value === ''">
       <option *ngFor="let option of options$ | async"
-              [value]="option.value">{{option.label}}
+              [value]="option.value">{{option.label | translate}}
       </option>
     </select>
     <div *ngIf="readonly"
@@ -22,7 +22,7 @@
          class="readonly-input">
       <ng-container *ngFor="let option of options$ | async">
         <ng-container *ngIf="option.value === control.value">
-          {{option.label}}
+          {{option.label | translate}}
         </ng-container>
       </ng-container>
     </div>

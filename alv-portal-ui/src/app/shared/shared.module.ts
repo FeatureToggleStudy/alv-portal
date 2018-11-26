@@ -14,7 +14,7 @@ import { SharedAuthModule } from './auth/shared-auth.module';
     AlvFormsModule,
     PrettyJsonModule,
     LayoutModule,
-    SharedAuthModule
+    SharedAuthModule,
   ],
   entryComponents: [],
   exports: [

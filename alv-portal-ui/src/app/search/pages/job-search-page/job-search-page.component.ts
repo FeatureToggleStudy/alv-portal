@@ -26,7 +26,9 @@ export class JobSearchPageComponent implements OnInit {
   ngOnInit() {
   }
 
-  onFiltersChange(filtersValues: JobSearchFilter) {
+  onFiltersChange(filtersValues: JobSearchFilter, page = 0) {
+
+    //here we just want to trigger subject next and then do combineLatest with the scrolling
 
     //we don't do any manipulations with the data that comes from the autocompletion yet
     const body: JobAdvertisementSearchRequestBody = {
@@ -47,4 +49,8 @@ export class JobSearchPageComponent implements OnInit {
     this.resultList$ = this.jobAdsService.search(searchRequest);
   }
 
+  onScroll(e) {
+    // also triggering subject.next
+    console.log(e);
+  }
 }

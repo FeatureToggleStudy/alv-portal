@@ -27,17 +27,15 @@ export class FilterPanelComponent implements OnInit {
 
   sortOptions$: Observable<SelectableOption[]> = of([{
     value: Sort.RELEVANCE_DESC,
-    label: this.translateService.instant('job-search.filter.sort.option.RELEVANCE_DESC')
-    //FIXME instant only updates once! need to change the structure of the select
-    // (maybe making options transcluded)
+    label: 'job-search.filter.sort.option.RELEVANCE_DESC'
   },
     {
       value: Sort.DATE_ASC,
-      label: this.translateService.instant('job-search.filter.sort.option.DATE_ASC')
+      label: 'job-search.filter.sort.option.DATE_ASC'
     },
     {
       value: Sort.DATE_DESC,
-      label: this.translateService.instant('job-search.filter.sort.option.DATE_DESC')
+      label: 'job-search.filter.sort.option.DATE_DESC'
     }]);
 
   percentages$: Observable<SelectableOption[]> = of([
@@ -57,15 +55,15 @@ export class FilterPanelComponent implements OnInit {
   contractTypeOptions$: Observable<SelectableOption[]> = of([
     {
       value: ContractType.PERMANENT,
-      label: this.translateService.instant('job-search.filter.contract-type.option.PERMANENT')
+      label: 'job-search.filter.contract-type.option.PERMANENT'
     },
     {
       value: ContractType.TEMPORARY,
-      label: this.translateService.instant('job-search.filter.contract-type.option.TEMPORARY')
+      label: 'job-search.filter.contract-type.option.TEMPORARY'
     },
     {
       value: ContractType.ALL,
-      label: this.translateService.instant('job-search.filter.contract-type.option.ALL')
+      label: 'job-search.filter.contract-type.option.ALL'
     }
   ]);
 

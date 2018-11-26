@@ -1,4 +1,9 @@
-<div class="container">
+<div (scrolled)="onScroll($event)"
+     [fromRoot]="true"
+     [immediateCheck]="true"
+     [infiniteScrollContainer]="'main'"
+     class="container"
+     infiniteScroll>
   <div class="row">
     <div class="col-xs-12 col-md-3">
       <alv-filter-panel (filtersChange)="onFiltersChange($event)"></alv-filter-panel>
