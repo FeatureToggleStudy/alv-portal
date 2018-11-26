@@ -35,7 +35,19 @@
       ></alv-select>
     </div>
   </div>
-  <pre>{{form.valueChanges|async|json}}</pre>
-
+  <div class="form-group range-slider">
+    <label>{{ 'job-search.filter.online-since.label' | translate}}</label>
+    <div>
+      <nouislider [min]="1"
+                  [max]="60"
+                  [config]="{step: 1}"
+                  class="range-input"
+                  [formControl]="form.get('onlineSince')"></nouislider>
+      <span class="range-slider__value range-slider__value--unit small text-nowrap"
+            [attr.data-unit]="(form.get('onlineSince').value > 1 ? 'job-search.filter.online-since.day.many' : 'job-search.filter.online-since.day.one') | translate">
+                    {{ form.get('onlineSince').value }}
+       </span>
+    </div>
+  </div>
 </form>
 

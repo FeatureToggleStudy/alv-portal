@@ -9,13 +9,15 @@ import { SharedModule } from '../shared/shared.module';
 import { JobAdvertisementService } from './services/job-advertisement/job-advertisement.service';
 import { JobSearchResultComponent } from './pages/job-search-page/job-search-result/job-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NouisliderModule } from 'ng2-nouislider';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     SearchRoutingModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NouisliderModule,
   ],
   providers: [
     JobAdvertisementService
