@@ -42,15 +42,15 @@ export class JobSearchModel {
       switchAll()
     )
       .subscribe((resultsFromServer: JobAdvertisement[]) => {
-        this.resultList.push(...resultsFromServer);
+        this.resultList$.next(this.resultList$.getValue().concat(...resultsFromServer));
       })
 
   }
 
-  private _resultList: JobAdvertisement[] = [];
+  private _resultList$ = new BehaviorSubject<JobAdvertisement[]>([]);
 
-  get resultList() {
-    return this._resultList;
+  get resultList$() {
+    return this._resultList$;
   }
 
   filter(jobSearchFilter: JobSearchFilter) {
@@ -68,7 +68,7 @@ export class JobSearchModel {
   }
 
   private clearResults() {
-    this.resultList.length = 0;
+    this.resultList$.next([]);
   }
 }
 
