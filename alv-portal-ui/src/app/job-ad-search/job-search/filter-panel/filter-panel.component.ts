@@ -2,8 +2,8 @@ import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import { ContractType, JobSearchFilter, Sort } from '../../job-search.model';
 import { TranslateService } from '@ngx-translate/core';
+import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
 
 @Component({
   selector: 'alv-filter-panel',
@@ -69,6 +69,8 @@ export class FilterPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
   }
 
   updateSliderValue(value: number) {

@@ -4,6 +4,7 @@ import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { flatMap, map, switchMap, tap } from 'rxjs/operators';
 import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.model';
 import { JobSearchRequestMapper } from './job-search-request.mapper';
+import { JobSearchFilter } from './job-search-filter.types';
 
 
 @Injectable({
@@ -69,27 +70,5 @@ export class JobSearchModel {
   private clearResults() {
     this._resultList$.next([]);
   }
-}
-
-export enum Sort {
-  RELEVANCE_DESC = 'RELEVANCE_DESC',
-  DATE_DESC = 'DATE_DESC',
-  DATE_ASC = 'DATE_ASC'
-}
-
-export enum ContractType {
-  ALL = 'ALL',
-  TEMPORARY = 'TEMPORARY',
-  PERMANENT = 'PERMANENT',
-}
-
-export interface JobSearchFilter {
-  sort: Sort;
-  displayRestricted: boolean;
-  contractType: ContractType;
-  workloadPercentageMax: number;
-  workloadPercentageMin: number;
-  company?: string;
-  onlineSince: number;
 }
 

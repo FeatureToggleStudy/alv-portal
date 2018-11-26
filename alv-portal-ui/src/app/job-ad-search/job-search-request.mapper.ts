@@ -1,5 +1,5 @@
-import { ContractType, JobSearchFilter, Sort } from './job-search.model';
 import { JobAdvertisementSearchRequest } from '../shared/backend-services/job-advertisement/job-advertisement-search-request';
+import { ContractType, JobSearchFilter, Sort } from './job-search-filter.types';
 
 const ITEMS_PER_PAGE = 20;
 

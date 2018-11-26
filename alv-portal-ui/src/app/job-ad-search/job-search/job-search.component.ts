@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { JobSearchFilter, JobSearchModel } from '../job-search.model';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
+import { JobSearchModel } from '../job-search.model';
+import { JobSearchFilter } from '../job-search-filter.types';
 
 
 @Component({

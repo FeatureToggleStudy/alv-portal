@@ -45,7 +45,7 @@ export class JobAdvertisementService {
 
   search(request: JobAdvertisementSearchRequest): Observable<JobAdvertisementSearchResponse> {
     const params = createPageableURLSearchParams(request);
-    return this.http.post(this.searchUrl, request.body, {
+    return this.http.post<JobAdvertisement[]>(this.searchUrl, request.body, {
       params,
       observe: 'response'
     }).pipe(
