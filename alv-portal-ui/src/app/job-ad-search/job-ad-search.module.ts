@@ -10,6 +10,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NouisliderModule } from 'ng2-nouislider';
 import { JobAdSearchRoutingModule } from './job-ad-search-routing.module';
 import { JobDetailComponent } from './job-detail/job-detail.component';
+import { JobSearchModel } from './job-search.model';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { JobDetailComponent } from './job-detail/job-detail.component';
     NouisliderModule,
   ],
   providers: [
-    JobAdvertisementService
+    JobAdvertisementService,
+    JobSearchModel
   ],
   declarations: [
     JobSearchComponent,
