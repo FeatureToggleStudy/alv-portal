@@ -1,10 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  OrganizationSuggestion
-} from '../../../../service/organization/organization.model';
-import { Observable } from 'rxjs';
+import { OrganizationSuggestion } from '../../../../service/organization/organization.model';
+import { from, Observable } from 'rxjs';
 import { OrganizationService } from '../../../../service/organization/organization.service';
-import { map } from 'rxjs/operators';
+import { map, mergeMap, toArray } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SingleTypeaheadItem } from '../../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
 import { Router } from '@angular/router';
@@ -58,7 +56,9 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
 
   private searchOrganizations(term: string): Observable<SingleTypeaheadItem[]> {
     return this.organizationService.suggest(term).pipe(
-        map(organizations => organizations.map(this.mapOrganizationItem))
+        mergeMap(organizations => from(organizations)),
+        map(this.mapOrganizationItem),
+        toArray()
     );
   }
 
