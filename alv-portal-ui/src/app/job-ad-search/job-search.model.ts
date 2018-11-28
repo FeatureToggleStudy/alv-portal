@@ -7,7 +7,6 @@ import {
   mergeMap,
   scan,
   switchMapTo,
-  tap,
   withLatestFrom
 } from 'rxjs/operators';
 import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.model';
@@ -22,6 +21,16 @@ import { JobAdvertisementSearchRequest } from '../shared/backend-services/job-ad
 })
 export class JobSearchModel {
 
+  private scroll$: BehaviorSubject<number> = new BehaviorSubject(0);
+
+  private filtersChange$: Subject<JobSearchFilter> = new Subject();
+
+  private _resultList: JobAdvertisement[] = [];
+
+  get resultList() {
+    return this._resultList;
+  }
+
   constructor(private jobAdsService: JobAdvertisementService) {
 
     const scrollStartsOnFiltersChange$ = this.filtersChange$.pipe(
@@ -29,7 +38,6 @@ export class JobSearchModel {
     );
 
     const scrollCounter$ = scrollStartsOnFiltersChange$.pipe(
-      tap(x => console.log('scrollCounter$', x)),
       scan(x => x + 1, 0)
     );
 
@@ -46,18 +54,8 @@ export class JobSearchModel {
       .subscribe(newResults => this._resultList.push(...newResults))
   }
 
-  private scroll$: BehaviorSubject<number> = new BehaviorSubject(0);
-
-  private filtersChange$: Subject<JobSearchFilter> = new Subject();
-
-  private _resultList: JobAdvertisement[] = [];
-
-  get resultList() {
-    return this._resultList;
-  }
-
   request(filtersValues: JobSearchFilter, page: number = 0): Observable<JobAdvertisement[]> {
-    const jobAdvertisementSearchRequest: JobAdvertisementSearchRequest = JobSearchRequestMapper.mapToRequest(filtersValues, 0);
+    const jobAdvertisementSearchRequest: JobAdvertisementSearchRequest = JobSearchRequestMapper.mapToRequest(filtersValues, page);
     return this.jobAdsService.search(jobAdvertisementSearchRequest).pipe(
       map((jobAdvertisementSearchResponse: JobAdvertisementSearchResponse) => jobAdvertisementSearchResponse.result)
     )
