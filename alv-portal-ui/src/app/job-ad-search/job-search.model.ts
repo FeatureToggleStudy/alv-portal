@@ -3,6 +3,7 @@ import { JobAdvertisementService } from '../shared/backend-services/job-advertis
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import {
   concatMap,
+  debounceTime,
   map,
   mergeMap,
   scan,
@@ -34,6 +35,7 @@ export class JobSearchModel {
   constructor(private jobAdsService: JobAdvertisementService) {
 
     const scrollStartsOnFiltersChange$ = this.filtersChange$.pipe(
+      debounceTime(500),
       switchMapTo(this.scroll$),
     );
 
@@ -42,6 +44,7 @@ export class JobSearchModel {
     );
 
     this.filtersChange$.pipe(
+      debounceTime(500),
       mergeMap(filters => this.request(filters))
     )
       .subscribe(newList => this._resultList = newList);
@@ -55,7 +58,9 @@ export class JobSearchModel {
   }
 
   request(filtersValues: JobSearchFilter, page: number = 0): Observable<JobAdvertisement[]> {
+    console.log(filtersValues);
     const jobAdvertisementSearchRequest: JobAdvertisementSearchRequest = JobSearchRequestMapper.mapToRequest(filtersValues, page);
+    console.log(jobAdvertisementSearchRequest);
     return this.jobAdsService.search(jobAdvertisementSearchRequest).pipe(
       map((jobAdvertisementSearchResponse: JobAdvertisementSearchResponse) => jobAdvertisementSearchResponse.result)
     )
