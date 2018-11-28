@@ -1,10 +1,20 @@
 import { Injectable } from '@angular/core';
 import { JobAdvertisementService } from '../shared/backend-services/job-advertisement/job-advertisement.service';
-import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { flatMap, map, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import {
+  concatMap,
+  map,
+  mergeMap,
+  scan,
+  switchMapTo,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.model';
 import { JobSearchRequestMapper } from './job-search-request.mapper';
 import { JobSearchFilter } from './job-search-filter.types';
+import { JobAdvertisementSearchResponse } from '../shared/backend-services/job-advertisement/job-advertisement-search-response';
+import { JobAdvertisementSearchRequest } from '../shared/backend-services/job-advertisement/job-advertisement-search-request';
 
 
 @Injectable({
@@ -12,37 +22,48 @@ import { JobSearchFilter } from './job-search-filter.types';
 })
 export class JobSearchModel {
 
-  private _resultList$ = new BehaviorSubject<Array<JobAdvertisement>>([]);
+  constructor(private jobAdsService: JobAdvertisementService) {
+
+    const scrollStartsOnFiltersChange$ = this.filtersChange$.pipe(
+      switchMapTo(this.scroll$),
+    );
+
+    const scrollCounter$ = scrollStartsOnFiltersChange$.pipe(
+      tap(x => console.log('scrollCounter$', x)),
+      scan(x => x + 1, 0)
+    );
+
+    this.filtersChange$.pipe(
+      mergeMap(filters => this.request(filters))
+    )
+      .subscribe(newList => this._resultList = newList);
+
+
+    scrollCounter$.pipe(
+      withLatestFrom(this.filtersChange$),
+      concatMap(([page, filters]) => this.request(filters, page))
+    )
+      .subscribe(newResults => this._resultList.push(...newResults))
+  }
 
   private scroll$: BehaviorSubject<number> = new BehaviorSubject(0);
 
   private filtersChange$: Subject<JobSearchFilter> = new Subject();
 
-  private totalCount = 0;
+  private _resultList: JobAdvertisement[] = [];
 
-  constructor(private jobAdsService: JobAdvertisementService) {
-    combineLatest(this.filtersChange$, this.scroll$)
-      .pipe(
-        map(([filtersValues, page]) => JobSearchRequestMapper.mapToRequest(filtersValues, page)),
-        flatMap((jobAdvertisementSearchRequest) => this.jobAdsService.search(jobAdvertisementSearchRequest)),
-        tap((jobAdvertisementSearchResponse) => this.totalCount = jobAdvertisementSearchResponse.totalCount),
-        map((jobAdvertisementSearchResponse) => jobAdvertisementSearchResponse.result),
-        switchMap((jobAdvertisements: JobAdvertisement[]) => {
-          this.resultList$.next(this._resultList$.getValue().concat(jobAdvertisements));
-          return this.resultList$;
-        })
-      )
-      .subscribe(() => {
-      });
+  get resultList() {
+    return this._resultList;
   }
 
-  get resultList$() {
-    return this._resultList$;
+  request(filtersValues: JobSearchFilter, page: number = 0): Observable<JobAdvertisement[]> {
+    const jobAdvertisementSearchRequest: JobAdvertisementSearchRequest = JobSearchRequestMapper.mapToRequest(filtersValues, 0);
+    return this.jobAdsService.search(jobAdvertisementSearchRequest).pipe(
+      map((jobAdvertisementSearchResponse: JobAdvertisementSearchResponse) => jobAdvertisementSearchResponse.result)
+    )
   }
 
   filter(jobSearchFilter: JobSearchFilter) {
-    this.clearResults();
-    this.resetPage();
     this.filtersChange$.next(jobSearchFilter);
   }
 
@@ -50,25 +71,5 @@ export class JobSearchModel {
     this.scroll$.next(this.scroll$.getValue() + 1);
   }
 
-  hasNextPage() {
-    return this._resultList$.getValue().length !== this.totalCount;
-  }
-
-  isFirst(jobAdvertisement: JobAdvertisement) {
-    return this._resultList$.getValue()[0].id === jobAdvertisement.id;
-  }
-
-  isLast(jobAdvertisement: JobAdvertisement) {
-    return !this.hasNextPage()
-      && this._resultList$.getValue()[this._resultList$.getValue().length - 1].id === jobAdvertisement.id;
-  }
-
-  private resetPage() {
-    this.scroll$.next(0);
-  }
-
-  private clearResults() {
-    this._resultList$.next([]);
-  }
 }
 

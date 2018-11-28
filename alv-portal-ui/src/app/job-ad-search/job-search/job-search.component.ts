@@ -19,8 +19,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
 
   }
 
-  get resultList$() {
-    return this.jobSearchModel.resultList$;
+  get resultList() {
+    return this.jobSearchModel.resultList;
   }
 
   onFiltersChange(jobSearchFilter: JobSearchFilter) {
@@ -29,6 +29,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
   }
 
   onScroll() {
+    console.log('scroll!');
     this.jobSearchModel.loadNextPage();
   }
 
