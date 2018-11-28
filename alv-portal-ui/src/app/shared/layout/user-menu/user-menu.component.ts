@@ -1,21 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { RegistrationStatus, User } from '../../../core/auth/user.model';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { LandingNavigationService } from '../../../core/landing-navigation.service';
+import { DOCUMENT, Location } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss']
 })
-export class UserMenuComponent {
+export class UserMenuComponent implements OnInit {
 
   private _user: User;
 
+  private readonly FINISH_REGISTRATION_URL = '/registration/finish';
+
+  private readonly ACCESS_CODE_URL = '/registration/access-code';
+
   @Input() set user(user: User) {
     this._user = user;
-    this.hasCompletedRegistration = this._user.registrationStatus === RegistrationStatus.REGISTERED;
+    this.hideRegistrationAction = this._user.registrationStatus === RegistrationStatus.REGISTERED;
   }
   get user() {
     return this._user;
@@ -23,27 +29,43 @@ export class UserMenuComponent {
 
   @Input() noEiam: boolean;
 
-  hasCompletedRegistration: boolean;
+  hideRegistrationAction: boolean;
 
   constructor(private authenticationService: AuthenticationService,
               private router: Router,
-              private landingNavigationService: LandingNavigationService) {
+              private location: Location,
+              private activatedRoute: ActivatedRoute,
+              private landingNavigationService: LandingNavigationService,
+              @Inject(DOCUMENT) private document: any) {
+  }
+
+  ngOnInit() {
+    this.subscribeOnRouteChanges();
   }
 
   logout() {
     this.authenticationService.logout();
     if (!this.noEiam) {
-      document.location.href = '/authentication/logout';
+      this.document.location.href = '/authentication/logout';
     } else {
       this.router.navigate(['']);
     }
   }
 
   goToEiamProfile() {
-    document.location.href = '/authentication/profile';
+    this.document.location.href = '/authentication/profile';
   }
 
   completeRegistration() {
     this.landingNavigationService.navigateUser(this.user);
+  }
+
+  private subscribeOnRouteChanges() {
+    this.router.events.pipe(
+        filter((event) => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.hideRegistrationAction = this.location.isCurrentPathEqualTo(this.FINISH_REGISTRATION_URL) ||
+          this.location.isCurrentPathEqualTo(this.ACCESS_CODE_URL);
+    });
   }
 }
