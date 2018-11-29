@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
-import { RegistrationService } from '../../../registration.service';
+import { RegistrationService } from '../../../../service/registration/registration.service';
 import { finalize } from 'rxjs/operators';
-import { Company } from '../../../../service/company/company.model';
+import { Company } from '../../../../service/uid/uid.model';
+import { companySteps } from '../company-steps.config';
 
 @Component({
   selector: 'alv-company-request-access-code',
@@ -15,7 +16,7 @@ export class CompanyRequestAccessCodeComponent extends AbstractRegistrationStep 
 
   @Input() company: Company;
 
-  companySteps = this.registrationService.companySteps;
+  companySteps = companySteps;
 
   homeLabel: string;
 

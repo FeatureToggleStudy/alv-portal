@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { OrganizationSuggestion } from '../../../../service/organization/organization.model';
+import { OrganizationSuggestion } from '../../../../service/pav-search/pav-search.model';
 import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
-import { RegistrationService } from '../../../registration.service';
+import { RegistrationService } from '../../../../service/registration/registration.service';
 import { finalize } from 'rxjs/operators';
+import { pavSteps } from '../pav-steps.config';
 
 @Component({
   selector: 'alv-pav-request-access-code',
@@ -15,7 +16,7 @@ export class PavRequestAccessCodeComponent extends AbstractRegistrationStep {
 
   @Input() organization: OrganizationSuggestion;
 
-  pavSteps = this.registrationService.pavSteps;
+  pavSteps = pavSteps;
 
   homeLabel: string;
 

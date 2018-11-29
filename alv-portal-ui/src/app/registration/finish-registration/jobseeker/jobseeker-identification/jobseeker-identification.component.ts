@@ -3,9 +3,10 @@ import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PERSON_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
-import { RegistrationService } from '../../../registration.service';
+import { RegistrationService } from '../../../../service/registration/registration.service';
 import { Router } from '@angular/router';
-import { MappingService } from '../../../../service/mapping/mapping.service';
+import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from '../../../../core/notifications.service';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -14,11 +15,11 @@ import { MappingService } from '../../../../service/mapping/mapping.service';
 })
 export class JobseekerIdentificationComponent extends AbstractRegistrationStep implements OnInit {
 
-  readonly BIRTHDAY_MIN_DATE = MappingService.toNgbDate(new Date(1900, 1, 1));
+  readonly BIRTHDAY_MIN_DATE = NgbDate.from({year: 1900, month: 1, day: 1});
 
-  readonly BIRTHDAY_MAX_DATE = MappingService.toNgbDate(new Date());
+  readonly BIRTHDAY_MAX_DATE = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
 
-  readonly BIRTHDAY_START_DATE = MappingService.toNgbDate(new Date(new Date().getFullYear() - 30, 0));
+  readonly BIRTHDAY_START_DATE = NgbDate.from({year: new Date().getFullYear() - 30, month: 1, day: 1});
 
   readonly PERSON_NR_MAX_LENGTH = 8;
 
@@ -26,6 +27,8 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
 
   constructor(private fb: FormBuilder,
               private router: Router,
+              private ngbDateNativeAdapter: NgbDateNativeAdapter,
+              private notificationsService: NotificationsService,
               private registrationService: RegistrationService) {
     super();
   }
@@ -47,8 +50,17 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
       if (success) {
         this.router.navigate(['home']);
       }
-    }, err => {
-        this.jobseekerIdentificationForm.reset();
+    }, error => {
+      this.jobseekerIdentificationForm.reset();
+      if (error.error.reason) {
+        if (error.error.reason === 'InvalidPersonenNumberException') {
+          return this.notificationsService.error('registration.customer.identificaton.mismatch.error');
+        }
+        if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
+          return this.notificationsService.error('registration.customer.identificaton.already-taken.error');
+        }
+        return this.notificationsService.error('registration.customer.identificaton.technical.error');
+      }
     });
   }
 

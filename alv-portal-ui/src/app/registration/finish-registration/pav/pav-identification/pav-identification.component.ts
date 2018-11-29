@@ -1,14 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { OrganizationSuggestion } from '../../../../service/organization/organization.model';
+import { OrganizationSuggestion } from '../../../../service/pav-search/pav-search.model';
 import { from, Observable } from 'rxjs';
-import { OrganizationService } from '../../../../service/organization/organization.service';
+import { PavSearchService } from '../../../../service/pav-search/pav-search.service';
 import { map, mergeMap, toArray } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SingleTypeaheadItem } from '../../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
 import { Router } from '@angular/router';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { AbstractRegistrationStep } from '../../../abstract-registration-step';
-import { RegistrationService } from '../../../registration.service';
+import { RegistrationService } from '../../../../service/registration/registration.service';
+import { pavSteps } from '../pav-steps.config';
 
 @Component({
   selector: 'alv-pav-identification',
@@ -19,13 +20,13 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
 
   @Output() organisationSelected = new EventEmitter<OrganizationSuggestion>();
 
-  pavSteps = this.registrationService.pavSteps;
+  pavSteps = pavSteps;
 
   pavForm: FormGroup;
 
   searchOrganizationsFn = this.searchOrganizations.bind(this);
 
-  constructor(private organizationService: OrganizationService,
+  constructor(private pavSearchService: PavSearchService,
               private registrationService: RegistrationService,
               private fb: FormBuilder,
               private router: Router) {
@@ -55,7 +56,7 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
   }
 
   private searchOrganizations(term: string): Observable<SingleTypeaheadItem[]> {
-    return this.organizationService.suggest(term).pipe(
+    return this.pavSearchService.suggest(term).pipe(
         mergeMap(organizations => from(organizations)),
         map(this.mapOrganizationItem),
         toArray()
@@ -63,7 +64,7 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
   }
 
   private mapOrganizationItem(item: OrganizationSuggestion): SingleTypeaheadItem {
-    return new SingleTypeaheadItem(item.externalId, OrganizationService.formatOrganizationName(item), item);
+    return new SingleTypeaheadItem(item.externalId, PavSearchService.formatOrganizationName(item), item);
   }
 
 }

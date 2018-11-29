@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationService } from '../registration.service';
+import { RegistrationService } from '../../service/registration/registration.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { takeUntil } from 'rxjs/operators';
@@ -8,6 +8,8 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { RegistrationStatus } from '../../core/auth/user.model';
 import { StepIndicatorItem } from '../../shared/layout/step-indicator/step.model';
 import { NotificationsService } from '../../core/notifications.service';
+import { pavSteps } from '../finish-registration/pav/pav-steps.config';
+import { companySteps } from '../finish-registration/company/company-steps.config';
 
 @Component({
   selector: 'alv-access-code',
@@ -67,9 +69,9 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(user => {
           if (user && user.registrationStatus === RegistrationStatus.VALIDATION_PAV) {
-            this.steps = this.registrationService.pavSteps;
+            this.steps = pavSteps;
           } else if (user && user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
-            this.steps = this.registrationService.companySteps;
+            this.steps = companySteps;
           } else {
             this.router.navigate(['home']);
           }

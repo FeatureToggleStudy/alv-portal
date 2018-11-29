@@ -1,4 +1,4 @@
-import { OrganizationService } from './organization.service';
+import { PavSearchService } from './pav-search.service';
 
 export const enum CompanyType {
     'AVG',
@@ -21,7 +21,7 @@ export class Organization {
     }
 
     toString(): string {
-        return OrganizationService.formatOrganizationName(this);
+        return PavSearchService.formatOrganizationName(this);
     }
 }
 

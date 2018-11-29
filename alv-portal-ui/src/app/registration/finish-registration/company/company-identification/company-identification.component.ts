@@ -5,10 +5,11 @@ import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../../../../core/notifications.service';
-import { RegistrationService } from '../../../registration.service';
-import { CompanyService } from '../../../../service/company/company.service';
-import { Company } from '../../../../service/company/company.model';
+import { RegistrationService } from '../../../../service/registration/registration.service';
+import { UidService } from '../../../../service/uid/uid.service';
+import { Company } from '../../../../service/uid/uid.model';
 import { NotificationType } from '../../../../shared/layout/notifications/notification.model';
+import { companySteps } from '../company-steps.config';
 
 @Component({
   selector: 'alv-company-identification',
@@ -21,7 +22,7 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
 
   companyUidForm: FormGroup;
 
-  companySteps = this.registrationService.companySteps;
+  companySteps = companySteps;
 
   uidInfoNotification = {
     type: NotificationType.INFO,
@@ -34,7 +35,8 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
   constructor(private fb: FormBuilder,
               private router: Router,
               private registrationService: RegistrationService,
-              private companyService: CompanyService) {
+              private notificationsService: NotificationsService,
+              private uidService: UidService) {
     super();
   }
 
@@ -45,14 +47,15 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
   }
 
   findCompanyByUid() {
-    const extractedUid = this.companyService.extractCompanyUid(this.companyUidForm.get('uid').value);
-    this.companyService.getCompanyByUid(extractedUid)
+    const extractedUid = this.uidService.extractCompanyUid(this.companyUidForm.get('uid').value);
+    this.uidService.getCompanyByUid(extractedUid)
         .subscribe(
             (company) => {
               this.companySelected.emit(company);
               this.updateStep.emit(RegistrationStep.COMPANY_REQUEST_ACCESS_STEP);
             },
             () => {
+              this.notificationsService.error('registrationCompanyDialog.validation.error.notFound');
               this.companyUidForm.reset();
             });
   }
