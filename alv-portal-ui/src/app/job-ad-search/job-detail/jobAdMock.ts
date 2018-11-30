@@ -1,9 +1,13 @@
-export const jobAdDetailsMock = {
+import {
+  JobAdvertisement,
+  JobAdvertisementStatus,
+  SourceSystem
+} from '../../shared/backend-services/job-advertisement/job-advertisement.model';
+
+export const mockJobDetails: JobAdvertisement = {
   "id": "1b174cee-e221-11e8-b8c9-005056ac086d",
-  "createdTime": "2018-11-07T01:07:25.111",
-  "updatedTime": "2018-11-07T01:07:25.111",
-  "status": "PUBLISHED_PUBLIC",
-  "sourceSystem": "EXTERN",
+  "status": JobAdvertisementStatus.PUBLISHED_PUBLIC,
+  "sourceSystem": SourceSystem.EXTERN,
   "externalReference": null,
   "stellennummerEgov": null,
   "stellennummerAvam": null,
@@ -49,8 +53,8 @@ export const jobAdDetailsMock = {
       "shortEmployment": false,
       "immediately": false,
       "permanent": true,
-      "workloadPercentageMin": "100",
-      "workloadPercentageMax": "100",
+      "workloadPercentageMin": 100,
+      "workloadPercentageMax": 100,
       "workForms": []
     },
     "location": {
@@ -61,7 +65,7 @@ export const jobAdDetailsMock = {
       "regionCode": null,
       "cantonCode": null,
       "countryIsoCode": "CH",
-      "coordinates": null
+      // "coordinates": null
     },
     "occupations": [
       {

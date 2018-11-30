@@ -6,9 +6,13 @@ import { NavigationContainerComponent } from './navigation-container/navigation-
 import { VersionComponent } from './version/version.component';
 import { HeaderComponent } from './header/header.component';
 import {
+  NgbAlert,
+  NgbAlertModule,
   NgbDropdownModule,
   NgbModalModule,
-  NgbPopoverModule
+  NgbPopoverModule,
+  NgbTooltip,
+  NgbTooltipModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -35,7 +39,9 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     HttpClientModule,
     SharedAuthModule,
     FormsModule,
-    TranslateModule
+    TranslateModule,
+    NgbAlertModule,
+    NgbTooltipModule
   ],
   declarations: [
     UserMenuComponent,
@@ -50,7 +56,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     NotificationsComponent,
     AlertComponent,
     ModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
   ],
   entryComponents: [
     ConfirmModalComponent
@@ -65,7 +71,9 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     HelpButtonComponent,
     NotificationsComponent,
     AlertComponent,
-    ModalComponent
+    ModalComponent,
+    NgbAlert,
+    NgbTooltip
   ],
   providers: [
     NotificationsService

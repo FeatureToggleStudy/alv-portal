@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.model';
+import { mockJobDetails } from './jobAdMock';
 
 @Component({
   selector: 'alv-job-detail',
@@ -6,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./job-detail.component.scss']
 })
 export class JobDetailComponent implements OnInit {
+  job: JobAdvertisement = mockJobDetails;
 
   constructor() {
   }
+
 
   ngOnInit() {
   }
