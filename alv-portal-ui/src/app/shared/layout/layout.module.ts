@@ -28,6 +28,7 @@ import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { LanguageComponent } from './language.component';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     AlertComponent,
     ModalComponent,
     ConfirmModalComponent,
+    LanguageComponent
   ],
   entryComponents: [
     ConfirmModalComponent
@@ -73,7 +75,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     AlertComponent,
     ModalComponent,
     NgbAlert,
-    NgbTooltip
+    NgbTooltip,
+    LanguageComponent
   ],
   providers: [
     NotificationsService

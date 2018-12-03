@@ -77,7 +77,9 @@
            class="detail__content">
         <markdown [data]="jobDescription.description"></markdown>
       </div>
-      <pre>{{job.jobContent.languageSkills|json}}</pre>
+
+      <alv-languages [languages]="job.jobContent.languageSkills"
+      ></alv-languages>
 
       <br/>
       <div *ngIf="job.jobContent.applyChannel"
