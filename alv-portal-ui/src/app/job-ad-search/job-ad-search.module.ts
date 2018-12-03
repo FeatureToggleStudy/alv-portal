@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { JobAdSearchRoutingModule } from './job-ad-search-routing.module';
 import { JobDetailComponent } from './job-detail/job-detail.component';
+import { JobLocationComponent } from './job-location/job-location.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { JobDetailComponent } from './job-detail/job-detail.component';
   ],
   providers: [],
   declarations: [
-    JobDetailComponent]
+    JobDetailComponent,
+    JobLocationComponent]
 })
 export class JobAdSearchModule {
 }

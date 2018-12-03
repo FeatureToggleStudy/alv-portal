@@ -2,15 +2,15 @@ import { CEFR_Level } from '../../model/shared-types';
 import { FALLBACK_LANGUAGE } from '../../../core/languages.constants';
 
 export enum JobAdvertisementStatus {
-  CREATED,
-  INSPECTING,
-  APPROVED,
-  REJECTED,
-  REFINING,
-  PUBLISHED_RESTRICTED,
-  PUBLISHED_PUBLIC,
-  CANCELLED,
-  ARCHIVE
+  CREATED = "CREATED",
+  INSPECTING = "INSPECTING",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
+  REFINING = "REFINING",
+  PUBLISHED_RESTRICTED = "PUBLISHED_RESTRICTED",
+  PUBLISHED_PUBLIC = "PUBLISHED_PUBLIC",
+  CANCELLED = "CANCELLED",
+  ARCHIVE = "ARCHIVE",
 }
 
 export enum CancellationReason {
@@ -23,10 +23,10 @@ export enum CancellationReason {
 }
 
 export enum SourceSystem {
-  JOBROOM,
-  API,
-  RAV,
-  EXTERN
+  JOBROOM = "JOBROOM",
+  API = "API",
+  RAV = "RAV",
+  EXTERN = "EXTERN"
 }
 
 export enum Salutation {
@@ -56,6 +56,8 @@ export interface JobContent {
 
 export interface JobAdvertisement {
   id: string;
+  createdTime?: string; //date string
+  updatedTime?: string; //date string
   status: JobAdvertisementStatus;
   sourceSystem: SourceSystem;
   externalReference: string;

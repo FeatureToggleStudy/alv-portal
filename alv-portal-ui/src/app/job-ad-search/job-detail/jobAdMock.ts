@@ -5,13 +5,15 @@ import {
 } from '../../shared/backend-services/job-advertisement/job-advertisement.model';
 
 export const mockJobDetails: JobAdvertisement = {
-  "id": "1b174cee-e221-11e8-b8c9-005056ac086d",
+  "id": "a9216967-e220-11e8-b8c9-005056ac086d",
+  "createdTime": "2018-11-07T01:04:13.917",
+  "updatedTime": "2018-11-07T01:04:13.917",
   "status": JobAdvertisementStatus.PUBLISHED_PUBLIC,
   "sourceSystem": SourceSystem.EXTERN,
   "externalReference": null,
   "stellennummerEgov": null,
   "stellennummerAvam": null,
-  "fingerprint": "7cb3f42379df52fb7c22a44c27399c3177bd99d20b0f6283b7b4049bc52206560d596b971f736a8a",
+  "fingerprint": "5d975931bd651117f77cf28629a0dc973d8a1981cb4f51930658110238896794249f591c25423a05",
   "reportingObligation": false,
   "reportingObligationEndDate": null,
   "reportToAvam": false,
@@ -23,17 +25,17 @@ export const mockJobDetails: JobAdvertisement = {
   "cancellationDate": null,
   "cancellationCode": null,
   "jobContent": {
-    "externalUrl": "https://www.six-group.com/de/home/careers/jobs/information-technology/4876339.html",
+    "externalUrl": "https://www.randstad.ch/fr/emploi/s-life-sciences/modeling-analyst-programmer_neuchatel_16132060/",
     "numberOfJobs": null,
     "jobDescriptions": [
       {
         "languageIsoCode": "de",
-        "title": "Engineer Java/JEE Historization of Market Data",
-        "description": "Main duties \n-Design and development of Java/JEE applications\n-Renewal, further development and maintenance of the historization applications\n-Participate and help to drive DevOps topics such as enhancing the CI/CD pipeline, (test-) automation as well as \nimproving the agile process\n-Taking over maintenance responsibility for 1-2 applications\n-Troubleshooting and 3rd level support\n-Standby Duty Your profile \n-Higher education in information technology (university degree or equivalent)\n-At least 4 years of relevant working experience as software engineer\n-Knowledge in Java, JEE, Spring, Web Services, Databases\n-Knowledge of Linux\n-Experience with Docker, Salt or similar config management tools is a big plus\n-Initiative and result-driven attitude with sense for quality\n-Communicative, team-oriented personality\n-Very good written and spoken German and English skills\n\nIf you have any questions, please call Myrtha Patané-Reist +41 58 399 38 56.\n\nWe only accept online direct applications.Myrtha Patané-Reist\nHuman Resources\n+41 58 399 38 56\n\nBewerben"
+        "title": "modeling analyst / programmer",
+        "description": "description du poste\n\nOur client, a leading internation tobacco company, with seven of world's top 15 brands, including the world's number \none brand is looking for a\n\nModeling Analyst / Programmer \n\nLocation: Neuchâtel, Switzerland\n\nContract: 1 year with possibility of extension\n\nStart Date: asap\n\nResponsibilities: \n\nThe role provides Modeling analysis and statistical programming to support the PASS Population modeling team:\n\n- Perform modeling analysis in Population Health Impact model\n- Involve computation analysis and statistical programming in SAS and R to create the modeling outputs\n- Collect and merge the relevant data of the modeling outcomes\n- Develop the statistical program to analyze the data according to the statistical analysis plan.\n- Write the modeling and statistical report.\n- Complete all necessary documentation, draft publication of completed work.\n\nQualification: \n\n- Minimum MSc, preferable with PhD in natural science (math, physics, biostatistics)\n- Experience in modelling, data analytics, epidemiology\n- Previous experience in pharma or biotech is a plus\n- Programming experience with SAS and R and /or Python is a plus\n- Experience in collecting, tabulate and manipulate data and statistical analysis\n- Detail oriented"
       }
     ],
     "company": {
-      "name": "SIX Group AG",
+      "name": "Randstad (Schweiz) AG",
       "street": null,
       "houseNumber": null,
       "postalCode": null,
@@ -59,33 +61,21 @@ export const mockJobDetails: JobAdvertisement = {
     },
     "location": {
       "remarks": null,
-      "city": "Zürich",
+      "city": "neuchatel",
       "postalCode": null,
       "communalCode": null,
       "regionCode": null,
       "cantonCode": null,
       "countryIsoCode": "CH",
-      // "coordinates": null
     },
     "occupations": [
       {
-        "avamOccupationCode": "68913",
+        "avamOccupationCode": "68900",
         "workExperience": null,
         "educationCode": null
       }
     ],
-    "languageSkills": [
-      {
-        "languageIsoCode": "en",
-        "spokenLevel": null,
-        "writtenLevel": null
-      },
-      {
-        "languageIsoCode": "de",
-        "spokenLevel": null,
-        "writtenLevel": null
-      }
-    ],
+    "languageSkills": [],
     "applyChannel": null,
     "publicContact": null
   },
