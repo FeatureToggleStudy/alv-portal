@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 import { TranslateModule } from '@ngx-translate/core';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -10,6 +10,11 @@ import { LocaleAwareDatePipe } from './pipes/locale-aware-date.pipe';
 import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
 import { PhoneNumberPipe } from './pipes/phone-number.pipe';
 import { ClipboardModule } from 'ngx-clipboard';
+import { registerLocaleData } from '@angular/common';
+import locale from '@angular/common/locales/de';
+import localeFr from '@angular/common/locales/fr';
+import localeIt from '@angular/common/locales/it';
+import localeEn from '@angular/common/locales/en';
 
 @NgModule({
   declarations: [
@@ -26,6 +31,12 @@ import { ClipboardModule } from 'ngx-clipboard';
     SharedAuthModule,
     ClipboardModule,
   ],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'de'
+    },
+  ],
   entryComponents: [],
   exports: [
     TranslateModule,
@@ -40,6 +51,12 @@ import { ClipboardModule } from 'ngx-clipboard';
   ]
 })
 export class SharedModule {
+  constructor() {
+    registerLocaleData(locale);
+    registerLocaleData(localeFr);
+    registerLocaleData(localeIt);
+    registerLocaleData(localeEn);
+  }
 }
 
 
