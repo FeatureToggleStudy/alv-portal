@@ -15,6 +15,7 @@ import locale from '@angular/common/locales/de';
 import localeFr from '@angular/common/locales/fr';
 import localeIt from '@angular/common/locales/it';
 import localeEn from '@angular/common/locales/en';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import localeEn from '@angular/common/locales/en';
     LayoutModule,
     SharedAuthModule,
     ClipboardModule,
+    MarkdownModule.forRoot()
   ],
   providers: [
     {
@@ -47,7 +49,8 @@ import localeEn from '@angular/common/locales/en';
     LocaleAwareDatePipe,
     WorkingTimeRangePipe,
     PhoneNumberPipe,
-    ClipboardModule
+    ClipboardModule,
+    MarkdownModule
   ]
 })
 export class SharedModule {

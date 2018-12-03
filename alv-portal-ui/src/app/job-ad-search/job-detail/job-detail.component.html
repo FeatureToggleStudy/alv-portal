@@ -50,7 +50,6 @@
       </div>
       <div class="detail__content">
         <pre>{{job.jobContent.location|json}}</pre>
-        ">
         <span class="badge badge-gray">{{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}</span>
 
         <span *ngIf="job.jobContent.employment.startDate"
@@ -77,7 +76,8 @@
       </div>
       <div *ngIf="jobDescription.description"
            class="detail__content">
-        <pre>{{jobDescription.description|json}}</pre>
+        <markdown [data]="jobDescription.description"></markdown>
+        <!--<pre>{{jobDescription.description|json}}</pre>-->
       </div>
       <pre>{{job.jobContent.languageSkills|json}}</pre>
 
