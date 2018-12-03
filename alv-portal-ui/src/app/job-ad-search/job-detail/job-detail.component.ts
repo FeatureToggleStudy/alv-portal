@@ -36,6 +36,7 @@ export class JobDetailComponent implements OnInit {
       map((langChangeEvent: LangChangeEvent) =>
         this.job.jobContent.jobDescriptions
           .find(d => d.languageIsoCode === langChangeEvent.lang)
+        || this.job.jobContent.jobDescriptions[0]
       )
     );
   }
