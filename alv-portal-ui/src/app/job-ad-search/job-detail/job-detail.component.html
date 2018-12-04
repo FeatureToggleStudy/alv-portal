@@ -1,3 +1,8 @@
+<p>
+  <button routerLink="/job-search">back</button><br/>
+  <button *ngIf="prevVisible$ | async" (click)="prev()">prev</button>
+  <button *ngIf="nextVisible$ | async" (click)="next()">next</button>
+</p>
 <div class="container mt-md-5">
   <div class="row base"
        *ngIf="job">

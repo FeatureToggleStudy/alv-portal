@@ -13,6 +13,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ShowcaseComponent } from './showcase/showcase.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 /**
  * Setting up the ngx-translate
@@ -39,7 +42,11 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     }),
     FormsModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25 })
   ],
   providers: [],
   bootstrap: [AppComponent]

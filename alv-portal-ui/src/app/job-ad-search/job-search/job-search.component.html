@@ -1,0 +1,21 @@
+<div (scrolled)="onScroll()"
+     [fromRoot]="true"
+     [infiniteScrollThrottle]="50"
+     [immediateCheck]="true"
+     [infiniteScrollContainer]="'main'"
+     class="container"
+     infiniteScroll>
+  Count: {{totalCount$ | async }}
+  Loading: {{resultsAreLoading$ | async }}
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <alv-filter-panel (filtersChange)="onFiltersChange($event)" [jobSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>
+    </div>
+    <div class="col-xs-12 col-md-9">
+      <ng-container *ngFor="let jobSearchResult of jobSearchResults | async">
+        <alv-job-search-result [jobSearchResult]="jobSearchResult"></alv-job-search-result>
+      </ng-container>
+    </div>
+
+  </div>
+</div>

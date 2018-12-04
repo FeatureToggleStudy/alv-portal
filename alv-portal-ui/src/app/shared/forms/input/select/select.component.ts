@@ -9,10 +9,11 @@ import { ControlContainer } from '@angular/forms';
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
  * @example  <alv-select
  *             label="Demo Select"
- *             [control]="form.get('myControl')"
+ *             [alvControl]="form.get('myControl')"
  *             [options$]="optionsObservable$"
  *             [validationMessages]="[{error: 'require', message: 'Custom message'}]">
  *           </alv-select>
+ *           todo also describe use case with alvFormControlName
  */
 @Component({
   selector: 'alv-select',

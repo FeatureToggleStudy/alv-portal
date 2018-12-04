@@ -32,7 +32,8 @@ import { JobAdvertisementService } from './backend-services/job-advertisement/jo
     LayoutModule,
     SharedAuthModule,
     ClipboardModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    SharedAuthModule
   ],
   providers: [
     {
