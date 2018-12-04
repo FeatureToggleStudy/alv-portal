@@ -1,4 +1,4 @@
-import { JobAdvertisement, JobDescription } from './job-advertisement.model';
+import { JobAdvertisement, JobDescription } from './job-advertisement.types';
 import { FALLBACK_LANGUAGE } from '../../../core/languages.constants';
 
 export class JobAdvertisementUtils {

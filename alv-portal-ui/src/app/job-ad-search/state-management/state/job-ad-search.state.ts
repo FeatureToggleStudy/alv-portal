@@ -1,5 +1,5 @@
 import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
-import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.model';
+import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface JobAdSearchState {

@@ -197,3 +197,57 @@ export interface CreateJobAdvertisement {
   applyChannel: ApplyChannel;
   publicContact: PublicContact;
 }
+
+
+export interface PEAJobAdsSearchRequestBody {
+  jobTitle: string;
+  onlineSinceDays: number;
+  companyId: string;
+}
+
+export interface PEAJobAdsSearchRequest {
+  page: number;
+  size: number;
+  sort: string;
+  body: PEAJobAdsSearchRequestBody;
+}
+
+export interface JobAdvertisementSearchResponse {
+  totalCount: number;
+  result: JobAdvertisement[];
+}
+
+
+export interface ProfessionCode {
+  type: string;
+  value: string;
+}
+
+export interface JobAdvertisementSearchRequestBody {
+  language?: string;
+  professionCodes?: ProfessionCode[];
+  keywords?: string[];
+  communalCodes?: string[];
+  regionCodes?: string[];
+  cantonCodes?: string[];
+  workloadPercentageMin?: number;
+  workloadPercentageMax?: number;
+  permanent?: boolean;
+  companyName?: string;
+  onlineSince: number;
+  displayRestricted: boolean;
+}
+
+export interface JobAdvertisementSearchRequest {
+  page: number;
+  size: number;
+  sort?: string;
+  body: JobAdvertisementSearchRequestBody;
+}
+
+export interface JobAdvertisementCancelRequest {
+  id: string;
+  token?: string;
+  code: string;
+}
+

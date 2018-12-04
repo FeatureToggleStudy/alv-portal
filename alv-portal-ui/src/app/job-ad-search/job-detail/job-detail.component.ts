@@ -7,7 +7,7 @@ import {
   JobAdSearchState
 } from '../state-management/state/job-ad-search.state';
 import { Observable } from 'rxjs/index';
-import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.model';
+import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
