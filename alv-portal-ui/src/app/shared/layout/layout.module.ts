@@ -67,7 +67,7 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
     AlertComponent,
     ModalComponent,
     ConfirmModalComponent,
-    LanguageComponent
+    LanguageComponent,
     ConfirmModalComponent,
     SafeHtmlPipe,
     MarkdownEscapePipe,
@@ -95,7 +95,7 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
     ModalComponent,
     NgbAlert,
     NgbTooltip,
-    LanguageComponent
+    LanguageComponent,
     ModalComponent,
     SafeHtmlPipe,
     MarkdownEscapePipe,

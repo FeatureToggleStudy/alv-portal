@@ -3,7 +3,7 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { FALLBACK_LANGUAGE, LANGUAGES } from './languages.constants';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 const LANGUAGE_KEY = 'NG_TRANSLATE_LANG_KEY';
 
@@ -24,7 +24,11 @@ export class I18nService {
               private cookieService: CookieService) {
     // all changes in ngx-translate will be mirrored in currentLanguage$ observable
     this.currentLanguage$ = this.translateService.onLangChange.pipe(
-        map((evt: LangChangeEvent) => evt.lang)
+      startWith({
+        lang: this.translateService.currentLang,
+        translations: {}
+      }),
+      map((evt: LangChangeEvent) => evt.lang)
     );
   }
 
@@ -76,10 +80,10 @@ export class I18nService {
 
   private getAppDefaultLanguage(): string {
     const defaultLangauge = this.isLanguagePersisted()
-        ? this.getPersistentLanguage()
-        : this.translateService.getBrowserLang();
+      ? this.getPersistentLanguage()
+      : this.translateService.getBrowserLang();
     return this.isValid(defaultLangauge)
-        ? defaultLangauge
-        : FALLBACK_LANGUAGE;
+      ? defaultLangauge
+      : FALLBACK_LANGUAGE;
   }
 }

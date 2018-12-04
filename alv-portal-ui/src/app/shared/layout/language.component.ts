@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LanguageSkill } from '../backend-services/job-advertisement/job-advertisement.model';
+import { LanguageSkill } from '../backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-languages',

@@ -16,7 +16,7 @@ import localeFr from '@angular/common/locales/fr';
 import localeIt from '@angular/common/locales/it';
 import localeEn from '@angular/common/locales/en';
 import { MarkdownModule } from 'ngx-markdown';
-import { JobAdvertisementService } from './backend-services/job-advertisement/job-advertisement.service';
+import { JobAdvertisementRepository } from './backend-services/job-advertisement/job-advertisement.repository';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { JobAdvertisementService } from './backend-services/job-advertisement/jo
       provide: LOCALE_ID,
       useValue: 'de'
     },
-    JobAdvertisementService
+    JobAdvertisementRepository
 
   ],
   entryComponents: [],

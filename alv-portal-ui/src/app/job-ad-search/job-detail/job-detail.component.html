@@ -1,11 +1,7 @@
-<p>
-  <button routerLink="/job-search">back</button><br/>
-  <button *ngIf="prevVisible$ | async" (click)="prev()">prev</button>
-  <button *ngIf="nextVisible$ | async" (click)="next()">next</button>
-</p>
+
 <div class="container mt-md-5">
   <div class="row base"
-       *ngIf="job">
+       *ngIf="job$ | async as job">
     <div class="col-12 col-md order-11 order-md-1 base__subnavbar">
       <div class="base__sticky-panel">
         <div class="d-flex d-sm-block flex-column-reverse">
@@ -197,6 +193,16 @@
 
     <div class="col-12 col-md order-12 base__related">
       <div class="base__sticky-panel">
+        <p>
+          <button routerLink="/job-search">back</button>
+          <br/>
+          <button (click)="prev()"
+                  *ngIf="prevVisible$ | async">prev
+          </button>
+          <button (click)="next()"
+                  *ngIf="nextVisible$ | async">next
+          </button>
+        </p>
 
         <p>
           <a *ngIf="job.jobContent.applyChannel?.formUrl"
@@ -240,4 +246,3 @@
 </div>
 
 
-<pre>{{job|json}}</pre>
