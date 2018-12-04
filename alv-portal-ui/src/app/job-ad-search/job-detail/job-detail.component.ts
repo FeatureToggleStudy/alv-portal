@@ -23,7 +23,7 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
   styleUrls: ['./job-detail.component.scss']
 })
 export class JobDetailComponent implements OnInit {
-  job: JobAdvertisement = mockJobDetails;
+  job: JobAdvertisement = mockJobDetails; //for now just fetch something static
   jobDescription$: Observable<JobDescription>;
   jobCenter$: Observable<JobCenter>;
 
@@ -36,8 +36,8 @@ export class JobDetailComponent implements OnInit {
 
   constructor(private translateService: TranslateService,
               private referenceService: ReferenceService,
-              private jobAdvertisementService: JobAdvertisementService,
-  ) {
+              private jobAdvertisementService: JobAdvertisementService) {
+
     this.showJobAdDeactivatedMessage = this.isDeactivated(this.job.status);
     this.showJobAdExternalMessage = this.isExternal(this.job.sourceSystem);
     this.showJobAdUnvalidatedMessage = this.isUnvalidated(this.job);
@@ -46,11 +46,6 @@ export class JobDetailComponent implements OnInit {
 
 
   ngOnInit() {
-
-    //for now just fetch something static
-    this.jobAdvertisementService.findById('73c855a4-f7aa-11e8-977c-005056ac086d')
-      .subscribe(job => this.job = job);
-
 
     this.jobDescription$ = this.translateService.onLangChange.pipe(
       startWith({
