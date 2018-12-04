@@ -42,7 +42,7 @@ export class ApplyFilterAction implements Action {
 export class FilterAppliedAction implements Action {
   readonly type = FILTER_APPLIED;
 
-  constructor(public payload: { jobList: Array<JobAdvertisement>, totalCount: number }) {
+  constructor(public payload: { page: Array<JobAdvertisement>, totalCount: number }) {
   }
 }
 
@@ -56,7 +56,7 @@ export class LoadNextPageAction implements Action {
 export class NextPageLoadedAction implements Action {
   readonly type = NEXT_PAGE_LOADED;
 
-  constructor(public payload: Array<JobAdvertisement>) {
+  constructor(public payload: { page: Array<JobAdvertisement> }) {
   }
 }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
-  getCurrentJobAd,
+  getSelectedJobAdvertisement,
   isNextVisible,
   isPrevVisible,
   JobAdSearchState
@@ -12,23 +12,26 @@ import {
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management/actions/job-ad-search.actions';
+import { AbstractSubscriber } from '../../core/abstract-subscriber';
 
 @Component({
   selector: 'alv-job-detail',
   templateUrl: './job-detail.component.html',
   styleUrls: ['./job-detail.component.scss']
 })
-export class JobDetailComponent implements OnInit {
-  currentJobAd$: Observable<JobAdvertisement>;
+export class JobDetailComponent extends AbstractSubscriber implements OnInit {
+
+  jobAdvertisement$: Observable<JobAdvertisement>;
+
   prevVisible$: Observable<boolean>;
+
   nextVisible$: Observable<boolean>;
 
   constructor(private store: Store<JobAdSearchState>) {
-
-    this.currentJobAd$ = this.store.pipe(select(getCurrentJobAd));
+    super();
+    this.jobAdvertisement$ = this.store.pipe(select(getSelectedJobAdvertisement));
     this.prevVisible$ = this.store.pipe(select(isPrevVisible));
     this.nextVisible$ = this.store.pipe(select(isNextVisible));
-
   }
 
   ngOnInit() {

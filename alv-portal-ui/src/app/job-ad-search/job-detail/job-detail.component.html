@@ -8,5 +8,5 @@
   <button *ngIf="nextVisible$ | async" (click)="next()">next</button>
 </p>
 <pre>
-  {{(currentJobAd$ | async) | json}}
+  {{(jobAdvertisement$ | async) | json}}
 </pre>

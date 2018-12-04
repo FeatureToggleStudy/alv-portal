@@ -15,25 +15,26 @@ export class JobSearchResultComponent implements OnInit {
   @Input()
   jobSearchResult: JobSearchResult;
 
-  listItem: ResultListItem;
+  resultListItem: ResultListItem;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.listItem = this.jobSearchResultToResultListItemMapper(this.jobSearchResult.jobAdvertisement);
+    this.resultListItem = this.jobSearchResultToResultListItemMapper(this.jobSearchResult);
   }
 
-  private jobSearchResultToResultListItemMapper(job: JobAdvertisement): ResultListItem {
-    const jobDescription = JobAdvertisementUtils.getJobDescription(job);
-    // TODO create a MapperService called JobAdSearchResultMapper
+  private jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): ResultListItem {
+    const jobAdvertisement = jobSearchResult.jobAdvertisement;
+    const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement);
     return {
       title: jobDescription.title,
       description: jobDescription.description,
-      header: job.publication.startDate,
-      badges: this.generateBadges(job),
-      routerLink: ['/job-search', job.id],
-      subtitle: job.jobContent.company.name
+      header: jobAdvertisement.publication.startDate,
+      badges: this.generateBadges(jobAdvertisement),
+      routerLink: ['/job-search', jobAdvertisement.id],
+      subtitle: jobAdvertisement.jobContent.company.name,
+      visited: jobSearchResult.visited
     };
   }
 

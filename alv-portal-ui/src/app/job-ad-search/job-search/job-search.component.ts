@@ -25,8 +25,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./job-search.component.scss']
 })
 export class JobSearchComponent extends AbstractSubscriber implements OnInit {
+
   totalCount$: Observable<number>;
+
   jobSearchFilter$: Observable<JobSearchFilter>;
+
   resultsAreLoading$: Observable<boolean>;
 
   jobSearchResults: Observable<JobSearchResult[]>;
@@ -34,7 +37,9 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
   constructor(private store: Store<JobAdSearchState>,
               private activatedRoute: ActivatedRoute) {
     super();
+  }
 
+  ngOnInit() {
     //Deserialize parameters
     const onlineSince = +(this.activatedRoute.snapshot.queryParams['onlineSince']) || 11;
 
@@ -47,9 +52,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
     this.jobSearchFilter$ = this.store.pipe(select(getJobSearchFilter));
 
     this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
-  }
-
-  ngOnInit() {
   }
 
   onFiltersChange(jobSearchFilter: JobSearchFilter) {

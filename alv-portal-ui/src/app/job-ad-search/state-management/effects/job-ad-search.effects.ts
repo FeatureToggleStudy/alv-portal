@@ -64,7 +64,7 @@ export class JobAdSearchEffects {
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     switchMap(([filter, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(filter, state.page))),
     map((response: JobAdvertisementSearchResponse) => new FilterAppliedAction({
-      jobList: response.result,
+      page: response.result,
       totalCount: response.totalCount
     }))
   );
@@ -75,7 +75,7 @@ export class JobAdSearchEffects {
     debounceTime(300),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     switchMap(([action, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1))),
-    map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction(response.result))
+    map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result }))
   );
 
   @Effect()
@@ -112,7 +112,7 @@ export class JobAdSearchEffects {
         return this.actions$.pipe(
           ofType(NEXT_PAGE_LOADED),
           map((nextPageLoadedAction: NextPageLoadedAction) => {
-            return nextPageLoadedAction.payload[0].id
+            return nextPageLoadedAction.payload.page[0].id
           }),
           take(1)
         )

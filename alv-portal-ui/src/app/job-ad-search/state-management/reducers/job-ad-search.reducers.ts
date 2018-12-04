@@ -9,19 +9,10 @@ import {
 } from '../actions/job-ad-search.actions';
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
-  console.log(`action: ${action.type}`);
 
   let newState: JobAdSearchState;
+
   switch (action.type) {
-    /*case INIT_JOB_SEARCH:
-      newState = {
-        ...state,
-        jobSearchFilter: {
-          ...state.jobSearchFilter,
-          onlineSince: action.payload.onlineSince
-        }
-      };
-      break;*/
     case APPLY_FILTER:
       newState = {
         ...state,
@@ -34,7 +25,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
     case FILTER_APPLIED:
       newState = {
         ...state,
-        resultList: [...action.payload.jobList],
+        resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
         page: 0,
         resultsAreLoading: false,
@@ -50,7 +41,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
     case NEXT_PAGE_LOADED:
       newState = {
         ...state,
-        resultList: [...state.resultList, ...action.payload],
+        resultList: [...state.resultList, ...action.payload.page],
         page: state.page + 1,
         resultsAreLoading: false
       };
@@ -60,7 +51,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       currentVisited[action.payload.jobAdvertisement.id] = true;
       newState = {
         ...state,
-        currentJobAd: action.payload.jobAdvertisement,
+        selectedJobAdvertisement: action.payload.jobAdvertisement,
         visitedJobAds: { ...currentVisited }
       };
       break;
