@@ -1,5 +1,4 @@
 import { CEFR_Level } from '../../model/shared-types';
-import { FALLBACK_LANGUAGE } from '../../../core/languages.constants';
 
 export enum JobAdvertisementStatus {
   CREATED = "CREATED",
@@ -79,18 +78,6 @@ export interface JobAdvertisement {
   visited?: boolean;
 }
 
-export function getJobDescription(jobAdvertisement: JobAdvertisement, lang: string): JobDescription {
-  let jobDescription = jobAdvertisement.jobContent.jobDescriptions
-    .find((jobDesc) => jobDesc.languageIsoCode === lang);
-  if (!jobDescription) {
-    jobDescription = jobAdvertisement.jobContent.jobDescriptions
-      .find((jobDesc) => jobDesc.languageIsoCode === FALLBACK_LANGUAGE);
-  }
-  if (!jobDescription) {
-    jobDescription = jobAdvertisement.jobContent.jobDescriptions[0];
-  }
-  return jobDescription;
-}
 
 export interface Publication {
   startDate: string;
