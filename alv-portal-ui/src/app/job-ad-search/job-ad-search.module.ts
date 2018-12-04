@@ -4,7 +4,7 @@ import { JobSearchComponent } from './job-search/job-search.component';
 import { FilterPanelComponent } from './job-search/filter-panel/filter-panel.component';
 import { ResultListItemComponent } from './job-search/result-list-item/result-list-item.component';
 import { SharedModule } from '../shared/shared.module';
-import { JobAdvertisementService } from '../shared/backend-services/job-advertisement/job-advertisement.service';
+import { JobAdvertisementRepository } from '../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { JobSearchResultComponent } from './job-search/job-search-result/job-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NouisliderModule } from 'ng2-nouislider';
@@ -28,7 +28,7 @@ import { ReferenceService } from './reference.service';
     NouisliderModule,
   ],
   providers: [
-    JobAdvertisementService,
+    JobAdvertisementRepository,
     ReferenceService
   ],
   declarations: [

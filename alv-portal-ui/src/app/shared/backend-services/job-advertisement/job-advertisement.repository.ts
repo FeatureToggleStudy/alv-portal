@@ -4,23 +4,25 @@ import { Observable } from 'rxjs';
 import {
   CreateJobAdvertisement,
   JobAdvertisement,
-  JobAdvertisementStatus
-} from './job-advertisement.model';
-import { JobAdvertisementCancelRequest } from './job-advertisement-cancel-request';
-import {
+  JobAdvertisementCancelRequest,
   JobAdvertisementSearchRequest,
-  JobAdvertisementSearchRequestBody
-} from './job-advertisement-search-request';
-import { PEAJobAdsSearchRequest } from './pea-job-ads-search-request';
+  JobAdvertisementSearchRequestBody,
+  JobAdvertisementSearchResponse,
+  JobAdvertisementStatus,
+  PEAJobAdsSearchRequest
+} from './job-advertisement.types';
+
 import { ResponseWrapper } from '../../model/response-wrapper.model';
 import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../../model/request-util';
-import { JobAdvertisementSearchResponse } from './job-advertisement-search-response';
 
 @Injectable({ providedIn: 'root' })
-export class JobAdvertisementService {
+export class JobAdvertisementRepository {
+
   private readonly resourceUrl = 'jobadservice/api/jobAdvertisements';
+
   private readonly searchUrl = `${this.resourceUrl}/_search`;
+
   private readonly countUrl = `${this.resourceUrl}/_count`;
 
   constructor(

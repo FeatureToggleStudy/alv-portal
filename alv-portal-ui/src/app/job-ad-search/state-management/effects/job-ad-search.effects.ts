@@ -18,7 +18,7 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction
 } from '../actions/job-ad-search.actions';
-import { JobAdvertisementService } from '../../../shared/backend-services/job-advertisement/job-advertisement.service';
+import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
   debounceTime,
   map,
@@ -35,8 +35,8 @@ import {
   JobAdSearchState
 } from '../state/job-ad-search.state';
 import { JobSearchRequestMapper } from '../../job-search-request.mapper';
-import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement-search-response';
 import { Router } from '@angular/router';
+import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Injectable()
 export class JobAdSearchEffects {
@@ -127,7 +127,7 @@ export class JobAdSearchEffects {
   );
 
   constructor(private actions$: Actions,
-              private jobAdsService: JobAdvertisementService,
+              private jobAdsService: JobAdvertisementRepository,
               private store: Store<JobAdSearchState>,
               private router: Router) {
   }

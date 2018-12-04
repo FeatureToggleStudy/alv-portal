@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.model';
+import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Badge, ResultListItem } from '../result-list-item/result-list-item.model';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { formatTimeRange } from '../../../shared/layout/pipes/working-time-range.pipe';

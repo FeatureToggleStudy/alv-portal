@@ -23,7 +23,6 @@ $main-accent-color-100: #f3d7d6;
   background-image: linear-gradient(to right, $darken 0%, $color 100%);
 }
 
-
 // Job-Room-result
 .result-list__title {
   font-weight: $text-weight-light;
@@ -43,7 +42,6 @@ $main-accent-color-100: #f3d7d6;
     @include highlight-tag();
   }
 
-
   .result-list__item__content {
     > .w-100 {
       width: auto !important;
@@ -60,11 +58,6 @@ $main-accent-color-100: #f3d7d6;
   }
 }
 
-.result-list__item--visited {
-  background: red;
-}
-
-
 .alv-logo-box, .logo-box {
   width: 100%;
   background-color: #f2efe8;
@@ -73,8 +66,11 @@ $main-accent-color-100: #f3d7d6;
   border-radius: 0 0 24px !important;
   padding: 18px;
   margin-bottom: 1.5rem;
-}
 
+  &.result-list__item--visited {
+    background: $color-grey-transparent;
+  }
+}
 
 // Color contrast
 @mixin color-yiq($color) {
@@ -96,7 +92,6 @@ $main-accent-color-100: #f3d7d6;
   @include color-yiq($bg);
   background-color: $bg;
 }
-
 
 .badge-yellow,
 .badge-green,

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.model';
+import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobSearchFilter } from '../../job-search-filter.types';
 
 export const INIT_JOB_SEARCH = 'JOBS:INIT_JOB_SEARCH';

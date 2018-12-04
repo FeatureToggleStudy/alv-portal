@@ -1,21 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  JobAdvertisement,
-  JobAdvertisementStatus,
-  JobDescription,
-  SourceSystem
-} from '../../shared/backend-services/job-advertisement/job-advertisement.model';
-import { mockJobDetails } from './jobAdMock';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { map, startWith, switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { JobCenter, ReferenceService } from '../reference.service';
-import { JobAdvertisementService } from '../../shared/backend-services/job-advertisement/job-advertisement.service';
-
-
+import { Component, OnInit } from '@angular/core';
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
-
 
 @Component({
   selector: 'alv-job-detail',
