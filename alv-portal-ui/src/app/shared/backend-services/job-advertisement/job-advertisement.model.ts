@@ -73,7 +73,6 @@ export interface JobAdvertisement {
   cancellationCode?: string;
   jobContent: JobContent;
   publication: Publication;
-  visited?: boolean;
 }
 
 export interface Publication {

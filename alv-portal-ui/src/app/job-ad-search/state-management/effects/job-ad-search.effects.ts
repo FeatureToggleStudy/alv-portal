@@ -86,7 +86,6 @@ export class JobAdSearchEffects {
     map((jobAdvertisement) => new JobAdvertisementDetailLoadedAction({ jobAdvertisement }))
   );
 
-
   @Effect()
   loadPreviousJobAdvertisementDetail$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL),
@@ -95,7 +94,9 @@ export class JobAdSearchEffects {
     tap((id) => {
       this.router.navigate(['/job-search', id]);
     }),
-    map((id) => new LoadJobAdvertisementDetailAction({ id }))
+    map(() => {
+      return { type: 'nothing' }
+    })
   );
 
   @Effect()
@@ -120,7 +121,9 @@ export class JobAdSearchEffects {
     tap((id) => {
       this.router.navigate(['/job-search', id])
     }),
-    map((id) => new LoadJobAdvertisementDetailAction({ id }))
+    map(() => {
+      return { type: 'nothing' }
+    })
   );
 
   constructor(private actions$: Actions,

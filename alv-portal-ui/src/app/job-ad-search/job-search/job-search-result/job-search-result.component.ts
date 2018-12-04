@@ -3,6 +3,7 @@ import { JobAdvertisement } from '../../../shared/backend-services/job-advertise
 import { Badge, ResultListItem } from '../result-list-item/result-list-item.model';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { formatTimeRange } from '../../../shared/layout/pipes/working-time-range.pipe';
+import { JobSearchResult } from '../../state-management/state/job-ad-search.state';
 
 @Component({
   selector: 'alv-job-search-result',
@@ -12,7 +13,7 @@ import { formatTimeRange } from '../../../shared/layout/pipes/working-time-range
 export class JobSearchResultComponent implements OnInit {
 
   @Input()
-  jobSearchResult: JobAdvertisement;
+  jobSearchResult: JobSearchResult;
 
   listItem: ResultListItem;
 
@@ -20,7 +21,7 @@ export class JobSearchResultComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listItem = this.jobSearchResultToResultListItemMapper(this.jobSearchResult);
+    this.listItem = this.jobSearchResultToResultListItemMapper(this.jobSearchResult.jobAdvertisement);
   }
 
   private jobSearchResultToResultListItemMapper(job: JobAdvertisement): ResultListItem {

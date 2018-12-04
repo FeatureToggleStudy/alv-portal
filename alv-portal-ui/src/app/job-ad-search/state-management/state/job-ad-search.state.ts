@@ -9,6 +9,7 @@ export interface JobAdSearchState {
   resultList: JobAdvertisement[],
   currentJobAd: JobAdvertisement,
   resultsAreLoading: boolean,
+  visitedJobAds: { [id: string]: boolean; }
 }
 
 export const initialState: JobAdSearchState = {
@@ -25,16 +26,33 @@ export const initialState: JobAdSearchState = {
   },
   resultList: [],
   currentJobAd: null,
-  resultsAreLoading: false
+  resultsAreLoading: false,
+  visitedJobAds: {}
 };
+
+export interface JobSearchResult {
+  jobAdvertisement: JobAdvertisement,
+  visited: boolean
+}
 
 export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobAdSearch');
 export const getTotalCount = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.totalCount);
 export const getResultList = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultList);
+export const getVisitedJobAds = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.visitedJobAds);
 export const getJobSearchFilter = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.jobSearchFilter);
 export const getCurrentJobAd = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.currentJobAd);
 
 export const getResultsAreLoading = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultsAreLoading);
+
+export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
+  return resultList.map((jobAd) => {
+    return {
+      jobAdvertisement: jobAd,
+      visited: visitedJobAds[jobAd.id] || false
+    }
+  })
+});
+
 
 export const getPrevId = createSelector(getResultList, getCurrentJobAd, (resultList, current) => {
   if (current) {

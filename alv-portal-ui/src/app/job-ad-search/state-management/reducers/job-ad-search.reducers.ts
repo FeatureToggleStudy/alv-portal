@@ -1,14 +1,17 @@
 import { initialState, JobAdSearchState } from '../state/job-ad-search.state';
 import {
-  Actions, JOB_ADVERTISEMENT_DETAIL_LOADED, APPLY_FILTER,
-  INIT_JOB_SEARCH,
-  FILTER_APPLIED, LOAD_NEXT_PAGE, NEXT_PAGE_LOADED
+  Actions,
+  APPLY_FILTER,
+  FILTER_APPLIED,
+  JOB_ADVERTISEMENT_DETAIL_LOADED,
+  LOAD_NEXT_PAGE,
+  NEXT_PAGE_LOADED
 } from '../actions/job-ad-search.actions';
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
   console.log(`action: ${action.type}`);
 
-  let newState:JobAdSearchState;
+  let newState: JobAdSearchState;
   switch (action.type) {
     /*case INIT_JOB_SEARCH:
       newState = {
@@ -34,7 +37,8 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         resultList: [...action.payload.jobList],
         totalCount: action.payload.totalCount,
         page: 0,
-        resultsAreLoading: false
+        resultsAreLoading: false,
+        visitedJobAds: {}
       };
       break;
     case LOAD_NEXT_PAGE:
@@ -52,9 +56,12 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       };
       break;
     case JOB_ADVERTISEMENT_DETAIL_LOADED:
+      const currentVisited = state.visitedJobAds;
+      currentVisited[action.payload.jobAdvertisement.id] = true;
       newState = {
         ...state,
-        currentJobAd: action.payload.jobAdvertisement
+        currentJobAd: action.payload.jobAdvertisement,
+        visitedJobAds: { ...currentVisited }
       };
       break;
 

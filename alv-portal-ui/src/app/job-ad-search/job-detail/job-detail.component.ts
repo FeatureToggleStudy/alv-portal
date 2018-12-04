@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
-  getCurrentJobAd, isNextVisible, isPrevVisible,
+  getCurrentJobAd,
+  isNextVisible,
+  isPrevVisible,
   JobAdSearchState
 } from '../state-management/state/job-ad-search.state';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/index';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.model';
 import {
-  LoadJobAdvertisementDetailAction,
-  LoadNextJobAdvertisementDetailAction, LoadPreviousJobAdvertisementDetailAction
+  LoadNextJobAdvertisementDetailAction,
+  LoadPreviousJobAdvertisementDetailAction
 } from '../state-management/actions/job-ad-search.actions';
-import { AuthenticationService } from '../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-job-detail',
@@ -41,5 +41,4 @@ export class JobDetailComponent implements OnInit {
   next() {
     this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
   }
-
 }
