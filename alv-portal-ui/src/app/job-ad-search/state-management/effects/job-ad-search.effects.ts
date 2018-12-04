@@ -3,32 +3,34 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs/index';
 import { Action, select, Store } from '@ngrx/store';
 import {
-  JobAdvertisementDetailLoadedAction,
   APPLY_FILTER,
   ApplyFilterAction,
+  FilterAppliedAction,
   INIT_JOB_SEARCH,
   InitJobSearchAction,
-  FilterAppliedAction,
+  JobAdvertisementDetailLoadedAction,
   LOAD_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
   LoadJobAdvertisementDetailAction,
-  LoadNextJobAdvertisementDetailAction,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
-  NextPageLoadedAction, LoadPreviousJobAdvertisementDetailAction
+  NextPageLoadedAction
 } from '../actions/job-ad-search.actions';
 import { JobAdvertisementService } from '../../../shared/backend-services/job-advertisement/job-advertisement.service';
 import {
   debounceTime,
   map,
   switchMap,
-  take, tap,
+  take,
+  tap,
   withLatestFrom
 } from 'rxjs/internal/operators';
 import {
-  getJobAdSearchState, getNextId, getPrevId,
+  getJobAdSearchState,
+  getNextId,
+  getPrevId,
   initialState,
   JobAdSearchState
 } from '../state/job-ad-search.state';
@@ -91,7 +93,7 @@ export class JobAdSearchEffects {
     withLatestFrom(this.store.pipe(select(getPrevId))),
     map(([action, id]) => id),
     tap((id) => {
-      this.router.navigate(['/job-search', id])
+      this.router.navigate(['/job-search', id]);
     }),
     map((id) => new LoadJobAdvertisementDetailAction({ id }))
   );

@@ -17,7 +17,7 @@ import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../../model/request-util';
 import { JobAdvertisementSearchResponse } from './job-advertisement-search-response';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class JobAdvertisementService {
   private readonly resourceUrl = 'jobadservice/api/jobAdvertisements';
   private readonly searchUrl = `${this.resourceUrl}/_search`;

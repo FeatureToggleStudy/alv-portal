@@ -23,12 +23,7 @@ export class JobDetailComponent implements OnInit {
   prevVisible$: Observable<boolean>;
   nextVisible$: Observable<boolean>;
 
-  constructor(private store: Store<JobAdSearchState>,
-              private authenticationService: AuthenticationService,
-              private activatedRoute: ActivatedRoute) {
-    const id = this.activatedRoute.snapshot.params['id'];
-
-    this.store.dispatch(new LoadJobAdvertisementDetailAction({ id }));
+  constructor(private store: Store<JobAdSearchState>) {
 
     this.currentJobAd$ = this.store.pipe(select(getCurrentJobAd));
     this.prevVisible$ = this.store.pipe(select(isPrevVisible));
