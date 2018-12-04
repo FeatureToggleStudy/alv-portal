@@ -31,7 +31,7 @@ export class JobSearchResultComponent implements OnInit {
       description: jobDescription.description,
       header: job.publication.startDate,
       badges: this.generateBadges(job),
-      routerLink: ['/job-detail', job.id],
+      routerLink: ['/job-search', job.id],
       subtitle: job.jobContent.company.name
     };
   }

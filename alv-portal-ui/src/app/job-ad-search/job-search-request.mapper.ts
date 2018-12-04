@@ -15,7 +15,7 @@ export class JobSearchRequestMapper {
         workloadPercentageMax: jobSearchFilter.workloadPercentageMax,
         permanent: JobSearchRequestMapper.mapContractType(jobSearchFilter.contractType),
         companyName: jobSearchFilter.company,
-        onlineSince: 50,
+        onlineSince: jobSearchFilter.onlineSince,
         displayRestricted: false
       }
     };

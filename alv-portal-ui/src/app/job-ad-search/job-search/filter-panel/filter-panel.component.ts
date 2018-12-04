@@ -1,19 +1,9 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { TranslateService } from '@ngx-translate/core';
 import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
-
-const defaultFilters: JobSearchFilter = {
-  sort: Sort.RELEVANCE_DESC,
-  displayRestricted: false,//fixme related to jobseeker role
-  company: '',
-  contractType: ContractType.ALL,
-  workloadPercentageMin: 0,
-  workloadPercentageMax: 100,
-  onlineSince: 30
-};
 
 @Component({
   selector: 'alv-filter-panel',
@@ -21,18 +11,13 @@ const defaultFilters: JobSearchFilter = {
   styleUrls: ['./filter-panel.component.scss']
 })
 export class FilterPanelComponent implements OnInit {
-  form: FormGroup = this.fb.group({
-    sort: [defaultFilters.sort],
-    company: [defaultFilters.company],
-    contractType: [defaultFilters.contractType],
-    workloadPercentageMin: [defaultFilters.workloadPercentageMin],
-    workloadPercentageMax: [defaultFilters.workloadPercentageMax],
-    onlineSince: [defaultFilters.onlineSince]
-  });
+  form: FormGroup;
 
   @Output()
-  filtersChange: BehaviorSubject<JobSearchFilter> = new BehaviorSubject<JobSearchFilter>(defaultFilters);
+  filtersChange: Subject<JobSearchFilter> = new Subject<JobSearchFilter>();
 
+  @Input()
+  jobSearchFilter: JobSearchFilter;
 
   sortOptions$: Observable<SelectableOption[]> = of([{
     value: Sort.RELEVANCE_DESC,
@@ -80,6 +65,14 @@ export class FilterPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      sort: [this.jobSearchFilter.sort],
+      company: [this.jobSearchFilter.company],
+      contractType: [this.jobSearchFilter.contractType],
+      workloadPercentageMin: [this.jobSearchFilter.workloadPercentageMin],
+      workloadPercentageMax: [this.jobSearchFilter.workloadPercentageMax],
+      onlineSince: [this.jobSearchFilter.onlineSince]
+    });
     this.form.valueChanges.subscribe(changedValues => this.filtersChange.next(changedValues))
   }
 

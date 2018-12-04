@@ -10,10 +10,15 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NouisliderModule } from 'ng2-nouislider';
 import { JobAdSearchRoutingModule } from './job-ad-search-routing.module';
 import { JobDetailComponent } from './job-detail/job-detail.component';
-import { JobSearchModel } from './job-search.model';
+import { StoreModule } from '@ngrx/store';
+import { jobAdSearchReducer } from './state-management/reducers/job-ad-search.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { JobAdSearchEffects } from './state-management/effects/job-ad-search.effects';
 
 @NgModule({
   imports: [
+    StoreModule.forFeature('jobAdSearch', jobAdSearchReducer),
+    EffectsModule.forFeature([JobAdSearchEffects]),
     CommonModule,
     SharedModule,
     JobAdSearchRoutingModule,
@@ -21,15 +26,15 @@ import { JobSearchModel } from './job-search.model';
     NouisliderModule,
   ],
   providers: [
-    JobAdvertisementService,
-    JobSearchModel
+    JobAdvertisementService
   ],
   declarations: [
     JobSearchComponent,
     FilterPanelComponent,
     ResultListItemComponent,
     JobSearchResultComponent,
-    JobDetailComponent]
+    JobDetailComponent
+  ]
 })
 export class JobAdSearchModule {
 }

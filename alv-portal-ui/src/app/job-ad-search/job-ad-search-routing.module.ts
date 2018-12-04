@@ -9,7 +9,7 @@ const routes: Routes = [
     component: JobSearchComponent
   },
   {
-    path: '/:id',
+    path: ':id',
     component: JobDetailComponent
   },
   {

@@ -1,3 +1,11 @@
+<br/>
+<br/>
+<br/>
+<br/>
 <p>
-  job-detail works!
+  <button *ngIf="prevVisible$ | async" (click)="prev()">prev</button>
+  <button *ngIf="nextVisible$ | async" (click)="next()">next</button>
 </p>
+<pre>
+  {{(currentJobAd$ | async) | json}}
+</pre>
