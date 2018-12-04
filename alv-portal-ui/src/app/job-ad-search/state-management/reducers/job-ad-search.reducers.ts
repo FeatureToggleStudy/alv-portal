@@ -1,14 +1,14 @@
 import { initialState, JobAdSearchState } from '../state/job-ad-search.state';
 import {
-  Actions, CURRENT_LOADED, FILTER_CHANGED,
+  Actions, JOB_ADVERTISEMENT_DETAIL_LOADED, APPLY_FILTER,
   INIT_JOB_SEARCH,
-  JOB_LIST_LOADED, NEXT_PAGE_LOADED
+  FILTER_APPLIED, LOAD_NEXT_PAGE, NEXT_PAGE_LOADED
 } from '../actions/job-ad-search.actions';
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
   console.log(`action: ${action.type}`);
 
-  let newState;
+  let newState:JobAdSearchState;
   switch (action.type) {
     /*case INIT_JOB_SEARCH:
       newState = {
@@ -19,31 +19,39 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         }
       };
       break;*/
-    case FILTER_CHANGED:
+    case APPLY_FILTER:
       newState = {
         ...state,
         jobSearchFilter: {
           ...action.payload
-        }
+        },
+        resultsAreLoading: true
       };
       break;
-    case JOB_LIST_LOADED:
+    case FILTER_APPLIED:
       newState = {
         ...state,
         resultList: [...action.payload.jobList],
         totalCount: action.payload.totalCount,
-        page: 0
+        page: 0,
+        resultsAreLoading: false
       };
       break;
-
+    case LOAD_NEXT_PAGE:
+      newState = {
+        ...state,
+        resultsAreLoading: true
+      };
+      break;
     case NEXT_PAGE_LOADED:
       newState = {
         ...state,
         resultList: [...state.resultList, ...action.payload],
-        page: state.page + 1
+        page: state.page + 1,
+        resultsAreLoading: false
       };
       break;
-    case CURRENT_LOADED:
+    case JOB_ADVERTISEMENT_DETAIL_LOADED:
       newState = {
         ...state,
         currentJobAd: action.payload.jobAdvertisement

@@ -4,15 +4,15 @@ import { JobSearchFilter } from '../../job-search-filter.types';
 
 export const INIT_JOB_SEARCH = 'JOBS:INIT_JOB_SEARCH';
 export const JOB_SEARCH_INITIALIZED = 'JOBS:JOB_SEARCH_INITIALIZED';
-export const JOB_LIST_LOADED = 'JOBS:JOB_LIST_LOADED';
-export const FILTER_CHANGED = 'JOBS:FILTER_CHANGED';
+export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
+export const APPLY_FILTER = 'JOBS:APPLY_FILTER';
 export const LOAD_NEXT_PAGE = 'JOBS:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'JOBS:NEXT_PAGE_LOADED';
 
-export const LOAD_CURRENT = 'JOBS:LOAD_CURRENT';
-export const CURRENT_LOADED = 'JOBS:CURRENT_LOADED';
-export const LOAD_PREV = 'JOBS:LOAD_PREV';
-export const LOAD_NEXT = 'JOBS:LOAD_NEXT';
+export const LOAD_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_JOB_ADVERTISEMENT_DETAIL';
+export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_LOADED';
+export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
+export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
 
 export class InitJobSearchAction implements Action {
   readonly type = INIT_JOB_SEARCH;
@@ -32,15 +32,15 @@ export class JobSearchInitializedAction implements Action {
   }
 }
 
-export class FilterChangedAction implements Action {
-  readonly type = FILTER_CHANGED;
+export class ApplyFilterAction implements Action {
+  readonly type = APPLY_FILTER;
 
   constructor(public payload: JobSearchFilter) {
   }
 }
 
-export class JobListLoadedAction implements Action {
-  readonly type = JOB_LIST_LOADED;
+export class FilterAppliedAction implements Action {
+  readonly type = FILTER_APPLIED;
 
   constructor(public payload: { jobList: Array<JobAdvertisement>, totalCount: number }) {
   }
@@ -60,29 +60,29 @@ export class NextPageLoadedAction implements Action {
   }
 }
 
-export class LoadCurrentAction implements Action {
-  readonly type = LOAD_CURRENT;
+export class LoadJobAdvertisementDetailAction implements Action {
+  readonly type = LOAD_JOB_ADVERTISEMENT_DETAIL;
 
   constructor(public payload: { id: string }) {
   }
 }
 
-export class CurrentLoadedAction implements Action {
-  readonly type = CURRENT_LOADED;
+export class JobAdvertisementDetailLoadedAction implements Action {
+  readonly type = JOB_ADVERTISEMENT_DETAIL_LOADED;
 
   constructor(public payload: { jobAdvertisement: JobAdvertisement }) {
   }
 }
 
-export class LoadPrevAction implements Action {
-  readonly type = LOAD_PREV;
+export class LoadPreviousJobAdvertisementDetailAction implements Action {
+  readonly type = LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL;
 
   constructor(public payload = {}) {
   }
 }
 
-export class LoadNextAction implements Action {
-  readonly type = LOAD_NEXT;
+export class LoadNextJobAdvertisementDetailAction implements Action {
+  readonly type = LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL;
 
   constructor(public payload = {}) {
   }
@@ -90,12 +90,12 @@ export class LoadNextAction implements Action {
 
 export type Actions =
   | InitJobSearchAction
-  | JobListLoadedAction
-  | FilterChangedAction
+  | FilterAppliedAction
+  | ApplyFilterAction
   | LoadNextPageAction
   | NextPageLoadedAction
-  | LoadCurrentAction
-  | CurrentLoadedAction
-  | LoadPrevAction
-  | LoadNextAction
+  | LoadJobAdvertisementDetailAction
+  | JobAdvertisementDetailLoadedAction
+  | LoadPreviousJobAdvertisementDetailAction
+  | LoadNextJobAdvertisementDetailAction
   ;

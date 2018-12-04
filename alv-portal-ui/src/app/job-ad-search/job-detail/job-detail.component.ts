@@ -8,9 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/index';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.model';
 import {
-  LoadCurrentAction,
-  LoadNextAction, LoadPrevAction
+  LoadJobAdvertisementDetailAction,
+  LoadNextJobAdvertisementDetailAction, LoadPreviousJobAdvertisementDetailAction
 } from '../state-management/actions/job-ad-search.actions';
+import { AuthenticationService } from '../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-job-detail',
@@ -23,25 +24,27 @@ export class JobDetailComponent implements OnInit {
   nextVisible$: Observable<boolean>;
 
   constructor(private store: Store<JobAdSearchState>,
+              private authenticationService: AuthenticationService,
               private activatedRoute: ActivatedRoute) {
     const id = this.activatedRoute.snapshot.params['id'];
 
-    this.store.dispatch(new LoadCurrentAction({ id }));
+    this.store.dispatch(new LoadJobAdvertisementDetailAction({ id }));
 
     this.currentJobAd$ = this.store.pipe(select(getCurrentJobAd));
     this.prevVisible$ = this.store.pipe(select(isPrevVisible));
     this.nextVisible$ = this.store.pipe(select(isNextVisible));
+
   }
 
   ngOnInit() {
   }
 
   prev() {
-    this.store.dispatch(new LoadPrevAction());
+    this.store.dispatch(new LoadPreviousJobAdvertisementDetailAction());
   }
 
   next() {
-    this.store.dispatch(new LoadNextAction());
+    this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
   }
 
 }

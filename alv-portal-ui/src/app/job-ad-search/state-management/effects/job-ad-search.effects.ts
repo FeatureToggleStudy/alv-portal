@@ -3,21 +3,21 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs/index';
 import { Action, select, Store } from '@ngrx/store';
 import {
-  CurrentLoadedAction,
-  FILTER_CHANGED,
-  FilterChangedAction,
+  JobAdvertisementDetailLoadedAction,
+  APPLY_FILTER,
+  ApplyFilterAction,
   INIT_JOB_SEARCH,
   InitJobSearchAction,
-  JobListLoadedAction,
-  LOAD_CURRENT,
-  LOAD_NEXT,
+  FilterAppliedAction,
+  LOAD_JOB_ADVERTISEMENT_DETAIL,
+  LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
-  LOAD_PREV,
-  LoadCurrentAction,
-  LoadNextAction,
+  LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
+  LoadJobAdvertisementDetailAction,
+  LoadNextJobAdvertisementDetailAction,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
-  NextPageLoadedAction
+  NextPageLoadedAction, LoadPreviousJobAdvertisementDetailAction
 } from '../actions/job-ad-search.actions';
 import { JobAdvertisementService } from '../../../shared/backend-services/job-advertisement/job-advertisement.service';
 import {
@@ -38,29 +38,30 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class JobAdSearchEffects {
+
   @Effect()
   initJobSearch$: Observable<Action> = this.actions$.pipe(
     ofType(INIT_JOB_SEARCH),
     take(1),
-    map((action: InitJobSearchAction) => new FilterChangedAction({
+    map((action: InitJobSearchAction) => new ApplyFilterAction({
       ...initialState.jobSearchFilter, onlineSince: action.payload.onlineSince
     }))
     //withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     //switchMap(([action, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page))),
-    //map((response: JobAdvertisementSearchResponse) => new JobListLoadedAction({
+    //map((response: JobAdvertisementSearchResponse) => new FilterAppliedAction({
     //  jobList: response.result,
     //  totalCount: response.totalCount
     //}))
   );
 
   @Effect()
-  loadJobList$: Observable<Action> = this.actions$.pipe(
-    ofType(FILTER_CHANGED),
-    map((action: FilterChangedAction) => action.payload),
+  applyFilter$: Observable<Action> = this.actions$.pipe(
+    ofType(APPLY_FILTER),
+    map((action: ApplyFilterAction) => action.payload),
     debounceTime(300),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     switchMap(([filter, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(filter, state.page))),
-    map((response: JobAdvertisementSearchResponse) => new JobListLoadedAction({
+    map((response: JobAdvertisementSearchResponse) => new FilterAppliedAction({
       jobList: response.result,
       totalCount: response.totalCount
     }))
@@ -76,28 +77,28 @@ export class JobAdSearchEffects {
   );
 
   @Effect()
-  loadCurrentJobAd$: Observable<Action> = this.actions$.pipe(
-    ofType(LOAD_CURRENT),
-    map((action: LoadCurrentAction) => action.payload.id),
+  public loadJobAdvertisementDetail$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_JOB_ADVERTISEMENT_DETAIL),
+    map((action: LoadJobAdvertisementDetailAction) => action.payload.id),
     switchMap((id) => this.jobAdsService.findById(id)),
-    map((jobAdvertisement) => new CurrentLoadedAction({ jobAdvertisement }))
+    map((jobAdvertisement) => new JobAdvertisementDetailLoadedAction({ jobAdvertisement }))
   );
 
 
   @Effect()
-  loadPrevJobAd$: Observable<Action> = this.actions$.pipe(
-    ofType(LOAD_PREV),
+  loadPreviousJobAdvertisementDetail$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL),
     withLatestFrom(this.store.pipe(select(getPrevId))),
     map(([action, id]) => id),
     tap((id) => {
       this.router.navigate(['/job-search', id])
     }),
-    map((id) => new LoadCurrentAction({ id }))
+    map((id) => new LoadJobAdvertisementDetailAction({ id }))
   );
 
   @Effect()
-  loadNextJobAd$: Observable<Action> = this.actions$.pipe(
-    ofType(LOAD_NEXT),
+  loadNextJobAdvertisementDetail$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL),
     withLatestFrom(this.store.pipe(select(getNextId))),
     switchMap(([action, id]) => {
       if (id) {
@@ -117,7 +118,7 @@ export class JobAdSearchEffects {
     tap((id) => {
       this.router.navigate(['/job-search', id])
     }),
-    map((id) => new LoadCurrentAction({ id }))
+    map((id) => new LoadJobAdvertisementDetailAction({ id }))
   );
 
   constructor(private actions$: Actions,

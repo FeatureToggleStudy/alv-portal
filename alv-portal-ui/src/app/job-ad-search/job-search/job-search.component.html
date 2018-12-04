@@ -5,7 +5,8 @@
      [infiniteScrollContainer]="'main'"
      class="container"
      infiniteScroll>
-  {{totalCount$ | async }}
+  Count: {{totalCount$ | async }}
+  Loading: {{resultsAreLoading$ | async }}
   <div class="row">
     <div class="col-xs-12 col-md-3">
       <alv-filter-panel (filtersChange)="onFiltersChange($event)" [jobSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>

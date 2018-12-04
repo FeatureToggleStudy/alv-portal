@@ -8,6 +8,7 @@ export interface JobAdSearchState {
   jobSearchFilter: JobSearchFilter
   resultList: JobAdvertisement[],
   currentJobAd: JobAdvertisement,
+  resultsAreLoading: boolean,
 }
 
 export const initialState: JobAdSearchState = {
@@ -23,7 +24,8 @@ export const initialState: JobAdSearchState = {
     onlineSince: 30,
   },
   resultList: [],
-  currentJobAd: null
+  currentJobAd: null,
+  resultsAreLoading: false
 };
 
 export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobAdSearch');
@@ -31,6 +33,8 @@ export const getTotalCount = createSelector(getJobAdSearchState, (state: JobAdSe
 export const getResultList = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultList);
 export const getJobSearchFilter = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.jobSearchFilter);
 export const getCurrentJobAd = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.currentJobAd);
+
+export const getResultsAreLoading = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultsAreLoading);
 
 export const getPrevId = createSelector(getResultList, getCurrentJobAd, (resultList, current) => {
   if (current) {
