@@ -32,7 +32,7 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home'
+    redirectTo: './job-search/77b02467-ef7e-11e8-ba2e-005056ac3479'
   }
 ];
 
