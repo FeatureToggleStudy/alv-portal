@@ -22,6 +22,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         resultsAreLoading: true
       };
       break;
+
     case FILTER_APPLIED:
       newState = {
         ...state,
@@ -32,12 +33,14 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         visitedJobAds: {}
       };
       break;
+
     case LOAD_NEXT_PAGE:
       newState = {
         ...state,
         resultsAreLoading: true
       };
       break;
+
     case NEXT_PAGE_LOADED:
       newState = {
         ...state,
@@ -46,6 +49,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         resultsAreLoading: false
       };
       break;
+
     case JOB_ADVERTISEMENT_DETAIL_LOADED:
       const currentVisited = state.visitedJobAds;
       currentVisited[action.payload.jobAdvertisement.id] = true;
