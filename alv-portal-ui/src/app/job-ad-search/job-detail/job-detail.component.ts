@@ -5,10 +5,10 @@ import {
   JobDescription,
   SourceSystem
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { JobCenter, ReferenceService } from '../reference.service';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { filter, flatMap, map, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, flatMap, map, tap } from 'rxjs/operators';
 import {
   getSelectedJobAdvertisement,
   isNextVisible,
@@ -22,6 +22,7 @@ import {
 import { select, Store } from '@ngrx/store';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { I18nService } from '../../core/i18n.service';
+import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -61,20 +62,16 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
         this.showJobAdUnvalidatedMessage = this.isUnvalidated(job);
       }));
 
-    this.jobDescription$ = this.job$.pipe(
-      withLatestFrom(this.translateService.currentLanguage),
-      map(([job, currentLanguage]) =>
-        job.jobContent.jobDescriptions
-          .find(d => d.languageIsoCode === currentLanguage)
-        || job.jobContent.jobDescriptions[0]
-      )
+    this.jobDescription$ = combineLatest(this.job$, this.translateService.currentLanguage).pipe(
+      map(([job, currentLanguage]) => JobAdvertisementUtils.getJobDescription(job, currentLanguage))
     );
 
-    this.jobCenter$ = this.job$.pipe(
+    const jobCenterCode$ = this.job$.pipe(
       filter((job) => !!job),
       map((job) => job.jobCenterCode),
-      filter((jobCenterCode) => !!jobCenterCode),
-      withLatestFrom(this.translateService.currentLanguage),
+      filter((jobCenterCode) => !!jobCenterCode));
+
+    this.jobCenter$ = combineLatest(jobCenterCode$, this.translateService.currentLanguage).pipe(
       flatMap(([jobCenterCode, currentLanguage]) => this.referenceService.resolveJobCenter(jobCenterCode, currentLanguage))
     );
 
