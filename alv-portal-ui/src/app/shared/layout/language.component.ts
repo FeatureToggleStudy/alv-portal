@@ -6,8 +6,6 @@ import { LanguageSkill } from '../backend-services/job-advertisement/job-adverti
   template: `
     <div *ngIf="languages?.length"
          class="job-detail__content">
-      <h4 class="job-detail__content__title">{{ 'global.reference.languages' | translate }}</h4>
-
       <div class="content__item"
            *ngFor="let language of languages">
         <strong>

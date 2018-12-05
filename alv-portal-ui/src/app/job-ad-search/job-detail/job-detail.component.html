@@ -1,6 +1,7 @@
 <div class="container mt-md-5">
   <div class="row base"
        *ngIf="job$ | async as job">
+    <!-------------Left panel-->
     <div class="col-12 col-md order-11 order-md-1 base__subnavbar">
       <div class="base__sticky-panel">
         <div class="d-flex d-sm-block flex-column-reverse">
@@ -83,7 +84,7 @@
         </div>
       </div>
     </div>
-
+    <!-------------Main screen-->
     <div class="col-12 col-md-8 order-3 base__content"
          *ngIf="jobDescription$ | async as jobDescription">
       <!-----------------Alerts-->
@@ -124,8 +125,10 @@
           {{'jobroomApp.job.numberOfJobs' | translate}}: {{ job.jobContent.numberOfJobs }}
         </small>
       </div>
+      <!--Badges-->
       <div class="detail__content">
-        <alv-job-location [location]="job.jobContent.location">
+        <alv-job-location [location]="job.jobContent.location"
+                          classes="badge badge-blue">
         </alv-job-location>
         <span class="badge badge-gray">{{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}</span>
 
@@ -138,7 +141,9 @@
                     {{'job-detail.startsImmediately.' + job.jobContent.employment.immediately | translate}}
                 </span>
         <span *ngIf="job.jobContent.employment.permanent"
-              class="badge badge-green">{{'job-search.job-search-list-item.badge.permanent' | translate}}</span>
+              class="badge badge-green">
+                    {{'job-search.job-search-list-item.badge.permanent' | translate}}
+          </span>
         <span *ngIf="!job.jobContent.employment.permanent && !!job.jobContent.employment.endDate && !job.jobContent.employment.shortEmployment"
               class="badge badge-yellow"
               translate="job-detail.endDate"
@@ -159,53 +164,102 @@
       </div>
 
       <!-----------------Bottom details about job-->
+
       <ngb-accordion>
+        <ngb-panel title="{{ 'job-publication-details.jobad-info.label' | translate }}">
+          <ng-template ngbPanelContent>
+            <ul>
+              <li>workplace
+                <alv-job-location [location]="job.jobContent.location">
+                </alv-job-location>
+              </li>
+              <li>
+                Entry date
+                <span
+                  [translateParams]="{date: job.jobContent.employment.startDate | localeAwareDate}"
+                  translate="job-detail.startDate">
+                </span>
+                <span *ngIf="!job.jobContent.employment.startDate && job.jobContent.employment.immediately != null">
+                    {{'job-detail.startsImmediately.' + job.jobContent.employment.immediately | translate}}
+                </span>
+              </li>
+              <li>
+                workload
+                {{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}
+              </li>
+              <li>
+                work period
+                <span *ngIf="!job.jobContent.employment.permanent && !job.jobContent.employment.endDate">
+              {{'job-search.job-search-list-item.badge.temporary' | translate}}
+            </span>
+                <span *ngIf="job.reportingObligation">
+              {{'job-search.job-search-list-item.badge.restricted' | translate}}
+            </span>
+              </li>
+              <li>
+                work form
+                <span *ngIf="!job.jobContent.employment.permanent && !!job.jobContent.employment.shortEmployment">
+                  {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
+                </span>
+              </li>
+            </ul>
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel title="{{ 'job-publication-details.min-requirements.label' | translate }}">
+          <ng-template ngbPanelContent>
+
+          </ng-template>
+        </ngb-panel>
         <ngb-panel title="{{ 'global.reference.languages' | translate }}">
           <ng-template ngbPanelContent>
             <alv-languages [languages]="job.jobContent.languageSkills"
             ></alv-languages>
           </ng-template>
         </ngb-panel>
-        <ngb-panel title="{{ 'job-detail.application.title' | translate }}">
+        <ngb-panel title="{{ 'job-publication-details.contact-details.label' | translate }}">
           <ng-template ngbPanelContent>
-            kmkodmklmfdsklm lkmdsfklmdklfmdkl mfklmdskl fklds fdm kfmsdlk mfldksm lfkdsmkl
+            <div *ngIf="job.jobContent.applyChannel"
+                 class="detail__content">
+              <h4 class="detail__content__title detail__content__title--light"></h4>
+
+              <div *ngIf="job.jobContent.applyChannel.formUrl"
+                   class="content__item content__item--bullet">
+                <strong>{{ 'job-detail.application.online' | translate }}</strong>
+                <span>
+                  <a href="{{ job.jobContent.applyChannel.formUrl }}">
+                    {{ 'job-publication-details.application.online-form' | translate}}
+                  </a>
+                </span>
+              </div>
+              <div *ngIf="job.jobContent.applyChannel.emailAddress"
+                   class="content__item content__item--bullet">
+                <strong>{{ 'job-detail.application.email' | translate }}</strong>
+                <span>
+                    <a href="mailto:{{job.jobContent.applyChannel.emailAddress}}">{{job.jobContent.applyChannel.emailAddress}}</a>
+                </span>
+              </div>
+              <div *ngIf="job.jobContent.applyChannel.phoneNumber"
+                   class="content__item content__item--bullet">
+                <strong>{{ 'job-detail.application.phone' | translate }}</strong>
+                <span>
+                  <a href="tel:{{job.jobContent.applyChannel.phoneNumber}}">
+                        {{(job.jobContent.applyChannel.phoneNumber) | jr2PhoneNumber}}
+                  </a>
+                </span>
+              </div>
+              <div *ngIf="job.jobContent.applyChannel.mailAddress"
+                   class="content__item content__item--bullet">
+                <strong>{{ 'job-detail.application.mail' | translate }}</strong>
+                <span>{{ job.jobContent.applyChannel.mailAddress }}</span>
+              </div>
+            </div>
           </ng-template>
         </ngb-panel>
       </ngb-accordion>
 
-      <div *ngIf="job.jobContent.applyChannel"
-           class="detail__content">
-        <h4 class="detail__content__title detail__content__title--light"></h4>
-
-        <div *ngIf="job.jobContent.applyChannel.formUrl"
-             class="content__item content__item--bullet">
-          <strong>{{ 'job-detail.application.online' | translate }}</strong>
-          <span>
-             <a href="{{ job.jobContent.applyChannel.formUrl }}">{{ 'job-publication-details.application.online-form' | translate}}</a>
-          </span>
-        </div>
-        <div *ngIf="job.jobContent.applyChannel.emailAddress"
-             class="content__item content__item--bullet">
-          <strong>{{ 'job-detail.application.email' | translate }}</strong>
-          <span>
-                        <a href="mailto:{{job.jobContent.applyChannel.emailAddress}}">{{job.jobContent.applyChannel.emailAddress}}</a>
-                    </span>
-        </div>
-        <div *ngIf="job.jobContent.applyChannel.phoneNumber"
-             class="content__item content__item--bullet">
-          <strong>{{ 'job-detail.application.phone' | translate }}</strong>
-          <span><a href="tel:{{job.jobContent.applyChannel.phoneNumber}}">
-                        {{(job.jobContent.applyChannel.phoneNumber) | jr2PhoneNumber}}
-                    </a></span>
-        </div>
-        <div *ngIf="job.jobContent.applyChannel.mailAddress"
-             class="content__item content__item--bullet">
-          <strong>{{ 'job-detail.application.mail' | translate }}</strong>
-          <span>{{ job.jobContent.applyChannel.mailAddress }}</span>
-        </div>
-      </div>
     </div>
 
+    <!-------------Right panel-->
     <div class="col-12 col-md order-12 base__related">
       <div class="base__sticky-panel">
         <p>

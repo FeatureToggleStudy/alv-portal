@@ -5,7 +5,7 @@ import { Location } from '../../shared/backend-services/job-advertisement/job-ad
   selector: 'alv-job-location',
   template: `
     <span *ngIf="location"
-          class="badge badge-blue">
+          [ngClass]="classes">
             {{ location.postalCode }} {{ location.city }}
       <ng-container *ngIf="location.cantonCode || location.countryIsoCode">
                 ({{ location.cantonCode || location.countryIsoCode }})
@@ -17,6 +17,9 @@ export class JobLocationComponent {
 
   @Input()
   location: Location;
+
+  @Input()
+  classes: string
 
 
 }
