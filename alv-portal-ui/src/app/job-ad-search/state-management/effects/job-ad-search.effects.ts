@@ -19,6 +19,7 @@ import {
 } from '../actions/job-ad-search.actions';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
+  catchError,
   debounceTime,
   map,
   switchMap,
@@ -38,6 +39,7 @@ import { Router } from '@angular/router';
 import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
+import { HttpClientErrorAction } from '../../../core/state-management/actions/core.actions';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
@@ -50,11 +52,13 @@ export class JobAdSearchEffects {
     ofType(INIT_RESULT_LIST),
     take(1),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([filter, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page))),
-    map((response: JobAdvertisementSearchResponse) => new FilterAppliedAction({
-      page: response.result,
-      totalCount: response.totalCount
-    })),
+    switchMap(([filter, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
+      map((response) => new FilterAppliedAction({
+        page: response.result,
+        totalCount: response.totalCount
+      })),
+      catchError(() => of(new HttpClientErrorAction({})))
+    )),
     takeUntil(this.actions$.pipe(ofType(APPLY_FILTER))),
   );
 
@@ -64,11 +68,13 @@ export class JobAdSearchEffects {
     map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([filter, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(filter, state.page))),
-    map((response: JobAdvertisementSearchResponse) => new FilterAppliedAction({
-      page: response.result,
-      totalCount: response.totalCount
-    }))
+    switchMap(([filter, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(filter, state.page)).pipe(
+      map((response) => new FilterAppliedAction({
+        page: response.result,
+        totalCount: response.totalCount
+      })),
+      catchError(() => of(new HttpClientErrorAction({})))
+    )),
   );
 
   @Effect()
@@ -76,16 +82,20 @@ export class JobAdSearchEffects {
     ofType(LOAD_NEXT_PAGE),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1))),
-    map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result }))
+    switchMap(([action, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1)).pipe(
+      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
+      catchError(() => of(new HttpClientErrorAction({})))
+    )),
   );
 
   @Effect()
   public loadJobAdvertisementDetail$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_JOB_ADVERTISEMENT_DETAIL),
     map((action: LoadJobAdvertisementDetailAction) => action.payload.id),
-    switchMap((id) => this.jobAdsService.findById(id)),
-    map((jobAdvertisement) => new JobAdvertisementDetailLoadedAction({ jobAdvertisement }))
+    switchMap((id) => this.jobAdsService.findById(id).pipe(
+      map((jobAdvertisement) => new JobAdvertisementDetailLoadedAction({ jobAdvertisement })),
+      catchError(() => of(new HttpClientErrorAction({})))
+    )),
   );
 
   @Effect()

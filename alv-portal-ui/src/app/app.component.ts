@@ -4,7 +4,6 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
-import { MessageBusService, MessageType } from './core/message-bus.service';
 
 @Component({
   selector: 'alv-root',
@@ -19,16 +18,16 @@ export class AppComponent implements OnInit {
               private titleService: Title,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private messageBusService: MessageBusService,
               private authenticationService: AuthenticationService) {
 
   }
 
   ngOnInit() {
-    this.i18nService.initAppDefaultLanguage();
 
-    this.authenticationService.getCurrentUser(true)
-      .subscribe();
+    this.i18nService.init();
+
+    this.authenticationService.init();
+
     // Based on the idea: https://toddmotto.com/dynamic-page-titles-angular-2-router-events
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
@@ -47,10 +46,6 @@ export class AppComponent implements OnInit {
           // TODO i18n
           this.a11yMessage = data.titleKey;
           this.titleService.setTitle(data.titleKey);
-
-        }
-        if (data.collapsed != null) {
-          this.messageBusService.emit<boolean>(MessageType.TOGGLE_DESKTOP_NAVIGATION, data.collapsed);
         }
       });
   }

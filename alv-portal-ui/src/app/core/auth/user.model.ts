@@ -1,3 +1,5 @@
+import { UserDto } from './authentication.service';
+
 export enum RegistrationStatus {
   UNREGISTERED = <any>'UNREGISTERED',
   REGISTERED = <any>'REGISTERED',
@@ -32,6 +34,19 @@ export class User {
   isRegistered(): boolean {
     return this.registrationStatus === RegistrationStatus.REGISTERED;
   }
+
+  public static toUser(userDto: UserDto) {
+    const user = new User();
+    user.id = userDto.id;
+    user.firstName = userDto.firstName;
+    user.lastName = userDto.lastName;
+    user.authorities = userDto.authorities;
+    user.registrationStatus = userDto.registrationStatus;
+    user.login = userDto.login;
+    user.langKey = userDto.langKey;
+    user.email = userDto.email;
+    return user;
+  }
 }
 
 export interface Credentials {
@@ -39,3 +54,5 @@ export interface Credentials {
   password: string;
   rememberMe: boolean;
 }
+
+

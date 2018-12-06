@@ -1,11 +1,11 @@
 <!-- a11y -->
 <h1 class="sr-only">Navigation</h1>
 
-<!-- Menu Backdrop -->
-<div class="modal-backdrop"
-     *ngIf="open"
-     (click)="toggleMobileSideNav()">
-</div>
+<!--&lt;!&ndash; Menu Backdrop &ndash;&gt;-->
+<!--<div class="modal-backdrop"-->
+<!--*ngIf="open"-->
+<!--(click)="toggleMobileSideNav()">-->
+<!--</div>-->
 
 <!-- Desktop Menu -->
 <div class="d-none d-lg-flex flex-column h-100 w-100">
@@ -55,7 +55,7 @@
 <!-- Mobile Menu -->
 <div class="d-md-block d-lg-none">
   <ul class="navbar-nav animate side-nav"
-      [class.open]="open">
+      [class.open]="!collapsed">
     <li class="nav-item"
         (click)="toggleMobileSideNav()">
       <i class="nav-icon fas fa-caret-left"></i>
