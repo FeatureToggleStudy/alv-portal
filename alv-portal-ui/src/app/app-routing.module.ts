@@ -32,15 +32,15 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: './job-search/77b02467-ef7e-11e8-ba2e-005056ac3479'
+    redirectTo: 'home'
   }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
-        appRoutes,
-        { enableTracing: false }
+      appRoutes,
+      { enableTracing: false }
     )
   ],
   exports: [
