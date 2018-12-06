@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationRepository } from '../../service/registration/registration.repository';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { RegistrationStatus } from '../../core/auth/user.model';
 import { StepIndicatorItem } from '../../shared/layout/step-indicator/step.model';
@@ -46,6 +46,7 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
           if (response.success) {
             // Force refresh current user from server
             this.authenticationService.getCurrentUser(true)
+                .pipe(take(1))
                 .subscribe((user) => {
                   this.router.navigate(['/dashboard']);
                 });

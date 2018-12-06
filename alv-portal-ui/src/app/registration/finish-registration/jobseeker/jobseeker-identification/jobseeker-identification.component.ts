@@ -7,6 +7,8 @@ import { RegistrationRepository } from '../../../../service/registration/registr
 import { Router } from '@angular/router';
 import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../../../core/notifications.service';
+import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -15,11 +17,15 @@ import { NotificationsService } from '../../../../core/notifications.service';
 })
 export class JobseekerIdentificationComponent extends AbstractRegistrationStep implements OnInit {
 
-  readonly BIRTHDAY_MIN_DATE = NgbDate.from({year: 1900, month: 1, day: 1});
+  readonly BIRTHDAY_MIN_DATE = NgbDate.from({ year: 1900, month: 1, day: 1 });
 
   readonly BIRTHDAY_MAX_DATE = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
 
-  readonly BIRTHDAY_START_DATE = NgbDate.from({year: new Date().getFullYear() - 30, month: 1, day: 1});
+  readonly BIRTHDAY_START_DATE = NgbDate.from({
+    year: new Date().getFullYear() - 30,
+    month: 1,
+    day: 1
+  });
 
   readonly PERSON_NR_MAX_LENGTH = 8;
 
@@ -27,6 +33,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
 
   constructor(private fb: FormBuilder,
               private router: Router,
+              private authenticationService: AuthenticationService,
               private ngbDateNativeAdapter: NgbDateNativeAdapter,
               private notificationsService: NotificationsService,
               private registrationService: RegistrationRepository) {
@@ -47,9 +54,12 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
       birthdateMonth: this.jobseekerIdentificationForm.get('birthDate').value.month,
       birthdateYear: this.jobseekerIdentificationForm.get('birthDate').value.year
     }).subscribe(success => {
-      if (success) {
-        this.router.navigate(['home']);
-      }
+      // Force refresh current user from server
+      this.authenticationService.getCurrentUser(true)
+          .pipe(take(1))
+          .subscribe((user) => {
+            this.router.navigate(['/dashboard']);
+          });
     }, error => {
       this.jobseekerIdentificationForm.reset();
       if (error.error.reason) {
