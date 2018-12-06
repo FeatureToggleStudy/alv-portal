@@ -17,6 +17,7 @@ import localeIt from '@angular/common/locales/it';
 import localeEn from '@angular/common/locales/en';
 import { MarkdownModule } from 'ngx-markdown';
 import { JobAdvertisementRepository } from './backend-services/job-advertisement/job-advertisement.repository';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { JobAdvertisementRepository } from './backend-services/job-advertisement
   ],
   entryComponents: [],
   exports: [
+    CommonModule,
     TranslateModule,
     AlvFormsModule,
     LandingPageComponent,

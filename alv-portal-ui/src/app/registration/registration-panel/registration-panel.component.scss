@@ -1,0 +1,21 @@
+@import '../../../scss/common/colors';
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
+
+
+.alv-panel {
+  background-color: $color-super-light-grey;
+}
+
+@include media-breakpoint-up(md) {
+  .alv-panel {
+    margin: 0 5%;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .alv-panel {
+    margin: 0 15%;
+  }
+}

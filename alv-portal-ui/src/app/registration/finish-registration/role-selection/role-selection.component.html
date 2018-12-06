@@ -1,0 +1,26 @@
+
+<alv-registration-panel panelTitle="registrationQuestionnaire.header"
+                        panelSubtitle="registrationQuestionnaire.placeholder"
+                        (primaryAction)="selectRole()"
+                        primaryLabel="navigation.next"
+                        (secondaryAction)="cancelAction()"
+                        secondaryLabel="registration.customer.cancel"
+                        [hideBackButton]="true"
+                        [formGroup]="roleSelectionForm">
+  <alv-radio-button alvFormControlName="role"
+                    [options$]="registrationOptions$">
+  </alv-radio-button>
+
+  <div class="panel-divider"></div>
+
+  <alv-checkbox label="registrationQuestionnaire.termsOfUse.accept"
+                alvFormControlName="termsAndConditions"></alv-checkbox>
+
+  <a [href]="'portal.registration.termsOfUse.link' | translate"
+     target="_blank"
+     class="link terms-of-use mt-2">
+    <i class="fas fa-caret-right link-icon"></i>{{'portal.registration.termsOfUse.label' | translate}}
+  </a>
+
+
+</alv-registration-panel>

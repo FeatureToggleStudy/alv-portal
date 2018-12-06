@@ -9,33 +9,33 @@ export class ValidationService {
   defaultValidationMessages: Array<ValidationMessage> = [
     {
       error: 'required',
-      message: 'Value is required'
+      message: 'entity.validation.required'
     },
     {
       error: 'min',
-      message: 'Min. value is {{min}}'
+      message: 'entity.validation.min'
     },
     {
       error: 'minlength',
-      message: 'Min. length is {{requiredLength}}'
+      message: 'portal.forms.validation.minlength'
     },
     {
       error: 'max',
-      message: 'Max. value is {{max}}'
+      message: 'entity.validation.max'
     },
     {
       error: 'maxlength',
-      message: 'Max. length is {{requiredLength}}'
+      message: 'portal.forms.validation.maxlength'
     },
     {
       error: 'pattern',
-      message: 'Please enter the format {{requiredPattern}}'
+      message: 'portal.forms.validation.pattern'
     },
     {
       error: 'ngbDate',
-      message: 'Invalid date format',
-      requiredBefore: 'Date must be after {{day}}.{{month}}.{{year}}',
-      requiredAfter: 'Date must be before {{day}}.{{month}}.{{year}}'
+      message: 'portal.forms.validation.ngbDate',
+      requiredBefore: 'portal.forms.validation.ngbDate.before',
+      requiredAfter: 'portal.forms.validation.ngbDate.after'
     }
   ];
 
@@ -48,7 +48,8 @@ export class ValidationService {
     } else {
       return this.defaultValidationMessages.map(
           validationMessage => customValidationMessages.find(
-              customValidationMessage => customValidationMessage.error === validationMessage.error)
+              customValidationMessage => customValidationMessage.error === validationMessage.error
+              )
               || validationMessage);
     }
   }

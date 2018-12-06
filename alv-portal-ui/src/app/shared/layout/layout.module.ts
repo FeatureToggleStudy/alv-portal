@@ -43,6 +43,7 @@ import { LocaleAwareDecimalPipe } from './pipes/locale-aware-number.pipe';
 import { PhoneNumberPipe } from './pipes/phone-number.pipe';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
+import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
 
 @NgModule({
   imports: [
@@ -84,6 +85,7 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
     PhoneNumberPipe,
     ShortenPipe,
     WorkingTimeRangePipe,
+    StepIndicatorComponent
   ],
   entryComponents: [
     ConfirmModalComponent
@@ -116,9 +118,9 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
     PhoneNumberPipe,
     ShortenPipe,
     WorkingTimeRangePipe
+    StepIndicatorComponent
   ],
   providers: [
-    NotificationsService
   ]
 })
 export class LayoutModule {

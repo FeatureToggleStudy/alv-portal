@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ShowcaseComponent } from './showcase/showcase.component';
+import { ServiceModule } from './service/service.module';
 
 /**
  * Setting up the ngx-translate
@@ -39,7 +40,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     }),
     FormsModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    ServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
