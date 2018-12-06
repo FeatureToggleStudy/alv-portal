@@ -17,8 +17,8 @@ describe('SingleTypeaheadComponent', () => {
       imports: [NgbTypeaheadModule, TranslateModule],
       declarations: [SingleTypeaheadComponent, ValidationMessagesComponent],
     })
-        .overrideTemplate(SingleTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
-        .compileComponents();
+      .overrideTemplate(SingleTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
+      .compileComponents();
   }));
 
   beforeEach(() => {

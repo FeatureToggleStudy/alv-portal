@@ -1,25 +1,25 @@
-<alv-registration-panel panelTitle="registration.customer.title"
-                        panelSubtitle="registration.customer.text"
+<alv-registration-panel (backAction)="backAction()"
                         (primaryAction)="registerJobSeeker()"
-                        primaryLabel="registration.customer.login"
                         (secondaryAction)="cancelAction()"
-                        secondaryLabel="registration.customer.cancel"
-                        (backAction)="backAction()"
-                        [formGroup]="jobseekerIdentificationForm">
-  <alv-input-field label="registration.customer.pn.label"
-                   alvFormControlName="personNr"
+                        [formGroup]="jobseekerIdentificationForm"
+                        panelSubtitle="registration.customer.text"
+                        panelTitle="registration.customer.title"
+                        primaryLabel="registration.customer.login"
+                        secondaryLabel="registration.customer.cancel">
+  <alv-input-field [autofocus]="true"
                    [maxLength]="PERSON_NR_MAX_LENGTH"
-                   [autofocus]="true"
                    [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'},
-                     {error: 'pattern', message: 'registration.customer.messages.validate.pn'}]">
+                     {error: 'pattern', message: 'registration.customer.messages.validate.pn'}]"
+                   alvFormControlName="personNr"
+                   label="registration.customer.pn.label">
   </alv-input-field>
 
-  <alv-date-input label="registration.customer.birthdate.label"
-                  alvFormControlName="birthDate"
+  <alv-date-input [maxDate]="BIRTHDAY_MAX_DATE"
                   [minDate]="BIRTHDAY_MIN_DATE"
-                  [maxDate]="BIRTHDAY_MAX_DATE"
                   [startDate]="BIRTHDAY_START_DATE"
                   [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'},
-                    {error: 'ngbDate', message: 'registration.customer.messages.validate.birthdate'}]">
+                    {error: 'ngbDate', message: 'registration.customer.messages.validate.birthdate'}]"
+                  alvFormControlName="birthDate"
+                  label="registration.customer.birthdate.label">
   </alv-date-input>
 </alv-registration-panel>

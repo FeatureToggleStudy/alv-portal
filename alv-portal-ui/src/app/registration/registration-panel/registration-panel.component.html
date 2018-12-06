@@ -5,10 +5,10 @@
   <ng-content select="alv-alert"></ng-content>
   <div class="panel-divider"></div>
 
-  <form *ngIf="formGroup; else modalContent"
-        alvFormSubmitValidation
+  <form (validSubmit)="handlePrimaryClick()"
+        *ngIf="formGroup; else modalContent"
         [formGroup]="formGroup"
-        (validSubmit)="handlePrimaryClick()">
+        alvFormSubmitValidation>
     <ng-container *ngTemplateOutlet="modalContent"></ng-container>
 
   </form>

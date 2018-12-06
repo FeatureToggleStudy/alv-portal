@@ -25,8 +25,8 @@ export class PavSearchRepository {
     let formattedName = organization.name;
     if (organization.city || organization.zipCode) {
       formattedName = organization.city ?
-          `${formattedName}, ${organization.zipCode} ${organization.city}`
-          : `${formattedName}, ${organization.zipCode}`;
+        `${formattedName}, ${organization.zipCode} ${organization.city}`
+        : `${formattedName}, ${organization.zipCode}`;
 
     }
     if (organization.street) {
@@ -37,12 +37,12 @@ export class PavSearchRepository {
 
   suggest(prefix: string, resultSize = this.DEFAULT_SUGGEST_SIZE): Observable<OrganizationSuggestion[]> {
     const params = new HttpParams()
-        .set('prefix', prefix)
-        .set('resultSize', resultSize.toString());
+      .set('prefix', prefix)
+      .set('resultSize', resultSize.toString());
     return this.http.get<OrganizationAutocomplete>(`${this.RESOURCE_SEARCH_URL}/suggest`, { params })
-        .pipe(
-            map((autocomplete: OrganizationAutocomplete) => autocomplete ? autocomplete.organizations : [])
-        );
+      .pipe(
+        map((autocomplete: OrganizationAutocomplete) => autocomplete ? autocomplete.organizations : [])
+      );
   }
 
 }

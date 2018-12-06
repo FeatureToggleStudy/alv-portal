@@ -73,6 +73,8 @@ import { StepIndicatorComponent } from './step-indicator/step-indicator.componen
     AlertComponent,
     ModalComponent,
     ConfirmModalComponent,
+    StepIndicatorComponent,
+    ConfirmModalComponent,
     LanguageComponent,
     ConfirmModalComponent,
     SafeHtmlPipe,
@@ -119,7 +121,8 @@ import { StepIndicatorComponent } from './step-indicator/step-indicator.componen
     WorkingTimeRangePipe,
     StepIndicatorComponent
   ],
-  providers: []
+  providers: [NotificationsService
+  ]
 })
 export class LayoutModule {
 }

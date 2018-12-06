@@ -18,7 +18,7 @@ describe('MultiTypeaheadComponent', () => {
       imports: [NgbTypeaheadModule, TranslateModule],
       declarations: [MultiTypeaheadComponent, ValidationMessagesComponent],
     })
-        .overrideTemplate(MultiTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
+      .overrideTemplate(MultiTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
         .compileComponents();
   }));
 

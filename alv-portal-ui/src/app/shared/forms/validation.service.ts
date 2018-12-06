@@ -48,8 +48,8 @@ export class ValidationService {
     } else {
       return this.defaultValidationMessages.map(
           validationMessage => customValidationMessages.find(
-              customValidationMessage => customValidationMessage.error === validationMessage.error
-              )
+            customValidationMessage => customValidationMessage.error === validationMessage.error
+            )
               || validationMessage);
     }
   }

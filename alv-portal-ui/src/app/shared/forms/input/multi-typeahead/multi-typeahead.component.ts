@@ -1,11 +1,13 @@
 import {
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   Host,
   HostListener,
   Inject,
   Input,
-  Optional, Output,
+  Optional,
+  Output,
   SkipSelf,
   ViewChild
 } from '@angular/core';
@@ -20,7 +22,6 @@ import { MultiTypeaheadItemDisplayModel } from './multi-typeahead-item-display.m
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
-import { SingleTypeaheadItem } from '../single-typeahead/single-typeahead-item.model';
 
 enum Key {
   Backspace = 8,
@@ -173,8 +174,8 @@ export class MultiTypeaheadComponent extends AbstractInput {
 
   private toDisplayModelArray(items: MultiTypeaheadItemModel[]): MultiTypeaheadItemDisplayModel[] {
     return items
-        .filter((item: MultiTypeaheadItemModel) => !this.exists(item))
-        .sort((item1: MultiTypeaheadItemModel, item2: MultiTypeaheadItemModel) => item1.compare(item2))
+      .filter((item: MultiTypeaheadItemModel) => !this.exists(item))
+      .sort((item1: MultiTypeaheadItemModel, item2: MultiTypeaheadItemModel) => item1.compare(item2))
         .map(this.toDisplayModel);
   }
 

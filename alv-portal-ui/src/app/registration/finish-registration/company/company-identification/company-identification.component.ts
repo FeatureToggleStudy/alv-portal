@@ -49,15 +49,15 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
   findCompanyByUid() {
     const extractedUid = this.uidService.extractCompanyUid(this.companyUidForm.get('uid').value);
     this.uidService.getCompanyByUid(extractedUid)
-        .subscribe(
-            (company) => {
-              this.companySelected.emit(company);
-              this.updateStep.emit(RegistrationStep.COMPANY_REQUEST_ACCESS_STEP);
-            },
-            () => {
-              this.notificationsService.error('registrationCompanyDialog.validation.error.notFound');
-              this.companyUidForm.reset();
-            });
+      .subscribe(
+        (company) => {
+          this.companySelected.emit(company);
+          this.updateStep.emit(RegistrationStep.COMPANY_REQUEST_ACCESS_STEP);
+        },
+        () => {
+          this.notificationsService.error('registrationCompanyDialog.validation.error.notFound');
+          this.companyUidForm.reset();
+        });
   }
 
   returnToRoleSelection() {

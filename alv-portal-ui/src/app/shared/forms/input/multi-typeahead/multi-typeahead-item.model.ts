@@ -6,11 +6,11 @@ export class MultiTypeaheadItemModel {
                 public order = 0) {
     }
 
-    equals(other: MultiTypeaheadItemModel): boolean {
+  equals(other: MultiTypeaheadItemModel): boolean {
         return !!other && other.type === this.type && other.label === this.label;
     }
 
-    compare(other: MultiTypeaheadItemModel): number {
+  compare(other: MultiTypeaheadItemModel): number {
         if (this.order === other.order) {
             return 0;
         }

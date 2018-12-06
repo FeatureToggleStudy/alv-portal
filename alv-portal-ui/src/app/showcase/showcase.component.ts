@@ -106,11 +106,11 @@ export class ShowcaseComponent implements OnInit {
   private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): MultiTypeaheadItemModel[] {
     const localities = localityAutocomplete.localities
         .map((o: LocalitySuggestion, index) =>
-            new MultiTypeaheadItemModel(LocalityInputType.LOCALITY, String(o.communalCode), o.city, index));
+          new MultiTypeaheadItemModel(LocalityInputType.LOCALITY, String(o.communalCode), o.city, index));
 
     const cantons = localityAutocomplete.cantons
         .map((o: CantonSuggestion, index) =>
-            new MultiTypeaheadItemModel(LocalityInputType.CANTON, String(o.code),
+          new MultiTypeaheadItemModel(LocalityInputType.CANTON, String(o.code),
                 o.name + ' (' + o.code + ')', localities.length + index));
 
     return [...localities, ...cantons];

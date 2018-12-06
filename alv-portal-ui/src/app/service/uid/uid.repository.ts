@@ -20,8 +20,8 @@ export class UidRepository {
   // e.g. CHE-123.456.789 -> 123456789
   extractCompanyUid(uid: string): number {
     return parseInt(uid
-        .replace(new RegExp('CHE\-', 'g'), '')
-        .replace(new RegExp('\\.', 'g'), '')
-        .replace(new RegExp('\-', 'g'), ''), 10);
+      .replace(new RegExp('CHE\-', 'g'), '')
+      .replace(new RegExp('\\.', 'g'), '')
+      .replace(new RegExp('\-', 'g'), ''), 10);
   }
 }

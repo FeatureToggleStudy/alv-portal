@@ -57,9 +57,9 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
 
   private searchOrganizations(term: string): Observable<SingleTypeaheadItem[]> {
     return this.pavSearchService.suggest(term).pipe(
-        mergeMap(organizations => from(organizations)),
-        map(this.mapOrganizationItem),
-        toArray()
+      mergeMap(organizations => from(organizations)),
+      map(this.mapOrganizationItem),
+      toArray()
     );
   }
 

@@ -1,12 +1,4 @@
-import {
-  Component, ElementRef,
-  Host,
-  HostBinding,
-  Input,
-  Optional,
-  SkipSelf,
-  ViewChild
-} from '@angular/core';
+import { Component, Host, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
 import { ControlContainer } from '@angular/forms';

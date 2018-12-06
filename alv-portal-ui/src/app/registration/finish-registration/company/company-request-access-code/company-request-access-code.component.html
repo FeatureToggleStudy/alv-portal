@@ -1,11 +1,11 @@
-<alv-registration-panel panelTitle="portal.registration.request.access.code"
-                        [secondaryLabel]="homeLabel"
+<alv-registration-panel (backAction)="returnToPavIdentification()"
                         (secondaryAction)="returnToHome()"
                         [hideBackButton]="isSubmitted"
-                        (backAction)="returnToPavIdentification()">
-  <alv-step-indicator class="step-indicator panel-full-width"
+                        [secondaryLabel]="homeLabel"
+                        panelTitle="portal.registration.request.access.code">
+  <alv-step-indicator [activeStep]="2"
                       [steps]="companySteps"
-                      [activeStep]="2">
+                      class="step-indicator panel-full-width">
   </alv-step-indicator>
   <p [innerHTML]="'registrationCompanyDialog.postal.description' | translate"></p>
   <p class="address">
@@ -15,10 +15,10 @@
     {{company.address.zip}} {{company.address.city}}<br>
   </p>
   <p [innerHTML]="'registrationCompanyDialog.login.description' | translate"></p>
-  <button *ngIf="!isSubmitted; else confirmMessage"
-          class="btn btn-primary w-100 submit-button"
-          (click)="requestActivationCode()"
-          [disabled]="disableSubmit">
+  <button (click)="requestActivationCode()"
+          *ngIf="!isSubmitted; else confirmMessage"
+          [disabled]="disableSubmit"
+          class="btn btn-primary w-100 submit-button">
     {{'registrationCompanyDialog.requestActivationCode' | translate}}
   </button>
 
@@ -27,6 +27,7 @@
 
 <ng-template #confirmMessage>
   <div class="p-2 w-100 text-center bg-success text-white">
-    {{'registrationCompanyDialog.activationCodeRequested' | translate}} <i class="fas fa-check"></i>
+    {{'registrationCompanyDialog.activationCodeRequested' | translate}}
+    <i class="fas fa-check"></i>
   </div>
 </ng-template>

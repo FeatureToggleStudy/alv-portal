@@ -1,4 +1,4 @@
 export interface StepIndicatorItem {
-    label: string;
-    icon: string;
+  label: string;
+  icon: string;
 }
