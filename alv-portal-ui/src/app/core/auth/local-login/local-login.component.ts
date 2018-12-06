@@ -45,7 +45,7 @@ export class LocalLoginComponent implements OnInit {
 
 
   login() {
-    this.authenticationService.login({
+    this.authenticationService.localLogin({
       username: this.form.get('username').value,
       password: this.form.get('password').value,
       rememberMe: true

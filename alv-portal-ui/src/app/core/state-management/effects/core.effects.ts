@@ -39,7 +39,7 @@ export class CoreEffects {
             return of(new HttpClientErrorAction({}));
           }
         }),
-      )
+      );
     }),
   );
 

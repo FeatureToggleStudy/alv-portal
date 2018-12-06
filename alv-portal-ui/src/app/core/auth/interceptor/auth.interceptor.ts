@@ -6,7 +6,6 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { SessionManagerService } from '../session-manager/session-manager.service';
-import { environment } from '../../../../environments/environment';
 
 export class AuthInterceptor implements HttpInterceptor {
 

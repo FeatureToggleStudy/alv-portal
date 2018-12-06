@@ -17,6 +17,19 @@ export class User {
   authorities: Array<string>;
   registrationStatus: RegistrationStatus;
 
+  public static toUser(userDto: UserDto) {
+    const user = new User();
+    user.id = userDto.id;
+    user.firstName = userDto.firstName;
+    user.lastName = userDto.lastName;
+    user.authorities = userDto.authorities;
+    user.registrationStatus = userDto.registrationStatus;
+    user.login = userDto.login;
+    user.langKey = userDto.langKey;
+    user.email = userDto.email;
+    return user;
+  }
+
   /**
    * Returns true if the user has any of the authorities mentioned in `authorities` param.
    * @example If user.authorities is ['1', '2', '3']
@@ -35,18 +48,6 @@ export class User {
     return this.registrationStatus === RegistrationStatus.REGISTERED;
   }
 
-  public static toUser(userDto: UserDto) {
-    const user = new User();
-    user.id = userDto.id;
-    user.firstName = userDto.firstName;
-    user.lastName = userDto.lastName;
-    user.authorities = userDto.authorities;
-    user.registrationStatus = userDto.registrationStatus;
-    user.login = userDto.login;
-    user.langKey = userDto.langKey;
-    user.email = userDto.email;
-    return user;
-  }
 }
 
 export interface Credentials {

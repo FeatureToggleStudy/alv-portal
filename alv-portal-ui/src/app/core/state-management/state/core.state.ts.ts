@@ -8,9 +8,9 @@ export const initialState: CoreState = {
 };
 
 export interface CoreState {
-  currentLanguage: string,
-  currentUser: User,
-  mainNavigationExpanded: boolean
+  currentLanguage: string;
+  currentUser: User;
+  mainNavigationExpanded: boolean;
 }
 
 const getCoreState = createFeatureSelector<CoreState>('coreState');

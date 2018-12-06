@@ -34,10 +34,11 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
     this.store.pipe(select(getMainNavigationExpanded))
       .pipe(
-        takeUntil(this.ngUnsubscribe),
         tap((mainNavigationExpanded) => {
           this.collapsed = !mainNavigationExpanded;
-        }))
+        }),
+        takeUntil(this.ngUnsubscribe),
+      )
       .subscribe();
   }
 

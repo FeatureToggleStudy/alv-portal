@@ -34,7 +34,7 @@ export class AuthenticationService {
     return this.currentUser;
   }
 
-  login(credentials: Credentials) {
+  localLogin(credentials: Credentials) {
     return this.httpClient.post<User>('/api/authenticate', credentials, { observe: 'response' }).pipe(
       flatMap(response => {
         this.store.dispatch(new LoadCurrentUserAction({ jwt: response.headers.get('Authorization') }));
