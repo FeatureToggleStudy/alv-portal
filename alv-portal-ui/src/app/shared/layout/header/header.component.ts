@@ -4,15 +4,15 @@ import { User } from '../../../core/auth/user.model';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { ProfileInfoService } from './profile-info.service';
-import { LocalLoginComponent } from '../../../core/auth/local-login/local-login.component';
+import { LocalLoginComponent } from '../local-login/local-login.component';
 import { Router } from '@angular/router';
 import { I18nService } from '../../../core/i18n.service';
 import { LANGUAGES } from '../../../core/languages.constants';
 import { Observable } from 'rxjs';
-import { ModalService } from '../../../core/auth/modal.service';
 import { CoreState } from '../../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { ToggleMainNavigationAction } from '../../../core/state-management/actions/core.actions';
+import { ModalService } from '../modal/modal.service';
 
 @Component({
   selector: 'alv-header',

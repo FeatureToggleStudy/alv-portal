@@ -32,7 +32,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
       }
     }),
   ],
-  entryComponents: [],
   exports: [
     AuthModule
   ],
@@ -42,7 +41,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
       provide: ErrorHandler,
       useClass: GlobalErrorHandler
     }
-
   ]
 })
 export class CoreModule {

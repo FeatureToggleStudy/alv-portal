@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
 import { Router } from '@angular/router';
-import {
-  Notification,
-  NotificationType
-} from '../../../shared/layout/notifications/notification.model';
+import { Notification, NotificationType } from '../notifications/notification.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 const ERRORS = {
