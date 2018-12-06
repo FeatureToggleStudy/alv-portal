@@ -5,6 +5,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LayoutModule } from './layout/layout.module';
 import { FormsModule as AlvFormsModule } from './forms/forms.module';
 import { SharedAuthModule } from './auth/shared-auth.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SharedAuthModule } from './auth/shared-auth.module';
   ],
   entryComponents: [],
   exports: [
+    CommonModule,
     TranslateModule,
     AlvFormsModule,
     LandingPageComponent,

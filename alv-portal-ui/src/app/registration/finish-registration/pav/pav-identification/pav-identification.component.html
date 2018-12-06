@@ -1,0 +1,20 @@
+<alv-registration-panel panelTitle="portal.registration.company.uid.title"
+                        (primaryAction)="goToRequestAccessCodeStep()"
+                        primaryLabel="navigation.next"
+                        (secondaryAction)="returnToHome()"
+                        secondaryLabel="registration.customer.cancel"
+                        (backAction)="returnToRoleSelection()"
+                        [formGroup]="pavForm">
+  <alv-step-indicator class="step-indicator panel-full-width"
+                      [steps]="pavSteps"
+                      [activeStep]="1">
+  </alv-step-indicator>
+  <p>{{'registrationPavDialog.title' | translate}}</p>
+  <alv-single-typeahead label="registrationPavDialog.placeholder"
+                        [loadItems]="searchOrganizationsFn"
+                        (itemSelected)="itemSelected($event)"
+                        alvFormControlName="organization"
+                        [autofocus]="true">
+  </alv-single-typeahead>
+
+</alv-registration-panel>

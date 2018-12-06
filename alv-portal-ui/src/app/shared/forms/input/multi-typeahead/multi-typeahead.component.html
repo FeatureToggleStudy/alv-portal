@@ -33,6 +33,7 @@
              [attr.required]="required"
              [attr.aria-required]="!!required"
              [attr.aria-describedby]="validationId + ' ' + helpId"
+             [alvAutofocus]="autofocus"
              [style.width]="getInputWidth()"
              [ngbTypeahead]="loadItemsGuardedFn"
              [container]="'body'"
@@ -47,7 +48,7 @@
     </div>
     <label class="d-flex"
            [for]="id">
-      {{label}}
+      {{label | translate}}
       <span class="flex-grow-1"></span>
       <span *ngIf="limit && control.value?.length">
         {{control.value?.length + '/' + limit}}
@@ -64,10 +65,10 @@
     <!-- a11y help texts -->
     <div class="sr-only"
          [attr.id]="helpId">
-      <ng-container *ngIf="limit && control.value?.length >= limit; else helpText">
+      <ng-container *ngIf="limit && control.value?.length >= limit; else a11yHelpText">
         Limit of {{ limit }} reached. Press Shift + Tab to delete selected items.
       </ng-container>
-      <ng-template #helpText>
+      <ng-template #a11yHelpText>
         Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of
         selectable items. Select by using the up and down arrow keys.
         <ng-container *ngIf="editable">
@@ -105,6 +106,7 @@
     </ng-template>
 
   </div>
+  <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
                            [id]="validationId"

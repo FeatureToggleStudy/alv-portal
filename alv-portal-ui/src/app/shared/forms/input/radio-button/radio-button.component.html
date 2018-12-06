@@ -3,7 +3,7 @@
      [attr.role]="label ? 'group' : null"
      [attr.aria-describedby]="label ? validationId : null">
   <legend class="label mb-2"
-          *ngIf="label">{{label}}
+          *ngIf="label">{{label | translate}}
   </legend>
   <div class="form-check mb-2"
        *ngFor="let option of options$ | async">
@@ -14,10 +14,10 @@
            [value]="option.value"
            [attr.id]="id + '-' + option.value"
            [attr.aria-readonly]="readonly"
+           [alvAutofocus]="autofocus"
            (click)="!readonly">
     <label class="form-check-label"
-           [for]="id + '-' + option.value">
-      {{option.label}}
+           [for]="id + '-' + option.value" [innerHTML]="option.label | translate">
     </label>
   </div>
 </div>

@@ -10,7 +10,7 @@ export class LandingNavigationService {
   constructor(private router: Router) {
   }
 
-  public navigateUser(user: User): Promise<boolean> {
+  navigateUser(user: User): Promise<boolean> {
 
     if (user === null) {
       return this.router.navigate(['home']);
@@ -37,6 +37,7 @@ export class LandingNavigationService {
     if (user.hasAnyAuthorities(['ROLE_PRIVATE_EMPLOYMENT_AGENT'])) {
       return this.router.navigate(['dashboard', 'pav']);
     }
+    return this.router.navigate(['home']);
   }
 }
 

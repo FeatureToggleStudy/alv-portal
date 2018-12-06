@@ -1,28 +1,29 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { TypeaheadComponent } from './typeahead.component';
-import { TypeaheadItemModel } from './typeahead-item.model';
+import { MultiTypeaheadComponent } from './multi-typeahead.component';
+import { MultiTypeaheadItemModel } from './multi-typeahead-item.model';
 import { BehaviorSubject, of } from 'rxjs';
-import { TypeaheadItemDisplayModel } from './typeahead-item-display.model';
+import { MultiTypeaheadItemDisplayModel } from './multi-typeahead-item-display.model';
 import { ValidationMessagesComponent } from '../validation-messages/validation-messages.component';
 import { FormControl } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
-describe('TypeaheadComponent', () => {
+describe('MultiTypeaheadComponent', () => {
 
-  let component: TypeaheadComponent;
-  let fixture: ComponentFixture<TypeaheadComponent>;
+  let component: MultiTypeaheadComponent;
+  let fixture: ComponentFixture<MultiTypeaheadComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgbTypeaheadModule],
-      declarations: [TypeaheadComponent, ValidationMessagesComponent],
+      imports: [NgbTypeaheadModule, TranslateModule],
+      declarations: [MultiTypeaheadComponent, ValidationMessagesComponent],
     })
-        .overrideTemplate(TypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
+        .overrideTemplate(MultiTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
         .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TypeaheadComponent);
+    fixture = TestBed.createComponent(MultiTypeaheadComponent);
     component = fixture.componentInstance;
     component.alvControl = new FormControl();
     fixture.detectChanges();
@@ -35,10 +36,10 @@ describe('TypeaheadComponent', () => {
   describe('removeItem', () => {
     it('should remove an existing item', () => {
       // GIVEN
-      component.control.setValue([new TypeaheadItemModel('type', 'code', 'label')]);
+      component.control.setValue([new MultiTypeaheadItemModel('type', 'code', 'label')]);
 
       // WHEN
-      component.removeItem(new TypeaheadItemModel('type', 'code', 'label'));
+      component.removeItem(new MultiTypeaheadItemModel('type', 'code', 'label'));
 
       // THAN
       expect(component.control.value.length).toEqual(0);
@@ -48,23 +49,23 @@ describe('TypeaheadComponent', () => {
   describe('selectFreeText', () => {
     it('should add a new model with type: free-text ', () => {
       // GIVEN
-      component.control.setValue([new TypeaheadItemModel('type', 'code', 'label')]);
+      component.control.setValue([new MultiTypeaheadItemModel('type', 'code', 'label')]);
 
       // WHEN
       component.inputValue = 'free';
       const freeText = component.selectFreeText();
 
       // THAN
-      const expectedFreeText = new TypeaheadItemModel('free-text', 'free', 'free');
+      const expectedFreeText = new MultiTypeaheadItemModel('free-text', 'free', 'free');
       expect(freeText).toEqual(expectedFreeText);
       expect(component.control.value.length).toEqual(2);
-      expect(component.control.value).toContain(new TypeaheadItemModel('type', 'code', 'label'));
+      expect(component.control.value).toContain(new MultiTypeaheadItemModel('type', 'code', 'label'));
       expect(component.control.value).toContain(freeText);
     });
 
     it('should not allow duplicates', () => {
       // GIVEN
-      component.control.setValue([new TypeaheadItemModel('free-text', 'free text value', 'free text value')]);
+      component.control.setValue([new MultiTypeaheadItemModel('free-text', 'free text value', 'free text value')]);
 
       // WHEN
       component.inputValue = 'free text value';
@@ -73,7 +74,7 @@ describe('TypeaheadComponent', () => {
       // THAN
       expect(freeText).toEqual(null);
       expect(component.control.value.length).toEqual(1);
-      expect(component.control.value).toContain(new TypeaheadItemModel('free-text', 'free text value', 'free text value'));
+      expect(component.control.value).toContain(new MultiTypeaheadItemModel('free-text', 'free text value', 'free text value'));
     });
 
     it('should not allow free text value with length < TYPEAHEAD_QUERY_MIN_LENGTH', () => {
@@ -90,17 +91,17 @@ describe('TypeaheadComponent', () => {
   describe('selectItem', () => {
     it('should add the selected item to the model', () => {
       // GIVEN
-      component.control.setValue([new TypeaheadItemModel('type', 'code', 'label')]);
+      component.control.setValue([new MultiTypeaheadItemModel('type', 'code', 'label')]);
 
       // WHEN
       const event = jasmine.createSpyObj('event', ['preventDefault']);
-      event.item = { model: new TypeaheadItemModel('type', 'code1', 'label1') };
+      event.item = { model: new MultiTypeaheadItemModel('type', 'code1', 'label1') };
       component.selectItem(event);
 
       // THAN
       expect(component.control.value.length).toEqual(2);
-      expect(component.control.value).toContain(new TypeaheadItemModel('type', 'code', 'label'));
-      expect(component.control.value).toContain(new TypeaheadItemModel('type', 'code1', 'label1'));
+      expect(component.control.value).toContain(new MultiTypeaheadItemModel('type', 'code', 'label'));
+      expect(component.control.value).toContain(new MultiTypeaheadItemModel('type', 'code1', 'label1'));
     });
   });
 
@@ -142,8 +143,8 @@ describe('TypeaheadComponent', () => {
       let loadedItems: Array<any>;
 
       // GIVEN
-      component.control.setValue([new TypeaheadItemModel('type', 'code', 'label')]);
-      component.loadItems = (value: string) => of([new TypeaheadItemModel('type', 'code', 'label')]);
+      component.control.setValue([new MultiTypeaheadItemModel('type', 'code', 'label')]);
+      component.loadItems = (value: string) => of([new MultiTypeaheadItemModel('type', 'code', 'label')]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
       // WHEN
@@ -159,10 +160,10 @@ describe('TypeaheadComponent', () => {
 
       // GIVEN
       component.loadItems = (value: string) => of([
-        new TypeaheadItemModel('type', 'code0', 'label0', 3),
-        new TypeaheadItemModel('type', 'code1', 'label1', 2),
-        new TypeaheadItemModel('type', 'code2', 'label2', 0),
-        new TypeaheadItemModel('type', 'code3', 'label3', 1)
+        new MultiTypeaheadItemModel('type', 'code0', 'label0', 3),
+        new MultiTypeaheadItemModel('type', 'code1', 'label1', 2),
+        new MultiTypeaheadItemModel('type', 'code2', 'label2', 0),
+        new MultiTypeaheadItemModel('type', 'code3', 'label3', 1)
       ]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
@@ -172,10 +173,10 @@ describe('TypeaheadComponent', () => {
 
       // THAN
       expect(loadedItems).toEqual([
-        new TypeaheadItemDisplayModel(new TypeaheadItemModel('type', 'code2', 'label2', 0), true, true),
-        new TypeaheadItemDisplayModel(new TypeaheadItemModel('type', 'code3', 'label3', 1), false, false),
-        new TypeaheadItemDisplayModel(new TypeaheadItemModel('type', 'code1', 'label1', 2), false, false),
-        new TypeaheadItemDisplayModel(new TypeaheadItemModel('type', 'code0', 'label0', 3), false, false)
+        new MultiTypeaheadItemDisplayModel(new MultiTypeaheadItemModel('type', 'code2', 'label2', 0), true, true),
+        new MultiTypeaheadItemDisplayModel(new MultiTypeaheadItemModel('type', 'code3', 'label3', 1), false, false),
+        new MultiTypeaheadItemDisplayModel(new MultiTypeaheadItemModel('type', 'code1', 'label1', 2), false, false),
+        new MultiTypeaheadItemDisplayModel(new MultiTypeaheadItemModel('type', 'code0', 'label0', 3), false, false)
       ]);
     }));
 
@@ -184,10 +185,10 @@ describe('TypeaheadComponent', () => {
 
       // GIVEN
       component.loadItems = (value: string) => of([
-        new TypeaheadItemModel('type0', 'code0', 'label0', 0),
-        new TypeaheadItemModel('type0', 'code1', 'label1', 0),
-        new TypeaheadItemModel('type1', 'code2', 'label2', 1),
-        new TypeaheadItemModel('type1', 'code3', 'label3', 1)
+        new MultiTypeaheadItemModel('type0', 'code0', 'label0', 0),
+        new MultiTypeaheadItemModel('type0', 'code1', 'label1', 0),
+        new MultiTypeaheadItemModel('type1', 'code2', 'label2', 1),
+        new MultiTypeaheadItemModel('type1', 'code3', 'label3', 1)
       ]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
@@ -197,10 +198,10 @@ describe('TypeaheadComponent', () => {
 
       // THAN
       expect(loadedItems).toEqual([
-        new TypeaheadItemDisplayModel(new TypeaheadItemModel('type0', 'code0', 'label0', 0), true, true),
-        new TypeaheadItemDisplayModel(new TypeaheadItemModel('type0', 'code1', 'label1', 0), false, false),
-        new TypeaheadItemDisplayModel(new TypeaheadItemModel('type1', 'code2', 'label2', 1), false, true),
-        new TypeaheadItemDisplayModel(new TypeaheadItemModel('type1', 'code3', 'label3', 1), false, false)
+        new MultiTypeaheadItemDisplayModel(new MultiTypeaheadItemModel('type0', 'code0', 'label0', 0), true, true),
+        new MultiTypeaheadItemDisplayModel(new MultiTypeaheadItemModel('type0', 'code1', 'label1', 0), false, false),
+        new MultiTypeaheadItemDisplayModel(new MultiTypeaheadItemModel('type1', 'code2', 'label2', 1), false, true),
+        new MultiTypeaheadItemDisplayModel(new MultiTypeaheadItemModel('type1', 'code3', 'label3', 1), false, false)
       ]);
     }));
   });

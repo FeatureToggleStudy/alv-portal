@@ -1,0 +1,32 @@
+<alv-registration-panel panelTitle="portal.registration.request.access.code"
+                        [secondaryLabel]="homeLabel"
+                        (secondaryAction)="returnToHome()"
+                        [hideBackButton]="isSubmitted"
+                        (backAction)="returnToPavIdentification()">
+  <alv-step-indicator class="step-indicator panel-full-width"
+                      [steps]="companySteps"
+                      [activeStep]="2">
+  </alv-step-indicator>
+  <p [innerHTML]="'registrationCompanyDialog.postal.description' | translate"></p>
+  <p class="address">
+    {{company.name}}<br>
+    {{company.additionalName}}<br>
+    {{company.address.street}} {{company.address.buildingNum}}<br>
+    {{company.address.zip}} {{company.address.city}}<br>
+  </p>
+  <p [innerHTML]="'registrationCompanyDialog.login.description' | translate"></p>
+  <button *ngIf="!isSubmitted; else confirmMessage"
+          class="btn btn-primary w-100 submit-button"
+          (click)="requestActivationCode()"
+          [disabled]="disableSubmit">
+    {{'registrationCompanyDialog.requestActivationCode' | translate}}
+  </button>
+
+
+</alv-registration-panel>
+
+<ng-template #confirmMessage>
+  <div class="p-2 w-100 text-center bg-success text-white">
+    {{'registrationCompanyDialog.activationCodeRequested' | translate}} <i class="fas fa-check"></i>
+  </div>
+</ng-template>

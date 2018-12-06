@@ -47,25 +47,11 @@ export class ValidationMessagesComponent implements OnInit {
       if (properties.hasOwnProperty(property)) {
         // Check for error specific messages
         if (message[property]) {
-          resultMessage = message[property];
-        }
-      }
-    }
-    return this.replaceVariables(resultMessage, properties);
-  }
-
-  private replaceVariables(message: string, properties: any): string {
-    let resultMessage = message;
-    for (const property in properties) {
-      if (properties.hasOwnProperty(property)) {
-
-        if (typeof properties[property] === 'object') {
-          resultMessage = this.replaceVariables(resultMessage, properties[property]);
-        } else {
-          resultMessage = resultMessage.replace('{{' + property + '}}', properties[property]);
+          return resultMessage = message[property];
         }
       }
     }
     return resultMessage;
   }
+
 }

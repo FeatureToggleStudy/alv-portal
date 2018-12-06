@@ -13,8 +13,10 @@
            (click)="datePicker.toggle()"
            [minDate]="minDate"
            [maxDate]="maxDate"
+           [startDate]="startDate"
            [attr.required]="required"
            [attr.aria-required]="!!required"
+           [alvAutofocus]="autofocus"
            [placement]="placement"
            [formControl]="control"
            [dayTemplate]="dayTemplate"
@@ -27,7 +29,7 @@
       {{control.value | date:'dd.MM.yyyy'}}
     </div>
     <label [for]="id">
-      {{label}}
+      {{label | translate}}
     </label>
     <span *ngIf="!readonly"
           class="input-group-append">
@@ -37,11 +39,11 @@
               (click)="datePicker.toggle()"
               placement="top"
               ngbTooltip="Open Calendar">
-        <i class="fas fa-calendar"></i>
+        <i class="fas fa-calendar-alt"></i>
       </button>
     </span>
   </div>
-
+  <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
                            [id]="validationId"
