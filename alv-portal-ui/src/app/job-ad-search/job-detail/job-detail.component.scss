@@ -1,0 +1,250 @@
+//@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/mixins/_badge.scss";
+@import "~bootstrap/scss/mixins/_hover.scss";
+@import "../../../scss/common/colors";
+@import "../../../scss/common/layout";
+
+.btn-block {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.logo-box__company {
+  p {
+    margin-bottom: 0;
+  }
+
+  h4 {
+    font-size: inherit;
+  }
+}
+
+td:first-of-type {
+  width: 200px;
+}
+
+.job-detail__title h2 {
+  height: auto;
+  margin-bottom: auto;
+}
+
+:host ::ng-deep .detail__content__title--light {
+  background: none !important;
+  border-bottom: solid $color-light-grey;
+  border-width: thin;
+  margin-bottom: .5em;
+  padding-bottom: .25em;
+}
+
+:host ::ng-deep .content__item--bullet {
+  display: list-item;
+  line-height: 2em;
+  list-style: none inside;
+
+  &::before {
+    content: "";
+    line-height: 2em;
+    width: .5em;
+    height: .5em;
+    background-color: $color-red;
+    float: left;
+    margin: .75em 1.25em 0.75em .5em;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .logo-box__company {
+    margin-top: $margin-x-narrow;
+  }
+}
+
+
+// Job-Room-result - Badges
+.badge {
+  margin-right: 5px;
+}
+
+.badge-yellow,
+.badge-green,
+.badge-blue,
+.badge-gray {
+  color: $color-grey-black;
+  font-weight: 400;
+}
+
+.badge-blue {
+  @include badge-variant($color-red);
+}
+
+.badge-gray {
+  @include badge-variant($color-light-grey);
+}
+
+.badge-green {
+  @include badge-variant($color-light-green);
+}
+
+.badge-yellow {
+  @include badge-variant($color-yellow);
+}
+
+// Job-Room-detail
+.detail__map {
+  width: 100%;
+  height: 300px;
+}
+
+.detail__title {
+  h2 {
+    height: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .detail__date {
+    margin-left: 1.5rem;
+  }
+}
+
+.detail__subtitle {
+  margin-bottom: $margin-x-narrow;
+
+  font-weight: 300;
+  font-size: 1.125rem;
+}
+
+
+.detail__content {
+  margin-bottom: $margin-x-general;
+  line-height: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  > .detail__content__title {
+    padding: .25rem .125rem;
+    background: $color-light-grey;
+    margin-bottom: 0;
+  }
+
+  .content__item {
+    display: flex;
+    flex-direction: row;
+
+    strong {
+      width: 40%;
+      text-align: right;
+      hyphens: auto;
+    }
+
+    span {
+      width: 66%;
+      margin-left: .5rem;
+    }
+  }
+}
+
+.detail__features {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .detail__map {
+    width: 50%;
+  }
+
+  .features {
+    margin-left: 1.5rem;
+    width: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+
+    .logo-box {
+      width: 100%;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.detail__applications {
+  margin: $margin-x-general 0;
+}
+
+.detail--occupation:nth-child(even) {
+  background-color: rgba($color-light-grey, .5);
+}
+
+@media screen and (max-width: 767px) {
+
+  .detail__title {
+    h2 {
+      height: auto;
+    }
+  }
+
+  .detail__references {
+    order: 1;
+  }
+  .detail__body {
+    order: 0;
+  }
+  .detail__actions {
+    order: 2;
+  }
+
+  .detail__company,
+  .detail__pes {
+    &.alv-logo-box {
+      border-radius: 0 !important;
+      padding: 0;
+      background: transparent;
+      font-size: inherit;
+    }
+
+    &.md-whiteframe-1dp {
+      box-shadow: none;
+    }
+  }
+
+  .detail__content {
+    .content__item {
+      display: flex;
+      flex-direction: column;
+
+      strong {
+        width: 100%;
+        text-align: left;
+      }
+
+      span {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+  }
+  .detail__features {
+    flex-direction: column;
+
+    .detail__map,
+    .features {
+      width: 100%;
+      margin-bottom: .5rem;
+      margin-left: 0;
+
+      .logo-box,
+      .logo-box:last-child {
+        margin-bottom: .5rem;
+      }
+    }
+
+    .md-whiteframe-1dp {
+      border-radius: 0 !important;
+      box-shadow: none;
+    }
+  }
+}

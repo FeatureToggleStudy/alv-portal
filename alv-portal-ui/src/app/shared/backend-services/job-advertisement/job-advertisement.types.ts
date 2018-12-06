@@ -1,15 +1,15 @@
 import { CEFR_Level } from '../../model/shared-types';
 
 export enum JobAdvertisementStatus {
-  CREATED,
-  INSPECTING,
-  APPROVED,
-  REJECTED,
-  REFINING,
-  PUBLISHED_RESTRICTED,
-  PUBLISHED_PUBLIC,
-  CANCELLED,
-  ARCHIVE
+  CREATED = "CREATED",
+  INSPECTING = "INSPECTING",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
+  REFINING = "REFINING",
+  PUBLISHED_RESTRICTED = "PUBLISHED_RESTRICTED",
+  PUBLISHED_PUBLIC = "PUBLISHED_PUBLIC",
+  CANCELLED = "CANCELLED",
+  ARCHIVE = "ARCHIVE",
 }
 
 export enum CancellationReason {
@@ -22,10 +22,10 @@ export enum CancellationReason {
 }
 
 export enum SourceSystem {
-  JOBROOM,
-  API,
-  RAV,
-  EXTERN
+  JOBROOM = "JOBROOM",
+  API = "API",
+  RAV = "RAV",
+  EXTERN = "EXTERN"
 }
 
 export enum Salutation {
@@ -55,6 +55,8 @@ export interface JobContent {
 
 export interface JobAdvertisement {
   id: string;
+  createdTime?: string; //date string
+  updatedTime?: string; //date string
   status: JobAdvertisementStatus;
   sourceSystem: SourceSystem;
   externalReference: string;
@@ -74,6 +76,7 @@ export interface JobAdvertisement {
   jobContent: JobContent;
   publication: Publication;
 }
+
 
 export interface Publication {
   startDate: string;

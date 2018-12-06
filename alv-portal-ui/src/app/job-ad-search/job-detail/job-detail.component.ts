@@ -1,18 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  JobAdvertisement,
+  JobAdvertisementStatus,
+  JobDescription,
+  SourceSystem
+} from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { combineLatest, Observable } from 'rxjs';
+import { JobCenter, ReferenceService } from '../reference.service';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { filter, flatMap, map, tap } from 'rxjs/operators';
 import {
   getSelectedJobAdvertisement,
   isNextVisible,
   isPrevVisible,
   JobAdSearchState
 } from '../state-management/state/job-ad-search.state';
-import { Observable } from 'rxjs/index';
-import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management/actions/job-ad-search.actions';
+import { select, Store } from '@ngrx/store';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
+import { I18nService } from '../../core/i18n.service';
+import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
+
+const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
 @Component({
   selector: 'alv-job-detail',
@@ -20,22 +32,54 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
   styleUrls: ['./job-detail.component.scss']
 })
 export class JobDetailComponent extends AbstractSubscriber implements OnInit {
-
-  jobAdvertisement$: Observable<JobAdvertisement>;
-
+  job$: Observable<JobAdvertisement>;
+  jobDescription$: Observable<JobDescription>;
+  jobCenter$: Observable<JobCenter>;
+  showJobAdExternalMessage = false;
+  showJobAdDeactivatedMessage = false;
+  showJobAdUnvalidatedMessage = false;
   prevVisible$: Observable<boolean>;
-
   nextVisible$: Observable<boolean>;
 
-  constructor(private store: Store<JobAdSearchState>) {
+  @ViewChild(NgbTooltip)
+  clipboardTooltip: NgbTooltip;
+
+  constructor(private translateService: I18nService,
+              private referenceService: ReferenceService,
+              private store: Store<JobAdSearchState>) {
     super();
-    this.jobAdvertisement$ = this.store.pipe(select(getSelectedJobAdvertisement));
-    this.prevVisible$ = this.store.pipe(select(isPrevVisible));
-    this.nextVisible$ = this.store.pipe(select(isNextVisible));
+
+
   }
 
   ngOnInit() {
+
+    this.job$ = this.store
+      .pipe(select(getSelectedJobAdvertisement))
+      .pipe(tap(job => {
+        this.showJobAdDeactivatedMessage = this.isDeactivated(job.status);
+        this.showJobAdExternalMessage = this.isExternal(job.sourceSystem);
+        this.showJobAdUnvalidatedMessage = this.isUnvalidated(job);
+      }));
+
+    this.jobDescription$ = combineLatest(this.job$, this.translateService.currentLanguage).pipe(
+      map(([job, currentLanguage]) => JobAdvertisementUtils.getJobDescription(job, currentLanguage))
+    );
+
+    const jobCenterCode$ = this.job$.pipe(
+      filter((job) => !!job),
+      map((job) => job.jobCenterCode),
+      filter((jobCenterCode) => !!jobCenterCode));
+
+    this.jobCenter$ = combineLatest(jobCenterCode$, this.translateService.currentLanguage).pipe(
+      flatMap(([jobCenterCode, currentLanguage]) => this.referenceService.resolveJobCenter(jobCenterCode, currentLanguage))
+    );
+
+    this.prevVisible$ = this.store.pipe(select(isPrevVisible));
+    this.nextVisible$ = this.store.pipe(select(isNextVisible));
+
   }
+
 
   prev() {
     this.store.dispatch(new LoadPreviousJobAdvertisementDetailAction());
@@ -44,4 +88,32 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
   next() {
     this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
   }
+
+  getJobUrl() {
+    return window.location.href;
+  }
+
+  printJob() {
+    window.print();
+  }
+
+  onCopyLink(): void {
+    this.clipboardTooltip.open();
+    setTimeout(() => this.clipboardTooltip.close(), TOOLTIP_AUTO_HIDE_TIMEOUT)
+  }
+
+  private isDeactivated(jobAdvertisementStatus: JobAdvertisementStatus): boolean {
+    return jobAdvertisementStatus.toString() === 'CANCELLED' || jobAdvertisementStatus.toString() === 'ARCHIVED';
+  }
+
+  private isExternal(sourceSystem: SourceSystem) {
+    return sourceSystem.toString() === 'EXTERN';
+  }
+
+  private isUnvalidated(jobAdvertisement: JobAdvertisement): boolean {
+    return jobAdvertisement.sourceSystem.toString() === 'API'
+      && !jobAdvertisement.stellennummerAvam
+  }
+
+
 }

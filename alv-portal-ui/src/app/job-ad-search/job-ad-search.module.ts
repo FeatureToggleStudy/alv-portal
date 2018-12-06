@@ -14,6 +14,8 @@ import { StoreModule } from '@ngrx/store';
 import { jobAdSearchReducer } from './state-management/reducers/job-ad-search.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { JobAdSearchEffects } from './state-management/effects/job-ad-search.effects';
+import { JobLocationComponent } from './job-location/job-location.component';
+import { ReferenceService } from './reference.service';
 
 @NgModule({
   imports: [
@@ -26,14 +28,16 @@ import { JobAdSearchEffects } from './state-management/effects/job-ad-search.eff
     NouisliderModule,
   ],
   providers: [
-    JobAdvertisementRepository
+    JobAdvertisementRepository,
+    ReferenceService
   ],
   declarations: [
     JobSearchComponent,
     FilterPanelComponent,
     ResultListItemComponent,
     JobSearchResultComponent,
-    JobDetailComponent
+    JobDetailComponent,
+    JobLocationComponent
   ]
 })
 export class JobAdSearchModule {
