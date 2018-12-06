@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { InputFieldComponent } from './input/input-field/input-field.component';
 import { ValidationMessagesComponent } from './input/validation-messages/validation-messages.component';
 import {
+  NgbDateNativeAdapter,
   NgbDateParserFormatter,
   NgbDatepickerModule,
   NgbPopoverConfig, NgbTypeaheadModule
@@ -59,7 +60,8 @@ import { AutofocusDirective } from './autofocus.directive';
   ],
   providers: [
     NgbPopoverConfig,
-    { provide: NgbDateParserFormatter, useClass: DateParserFormatter }
+    { provide: NgbDateParserFormatter, useClass: DateParserFormatter },
+    NgbDateNativeAdapter
   ]
 
 })

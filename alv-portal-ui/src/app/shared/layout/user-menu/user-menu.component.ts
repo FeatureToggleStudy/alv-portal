@@ -39,7 +39,7 @@ export class UserMenuComponent implements OnInit {
               private landingNavigationService: LandingNavigationService,
               @Inject(DOCUMENT) private document: any) {
   }
-  
+
   ngOnInit() {
     this.subscribeOnRouteChanges();
   }
