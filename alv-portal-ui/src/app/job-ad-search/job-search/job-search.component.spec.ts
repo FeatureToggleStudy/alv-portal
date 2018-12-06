@@ -1,16 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { JobSearchComponent } from './job-search.component';
+import { Store } from '@ngrx/store';
 
-import { JobSearchComponent } from './job-search-page.component';
 
 describe('JobSearchPageComponent', () => {
   let component: JobSearchComponent;
   let fixture: ComponentFixture<JobSearchComponent>;
 
+  const mockStore = jasmine.createSpyObj('mockStore', ['pipe', 'dispatch']);
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [JobSearchComponent]
+      declarations: [JobSearchComponent],
+      providers: [
+        { provide: Store, useValue: mockStore }
+      ]
     })
-        .compileComponents();
+      .overrideTemplate(JobSearchComponent, '')
+      .compileComponents();
   }));
 
   beforeEach(() => {

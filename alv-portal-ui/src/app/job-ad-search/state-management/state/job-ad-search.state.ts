@@ -3,13 +3,13 @@ import { JobAdvertisement } from '../../../shared/backend-services/job-advertise
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface JobAdSearchState {
-  totalCount: number,
+  totalCount: number;
   page: number;
-  jobSearchFilter: JobSearchFilter
-  resultList: JobAdvertisement[],
-  selectedJobAdvertisement: JobAdvertisement,
-  resultsAreLoading: boolean,
-  visitedJobAds: { [id: string]: boolean; }
+  jobSearchFilter: JobSearchFilter;
+  resultList: JobAdvertisement[];
+  selectedJobAdvertisement: JobAdvertisement;
+  resultsAreLoading: boolean;
+  visitedJobAds: { [id: string]: boolean; };
 }
 
 export const initialState: JobAdSearchState = {
@@ -31,8 +31,8 @@ export const initialState: JobAdSearchState = {
 };
 
 export interface JobSearchResult {
-  jobAdvertisement: JobAdvertisement,
-  visited: boolean
+  jobAdvertisement: JobAdvertisement;
+  visited: boolean;
 }
 
 export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobAdSearch');
@@ -48,8 +48,8 @@ export const getJobSearchResults = createSelector(getResultList, getVisitedJobAd
     return {
       jobAdvertisement: jobAd,
       visited: visitedJobAds[jobAd.id] || false
-    }
-  })
+    };
+  });
 });
 
 

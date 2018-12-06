@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
-import { catchError, take } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
 import { Router } from '@angular/router';
 import {
@@ -37,24 +37,23 @@ export class LocalLoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-          username: this.fb.control('', Validators.required),
-          password: this.fb.control('', Validators.required)
-        }
+        username: this.fb.control('', Validators.required),
+        password: this.fb.control('', Validators.required)
+      }
     );
   }
 
 
   login() {
-    this.authenticationService.login({
+    this.authenticationService.localLogin({
       username: this.form.get('username').value,
       password: this.form.get('password').value,
       rememberMe: true
     }).pipe(
-        catchError(err => {
-          this.errorMessage = ERRORS.invalidUsernamePassword;
-          return EMPTY;
-        }),
-        take(1)
+      catchError(err => {
+        this.errorMessage = ERRORS.invalidUsernamePassword;
+        return EMPTY;
+      })
     ).subscribe(user => {
       if (user) {
         this.modal.close();

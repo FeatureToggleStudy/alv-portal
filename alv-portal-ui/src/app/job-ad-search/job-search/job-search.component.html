@@ -17,7 +17,7 @@
 
     </div>
     <div class="col-xs-12 col-md-9">
-      <ng-container *ngFor="let jobSearchResult of jobSearchResults | async">
+      <ng-container *ngFor="let jobSearchResult of jobSearchResults$ | async">
         <alv-job-search-result [jobSearchResult]="jobSearchResult"></alv-job-search-result>
       </ng-container>
     </div>

@@ -22,7 +22,7 @@ export class JobDetailGuard implements CanActivate {
     const id = route.params['id'];
     return this.jobAdvertisementService.findById(id).pipe(
       tap((jobAd) => {
-        this.store.dispatch(new JobAdvertisementDetailLoadedAction({ jobAdvertisement: jobAd }))
+        this.store.dispatch(new JobAdvertisementDetailLoadedAction({ jobAdvertisement: jobAd }));
       }),
       map(() => {
         return true;
@@ -30,7 +30,7 @@ export class JobDetailGuard implements CanActivate {
       catchError(() => {
         return of(false);
       })
-    )
+    );
   }
 
 }

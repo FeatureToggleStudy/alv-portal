@@ -79,6 +79,7 @@
     "jasmine-core": "3.3.0",
     "jasmine-expect": "3.8.4",
     "jasmine-spec-reporter": "4.2.1",
+    "jasmine-marbles": "0.4.1",
     "json-stable-stringify": "https://github.com/ganqqwerty/json-stable-stringify",
     "karma": "3.1.1",
     "karma-chrome-launcher": "2.2.0",
