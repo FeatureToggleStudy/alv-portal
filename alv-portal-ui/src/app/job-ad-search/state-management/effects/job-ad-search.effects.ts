@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of } from 'rxjs/index';
+import { asyncScheduler, Observable, of } from 'rxjs/index';
 import { Action, select, Store } from '@ngrx/store';
 import {
   APPLY_FILTER,
   ApplyFilterAction,
   FilterAppliedAction,
-  INIT_JOB_SEARCH,
-  InitJobSearchAction,
+  INIT_RESULT_LIST,
   JobAdvertisementDetailLoadedAction,
   LOAD_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
@@ -24,6 +23,7 @@ import {
   map,
   switchMap,
   take,
+  takeUntil,
   tap,
   withLatestFrom
 } from 'rxjs/internal/operators';
@@ -31,36 +31,38 @@ import {
   getJobAdSearchState,
   getNextId,
   getPrevId,
-  initialState,
   JobAdSearchState
 } from '../state/job-ad-search.state';
 import { JobSearchRequestMapper } from '../../job-search-request.mapper';
 import { Router } from '@angular/router';
 import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { SchedulerLike } from 'rxjs/src/internal/types';
+import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
+
+export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
+export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
 
 @Injectable()
 export class JobAdSearchEffects {
 
   @Effect()
-  initJobSearch$: Observable<Action> = this.actions$.pipe(
-    ofType(INIT_JOB_SEARCH),
+  initJobSearch$ = this.actions$.pipe(
+    ofType(INIT_RESULT_LIST),
     take(1),
-    map((action: InitJobSearchAction) => new ApplyFilterAction({
-      ...initialState.jobSearchFilter, onlineSince: action.payload.onlineSince
-    }))
-    //withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    //switchMap(([action, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page))),
-    //map((response: JobAdvertisementSearchResponse) => new FilterAppliedAction({
-    //  jobList: response.result,
-    //  totalCount: response.totalCount
-    //}))
+    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
+    switchMap(([filter, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page))),
+    map((response: JobAdvertisementSearchResponse) => new FilterAppliedAction({
+      page: response.result,
+      totalCount: response.totalCount
+    })),
+    takeUntil(this.actions$.pipe(ofType(APPLY_FILTER))),
   );
 
   @Effect()
   applyFilter$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER),
     map((action: ApplyFilterAction) => action.payload),
-    debounceTime(300),
+    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     switchMap(([filter, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(filter, state.page))),
     map((response: JobAdvertisementSearchResponse) => new FilterAppliedAction({
@@ -72,7 +74,7 @@ export class JobAdSearchEffects {
   @Effect()
   loadNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
-    debounceTime(300),
+    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     switchMap(([action, state]) => this.jobAdsService.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1))),
     map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result }))
@@ -95,7 +97,7 @@ export class JobAdSearchEffects {
       this.router.navigate(['/job-search', id]);
     }),
     map(() => {
-      return { type: 'nothing' }
+      return { type: 'nothing' };
     })
   );
 
@@ -105,31 +107,37 @@ export class JobAdSearchEffects {
     withLatestFrom(this.store.pipe(select(getNextId))),
     switchMap(([action, id]) => {
       if (id) {
-        return of(id)
+        return of(id);
       } else {
         this.store.dispatch(new LoadNextPageAction());
 
         return this.actions$.pipe(
           ofType(NEXT_PAGE_LOADED),
           map((nextPageLoadedAction: NextPageLoadedAction) => {
-            return nextPageLoadedAction.payload.page[0].id
+            return nextPageLoadedAction.payload.page[0].id;
           }),
           take(1)
-        )
+        );
       }
     }),
     tap((id) => {
-      this.router.navigate(['/job-search', id])
+      this.router.navigate(['/job-search', id]);
     }),
     map(() => {
-      return { type: 'nothing' }
+      return { type: 'nothing' };
     })
   );
 
   constructor(private actions$: Actions,
               private jobAdsService: JobAdvertisementRepository,
               private store: Store<JobAdSearchState>,
-              private router: Router) {
+              private router: Router,
+              @Optional()
+              @Inject(JOB_AD_SEARCH_EFFECTS_DEBOUNCE)
+              private debounce,
+              @Optional()
+              @Inject(JOB_AD_SEARCH_EFFECTS_SCHEDULER)
+              private scheduler: AsyncScheduler) {
   }
 
 }

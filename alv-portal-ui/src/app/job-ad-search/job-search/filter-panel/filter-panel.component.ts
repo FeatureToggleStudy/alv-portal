@@ -1,8 +1,7 @@
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import { TranslateService } from '@ngx-translate/core';
 import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
 
 @Component({
@@ -61,7 +60,7 @@ export class FilterPanelComponent implements OnInit {
     }
   ]);
 
-  constructor(private fb: FormBuilder, private translateService: TranslateService) {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -73,7 +72,7 @@ export class FilterPanelComponent implements OnInit {
       workloadPercentageMax: [this.jobSearchFilter.workloadPercentageMax],
       onlineSince: [this.jobSearchFilter.onlineSince]
     });
-    this.form.valueChanges.subscribe(changedValues => this.filtersChange.next(changedValues))
+    this.form.valueChanges.subscribe(changedValues => this.filtersChange.next(changedValues));
   }
 
   updateSliderValue(value: number) {

@@ -2,8 +2,7 @@ import { Action } from '@ngrx/store';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobSearchFilter } from '../../job-search-filter.types';
 
-export const INIT_JOB_SEARCH = 'JOBS:INIT_JOB_SEARCH';
-export const JOB_SEARCH_INITIALIZED = 'JOBS:JOB_SEARCH_INITIALIZED';
+export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
 export const APPLY_FILTER = 'JOBS:APPLY_FILTER';
 export const LOAD_NEXT_PAGE = 'JOBS:LOAD_NEXT_PAGE';
@@ -14,21 +13,10 @@ export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_LO
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
 
-export class InitJobSearchAction implements Action {
-  readonly type = INIT_JOB_SEARCH;
+export class InitResultListAction implements Action {
+  readonly type = INIT_RESULT_LIST;
 
-  constructor(public payload: { onlineSince: number }) {
-  }
-}
-
-export class JobSearchInitializedAction implements Action {
-  readonly type = JOB_SEARCH_INITIALIZED;
-
-  constructor(public payload: {
-    jobList: Array<JobAdvertisement>,
-    totalCount: number,
-    jobSearchFilter: JobSearchFilter
-  }) {
+  constructor(public payload = {}) {
   }
 }
 
@@ -89,7 +77,7 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
 }
 
 export type Actions =
-  | InitJobSearchAction
+  | InitResultListAction
   | FilterAppliedAction
   | ApplyFilterAction
   | LoadNextPageAction

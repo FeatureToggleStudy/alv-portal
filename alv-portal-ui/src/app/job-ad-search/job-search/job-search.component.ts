@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { JobSearchFilter } from '../job-search-filter.types';
 import { select, Store } from '@ngrx/store';
@@ -13,16 +13,16 @@ import {
 import { Observable } from 'rxjs/index';
 import {
   ApplyFilterAction,
-  InitJobSearchAction,
+  InitResultListAction,
   LoadNextPageAction
 } from '../state-management/actions/job-ad-search.actions';
-import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
   selector: 'alv-job-search',
   templateUrl: './job-search.component.html',
-  styleUrls: ['./job-search.component.scss']
+  styleUrls: ['./job-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobSearchComponent extends AbstractSubscriber implements OnInit {
 
@@ -34,16 +34,12 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
 
   jobSearchResults: Observable<JobSearchResult[]>;
 
-  constructor(private store: Store<JobAdSearchState>,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private store: Store<JobAdSearchState>) {
     super();
   }
 
   ngOnInit() {
-    //Deserialize parameters
-    const onlineSince = +(this.activatedRoute.snapshot.queryParams['onlineSince']) || 11;
-
-    this.store.dispatch(new InitJobSearchAction({ onlineSince }));
+    this.store.dispatch(new InitResultListAction());
 
     this.totalCount$ = this.store.pipe(select(getTotalCount));
 
@@ -55,11 +51,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
   }
 
   onFiltersChange(jobSearchFilter: JobSearchFilter) {
-    this.store.dispatch(new ApplyFilterAction(jobSearchFilter))
+    this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
   }
 
   onScroll() {
-    this.store.dispatch(new LoadNextPageAction())
+    this.store.dispatch(new LoadNextPageAction());
   }
 
 }
