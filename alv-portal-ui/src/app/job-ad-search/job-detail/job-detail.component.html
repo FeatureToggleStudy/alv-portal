@@ -7,7 +7,7 @@
         <div class="d-flex d-sm-block flex-column-reverse">
           <ul class="pagination pagination--block pagination-alv d-flex">
             <li class="page-item">
-              <a class="page-link"
+              <a class="btn btn-text"
                  routerLink="/job-search">{{'job-detail.back' | translate}}</a>
             </li>
           </ul>
@@ -263,12 +263,12 @@
     <div class="col-12 col-md order-12 base__related">
       <div class="base__sticky-panel">
         <p>
-          <button routerLink="/job-search">back</button>
-          <br/>
           <button (click)="prev()"
+                  class="btn btn-secondary"
                   *ngIf="prevVisible$ | async">prev
           </button>
           <button (click)="next()"
+                  class="btn btn-secondary"
                   *ngIf="nextVisible$ | async">next
           </button>
         </p>
@@ -290,7 +290,7 @@
 
         <ul class="nav filter-nav flex-column">
           <li class="nav-item">
-            <a class="nav-link"
+            <a class="btn btn-text"
                #copyToClipboard
                ngxClipboard
                [cbContent]="getJobUrl()"
@@ -302,7 +302,7 @@
               {{'job-detail.action.copyLink' | translate}}</a>
           </li>
           <li class="nav-item d-none d-md-block">
-            <a class="nav-link"
+            <a class="btn btn-text"
                (click)="printJob()">
               <span class="fa fa-print"
                     aria-hidden="true"></span>
