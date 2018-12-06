@@ -1,0 +1,62 @@
+<div *ngIf="control"
+     class="w-100">
+  <div [class.invalid]="control.touched && control.invalid"
+       class="form-label-group position-relative">
+    <span *ngIf="required && !readonly"
+          class="required-indicator h-100">
+    </span>
+
+    <input #inputField
+           (blur)="control.markAsTouched()"
+           (selectItem)="selectItem($event)"
+           *ngIf="!readonly"
+           [alvAutofocus]="autofocus"
+           [attr.aria-describedby]="validationId + ' ' + helpId"
+           [attr.aria-required]="!!required"
+           [attr.id]="id"
+           [attr.required]="required"
+           [class.placeholder-shown]="!inputField.value"
+           [container]="'body'"
+           [editable]="false"
+           [focusFirst]="focusFirst"
+           [inputFormatter]="formatResultItem"
+           [ngbTypeahead]="loadItemsGuardedFn"
+           [resultTemplate]="template"
+           class="form-control">
+
+    <label [for]="id">
+      {{label | translate}}
+    </label>
+
+    <div *ngIf="readonly"
+         [class.placeholder-shown]="!control.value"
+         class="readonly-input">
+      {{formatResultItem(control.value)}}
+    </div>
+
+    <!-- a11y help texts -->
+    <div [attr.id]="helpId"
+         class="sr-only">
+      Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of
+      selectable items. Select by using the up and down arrow keys.
+    </div>
+
+    <ng-template #template
+                 let-formatter="formatter"
+                 let-result="result"
+                 let-term="term">
+      <ngb-highlight [result]="formatResultItem(result)"
+                     [term]="term">
+      </ngb-highlight>
+    </ng-template>
+
+  </div>
+  <small *ngIf="helpText && !(control.touched && control.invalid)">
+    {{helpText | translate}}
+  </small>
+  <alv-validation-messages *ngIf="!readonly"
+                           [control]="control"
+                           [customValidationMessages]="validationMessages"
+                           [id]="validationId">
+  </alv-validation-messages>
+</div>

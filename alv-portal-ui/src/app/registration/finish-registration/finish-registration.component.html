@@ -1,0 +1,31 @@
+<div [ngSwitch]="registrationStep"
+     class="container py-4">
+  <alv-role-selection (updateStep)="updateStep($event)"
+                      *ngSwitchCase="registrationSteps.SELECT_ROLE_STEP">
+  </alv-role-selection>
+
+  <alv-jobseeker-identification (updateStep)="updateStep($event)"
+                                *ngSwitchCase="registrationSteps.JOBSEEKER_IDENTIFICATION_STEP">
+  </alv-jobseeker-identification>
+
+  <alv-company-identification (companySelected)="company = $event"
+                              (updateStep)="updateStep($event)"
+                              *ngSwitchCase="registrationSteps.COMPANY_IDENTIFICATION_STEP">
+  </alv-company-identification>
+
+  <alv-company-request-access-code (updateStep)="updateStep($event)"
+                                   *ngSwitchCase="registrationSteps.COMPANY_REQUEST_ACCESS_STEP"
+                                   [company]="company">
+
+  </alv-company-request-access-code>
+
+  <alv-pav-identification (organisationSelected)="organization = $event"
+                          (updateStep)="updateStep($event)"
+                          *ngSwitchCase="registrationSteps.PAV_IDENTIFICATION_STEP">
+  </alv-pav-identification>
+
+  <alv-pav-request-access-code (updateStep)="updateStep($event)"
+                               *ngSwitchCase="registrationSteps.PAV_REQUEST_ACCESS_STEP"
+                               [organization]="organization">
+  </alv-pav-request-access-code>
+</div>

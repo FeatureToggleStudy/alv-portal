@@ -1,0 +1,31 @@
+<alv-registration-panel (backAction)="returnToRoleSelection()"
+                        (primaryAction)="findCompanyByUid()"
+                        (secondaryAction)="returnToHome()"
+                        [formGroup]="companyUidForm"
+                        panelTitle="portal.registration.company.uid.title"
+                        primaryLabel="navigation.next"
+                        secondaryLabel="registration.customer.cancel">
+  <alv-step-indicator [activeStep]="1"
+                      [steps]="companySteps"
+                      class="step-indicator panel-full-width">
+  </alv-step-indicator>
+  <alv-alert [hideDismiss]="true"
+             [notification]="uidInfoNotification">
+    <a [href]="'portal.registration.company.uid.help.link' | translate"
+       class="link"
+       rel="noopener"
+       target="_blank">
+      <i class="fas fa-caret-right link-icon"></i>{{'portal.registration.company.uid.help.label' | translate}}
+    </a>
+  </alv-alert>
+  <p>{{'registrationCompanyDialog.title' | translate}}</p>
+  <alv-input-field [autofocus]="true"
+                   [maxLength]="UID_MAX_LENGTH"
+                   [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'},
+                     {error: 'pattern', message: 'registrationCompanyDialog.validation.error.uid'}]"
+                   alvFormControlName="uid"
+                   helpText="registrationCompanyDialog.placeholder"
+                   label="portal.registration.company.uid.label">
+  </alv-input-field>
+
+</alv-registration-panel>

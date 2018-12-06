@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { InputFieldComponent } from './input/input-field/input-field.component';
 import { ValidationMessagesComponent } from './input/validation-messages/validation-messages.component';
 import {
+  NgbDateNativeAdapter,
   NgbDateParserFormatter,
   NgbDatepickerModule,
   NgbPopoverConfig,
@@ -17,8 +18,10 @@ import { SelectComponent } from './input/select/select.component';
 import { DateIntervalInputComponent } from './input/date-interval-input/date-interval-input.component';
 import { AddressInputComponent } from './address-input/address-input.component';
 import { FormSubmitValidationDirective } from './form-submit-validation.directive';
-import { TypeaheadComponent } from './input/typeahead/typeahead.component';
+import { MultiTypeaheadComponent } from './input/multi-typeahead/multi-typeahead.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SingleTypeaheadComponent } from './input/single-typeahead/single-typeahead.component';
+import { AutofocusDirective } from './autofocus.directive';
 
 @NgModule({
   imports: [
@@ -39,7 +42,9 @@ import { TranslateModule } from '@ngx-translate/core';
     RadioButtonComponent,
     CheckboxComponent,
     FormSubmitValidationDirective,
-    TypeaheadComponent
+    MultiTypeaheadComponent,
+    SingleTypeaheadComponent,
+    AutofocusDirective
   ],
   exports: [
     AddressInputComponent,
@@ -51,11 +56,13 @@ import { TranslateModule } from '@ngx-translate/core';
     RadioButtonComponent,
     CheckboxComponent,
     FormSubmitValidationDirective,
-    TypeaheadComponent
+    MultiTypeaheadComponent,
+    SingleTypeaheadComponent
   ],
   providers: [
     NgbPopoverConfig,
-    { provide: NgbDateParserFormatter, useClass: DateParserFormatter }
+    { provide: NgbDateParserFormatter, useClass: DateParserFormatter },
+    NgbDateNativeAdapter
   ]
 
 })

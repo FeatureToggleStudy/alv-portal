@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { TypeaheadItemModel } from '../shared/forms/input/typeahead/typeahead-item.model';
+import { MultiTypeaheadItemModel } from '../shared/forms/input/multi-typeahead/multi-typeahead-item.model';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ModalService } from '../core/auth/modal.service';
+import { SelectableOption } from '../shared/forms/input/selectable-option.model';
+import { NotificationsService } from '../core/notifications.service';
 
 export class LocalityInputType {
   static LOCALITY = 'locality';
@@ -40,16 +42,33 @@ export class ShowcaseComponent implements OnInit {
 
   itemLoaderFn = this.fetchSuggestions.bind(this);
 
+  selectControl = new FormControl();
+
+  selectOptions$: Observable<SelectableOption[]> = of([
+    {
+      label: 'Demo Value 1',
+      value: 'value1'
+    },
+    {
+      label: 'Demo Value 2',
+      value: 'value1'
+    },
+    {
+      label: 'Demo Value 3',
+      value: 'value1'
+    }
+  ]);
   confirmModalDemoText: string;
 
   constructor(private http: HttpClient,
+              private notificationService: NotificationsService,
               private modalService: ModalService) {
   }
 
   ngOnInit() {
   }
 
-  fetchSuggestions(prefix: string, distinctByLocalityCity = true): Observable<TypeaheadItemModel[]> {
+  fetchSuggestions(prefix: string, distinctByLocalityCity = true): Observable<MultiTypeaheadItemModel[]> {
     const params = new HttpParams()
         .set('prefix', prefix)
         .set('resultSize', '10')
@@ -62,6 +81,7 @@ export class ShowcaseComponent implements OnInit {
             map(_resultMapper)
         );
   }
+
 
   openConfirmModal() {
     this.modalService.openConfirm({
@@ -83,14 +103,14 @@ export class ShowcaseComponent implements OnInit {
     });
   }
 
-  private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): TypeaheadItemModel[] {
+  private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): MultiTypeaheadItemModel[] {
     const localities = localityAutocomplete.localities
         .map((o: LocalitySuggestion, index) =>
-            new TypeaheadItemModel(LocalityInputType.LOCALITY, String(o.communalCode), o.city, index));
+          new MultiTypeaheadItemModel(LocalityInputType.LOCALITY, String(o.communalCode), o.city, index));
 
     const cantons = localityAutocomplete.cantons
         .map((o: CantonSuggestion, index) =>
-            new TypeaheadItemModel(LocalityInputType.CANTON, String(o.code),
+          new MultiTypeaheadItemModel(LocalityInputType.CANTON, String(o.code),
                 o.name + ' (' + o.code + ')', localities.length + index));
 
     return [...localities, ...cantons];

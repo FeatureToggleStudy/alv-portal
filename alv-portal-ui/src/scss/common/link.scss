@@ -1,0 +1,30 @@
+@import "colors";
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+
+a {
+  &.link {
+    color: $color-grey-black;
+  }
+
+  .link-icon {
+    color: $color-primary;
+    margin-right: 0.5rem;
+  }
+
+  &:visited {
+    color: $color-dark-grey;
+  }
+
+  &:hover {
+    color: $color-primary;
+  }
+
+  &.link-panel {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+

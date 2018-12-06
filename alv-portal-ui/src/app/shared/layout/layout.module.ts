@@ -33,6 +33,7 @@ import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
 import { LanguageComponent } from './language.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { MarkdownEscapePipe } from './pipes/markdown-escape.pipe';
@@ -72,6 +73,8 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
     NotificationsComponent,
     AlertComponent,
     ModalComponent,
+    ConfirmModalComponent,
+    StepIndicatorComponent,
     ConfirmModalComponent,
     LanguageComponent,
     ConfirmModalComponent,
@@ -115,7 +118,9 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
     LocaleAwareDecimalPipe,
     PhoneNumberPipe,
     ShortenPipe,
-    WorkingTimeRangePipe
+    WorkingTimeRangePipe,
+    ModalComponent,
+    StepIndicatorComponent
   ],
   providers: [
     NotificationsService

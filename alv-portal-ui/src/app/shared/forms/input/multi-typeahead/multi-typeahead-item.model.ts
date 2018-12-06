@@ -1,4 +1,4 @@
-export class TypeaheadItemModel {
+export class MultiTypeaheadItemModel {
 
     constructor(public type: string,
                 public code: string, // represents ZIP code for cities or the AVAM code when you select a profession
@@ -6,11 +6,11 @@ export class TypeaheadItemModel {
                 public order = 0) {
     }
 
-    equals(other: TypeaheadItemModel): boolean {
+  equals(other: MultiTypeaheadItemModel): boolean {
         return !!other && other.type === this.type && other.label === this.label;
     }
 
-    compare(other: TypeaheadItemModel): number {
+  compare(other: MultiTypeaheadItemModel): number {
         if (this.order === other.order) {
             return 0;
         }
