@@ -16,13 +16,13 @@ export class IsAuthenticatedDirective extends AbstractSubscriber implements OnIn
 
   ngOnInit() {
     this.authenticationService.getCurrentUser()
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(user => {
-          this.viewContainerRef.clear();
-          if (user) {
-            this.viewContainerRef.createEmbeddedView(this.templateRef);
-          }
-        });
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(user => {
+        this.viewContainerRef.clear();
+        if (user && user.isRegistered()) {
+          this.viewContainerRef.createEmbeddedView(this.templateRef);
+        }
+      });
   }
 
 }

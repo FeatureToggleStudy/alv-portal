@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../../../core/notifications.service';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { take } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -53,25 +53,26 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
       birthdateDay: this.jobseekerIdentificationForm.get('birthDate').value.day,
       birthdateMonth: this.jobseekerIdentificationForm.get('birthDate').value.month,
       birthdateYear: this.jobseekerIdentificationForm.get('birthDate').value.year
-    }).subscribe(success => {
-      // Force refresh current user from server
-      this.authenticationService.getCurrentUser(true)
-          .pipe(take(1))
-          .subscribe((user) => {
-            this.router.navigate(['/dashboard']);
-          });
-    }, error => {
-      this.jobseekerIdentificationForm.reset();
-      if (error.error.reason) {
-        if (error.error.reason === 'InvalidPersonenNumberException') {
-          return this.notificationsService.error('registration.customer.identificaton.mismatch.error');
+    }).pipe(
+      switchMap(() => {
+        return this.authenticationService.refreshCurrentUser();
+      }),
+      tap(() => {
+        this.router.navigate(['/dashboard']);
+      }))
+      .subscribe(() => {
+      }, (error) => {
+        this.jobseekerIdentificationForm.reset();
+        if (error.error.reason) {
+          if (error.error.reason === 'InvalidPersonenNumberException') {
+            this.notificationsService.error('registration.customer.identificaton.mismatch.error');
+          }
+          if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
+            this.notificationsService.error('registration.customer.identificaton.already-taken.error');
+          }
+          this.notificationsService.error('registration.customer.identificaton.technical.error');
         }
-        if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
-          return this.notificationsService.error('registration.customer.identificaton.already-taken.error');
-        }
-        return this.notificationsService.error('registration.customer.identificaton.technical.error');
-      }
-    });
+      });
   }
 
   backAction() {

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { NotificationsService } from '../../core/notifications.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +15,10 @@ export class RegistrationRepository {
 
   private readonly REGISTER_BY_ACCESS_CODE = 'api/registerEmployerOrAgent';
 
-  constructor(private http: HttpClient,
-              private notificationsService: NotificationsService) {
+  constructor(private http: HttpClient) {
   }
 
+  // TODO patrick fix the return types
   registerJobSeeker(jobSeekerDetails: JobSeekerDetails): Observable<any> {
     return this.http.post(this.REGISTER_JOB_SEEKER_URL, jobSeekerDetails);
   }
@@ -33,10 +31,15 @@ export class RegistrationRepository {
     return this.http.post(this.REQUEST_AGENT_ACCESS_CODE_URL, avgId);
   }
 
-  registerEmployerOrAgent(accessCode: string): Observable<any> {
-    return this.http.post(this.REGISTER_BY_ACCESS_CODE, accessCode);
+  registerEmployerOrAgent(accessCode: string): Observable<AccessCodeResponse> {
+    return this.http.post<AccessCodeResponse>(this.REGISTER_BY_ACCESS_CODE, accessCode);
   }
 
+}
+
+export interface AccessCodeResponse {
+  success: boolean,
+  type: string
 }
 
 export interface JobSeekerDetails {

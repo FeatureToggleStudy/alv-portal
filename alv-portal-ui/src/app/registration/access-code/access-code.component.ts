@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationRepository } from '../../service/registration/registration.repository';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import { take, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { RegistrationStatus } from '../../core/auth/user.model';
 import { StepIndicatorItem } from '../../shared/layout/step-indicator/step.model';
 import { NotificationsService } from '../../core/notifications.service';
 import { pavSteps } from '../finish-registration/pav/pav-steps.config';
 import { companySteps } from '../finish-registration/company/company-steps.config';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'alv-access-code',
@@ -41,41 +42,37 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
   }
 
   submitAccessCode() {
-    this.registrationService.registerEmployerOrAgent(this.accessCodeForm.get('accessCode').value)
-        .subscribe((response: { success: boolean, type: string }) => {
-          if (response.success) {
-            // Force refresh current user from server
-            this.authenticationService.getCurrentUser(true)
-                .pipe(take(1))
-                .subscribe((user) => {
-                  this.router.navigate(['/dashboard']);
-                });
-          } else {
-            this.notificationsService.error('registrationAccessCode.accessCode.error.invalid');
-            this.accessCodeForm.reset();
-          }
-        });
+    this.registrationService.registerEmployerOrAgent(this.accessCodeForm.get('accessCode').value).pipe(
+      switchMap((response) => {
+        if (response.success) {
+          return this.authenticationService.refreshCurrentUser().pipe(
+            tap(() => {
+              this.router.navigate(['/dashboard']);
+            }));
+        } else {
+          this.notificationsService.error('registrationAccessCode.accessCode.error.invalid');
+          this.accessCodeForm.reset();
+          return EMPTY;
+        }
+      })
+    ).subscribe();
   }
 
   returnToHome() {
     this.router.navigate(['home']);
   }
 
-  returnToRoleSelection() {
-    this.router.navigate(['registration', 'finish']);
-  }
-
   private prepareStepIndicator() {
     this.authenticationService.getCurrentUser()
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(user => {
-          if (user && user.registrationStatus === RegistrationStatus.VALIDATION_PAV) {
-            this.steps = pavSteps;
-          } else if (user && user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
-            this.steps = companySteps;
-          } else {
-            this.router.navigate(['home']);
-          }
-        });
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(user => {
+        if (user && user.registrationStatus === RegistrationStatus.VALIDATION_PAV) {
+          this.steps = pavSteps;
+        } else if (user && user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
+          this.steps = companySteps;
+        } else {
+          this.router.navigate(['home']);
+        }
+      });
   }
 }

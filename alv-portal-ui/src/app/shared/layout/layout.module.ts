@@ -27,7 +27,6 @@ import { NotificationComponent } from './notifications/notification/notification
 import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
-import { NotificationsService } from '../../core/notifications.service';
 import { AlertComponent } from './notifications/alert/alert.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
@@ -117,11 +116,10 @@ import { StepIndicatorComponent } from './step-indicator/step-indicator.componen
     LocaleAwareDecimalPipe,
     PhoneNumberPipe,
     ShortenPipe,
-    WorkingTimeRangePipe
+    WorkingTimeRangePipe,
     StepIndicatorComponent
   ],
-  providers: [
-  ]
+  providers: []
 })
 export class LayoutModule {
 }

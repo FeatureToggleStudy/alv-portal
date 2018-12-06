@@ -4,8 +4,9 @@ import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
 import { RegistrationRepository } from '../../../../service/registration/registration.repository';
-import { finalize } from 'rxjs/operators';
+import { finalize, switchMap } from 'rxjs/operators';
 import { pavSteps } from '../pav-steps.config';
+import { AuthenticationService } from '../../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-pav-request-access-code',
@@ -25,6 +26,7 @@ export class PavRequestAccessCodeComponent extends AbstractRegistrationStep {
   isSubmitted: boolean;
 
   constructor(private router: Router,
+              private authenticationService: AuthenticationService,
               private registrationService: RegistrationRepository) {
     super();
   }
@@ -32,12 +34,15 @@ export class PavRequestAccessCodeComponent extends AbstractRegistrationStep {
   requestActivationCode() {
     this.disableSubmit = true;
     this.registrationService.requestAgentAccessCode(this.organization.externalId).pipe(
-        finalize(() => this.disableSubmit = false)
+      switchMap(() => {
+        return this.authenticationService.refreshCurrentUser();
+      }),
+      finalize(() => this.disableSubmit = false)
     )
-        .subscribe(() => {
-          this.isSubmitted = true;
-          this.homeLabel = 'registrationPavDialog.returnToHomepage';
-        });
+      .subscribe(() => {
+        this.isSubmitted = true;
+        this.homeLabel = 'registrationPavDialog.returnToHomepage';
+      });
   }
 
   returnToPavIdentification() {

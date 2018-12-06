@@ -18,10 +18,8 @@ import { SelectComponent } from './input/select/select.component';
 import { DateIntervalInputComponent } from './input/date-interval-input/date-interval-input.component';
 import { AddressInputComponent } from './address-input/address-input.component';
 import { FormSubmitValidationDirective } from './form-submit-validation.directive';
-import { TypeaheadComponent } from './input/typeahead/typeahead.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MultiTypeaheadComponent } from './input/multi-typeahead/multi-typeahead.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { SingleTypeaheadComponent } from './input/single-typeahead/single-typeahead.component';
 import { AutofocusDirective } from './autofocus.directive';
 
