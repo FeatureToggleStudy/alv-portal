@@ -71,7 +71,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
             this.notificationsService.error('registration.customer.identificaton.already-taken.error');
             return EMPTY;
           }
-          throwError(error);
+          return throwError(error);
         }
       }))
       .subscribe();
