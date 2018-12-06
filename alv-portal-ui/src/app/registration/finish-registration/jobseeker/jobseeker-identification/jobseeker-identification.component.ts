@@ -67,12 +67,13 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
           if (error.error.reason === 'InvalidPersonenNumberException') {
             this.notificationsService.error('registration.customer.identificaton.mismatch.error');
             return EMPTY;
-          } else if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
+          }
+          if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
             this.notificationsService.error('registration.customer.identificaton.already-taken.error');
             return EMPTY;
           }
-          return throwError(error);
         }
+        return throwError(error);
       }))
       .subscribe();
   }
