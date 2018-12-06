@@ -6,7 +6,8 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import {
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
-  HttpClientErrorAction,
+  EFFECT_ERROR_OCCURRED,
+  EffectErrorOccurredAction,
   LOAD_CURRENT_USER,
   LoadCurrentUserAction,
   LOGOUT_USER,
@@ -16,6 +17,7 @@ import { HttpClient } from '@angular/common/http';
 import { SessionManagerService } from '../../auth/session-manager/session-manager.service';
 import { UserDto } from '../../auth/authentication.service';
 import { User } from '../../auth/user.model';
+import { ErrorHandlerService } from '../../error-handler/error-handler.service';
 
 @Injectable()
 export class CoreEffects {
@@ -36,7 +38,7 @@ export class CoreEffects {
           if (err.status === 401) {
             return EMPTY;
           } else {
-            return of(new HttpClientErrorAction({}));
+            return of(new EffectErrorOccurredAction({ httpError: err }));
           }
         }),
       );
@@ -59,8 +61,17 @@ export class CoreEffects {
     })
   );
 
+  @Effect({ dispatch: false })
+  effectErrors: Observable<Action> = this.actions$.pipe(
+    ofType(EFFECT_ERROR_OCCURRED),
+    tap((action: EffectErrorOccurredAction) => {
+      this.errorHandlerService.handleHttpError(action.payload.httpError)
+    })
+  );
+
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
+              private errorHandlerService: ErrorHandlerService,
               private sessionManagerService: SessionManagerService) {
 
   }

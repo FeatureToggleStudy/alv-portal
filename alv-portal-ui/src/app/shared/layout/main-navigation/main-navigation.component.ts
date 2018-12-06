@@ -44,12 +44,13 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   ngOnInit() {
     this.authenticationService.getCurrentUser()
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(
-        user => {
+      .pipe(
+        tap((user) => {
           this.homeRouterLink = user && user.isRegistered() ? '/dashboard' : '/home';
-        }
-      );
+        }),
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe();
   }
 
   toggleMobileSideNav() {

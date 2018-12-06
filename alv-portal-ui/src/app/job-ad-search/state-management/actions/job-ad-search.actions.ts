@@ -8,7 +8,6 @@ export const APPLY_FILTER = 'JOBS:APPLY_FILTER';
 export const LOAD_NEXT_PAGE = 'JOBS:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'JOBS:NEXT_PAGE_LOADED';
 
-export const LOAD_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_JOB_ADVERTISEMENT_DETAIL';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_LOADED';
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
@@ -48,13 +47,6 @@ export class NextPageLoadedAction implements Action {
   }
 }
 
-export class LoadJobAdvertisementDetailAction implements Action {
-  readonly type = LOAD_JOB_ADVERTISEMENT_DETAIL;
-
-  constructor(public payload: { id: string }) {
-  }
-}
-
 export class JobAdvertisementDetailLoadedAction implements Action {
   readonly type = JOB_ADVERTISEMENT_DETAIL_LOADED;
 
@@ -82,7 +74,6 @@ export type Actions =
   | ApplyFilterAction
   | LoadNextPageAction
   | NextPageLoadedAction
-  | LoadJobAdvertisementDetailAction
   | JobAdvertisementDetailLoadedAction
   | LoadPreviousJobAdvertisementDetailAction
   | LoadNextJobAdvertisementDetailAction

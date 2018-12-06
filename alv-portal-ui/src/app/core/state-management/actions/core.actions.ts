@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { User } from '../../auth/user.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const LANGUAGE_CHANGED = 'CORE:LANGUAGE_CHANGED';
 export const LANGUAGE_INITIALIZED = 'CORE:LANGUAGE_INITIALIZED';
@@ -7,6 +8,7 @@ export const LOAD_CURRENT_USER = 'CORE:LOAD_CURRENT_USER';
 export const CURRENT_USER_LOADED = 'CORE:CURRENT_USER_LOADED';
 export const LOGOUT_USER = 'CORE:LOGOUT_USER';
 export const TOGGLE_MAIN_NAVIGATION = 'CORE:TOGGLE_MAIN_NAVIGATION';
+export const EFFECT_ERROR_OCCURRED = 'CORE:EFFECT_ERROR_OCCURRED';
 
 export class LanguageChangedAction implements Action {
   readonly type = LANGUAGE_CHANGED;
@@ -50,9 +52,9 @@ export class ToggleMainNavigationAction implements Action {
   }
 }
 
-export class HttpClientErrorAction implements Action {
-  readonly type = TOGGLE_MAIN_NAVIGATION;
+export class EffectErrorOccurredAction implements Action {
+  readonly type = EFFECT_ERROR_OCCURRED;
 
-  constructor(public payload: {}) {
+  constructor(public payload: { httpError: HttpErrorResponse }) {
   }
 }

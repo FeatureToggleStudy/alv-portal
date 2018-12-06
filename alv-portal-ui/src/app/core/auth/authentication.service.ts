@@ -15,11 +15,11 @@ import { flatMap } from 'rxjs/operators';
 })
 export class AuthenticationService {
 
-  private readonly currentUser: Observable<User>;
+  private readonly currentUser$: Observable<User>;
 
   constructor(private httpClient: HttpClient,
               private store: Store<CoreState>) {
-    this.currentUser = this.store.pipe(select(getCurrentUser));
+    this.currentUser$ = this.store.pipe(select(getCurrentUser));
   }
 
   init() {
@@ -31,7 +31,7 @@ export class AuthenticationService {
   }
 
   getCurrentUser(): Observable<User> {
-    return this.currentUser;
+    return this.currentUser$;
   }
 
   localLogin(credentials: Credentials) {
