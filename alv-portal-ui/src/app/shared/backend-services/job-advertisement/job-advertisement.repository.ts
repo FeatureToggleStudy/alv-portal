@@ -53,7 +53,7 @@ export class JobAdvertisementRepository {
     }).pipe(
       map((resp) => {
         return {
-          totalCount: parseInt(resp.headers.get('X-Total-Count')),
+          totalCount: parseInt(resp.headers.get('X-Total-Count'), 10),
           result: resp.body
         };
       }));

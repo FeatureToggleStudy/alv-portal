@@ -44,7 +44,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
 
-  constructor(private translateService: I18nService,
+  constructor(private i18nService: I18nService,
               private referenceService: ReferenceService,
               private store: Store<JobAdSearchState>) {
     super();
@@ -62,7 +62,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
         this.showJobAdUnvalidatedMessage = this.isUnvalidated(job);
       }));
 
-    this.jobDescription$ = combineLatest(this.job$, this.translateService.currentLanguage).pipe(
+    this.jobDescription$ = combineLatest(this.job$, this.i18nService.currentLanguage$).pipe(
       map(([job, currentLanguage]) => JobAdvertisementUtils.getJobDescription(job, currentLanguage))
     );
 
@@ -71,7 +71,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
       map((job) => job.jobCenterCode),
       filter((jobCenterCode) => !!jobCenterCode));
 
-    this.jobCenter$ = combineLatest(jobCenterCode$, this.translateService.currentLanguage).pipe(
+    this.jobCenter$ = combineLatest(jobCenterCode$, this.i18nService.currentLanguage$).pipe(
       flatMap(([jobCenterCode, currentLanguage]) => this.referenceService.resolveJobCenter(jobCenterCode, currentLanguage))
     );
 
@@ -99,7 +99,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
 
   onCopyLink(): void {
     this.clipboardTooltip.open();
-    setTimeout(() => this.clipboardTooltip.close(), TOOLTIP_AUTO_HIDE_TIMEOUT)
+    setTimeout(() => this.clipboardTooltip.close(), TOOLTIP_AUTO_HIDE_TIMEOUT);
   }
 
   private isDeactivated(jobAdvertisementStatus: JobAdvertisementStatus): boolean {
@@ -112,7 +112,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
 
   private isUnvalidated(jobAdvertisement: JobAdvertisement): boolean {
     return jobAdvertisement.sourceSystem.toString() === 'API'
-      && !jobAdvertisement.stellennummerAvam
+      && !jobAdvertisement.stellennummerAvam;
   }
 
 

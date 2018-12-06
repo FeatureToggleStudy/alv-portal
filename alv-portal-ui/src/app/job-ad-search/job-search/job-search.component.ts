@@ -32,7 +32,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
 
   resultsAreLoading$: Observable<boolean>;
 
-  jobSearchResults: Observable<JobSearchResult[]>;
+  jobSearchResults$: Observable<JobSearchResult[]>;
 
   constructor(private store: Store<JobAdSearchState>) {
     super();
@@ -43,7 +43,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
 
     this.totalCount$ = this.store.pipe(select(getTotalCount));
 
-    this.jobSearchResults = this.store.pipe(select(getJobSearchResults));
+    this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults));
 
     this.jobSearchFilter$ = this.store.pipe(select(getJobSearchFilter));
 
