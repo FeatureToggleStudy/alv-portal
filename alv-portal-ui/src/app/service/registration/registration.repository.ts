@@ -38,8 +38,8 @@ export class RegistrationRepository {
 }
 
 export interface AccessCodeResponse {
-  success: boolean,
-  type: string
+  success: boolean;
+  type: string;
 }
 
 export interface JobSeekerDetails {
