@@ -1,5 +1,4 @@
-<h3>{{'job-search.filter.title' | translate}}</h3>
-<br>
+<div class="alv-bar text-truncate mb-3">{{'job-search.filter.title' | translate}}</div>
 <form formGroupName="form">
   <alv-select
     label="{{'job-search.filter.sort.label' | translate}}"
@@ -18,18 +17,17 @@
     [options$]="contractTypeOptions$"
   >
   </alv-select>
-  <p>{{'job-search.filter.working-time.label' | translate}}</p>
   <div class="row">
     <div class="col-6">
       <alv-select
-        label="from"
+        label="{{'job-search.filter.working-time.label' | translate}} from"
         [alvControl]="form.get('workloadPercentageMin')"
         [options$]="percentages$"
       ></alv-select>
     </div>
     <div class="col-6">
       <alv-select
-        label="to"
+        label="{{'job-search.filter.working-time.label' | translate}} to"
         [alvControl]="form.get('workloadPercentageMax')"
         [options$]="percentages$"
       ></alv-select>

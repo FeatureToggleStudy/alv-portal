@@ -1,0 +1,11 @@
+@import "colors";
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+
+.alv-bar {
+  background-color: $color-light-grey;
+  font-size: 1.25em;
+  padding: 0.25em 0.5em;
+}
+

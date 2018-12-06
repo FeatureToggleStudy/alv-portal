@@ -25,22 +25,41 @@ $main-accent-color-100: #f3d7d6;
 
 // Job-Room-result
 .result-list__title {
-  font-weight: $text-weight-light;
+  font-size: 1.25em;
+  font-weight: 500;
 }
 
 .result-list__item {
-  padding: $alv-box-radius;
+  padding: 1em;
   margin-bottom: $margin-x-narrow;
-
+  border: 1px solid $color-medium-grey;
   cursor: pointer;
-
+  border-bottom-right-radius: 15px;
   &:hover {
-    background: $main-accent-color-50;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+
+    .result-list__title {
+      color: $color-primary;
+    }
+
+    .selected-indicator {
+      background-color: $color-primary;
+    }
+  }
+  &.result-list__item--visited {
+    background: $color-light-grey;
   }
 
+  .selected-indicator {
+    width: 5px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
   em {
     @include highlight-tag();
   }
+
 
   .result-list__item__content {
     > .w-100 {
@@ -67,9 +86,7 @@ $main-accent-color-100: #f3d7d6;
   padding: 18px;
   margin-bottom: 1.5rem;
 
-  &.result-list__item--visited {
-    background: $color-grey-transparent;
-  }
+
 }
 
 // Color contrast
@@ -118,5 +135,5 @@ $main-accent-color-100: #f3d7d6;
 }
 
 .text--primary-color {
-  color: $color-primary;
+  color: $color-black;
 }
