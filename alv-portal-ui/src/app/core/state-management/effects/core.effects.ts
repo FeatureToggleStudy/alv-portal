@@ -46,7 +46,7 @@ export class CoreEffects {
   );
 
   @Effect()
-  currentUserLoadedAction: Observable<Action> = this.actions$.pipe(
+  currentUserLoaded: Observable<Action> = this.actions$.pipe(
     ofType(CURRENT_USER_LOADED),
     map(() => {
       return new ToggleMainNavigationAction({ expanded: true });
@@ -62,7 +62,7 @@ export class CoreEffects {
   );
 
   @Effect({ dispatch: false })
-  effectErrors: Observable<Action> = this.actions$.pipe(
+  effectErrorOccurred: Observable<Action> = this.actions$.pipe(
     ofType(EFFECT_ERROR_OCCURRED),
     tap((action: EffectErrorOccurredAction) => {
       this.errorHandlerService.handleHttpError(action.payload.httpError);

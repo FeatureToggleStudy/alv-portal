@@ -45,7 +45,7 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
     this.registrationRepository.registerEmployerOrAgent(this.accessCodeForm.get('accessCode').value).pipe(
       switchMap((response) => {
         if (response.success) {
-          return this.authenticationService.refreshCurrentUser().pipe(
+          return this.authenticationService.reloadCurrentUser().pipe(
             tap(() => {
               this.router.navigate(['/dashboard']);
             }));

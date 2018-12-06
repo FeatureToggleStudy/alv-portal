@@ -56,7 +56,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
       birthdateYear: this.jobseekerIdentificationForm.get('birthDate').value.year
     }).pipe(
       switchMap(() => {
-        return this.authenticationService.refreshCurrentUser();
+        return this.authenticationService.reloadCurrentUser();
       }),
       tap(() => {
         this.router.navigate(['/dashboard']);

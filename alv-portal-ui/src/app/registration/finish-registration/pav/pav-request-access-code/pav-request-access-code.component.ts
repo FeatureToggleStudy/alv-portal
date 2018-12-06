@@ -35,7 +35,7 @@ export class PavRequestAccessCodeComponent extends AbstractRegistrationStep {
     this.disableSubmit = true;
     this.registrationRepository.requestAgentAccessCode(this.selectedPav.externalId).pipe(
       switchMap(() => {
-        return this.authenticationService.refreshCurrentUser();
+        return this.authenticationService.reloadCurrentUser();
       }),
       finalize(() => this.disableSubmit = false)
     )

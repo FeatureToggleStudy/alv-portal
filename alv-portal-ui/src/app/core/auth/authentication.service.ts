@@ -26,7 +26,7 @@ export class AuthenticationService {
     this.store.dispatch(new LoadCurrentUserAction({}));
   }
 
-  refreshCurrentUser() {
+  reloadCurrentUser() {
     this.store.dispatch(new LoadCurrentUserAction({}));
     return this.getCurrentUser().pipe(
       filter((user) => !!user),

@@ -19,13 +19,8 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
   let newState: CoreState;
 
   switch (action.type) {
-    case LANGUAGE_INITIALIZED:
-      newState = {
-        ...state,
-        currentLanguage: action.payload.language
-      };
-      break;
     case LANGUAGE_CHANGED:
+    case LANGUAGE_INITIALIZED:
       newState = {
         ...state,
         currentLanguage: action.payload.language
