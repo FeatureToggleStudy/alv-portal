@@ -85,8 +85,7 @@ import { StepIndicatorComponent } from './step-indicator/step-indicator.componen
     LocaleAwareDecimalPipe,
     PhoneNumberPipe,
     ShortenPipe,
-    WorkingTimeRangePipe,
-    StepIndicatorComponent
+    WorkingTimeRangePipe
   ],
   entryComponents: [
     ConfirmModalComponent
@@ -120,8 +119,6 @@ import { StepIndicatorComponent } from './step-indicator/step-indicator.componen
     ShortenPipe,
     WorkingTimeRangePipe,
     StepIndicatorComponent
-  ],
-  providers: [NotificationsService
   ]
 })
 export class LayoutModule {
