@@ -27,13 +27,11 @@ import { NotificationComponent } from './notifications/notification/notification
 import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
-import { NotificationsService } from '../../core/notifications.service';
 import { AlertComponent } from './notifications/alert/alert.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
-import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
+import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
 import { LanguageComponent } from './language.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { MarkdownEscapePipe } from './pipes/markdown-escape.pipe';
@@ -44,9 +42,13 @@ import { LocaleAwareDecimalPipe } from './pipes/locale-aware-number.pipe';
 import { PhoneNumberPipe } from './pipes/phone-number.pipe';
 import { ShortenPipe } from './pipes/shorten.pipe';
 import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
+import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
+import { LocalLoginComponent } from './local-login/local-login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     RouterModule,
     HttpClientModule,
@@ -87,9 +89,11 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
     PhoneNumberPipe,
     ShortenPipe,
     WorkingTimeRangePipe,
+    LocalLoginComponent
   ],
   entryComponents: [
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    LocalLoginComponent
   ],
   exports: [
     NavigationContainerComponent,
@@ -119,11 +123,7 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
     PhoneNumberPipe,
     ShortenPipe,
     WorkingTimeRangePipe,
-    ModalComponent,
     StepIndicatorComponent
-  ],
-  providers: [
-    NotificationsService
   ]
 })
 export class LayoutModule {

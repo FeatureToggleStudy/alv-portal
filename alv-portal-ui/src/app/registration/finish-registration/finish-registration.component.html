@@ -8,24 +8,24 @@
                                 *ngSwitchCase="registrationSteps.JOBSEEKER_IDENTIFICATION_STEP">
   </alv-jobseeker-identification>
 
-  <alv-company-identification (companySelected)="company = $event"
+  <alv-company-identification (companySelected)="selectedCompany = $event"
                               (updateStep)="updateStep($event)"
                               *ngSwitchCase="registrationSteps.COMPANY_IDENTIFICATION_STEP">
   </alv-company-identification>
 
   <alv-company-request-access-code (updateStep)="updateStep($event)"
                                    *ngSwitchCase="registrationSteps.COMPANY_REQUEST_ACCESS_STEP"
-                                   [company]="company">
+                                   [company]="selectedCompany">
 
   </alv-company-request-access-code>
 
-  <alv-pav-identification (organisationSelected)="organization = $event"
+  <alv-pav-identification (pavSelected)="selectedPav = $event"
                           (updateStep)="updateStep($event)"
                           *ngSwitchCase="registrationSteps.PAV_IDENTIFICATION_STEP">
   </alv-pav-identification>
 
   <alv-pav-request-access-code (updateStep)="updateStep($event)"
                                *ngSwitchCase="registrationSteps.PAV_REQUEST_ACCESS_STEP"
-                               [organization]="organization">
+                               [selectedPav]="selectedPav">
   </alv-pav-request-access-code>
 </div>

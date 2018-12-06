@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmModalConfig } from '../../shared/layout/confirm-modal/confirm-modal-config.model';
-import { ConfirmModalComponent } from '../../shared/layout/confirm-modal/confirm-modal.component';
+import { ConfirmModalConfig } from './confirm-modal/confirm-modal-config.model';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -37,10 +37,10 @@ export class ModalService {
 
   private open(content: any, size?: 'sm' | 'lg', escapable?: boolean): NgbModalRef {
     return this.modalService.open(content,
-        {
-          size: size,
-          backdrop: escapable ? null : 'static',
-          keyboard: !!escapable
-        });
+      {
+        size: size,
+        backdrop: escapable ? null : 'static',
+        keyboard: !!escapable
+      });
   }
 }

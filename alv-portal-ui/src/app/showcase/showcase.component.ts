@@ -4,9 +4,9 @@ import { MultiTypeaheadItemModel } from '../shared/forms/input/multi-typeahead/m
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ModalService } from '../core/auth/modal.service';
 import { SelectableOption } from '../shared/forms/input/selectable-option.model';
 import { NotificationsService } from '../core/notifications.service';
+import { ModalService } from '../shared/layout/modal/modal.service';
 
 export class LocalityInputType {
   static LOCALITY = 'locality';

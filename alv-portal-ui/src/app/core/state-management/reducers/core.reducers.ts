@@ -6,6 +6,8 @@ import {
   LANGUAGE_INITIALIZED,
   LanguageChangedAction,
   LanguageInitializedAction,
+  LOAD_CURRENT_USER,
+  LoadCurrentUserAction,
   LOGOUT_USER,
   LogoutUserAction,
   TOGGLE_MAIN_NAVIGATION,
@@ -17,13 +19,8 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
   let newState: CoreState;
 
   switch (action.type) {
-    case LANGUAGE_INITIALIZED:
-      newState = {
-        ...state,
-        currentLanguage: action.payload.language
-      };
-      break;
     case LANGUAGE_CHANGED:
+    case LANGUAGE_INITIALIZED:
       newState = {
         ...state,
         currentLanguage: action.payload.language
@@ -36,6 +33,7 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
       };
       break;
     case LOGOUT_USER:
+    case LOAD_CURRENT_USER:
       newState = {
         ...state,
         currentUser: null
@@ -61,5 +59,6 @@ export type Actions =
   | CurrentUserLoadedAction
   | LogoutUserAction
   | ToggleMainNavigationAction
+  | LoadCurrentUserAction
   ;
 

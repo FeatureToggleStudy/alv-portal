@@ -3,12 +3,13 @@ import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PERSON_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
-import { RegistrationRepository } from '../../../../service/registration/registration.repository';
 import { Router } from '@angular/router';
 import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../../../core/notifications.service';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { take } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { EMPTY, throwError } from 'rxjs';
+import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -36,7 +37,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
               private authenticationService: AuthenticationService,
               private ngbDateNativeAdapter: NgbDateNativeAdapter,
               private notificationsService: NotificationsService,
-              private registrationService: RegistrationRepository) {
+              private registrationRepository: RegistrationRepository) {
     super();
   }
 
@@ -48,30 +49,33 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
   }
 
   registerJobSeeker() {
-    this.registrationService.registerJobSeeker({
+    this.registrationRepository.registerJobSeeker({
       personNumber: this.jobseekerIdentificationForm.get('personNr').value,
       birthdateDay: this.jobseekerIdentificationForm.get('birthDate').value.day,
       birthdateMonth: this.jobseekerIdentificationForm.get('birthDate').value.month,
       birthdateYear: this.jobseekerIdentificationForm.get('birthDate').value.year
-    }).subscribe(success => {
-      // Force refresh current user from server
-      this.authenticationService.getCurrentUser()
-        .pipe(take(1))
-        .subscribe((user) => {
-          this.router.navigate(['/dashboard']);
-        });
-    }, error => {
-      this.jobseekerIdentificationForm.reset();
-      if (error.error.reason) {
-        if (error.error.reason === 'InvalidPersonenNumberException') {
-          return this.notificationsService.error('registration.customer.identificaton.mismatch.error');
+    }).pipe(
+      switchMap(() => {
+        return this.authenticationService.reloadCurrentUser();
+      }),
+      tap(() => {
+        this.router.navigate(['/dashboard']);
+      }),
+      catchError((error) => {
+        this.jobseekerIdentificationForm.reset();
+        if (error.error.reason) {
+          if (error.error.reason === 'InvalidPersonenNumberException') {
+            this.notificationsService.error('registration.customer.identificaton.mismatch.error');
+            return EMPTY;
+          }
+          if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
+            this.notificationsService.error('registration.customer.identificaton.already-taken.error');
+            return EMPTY;
+          }
         }
-        if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
-          return this.notificationsService.error('registration.customer.identificaton.already-taken.error');
-        }
-        return this.notificationsService.error('registration.customer.identificaton.technical.error');
-      }
-    });
+        return throwError(error);
+      }))
+      .subscribe();
   }
 
   backAction() {
