@@ -7,7 +7,7 @@ import { NotificationsService } from '../../core/notifications.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationService {
+export class RegistrationRepository {
 
   private readonly REGISTER_JOB_SEEKER_URL = 'api/registerJobseeker';
 

@@ -5,9 +5,9 @@ import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../../../../core/notifications.service';
-import { RegistrationService } from '../../../../service/registration/registration.service';
-import { UidService } from '../../../../service/uid/uid.service';
-import { Company } from '../../../../service/uid/uid.model';
+import { RegistrationRepository } from '../../../../service/registration/registration.repository';
+import { UidRepository } from '../../../../service/uid/uid.repository';
+import { Company } from '../../../../service/uid/uid.types';
 import { NotificationType } from '../../../../shared/layout/notifications/notification.model';
 import { companySteps } from '../company-steps.config';
 
@@ -34,9 +34,9 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private registrationService: RegistrationService,
+              private registrationService: RegistrationRepository,
               private notificationsService: NotificationsService,
-              private uidService: UidService) {
+              private uidService: UidRepository) {
     super();
   }
 

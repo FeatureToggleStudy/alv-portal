@@ -4,7 +4,7 @@ import {
   Organization,
   OrganizationAutocomplete,
   OrganizationSuggestion
-} from './pav-search.model';
+} from './pav-search.types';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class PavSearchService {
+export class PavSearchRepository {
 
   readonly RESOURCE_SEARCH_URL = 'api/_search/organizations';
 

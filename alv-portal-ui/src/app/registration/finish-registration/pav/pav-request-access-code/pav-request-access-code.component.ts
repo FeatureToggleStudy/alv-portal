@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { OrganizationSuggestion } from '../../../../service/pav-search/pav-search.model';
+import { OrganizationSuggestion } from '../../../../service/pav-search/pav-search.types';
 import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
-import { RegistrationService } from '../../../../service/registration/registration.service';
+import { RegistrationRepository } from '../../../../service/registration/registration.repository';
 import { finalize } from 'rxjs/operators';
 import { pavSteps } from '../pav-steps.config';
 
@@ -25,7 +25,7 @@ export class PavRequestAccessCodeComponent extends AbstractRegistrationStep {
   isSubmitted: boolean;
 
   constructor(private router: Router,
-              private registrationService: RegistrationService) {
+              private registrationService: RegistrationRepository) {
     super();
   }
 

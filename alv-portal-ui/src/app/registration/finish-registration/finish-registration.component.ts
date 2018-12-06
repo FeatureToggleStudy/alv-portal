@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { RegistrationStep } from '../registration-step.enum';
-import { OrganizationSuggestion } from '../../service/pav-search/pav-search.model';
-import { Company } from '../../service/uid/uid.model';
+import { OrganizationSuggestion } from '../../service/pav-search/pav-search.types';
+import { Company } from '../../service/uid/uid.types';
 
 @Component({
   selector: 'alv-finish-registration',

@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
-import { RegistrationService } from '../../../../service/registration/registration.service';
+import { RegistrationRepository } from '../../../../service/registration/registration.repository';
 import { finalize } from 'rxjs/operators';
-import { Company } from '../../../../service/uid/uid.model';
+import { Company } from '../../../../service/uid/uid.types';
 import { companySteps } from '../company-steps.config';
 
 @Component({
@@ -25,7 +25,7 @@ export class CompanyRequestAccessCodeComponent extends AbstractRegistrationStep 
   isSubmitted: boolean;
 
   constructor(private router: Router,
-              private registrationService: RegistrationService) {
+              private registrationService: RegistrationRepository) {
     super();
   }
 

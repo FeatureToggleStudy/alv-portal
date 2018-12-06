@@ -19,12 +19,13 @@ export class UserMenuComponent implements OnInit {
 
   private readonly ACCESS_CODE_URL = '/registration/access-code';
 
+  get user() {
+    return this._user;
+  }
+
   @Input() set user(user: User) {
     this._user = user;
     this.hideRegistrationAction = this._user.registrationStatus === RegistrationStatus.REGISTERED;
-  }
-  get user() {
-    return this._user;
   }
 
   @Input() noEiam: boolean;
@@ -38,7 +39,7 @@ export class UserMenuComponent implements OnInit {
               private landingNavigationService: LandingNavigationService,
               @Inject(DOCUMENT) private document: any) {
   }
-
+  
   ngOnInit() {
     this.subscribeOnRouteChanges();
   }
@@ -64,8 +65,10 @@ export class UserMenuComponent implements OnInit {
     this.router.events.pipe(
         filter((event) => event instanceof NavigationEnd)
     ).subscribe(() => {
-      this.hideRegistrationAction = this.location.isCurrentPathEqualTo(this.FINISH_REGISTRATION_URL) ||
-          this.location.isCurrentPathEqualTo(this.ACCESS_CODE_URL);
+      if (this.user.registrationStatus !== RegistrationStatus.REGISTERED) {
+        this.hideRegistrationAction = this.location.isCurrentPathEqualTo(this.FINISH_REGISTRATION_URL) ||
+            this.location.isCurrentPathEqualTo(this.ACCESS_CODE_URL);
+      }
     });
   }
 }

@@ -3,7 +3,7 @@ import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PERSON_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
-import { RegistrationService } from '../../../../service/registration/registration.service';
+import { RegistrationRepository } from '../../../../service/registration/registration.repository';
 import { Router } from '@angular/router';
 import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../../../core/notifications.service';
@@ -29,7 +29,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
               private router: Router,
               private ngbDateNativeAdapter: NgbDateNativeAdapter,
               private notificationsService: NotificationsService,
-              private registrationService: RegistrationService) {
+              private registrationService: RegistrationRepository) {
     super();
   }
 

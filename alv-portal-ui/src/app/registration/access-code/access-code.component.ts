@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationService } from '../../service/registration/registration.service';
+import { RegistrationRepository } from '../../service/registration/registration.repository';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { takeUntil } from 'rxjs/operators';
@@ -25,7 +25,7 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
   steps: StepIndicatorItem[];
 
   constructor(private fb: FormBuilder,
-              private registrationService: RegistrationService,
+              private registrationService: RegistrationRepository,
               private router: Router,
               private notificationsService: NotificationsService,
               private authenticationService: AuthenticationService) {
