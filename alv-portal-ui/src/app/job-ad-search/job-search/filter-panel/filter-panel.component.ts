@@ -79,4 +79,11 @@ export class FilterPanelComponent implements OnInit {
     this.form.controls.onlineSince.setValue(value);
   }
 
+  getOnlineSinceLabel(value: number): string {
+    if (value === 1) {
+      return 'job-search.filter.online-since.day.one';
+    } else {
+      return 'job-search.filter.online-since.day.many';
+    }
+  }
 }
