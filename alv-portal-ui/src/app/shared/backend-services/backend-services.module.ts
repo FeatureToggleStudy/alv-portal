@@ -9,4 +9,5 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   declarations: []
 })
-export class BackendServicesModule { }
+export class BackendServicesModule {
+}

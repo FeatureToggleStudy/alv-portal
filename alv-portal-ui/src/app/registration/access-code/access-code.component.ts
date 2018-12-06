@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationRepository } from '../../service/registration/registration.repository';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -11,6 +10,7 @@ import { NotificationsService } from '../../core/notifications.service';
 import { pavSteps } from '../finish-registration/pav/pav-steps.config';
 import { companySteps } from '../finish-registration/company/company-steps.config';
 import { EMPTY } from 'rxjs';
+import { RegistrationRepository } from '../../shared/backend-services/registration/registration.repository';
 
 @Component({
   selector: 'alv-access-code',
@@ -26,7 +26,7 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
   steps: StepIndicatorItem[];
 
   constructor(private fb: FormBuilder,
-              private registrationService: RegistrationRepository,
+              private registrationRepository: RegistrationRepository,
               private router: Router,
               private notificationsService: NotificationsService,
               private authenticationService: AuthenticationService) {
@@ -42,7 +42,7 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
   }
 
   submitAccessCode() {
-    this.registrationService.registerEmployerOrAgent(this.accessCodeForm.get('accessCode').value).pipe(
+    this.registrationRepository.registerEmployerOrAgent(this.accessCodeForm.get('accessCode').value).pipe(
       switchMap((response) => {
         if (response.success) {
           return this.authenticationService.refreshCurrentUser().pipe(

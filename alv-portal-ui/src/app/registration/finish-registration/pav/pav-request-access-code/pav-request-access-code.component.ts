@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { OrganizationSuggestion } from '../../../../service/pav-search/pav-search.types';
 import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
-import { RegistrationRepository } from '../../../../service/registration/registration.repository';
 import { finalize, switchMap } from 'rxjs/operators';
 import { pavSteps } from '../pav-steps.config';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import { PavSuggestion } from '../../../../shared/backend-services/pav-search/pav-search.types';
+import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
 
 @Component({
   selector: 'alv-pav-request-access-code',
@@ -15,7 +15,7 @@ import { AuthenticationService } from '../../../../core/auth/authentication.serv
 })
 export class PavRequestAccessCodeComponent extends AbstractRegistrationStep {
 
-  @Input() organization: OrganizationSuggestion;
+  @Input() selectedPav: PavSuggestion;
 
   pavSteps = pavSteps;
 
@@ -27,13 +27,13 @@ export class PavRequestAccessCodeComponent extends AbstractRegistrationStep {
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
-              private registrationService: RegistrationRepository) {
+              private registrationRepository: RegistrationRepository) {
     super();
   }
 
   requestActivationCode() {
     this.disableSubmit = true;
-    this.registrationService.requestAgentAccessCode(this.organization.externalId).pipe(
+    this.registrationRepository.requestAgentAccessCode(this.selectedPav.externalId).pipe(
       switchMap(() => {
         return this.authenticationService.refreshCurrentUser();
       }),

@@ -18,26 +18,25 @@ export class RegistrationRepository {
   constructor(private http: HttpClient) {
   }
 
-  // TODO patrick fix the return types
-  registerJobSeeker(jobSeekerDetails: JobSeekerDetails): Observable<any> {
-    return this.http.post(this.REGISTER_JOB_SEEKER_URL, jobSeekerDetails);
+  registerJobSeeker(jobSeekerDetails: JobSeekerDetails): Observable<void> {
+    return this.http.post<void>(this.REGISTER_JOB_SEEKER_URL, jobSeekerDetails);
   }
 
-  requestEmployerAccessCode(uid: number): Observable<any> {
-    return this.http.post(this.REQUEST_COMPANY_ACCESS_CODE_URL, uid);
+  requestEmployerAccessCode(uid: number): Observable<void> {
+    return this.http.post<void>(this.REQUEST_COMPANY_ACCESS_CODE_URL, uid);
   }
 
-  requestAgentAccessCode(avgId: string): Observable<any> {
-    return this.http.post(this.REQUEST_AGENT_ACCESS_CODE_URL, avgId);
+  requestAgentAccessCode(avgId: string): Observable<void> {
+    return this.http.post<void>(this.REQUEST_AGENT_ACCESS_CODE_URL, avgId);
   }
 
-  registerEmployerOrAgent(accessCode: string): Observable<AccessCodeResponse> {
-    return this.http.post<AccessCodeResponse>(this.REGISTER_BY_ACCESS_CODE, accessCode);
+  registerEmployerOrAgent(accessCode: string): Observable<AccessCodeRegistrationResult> {
+    return this.http.post<AccessCodeRegistrationResult>(this.REGISTER_BY_ACCESS_CODE, accessCode);
   }
 
 }
 
-export interface AccessCodeResponse {
+export interface AccessCodeRegistrationResult {
   success: boolean;
   type: string;
 }

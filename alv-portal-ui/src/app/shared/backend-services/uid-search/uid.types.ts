@@ -1,4 +1,4 @@
-export interface Company {
+export interface UidCompany {
   name: string;
   additionalName: string;
   chId: string; // e.g. CHE-123.456.789

@@ -3,13 +3,13 @@ import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PERSON_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
-import { RegistrationRepository } from '../../../../service/registration/registration.repository';
 import { Router } from '@angular/router';
 import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../../../core/notifications.service';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { EMPTY, throwError } from 'rxjs';
+import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -37,7 +37,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
               private authenticationService: AuthenticationService,
               private ngbDateNativeAdapter: NgbDateNativeAdapter,
               private notificationsService: NotificationsService,
-              private registrationService: RegistrationRepository) {
+              private registrationRepository: RegistrationRepository) {
     super();
   }
 
@@ -49,7 +49,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
   }
 
   registerJobSeeker() {
-    this.registrationService.registerJobSeeker({
+    this.registrationRepository.registerJobSeeker({
       personNumber: this.jobseekerIdentificationForm.get('personNr').value,
       birthdateDay: this.jobseekerIdentificationForm.get('birthDate').value.day,
       birthdateMonth: this.jobseekerIdentificationForm.get('birthDate').value.month,
