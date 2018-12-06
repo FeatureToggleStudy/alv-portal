@@ -19,7 +19,7 @@ export class JobLocationComponent {
   location: Location;
 
   @Input()
-  classes: string
+  classes: string;
 
 
 }

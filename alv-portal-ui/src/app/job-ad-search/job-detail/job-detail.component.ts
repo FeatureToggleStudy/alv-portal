@@ -99,7 +99,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
 
   onCopyLink(): void {
     this.clipboardTooltip.open();
-    setTimeout(() => this.clipboardTooltip.close(), TOOLTIP_AUTO_HIDE_TIMEOUT)
+    setTimeout(() => this.clipboardTooltip.close(), TOOLTIP_AUTO_HIDE_TIMEOUT);
   }
 
   private isDeactivated(jobAdvertisementStatus: JobAdvertisementStatus): boolean {
@@ -112,7 +112,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
 
   private isUnvalidated(jobAdvertisement: JobAdvertisement): boolean {
     return jobAdvertisement.sourceSystem.toString() === 'API'
-      && !jobAdvertisement.stellennummerAvam
+      && !jobAdvertisement.stellennummerAvam;
   }
 
 
