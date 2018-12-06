@@ -15,7 +15,6 @@ $margin-x-narrow: $margin-x-general/2;
 $margin-y-general: $margin-x-general;
 $alv-box-radius: 24px; // ($logo-height * (1 - $golden-ratio)) / 2 ~30px
 $main-accent-color-50: #f9ebea;
-$main-accent-color-100: #f3d7d6;
 
 @mixin highlight-tag($color: #fff2ac,$darken: #ffe359) {
   padding: 0 0.125rem;
@@ -85,36 +84,6 @@ $main-accent-color-100: #f3d7d6;
   } @else {
     color: #fff;
   }
-}
-
-//Badges
-@mixin badge-variant($bg) {
-  @include color-yiq($bg);
-  background-color: $bg;
-}
-
-.badge-yellow,
-.badge-green,
-.badge-blue,
-.badge-gray {
-  color: $color-grey;
-  font-weight: 400;
-}
-
-.badge-blue {
-  @include badge-variant($main-accent-color-100);
-}
-
-.badge-gray {
-  @include badge-variant($color-light-grey);
-}
-
-.badge-green {
-  @include badge-variant($color-light-green);
-}
-
-.badge-yellow {
-  @include badge-variant($color-yellow);
 }
 
 .text--primary-color {

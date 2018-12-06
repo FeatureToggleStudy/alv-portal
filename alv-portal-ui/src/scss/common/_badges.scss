@@ -1,0 +1,27 @@
+@import "~bootstrap/scss/mixins/_badge.scss";
+@import "~bootstrap/scss/mixins/_hover.scss";
+@import "../common/colors";
+
+.badge-yellow,
+.badge-green,
+.badge-red,
+.badge-gray {
+  color: $color-grey-black;
+  font-weight: 400;
+}
+
+.badge-red {
+  @include badge-variant($color-red);
+}
+
+.badge-gray {
+  @include badge-variant($color-light-grey);
+}
+
+.badge-green {
+  @include badge-variant($color-light-green);
+}
+
+.badge-yellow {
+  @include badge-variant($color-yellow);
+}

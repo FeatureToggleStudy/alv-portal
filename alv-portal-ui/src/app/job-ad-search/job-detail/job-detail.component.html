@@ -128,7 +128,7 @@
       <!--Badges-->
       <div class="detail__content">
         <alv-job-location [location]="job.jobContent.location"
-                          classes="badge badge-blue">
+                          classes="badge badge-red">
         </alv-job-location>
         <span class="badge badge-gray">{{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}</span>
 
@@ -207,10 +207,12 @@
         </ngb-panel>
         <ngb-panel title="{{ 'job-publication-details.min-requirements.label' | translate }}">
           <ng-template ngbPanelContent>
-
+            NOT READY YET
           </ng-template>
         </ngb-panel>
-        <ngb-panel title="{{ 'global.reference.languages' | translate }}">
+        <ngb-panel
+          *ngIf="job.jobContent.languageSkills"
+          title="{{ 'global.reference.languages' | translate }}">
           <ng-template ngbPanelContent>
             <alv-languages [languages]="job.jobContent.languageSkills"
             ></alv-languages>

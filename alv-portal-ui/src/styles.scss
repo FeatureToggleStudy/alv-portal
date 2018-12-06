@@ -5,11 +5,13 @@ body {
 }
 
 @import "scss/overrides/button";
+@import "scss/overrides/badges";
 @import "scss/overrides/popover";
 @import "scss/overrides/dropdown";
 @import "scss/overrides/modal";
 @import "scss/overrides/typography";
 @import "scss/common/panel";
+@import "scss/common/_badges";
 @import "scss/common/_layout";
 @import "scss/common/link";
 @import "scss/common/typeahead-item-groups";
