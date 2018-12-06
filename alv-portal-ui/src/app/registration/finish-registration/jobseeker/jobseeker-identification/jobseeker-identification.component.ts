@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from '../../../../core/notifications.service';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
+import { EMPTY, throwError } from 'rxjs';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -59,20 +60,21 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
       }),
       tap(() => {
         this.router.navigate(['/dashboard']);
-      }))
-      .subscribe(() => {
-      }, (error) => {
+      }),
+      catchError((error) => {
         this.jobseekerIdentificationForm.reset();
         if (error.error.reason) {
           if (error.error.reason === 'InvalidPersonenNumberException') {
             this.notificationsService.error('registration.customer.identificaton.mismatch.error');
-          }
-          if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
+            return EMPTY;
+          } else if (error.error.reason === 'StesPersonNumberAlreadyTaken') {
             this.notificationsService.error('registration.customer.identificaton.already-taken.error');
+            return EMPTY;
           }
-          this.notificationsService.error('registration.customer.identificaton.technical.error');
+          throwError(error);
         }
-      });
+      }))
+      .subscribe();
   }
 
   backAction() {
