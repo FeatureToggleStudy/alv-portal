@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationRepository } from '../../service/registration/registration.repository';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import { take, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { RegistrationStatus } from '../../core/auth/user.model';
 import { StepIndicatorItem } from '../../shared/layout/step-indicator/step.model';
 import { NotificationsService } from '../../core/notifications.service';
 import { pavSteps } from '../finish-registration/pav/pav-steps.config';
 import { companySteps } from '../finish-registration/company/company-steps.config';
+import { EMPTY } from 'rxjs';
+import { RegistrationRepository } from '../../shared/backend-services/registration/registration.repository';
 
 @Component({
   selector: 'alv-access-code',
@@ -25,7 +26,7 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
   steps: StepIndicatorItem[];
 
   constructor(private fb: FormBuilder,
-              private registrationService: RegistrationRepository,
+              private registrationRepository: RegistrationRepository,
               private router: Router,
               private notificationsService: NotificationsService,
               private authenticationService: AuthenticationService) {
@@ -41,28 +42,24 @@ export class AccessCodeComponent extends AbstractSubscriber implements OnInit {
   }
 
   submitAccessCode() {
-    this.registrationService.registerEmployerOrAgent(this.accessCodeForm.get('accessCode').value)
-      .subscribe((response: { success: boolean, type: string }) => {
+    this.registrationRepository.registerEmployerOrAgent(this.accessCodeForm.get('accessCode').value).pipe(
+      switchMap((response) => {
         if (response.success) {
-          // Force refresh current user from server
-          this.authenticationService.getCurrentUser()
-            .pipe(take(1))
-            .subscribe((user) => {
+          return this.authenticationService.refreshCurrentUser().pipe(
+            tap(() => {
               this.router.navigate(['/dashboard']);
-            });
+            }));
         } else {
           this.notificationsService.error('registrationAccessCode.accessCode.error.invalid');
           this.accessCodeForm.reset();
+          return EMPTY;
         }
-      });
+      })
+    ).subscribe();
   }
 
   returnToHome() {
     this.router.navigate(['home']);
-  }
-
-  returnToRoleSelection() {
-    this.router.navigate(['registration', 'finish']);
   }
 
   private prepareStepIndicator() {

@@ -8,7 +8,7 @@ import {
   LoadCurrentUserAction,
   LogoutUserAction
 } from '../state-management/actions/core.actions';
-import { flatMap } from 'rxjs/operators';
+import { filter, switchMap, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,9 @@ export class AuthenticationService {
 
   refreshCurrentUser() {
     this.store.dispatch(new LoadCurrentUserAction({}));
+    return this.getCurrentUser().pipe(
+      filter((user) => !!user),
+      take(1));
   }
 
   getCurrentUser(): Observable<User> {
@@ -36,9 +39,11 @@ export class AuthenticationService {
 
   localLogin(credentials: Credentials) {
     return this.httpClient.post<User>('/api/authenticate', credentials, { observe: 'response' }).pipe(
-      flatMap(response => {
+      switchMap(response => {
         this.store.dispatch(new LoadCurrentUserAction({ jwt: response.headers.get('Authorization') }));
-        return this.getCurrentUser();
+        return this.getCurrentUser().pipe(
+          filter((user) => !!user),
+          take(1));
       })
     );
   }

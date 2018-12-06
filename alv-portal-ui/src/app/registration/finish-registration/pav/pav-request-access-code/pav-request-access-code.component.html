@@ -9,9 +9,9 @@
   </alv-step-indicator>
   <p [innerHTML]="'registrationPavDialog.postal.description' | translate"></p>
   <p class="address">
-    {{organization.name}}<br>
-    {{organization.street}}<br>
-    {{organization.zipCode}} {{organization.city}}<br>
+    {{selectedPav.name}}<br>
+    {{selectedPav.street}}<br>
+    {{selectedPav.zipCode}} {{selectedPav.city}}<br>
   </p>
   <p [innerHTML]="'registrationPavDialog.login.description' | translate"></p>
   <button (click)="requestActivationCode()"

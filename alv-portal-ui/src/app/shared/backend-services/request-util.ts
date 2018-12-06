@@ -21,10 +21,10 @@ export const createRequestOption = (req?: any): HttpParams => {
   return options;
 };
 
-export const createPageableURLSearchParams = (req?: any): HttpParams => {
+export const createPageableURLSearchParams = (req?: PagedSearchRequest): HttpParams => {
   let params = new HttpParams()
-    .set('page', req.page)
-    .set('size', req.size);
+    .set('page', '' + req.page)
+    .set('size', '' + req.size);
   if (req.sort) {
     if (req.sort instanceof Array) {
       req.sort.forEach((sort) => params = params.append('sort', sort));
@@ -34,3 +34,9 @@ export const createPageableURLSearchParams = (req?: any): HttpParams => {
   }
   return params;
 };
+
+export interface PagedSearchRequest {
+  page: number;
+  size: number;
+  sort?: string | Array<string>;
+}

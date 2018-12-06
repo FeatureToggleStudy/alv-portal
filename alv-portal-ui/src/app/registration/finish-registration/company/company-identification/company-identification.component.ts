@@ -5,11 +5,11 @@ import { AbstractRegistrationStep } from '../../../abstract-registration-step';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../../../../core/notifications.service';
-import { RegistrationRepository } from '../../../../service/registration/registration.repository';
-import { UidRepository } from '../../../../service/uid/uid.repository';
-import { Company } from '../../../../service/uid/uid.types';
 import { NotificationType } from '../../../../shared/layout/notifications/notification.model';
 import { companySteps } from '../company-steps.config';
+import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
+import { UidCompany } from '../../../../shared/backend-services/uid-search/uid.types';
+import { UidSearchRepository } from '../../../../shared/backend-services/uid-search/uid-search.repository';
 
 @Component({
   selector: 'alv-company-identification',
@@ -18,7 +18,7 @@ import { companySteps } from '../company-steps.config';
 })
 export class CompanyIdentificationComponent extends AbstractRegistrationStep implements OnInit {
 
-  @Output() companySelected = new EventEmitter<Company>();
+  @Output() companySelected = new EventEmitter<UidCompany>();
 
   companyUidForm: FormGroup;
 
@@ -36,7 +36,7 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
               private router: Router,
               private registrationService: RegistrationRepository,
               private notificationsService: NotificationsService,
-              private uidService: UidRepository) {
+              private uidSearchRepository: UidSearchRepository) {
     super();
   }
 
@@ -47,8 +47,8 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
   }
 
   findCompanyByUid() {
-    const extractedUid = this.uidService.extractCompanyUid(this.companyUidForm.get('uid').value);
-    this.uidService.getCompanyByUid(extractedUid)
+    const extractedUid = this.extractCompanyUid(this.companyUidForm.get('uid').value);
+    this.uidSearchRepository.getCompanyByUid(extractedUid)
       .subscribe(
         (company) => {
           this.companySelected.emit(company);
@@ -68,4 +68,11 @@ export class CompanyIdentificationComponent extends AbstractRegistrationStep imp
     this.router.navigate(['home']);
   }
 
+  // e.g. CHE-123.456.789 -> 123456789
+  extractCompanyUid(uid: string): number {
+    return parseInt(uid
+      .replace(new RegExp('CHE\-', 'g'), '')
+      .replace(new RegExp('\\.', 'g'), '')
+      .replace(new RegExp('\-', 'g'), ''), 10);
+  }
 }

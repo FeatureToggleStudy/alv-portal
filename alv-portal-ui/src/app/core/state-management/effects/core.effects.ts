@@ -65,7 +65,7 @@ export class CoreEffects {
   effectErrors: Observable<Action> = this.actions$.pipe(
     ofType(EFFECT_ERROR_OCCURRED),
     tap((action: EffectErrorOccurredAction) => {
-      this.errorHandlerService.handleHttpError(action.payload.httpError)
+      this.errorHandlerService.handleHttpError(action.payload.httpError);
     })
   );
 
