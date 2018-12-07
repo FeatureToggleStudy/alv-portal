@@ -50,7 +50,7 @@ export class NotificationsService {
   }
 
   error(messageKey: string, isSticky?: boolean) {
-    this.addByKey(messageKey, NotificationType.ERROR, isSticky ? isSticky : true);
+    this.addByKey(messageKey, NotificationType.ERROR, isSticky);
   }
 
   addByKey(messageKey: string, type: NotificationType, isSticky: boolean) {

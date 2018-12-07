@@ -12,9 +12,9 @@ import {
   PEAJobAdsSearchRequest
 } from './job-advertisement.types';
 
-import { ResponseWrapper } from '../../model/response-wrapper.model';
 import { map } from 'rxjs/operators';
-import { createPageableURLSearchParams } from '../../model/request-util';
+import { ResponseWrapper } from '../response-wrapper.type';
+import { createPageableURLSearchParams } from '../request-util';
 
 @Injectable({ providedIn: 'root' })
 export class JobAdvertisementRepository {

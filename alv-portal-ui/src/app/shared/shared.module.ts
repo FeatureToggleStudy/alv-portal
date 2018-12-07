@@ -10,13 +10,12 @@ import { LocaleAwareDatePipe } from './pipes/locale-aware-date.pipe';
 import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
 import { PhoneNumberPipe } from './pipes/phone-number.pipe';
 import { ClipboardModule } from 'ngx-clipboard';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import locale from '@angular/common/locales/de';
 import localeFr from '@angular/common/locales/fr';
 import localeIt from '@angular/common/locales/it';
 import localeEn from '@angular/common/locales/en';
 import { MarkdownModule } from 'ngx-markdown';
-import { JobAdvertisementRepository } from './backend-services/job-advertisement/job-advertisement.repository';
 
 @NgModule({
   declarations: [
@@ -39,12 +38,11 @@ import { JobAdvertisementRepository } from './backend-services/job-advertisement
     {
       provide: LOCALE_ID,
       useValue: 'de'
-    },
-    JobAdvertisementRepository
-
+    }
   ],
   entryComponents: [],
   exports: [
+    CommonModule,
     TranslateModule,
     AlvFormsModule,
     LandingPageComponent,

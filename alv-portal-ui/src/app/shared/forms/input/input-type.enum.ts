@@ -4,5 +4,6 @@ export enum InputType {
   CHECKBOX = 'checkbox',
   RADIO_BUTTON = 'radio-button',
   SELECT = 'select',
-  TYPEAHEAD = 'typeahead'
+  SINGLE_TYPEAHEAD = 'single-typeahead',
+  MULTI_TYPEAHEAD = 'multi-typeahead'
 }

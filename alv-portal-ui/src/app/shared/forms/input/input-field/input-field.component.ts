@@ -68,7 +68,6 @@ export class InputFieldComponent extends AbstractInput {
    */
   @Input() multiline?: boolean;
 
-
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {
     super(controlContainer, InputType.INPUT_FIELD, inputIdGenerationService);
@@ -77,5 +76,4 @@ export class InputFieldComponent extends AbstractInput {
   getRows() {
     return (this.control.value.match(/\n/g) || []).length + 1;
   }
-
 }

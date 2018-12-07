@@ -48,8 +48,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
               private referenceService: ReferenceService,
               private store: Store<JobAdSearchState>) {
     super();
-
-
   }
 
   ngOnInit() {

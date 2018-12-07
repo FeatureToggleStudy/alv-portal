@@ -43,6 +43,11 @@ export class DateInputComponent extends AbstractInput {
   @Input() maxDate?: NgbDate;
 
   /**
+   * (optional) starting date
+   */
+  @Input() startDate?: NgbDate;
+
+  /**
    * (optional) where to display the date picker: bottom-left (default) or bottom-right
    */
   @Input() placement: 'bottom-left' | 'bottom-right' = 'bottom-left';

@@ -7,7 +7,7 @@
         <div class="d-flex d-sm-block flex-column-reverse">
           <ul class="pagination pagination--block pagination-alv d-flex">
             <li class="page-item">
-              <a class="page-link"
+              <a class="btn btn-text"
                  routerLink="/job-search">{{'job-detail.back' | translate}}</a>
             </li>
           </ul>
@@ -128,7 +128,7 @@
       <!--Badges-->
       <div class="detail__content">
         <alv-job-location [location]="job.jobContent.location"
-                          classes="badge badge-blue">
+                          classes="badge badge-red">
         </alv-job-location>
         <span class="badge badge-gray">{{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}</span>
 
@@ -207,19 +207,21 @@
         </ngb-panel>
         <ngb-panel title="{{ 'job-publication-details.min-requirements.label' | translate }}">
           <ng-template ngbPanelContent>
-
+            NOT READY YET
           </ng-template>
         </ngb-panel>
-        <ngb-panel title="{{ 'global.reference.languages' | translate }}">
+        <ngb-panel
+          *ngIf="job.jobContent.languageSkills"
+          title="{{ 'global.reference.languages' | translate }}">
           <ng-template ngbPanelContent>
             <alv-languages [languages]="job.jobContent.languageSkills"
             ></alv-languages>
           </ng-template>
         </ngb-panel>
-        <ngb-panel title="{{ 'job-publication-details.contact-details.label' | translate }}">
+        <ngb-panel *ngIf="job.jobContent.applyChannel"
+                   title="{{ 'job-publication-details.contact-details.label' | translate }}">
           <ng-template ngbPanelContent>
-            <div *ngIf="job.jobContent.applyChannel"
-                 class="detail__content">
+            <div class="detail__content">
               <h4 class="detail__content__title detail__content__title--light"></h4>
 
               <div *ngIf="job.jobContent.applyChannel.formUrl"
@@ -263,12 +265,12 @@
     <div class="col-12 col-md order-12 base__related">
       <div class="base__sticky-panel">
         <p>
-          <button routerLink="/job-search">back</button>
-          <br/>
           <button (click)="prev()"
+                  class="btn btn-secondary"
                   *ngIf="prevVisible$ | async">prev
           </button>
           <button (click)="next()"
+                  class="btn btn-secondary"
                   *ngIf="nextVisible$ | async">next
           </button>
         </p>
@@ -290,7 +292,7 @@
 
         <ul class="nav filter-nav flex-column">
           <li class="nav-item">
-            <a class="nav-link"
+            <a class="btn btn-text"
                #copyToClipboard
                ngxClipboard
                [cbContent]="getJobUrl()"
@@ -302,7 +304,7 @@
               {{'job-detail.action.copyLink' | translate}}</a>
           </li>
           <li class="nav-item d-none d-md-block">
-            <a class="nav-link"
+            <a class="btn btn-text"
                (click)="printJob()">
               <span class="fa fa-print"
                     aria-hidden="true"></span>
