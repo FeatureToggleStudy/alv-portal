@@ -4,6 +4,9 @@ import { Badge, ResultListItem } from '../result-list-item/result-list-item.mode
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { formatTimeRange } from '../../../shared/layout/pipes/working-time-range.pipe';
 import { JobSearchResult } from '../../state-management/state/job-ad-search.state';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { I18nService } from '../../../core/i18n.service';
 
 @Component({
   selector: 'alv-job-search-result',
@@ -15,27 +18,31 @@ export class JobSearchResultComponent implements OnInit {
   @Input()
   jobSearchResult: JobSearchResult;
 
-  resultListItem: ResultListItem;
+  resultListItem$: Observable<ResultListItem>;
 
-  constructor() {
+  constructor(private i18nService: I18nService) {
   }
 
   ngOnInit() {
-    this.resultListItem = this.jobSearchResultToResultListItemMapper(this.jobSearchResult);
+    this.resultListItem$ = this.jobSearchResultToResultListItemMapper(this.jobSearchResult);
   }
 
-  private jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): ResultListItem {
+  private jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): Observable<ResultListItem> {
     const jobAdvertisement = jobSearchResult.jobAdvertisement;
-    const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement);
-    return {
-      title: jobDescription.title,
-      description: jobDescription.description,
-      header: jobAdvertisement.publication.startDate,
-      badges: this.generateBadges(jobAdvertisement),
-      routerLink: ['/job-search', jobAdvertisement.id],
-      subtitle: jobAdvertisement.jobContent.company.name,
-      visited: jobSearchResult.visited
-    };
+    return this.i18nService.currentLanguage$.pipe(
+     map(lang => {
+       const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, lang);
+       return {
+         title: jobDescription.title,
+         description: jobDescription.description,
+         header: jobAdvertisement.publication.startDate,
+         badges: this.generateBadges(jobAdvertisement),
+         routerLink: ['/job-search', jobAdvertisement.id],
+         subtitle: jobAdvertisement.jobContent.company.name,
+         visited: jobSearchResult.visited
+       };
+     })
+    );
   }
 
   private generateBadges(job: JobAdvertisement): Badge[] {

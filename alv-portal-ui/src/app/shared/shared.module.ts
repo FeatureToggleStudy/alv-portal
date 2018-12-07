@@ -31,8 +31,7 @@ import { MarkdownModule } from 'ngx-markdown';
     LayoutModule,
     SharedAuthModule,
     ClipboardModule,
-    MarkdownModule.forRoot(),
-    SharedAuthModule
+    MarkdownModule.forRoot()
   ],
   providers: [
     {
@@ -52,7 +51,8 @@ import { MarkdownModule } from 'ngx-markdown';
     WorkingTimeRangePipe,
     PhoneNumberPipe,
     ClipboardModule,
-    MarkdownModule
+    MarkdownModule,
+    SharedAuthModule
   ]
 })
 export class SharedModule {

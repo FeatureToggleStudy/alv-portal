@@ -1,0 +1,21 @@
+{
+  "blacklisted-agent": {
+    "change-status-dialog": {
+      "title": [
+        ""
+      ]
+    }
+  },
+  "registrationQuestionnaire": {
+    "error": {
+      "candidate": {
+        "service": {
+          "failure": [
+            "Le système permettant de vérifier vos données est momentanément indisponible. Veuillez réessayer plus tard. Prenez contact avec le Service Desk si le problème persiste.",
+            "Il sistema di verifica dei dati personali non è al momento disponibile. Si prega di riprovare più tardi. Se il problema persiste contattare il Service Desk."
+          ]
+        }
+      }
+    }
+  }
+}

@@ -18,6 +18,16 @@ export class FilterPanelComponent implements OnInit {
   @Input()
   jobSearchFilter: JobSearchFilter;
 
+  restrictOptions$: Observable<SelectableOption[]> = of([
+    {
+      value: false,
+      label: 'Alle'
+    },
+    {
+      value: true,
+      label: 'Innerhalb Informationsvorsprung'
+    }
+  ]);
   sortOptions$: Observable<SelectableOption[]> = of([{
     value: Sort.RELEVANCE_DESC,
     label: 'job-search.filter.sort.option.RELEVANCE_DESC'
@@ -65,6 +75,7 @@ export class FilterPanelComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
+      displayRestricted: [this.jobSearchFilter.displayRestricted],
       sort: [this.jobSearchFilter.sort],
       company: [this.jobSearchFilter.company],
       contractType: [this.jobSearchFilter.contractType],

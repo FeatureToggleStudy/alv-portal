@@ -20,9 +20,8 @@
       </div>
     </div>
     <div class="col-xs-12 col-md-8 col-xl-9">
-      <ng-container *ngFor="let jobSearchResult of jobSearchResults$ | async">
-        <alv-job-search-result [jobSearchResult]="jobSearchResult"></alv-job-search-result>
-      </ng-container>
+      <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults$ | async"
+                             [jobSearchResult]="jobSearchResult"></alv-job-search-result>
     </div>
 
   </div>

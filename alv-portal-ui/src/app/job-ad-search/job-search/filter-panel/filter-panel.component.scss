@@ -1,5 +1,10 @@
+@import "../../../../scss/common/colors";
+
+.range-input-value {
+  vertical-align: middle;
+}
 /deep/ .range-input {
-  width: calc(100% - (73px));
+  width: calc(100% - (80px));
   margin: 0 !important;
   padding-right: 5px;
   display: inline-block !important;
@@ -15,7 +20,7 @@
       height: 20px;
       left: -10px;
       border-radius: 10px;
-      background: #AF1007; //fix to variable
+      background: $color-primary;
       box-shadow: none;
 
       &:before {

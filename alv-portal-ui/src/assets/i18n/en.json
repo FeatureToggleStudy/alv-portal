@@ -1,0 +1,1968 @@
+{
+  "activate": {
+    "messages": {
+      "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up.",
+      "success": "<strong>Your user account has been activated.</strong> Please "
+    },
+    "title": "Activation"
+  },
+  "alert": {
+    "error": {
+      "tooManyRequests": {
+        "anonymous": "There were to many requests from your IP. Please wait 1 minute.",
+        "authenticated": "There were to many requests from your account. Please wait 1 minute."
+      }
+    }
+  },
+  "api-user-management": {
+    "activated": "activated",
+    "active": "Active",
+    "active-date": "Last access date",
+    "companyEmail": "Company email",
+    "companyName": "Company",
+    "confirm": "Save",
+    "contact": "Contact",
+    "createDate": "Created on",
+    "deactivated": "Deactivated",
+    "dialog": {
+      "title": "Create or update API user"
+    },
+    "dismiss": "Cancel",
+    "email": "Email",
+    "lastAccessDate": "Last accessed on",
+    "new": "Create new API user",
+    "password": "Password",
+    "search": "Search API users by Username, Company, Company email, Technical contact or Technical contact email",
+    "technicalContactEmail": "Technical contact email",
+    "technicalContactName": "Technical contact",
+    "title": "Manage API users",
+    "update-password-dialog": {
+      "title": "Change password"
+    },
+    "username": "Username"
+  },
+  "audits": {
+    "filter": {
+      "button": {
+        "clear": "Clear",
+        "close": "Close",
+        "today": "Today",
+        "weeks": "Weeks"
+      },
+      "from": "From",
+      "title": "Title",
+      "to": "to"
+    },
+    "table": {
+      "data": {
+        "remoteAddress": "Remote Address:"
+      },
+      "header": {
+        "data": "Other data",
+        "date": "Date",
+        "principal": "Principal",
+        "status": "Status"
+      }
+    },
+    "title": "Audits"
+  },
+  "blacklisted-agent": {
+    "change-status-dialog": {
+      "cancel": "Cancel",
+      "change-status": "Change Status",
+      "message": "Do you really want to change status of the blacklisted agent?",
+      "title": "Change Status of Blacklisted Agent"
+    },
+    "confirm-alert": "This action will be effectuated immediately and can not be undone!",
+    "create-blacklist-entry": "Add PAV to Blacklist ",
+    "filter": {
+      "placeholder": "Filter by Id, External Id, Status, Name, Street or Zip Code"
+    },
+    "header": {
+      "blacklistedAt": "Blacklisted At",
+      "city": "City",
+      "counter": "Counter",
+      "createdBy": "Created By",
+      "externalId": "External Id",
+      "id": "Id",
+      "name": "Name",
+      "status": "Status",
+      "street": "Street",
+      "zipCode": "Zip Code"
+    },
+    "selected-organisation-desc": "Do you want to add the following organisation to the blacklist?",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "title": "Blacklisted Agent"
+  },
+  "candidate-detail": {
+    "additional-information": {
+      "drivingCategories": {
+        "label": "Driving licences"
+      },
+      "education": {
+        "label": "Education"
+      },
+      "gender": {
+        "label": "Gender"
+      },
+      "highestEducationLevel": {
+        "label": "Highest education level"
+      },
+      "no-information": "No information",
+      "preferredWorkRegions": {
+        "label": "Preferred work regions"
+      },
+      "title": "Additional information",
+      "workForm": {
+        "label": "Work form"
+      }
+    },
+    "anonymous-contact": {
+      "city": "City",
+      "company": "Company",
+      "confirm": "Confirm",
+      "contact-person": "Contact person",
+      "contact-via": "Please contact me by:",
+      "country": "Country",
+      "dismiss": "Cancel",
+      "house": "No.",
+      "mail-body-preamble": "The following employer discovered your profile on Job Room and would like to communicate with you directly. Please contact the company using the details below to discuss further steps.",
+      "personal-message": "You may add a personal message here",
+      "send-to": "Mail",
+      "street": "Street",
+      "title": "Contact candidate",
+      "zip-code": "Postal code"
+    },
+    "back": "Back to search results",
+    "candidate-anonymous-contact": "Contact candidate",
+    "candidate-copy-link": "Copy link",
+    "candidate-print": "Print",
+    "candidate-save": "Save candidate profile",
+    "candidate-send-link": "Send link",
+    "external-id": "Candidate-ID",
+    "graduation": {
+      "ACCEPTED": "Swiss recognized",
+      "CH": "Swiss degree",
+      "NONE": "No degree",
+      "NOT_ACCEPTED": "In Switzerland not recognized"
+    },
+    "job-center": {
+      "email": {
+        "label": "Email"
+      },
+      "phone": {
+        "label": "Telephone"
+      },
+      "title": "For more information contact"
+    },
+    "job-experience": {
+      "degree": {
+        "label": "Training"
+      },
+      "description": {
+        "label": "Expertise, competencies, skills"
+      },
+      "education": {
+        "label": "Level of education"
+      },
+      "experience": {
+        "label": "Professional experience"
+      },
+      "graduation": {
+        "label": "Professional degree"
+      },
+      "job": {
+        "label": "Occupation"
+      },
+      "last-job": {
+        "label": "Last job"
+      },
+      "title": "Professional qualification"
+    },
+    "personal-information": {
+      "address": {
+        "label": "Address"
+      },
+      "e-mail": {
+        "label": "Email"
+      },
+      "mobile": {
+        "label": "Mobile number"
+      },
+      "name": {
+        "label": "Last name / First name"
+      },
+      "nationality": {
+        "label": "Nationality"
+      },
+      "phone": {
+        "label": "Telephone"
+      },
+      "title": "Personal information / Candidate contact details"
+    }
+  },
+  "candidate-search": {
+    "availability": {
+      "BY_ARRANGEMENT": "By agreement",
+      "IMMEDIATE": "Immediately",
+      "label": "Availability"
+    },
+    "candidate-search-list": {
+      "error-message": "Failed to load candidate result list.",
+      "title": {
+        "many": "{{count}} candidates",
+        "none": "No candidates",
+        "one": "1 candidate"
+      }
+    },
+    "degree": {
+      "label": "Training"
+    },
+    "experience": {
+      "label": "Professional experience"
+    },
+    "filter": {
+      "candidate-search-link": "Send search as link",
+      "title": "Filter search result"
+    },
+    "graduation": {
+      "ACCEPTED": "Swiss degree or accepted in Switzerland",
+      "CH": "Swiss degree",
+      "NONE": "No degree",
+      "NOT_ACCEPTED": "Swiss or foreign degree",
+      "label": "Degree"
+    },
+    "keywords": {
+      "label": "Search terms"
+    },
+    "languageSkills": {
+      "label": "Languages"
+    },
+    "no-selection": "No selection",
+    "occupations": {
+      "label": "Occupations",
+      "placeholder": "Occupations, categories",
+      "tooltip": "Multiple selection possible"
+    },
+    "skills": {
+      "label": "Key words",
+      "placeholder": "Competencies, skills",
+      "tooltip": "Search using <strong>several</strong> key words. To add further search terms, press “Enter” after typing a search term."
+    },
+    "title": "Candidate search",
+    "toolbar": {
+      "graduation": {
+        "default": "Select degree",
+        "label": "Degree"
+      },
+      "reset": "Reset",
+      "residence": {
+        "placeholder": "Canton of residence",
+        "selected": "Cantons"
+      }
+    },
+    "workload": {
+      "label": "Workload"
+    },
+    "workplace": {
+      "label": "Work location",
+      "placeholder": "Work location"
+    }
+  },
+  "configuration": {
+    "filter": "Filter (by prefix)",
+    "table": {
+      "prefix": "Prefix",
+      "properties": "Properties"
+    },
+    "title": "Configuration"
+  },
+  "contact-template-management": {
+    "companyCity": "city",
+    "companyHouseNr": "No.",
+    "companyInformation": "Company Information",
+    "companyName": "Company",
+    "companyStreet": "Street",
+    "companyZipCode": "Postal code",
+    "companyhousenr": {
+      "message": "please check that your house number is valid"
+    },
+    "email": "E-Mail",
+    "failureSaveMessage": "There was an error saving your personal contact information",
+    "firstName": "First name",
+    "helptext": "Names cannot be altered in this field. Please make any changes through your eIAM account using the following link. Contact details are taken automatically from the relevant job registration form fields in JobRoom. These details have no influence on your eIAM account login data.",
+    "lastName": "Last name",
+    "link": "Link to eIAM account",
+    "phone": "Telephone number",
+    "salutation": "Title",
+    "successSaveMessage": "Your personal contact information was successfully saved!",
+    "title": "Personal Contact Information for",
+    "userInformation": "User information"
+  },
+  "customer": {
+    "title": "Customer registration"
+  },
+  "dashboard": {
+    "job-publication": {
+      "action": "Action",
+      "avam": "Job number AVAM",
+      "job-name": {
+        "placeholder": "Search jobs"
+      },
+      "job-room-id": "Job number Job-Room",
+      "job-title": "Job description",
+      "location": "Place of work",
+      "publication-date": "Registration date",
+      "publication-period": {
+        "all": "All",
+        "label": "Age of posts",
+        "month": "{{ month }} month",
+        "months": "{{ months }} months",
+        "week": "{{ week }} week",
+        "year": "{{ years }} year"
+      },
+      "status": "Status",
+      "title": "Manage job ads",
+      "user-information": {
+        "title": "You are logged in as"
+      }
+    },
+    "title": "Dashboard"
+  },
+  "elasticsearch": {
+    "reindex": {
+      "candidateservice": {
+        "accepted": "Request accepted, performing Candidates Elasticsearch reindexing."
+      },
+      "dialog": {
+        "cancel": "Cancel",
+        "confirm": "Reindex",
+        "question": "Are you sure you want to reindex Elasticsearch? This could take a while!",
+        "title": "Confirm Elasticsearch Reindex"
+      },
+      "document": {
+        "all": "All",
+        "candidates": "Candidates",
+        "jobs": "Jobs",
+        "reference-data": "Reference Data",
+        "users": "Users"
+      },
+      "go": "Go",
+      "instructions1": "This will send a request to reindex all data from your primary datasource into Elasticsearch. This will fix missing data and mapping issues, however you will lose any ES data and mapping that was defined outside of your application. This request will return immediately and the reindexing will run in the background. You will see \"Elasticsearch: Successfully performed reindexing\" in your logs when this is complete.",
+      "instructions2": "This can take a long time and is susceptible to concurrency issues so it should be performed when the number of users is low.",
+      "jobroom": {
+        "accepted": "Request accepted, performing Users Elasticsearch reindexing."
+      },
+      "jobservice": {
+        "accepted": "Request accepted, performing Jobs Elasticsearch reindexing."
+      },
+      "referenceservice": {
+        "accepted": "Request accepted, performing Reference Data Elasticsearch reindexing."
+      },
+      "title": "Reindex Elasticsearch"
+    }
+  },
+  "entity": {
+    "action": {
+      "addblob": "Add blob",
+      "addimage": "Add image",
+      "back": "Back",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "open": "Open",
+      "save": "Save",
+      "view": "View"
+    },
+    "delete": {
+      "title": "Confirm deletion"
+    },
+    "detail": {
+      "field": "Field",
+      "value": "Value"
+    },
+    "validation": {
+      "datetimelocal": "This field must be a date and time.",
+      "max": "This field cannot be more than {{ max }}.",
+      "maxbytes": "This field cannot be more than {{ max }} bytes.",
+      "maxlength": "This field cannot be longer than {{ max }} characters.",
+      "min": "This field must be at least {{ min }}.",
+      "minbytes": "This field should be at least {{ min }} bytes.",
+      "minlength": "This field must be at least {{ min }} characters.",
+      "number": "This field must be a number.",
+      "pattern": "This field must follow the pattern {{ pattern }}.",
+      "required": "This field is required."
+    }
+  },
+  "error": {
+    "NotNull": "Field {{ fieldName }} cannot be empty!",
+    "Size": "Field {{ fieldName }} does not meet min/max size requirements!",
+    "concurrencyFailure": "Another user modified this data at the same time as you. Your changes were rejected.",
+    "emailexists": "Email address is already in use!",
+    "http": {
+      "400": "Bad request.",
+      "401": "Unauthorized.",
+      "403": "You are not authorised to access this page.",
+      "405": "The HTTP verb you used is not supported for this URL.",
+      "500": "Internal server error."
+    },
+    "idexists": "A new {{ entityName }} cannot have an ID yet.",
+    "internalServerError": "Internal server error",
+    "server": {
+      "not": {
+        "reachable": "Server not reachable"
+      }
+    },
+    "title": "Error page!",
+    "url": {
+      "not": {
+        "found": "Not found"
+      }
+    },
+    "userexists": "Login name already used!",
+    "validation": "Validation error on the server."
+  },
+  "footer": {
+    "link": {
+      "abbreviation": {
+        "text": "Abbreviations"
+      },
+      "legal": {
+        "text": "Legal information",
+        "url": "https://www.arbeit.swiss/secoalv/en/home/service/rechtliche-hinweise.html"
+      },
+      "seco": {
+        "text": "Unemployment insurance/Labour market"
+      }
+    }
+  },
+  "gateway": {
+    "refresh": {
+      "button": "Refresh"
+    },
+    "routes": {
+      "error": "Warning: no server available!",
+      "servers": "Available servers",
+      "service": "service",
+      "title": "Current routes",
+      "url": "URL"
+    },
+    "title": "Gateway"
+  },
+  "global": {
+    "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+    "button": {
+      "add": {
+        "title": "Add"
+      },
+      "remove": {
+        "title": "Remove"
+      }
+    },
+    "contactPerson": {
+      "salutation": {
+        "MR": "Mr",
+        "MS": "Ms"
+      }
+    },
+    "degree": {
+      "NOT_KNOWN": "Unknown",
+      "PRIMAR_OBLIGATORISCHE_SCHULE": "Compulsory school (primary education)",
+      "SEK_II_BERUFSMATURITAET": "Vocational and professional school-leaving certificate or equivalent",
+      "SEK_II_FACHMATURITAET": "Specialised school-leaving certificate or equivalent",
+      "SEK_II_FACHMITTELSCHULE": "Upper-secondary specialised school or equivalent",
+      "SEK_II_GRUNDBILDUNG_EBA": "Vocational education and training with the Swiss Federal VET Certificate or equivalent",
+      "SEK_II_GRUNDBILDUNG_EFZ": "Vocational education and training with the Swiss Federal VET Diploma or equivalent",
+      "SEK_II_GYMNASIALE_MATURITAET": "Baccalaureate school-leaving certificate or equivalent",
+      "SEK_II_WEITERFUEHRENDE_SCHULE": "Secondary school (upper-secondary education)",
+      "SEK_I_OBLIGATORISCHE_SCHULE": "Compulsory school (lower-secondary education)",
+      "TER_BACHELOR_FACHHOCHSCHULE": "Bachelor’s degree from a university of applied sciences or equivalent",
+      "TER_BACHELOR_UNIVERSITAET": "Bachelor’s degree from a university or equivalent",
+      "TER_BERUFSBILDUNG_DIPL": "Higher professional education and training, diploma or equivalent",
+      "TER_BERUFSBILDUNG_FA": "Higher professional education and training, Swiss Federal PET diploma or equivalent",
+      "TER_DOKTORAT_UNIVERSITAET": "Doctorate from a university or equivalent",
+      "TER_MASTER_FACHHOCHSCHULE": "Master’s degree from a university of applied sciences or equivalent",
+      "TER_MASTER_UNIVERSITAET": "Master’s degree from a university or equivalent"
+    },
+    "drivingLicenceCategory": {
+      "A": "A",
+      "A1": "A1",
+      "B": "B",
+      "B1": "B1",
+      "BE": "BE",
+      "C": "C",
+      "C1": "C1",
+      "C1E": "C1E",
+      "CE": "CE",
+      "D": "D",
+      "D1": "D1",
+      "D1E": "D1E",
+      "DE": "DE",
+      "F": "F",
+      "G": "G",
+      "M": "M",
+      "label": "Driving licence"
+    },
+    "education": {
+      "ISCED1": "Primary level - ISCED 1",
+      "ISCED2": "Lower secondary level - ISCED 2",
+      "ISCED3": "Upper secondary level - ISCED 3",
+      "ISCED4": "Post-secondary non-tertiary level - ISCED 4",
+      "ISCED5": "First stage of tertiary - ISCED 5",
+      "ISCED6": "Second stage of tertiary - ISCED 6"
+    },
+    "experience": {
+      "1_TO_3_YEAR": "1 to 3 years",
+      "LESS_THAN_1_YEAR": "Less than 1 year",
+      "MORE_THAN_1_YEAR": "More than 1 year",
+      "MORE_THAN_3_YEARS": "More than 3 years",
+      "NONE": "No experience"
+    },
+    "field": {
+      "id": "ID"
+    },
+    "filter": {
+      "from": "from",
+      "to": "to"
+    },
+    "form": {
+      "confirmpassword": "New password confirmation",
+      "email": "Email address",
+      "newpassword": "New password",
+      "phone": "Telephone",
+      "username": "Username"
+    },
+    "gender": {
+      "FEMALE": "Female",
+      "MALE": "Male"
+    },
+    "item-count": "Showing {{first}} - {{second}} of {{total}} items.",
+    "job-publication": {
+      "status": {
+        "APPROVED": "Approved",
+        "ARCHIVED": "Archived",
+        "CANCELLED": "Canceled",
+        "CREATED": "Created",
+        "INSPECTING": "Pending verification",
+        "PUBLISHED_PUBLIC": "Public posting",
+        "PUBLISHED_RESTRICTED": "Restricted posting",
+        "REFINING": "In revision",
+        "REJECTED": "Rejected"
+      }
+    },
+    "menu": {
+      "account": {
+        "login": "Login|Registration",
+        "logout": "Sign out",
+        "main": "Account",
+        "password": "Password",
+        "registration": "Registration info",
+        "sessions": "Sessions",
+        "settings": "Settings"
+      },
+      "admin": {
+        "api-user-management": "API-Schlüssel-Verwaltung",
+        "apidocs": "API",
+        "audits": "Audits",
+        "configuration": "Configuration",
+        "contact-template-management": "Contact information",
+        "database": "Database",
+        "elasticsearch-reindex": "Reindex Elasticsearch",
+        "gateway": "Gateway",
+        "health": "Health",
+        "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)",
+        "logs": "Logs",
+        "main": "Administration",
+        "metrics": "Metrics",
+        "systemNotifications": "System notifications",
+        "tracker": "User tracker",
+        "user-info": "User-Info",
+        "userManagement": "User management"
+      },
+      "blacklisted-agent": "Blacklist",
+      "company-contact-template": "Contact Information",
+      "dashboard": "Dashboard",
+      "entities": {
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "job": "Job",
+        "main": "Entities"
+      },
+      "home": "Home",
+      "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "language": "Language"
+    },
+    "messages": {
+      "error": {
+        "dontmatch": "The confirmed password and the new password do not match!"
+      },
+      "info": {
+        "authenticated": {
+          "link": "Sign in",
+          "prefix": "If you’d like, ",
+          "suffix": "you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
+        },
+        "register": {
+          "link": "Register a new account",
+          "noaccount": "You don't have an account yet?"
+        }
+      },
+      "tooltip": {
+        "link-copy": {
+          "success": "The link has been copied to your clipboard"
+        }
+      },
+      "validate": {
+        "confirmpassword": {
+          "maxlength": "Your confirmation password cannot be longer than 50 characters.",
+          "minlength": "Your confirmation password must be at least 5 characters.",
+          "required": "You must confirm your password."
+        },
+        "email": {
+          "invalid": "Your email address is invalid.",
+          "maxlength": "Your email address cannot be longer than 50 characters.",
+          "minlength": "Your email address must be at least 5 characters.",
+          "required": "Your email address is required."
+        },
+        "newpassword": {
+          "maxlength": "The new password cannot be longer than 50 characters.",
+          "minlength": "The new password must be at least 5 characters.",
+          "required": "A new password is required.",
+          "strength": "Password strength:"
+        },
+        "phone": {
+          "format": "Please enter a valid phone number e.g. 031 999 99 99 or +41 31 999 99 99"
+        },
+        "username": {
+          "invalid": "Your username is invalid.",
+          "maxlength": "Your username cannot be longer than 50 characters.",
+          "minlength": "Your username must be at least 5 characters.",
+          "required": "Your username is required."
+        }
+      }
+    },
+    "reference": {
+      "canton": {
+        "99": "Abroad",
+        "AG": "Aargau",
+        "AI": "Appenzell Innerrhoden",
+        "AR": "Appenzell Ausserrhoden",
+        "AU": "Abroad",
+        "BE": "Bern",
+        "BL": "Basel-Landschaft",
+        "BS": "Basel-Stadt",
+        "CH": "Switzerland",
+        "FL": "Principality of Liechtenstein",
+        "FR": "Fribourg",
+        "GE": "Geneva",
+        "GL": "Glarus",
+        "GR": "Graubünden",
+        "JU": "Jura",
+        "LU": "Lucerne",
+        "NE": "Neuchâtel",
+        "NW": "Nidwalden",
+        "OW": "Obwalden",
+        "SG": "Saint Gallen",
+        "SH": "Schaffhausen",
+        "SO": "Solothurn",
+        "SZ": "Schwyz",
+        "TG": "Thurgau",
+        "TI": "Ticino",
+        "UR": "Uri",
+        "VD": "Vaud",
+        "VS": "Valais",
+        "ZG": "Zug",
+        "ZH": "Zurich"
+      },
+      "language": {
+        "ar": "Arab",
+        "bg": "Bulgarian",
+        "bs": "Bosnian",
+        "ch": "Swiss German",
+        "cs": "Czech",
+        "da": "Danish",
+        "de": "German",
+        "de-ch": "Swiss German",
+        "el": "Greek",
+        "en": "English",
+        "es": "Spanish",
+        "fa": "Farsi",
+        "fi": "Finnish",
+        "fr": "French",
+        "he": "Hebrew",
+        "hr": "Croatian",
+        "hu": "Hungarian",
+        "it": "Italian",
+        "ja": "Japanese",
+        "km": "Khmer",
+        "ku": "Kurdish",
+        "label": "Language",
+        "level": {
+          "BASIC": "Basic knowledge",
+          "INTERMEDIATE": "Good knowledge",
+          "NONE": "None",
+          "PROFICIENT": "Very good knowledge"
+        },
+        "lt": "Lithuanian",
+        "mk": "Macedonian",
+        "nl": "Dutch",
+        "nld": "Flemish",
+        "no": "Norvegian",
+        "no-selection": "No selection",
+        "pl": "Polish",
+        "prs": "Dari",
+        "pt": "Portuguese",
+        "rm": "Rhaeto-Romanic",
+        "ro": "Romanian",
+        "ru": "Russian",
+        "sk": "Slovakian",
+        "sl": "Slovenian",
+        "spoken": "Orally",
+        "sq": "Albanian",
+        "sr": "Serbian",
+        "sr-hr": "Serbo-Croatian",
+        "sv": "Swedish",
+        "ta": "Tamil",
+        "th": "Thai",
+        "ti": "Tigrinya",
+        "tr": "Turkish",
+        "vi": "Vietnamese",
+        "written": "Written",
+        "zh": "Chinese"
+      },
+      "languages": "Languages",
+      "region": {
+        "A": "Abroad",
+        "AG01": "Aarau",
+        "AG02": "Baden",
+        "AG03": "Brugg",
+        "AG04": "Frick",
+        "AG05": "Lenzburg",
+        "AG06": "Menziken",
+        "AG07": "Muri",
+        "AG08": "Rheinfelden",
+        "AG09": "Wettingen",
+        "AG10": "Wohlen",
+        "AG11": "Zofingen",
+        "AG12": "Zurzach",
+        "AI01": "Appenzell Inner-Rhodes",
+        "AR01": "Appenzell Outer-Rhodes",
+        "AU": "Abroad",
+        "BE01": "Berne, Laupen, Fraubrunnen, Konolfingen, Schwarzenburg, Seftigen",
+        "BE02": "Frutigen",
+        "BE03": "Niedersimmental, Thun",
+        "BE04": "Obersimmental, Saanen",
+        "BE05": "Interlaken, Oberhasli",
+        "BE06": "Burgdorf, Signau, Trachselwald",
+        "BE07": "Aarwangen, Wangen",
+        "BE08": "Aarberg, Biel, Büren, Erlach, Nidau",
+        "BE09": "Courtelary, Neuenstadt, Münster",
+        "BE10": "Laufental",
+        "BL01": "Basle-Country, region 01",
+        "BL02": "Liestal",
+        "BL03": "Sissach",
+        "BL04": "Waldenburg",
+        "BL05": "Laufen",
+        "BS01": "Basle-City",
+        "FR01": "La Broye",
+        "FR02": "La Glâne",
+        "FR03": "La Gruyère",
+        "FR04": "La Sarine",
+        "FR05": "See/Lac",
+        "FR06": "Sense/Singine",
+        "FR07": "La Veveyse",
+        "GE01": "Geneva, entire canton",
+        "GL01": "Glaris, entire canton",
+        "GL02": "Glaris",
+        "GR01": "Plessur, Chur",
+        "GR02": "Unterlandquart",
+        "GR03": "Oberlandquart",
+        "GR04": "Inn",
+        "GR05": "Maloja",
+        "GR06": "Bernina",
+        "GR07": "Albula",
+        "GR08": "Hinterrhein",
+        "GR09": "Moesa",
+        "GR10": "Heinzenberg",
+        "GR11": "Imboden",
+        "GR12": "Glenner",
+        "GR13": "Vorderrhein",
+        "GR14": "Münstertal",
+        "JU01": "Delsberg",
+        "JU02": "Pruntrut",
+        "JU03": "Freiberge",
+        "LU01": "Hochdorf, Luzern",
+        "LU02": "Sursee",
+        "LU03": "Willisau",
+        "LU04": "Entlebuch",
+        "LU05": "Emmen",
+        "NE01": "Boudry, Neuenburg, Val-de-Ruz",
+        "NE02": "La Chaux-de-Fonds, Le Locle, Val de Travers",
+        "NW01": "Nidwalden, entire canton",
+        "OW01": "Obwalden, entire canton",
+        "SG01": "Region St. Gall",
+        "SG02": "Region Rorschach",
+        "SG03": "Region Heerbrugg",
+        "SG04": "Region Buchs",
+        "SG05": "Region Sargans",
+        "SG06": "Region Rapperswil",
+        "SG07": "Region Wattwil",
+        "SG08": "Region Oberuzwil",
+        "SH01": "Schaffhausen, entire Kanton",
+        "SO01": "Kriegstetten, Lebern, Solothurn",
+        "SO02": "Bucheggberg",
+        "SO03": "Balsthal-Gäu, Gösgen, Olten",
+        "SO04": "Balsthal-Tal",
+        "SO05": "Dorneck, Thierstein",
+        "SZ01": "Schwyz, entire Kanton",
+        "TG01": "Arbon",
+        "TG02": "Bischofszell",
+        "TG03": "Diessenhofen",
+        "TG04": "Frauenfeld",
+        "TG05": "Kreuzlingen",
+        "TG06": "Münchenwil",
+        "TG07": "Steckborn",
+        "TG08": "Weinfelden",
+        "TI01": "Blenio, Leventina, Riviera",
+        "TI02": "Locarno, Vallemaggio",
+        "TI03": "Lugano",
+        "TI04": "Basso Mendrisiotto",
+        "TI06": "Bellinzonese",
+        "UR01": "Uri, entire canton",
+        "VD01": "Lausanne",
+        "VD02": "Cossonay, Echallens, Lavaux, Morges, Oron",
+        "VD03": "Avenches, Grandson, Moudon, Orbe, Payerne, Yverdon",
+        "VD04": "Aubonne, Nyon, Rolle, La Vallée",
+        "VD05": "Aigle, Pays-d'Enhaut, Vevey",
+        "VS01": "Fiesch, Münster, Ulrichen",
+        "VS02": "Brig-Glis",
+        "VS03": "Visp, Raron",
+        "VS04": "Leukerbad",
+        "VS05": "Siders",
+        "VS06": "Sitten, Hérémence",
+        "VS07": "Martigny",
+        "VS08": "Monthey, Saint-Maurice",
+        "ZG01": "Zug, ganzer Kanton",
+        "ZH01": "Dietikon",
+        "ZH02": "Uster",
+        "ZH03": "Horgen",
+        "ZH04": "Meilen",
+        "ZH05": "Affoltern",
+        "ZH06": "Dielsdorf",
+        "ZH07": "Bülach",
+        "ZH08": "Andelfingen",
+        "ZH09": "Winterthur",
+        "ZH10": "Pfäffikon",
+        "ZH11": "Hinwil",
+        "ZH12": "Zurich City"
+      }
+    },
+    "ribbon": {
+      "dev": "Local",
+      "development": "Development",
+      "staging": "Staging",
+      "test": "Test",
+      "training": "Training"
+    },
+    "title": "Job-Room",
+    "workForm": {
+      "HOME_WORK": "Home-based work",
+      "NIGHT_WORK": "Night work",
+      "SHIFT_WORK": "Shift work",
+      "SUNDAY_AND_HOLIDAYS": "Sunday and holiday work",
+      "label": "Work form",
+      "selected": "Work forms"
+    }
+  },
+  "header": {
+    "title": "Unemployment insurance"
+  },
+  "health": {
+    "details": {
+      "details": "Details",
+      "error": "Error",
+      "name": "Name",
+      "properties": "Properties",
+      "value": "Value"
+    },
+    "indicator": {
+      "configServer": "Microservice Config Server",
+      "db": "Database",
+      "discoveryComposite": "Discovery Composite",
+      "diskSpace": "Disk space",
+      "hystrix": "Hystrix",
+      "mail": "Email",
+      "refreshScope": "Microservice Refresh Scope"
+    },
+    "refresh": {
+      "button": "Refresh"
+    },
+    "stacktrace": "Stacktrace",
+    "status": {
+      "DOWN": "DOWN",
+      "UP": "UP"
+    },
+    "table": {
+      "service": "Service name",
+      "status": "Status"
+    },
+    "title": "Health Checks"
+  },
+  "home": {
+    "contactform": {
+      "text": "Contact",
+      "url": "https://www.arbeit.swiss/secoalv/en/home/service/kontakt.html"
+    },
+    "login-cancel": {
+      "message": "You canceled the login process",
+      "title": "Login failed"
+    },
+    "registration": {
+      "url": "https://www.arbeit.swiss/secoalv/en/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html"
+    },
+    "title": "Job-Room",
+    "toolbar": {
+      "companies": "Employers",
+      "jobSeekers": "Job seekers",
+      "recruitmentAgencies": "Recruitment agencies",
+      "title": "Job-Room offers services for"
+    },
+    "tools": {
+      "candidate-search": {
+        "search-badge": {
+          "many": "This profile matches <br><span class=\"badge badge-radar\">{{count}}</span><br>candidates",
+          "none": "No candidates match this profile",
+          "one": "This profile matches <br><span class=\"badge badge-radar\">1</span><br>candidate",
+          "show": "Show search results"
+        },
+        "search-button": {
+          "title": "Display candidates"
+        },
+        "title": "Find suitable candidates"
+      },
+      "candidateSearchTab": "Find candidates",
+      "job-publication": {
+        "application": {
+          "additional-info": {
+            "characters-counter-text": "{{count}} characters available",
+            "label": "Supplementary information",
+            "placeholder": "Max. 240 characters"
+          },
+          "copy-email-from-public-contact": "Same as jobseeker contact",
+          "copy-from-business": "Same as business",
+          "copy-phonenumber-from-public-contact": "Same as jobseeker contact",
+          "email": "Email",
+          "online-form": "Online form",
+          "paper-application-post-address": "Postal address",
+          "phone": "Telephone number",
+          "title": "Application channels"
+        },
+        "company": {
+          "country": "Country",
+          "house-number": "No.",
+          "name": "Business",
+          "postbox": "P.O. Box",
+          "postbox-city": "City",
+          "postbox-number": "PO box no.",
+          "postbox-zip": "PO box postal code",
+          "postbox-zipcode": "PO box postal code / city",
+          "street": "Street",
+          "surrogate": "Job registered through a private employment agency",
+          "title": "Business",
+          "zipcode": "Postal code / city"
+        },
+        "contact": {
+          "email": "Email",
+          "first-name": "First name",
+          "language": "Language",
+          "last-name": "Last name",
+          "phone": "Telephone number",
+          "salutation": "Title",
+          "title": "Contact"
+        },
+        "date-placeholder": "DD.MM.YYYY",
+        "degree": "Training",
+        "description": {
+          "add": "Add description in different language",
+          "characters-counter-text": "{{count}} characters available",
+          "label": "Duties / requirements",
+          "placeholder": "max. 10000 characters"
+        },
+        "disclaimer": "I certify that the employer complies with local and industry standards for wage and working conditions.",
+        "driving-licence": "Driving licence",
+        "employer": {
+          "title": "Principal/Employing company"
+        },
+        "employment": {
+          "title": "Employment"
+        },
+        "employmentEndDate": {
+          "label": "Temporary employment to date",
+          "permanent": "permanent",
+          "temporary": "temporary until",
+          "title": "Employment duration"
+        },
+        "employmentStartDate": {
+          "by-arrangement": "from",
+          "immediately": "immediately",
+          "label": "Employment start date",
+          "title": "Employment start"
+        },
+        "experience": "Work experience",
+        "job-description": "Job description",
+        "job-description-lang": {
+          "label": "Job description language"
+        },
+        "job-title": "Job title",
+        "language-skills": "Languages",
+        "locality": {
+          "additional-text": "Additional text",
+          "city": "City",
+          "country": "Country",
+          "title": "Place of work",
+          "zip": "Postal code",
+          "zipcode": "Postal code / city"
+        },
+        "messages": {
+          "validate": {
+            "at-least-one-required": "Select at least one application channel and provide all required information",
+            "at-least-one-required-email-or-phone": "Please indicate telephone number or email",
+            "at-least-one-required-street-or-pobox": "Please enter a street name or a post office box",
+            "date-format": "Invalid date format, correct format: DD.MM.YYYY",
+            "email-format": "This email address is invalid.",
+            "employment-duration": {
+              "date-before": "Date must be after the employment start."
+            },
+            "employment-start": {
+              "date-before": "Date must be in the future."
+            },
+            "number-of-jobs": "This field must contain a number between 1 and 99.",
+            "phone-format": "Please indicate a valid telephone number e.g. 031 999 99 99 or +41 31 999 99 99",
+            "pobox-format": "Invalid post office box",
+            "required": "This field is required.",
+            "url-format": "This URL is not valid",
+            "zip-format": "Invalid postal code",
+            "zip-or-city-format": "Invalid postal code/city"
+          }
+        },
+        "no-selection": "No selection",
+        "number-of-jobs": "No. of equivalent positions",
+        "occupation": {
+          "label": "Occupation",
+          "placeholder": ""
+        },
+        "optional": "Optional",
+        "placeholders": {
+          "email": "example@email.ch",
+          "phone": "031 999 99 99 or +41 31 999 99 99",
+          "url": "http://www.example.ch"
+        },
+        "public-contact": {
+          "copy": "Same as contact",
+          "title": "Jobseeker contact"
+        },
+        "publication": {
+          "eures": "EURES Portal",
+          "jobdesk": "Job-Desk",
+          "jobroom": "Job-Room",
+          "public": {
+            "label": "Job-Room public website"
+          },
+          "restricted": {
+            "label": "Job-Room restricted area"
+          },
+          "title": "Publication media"
+        },
+        "reset": "Reset",
+        "shortEmployment": {
+          "label": "Short employment (up to 14 calendar days)"
+        },
+        "submit": "Post job ad",
+        "workload": "Workload"
+      },
+      "job-search": {
+        "search-badge": {
+          "many": "This profile matches <br><span class=\"badge badge-radar\">{{count}}</span><br>jobs",
+          "none": "No jobs match this profile",
+          "one": "This profile matches <br><span class=\"badge badge-radar\">1</span><br>job",
+          "show": "Show search results."
+        },
+        "search-button": {
+          "title": "Show job offers"
+        }
+      },
+      "jobPublicationTab": "Post job",
+      "jobSearch": {
+        "title": "Find suitable positions"
+      }
+    }
+  },
+  "job-detail": {
+    "action": {
+      "applyNow": "Apply now",
+      "copyLink": "Copy link",
+      "print": "Print",
+      "saveJob": "Save job posting",
+      "savePdf": "Save as PDF",
+      "sendEmail": "Send by email",
+      "showExternalPage": "Link to external job posting"
+    },
+    "application": {
+      "additionalInfo": "Additional information",
+      "email": "By email",
+      "mail": "By post",
+      "online": "Electronic",
+      "phone": "By phone",
+      "title": "Application forms"
+    },
+    "back": "Back to search results",
+    "contactPerson": "Your contact person",
+    "deactivated": "This job posting is no longer active.",
+    "endDate": "Until {{date}}",
+    "external-job-disclaimer": "This job posting was found on an external website. The unemployment insurance and public employment service provides this search result as an additional service. It has no influence on its content and quality.",
+    "onlineSince": "Vacant since",
+    "otherJobsCompany": "Show {{count}} jobs",
+    "otherJobsEquivalent": "Show {{count}} similar jobs",
+    "reference": "Reference",
+    "startDate": "From {{date}}",
+    "startsImmediately": "Start date",
+    "title": "Job detail",
+    "unvalidated": "This advert was published electronically by one of our users on the internet platform of the public employment service. Neither the unemployment insurance office nor the public employment service have any influence over its content or quality."
+  },
+  "job-fingerprint-redirect": {
+    "not-found": "Job not found"
+  },
+  "job-publication": {
+    "application": {
+      "electronicApplication": {
+        "mail": {
+          "maxlength": "This field cannot be longer than 50 characters."
+        }
+      },
+      "postAddress": {
+        "paperApp": {
+          "city": {
+            "empty": "This field cannot be empty!",
+            "maxlength": "This field cannot be longer than 10 characters."
+          },
+          "companyName": {
+            "maxlength": "This field cannot be longer than 255 characters."
+          },
+          "houseNr": {
+            "maxlength": "This field cannot be longer than 10 characters."
+          },
+          "postboxNr": {
+            "maxlength": "This field cannot be longer than 20 characters."
+          },
+          "street": {
+            "maxlength": "This field cannot be longer than 60 characters."
+          },
+          "zipCode": {
+            "maxlength": "This field cannot be longer than 10 characters."
+          }
+        }
+      }
+    },
+    "company": {
+      "name": {
+        "maxlength": "This field cannot be longer than 255 characters."
+      },
+      "street": {
+        "maxlength": "This field cannot be longer than 60 characters."
+      }
+    },
+    "contact": {
+      "email": {
+        "maxlength": "This field cannot be longer than 50 characters."
+      },
+      "firstName": {
+        "maxlength": "This field cannot be longer than 50 characters."
+      },
+      "lastName": {
+        "maxlength": "This field cannot be longer than 50 characters."
+      }
+    },
+    "publicContact": {
+      "email": {
+        "maxlength": "This field cannot be longer than 50 characters."
+      },
+      "firstName": {
+        "maxlength": "This field cannot be longer than 50 characters."
+      },
+      "lastName": {
+        "maxlength": "This field cannot be longer than 50 characters."
+      }
+    },
+    "validation": {
+      "description": {
+        "maxlength": "This field cannot be longer than 1000 characters."
+      },
+      "language": {
+        "maxlength": "This field cannot be longer than 5 characters."
+      },
+      "title": {
+        "maxlength": "This field cannot be longer than 255 characters."
+      }
+    }
+  },
+  "job-publication-cancel": {
+    "alert": "Please fill in the cancellation details and confirm cancellation of the job posting.",
+    "job": {
+      "change-or-repost": "You want to change or repost the position",
+      "confirm": "Confirm cancellation",
+      "dismiss": "Cancel",
+      "not-occupied": "You were unable to fill the position",
+      "occupied": "You were able to fill the position"
+    },
+    "title": "Cancel job posting"
+  },
+  "job-publication-details": {
+    "application": {
+      "additionalInfo": "Supplementary information",
+      "email": "Email",
+      "online-form": "Online form",
+      "post": "Paper application",
+      "telephone": "By phone",
+      "title": "Application forms"
+    },
+    "byArrangement": "By agreement",
+    "cancel": "Cancel job posting",
+    "contact": {
+      "accountNumber": "Job ID",
+      "avam": "AVAM",
+      "jobRoom": "Job-Room",
+      "title": "Your contact person"
+    },
+    "copy": "Duplicate the job ad",
+    "immediately": "immediately",
+    "permanent": "Permanent",
+    "print": "Print",
+    "startDate": "Vacant since",
+    "status": "Status",
+    "temporary": "Temporary",
+    "title": "Job publication"
+  },
+  "job-search": {
+    "filter": {
+      "company-name": {
+        "label": "Employers",
+        "placeholder": "Company name"
+      },
+      "contract-type": {
+        "label": "Contract type",
+        "option": {
+          "ALL": "All",
+          "PERMANENT": "Permanent",
+          "TEMPORARY": "Temporary"
+        }
+      },
+      "online-since": {
+        "day": {
+          "many": "days",
+          "one": "day"
+        },
+        "label": "Online since"
+      },
+      "restricted-jobs": {
+        "label": "Advance-notice job vacancies"
+      },
+      "sort": {
+        "label": "Sort",
+        "option": {
+          "DATE_ASC": "Sort by date ascending",
+          "DATE_DESC": "Sort by date descending",
+          "RELEVANCE_DESC": "Sort by relevance"
+        }
+      },
+      "title": "Filter search result",
+      "working-time": {
+        "label": "Workload"
+      }
+    },
+    "job-search-list": {
+      "error-message": "Failed to load job result list!",
+      "title": {
+        "many": "{{count}} jobs",
+        "none": "No jobs",
+        "one": "1 job"
+      }
+    },
+    "job-search-list-item": {
+      "badge": {
+        "permanent": "Permanent",
+        "restricted": "registration requirement",
+        "shortEmployment": "Short employment",
+        "temporary": "Temporary"
+      }
+    },
+    "title": "Job search",
+    "toolbar": {
+      "locality": {
+        "placeholder": "Location or canton",
+        "tooltip": "Multiple selection possible"
+      },
+      "locality-select": {
+        "tooltip": "Select my current location"
+      },
+      "occupation": {
+        "placeholder": "Occupations, keywords",
+        "tooltip": "Multiple selection possible. Start typing and choose a term from the list or press “Enter”."
+      },
+      "reset": "Reset"
+    }
+  },
+  "jobroomApp": {
+    "CompanyType": {
+      "AVG": "AVG",
+      "RAV": "RAV",
+      "null": ""
+    },
+    "Gender": {
+      "FEMALE": "Female",
+      "MALE": "Male",
+      "null": ""
+    },
+    "job": {
+      "applicationUrl": "Application Url",
+      "cancellationDate": "Cancellation date",
+      "cancellationReason": "Cancellation reason",
+      "companyAddressLine1": "Company Address Line 1",
+      "companyAddressLine2": "Company Address Line 2",
+      "companyCity": "Company City",
+      "companyCountryCode": "Company Country Code",
+      "companyEmail": "Company email",
+      "companyName": "Company Name",
+      "companyPhone": "Company Phone",
+      "companyPostboxCity": "Company Postbox City",
+      "companyPostboxNumber": "Company Postbox Number",
+      "companyPostboxZipCode": "Company Postbox Zip Code",
+      "companyWebsite": "Company Website",
+      "companyZipCode": "Company Zip Code",
+      "contactEmail": "Contact Email",
+      "contactFirstName": "Contact First Name",
+      "contactLastName": "Contact Last Name",
+      "contactPhone": "Contact Phone",
+      "contactTitle": "Contact Title",
+      "currencyCode": "Currency Code",
+      "delete": {
+        "question": "Are you sure you want to delete the job {{ id }}?"
+      },
+      "description": "Description",
+      "detail": {
+        "title": "Job"
+      },
+      "drivingLicenseLevel": "Driving licence",
+      "endDate": "End date",
+      "externalId": "External ID",
+      "externalUrl": "External Url",
+      "fingerPrint": "Fingerprint",
+      "gender": "Gender",
+      "hasPersonalVehicle": "Has personal vehicle",
+      "home": {
+        "createLabel": "Create a new job",
+        "createOrEditLabel": "Create or edit a job",
+        "title": "Jobs"
+      },
+      "isJobSharing": "Is job sharing",
+      "isPermanent": "Is permanent",
+      "isSuitableForDisabled": "Is suitable for disabled",
+      "languages": "Languages",
+      "locality": {
+        "cantonCode": "Locality Canton Code",
+        "communalCode": "Locality Communal Code",
+        "countryCode": "Locality Country Code",
+        "regionCode": "Locality Region Code",
+        "text": "Locality Text",
+        "zipCode": "Job postal code"
+      },
+      "numberOfJobs": "Number of jobs",
+      "paymentMax": "Max payment",
+      "paymentMin": "Min payment",
+      "professions": "Professions",
+      "publicationEndDate": "Publication end date",
+      "publicationStartDate": "Publication start date",
+      "rav": "RAV",
+      "registrationDate": "Registration date",
+      "startDate": "Available from",
+      "startsImmediately": "Available immediately",
+      "title": "Job title",
+      "workingTimePercentageMax": "Maximum working time percentage",
+      "workingTimePercentageMin": "Minimum working time percentage"
+    },
+    "organization": {
+      "active": "Active",
+      "city": "City",
+      "created": "A new Organization has been created with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Organization {{ id }}?"
+      },
+      "deleted": "A Organization is deleted with identifier {{ param }}",
+      "detail": {
+        "title": "Organization"
+      },
+      "email": "Email",
+      "externalId": "External ID",
+      "home": {
+        "createLabel": "Create a new Organization",
+        "createOrEditLabel": "Create or edit a Organization",
+        "search": "Search for Organization",
+        "title": "Organizations"
+      },
+      "name": "Name",
+      "phone": "Telephone",
+      "street": "Street",
+      "type": "Type",
+      "updated": "A Organization is updated with identifier {{ param }}",
+      "zipCode": "Postal code"
+    }
+  },
+  "jobserviceApp": {
+    "job": {
+      "created": "A new job is created with identifier {{ param }}",
+      "deleted": "A job is deleted with identifier {{ param }}",
+      "updated": "A job is updated with identifier {{ param }}"
+    }
+  },
+  "login": {
+    "form": {
+      "button": "Sign in",
+      "information": {
+        "pea": {
+          "text": "Registration procedure for private placement officers",
+          "url": "https://www.arbeit.swiss/secoalv/en/home/menue/arbeitsvermittler/dienstleistungen-der-rav.html"
+        }
+      },
+      "password": "Password",
+      "rememberme": "Remember me"
+    },
+    "messages": {
+      "error": {
+        "authentication": "<strong>Failed to sign in!</strong> Please check your login credentials and try again."
+      }
+    },
+    "password": {
+      "forgot": "Did you forget your password?"
+    },
+    "title": "Sign in for private employment agencies"
+  },
+  "logs": {
+    "filter": "Filter",
+    "nbloggers": "There are {{ total }} loggers.",
+    "table": {
+      "level": "Level",
+      "name": "Name"
+    },
+    "title": "Logs"
+  },
+  "metrics": {
+    "cache": {
+      "averageGetTime": "Average get time (µs)",
+      "averagePutTime": "Average put time (µs)",
+      "averageRemoveTime": "Average remove time (µs)",
+      "cachename": "Cache name",
+      "evictions": "Cache Evictions",
+      "gets": "Cache Gets",
+      "hitPercent": "Cache Hit %",
+      "hits": "Cache Hits",
+      "missPercent": "Cache Miss %",
+      "misses": "Cache Misses",
+      "puts": "Cache Puts",
+      "removals": "Cache Removals",
+      "title": "Cache statistics"
+    },
+    "datasource": {
+      "count": "Count",
+      "max": "Max",
+      "mean": "Mean",
+      "min": "Min",
+      "name": "Pool usage",
+      "p50": "p50",
+      "p75": "p75",
+      "p95": "p95",
+      "p99": "p99",
+      "title": "DataSource statistics (time in millisecond)",
+      "usage": "Usage"
+    },
+    "jvm": {
+      "gc": {
+        "marksweepcount": "Mark Sweep count",
+        "marksweeptime": "Mark Sweep time",
+        "scavengecount": "Scavenge count",
+        "scavengetime": "Scavenge time",
+        "title": "Garbage collections"
+      },
+      "http": {
+        "active": "Active requests:",
+        "code": {
+          "notfound": "Not found",
+          "ok": "Ok",
+          "servererror": "Server Error"
+        },
+        "table": {
+          "average": "Average",
+          "code": "Code",
+          "count": "Count",
+          "mean": "Mean"
+        },
+        "title": "HTTP requests (events per second)",
+        "total": "Total requests:"
+      },
+      "memory": {
+        "heap": "Heap Memory",
+        "nonheap": "Non-Heap Memory",
+        "title": "Memory",
+        "total": "Total Memory"
+      },
+      "threads": {
+        "all": "All",
+        "blocked": "Blocked",
+        "dump": {
+          "blockedcount": "Blocked Count",
+          "blockedtime": "Blocked Time",
+          "hide": "Hide Stacktrace",
+          "id": "Id:",
+          "lockname": "Lock name",
+          "show": "Show Stacktrace",
+          "stacktrace": "Stacktrace",
+          "title": "Threads dump",
+          "waitedcount": "Waited Count",
+          "waitedtime": "Waited Time"
+        },
+        "runnable": "Runnable",
+        "timedwaiting": "Timed waiting",
+        "title": "Threads",
+        "waiting": "Waiting"
+      },
+      "title": "JVM Metrics"
+    },
+    "refresh": {
+      "button": "Refresh"
+    },
+    "servicesstats": {
+      "table": {
+        "count": "Count",
+        "max": "Max",
+        "mean": "Mean",
+        "min": "Min",
+        "name": "Service name",
+        "p50": "p50",
+        "p75": "p75",
+        "p95": "p95",
+        "p99": "p99"
+      },
+      "title": "Services statistics (time in millisecond)"
+    },
+    "title": "Application Metrics",
+    "updating": "Updating..."
+  },
+  "navigation": {
+    "next": "Next",
+    "previous": "Previous",
+    "scroll-to-top": "Scroll to top"
+  },
+  "password": {
+    "form": {
+      "button": "Save"
+    },
+    "messages": {
+      "error": "<strong>An error has occurred!</strong> The password could not be changed.",
+      "success": "<strong>Password changed!</strong>"
+    },
+    "title": "Password for [<b>{{username}}</b>]"
+  },
+  "portal": {
+    "forms": {
+      "validation": {
+        "maxlength": "This field cannot be longer than {{ requiredLength }} characters.",
+        "minlength": "This field must be at least {{ requiredLength }} characters.",
+        "ngbDate": "Invalid date format, correct format: DD.MM.YYYY",
+        "pattern": "This field must follow the pattern {{ requiredPattern }}."
+      }
+    },
+    "registration": {
+      "company": {
+        "step1": "Enter UID",
+        "step2": "Request activation code",
+        "step3": "Enter activation code",
+        "uid": {
+          "help": {
+            "info": "You can get your unique business identification number (UID) under the following link:",
+            "label": "Federal Statistical Office FSO UID Register",
+            "link": "https://www.uid.admin.ch/Search.aspx?lang=en"
+          },
+          "label": "UID",
+          "title": "Enter Company Identification Number"
+        }
+      },
+      "pav": {
+        "step1": "Select organisation",
+        "step2": "Request activation code",
+        "step3": "Enter activation code"
+      },
+      "request": {
+        "access": {
+          "code": "Request activation code"
+        }
+      },
+      "termsOfUse": {
+        "label": "Show terms and conditions",
+        "link": "https://www.arbeit.swiss/dam/secoalv/en/bilder/unternehmen/Stellenmeldepflicht/Nutzungsbedingungen_Job-Room.pdf.download.pdf/AGB_Job-Room_Juni_2018_en.pdf"
+      }
+    }
+  },
+  "register": {
+    "form": {
+      "button": "Register"
+    },
+    "messages": {
+      "error": {
+        "emailexists": "<strong>Email is already in use!</strong> Please choose another one.",
+        "fail": "<strong>Registration failed!</strong> Please try again later.",
+        "userexists": "<strong>Login name already registered!</strong> Please choose another one."
+      },
+      "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
+      "validate": {
+        "login": {
+          "maxlength": "Your username cannot be longer than 50 characters.",
+          "minlength": "Your username must be at least 1 character.",
+          "pattern": "Your username can only contain lower-case letters and digits.",
+          "required": "Your username is required."
+        }
+      }
+    },
+    "title": "Registration"
+  },
+  "registration": {
+    "customer": {
+      "birthdate": {
+        "label": "Date of Birth"
+      },
+      "cancel": "Cancel",
+      "identificaton": {
+        "already-taken": {
+          "error": "This personal identification number is already in use"
+        },
+        "mismatch": {
+          "error": "We were unable to find any RAV data based on the information provided. Please verify your personal ID and date of birth."
+        },
+        "technical": {
+          "error": "There is a technical problem. Please try again later or contact our support team using the contact form."
+        }
+      },
+      "login": "Login",
+      "messages": {
+        "validate": {
+          "birthdate": "The date must be between 01.01.1900 and today",
+          "pn": "Please provide a number with 8 digits"
+        }
+      },
+      "pn": {
+        "label": "Personal ID",
+        "placeholder": "12345678"
+      },
+      "text": "Please authenticate yourself using your personal ID and date of birth. Your personal ID is indicated in the letter which you received from the RAV upon registration.",
+      "title": "Identification"
+    },
+    "existing-pav": {
+      "cancel": "Cancel",
+      "identificaton": {
+        "mismatch": {
+          "error": "We were unable to find your account based on the information provided. Please verify your email address and password."
+        }
+      },
+      "login": "Login",
+      "password": {
+        "label": "Password",
+        "placeholder": "Password"
+      },
+      "text": "Please enter the Job Room login details you regularly use.",
+      "username": {
+        "label": "Username",
+        "placeholder": "Username"
+      }
+    }
+  },
+  "registrationAccessCode": {
+    "accessCode": {
+      "error": {
+        "invalid": "Activation code is invalid",
+        "minlength": "Activation code must contain 8 characters",
+        "required": "Activation code is required"
+      },
+      "label": "Activation code"
+    },
+    "header": "Activation code",
+    "placeholder": "Enter activation code",
+    "title": "Enter activation code"
+  },
+  "registrationCompanyDialog": {
+    "activationCodeRequested": "Activation code requested",
+    "confirmButton": "Confirm",
+    "login": {
+      "description": "You can then log in to your user account using this activation code."
+    },
+    "placeholder": "CHE-123.456.789",
+    "postal": {
+      "description": "We will send an activation code <b>by post</b> to the address associated with your UID:"
+    },
+    "requestActivationCode": "Request activation code by post",
+    "returnToHomepage": "Return to homepage",
+    "title": "Please enter your company identification number (UID).",
+    "validation": {
+      "error": {
+        "notFound": "We were unable to find a company with the UID you entered.",
+        "uid": "Invalid UID format. Please use the format CHE-123.456.789"
+      }
+    }
+  },
+  "registrationPavDialog": {
+    "activationCodeRequested": "Activation code requested",
+    "login": {
+      "description": "You can then log in to your user account using this activation code."
+    },
+    "placeholder": "Please enter your organisation.",
+    "postal": {
+      "description": "We will send an activation code <b>by post</b> to the address associated with the Register VZ AVG:"
+    },
+    "requestActivationCode": "Request activation code by post",
+    "returnToHomepage": "Return to homepage",
+    "title": "Please select your organisation from the VZ AVG list."
+  },
+  "registrationQuestionnaire": {
+    "employer": "I would like to use work.swiss as an <b>employer</b>",
+    "error": {
+      "candidate": {
+        "service": {
+          "failure": " falls das Problem weiter bestehen sollte."
+        }
+      }
+    },
+    "header": "Type of usage",
+    "placeholder": "Please select one of the following types of usage.",
+    "ravCustomer": "I would like to use work.swiss as a <b>RAV customer</b>",
+    "recruitmentAgency": {
+      "existing": "I am an existing Job Room user",
+      "message": "I would like to use work.swiss as an <b>employment agency</b>",
+      "new": "This is my first time registering for work.swiss or Job-Room"
+    },
+    "termsOfUse": {
+      "accept": "I agree to the terms and conditions",
+      "link": "<a href=\"https://www.arbeit.swiss/dam/secoalv/en/bilder/unternehmen/Stellenmeldepflicht/Nutzungsbedingungen_Job-Room.pdf.download.pdf/AGB_Job-Room_Juni_2018_en.pdf\" target=\"_blank\">Show terms and conditions</a>"
+    },
+    "title": "Registration"
+  },
+  "relogin": {
+    "button": {
+      "text": "Logout now"
+    },
+    "click": {
+      "text": "Please log out. Your registration will be completed the next time you log in."
+    },
+    "text": "You have been granted access permissions for work.swiss. However, you must first log out to complete the registration process. After that the registration process eIAM is completed. Then you will be able to login on www.job-room.ch and complete your Job-Room registration.",
+    "title": "Complete eIAM registration process"
+  },
+  "reset": {
+    "finish": {
+      "form": {
+        "button": "Set new password."
+      },
+      "messages": {
+        "error": "Your password couldn't be reset. Remember a password request is only valid for 24 hours.",
+        "info": "Choose a new password.",
+        "keymissing": "The reset key is missing.",
+        "success": "<strong>Your password has been reset.</strong> "
+      },
+      "title": "Reset password"
+    },
+    "request": {
+      "form": {
+        "button": "Reset password"
+      },
+      "messages": {
+        "info": "Enter your username.",
+        "notfound": "<strong>Username isn't registered!</strong> Please check and try again.",
+        "success": "Check your emails for details on how to reset your password."
+      },
+      "title": "Reset your password."
+    }
+  },
+  "sessions": {
+    "messages": {
+      "error": "<strong>An error has occurred!</strong> The session could not be closed.",
+      "success": "<strong>Session closed!</strong>"
+    },
+    "table": {
+      "button": "Close",
+      "date": "Date",
+      "ipaddress": "IP address",
+      "useragent": "User agent"
+    },
+    "title": "Active sessions for [<b>{{username}}</b>]"
+  },
+  "settings": {
+    "form": {
+      "button": "Save",
+      "firstname": "First name",
+      "language": "Language",
+      "lastname": "Last name"
+    },
+    "messages": {
+      "error": {
+        "emailexists": "<strong>Email address is already in use!</strong> Please choose another one.",
+        "fail": "<strong>An error has occurred!</strong> Settings could not be saved."
+      },
+      "success": "<strong>Settings saved!</strong>",
+      "validate": {
+        "firstname": {
+          "maxlength": "Your first name cannot be longer than 50 characters.",
+          "minlength": "Your first name must be at least 1 character.",
+          "required": "Your first name is required."
+        },
+        "lastname": {
+          "maxlength": "Your last name cannot be longer than 50 characters.",
+          "minlength": "Your last name must be at least 1 character.",
+          "required": "Your last name is required."
+        }
+      }
+    },
+    "title": "User settings for [<b>{{username}}</b>]"
+  },
+  "system-notifications-management": {
+    "title": "System notifications"
+  },
+  "systemNotificationsManagement": {
+    "actions": "Actions",
+    "activated": "Activated",
+    "create": {
+      "modal": {
+        "title": "Create new System Notification"
+      }
+    },
+    "date-placeholder": "DD.MM.YYYY",
+    "deactivated": "Deactivated",
+    "delete": {
+      "modal": {
+        "text": "Are you sure you want to delete this system notification?",
+        "title": "Delete System Notification"
+      },
+      "question": "Do you really want to delete the system notification?"
+    },
+    "edit": {
+      "modal": {
+        "title": "Edit System Notification"
+      }
+    },
+    "endDate": "To",
+    "home": {
+      "create": "Create a new system notification",
+      "title": "System notifications"
+    },
+    "messages": {
+      "validate": {
+        "date-format": "Invalid date format, correct format: DD.MM.YYYY",
+        "endDate": {
+          "date-before": "Date must be in the future."
+        }
+      }
+    },
+    "startDate": "From",
+    "status": "Status",
+    "systemnotification": {
+      "type": {
+        "interruption": "Interruption",
+        "maintenance": "maintenance",
+        "systemerror": "System error"
+      }
+    },
+    "title": "Title",
+    "type": "Type"
+  },
+  "typeahead-multiselect": {
+    "type": {
+      "canton": "Canton",
+      "classification": "Category",
+      "locality": "Locality",
+      "occupation": "Occupation"
+    }
+  },
+  "user-info": {
+    "account-info": "Account Info",
+    "accountabilities": "Accountabilities",
+    "desc": "Please enter an email address of an existing user.",
+    "error": {
+      "delete": {
+        "technical": "A technical error occurred during unregistering the user. Please try it again later."
+      },
+      "eiam-roles-not-found": "No roles for this user found in eIAM.",
+      "technical": "A technical error occurred",
+      "user-not-found": "No user found with this email address."
+    },
+    "info-actions": "Additional Info and Actions",
+    "label": {
+      "created": "Created at",
+      "email": "Email",
+      "ext-id": "Ext-Id",
+      "firstname": "First Name",
+      "lastlogin": "Last login at",
+      "lastname": "Last Name",
+      "modified": "Modified at",
+      "pn": "Personal ID",
+      "registration-status": "Registration Status",
+      "verified": "Verified at"
+    },
+    "no-account-info": "No account info found",
+    "no-accountabilities": "No company accountabilities found",
+    "no-actions": "No actions or additional information available",
+    "no-roles": "No Roles in eIAM found",
+    "no-stes-info": "No STES Information found",
+    "no-user-info": "No user information found",
+    "roles": "eIAM Roles",
+    "search": "Search",
+    "stes-info": "STES Info",
+    "title": "User Info",
+    "unregister": {
+      "desc": "                    This action resets the registration of this user. It will revert the user to the state it was before starting the registration process. The action will remove any roles, accountabilities and set the registration state to 'UNREGISTERED'. The user will have to redo the whole registration process, which includes requesting a new access code for PAV and employers. This is needed in the case when the user has chosen the wrong role by mistake. If the user has lost the letter with the access code, the user can be found in jira in order to resend the letter. If the user can't be found in jira the user has presumably registered before 09.07.2018. In this case a reset is needed. Caution: This action can not be undone.",
+      "title": "Reset Registration"
+    },
+    "unregistered-user": {
+      "desc": "The found user seems to have created an eIAM account but not yet registered for job-room. Thus no action is available for this user. If the user wants to use this account for job-room he simply has to login with his eIAM account and finish the registration process in job-room.",
+      "title": "Unregistered User"
+    }
+  },
+  "userManagement": {
+    "activated": "Active",
+    "created": "A new user is created with identifier {{ param }}",
+    "createdBy": "Created by",
+    "createdDate": "Created date",
+    "deactivated": "Deactivated",
+    "delete": {
+      "question": "Are you sure you want to delete user {{ login }}?"
+    },
+    "deleted": "A user was deleted with identifier {{ param }}",
+    "detail": {
+      "title": "User"
+    },
+    "email": "Email",
+    "extid": "ExtId",
+    "firstName": "First name",
+    "home": {
+      "createLabel": "Create a new user",
+      "createOrEditLabel": "Create or edit a user",
+      "title": "Users"
+    },
+    "langKey": "Language",
+    "lastModifiedBy": "Modified by",
+    "lastModifiedDate": "Modified date",
+    "lastName": "Last name",
+    "login": "Login",
+    "organization": "Organization",
+    "phone": "Telephone",
+    "profiles": "Profiles",
+    "search": {
+      "placeholder": "Search for user by username, name, email or organization"
+    },
+    "updated": "A user was updated with identifier {{ param }}"
+  }
+}

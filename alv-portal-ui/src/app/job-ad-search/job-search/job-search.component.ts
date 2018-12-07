@@ -10,7 +10,7 @@ import {
   JobAdSearchState,
   JobSearchResult
 } from '../state-management/state/job-ad-search.state';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import {
   ApplyFilterAction,
   InitResultListAction,
@@ -39,6 +39,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit() {
+
     this.store.dispatch(new InitResultListAction());
 
     this.totalCount$ = this.store.pipe(select(getTotalCount));
