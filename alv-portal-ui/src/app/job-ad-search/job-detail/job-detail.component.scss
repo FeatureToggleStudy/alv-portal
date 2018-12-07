@@ -6,6 +6,9 @@
   overflow: hidden;
 }
 
+.dropdown-toggle::after {
+  display: none;
+}
 .btn-text {
   padding: 0.2rem;
   margin-bottom: 0.5rem;
