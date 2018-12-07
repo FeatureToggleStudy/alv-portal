@@ -218,10 +218,10 @@
             ></alv-languages>
           </ng-template>
         </ngb-panel>
-        <ngb-panel title="{{ 'job-publication-details.contact-details.label' | translate }}">
+        <ngb-panel *ngIf="job.jobContent.applyChannel"
+                   title="{{ 'job-publication-details.contact-details.label' | translate }}">
           <ng-template ngbPanelContent>
-            <div *ngIf="job.jobContent.applyChannel"
-                 class="detail__content">
+            <div class="detail__content">
               <h4 class="detail__content__title detail__content__title--light"></h4>
 
               <div *ngIf="job.jobContent.applyChannel.formUrl"
