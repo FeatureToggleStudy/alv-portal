@@ -27,6 +27,7 @@ export class AuthenticationService {
   }
 
   reloadCurrentUser() {
+    // TODO we should find a better solution that we wait until the currentUser has changed / was fetched from the backend
     this.store.dispatch(new LoadCurrentUserAction({}));
     return this.getCurrentUser().pipe(
       filter((user) => !!user),
