@@ -88,7 +88,11 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
     this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
   }
 
-  getJobUrl() {
+  getEncodedUrl() {
+    return encodeURIComponent(this.getJobUrl());
+  }
+
+  private getJobUrl() {
     return window.location.href;
   }
 

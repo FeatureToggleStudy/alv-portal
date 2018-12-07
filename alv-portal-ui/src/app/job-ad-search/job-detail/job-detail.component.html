@@ -2,15 +2,15 @@
   <div class="row base"
        *ngIf="job$ | async as job">
     <!-------------Left panel-->
+
     <div class="col-12 col-md order-11 order-md-1 base__subnavbar">
-      <div class="base__sticky-panel">
+      <a class="btn btn-text"
+         routerLink="/job-search">
+        <i class="fa fa-caret-left pr-1"></i>
+        {{'job-detail.back' | translate}}
+      </a>
+      <div class="alv-panel p-2">
         <div class="d-flex d-sm-block flex-column-reverse">
-          <ul class="pagination pagination--block pagination-alv d-flex">
-            <li class="page-item">
-              <a class="btn btn-text"
-                 routerLink="/job-search">{{'job-detail.back' | translate}}</a>
-            </li>
-          </ul>
 
           <hr class="visible-print-block d-none"/>
 
@@ -32,7 +32,6 @@
               <div class="detail__content">
                 <strong>{{'job-detail.contactPerson' | translate}}</strong>
                 <br>
-
                 <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
                 {{ contact.firstName }}&nbsp;{{ contact.lastName }}
                 <br>
@@ -167,7 +166,11 @@
       <!-----------------Bottom details about job-->
 
       <ngb-accordion>
-        <ngb-panel title="{{ 'job-publication-details.jobad-info.label' | translate }}">
+
+        <ngb-panel>
+          <ng-template ngbPanelTitle>
+            <span class="alv-panel-title">{{ 'job-publication-details.jobad-info.label' | translate }}</span>
+          </ng-template>
           <ng-template ngbPanelContent>
             <ul>
               <li>workplace
@@ -206,21 +209,28 @@
             </ul>
           </ng-template>
         </ngb-panel>
-        <ngb-panel title="{{ 'job-publication-details.min-requirements.label' | translate }}">
+        <ngb-panel>
+          <ng-template ngbPanelTitle>
+            <span class="alv-panel-title">{{ 'job-publication-details.min-requirements.label' | translate }}</span>
+          </ng-template>
           <ng-template ngbPanelContent>
             NOT READY YET
           </ng-template>
         </ngb-panel>
         <ngb-panel
-          *ngIf="job.jobContent?.languageSkills && job.jobContent?.languageSkills?.length > 0"
-          title="{{ 'global.reference.languages' | translate }}">
+          *ngIf="job.jobContent?.languageSkills && job.jobContent?.languageSkills?.length > 0">
+          <ng-template ngbPanelTitle>
+            <span class="alv-panel-title">{{ 'global.reference.languages' | translate }}</span>
+          </ng-template>
           <ng-template ngbPanelContent>
             <alv-languages [languages]="job.jobContent.languageSkills"
             ></alv-languages>
           </ng-template>
         </ngb-panel>
-        <ngb-panel *ngIf="job.jobContent.applyChannel"
-                   title="{{ 'job-publication-details.contact-details.label' | translate }}">
+        <ngb-panel *ngIf="job.jobContent.applyChannel">
+          <ng-template ngbPanelTitle>
+            <span class="alv-panel-title">{{ 'job-publication-details.contact-details.label' | translate }}</span>
+          </ng-template>
           <ng-template ngbPanelContent>
             <div class="detail__content">
               <h4 class="detail__content__title detail__content__title--light"></h4>
@@ -265,16 +275,20 @@
     <!-------------Right panel-->
     <div class="col-12 col-md order-12 base__related">
       <div class="base__sticky-panel">
-        <p>
+        <div class="d-flex justify-content-between">
           <button (click)="prev()"
-                  class="btn btn-secondary"
-                  *ngIf="prevVisible$ | async">prev
+                  *ngIf="prevVisible$ | async"
+                  class="btn btn-text col">
+            <i class="fa fa-caret-left pr-1"></i>
+            {{'job-detail.previous-result' | translate}}
           </button>
           <button (click)="next()"
-                  class="btn btn-secondary"
-                  *ngIf="nextVisible$ | async">next
+                  *ngIf="nextVisible$ | async"
+                  class="btn btn-text col">
+            {{'job-detail.next-result' | translate}}
+            <i class="fa fa-caret-right pl-1"></i>
           </button>
-        </p>
+        </div>
 
         <p>
           <a *ngIf="job.jobContent.applyChannel?.formUrl"
@@ -300,16 +314,26 @@
                (cbOnSuccess)="onCopyLink()"
                [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
                triggers="manual">
-              <span class="fa fa-share"
-                    aria-hidden="true"></span>
-              {{'job-detail.action.copyLink' | translate}}</a>
+              <i aria-hidden="true"
+                 class="fa fa-copy mr-1"></i>
+              <span>{{'job-detail.action.copyLink' | translate}}</span>
+            </a>
+          </li>
+          <li>
+            <a class="btn btn-text"
+               href="{{'mailto:?body=' + getEncodedUrl()}}">
+              <i aria-hidden="true"
+                 class="fa fa-at mr-1"></i>
+              <span>{{'job-detail.action.sendEmail' | translate}}</span>
+            </a>
           </li>
           <li class="nav-item d-none d-md-block">
             <a class="btn btn-text"
                (click)="printJob()">
-              <span class="fa fa-print"
-                    aria-hidden="true"></span>
-              {{'job-detail.action.print' | translate}}</a>
+              <i aria-hidden="true"
+                 class="fa fa-print mr-1"></i>
+              <span>{{'job-detail.action.print' | translate}}</span>
+            </a>
           </li>
         </ul>
       </div>
