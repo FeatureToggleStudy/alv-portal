@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Location } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { Location } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-job-location',
