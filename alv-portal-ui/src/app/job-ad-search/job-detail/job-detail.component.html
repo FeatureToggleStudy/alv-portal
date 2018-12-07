@@ -160,7 +160,8 @@
 
       <div *ngIf="jobDescription.description"
            class="detail__content">
-        <markdown [data]="jobDescription.description"></markdown>
+        <markdown [data]="jobDescription.description"
+                  ngPreserveWhitespaces></markdown>
       </div>
 
       <!-----------------Bottom details about job-->
@@ -211,7 +212,7 @@
           </ng-template>
         </ngb-panel>
         <ngb-panel
-          *ngIf="job.jobContent.languageSkills"
+          *ngIf="job.jobContent?.languageSkills && job.jobContent?.languageSkills?.length > 0"
           title="{{ 'global.reference.languages' | translate }}">
           <ng-template ngbPanelContent>
             <alv-languages [languages]="job.jobContent.languageSkills"
