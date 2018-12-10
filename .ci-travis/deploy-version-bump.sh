@@ -4,13 +4,12 @@ BUILD_VERSION=$1
 GIT_USER=$2
 GIT_PWD=$3
 GIT_PROJECT_NAME="central-deployment"
-GIT_REPO_URL="https://$GIT_USER:$GIT_USER_PWD@github.com/alv-ch/$GIT_PROJECT_NAME.git"
+GIT_REPO_URL="https://$GIT_USER:$GIT_PWD@github.com/alv-ch/$GIT_PROJECT_NAME.git"
 VERSION_FILE="group_vars/dev/versions.yml"
 
 echo "Using project version: $BUILD_VERSION..."
 echo "Using git user email: $GIT_USER..."
 echo "Using git user password: $GIT_PWD..."
-echo "Using git repo url: $GIT_REPO_URL"
 
 git clone $GIT_REPO_URL
 
