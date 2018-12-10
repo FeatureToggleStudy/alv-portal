@@ -50,12 +50,12 @@ export class JobSearchResultComponent implements OnInit {
     if (job.jobContent.employment.permanent) {
       badges.push({
         label: 'job-search.job-search-list-item.badge.permanent',
-        cssClass: 'badge-green'
+        cssClass: 'badge-contract-type'
       });
     } else {
       badges.push({
           label: 'job-search.job-search-list-item.badge.temporary',
-          cssClass: 'badge-yellow'
+          cssClass: 'badge-availability'
         }
       );
     }
@@ -67,7 +67,7 @@ export class JobSearchResultComponent implements OnInit {
     }
     badges.push({
       label: formatTimeRange([job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax]),
-      cssClass: 'badge-grey',
+      cssClass: 'badge-workload',
       doNotTranslate: true
     });
     return badges;

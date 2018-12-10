@@ -89,7 +89,7 @@ export class MultiTypeaheadComponent extends AbstractInput {
   }
 
   getTypeClass(item: MultiTypeaheadItemModel): string {
-    return `typeahead-${item.type}`;
+    return `badge-${item.type}`;
   }
 
   hasFocus() {

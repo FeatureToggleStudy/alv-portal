@@ -32,14 +32,14 @@
   <div class="form-row">
     <div class="col-6">
       <alv-select
-        label="{{'job-search.filter.working-time.label' | translate}} from"
+        label="{{'portal.job-search.filter.workload.from.label' | translate}}"
         [alvControl]="form.get('workloadPercentageMin')"
         [options$]="percentages$">
       </alv-select>
     </div>
     <div class="col-6">
       <alv-select
-        label="{{'job-search.filter.working-time.label' | translate}} to"
+        label="{{'portal.job-search.filter.workload.to.label' | translate}}"
         [alvControl]="form.get('workloadPercentageMax')"
         [options$]="percentages$">
       </alv-select>

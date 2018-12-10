@@ -1,27 +1,31 @@
-@import "~bootstrap/scss/mixins/_badge.scss";
-@import "~bootstrap/scss/mixins/_hover.scss";
 @import "../common/colors";
 
-.badge-yellow,
-.badge-green,
-.badge-red,
-.badge-gray {
-  color: $color-grey-black;
-  font-weight: 400;
+.badge-job,
+.badge-workplace,
+.badge-locality {
+  background-color: $color-medium-green;
 }
 
-.badge-red {
-  @include badge-variant($color-red);
+.badge-job-category,
+.badge-canton {
+  background-color: $color-medium-blue;
 }
 
-.badge-gray {
-  @include badge-variant($color-light-grey);
+.badge-skill,
+.badge-free-text,
+.badge-availability {
+  background-color: $color-light-yellow;
 }
 
-.badge-green {
-  @include badge-variant($color-light-green);
+.badge-job-workplace,
+.badge-place-of-residence {
+  background-color: $color-light-red;
 }
 
-.badge-yellow {
-  @include badge-variant($color-yellow);
+.badge-workload {
+  background-color: $color-light-grey;
+}
+
+.badge-contract-type {
+  background-color: $color-light-green;
 }

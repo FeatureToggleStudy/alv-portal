@@ -17,7 +17,3 @@ export interface Badge {
   doNotTranslate?: boolean;
 }
 
-export const badgeMock: Badge = {
-  label: '100%',
-  cssClass: 'badge-secondary'
-};
