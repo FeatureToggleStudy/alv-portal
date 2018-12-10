@@ -3,6 +3,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { RestError } from './rest-error.model';
 import { NotificationsService } from '../notifications.service';
 import { NotificationType } from '../../shared/layout/notifications/notification.model';
+import { AuthenticationService } from '../auth/authentication.service';
+import { SessionExpiredAction } from '../state-management/actions/core.actions';
+import { CoreState } from '../state-management/state/core.state.ts';
+import { Store } from '@ngrx/store';
 
 function isNil(value) {
   return value === undefined || value === null;
@@ -17,8 +21,9 @@ export class ErrorHandlerService {
 
   private exceptionNameRegistry: { [id: string]: ErrorMappingEntry; } = {};
 
-  constructor(private notificationsService: NotificationsService) {
-    // the registry will need to be populated with specific errors
+  constructor(private notificationsService: NotificationsService,
+              private authenticationService: AuthenticationService,
+              private store: Store<CoreState>) {
   }
 
   private static isRestError(errorContent: RestError) {
@@ -35,8 +40,13 @@ export class ErrorHandlerService {
       throw new Error('The given ErrorResponse is not type HttpErrorResponse');
     }
 
+    if (httpErrorResponse.status === 401) {
+      this.store.dispatch(new SessionExpiredAction({}));
+      return;
+    }
+
     if (this.handleByStatus(httpErrorResponse)
-        || this.handleByExceptionName(httpErrorResponse)) {
+      || this.handleByExceptionName(httpErrorResponse)) {
       return;
     }
 

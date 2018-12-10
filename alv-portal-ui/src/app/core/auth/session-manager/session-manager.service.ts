@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 
-// The service manages the session tokens and other information that must be stored unlit the session is expired
+import * as jwt_decode from 'jwt-decode';
+import { CoreState } from '../../state-management/state/core.state.ts';
+import { Store } from '@ngrx/store';
+import { SessionExpiredAction } from '../../state-management/actions/core.actions';
+import Timeout = NodeJS.Timeout;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -8,18 +13,45 @@ export class SessionManagerService {
 
   static readonly TOKEN_NAME = 'authenticationToken';
 
-  constructor() { }
+  private timeout: Timeout;
+
+  constructor(private store: Store<CoreState>) {
+  }
 
   setToken(token: string): void {
     sessionStorage.setItem(SessionManagerService.TOKEN_NAME, token);
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(
+      () => {
+        return this.store.dispatch(new SessionExpiredAction({}));
+      },
+      this.calculateSessionTimeout(jwt_decode(token))
+    );
   }
 
   clearToken(): void {
     sessionStorage.removeItem(SessionManagerService.TOKEN_NAME);
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
   }
 
   getToken(): string {
     return sessionStorage.getItem(SessionManagerService.TOKEN_NAME);
   }
 
+  private calculateSessionTimeout(jwtToken: JwtToken): number {
+    if (jwtToken.exp === undefined) {
+      throw new Error('jwt-Token must have a \'exp\' attribute');
+    }
+    const expiryTime = new Date(jwtToken.exp * 1000).getTime();
+    const currentTime = Date.now();
+    return expiryTime - currentTime;
+  }
+}
+
+interface JwtToken {
+  exp: number;
 }
