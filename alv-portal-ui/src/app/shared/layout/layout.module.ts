@@ -24,7 +24,6 @@ import {
   ɵr
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { PanelComponent } from './panel/panel.component';
 import { PanelGroupComponent } from './panel-group/panel-group.component';
 import { NotificationComponent } from './notifications/notification/notification.component';
@@ -56,7 +55,6 @@ import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.comp
     ReactiveFormsModule,
     CommonModule,
     RouterModule,
-    HttpClientModule,
     SharedAuthModule,
     FormsModule,
     TranslateModule,
