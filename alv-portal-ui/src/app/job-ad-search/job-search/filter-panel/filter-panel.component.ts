@@ -10,6 +10,7 @@ import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.typ
   styleUrls: ['./filter-panel.component.scss']
 })
 export class FilterPanelComponent implements OnInit {
+
   form: FormGroup;
 
   @Output()
@@ -23,11 +24,11 @@ export class FilterPanelComponent implements OnInit {
   restrictOptions$: Observable<SelectableOption[]> = of([
     {
       value: false,
-      label: 'Alle'
+      label: 'portal.job-search.filter.reporting-obligation.all.label'
     },
     {
       value: true,
-      label: 'Innerhalb Informationsvorsprung'
+      label: 'job-search.filter.restricted-jobs.label'
     }
   ]);
 

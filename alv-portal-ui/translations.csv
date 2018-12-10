@@ -1330,3 +1330,5 @@ portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{day}}.{{month
 
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
+
+portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
