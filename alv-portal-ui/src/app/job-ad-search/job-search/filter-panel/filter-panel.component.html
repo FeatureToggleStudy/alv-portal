@@ -1,5 +1,14 @@
-<div class="alv-bar text-truncate mb-3">{{'job-search.filter.title' | translate}}</div>
-<form formGroupName="form">
+<button class="title-bar alv-bar text-truncate mb-3 w-100"
+        (click)="expanded = !expanded">
+  {{'job-search.filter.title' | translate}}
+</button>
+<div class="title-bar alv-bar text-truncate mb-3">
+  {{'job-search.filter.title' | translate}}
+</div>
+
+<form class="filter-form pb-2"
+      formGroupName="form"
+      [class.expanded]="expanded">
   <alv-select
     *alvHasAnyAuthority="['ROLE_JOBSEEKER_CLIENT']"
     label="{{'job-search.filter.restricted-jobs.label' | translate}}"
@@ -42,7 +51,7 @@
       <nouislider [min]="1"
                   [max]="60"
                   [config]="{step: 1}"
-                  (change)="updateSliderValue($event)"
+                  (update)="updateSliderValue($event)"
                   class="range-input"
                   [formControl]="form.get('onlineSince')">
       </nouislider>

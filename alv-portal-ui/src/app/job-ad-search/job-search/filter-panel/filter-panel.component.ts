@@ -18,6 +18,8 @@ export class FilterPanelComponent implements OnInit {
   @Input()
   jobSearchFilter: JobSearchFilter;
 
+  expanded = false;
+
   restrictOptions$: Observable<SelectableOption[]> = of([
     {
       value: false,
@@ -28,6 +30,7 @@ export class FilterPanelComponent implements OnInit {
       label: 'Innerhalb Informationsvorsprung'
     }
   ]);
+
   sortOptions$: Observable<SelectableOption[]> = of([{
     value: Sort.RELEVANCE_DESC,
     label: 'job-search.filter.sort.option.RELEVANCE_DESC'

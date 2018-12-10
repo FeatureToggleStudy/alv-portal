@@ -1,4 +1,15 @@
 
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
+
 .filter-panel {
   top: 1.5rem;
 }
+
+@include media-breakpoint-down(sm) {
+  .filter-panel {
+    top: 0;
+  }
+}
+
