@@ -1,0 +1,42 @@
+@import "../common/colors";
+
+.accordion {
+  .card {
+    border: 0 !important;
+
+    .card-header {
+      margin: 0.5rem;
+      padding: 0;
+      background: $color-light-grey;
+
+      &:hover {
+        background: darken($color-light-grey, 10%)
+      }
+
+      .btn {
+        width: 100%;
+        text-align: left;
+
+        &:focus {
+          box-shadow: none;
+        }
+
+        &.collapsed {
+          .alv-panel-title:after {
+            font-family: FontAwesome;
+            content: "\f107";
+            float: right;
+          }
+        }
+
+        &.expanded {
+          .alv-panel-title:after {
+            font-family: FontAwesome;
+            content: "\f106";
+            float: right;
+          }
+        }
+      }
+    }
+  }
+}

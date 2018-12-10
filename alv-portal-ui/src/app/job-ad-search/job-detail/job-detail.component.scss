@@ -6,6 +6,13 @@
   overflow: hidden;
 }
 
+.dropdown-toggle::after {
+  display: none;
+}
+.btn-text {
+  padding: 0.2rem;
+  margin-bottom: 0.5rem;
+}
 .logo-box__company {
   p {
     margin-bottom: 0;
@@ -65,7 +72,6 @@ td:first-of-type {
 
 .detail__title {
   h2 {
-    height: 2rem;
     margin-bottom: 1rem;
   }
 

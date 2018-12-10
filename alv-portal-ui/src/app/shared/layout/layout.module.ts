@@ -10,6 +10,7 @@ import {
   NgbAccordionModule,
   NgbAlert,
   NgbAlertModule,
+  NgbDropdown,
   NgbDropdownModule,
   NgbModalModule,
   NgbPanel,
@@ -17,7 +18,10 @@ import {
   NgbPanelTitle,
   NgbPopoverModule,
   NgbTooltip,
-  NgbTooltipModule
+  NgbTooltipModule,
+  ɵp,
+  ɵq,
+  ɵr
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -61,6 +65,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgbAlertModule,
     NgbTooltipModule,
     NgbAccordionModule,
+    NgbDropdownModule,
   ],
   declarations: [
     UserMenuComponent,
@@ -112,6 +117,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgbPanel,
     NgbPanelContent,
     NgbPanelTitle,
+    NgbDropdown,
+    ɵq,
+    ɵp,
+    ɵr,
     LanguageComponent,
     ModalComponent,
     SafeHtmlPipe,

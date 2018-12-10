@@ -6,7 +6,6 @@ import {
   SourceSystem
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { combineLatest, Observable } from 'rxjs';
-import { JobCenter, ReferenceService } from '../reference.service';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { filter, flatMap, map, tap } from 'rxjs/operators';
 import {
@@ -23,6 +22,8 @@ import { select, Store } from '@ngrx/store';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { I18nService } from '../../core/i18n.service';
 import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
+import { ReferenceServiceRepository } from '../../shared/backend-services/reference-service/reference-service.repository';
+import { JobCenter } from '../../shared/backend-services/reference-service/reference-service.types';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -45,7 +46,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
   clipboardTooltip: NgbTooltip;
 
   constructor(private i18nService: I18nService,
-              private referenceService: ReferenceService,
+              private referenceServiceRepository: ReferenceServiceRepository,
               private store: Store<JobAdSearchState>) {
     super();
   }
@@ -70,7 +71,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
       filter((jobCenterCode) => !!jobCenterCode));
 
     this.jobCenter$ = combineLatest(jobCenterCode$, this.i18nService.currentLanguage$).pipe(
-      flatMap(([jobCenterCode, currentLanguage]) => this.referenceService.resolveJobCenter(jobCenterCode, currentLanguage))
+      flatMap(([jobCenterCode, currentLanguage]) => this.referenceServiceRepository.resolveJobCenter(jobCenterCode, currentLanguage))
     );
 
     this.prevVisible$ = this.store.pipe(select(isPrevVisible));
@@ -87,7 +88,11 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
     this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
   }
 
-  getJobUrl() {
+  getEncodedUrl() {
+    return encodeURIComponent(this.getJobUrl());
+  }
+
+  private getJobUrl() {
     return window.location.href;
   }
 
