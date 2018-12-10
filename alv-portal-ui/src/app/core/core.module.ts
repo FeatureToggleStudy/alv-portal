@@ -9,7 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { coreReducers } from './state-management/reducers/core.reducers';
 import { CoreEffects } from './state-management/effects/core.effects';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../../environments/environment';
 
@@ -20,6 +20,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [],
   imports: [
+    HttpClientModule,
     AuthModule,
     StoreModule.forRoot({ coreState: coreReducers }),
     EffectsModule.forRoot([CoreEffects]),
@@ -33,7 +34,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     }),
   ],
   exports: [
-    AuthModule
+    AuthModule,
+    HttpClientModule
   ],
   providers: [
     CookieService,
