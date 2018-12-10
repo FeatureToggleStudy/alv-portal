@@ -3,9 +3,9 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
-  any,
   anyAuthenticatedUser,
-  anyNotAuthenticatedUser
+  anyNotAuthenticatedUser,
+  anyUser
 } from '../../../core/auth/user.model';
 import { MenuEntry } from './menu-entry.type';
 
@@ -27,7 +27,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     icon: 'search',
     labelKey: 'portal.navigation.menu-entry.job-search',
     path: ['job-search'],
-    userPredicate: any
+    userPredicate: anyUser
   }
 ];
 
