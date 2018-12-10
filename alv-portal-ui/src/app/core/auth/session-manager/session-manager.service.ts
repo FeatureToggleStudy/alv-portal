@@ -4,7 +4,7 @@ import * as jwt_decode from 'jwt-decode';
 import { CoreState } from '../../state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { SessionExpiredAction } from '../../state-management/actions/core.actions';
-import Timeout = NodeJS.Timeout;
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class SessionManagerService {
 
   static readonly TOKEN_NAME = 'authenticationToken';
 
-  private timeout: Timeout;
+  private timeout;
 
   constructor(private store: Store<CoreState>) {
   }
