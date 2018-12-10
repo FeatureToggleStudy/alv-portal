@@ -13,16 +13,16 @@ export const ROLE_PAV = 'ROLE_PRIVATE_EMPLOYMENT_AGENT';
 
 export const ROLE_COMPANY = 'ROLE_PRIVATE_EMPLOYMENT_AGENT';
 
-export const anyUser = () => {
+export const isAnyUser = () => {
   return true;
 };
 
-export const anyAuthenticatedUser = (user: User) => {
+export const isAuthenticatedUser = (user: User) => {
   return !!user && user.isRegistered();
 };
 
-export const anyNotAuthenticatedUser = (user: User) => {
-  return !anyAuthenticatedUser(user);
+export const isNotAuthenticatedUser = (user: User) => {
+  return !isAuthenticatedUser(user);
 };
 
 export const hasAnyAuthorities = (user: User, authorities: Array<string>) => {

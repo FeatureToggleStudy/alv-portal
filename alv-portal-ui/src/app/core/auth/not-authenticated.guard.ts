@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { AbstractAuthenticationGuard } from './abstract-authentication-guard';
+import { AbstractAuthenticationGuard } from './abstract-authentication.guard';
 import { AuthenticationService } from './authentication.service';
-import { anyNotAuthenticatedUser, User } from './user.model';
+import { isNotAuthenticatedUser, User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotAuthenticatedGuardService extends AbstractAuthenticationGuard {
+export class NotAuthenticatedGuard extends AbstractAuthenticationGuard {
 
   constructor(authenticationService: AuthenticationService) {
     super(authenticationService);
   }
 
   protected predicate(user: User): boolean {
-    return anyNotAuthenticatedUser(user);
+    return isNotAuthenticatedUser(user);
   }
 
 }
