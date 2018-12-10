@@ -20,5 +20,5 @@ cd $GIT_PROJECT_NAME
 sed -i "s/$VERSION_STRING.*/$VERSION_STRING\: $BUILD_VERSION/" $VERSION_FILE
 
 # push changes
-git commit -m "portal_version bump to $BUILD_VERSION" $VERSION_FILE
+git commit -m "$VERSION_STRING bump to $BUILD_VERSION" $VERSION_FILE
 git push
