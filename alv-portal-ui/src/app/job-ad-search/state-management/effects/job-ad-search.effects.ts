@@ -31,7 +31,7 @@ import {
   getPrevId,
   JobAdSearchState
 } from '../state/job-ad-search.state';
-import { JobSearchRequestMapper } from '../../job-search-request.mapper';
+import { JobSearchRequestMapper } from './job-search-request.mapper';
 import { Router } from '@angular/router';
 import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
