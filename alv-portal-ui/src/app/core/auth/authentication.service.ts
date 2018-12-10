@@ -53,11 +53,6 @@ export class AuthenticationService {
     this.store.dispatch(new LogoutUserAction({}));
   }
 
-  isAuthenticated(): boolean {
-    // TODO
-    return false;
-  }
-
 }
 
 export class UserDto {
