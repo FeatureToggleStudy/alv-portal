@@ -10,6 +10,7 @@ VERSION_FILE="group_vars/dev/versions.yml"
 echo "Using project version: $BUILD_VERSION..."
 echo "Using git user email: $GIT_USER..."
 echo "Using git user password: $GIT_PWD..."
+echo "Using git repo url: $GIT_REPO_URL"
 
 git clone $GIT_REPO_URL
 
