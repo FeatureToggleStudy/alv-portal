@@ -13,12 +13,12 @@ export const ROLE_PAV = 'ROLE_PRIVATE_EMPLOYMENT_AGENT';
 
 export const ROLE_COMPANY = 'ROLE_PRIVATE_EMPLOYMENT_AGENT';
 
-export const anyNotAuthenticatedUser = (user: User) => {
-  return !anyAuthenticatedUser(user);
-};
-
 export const any = () => {
   return true;
+};
+
+export const anyNotAuthenticatedUser = (user: User) => {
+  return !anyAuthenticatedUser(user);
 };
 
 export const anyAuthenticatedUser = (user: User) => {

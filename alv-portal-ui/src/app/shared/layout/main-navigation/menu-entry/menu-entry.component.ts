@@ -15,7 +15,7 @@ export class MenuEntryComponent implements OnInit {
   itemClicked = new EventEmitter<void>();
 
   @Input()
-  isChild: boolean = false;
+  isChild = false;
 
   constructor() {
   }

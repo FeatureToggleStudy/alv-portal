@@ -40,7 +40,7 @@ export class MenuEntryService {
   public prepareEntries(): Observable<Array<MenuEntry>> {
     return this.authenticationService.getCurrentUser().pipe(
       map((user) => {
-        return MENU_ENTRIES.filter(m => m.userPredicate(user))
+        return MENU_ENTRIES.filter(m => m.userPredicate(user));
       })
     );
   }
