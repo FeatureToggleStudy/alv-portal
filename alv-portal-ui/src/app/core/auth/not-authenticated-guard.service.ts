@@ -1,27 +1,19 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
-  RouterStateSnapshot
-} from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
-import { AuthenticatedGuardService } from './authenticated-guard.service';
+import { AbstractAuthenticationGuard } from './abstract-authentication-guard';
+import { AuthenticationService } from './authentication.service';
+import { anyNotAuthenticatedUser, User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NotAuthenticatedGuardService implements CanActivate, CanActivateChild {
+export class NotAuthenticatedGuardService extends AbstractAuthenticationGuard {
 
-  constructor(private authenticatedGuardService: AuthenticatedGuardService) {
+  constructor(authenticationService: AuthenticationService) {
+    super(authenticationService);
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authenticatedGuardService.canActivate(route, state).pipe(map((r) => !r));
+  protected predicate(user: User): boolean {
+    return anyNotAuthenticatedUser(user);
   }
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authenticatedGuardService.canActivateChild(childRoute, state).pipe(map((r) => !r));
-  }
 }

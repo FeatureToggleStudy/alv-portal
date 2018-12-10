@@ -49,6 +49,7 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
 import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
 import { LocalLoginComponent } from './local-login/local-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.component';
 
 @NgModule({
   imports: [
@@ -94,7 +95,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     PhoneNumberPipe,
     ShortenPipe,
     WorkingTimeRangePipe,
-    LocalLoginComponent
+    LocalLoginComponent,
+    MenuEntryComponent
   ],
   entryComponents: [
     ConfirmModalComponent,

@@ -1,36 +1,18 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  CanActivateChild,
-  RouterStateSnapshot
-} from '@angular/router';
 import { AuthenticationService } from './authentication.service';
-import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
+import { anyAuthenticatedUser, User } from './user.model';
+import { AbstractAuthenticationGuard } from './abstract-authentication-guard';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticatedGuardService implements CanActivate, CanActivateChild {
+export class AuthenticatedGuardService extends AbstractAuthenticationGuard {
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(authenticationService: AuthenticationService) {
+    super(authenticationService);
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.canActivateRoute(route, state);
-  }
-
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.canActivateRoute(childRoute, state);
-  }
-
-  private canActivateRoute(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.authenticationService.getCurrentUser()
-      .pipe(
-        map((user) => {
-          return !!user && user.isRegistered();
-        })
-      );
+  protected predicate(user: User): boolean {
+    return anyAuthenticatedUser(user);
   }
 }
