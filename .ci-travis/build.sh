@@ -1,19 +1,13 @@
 #!/bin/bash
 
-PROJECT_VERSION=$1
+BUILD_VERSION=$1
 TRAVIS_BRANCH=$2
-TRAVIS_BUILD_NUMBER=$3
-ARTIFACTORY_USERNAME=$4
-ARTIFACTORY_PASSWORD=$5
+ARTIFACTORY_USERNAME=$3
+ARTIFACTORY_PASSWORD=$4
 
-echo "Using project version: $PROJECT_VERSION..."
-echo "Using travis branch: $TRAVIS_BRANCH..."
-echo "Using travis build number: $TRAVIS_BUILD_NUMBER..."
+echo "Using build version: $BUILD_VERSION..."
 echo "Using artifactory username: $ARTIFACTORY_USERNAME..."
 echo "Using artifactory password: $ARTIFACTORY_PASSWORD..."
-
-export BRANCH_VERSION_SUFFIX=$([ "$TRAVIS_BRANCH" == "master" ] && echo "" || echo "-${TRAVIS_BRANCH//\//-}")
-export BUILD_VERSION=$PROJECT_VERSION-build-$TRAVIS_BUILD_NUMBER$BRANCH_VERSION_SUFFIX
 
 # workaround: on a travis VM, it is required to load the nvm function before using nvm/node (maven build calls npm)
 source ~/.nvm/nvm.sh
