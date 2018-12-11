@@ -57,7 +57,8 @@ import { AutofocusDirective } from './autofocus.directive';
     CheckboxComponent,
     FormSubmitValidationDirective,
     MultiTypeaheadComponent,
-    SingleTypeaheadComponent
+    SingleTypeaheadComponent,
+    ReactiveFormsModule
   ],
   providers: [
     NgbPopoverConfig,
