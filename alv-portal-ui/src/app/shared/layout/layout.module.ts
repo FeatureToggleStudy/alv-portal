@@ -40,6 +40,7 @@ import { StepIndicatorComponent } from './step-indicator/step-indicator.componen
 import { LocalLoginComponent } from './local-login/local-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.component';
+import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.comp
     LanguageComponent,
     ConfirmModalComponent,
     LocalLoginComponent,
-    MenuEntryComponent
+    MenuEntryComponent,
+    InlineBadgesComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
@@ -106,7 +108,8 @@ import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.comp
     LanguageComponent,
     ModalComponent,
     StepIndicatorComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InlineBadgesComponent
   ]
 })
 export class LayoutModule {

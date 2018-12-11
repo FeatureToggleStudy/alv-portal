@@ -30,7 +30,8 @@ import { PipesModule } from './pipes/pipes.module';
     {
       provide: LOCALE_ID,
       useValue: 'de'
-    }
+    },
+    LocaleAwareDatePipe
   ],
   entryComponents: [],
   exports: [

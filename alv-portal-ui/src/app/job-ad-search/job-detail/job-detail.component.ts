@@ -28,6 +28,11 @@ import {
   GenderAwareOccupationLabel,
   OccupationPresentationService
 } from '../../shared/backend-services/reference-service/occupation-presentation.service';
+import {
+  JobBadgesMapperService,
+  JobBadgeType,
+  JobBadge
+} from '../job-badges-mapper.service';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -46,12 +51,14 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   prevVisible$: Observable<boolean>;
   nextVisible$: Observable<boolean>;
   occupation$: Observable<GenderAwareOccupationLabel>;
+  badges: JobBadge[];
 
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
 
   constructor(private i18nService: I18nService,
               private referenceServiceRepository: ReferenceServiceRepository,
+              private jobBadgesMapperService: JobBadgesMapperService,
               private store: Store<JobAdSearchState>,
               private occupationPresentationService: OccupationPresentationService) {
     super();
@@ -70,6 +77,12 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
           this.showJobAdDeactivatedMessage = this.isDeactivated(job.status);
           this.showJobAdExternalMessage = this.isExternal(job.sourceSystem);
           this.showJobAdUnvalidatedMessage = this.isUnvalidated(job);
+          this.badges = this.jobBadgesMapperService.map(job, [
+            JobBadgeType.CONTRACT_TYPE,
+            JobBadgeType.AVAILABILITY,
+            JobBadgeType.WORKPLACE,
+            JobBadgeType.WORKLOAD
+          ]);
         }));
 
     this.jobDescription$ = combineLatest(this.job$, this.i18nService.currentLanguage$)
