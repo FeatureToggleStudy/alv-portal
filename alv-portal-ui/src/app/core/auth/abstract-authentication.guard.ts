@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -6,15 +5,13 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from './user.model';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthenticatedGuardService implements CanActivate, CanActivateChild {
+export abstract class AbstractAuthenticationGuard implements CanActivate, CanActivateChild {
 
-  constructor(private authenticationService: AuthenticationService) {
+  protected constructor(private authenticationService: AuthenticationService) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -28,9 +25,9 @@ export class AuthenticatedGuardService implements CanActivate, CanActivateChild 
   private canActivateRoute(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.authenticationService.getCurrentUser()
       .pipe(
-        map((user) => {
-          return !!user && user.isRegistered();
-        })
+        map(this.predicate)
       );
   }
+
+  protected abstract predicate(user: User): boolean;
 }

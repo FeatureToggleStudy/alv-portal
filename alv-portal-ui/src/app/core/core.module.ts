@@ -9,9 +9,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { coreReducers } from './state-management/reducers/core.reducers';
 import { CoreEffects } from './state-management/effects/core.effects';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../../environments/environment';
+import { XhrMarkerInterceptor } from './xhr-marker.interceptor';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, environment.translationBaseUrl, '.json');
@@ -20,6 +21,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [],
   imports: [
+    HttpClientModule,
     AuthModule,
     StoreModule.forRoot({ coreState: coreReducers }),
     EffectsModule.forRoot([CoreEffects]),
@@ -33,13 +35,19 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     }),
   ],
   exports: [
-    AuthModule
+    AuthModule,
+    HttpClientModule
   ],
   providers: [
     CookieService,
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandler
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: XhrMarkerInterceptor,
+      multi: true
     }
   ]
 })

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Credentials, RegistrationStatus, User } from './user.model';
+import { RegistrationStatus, User } from './user.model';
 import { HttpClient } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
 import { CoreState, getCurrentUser } from '../state-management/state/core.state.ts';
@@ -53,11 +53,6 @@ export class AuthenticationService {
     this.store.dispatch(new LogoutUserAction({}));
   }
 
-  isAuthenticated(): boolean {
-    // TODO
-    return false;
-  }
-
 }
 
 export class UserDto {
@@ -71,3 +66,9 @@ export class UserDto {
   registrationStatus: RegistrationStatus;
 }
 
+
+export interface Credentials {
+  username: string;
+  password: string;
+  rememberMe: boolean;
+}

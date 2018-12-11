@@ -24,6 +24,10 @@ import { I18nService } from '../../core/i18n.service';
 import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { ReferenceServiceRepository } from '../../shared/backend-services/reference-service/reference-service.repository';
 import { JobCenter } from '../../shared/backend-services/reference-service/reference-service.types';
+import {
+  GenderAwareOccupationLabel,
+  OccupationPresentationService
+} from '../../shared/backend-services/reference-service/occupation-presentation.service';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -41,13 +45,15 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
   showJobAdUnvalidatedMessage = false;
   prevVisible$: Observable<boolean>;
   nextVisible$: Observable<boolean>;
+  occupation$: Observable<GenderAwareOccupationLabel>;
 
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
 
   constructor(private i18nService: I18nService,
               private referenceServiceRepository: ReferenceServiceRepository,
-              private store: Store<JobAdSearchState>) {
+              private store: Store<JobAdSearchState>,
+              private occupationPresentationService: OccupationPresentationService) {
     super();
   }
 
@@ -61,18 +67,28 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
         this.showJobAdUnvalidatedMessage = this.isUnvalidated(job);
       }));
 
-    this.jobDescription$ = combineLatest(this.job$, this.i18nService.currentLanguage$).pipe(
-      map(([job, currentLanguage]) => JobAdvertisementUtils.getJobDescription(job, currentLanguage))
-    );
+    this.jobDescription$ = combineLatest(this.job$, this.i18nService.currentLanguage$)
+      .pipe(
+        map(([job, currentLanguage]) =>
+          JobAdvertisementUtils.getJobDescription(job, currentLanguage))
+      );
 
-    const jobCenterCode$ = this.job$.pipe(
-      filter((job) => !!job),
-      map((job) => job.jobCenterCode),
-      filter((jobCenterCode) => !!jobCenterCode));
+    this.occupation$ = combineLatest(this.job$, this.i18nService.currentLanguage$)
+      .pipe(
+        flatMap(([job, currentLanguage]) => {
+          return this.occupationPresentationService.findOccupationLabelsByAvamCode(+job.jobContent.occupations[0].avamOccupationCode, currentLanguage);
+        }));
 
-    this.jobCenter$ = combineLatest(jobCenterCode$, this.i18nService.currentLanguage$).pipe(
-      flatMap(([jobCenterCode, currentLanguage]) => this.referenceServiceRepository.resolveJobCenter(jobCenterCode, currentLanguage))
-    );
+    const jobCenterCode$ = this.job$
+      .pipe(
+        filter((job) => !!job),
+        map((job) => job.jobCenterCode),
+        filter((jobCenterCode) => !!jobCenterCode));
+
+    this.jobCenter$ = combineLatest(jobCenterCode$, this.i18nService.currentLanguage$)
+      .pipe(
+        flatMap(([jobCenterCode, currentLanguage]) => this.referenceServiceRepository.resolveJobCenter(jobCenterCode, currentLanguage))
+      );
 
     this.prevVisible$ = this.store.pipe(select(isPrevVisible));
     this.nextVisible$ = this.store.pipe(select(isNextVisible));

@@ -24,7 +24,6 @@ import {
   ɵr
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { PanelComponent } from './panel/panel.component';
 import { PanelGroupComponent } from './panel-group/panel-group.component';
 import { NotificationComponent } from './notifications/notification/notification.component';
@@ -49,13 +48,13 @@ import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
 import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
 import { LocalLoginComponent } from './local-login/local-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.component';
 
 @NgModule({
   imports: [
     ReactiveFormsModule,
     CommonModule,
     RouterModule,
-    HttpClientModule,
     SharedAuthModule,
     FormsModule,
     TranslateModule,
@@ -94,7 +93,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     PhoneNumberPipe,
     ShortenPipe,
     WorkingTimeRangePipe,
-    LocalLoginComponent
+    LocalLoginComponent,
+    MenuEntryComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
