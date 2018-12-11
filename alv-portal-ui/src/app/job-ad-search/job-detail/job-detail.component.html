@@ -21,9 +21,7 @@
           <i class="fa fa-ellipsis-v"></i>
         </button>
         <div aria-labelledby="dropdownMenu"
-             ngbDropdownMenu
-        >
-
+             ngbDropdownMenu>
           <a *ngIf="job.jobContent.applyChannel?.formUrl"
              class="dropdown-item"
              href="{{job.jobContent.applyChannel?.formUrl}}"
@@ -115,7 +113,8 @@
                 <br>
                 {{jobCenter.address.name}}
                 <ng-container *ngIf="jobCenter.address.street || jobCenter.address.houseNumber">
-                  , {{jobCenter.address.street}} {{jobCenter.address.houseNumber}}</ng-container>
+                  , {{jobCenter.address.street}} {{jobCenter.address.houseNumber}}
+                </ng-container>
                 <br>
                 {{jobCenter.address.zipCode}} {{jobCenter.address.city}}
                 <br>
@@ -128,10 +127,12 @@
                 <br>
 
                 <ng-container *ngIf="job.stellennummerAvam">
-                  AVAM: {{job.stellennummerAvam}} <br></ng-container>
+                  AVAM: {{job.stellennummerAvam}} <br>
+                </ng-container>
 
                 <ng-container *ngIf="job.stellennummerEgov">
-                  Job-Room: {{job.stellennummerEgov}}</ng-container>
+                  Job-Room: {{job.stellennummerEgov}}
+                </ng-container>
               </ng-container>
             </div>
           </div>
@@ -181,9 +182,10 @@
       </div>
       <!--Badges-->
       <div class="detail__content">
-        <alv-job-location [location]="job.jobContent.location"
-                          classes="badge badge-job-workplace mr-1">
-        </alv-job-location>
+        <span class="badge badge-job-workplace mr-1">
+          <alv-job-location [location]="job.jobContent.location"></alv-job-location>
+        </span>
+
         <span class="badge badge-workload mr-1">{{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}</span>
 
         <span *ngIf="job.jobContent.employment.startDate"
@@ -291,13 +293,13 @@
             ></alv-languages>
           </ng-template>
         </ngb-panel>
-        <ngb-panel *ngIf="job.jobContent.applyChannel">
+        <ngb-panel *ngIf="job.jobContent.applyChannel as applyChannel">
           <ng-template ngbPanelTitle>
             <span class="alv-panel-title">{{ 'job-publication-details.contact-details.label' | translate }}</span>
           </ng-template>
           <ng-template ngbPanelContent>
             <ul>
-              <li *ngIf="job.jobContent.applyChannel.formUrl as formUrl"
+              <li *ngIf="applyChannel.formUrl as formUrl"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.online' | translate }}</strong>
                 <span>
@@ -306,14 +308,14 @@
                   </a>
                 </span>
               </li>
-              <li *ngIf="job.jobContent.applyChannel.emailAddress as emailAddress"
+              <li *ngIf="applyChannel.emailAddress as emailAddress"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.email' | translate }}</strong>
                 <span>
                     <a href="mailto:{{emailAddress}}">{{emailAddress}}</a>
                 </span>
               </li>
-              <li *ngIf="job.jobContent.applyChannel.phoneNumber as phoneNumber"
+              <li *ngIf="applyChannel.phoneNumber as phoneNumber"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.phone' | translate }}</strong>
                 <span>
@@ -322,10 +324,12 @@
                   </a>
                 </span>
               </li>
-              <li *ngIf="job.jobContent.applyChannel.mailAddress"
+              <li *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.mail' | translate }}</strong>
-                <span>{{ job.jobContent.applyChannel.mailAddress }}</span>
+                <span>
+                  <alv-apply-channel-post-address [applyChannel]="applyChannel"></alv-apply-channel-post-address>
+                </span>
               </li>
             </ul>
           </ng-template>
