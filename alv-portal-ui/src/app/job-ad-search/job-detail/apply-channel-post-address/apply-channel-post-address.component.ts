@@ -47,6 +47,6 @@ export class ApplyChannelPostAddressComponent implements OnInit {
         }
         return result;
       })
-    )
+    );
   }
 }

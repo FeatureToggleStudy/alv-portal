@@ -7,6 +7,14 @@ import { LocaleAwareDatePipe } from '../shared/pipes/locale-aware-date.pipe';
 import { InlineBadge } from '../shared/layout/inline-badges/inline-badge.types';
 import { WorkingTimeRangePipe } from '../shared/pipes/working-time-range.pipe';
 
+export enum JobBadgeType {
+  WORKLOAD, WORKPLACE, AVAILABILITY, REPORTING_OBLIGATION, CONTRACT_TYPE
+}
+
+export interface JobBadge extends InlineBadge {
+  badgeType: JobBadgeType;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +24,7 @@ export class JobBadgesMapperService {
   }
 
   public map(job: JobAdvertisement, badgeTypes: JobBadgeType[]): JobBadge[] {
-    let badges: JobBadge[] = [];
+    const badges: JobBadge[] = [];
     badges.push({
       badgeType: JobBadgeType.WORKLOAD,
       label: this.workingTimeRangePipe.transform([job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax]),
@@ -28,7 +36,7 @@ export class JobBadgesMapperService {
         badgeType: JobBadgeType.WORKPLACE,
         label: this.locationLabel(job.jobContent.location),
         cssClass: 'badge-job-workplace',
-      })
+      });
     }
     if (job.jobContent.employment.startDate) {
       badges.push({
@@ -36,14 +44,14 @@ export class JobBadgesMapperService {
         label: 'job-detail.startDate',
         labelParams: { date: this.startDateLabel(job) },
         cssClass: 'badge-availability',
-      })
+      });
     }
     if (job.jobContent.employment.immediately != null && !job.jobContent.employment.startDate) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: `job-detail.startsImmediately.false`,
         cssClass: 'badge-availability',
-      })
+      });
     }
     if (!job.jobContent.employment.permanent && !!job.jobContent.employment.endDate && !job.jobContent.employment.shortEmployment) {
       badges.push({
@@ -51,40 +59,36 @@ export class JobBadgesMapperService {
         label: 'job-detail.endDate',
         labelParams: { date: this.endDateLabel(job) },
         cssClass: 'badge-availability',
-      })
+      });
     }
     if (!!job.jobContent.employment.shortEmployment && !job.jobContent.employment.permanent) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: 'job-search.job-search-list-item.badge.shortEmployment',
         cssClass: 'badge-availability',
-      })
+      });
     }
     if (!job.jobContent.employment.permanent && !job.jobContent.employment.endDate) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: 'job-search.job-search-list-item.badge.temporary',
         cssClass: 'badge-availability',
-      })
+      });
     }
     if (job.jobContent.employment.permanent) {
       badges.push({
         badgeType: JobBadgeType.CONTRACT_TYPE,
         label: 'job-search.job-search-list-item.badge.permanent',
         cssClass: 'badge-contract-type',
-      })
+      });
     }
     if (job.reportingObligation) {
       badges.push({
         badgeType: JobBadgeType.REPORTING_OBLIGATION,
         label: 'job-search.job-search-list-item.badge.restricted',
         cssClass: 'badge-danger',
-      })
+      });
     }
-
-    //
-
-
     return badges.filter((b) => badgeTypes.includes(b.badgeType));
   }
 
@@ -103,15 +107,5 @@ export class JobBadgesMapperService {
     }
     return result;
   }
-
-}
-
-export enum JobBadgeType {
-  WORKLOAD, WORKPLACE, AVAILABILITY, REPORTING_OBLIGATION, CONTRACT_TYPE
-}
-
-export interface JobBadge extends InlineBadge {
-
-  badgeType: JobBadgeType;
 
 }
