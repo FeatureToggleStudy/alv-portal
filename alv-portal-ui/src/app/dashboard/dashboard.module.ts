@@ -11,6 +11,7 @@ import { PavDashboardPageComponent } from './pages/pav-dashboard-page/pav-dashbo
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardPageComponent } from './pages/dashboard-page.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { GravatarModule } from 'ngx-gravatar';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     SharedModule,
     CommonModule,
     DashboardRoutingModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    GravatarModule
   ],
   entryComponents: [],
   exports: [

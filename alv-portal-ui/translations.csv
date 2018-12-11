@@ -1332,3 +1332,15 @@ portal,portal.forms.validation.ngbDate,"Datumsformat ungültig, richtiges Format
 portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{day}}.{{month}}.{{year}} liegen,Date must be before {{day}}.{{month}}.{{year}},La date doit être antérieure au {{day}}.{{month}}.{{year}},La data deve essere precedente all'{{day}}.{{month}}.{{year}}
 portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{day}}.{{month}}.{{year}} liegen,Date must be after {{day}}.{{month}}.{{year}},La date doit être après le {{day}}.{{month}}.{{year}},La data deve essere successiva all'{{day}}.{{month}}.{{year}}
 
+portal,portal.navigation.menu-entry.job-search,Job-Suchen
+portal,portal.dashboard.header.welcome.time.night,Gute Nacht
+portal,portal.dashboard.header.welcome.time.morning,Guten Morgen
+portal,portal.dashboard.header.welcome.time.afternoon,Guten Nachmittag
+portal,portal.dashboard.header.welcome.time.evening,Guten Abend
+
+
+portal,portal.global.exception.client.unknown,Es ist ein unerwarteter Fehler aufgetreten
+portal,portal.global.exception.server.unknown,Auf dem Server ist ein unerwarteter Fehler aufgetreten
+portal,portal.global.exception.server.403,Zugriff verweigert
+portal,portal.global.exception.server.404,Die angeforderte Resource konnte nicht gefunden werden
+portal,portal.global.exception.server.504,Der Server ist im Moment nicht erreichbar

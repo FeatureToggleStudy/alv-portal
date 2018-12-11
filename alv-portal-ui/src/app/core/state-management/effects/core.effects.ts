@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { EMPTY, Observable, of } from 'rxjs';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import {
   CURRENT_USER_LOADED,
@@ -11,6 +11,8 @@ import {
   LOAD_CURRENT_USER,
   LoadCurrentUserAction,
   LOGOUT_USER,
+  LogoutUserAction,
+  SESSION_EXPIRED,
   ToggleMainNavigationAction
 } from '../actions/core.actions';
 import { HttpClient } from '@angular/common/http';
@@ -18,6 +20,9 @@ import { SessionManagerService } from '../../auth/session-manager/session-manage
 import { UserDto } from '../../auth/authentication.service';
 import { User } from '../../auth/user.model';
 import { ErrorHandlerService } from '../../error-handler/error-handler.service';
+import { NotificationsService } from '../../notifications.service';
+import { Router } from '@angular/router';
+import { CoreState } from '../state/core.state.ts';
 
 @Injectable()
 export class CoreEffects {
@@ -69,8 +74,23 @@ export class CoreEffects {
     })
   );
 
+  @Effect()
+  sessionExpired: Observable<Action> = this.actions$.pipe(
+    ofType(SESSION_EXPIRED),
+    tap(() => {
+      this.notificationsService.info('portal.authentication.notification.expired', true);
+      this.router.navigate(['/home']);
+    }),
+    map(() => {
+      return new LogoutUserAction({});
+    })
+  );
+
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
+              private router: Router,
+              private store: Store<CoreState>,
+              private notificationsService: NotificationsService,
               private errorHandlerService: ErrorHandlerService,
               private sessionManagerService: SessionManagerService) {
 

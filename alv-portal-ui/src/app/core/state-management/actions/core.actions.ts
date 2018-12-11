@@ -10,6 +10,8 @@ export const LOGOUT_USER = 'CORE:LOGOUT_USER';
 export const TOGGLE_MAIN_NAVIGATION = 'CORE:TOGGLE_MAIN_NAVIGATION';
 export const EFFECT_ERROR_OCCURRED = 'CORE:EFFECT_ERROR_OCCURRED';
 
+export const SESSION_EXPIRED = 'CORE:SESSION_EXPIRED';
+
 export class LanguageChangedAction implements Action {
   readonly type = LANGUAGE_CHANGED;
 
@@ -58,3 +60,11 @@ export class EffectErrorOccurredAction implements Action {
   constructor(public payload: { httpError: HttpErrorResponse }) {
   }
 }
+
+export class SessionExpiredAction implements Action {
+  readonly type = SESSION_EXPIRED;
+
+  constructor(public payload: {}) {
+  }
+}
+

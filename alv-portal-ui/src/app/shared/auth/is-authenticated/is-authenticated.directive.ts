@@ -2,6 +2,7 @@ import { Directive, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { isAuthenticatedUser } from '../../../core/auth/user.model';
 
 @Directive({
   selector: '[alvIsAuthenticated]'
@@ -19,7 +20,7 @@ export class IsAuthenticatedDirective extends AbstractSubscriber implements OnIn
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(user => {
         this.viewContainerRef.clear();
-        if (user && user.isRegistered()) {
+        if (isAuthenticatedUser(user)) {
           this.viewContainerRef.createEmbeddedView(this.templateRef);
         }
       });
