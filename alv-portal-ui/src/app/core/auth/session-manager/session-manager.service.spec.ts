@@ -13,7 +13,7 @@ describe('SessionManagerService', () => {
 
   const mockStore: SpyObj<Store<CoreState>> = createSpyObj('mockStore', ['dispatch']);
 
-  const sut: SessionManagerService;
+  let sut: SessionManagerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
