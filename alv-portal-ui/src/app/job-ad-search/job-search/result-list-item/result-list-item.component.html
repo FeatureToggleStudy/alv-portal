@@ -1,30 +1,34 @@
 <div *ngIf="result.description"
-     class="logo-box flex-height result-list__item md-whiteframe-1dp"
+     class="result-list-item flex-height position-relative mb-2"
      [routerLink]="result.routerLink"
-     [ngClass]="{'result-list__item--visited' : result.visited}">
-  <div
-    class="result-list__item__content d-flex w-100 flex-column flex-sm-row justify-content-between mb-1">
-    <h4 class="text--primary-color order-2 order-sm-1">
-      <span [innerHtml]="result.title | safeHtml"></span></h4>
-    <div class="order-1 order-sm-2 w-100">
-      <small class="result-list__item__date">{{ result.header }}</small>
+     [ngClass]="{'visited' : result.visited}">
+  <div class="selected-indicator h-100"></div>
+  <div class="d-flex flex-column flex-sm-row justify-content-between mb-1">
+    <h3 class="order-2 order-sm-1 mb-0 w-100"
+        [innerHtml]="result.title | safeHtml">
+    </h3>
+    <div class="order-1 order-sm-2">
+      <small class="date text-truncate">
+        {{ result.header | date:'dd.MM.yyyy' }}
+      </small>
     </div>
   </div>
 
-  <div>
-    <span class="text--primary-color">{{result.subtitle}}&nbsp;</span>
+
+    <span class="subtitle mr-1">{{result.subtitle}}</span>
     <span *ngFor="let badge of result.badges"
-          class="badge"
+          class="badge mr-1"
           [ngClass]="badge.cssClass">
       <span *ngIf="badge.doNotTranslate; else translatedBadge">
                 {{badge.label}}
       </span>
       <ng-template #translatedBadge>
-        {{badge.label|translate}}
+        {{badge.label | translate}}
       </ng-template>
     </span>
-  </div>
 
-  <div class="line-clamp"
-       [innerHtml]="result.description | markdownEscape | safeHtml"></div>
+  <div class="line-clamp-2"
+       [style.-webkit-box-orient]="'vertical'"
+       [innerHtml]="result.description | markdownEscape | safeHtml">
+  </div>
 </div>

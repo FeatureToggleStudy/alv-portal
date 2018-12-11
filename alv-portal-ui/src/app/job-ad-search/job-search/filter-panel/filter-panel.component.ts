@@ -1,15 +1,21 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
+import { UserRole } from '../../../core/auth/user.model';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-filter-panel',
   templateUrl: './filter-panel.component.html',
   styleUrls: ['./filter-panel.component.scss']
 })
-export class FilterPanelComponent implements OnInit {
+export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
+
+  userRole = UserRole;
+
   form: FormGroup;
 
   @Output()
@@ -18,7 +24,21 @@ export class FilterPanelComponent implements OnInit {
   @Input()
   jobSearchFilter: JobSearchFilter;
 
-  sortOptions$: Observable<SelectableOption[]> = of([{
+  expanded = false;
+
+  restrictOptions$: Observable<SelectableOption[]> = of([
+    {
+      value: false,
+      label: 'portal.job-search.filter.reporting-obligation.all.label'
+    },
+    {
+      value: true,
+      label: 'job-search.filter.restricted-jobs.label'
+    }
+  ]);
+
+  sortOptions$: Observable<SelectableOption[]> = of([
+    {
     value: Sort.RELEVANCE_DESC,
     label: 'job-search.filter.sort.option.RELEVANCE_DESC'
   },
@@ -31,7 +51,7 @@ export class FilterPanelComponent implements OnInit {
       label: 'job-search.filter.sort.option.DATE_DESC'
     }]);
 
-  percentages$: Observable<SelectableOption[]> = of([
+  defaultPercentages = [
     { label: '0%', value: 0 },
     { label: '10%', value: 10 },
     { label: '20%', value: 20 },
@@ -43,7 +63,11 @@ export class FilterPanelComponent implements OnInit {
     { label: '80%', value: 80 },
     { label: '90%', value: 90 },
     { label: '100%', value: 100 }
-  ]);
+  ];
+
+  percentagesMin$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
+
+  percentagesMax$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
 
   contractTypeOptions$: Observable<SelectableOption[]> = of([
     {
@@ -60,11 +84,15 @@ export class FilterPanelComponent implements OnInit {
     }
   ]);
 
+  onlineSinceSliderLabel: number;
+
   constructor(private fb: FormBuilder) {
+    super();
   }
 
   ngOnInit() {
     this.form = this.fb.group({
+      displayRestricted: [this.jobSearchFilter.displayRestricted],
       sort: [this.jobSearchFilter.sort],
       company: [this.jobSearchFilter.company],
       contractType: [this.jobSearchFilter.contractType],
@@ -73,10 +101,37 @@ export class FilterPanelComponent implements OnInit {
       onlineSince: [this.jobSearchFilter.onlineSince]
     });
     this.form.valueChanges.subscribe(changedValues => this.filtersChange.next(changedValues));
+
+
+    this.form.get('workloadPercentageMin').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(percentageMin => {
+      this.percentagesMax$.next(this.defaultPercentages.filter(item => item.value >= percentageMin));
+    });
+    this.form.get('workloadPercentageMax').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(percentageMax => {
+      this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
+    });
   }
 
   updateSliderValue(value: number) {
     this.form.controls.onlineSince.setValue(value);
   }
 
+  updateSliderLabel(value: number) {
+    this.onlineSinceSliderLabel = value;
+  }
+
+  getOnlineSinceLabel(value: number): string {
+    if (value === 1) {
+      return 'job-search.filter.online-since.day.one';
+    } else {
+      return 'job-search.filter.online-since.day.many';
+    }
+  }
+
+  toggleExpanded() {
+    this.expanded = !this.expanded;
+  }
 }

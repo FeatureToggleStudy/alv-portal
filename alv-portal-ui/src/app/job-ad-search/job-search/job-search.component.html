@@ -3,18 +3,25 @@
      [infiniteScrollThrottle]="50"
      [immediateCheck]="true"
      [infiniteScrollContainer]="'main'"
-     class="container"
+     class="container-fluid"
      infiniteScroll>
-  Count: {{totalCount$ | async }}
-  Loading: {{resultsAreLoading$ | async }}
-  <div class="row">
-    <div class="col-xs-12 col-md-3">
-      <alv-filter-panel (filtersChange)="onFiltersChange($event)" [jobSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>
+
+  <div class="row mt-md-4 mt-3">
+    <div class="col-xs-12 col-md-4 col-xl-3">
+      <div class="filter-panel">
+        <div class="alv-bar mb-1">
+          <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
+          <ng-template #resultsCount>
+            <strong>{{totalCount$ | async }} Stellen</strong>
+          </ng-template>
+        </div>
+        <alv-filter-panel (filtersChange)="onFiltersChange($event)"
+                          [jobSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>
+      </div>
     </div>
-    <div class="col-xs-12 col-md-9">
-      <ng-container *ngFor="let jobSearchResult of jobSearchResults$ | async">
-        <alv-job-search-result [jobSearchResult]="jobSearchResult"></alv-job-search-result>
-      </ng-container>
+    <div class="col-xs-12 col-md-8 col-xl-9">
+      <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults$ | async"
+                             [jobSearchResult]="jobSearchResult"></alv-job-search-result>
     </div>
 
   </div>

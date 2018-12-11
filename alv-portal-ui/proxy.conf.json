@@ -1,6 +1,6 @@
 {
     "/api/*": {
-      "target": "https://staging.job-room.ch",
+      "target": "http://localhost:8080",
       "secure": false,
       "loglevel": "debug"
     },

@@ -1,55 +1,76 @@
-<h3>{{'job-search.filter.title' | translate}}</h3>
-<br>
-<form formGroupName="form">
+<button class="title-bar alv-bar text-truncate mb-3 w-100"
+        (click)="toggleExpanded()">
+  {{'job-search.filter.title' | translate}}
+  <i *ngIf="!expanded" class="fas fa-chevron-down"></i>
+  <i *ngIf="expanded" class="fas fa-chevron-up"></i>
+</button>
+<div class="title-bar alv-bar text-truncate mb-3">
+  {{'job-search.filter.title' | translate}}
+</div>
+
+<form class="filter-form pb-2"
+      autocomplete="off"
+      novalidate
+      [formGroup]="form"
+      [class.expanded]="expanded">
+
   <alv-select
-    label="{{'job-search.filter.sort.label' | translate}}"
-    [alvControl]="form.get('sort')"
-    [options$]="sortOptions$"
-    [validationMessages]="[{error: 'require', message: 'Custom message'}]"
-  ></alv-select>
-  <alv-input-field
-    label="{{'job-search.filter.company-name.label' | translate}}"
-    [alvControl]="form.get('company')"
-  >
-  </alv-input-field>
-  <alv-select
-    label="{{'job-search.filter.contract-type.label' | translate}}"
-    [alvControl]="form.get('contractType')"
-    [options$]="contractTypeOptions$"
-  >
+    *alvHasAnyAuthority="[userRole.ROLE_JOB_SEEKER]"
+    label="job-search.filter.restricted-jobs.label"
+    alvFormControlName="displayRestricted"
+    [options$]="restrictOptions$">
   </alv-select>
-  <p>{{'job-search.filter.working-time.label' | translate}}</p>
-  <div class="row">
+
+  <alv-select
+    label="job-search.filter.sort.label"
+    alvFormControlName="sort"
+    [options$]="sortOptions$">
+  </alv-select>
+
+  <alv-input-field
+    label="job-search.filter.company-name.label"
+    alvFormControlName="company">
+  </alv-input-field>
+
+  <alv-select
+    label="job-search.filter.contract-type.label"
+    alvFormControlName="contractType"
+    [options$]="contractTypeOptions$">
+  </alv-select>
+
+  <div class="form-row">
     <div class="col-6">
       <alv-select
-        label="from"
-        [alvControl]="form.get('workloadPercentageMin')"
-        [options$]="percentages$"
-      ></alv-select>
+        label="portal.job-search.filter.workload.from.label"
+        alvFormControlName="workloadPercentageMin"
+        [options$]="percentagesMin$">
+      </alv-select>
     </div>
     <div class="col-6">
       <alv-select
-        label="to"
-        [alvControl]="form.get('workloadPercentageMax')"
-        [options$]="percentages$"
-      ></alv-select>
+        label="portal.job-search.filter.workload.to.label"
+        alvFormControlName="workloadPercentageMax"
+        [options$]="percentagesMax$">
+      </alv-select>
     </div>
   </div>
+
   <div class="form-group range-slider">
-    <label>{{ 'job-search.filter.online-since.label' | translate}}</label>
+    <label class="mb-1">{{ 'job-search.filter.online-since.label' | translate}}</label>
     <div>
       <nouislider [min]="1"
                   [max]="60"
                   [config]="{step: 1}"
                   (change)="updateSliderValue($event)"
+                  (update)="updateSliderLabel($event)"
                   class="range-input"
-                  [formControl]="form.get('onlineSince')"></nouislider>
-      <span class="range-slider__value range-slider__value--unit small text-nowrap"
-            [attr.data-unit]="(form.get('onlineSince').value > 1 ? 'job-search.filter.online-since.day.many' : 'job-search.filter.online-since.day.one') | translate">
-                    {{ form.get('onlineSince').value }}
-       </span>
+                  [formControl]="form.get('onlineSince')">
+      </nouislider>
+      <span class="range-input-value text-nowrap ml-2">
+        {{ onlineSinceSliderLabel }} {{ getOnlineSinceLabel(onlineSinceSliderLabel) | translate }}
+      </span>
     </div>
   </div>
-  <pre>{{form.valueChanges | async | json}}</pre>
+
 </form>
 
