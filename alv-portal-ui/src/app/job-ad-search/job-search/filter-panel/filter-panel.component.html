@@ -7,43 +7,52 @@
 </div>
 
 <form class="filter-form pb-2"
+      autocomplete="off"
+      novalidate
+      [formGroup]="form"
       [class.expanded]="expanded">
+
   <alv-select
     *alvHasAnyAuthority="['ROLE_JOBSEEKER_CLIENT']"
     label="job-search.filter.restricted-jobs.label"
-    [alvControl]="form.get('displayRestricted')"
+    alvFormControlName="displayRestricted"
     [options$]="restrictOptions$">
   </alv-select>
+
   <alv-select
     label="job-search.filter.sort.label"
-    [alvControl]="form.get('sort')"
+    alvFormControlName="sort"
     [options$]="sortOptions$">
   </alv-select>
+
   <alv-input-field
     label="job-search.filter.company-name.label"
-    [alvControl]="form.get('company')">
+    alvFormControlName="company">
   </alv-input-field>
+
   <alv-select
     label="job-search.filter.contract-type.label"
-    [alvControl]="form.get('contractType')"
+    alvFormControlName="contractType"
     [options$]="contractTypeOptions$">
   </alv-select>
+
   <div class="form-row">
     <div class="col-6">
       <alv-select
         label="portal.job-search.filter.workload.from.label"
-        [alvControl]="form.get('workloadPercentageMin')"
+        alvFormControlName="workloadPercentageMin"
         [options$]="percentagesMin$">
       </alv-select>
     </div>
     <div class="col-6">
       <alv-select
         label="portal.job-search.filter.workload.to.label"
-        [alvControl]="form.get('workloadPercentageMax')"
+        alvFormControlName="workloadPercentageMax"
         [options$]="percentagesMax$">
       </alv-select>
     </div>
   </div>
+
   <div class="form-group range-slider">
     <label class="mb-1">{{ 'job-search.filter.online-since.label' | translate}}</label>
     <div>
@@ -60,5 +69,6 @@
       </span>
     </div>
   </div>
+
 </form>
 
