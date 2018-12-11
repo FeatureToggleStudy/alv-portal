@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserRole } from '../../../core/auth/user.model';
 
 
 @Component({
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanyDashboardPageComponent implements OnInit {
 
+  public userRole = UserRole;
 
   constructor() { }
 

@@ -7,11 +7,11 @@ export enum RegistrationStatus {
   VALIDATION_PAV = <any>'VALIDATION_PAV'
 }
 
-export const ROLE_JOB_SEEKER = 'ROLE_JOBSEEKER_CLIENT';
-
-export const ROLE_PAV = 'ROLE_PRIVATE_EMPLOYMENT_AGENT';
-
-export const ROLE_COMPANY = 'ROLE_COMPANY';
+export enum UserRole {
+  ROLE_JOB_SEEKER = <any> 'ROLE_JOBSEEKER_CLIENT',
+  ROLE_PAV = <any> 'ROLE_PRIVATE_EMPLOYMENT_AGENT',
+  ROLE_COMPANY = <any> 'ROLE_COMPANY'
+}
 
 export const isAnyUser = () => {
   return true;
@@ -25,7 +25,7 @@ export const isNotAuthenticatedUser = (user: User) => {
   return !isAuthenticatedUser(user);
 };
 
-export const hasAnyAuthorities = (user: User, authorities: Array<string>) => {
+export const hasAnyAuthorities = (user: User, authorities: Array<UserRole>) => {
   return !!user && user.hasAnyAuthorities(authorities);
 };
 
@@ -43,7 +43,7 @@ export class User {
 
   langKey: string;
 
-  authorities: Array<string>;
+  authorities: UserRole[];
 
   registrationStatus: RegistrationStatus;
 
@@ -70,7 +70,7 @@ export class User {
    * user.hasAnyAuthorities(['nono']) -> false
    * @param authorities
    */
-  hasAnyAuthorities(authorities: Array<string>): boolean {
+  hasAnyAuthorities(authorities: Array<UserRole>): boolean {
     return this.authorities.some(value => -1 !== authorities.indexOf(value));
   }
 

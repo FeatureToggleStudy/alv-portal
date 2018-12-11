@@ -28,18 +28,18 @@ export abstract class AbstractAuthenticationGuard implements CanActivate, CanAct
     return this.authenticationService.getCurrentUser()
       .pipe(
         map((user) => {
-          const result = this.predicate(user);
+          const result = this.canUserActivate(user);
           if (!result) {
-            this.onPredicateFailed(user);
+            this.onActivationFailed(user);
           }
           return result;
         })
       );
   }
 
-  protected abstract predicate(user: User): boolean;
+  protected abstract canUserActivate(user: User): boolean;
 
-  protected onPredicateFailed(user: User): void {
+  protected onActivationFailed(user: User): void {
     this.landingNavigationService.navigateUser(user);
   }
 }
