@@ -37,7 +37,8 @@ import { MarkdownModule } from 'ngx-markdown';
     {
       provide: LOCALE_ID,
       useValue: 'de'
-    }
+    },
+    LocaleAwareDatePipe
   ],
   entryComponents: [],
   exports: [
