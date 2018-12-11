@@ -1,6 +1,8 @@
 <button class="title-bar alv-bar text-truncate mb-3 w-100"
-        (click)="expanded = !expanded">
+        (click)="toggleExpanded()">
   {{'job-search.filter.title' | translate}}
+  <i *ngIf="!expanded" class="fas fa-chevron-down"></i>
+  <i *ngIf="expanded" class="fas fa-chevron-up"></i>
 </button>
 <div class="title-bar alv-bar text-truncate mb-3">
   {{'job-search.filter.title' | translate}}
@@ -9,7 +11,7 @@
 <form class="filter-form pb-2"
       [class.expanded]="expanded">
   <alv-select
-    *alvHasAnyAuthority="['ROLE_JOBSEEKER_CLIENT']"
+    *alvHasAnyAuthority="[userRole.ROLE_JOB_SEEKER]"
     label="job-search.filter.restricted-jobs.label"
     [alvControl]="form.get('displayRestricted')"
     [options$]="restrictOptions$">

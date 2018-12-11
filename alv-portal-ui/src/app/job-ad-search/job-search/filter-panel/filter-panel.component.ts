@@ -3,13 +3,18 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
+import { UserRole } from '../../../core/auth/user.model';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-filter-panel',
   templateUrl: './filter-panel.component.html',
   styleUrls: ['./filter-panel.component.scss']
 })
-export class FilterPanelComponent implements OnInit {
+export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
+
+  userRole = UserRole;
 
   form: FormGroup;
 
@@ -32,7 +37,8 @@ export class FilterPanelComponent implements OnInit {
     }
   ]);
 
-  sortOptions$: Observable<SelectableOption[]> = of([{
+  sortOptions$: Observable<SelectableOption[]> = of([
+    {
     value: Sort.RELEVANCE_DESC,
     label: 'job-search.filter.sort.option.RELEVANCE_DESC'
   },
@@ -81,6 +87,7 @@ export class FilterPanelComponent implements OnInit {
   onlineSinceSliderLabel: number;
 
   constructor(private fb: FormBuilder) {
+    super();
   }
 
   ngOnInit() {
@@ -95,10 +102,15 @@ export class FilterPanelComponent implements OnInit {
     });
     this.form.valueChanges.subscribe(changedValues => this.filtersChange.next(changedValues));
 
-    this.form.get('workloadPercentageMin').valueChanges.subscribe(percentageMin => {
+
+    this.form.get('workloadPercentageMin').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(percentageMin => {
       this.percentagesMax$.next(this.defaultPercentages.filter(item => item.value >= percentageMin));
     });
-    this.form.get('workloadPercentageMax').valueChanges.subscribe(percentageMax => {
+    this.form.get('workloadPercentageMax').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(percentageMax => {
       this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
     });
   }
@@ -117,5 +129,9 @@ export class FilterPanelComponent implements OnInit {
     } else {
       return 'job-search.filter.online-since.day.many';
     }
+  }
+
+  toggleExpanded() {
+    this.expanded = !this.expanded;
   }
 }
