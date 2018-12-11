@@ -300,32 +300,43 @@
               <li *ngIf="job.jobContent.applyChannel.formUrl as formUrl"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.online' | translate }}</strong>
-                <span>
-                  <a href="{{formUrl}}">
-                    {{ 'job-publication-details.application.online-form' | translate}}
-                  </a>
-                </span>
+                <ul>
+                  <li>
+                    <a href="{{formUrl}}">
+                      {{ 'job-publication-details.application.online-form' | translate}}
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li *ngIf="job.jobContent.applyChannel.emailAddress as emailAddress"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.email' | translate }}</strong>
-                <span>
+                <ul>
+                  <li>
                     <a href="mailto:{{emailAddress}}">{{emailAddress}}</a>
-                </span>
+                  </li>
+                </ul>
               </li>
               <li *ngIf="job.jobContent.applyChannel.phoneNumber as phoneNumber"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.phone' | translate }}</strong>
-                <span>
-                  <a href="tel:{{phoneNumber}}">
-                        {{(phoneNumber) | jr2PhoneNumber}}
-                  </a>
-                </span>
+                <ul>
+                  <li>
+                    <a href="tel:{{phoneNumber}}">
+                      {{(phoneNumber) | jr2PhoneNumber}}
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li *ngIf="job.jobContent.applyChannel.mailAddress"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.mail' | translate }}</strong>
-                <span>{{ job.jobContent.applyChannel.mailAddress }}</span>
+                <ul>
+                  <li>
+                    {{ job.jobContent.applyChannel.mailAddress }}
+                  </li>
+                </ul>
+
               </li>
             </ul>
           </ng-template>

@@ -1,5 +1,4 @@
 @import "../../../scss/common/colors";
-@import "../../../scss/common/layout";
 
 .btn-block {
   text-overflow: ellipsis;
@@ -40,25 +39,9 @@ td:first-of-type {
   padding-bottom: .25em;
 }
 
-:host ::ng-deep .content__item--bullet {
-  display: list-item;
-  line-height: 2em;
-  list-style: none inside;
-
-  &::before {
-    content: "";
-    line-height: 2em;
-    width: .5em;
-    height: .5em;
-    background-color: $color-red;
-    float: left;
-    margin: .75em 1.25em 0.75em .5em;
-  }
-}
-
 @media screen and (max-width: 479px) {
   .logo-box__company {
-    margin-top: $margin-x-narrow;
+    margin-top: 0.75rem;
   }
 }
 
@@ -81,7 +64,7 @@ td:first-of-type {
 }
 
 .detail__subtitle {
-  margin-bottom: $margin-x-narrow;
+  margin-bottom: 0.75rem;
 
   font-weight: 300;
   font-size: 1.125rem;
@@ -89,7 +72,7 @@ td:first-of-type {
 
 
 .detail__applications {
-  margin: $margin-x-general 0;
+  margin: 1.5rem 0;
 }
 
 .detail--occupation:nth-child(even) {
