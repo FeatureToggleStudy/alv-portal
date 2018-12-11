@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
 
@@ -45,7 +45,7 @@ export class FilterPanelComponent implements OnInit {
       label: 'job-search.filter.sort.option.DATE_DESC'
     }]);
 
-  percentages$: Observable<SelectableOption[]> = of([
+  defaultPercentages = [
     { label: '0%', value: 0 },
     { label: '10%', value: 10 },
     { label: '20%', value: 20 },
@@ -57,7 +57,11 @@ export class FilterPanelComponent implements OnInit {
     { label: '80%', value: 80 },
     { label: '90%', value: 90 },
     { label: '100%', value: 100 }
-  ]);
+  ];
+
+  percentagesMin$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
+
+  percentagesMax$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
 
   contractTypeOptions$: Observable<SelectableOption[]> = of([
     {
@@ -74,6 +78,7 @@ export class FilterPanelComponent implements OnInit {
     }
   ]);
 
+
   constructor(private fb: FormBuilder) {
   }
 
@@ -88,6 +93,13 @@ export class FilterPanelComponent implements OnInit {
       onlineSince: [this.jobSearchFilter.onlineSince]
     });
     this.form.valueChanges.subscribe(changedValues => this.filtersChange.next(changedValues));
+
+    this.form.get('workloadPercentageMin').valueChanges.subscribe(percentageMin => {
+      this.percentagesMax$.next(this.defaultPercentages.filter(item => item.value >= percentageMin));
+    });
+    this.form.get('workloadPercentageMax').valueChanges.subscribe(percentageMax => {
+      this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
+    });
   }
 
   updateSliderValue(value: number) {

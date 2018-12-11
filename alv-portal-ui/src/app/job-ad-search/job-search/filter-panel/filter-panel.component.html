@@ -33,14 +33,14 @@
       <alv-select
         label="portal.job-search.filter.workload.from.label"
         [alvControl]="form.get('workloadPercentageMin')"
-        [options$]="percentages$">
+        [options$]="percentagesMin$">
       </alv-select>
     </div>
     <div class="col-6">
       <alv-select
         label="portal.job-search.filter.workload.to.label"
         [alvControl]="form.get('workloadPercentageMax')"
-        [options$]="percentages$">
+        [options$]="percentagesMax$">
       </alv-select>
     </div>
   </div>

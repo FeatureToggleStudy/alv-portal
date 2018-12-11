@@ -1,53 +1,18 @@
-@import "colors";
-@import '../../../node_modules/bootstrap/scss/functions';
-@import '../../../node_modules/bootstrap/scss/variables';
-@import '../../../node_modules/bootstrap/scss/mixins';
-
-.alv-panel {
-  background-color: $color-grey-transparent;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
-  margin: 0.25em;
-  padding: 1em 1.5em 0.5em;
-  border: 2px solid transparent;
-  border-bottom-right-radius: 15px;
-
-  &.invalid {
-    border: 2px solid $color-red;
-    .panel-title {
-      color: $color-red;
-    }
-  }
-
-  .panel-title {
-    color: $color-dark-grey;
-    .panel-icon {
-      color: $color-primary;
-    }
-  }
-
-  .panel-divider {
-    border-top: 1px solid $color-medium-grey;
-    margin: 1em calc(-1.5em - 2px);
-  }
-
-  .panel-footer {
-    display: flex;
-    align-content: flex-end;
-    margin-bottom: 0.3em;
-  }
-
-  .panel-full-width {
-    margin: 0 calc(-1.5em - 2px);
-    display: block;
-  }
+.line-clamp-2 {
+  overflow: hidden;
+  position: relative;
+  line-height: 1.5em;
+  max-height: 3em;
 }
 
-@include media-breakpoint-down(sm) {
-  .alv-panel {
-    padding: 1em 0.5em 0.5em;
-
-    .panel-divider, .panel-full-width {
-      margin: 1em calc(-0.5em - 2px);
-    }
+@supports (-webkit-line-clamp: 2) and (-webkit-box-orient: vertical) {
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .line-clamp-2:after {
+    display: none;
   }
 }
