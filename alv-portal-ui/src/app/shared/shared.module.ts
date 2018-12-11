@@ -5,10 +5,6 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LayoutModule } from './layout/layout.module';
 import { FormsModule as AlvFormsModule } from './forms/forms.module';
 import { SharedAuthModule } from './auth/shared-auth.module';
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
-import { LocaleAwareDatePipe } from './pipes/locale-aware-date.pipe';
-import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
-import { PhoneNumberPipe } from './pipes/phone-number.pipe';
 import { ClipboardModule } from 'ngx-clipboard';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import locale from '@angular/common/locales/de';
@@ -16,14 +12,11 @@ import localeFr from '@angular/common/locales/fr';
 import localeIt from '@angular/common/locales/it';
 import localeEn from '@angular/common/locales/en';
 import { MarkdownModule } from 'ngx-markdown';
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [
     LandingPageComponent,
-    SafeHtmlPipe,
-    LocaleAwareDatePipe,
-    WorkingTimeRangePipe,
-    PhoneNumberPipe
   ],
   imports: [
     AlvFormsModule,
@@ -31,14 +24,13 @@ import { MarkdownModule } from 'ngx-markdown';
     LayoutModule,
     SharedAuthModule,
     ClipboardModule,
-    MarkdownModule.forRoot()
+    PipesModule
   ],
   providers: [
     {
       provide: LOCALE_ID,
       useValue: 'de'
-    },
-    LocaleAwareDatePipe
+    }
   ],
   entryComponents: [],
   exports: [
@@ -47,10 +39,7 @@ import { MarkdownModule } from 'ngx-markdown';
     AlvFormsModule,
     LandingPageComponent,
     LayoutModule,
-    SafeHtmlPipe,
-    LocaleAwareDatePipe,
-    WorkingTimeRangePipe,
-    PhoneNumberPipe,
+    PipesModule,
     ClipboardModule,
     MarkdownModule,
     SharedAuthModule

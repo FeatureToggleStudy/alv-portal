@@ -3,23 +3,23 @@ import {
   JobAdvertisement,
   Location
 } from '../shared/backend-services/job-advertisement/job-advertisement.types';
-import { formatTimeRange } from '../shared/layout/pipes/working-time-range.pipe';
 import { LocaleAwareDatePipe } from '../shared/pipes/locale-aware-date.pipe';
 import { InlineBadge } from '../shared/layout/inline-badges/inline-badge.types';
+import { WorkingTimeRangePipe } from '../shared/pipes/working-time-range.pipe';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobBadgesMapperService {
 
-  constructor(private localeAwareDatePipe: LocaleAwareDatePipe) {
+  constructor(private localeAwareDatePipe: LocaleAwareDatePipe, private workingTimeRangePipe: WorkingTimeRangePipe) {
   }
 
   public map(job: JobAdvertisement, badgeTypes: JobBadgeType[]): JobBadge[] {
     let badges: JobBadge[] = [];
     badges.push({
       badgeType: JobBadgeType.WORKLOAD,
-      label: formatTimeRange([job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax]),
+      label: this.workingTimeRangePipe.transform([job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax]),
       cssClass: 'badge-workload',
     });
 
