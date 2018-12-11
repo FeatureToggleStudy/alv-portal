@@ -11,7 +11,7 @@ export const ROLE_JOB_SEEKER = 'ROLE_JOBSEEKER_CLIENT';
 
 export const ROLE_PAV = 'ROLE_PRIVATE_EMPLOYMENT_AGENT';
 
-export const ROLE_COMPANY = 'ROLE_PRIVATE_EMPLOYMENT_AGENT';
+export const ROLE_COMPANY = 'ROLE_COMPANY';
 
 export const isAnyUser = () => {
   return true;
