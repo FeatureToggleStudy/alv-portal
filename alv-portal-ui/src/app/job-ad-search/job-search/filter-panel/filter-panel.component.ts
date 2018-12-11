@@ -78,6 +78,7 @@ export class FilterPanelComponent implements OnInit {
     }
   ]);
 
+  onlineSinceSliderLabel: number;
 
   constructor(private fb: FormBuilder) {
   }
@@ -104,6 +105,10 @@ export class FilterPanelComponent implements OnInit {
 
   updateSliderValue(value: number) {
     this.form.controls.onlineSince.setValue(value);
+  }
+
+  updateSliderLabel(value: number) {
+    this.onlineSinceSliderLabel = value;
   }
 
   getOnlineSinceLabel(value: number): string {

@@ -1,5 +1,6 @@
 ### generated code ###
 src/environments/version.ts
 src/assets/i18n
+
 ### node dependencies ###
 node_modules

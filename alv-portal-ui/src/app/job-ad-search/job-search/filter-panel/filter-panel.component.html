@@ -50,14 +50,14 @@
       <nouislider [min]="1"
                   [max]="60"
                   [config]="{step: 1}"
-                  (update)="updateSliderValue($event)"
+                  (change)="updateSliderValue($event)"
+                  (update)="updateSliderLabel($event)"
                   class="range-input"
                   [formControl]="form.get('onlineSince')">
       </nouislider>
-      <span class="range-input-value text-nowrap ml-2"
-            [attr.data-unit]="getOnlineSinceLabel(form.get('onlineSince').value) | translate">
-                    {{ form.get('onlineSince').value }} {{ getOnlineSinceLabel(form.get('onlineSince').value) | translate }}
-       </span>
+      <span class="range-input-value text-nowrap ml-2">
+        {{ onlineSinceSliderLabel }} {{ getOnlineSinceLabel(onlineSinceSliderLabel) | translate }}
+      </span>
     </div>
   </div>
 </form>
