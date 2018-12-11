@@ -228,12 +228,12 @@
           </ng-template>
           <ng-template ngbPanelContent>
             <ul>
-              <li>workplace
+              <li>{{'job-detail.workplace.label'|translate}}
                 <alv-job-location [location]="job.jobContent.location">
                 </alv-job-location>
               </li>
               <li>
-                Entry date
+                {{'job-detail.employmentStartDate.label'|translate}}
                 <span
                   [translateParams]="{date: job.jobContent.employment.startDate | localeAwareDate}"
                   translate="job-detail.startDate">
@@ -243,11 +243,11 @@
                 </span>
               </li>
               <li>
-                workload
+                {{'job-detail.workload.label'|translate}}
                 {{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}
               </li>
               <li>
-                work period
+                {{'job-detail.employmentEndDate.label'|translate}}
                 <span *ngIf="!job.jobContent.employment.permanent && !job.jobContent.employment.endDate">
               {{'job-search.job-search-list-item.badge.temporary' | translate}}
                 </span>
@@ -256,7 +256,7 @@
                 </span>
               </li>
               <li>
-                work form
+                {{'job-detail.workForm.label'|translate}}
                 <span *ngIf="!job.jobContent.employment.permanent && !!job.jobContent.employment.shortEmployment">
                   {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
                 </span>
@@ -297,28 +297,28 @@
           </ng-template>
           <ng-template ngbPanelContent>
             <ul>
-              <li *ngIf="job.jobContent.applyChannel.formUrl"
+              <li *ngIf="job.jobContent.applyChannel.formUrl as formUrl"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.online' | translate }}</strong>
                 <span>
-                  <a href="{{ job.jobContent.applyChannel.formUrl }}">
+                  <a href="{{formUrl}}">
                     {{ 'job-publication-details.application.online-form' | translate}}
                   </a>
                 </span>
               </li>
-              <li *ngIf="job.jobContent.applyChannel.emailAddress"
+              <li *ngIf="job.jobContent.applyChannel.emailAddress as emailAddress"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.email' | translate }}</strong>
                 <span>
-                    <a href="mailto:{{job.jobContent.applyChannel.emailAddress}}">{{job.jobContent.applyChannel.emailAddress}}</a>
+                    <a href="mailto:{{emailAddress}}">{{emailAddress}}</a>
                 </span>
               </li>
-              <li *ngIf="job.jobContent.applyChannel.phoneNumber"
+              <li *ngIf="job.jobContent.applyChannel.phoneNumber as phoneNumber"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.phone' | translate }}</strong>
                 <span>
-                  <a href="tel:{{job.jobContent.applyChannel.phoneNumber}}">
-                        {{(job.jobContent.applyChannel.phoneNumber) | jr2PhoneNumber}}
+                  <a href="tel:{{phoneNumber}}">
+                        {{(phoneNumber) | jr2PhoneNumber}}
                   </a>
                 </span>
               </li>
