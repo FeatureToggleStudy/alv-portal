@@ -4,4 +4,4 @@
 source ~/.nvm/nvm.sh
 
 echo "Building Maven artifacts..."
-./mvnw package;
+./mvnw package
