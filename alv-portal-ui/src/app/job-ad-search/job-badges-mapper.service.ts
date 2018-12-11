@@ -101,9 +101,15 @@ export class JobBadgesMapperService {
   }
 
   private locationLabel(location: Location) {
-    let result = `${location.postalCode} ${location.city}`;
+    let result = '';
+    if (location.postalCode) {
+      result += location.postalCode;
+    }
+    if (location.city) {
+      result += location.city;
+    }
     if (location.cantonCode || location.countryIsoCode) {
-      result += `(${location.cantonCode || location.countryIsoCode})`;
+      result += ` (${location.cantonCode || location.countryIsoCode})`;
     }
     return result;
   }
