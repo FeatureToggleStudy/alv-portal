@@ -15,7 +15,7 @@
             [alvAutofocus]="autofocus"
             [class.placeholder-shown]="control.value === ''">
       <option *ngFor="let option of options$ | async"
-              [value]="option.value">{{option.label | translate}}
+              [ngValue]="option.value">{{option.label | translate}}
       </option>
     </select>
     <div *ngIf="readonly"
@@ -27,7 +27,7 @@
         </ng-container>
       </ng-container>
     </div>
-    <label [for]="id">{{label | translate}}</label>
+    <label [for]="id" class="text-truncate">{{label | translate}}</label>
     <i class="fas fa-caret-down dropdown-icon"
        *ngIf="!readonly"></i>
   </div>

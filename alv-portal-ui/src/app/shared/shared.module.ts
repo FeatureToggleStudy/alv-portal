@@ -31,8 +31,7 @@ import { MarkdownModule } from 'ngx-markdown';
     LayoutModule,
     SharedAuthModule,
     ClipboardModule,
-    MarkdownModule.forRoot(),
-    SharedAuthModule
+    MarkdownModule.forRoot()
   ],
   providers: [
     {

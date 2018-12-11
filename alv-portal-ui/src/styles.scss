@@ -13,9 +13,10 @@ body {
 @import "scss/overrides/container";
 @import "scss/overrides/accordion";
 @import "scss/common/panel";
+@import "scss/common/bar";
 @import "scss/common/_badges";
 @import "scss/common/_layout";
 @import "scss/common/link";
-@import "scss/common/typeahead-item-groups";
+@import "scss/common/line-clamp";
 @import "~nouislider/distribute/nouislider.min.css";
 

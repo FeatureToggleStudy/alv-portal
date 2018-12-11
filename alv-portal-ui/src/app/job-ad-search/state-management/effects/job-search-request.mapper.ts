@@ -16,7 +16,7 @@ export class JobSearchRequestMapper {
         permanent: JobSearchRequestMapper.mapContractType(jobSearchFilter.contractType),
         companyName: jobSearchFilter.company,
         onlineSince: jobSearchFilter.onlineSince,
-        displayRestricted: false
+        displayRestricted: jobSearchFilter.displayRestricted
       }
     };
   }

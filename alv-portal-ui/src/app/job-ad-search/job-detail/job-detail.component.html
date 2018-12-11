@@ -182,31 +182,31 @@
       <!--Badges-->
       <div class="detail__content">
         <alv-job-location [location]="job.jobContent.location"
-                          classes="badge badge-red">
+                          classes="badge badge-job-workplace mr-1">
         </alv-job-location>
-        <span class="badge badge-gray">{{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}</span>
+        <span class="badge badge-workload mr-1">{{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}</span>
 
         <span *ngIf="job.jobContent.employment.startDate"
-              class="badge badge-yellow"
+              class="badge badge-availability mr-1"
               translate="job-detail.startDate"
               [translateParams]="{date: job.jobContent.employment.startDate | localeAwareDate}"></span>
         <span *ngIf="!job.jobContent.employment.startDate && job.jobContent.employment.immediately != null"
-              class="badge badge-yellow">
+              class="badge badge-availability mr-1">
                     {{'job-detail.startsImmediately.' + job.jobContent.employment.immediately | translate}}
                 </span>
         <span *ngIf="job.jobContent.employment.permanent"
-              class="badge badge-green">
+              class="badge badge-contract-type mr-1">
                     {{'job-search.job-search-list-item.badge.permanent' | translate}}
           </span>
         <span *ngIf="!job.jobContent.employment.permanent && !!job.jobContent.employment.endDate && !job.jobContent.employment.shortEmployment"
-              class="badge badge-yellow"
+              class="badge badge-availability mr-1"
               translate="job-detail.endDate"
               [translateParams]="{date: job.jobContent.employment.endDate | localeAwareDate}"></span>
         <span *ngIf="!job.jobContent.employment.permanent && !!job.jobContent.employment.shortEmployment"
-              class="badge badge-yellow">{{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
+              class="badge badge-availability mr-1">{{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
                 </span>
         <span *ngIf="!job.jobContent.employment.permanent && !job.jobContent.employment.endDate"
-              class="badge badge-yellow">{{'job-search.job-search-list-item.badge.temporary' | translate}}</span>
+              class="badge badge-availability mr-1">{{'job-search.job-search-list-item.badge.temporary' | translate}}</span>
         <span *ngIf="job.reportingObligation"
               class="badge badge-danger">{{'job-search.job-search-list-item.badge.restricted' | translate}}</span>
       </div>

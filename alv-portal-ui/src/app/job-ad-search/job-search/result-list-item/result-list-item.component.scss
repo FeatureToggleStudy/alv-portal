@@ -1,91 +1,46 @@
 @import "../../../../scss/common/colors";
 
-.line-clamp {
-  overflow: hidden;
-  position: relative;
-  line-height: 1.5em;
-  max-height: 3em;
-  height: auto;
-}
-
-$text-weight-light: 300;
-$margin-x-general: 1.5rem;
-$margin-x-filter: $margin-x-general;
-$margin-x-narrow: $margin-x-general/2;
-$margin-y-general: $margin-x-general;
-$alv-box-radius: 24px; // ($logo-height * (1 - $golden-ratio)) / 2 ~30px
-$main-accent-color-50: #f9ebea;
-
-@mixin highlight-tag($color: #fff2ac,$darken: #ffe359) {
-  padding: 0 0.125rem;
-  background-color: $color;
-  background-image: linear-gradient(to right, $darken 0%, $color 100%);
-}
-
-// Job-Room-result
-.result-list__title {
-  font-weight: $text-weight-light;
-}
-
-.result-list__item {
-  padding: $alv-box-radius;
-  margin-bottom: $margin-x-narrow;
-
+.result-list-item {
+  padding: 1em;
+  border: 1px solid $color-medium-grey;
   cursor: pointer;
+  border-bottom-right-radius: 15px;
 
   &:hover {
-    background: $main-accent-color-50;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+
+    .title {
+      color: $color-primary;
+    }
+
+    .selected-indicator {
+      background-color: $color-primary;
+    }
+  }
+  &.visited {
+    background: $color-light-grey;
+  }
+
+  .subtitle {
+    font-weight: 700;
+  }
+
+  .selected-indicator {
+    width: 5px;
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 
   em {
-    @include highlight-tag();
+    padding: 0 0.125rem;
+    background-color: $color-light-yellow;
   }
 
-  .result-list__item__content {
-    > .w-100 {
-      width: auto !important;
-    }
-  }
-
-  .result-list__item__date {
+  .date {
     vertical-align: text-top;
   }
 
-  .result-list__item__star {
-    padding: 0 10px;
-    font-size: 1.25em;
-  }
+
 }
 
-.alv-logo-box, .logo-box {
-  width: 100%;
-  background-color: #f2efe8;
-  display: block;
-  overflow-wrap: break-word;
-  border-radius: 0 0 24px !important;
-  padding: 18px;
-  margin-bottom: 1.5rem;
-
-  &.result-list__item--visited {
-    background: $color-grey-transparent;
-  }
-}
-
-// Color contrast
-@mixin color-yiq($color) {
-  $r: red($color);
-  $g: green($color);
-  $b: blue($color);
-
-  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
-
-  @if ($yiq >= 150) {
-    color: #111;
-  } @else {
-    color: #fff;
-  }
-}
-
-.text--primary-color {
-  color: $color-primary;
-}
