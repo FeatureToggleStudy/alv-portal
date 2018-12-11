@@ -59,7 +59,7 @@ export class ErrorHandlerService {
   }
 
   handleError(error) {
-    console.error("handleError:", error);
+    console.error('handleError:', error);
     this.showMessage('portal.global.exception.client.unknown', NotificationType.ERROR);
   }
 
@@ -68,9 +68,9 @@ export class ErrorHandlerService {
       throw new Error('The given ErrorResponse is not type HttpErrorResponse');
     }
     if (!environment.production) {
-      console.log("handleHttpError:", httpErrorResponse)
+      console.log('handleHttpError:', httpErrorResponse);
     }
-    let errorHandlingStrategy = this.httpErrorHandlerStrategies
+    const errorHandlingStrategy = this.httpErrorHandlerStrategies
       .find((s) => s.matches(httpErrorResponse));
     if (errorHandlingStrategy !== undefined) {
       errorHandlingStrategy.handle();

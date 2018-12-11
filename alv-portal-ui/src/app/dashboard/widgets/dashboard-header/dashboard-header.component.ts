@@ -24,7 +24,7 @@ export class DashboardHeaderComponent implements OnInit {
 
   ngOnInit() {
     const hr = new Date().getHours();
-    this.timeTextKey = TIME_KEYS.find((e) => hr >= e.from && hr <= e.to).kex
+    this.timeTextKey = TIME_KEYS.find((e) => hr >= e.from && hr <= e.to).kex;
   }
 
 }

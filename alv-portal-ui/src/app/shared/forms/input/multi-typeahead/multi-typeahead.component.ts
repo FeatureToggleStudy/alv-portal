@@ -108,14 +108,14 @@ export class MultiTypeaheadComponent extends AbstractInput {
   }
 
   handleKeyDown(event: KeyboardEvent): void {
-    if (event.which === Key.Enter || event.which === Key.Tab) {
+    if (event.code === 'Enter' || event.code === 'Tab') {
       if (this.selectFreeText()) {
         event.preventDefault();
         event.stopPropagation();
       }
       return;
     }
-    if (event.which === Key.Backspace) {
+    if (event.code === 'Backspace') {
       if (!this.inputValue && this.control.value && this.control.value.length) {
         this.control.value.splice(this.control.value.length - 1, 1);
       }

@@ -17,7 +17,7 @@ export class OccupationCode {
       occupationCodeStr = `${occupationCodeStr}:${occupationCode.classifier}`;
     }
     if (occupationCode.mapping) {
-      occupationCodeStr = `${occupationCodeStr},${occupationCode.mapping.type}:${occupationCode.mapping.value}`
+      occupationCodeStr = `${occupationCodeStr},${occupationCode.mapping.type}:${occupationCode.mapping.value}`;
     }
     return occupationCodeStr;
   }
@@ -36,7 +36,7 @@ export class OccupationCode {
       mapping = {
         type: mappingArray[0],
         value: +mappingArray[1]
-      }
+      };
     }
 
     return new OccupationCode(value, type, classifier, mapping);
