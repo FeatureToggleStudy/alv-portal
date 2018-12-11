@@ -132,7 +132,8 @@ import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.comp
     PhoneNumberPipe,
     ShortenPipe,
     WorkingTimeRangePipe,
-    StepIndicatorComponent
+    StepIndicatorComponent,
+    ReactiveFormsModule
   ]
 })
 export class LayoutModule {
