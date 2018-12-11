@@ -27,7 +27,8 @@
       </ng-template>
     </span>
 
-  <div class="line-clamp"
+  <div class="line-clamp-2"
+       [style.-webkit-box-orient]="'vertical'"
        [innerHtml]="result.description | markdownEscape | safeHtml">
   </div>
 </div>
