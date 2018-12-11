@@ -22,6 +22,10 @@ import { WorkingTimeRangePipe } from './working-time-range.pipe';
     MarkdownEscapePipe,
     ShortenPipe
   ],
+  providers: [
+    LocaleAwareDatePipe,
+    WorkingTimeRangePipe
+  ],
   imports: [
     MarkdownModule.forRoot()
   ],
