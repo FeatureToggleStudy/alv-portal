@@ -7,14 +7,44 @@ export enum RegistrationStatus {
   VALIDATION_PAV = <any>'VALIDATION_PAV'
 }
 
+export enum UserRole {
+  ROLE_JOB_SEEKER = <any> 'ROLE_JOBSEEKER_CLIENT',
+  ROLE_PAV = <any> 'ROLE_PRIVATE_EMPLOYMENT_AGENT',
+  ROLE_COMPANY = <any> 'ROLE_COMPANY'
+}
+
+export const isAnyUser = () => {
+  return true;
+};
+
+export const isAuthenticatedUser = (user: User) => {
+  return !!user && user.isRegistered();
+};
+
+export const isNotAuthenticatedUser = (user: User) => {
+  return !isAuthenticatedUser(user);
+};
+
+export const hasAnyAuthorities = (user: User, authorities: Array<UserRole>) => {
+  return !!user && user.hasAnyAuthorities(authorities);
+};
+
 export class User {
+
   id: string;
+
   login: string;
+
   firstName: string;
+
   lastName: string;
+
   email: string;
+
   langKey: string;
-  authorities: Array<string>;
+
+  authorities: UserRole[];
+
   registrationStatus: RegistrationStatus;
 
   public static toUser(userDto: UserDto) {
@@ -40,7 +70,7 @@ export class User {
    * user.hasAnyAuthorities(['nono']) -> false
    * @param authorities
    */
-  hasAnyAuthorities(authorities: Array<string>): boolean {
+  hasAnyAuthorities(authorities: Array<UserRole>): boolean {
     return this.authorities.some(value => -1 !== authorities.indexOf(value));
   }
 
@@ -50,10 +80,6 @@ export class User {
 
 }
 
-export interface Credentials {
-  username: string;
-  password: string;
-  rememberMe: boolean;
-}
+
 
 

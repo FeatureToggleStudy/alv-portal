@@ -52,7 +52,8 @@ import { MarkdownModule } from 'ngx-markdown';
     WorkingTimeRangePipe,
     PhoneNumberPipe,
     ClipboardModule,
-    MarkdownModule
+    MarkdownModule,
+    SharedAuthModule
   ]
 })
 export class SharedModule {

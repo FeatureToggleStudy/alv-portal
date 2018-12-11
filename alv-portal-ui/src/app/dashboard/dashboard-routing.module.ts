@@ -4,6 +4,7 @@ import { JobSeekerDashboardPageComponent } from './pages/job-seeker-dashboard-pa
 import { PavDashboardPageComponent } from './pages/pav-dashboard-page/pav-dashboard-page.component';
 import { NavigationGuard } from '../core/auth/navigation-guard.service';
 import { DashboardPageComponent } from './pages/dashboard-page.component';
+import { CompanyDashboardPageComponent } from './pages/company-dashboard-page/company-dashboard-page.component';
 
 const routes: Routes = [
   {
@@ -26,7 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'company',
-        component: PavDashboardPageComponent,
+        component: CompanyDashboardPageComponent,
         data: { titleKey: 'COMPANY_DASHBOARD_PAGE' }
       }
     ]
