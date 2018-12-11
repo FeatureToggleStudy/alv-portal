@@ -106,7 +106,7 @@ export class JobBadgesMapperService {
       result += location.postalCode;
     }
     if (location.city) {
-      result += location.city;
+      result += ` ${location.city}`;
     }
     if (location.cantonCode || location.countryIsoCode) {
       result += ` (${location.cantonCode || location.countryIsoCode})`;
