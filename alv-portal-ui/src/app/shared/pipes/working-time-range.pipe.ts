@@ -5,19 +5,22 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class WorkingTimeRangePipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
-    if (Array.isArray(value)) {
-      const min = value[0] || 0;
-      const max = value[1] || 100;
-
-      if (min === max) {
-        return `${max}%`;
-      } else {
-        return `${min}% - ${max}%`;
-      }
-    }
-
-    return null;
+  transform(value: any, ...args: any[]): any {
+    formatTimeRange(value, args);
   }
 
+}
+
+export function formatTimeRange(value: any, args?: any): any {
+  if (Array.isArray(value)) {
+    const min = value[0] || 0;
+    const max = value[1] || 100;
+
+    if (min === max) {
+      return `${max}%`;
+    } else {
+      return `${min}% - ${max}%`;
+    }
+  }
+  return null;
 }

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Badge, ResultListItem } from '../result-list-item/result-list-item.model';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import { formatTimeRange } from '../../../shared/layout/pipes/working-time-range.pipe';
+import { formatTimeRange } from '../../../shared/pipes/working-time-range.pipe';
 import { JobSearchResult } from '../../state-management/state/job-ad-search.state';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
