@@ -60,12 +60,13 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
   ngOnInit() {
 
     this.job$ = this.store
-      .pipe(select(getSelectedJobAdvertisement))
-      .pipe(tap(job => {
-        this.showJobAdDeactivatedMessage = this.isDeactivated(job.status);
-        this.showJobAdExternalMessage = this.isExternal(job.sourceSystem);
-        this.showJobAdUnvalidatedMessage = this.isUnvalidated(job);
-      }));
+      .pipe(
+        select(getSelectedJobAdvertisement),
+        tap(job => {
+          this.showJobAdDeactivatedMessage = this.isDeactivated(job.status);
+          this.showJobAdExternalMessage = this.isExternal(job.sourceSystem);
+          this.showJobAdUnvalidatedMessage = this.isUnvalidated(job);
+        }));
 
     this.jobDescription$ = combineLatest(this.job$, this.i18nService.currentLanguage$)
       .pipe(

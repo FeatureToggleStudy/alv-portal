@@ -46,7 +46,7 @@ export interface JobContent {
   employer?: Employer;
   employment: Employment;
   location: Location;
-  occupations: Occupation[];
+  occupations?: Occupation[];
   languageSkills: LanguageSkill[];
   applyChannel: ApplyChannel;
   publicContact?: PublicContact;
