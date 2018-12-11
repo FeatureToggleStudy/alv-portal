@@ -13,7 +13,7 @@ export class AuthenticatedGuard extends AbstractAuthenticationGuard {
     super(authenticationService, landingNavigationService);
   }
 
-  protected predicate(user: User): boolean {
+  protected canUserActivate(user: User): boolean {
     return isAuthenticatedUser(user);
   }
 

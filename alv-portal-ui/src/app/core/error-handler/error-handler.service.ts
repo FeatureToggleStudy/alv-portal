@@ -72,7 +72,7 @@ export class ErrorHandlerService {
     }
     const errorHandlingStrategy = this.httpErrorHandlerStrategies
       .find((s) => s.matches(httpErrorResponse));
-    if (errorHandlingStrategy !== undefined) {
+    if (!!errorHandlingStrategy) {
       errorHandlingStrategy.handle();
     } else {
       this.showMessage('portal.global.exception.server.unknown');

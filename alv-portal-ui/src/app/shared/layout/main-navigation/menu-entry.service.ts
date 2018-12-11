@@ -37,7 +37,7 @@ export class MenuEntryService {
   constructor(private authenticationService: AuthenticationService) {
   }
 
-  public prepareEntries(): Observable<Array<MenuEntry>> {
+  public prepareEntries(): Observable<MenuEntry[]> {
     return this.authenticationService.getCurrentUser().pipe(
       map((user) => {
         return MENU_ENTRIES.filter(m => m.userPredicate(user));

@@ -1337,3 +1337,15 @@ portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
 
 portal,portal.navigation.menu-entry.job-search,Job-Suchen,Job-Search,Job-Search,Job-Search
+portal,portal.navigation.menu-entry.job-search,Job-Suchen
+
+portal,portal.dashboard.header.welcome.time.night,Gute Nacht
+portal,portal.dashboard.header.welcome.time.morning,Guten Morgen
+portal,portal.dashboard.header.welcome.time.afternoon,Guten Nachmittag
+portal,portal.dashboard.header.welcome.time.evening,Guten Abend
+
+portal,portal.global.exception.client.unknown,Es ist ein unerwarteter Fehler aufgetreten
+portal,portal.global.exception.server.unknown,Auf dem Server ist ein unerwarteter Fehler aufgetreten
+portal,portal.global.exception.server.403,Zugriff verweigert
+portal,portal.global.exception.server.404,Die angeforderte Resource konnte nicht gefunden werden
+portal,portal.global.exception.server.504,Der Server ist im Moment nicht erreichbar

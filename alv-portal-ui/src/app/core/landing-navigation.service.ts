@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  RegistrationStatus,
-  ROLE_COMPANY,
-  ROLE_JOB_SEEKER,
-  ROLE_PAV,
-  User
-} from './auth/user.model';
+import { RegistrationStatus, User, UserRole } from './auth/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,15 +26,15 @@ export class LandingNavigationService {
       return this.router.navigate(['registration', 'access-code']);
     }
     // For jobseekers: to dashboard page for jobseeker
-    if (user.hasAnyAuthorities([ROLE_JOB_SEEKER])) {
+    if (user.hasAnyAuthorities([UserRole.ROLE_JOB_SEEKER])) {
       return this.router.navigate(['dashboard', 'job-seeker']);
     }
     // For company: to dashboard page for companies
-    if (user.hasAnyAuthorities([ROLE_COMPANY])) {
+    if (user.hasAnyAuthorities([UserRole.ROLE_COMPANY])) {
       return this.router.navigate(['dashboard', 'company']);
     }
     // For PAVs: to page for headhunters
-    if (user.hasAnyAuthorities([ROLE_PAV])) {
+    if (user.hasAnyAuthorities([UserRole.ROLE_PAV])) {
       return this.router.navigate(['dashboard', 'pav']);
     }
     return this.router.navigate(['home']);
