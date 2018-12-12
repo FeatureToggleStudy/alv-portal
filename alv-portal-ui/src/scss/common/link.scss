@@ -6,6 +6,9 @@
 a {
   &.link {
     color: $color-grey-black;
+    &:visited {
+      color: $color-dark-grey;
+    }
   }
 
   .link-icon {
@@ -13,9 +16,7 @@ a {
     margin-right: 0.5rem;
   }
 
-  &:visited {
-    color: $color-dark-grey;
-  }
+
 
   &:hover {
     color: $color-primary;
