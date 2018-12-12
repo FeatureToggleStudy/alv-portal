@@ -854,6 +854,11 @@ job-detail,job-detail.occupation,Beruf,Occupation
 job-detail,job-detail.qualification,Qualifikation,Qualification,Qualification,Qualifica
 job-detail,job-detail.workExperience,Berufserfahrung,Work experience
 job-detail,job-detail.education,Ausbildungsniveau,Edication
+job-detail,job-detail.workplace.label,Arbeitsort,Work location,Lieu de travail,Luogo di lavoro
+job-detail,job-detail.workload.label,Arbeitspensum,Workload,Taux d'occupation,Grado di occupazione
+job-detail,job-detail.employmentStartDate.label,Stellenantritt,Employment start,"Entrée en fonction  ",Inizio dell'attività
+job-detail,job-detail.employmentEndDate.label,Anstellungsdauer,Employment duration,Durée de l'engagement,Durata dell'assunzione
+job-detail,job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,Tipologia lavorativa
 job-detail,job-detail.deactivated,Dieses Stelleninserat ist mittlerweile nicht mehr aktiv.,This job posting is no longer active.,Cette offre d'emploi n'est plus active.,Questo annuncio di lavoro non è più attivo.
 job-detail,job-detail.unvalidated,"Dieses Inserat wurde direkt von einem unserer Nutzer elektronisch auf die Internetplattform der öffentlichen Arbeitsvermittlung publiziert. Die Arbeitslosenversicherung und öffentliche Arbeitsvermittlung hat keinen Einfluss auf dessen Inhalt und Qualität.","This advert was published electronically by one of our users on the internet platform of the public employment service. Neither the unemployment insurance office nor the public employment service have any influence over its content or quality.","Cette offre d’emploi a été publiée en ligne sur la plateforme Internet du service public de l’emploi directement par l’un de nos utilisateurs. L’assurance-chômage et le service public de l’emploi ne sont pas responsables de son contenu et de sa qualité.","Questo annuncio è stato pubblicato sul portale del servizio pubblico di collocamento direttamente in formato elettronico da uno dei nostri utenti. L’assicurazione contro la disoccupazione e il servizio pubblico di collocamento non rispondono dei contenuti né della qualità."
 job-detail,job-fingerprint-redirect.not-found,Job not found,Job not found,Job not found,Job not found
