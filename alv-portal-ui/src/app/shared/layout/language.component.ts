@@ -5,7 +5,7 @@ import { LanguageSkill } from '../backend-services/job-advertisement/job-adverti
   selector: 'alv-languages',
   template: `
     <ul *ngIf="languages?.length"
-        class="job-detail__content">
+        class="alv-list">
       <li class="content__item"
           *ngFor="let language of languages">
         <strong>
