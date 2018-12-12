@@ -25,13 +25,9 @@ import { JobAdvertisementUtils } from '../../shared/backend-services/job-adverti
 import { ReferenceServiceRepository } from '../../shared/backend-services/reference-service/reference-service.repository';
 import { JobCenter } from '../../shared/backend-services/reference-service/reference-service.types';
 import {
-  GenderAwareOccupationLabel,
-  OccupationPresentationService
-} from '../../shared/backend-services/reference-service/occupation-presentation.service';
-import {
+  JobBadge,
   JobBadgesMapperService,
-  JobBadgeType,
-  JobBadge
+  JobBadgeType
 } from '../job-badges-mapper.service';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -58,18 +54,15 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   nextVisible$: Observable<boolean>;
 
-  occupation$: Observable<GenderAwareOccupationLabel>;
-
-  jobAdExternalMessage: string;
-
-  jobAdDeactivatedMessage: string;
-
-  jobAdUnvalidatedMessage: string;
-
   badges: JobBadge[];
 
   alerts: Notification[];
 
+  activePanelIds: string[];
+
+  @ViewChild(NgbTooltip)
+  clipboardTooltip: NgbTooltip;
+  
   private readonly ALERTS = {
     jobAdExternal: {
       type: NotificationType.INFO,
@@ -88,15 +81,11 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     }
   };
 
-  @ViewChild(NgbTooltip)
-  clipboardTooltip: NgbTooltip;
-
   constructor(private i18nService: I18nService,
               private referenceServiceRepository: ReferenceServiceRepository,
               private jobBadgesMapperService: JobBadgesMapperService,
               private store: Store<JobAdSearchState>,
-              @Inject(DOCUMENT) private document: any,
-              private occupationPresentationService: OccupationPresentationService) {
+              @Inject(DOCUMENT) private document: any) {
     super();
   }
 
@@ -127,11 +116,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       filter(job => job.jobContent.occupations && !!job.jobContent.occupations.length)
     );
 
-    this.occupation$ = combineLatest(jobWithOccupation$, this.i18nService.currentLanguage$)
-      .pipe(
-        flatMap(([job, currentLanguage]) => {
-          return this.occupationPresentationService.findOccupationLabelsByAvamCode(+job.jobContent.occupations[0].avamOccupationCode, currentLanguage);
-        }));
 
     const jobCenterCode$ = this.job$
       .pipe(
@@ -147,6 +131,12 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     this.prevVisible$ = this.store.pipe(select(isPrevVisible));
     this.nextVisible$ = this.store.pipe(select(isNextVisible));
 
+    this.activePanelIds = [
+      'job-ad-info',
+      'job-ad-requirements',
+      'job-ad-languages',
+      'job-ad-contact-details'
+    ];
   }
 
   prev() {
