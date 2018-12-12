@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {
   JobAdvertisement,
   JobAdvertisementStatus,
@@ -33,6 +33,11 @@ import {
   JobBadgeType,
   JobBadge
 } from '../job-badges-mapper.service';
+import { DOCUMENT } from '@angular/common';
+import {
+  Notification,
+  NotificationType
+} from '../../shared/layout/notifications/notification.model';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -42,16 +47,46 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
   styleUrls: ['./job-detail.component.scss']
 })
 export class JobDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
+
   job$: Observable<JobAdvertisement>;
+
   jobDescription$: Observable<JobDescription>;
+
   jobCenter$: Observable<JobCenter>;
-  showJobAdExternalMessage = false;
-  showJobAdDeactivatedMessage = false;
-  showJobAdUnvalidatedMessage = false;
+
   prevVisible$: Observable<boolean>;
+
   nextVisible$: Observable<boolean>;
+
   occupation$: Observable<GenderAwareOccupationLabel>;
+
+  jobAdExternalMessage: string;
+
+  jobAdDeactivatedMessage: string;
+
+  jobAdUnvalidatedMessage: string;
+
   badges: JobBadge[];
+
+  alerts: Notification[];
+
+  private readonly ALERTS = {
+    jobAdExternal: {
+      type: NotificationType.INFO,
+      messageKey: 'job-detail.external-job-disclaimer',
+      isSticky: true
+    },
+    jobAdDeactivated: {
+      type: NotificationType.WARNING,
+      messageKey: 'job-detail.deactivated',
+      isSticky: true
+    },
+    jobAdUnvalidated: {
+      type: NotificationType.INFO,
+      messageKey: 'job-detail.unvalidated',
+      isSticky: true
+    }
+  };
 
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
@@ -60,13 +95,13 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
               private referenceServiceRepository: ReferenceServiceRepository,
               private jobBadgesMapperService: JobBadgesMapperService,
               private store: Store<JobAdSearchState>,
+              @Inject(DOCUMENT) private document: any,
               private occupationPresentationService: OccupationPresentationService) {
     super();
   }
 
   ngAfterViewInit(): void {
-    // TODO doesn't work yet
-    window.scroll(0, 0);
+    this.document.querySelector('main').scroll(0, 0);
   }
 
   ngOnInit() {
@@ -74,9 +109,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       .pipe(
         select(getSelectedJobAdvertisement),
         tap(job => {
-          this.showJobAdDeactivatedMessage = this.isDeactivated(job.status);
-          this.showJobAdExternalMessage = this.isExternal(job.sourceSystem);
-          this.showJobAdUnvalidatedMessage = this.isUnvalidated(job);
+          this.alerts = this.mapJobAdAlerts(job);
           this.badges = this.jobBadgesMapperService.map(job, [
             JobBadgeType.CONTRACT_TYPE,
             JobBadgeType.AVAILABILITY,
@@ -128,10 +161,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     return encodeURIComponent(this.getJobUrl());
   }
 
-  private getJobUrl() {
-    return window.location.href;
-  }
-
   printJob() {
     window.print();
   }
@@ -139,6 +168,28 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   onCopyLink(): void {
     this.clipboardTooltip.open();
     setTimeout(() => this.clipboardTooltip.close(), TOOLTIP_AUTO_HIDE_TIMEOUT);
+  }
+
+  dismissAlert(alert: Notification) {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
+  }
+
+  private getJobUrl() {
+    return window.location.href;
+  }
+
+  private mapJobAdAlerts(job: JobAdvertisement): Notification[] {
+    const alerts = [];
+    if (this.isExternal(job.sourceSystem)) {
+      alerts.push(this.ALERTS.jobAdExternal);
+    }
+    if (this.isDeactivated(job.status)) {
+      alerts.push(this.ALERTS.jobAdDeactivated);
+    }
+    if (this.isUnvalidated(job)) {
+      alerts.push(this.ALERTS.jobAdUnvalidated);
+    }
+    return alerts;
   }
 
   private isDeactivated(jobAdvertisementStatus: JobAdvertisementStatus): boolean {

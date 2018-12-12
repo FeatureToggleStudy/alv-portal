@@ -67,15 +67,10 @@ ul.alv-list {
   height: 300px;
 }
 
-.detail__title {
-  h2 {
-    margin-bottom: 1rem;
-  }
-
-  .detail__date {
-    margin-left: 1.5rem;
-  }
+.job-company {
+  color: $color-primary;
 }
+
 
 .detail__subtitle {
   margin-bottom: $margin-x-narrow;
