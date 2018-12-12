@@ -19,6 +19,7 @@ import { JobLocationPipe } from './job-location.pipe';
 import { JobSearchFilterParameterService } from './job-search/job-search-filter-parameter.service';
 import { JobDetailGuard } from './job-detail/job-detail.guard';
 import { JobSearchGuard } from './job-search/job-search.guard';
+import { JobDetailService } from './job-detail/job-detail.service';
 
 @NgModule({
   imports: [
@@ -41,11 +42,12 @@ import { JobSearchGuard } from './job-search/job-search.guard';
   ],
   providers: [
     JobSearchFilterParameterService,
-    JobLocationPipe,
     JobBadgesMapperService,
     JobDetailGuard,
-    JobSearchGuard
-  ],
+    JobSearchGuard,
+    JobLocationPipe,
+    JobDetailService
+  ]
 })
 export class JobAdSearchModule {
 }

@@ -34,6 +34,12 @@ import {
   Notification,
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
+import { JobDetailService } from './job-detail.service';
+import { hasImmediately, hasStartDate } from '../job-ad-rules';
+import { JobLocationPipe } from '../job-location.pipe';
+import { LocaleAwareDatePipe } from '../../shared/pipes/locale-aware-date.pipe';
+import { WorkingTimeRangePipe } from '../../shared/pipes/working-time-range.pipe';
+import { JobDetailPanelId } from './job-detail-panel-id.enum';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -50,15 +56,19 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   jobCenter$: Observable<JobCenter>;
 
-  prevVisible$: Observable<boolean>;
+  prevEnabled$: Observable<boolean>;
 
-  nextVisible$: Observable<boolean>;
+  nextEnabled$: Observable<boolean>;
 
   badges: JobBadge[];
 
   alerts: Notification[];
 
+  infoList: AlvListItem[];
+
   activePanelIds: string[];
+
+  jobDetailPanelId = JobDetailPanelId;
 
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
@@ -84,6 +94,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   constructor(private i18nService: I18nService,
               private referenceServiceRepository: ReferenceServiceRepository,
               private jobBadgesMapperService: JobBadgesMapperService,
+              private jobDetailService: JobDetailService,
               private store: Store<JobAdSearchState>,
               @Inject(DOCUMENT) private document: any) {
     super();
@@ -99,6 +110,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
         select(getSelectedJobAdvertisement),
         tap(job => {
           this.alerts = this.mapJobAdAlerts(job);
+          this.infoList = this.jobDetailService.mapJobAdInfoList(job);
           this.badges = this.jobBadgesMapperService.map(job, [
             JobBadgeType.CONTRACT_TYPE,
             JobBadgeType.AVAILABILITY,
@@ -124,14 +136,14 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
         flatMap(([jobCenterCode, currentLanguage]) => this.referenceServiceRepository.resolveJobCenter(jobCenterCode, currentLanguage))
       );
 
-    this.prevVisible$ = this.store.pipe(select(isPrevVisible));
-    this.nextVisible$ = this.store.pipe(select(isNextVisible));
+    this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
+    this.nextEnabled$ = this.store.pipe(select(isNextVisible));
 
     this.activePanelIds = [
-      'job-ad-info',
-      'job-ad-requirements',
-      'job-ad-languages',
-      'job-ad-contact-details'
+      JobDetailPanelId.JOB_AD_INFO,
+      JobDetailPanelId.JOB_AD_REQUIREMENTS,
+      JobDetailPanelId.JOB_AD_LANGUAGES,
+      JobDetailPanelId.JOB_AD_CONTACT_DETAILS,
     ];
   }
 
@@ -190,6 +202,5 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     return jobAdvertisement.sourceSystem.toString() === 'API'
       && !jobAdvertisement.stellennummerAvam;
   }
-
 
 }

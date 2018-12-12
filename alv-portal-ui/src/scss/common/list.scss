@@ -5,8 +5,16 @@ ul.alv-list {
   display: list-item;
   line-height: 2em;
   list-style: none inside;
+  li {
+    margin-bottom: 1em;
+    .list-item-content {
+      line-height: 1em;
+      margin: 0 0 0.5em 1.8em;
+      display: block;
+    }
+  }
   li::before {
-    content: "";
+    content: '';
     line-height: 2em;
     width: .5em;
     height: .5em;

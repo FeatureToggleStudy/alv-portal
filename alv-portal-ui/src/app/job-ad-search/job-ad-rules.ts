@@ -2,7 +2,7 @@ import { JobAdvertisement } from '../shared/backend-services/job-advertisement/j
 
 // TODO pado think about how to share these rules for the usage in the template
 
-export const isTemporally = (job: JobAdvertisement) => {
+export const isTemporary = (job: JobAdvertisement) => {
   return !job.jobContent.employment.permanent && !job.jobContent.employment.endDate;
 };
 

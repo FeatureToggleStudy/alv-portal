@@ -11,11 +11,11 @@ import { LanguageSkill } from '../backend-services/job-advertisement/job-adverti
         <strong>
           {{ 'global.reference.language.' + language.languageIsoCode | lowercase | translate }}
         </strong>
-        <div *ngIf="language.spokenLevel">
+        <div class="list-item-content" *ngIf="language.spokenLevel">
                         {{ 'global.reference.language.spoken' | translate }}
-          : {{ 'global.reference.language.level.' + language.spokenLevel | translate}},
+          : {{ 'global.reference.language.level.' + language.spokenLevel | translate}}
         </div>
-        <div *ngIf="language.writtenLevel">
+        <div class="list-item-content" *ngIf="language.writtenLevel">
                         {{ 'global.reference.language.written' | translate }}
           : {{ 'global.reference.language.level.' + language.writtenLevel | translate}}
         </div>
