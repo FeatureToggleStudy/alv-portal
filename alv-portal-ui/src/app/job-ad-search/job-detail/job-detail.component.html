@@ -72,15 +72,14 @@
 
             <div class="logo-box__company flex-height md-whiteframe-1dp">
               <div *ngIf="job.jobContent.company as company">
-                <address>
-                  <strong>{{ company.name }}</strong>
-                  <br>
-
-                  {{ company.street }} {{ company.houseNumber }}
-                  <br>
-
-                  {{ company.postalCode }} {{ company.city }}
-                </address>
+                <alv-post-address [address]="{
+                  name: company.name,
+                  street: company.street,
+                  houseNumber: company.houseNumber,
+                  postalCode: company.postalCode,
+                  city: company.city
+                }">
+                </alv-post-address>
               </div>
 
               <div *ngIf="!job.publication.companyAnonymous && job.jobContent.publicContact as contact">
@@ -111,22 +110,23 @@
                  class="order-sm-2 alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
 
               <div>
-                <address *ngIf="jobCenter.address">
+                <div *ngIf="jobCenter.address as address">
                   <strong>
                     {{ 'job-detail.reference.responsible-job-center' | translate }}
                   </strong>
-                  <br>
-                  {{jobCenter.address.name}}
-                  <ng-container *ngIf="jobCenter.address.street || jobCenter.address.houseNumber">
-                    , {{jobCenter.address.street}} {{jobCenter.address.houseNumber}}
-                  </ng-container>
-                  <br>
-                  {{jobCenter.address.zipCode}} {{jobCenter.address.city}}
+                  <alv-post-address [address]="{
+                        name: address.name,
+                        street: address.street,
+                        houseNumber: address.houseNumber,
+                        postalCode: address.zipCode,
+                        city: address.city
+                }">
+                  </alv-post-address>
                   <br>
                   {{'job-detail.reference.phone' | translate}}
                   <a class="link"
                      href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
-                </address>
+                </div>
 
                 <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
                   <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
@@ -205,12 +205,12 @@
           </ng-template>
           <ng-template ngbPanelContent>
             <ul class="alv-list">
-              <li>{{'job-detail.workplace.label'|translate}}
+              <li>{{'job-detail.workplace.label' | translate}}
                 <alv-job-location [location]="job.jobContent.location">
                 </alv-job-location>
               </li>
               <li>
-                {{'job-detail.employmentStartDate.label'|translate}}
+                {{'job-detail.employmentStartDate.label' | translate}}
                 <span
                   [translateParams]="{date: job.jobContent.employment.startDate | localeAwareDate}"
                   translate="job-detail.startDate">
@@ -220,12 +220,12 @@
                 </span>
               </li>
               <li>
-                {{'job-detail.workload.label'|translate}}
+                {{'job-detail.workload.label' | translate}}
                 {{[job.jobContent.employment.workloadPercentageMin,
                 job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}
               </li>
               <li>
-                {{'job-detail.employmentEndDate.label'|translate}}
+                {{'job-detail.employmentEndDate.label' | translate}}
                 <span *ngIf="!job.jobContent.employment.permanent && !job.jobContent.employment.endDate">
               {{'job-search.job-search-list-item.badge.temporary' | translate}}
                 </span>
@@ -234,7 +234,7 @@
                 </span>
               </li>
               <li>
-                {{'job-detail.workForm.label'|translate}}
+                {{'job-detail.workForm.label' | translate}}
                 <span *ngIf="!job.jobContent.employment.permanent && !!job.jobContent.employment.shortEmployment">
                   {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
                 </span>
@@ -256,7 +256,7 @@
               <li>{{'job-detail.workExperience' | translate}}
                 : {{'global.experience.' + occupation.workExperience | translate}}</li>
               <li>{{'job-detail.education' | translate}}
-                : {{'global.degree.' + occupation.educationCode| translate}}
+                : {{'global.degree.avamCode.' + occupation.educationCode| translate}}
               </li>
             </ul>
           </ng-template>
@@ -326,8 +326,11 @@
               <li *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.mail' | translate }}</strong>
-                <div>
-                  <alv-apply-channel-post-address [applyChannel]="applyChannel"></alv-apply-channel-post-address>
+                <div class="alv-post-address">
+                  <alv-post-address [address]="applyChannel.postAddress"
+                                    [unstructuredAddress]="applyChannel.rawPostAddress">
+
+                  </alv-post-address>
                 </div>
               </li>
             </ul>

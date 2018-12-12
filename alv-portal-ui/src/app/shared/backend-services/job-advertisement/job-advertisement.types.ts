@@ -160,7 +160,7 @@ export interface LanguageSkill {
 }
 
 export interface ApplyChannel {
-  postAddress: ApplyChannelPostAddress;
+  postAddress: PostAddress;
   rawPostAddress: string;
   emailAddress: string;
   phoneNumber: string;
@@ -255,7 +255,7 @@ export interface JobAdvertisementCancelRequest {
   code: string;
 }
 
-export interface ApplyChannelPostAddress {
+export interface PostAddress {
   name: string;
   street?: string;
   houseNumber?: string;
