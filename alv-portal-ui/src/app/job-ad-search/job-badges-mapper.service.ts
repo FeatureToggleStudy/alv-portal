@@ -25,11 +25,6 @@ export class JobBadgesMapperService {
 
   public map(job: JobAdvertisement, badgeTypes: JobBadgeType[]): JobBadge[] {
     const badges: JobBadge[] = [];
-    badges.push({
-      badgeType: JobBadgeType.WORKLOAD,
-      label: this.workingTimeRangePipe.transform([job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax]),
-      cssClass: 'badge-workload',
-    });
 
     if (job.jobContent.location) {
       badges.push({
@@ -38,6 +33,13 @@ export class JobBadgesMapperService {
         cssClass: 'badge-job-workplace',
       });
     }
+    
+    badges.push({
+      badgeType: JobBadgeType.WORKLOAD,
+      label: this.workingTimeRangePipe.transform([job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax]),
+      cssClass: 'badge-workload',
+    });
+
     if (job.jobContent.employment.startDate) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
