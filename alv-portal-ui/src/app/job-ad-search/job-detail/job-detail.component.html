@@ -99,6 +99,7 @@
                   </ng-container>
 
                   <a *ngIf="contact.email"
+                     class="link"
                      href="mailto:{{ contact.email }}">
                     {{ contact.email }}
                   </a>
@@ -123,7 +124,7 @@
                   {{jobCenter.address.zipCode}} {{jobCenter.address.city}}
                   <br>
                   {{'job-detail.reference.phone' | translate}}
-                  <a href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
+                  <a class="link" href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
                 </address>
 
                 <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
