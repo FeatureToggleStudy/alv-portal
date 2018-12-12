@@ -59,101 +59,106 @@
     </div>
     <!-------------Left panel-->
     <div class="col-xs-12 col-md-3 col-xl-2 order-11 order-md-1 mt-3 mt-md-0 ">
-      <a class="btn btn-text btn-text-icon mb-3 d-none d-md-block"
-         routerLink="/job-search">
-        <i class="fa fa-caret-left pr-1"></i>
-        {{'job-detail.back' | translate}}
-      </a>
-      <div class="alv-panel p-2">
-        <div class="d-flex d-sm-block flex-column-reverse">
+      <div class="side-panel">
+        <a class="btn btn-text btn-text-icon mb-3 d-none d-md-block"
+           routerLink="/job-search">
+          <i class="fa fa-caret-left pr-1"></i>
+          {{'job-detail.back' | translate}}
+        </a>
+        <div class="alv-panel p-2 mb-3">
+          <div class="d-flex d-sm-block flex-column-reverse">
 
-          <hr class="visible-print-block d-none"/>
+            <hr class="visible-print-block d-none"/>
 
-          <div class="alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
-            <div *ngIf="job.jobContent.company as company"
-                 class="detail__content">
-              <address>
-                <strong>{{ company.name }}</strong>
-                <br>
-
-                {{ company.street }} {{ company.houseNumber }}
-                <br>
-
-                {{ company.postalCode }} {{ company.city }}
-              </address>
-            </div>
-
-            <div *ngIf="!job.publication.companyAnonymous && job.jobContent.publicContact as contact">
-              <div class="detail__content">
-                <strong>{{'job-detail.contactPerson' | translate}}</strong>
-                <br>
-                <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
-                {{ contact.firstName }}&nbsp;{{ contact.lastName }}
-                <br>
-
-                <ng-container *ngIf="contact.phone">
-                  <a href="tel:{{contact.phone}}">
-                    {{ contact.phone | jr2PhoneNumber }}
-                  </a>
+            <div class="alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
+              <div *ngIf="job.jobContent.company as company"
+                   class="detail__content">
+                <address>
+                  <strong>{{ company.name }}</strong>
                   <br>
-                </ng-container>
 
-                <a *ngIf="contact.email"
-                   href="mailto:{{ contact.email }}">
-                  {{ contact.email }}
-                </a>
+                  {{ company.street }} {{ company.houseNumber }}
+                  <br>
+
+                  {{ company.postalCode }} {{ company.city }}
+                </address>
+              </div>
+
+              <div *ngIf="!job.publication.companyAnonymous && job.jobContent.publicContact as contact">
+                <div class="detail__content">
+                  <strong>{{'job-detail.contactPerson' | translate}}</strong>
+                  <br>
+                  <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
+                  {{ contact.firstName }}&nbsp;{{ contact.lastName }}
+                  <br>
+
+                  <ng-container *ngIf="contact.phone">
+                    <a href="tel:{{contact.phone}}">
+                      {{ contact.phone | jr2PhoneNumber }}
+                    </a>
+                    <br>
+                  </ng-container>
+
+                  <a *ngIf="contact.email"
+                     href="mailto:{{ contact.email }}">
+                    {{ contact.email }}
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div *ngIf="job.stellennummerAvam && jobCenter$ | async as jobCenter"
-               class="order-sm-2 alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
+            <div *ngIf="job.stellennummerAvam && jobCenter$ | async as jobCenter"
+                 class="order-sm-2 alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
 
-            <div class="detail__content">
-              <address *ngIf="jobCenter.address">
-                <strong>{{ 'job-detail.reference.responsible-job-center' | translate }}</strong>
-                <br>
-                {{jobCenter.address.name}}
-                <ng-container *ngIf="jobCenter.address.street || jobCenter.address.houseNumber">
-                  , {{jobCenter.address.street}} {{jobCenter.address.houseNumber}}
+              <div class="detail__content">
+                <address *ngIf="jobCenter.address">
+                  <strong>{{ 'job-detail.reference.responsible-job-center' | translate }}</strong>
+                  <br>
+                  {{jobCenter.address.name}}
+                  <ng-container *ngIf="jobCenter.address.street || jobCenter.address.houseNumber">
+                    , {{jobCenter.address.street}} {{jobCenter.address.houseNumber}}
+                  </ng-container>
+                  <br>
+                  {{jobCenter.address.zipCode}} {{jobCenter.address.city}}
+                  <br>
+                  {{'job-detail.reference.phone' | translate}}
+                  <a href="tel:{{jobCenter.phone}}">{{jobCenter.phone | jr2PhoneNumber}}</a>
+                </address>
+
+                <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
+                  <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
+                  <br>
+
+                  <ng-container *ngIf="job.stellennummerAvam">
+                    AVAM: {{job.stellennummerAvam}} <br>
+                  </ng-container>
+
+                  <ng-container *ngIf="job.stellennummerEgov">
+                    Job-Room: {{job.stellennummerEgov}}
+                  </ng-container>
                 </ng-container>
-                <br>
-                {{jobCenter.address.zipCode}} {{jobCenter.address.city}}
-                <br>
-                {{'job-detail.reference.phone' | translate}}
-                <a href="tel:{{jobCenter.phone}}">{{jobCenter.phone | jr2PhoneNumber}}</a>
-              </address>
-
-              <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
-                <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
-                <br>
-
-                <ng-container *ngIf="job.stellennummerAvam">
-                  AVAM: {{job.stellennummerAvam}} <br>
-                </ng-container>
-
-                <ng-container *ngIf="job.stellennummerEgov">
-                  Job-Room: {{job.stellennummerEgov}}
-                </ng-container>
-              </ng-container>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
     <!-------------Main screen-->
     <div class="col-xs-12 col-md-6 col-xl-8 order-3 base__content"
          *ngIf="jobDescription$ | async as jobDescription">
       <!-----------------Alerts-->
-      <alv-alert *ngFor="let alert of alerts"
-                 [notification]="alert"
-                 (dismiss)="dismissAlert(alert)">
-      </alv-alert>
-
+      <div *ngIf="alerts.length"
+           class="mb-4">
+        <alv-alert *ngFor="let alert of alerts"
+                   [notification]="alert"
+                   (dismiss)="dismissAlert(alert)">
+        </alv-alert>
+      </div>
       <!-----------------Title-->
 
       <div class="detail__title">
-        <h2 class="mt-2 mb-4"
+        <h2 class=" mb-4"
             [innerHTML]="jobDescription.title | safeHtml"></h2>
         <span class="job-company mr-2 mr-md-4"
               *ngIf="job.jobContent.company; else ravLabel">{{job.jobContent.company.name}}</span>
@@ -184,7 +189,7 @@
 
       <!-----------------Bottom details about job-->
 
-      <ngb-accordion>
+      <ngb-accordion class="d-block mb-3">
 
         <ngb-panel>
           <ng-template ngbPanelTitle>
@@ -323,7 +328,7 @@
 
     <!-------------Right panel-->
     <div class="col-xs-12 col-md-3 col-xl-2 d-none d-md-block order-12">
-      <div class="base__sticky-panel">
+      <div class="side-panel">
         <div class="d-flex">
           <button (click)="prev()"
                   *ngIf="prevVisible$ | async"

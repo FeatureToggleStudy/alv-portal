@@ -75,5 +75,8 @@ button.btn, a.btn {
       color: $color-primary
     }
   }
+  &.btn-block {
+    text-align: center;
+  }
 
 }
