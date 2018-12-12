@@ -24,11 +24,14 @@
                              [jobSearchResult]="jobSearchResult"></alv-job-search-result>
     </div>
 
-    <div class="col-xs-12 col-md-3 col-xl-2 order-2 order-md-3">
-      <button class="btn btn-text btn-text-icon text-truncate send-search-button"
-              (click)="sendSearchAsLink()">
-        <i class="fas fa-share mr-1"></i>{{'candidate-search.filter.candidate-search-link' | translate}}
-      </button>
+    <div class="col-xs-12 col-md-3 col-xl-2 order-2 order-md-3"
+         *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink">
+      <a class="btn btn-text btn-text-icon"
+         href="{{jobSearchMailToLink}}">
+        <i aria-hidden="true"
+           class="fa fa-share mr-1"></i>
+        {{'job-detail.action.sendEmail' | translate}}
+      </a>
     </div>
 
   </div>

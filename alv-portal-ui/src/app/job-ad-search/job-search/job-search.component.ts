@@ -16,6 +16,8 @@ import {
   InitResultListAction,
   LoadNextPageAction
 } from '../state-management/actions/job-ad-search.actions';
+import { map } from 'rxjs/operators';
+import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 
 
 @Component({
@@ -34,7 +36,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
 
   jobSearchResults$: Observable<JobSearchResult[]>;
 
-  constructor(private store: Store<JobAdSearchState>) {
+  jobSearchMailToLink$: Observable<string>;
+
+  constructor(private store: Store<JobAdSearchState>,
+              private jobSearchFilterParameterService: JobSearchFilterParameterService) {
     super();
   }
 
@@ -49,6 +54,12 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
     this.jobSearchFilter$ = this.store.pipe(select(getJobSearchFilter));
 
     this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
+
+    this.jobSearchMailToLink$ = this.jobSearchFilter$.pipe(
+      map((jobSearchFilter: JobSearchFilter) => this.jobSearchFilterParameterService.encode(jobSearchFilter)),
+      map((filterParam) => `${window.location.href}?filter=${filterParam}`),
+      map((link) => `mailto:?body=${link}`)
+    );
   }
 
   onFiltersChange(jobSearchFilter: JobSearchFilter) {
@@ -57,10 +68,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
 
   onScroll() {
     this.store.dispatch(new LoadNextPageAction());
-  }
-
-  sendSearchAsLink() {
-    alert('Not implemented yet!');
   }
 
 }
