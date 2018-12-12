@@ -25,10 +25,6 @@ import { JobAdvertisementUtils } from '../../shared/backend-services/job-adverti
 import { ReferenceServiceRepository } from '../../shared/backend-services/reference-service/reference-service.repository';
 import { JobCenter } from '../../shared/backend-services/reference-service/reference-service.types';
 import {
-  GenderAwareOccupationLabel,
-  OccupationPresentationService
-} from '../../shared/backend-services/reference-service/occupation-presentation.service';
-import {
   JobBadge,
   JobBadgesMapperService,
   JobBadgeType
@@ -57,8 +53,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   prevVisible$: Observable<boolean>;
 
   nextVisible$: Observable<boolean>;
-
-  occupation$: Observable<GenderAwareOccupationLabel>;
 
   jobAdExternalMessage: string;
 
@@ -97,8 +91,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
               private referenceServiceRepository: ReferenceServiceRepository,
               private jobBadgesMapperService: JobBadgesMapperService,
               private store: Store<JobAdSearchState>,
-              @Inject(DOCUMENT) private document: any,
-              private occupationPresentationService: OccupationPresentationService) {
+              @Inject(DOCUMENT) private document: any) {
     super();
   }
 
@@ -129,11 +122,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       filter(job => job.jobContent.occupations && !!job.jobContent.occupations.length)
     );
 
-    this.occupation$ = combineLatest(jobWithOccupation$, this.i18nService.currentLanguage$)
-      .pipe(
-        flatMap(([job, currentLanguage]) => {
-          return this.occupationPresentationService.findOccupationLabelsByAvamCode(+job.jobContent.occupations[0].avamOccupationCode, currentLanguage);
-        }));
 
     const jobCenterCode$ = this.job$
       .pipe(

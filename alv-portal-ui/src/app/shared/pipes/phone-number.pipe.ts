@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CountryCode, format, isValidNumber, parse, } from 'libphonenumber-js';
 
 @Pipe({
-  name: 'jr2PhoneNumber'
+  name: 'phoneNumber'
 })
 export class PhoneNumberPipe implements PipeTransform {
 

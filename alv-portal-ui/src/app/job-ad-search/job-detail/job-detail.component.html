@@ -70,9 +70,8 @@
 
             <hr class="visible-print-block d-none"/>
 
-            <div class="alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
-              <div *ngIf="job.jobContent.company as company"
-                   class="detail__content">
+            <div class="logo-box__company flex-height md-whiteframe-1dp">
+              <div *ngIf="job.jobContent.company as company">
                 <address>
                   <strong>{{ company.name }}</strong>
                   <br>
@@ -85,7 +84,7 @@
               </div>
 
               <div *ngIf="!job.publication.companyAnonymous && job.jobContent.publicContact as contact">
-                <div class="detail__content">
+                <div>
                   <strong>{{'job-detail.contactPerson' | translate}}</strong>
                   <br>
                   <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
@@ -94,7 +93,7 @@
 
                   <ng-container *ngIf="contact.phone">
                     <a href="tel:{{contact.phone}}">
-                      {{ contact.phone | jr2PhoneNumber }}
+                      {{ contact.phone | phoneNumber }}
                     </a>
                     <br>
                   </ng-container>
@@ -110,7 +109,7 @@
             <div *ngIf="job.stellennummerAvam && jobCenter$ | async as jobCenter"
                  class="order-sm-2 alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
 
-              <div class="detail__content">
+              <div>
                 <address *ngIf="jobCenter.address">
                   <strong>{{ 'job-detail.reference.responsible-job-center' | translate }}</strong>
                   <br>
@@ -122,7 +121,7 @@
                   {{jobCenter.address.zipCode}} {{jobCenter.address.city}}
                   <br>
                   {{'job-detail.reference.phone' | translate}}
-                  <a href="tel:{{jobCenter.phone}}">{{jobCenter.phone | jr2PhoneNumber}}</a>
+                  <a href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
                 </address>
 
                 <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
@@ -176,13 +175,12 @@
         </small>
       </div>
       <!--Badges-->
-      <div class="detail__content mb-4">
+      <div class="mb-4">
         <alv-inline-badges [badges]="badges"></alv-inline-badges>
       </div>
       <!-----------------Description-->
 
-      <div *ngIf="jobDescription.description"
-           class="detail__content">
+      <div *ngIf="jobDescription.description">
         <markdown [data]="jobDescription.description"
                   ngPreserveWhitespaces></markdown>
       </div>
@@ -251,9 +249,6 @@
           </ng-template>
           <ng-template ngbPanelContent>
             <ul class="alv-list">
-              <li>{{'job-detail.occupation' | translate}}
-                : {{(occupation$ | async)?.default}}
-              </li>
               <li>{{'job-detail.workExperience' | translate}}
                 : {{'global.experience.' + job?.jobContent?.occupations[0]?.workExperience | translate}}</li>
               <li>{{'job-detail.education' | translate}}
@@ -312,7 +307,7 @@
                 <strong>{{ 'job-detail.application.phone' | translate }}</strong>
                 <span>
                   <a href="tel:{{phoneNumber}}">
-                        {{(phoneNumber) | jr2PhoneNumber}}
+                        {{(phoneNumber) | phoneNumber}}
                   </a>
                 </span>
               </li>
