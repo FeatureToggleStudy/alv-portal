@@ -91,7 +91,8 @@
                   <br>
 
                   <ng-container *ngIf="contact.phone">
-                    <a href="tel:{{contact.phone}}">
+                    <a class="link"
+                       href="tel:{{contact.phone}}">
                       {{ contact.phone | phoneNumber }}
                     </a>
                     <br>
@@ -206,8 +207,7 @@
           <ng-template ngbPanelContent>
             <ul class="alv-list">
               <li>{{'job-detail.workplace.label' | translate}}
-                <alv-job-location [location]="job.jobContent.location">
-                </alv-job-location>
+                {{job.jobContent.location | jobLocation}}
               </li>
               <li>
                 {{'job-detail.employmentStartDate.label' | translate}}

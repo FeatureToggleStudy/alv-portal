@@ -13,8 +13,12 @@ import { StoreModule } from '@ngrx/store';
 import { jobAdSearchReducer } from './state-management/reducers/job-ad-search.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { JobAdSearchEffects } from './state-management/effects/job-ad-search.effects';
-import { JobLocationComponent } from './job-detail/job-location/job-location.component';
 import { PostAddressComponent } from './job-detail/post-address/post-address.component';
+import { JobBadgesMapperService } from './job-badges-mapper.service';
+import { JobLocationPipe } from './job-location.pipe';
+import { JobSearchFilterParameterService } from './job-search/job-search-filter-parameter.service';
+import { JobDetailGuard } from './job-detail/job-detail.guard';
+import { JobSearchGuard } from './job-search/job-search.guard';
 
 @NgModule({
   imports: [
@@ -32,9 +36,16 @@ import { PostAddressComponent } from './job-detail/post-address/post-address.com
     ResultListItemComponent,
     JobSearchResultComponent,
     JobDetailComponent,
-    JobLocationComponent,
-    PostAddressComponent
-  ]
+    PostAddressComponent,
+    JobLocationPipe
+  ],
+  providers: [
+    JobSearchFilterParameterService,
+    JobLocationPipe,
+    JobBadgesMapperService,
+    JobDetailGuard,
+    JobSearchGuard
+  ],
 })
 export class JobAdSearchModule {
 }

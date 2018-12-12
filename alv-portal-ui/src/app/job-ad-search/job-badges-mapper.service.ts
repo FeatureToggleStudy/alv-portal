@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
-import {
-  JobAdvertisement,
-  Location
-} from '../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.types';
 import { LocaleAwareDatePipe } from '../shared/pipes/locale-aware-date.pipe';
 import { InlineBadge } from '../shared/layout/inline-badges/inline-badge.types';
 import { WorkingTimeRangePipe } from '../shared/pipes/working-time-range.pipe';
+import {
+  hasEndDate,
+  hasImmediately,
+  hasLocation,
+  hasStartDate,
+  isPermanent,
+  isReportingObligation,
+  isShortEmployment,
+  isTemporally
+} from './job-ad-rules';
+import { JobLocationPipe } from './job-location.pipe';
 
 export enum JobBadgeType {
   WORKLOAD, WORKPLACE, AVAILABILITY, REPORTING_OBLIGATION, CONTRACT_TYPE
@@ -15,21 +23,21 @@ export interface JobBadge extends InlineBadge {
   badgeType: JobBadgeType;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class JobBadgesMapperService {
 
-  constructor(private localeAwareDatePipe: LocaleAwareDatePipe, private workingTimeRangePipe: WorkingTimeRangePipe) {
+  constructor(private localeAwareDatePipe: LocaleAwareDatePipe,
+              private workingTimeRangePipe: WorkingTimeRangePipe,
+              private jobLocationPipe: JobLocationPipe) {
   }
 
   public map(job: JobAdvertisement, badgeTypes: JobBadgeType[]): JobBadge[] {
     const badges: JobBadge[] = [];
 
-    if (job.jobContent.location) {
+    if (hasLocation(job)) {
       badges.push({
         badgeType: JobBadgeType.WORKPLACE,
-        label: this.locationLabel(job.jobContent.location),
+        label: this.jobLocationPipe.transform(job.jobContent.location),
         cssClass: 'badge-job-workplace',
       });
     }
@@ -40,7 +48,7 @@ export class JobBadgesMapperService {
       cssClass: 'badge-workload',
     });
 
-    if (job.jobContent.employment.startDate) {
+    if (hasStartDate(job)) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: 'job-detail.startDate',
@@ -48,14 +56,14 @@ export class JobBadgesMapperService {
         cssClass: 'badge-availability',
       });
     }
-    if (job.jobContent.employment.immediately != null && !job.jobContent.employment.startDate) {
+    if (hasImmediately(job)) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
-        label: `job-detail.startsImmediately.false`,
+        label: `job-detail.startsImmediately.${job.jobContent.employment.immediately}`,
         cssClass: 'badge-availability',
       });
     }
-    if (!job.jobContent.employment.permanent && !!job.jobContent.employment.endDate && !job.jobContent.employment.shortEmployment) {
+    if (hasEndDate(job)) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: 'job-detail.endDate',
@@ -63,28 +71,28 @@ export class JobBadgesMapperService {
         cssClass: 'badge-availability',
       });
     }
-    if (!!job.jobContent.employment.shortEmployment && !job.jobContent.employment.permanent) {
+    if (isShortEmployment(job)) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: 'job-search.job-search-list-item.badge.shortEmployment',
         cssClass: 'badge-availability',
       });
     }
-    if (!job.jobContent.employment.permanent && !job.jobContent.employment.endDate) {
+    if (isTemporally(job)) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: 'job-search.job-search-list-item.badge.temporary',
         cssClass: 'badge-availability',
       });
     }
-    if (job.jobContent.employment.permanent) {
+    if (isPermanent(job)) {
       badges.push({
         badgeType: JobBadgeType.CONTRACT_TYPE,
         label: 'job-search.job-search-list-item.badge.permanent',
         cssClass: 'badge-contract-type',
       });
     }
-    if (job.reportingObligation) {
+    if (isReportingObligation(job)) {
       badges.push({
         badgeType: JobBadgeType.REPORTING_OBLIGATION,
         label: 'job-search.job-search-list-item.badge.restricted',
@@ -100,20 +108,6 @@ export class JobBadgesMapperService {
 
   private startDateLabel(job: JobAdvertisement) {
     return this.localeAwareDatePipe.transform(job.jobContent.employment.startDate);
-  }
-
-  private locationLabel(location: Location) {
-    let result = '';
-    if (location.postalCode) {
-      result += location.postalCode;
-    }
-    if (location.city) {
-      result += ` ${location.city}`;
-    }
-    if (location.cantonCode || location.countryIsoCode) {
-      result += ` (${location.cantonCode || location.countryIsoCode})`;
-    }
-    return result;
   }
 
 }
