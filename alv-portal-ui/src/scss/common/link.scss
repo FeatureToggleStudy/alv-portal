@@ -9,6 +9,10 @@ a {
     &:visited {
       color: $color-dark-grey;
     }
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   .link-icon {

@@ -99,6 +99,7 @@
                   </ng-container>
 
                   <a *ngIf="contact.email"
+                     class="link"
                      href="mailto:{{ contact.email }}">
                     {{ contact.email }}
                   </a>
@@ -111,7 +112,9 @@
 
               <div>
                 <address *ngIf="jobCenter.address">
-                  <strong>{{ 'job-detail.reference.responsible-job-center' | translate }}</strong>
+                  <strong>
+                    {{ 'job-detail.reference.responsible-job-center' | translate }}
+                  </strong>
                   <br>
                   {{jobCenter.address.name}}
                   <ng-container *ngIf="jobCenter.address.street || jobCenter.address.houseNumber">
@@ -121,7 +124,8 @@
                   {{jobCenter.address.zipCode}} {{jobCenter.address.city}}
                   <br>
                   {{'job-detail.reference.phone' | translate}}
-                  <a href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
+                  <a class="link"
+                     href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
                 </address>
 
                 <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
@@ -217,7 +221,8 @@
               </li>
               <li>
                 {{'job-detail.workload.label'|translate}}
-                {{[job.jobContent.employment.workloadPercentageMin, job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}
+                {{[job.jobContent.employment.workloadPercentageMin,
+                job.jobContent.employment.workloadPercentageMax] | workingTimeRange}}
               </li>
               <li>
                 {{'job-detail.employmentEndDate.label'|translate}}
@@ -288,34 +293,42 @@
               <li *ngIf="applyChannel.formUrl as formUrl"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.online' | translate }}</strong>
-                <span>
-                  <a href="{{formUrl}}">
+                <div>
+                  <a class="link"
+                     href="{{formUrl}}">
+                    <i class="fas fa-caret-right link-icon"></i>
                     {{ 'job-publication-details.application.online-form' | translate}}
                   </a>
-                </span>
+                </div>
               </li>
               <li *ngIf="applyChannel.emailAddress as emailAddress"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.email' | translate }}</strong>
-                <span>
-                    <a href="mailto:{{emailAddress}}">{{emailAddress}}</a>
-                </span>
+                <div>
+                  <a class="link"
+                     href="mailto:{{emailAddress}}">
+                    <i class="fas fa-caret-right link-icon"></i>
+                    {{emailAddress}}
+                  </a>
+                </div>
               </li>
               <li *ngIf="applyChannel.phoneNumber as phoneNumber"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.phone' | translate }}</strong>
-                <span>
-                  <a href="tel:{{phoneNumber}}">
-                        {{(phoneNumber) | phoneNumber}}
+                <div>
+                  <a class="link"
+                     href="tel:{{phoneNumber}}">
+                    <i class="fas fa-caret-right link-icon"></i>
+                    {{(phoneNumber) | phoneNumber}}
                   </a>
-                </span>
+                </div>
               </li>
               <li *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.mail' | translate }}</strong>
-                <span>
+                <div>
                   <alv-apply-channel-post-address [applyChannel]="applyChannel"></alv-apply-channel-post-address>
-                </span>
+                </div>
               </li>
             </ul>
           </ng-template>

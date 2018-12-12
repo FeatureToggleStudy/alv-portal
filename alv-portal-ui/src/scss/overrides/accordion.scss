@@ -10,7 +10,11 @@
       background: $color-light-grey;
 
       &:hover {
-        background: darken($color-light-grey, 10%)
+        background: darken($color-light-grey, 10%);
+
+        .btn {
+          color: $color-primary;
+        }
       }
 
       .btn {
