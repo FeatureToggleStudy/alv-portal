@@ -92,7 +92,8 @@
                   <br>
 
                   <ng-container *ngIf="contact.phone">
-                    <a href="tel:{{contact.phone}}">
+                    <a class="link"
+                       href="tel:{{contact.phone}}">
                       {{ contact.phone | phoneNumber }}
                     </a>
                     <br>
