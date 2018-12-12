@@ -204,8 +204,7 @@
           <ng-template ngbPanelContent>
             <ul class="alv-list">
               <li>{{'job-detail.workplace.label'|translate}}
-                <alv-job-location [location]="job.jobContent.location">
-                </alv-job-location>
+                {{job.jobContent.location | jobLocation}}
               </li>
               <li>
                 {{'job-detail.employmentStartDate.label'|translate}}
