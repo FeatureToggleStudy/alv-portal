@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {
   JobAdvertisement,
   JobAdvertisementStatus,
@@ -28,6 +28,11 @@ import {
   GenderAwareOccupationLabel,
   OccupationPresentationService
 } from '../../shared/backend-services/reference-service/occupation-presentation.service';
+import {
+  JobBadgesMapperService,
+  JobBadgeType,
+  JobBadge
+} from '../job-badges-mapper.service';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -36,7 +41,7 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
   templateUrl: './job-detail.component.html',
   styleUrls: ['./job-detail.component.scss']
 })
-export class JobDetailComponent extends AbstractSubscriber implements OnInit {
+export class JobDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
   job$: Observable<JobAdvertisement>;
   jobDescription$: Observable<JobDescription>;
   jobCenter$: Observable<JobCenter>;
@@ -46,19 +51,25 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
   prevVisible$: Observable<boolean>;
   nextVisible$: Observable<boolean>;
   occupation$: Observable<GenderAwareOccupationLabel>;
+  badges: JobBadge[];
 
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
 
   constructor(private i18nService: I18nService,
               private referenceServiceRepository: ReferenceServiceRepository,
+              private jobBadgesMapperService: JobBadgesMapperService,
               private store: Store<JobAdSearchState>,
               private occupationPresentationService: OccupationPresentationService) {
     super();
   }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
+    // TODO doesn't work yet
+    window.scroll(0, 0);
+  }
 
+  ngOnInit() {
     this.job$ = this.store
       .pipe(
         select(getSelectedJobAdvertisement),
@@ -66,6 +77,12 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
           this.showJobAdDeactivatedMessage = this.isDeactivated(job.status);
           this.showJobAdExternalMessage = this.isExternal(job.sourceSystem);
           this.showJobAdUnvalidatedMessage = this.isUnvalidated(job);
+          this.badges = this.jobBadgesMapperService.map(job, [
+            JobBadgeType.CONTRACT_TYPE,
+            JobBadgeType.AVAILABILITY,
+            JobBadgeType.WORKPLACE,
+            JobBadgeType.WORKLOAD
+          ]);
         }));
 
     this.jobDescription$ = combineLatest(this.job$, this.i18nService.currentLanguage$)
@@ -98,7 +115,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit {
     this.nextVisible$ = this.store.pipe(select(isNextVisible));
 
   }
-
 
   prev() {
     this.store.dispatch(new LoadPreviousJobAdvertisementDetailAction());

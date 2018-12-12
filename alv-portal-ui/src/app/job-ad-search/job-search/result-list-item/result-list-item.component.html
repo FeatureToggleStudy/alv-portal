@@ -14,18 +14,9 @@
     </div>
   </div>
 
+  <span class="subtitle mr-1">{{result.subtitle}}</span>
 
-    <span class="subtitle mr-1">{{result.subtitle}}</span>
-    <span *ngFor="let badge of result.badges"
-          class="badge mr-1"
-          [ngClass]="badge.cssClass">
-      <span *ngIf="badge.doNotTranslate; else translatedBadge">
-                {{badge.label}}
-      </span>
-      <ng-template #translatedBadge>
-        {{badge.label | translate}}
-      </ng-template>
-    </span>
+  <alv-inline-badges [badges]="result.badges"></alv-inline-badges>
 
   <div class="line-clamp-2"
        [style.-webkit-box-orient]="'vertical'"

@@ -36,19 +36,11 @@ import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
 import { LanguageComponent } from './language.component';
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
-import { MarkdownEscapePipe } from './pipes/markdown-escape.pipe';
-import { CapitalizePipe } from './pipes/capitalize.pipe';
-import { KeysPipe } from './pipes/enum-keys.pipe';
-import { LocaleAwareDatePipe } from './pipes/locale-aware-date.pipe';
-import { LocaleAwareDecimalPipe } from './pipes/locale-aware-number.pipe';
-import { PhoneNumberPipe } from './pipes/phone-number.pipe';
-import { ShortenPipe } from './pipes/shorten.pipe';
-import { WorkingTimeRangePipe } from './pipes/working-time-range.pipe';
 import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
 import { LocalLoginComponent } from './local-login/local-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.component';
+import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
 
 @NgModule({
   imports: [
@@ -84,17 +76,9 @@ import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.comp
     ConfirmModalComponent,
     LanguageComponent,
     ConfirmModalComponent,
-    SafeHtmlPipe,
-    MarkdownEscapePipe,
-    CapitalizePipe,
-    KeysPipe,
-    LocaleAwareDatePipe,
-    LocaleAwareDecimalPipe,
-    PhoneNumberPipe,
-    ShortenPipe,
-    WorkingTimeRangePipe,
     LocalLoginComponent,
-    MenuEntryComponent
+    MenuEntryComponent,
+    InlineBadgesComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
@@ -123,17 +107,9 @@ import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.comp
     ɵr,
     LanguageComponent,
     ModalComponent,
-    SafeHtmlPipe,
-    MarkdownEscapePipe,
-    CapitalizePipe,
-    KeysPipe,
-    LocaleAwareDatePipe,
-    LocaleAwareDecimalPipe,
-    PhoneNumberPipe,
-    ShortenPipe,
-    WorkingTimeRangePipe,
     StepIndicatorComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InlineBadgesComponent
   ]
 })
 export class LayoutModule {
