@@ -5,6 +5,7 @@ ul.alv-list {
   display: list-item;
   line-height: 2em;
   list-style: none inside;
+
   li {
     margin-bottom: 1em;
     .list-item-content {
@@ -13,6 +14,7 @@ ul.alv-list {
       display: block;
     }
   }
+
   li::before {
     content: '';
     line-height: 2em;

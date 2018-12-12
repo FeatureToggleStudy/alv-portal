@@ -13,7 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { jobAdSearchReducer } from './state-management/reducers/job-ad-search.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { JobAdSearchEffects } from './state-management/effects/job-ad-search.effects';
-import { ApplyChannelPostAddressComponent } from './job-detail/apply-channel-post-address/apply-channel-post-address.component';
+import { PostAddressComponent } from './job-detail/post-address/post-address.component';
 import { JobBadgesMapperService } from './job-badges-mapper.service';
 import { JobLocationPipe } from './job-location.pipe';
 import { JobSearchFilterParameterService } from './job-search/job-search-filter-parameter.service';
@@ -37,7 +37,7 @@ import { JobDetailService } from './job-detail/job-detail.service';
     ResultListItemComponent,
     JobSearchResultComponent,
     JobDetailComponent,
-    ApplyChannelPostAddressComponent,
+    PostAddressComponent,
     JobLocationPipe
   ],
   providers: [

@@ -35,7 +35,7 @@ import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
-import { LanguageComponent } from './language.component';
+import { LanguageSkillsComponent } from './language-skills/language-skills.component';
 import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
 import { LocalLoginComponent } from './local-login/local-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -74,7 +74,7 @@ import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
     ConfirmModalComponent,
     StepIndicatorComponent,
     ConfirmModalComponent,
-    LanguageComponent,
+    LanguageSkillsComponent,
     ConfirmModalComponent,
     LocalLoginComponent,
     MenuEntryComponent,
@@ -102,10 +102,10 @@ import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
     NgbPanelContent,
     NgbPanelTitle,
     NgbDropdown,
-    ɵq,
+    ɵq, // needed for the Dropdown menu to work
     ɵp,
     ɵr,
-    LanguageComponent,
+    LanguageSkillsComponent,
     ModalComponent,
     StepIndicatorComponent,
     ReactiveFormsModule,

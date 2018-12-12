@@ -1,4 +1,4 @@
-import { CEFR_Level } from '../shared.types';
+import { Degree, LanguageSkill } from '../shared.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -150,17 +150,12 @@ export interface Occupation {
   avamOccupationCode: string;
   occupationLabel?: string;
   workExperience?: WorkExperience;
-  educationCode?: string;
+  educationCode?: Degree;
 }
 
-export interface LanguageSkill {
-  languageIsoCode: string;
-  spokenLevel: CEFR_Level;
-  writtenLevel: CEFR_Level;
-}
 
 export interface ApplyChannel {
-  postAddress: ApplyChannelPostAddress;
+  postAddress: PostAddress;
   rawPostAddress: string;
   emailAddress: string;
   phoneNumber: string;
@@ -255,7 +250,7 @@ export interface JobAdvertisementCancelRequest {
   code: string;
 }
 
-export interface ApplyChannelPostAddress {
+export interface PostAddress {
   name: string;
   street?: string;
   houseNumber?: string;

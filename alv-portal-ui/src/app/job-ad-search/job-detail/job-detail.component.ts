@@ -3,6 +3,7 @@ import {
   JobAdvertisement,
   JobAdvertisementStatus,
   JobDescription,
+  Occupation,
   SourceSystem
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { combineLatest, Observable } from 'rxjs';
@@ -145,6 +146,14 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       JobDetailPanelId.JOB_AD_LANGUAGES,
       JobDetailPanelId.JOB_AD_CONTACT_DETAILS,
     ];
+  }
+
+  getFirstOccupation(job: JobAdvertisement): Occupation {
+    const occupation = job.jobContent.occupations[0];
+    if (occupation.workExperience && occupation.educationCode) {
+      return occupation;
+    }
+    return null;
   }
 
   prev() {

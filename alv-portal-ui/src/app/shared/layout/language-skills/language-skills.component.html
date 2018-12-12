@@ -1,0 +1,17 @@
+<ul *ngIf="languages?.length"
+    class="alv-list">
+  <li *ngFor="let language of languages"
+      class="content__item">
+    <strong>
+      {{ 'global.reference.language.' + language.languageIsoCode | lowercase | translate }}
+    </strong>
+    <div *ngIf="language.spokenLevel">
+      {{ 'global.reference.language.spoken' | translate }}
+      : {{ 'global.reference.language.level.' + language.spokenLevel | translate}},
+    </div>
+    <div *ngIf="language.writtenLevel">
+      {{ 'global.reference.language.written' | translate }}
+      : {{ 'global.reference.language.level.' + language.writtenLevel | translate}}
+    </div>
+  </li>
+</ul>

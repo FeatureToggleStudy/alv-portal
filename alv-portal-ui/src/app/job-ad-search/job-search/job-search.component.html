@@ -24,8 +24,8 @@
                              [jobSearchResult]="jobSearchResult"></alv-job-search-result>
     </div>
 
-    <div class="col-xs-12 col-md-3 col-xl-2 order-2 order-md-3 mb-3 text-right text-md-left"
-         *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink">
+    <div *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
+         class="col-xs-12 col-md-3 col-xl-2 order-2 order-md-3 mb-3 text-right text-md-left">
       <a class="btn btn-text btn-text-icon"
          href="{{jobSearchMailToLink}}">
         <i aria-hidden="true"

@@ -72,15 +72,14 @@
 
             <div class="logo-box__company flex-height md-whiteframe-1dp">
               <div *ngIf="job.jobContent.company as company">
-                <address>
-                  <strong>{{ company.name }}</strong>
-                  <br>
-
-                  {{ company.street }} {{ company.houseNumber }}
-                  <br>
-
-                  {{ company.postalCode }} {{ company.city }}
-                </address>
+                <alv-post-address [address]="{
+                  name: company.name,
+                  street: company.street,
+                  houseNumber: company.houseNumber,
+                  postalCode: company.postalCode,
+                  city: company.city
+                }">
+                </alv-post-address>
               </div>
 
               <div *ngIf="!job.publication.companyAnonymous && job.jobContent.publicContact as contact">
@@ -112,22 +111,22 @@
                  class="order-sm-2 alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
 
               <div>
-                <address *ngIf="jobCenter.address">
+                <div *ngIf="jobCenter.address as address">
                   <strong>
                     {{ 'job-detail.reference.responsible-job-center' | translate }}
                   </strong>
-                  <br>
-                  {{jobCenter.address.name}}
-                  <ng-container *ngIf="jobCenter.address.street || jobCenter.address.houseNumber">
-                    , {{jobCenter.address.street}} {{jobCenter.address.houseNumber}}
-                  </ng-container>
-                  <br>
-                  {{jobCenter.address.zipCode}} {{jobCenter.address.city}}
+                  <alv-post-address [address]="{
+                        name: address.name,
+                        street: address.street,
+                        houseNumber: address.houseNumber,
+                        postalCode: address.zipCode,
+                        city: address.city}">
+                  </alv-post-address>
                   <br>
                   {{'job-detail.reference.phone' | translate}}
                   <a class="link"
                      href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
-                </address>
+                </div>
 
                 <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
                   <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
@@ -217,7 +216,8 @@
           </ng-template>
         </ngb-panel>
 
-        <ngb-panel [id]="jobDetailPanelId.JOB_AD_REQUIREMENTS">
+        <ngb-panel *ngIf="getFirstOccupation(job) as occupation"
+                   [id]="jobDetailPanelId.JOB_AD_REQUIREMENTS">
           <ng-template ngbPanelTitle>
             <div class="d-flex align-items-center">
               {{ 'job-publication-details.min-requirements.label' | translate }}
@@ -229,19 +229,16 @@
           <ng-template ngbPanelContent>
             <ul class="alv-list">
               <li>{{'job-detail.workExperience' | translate}}
-                : {{'global.experience.' + job?.jobContent?.occupations[0]?.workExperience
-                | translate}}
-              </li>
+                : {{'global.experience.' + occupation.workExperience | translate}}</li>
               <li>{{'job-detail.education' | translate}}
-                : {{'global.degree.' + job?.jobContent?.occupations[0]?.educationCode|
-                translate}}
+                : {{'global.degree.avamCode.' + occupation.educationCode| translate}}
               </li>
             </ul>
           </ng-template>
         </ngb-panel>
 
-        <ngb-panel  [id]="jobDetailPanelId.JOB_AD_LANGUAGES"
-                   *ngIf="job.jobContent?.languageSkills && job.jobContent?.languageSkills?.length > 0">
+        <ngb-panel *ngIf="job.jobContent?.languageSkills?.length"
+                   [id]="jobDetailPanelId.JOB_AD_LANGUAGES">
           <ng-template ngbPanelTitle>
             <div class="d-flex align-items-center">
               {{ 'global.reference.languages' | translate }}
@@ -251,13 +248,13 @@
             </div>
           </ng-template>
           <ng-template ngbPanelContent>
-            <alv-languages [languages]="job.jobContent.languageSkills">
-            </alv-languages>
+            <alv-language-skills [languages]="job.jobContent.languageSkills">
+            </alv-language-skills>
           </ng-template>
         </ngb-panel>
 
-        <ngb-panel  [id]="jobDetailPanelId.JOB_AD_CONTACT_DETAILS"
-                   *ngIf="job.jobContent.applyChannel as applyChannel">
+        <ngb-panel *ngIf="job.jobContent.applyChannel as applyChannel"
+                   [id]="jobDetailPanelId.JOB_AD_CONTACT_DETAILS">
           <ng-template ngbPanelTitle>
             <div class="d-flex align-items-center">
               {{ 'job-publication-details.contact-details.label' | translate }}
@@ -298,10 +295,12 @@
               <li *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress"
                   class="content__item content__item--bullet">
                 <strong>{{ 'job-detail.application.mail' | translate }}</strong>
-                <alv-apply-channel-post-address class="list-item-content"
-                                                [applyChannel]="applyChannel">
-                </alv-apply-channel-post-address>
+                <div class="list-item-content">
+                  <alv-post-address [address]="applyChannel.postAddress"
+                                    [unstructuredAddress]="applyChannel.rawPostAddress">
 
+                  </alv-post-address>
+                </div>
               </li>
             </ul>
           </ng-template>
@@ -333,7 +332,7 @@
           <a *ngIf="job.jobContent.applyChannel?.formUrl"
              class="btn btn-primary btn-block btn-sm"
              href="{{job.jobContent.applyChannel?.formUrl}}"
-             target="{{job.id}}">
+             target="_blank">
             {{'job-detail.action.applyNow' | translate}}
           </a>
           <a *ngIf="job.jobContent.externalUrl"
