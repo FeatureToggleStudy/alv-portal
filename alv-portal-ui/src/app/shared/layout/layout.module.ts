@@ -41,6 +41,7 @@ import { LocalLoginComponent } from './local-login/local-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.component';
 import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
+import { AddressComponent } from './address/address.component';
 
 @NgModule({
   imports: [
@@ -78,7 +79,8 @@ import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
     ConfirmModalComponent,
     LocalLoginComponent,
     MenuEntryComponent,
-    InlineBadgesComponent
+    InlineBadgesComponent,
+    AddressComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
@@ -105,6 +107,7 @@ import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
     ɵq,
     ɵp,
     ɵr,
+    AddressComponent,
     LanguageComponent,
     ModalComponent,
     StepIndicatorComponent,
