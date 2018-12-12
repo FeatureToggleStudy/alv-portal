@@ -1,4 +1,4 @@
-import { CEFR_Level, Degree } from '../shared.types';
+import { Degree, LanguageSkill } from '../shared.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -153,11 +153,6 @@ export interface Occupation {
   educationCode?: Degree;
 }
 
-export interface LanguageSkill {
-  languageIsoCode: string;
-  spokenLevel: CEFR_Level;
-  writtenLevel: CEFR_Level;
-}
 
 export interface ApplyChannel {
   postAddress: PostAddress;

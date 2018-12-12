@@ -273,8 +273,8 @@
             </div>
           </ng-template>
           <ng-template ngbPanelContent>
-            <alv-languages [languages]="job.jobContent.languageSkills"
-            ></alv-languages>
+            <alv-language-skills [languages]="job.jobContent.languageSkills"
+            ></alv-language-skills>
           </ng-template>
         </ngb-panel>
 
@@ -363,7 +363,7 @@
           <a *ngIf="job.jobContent.applyChannel?.formUrl"
              class="btn btn-primary btn-block btn-sm"
              href="{{job.jobContent.applyChannel?.formUrl}}"
-             target="{{job.id}}">
+             target="_blank">
             {{'job-detail.action.applyNow' | translate}}
           </a>
           <a *ngIf="job.jobContent.externalUrl"
