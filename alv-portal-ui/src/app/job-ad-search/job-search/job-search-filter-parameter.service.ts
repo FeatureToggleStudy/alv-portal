@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { JobSearchFilter } from '../job-search-filter.types';
 import { Base64Service } from '../../core/base64.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class JobSearchFilterParameterService {
 
   constructor(private base64Service: Base64Service) {

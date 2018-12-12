@@ -11,7 +11,7 @@ import { JobSearchFilter } from '../job-search-filter.types';
 import { JobAdSearchState } from '../state-management/state/job-ad-search.state';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class JobSearchGuard implements CanActivate {
 
   constructor(private router: Router,
