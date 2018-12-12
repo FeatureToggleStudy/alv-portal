@@ -9,11 +9,13 @@ import { Store } from '@ngrx/store';
 import { ApplyFilterAction } from '../state-management/actions/job-ad-search.actions';
 import { JobSearchFilter } from '../job-search-filter.types';
 import { JobAdSearchState } from '../state-management/state/job-ad-search.state';
+import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 
 @Injectable({ providedIn: 'root' })
 export class JobSearchGuard implements CanActivate {
 
   constructor(private router: Router,
+              private jobSearchFilterParameterService: JobSearchFilterParameterService,
               private store: Store<JobAdSearchState>) {
   }
 
@@ -23,30 +25,20 @@ export class JobSearchGuard implements CanActivate {
     const filterString = route.queryParams['filter'];
     if (filterString) {
       const filter = this.extractFilterFromParam(filterString);
-
       if (filter) {
         this.store.dispatch(new ApplyFilterAction(filter));
         this.router.navigate(['job-search']);
-
         return false;
       }
     }
-
     return true;
   }
 
-  private extractFilterFromParam(paramValue: string): JobSearchFilter {
-    if (paramValue) {
-      try {
-        const paramAsObj: JobSearchFilter = JSON.parse(paramValue);
-        return { ...paramAsObj };
-
-      } catch (e) {
-        //nothing to do
-      }
+  private extractFilterFromParam(jobSearchFilterParamValue: string): JobSearchFilter {
+    if (!jobSearchFilterParamValue) {
+      return null;
     }
-
-    return null;
+    return this.jobSearchFilterParameterService.decode(jobSearchFilterParamValue);
   }
 
 }

@@ -62,7 +62,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
-  
+
   private readonly ALERTS = {
     jobAdExternal: {
       type: NotificationType.INFO,
