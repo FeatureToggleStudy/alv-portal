@@ -112,10 +112,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
         map(([job, currentLanguage]) =>
           JobAdvertisementUtils.getJobDescription(job, currentLanguage))
       );
-    const jobWithOccupation$ = this.job$.pipe(
-      filter(job => job.jobContent.occupations && !!job.jobContent.occupations.length)
-    );
-
 
     const jobCenterCode$ = this.job$
       .pipe(
