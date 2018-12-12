@@ -1,17 +1,26 @@
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
 @import "../../../scss/common/colors";
+@import "../../../scss/common/layout";
 
-.btn-block {
-  text-overflow: ellipsis;
-  overflow: hidden;
+.side-panel {
+  position: sticky;
+  top: 1.5rem;
 }
+
+@include media-breakpoint-down(sm) {
+  .side-panel {
+    position: relative;
+    top: 0;
+  }
+}
+
 
 .dropdown-toggle::after {
   display: none;
 }
-.btn-text {
-  padding: 0.2rem;
-  margin-bottom: 0.5rem;
-}
+
 .logo-box__company {
   p {
     margin-bottom: 0;
@@ -39,9 +48,25 @@ td:first-of-type {
   padding-bottom: .25em;
 }
 
+
+ul.alv-list {
+  padding-left: 0;
+  display: list-item;
+  line-height: 2em;
+  list-style: none inside;
+  li::before {
+    content: "";
+    line-height: 2em;
+    width: .5em;
+    height: .5em;
+    background-color: $color-primary;
+    float: left;
+    margin: .75em .75em 0.75em .5em;
+  }
+}
 @media screen and (max-width: 479px) {
   .logo-box__company {
-    margin-top: 0.75rem;
+    margin-top: $margin-x-narrow;
   }
 }
 
@@ -53,18 +78,13 @@ td:first-of-type {
   height: 300px;
 }
 
-.detail__title {
-  h2 {
-    margin-bottom: 1rem;
-  }
-
-  .detail__date {
-    margin-left: 1.5rem;
-  }
+.job-company {
+  color: $color-primary;
 }
 
+
 .detail__subtitle {
-  margin-bottom: 0.75rem;
+  margin-bottom: $margin-x-narrow;
 
   font-weight: 300;
   font-size: 1.125rem;
@@ -72,7 +92,7 @@ td:first-of-type {
 
 
 .detail__applications {
-  margin: 1.5rem 0;
+  margin: $margin-x-general 0;
 }
 
 .detail--occupation:nth-child(even) {

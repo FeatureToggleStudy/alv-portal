@@ -59,6 +59,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
     this.store.dispatch(new LoadNextPageAction());
   }
 
+  sendSearchAsLink() {
+    alert('Not implemented yet!');
+  }
+
 }
 
 

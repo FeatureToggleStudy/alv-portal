@@ -14,6 +14,7 @@ import { jobAdSearchReducer } from './state-management/reducers/job-ad-search.re
 import { EffectsModule } from '@ngrx/effects';
 import { JobAdSearchEffects } from './state-management/effects/job-ad-search.effects';
 import { JobLocationComponent } from './job-detail/job-location/job-location.component';
+import { ApplyChannelPostAddressComponent } from './job-detail/apply-channel-post-address/apply-channel-post-address.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { JobLocationComponent } from './job-detail/job-location/job-location.com
     ResultListItemComponent,
     JobSearchResultComponent,
     JobDetailComponent,
-    JobLocationComponent
+    JobLocationComponent,
+    ApplyChannelPostAddressComponent
   ]
 })
 export class JobAdSearchModule {

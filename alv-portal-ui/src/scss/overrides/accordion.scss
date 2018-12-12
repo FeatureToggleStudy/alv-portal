@@ -5,7 +5,7 @@
     border: 0 !important;
 
     .card-header {
-      margin: 0.5rem;
+      margin-top: 0.5rem;
       padding: 0;
       background: $color-light-grey;
 
@@ -16,27 +16,43 @@
       .btn {
         width: 100%;
         text-align: left;
-
+        color: $color-black;
+        text-decoration: none;
         &:focus {
           box-shadow: none;
         }
-
-        &.collapsed {
-          .alv-panel-title:after {
-            font-family: FontAwesome;
-            content: "\f107";
-            float: right;
-          }
+        .collapse-icon, .expand-icon {
+          color: $color-primary;
         }
-
-        &.expanded {
-          .alv-panel-title:after {
-            font-family: FontAwesome;
-            content: "\f106";
-            float: right;
+        .collapse-icon {
+          display: block;
+        }
+        .expand-icon {
+          display: none;
+        }
+        &.collapsed {
+          .collapse-icon {
+            display: none;
+          }
+          .expand-icon {
+            display: block;
           }
         }
       }
     }
   }
 }
+
+@keyframes spinBack {
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+

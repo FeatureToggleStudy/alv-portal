@@ -37,5 +37,19 @@ install:
 script:
   - export BRANCH_VERSION_SUFFIX=$([ "$TRAVIS_BRANCH" == "master" ] && echo "" || echo "-${TRAVIS_BRANCH//\//-}")
   - export BUILD_VERSION=$PROJECT_VERSION-build-$TRAVIS_BUILD_NUMBER$BRANCH_VERSION_SUFFIX
-  - .ci-travis/build.sh ${BUILD_VERSION} ${TRAVIS_BRANCH} ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}
-  - .ci-travis/push-version-bump.sh ${BUILD_VERSION} ${GIT_USER} ${GIT_PWD}
+  - .ci-travis/maven-set-version.sh ${BUILD_VERSION}
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: ".ci-travis/maven-package.sh"
+    on:
+      all_branches: true
+      condition: "$TRAVIS_BRANCH != master"
+  - provider: script
+    skip_cleanup: true
+    script: >-
+      .ci-travis/maven-deploy.sh ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}
+      && .ci-travis/push-version-bump.sh ${BUILD_VERSION} ${GIT_USER} ${GIT_PWD}
+    on:
+      branch: master

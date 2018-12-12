@@ -1,0 +1,6 @@
+<span *ngIf="location">
+  {{ location.postalCode }} {{ location.city }}
+  <ng-container *ngIf="location.cantonCode || location.countryIsoCode">
+    ({{ location.cantonCode || location.countryIsoCode }})
+  </ng-container>
+</span>

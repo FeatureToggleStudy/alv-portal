@@ -844,7 +844,7 @@ job-detail,job-detail.reference.job-id,Stellennummer,Job ID,Numéro du poste,Num
 job-detail,job-detail.reference.phone,Telefon,Telephone,Téléphone,Telefono
 job-detail,job-detail.reference.responsible-job-center,Zuständiges RAV,Responsible job centre,ORP compétent,URC competente
 job-detail,job-detail.startDate,Ab {{date}},From {{date}},Du {{date}},Dal {{date}}
-job-detail,job-detail.startsImmediately,Stellenantritt,Start date,Entrée en fonction,Entrata in funzione
+job-detail,job-detail.startsImmediately.label,Stellenantritt,Start date,Entrée en fonction,Entrata in funzione
 job-detail,job-detail.startsImmediately.false,Nach Vereinbarung,By agreement,À convenir,Previo accordo
 job-detail,job-detail.startsImmediately.true,Ab Sofort,Immediately,Tout de suite,Da subito
 job-detail,job-detail.title,Stellenbeschreibung,Job detail,Détail de l'emploi,Dettagli sul posto

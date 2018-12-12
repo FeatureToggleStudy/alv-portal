@@ -29,8 +29,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
         page: 0,
-        resultsAreLoading: false,
-        visitedJobAds: {}
+        resultsAreLoading: false
       };
       break;
 
