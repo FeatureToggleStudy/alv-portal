@@ -15,7 +15,7 @@ export class JobSearchFilterParameterService {
   }
 
   public decode(jobSearchFilter: string) {
-    return JSON.parse(this.base64Service.decode(decodeURIComponent(jobSearchFilter)))
+    return JSON.parse(this.base64Service.decode(decodeURIComponent(jobSearchFilter)));
   }
 
 }

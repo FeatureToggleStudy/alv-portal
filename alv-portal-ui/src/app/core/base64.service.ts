@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+/* tslint:disable */
 export class Base64Service {
 
   private keyStr = 'ABCDEFGHIJKLMNOP' +
