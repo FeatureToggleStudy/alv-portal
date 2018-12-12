@@ -187,8 +187,10 @@
 
       <!-----------------Bottom details about job-->
 
-      <ngb-accordion class="d-block mb-3">
-        <ngb-panel>
+      <ngb-accordion [activeIds]="activePanelIds"
+                     class="d-block mb-3">
+
+        <ngb-panel id="job-ad-info">
           <ng-template ngbPanelTitle>
             <div class="d-flex align-items-center">
               {{ 'job-publication-details.jobad-info.label' | translate }}
@@ -196,7 +198,6 @@
               <i class="fas fa-chevron-up collapse-icon"></i>
               <i class="fas fa-chevron-down expand-icon"></i>
             </div>
-
           </ng-template>
           <ng-template ngbPanelContent>
             <ul class="alv-list">
@@ -255,8 +256,9 @@
             </ul>
           </ng-template>
         </ngb-panel>
-        <ngb-panel
-          *ngIf="job.jobContent?.languageSkills && job.jobContent?.languageSkills?.length > 0">
+
+        <ngb-panel *ngIf="job.jobContent?.languageSkills && job.jobContent?.languageSkills?.length > 0"
+                   id="job-ad-languages">
           <ng-template ngbPanelTitle>
             <div class="d-flex align-items-center">
               {{ 'global.reference.languages' | translate }}
@@ -270,7 +272,9 @@
             ></alv-languages>
           </ng-template>
         </ngb-panel>
-        <ngb-panel *ngIf="job.jobContent.applyChannel as applyChannel">
+
+        <ngb-panel *ngIf="job.jobContent.applyChannel as applyChannel"
+                   id="job-ad-contact-details">
           <ng-template ngbPanelTitle>
             <div class="d-flex align-items-center">
               {{ 'job-publication-details.contact-details.label' | translate }}
