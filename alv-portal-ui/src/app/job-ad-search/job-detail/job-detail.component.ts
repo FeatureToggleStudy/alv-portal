@@ -29,9 +29,9 @@ import {
   OccupationPresentationService
 } from '../../shared/backend-services/reference-service/occupation-presentation.service';
 import {
+  JobBadge,
   JobBadgesMapperService,
-  JobBadgeType,
-  JobBadge
+  JobBadgeType
 } from '../job-badges-mapper.service';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -70,6 +70,11 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   alerts: Notification[];
 
+  activePanelIds: string[];
+
+  @ViewChild(NgbTooltip)
+  clipboardTooltip: NgbTooltip;
+  
   private readonly ALERTS = {
     jobAdExternal: {
       type: NotificationType.INFO,
@@ -87,9 +92,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       isSticky: true
     }
   };
-
-  @ViewChild(NgbTooltip)
-  clipboardTooltip: NgbTooltip;
 
   constructor(private i18nService: I18nService,
               private referenceServiceRepository: ReferenceServiceRepository,
@@ -147,6 +149,12 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     this.prevVisible$ = this.store.pipe(select(isPrevVisible));
     this.nextVisible$ = this.store.pipe(select(isNextVisible));
 
+    this.activePanelIds = [
+      'job-ad-info',
+      'job-ad-requirements',
+      'job-ad-languages',
+      'job-ad-contact-details'
+    ];
   }
 
   prev() {
