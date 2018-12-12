@@ -54,12 +54,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   nextVisible$: Observable<boolean>;
 
-  jobAdExternalMessage: string;
-
-  jobAdDeactivatedMessage: string;
-
-  jobAdUnvalidatedMessage: string;
-
   badges: JobBadge[];
 
   alerts: Notification[];
