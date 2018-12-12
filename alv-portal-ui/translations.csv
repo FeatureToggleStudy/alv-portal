@@ -310,23 +310,23 @@ global,global.button.add.title,Hinzufügen,Add,Ajouter,Aggiungere
 global,global.button.remove.title,Entfernen,Remove,Supprimer,Rimuovere
 global,global.contactPerson.salutation.MR,Herr,Mr,Monsieur,Signor
 global,global.contactPerson.salutation.MS,Frau,Ms,Madame,Signora
-global,global.degree.NOT_KNOWN,Unbekannt,Unknown,Inconnue,Ignoto
-global,global.degree.PRIMAR_OBLIGATORISCHE_SCHULE,Obligatorische Schule (Primarstufe),Compulsory school (primary education),École obligatoire (Primaire),Scuola obligatoria (Elementare)
-global,global.degree.SEK_II_BERUFSMATURITAET,Berufsmaturität oder äquivalent,Vocational and professional school-leaving certificate or equivalent,Maturité professionnelle ou équivalent,Maturità professionale o equivalente
-global,global.degree.SEK_II_FACHMATURITAET,Fachmaturität oder äquivalent,Specialised school-leaving certificate or equivalent,Maturité spécialisée ou équivalent,Maturità specializzata o equivalente
-global,global.degree.SEK_II_FACHMITTELSCHULE,Fachmittelschule oder äquivalent,Upper-secondary specialised school or equivalent,Ecole de culture générale ou équivalent,Scuola specializzata o equivalente
-global,global.degree.SEK_II_GRUNDBILDUNG_EBA,Berufliche Grundbildung EBA oder äquivalent,Vocational education and training with the Swiss Federal VET Certificate or equivalent,Formation professionnelle initiale AFP ou équivalent,Formazione professionale di base CFP o equivalente
-global,global.degree.SEK_II_GRUNDBILDUNG_EFZ,Berufliche Grundbildung EFZ oder äquivalent,Vocational education and training with the Swiss Federal VET Diploma or equivalent,Formation professionnelle initiale CFC ou équivalent,Formazione professionale di base AFC o equivalente
-global,global.degree.SEK_II_GYMNASIALE_MATURITAET,Gymnasiale Maturität oder äquivalent,Baccalaureate school-leaving certificate or equivalent,Maturité gymnasiale ou équivalent,Maturità liceale o equivalente
-global,global.degree.SEK_II_WEITERFUEHRENDE_SCHULE,Weiterführende Schule (Sek. II),Secondary school (upper-secondary education),Ecole supérieure (Sec. II),Scuola superiore (Sec. II)
-global,global.degree.SEK_I_OBLIGATORISCHE_SCHULE,Obligatorische Schule (Sek. I),Compulsory school (lower-secondary education),École obligatoire (Sec. I),Scuola obligatoria (Sec. I)
-global,global.degree.TER_BACHELOR_FACHHOCHSCHULE,Bachelor Fachhochschule oder äquivalent,Bachelor’s degree from a university of applied sciences or equivalent,Bachelor HES ou équivalent,Bachelor SUP o equivalente
-global,global.degree.TER_BACHELOR_UNIVERSITAET,Bachelor universitäre Hochschule oder äquivalent,Bachelor’s degree from a university or equivalent,Bachelor HEU ou équivalent,Bachelor scuola univ./poli. o equivalente
-global,global.degree.TER_BERUFSBILDUNG_DIPL,"Höhere Berufsbildung, Diplom oder äquivalent","Higher professional education and training, diploma or equivalent","Formation professionnelle supérieure, diplôme ou équivalent","Formazione professionale superiore, diploma o equivalente"
-global,global.degree.TER_BERUFSBILDUNG_FA,"Höhere Berufsbildung, eidg. FA oder äquivalent","Higher professional education and training, Swiss Federal PET diploma or equivalent",Formation professionnelle supérieure BF ou équivalent,Formazione professionale superiore APF o equivalente
-global,global.degree.TER_DOKTORAT_UNIVERSITAET,Doktorat universitäre Hochschule oder äquivalent,Doctorate from a university or equivalent,Doctorat HEU ou équivalent,Dottorato scuola univ./poli. o equivalente
-global,global.degree.TER_MASTER_FACHHOCHSCHULE,Master Fachhochschule oder äquivalent,Master’s degree from a university of applied sciences or equivalent,Master HES ou équivalent,Master SUP o equivalente
-global,global.degree.TER_MASTER_UNIVERSITAET,Master universitäre Hochschule oder äquivalent,Master’s degree from a university or equivalent,Master HEU ou équivalent,Master scuola univ./poli. o equivalente
+global,global.degree.avamCode.NOT_KNOWN,Unbekannt,Unknown,Inconnue,Ignoto
+global,global.degree.avamCode.PRIMAR_OBLIGATORISCHE_SCHULE,Obligatorische Schule (Primarstufe),Compulsory school (primary education),École obligatoire (Primaire),Scuola obligatoria (Elementare)
+global,global.degree.avamCode.SEK_I_OBLIGATORISCHE_SCHULE,Obligatorische Schule (Sek. I),Compulsory school (lower-secondary education),École obligatoire (Sec. I),Scuola obligatoria (Sec. I)
+global,global.degree.avamCode.130,Weiterführende Schule (Sek. II),Secondary school (upper-secondary education),Ecole supérieure (Sec. II),Scuola superiore (Sec. II)
+global,global.degree.avamCode.131,Berufliche Grundbildung EBA oder äquivalent,Vocational education and training with the Swiss Federal VET Certificate or equivalent,Formation professionnelle initiale AFP ou équivalent,Formazione professionale di base CFP o equivalente
+global,global.degree.avamCode.132,Berufliche Grundbildung EFZ oder äquivalent,Vocational education and training with the Swiss Federal VET Diploma or equivalent,Formation professionnelle initiale CFC ou équivalent,Formazione professionale di base AFC o equivalente
+global,global.degree.avamCode.133,Fachmittelschule oder äquivalent,Upper-secondary specialised school or equivalent,Ecole de culture générale ou équivalent,Scuola specializzata o equivalente
+global,global.degree.avamCode.134,Berufsmaturität oder äquivalent,Vocational and professional school-leaving certificate or equivalent,Maturité professionnelle ou équivalent,Maturità professionale o equivalente
+global,global.degree.avamCode.135,Fachmaturität oder äquivalent,Specialised school-leaving certificate or equivalent,Maturité spécialisée ou équivalent,Maturità specializzata o equivalente
+global,global.degree.avamCode.136,Gymnasiale Maturität oder äquivalent,Baccalaureate school-leaving certificate or equivalent,Maturité gymnasiale ou équivalent,Maturità liceale o equivalente
+global,global.degree.avamCode.150,"Höhere Berufsbildung, Diplom oder äquivalent","Higher professional education and training, diploma or equivalent","Formation professionnelle supérieure, diplôme ou équivalent","Formazione professionale superiore, diploma o equivalente"
+global,global.degree.avamCode.160,"Höhere Berufsbildung, eidg. FA oder äquivalent","Higher professional education and training, Swiss Federal PET diploma or equivalent",Formation professionnelle supérieure BF ou équivalent,Formazione professionale superiore APF o equivalente
+global,global.degree.avamCode.170,Bachelor Fachhochschule oder äquivalent,Bachelor’s degree from a university of applied sciences or equivalent,Bachelor HES ou équivalent,Bachelor SUP o equivalente
+global,global.degree.avamCode.171,Bachelor universitäre Hochschule oder äquivalent,Bachelor’s degree from a university or equivalent,Bachelor HEU ou équivalent,Bachelor scuola univ./poli. o equivalente
+global,global.degree.avamCode.172,Master Fachhochschule oder äquivalent,Master’s degree from a university of applied sciences or equivalent,Master HES ou équivalent,Master SUP o equivalente
+global,global.degree.avamCode.173,Master universitäre Hochschule oder äquivalent,Master’s degree from a university or equivalent,Master HEU ou équivalent,Master scuola univ./poli. o equivalente
+global,global.degree.avamCode.180,Doktorat universitäre Hochschule oder äquivalent,Doctorate from a university or equivalent,Doctorat HEU ou équivalent,Dottorato scuola univ./poli. o equivalente
 global,global.drivingLicenceCategory.A,A,A,A,A
 global,global.drivingLicenceCategory.A1,A1,A1,A1,A1
 global,global.drivingLicenceCategory.B,B,B,B,B

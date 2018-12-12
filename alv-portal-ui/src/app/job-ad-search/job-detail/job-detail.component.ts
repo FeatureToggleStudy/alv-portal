@@ -3,6 +3,7 @@ import {
   JobAdvertisement,
   JobAdvertisementStatus,
   JobDescription,
+  Occupation,
   SourceSystem
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { combineLatest, Observable } from 'rxjs';
@@ -116,10 +117,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
         map(([job, currentLanguage]) =>
           JobAdvertisementUtils.getJobDescription(job, currentLanguage))
       );
-    const jobWithOccupation$ = this.job$.pipe(
-      filter(job => job.jobContent.occupations && !!job.jobContent.occupations.length)
-    );
-
 
     const jobCenterCode$ = this.job$
       .pipe(
@@ -135,6 +132,14 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     this.prevVisible$ = this.store.pipe(select(isPrevVisible));
     this.nextVisible$ = this.store.pipe(select(isNextVisible));
 
+  }
+
+  getFirstOccupation(job: JobAdvertisement): Occupation {
+    let occupation = job.jobContent.occupations[0];
+    if (occupation.workExperience && occupation.educationCode) {
+      return occupation;
+    }
+    return null;
   }
 
   prev() {

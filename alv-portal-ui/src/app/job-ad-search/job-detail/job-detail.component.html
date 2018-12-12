@@ -236,7 +236,7 @@
             </ul>
           </ng-template>
         </ngb-panel>
-        <ngb-panel>
+        <ngb-panel *ngIf="getFirstOccupation(job) as occupation">
           <ng-template ngbPanelTitle>
             <div class="d-flex align-items-center">
               {{ 'job-publication-details.min-requirements.label' | translate }}
@@ -248,9 +248,9 @@
           <ng-template ngbPanelContent>
             <ul class="alv-list">
               <li>{{'job-detail.workExperience' | translate}}
-                : {{'global.experience.' + job?.jobContent?.occupations[0]?.workExperience | translate}}</li>
+                : {{'global.experience.' + occupation.workExperience | translate}}</li>
               <li>{{'job-detail.education' | translate}}
-                : {{'global.degree.' + job?.jobContent?.occupations[0]?.educationCode| translate}}
+                : {{'global.degree.' + occupation.educationCode| translate}}
               </li>
             </ul>
           </ng-template>

@@ -1,4 +1,4 @@
-import { CEFR_Level } from '../shared.types';
+import { CEFR_Level, Degree } from '../shared.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -150,7 +150,7 @@ export interface Occupation {
   avamOccupationCode: string;
   occupationLabel?: string;
   workExperience?: WorkExperience;
-  educationCode?: string;
+  educationCode?: Degree;
 }
 
 export interface LanguageSkill {
