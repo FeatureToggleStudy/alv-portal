@@ -2,13 +2,11 @@ import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/co
 import {
   JobAdvertisement,
   JobAdvertisementStatus,
-  JobDescription,
-  Occupation,
   SourceSystem
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { filter, flatMap, map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import {
   getSelectedJobAdvertisement,
   isNextVisible,
@@ -21,10 +19,6 @@ import {
 } from '../state-management/actions/job-ad-search.actions';
 import { select, Store } from '@ngrx/store';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { I18nService } from '../../core/i18n.service';
-import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import { ReferenceServiceRepository } from '../../shared/backend-services/reference-service/reference-service.repository';
-import { JobCenter } from '../../shared/backend-services/reference-service/reference-service.types';
 import {
   JobBadge,
   JobBadgesMapperService,
@@ -35,8 +29,8 @@ import {
   Notification,
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
-import { JobDetailService } from './job-detail.service';
 import { JobDetailPanelId } from './job-detail-panel-id.enum';
+import { JobDetailModel, JobDetailModelFactory } from './job-detail-model-factory';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -47,11 +41,7 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 })
 export class JobDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
-  job$: Observable<JobAdvertisement>;
-
-  jobDescription$: Observable<JobDescription>;
-
-  jobCenter$: Observable<JobCenter>;
+  jobDetailModel$: Observable<JobDetailModel>;
 
   prevEnabled$: Observable<boolean>;
 
@@ -60,8 +50,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   badges: JobBadge[];
 
   alerts: Notification[];
-
-  infoList: AlvListItem[];
 
   activePanelIds: string[];
 
@@ -88,12 +76,11 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     }
   };
 
-  constructor(private i18nService: I18nService,
-              private referenceServiceRepository: ReferenceServiceRepository,
-              private jobBadgesMapperService: JobBadgesMapperService,
-              private jobDetailService: JobDetailService,
-              private store: Store<JobAdSearchState>,
-              @Inject(DOCUMENT) private document: any) {
+  constructor(
+    private jobBadgesMapperService: JobBadgesMapperService,
+    private jobDetailModelFactory: JobDetailModelFactory,
+    private store: Store<JobAdSearchState>,
+    @Inject(DOCUMENT) private document: any) {
     super();
   }
 
@@ -102,36 +89,21 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   ngOnInit() {
-    this.job$ = this.store
-      .pipe(
-        select(getSelectedJobAdvertisement),
-        tap(job => {
-          this.alerts = this.mapJobAdAlerts(job);
-          this.infoList = this.jobDetailService.mapJobAdInfoList(job);
-          this.badges = this.jobBadgesMapperService.map(job, [
-            JobBadgeType.CONTRACT_TYPE,
-            JobBadgeType.AVAILABILITY,
-            JobBadgeType.WORKPLACE,
-            JobBadgeType.WORKLOAD
-          ]);
-        }));
+    let job$ = this.store.pipe(select(getSelectedJobAdvertisement));
 
-    this.jobDescription$ = combineLatest(this.job$, this.i18nService.currentLanguage$)
-      .pipe(
-        map(([job, currentLanguage]) =>
-          JobAdvertisementUtils.getJobDescription(job, currentLanguage))
-      );
+    this.jobDetailModel$ = this.jobDetailModelFactory.create(job$);
 
-    const jobCenterCode$ = this.job$
-      .pipe(
-        filter((job) => !!job),
-        map((job) => job.jobCenterCode),
-        filter((jobCenterCode) => !!jobCenterCode));
-
-    this.jobCenter$ = combineLatest(jobCenterCode$, this.i18nService.currentLanguage$)
-      .pipe(
-        flatMap(([jobCenterCode, currentLanguage]) => this.referenceServiceRepository.resolveJobCenter(jobCenterCode, currentLanguage))
-      );
+    job$.pipe(
+      tap((job) => {
+        this.alerts = this.mapJobAdAlerts(job);
+        this.badges = this.jobBadgesMapperService.map(job, [
+          JobBadgeType.CONTRACT_TYPE,
+          JobBadgeType.AVAILABILITY,
+          JobBadgeType.WORKPLACE,
+          JobBadgeType.WORKLOAD
+        ]);
+      })
+    ).subscribe(); //todo unsubscribe or whatever
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
     this.nextEnabled$ = this.store.pipe(select(isNextVisible));
@@ -142,14 +114,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       JobDetailPanelId.JOB_AD_LANGUAGES,
       JobDetailPanelId.JOB_AD_CONTACT_DETAILS,
     ];
-  }
-
-  getFirstOccupation(job: JobAdvertisement): Occupation {
-    const occupation = job.jobContent.occupations[0];
-    if (occupation.workExperience && occupation.educationCode) {
-      return occupation;
-    }
-    return null;
   }
 
   prev() {
