@@ -37,7 +37,7 @@
           <a *ngIf="job.jobContent.applyChannel?.formUrl"
              class="dropdown-item"
              href="{{job.jobContent.applyChannel?.formUrl}}"
-             target="{{job.id}}">
+             target="_blank">
             {{'job-detail.action.applyNow' | translate}}
           </a>
           <a *ngIf="job.jobContent.externalUrl"
@@ -308,7 +308,6 @@
       </ngb-accordion>
 
     </div>
-
     <!-------------Right panel-->
     <div class="col-xs-12 col-md-3 col-xl-2 d-none d-md-block order-12">
       <div class="side-panel">
