@@ -84,16 +84,6 @@ td:first-of-type {
   background-color: rgba($color-light-grey, .5);
 }
 
-.alv-list {
-  li {
-    margin-bottom: 0.5em;
-  }
-
-  .link, .alv-post-address {
-    margin: 0 0 1em 1.8em;
-  }
-}
-
 @media screen and (max-width: 767px) {
 
   .detail__title {

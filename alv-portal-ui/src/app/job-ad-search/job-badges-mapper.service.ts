@@ -11,7 +11,7 @@ import {
   isPermanent,
   isReportingObligation,
   isShortEmployment,
-  isTemporally
+  isTemporary
 } from './job-ad-rules';
 import { JobLocationPipe } from './job-location.pipe';
 
@@ -78,7 +78,7 @@ export class JobBadgesMapperService {
         cssClass: 'badge-availability',
       });
     }
-    if (isTemporally(job)) {
+    if (isTemporary(job)) {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: 'job-search.job-search-list-item.badge.temporary',
