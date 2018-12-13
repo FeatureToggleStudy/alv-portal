@@ -133,11 +133,11 @@
                   <br>
 
                   <ng-container *ngIf="job.stellennummerAvam">
-                    AVAM: {{job.stellennummerAvam}} <br>
+                    {{'job-detail.avam.label' | translate}}: {{job.stellennummerAvam}} <br>
                   </ng-container>
 
                   <ng-container *ngIf="job.stellennummerEgov">
-                    Job-Room: {{job.stellennummerEgov}}
+                    {{'job-detail.job-room-id' | translate}} {{job.stellennummerEgov}}
                   </ng-container>
                 </ng-container>
               </div>
