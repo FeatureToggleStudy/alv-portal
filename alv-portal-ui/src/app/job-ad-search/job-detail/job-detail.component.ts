@@ -6,7 +6,6 @@ import {
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Observable } from 'rxjs';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { tap } from 'rxjs/operators';
 import {
   getSelectedJobAdvertisement,
   isNextVisible,
@@ -30,7 +29,9 @@ import {
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
 import { JobDetailPanelId } from './job-detail-panel-id.enum';
-import { JobDetailModel, JobDetailModelFactory } from './job-detail-model-factory';
+import { JobDetailModelFactory } from './job-detail-model-factory';
+import { JobDetailModel } from './job-detail-model';
+import { map } from 'rxjs/operators';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -47,9 +48,9 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   nextEnabled$: Observable<boolean>;
 
-  badges: JobBadge[];
+  badges$: Observable<JobBadge[]>;
 
-  alerts: Notification[];
+  alerts$: Observable<Notification[]>;
 
   activePanelIds: string[];
 
@@ -93,17 +94,13 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
     this.jobDetailModel$ = this.jobDetailModelFactory.create(job$);
 
-    job$.pipe(
-      tap((job) => {
-        this.alerts = this.mapJobAdAlerts(job);
-        this.badges = this.jobBadgesMapperService.map(job, [
-          JobBadgeType.CONTRACT_TYPE,
-          JobBadgeType.AVAILABILITY,
-          JobBadgeType.WORKPLACE,
-          JobBadgeType.WORKLOAD
-        ]);
-      })
-    ).subscribe(); //todo unsubscribe or whatever
+    this.alerts$ = job$.pipe(map(this.mapJobAdAlerts.bind(this)));
+    this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job, [
+      JobBadgeType.CONTRACT_TYPE,
+      JobBadgeType.AVAILABILITY,
+      JobBadgeType.WORKPLACE,
+      JobBadgeType.WORKLOAD
+    ])));
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
     this.nextEnabled$ = this.store.pipe(select(isNextVisible));
@@ -137,8 +134,8 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     setTimeout(() => this.clipboardTooltip.close(), TOOLTIP_AUTO_HIDE_TIMEOUT);
   }
 
-  dismissAlert(alert: Notification) {
-    this.alerts.splice(this.alerts.indexOf(alert), 1);
+  dismissAlert(alert: Notification, alerts: Notification[]) {
+    alerts.splice(alerts.indexOf(alert), 1);
   }
 
   private getJobUrl() {

@@ -145,11 +145,11 @@
     <div class="col-xs-12 col-md-6 col-xl-8 order-3"
          *ngIf="jobDetailModel.jobDescription as jobDescription">
       <!-----------------Alerts-->
-      <div *ngIf="alerts?.length"
+      <div *ngIf="(alerts$ | async) as alerts"
            class="mb-4">
         <alv-alert *ngFor="let alert of alerts"
                    [notification]="alert"
-                   (dismiss)="dismissAlert(alert)">
+                   (dismiss)="dismissAlert(alert, alerts)">
         </alv-alert>
       </div>
       <!-----------------Title-->
@@ -171,7 +171,7 @@
 
       <!--Badges-->
       <div class="mb-4">
-        <alv-inline-badges [badges]="badges"></alv-inline-badges>
+        <alv-inline-badges [badges]="badges$|async"></alv-inline-badges>
       </div>
 
       <!-----------------Description-->
