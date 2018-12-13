@@ -10,9 +10,6 @@ export class PostAddressComponent implements OnInit {
   @Input()
   address: PostAddress;
 
-  @Input()
-  unstructuredAddress: string;
-
   constructor() {
   }
 
