@@ -36,10 +36,6 @@ import {
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
 import { JobDetailService } from './job-detail.service';
-import { hasImmediately, hasStartDate } from '../job-ad-rules';
-import { JobLocationPipe } from '../job-location.pipe';
-import { LocaleAwareDatePipe } from '../../shared/pipes/locale-aware-date.pipe';
-import { WorkingTimeRangePipe } from '../../shared/pipes/working-time-range.pipe';
 import { JobDetailPanelId } from './job-detail-panel-id.enum';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
