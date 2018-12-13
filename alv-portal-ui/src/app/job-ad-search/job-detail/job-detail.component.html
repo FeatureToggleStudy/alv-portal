@@ -70,7 +70,7 @@
 
             <hr class="visible-print-block d-none"/>
 
-            <div class="logo-box__company flex-height md-whiteframe-1dp">
+            <div class="company-panel">
               <div *ngIf="job.jobContent.company as company">
                 <alv-post-address [address]="{
                   name: company.name,
@@ -83,72 +83,72 @@
               </div>
 
               <div *ngIf="!job.publication.companyAnonymous && job.jobContent.publicContact as contact">
-                <div>
-                  <strong>{{'job-detail.contactPerson' | translate}}</strong>
-                  <br>
-                  <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
-                  {{ contact.firstName }}&nbsp;{{ contact.lastName }}
-                  <br>
+                <strong>{{'job-detail.contactPerson' | translate}}</strong>
+                <br>
+                <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
+                {{ contact.firstName }}&nbsp;{{ contact.lastName }}
+                <br>
 
-                  <ng-container *ngIf="contact.phone">
-                    <a class="link"
-                       href="tel:{{contact.phone}}">
-                      {{ contact.phone | phoneNumber }}
-                    </a>
-                    <br>
-                  </ng-container>
-
-                  <a *ngIf="contact.email"
-                     class="link"
-                     href="mailto:{{ contact.email }}">
-                    {{ contact.email }}
+                <ng-container *ngIf="contact.phone">
+                  <a class="link"
+                     href="tel:{{contact.phone}}">
+                    {{ contact.phone | phoneNumber }}
                   </a>
-                </div>
+                  <br>
+                </ng-container>
+
+                <a *ngIf="contact.email"
+                   class="link"
+                   style="max-width: 100%"
+                   href="mailto:{{ contact.email }}">
+                  {{ contact.email }}
+                </a>
               </div>
             </div>
 
             <div *ngIf="job.stellennummerAvam && jobCenter$ | async as jobCenter"
                  class="order-sm-2 alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
 
-              <div>
-                <div *ngIf="jobCenter.address as address">
-                  <strong>
-                    {{ 'job-detail.reference.responsible-job-center' | translate }}
-                  </strong>
-                  <alv-post-address [address]="{
+
+              <div *ngIf="jobCenter.address as address">
+                <strong>
+                  {{ 'job-detail.reference.responsible-job-center' | translate }}
+                </strong>
+                <alv-post-address [address]="{
                         name: address.name,
                         street: address.street,
                         houseNumber: address.houseNumber,
                         postalCode: address.zipCode,
                         city: address.city}">
-                  </alv-post-address>
-                  <br>
-                  {{'job-detail.reference.phone' | translate}}
-                  <a class="link"
-                     href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
-                </div>
-
-                <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
-                  <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
-                  <br>
-
-                  <ng-container *ngIf="job.stellennummerAvam">
-                    {{'job-detail.avam.label' | translate}}: {{job.stellennummerAvam}} <br>
-                  </ng-container>
-
-                  <ng-container *ngIf="job.stellennummerEgov">
-                    {{'job-detail.job-room-id' | translate}} {{job.stellennummerEgov}}
-                  </ng-container>
-                </ng-container>
+                </alv-post-address>
+                <br>
+                {{'job-detail.reference.phone' | translate}}
+                <a class="link"
+                   href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
               </div>
+
+              <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
+                <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
+                <br>
+
+                <ng-container *ngIf="job.stellennummerAvam">
+                  {{'job-detail.avam.label' | translate}}: {{job.stellennummerAvam}}
+                  <br>
+                </ng-container>
+
+                <ng-container *ngIf="job.stellennummerEgov">
+                  {{'job-detail.job-room-id' | translate}} {{job.stellennummerEgov}}
+                </ng-container>
+              </ng-container>
             </div>
+
           </div>
         </div>
       </div>
 
     </div>
     <!-------------Main screen-->
-    <div class="col-xs-12 col-md-6 col-xl-8 order-3 base__content"
+    <div class="col-xs-12 col-md-6 col-xl-8 order-3"
          *ngIf="jobDescription$ | async as jobDescription">
       <!-----------------Alerts-->
       <div *ngIf="alerts.length"
@@ -160,23 +160,22 @@
       </div>
       <!-----------------Title-->
 
-      <div class="detail__title">
-        <h2 class="mb-4"
-            [innerHTML]="jobDescription.title | safeHtml"></h2>
-        <span class="job-company mr-2 mr-md-4"
-              *ngIf="job.jobContent.company; else ravLabel">{{job.jobContent.company.name}}</span>
-        <ng-template #ravLabel>
-          {{ 'jobroomApp.job.rav' | translate }}
-        </ng-template>
-        <small class="mr-2 mr-md-4"
-               *ngIf="job.publication.startDate">
-          {{'job-detail.onlineSince' | translate}}
-          : {{ job.publication.startDate | localeAwareDate }}
-        </small>
-        <small *ngIf="job.jobContent.numberOfJobs">
-          {{'jobroomApp.job.numberOfJobs' | translate}}: {{ job.jobContent.numberOfJobs }}
-        </small>
-      </div>
+      <h2 class="mb-4"
+          [innerHTML]="jobDescription.title | safeHtml"></h2>
+      <span class="job-company mr-2 mr-md-4"
+            *ngIf="job.jobContent.company; else ravLabel">{{job.jobContent.company.name}}</span>
+      <ng-template #ravLabel>
+        {{ 'jobroomApp.job.rav' | translate }}
+      </ng-template>
+      <small class="mr-2 mr-md-4"
+             *ngIf="job.publication.startDate">
+        {{'job-detail.onlineSince' | translate}}
+        : {{ job.publication.startDate | localeAwareDate }}
+      </small>
+      <small *ngIf="job.jobContent.numberOfJobs">
+        {{'jobroomApp.job.numberOfJobs' | translate}}: {{ job.jobContent.numberOfJobs }}
+      </small>
+
       <!--Badges-->
       <div class="mb-4">
         <alv-inline-badges [badges]="badges"></alv-inline-badges>
@@ -228,10 +227,17 @@
           </ng-template>
           <ng-template ngbPanelContent>
             <ul class="alv-list">
-              <li>{{'job-detail.workExperience' | translate}}
-                : {{'global.experience.' + occupation.workExperience | translate}}</li>
-              <li>{{'job-detail.education' | translate}}
-                : {{'global.degree.avamCode.' + occupation.educationCode| translate}}
+              <li>
+                <strong>{{'job-detail.workExperience' | translate}}</strong>
+                <div class="list-item-content">{{'global.experience.' +
+                  occupation.workExperience | translate}}
+                </div>
+              </li>
+              <li>
+                <strong>{{'job-detail.education' | translate}}</strong>
+                <div class="list-item-content">{{'global.degree.avamCode.' +
+                  occupation.educationCode| translate}}
+                </div>
               </li>
             </ul>
           </ng-template>
@@ -265,8 +271,7 @@
           </ng-template>
           <ng-template ngbPanelContent>
             <ul class="alv-list">
-              <li *ngIf="applyChannel.formUrl as formUrl"
-                  class="content__item content__item--bullet">
+              <li *ngIf="applyChannel.formUrl as formUrl">
                 <strong>{{ 'job-detail.application.online' | translate }}</strong>
                 <a class="link list-item-content"
                    href="{{formUrl | normalizeUrl}}">
@@ -274,8 +279,7 @@
                   {{ 'job-publication-details.application.online-form' | translate}}
                 </a>
               </li>
-              <li *ngIf="applyChannel.emailAddress as emailAddress"
-                  class="content__item content__item--bullet">
+              <li *ngIf="applyChannel.emailAddress as emailAddress">
                 <strong>{{ 'job-detail.application.email' | translate }}</strong>
                 <a class="link list-item-content"
                    href="mailto:{{emailAddress}}">
@@ -283,8 +287,7 @@
                   {{emailAddress}}
                 </a>
               </li>
-              <li *ngIf="applyChannel.phoneNumber as phoneNumber"
-                  class="content__item content__item--bullet">
+              <li *ngIf="applyChannel.phoneNumber as phoneNumber">
                 <strong>{{ 'job-detail.application.phone' | translate }}</strong>
                 <a class="link list-item-content"
                    href="tel:{{phoneNumber}}">
@@ -292,13 +295,11 @@
                   {{(phoneNumber) | phoneNumber}}
                 </a>
               </li>
-              <li *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress"
-                  class="content__item content__item--bullet">
+              <li *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress">
                 <strong>{{ 'job-detail.application.mail' | translate }}</strong>
                 <div class="list-item-content">
                   <alv-post-address [address]="applyChannel.postAddress"
                                     [unstructuredAddress]="applyChannel.rawPostAddress">
-
                   </alv-post-address>
                 </div>
               </li>
@@ -343,8 +344,8 @@
           </a>
         </p>
 
-        <ul class="nav filter-nav flex-column">
-          <li class="nav-item">
+        <ul class="nav flex-column">
+          <li>
             <a class="btn btn-text btn-text-icon"
                #copyToClipboard
                ngxClipboard
@@ -365,7 +366,7 @@
               {{'job-detail.action.sendEmail' | translate}}
             </a>
           </li>
-          <li class="nav-item d-none d-md-block">
+          <li class="d-none d-md-block">
             <a class="btn btn-text btn-text-icon"
                (click)="printJob()">
               <i aria-hidden="true"

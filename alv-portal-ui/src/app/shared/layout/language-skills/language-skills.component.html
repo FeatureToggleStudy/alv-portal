@@ -1,15 +1,16 @@
 <ul *ngIf="languages?.length"
     class="alv-list">
-  <li *ngFor="let language of languages"
-      class="content__item">
+  <li *ngFor="let language of languages">
     <strong>
       {{ 'global.reference.language.' + language.languageIsoCode | lowercase | translate }}
     </strong>
-    <div *ngIf="language.spokenLevel">
+    <div *ngIf="language.spokenLevel"
+         class="list-item-content">
       {{ 'global.reference.language.spoken' | translate }}
-      : {{ 'global.reference.language.level.' + language.spokenLevel | translate}},
+      : {{ 'global.reference.language.level.' + language.spokenLevel | translate}}
     </div>
-    <div *ngIf="language.writtenLevel">
+    <div *ngIf="language.writtenLevel"
+         class="list-item-content">
       {{ 'global.reference.language.written' | translate }}
       : {{ 'global.reference.language.level.' + language.writtenLevel | translate}}
     </div>
