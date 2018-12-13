@@ -7,7 +7,8 @@ import { VersionComponent } from './version/version.component';
 import { HeaderComponent } from './header/header.component';
 import {
   NgbAlert,
-  NgbAlertModule, NgbCollapseModule,
+  NgbAlertModule,
+  NgbCollapseModule,
   NgbDropdown,
   NgbDropdownModule,
   NgbModalModule,
