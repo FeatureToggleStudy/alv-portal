@@ -89,7 +89,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   ngOnInit() {
-    let job$ = this.store.pipe(select(getSelectedJobAdvertisement));
+    const job$ = this.store.pipe(select(getSelectedJobAdvertisement));
 
     this.jobDetailModel$ = this.jobDetailModelFactory.create(job$);
 

@@ -17,38 +17,6 @@ import {
   isTemporary
 } from '../job-ad-rules';
 
-@Injectable()
-export class JobDetailModelFactory {
-
-  constructor(private i18nService: I18nService, private referenceServiceRepository: ReferenceServiceRepository) {
-  }
-
-  public create(job$: Observable<JobAdvertisement>): Observable<JobDetailModel> {
-
-    const jobCenter$ = combineLatest(job$, this.i18nService.currentLanguage$)
-      .pipe(
-        flatMap(([job, currentLanguage]) => {
-          if (job.jobCenterCode) {
-            return this.referenceServiceRepository.resolveJobCenter(job.jobCenterCode, currentLanguage);
-          }
-          return of(null);
-        })
-      );
-
-
-    return combineLatest(job$, this.i18nService.currentLanguage$, jobCenter$)
-      .pipe(
-        map(([job, currentLanguage, jobCenter]) => {
-          let jobDescription = JobAdvertisementUtils.getJobDescription(job, currentLanguage);
-          return new JobDetailModel(jobDescription, jobCenter, job);
-        })
-      );
-
-  }
-
-}
-
-
 export class JobDetailModel {
 
   constructor(public jobDescription: JobDescription, public jobCenter: JobCenter, public jobAdvertisement: JobAdvertisement) {
@@ -111,3 +79,35 @@ export class JobDetailModel {
   }
 
 }
+
+@Injectable()
+export class JobDetailModelFactory {
+
+  constructor(private i18nService: I18nService, private referenceServiceRepository: ReferenceServiceRepository) {
+  }
+
+  public create(job$: Observable<JobAdvertisement>): Observable<JobDetailModel> {
+
+    const jobCenter$ = combineLatest(job$, this.i18nService.currentLanguage$)
+      .pipe(
+        flatMap(([job, currentLanguage]) => {
+          if (job.jobCenterCode) {
+            return this.referenceServiceRepository.resolveJobCenter(job.jobCenterCode, currentLanguage);
+          }
+          return of(null);
+        })
+      );
+
+
+    return combineLatest(job$, this.i18nService.currentLanguage$, jobCenter$)
+      .pipe(
+        map(([job, currentLanguage, jobCenter]) => {
+          const jobDescription = JobAdvertisementUtils.getJobDescription(job, currentLanguage);
+          return new JobDetailModel(jobDescription, jobCenter, job);
+        })
+      );
+
+  }
+
+}
+
