@@ -2,7 +2,6 @@ import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/co
 import {
   JobAdvertisement,
   JobAdvertisementStatus,
-  Occupation,
   SourceSystem
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Observable } from 'rxjs';
@@ -30,12 +29,8 @@ import {
   Notification,
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
-import { JobDetailService } from './job-detail.service';
 import { JobDetailPanelId } from './job-detail-panel-id.enum';
-import {
-  JobDetailModel,
-  JobDetailModelFactoryService
-} from './job-detail-model-factory.service';
+import { JobDetailModel, JobDetailModelFactory } from './job-detail-model-factory';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -55,8 +50,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   badges: JobBadge[];
 
   alerts: Notification[];
-
-  infoList: AlvListItem[];
 
   activePanelIds: string[];
 
@@ -85,8 +78,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   constructor(
     private jobBadgesMapperService: JobBadgesMapperService,
-    private jobDetailService: JobDetailService,
-    private jobDetailModelFactoryService: JobDetailModelFactoryService,
+    private jobDetailModelFactory: JobDetailModelFactory,
     private store: Store<JobAdSearchState>,
     @Inject(DOCUMENT) private document: any) {
     super();
@@ -99,7 +91,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   ngOnInit() {
     let job$ = this.store.pipe(select(getSelectedJobAdvertisement));
 
-    this.jobDetailModel$ = this.jobDetailModelFactoryService.create(job$)
+    this.jobDetailModel$ = this.jobDetailModelFactory.create(job$);
 
     job$.pipe(
       tap((job) => {
@@ -111,7 +103,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
           JobBadgeType.WORKLOAD
         ]);
       })
-    );
+    ).subscribe(); //todo unsubscribe or whatever
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
     this.nextEnabled$ = this.store.pipe(select(isNextVisible));
@@ -122,15 +114,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       JobDetailPanelId.JOB_AD_LANGUAGES,
       JobDetailPanelId.JOB_AD_CONTACT_DETAILS,
     ];
-  }
-
-  // TODO move to the JDM
-  getFirstOccupation(job: JobAdvertisement): Occupation {
-    const occupation = job.jobContent.occupations[0];
-    if (occupation.workExperience && occupation.educationCode) {
-      return occupation;
-    }
-    return null;
   }
 
   prev() {
