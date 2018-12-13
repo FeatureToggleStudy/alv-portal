@@ -21,8 +21,6 @@ export class JobDetailModel {
   }
 
   hasStartDate() {
-    console.log('hasStartDate');
-    debugger;
     return hasStartDate(this.jobAdvertisement);
   }
 
