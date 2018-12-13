@@ -1,4 +1,4 @@
-<address *ngIf="address; else printUnstructured">
+<address *ngIf="address">
   <b>{{address.name}}</b>
   <br>
   <span *ngIf="address.postOfficeBoxNumber; else noPostOfficeBoxNumber">
@@ -11,6 +11,3 @@
     {{address.postalCode}} {{address.city}}
   </ng-template>
 </address>
-<ng-template #printUnstructured>
-  {{unstructuredAddress}}
-</ng-template>

@@ -71,13 +71,7 @@
 
             <div class="company-panel">
               <div *ngIf="job.jobContent.company as company">
-                <alv-post-address [address]="{
-                  name: company.name,
-                  street: company.street,
-                  houseNumber: company.houseNumber,
-                  postalCode: company.postalCode,
-                  city: company.city
-                }">
+                <alv-post-address [address]="company">
                 </alv-post-address>
               </div>
 
@@ -130,10 +124,10 @@
                 <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
                 <br>
 
-                <ng-container *ngIf="job.stellennummerAvam">
-                  {{'job-detail.avam.label' | translate}}: {{job.stellennummerAvam}}
-                  <br>
-                </ng-container>
+                  <ng-container *ngIf="job.stellennummerAvam">
+                    {{'job-detail.avam.label' | translate}}: {{job.stellennummerAvam}}
+                    <br>
+                  </ng-container>
 
                 <ng-container *ngIf="job.stellennummerEgov">
                   {{'job-detail.job-room-id' | translate}} {{job.stellennummerEgov}}
@@ -297,9 +291,13 @@
               <li *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress">
                 <strong>{{ 'job-detail.application.mail' | translate }}</strong>
                 <div class="list-item-content">
-                  <alv-post-address [address]="applyChannel.postAddress"
-                                    [unstructuredAddress]="applyChannel.rawPostAddress">
-                  </alv-post-address>
+                  <ng-container *ngIf="applyChannel.postAddress; else rawPostAddress">
+                    <alv-post-address [address]="applyChannel.postAddress">
+                    </alv-post-address>
+                  </ng-container>
+                  <ng-template #rawPostAddress>
+                    {{applyChannel.rawPostAddress}}
+                  </ng-template>
                 </div>
               </li>
             </ul>
