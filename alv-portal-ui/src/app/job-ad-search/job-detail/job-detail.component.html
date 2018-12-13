@@ -295,7 +295,7 @@
                 <strong>{{ 'job-detail.application.online' | translate }}</strong>
                 <div>
                   <a class="link"
-                     href="{{formUrl}}">
+                     href="{{formUrl|normalizeUrl}}">
                     <i class="fas fa-caret-right link-icon"></i>
                     {{ 'job-publication-details.application.online-form' | translate}}
                   </a>
@@ -362,7 +362,7 @@
         <p>
           <a *ngIf="job.jobContent.applyChannel?.formUrl"
              class="btn btn-primary btn-block btn-sm"
-             href="{{job.jobContent.applyChannel?.formUrl}}"
+             href="{{job.jobContent.applyChannel?.formUrl | normalizeUrl}}"
              target="_blank">
             {{'job-detail.action.applyNow' | translate}}
           </a>

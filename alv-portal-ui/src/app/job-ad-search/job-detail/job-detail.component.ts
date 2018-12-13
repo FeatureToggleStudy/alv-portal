@@ -200,5 +200,4 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       && !jobAdvertisement.stellennummerAvam;
   }
 
-
 }
