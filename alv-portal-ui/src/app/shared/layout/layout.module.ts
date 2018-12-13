@@ -6,10 +6,8 @@ import { NavigationContainerComponent } from './navigation-container/navigation-
 import { VersionComponent } from './version/version.component';
 import { HeaderComponent } from './header/header.component';
 import {
-  NgbAccordion,
-  NgbAccordionModule,
   NgbAlert,
-  NgbAlertModule,
+  NgbAlertModule, NgbCollapseModule,
   NgbDropdown,
   NgbDropdownModule,
   NgbModalModule,
@@ -41,6 +39,7 @@ import { LocalLoginComponent } from './local-login/local-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.component';
 import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
+import { CollapsePanelComponent } from './collapse-panel/collapse-panel.component';
 
 @NgModule({
   imports: [
@@ -52,10 +51,10 @@ import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
     TranslateModule,
     NgbDropdownModule,
     NgbPopoverModule,
+    NgbCollapseModule,
     NgbModalModule,
     NgbAlertModule,
     NgbTooltipModule,
-    NgbAccordionModule,
     NgbDropdownModule,
   ],
   declarations: [
@@ -78,7 +77,8 @@ import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
     ConfirmModalComponent,
     LocalLoginComponent,
     MenuEntryComponent,
-    InlineBadgesComponent
+    InlineBadgesComponent,
+    CollapsePanelComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
@@ -97,7 +97,6 @@ import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
     ModalComponent,
     NgbAlert,
     NgbTooltip,
-    NgbAccordion,
     NgbPanel,
     NgbPanelContent,
     NgbPanelTitle,
@@ -109,7 +108,8 @@ import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
     ModalComponent,
     StepIndicatorComponent,
     ReactiveFormsModule,
-    InlineBadgesComponent
+    InlineBadgesComponent,
+    CollapsePanelComponent
   ]
 })
 export class LayoutModule {

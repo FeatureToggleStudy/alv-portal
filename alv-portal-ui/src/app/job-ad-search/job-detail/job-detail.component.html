@@ -190,122 +190,82 @@
 
       <!-----------------Bottom details about job-->
 
-      <ngb-accordion [activeIds]="activePanelIds"
-                     class="d-block mb-3">
+      <div class="mb-3">
+        <alv-collapse-panel panelTitle="job-publication-details.jobad-info.label">
+          <ul class="alv-list">
+            <li *ngFor="let item of infoList">
+              <strong>{{item.title | translate}}</strong>
+              <div class="list-item-content">
+                {{item.content | translate:item.contentParams}}
+              </div>
+            </li>
+          </ul>
+        </alv-collapse-panel>
 
-        <ngb-panel [id]="jobDetailPanelId.JOB_AD_INFO">
-          <ng-template ngbPanelTitle>
-            <div class="d-flex align-items-center">
-              {{ 'job-publication-details.jobad-info.label' | translate }}
-              <div class="flex-grow-1"></div>
-              <i class="fas fa-chevron-up collapse-icon"></i>
-              <i class="fas fa-chevron-down expand-icon"></i>
-            </div>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <ul class="alv-list">
-              <li *ngFor="let item of infoList">
-                <strong>{{item.title | translate}}</strong>
-                <div class="list-item-content">
-                  {{item.content | translate:item.contentParams}}
-                </div>
-              </li>
-            </ul>
-          </ng-template>
-        </ngb-panel>
+        <alv-collapse-panel *ngIf="getFirstOccupation(job) as occupation"
+                            panelTitle="job-publication-details.min-requirements.label">
+          <ul class="alv-list">
+            <li>
+              <strong>{{'job-detail.workExperience' | translate}}</strong>
+              <div class="list-item-content">{{'global.experience.' +
+                occupation.workExperience | translate}}
+              </div>
+            </li>
+            <li>
+              <strong>{{'job-detail.education' | translate}}</strong>
+              <div class="list-item-content">{{'global.degree.avamCode.' +
+                occupation.educationCode| translate}}
+              </div>
+            </li>
+          </ul>
+        </alv-collapse-panel>
 
-        <ngb-panel *ngIf="getFirstOccupation(job) as occupation"
-                   [id]="jobDetailPanelId.JOB_AD_REQUIREMENTS">
-          <ng-template ngbPanelTitle>
-            <div class="d-flex align-items-center">
-              {{ 'job-publication-details.min-requirements.label' | translate }}
-              <div class="flex-grow-1"></div>
-              <i class="fas fa-chevron-up collapse-icon"></i>
-              <i class="fas fa-chevron-down expand-icon"></i>
-            </div>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <ul class="alv-list">
-              <li>
-                <strong>{{'job-detail.workExperience' | translate}}</strong>
-                <div class="list-item-content">{{'global.experience.' +
-                  occupation.workExperience | translate}}
-                </div>
-              </li>
-              <li>
-                <strong>{{'job-detail.education' | translate}}</strong>
-                <div class="list-item-content">{{'global.degree.avamCode.' +
-                  occupation.educationCode| translate}}
-                </div>
-              </li>
-            </ul>
-          </ng-template>
-        </ngb-panel>
+        <alv-collapse-panel *ngIf="job.jobContent?.languageSkills?.length"
+                            panelTitle="global.reference.languages">
+          <alv-language-skills [languages]="job.jobContent.languageSkills">
+          </alv-language-skills>
+        </alv-collapse-panel>
 
-        <ngb-panel *ngIf="job.jobContent?.languageSkills?.length"
-                   [id]="jobDetailPanelId.JOB_AD_LANGUAGES">
-          <ng-template ngbPanelTitle>
-            <div class="d-flex align-items-center">
-              {{ 'global.reference.languages' | translate }}
-              <div class="flex-grow-1"></div>
-              <i class="fas fa-chevron-up collapse-icon"></i>
-              <i class="fas fa-chevron-down expand-icon"></i>
-            </div>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <alv-language-skills [languages]="job.jobContent.languageSkills">
-            </alv-language-skills>
-          </ng-template>
-        </ngb-panel>
+        <alv-collapse-panel *ngIf="job.jobContent.applyChannel as applyChannel"
+                            panelTitle="job-publication-details.contact-details.label">
+          <ul class="alv-list">
+            <li *ngIf="applyChannel.formUrl as formUrl">
+              <strong>{{ 'job-detail.application.online' | translate }}</strong>
+              <a class="link list-item-content"
+                 href="{{formUrl | normalizeUrl}}">
+                <i class="fas fa-caret-right link-icon"></i>
+                {{ 'job-publication-details.application.online-form' | translate}}
+              </a>
+            </li>
+            <li *ngIf="applyChannel.emailAddress as emailAddress">
+              <strong>{{ 'job-detail.application.email' | translate }}</strong>
+              <a class="link list-item-content"
+                 href="mailto:{{emailAddress}}">
+                <i class="fas fa-caret-right link-icon"></i>
+                {{emailAddress}}
+              </a>
+            </li>
+            <li *ngIf="applyChannel.phoneNumber as phoneNumber">
+              <strong>{{ 'job-detail.application.phone' | translate }}</strong>
+              <a class="link list-item-content"
+                 href="tel:{{phoneNumber}}">
+                <i class="fas fa-caret-right link-icon"></i>
+                {{(phoneNumber) | phoneNumber}}
+              </a>
+            </li>
+            <li *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress">
+              <strong>{{ 'job-detail.application.mail' | translate }}</strong>
+              <div class="list-item-content">
+                <alv-post-address [address]="applyChannel.postAddress"
+                                  [unstructuredAddress]="applyChannel.rawPostAddress">
+                </alv-post-address>
+              </div>
+            </li>
+          </ul>
+        </alv-collapse-panel>
+      </div>
 
-        <ngb-panel *ngIf="job.jobContent.applyChannel as applyChannel"
-                   [id]="jobDetailPanelId.JOB_AD_CONTACT_DETAILS">
-          <ng-template ngbPanelTitle>
-            <div class="d-flex align-items-center">
-              {{ 'job-publication-details.contact-details.label' | translate }}
-              <div class="flex-grow-1"></div>
-              <i class="fas fa-chevron-up collapse-icon"></i>
-              <i class="fas fa-chevron-down expand-icon"></i>
-            </div>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <ul class="alv-list">
-              <li *ngIf="applyChannel.formUrl as formUrl">
-                <strong>{{ 'job-detail.application.online' | translate }}</strong>
-                <a class="link list-item-content"
-                   href="{{formUrl | normalizeUrl}}">
-                  <i class="fas fa-caret-right link-icon"></i>
-                  {{ 'job-publication-details.application.online-form' | translate}}
-                </a>
-              </li>
-              <li *ngIf="applyChannel.emailAddress as emailAddress">
-                <strong>{{ 'job-detail.application.email' | translate }}</strong>
-                <a class="link list-item-content"
-                   href="mailto:{{emailAddress}}">
-                  <i class="fas fa-caret-right link-icon"></i>
-                  {{emailAddress}}
-                </a>
-              </li>
-              <li *ngIf="applyChannel.phoneNumber as phoneNumber">
-                <strong>{{ 'job-detail.application.phone' | translate }}</strong>
-                <a class="link list-item-content"
-                   href="tel:{{phoneNumber}}">
-                  <i class="fas fa-caret-right link-icon"></i>
-                  {{(phoneNumber) | phoneNumber}}
-                </a>
-              </li>
-              <li *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress">
-                <strong>{{ 'job-detail.application.mail' | translate }}</strong>
-                <div class="list-item-content">
-                  <alv-post-address [address]="applyChannel.postAddress"
-                                    [unstructuredAddress]="applyChannel.rawPostAddress">
-                  </alv-post-address>
-                </div>
-              </li>
-            </ul>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
+
 
     </div>
     <!-------------Right panel-->
@@ -357,7 +317,7 @@
             </a>
           </li>
           <li>
-            <a class="btn btn-text btn-text-icon"
+            <a class="btn btn-text btn-text-icon "
                href="{{'mailto:?body=' + getEncodedUrl()}}">
               <i aria-hidden="true"
                  class="fa fa-share mr-1"></i>

@@ -1,0 +1,15 @@
+<button class="collapse-button alv-bar btn d-flex align-items-center w-100"
+        [class.collapsed]="isCollapsed"
+        (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed"
+        [attr.aria-controls]="panelId">
+  {{ panelTitle | translate }}
+  <div class="flex-grow-1"></div>
+  <i class="fas fa-chevron-up collapse-icon"></i>
+  <i class="fas fa-chevron-down expand-icon"></i>
+</button>
+<div class="panel-content"
+     [id]="panelId"
+     [ngbCollapse]="isCollapsed">
+  <ng-content></ng-content>
+</div>
