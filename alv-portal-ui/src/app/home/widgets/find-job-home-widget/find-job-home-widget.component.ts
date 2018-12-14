@@ -23,13 +23,7 @@ export class FindJobHomeWidgetComponent implements OnInit {
     });
   }
 
-  onSubmit(formValue: any) {
-
-    //todo: Replace this dummy data with the real form value
-    const filter = JSON.stringify({
-      onlineSince: 5,
-      company: 'migros'
-    });
-    this.router.navigate(['job-search'], { queryParams: { filter: filter } });
+  onSubmit() {
+    this.router.navigate(['job-search']);
   }
 }
