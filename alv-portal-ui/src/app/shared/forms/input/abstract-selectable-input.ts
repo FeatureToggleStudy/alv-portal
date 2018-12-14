@@ -11,6 +11,6 @@ export abstract class AbstractSelectableInput extends AbstractInput {
   /**
    * observable with selectable options which is subscribed to automatically
    */
-  @Input() options$: Observable<Array<SelectableOption>>;
+  @Input() options$: Observable<SelectableOption[]>;
 
 }

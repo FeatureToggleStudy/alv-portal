@@ -1,14 +1,14 @@
 <div class="w-100 d-flex steps-container">
-  <div class="step flex-grow-1 d-flex flex-column"
-       *ngFor="let step of steps; let i = index;"
-       [class.active]="i < activeStep">
+  <div *ngFor="let step of steps; let i = index;"
+       [class.active]="i < activeStep"
+       class="step flex-grow-1 d-flex flex-column">
     <div class="top-half"></div>
     <div class="bottom-half"></div>
     <div class="step-indicator">
       <div class="step-container">
         <div class="step-icon">
-          <i class="fas"
-             [ngClass]="'fa-' + step.icon">
+          <i [ngClass]="'fa-' + step.icon"
+             class="fas">
           </i>
         </div>
         <small class="step-label">

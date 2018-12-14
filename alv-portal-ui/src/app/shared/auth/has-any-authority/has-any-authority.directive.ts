@@ -2,13 +2,14 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { hasAnyAuthorities, UserRole } from '../../../core/auth/user.model';
 
 @Directive({
   selector: '[alvHasAnyAuthority]'
 })
 export class HasAnyAuthorityDirective extends AbstractSubscriber {
 
-  private hasAnyAuthority: Array<string>;
+  private hasAnyAuthority: UserRole[];
 
   constructor(private authenticationService: AuthenticationService,
               private templateRef: TemplateRef<any>,
@@ -17,16 +18,16 @@ export class HasAnyAuthorityDirective extends AbstractSubscriber {
   }
 
   @Input()
-  set alvHasAnyAuthority(value: string | Array<string>) {
-    this.hasAnyAuthority = typeof value === 'string' ? [<string> value] : <string[]> value;
+  set alvHasAnyAuthority(value: UserRole[]) {
+    this.hasAnyAuthority = value;
     this.authenticationService.getCurrentUser()
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(user => {
-          this.viewContainerRef.clear();
-          if (user && user.hasAnyAuthorities(this.hasAnyAuthority)) {
-            this.viewContainerRef.createEmbeddedView(this.templateRef);
-          }
-        });
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(user => {
+        this.viewContainerRef.clear();
+        if (hasAnyAuthorities(user, this.hasAnyAuthority)) {
+          this.viewContainerRef.createEmbeddedView(this.templateRef);
+        }
+      });
   }
 
 }

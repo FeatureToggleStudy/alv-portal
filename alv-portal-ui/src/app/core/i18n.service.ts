@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { FALLBACK_LANGUAGE, LANGUAGES } from './languages.constants';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { CoreState, getCurrentLanguage } from './state-management/state/core.state.ts';
+import { select, Store } from '@ngrx/store';
+import {
+  LanguageChangedAction,
+  LanguageInitializedAction
+} from './state-management/actions/core.actions';
 
 const LANGUAGE_KEY = 'NG_TRANSLATE_LANG_KEY';
 
@@ -18,28 +23,23 @@ const LANGUAGE_KEY = 'NG_TRANSLATE_LANG_KEY';
 })
 export class I18nService {
 
-  private readonly currentLanguage$: Observable<string>;
+  public readonly currentLanguage$: Observable<string>;
 
   constructor(private translateService: TranslateService,
+              private store: Store<CoreState>,
               private cookieService: CookieService) {
-    // all changes in ngx-translate will be mirrored in currentLanguage$ observable
-    this.currentLanguage$ = this.translateService.onLangChange.pipe(
-        map((evt: LangChangeEvent) => evt.lang)
-    );
-  }
-
-
-  get currentLanguage(): Observable<string> {
-    return this.currentLanguage$;
+    this.currentLanguage$ = this.store.pipe(select(getCurrentLanguage));
   }
 
   /**
    * A function is meant to run in the beginning of the application
    */
-  initAppDefaultLanguage(): void {
+  init(): void {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translateService.setDefaultLang(FALLBACK_LANGUAGE);
-    this.translateService.use(this.getAppDefaultLanguage());
+    const currentLanguage = this.getAppDefaultLanguage();
+    this.translateService.use(currentLanguage);
+    this.store.dispatch(new LanguageInitializedAction({ language: currentLanguage }));
   }
 
   /**
@@ -49,6 +49,7 @@ export class I18nService {
   changeLanguage(languageKey: string): void {
     this.saveLangugeInPersistentMemory(languageKey);
     this.translateService.use(languageKey);
+    this.store.dispatch(new LanguageChangedAction({ language: languageKey }));
   }
 
   /**
@@ -76,10 +77,10 @@ export class I18nService {
 
   private getAppDefaultLanguage(): string {
     const defaultLangauge = this.isLanguagePersisted()
-        ? this.getPersistentLanguage()
-        : this.translateService.getBrowserLang();
+      ? this.getPersistentLanguage()
+      : this.translateService.getBrowserLang();
     return this.isValid(defaultLangauge)
-        ? defaultLangauge
-        : FALLBACK_LANGUAGE;
+      ? defaultLangauge
+      : FALLBACK_LANGUAGE;
   }
 }

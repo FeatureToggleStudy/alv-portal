@@ -1,65 +1,57 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { MessageBusService, MessageType } from '../../../core/message-bus.service';
+import { takeUntil, tap } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
+import {
+  CoreState,
+  getMainNavigationExpanded
+} from '../../../core/state-management/state/core.state.ts';
+import { select, Store } from '@ngrx/store';
+import { ToggleMainNavigationAction } from '../../../core/state-management/actions/core.actions';
+import { MenuEntryService } from './menu-entry.service';
+import { Observable } from 'rxjs';
+import { MenuEntry } from './menu-entry.type';
 
 @Component({
   selector: 'alv-main-navigation',
   templateUrl: './main-navigation.component.html',
-  styleUrls: ['./main-navigation.component.scss']
+  styleUrls: ['./main-navigation.component.scss'],
+  providers: [
+    MenuEntryService,
+  ]
 })
 export class MainNavigationComponent extends AbstractSubscriber implements OnInit {
 
-  @HostBinding('class') readonly class = 'side-nav expanded navbar navbar-expand-lg p-0';
-  @HostBinding('class.collapsed') collapsed = true;
+  @HostBinding('class')
+  readonly class = 'side-nav expanded navbar navbar-expand-lg p-0';
 
-  menuEntries: any = [];
+  @HostBinding('class.collapsed')
+  collapsed = true;
 
-  open: boolean;
-
-  homeRouterLink: string;
+  menuEntries$: Observable<Array<MenuEntry>>;
 
   constructor(private router: Router,
-              private messageBusService: MessageBusService,
-              private authenticationService: AuthenticationService) {
+              private store: Store<CoreState>,
+              private menuEntryService: MenuEntryService) {
     super();
   }
 
   ngOnInit() {
-    this.messageBusService.of(MessageType.TOGGLE_MOBILE_NAVIGATION)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(
-            message => {
-              this.toggleMobileSideNav();
-            }
-        );
-    this.messageBusService.of<boolean>(MessageType.TOGGLE_DESKTOP_NAVIGATION)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(
-            collapsed => {
-              this.collapseDesktopSideNav(collapsed);
-            }
-        );
-    this.authenticationService.getCurrentUser()
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe(
-            user => {
-              this.homeRouterLink = user && user.isRegistered() ? '/dashboard' : '/home';
-            }
-        );
+    this.menuEntries$ = this.menuEntryService.prepareEntries();
+
+    this.store.pipe(select(getMainNavigationExpanded)).pipe(
+      tap((mainNavigationExpanded) => {
+        this.collapsed = !mainNavigationExpanded;
+      }),
+      takeUntil(this.ngUnsubscribe),
+    ).subscribe();
   }
 
   toggleMobileSideNav() {
-    this.open = !this.open;
+    this.store.dispatch(new ToggleMainNavigationAction({}));
   }
 
   toggleDesktopSideNav() {
-    this.collapsed = !this.collapsed;
-  }
-
-  collapseDesktopSideNav(collapsed: boolean) {
-    this.collapsed = collapsed;
+    this.store.dispatch(new ToggleMainNavigationAction({}));
   }
 }

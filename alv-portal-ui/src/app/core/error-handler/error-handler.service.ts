@@ -1,101 +1,90 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RestError } from './rest-error.model';
 import { NotificationsService } from '../notifications.service';
 import { NotificationType } from '../../shared/layout/notifications/notification.model';
-
-function isNil(value) {
-  return value === undefined || value === null;
-}
+import { AuthenticationService } from '../auth/authentication.service';
+import { SessionExpiredAction } from '../state-management/actions/core.actions';
+import { CoreState } from '../state-management/state/core.state.ts';
+import { Store } from '@ngrx/store';
+import { HttpErrorHandlerStrategy, matchesStatus } from './http-error-handler-strategy';
+import { tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorHandlerService {
 
-  private exceptionStatusRegistry: { [id: number]: ErrorMappingEntry; } = {};
+  private httpErrorHandlerStrategies: Array<HttpErrorHandlerStrategy> = [];
 
-  private exceptionNameRegistry: { [id: string]: ErrorMappingEntry; } = {};
 
-  constructor(private notificationsService: NotificationsService) {
-    // the registry will need to be populated with specific errors
-  }
+  constructor(private notificationsService: NotificationsService,
+              authenticationService: AuthenticationService,
+              store: Store<CoreState>) {
 
-  private static isRestError(errorContent: RestError) {
-    return !isNil(errorContent) && !isNil(errorContent.type);
+    let isAuthenticated = false;
+    authenticationService.getCurrentUser()
+      .pipe(tap((user) => {
+        return isAuthenticated = !!user;
+      }))
+      .subscribe();
+
+    this.httpErrorHandlerStrategies.push(
+      {
+        matches: (e) => matchesStatus(e, 401),
+        handle: () => store.dispatch(new SessionExpiredAction({}))
+      },
+      {
+        matches: (e) => matchesStatus(e, 403),
+        handle: () => this.showMessage('portal.global.exception.server.403')
+      },
+      {
+        matches: (e) => matchesStatus(e, 404),
+        handle: () => this.showMessage('portal.global.exception.server.404')
+      },
+      {
+        matches: (e) => matchesStatus(e, 429),
+        handle: () =>
+          this.showMessage(
+            isAuthenticated ? 'alert.error.tooManyRequests.authenticated' : 'alert.error.tooManyRequests.anonymous',
+            NotificationType.WARNING
+          )
+      },
+      {
+        matches: (e) => matchesStatus(e, 504),
+        handle: () => this.showMessage('portal.global.exception.server.504')
+      }
+    );
+
   }
 
   handleError(error) {
-    this.showFixedMessage('An error on the server occured', NotificationType.ERROR);
-    console.error(error);
+    console.error('handleError:', error);
+    this.showMessage('portal.global.exception.client.unknown', NotificationType.ERROR);
   }
 
   handleHttpError(httpErrorResponse: HttpErrorResponse) {
     if (!(httpErrorResponse instanceof HttpErrorResponse)) {
       throw new Error('The given ErrorResponse is not type HttpErrorResponse');
     }
-
-    if (this.handleByStatus(httpErrorResponse)
-        || this.handleByExceptionName(httpErrorResponse)) {
-      return;
+    if (!environment.production) {
+      console.log('handleHttpError:', httpErrorResponse);
     }
-
-    this.handleAny(httpErrorResponse);
-  }
-
-  private handleAny(httpErrorResponse: HttpErrorResponse) {
-    this.showFixedMessage('An error on the server occured', NotificationType.ERROR);
-  }
-
-  private handleByExceptionName(httpErrorResponse: HttpErrorResponse) {
-    const errorContent = <RestError> httpErrorResponse.error;
-    if (!ErrorHandlerService.isRestError(errorContent)) {
-      return false;
-    }
-    const errorMappingEntry = this.exceptionNameRegistry[errorContent.type];
-    if (errorMappingEntry) {
-      this.showFixedMessage(errorMappingEntry.messageKey, errorMappingEntry.type, errorMappingEntry.messageParams(errorContent));
+    const errorHandlingStrategy = this.httpErrorHandlerStrategies
+      .find((s) => s.matches(httpErrorResponse));
+    if (!!errorHandlingStrategy) {
+      errorHandlingStrategy.handle();
     } else {
-      this.showFixedMessage(
-          'The error has occurred.',
-          NotificationType.ERROR
-      );
+      this.showMessage('portal.global.exception.server.unknown');
     }
-    return true;
   }
 
-  private handleByStatus(httpErrorResponse: HttpErrorResponse) {
-    const statusErrorMapper = this.exceptionStatusRegistry[httpErrorResponse.status];
-    if (statusErrorMapper) {
-      this.showFixedMessage(statusErrorMapper.messageKey, statusErrorMapper.type);
-      return true;
-    }
-    return false;
-  }
-
-  private showFixedMessage(messageKey: string, type: NotificationType, messageVariables?: any) {
-    this.showMessage(messageKey, true, type, messageVariables);
-  }
-
-  private showAutoClosedMessage(messageKey: string, type: NotificationType, messageVariables?: any) {
-    this.showMessage(messageKey, false, type, messageVariables);
-  }
-
-  private showMessage(messageKey: string, sticky: boolean, type: NotificationType, messageVariables?: any) {
+  private showMessage(messageKey: string, type = NotificationType.ERROR, sticky = true, messageVariables?: any) {
     this.notificationsService.add({
       type: type,
       messageKey: messageKey,
       isSticky: sticky
     });
   }
-}
-
-class ErrorMappingEntry {
-
-  constructor(public readonly messageKey,
-              public readonly type: NotificationType,
-              public readonly messageParams: (restError: RestError) => {} = () => undefined) {
-  }
-
 
 }

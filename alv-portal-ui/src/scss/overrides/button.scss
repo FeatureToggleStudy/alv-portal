@@ -1,10 +1,16 @@
 @import "../common/colors";
+
 button.btn, a.btn {
   padding: 8px 20px;
   cursor: pointer;
   user-select: none;
   font-size: 16px;
   border-radius: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
   &.focus, &:focus {
     box-shadow: 0 0 0 0.2rem $color-red-transparent;
   }
@@ -59,7 +65,19 @@ button.btn, a.btn {
   &.btn-icon {
     padding: 2px;
     font-size: 1.25em;
+    text-align: center;
     width: 40px;
     height: 42px;
   }
+  &.btn-text-icon {
+    padding: 8px 10px;
+
+    i.fas, i.fa {
+      color: $color-primary
+    }
+  }
+  &.btn-block {
+    text-align: center;
+  }
+
 }

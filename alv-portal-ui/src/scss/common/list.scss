@@ -1,0 +1,27 @@
+@import "colors";
+
+ul.alv-list {
+  padding-left: 0;
+  display: list-item;
+  line-height: 2em;
+  list-style: none inside;
+
+  li {
+    margin-bottom: 1em;
+    .list-item-content {
+      line-height: 1.25em;
+      margin: 0 0 0.5em 1.8em;
+      display: block;
+    }
+  }
+
+  li::before {
+    content: '';
+    line-height: 2em;
+    width: .5em;
+    height: .5em;
+    background-color: $color-primary;
+    float: left;
+    margin: .75em .75em 0.75em .5em;
+  }
+}

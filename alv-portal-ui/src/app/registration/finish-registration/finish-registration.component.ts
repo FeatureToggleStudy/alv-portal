@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { RegistrationStep } from '../registration-step.enum';
-import { OrganizationSuggestion } from '../../service/pav-search/pav-search.types';
-import { Company } from '../../service/uid/uid.types';
+import { UidCompany } from '../../shared/backend-services/uid-search/uid.types';
+import { PavSuggestion } from '../../shared/backend-services/pav-search/pav-search.types';
 
 @Component({
   selector: 'alv-finish-registration',
@@ -15,11 +15,12 @@ export class FinishRegistrationComponent implements OnInit {
 
   registrationStep = RegistrationStep.SELECT_ROLE_STEP;
 
-  company: Company;
+  selectedCompany: UidCompany;
 
-  organization: OrganizationSuggestion;
+  selectedPav: PavSuggestion;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnInit() {
   }

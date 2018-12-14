@@ -22,12 +22,12 @@ import { PavRequestAccessCodeComponent } from './finish-registration/pav/pav-req
     CompanyIdentificationComponent,
     CompanyRequestAccessCodeComponent,
     PavIdentificationComponent,
-    PavRequestAccessCodeComponent
+    PavRequestAccessCodeComponent,
   ],
   imports: [
-      ReactiveFormsModule,
-      RegistrationRoutingModule,
-      SharedModule
+    ReactiveFormsModule,
+    RegistrationRoutingModule,
+    SharedModule
   ],
   entryComponents: [],
   exports: [],

@@ -1,85 +1,74 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { Credentials, RegistrationStatus, User } from './user.model';
+import { RegistrationStatus, User, UserRole } from './user.model';
 import { HttpClient } from '@angular/common/http';
-import { catchError, flatMap } from 'rxjs/operators';
-import { SessionManagerService } from './session-manager/session-manager.service';
-import { BehaviorSubject, EMPTY, throwError } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { CoreState, getCurrentUser } from '../state-management/state/core.state.ts';
+import {
+  LoadCurrentUserAction,
+  LogoutUserAction
+} from '../state-management/actions/core.actions';
+import { filter, switchMap, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private currentUser = new BehaviorSubject<User>(null);
+  private readonly currentUser$: Observable<User>;
 
   constructor(private httpClient: HttpClient,
-              private sessionManagerService: SessionManagerService) {
+              private store: Store<CoreState>) {
+    this.currentUser$ = this.store.pipe(select(getCurrentUser));
   }
 
-  private static toUser(userDto) {
-    const user = new User();
-    user.id = userDto.id;
-    user.firstName = userDto.firstName;
-    user.lastName = userDto.lastName;
-    user.authorities = userDto.authorities;
-    user.registrationStatus = userDto.registrationStatus;
-    user.login = userDto.login;
-    user.langKey = userDto.langKey;
-    user.email = userDto.email;
-    return user;
+  init() {
+    this.store.dispatch(new LoadCurrentUserAction({}));
   }
 
-  getCurrentUser(force?: boolean): Observable<User> {
-    if (force) {
-      return this.httpClient.get<UserDto>('/api/current-user', { observe: 'response' }).pipe(
-          catchError(err => {
-            if (err.status === 401) {
-              return EMPTY;
-            } else {
-              return throwError(err);
-            }
-          }),
-          flatMap(response => {
-            this.sessionManagerService.setToken(response.headers.get('Authorization'));
-            this.currentUser.next(AuthenticationService.toUser(response.body));
-            return this.currentUser;
-          })
-      );
-    }
-    return this.currentUser;
+  reloadCurrentUser() {
+    // TODO we should find a better solution that we wait until the currentUser has changed / was fetched from the backend
+    this.store.dispatch(new LoadCurrentUserAction({}));
+    return this.getCurrentUser().pipe(
+      filter((user) => !!user),
+      take(1));
   }
 
-  login(credentials: Credentials): Observable<User> {
+  getCurrentUser(): Observable<User> {
+    return this.currentUser$;
+  }
+
+  localLogin(credentials: Credentials) {
     return this.httpClient.post<User>('/api/authenticate', credentials, { observe: 'response' }).pipe(
-        flatMap(response => {
-          this.sessionManagerService.setToken(response.headers.get('Authorization'));
-          return this.getCurrentUser(true);
-        })
+      switchMap(response => {
+        this.store.dispatch(new LoadCurrentUserAction({ jwt: response.headers.get('Authorization') }));
+        return this.getCurrentUser().pipe(
+          filter((user) => !!user),
+          take(1));
+      })
     );
   }
 
   logout(): void {
-    if (this.isAuthenticated()) {
-      this.sessionManagerService.clearToken();
-      this.currentUser.next(null);
-    }
-  }
-
-  isAuthenticated(): boolean {
-    return !!this.sessionManagerService.getToken();
+    this.store.dispatch(new LogoutUserAction({}));
   }
 
 }
 
-class UserDto {
+export class UserDto {
   id: string;
   login: string;
   firstName: string;
   lastName: string;
   email: string;
   langKey: string;
-  authorities: Array<string>;
+  authorities: UserRole[];
   registrationStatus: RegistrationStatus;
 }
 
+
+export interface Credentials {
+  username: string;
+  password: string;
+  rememberMe: boolean;
+}

@@ -5,8 +5,7 @@ import {
   Input,
   Optional,
   Output,
-  SkipSelf,
-  ViewChild
+  SkipSelf
 } from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { ControlContainer } from '@angular/forms';
@@ -14,7 +13,7 @@ import { InputIdGenerationService } from '../input-id-generation.service';
 import { InputType } from '../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { SingleTypeaheadItem } from './single-typeahead-item.model';
-import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 
@@ -63,18 +62,18 @@ export class SingleTypeaheadComponent extends AbstractInput {
 
   private loadItemsGuarded(text$: Observable<string>): Observable<SingleTypeaheadItem[]> {
     return text$.pipe(
-        debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
-        switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
-            ? this.loadItems(query)
-            : of([])),
-        map(this.toModelArray.bind(this))
+      debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
+      switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
+        ? this.loadItems(query)
+        : of([])),
+      map(this.toModelArray.bind(this))
     );
   }
 
   private toModelArray(items: SingleTypeaheadItem[]): SingleTypeaheadItem[] {
     return items
-        .filter((item: SingleTypeaheadItem) => !this.exists(item))
-        .sort((item1: SingleTypeaheadItem, item2: SingleTypeaheadItem) => item1.compare(item2));
+      .filter((item: SingleTypeaheadItem) => !this.exists(item))
+      .sort((item1: SingleTypeaheadItem, item2: SingleTypeaheadItem) => item1.compare(item2));
   }
 
   private exists(model: SingleTypeaheadItem): boolean {

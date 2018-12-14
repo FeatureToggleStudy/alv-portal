@@ -26,7 +26,8 @@ export class RegistrationPanelComponent implements OnInit {
 
   @Input() formGroup: FormGroup;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

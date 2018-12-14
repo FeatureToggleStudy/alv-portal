@@ -6,17 +6,26 @@
 a {
   &.link {
     color: $color-grey-black;
+    &:visited {
+      color: $color-dark-grey;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
   }
+
   .link-icon {
     color: $color-primary;
     margin-right: 0.5rem;
   }
-  &:visited {
-    color: $color-dark-grey;
-  }
+
+
+
   &:hover {
     color: $color-primary;
   }
+
   &.link-panel {
     &:hover {
       text-decoration: none;

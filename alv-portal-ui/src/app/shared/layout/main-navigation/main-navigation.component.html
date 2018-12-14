@@ -1,11 +1,11 @@
 <!-- a11y -->
 <h1 class="sr-only">Navigation</h1>
 
-<!-- Menu Backdrop -->
-<div class="modal-backdrop"
-     *ngIf="open"
-     (click)="toggleMobileSideNav()">
-</div>
+<!--&lt;!&ndash; Menu Backdrop &ndash;&gt;-->
+<!--<div class="modal-backdrop"-->
+<!--*ngIf="open"-->
+<!--(click)="toggleMobileSideNav()">-->
+<!--</div>-->
 
 <!-- Desktop Menu -->
 <div class="d-none d-lg-flex flex-column h-100 w-100">
@@ -18,33 +18,9 @@
     <i class="fas fa-caret-right"
        *ngIf="collapsed"></i>
   </button>
-  <a [routerLink]="homeRouterLink"
-     class="nav-item"
-     routerLinkActive="active">
-    <i class="nav-icon fas fa-home"></i>
-    <span class="nav-text">{{'global.menu.home' | translate}}</span>
-  </a>
   <!-- Menu Entries -->
-  <ng-container *ngFor="let menuEntry of menuEntries">
-    <a [routerLink]="menuEntry.path"
-       class="nav-item"
-       routerLinkActive="active">
-      <i [class]="'nav-icon fas fa-' + menuEntry.icon"></i>
-      <span class="nav-text">{{menuEntry.label | translate}}</span>
-    </a>
-    <!-- Submenu Entries -->
-    <div class="child-nav-container"
-         tabindex="-1"
-         [routerLink]="menuEntry.basePath"
-         routerLinkActive="expanded">
-      <a class="nav-item child-nav-item"
-         *ngFor="let subMenuEntry of menuEntry.submenuEntries"
-         [routerLink]="subMenuEntry.path"
-         routerLinkActive="active">
-        <i [class]="'nav-icon fas fa-' + subMenuEntry.icon"></i>
-        <span class="nav-text">{{subMenuEntry.label | translate}}</span>
-      </a>
-    </div>
+  <ng-container *ngFor="let menuEntry of menuEntries$ | async">
+    <alv-menu-entry [menuEntry]="menuEntry"></alv-menu-entry>
   </ng-container>
 
   <div class="nav-fill-item flex-grow-1">
@@ -54,45 +30,19 @@
 
 <!-- Mobile Menu -->
 <div class="d-md-block d-lg-none">
-  <ul class="navbar-nav animate side-nav"
-      [class.open]="open">
-    <li class="nav-item"
-        (click)="toggleMobileSideNav()">
+  <div class="navbar-nav animate side-nav"
+       [class.open]="!collapsed">
+    <a class="nav-item"
+       (click)="toggleMobileSideNav()">
       <i class="nav-icon fas fa-caret-left"></i>
       <span class="nav-text">Schliessen</span>
-    </li>
-    <li [routerLink]="homeRouterLink"
-        class="nav-item"
-        routerLinkActive="active"
-        (click)="toggleMobileSideNav()">
-      <i class="nav-icon fas fa-home"></i>
-      <span class="nav-text">{{'global.menu.home' | translate}}</span>
-    </li>
+    </a>
     <!-- Menu Entries -->
-    <ng-container *ngFor="let menuEntry of menuEntries">
-      <li [routerLink]="menuEntry.path"
-          class="nav-item"
-          routerLinkActive="active"
-          (click)="toggleMobileSideNav()">
-        <i [class]="'nav-icon fas fa-' + menuEntry.icon"></i>
-        <span class="nav-text">{{menuEntry.label | translate}}</span>
-      </li>
-      <!-- Submenu Entries -->
-      <li class="child-nav-container"
-          tabindex="-1"
-          [routerLink]="menuEntry.basePath"
-          routerLinkActive="expanded">
-        <a class="nav-item child-nav-item"
-           *ngFor="let subMenuEntry of menuEntry.submenuEntries"
-           [routerLink]="subMenuEntry.path"
-           routerLinkActive="active"
-           (click)="toggleMobileSideNav()">
-          <i [class]="'nav-icon fas fa-' + subMenuEntry.icon"></i>
-          <span class="nav-text">{{subMenuEntry.label | translate}}</span>
-        </a>
-      </li>
+    <ng-container *ngFor="let menuEntry of menuEntries$ | async">
+      <alv-menu-entry [menuEntry]="menuEntry"
+                      (itemClicked)="toggleMobileSideNav()"></alv-menu-entry>
     </ng-container>
     <li class="nav-fill-item flex-grow-1">
     </li>
-  </ul>
+  </div>
 </div>

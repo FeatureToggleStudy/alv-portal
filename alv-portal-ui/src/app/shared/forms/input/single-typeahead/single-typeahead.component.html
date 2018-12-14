@@ -1,28 +1,28 @@
-<div class="w-100"
-     *ngIf="control">
-  <div class="form-label-group position-relative"
-       [class.invalid]="control.touched && control.invalid">
+<div *ngIf="control"
+     class="w-100">
+  <div [class.invalid]="control.touched && control.invalid"
+       class="form-label-group position-relative">
     <span *ngIf="required && !readonly"
           class="required-indicator h-100">
     </span>
 
     <input #inputField
+           (blur)="control.markAsTouched()"
+           (selectItem)="selectItem($event)"
            *ngIf="!readonly"
-           class="form-control"
-           [class.placeholder-shown]="!inputField.value"
+           [alvAutofocus]="autofocus"
+           [attr.aria-describedby]="validationId + ' ' + helpId"
+           [attr.aria-required]="!!required"
            [attr.id]="id"
            [attr.required]="required"
-           [attr.aria-required]="!!required"
-           [attr.aria-describedby]="validationId + ' ' + helpId"
-           [alvAutofocus]="autofocus"
-           [ngbTypeahead]="loadItemsGuardedFn"
+           [class.placeholder-shown]="!inputField.value"
            [container]="'body'"
-           [resultTemplate]="template"
-           [focusFirst]="focusFirst"
            [editable]="false"
+           [focusFirst]="focusFirst"
            [inputFormatter]="formatResultItem"
-           (selectItem)="selectItem($event)"
-           (blur)="control.markAsTouched()">
+           [ngbTypeahead]="loadItemsGuardedFn"
+           [resultTemplate]="template"
+           class="form-control">
 
     <label [for]="id">
       {{label | translate}}
@@ -35,16 +35,16 @@
     </div>
 
     <!-- a11y help texts -->
-    <div class="sr-only"
-         [attr.id]="helpId">
+    <div [attr.id]="helpId"
+         class="sr-only">
       Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of
       selectable items. Select by using the up and down arrow keys.
     </div>
 
     <ng-template #template
+                 let-formatter="formatter"
                  let-result="result"
-                 let-term="term"
-                 let-formatter="formatter">
+                 let-term="term">
       <ngb-highlight [result]="formatResultItem(result)"
                      [term]="term">
       </ngb-highlight>
@@ -56,7 +56,7 @@
   </small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
-                           [id]="validationId"
-                           [customValidationMessages]="validationMessages">
+                           [customValidationMessages]="validationMessages"
+                           [id]="validationId">
   </alv-validation-messages>
 </div>

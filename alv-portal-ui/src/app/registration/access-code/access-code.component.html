@@ -1,23 +1,23 @@
 <div class="container py-4">
-  <alv-registration-panel panelTitle="registrationAccessCode.title"
-                          (primaryAction)="submitAccessCode()"
-                          primaryLabel="navigation.next"
+  <alv-registration-panel (primaryAction)="submitAccessCode()"
                           (secondaryAction)="returnToHome()"
-                          secondaryLabel="registration.customer.cancel"
+                          [formGroup]="accessCodeForm"
                           [hideBackButton]="true"
-                          [formGroup]="accessCodeForm">
-    <alv-step-indicator class="step-indicator panel-full-width"
+                          panelTitle="registrationAccessCode.title"
+                          primaryLabel="navigation.next"
+                          secondaryLabel="registration.customer.cancel">
+    <alv-step-indicator [activeStep]="3"
                         [steps]="steps"
-                        [activeStep]="3">
+                        class="step-indicator panel-full-width">
     </alv-step-indicator>
     <p>{{'registrationAccessCode.placeholder' | translate}}</p>
-    <alv-input-field label="registrationAccessCode.accessCode.label"
-                     alvFormControlName="accessCode"
+    <alv-input-field [autofocus]="true"
                      [maxLength]="ACCESS_CODE_LENGTH"
-                     [autofocus]="true"
                      [validationMessages]="[
                      {error: 'required', message: 'registrationAccessCode.accessCode.error.required'},
-                     {error: 'minlength', message: 'registrationAccessCode.accessCode.error.minlength'}]">
+                     {error: 'minlength', message: 'registrationAccessCode.accessCode.error.minlength'}]"
+                     alvFormControlName="accessCode"
+                     label="registrationAccessCode.accessCode.label">
     </alv-input-field>
 
   </alv-registration-panel>

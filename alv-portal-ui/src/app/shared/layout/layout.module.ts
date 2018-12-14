@@ -6,37 +6,54 @@ import { NavigationContainerComponent } from './navigation-container/navigation-
 import { VersionComponent } from './version/version.component';
 import { HeaderComponent } from './header/header.component';
 import {
+  NgbAlert,
+  NgbAlertModule,
+  NgbCollapseModule,
+  NgbDropdown,
   NgbDropdownModule,
   NgbModalModule,
-  NgbPopoverModule
+  NgbPopoverModule,
+  NgbTooltip,
+  NgbTooltipModule,
+  ɵp,
+  ɵq,
+  ɵr
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { PanelComponent } from './panel/panel.component';
 import { PanelGroupComponent } from './panel-group/panel-group.component';
 import { NotificationComponent } from './notifications/notification/notification.component';
 import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
-import { NotificationsService } from '../../core/notifications.service';
 import { AlertComponent } from './notifications/alert/alert.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '../forms/forms.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { ConfirmModalComponent } from './modal/confirm-modal/confirm-modal.component';
+import { LanguageSkillsComponent } from './language-skills/language-skills.component';
 import { StepIndicatorComponent } from './step-indicator/step-indicator.component';
+import { LocalLoginComponent } from './local-login/local-login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.component';
+import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
+import { CollapsePanelComponent } from './collapse-panel/collapse-panel.component';
 
 @NgModule({
   imports: [
+    ReactiveFormsModule,
     CommonModule,
-    NgbDropdownModule,
-    NgbPopoverModule,
-    NgbModalModule,
     RouterModule,
-    HttpClientModule,
     SharedAuthModule,
     FormsModule,
-    TranslateModule
+    TranslateModule,
+    NgbDropdownModule,
+    NgbPopoverModule,
+    NgbCollapseModule,
+    NgbModalModule,
+    NgbAlertModule,
+    NgbTooltipModule,
+    NgbDropdownModule,
   ],
   declarations: [
     UserMenuComponent,
@@ -52,10 +69,18 @@ import { StepIndicatorComponent } from './step-indicator/step-indicator.componen
     AlertComponent,
     ModalComponent,
     ConfirmModalComponent,
-    StepIndicatorComponent
+    StepIndicatorComponent,
+    ConfirmModalComponent,
+    LanguageSkillsComponent,
+    ConfirmModalComponent,
+    LocalLoginComponent,
+    MenuEntryComponent,
+    InlineBadgesComponent,
+    CollapsePanelComponent
   ],
   entryComponents: [
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    LocalLoginComponent
   ],
   exports: [
     NavigationContainerComponent,
@@ -68,9 +93,18 @@ import { StepIndicatorComponent } from './step-indicator/step-indicator.componen
     NotificationsComponent,
     AlertComponent,
     ModalComponent,
-    StepIndicatorComponent
-  ],
-  providers: [
+    NgbAlert,
+    NgbTooltip,
+    NgbDropdown,
+    ɵq, // needed for the Dropdown menu to work
+    ɵp,
+    ɵr,
+    LanguageSkillsComponent,
+    ModalComponent,
+    StepIndicatorComponent,
+    ReactiveFormsModule,
+    InlineBadgesComponent,
+    CollapsePanelComponent
   ]
 })
 export class LayoutModule {

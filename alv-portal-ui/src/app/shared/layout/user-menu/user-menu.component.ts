@@ -13,11 +13,22 @@ import { filter } from 'rxjs/operators';
 })
 export class UserMenuComponent implements OnInit {
 
-  private _user: User;
-
+  hideRegistrationAction: boolean;
   private readonly FINISH_REGISTRATION_URL = '/registration/finish';
 
   private readonly ACCESS_CODE_URL = '/registration/access-code';
+
+  constructor(private authenticationService: AuthenticationService,
+              private router: Router,
+              private location: Location,
+              private activatedRoute: ActivatedRoute,
+              private landingNavigationService: LandingNavigationService,
+              @Inject(DOCUMENT) private document: any) {
+  }
+
+  private _user: User;
+
+  @Input() noEiam: boolean;
 
   get user() {
     return this._user;
@@ -26,18 +37,6 @@ export class UserMenuComponent implements OnInit {
   @Input() set user(user: User) {
     this._user = user;
     this.hideRegistrationAction = this._user.registrationStatus === RegistrationStatus.REGISTERED;
-  }
-
-  @Input() noEiam: boolean;
-
-  hideRegistrationAction: boolean;
-
-  constructor(private authenticationService: AuthenticationService,
-              private router: Router,
-              private location: Location,
-              private activatedRoute: ActivatedRoute,
-              private landingNavigationService: LandingNavigationService,
-              @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {
@@ -63,11 +62,11 @@ export class UserMenuComponent implements OnInit {
 
   private subscribeOnRouteChanges() {
     this.router.events.pipe(
-        filter((event) => event instanceof NavigationEnd)
+      filter((event) => event instanceof NavigationEnd)
     ).subscribe(() => {
       if (this.user.registrationStatus !== RegistrationStatus.REGISTERED) {
         this.hideRegistrationAction = this.location.isCurrentPathEqualTo(this.FINISH_REGISTRATION_URL) ||
-            this.location.isCurrentPathEqualTo(this.ACCESS_CODE_URL);
+          this.location.isCurrentPathEqualTo(this.ACCESS_CODE_URL);
       }
     });
   }

@@ -13,21 +13,21 @@
             [attr.aria-required]="!!required"
             [attr.aria-describedby]="validationId"
             [alvAutofocus]="autofocus"
-            [class.placeholder-shown]="!control.value">
+            [class.placeholder-shown]="control.value === ''">
       <option *ngFor="let option of options$ | async"
-              [value]="option.value">{{option.label}}
+              [ngValue]="option.value">{{option.label | translate}}
       </option>
     </select>
     <div *ngIf="readonly"
-         [class.placeholder-shown]="!control.value"
+         [class.placeholder-shown]="control.value === ''"
          class="readonly-input">
       <ng-container *ngFor="let option of options$ | async">
         <ng-container *ngIf="option.value === control.value">
-          {{option.label}}
+          {{option.label | translate}}
         </ng-container>
       </ng-container>
     </div>
-    <label [for]="id">{{label | translate}}</label>
+    <label [for]="id" class="text-truncate">{{label | translate}}</label>
     <i class="fas fa-caret-down dropdown-icon"
        *ngIf="!readonly"></i>
   </div>

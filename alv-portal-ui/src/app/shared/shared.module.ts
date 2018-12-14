@@ -5,17 +5,22 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LayoutModule } from './layout/layout.module';
 import { FormsModule as AlvFormsModule } from './forms/forms.module';
 import { SharedAuthModule } from './auth/shared-auth.module';
+import { ClipboardModule } from 'ngx-clipboard';
 import { CommonModule } from '@angular/common';
+import { MarkdownModule } from 'ngx-markdown';
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [
-    LandingPageComponent
+    LandingPageComponent,
   ],
   imports: [
     AlvFormsModule,
     PrettyJsonModule,
     LayoutModule,
-    SharedAuthModule
+    SharedAuthModule,
+    ClipboardModule,
+    PipesModule
   ],
   entryComponents: [],
   exports: [
@@ -23,10 +28,15 @@ import { CommonModule } from '@angular/common';
     TranslateModule,
     AlvFormsModule,
     LandingPageComponent,
-    LayoutModule
+    LayoutModule,
+    PipesModule,
+    ClipboardModule,
+    MarkdownModule,
+    SharedAuthModule
   ]
 })
 export class SharedModule {
+
 }
 
 

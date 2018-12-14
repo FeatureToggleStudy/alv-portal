@@ -4,9 +4,9 @@ import { MultiTypeaheadItemModel } from '../shared/forms/input/multi-typeahead/m
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ModalService } from '../core/auth/modal.service';
 import { SelectableOption } from '../shared/forms/input/selectable-option.model';
 import { NotificationsService } from '../core/notifications.service';
+import { ModalService } from '../shared/layout/modal/modal.service';
 
 export class LocalityInputType {
   static LOCALITY = 'locality';
@@ -106,11 +106,11 @@ export class ShowcaseComponent implements OnInit {
   private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): MultiTypeaheadItemModel[] {
     const localities = localityAutocomplete.localities
         .map((o: LocalitySuggestion, index) =>
-            new MultiTypeaheadItemModel(LocalityInputType.LOCALITY, String(o.communalCode), o.city, index));
+          new MultiTypeaheadItemModel(LocalityInputType.LOCALITY, String(o.communalCode), o.city, index));
 
     const cantons = localityAutocomplete.cantons
         .map((o: CantonSuggestion, index) =>
-            new MultiTypeaheadItemModel(LocalityInputType.CANTON, String(o.code),
+          new MultiTypeaheadItemModel(LocalityInputType.CANTON, String(o.code),
                 o.name + ' (' + o.code + ')', localities.length + index));
 
     return [...localities, ...cantons];

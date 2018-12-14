@@ -6,7 +6,8 @@ import {
   NgbDateNativeAdapter,
   NgbDateParserFormatter,
   NgbDatepickerModule,
-  NgbPopoverConfig, NgbTypeaheadModule
+  NgbPopoverConfig,
+  NgbTypeaheadModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { DateParserFormatter } from './input/date-input/date-parser-formatter';
 import { FormsModule as NgFormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,8 +18,8 @@ import { SelectComponent } from './input/select/select.component';
 import { DateIntervalInputComponent } from './input/date-interval-input/date-interval-input.component';
 import { AddressInputComponent } from './address-input/address-input.component';
 import { FormSubmitValidationDirective } from './form-submit-validation.directive';
-import { MultiTypeaheadComponent } from './input/multi-typeahead/multi-typeahead.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MultiTypeaheadComponent } from './input/multi-typeahead/multi-typeahead.component';
 import { SingleTypeaheadComponent } from './input/single-typeahead/single-typeahead.component';
 import { AutofocusDirective } from './autofocus.directive';
 
@@ -56,7 +57,8 @@ import { AutofocusDirective } from './autofocus.directive';
     CheckboxComponent,
     FormSubmitValidationDirective,
     MultiTypeaheadComponent,
-    SingleTypeaheadComponent
+    SingleTypeaheadComponent,
+    ReactiveFormsModule
   ],
   providers: [
     NgbPopoverConfig,
