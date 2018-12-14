@@ -185,7 +185,8 @@
       <!-----------------Bottom details about job-->
 
       <div class="mb-3">
-        <alv-collapse-panel panelTitle="job-publication-details.jobad-info.label">
+        <alv-collapse-panel [panelId]="jobDetailPanelId.JOB_AD_INFO"
+                            panelTitle="job-publication-details.jobad-info.label">
           <ul class="alv-list">
             <li *ngFor="let item of infoList">
               <strong>{{item.title | translate}}</strong>
@@ -197,6 +198,7 @@
         </alv-collapse-panel>
 
         <alv-collapse-panel *ngIf="getFirstOccupation(job) as occupation"
+                            [panelId]="jobDetailPanelId.JOB_AD_REQUIREMENTS"
                             panelTitle="job-publication-details.min-requirements.label">
           <ul class="alv-list">
             <li>
@@ -215,12 +217,14 @@
         </alv-collapse-panel>
 
         <alv-collapse-panel *ngIf="job.jobContent?.languageSkills?.length"
+                            [panelId]="jobDetailPanelId.JOB_AD_LANGUAGES"
                             panelTitle="global.reference.languages">
           <alv-language-skills [languages]="job.jobContent.languageSkills">
           </alv-language-skills>
         </alv-collapse-panel>
 
         <alv-collapse-panel *ngIf="job.jobContent.applyChannel as applyChannel"
+                            [panelId]="jobDetailPanelId.JOB_AD_CONTACT_DETAILS"
                             panelTitle="job-publication-details.contact-details.label">
           <ul class="alv-list">
             <li *ngIf="applyChannel.formUrl as formUrl">

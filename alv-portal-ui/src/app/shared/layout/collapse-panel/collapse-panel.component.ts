@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-let nextPanelId = 0;
 
 @Component({
   selector: 'alv-collapse-panel',
@@ -8,11 +7,11 @@ let nextPanelId = 0;
 })
 export class CollapsePanelComponent implements OnInit {
 
+  @Input() panelId: string;
+
   @Input() panelTitle: string;
 
   isCollapsed = false;
-
-  panelId = 'alv-collapse-panel-' + nextPanelId++;
 
   constructor() { }
 
