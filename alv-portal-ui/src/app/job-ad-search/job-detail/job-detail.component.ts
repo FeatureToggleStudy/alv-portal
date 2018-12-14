@@ -52,8 +52,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   alerts$: Observable<Notification[]>;
 
-  activePanelIds: string[];
-
   jobDetailPanelId = JobDetailPanelId;
 
   @ViewChild(NgbTooltip)
@@ -104,13 +102,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
     this.nextEnabled$ = this.store.pipe(select(isNextVisible));
-
-    this.activePanelIds = [
-      JobDetailPanelId.JOB_AD_INFO,
-      JobDetailPanelId.JOB_AD_REQUIREMENTS,
-      JobDetailPanelId.JOB_AD_LANGUAGES,
-      JobDetailPanelId.JOB_AD_CONTACT_DETAILS,
-    ];
   }
 
   prev() {
