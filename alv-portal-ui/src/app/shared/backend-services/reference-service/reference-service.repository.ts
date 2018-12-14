@@ -8,7 +8,7 @@ import { JobCenter } from './reference-service.types';
 })
 export class ReferenceServiceRepository {
 
-  private readonly REFERENCESERVICE_URL = 'referenceservice/api/';
+  private readonly REFERENCESERVICE_URL = '/referenceservice/api/';
 
   private readonly JOB_CENTER_URL = this.REFERENCESERVICE_URL + 'job-centers';
 
