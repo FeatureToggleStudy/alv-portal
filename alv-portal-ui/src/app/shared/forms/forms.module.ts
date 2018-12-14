@@ -16,7 +16,6 @@ import { RadioButtonComponent } from './input/radio-button/radio-button.componen
 import { DateInputComponent } from './input/date-input/date-input.component';
 import { SelectComponent } from './input/select/select.component';
 import { DateIntervalInputComponent } from './input/date-interval-input/date-interval-input.component';
-import { AddressInputComponent } from './address-input/address-input.component';
 import { FormSubmitValidationDirective } from './form-submit-validation.directive';
 import { TranslateModule } from '@ngx-translate/core';
 import { MultiTypeaheadComponent } from './input/multi-typeahead/multi-typeahead.component';
@@ -33,7 +32,6 @@ import { AutofocusDirective } from './autofocus.directive';
     TranslateModule
   ],
   declarations: [
-    AddressInputComponent,
     DateIntervalInputComponent,
     SelectComponent,
     InputFieldComponent,
@@ -47,7 +45,6 @@ import { AutofocusDirective } from './autofocus.directive';
     AutofocusDirective
   ],
   exports: [
-    AddressInputComponent,
     DateIntervalInputComponent,
     SelectComponent,
     InputFieldComponent,
