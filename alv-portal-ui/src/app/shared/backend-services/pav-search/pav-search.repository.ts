@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class PavSearchRepository {
 
-  readonly RESOURCE_SEARCH_URL = 'api/_search/organizations';
+  readonly RESOURCE_SEARCH_URL = '/api/_search/organizations';
 
   readonly DEFAULT_SUGGEST_SIZE = 10;
 

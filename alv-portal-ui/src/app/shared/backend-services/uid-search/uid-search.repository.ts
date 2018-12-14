@@ -8,7 +8,7 @@ import { UidCompany } from './uid.types';
 })
 export class UidSearchRepository {
 
-  private readonly COMPANY_BY_UID_URL = 'api/getCompanyByUid';
+  private readonly COMPANY_BY_UID_URL = '/api/getCompanyByUid';
 
   constructor(private http: HttpClient) {
   }
