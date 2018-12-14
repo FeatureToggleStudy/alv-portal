@@ -1,6 +1,6 @@
 <div class="container-fluid mt-2 mt-md-4">
   <div class="row"
-       *ngIf="job$ | async as job">
+       *ngIf="jobDetailModel$ | async as jobDetailModel">
     <!--Mobile only - back button and dropdown menu-->
     <div class="col-12 d-flex justify-content-between d-md-none">
       <div>
@@ -33,16 +33,16 @@
                   class="dropdown-item">
             {{'job-detail.next-result' | translate}}
           </button>
-          <a *ngIf="job.jobContent.applyChannel?.formUrl"
+          <a *ngIf="jobDetailModel.applyChannel?.formUrl"
              class="dropdown-item"
-             href="{{job.jobContent.applyChannel?.formUrl}}"
+             href="{{jobDetailModel.applyChannel?.formUrl}}"
              target="_blank">
             {{'job-detail.action.applyNow' | translate}}
           </a>
-          <a *ngIf="job.jobContent.externalUrl"
+          <a *ngIf="jobDetailModel.jobContent.externalUrl"
              class="dropdown-item"
-             href="{{job.jobContent.externalUrl}}"
-             target="{{job.id}}">
+             href="{{jobDetailModel.jobContent.externalUrl}}"
+             target="_blank}">
             {{'job-detail.action.showExternalPage' | translate}}
           </a>
           <button (click)="printJob()"
@@ -70,12 +70,12 @@
             <hr class="visible-print-block d-none"/>
 
             <div class="company-panel">
-              <div *ngIf="job.jobContent.company as company">
+              <div *ngIf="jobDetailModel.jobContent.company as company">
                 <alv-post-address [address]="company">
                 </alv-post-address>
               </div>
 
-              <div *ngIf="!job.publication.companyAnonymous && job.jobContent.publicContact as contact">
+              <div *ngIf="!jobDetailModel.publication.companyAnonymous && jobDetailModel.jobContent.publicContact as contact">
                 <strong>{{'job-detail.contactPerson' | translate}}</strong>
                 <br>
                 <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
@@ -99,7 +99,7 @@
               </div>
             </div>
 
-            <div *ngIf="job.stellennummerAvam && jobCenter$ | async as jobCenter"
+            <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter as jobCenter"
                  class="order-sm-2 alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
 
 
@@ -120,17 +120,18 @@
                    href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
               </div>
 
-              <ng-container *ngIf="job.stellennummerAvam || job.stellennummerEgov">
+              <ng-container *ngIf="jobDetailModel.stellennummerAvam || jobDetailModel.stellennummerEgov">
                 <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
                 <br>
 
-                  <ng-container *ngIf="job.stellennummerAvam">
-                    {{'job-detail.avam.label' | translate}}: {{job.stellennummerAvam}}
-                    <br>
-                  </ng-container>
+                <ng-container *ngIf="jobDetailModel.stellennummerAvam">
+                  {{'job-detail.avam.label' | translate}}
+                  : {{jobDetailModel.stellennummerAvam}}
+                  <br>
+                </ng-container>
 
-                <ng-container *ngIf="job.stellennummerEgov">
-                  {{'job-detail.job-room-id' | translate}} {{job.stellennummerEgov}}
+                <ng-container *ngIf="jobDetailModel.stellennummerEgov">
+                  {{'job-detail.job-room-id' | translate}} {{jobDetailModel.stellennummerEgov}}
                 </ng-container>
               </ng-container>
             </div>
@@ -142,13 +143,13 @@
     </div>
     <!-------------Main screen-->
     <div class="col-xs-12 col-md-6 col-xl-8 order-3"
-         *ngIf="jobDescription$ | async as jobDescription">
+         *ngIf="jobDetailModel.jobDescription as jobDescription">
       <!-----------------Alerts-->
-      <div *ngIf="alerts.length"
+      <div *ngIf="(alerts$ | async) as alerts"
            class="mb-4">
         <alv-alert *ngFor="let alert of alerts"
                    [notification]="alert"
-                   (dismiss)="dismissAlert(alert)">
+                   (dismiss)="dismissAlert(alert, alerts)">
         </alv-alert>
       </div>
       <!-----------------Title-->
@@ -156,22 +157,21 @@
       <h2 class="mb-4"
           [innerHTML]="jobDescription.title | safeHtml"></h2>
       <span class="job-company mr-2 mr-md-4"
-            *ngIf="job.jobContent.company; else ravLabel">{{job.jobContent.company.name}}</span>
+            *ngIf="jobDetailModel.jobContent.company; else ravLabel">{{jobDetailModel.jobContent.company.name}}</span>
       <ng-template #ravLabel>
         {{ 'jobroomApp.job.rav' | translate }}
       </ng-template>
       <small class="mr-2 mr-md-4"
-             *ngIf="job.publication.startDate">
-        {{'job-detail.onlineSince' | translate}}
-        : {{ job.publication.startDate | localeAwareDate }}
+             *ngIf="jobDetailModel.publication.startDate">
+        {{'job-detail.onlineSince' | translate}}: {{ jobDetailModel.publication.startDate | localeAwareDate }}
       </small>
-      <small *ngIf="job.jobContent.numberOfJobs">
-        {{'jobroomApp.job.numberOfJobs' | translate}}: {{ job.jobContent.numberOfJobs }}
+      <small *ngIf="jobDetailModel.jobContent.numberOfJobs">
+        {{'jobroomApp.job.numberOfJobs' | translate}}: {{ jobDetailModel.jobContent.numberOfJobs }}
       </small>
 
       <!--Badges-->
       <div class="mb-4">
-        <alv-inline-badges [badges]="badges"></alv-inline-badges>
+        <alv-inline-badges [badges]="badges$|async"></alv-inline-badges>
       </div>
 
       <!-----------------Description-->
@@ -188,42 +188,97 @@
         <alv-collapse-panel [panelId]="jobDetailPanelId.JOB_AD_INFO"
                             panelTitle="job-publication-details.jobad-info.label">
           <ul class="alv-list">
-            <li *ngFor="let item of infoList">
-              <strong>{{item.title | translate}}</strong>
+            <li>
+              <strong>
+                {{'job-detail.workplace.label' | translate}}
+              </strong>
               <div class="list-item-content">
-                {{item.content | translate:item.contentParams}}
+                {{jobDetailModel.jobContent.location | jobLocation}}
+              </div>
+            </li>
+            <li *ngIf="jobDetailModel.hasStartDate()">
+              <strong>
+                {{'job-detail.employmentStartDate.label' | translate}}
+              </strong>
+              <div class="list-item-content">
+                {{jobDetailModel.employment.startDate | localeAwareDate}}
+              </div>
+            </li>
+            <li *ngIf="jobDetailModel.hasImmediately()">
+              <strong>
+                {{'job-detail.employmentStartDate.label' | translate}}
+              </strong>
+              <div class="list-item-content">
+                {{'job-detail.startsImmediately.' + jobDetailModel.employment.immediately | translate}}
+              </div>
+            </li>
+            <li>
+              <strong>
+                {{'job-detail.workload.label' | translate}}
+              </strong>
+              <div class="list-item-content">
+                {{[jobDetailModel.employment?.workloadPercentageMin,
+                jobDetailModel.employment?.workloadPercentageMax] | workingTimeRange}}
+              </div>
+            </li>
+            <li *ngIf="jobDetailModel.isTemporary()">
+              <strong>
+                {{'job-detail.employmentEndDate.label' | translate}}
+              </strong>
+              <div class="list-item-content">
+                {{'job-search.job-search-list-item.badge.temporary' | translate}}
+              </div>
+            </li>
+            <li *ngIf="jobDetailModel.isPermanent()">
+              <strong>
+                {{'job-detail.employmentEndDate.label' | translate}}
+              </strong>
+              <div class="list-item-content">
+                {{'job-search.job-search-list-item.badge.permanent' | translate}}
+              </div>
+            </li>
+            <li *ngIf="jobDetailModel.isShortEmployment()">
+              <strong>
+                {{'job-detail.workForm.label' | translate}}
+              </strong>
+              <div class="list-item-content">
+                {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
               </div>
             </li>
           </ul>
         </alv-collapse-panel>
 
-        <alv-collapse-panel *ngIf="getFirstOccupation(job) as occupation"
+        <alv-collapse-panel *ngIf="jobDetailModel.firstOccupation as occupation"
                             [panelId]="jobDetailPanelId.JOB_AD_REQUIREMENTS"
                             panelTitle="job-publication-details.min-requirements.label">
           <ul class="alv-list">
             <li>
-              <strong>{{'job-detail.workExperience' | translate}}</strong>
-              <div class="list-item-content">{{'global.experience.' +
-                occupation.workExperience | translate}}
+              <strong>
+                {{'job-detail.workExperience' | translate}}
+              </strong>
+              <div class="list-item-content">
+                {{'global.experience.' + occupation.workExperience | translate}}
               </div>
             </li>
             <li>
-              <strong>{{'job-detail.education' | translate}}</strong>
-              <div class="list-item-content">{{'global.degree.avamCode.' +
-                occupation.educationCode| translate}}
+              <strong>
+                {{'job-detail.education' | translate}}
+              </strong>
+              <div class="list-item-content">
+                {{'global.degree.avamCode.' + occupation.educationCode| translate}}
               </div>
             </li>
           </ul>
         </alv-collapse-panel>
 
-        <alv-collapse-panel *ngIf="job.jobContent?.languageSkills?.length"
+        <alv-collapse-panel *ngIf="jobDetailModel.jobContent.languageSkills?.length"
                             [panelId]="jobDetailPanelId.JOB_AD_LANGUAGES"
                             panelTitle="global.reference.languages">
-          <alv-language-skills [languages]="job.jobContent.languageSkills">
+          <alv-language-skills [languages]="jobDetailModel.jobContent.languageSkills">
           </alv-language-skills>
         </alv-collapse-panel>
 
-        <alv-collapse-panel *ngIf="job.jobContent.applyChannel as applyChannel"
+        <alv-collapse-panel *ngIf="jobDetailModel.applyChannel as applyChannel"
                             [panelId]="jobDetailPanelId.JOB_AD_CONTACT_DETAILS"
                             panelTitle="job-publication-details.contact-details.label">
           <ul class="alv-list">
@@ -287,16 +342,16 @@
         </div>
 
         <p>
-          <a *ngIf="job.jobContent.applyChannel?.formUrl"
+          <a *ngIf="jobDetailModel.applyChannel?.formUrl"
              class="btn btn-primary btn-block btn-sm"
-             href="{{job.jobContent.applyChannel?.formUrl | normalizeUrl}}"
+             href="{{jobDetailModel.applyChannel?.formUrl | normalizeUrl}}"
              target="_blank">
             {{'job-detail.action.applyNow' | translate}}
           </a>
-          <a *ngIf="job.jobContent.externalUrl"
+          <a *ngIf="jobDetailModel.jobContent.externalUrl"
              class="btn btn-secondary btn-block btn-sm"
-             href="{{job.jobContent.externalUrl}}"
-             target="{{job.id}}">
+             href="{{jobDetailModel.jobContent.externalUrl | normalizeUrl}}"
+             target="{{jobDetailModel.id}}">
             {{'job-detail.action.showExternalPage' | translate}}
           </a>
         </p>
