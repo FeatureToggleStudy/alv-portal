@@ -9,4 +9,4 @@ export const LANGUAGES: string[] = [
   'en'
 ];
 
-export const FALLBACK_LANGUAGE = 'de';
+export const FALLBACK_LANGUAGE = 'en';
