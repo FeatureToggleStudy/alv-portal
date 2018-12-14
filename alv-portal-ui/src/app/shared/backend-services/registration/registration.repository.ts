@@ -7,13 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class RegistrationRepository {
 
-  private readonly REGISTER_JOB_SEEKER_URL = 'api/registerJobseeker';
+  private readonly REGISTER_JOB_SEEKER_URL = '/api/registerJobseeker';
 
-  private readonly REQUEST_COMPANY_ACCESS_CODE_URL = 'api/requestEmployerAccessCode';
+  private readonly REQUEST_COMPANY_ACCESS_CODE_URL = '/api/requestEmployerAccessCode';
 
-  private readonly REQUEST_AGENT_ACCESS_CODE_URL = 'api/requestAgentAccessCode';
+  private readonly REQUEST_AGENT_ACCESS_CODE_URL = '/api/requestAgentAccessCode';
 
-  private readonly REGISTER_BY_ACCESS_CODE = 'api/registerEmployerOrAgent';
+  private readonly REGISTER_BY_ACCESS_CODE = '/api/registerEmployerOrAgent';
 
   constructor(private http: HttpClient) {
   }
