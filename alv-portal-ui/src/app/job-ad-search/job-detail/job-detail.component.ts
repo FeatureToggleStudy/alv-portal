@@ -59,7 +59,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
 
-  private readonly ALERTS = {
+  private static readonly ALERTS = {
     jobAdExternal: {
       type: NotificationType.INFO,
       messageKey: 'job-detail.external-job-disclaimer',
@@ -94,7 +94,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
     this.jobDetailModel$ = this.jobDetailModelFactory.create(job$);
 
-    this.alerts$ = job$.pipe(map(this.mapJobAdAlerts.bind(this)));
+    this.alerts$ = job$.pipe(map(JobDetailComponent.mapJobAdAlerts));
     this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job, [
       JobBadgeType.CONTRACT_TYPE,
       JobBadgeType.AVAILABILITY,
@@ -142,29 +142,29 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     return window.location.href;
   }
 
-  private mapJobAdAlerts(job: JobAdvertisement): Notification[] {
+  private static mapJobAdAlerts(job: JobAdvertisement): Notification[] {
     const alerts = [];
-    if (this.isExternal(job.sourceSystem)) {
-      alerts.push(this.ALERTS.jobAdExternal);
+    if (JobDetailComponent.isExternal(job.sourceSystem)) {
+      alerts.push(JobDetailComponent.ALERTS.jobAdExternal);
     }
-    if (this.isDeactivated(job.status)) {
-      alerts.push(this.ALERTS.jobAdDeactivated);
+    if (JobDetailComponent.isDeactivated(job.status)) {
+      alerts.push(JobDetailComponent.ALERTS.jobAdDeactivated);
     }
-    if (this.isUnvalidated(job)) {
-      alerts.push(this.ALERTS.jobAdUnvalidated);
+    if (JobDetailComponent.isUnvalidated(job)) {
+      alerts.push(JobDetailComponent.ALERTS.jobAdUnvalidated);
     }
     return alerts;
   }
 
-  private isDeactivated(jobAdvertisementStatus: JobAdvertisementStatus): boolean {
+  private static isDeactivated(jobAdvertisementStatus: JobAdvertisementStatus): boolean {
     return jobAdvertisementStatus.toString() === 'CANCELLED' || jobAdvertisementStatus.toString() === 'ARCHIVED';
   }
 
-  private isExternal(sourceSystem: SourceSystem) {
+  private static isExternal(sourceSystem: SourceSystem) {
     return sourceSystem.toString() === 'EXTERN';
   }
 
-  private isUnvalidated(jobAdvertisement: JobAdvertisement): boolean {
+  private static isUnvalidated(jobAdvertisement: JobAdvertisement): boolean {
     return jobAdvertisement.sourceSystem.toString() === 'API'
       && !jobAdvertisement.stellennummerAvam;
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { combineLatest, Observable, of } from 'rxjs';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, withLatestFrom } from 'rxjs/operators';
 import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { I18nService } from '../../core/i18n.service';
 import { ReferenceServiceRepository } from '../../shared/backend-services/reference-service/reference-service.repository';
@@ -27,9 +27,10 @@ export class JobDetailModelFactory {
       );
 
 
-    return combineLatest(job$, this.i18nService.currentLanguage$, jobCenter$)
+    return combineLatest(job$, jobCenter$)
       .pipe(
-        map(([job, currentLanguage, jobCenter]) => {
+        withLatestFrom(this.i18nService.currentLanguage$),
+        map(([[job, jobCenter], currentLanguage]) => {
           const jobDescription = JobAdvertisementUtils.getJobDescription(job, currentLanguage);
           return new JobDetailModel(jobDescription, jobCenter, job);
         })
