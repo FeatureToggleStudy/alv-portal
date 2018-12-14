@@ -7,12 +7,12 @@ const registrationRoutes: Routes = [
   {
     path: 'finish',
     component: FinishRegistrationComponent,
-    data: { titleKey: 'FINISH_REGISTRATION_PAGE' }
+    data: { titleKey: 'portal.registration.browser-title' }
   },
   {
     path: 'access-code',
     component: AccessCodeComponent,
-    data: { titleKey: 'ACCESS_CODE_PAGE' }
+    data: { titleKey: 'portal.registration.browser-title' }
   },
   {
     path: '**',

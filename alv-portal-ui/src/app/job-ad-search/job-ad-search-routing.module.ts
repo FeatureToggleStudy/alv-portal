@@ -9,12 +9,14 @@ const routes: Routes = [
   {
     path: '',
     component: JobSearchComponent,
-    canActivate: [JobSearchGuard]
+    canActivate: [JobSearchGuard],
+    data: { titleKey: 'portal.job-ad-search.browser-title' }
   },
   {
     path: ':id',
     component: JobDetailComponent,
-    canActivate: [JobDetailGuard]
+    canActivate: [JobDetailGuard],
+    data: { titleKey: 'portal.job-ad-search.browser-title' }
   },
   {
     path: '**',

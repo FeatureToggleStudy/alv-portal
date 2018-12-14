@@ -1356,3 +1356,9 @@ portal,portal.global.exception.server.unknown,Auf dem Server ist ein unerwartete
 portal,portal.global.exception.server.403,Zugriff verweigert
 portal,portal.global.exception.server.404,Die angeforderte Resource konnte nicht gefunden werden
 portal,portal.global.exception.server.504,Der Server ist im Moment nicht erreichbar
+
+portal,portal.job-ad-search.browser-title,Stellen finden,Find positions,Trou­vez des offres,Trovare il posto
+portal,portal.registration.browser-title,Registration,Registration,Enregistrement,Registrazione
+portal,portal.home.job-seeker.browser-title,Stellensuchende,Job seekers,Demandeur d'emploi,Persone in cerca d'impiego
+portal,portal.home.company.browser-title,Arbeitgeber,Employers,Employeurs,Datori di lavoro
+portal,portal.home.pav.browser-title,Arbeitsvermittler,Recruitment agencies,Agence de placement,Collocatori
