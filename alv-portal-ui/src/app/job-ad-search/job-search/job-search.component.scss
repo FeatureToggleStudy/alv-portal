@@ -2,13 +2,13 @@
 @import '../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../node_modules/bootstrap/scss/mixins';
 
-.filter-panel {
+.side-panel {
   position: sticky;
   top: 1.5rem;
 }
 
 @include media-breakpoint-down(sm) {
-  .filter-panel {
+  .side-panel {
     position: relative;
     top: 0;
   }
