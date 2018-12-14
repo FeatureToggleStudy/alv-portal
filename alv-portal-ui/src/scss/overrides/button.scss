@@ -6,11 +6,13 @@ button.btn, a.btn {
   user-select: none;
   font-size: 16px;
   border-radius: 0;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-align: left;
+  &.btn-truncate {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
   &.focus, &:focus {
     box-shadow: 0 0 0 0.2rem $color-red-transparent;
   }

@@ -59,7 +59,7 @@
     <!-------------Left panel-->
     <div class="col-xs-12 col-md-3 col-xl-2 order-11 order-md-1 mt-3 mt-md-0 ">
       <div class="side-panel">
-        <a class="btn btn-text btn-text-icon mb-3 d-none d-md-block"
+        <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block"
            routerLink="/job-search">
           <i class="fa fa-caret-left pr-1"></i>
           {{'job-detail.back' | translate}}
@@ -328,14 +328,14 @@
         <div class="d-flex">
           <button (click)="prev()"
                   [disabled]="!(prevEnabled$ | async)"
-                  class="btn btn-text btn-text-icon mb-2">
+                  class="btn btn-text btn-text-icon btn-truncate mb-2">
             <i class="fa fa-caret-left mr-1"></i>
             {{'job-detail.previous-result' | translate}}
           </button>
           <div class="flex-grow-1"></div>
           <button (click)="next()"
                   [disabled]="!(nextEnabled$ | async)"
-                  class="btn btn-text btn-text-icon mb-2">
+                  class="btn btn-text btn-text-icon btn-truncate mb-2">
             {{'job-detail.next-result' | translate}}
             <i class="fa fa-caret-right ml-1"></i>
           </button>
@@ -349,7 +349,7 @@
             {{'job-detail.action.applyNow' | translate}}
           </a>
           <a *ngIf="jobDetailModel.jobContent.externalUrl"
-             class="btn btn-secondary btn-block btn-sm"
+             class="btn btn-secondary btn-truncate btn-sm"
              href="{{jobDetailModel.jobContent.externalUrl | normalizeUrl}}"
              target="{{jobDetailModel.id}}">
             {{'job-detail.action.showExternalPage' | translate}}
@@ -358,7 +358,7 @@
 
         <ul class="nav flex-column">
           <li>
-            <a class="btn btn-text btn-text-icon"
+            <a class="btn btn-text btn-text-icon btn-truncate"
                #copyToClipboard
                ngxClipboard
                [cbContent]="getJobUrl()"
@@ -371,7 +371,7 @@
             </a>
           </li>
           <li>
-            <a class="btn btn-text btn-text-icon"
+            <a class="btn btn-text btn-text-icon btn-truncate"
                href="{{'mailto:?body=' + getEncodedUrl()}}">
               <i aria-hidden="true"
                  class="fa fa-share mr-1"></i>
@@ -379,7 +379,7 @@
             </a>
           </li>
           <li class="d-none d-md-block">
-            <a class="btn btn-text btn-text-icon"
+            <a class="btn btn-text btn-text-icon btn-truncate"
                (click)="printJob()">
               <i aria-hidden="true"
                  class="fa fa-print mr-1"></i>
