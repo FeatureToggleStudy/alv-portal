@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './core/auth/authentication.service';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
@@ -39,15 +39,15 @@ export class AppComponent implements OnInit {
         return route;
       }),
       filter((route) => route.outlet === 'primary'),
-      mergeMap((route) => route.data)
-    )
-      .subscribe((data: { titleKey: string, collapsed?: boolean }) => {
-        if (data.titleKey) {
-          // TODO i18n
-          this.a11yMessage = data.titleKey;
-          this.titleService.setTitle(data.titleKey);
-        }
-      });
+      mergeMap((route) => route.data),
+      map((data) => data.titleKey),
+      switchMap((titleKey) => {
+        return this.i18nService.stream(titleKey);
+      })
+    ).subscribe((title) => {
+      this.a11yMessage = title;
+      this.titleService.setTitle(title);
+    });
   }
 
 }

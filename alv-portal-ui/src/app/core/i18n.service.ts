@@ -52,11 +52,8 @@ export class I18nService {
     this.store.dispatch(new LanguageChangedAction({ language: languageKey }));
   }
 
-  /**
-   * delegate to ngxTranslateService.get
-   */
-  get(key: string | Array<string>, interpolateParams?: Object): Observable<string | any> {
-    return this.translateService.get(key, interpolateParams);
+  stream(key: string | Array<string>, interpolateParams?: Object): Observable<string | any> {
+    return this.translateService.stream(key, interpolateParams);
   }
 
   private isLanguagePersisted(): boolean {
