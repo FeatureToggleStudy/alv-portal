@@ -9,7 +9,3 @@
 *.iws
 *.iml
 *.ipr
-/alv-portal-ui/src/assets/i18n/en.json
-/alv-portal-ui/src/assets/i18n/de.json
-/alv-portal-ui/src/assets/i18n/fr.json
-/alv-portal-ui/src/assets/i18n/it.json
