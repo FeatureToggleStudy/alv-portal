@@ -31,3 +31,15 @@ export const isReportingObligation = (job: JobAdvertisement) => {
 export const hasLocation = (job: JobAdvertisement) => {
   return job.jobContent.location;
 };
+
+export const isDeactivated = (job: JobAdvertisement) => {
+  return job.status.toString() === 'CANCELLED' || job.status.toString() === 'ARCHIVED';
+};
+
+export const isExternal = (job: JobAdvertisement) => {
+  return job.sourceSystem.toString() === 'EXTERN';
+};
+
+export const isUnvalidated = (job: JobAdvertisement) => {
+  return job.sourceSystem.toString() === 'API' && !job.stellennummerAvam;
+};

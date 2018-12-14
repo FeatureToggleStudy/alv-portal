@@ -1,9 +1,5 @@
 import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
-import {
-  JobAdvertisement,
-  JobAdvertisementStatus,
-  SourceSystem
-} from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Observable } from 'rxjs';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -32,6 +28,7 @@ import { JobDetailPanelId } from './job-detail-panel-id.enum';
 import { JobDetailModelFactory } from './job-detail-model-factory';
 import { JobDetailModel } from './job-detail-model';
 import { map } from 'rxjs/operators';
+import { isDeactivated, isExternal, isUnvalidated } from '../job-ad-rules';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -41,21 +38,6 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
   styleUrls: ['./job-detail.component.scss']
 })
 export class JobDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
-
-  jobDetailModel$: Observable<JobDetailModel>;
-
-  prevEnabled$: Observable<boolean>;
-
-  nextEnabled$: Observable<boolean>;
-
-  badges$: Observable<JobBadge[]>;
-
-  alerts$: Observable<Notification[]>;
-
-  jobDetailPanelId = JobDetailPanelId;
-
-  @ViewChild(NgbTooltip)
-  clipboardTooltip: NgbTooltip;
 
   private static readonly ALERTS = {
     jobAdExternal: {
@@ -74,6 +56,35 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       isSticky: true
     }
   };
+
+  jobDetailModel$: Observable<JobDetailModel>;
+
+  prevEnabled$: Observable<boolean>;
+
+  nextEnabled$: Observable<boolean>;
+
+  badges$: Observable<JobBadge[]>;
+
+  alerts$: Observable<Notification[]>;
+
+  jobDetailPanelId = JobDetailPanelId;
+
+  @ViewChild(NgbTooltip)
+  clipboardTooltip: NgbTooltip;
+
+  private static mapJobAdAlerts(job: JobAdvertisement): Notification[] {
+    const alerts = [];
+    if (isExternal(job)) {
+      alerts.push(JobDetailComponent.ALERTS.jobAdExternal);
+    }
+    if (isDeactivated(job)) {
+      alerts.push(JobDetailComponent.ALERTS.jobAdDeactivated);
+    }
+    if (isUnvalidated(job)) {
+      alerts.push(JobDetailComponent.ALERTS.jobAdUnvalidated);
+    }
+    return alerts;
+  }
 
   constructor(
     private jobBadgesMapperService: JobBadgesMapperService,
@@ -131,33 +142,6 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   private getJobUrl() {
     return window.location.href;
-  }
-
-  private static mapJobAdAlerts(job: JobAdvertisement): Notification[] {
-    const alerts = [];
-    if (JobDetailComponent.isExternal(job.sourceSystem)) {
-      alerts.push(JobDetailComponent.ALERTS.jobAdExternal);
-    }
-    if (JobDetailComponent.isDeactivated(job.status)) {
-      alerts.push(JobDetailComponent.ALERTS.jobAdDeactivated);
-    }
-    if (JobDetailComponent.isUnvalidated(job)) {
-      alerts.push(JobDetailComponent.ALERTS.jobAdUnvalidated);
-    }
-    return alerts;
-  }
-
-  private static isDeactivated(jobAdvertisementStatus: JobAdvertisementStatus): boolean {
-    return jobAdvertisementStatus.toString() === 'CANCELLED' || jobAdvertisementStatus.toString() === 'ARCHIVED';
-  }
-
-  private static isExternal(sourceSystem: SourceSystem) {
-    return sourceSystem.toString() === 'EXTERN';
-  }
-
-  private static isUnvalidated(jobAdvertisement: JobAdvertisement): boolean {
-    return jobAdvertisement.sourceSystem.toString() === 'API'
-      && !jobAdvertisement.stellennummerAvam;
   }
 
 }
