@@ -26,12 +26,12 @@
           <button (click)="prev()"
                   [disabled]="!(prevEnabled$ | async)"
                   class="dropdown-item">
-            {{'job-detail.previous-result' | translate}}
+            {{'portal.job-detail.previous-result' | translate}}
           </button>
           <button (click)="next()"
                   [disabled]="!(nextEnabled$ | async)"
                   class="dropdown-item">
-            {{'job-detail.next-result' | translate}}
+            {{'portal.job-detail.next-result' | translate}}
           </button>
           <a *ngIf="jobDetailModel.applyChannel?.formUrl"
              class="dropdown-item"
@@ -190,7 +190,7 @@
           <ul class="alv-list">
             <li>
               <strong>
-                {{'job-detail.workplace.label' | translate}}
+                {{'portal.job-detail.workplace.label' | translate}}
               </strong>
               <div class="list-item-content">
                 {{jobDetailModel.jobContent.location | jobLocation}}
@@ -198,7 +198,7 @@
             </li>
             <li *ngIf="jobDetailModel.hasStartDate()">
               <strong>
-                {{'job-detail.employmentStartDate.label' | translate}}
+                {{'portal.job-detail.employmentStartDate.label' | translate}}
               </strong>
               <div class="list-item-content">
                 {{jobDetailModel.employment.startDate | localeAwareDate}}
@@ -206,7 +206,7 @@
             </li>
             <li *ngIf="jobDetailModel.hasImmediately()">
               <strong>
-                {{'job-detail.employmentStartDate.label' | translate}}
+                {{'portal.job-detail.employmentStartDate.label' | translate}}
               </strong>
               <div class="list-item-content">
                 {{'job-detail.startsImmediately.' + jobDetailModel.employment.immediately | translate}}
@@ -214,7 +214,7 @@
             </li>
             <li>
               <strong>
-                {{'job-detail.workload.label' | translate}}
+                {{'portal.job-detail.workload.label' | translate}}
               </strong>
               <div class="list-item-content">
                 {{[jobDetailModel.employment?.workloadPercentageMin,
@@ -223,7 +223,7 @@
             </li>
             <li *ngIf="jobDetailModel.isTemporary()">
               <strong>
-                {{'job-detail.employmentEndDate.label' | translate}}
+                {{'portal.job-detail.employmentEndDate.label' | translate}}
               </strong>
               <div class="list-item-content">
                 {{'job-search.job-search-list-item.badge.temporary' | translate}}
@@ -231,7 +231,7 @@
             </li>
             <li *ngIf="jobDetailModel.isPermanent()">
               <strong>
-                {{'job-detail.employmentEndDate.label' | translate}}
+                {{'portal.job-detail.employmentEndDate.label' | translate}}
               </strong>
               <div class="list-item-content">
                 {{'job-search.job-search-list-item.badge.permanent' | translate}}
@@ -239,7 +239,7 @@
             </li>
             <li *ngIf="jobDetailModel.isShortEmployment()">
               <strong>
-                {{'job-detail.workForm.label' | translate}}
+                {{'portal.job-detail.workForm.label' | translate}}
               </strong>
               <div class="list-item-content">
                 {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
@@ -254,7 +254,7 @@
           <ul class="alv-list">
             <li>
               <strong>
-                {{'job-detail.workExperience' | translate}}
+                {{'portal.job-detail.workExperience' | translate}}
               </strong>
               <div class="list-item-content">
                 {{'global.experience.' + occupation.workExperience | translate}}
@@ -262,7 +262,7 @@
             </li>
             <li>
               <strong>
-                {{'job-detail.education' | translate}}
+                {{'portal.job-detail.education' | translate}}
               </strong>
               <div class="list-item-content">
                 {{'global.degree.avamCode.' + occupation.educationCode| translate}}
@@ -330,13 +330,13 @@
                   [disabled]="!(prevEnabled$ | async)"
                   class="btn btn-text btn-text-icon btn-truncate mb-2">
             <i class="fa fa-caret-left mr-1"></i>
-            {{'job-detail.previous-result' | translate}}
+            {{'portal.job-detail.previous-result' | translate}}
           </button>
           <div class="flex-grow-1"></div>
           <button (click)="next()"
                   [disabled]="!(nextEnabled$ | async)"
                   class="btn btn-text btn-text-icon btn-truncate mb-2">
-            {{'job-detail.next-result' | translate}}
+            {{'portal.job-detail.next-result' | translate}}
             <i class="fa fa-caret-right ml-1"></i>
           </button>
         </div>
