@@ -1,0 +1,34 @@
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+
+
+@media print {
+  /* hidden elements */
+  alv-main-navigation, alv-header, alv-version {
+    display: none;
+  }
+
+  body {
+    height: auto;
+  }
+
+  alv-navigation-container {
+    overflow: visible;
+    flex: unset;
+    position: relative !important;
+    top: unset;
+    bottom: unset;
+    left: unset;
+    right: unset;
+    margin-top: 0;
+  }
+
+  /* Use this class to force columns (e.g. ".col-6") to have full width on print */
+  .alv-print-container {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+}
