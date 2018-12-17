@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { JobSearchFilter } from '../job-search-filter.types';
 import { select, Store } from '@ngrx/store';
 import {
   getJobSearchFilter,
   getJobSearchResults,
-  getResultsAreLoading,
+  getResultsAreLoading, getSelectedJobAdvertisement,
   getTotalCount,
   JobAdSearchState,
   JobSearchResult
@@ -16,7 +16,7 @@ import {
   InitResultListAction,
   LoadNextPageAction
 } from '../state-management/actions/job-ad-search.actions';
-import { map } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 
 
@@ -26,7 +26,7 @@ import { JobSearchFilterParameterService } from './job-search-filter-parameter.s
   styleUrls: ['./job-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JobSearchComponent extends AbstractSubscriber implements OnInit {
+export class JobSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
   totalCount$: Observable<number>;
 
@@ -60,6 +60,19 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
+  }
+
+  ngAfterViewInit() {
+    const job$ = this.store.pipe(select(getSelectedJobAdvertisement))
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(job => {
+      if (job) {
+        const jobAd = document.querySelector('#job-ad-' + job.id);
+        if (jobAd) {
+          jobAd.scrollIntoView();
+        }
+      }
+    });
   }
 
   onFiltersChange(jobSearchFilter: JobSearchFilter) {
