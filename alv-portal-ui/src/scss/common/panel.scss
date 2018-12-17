@@ -24,10 +24,30 @@
       color: $color-primary;
     }
   }
+
+  .panel-divider {
+    border-top: 1px solid $color-medium-grey;
+    margin: 1em calc(-1.5em - 2px);
+  }
+
+  .panel-footer {
+    display: flex;
+    align-content: flex-end;
+    margin-bottom: 0.3em;
+  }
+
+  .panel-full-width {
+    margin: 0 calc(-1.5em - 2px);
+    display: block;
+  }
 }
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(sm) {
   .alv-panel {
     padding: 1em 0.5em 0.5em;
+
+    .panel-divider, .panel-full-width {
+      margin: 1em calc(-0.5em - 2px);
+    }
   }
 }

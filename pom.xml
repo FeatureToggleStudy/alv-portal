@@ -90,7 +90,7 @@
                     <plugin>
                         <groupId>org.owasp</groupId>
                         <artifactId>dependency-check-maven</artifactId>
-                        <version>3.3.2</version>
+                        <version>4.0.0</version>
                         <inherited>false</inherited>
                         <configuration>
                             <scanSet>
@@ -99,6 +99,7 @@
                                     <directory>alv-portal-ui</directory>
                                 </fileSet>
                             </scanSet>
+                            <failOnError>false</failOnError>
                         </configuration>
                         <executions>
                             <execution>

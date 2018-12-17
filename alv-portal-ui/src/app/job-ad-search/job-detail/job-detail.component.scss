@@ -1,0 +1,30 @@
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
+@import "../../../scss/common/colors";
+@import "../../../scss/common/layout";
+
+.side-panel {
+  position: sticky;
+  top: 1.5rem;
+}
+
+@include media-breakpoint-down(sm) {
+  .side-panel {
+    position: relative;
+    top: 0;
+  }
+}
+
+
+.job-company {
+  color: $color-primary;
+}
+
+.company-panel {
+  word-break: break-word;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}

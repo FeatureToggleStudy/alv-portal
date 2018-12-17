@@ -18,17 +18,17 @@ const routes: Routes = [
       {
         path: 'job-seeker',
         component: JobSeekerHomePageComponent,
-        data: { titleKey: 'JOB_SEEKER_HOME_PAGE' }
+        data: { titleKey: 'portal.home.job-seeker.browser-title' }
       },
       {
         path: 'company',
         component: CompanyHomePageComponent,
-        data: { titleKey: 'COMPANY_HOME_PAGE' }
+        data: { titleKey: 'portal.home.company.browser-title' }
       },
       {
         path: 'pav',
         component: PavHomePageComponent,
-        data: { titleKey: 'PAV_HOME_PAGE' }
+        data: { titleKey: 'portal.home.pav.browser-title' }
       }
     ]
   }
@@ -37,7 +37,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forChild(
-        routes
+      routes
     )
   ],
   exports: [

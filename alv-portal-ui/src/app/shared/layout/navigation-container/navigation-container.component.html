@@ -7,7 +7,8 @@
 <alv-assistant-navigation role="navigation" aria-label="Assistant"></alv-assistant-navigation>
 -->
 
-<main class="h-100 w-100 position-relative {{currentMainStyle}}">
+<main class="h-100 w-100 position-relative"
+      [ngClass]="currentMainStyle">
   <ng-content></ng-content>
 </main>
 

@@ -1,0 +1,39 @@
+<div class="alv-panel">
+  <h2 class="panel-title">{{panelTitle | translate}}</h2>
+  <div class="panel-subtitle">{{panelSubtitle | translate}}</div>
+  <ng-content select="alv-step-indicator"></ng-content>
+  <ng-content select="alv-alert"></ng-content>
+  <div class="panel-divider"></div>
+
+  <form (validSubmit)="handlePrimaryClick()"
+        *ngIf="formGroup; else modalContent"
+        [formGroup]="formGroup"
+        alvFormSubmitValidation>
+    <ng-container *ngTemplateOutlet="modalContent"></ng-container>
+
+  </form>
+
+</div>
+
+<ng-template #modalContent>
+  <ng-content></ng-content>
+
+  <div class="panel-divider"></div>
+
+  <div class="panel-footer">
+    <button *ngIf="!hideBackButton"
+            class="btn btn-secondary btn-icon"
+            type="button"
+            (click)="handleBackClick()"><i class="fas fa-caret-left"></i></button>
+    <div class="flex-grow-1"></div>
+    <button *ngIf="secondaryLabel"
+            class="btn"
+            [ngClass]="primaryLabel ? 'btn-text' : 'btn-secondary'"
+            type="button"
+            (click)="handleSecondaryClick()">{{secondaryLabel| translate}}</button>
+    <button *ngIf="primaryLabel"
+            class="btn btn-primary ml-2"
+            [type]="submit"
+            [disabled]="formGroup?.invalid">{{primaryLabel | translate}}</button>
+  </div>
+</ng-template>

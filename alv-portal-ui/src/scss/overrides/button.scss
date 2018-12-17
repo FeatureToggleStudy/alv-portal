@@ -1,37 +1,49 @@
 @import "../common/colors";
+
 button.btn, a.btn {
   padding: 8px 20px;
   cursor: pointer;
   user-select: none;
   font-size: 16px;
   border-radius: 0;
+  &.btn-truncate {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
   &.focus, &:focus {
     box-shadow: 0 0 0 0.2rem $color-red-transparent;
   }
   &.btn-text {
     background-color: transparent;
     border: 1px solid transparent;
-    color: $color-black;
+    color: $color-grey-black;
     &:hover:not(:disabled) {
       border-color: $color-primary;
       color: $color-primary;
     }
     &:disabled {
-      color: $color-medium-grey;
+      color: tint($color-grey-black, 30%);
       cursor: default;
     }
   }
 
   &.btn-secondary {
     background-color: $color-super-light-grey;
-    border: 1px solid $color-medium-grey;
-    color: $color-black;
+    border-color: $color-medium-grey;
+    color: $color-grey-black;
 
     &:hover:not(:disabled) {
-      background-color: $color-medium-grey;
+      background-color: $color-primary;
+      border: 1px solid $color-primary;
+      color: $color-white;
     }
     &:disabled {
-      color: $color-medium-grey;
+      color: tint($color-grey-black, 20%);
+      background-color: tint($color-super-light-grey, 20%);
+      border-color: tint($color-medium-grey, 20%);
       cursor: default;
     }
   }
@@ -46,27 +58,28 @@ button.btn, a.btn {
       border-color: darken($color-primary, 10%);
     }
     &:disabled {
-      background-color: lighten($color-primary, 20%);
-      border-color: lighten($color-primary, 20%);
+      background-color: tint($color-primary, 20%);
+      border-color: tint($color-primary, 20%);
       cursor: default;
     }
   }
 
   &.btn-icon {
-    background-color: $color-super-light-grey;
-    border-color: $color-medium-grey;
-    color: $color-dark-grey;
     padding: 2px;
-    font-size: 1.5em;
+    font-size: 1.25em;
+    text-align: center;
     width: 40px;
-    &:hover:not(:disabled) {
-      background-color: $color-primary;
-      border: 1px solid $color-primary;
-      color: $color-white;
-    }
-    &:disabled {
-      color: $color-medium-grey;
-      cursor: default;
+    height: 42px;
+  }
+  &.btn-text-icon {
+    padding: 8px 10px;
+
+    i.fas, i.fa {
+      color: $color-primary
     }
   }
+  &.btn-block {
+    text-align: center;
+  }
+
 }

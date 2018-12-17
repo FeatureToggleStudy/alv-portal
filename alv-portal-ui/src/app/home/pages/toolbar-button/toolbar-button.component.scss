@@ -1,4 +1,7 @@
 @import "../../../../scss/common/colors";
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
 
 .nav-link__icon {
   border: solid 2px $color-primary;
@@ -47,3 +50,11 @@
   color: $color-primary;
   font-weight: 700;
 }
+
+
+@include media-breakpoint-down(md) {
+  .nav-item__text {
+    text-align: center;
+  }
+}
+

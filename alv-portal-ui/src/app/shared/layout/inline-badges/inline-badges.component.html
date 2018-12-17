@@ -1,0 +1,5 @@
+<span *ngFor="let badge of badges"
+      class="badge mr-1"
+      [ngClass]="badge.cssClass">
+      {{badge.label | translate:badge.labelParams}}
+</span>

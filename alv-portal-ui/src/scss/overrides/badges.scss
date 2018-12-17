@@ -1,0 +1,10 @@
+@import "../common/colors";
+
+.badge {
+  color: $color-grey-black;
+  font-weight: 400;
+  border-radius: 1px;
+  .remove-button {
+    color: $color-dark-grey;
+  }
+}
