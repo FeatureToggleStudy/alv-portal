@@ -159,9 +159,8 @@ describe('JobDetailModelFactory', () => {
       mockJobAd
     );
     const expected = cold('---r--', { r: expectedJobDetailModel });
-
-
-    expect(jobDetailModel).toBeObservable(expected, {});
+    
+    expect(jobDetailModel).toBeObservable(expected);
   });
 })
 ;
