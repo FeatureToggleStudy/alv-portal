@@ -1,0 +1,12 @@
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+
+/* iOS Safari */
+
+/* Enable scrolling with momentum */
+@include media-breakpoint-down(sm) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}

@@ -2,7 +2,7 @@
   <div class="row"
        *ngIf="jobDetailModel$ | async as jobDetailModel">
     <!--Mobile only - back button and dropdown menu-->
-    <div class="col-12 d-flex justify-content-between d-md-none">
+    <div class="col-12 d-flex justify-content-between d-md-none d-print-none">
       <div>
         <a class="btn btn-text btn-text-icon mb-2"
            routerLink="/job-search">
@@ -57,17 +57,15 @@
       </div>
     </div>
     <!-------------Left panel-->
-    <div class="col-xs-12 col-md-3 col-xl-2 order-11 order-md-1 mt-3 mt-md-0 ">
+    <div class="col-xs-12 col-md-3 col-xl-2 order-11 order-md-1 mt-3 mt-md-0">
       <div class="side-panel">
-        <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block"
+        <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
            routerLink="/job-search">
           <i class="fa fa-caret-left pr-1"></i>
           {{'job-detail.back' | translate}}
         </a>
         <div class="alv-panel p-2 mb-3">
           <div class="d-flex d-sm-block flex-column-reverse">
-
-            <hr class="visible-print-block d-none"/>
 
             <div class="company-panel">
               <div *ngIf="jobDetailModel.jobContent.company as company">
@@ -142,7 +140,7 @@
 
     </div>
     <!-------------Main screen-->
-    <div class="col-xs-12 col-md-6 col-xl-8 order-3"
+    <div class="col-xs-12 col-md-6 col-xl-8 order-3 alv-print-container"
          *ngIf="jobDetailModel.jobDescription as jobDescription">
       <!-----------------Alerts-->
       <div *ngIf="(alerts$ | async) as alerts"
@@ -323,7 +321,7 @@
       </div>
     </div>
     <!-------------Right panel-->
-    <div class="col-xs-12 col-md-3 col-xl-2 d-none d-md-block order-12">
+    <div class="col-xs-12 col-md-3 col-xl-2 d-none d-md-block order-12 d-print-none">
       <div class="side-panel">
         <div class="d-flex">
           <button (click)="prev()"
@@ -343,7 +341,7 @@
 
         <p>
           <a *ngIf="jobDetailModel.applyChannel?.formUrl"
-             class="btn btn-primary btn-block btn-sm"
+             class="btn btn-primary btn-block btn-sm mb-1"
              href="{{jobDetailModel.applyChannel?.formUrl | normalizeUrl}}"
              target="_blank">
             {{'job-detail.action.applyNow' | translate}}
