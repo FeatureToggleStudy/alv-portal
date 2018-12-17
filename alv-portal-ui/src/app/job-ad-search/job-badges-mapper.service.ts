@@ -80,7 +80,7 @@ export class JobBadgesMapperService {
     }
     if (isTemporary(job)) {
       badges.push({
-        badgeType: JobBadgeType.AVAILABILITY,
+        badgeType: JobBadgeType.CONTRACT_TYPE,
         label: 'job-search.job-search-list-item.badge.temporary',
         cssClass: 'badge-availability',
       });
