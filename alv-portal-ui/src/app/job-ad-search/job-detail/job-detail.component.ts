@@ -108,7 +108,8 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       JobBadgeType.CONTRACT_TYPE,
       JobBadgeType.AVAILABILITY,
       JobBadgeType.WORKPLACE,
-      JobBadgeType.WORKLOAD
+      JobBadgeType.WORKLOAD,
+      JobBadgeType.REPORTING_OBLIGATION
     ])));
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));

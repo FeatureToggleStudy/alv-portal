@@ -35,7 +35,13 @@ export class JobSearchResultComponent implements OnInit {
           title: jobDescription.title,
           description: jobDescription.description,
           header: jobAdvertisement.publication.startDate,
-          badges: this.jobBadgesMapperService.map(jobAdvertisement, [JobBadgeType.WORKLOAD, JobBadgeType.AVAILABILITY, JobBadgeType.CONTRACT_TYPE, JobBadgeType.REPORTING_OBLIGATION]),
+          badges: this.jobBadgesMapperService.map(jobAdvertisement, [
+            JobBadgeType.CONTRACT_TYPE,
+            JobBadgeType.AVAILABILITY,
+            JobBadgeType.WORKPLACE,
+            JobBadgeType.WORKLOAD,
+            JobBadgeType.REPORTING_OBLIGATION
+          ]),
           routerLink: ['/job-search', jobAdvertisement.id],
           subtitle: jobAdvertisement.jobContent.company.name,
           visited: jobSearchResult.visited
