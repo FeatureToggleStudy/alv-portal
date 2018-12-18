@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { ResultListItem } from './result-list-item.model';
 
-const RESULT_LIST_ITEM_ID_PREFIX = "result-list-item_";
+const RESULT_LIST_ITEM_ID_PREFIX = 'result-list-item_';
 
 export const composeResultListItemId = (id: string) => {
   return RESULT_LIST_ITEM_ID_PREFIX + id;
