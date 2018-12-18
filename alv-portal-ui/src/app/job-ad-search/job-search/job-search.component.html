@@ -32,6 +32,15 @@
            class="fa fa-share mr-1"></i>
         {{'job-detail.action.sendEmail' | translate}}
       </a>
+
+      <br>
+      <button class="btn btn-danger"
+              (click)="testing()">Testing
+      </button>
+      <br>
+      <pre>
+        {{jobSearchFilter$ | async | json}}
+      </pre>
     </div>
 
   </div>

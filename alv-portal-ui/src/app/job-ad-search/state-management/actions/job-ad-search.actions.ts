@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { JobSearchFilter } from '../../job-search-filter.types';
+import { JobSearchFilter } from '../state/job-search-filter.types';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';

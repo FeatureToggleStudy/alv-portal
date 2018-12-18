@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { JobSearchFilter } from '../job-search-filter.types';
+import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
 import { select, Store } from '@ngrx/store';
 import {
   getJobSearchFilter,
@@ -19,8 +19,10 @@ import {
 } from '../state-management/actions/job-ad-search.actions';
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
+import { QueryPanelValues } from './query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
-
+import { FilterPanelValues } from './filter-panel/filter-panel.component';
+import { OccupationMultiTypeaheadItem } from '../occupation-multi-typeahead-item';
 
 @Component({
   selector: 'alv-job-search',
@@ -62,14 +64,15 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
+
   }
 
   ngAfterViewInit() {
     this.store.pipe(select(getSelectedJobAdvertisement))
       .pipe(take(1))
-      .subscribe(job => {
-        if (job) {
-          const resultListItemElement = document.getElementById(composeResultListItemId(job.id));
+      .subscribe(selectedJobAdvertisement => {
+        if (selectedJobAdvertisement) {
+          const resultListItemElement = document.getElementById(composeResultListItemId(selectedJobAdvertisement.id));
           if (resultListItemElement) {
             resultListItemElement.scrollIntoView();
           }
@@ -77,8 +80,35 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       });
   }
 
-  onFiltersChange(jobSearchFilter: JobSearchFilter) {
-    this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
+  // TODO REMOVE ME
+  testing() {
+    this.onQueryChange({
+      occupations: [
+        new OccupationMultiTypeaheadItem('test', [
+          { type: 'X28', value: 11001105 },
+          { type: 'AVAM', value: 72202 }
+        ], 'test', 0)
+      ]
+    });
+  }
+
+  onQueryChange(queryPanelValues: QueryPanelValues) {
+    // TODO Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
+    this.jobSearchFilter$.pipe(
+      map((currentFilter) => Object.assign({}, currentFilter, queryPanelValues)),
+      take(1))
+      .subscribe((jobSearchFilter) => {
+        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
+      });
+  }
+
+  onFiltersChange(filterPanelData: FilterPanelValues) {
+    this.jobSearchFilter$.pipe(
+      map((currentFilter) => Object.assign({}, currentFilter, filterPanelData)),
+      take(1))
+      .subscribe((jobSearchFilter) => {
+        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
+      });
   }
 
   onScroll() {

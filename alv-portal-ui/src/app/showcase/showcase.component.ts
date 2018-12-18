@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MultiTypeaheadItemModel } from '../shared/forms/input/multi-typeahead/multi-typeahead-item.model';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { SelectableOption } from '../shared/forms/input/selectable-option.model';
 import { NotificationsService } from '../core/notifications.service';
 import { ModalService } from '../shared/layout/modal/modal.service';
+import { SimpleMultiTypeaheadItem } from '../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 
 export class LocalityInputType {
   static LOCALITY = 'locality';
@@ -68,7 +68,7 @@ export class ShowcaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  fetchSuggestions(prefix: string, distinctByLocalityCity = true): Observable<MultiTypeaheadItemModel[]> {
+  fetchSuggestions(prefix: string, distinctByLocalityCity = true): Observable<SimpleMultiTypeaheadItem[]> {
     const params = new HttpParams()
         .set('prefix', prefix)
         .set('resultSize', '10')
@@ -103,14 +103,14 @@ export class ShowcaseComponent implements OnInit {
     });
   }
 
-  private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): MultiTypeaheadItemModel[] {
+  private defaultLocalityAutocompleteMapper(localityAutocomplete: LocalityAutocomplete): SimpleMultiTypeaheadItem[] {
     const localities = localityAutocomplete.localities
         .map((o: LocalitySuggestion, index) =>
-          new MultiTypeaheadItemModel(LocalityInputType.LOCALITY, String(o.communalCode), o.city, index));
+          new SimpleMultiTypeaheadItem(LocalityInputType.LOCALITY, String(o.communalCode), o.city, index));
 
     const cantons = localityAutocomplete.cantons
         .map((o: CantonSuggestion, index) =>
-          new MultiTypeaheadItemModel(LocalityInputType.CANTON, String(o.code),
+          new SimpleMultiTypeaheadItem(LocalityInputType.CANTON, String(o.code),
                 o.name + ' (' + o.code + ')', localities.length + index));
 
     return [...localities, ...cantons];

@@ -2,10 +2,24 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
+import {
+  ContractType,
+  JobSearchFilter,
+  Sort
+} from '../../state-management/state/job-search-filter.types';
 import { UserRole } from '../../../core/auth/user.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
+
+export interface FilterPanelValues {
+  sort: Sort;
+  displayRestricted: boolean;
+  contractType: ContractType;
+  workloadPercentageMax: number;
+  workloadPercentageMin: number;
+  company?: string;
+  onlineSince: number;
+}
 
 @Component({
   selector: 'alv-filter-panel',
@@ -19,7 +33,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   form: FormGroup;
 
   @Output()
-  filtersChange: Subject<JobSearchFilter> = new Subject<JobSearchFilter>();
+  filtersChange: Subject<FilterPanelValues> = new Subject<FilterPanelValues>();
 
   @Input()
   jobSearchFilter: JobSearchFilter;
@@ -39,9 +53,9 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   sortOptions$: Observable<SelectableOption[]> = of([
     {
-    value: Sort.RELEVANCE_DESC,
-    label: 'job-search.filter.sort.option.RELEVANCE_DESC'
-  },
+      value: Sort.RELEVANCE_DESC,
+      label: 'job-search.filter.sort.option.RELEVANCE_DESC'
+    },
     {
       value: Sort.DATE_ASC,
       label: 'job-search.filter.sort.option.DATE_ASC'
@@ -100,19 +114,23 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       workloadPercentageMax: [this.jobSearchFilter.workloadPercentageMax],
       onlineSince: [this.jobSearchFilter.onlineSince]
     });
-    this.form.valueChanges.subscribe(changedValues => this.filtersChange.next(changedValues));
-
+    this.form.valueChanges
+      .pipe(
+        map<any, FilterPanelValues>((valueChanges) => this.map(valueChanges)),
+        takeUntil(this.ngUnsubscribe))
+      .subscribe(filterPanelData => this.filtersChange.next(filterPanelData));
 
     this.form.get('workloadPercentageMin').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(percentageMin => {
-      this.percentagesMax$.next(this.defaultPercentages.filter(item => item.value >= percentageMin));
-    });
+        this.percentagesMax$.next(this.defaultPercentages.filter(item => item.value >= percentageMin));
+      });
+
     this.form.get('workloadPercentageMax').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(percentageMax => {
-      this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
-    });
+        this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
+      });
   }
 
   updateSliderValue(value: number) {
@@ -133,5 +151,17 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   toggleExpanded() {
     this.expanded = !this.expanded;
+  }
+
+  private map(valueChanges: any): FilterPanelValues {
+    return {
+      sort: valueChanges.sort,
+      displayRestricted: valueChanges.displayRestricted,
+      contractType: valueChanges.contractType,
+      workloadPercentageMax: valueChanges.workloadPercentageMax,
+      workloadPercentageMin: valueChanges.workloadPercentageMin,
+      company: valueChanges.company,
+      onlineSince: valueChanges.onlineSince
+    };
   }
 }
