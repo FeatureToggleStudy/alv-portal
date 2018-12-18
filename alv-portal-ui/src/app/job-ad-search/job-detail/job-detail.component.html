@@ -186,7 +186,7 @@
 
       <div class="mb-3">
         <alv-collapse-panel [panelId]="jobDetailPanelId.JOB_AD_INFO"
-                            panelTitle="job-publication-details.jobad-info.label">
+                            panelTitle="portal.job-detail.jobad-info.label">
           <ul class="alv-list">
             <li>
               <strong>
@@ -250,7 +250,7 @@
 
         <alv-collapse-panel *ngIf="jobDetailModel.firstOccupation as occupation"
                             [panelId]="jobDetailPanelId.JOB_AD_REQUIREMENTS"
-                            panelTitle="job-publication-details.min-requirements.label">
+                            panelTitle="portal.job-detail.min-requirements.label">
           <ul class="alv-list">
             <li>
               <strong>
@@ -280,7 +280,7 @@
 
         <alv-collapse-panel *ngIf="jobDetailModel.applyChannel as applyChannel"
                             [panelId]="jobDetailPanelId.JOB_AD_CONTACT_DETAILS"
-                            panelTitle="job-publication-details.contact-details.label">
+                            panelTitle="portal.job-detail.contact-details.label">
           <ul class="alv-list">
             <li *ngIf="applyChannel.formUrl as formUrl">
               <strong>{{ 'job-detail.application.online' | translate }}</strong>
