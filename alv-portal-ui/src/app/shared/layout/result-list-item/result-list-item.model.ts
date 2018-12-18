@@ -1,4 +1,4 @@
-import { JobBadge } from '../../job-badges-mapper.service';
+import { JobBadge } from '../../../job-ad-search/job-badges-mapper.service';
 
 export interface ResultListItem {
   id: string;

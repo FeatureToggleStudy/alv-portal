@@ -6,6 +6,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { CandidateSearchEffects } from './state-management/effects/candidate-search.effects';
 import { candidateSearchReducer } from './state-management/reducers/candidate-search.reducers';
+import { CandidateSearchComponent } from './candidate-search/candidate-search.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CandidateDetailComponent } from './candidate-detail/candidate-detail.component';
+import { CandidateSearchResultComponent } from './candidate-search/candidate-search-result/candidate-search-result.component';
 
 
 @NgModule({
@@ -14,9 +18,14 @@ import { candidateSearchReducer } from './state-management/reducers/candidate-se
     EffectsModule.forFeature([CandidateSearchEffects]),
     CommonModule,
     SharedModule,
-    CandidateSearchRoutingModule
+    CandidateSearchRoutingModule,
+    InfiniteScrollModule
   ],
-  declarations: [],
+  declarations: [
+    CandidateSearchComponent,
+    CandidateDetailComponent,
+    CandidateSearchResultComponent
+  ],
   providers: []
 })
 export class CandidateSearchModule {
