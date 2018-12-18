@@ -5,7 +5,8 @@ import { select, Store } from '@ngrx/store';
 import {
   getJobSearchFilter,
   getJobSearchResults,
-  getResultsAreLoading, getSelectedJobAdvertisement,
+  getResultsAreLoading,
+  getSelectedJobAdvertisement,
   getTotalCount,
   JobAdSearchState,
   JobSearchResult
@@ -16,8 +17,9 @@ import {
   InitResultListAction,
   LoadNextPageAction
 } from '../state-management/actions/job-ad-search.actions';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
+import { composeResultListItemId } from './result-list-item/result-list-item.component';
 
 
 @Component({
@@ -63,16 +65,16 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   ngAfterViewInit() {
-    const job$ = this.store.pipe(select(getSelectedJobAdvertisement))
-      .pipe(takeUntil(this.ngUnsubscribe))
+    this.store.pipe(select(getSelectedJobAdvertisement))
+      .pipe(take(1))
       .subscribe(job => {
-      if (job) {
-        const jobAd = document.querySelector('#job-ad-' + job.id);
-        if (jobAd) {
-          jobAd.scrollIntoView();
+        if (job) {
+          const resultListItemElement = document.getElementById(composeResultListItemId(job.id));
+          if (resultListItemElement) {
+            resultListItemElement.scrollIntoView();
+          }
         }
-      }
-    });
+      });
   }
 
   onFiltersChange(jobSearchFilter: JobSearchFilter) {

@@ -19,13 +19,10 @@ export class JobSearchResultComponent implements OnInit {
 
   resultListItem$: Observable<ResultListItem>;
 
-  id: string;
-
   constructor(private i18nService: I18nService, private jobBadgesMapperService: JobBadgesMapperService) {
   }
 
   ngOnInit() {
-    this.id = 'job-ad-' + this.jobSearchResult.jobAdvertisement.id;
     this.resultListItem$ = this.jobSearchResultToResultListItemMapper(this.jobSearchResult);
   }
 
@@ -35,6 +32,7 @@ export class JobSearchResultComponent implements OnInit {
       map(lang => {
         const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, lang);
         return {
+          id: jobAdvertisement.id,
           title: jobDescription.title,
           description: jobDescription.description,
           header: jobAdvertisement.publication.startDate,
