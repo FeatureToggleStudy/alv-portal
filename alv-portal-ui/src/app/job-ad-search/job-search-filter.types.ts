@@ -1,3 +1,5 @@
+import { MultiTypeaheadItemModel } from '../shared/forms/input/multi-typeahead/multi-typeahead-item.model';
+
 export enum Sort {
   RELEVANCE_DESC = 'RELEVANCE_DESC',
   DATE_DESC = 'DATE_DESC',
@@ -18,6 +20,8 @@ export interface JobSearchFilter {
   workloadPercentageMin: number;
   company?: string;
   onlineSince: number;
+  // TODO PADO
+  occupations?: MultiTypeaheadItemModel[];
 }
 
 
