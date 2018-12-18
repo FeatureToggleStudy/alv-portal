@@ -1,6 +1,7 @@
 import { JobBadge } from '../../job-badges-mapper.service';
 
 export interface ResultListItem {
+  id: string;
   title: string;
   subtitle: string;
   badges: JobBadge[];

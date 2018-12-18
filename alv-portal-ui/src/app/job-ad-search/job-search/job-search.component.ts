@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { JobSearchFilter } from '../job-search-filter.types';
 import { select, Store } from '@ngrx/store';
@@ -6,6 +6,7 @@ import {
   getJobSearchFilter,
   getJobSearchResults,
   getResultsAreLoading,
+  getSelectedJobAdvertisement,
   getTotalCount,
   JobAdSearchState,
   JobSearchResult
@@ -16,8 +17,9 @@ import {
   InitResultListAction,
   LoadNextPageAction
 } from '../state-management/actions/job-ad-search.actions';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
+import { composeResultListItemId } from './result-list-item/result-list-item.component';
 
 
 @Component({
@@ -26,7 +28,7 @@ import { JobSearchFilterParameterService } from './job-search-filter-parameter.s
   styleUrls: ['./job-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JobSearchComponent extends AbstractSubscriber implements OnInit {
+export class JobSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
   totalCount$: Observable<number>;
 
@@ -60,6 +62,19 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
+  }
+
+  ngAfterViewInit() {
+    this.store.pipe(select(getSelectedJobAdvertisement))
+      .pipe(take(1))
+      .subscribe(job => {
+        if (job) {
+          const resultListItemElement = document.getElementById(composeResultListItemId(job.id));
+          if (resultListItemElement) {
+            resultListItemElement.scrollIntoView();
+          }
+        }
+      });
   }
 
   onFiltersChange(jobSearchFilter: JobSearchFilter) {

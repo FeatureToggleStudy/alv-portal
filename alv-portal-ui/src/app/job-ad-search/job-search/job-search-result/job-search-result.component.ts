@@ -32,6 +32,7 @@ export class JobSearchResultComponent implements OnInit {
       map(lang => {
         const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, lang);
         return {
+          id: jobAdvertisement.id,
           title: jobDescription.title,
           description: jobDescription.description,
           header: jobAdvertisement.publication.startDate,
