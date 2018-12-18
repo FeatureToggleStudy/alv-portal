@@ -38,6 +38,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.component';
 import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
 import { CollapsePanelComponent } from './collapse-panel/collapse-panel.component';
+import { PostAddressComponent } from './post-address/post-address.component';
+import { ResultListItemComponent } from './result-list-item/result-list-item.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -54,6 +57,7 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
     NgbAlertModule,
     NgbTooltipModule,
     NgbDropdownModule,
+    PipesModule
   ],
   declarations: [
     UserMenuComponent,
@@ -76,7 +80,9 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
     LocalLoginComponent,
     MenuEntryComponent,
     InlineBadgesComponent,
-    CollapsePanelComponent
+    CollapsePanelComponent,
+    PostAddressComponent,
+    ResultListItemComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
@@ -104,7 +110,9 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
     StepIndicatorComponent,
     ReactiveFormsModule,
     InlineBadgesComponent,
-    CollapsePanelComponent
+    CollapsePanelComponent,
+    PostAddressComponent,
+    ResultListItemComponent
   ]
 })
 export class LayoutModule {
