@@ -850,17 +850,6 @@ job-detail,job-detail.startsImmediately.label,Stellenantritt,Start date,Entrée 
 job-detail,job-detail.startsImmediately.false,Nach Vereinbarung,By agreement,À convenir,Previo accordo
 job-detail,job-detail.startsImmediately.true,Ab Sofort,Immediately,Tout de suite,Da subito
 job-detail,job-detail.title,Stellenbeschreibung,Job detail,Détail de l'emploi,Dettagli sul posto
-job-detail,job-detail.next-result,Nächstes,Next
-job-detail,job-detail.previous-result,Vorheriges,Previous
-job-detail,job-detail.occupation,Beruf,Occupation
-job-detail,job-detail.qualification,Qualifikation,Qualification,Qualification,Qualifica
-job-detail,job-detail.workExperience,Berufserfahrung,Work experience
-job-detail,job-detail.education,Ausbildungsniveau,Education
-job-detail,job-detail.workplace.label,Arbeitsort,Work location,Lieu de travail,Luogo di lavoro
-job-detail,job-detail.workload.label,Arbeitspensum,Workload,Taux d'occupation,Grado di occupazione
-job-detail,job-detail.employmentStartDate.label,Stellenantritt,Employment start,"Entrée en fonction  ",Inizio dell'attività
-job-detail,job-detail.employmentEndDate.label,Anstellungsdauer,Employment duration,Durée de l'engagement,Durata dell'assunzione
-job-detail,job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,Tipologia lavorativa
 job-detail,job-detail.deactivated,Dieses Stelleninserat ist mittlerweile nicht mehr aktiv.,This job posting is no longer active.,Cette offre d'emploi n'est plus active.,Questo annuncio di lavoro non è più attivo.
 job-detail,job-detail.unvalidated,"Dieses Inserat wurde direkt von einem unserer Nutzer elektronisch auf die Internetplattform der öffentlichen Arbeitsvermittlung publiziert. Die Arbeitslosenversicherung und öffentliche Arbeitsvermittlung hat keinen Einfluss auf dessen Inhalt und Qualität.","This advert was published electronically by one of our users on the internet platform of the public employment service. Neither the unemployment insurance office nor the public employment service have any influence over its content or quality.","Cette offre d’emploi a été publiée en ligne sur la plateforme Internet du service public de l’emploi directement par l’un de nos utilisateurs. L’assurance-chômage et le service public de l’emploi ne sont pas responsables de son contenu et de sa qualité.","Questo annuncio è stato pubblicato sul portale del servizio pubblico di collocamento direttamente in formato elettronico da uno dei nostri utenti. L’assicurazione contro la disoccupazione e il servizio pubblico di collocamento non rispondono dei contenuti né della qualità."
 job-detail,job-fingerprint-redirect.not-found,Job not found,Job not found,Job not found,Job not found
@@ -878,9 +867,6 @@ job-publication,job-publication-details.copy,Stellenanzeige duplizieren,Duplicat
 job-publication,job-publication-details.permanent,Unbefristet,Permanent,Indéterminé,A tempo indeterminato
 job-publication,job-publication-details.print,Drucken,Print,Imprimer,Stampa
 job-publication,job-publication-details.temporary,Befristet,Temporary,Durée limitée,A tempo determinato
-job-publication,job-publication-details.jobad-info.label,Informationen zur Stelle
-job-publication,job-publication-details.min-requirements.label,Berufliche Mindestanforderung
-job-publication,job-publication-details.contact-details.label,Mögliche Bewerbungsformen
 job-search,job-detail.endDate,Befristet bis {{date}},Until {{date}},Jusqu'au {{date}},A {{date}}
 job-search,job-search.filter.company-name.label,Arbeitgeber,Employers,Employeurs,Datori di lavoro
 job-search,job-search.filter.company-name.placeholder,Name des Unternehmens,Company name,Nom de l'entreprise,Nome dell'impresa
@@ -1343,7 +1329,6 @@ portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Tau
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
 
-portal,portal.navigation.menu-entry.job-search,Job-Suchen,Job-Search,Job-Search,Job-Search
 portal,portal.navigation.menu-entry.job-search,Job-Suchen
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht
@@ -1362,3 +1347,17 @@ portal,portal.registration.browser-title,Registration,Registration,Enregistremen
 portal,portal.home.job-seeker.browser-title,Stellensuchende,Job seekers,Demandeur d'emploi,Persone in cerca d'impiego
 portal,portal.home.company.browser-title,Arbeitgeber,Employers,Employeurs,Datori di lavoro
 portal,portal.home.pav.browser-title,Arbeitsvermittler,Recruitment agencies,Agence de placement,Collocatori
+portal,portal.job-detail.next-result,Nächstes,Next
+portal,portal.job-detail.previous-result,Vorheriges,Previous
+portal,portal.job-detail.occupation,Beruf,Occupation
+portal,portal.job-detail.qualification,Qualifikation,Qualification,Qualification,Qualifica
+portal,portal.job-detail.workExperience,Berufserfahrung,Work experience
+portal,portal.job-detail.education,Ausbildungsniveau,Education
+portal,portal.job-detail.workplace.label,Arbeitsort,Work location,Lieu de travail,Luogo di lavoro
+portal,portal.job-detail.workload.label,Arbeitspensum,Workload,Taux d'occupation,Grado di occupazione
+portal,portal.job-detail.employmentStartDate.label,Stellenantritt,Employment start,"Entrée en fonction",Inizio dell'attività
+portal,portal.job-detail.employmentEndDate.label,Anstellungsdauer,Employment duration,Durée de l'engagement,Durata dell'assunzione
+portal,portal.job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,Tipologia lavorativa
+portal,portal.job-detail.jobad-info.label,Informationen zur Stelle
+portal,portal.job-detail.min-requirements.label,Berufliche Mindestanforderung
+portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen
