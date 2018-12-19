@@ -6,33 +6,32 @@
      class="container-fluid"
      infiniteScroll>
 
-  <div class="row mt-md-4 mt-3">
-    <div class="col-xs-12 col-md-3 col-xl-2">
-      <div class="side-panel">
-        <div class="alv-bar mb-1">
-          <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
-          <ng-template #resultsCount>
-            <strong>{{totalCount$ | async }} {{'portal.job-ad-search.results-count.label' | translate}}</strong>
-          </ng-template>
-        </div>
-        <alv-filter-panel (filtersChange)="onFiltersChange($event)"
-                          [jobSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>
+  <alv-three-column-layout [mobileOrdering]="[1, 3, 2]">
+    <ng-container class="left-column">
+      <div class="alv-bar mb-1">
+        <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
+        <ng-template #resultsCount>
+          <strong>{{totalCount$ | async }} {{'portal.job-ad-search.results-count.label' | translate}}</strong>
+        </ng-template>
       </div>
-    </div>
-    <div class="col-xs-12 col-md-6 col-xl-8 order-3 order-md-2">
+      <alv-filter-panel (filtersChange)="onFiltersChange($event)"
+                        [jobSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>
+    </ng-container>
+
+    <ng-container class="main-column">
       <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults$ | async"
                              [jobSearchResult]="jobSearchResult"></alv-job-search-result>
-    </div>
+    </ng-container>
 
-    <div *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
-         class="col-xs-12 col-md-3 col-xl-2 order-2 order-md-3 mb-3 text-right text-md-left">
+    <ng-container class="right-column"
+                  *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink">
       <a class="btn btn-text btn-text-icon side-panel"
          [href]="jobSearchMailToLink">
         <i aria-hidden="true"
            class="fa fa-share mr-1"></i>
         {{'job-detail.action.sendEmail' | translate}}
       </a>
-    </div>
+    </ng-container>
+  </alv-three-column-layout>
 
-  </div>
 </div>

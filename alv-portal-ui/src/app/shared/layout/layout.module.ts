@@ -41,6 +41,7 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
 import { PostAddressComponent } from './post-address/post-address.component';
 import { ResultListItemComponent } from './result-list-item/result-list-item.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-layout.component';
 
 @NgModule({
   imports: [
@@ -82,7 +83,8 @@ import { PipesModule } from '../pipes/pipes.module';
     InlineBadgesComponent,
     CollapsePanelComponent,
     PostAddressComponent,
-    ResultListItemComponent
+    ResultListItemComponent,
+    ThreeColumnLayoutComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
@@ -112,7 +114,8 @@ import { PipesModule } from '../pipes/pipes.module';
     InlineBadgesComponent,
     CollapsePanelComponent,
     PostAddressComponent,
-    ResultListItemComponent
+    ResultListItemComponent,
+    ThreeColumnLayoutComponent
   ]
 })
 export class LayoutModule {

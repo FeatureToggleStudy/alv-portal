@@ -1,154 +1,154 @@
 <div class="container-fluid mt-2 mt-md-4">
-  <div class="row"
-       *ngIf="jobDetailModel$ | async as jobDetailModel">
-    <!--Mobile only - back button and dropdown menu-->
-    <div class="col-12 d-flex justify-content-between d-md-none d-print-none">
-      <div>
-        <a class="btn btn-text btn-text-icon mb-2"
-           routerLink="/job-search">
-          <i class="fa fa-caret-left mr-1"></i>
-          {{'job-detail.back' | translate}}
-        </a>
-      </div>
-      <div #mobileActionsMenu="ngbDropdown"
-           class="d-inline-block"
-           ngbDropdown
-           placement="bottom-right">
-        <button (click)="mobileActionsMenu.toggle()"
-                class="btn btn-text btn-icon"
-                id="dropdownMenu"
-                ngbDropdownAnchor
-                aria-label="Open job detail menu">
-          <i class="fa fa-ellipsis-v"></i>
-        </button>
-        <div aria-label="Job detail menu"
-             ngbDropdownMenu>
-          <button (click)="prev()"
-                  [disabled]="!(prevEnabled$ | async)"
-                  class="dropdown-item">
-            {{'portal.job-detail.previous-result' | translate}}
-          </button>
-          <button (click)="next()"
-                  [disabled]="!(nextEnabled$ | async)"
-                  class="dropdown-item">
-            {{'portal.job-detail.next-result' | translate}}
-          </button>
-          <a *ngIf="jobDetailModel.applyChannel?.formUrl"
-             class="dropdown-item"
-             href="{{jobDetailModel.applyChannel?.formUrl}}"
-             target="_blank">
-            {{'job-detail.action.applyNow' | translate}}
-          </a>
-          <a *ngIf="jobDetailModel.jobContent.externalUrl"
-             class="dropdown-item"
-             href="{{jobDetailModel.jobContent.externalUrl}}"
-             target="_blank}">
-            {{'job-detail.action.showExternalPage' | translate}}
-          </a>
-          <button (click)="printJob()"
-                  class="dropdown-item">
-            <span>{{'job-detail.action.print' | translate}}</span>
-          </button>
-          <a class="dropdown-item"
-             href="{{'mailto:?body=' + getEncodedUrl()}}">
-            <span>{{'job-detail.action.sendEmail' | translate}}</span>
+  <alv-three-column-layout *ngIf="jobDetailModel$ | async as jobDetailModel"
+                           [mobileOrdering]="[2, 1, null]">
+    <ng-container class="mobile-menu-bar">
+      <div class="d-flex justify-content-between">
+        <div>
+          <a class="btn btn-text btn-text-icon mb-2"
+             routerLink="/job-search">
+            <i class="fa fa-caret-left mr-1"></i>
+            {{'job-detail.back' | translate}}
           </a>
         </div>
+        <div #mobileActionsMenu="ngbDropdown"
+             class="d-inline-block"
+             ngbDropdown
+             placement="bottom-right">
+          <button (click)="mobileActionsMenu.toggle()"
+                  class="btn btn-text btn-icon"
+                  id="dropdownMenu"
+                  ngbDropdownAnchor
+                  aria-label="Open job detail menu">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <div aria-label="Job detail menu"
+               ngbDropdownMenu>
+            <button (click)="prev()"
+                    [disabled]="!(prevEnabled$ | async)"
+                    class="dropdown-item">
+              {{'portal.job-detail.previous-result' | translate}}
+            </button>
+            <button (click)="next()"
+                    [disabled]="!(nextEnabled$ | async)"
+                    class="dropdown-item">
+              {{'portal.job-detail.next-result' | translate}}
+            </button>
+            <a *ngIf="jobDetailModel.applyChannel?.formUrl"
+               class="dropdown-item"
+               href="{{jobDetailModel.applyChannel?.formUrl}}"
+               target="_blank">
+              {{'job-detail.action.applyNow' | translate}}
+            </a>
+            <a *ngIf="jobDetailModel.jobContent.externalUrl"
+               class="dropdown-item"
+               href="{{jobDetailModel.jobContent.externalUrl}}"
+               target="_blank}">
+              {{'job-detail.action.showExternalPage' | translate}}
+            </a>
+            <button (click)="printJob()"
+                    class="dropdown-item">
+              <span>{{'job-detail.action.print' | translate}}</span>
+            </button>
+            <a class="dropdown-item"
+               href="{{'mailto:?body=' + getEncodedUrl()}}">
+              <span>{{'job-detail.action.sendEmail' | translate}}</span>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-    <!-------------Left panel-->
-    <div class="col-xs-12 col-md-3 col-xl-2 order-11 order-md-1 mt-3 mt-md-0">
-      <div class="side-panel">
-        <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
-           routerLink="/job-search">
-          <i class="fa fa-caret-left pr-1"></i>
-          {{'job-detail.back' | translate}}
-        </a>
-        <div class="alv-panel p-2 mb-3">
-          <div class="d-flex d-sm-block flex-column-reverse">
+    </ng-container>
 
-            <div class="company-panel">
-              <div *ngIf="jobDetailModel.jobContent.company as company">
-                <alv-post-address [address]="company">
-                </alv-post-address>
-              </div>
+    <ng-container class="left-column">
+      <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
+         routerLink="/job-search">
+        <i class="fa fa-caret-left pr-1"></i>
+        {{'job-detail.back' | translate}}
+      </a>
+      <div class="alv-panel p-2 mb-3">
+        <div class="d-flex d-sm-block flex-column-reverse">
 
-              <div *ngIf="!jobDetailModel.publication.companyAnonymous && jobDetailModel.jobContent.publicContact as contact">
-                <strong>{{'job-detail.contactPerson' | translate}}</strong>
-                <br>
-                <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
-                {{ contact.firstName }}&nbsp;{{ contact.lastName }}
-                <br>
-
-                <ng-container *ngIf="contact.phone">
-                  <a class="link"
-                     href="tel:{{contact.phone}}">
-                    {{ contact.phone | phoneNumber }}
-                  </a>
-                  <br>
-                </ng-container>
-
-                <a *ngIf="contact.email"
-                   class="link"
-                   style="max-width: 100%"
-                   href="mailto:{{ contact.email }}">
-                  {{ contact.email }}
-                </a>
-              </div>
+          <div class="company-panel">
+            <div *ngIf="jobDetailModel.jobContent.company as company">
+              <alv-post-address [address]="company">
+              </alv-post-address>
             </div>
 
-            <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter as jobCenter"
-                 class="order-sm-2 alv-logo-box">
+            <div *ngIf="!jobDetailModel.publication.companyAnonymous && jobDetailModel.jobContent.publicContact as contact">
+              <strong>{{'job-detail.contactPerson' | translate}}</strong>
+              <br>
+              <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
+              {{ contact.firstName }}&nbsp;{{ contact.lastName }}
+              <br>
+
+              <ng-container *ngIf="contact.phone">
+                <a class="link"
+                   href="tel:{{contact.phone}}">
+                  {{ contact.phone | phoneNumber }}
+                </a>
+                <br>
+              </ng-container>
+
+              <a *ngIf="contact.email"
+                 class="link"
+                 style="max-width: 100%"
+                 href="mailto:{{ contact.email }}">
+                {{ contact.email }}
+              </a>
+            </div>
+          </div>
+
+          <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter as jobCenter"
+               class="order-sm-2 alv-logo-box">
 
 
-              <div *ngIf="jobCenter.address as address">
-                <strong>
-                  {{ 'job-detail.reference.responsible-job-center' | translate }}
-                </strong>
-                <alv-post-address [address]="{
+            <div *ngIf="jobCenter.address as address">
+              <strong>
+                {{ 'job-detail.reference.responsible-job-center' | translate }}
+              </strong>
+              <alv-post-address [address]="{
                         name: address.name,
                         street: address.street,
                         houseNumber: address.houseNumber,
                         postalCode: address.zipCode,
                         city: address.city}">
-                </alv-post-address>
-                <br>
-                {{'job-detail.reference.phone' | translate}}
-                <a class="link"
-                   href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
-              </div>
-
-              <ng-container *ngIf="jobDetailModel.stellennummerAvam || jobDetailModel.stellennummerEgov">
-                <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
-                <br>
-
-                <ng-container *ngIf="jobDetailModel.stellennummerAvam">
-                  {{'job-detail.avam.label' | translate}}
-                  : {{jobDetailModel.stellennummerAvam}}
-                  <br>
-                </ng-container>
-
-                <ng-container *ngIf="jobDetailModel.stellennummerEgov">
-                  {{'job-detail.job-room-id' | translate}} {{jobDetailModel.stellennummerEgov}}
-                </ng-container>
-              </ng-container>
+              </alv-post-address>
+              <br>
+              {{'job-detail.reference.phone' | translate}}
+              <a class="link"
+                 href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
             </div>
 
+            <ng-container *ngIf="jobDetailModel.stellennummerAvam || jobDetailModel.stellennummerEgov">
+              <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
+              <br>
+
+              <ng-container *ngIf="jobDetailModel.stellennummerAvam">
+                {{'job-detail.avam.label' | translate}}
+                : {{jobDetailModel.stellennummerAvam}}
+                <br>
+              </ng-container>
+
+              <ng-container *ngIf="jobDetailModel.stellennummerEgov">
+                {{'job-detail.job-room-id' | translate}} {{jobDetailModel.stellennummerEgov}}
+              </ng-container>
+            </ng-container>
           </div>
+
         </div>
       </div>
+    </ng-container>
 
-    </div>
-    <!-------------Main screen-->
-    <div class="col-xs-12 col-md-6 col-xl-8 order-3 alv-print-container"
-         *ngIf="jobDetailModel.jobDescription as jobDescription">
+    <ng-container class="main-column"
+                  *ngIf="jobDetailModel.jobDescription as jobDescription">
       <!-----------------Alerts-->
-      <div *ngIf="(alerts$ | async) as alerts"
-           class="mb-4">
+      <div *ngIf="(alerts$ | async) as alerts">
         <alv-alert *ngFor="let alert of alerts"
                    [notification]="alert"
                    (dismiss)="dismissAlert(alert, alerts)">
         </alv-alert>
+        <div *ngIf="alerts.length"
+             class="mb-4">
+        </div>
       </div>
       <!-----------------Title-->
 
@@ -161,10 +161,12 @@
       </ng-template>
       <small class="mr-2 mr-md-4"
              *ngIf="jobDetailModel.publication.startDate">
-        {{'job-detail.onlineSince' | translate}}: {{ jobDetailModel.publication.startDate | localeAwareDate }}
+        {{'job-detail.onlineSince' | translate}}
+        : {{ jobDetailModel.publication.startDate | localeAwareDate }}
       </small>
       <small *ngIf="jobDetailModel.jobContent.numberOfJobs">
-        {{'jobroomApp.job.numberOfJobs' | translate}}: {{ jobDetailModel.jobContent.numberOfJobs }}
+        {{'jobroomApp.job.numberOfJobs' | translate}}
+        : {{ jobDetailModel.jobContent.numberOfJobs }}
       </small>
 
       <!--Badges-->
@@ -319,74 +321,73 @@
           </ul>
         </alv-collapse-panel>
       </div>
-    </div>
-    <!-------------Right panel-->
-    <div class="col-xs-12 col-md-3 col-xl-2 d-none d-md-block order-12 d-print-none">
-      <div class="side-panel">
-        <div class="d-flex">
-          <button (click)="prev()"
-                  [disabled]="!(prevEnabled$ | async)"
-                  class="btn btn-text btn-text-icon btn-truncate mb-2">
-            <i class="fa fa-caret-left mr-1"></i>
-            {{'portal.job-detail.previous-result' | translate}}
-          </button>
-          <div class="flex-grow-1"></div>
-          <button (click)="next()"
-                  [disabled]="!(nextEnabled$ | async)"
-                  class="btn btn-text btn-text-icon btn-truncate mb-2">
-            {{'portal.job-detail.next-result' | translate}}
-            <i class="fa fa-caret-right ml-1"></i>
-          </button>
-        </div>
+    </ng-container>
 
-        <p>
-          <a *ngIf="jobDetailModel.applyChannel?.formUrl"
-             class="btn btn-primary btn-block btn-sm mb-1"
-             href="{{jobDetailModel.applyChannel?.formUrl | normalizeUrl}}"
-             target="_blank">
-            {{'job-detail.action.applyNow' | translate}}
-          </a>
-          <a *ngIf="jobDetailModel.jobContent.externalUrl"
-             class="btn btn-secondary btn-truncate btn-sm"
-             href="{{jobDetailModel.jobContent.externalUrl | normalizeUrl}}"
-             target="{{jobDetailModel.id}}">
-            {{'job-detail.action.showExternalPage' | translate}}
-          </a>
-        </p>
-
-        <ul class="nav flex-column">
-          <li>
-            <a class="btn btn-text btn-text-icon btn-truncate"
-               ngxClipboard
-               [cbContent]="getJobUrl()"
-               (cbOnSuccess)="onCopyLink()"
-               [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
-               triggers="manual">
-              <i aria-hidden="true"
-                 class="fa fa-copy mr-1"></i>
-              {{'job-detail.action.copyLink' | translate}}
-            </a>
-          </li>
-          <li>
-            <a class="btn btn-text btn-text-icon btn-truncate"
-               [href]="'mailto:?body=' + getEncodedUrl()">
-              <i aria-hidden="true"
-                 class="fa fa-share mr-1"></i>
-              {{'job-detail.action.sendEmail' | translate}}
-            </a>
-          </li>
-          <li class="d-none d-md-block">
-            <a class="btn btn-text btn-text-icon btn-truncate"
-               (click)="printJob()">
-              <i aria-hidden="true"
-                 class="fa fa-print mr-1"></i>
-              {{'job-detail.action.print' | translate}}
-            </a>
-          </li>
-        </ul>
+    <ng-container class="right-column">
+      <div class="d-flex">
+        <button (click)="prev()"
+                [disabled]="!(prevEnabled$ | async)"
+                class="btn btn-text btn-text-icon btn-truncate mb-2">
+          <i class="fa fa-caret-left mr-1"></i>
+          {{'portal.job-detail.previous-result' | translate}}
+        </button>
+        <div class="flex-grow-1"></div>
+        <button (click)="next()"
+                [disabled]="!(nextEnabled$ | async)"
+                class="btn btn-text btn-text-icon btn-truncate mb-2">
+          {{'portal.job-detail.next-result' | translate}}
+          <i class="fa fa-caret-right ml-1"></i>
+        </button>
       </div>
-    </div>
-  </div>
+
+      <p>
+        <a *ngIf="jobDetailModel.applyChannel?.formUrl"
+           class="btn btn-primary btn-block btn-sm mb-1"
+           href="{{jobDetailModel.applyChannel?.formUrl | normalizeUrl}}"
+           target="_blank">
+          {{'job-detail.action.applyNow' | translate}}
+        </a>
+        <a *ngIf="jobDetailModel.jobContent.externalUrl"
+           class="btn btn-secondary btn-truncate btn-sm"
+           href="{{jobDetailModel.jobContent.externalUrl | normalizeUrl}}"
+           target="{{jobDetailModel.id}}">
+          {{'job-detail.action.showExternalPage' | translate}}
+        </a>
+      </p>
+
+      <ul class="nav flex-column">
+        <li>
+          <a class="btn btn-text btn-text-icon btn-truncate"
+             ngxClipboard
+             [cbContent]="getJobUrl()"
+             (cbOnSuccess)="onCopyLink()"
+             [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
+             triggers="manual">
+            <i aria-hidden="true"
+               class="fa fa-copy mr-1"></i>
+            {{'job-detail.action.copyLink' | translate}}
+          </a>
+        </li>
+        <li>
+          <a class="btn btn-text btn-text-icon btn-truncate"
+             [href]="'mailto:?body=' + getEncodedUrl()">
+            <i aria-hidden="true"
+               class="fa fa-share mr-1"></i>
+            {{'job-detail.action.sendEmail' | translate}}
+          </a>
+        </li>
+        <li class="d-none d-md-block">
+          <a class="btn btn-text btn-text-icon btn-truncate"
+             (click)="printJob()">
+            <i aria-hidden="true"
+               class="fa fa-print mr-1"></i>
+            {{'job-detail.action.print' | translate}}
+          </a>
+        </li>
+      </ul>
+    </ng-container>
+  </alv-three-column-layout>
+
 </div>
 
 
