@@ -45,7 +45,5 @@ describe('CandidateSearchEffects', () => {
 
   describe('initCandidateSearch$', () => {
 
-  })
-
-
+  });
 });
