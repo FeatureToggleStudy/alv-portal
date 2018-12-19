@@ -1343,10 +1343,13 @@ portal,portal.global.exception.server.404,Die angeforderte Resource konnte nicht
 portal,portal.global.exception.server.504,Der Server ist im Moment nicht erreichbar
 
 portal,portal.job-ad-search.browser-title,Stellen finden,Find positions,Trou­vez des offres,Trovare il posto
+portal,portal.job-ad-search.results-count.label,Stellen,Positions,Offres,Posti
 portal,portal.registration.browser-title,Registration,Registration,Enregistrement,Registrazione
 portal,portal.home.job-seeker.browser-title,Stellensuchende,Job seekers,Demandeur d'emploi,Persone in cerca d'impiego
 portal,portal.home.company.browser-title,Arbeitgeber,Employers,Employeurs,Datori di lavoro
 portal,portal.home.pav.browser-title,Arbeitsvermittler,Recruitment agencies,Agence de placement,Collocatori
+portal,portal.candidate-search.browser-title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
+portal,portal.candidate-search.results-count.label,Stellen,Positions,Offres,Posti
 portal,portal.job-detail.next-result,Nächstes,Next
 portal,portal.job-detail.previous-result,Vorheriges,Previous
 portal,portal.job-detail.occupation,Beruf,Occupation
@@ -1361,3 +1364,8 @@ portal,portal.job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,T
 portal,portal.job-detail.jobad-info.label,Informationen zur Stelle
 portal,portal.job-detail.min-requirements.label,Berufliche Mindestanforderung
 portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen
+
+portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
+portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
+
+portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa

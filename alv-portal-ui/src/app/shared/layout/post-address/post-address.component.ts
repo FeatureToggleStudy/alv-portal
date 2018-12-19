@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostAddress } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { PostAddress } from '../../backend-services/shared.types';
 
 @Component({
   selector: 'alv-post-address',
