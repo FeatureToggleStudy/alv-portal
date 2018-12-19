@@ -24,6 +24,7 @@ export class CandidateSearchEffects {
     take(1),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
     takeUntil(this.actions$.pipe(ofType(APPLY_FILTER))),
+    // todo: implement
   );
 
   constructor(

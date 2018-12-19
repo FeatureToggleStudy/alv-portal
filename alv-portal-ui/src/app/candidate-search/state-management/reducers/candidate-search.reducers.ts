@@ -3,6 +3,7 @@ import { Actions } from '../actions/candidate-search.actions';
 
 export function candidateSearchReducer(state = initialState, action: Actions): CandidateSearchState {
   let newState: CandidateSearchState;
+  // todo: implement
 
   switch (action.type) {
     default:
