@@ -1,10 +1,9 @@
 import { Store, StoreModule } from '@ngrx/store';
-import { CandidateSearchState } from '../state/candidate-search.state';
+import { candidateSearchReducer, CandidateSearchState } from '..';
 import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
 import { getTestScheduler } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { candidateSearchReducer } from '../reducers/candidate-search.reducers';
 import {
   CANDIDATE_SEARCH_EFFECTS_DEBOUNCE,
   CANDIDATE_SEARCH_EFFECTS_SCHEDULER,

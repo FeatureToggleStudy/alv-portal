@@ -9,18 +9,27 @@ import {
   LanguageSkill,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { Candidate } from '../../../shared/backend-services/candidate/candidate.types';
+import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
 
 
 export interface CandidateSearchState {
-  // todo: implement
+  totalCount: number;
+  page: number;
   candidateSearchFilter: CandidateSearchFilter;
-  resultList: Candidate[];
+  resultList: CandidateProfile[];
+  selectedCandidate: CandidateProfile;
+  resultsAreLoading: boolean;
+  visitedCandidates: { [id: string]: boolean; };
 }
 
 export const initialState: CandidateSearchState = {
+  totalCount: 0,
+  page: 0,
   candidateSearchFilter: {},
-  resultList: []
+  resultList: [],
+  selectedCandidate: null,
+  resultsAreLoading: false,
+  visitedCandidates: {}
 };
 
 export interface CandidateSearchFilter {
@@ -39,5 +48,23 @@ export interface CandidateSearchFilter {
   languageSkills?: LanguageSkill[];
 }
 
+export interface CandidateSearchResult {
+  candidateProfile: CandidateProfile;
+  visited: boolean;
+}
+
 export const getCandidateSearchState = createFeatureSelector<CandidateSearchState>('candidateSearch');
 export const getCandidateSearchFilter = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter);
+export const getTotalCount = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.totalCount);
+export const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
+export const getVisitedCandidates = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.visitedCandidates);
+export const getResultsAreLoading = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultsAreLoading);
+
+export const getCandidateSearchResults = createSelector(getResultList, getVisitedCandidates, (resultList, visitedCandidates) => {
+  return resultList.map((candidateProfile) => {
+    return {
+      candidateProfile: candidateProfile,
+      visited: visitedCandidates[candidateProfile.id] || false
+    };
+  });
+});

@@ -22,7 +22,7 @@
     </ng-container>
 
     <ng-container class="main-column">
-      <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults | async"
+      <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults$ | async"
                                    [candidateSearchResult]="candidateSearchResult">
       </alv-candidate-search-result>
     </ng-container>

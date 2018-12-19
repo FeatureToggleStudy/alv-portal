@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Candidate } from '../../shared/backend-services/candidate/candidate.types';
+import {
+  CandidateSearchResult,
+  CandidateSearchState,
+  getCandidateSearchResults,
+  getResultsAreLoading,
+  getTotalCount,
+  InitResultListAction
+} from '../state-management';
+import { select, Store } from '@ngrx/store';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -9,18 +17,28 @@ import { Candidate } from '../../shared/backend-services/candidate/candidate.typ
 })
 export class CandidateSearchComponent implements OnInit {
 
-  candidateSearchResults: Observable<CandidateSearchResult[]>;
-  constructor() { }
+  totalCount$: Observable<number>;
+
+  resultsAreLoading$: Observable<boolean>;
+
+  candidateSearchResults$: Observable<CandidateSearchResult[]>;
+
+  constructor(private store: Store<CandidateSearchState>) {
+  }
 
   ngOnInit() {
+
+    this.store.dispatch(new InitResultListAction());
+
+    this.totalCount$ = this.store.pipe(select(getTotalCount));
+
+    this.candidateSearchResults$ = this.store.pipe(select(getCandidateSearchResults));
+
+    this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
+
   }
 
   onScroll() {
   }
 
-}
-
-export interface CandidateSearchResult {
-  candidate: Candidate;
-  visited: boolean;
 }
