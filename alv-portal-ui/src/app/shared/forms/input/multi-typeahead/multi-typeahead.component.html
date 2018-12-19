@@ -41,7 +41,6 @@
              [focusFirst]="focusFirst"
              [editable]="editable"
              [readonly]="limit && control.value?.length >= limit"
-             [(ngModel)]="inputValue"
              (selectItem)="selectItem($event)"
              (keydown)="handleKeyDown($event)"
              (blur)="control.markAsTouched()">
