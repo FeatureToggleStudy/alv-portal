@@ -95,8 +95,7 @@
           {{ result.model.type }}
         </div>
         <div [ngClass]="{'first-in-group-item': result.firstInGroup}">
-          <div class="first-in-group-border"
-               *ngIf="result.firstInGroup"></div>
+          <div *ngIf="result.firstInGroup"></div>
           <ngb-highlight [result]="formatResultItem(result.model)"
                          [term]="term">
           </ngb-highlight>

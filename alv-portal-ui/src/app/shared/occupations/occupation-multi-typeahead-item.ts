@@ -2,8 +2,8 @@ import { MultiTypeaheadItem } from '../forms/input/multi-typeahead/multi-typeahe
 import { ProfessionCode } from '../backend-services/job-advertisement/job-advertisement.types';
 
 export enum OccupationMultiTypeaheadItemType {
-  CLASSIFICATION = 'CLASSIFICATION',
-  OCCUPATION = 'OCCUPATION'
+  CLASSIFICATION = 'classification',
+  OCCUPATION = 'occupation'
 }
 
 export class OccupationMultiTypeaheadItem extends MultiTypeaheadItem<ProfessionCode[]> {

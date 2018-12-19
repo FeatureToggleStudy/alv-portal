@@ -3,33 +3,31 @@
 .dropdown-menu {
   border-radius: 0;
   padding: .1rem 0;
+
   .dropdown-item {
+    border-left: 5px solid transparent;
+    padding: .5rem 1rem;
+
     &:hover {
       cursor: pointer;
+      border-left: 5px solid $color-primary;
+      color: $color-primary;
     }
+
     &.active {
       background-color: $color-light-grey;
       color: $color-primary;
     }
+
     .ngb-highlight {
       background-color: $color-light-yellow;
 
     }
-  }
-}
 
-.dropdown-menu {
-  .dropdown-item {
-    border-left: 5px solid transparent;
-    padding: .5rem 1rem;
-    height: 42px;
     &.highlight {
       font-weight: 700;
     }
 
-    &:hover {
-      border-left: 5px solid $color-primary;
-      color: $color-primary;
-    }
   }
 }
+
