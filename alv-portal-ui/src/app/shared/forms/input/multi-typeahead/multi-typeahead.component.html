@@ -39,8 +39,9 @@
              [container]="'body'"
              [resultTemplate]="template"
              [focusFirst]="focusFirst"
-             [editable]="editable"
+             [editable]="true"
              [readonly]="limit && control.value?.length >= limit"
+             [(ngModel)]="inputValue"
              (selectItem)="selectItem($event)"
              (keydown)="handleKeyDown($event)"
              (blur)="control.markAsTouched()">
