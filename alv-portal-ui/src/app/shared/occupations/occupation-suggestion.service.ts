@@ -1,5 +1,8 @@
 import { Observable } from 'rxjs';
-import { OccupationLabelRepository } from '../backend-services/reference-service/occupation-label.repository';
+import {
+  OccupationLabelRepository,
+  OccupationTypes
+} from '../backend-services/reference-service/occupation-label.repository';
 import { Injectable } from '@angular/core';
 import {
   OccupationMultiTypeaheadItem,
@@ -20,7 +23,7 @@ export class OccupationSuggestionService {
   }
 
   fetch(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
-    return this.occupationLabelRepository.suggestOccupations(query, ['x28', 'sbn3', 'sbn5'])
+    return this.occupationLabelRepository.suggestOccupations(query, [OccupationTypes.X28, OccupationTypes.SBN3, OccupationTypes.SBN5])
       .pipe(
         map((occupationLabelAutocomplete) => {
           const occupationItems = occupationLabelAutocomplete.occupations
@@ -37,7 +40,6 @@ export class OccupationSuggestionService {
           return [].concat(occupationItems, classificationItems);
         })
       );
-
   }
 
   private toProfessionCodesFromClassification(classification: OccupationLabel) {
