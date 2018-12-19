@@ -15,7 +15,8 @@ import { Observable } from 'rxjs';
 import {
   ApplyFilterAction,
   InitResultListAction,
-  LoadNextPageAction
+  LoadNextPageAction,
+  ResetFilterAction
 } from '../state-management/actions/job-ad-search.actions';
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
@@ -96,6 +97,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       .subscribe((jobSearchFilter) => {
         this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
       });
+  }
+
+  onResetFilter(){
+    this.store.dispatch(new ResetFilterAction({}));
   }
 
   onScroll() {
