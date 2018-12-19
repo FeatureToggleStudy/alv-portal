@@ -1,4 +1,4 @@
-<div class="row mt-5"
+<div class="form-row mt-5"
      [formGroup]="form">
   <div class="col-md-3">
     <alv-multi-typeahead alvFormControlName="occupations"
@@ -26,18 +26,19 @@
       {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
     </ng-template>
   </div>
-  <div class="input-group col-md-3">
+  <div class="position-relative col-md-3">
+
     <alv-multi-typeahead alvFormControlName="localities"
-                         [limit]="4"
                          [editable]="false"
                          [focusFirst]="true"
                          [loadItems]="loadLocalitiesFn"
                          label="portal.job-ad.search.query-panel.localities.placeholder"
                          [ngbTooltip]="localitiesTP"
-                         placement="bottom">
+                         placement="bottom"
+                         class="append-button">
     </alv-multi-typeahead>
 
-    <alv-geo-location-selection class="input-group-append"
+    <alv-geo-location-selection class="geo-location-selector"
                                 (localitySelect)="onGeoSelection($event)">
     </alv-geo-location-selection>
 
@@ -47,7 +48,7 @@
   </div>
 
   <div class="col-md-3">
-    <button class="btn btn-primary">
+    <button class="btn btn-primary mr-1">
       <i class="fa fa-search"></i>
     </button>
     <button class="btn btn-text">{{ 'job-search.toolbar.reset' | translate }}</button>

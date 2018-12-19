@@ -124,7 +124,20 @@ textarea.form-control,
     min-height: 46px;
   }
 }
-
+/* adds space at the end of the input field for placing a button */
+:host-context(.append-button) {
+  .form-label-group {
+    /* Empty input/label styling */
+    & > input,
+    & > textarea,
+    & > select,
+    & > label,
+    & > .typeahead-form-control,
+    & > .readonly-input {
+      padding-right: 40px;
+    }
+  }
+}
 /* FF only: Removes the red box-shadow */
 :not(output):-moz-ui-invalid {
   box-shadow: none;
