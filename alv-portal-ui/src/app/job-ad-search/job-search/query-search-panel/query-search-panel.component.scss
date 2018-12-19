@@ -1,5 +1,23 @@
+@import "../../../../scss/common/colors";
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
+
+.container-fluid {
+  background-color: $color-super-light-grey;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+}
+
 .geo-location-selector {
   position: absolute;
-  right: 1em;
-  top: 0.25em;
+  right: 0.25em;
+  top: 0.4em;
+}
+
+@include media-breakpoint-up(md) {
+  .container-fluid {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
 }

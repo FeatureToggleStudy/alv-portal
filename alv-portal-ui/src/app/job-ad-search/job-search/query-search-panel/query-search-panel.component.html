@@ -1,52 +1,53 @@
-<div class="form-row mt-5"
-     [formGroup]="form">
-  <div class="col-md-3">
-    <alv-multi-typeahead alvFormControlName="occupations"
-                         [limit]="4"
-                         [editable]="false"
-                         [loadItems]="loadOccupationsFn"
-                         label="portal.job-ad.search.query-panel.occupations.placeholder"
-                         [ngbTooltip]="occupationsTP"
-                         placement="bottom"
-                         [focusFirst]="true"
-                         label="job-search.toolbar.occupation.placeholder">
-    </alv-multi-typeahead>
-    <ng-template #occupationsTP>
-      {{ 'portal.job-ad.search.query-panel.occupations.tooltip' | translate}}
-    </ng-template>
-  </div>
-  <div class="col-md-3">
-    <alv-multi-typeahead alvFormControlName="keywords"
-                         [limit]="4"
-                         label="portal.job-ad.search.query-panel.keywords.placeholder"
-                         [ngbTooltip]="keywordsTP"
-                         placement="bottom">
-    </alv-multi-typeahead>
-    <ng-template #keywordsTP>
-      {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
-    </ng-template>
-  </div>
-  <div class="position-relative col-md-3">
+<div class="container-fluid">
+  <div class="form-row py-4"
+       [formGroup]="form">
+    <div class="col-12 col-md-3 mb-1 mb-md-0">
+      <alv-multi-typeahead alvFormControlName="occupations"
+                           [limit]="4"
+                           [editable]="false"
+                           [loadItems]="loadOccupationsFn"
+                           label="portal.job-ad.search.query-panel.occupations.placeholder"
+                           [ngbTooltip]="occupationsTP"
+                           placement="bottom"
+                           [focusFirst]="true"
+                           label="job-search.toolbar.occupation.placeholder">
+      </alv-multi-typeahead>
+      <ng-template #occupationsTP>
+        {{ 'portal.job-ad.search.query-panel.occupations.tooltip' | translate}}
+      </ng-template>
+    </div>
+    <div class="col-12 col-md-3 mb-1 mb-md-0">
+      <alv-multi-typeahead alvFormControlName="keywords"
+                           [limit]="4"
+                           label="portal.job-ad.search.query-panel.keywords.placeholder"
+                           [ngbTooltip]="keywordsTP"
+                           placement="bottom">
+      </alv-multi-typeahead>
+      <ng-template #keywordsTP>
+        {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
+      </ng-template>
+    </div>
+    <div class="position-relative col-12 col-md-3 mb-1 mb-md-0">
 
-    <alv-multi-typeahead alvFormControlName="localities"
-                         [limit]="4"
-                         [editable]="false"
-                         [focusFirst]="true"
-                         [loadItems]="loadLocalitiesFn"
-                         label="portal.job-ad.search.query-panel.localities.placeholder"
-                         [ngbTooltip]="localitiesTP"
-                         placement="bottom"
-                         class="append-button">
-    </alv-multi-typeahead>
+      <alv-multi-typeahead alvFormControlName="localities"
+                           [limit]="4"
+                           [editable]="false"
+                           [focusFirst]="true"
+                           [loadItems]="loadLocalitiesFn"
+                           label="portal.job-ad.search.query-panel.localities.placeholder"
+                           [ngbTooltip]="localitiesTP"
+                           placement="bottom"
+                           class="append-button">
+      </alv-multi-typeahead>
 
-    <alv-geo-location-selection class="geo-location-selector"
-                                (localitySelect)="onGeoSelection($event)">
-    </alv-geo-location-selection>
+      <alv-geo-location-selection class="geo-location-selector"
+                                  (localitySelect)="onGeoSelection($event)">
+      </alv-geo-location-selection>
 
-    <ng-template #localitiesTP>
-      {{ 'portal.job-ad.search.query-panel.localities.tooltip' | translate}}
-    </ng-template>
-  </div>
+      <ng-template #localitiesTP>
+        {{ 'portal.job-ad.search.query-panel.localities.tooltip' | translate}}
+      </ng-template>
+    </div>
 
   <div class="col-md-3">
     <button class="btn btn-primary mr-1">

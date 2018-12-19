@@ -1,4 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit
+} from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
 import { select, Store } from '@ngrx/store';
@@ -22,6 +28,7 @@ import { JobSearchFilterParameterService } from './job-search-filter-parameter.s
 import { QueryPanelValues } from './query-search-panel/query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'alv-job-search',
@@ -42,7 +49,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   jobSearchMailToLink$: Observable<string>;
 
   constructor(private store: Store<JobAdSearchState>,
-              private jobSearchFilterParameterService: JobSearchFilterParameterService) {
+              private jobSearchFilterParameterService: JobSearchFilterParameterService,
+              @Inject(DOCUMENT) private document: any) {
     super();
   }
 
@@ -71,9 +79,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       .pipe(take(1))
       .subscribe(selectedJobAdvertisement => {
         if (selectedJobAdvertisement) {
-          const resultListItemElement = document.getElementById(composeResultListItemId(selectedJobAdvertisement.id));
+          const resultListItemElement = this.document.getElementById(composeResultListItemId(selectedJobAdvertisement.id));
           if (resultListItemElement) {
             resultListItemElement.scrollIntoView();
+            this.document.querySelector('main').scrollBy(0, -100);
           }
         }
       });
