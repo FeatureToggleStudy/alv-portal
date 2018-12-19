@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { CandidateSearchEffects } from './state-management/effects/candidate-search.effects';
 import { candidateSearchReducer } from './state-management/reducers/candidate-search.reducers';
+import { FilterPanelComponent } from './candidate-search/filter-panel/filter-panel.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { candidateSearchReducer } from './state-management/reducers/candidate-se
   declarations: [
     CandidateSearchComponent,
     CandidateDetailComponent,
-    CandidateSearchResultComponent
+    CandidateSearchResultComponent,
+    FilterPanelComponent
   ],
   providers: []
 })
