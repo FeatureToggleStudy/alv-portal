@@ -1361,3 +1361,10 @@ portal,portal.job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,T
 portal,portal.job-detail.jobad-info.label,Informationen zur Stelle
 portal,portal.job-detail.min-requirements.label,Berufliche Mindestanforderung
 portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen
+
+portal,portal.job-ad.search.query-panel.keywords.placeholder,"Fähigkeiten, Skills"
+portal,portal.job-ad.search.query-panel.keywords.tooltip,"Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe Enter um weitere Suchbegriffe hinzuzufügen."
+portal,portal.job-ad.search.query-panel.occupations.placeholder,"Berufsbezeichnungen, Kategorien","Occupations, categories","Professions, catégories","Professioni, categorie"
+portal,portal.job-ad.search.query-panel.occupations.tooltip,Mehrfachauswahl möglich. Starten Sie Ihre Eingabe und wählen Sie einen Begriff aus der Liste oder drücken Sie «Enter» auf Ihrer Tastatur.,Multiple selection possible. Start typing and choose a term from the list or press “Enter”.,Sélection multiple possible. Commencez votre saisie et choisissez un terme de la liste ou appuyez sur la touche « Enter ».,Selezione multipla possibile. Cominciare a digitare e scegliere nella lista un termine oppure premere «Invio» sulla tastiera.
+portal,portal.job-ad.search.query-panel.localities.placeholder,"Arbeitsort, Kanton"
+portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl möglich,Multiple selection possible,Sélection multiple possible,Selezione multipla possibile

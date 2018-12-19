@@ -5,6 +5,7 @@ import {
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { LocalityInputType } from '../../../shared/localities/locality-suggestion.service';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -25,6 +26,7 @@ export class JobSearchRequestMapper {
         professionCodes: JobSearchRequestMapper.mapProfessionCodes(jobSearchFilter.occupations),
         keywords: JobSearchRequestMapper.mapKeywords(jobSearchFilter.keywords),
         communalCodes: JobSearchRequestMapper.mapCommunalCodes(jobSearchFilter.localities),
+        cantonCodes: JobSearchRequestMapper.mapCantonCodes(jobSearchFilter.localities)
       }
     };
   }
@@ -55,12 +57,19 @@ export class JobSearchRequestMapper {
     }
   }
 
-
   private static mapKeywords(keywords: SimpleMultiTypeaheadItem[]): string[] {
     return keywords.map((i) => i.payload)
   }
 
   private static mapCommunalCodes(localities: SimpleMultiTypeaheadItem[]): string[] {
-    return localities.map((i) => i.payload)
+    return localities
+      .filter((i) => i.type === LocalityInputType.LOCALITY)
+      .map((i) => i.payload)
+  }
+
+  private static mapCantonCodes(localities: SimpleMultiTypeaheadItem[]): string[] {
+    return localities
+      .filter((i) => i.type === LocalityInputType.CANTON)
+      .map((i) => i.payload)
   }
 }
