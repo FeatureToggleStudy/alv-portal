@@ -3,7 +3,7 @@ import {
   JobAdvertisementSearchRequest,
   ProfessionCode
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { OccupationMultiTypeaheadItem } from '../../occupation-multi-typeahead-item';
+import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
 
 const ITEMS_PER_PAGE = 20;
 

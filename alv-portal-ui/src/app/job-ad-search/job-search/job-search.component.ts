@@ -22,7 +22,10 @@ import { JobSearchFilterParameterService } from './job-search-filter-parameter.s
 import { QueryPanelValues } from './query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
-import { OccupationMultiTypeaheadItem } from '../occupation-multi-typeahead-item';
+import {
+  OccupationMultiTypeaheadItem,
+  OccupationMultiTypeaheadItemType
+} from '../../shared/occupations/occupation-multi-typeahead-item';
 
 @Component({
   selector: 'alv-job-search',
@@ -84,7 +87,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   testing() {
     this.onQueryChange({
       occupations: [
-        new OccupationMultiTypeaheadItem('test', [
+        new OccupationMultiTypeaheadItem(OccupationMultiTypeaheadItemType.OCCUPATION, [
           { type: 'X28', value: 11001105 },
           { type: 'AVAM', value: 72202 }
         ], 'test', 0)

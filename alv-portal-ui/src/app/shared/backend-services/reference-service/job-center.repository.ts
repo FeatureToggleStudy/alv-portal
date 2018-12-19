@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { JobCenter } from './reference-service.types';
+import { JobCenter } from './job-center.types';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReferenceServiceRepository {
+export class JobCenterRepository {
 
   private readonly REFERENCESERVICE_URL = '/referenceservice/api/';
 
