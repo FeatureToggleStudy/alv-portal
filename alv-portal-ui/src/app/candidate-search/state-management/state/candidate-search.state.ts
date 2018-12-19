@@ -11,7 +11,9 @@ import {
 } from '../../../shared/backend-services/shared.types';
 import { Candidate } from '../../../shared/backend-services/candidate/candidate.types';
 
+
 export interface CandidateSearchState {
+  // todo: implement
   candidateSearchFilter: CandidateSearchFilter;
   resultList: Candidate[];
 }
@@ -22,6 +24,7 @@ export const initialState: CandidateSearchState = {
 };
 
 export interface CandidateSearchFilter {
+  // todo: implement
   occupations?: string[];
   skills?: string[];
   experience?: Experience;
