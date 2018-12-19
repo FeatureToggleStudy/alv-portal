@@ -1,14 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
-import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
-import { JobSearchResult } from '../../../job-ad-search/state-management/state/job-ad-search.state';
-import {
-  JobBadgesMapperService,
-  JobBadgeType
-} from '../../../job-ad-search/job-badges-mapper.service';
 import { CandidateSearchResult } from '../candidate-search.component';
 
 @Component({
@@ -23,8 +17,7 @@ export class CandidateSearchResultComponent implements OnInit {
 
   resultListItem$: Observable<ResultListItem>;
 
-  constructor(private i18nService: I18nService,
-              private jobBadgesMapperService: JobBadgesMapperService) {
+  constructor(private i18nService: I18nService) {
   }
 
   ngOnInit() {
@@ -32,21 +25,16 @@ export class CandidateSearchResultComponent implements OnInit {
   }
 
   private candidateSearchResultToResultListItemMapper(candidateSearchResult: CandidateSearchResult): Observable<ResultListItem> {
-    const candidate = candidateSearchResult.candidateProfile;
+    const candidate = candidateSearchResult.candidate;
     return this.i18nService.currentLanguage$.pipe(
       map(lang => {
-        const jobDescription = JobAdvertisementUtils.getJobDescription(candidate, lang);
         return {
-          title: jobDescription.title,
-          description: jobDescription.description,
-          header: candidate.publication.startDate,
-          badges: this.jobBadgesMapperService.map(candidate, [
-            JobBadgeType.WORKPLACE,
-            JobBadgeType.WORKLOAD,
-            JobBadgeType.AVAILABILITY
-          ]),
+          title: 'Job experience label',
+          description: 'Job experience description',
+          header: 'date, e.g. 15.12.2018',
+          badges: [],
           routerLink: ['/candidate-search', candidate.id],
-          subtitle: candidate.jobContent.company.name,
+          subtitle: null, // not needed for candidate
           visited: candidateSearchResult.visited
         };
       })

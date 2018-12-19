@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Candidate } from '../../shared/backend-services/candidate/candidate.types';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -20,6 +21,6 @@ export class CandidateSearchComponent implements OnInit {
 }
 
 export interface CandidateSearchResult {
-  candidateProfile: CandidateProfile;
+  candidate: Candidate;
   visited: boolean;
 }
