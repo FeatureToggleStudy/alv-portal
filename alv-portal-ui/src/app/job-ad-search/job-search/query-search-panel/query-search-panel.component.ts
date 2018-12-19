@@ -31,7 +31,12 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
   @Output()
   filtersChange = new EventEmitter<QueryPanelValues>();
 
+  @Input()
+  loading$: Observable<boolean>;
+
   form: FormGroup;
+
+  showSpinner = false;
 
   constructor(private fb: FormBuilder,
               private occupationSuggestionService: OccupationSuggestionService,
@@ -45,10 +50,14 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
       keywords: [this.jobSearchFilter.keywords],
       localities: [this.jobSearchFilter.localities],
     });
-    this.form.valueChanges
-      .pipe(
-        map<any, QueryPanelValues>((valueChanges) => this.map(valueChanges)),
-        takeUntil(this.ngUnsubscribe))
+
+    this.loading$.pipe(
+      takeUntil(this.ngUnsubscribe))
+      .subscribe((loading) => this.showSpinner = loading);
+
+    this.form.valueChanges.pipe(
+      map<any, QueryPanelValues>((valueChanges) => this.map(valueChanges)),
+      takeUntil(this.ngUnsubscribe))
       .subscribe(queryPanelValues => this.filtersChange.next(queryPanelValues));
   }
 
@@ -76,6 +85,5 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
       localities: valueChanges.localities
     };
   }
-
 
 }

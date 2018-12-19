@@ -29,6 +29,7 @@
   <div class="position-relative col-md-3">
 
     <alv-multi-typeahead alvFormControlName="localities"
+                         [limit]="4"
                          [editable]="false"
                          [focusFirst]="true"
                          [loadItems]="loadLocalitiesFn"
@@ -49,7 +50,12 @@
 
   <div class="col-md-3">
     <button class="btn btn-primary mr-1">
-      <i class="fa fa-search"></i>
+      <i *ngIf="showSpinner"
+         class="fas fa-sync-alt fa-spin ">
+      </i>
+      <i *ngIf="!showSpinner"
+         class="fas fa-search">
+      </i>
     </button>
     <button class="btn btn-text">{{ 'job-search.toolbar.reset' | translate }}</button>
   </div>
