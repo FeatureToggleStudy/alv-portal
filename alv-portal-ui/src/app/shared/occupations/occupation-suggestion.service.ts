@@ -31,8 +31,8 @@ export class OccupationSuggestionService {
 
           const classificationItems = occupationLabelAutocomplete.classifications
             .map((classification, idx) => {
-              let payload = this.toProfessionCodesFromClassification(classification);
-              return new OccupationMultiTypeaheadItem(OccupationMultiTypeaheadItemType.CLASSIFICATION, payload, classification.label, this.determineStartIndex(occupationLabelAutocomplete, idx));
+              const professionCodes = this.toProfessionCodesFromClassification(classification);
+              return new OccupationMultiTypeaheadItem(OccupationMultiTypeaheadItemType.CLASSIFICATION, professionCodes, classification.label, this.determineStartIndex(occupationLabelAutocomplete, idx));
             });
           return [].concat(occupationItems, classificationItems);
         })
@@ -56,7 +56,7 @@ export class OccupationSuggestionService {
       professionCodes.push({
         type: 'AVAM',
         value: occupation.mappings['AVAM']
-      })
+      });
     }
     return professionCodes;
   }

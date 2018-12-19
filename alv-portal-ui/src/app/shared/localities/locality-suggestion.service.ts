@@ -33,8 +33,7 @@ export class LocalitySuggestionService {
               o.name + ' (' + o.code + ')', localities.length + index));
         return [].concat(localities, cantons);
       })
-    )
-
+    );
   }
 
 }

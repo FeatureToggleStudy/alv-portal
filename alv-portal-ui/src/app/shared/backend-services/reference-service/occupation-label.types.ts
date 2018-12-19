@@ -5,7 +5,7 @@ export interface OccupationLabelSuggestion {
   language: string;
   classifier: string;
   label: string;
-  mappings: { [key: string]: number }
+  mappings: { [key: string]: number };
 }
 
 export interface OccupationLabel {
