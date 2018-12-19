@@ -19,10 +19,13 @@ import {
 } from '../state-management/actions/job-ad-search.actions';
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
-import { QueryPanelValues } from './query-panel-values';
+import { QueryPanelValues } from './query-search-panel/query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
-import { OccupationMultiTypeaheadItem } from '../occupation-multi-typeahead-item';
+import {
+  OccupationMultiTypeaheadItem,
+  OccupationMultiTypeaheadItemType
+} from '../../shared/occupations/occupation-multi-typeahead-item';
 
 @Component({
   selector: 'alv-job-search',
@@ -80,11 +83,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       });
   }
 
-  // TODO REMOVE ME
+  // TODO DF-410 REMOVE ME
   testing() {
     this.onQueryChange({
       occupations: [
-        new OccupationMultiTypeaheadItem('test', [
+        new OccupationMultiTypeaheadItem(OccupationMultiTypeaheadItemType.OCCUPATION, [
           { type: 'X28', value: 11001105 },
           { type: 'AVAM', value: 72202 }
         ], 'test', 0)
@@ -93,7 +96,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   onQueryChange(queryPanelValues: QueryPanelValues) {
-    // TODO Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
+    // TODO DF-410 Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
     this.jobSearchFilter$.pipe(
       map((currentFilter) => Object.assign({}, currentFilter, queryPanelValues)),
       take(1))

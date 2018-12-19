@@ -1,4 +1,4 @@
-import { OccupationMultiTypeaheadItem } from '../../occupation-multi-typeahead-item';
+import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
 
 export enum Sort {
   RELEVANCE_DESC = 'RELEVANCE_DESC',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
 import { Base64Service } from '../../core/base64.service';
-import { OccupationMultiTypeaheadItem } from '../occupation-multi-typeahead-item';
+import { OccupationMultiTypeaheadItem } from '../../shared/occupations/occupation-multi-typeahead-item';
 
 @Injectable()
 export class JobSearchFilterParameterService {
