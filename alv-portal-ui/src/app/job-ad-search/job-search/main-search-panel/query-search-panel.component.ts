@@ -3,8 +3,9 @@ import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 import { QueryPanelValues } from '../query-panel-values';
-import { OccupationMultiTypeaheadItem } from '../../occupation-multi-typeahead-item';
 import { MultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/multi-typeahead-item';
+import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 
 @Component({
   selector: 'alv-query-search-panel',
@@ -13,7 +14,7 @@ import { MultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/
 })
 export class QuerySearchPanelComponent implements OnInit {
 
-  constructor() {
+  constructor(private occupationSuggestionService: OccupationSuggestionService) {
   }
 
   keywordControl = new FormControl();
@@ -27,8 +28,8 @@ export class QuerySearchPanelComponent implements OnInit {
   ngOnInit() {
   }
 
-  loadOccupations(): Observable<OccupationMultiTypeaheadItem[]> {
-    return of([new OccupationMultiTypeaheadItem('mockType', [{type: 'mockType', value: 3}], 'mockLabel', 0)]).pipe(timeout(1));
+  loadOccupations(query:string): Observable<OccupationMultiTypeaheadItem[]> {
+    return this.occupationSuggestionService.fetch(query);
   }
 
   loadKeywords(): Observable<MultiTypeaheadItem<any>[]> {
