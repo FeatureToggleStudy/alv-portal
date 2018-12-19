@@ -127,7 +127,6 @@ textarea.form-control,
 /* adds space at the end of the input field for placing a button */
 :host-context(.append-button) {
   .form-label-group {
-    /* Empty input/label styling */
     & > input,
     & > textarea,
     & > select,
