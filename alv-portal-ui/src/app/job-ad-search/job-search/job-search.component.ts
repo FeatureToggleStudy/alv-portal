@@ -83,7 +83,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       });
   }
 
-  // TODO REMOVE ME
+  // TODO DF-410 REMOVE ME
   testing() {
     this.onQueryChange({
       occupations: [
@@ -96,7 +96,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   onQueryChange(queryPanelValues: QueryPanelValues) {
-    // TODO Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
+    // TODO DF-410 Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
     this.jobSearchFilter$.pipe(
       map((currentFilter) => Object.assign({}, currentFilter, queryPanelValues)),
       take(1))
