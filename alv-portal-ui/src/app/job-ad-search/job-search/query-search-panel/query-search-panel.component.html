@@ -5,22 +5,37 @@
                          [limit]="4"
                          [editable]="false"
                          [loadItems]="loadOccupationsFn"
-                         label="job-search.toolbar.occupation.placeholder">
+                         label="portal.job-ad.search.query-panel.occupations.placeholder"
+                         [ngbTooltip]="occupationsTP"
+                         placement="bottom">
     </alv-multi-typeahead>
+    <ng-template #occupationsTP>
+      {{ 'portal.job-ad.search.query-panel.occupations.tooltip' | translate}}
+    </ng-template>
   </div>
   <div class="col-md-3">
     <alv-multi-typeahead alvFormControlName="keywords"
                          [limit]="4"
-                         label="job-search.toolbar.keywords.placeholder">
+                         label="portal.job-ad.search.query-panel.keywords.placeholder"
+                         [ngbTooltip]="keywordsTP"
+                         placement="bottom">
     </alv-multi-typeahead>
+    <ng-template #keywordsTP>
+      {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
+    </ng-template>
   </div>
   <div class="col-md-3">
     <alv-multi-typeahead alvFormControlName="localities"
                          [limit]="4"
                          [editable]="false"
                          [loadItems]="loadLocalitiesFn"
-                         label="job-search.toolbar.locality.placeholder">
+                         label="portal.job-ad.search.query-panel.localities.placeholder"
+                         [ngbTooltip]="localitiesTP"
+                         placement="bottom">
     </alv-multi-typeahead>
+    <ng-template #localitiesTP>
+      {{ 'portal.job-ad.search.query-panel.localities.tooltip' | translate}}
+    </ng-template>
   </div>
 
   <div class="col-md-3">
