@@ -58,18 +58,19 @@ export class JobSearchRequestMapper {
   }
 
   private static mapKeywords(keywords: SimpleMultiTypeaheadItem[]): string[] {
-    return keywords.map((i) => i.payload)
+    return keywords.map((i) => i.payload);
   }
 
   private static mapCommunalCodes(localities: SimpleMultiTypeaheadItem[]): string[] {
     return localities
       .filter((i) => i.type === LocalityInputType.LOCALITY)
-      .map((i) => i.payload)
+      .map((i) => i.payload);
   }
 
   private static mapCantonCodes(localities: SimpleMultiTypeaheadItem[]): string[] {
     return localities
       .filter((i) => i.type === LocalityInputType.CANTON)
-      .map((i) => i.payload)
+      .map((i) => i.payload);
   }
+
 }
