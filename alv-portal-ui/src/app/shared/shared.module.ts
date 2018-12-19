@@ -17,6 +17,7 @@ import { GeoLocationSelectionComponent } from './localities/geo-location-selecti
     GeoLocationSelectionComponent,
   ],
   imports: [
+    TranslateModule.forChild(),
     CommonModule,
     AlvFormsModule,
     PrettyJsonModule,
