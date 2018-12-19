@@ -1,4 +1,5 @@
 <alv-query-search-panel (filtersChange)="onQueryChange($event)"
+                        [loading$]="resultsAreLoading$"
                         [jobSearchFilter]="jobSearchFilter$ | async">
 </alv-query-search-panel>
 <div (scrolled)="onScroll()"

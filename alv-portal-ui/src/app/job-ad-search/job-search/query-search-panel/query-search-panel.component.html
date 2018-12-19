@@ -30,6 +30,7 @@
     <div class="position-relative col-12 col-md-3 mb-1 mb-md-0">
 
       <alv-multi-typeahead alvFormControlName="localities"
+                           [limit]="4"
                            [editable]="false"
                            [focusFirst]="true"
                            [loadItems]="loadLocalitiesFn"
@@ -48,11 +49,15 @@
       </ng-template>
     </div>
 
-    <div class="col-md-3">
-      <button class="btn btn-primary mr-1">
-        <i class="fa fa-search"></i>
-      </button>
-      <button class="btn btn-text">{{ 'job-search.toolbar.reset' | translate }}</button>
-    </div>
+  <div class="col-md-3">
+    <button class="btn btn-primary mr-1">
+      <i *ngIf="showSpinner"
+         class="fas fa-sync-alt fa-spin ">
+      </i>
+      <i *ngIf="!showSpinner"
+         class="fas fa-search">
+      </i>
+    </button>
+    <button class="btn btn-text">{{ 'job-search.toolbar.reset' | translate }}</button>
   </div>
 </div>
