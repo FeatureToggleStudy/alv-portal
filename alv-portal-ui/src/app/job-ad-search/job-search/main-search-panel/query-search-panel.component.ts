@@ -14,8 +14,11 @@ import { OccupationSuggestionService } from '../../../shared/occupations/occupat
 })
 export class QuerySearchPanelComponent implements OnInit {
 
+  loadOccupationsFn = this.loadOccupations.bind(this);
+
   constructor(private occupationSuggestionService: OccupationSuggestionService) {
   }
+
 
   keywordControl = new FormControl();
   localitiesControl = new FormControl();
@@ -28,7 +31,7 @@ export class QuerySearchPanelComponent implements OnInit {
   ngOnInit() {
   }
 
-  loadOccupations(query:string): Observable<OccupationMultiTypeaheadItem[]> {
+  loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
     return this.occupationSuggestionService.fetch(query);
   }
 
