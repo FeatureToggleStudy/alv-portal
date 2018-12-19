@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ResultListItem } from './result-list-item.model';
 
 const RESULT_LIST_ITEM_ID_PREFIX = 'result-list-item_';
@@ -13,7 +13,8 @@ export const composeResultListItemId = (id: string) => {
 @Component({
   selector: 'alv-result-list-item',
   templateUrl: './result-list-item.component.html',
-  styleUrls: ['./result-list-item.component.scss']
+  styleUrls: ['./result-list-item.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ResultListItemComponent implements OnInit {
 
