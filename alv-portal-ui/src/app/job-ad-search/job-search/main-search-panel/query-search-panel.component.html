@@ -1,0 +1,30 @@
+<div class="row mt-5">
+  <div class="col-md-3">
+    <alv-multi-typeahead [alvControl]="occupationsControl"
+                         [limit]="4"
+                         [loadItems]="loadOccupations"
+                         label="job-search.toolbar.occupation.placeholder">
+    </alv-multi-typeahead>
+  </div>
+  <div class="col-md-3">
+    <alv-multi-typeahead [alvControl]="keywordControl"
+                         [limit]="4"
+                         [loadItems]="loadKeywords"
+                         label="job-search.toolbar.keywords.placeholder">
+    </alv-multi-typeahead>
+  </div>
+  <div class="col-md-3">
+    <alv-multi-typeahead [alvControl]="localitiesControl"
+                         [limit]="4"
+                         [loadItems]="loadLocalities"
+                         label="job-search.toolbar.locality.placeholder">
+    </alv-multi-typeahead>
+  </div>
+
+  <div class="col-md-3">
+    <button class="btn btn-primary">
+      <i class="fa fa-search"></i>
+    </button>
+    <button class="btn btn-text">{{ 'job-search.toolbar.reset' | translate }}</button>
+  </div>
+</div>
