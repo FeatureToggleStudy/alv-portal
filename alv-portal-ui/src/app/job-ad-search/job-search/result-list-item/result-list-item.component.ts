@@ -14,7 +14,7 @@ export const composeResultListItemId = (id: string) => {
   selector: 'alv-result-list-item',
   templateUrl: './result-list-item.component.html',
   styleUrls: ['./result-list-item.component.scss'],
-  /* tslint:disable-next-line */
+  /* tslint:disable:use-view-encapsulation */
   encapsulation: ViewEncapsulation.None
 })
 export class ResultListItemComponent implements OnInit {
