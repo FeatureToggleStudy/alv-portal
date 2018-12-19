@@ -16,3 +16,7 @@ export interface CantonSuggestion {
   name: string;
 }
 
+export interface GeoPoint {
+  latitude: number;
+  longitude: number;
+}

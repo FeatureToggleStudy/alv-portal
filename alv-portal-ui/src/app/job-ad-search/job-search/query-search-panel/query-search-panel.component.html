@@ -26,7 +26,7 @@
       {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
     </ng-template>
   </div>
-  <div class="col-md-3">
+  <div class="input-group col-md-3">
     <alv-multi-typeahead alvFormControlName="localities"
                          [limit]="4"
                          [editable]="false"
@@ -36,6 +36,11 @@
                          [ngbTooltip]="localitiesTP"
                          placement="bottom">
     </alv-multi-typeahead>
+
+    <alv-geo-location-selection class="input-group-append"
+                                (localitySelect)="onGeoSelection($event)">
+    </alv-geo-location-selection>
+
     <ng-template #localitiesTP>
       {{ 'portal.job-ad.search.query-panel.localities.tooltip' | translate}}
     </ng-template>

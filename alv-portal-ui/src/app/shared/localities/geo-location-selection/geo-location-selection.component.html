@@ -1,0 +1,12 @@
+<button class="btn btn-primary"
+        *ngIf="isVisible()"
+        (click)="getLocation()">
+  <span class="fa-stack">
+    <i *ngIf="loading"
+       class="fas fa-sync-alt fa-spin fa-stack-2x"></i>
+    <i *ngIf="!loading"
+       class="fas fa-circle fa-stack-2x"></i>
+    <i *ngIf="!loading"
+       class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
+  </span>
+</button>
