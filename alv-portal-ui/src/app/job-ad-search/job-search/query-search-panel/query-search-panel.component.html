@@ -1,6 +1,7 @@
-<div class="row mt-5">
+<div class="row mt-5"
+     [formGroup]="form">
   <div class="col-md-3">
-    <alv-multi-typeahead [alvControl]="occupationsControl"
+    <alv-multi-typeahead alvFormControlName="occupations"
                          [limit]="4"
                          [editable]="false"
                          [loadItems]="loadOccupationsFn"
@@ -8,15 +9,15 @@
     </alv-multi-typeahead>
   </div>
   <div class="col-md-3">
-    <alv-multi-typeahead [alvControl]="keywordControl"
+    <alv-multi-typeahead alvFormControlName="keywords"
                          [limit]="4"
-                         [loadItems]="loadKeywords"
                          label="job-search.toolbar.keywords.placeholder">
     </alv-multi-typeahead>
   </div>
   <div class="col-md-3">
-    <alv-multi-typeahead [alvControl]="localitiesControl"
+    <alv-multi-typeahead alvFormControlName="localities"
                          [limit]="4"
+                         [editable]="false"
                          [loadItems]="loadLocalitiesFn"
                          label="job-search.toolbar.locality.placeholder">
     </alv-multi-typeahead>

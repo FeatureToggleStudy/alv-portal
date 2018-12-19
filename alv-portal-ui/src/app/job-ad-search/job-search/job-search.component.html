@@ -5,7 +5,8 @@
      [infiniteScrollContainer]="'main'"
      class="container-fluid"
      infiniteScroll>
-  <alv-query-search-panel (filtersChange)="onQueryChange($event)">
+  <alv-query-search-panel (filtersChange)="onQueryChange($event)"
+                          [jobSearchFilter]="jobSearchFilter$ | async">
   </alv-query-search-panel>
   <div class="row mt-md-4 mt-3">
     <div class="col-xs-12 col-md-3 col-xl-2">

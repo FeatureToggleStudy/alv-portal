@@ -23,6 +23,7 @@ import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
 import { SimpleMultiTypeaheadItem } from './simple-multi-typeahead.item';
+import { EMPTY } from 'rxjs';
 
 export const TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
@@ -64,6 +65,16 @@ export class MultiTypeaheadComponent extends AbstractInput {
               @Inject(DOCUMENT) private document: any,
               private elRef: ElementRef) {
     super(controlContainer, InputType.MULTI_TYPEAHEAD, inputIdGenerationService);
+  }
+
+
+  ngOnInit() {
+    super.ngOnInit();
+    if (!this.loadItems) {
+      this.loadItems = () => {
+        return EMPTY;
+      };
+    }
   }
 
   /**
