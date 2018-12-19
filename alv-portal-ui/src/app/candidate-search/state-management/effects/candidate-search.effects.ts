@@ -4,15 +4,16 @@ import { SchedulerLike } from 'rxjs/src/internal/types';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
   catchError,
+  debounceTime,
   map,
   switchMap,
   take,
   takeUntil,
   withLatestFrom
 } from 'rxjs/internal/operators';
-import { select, Store } from '@ngrx/store';
+import { Action, select, Store } from '@ngrx/store';
 import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
-import { of } from 'rxjs/index';
+import { asyncScheduler, Observable, of } from 'rxjs/index';
 import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';
 import {
   APPLY_FILTER,
@@ -21,8 +22,11 @@ import {
   CandidateSearchState,
   FilterAppliedAction,
   getCandidateSearchState,
-  INIT_RESULT_LIST
+  INIT_RESULT_LIST,
+  LOAD_NEXT_PAGE,
+  NextPageLoadedAction
 } from '..';
+
 
 export const CANDIDATE_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('CANDIDATE_SEARCH_EFFECTS_DEBOUNCE');
 export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('CANDIDATE_SEARCH_EFFECTS_SCHEDULER');
@@ -45,6 +49,18 @@ export class CandidateSearchEffects {
       )
     ),
     takeUntil(this.actions$.pipe(ofType(APPLY_FILTER)))
+  );
+
+  @Effect()
+  loadNextPage$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_NEXT_PAGE),
+    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
+    withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
+    switchMap(([action, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
+      .pipe(
+        map((response) => new NextPageLoadedAction({ page: response.result })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      )),
   );
 
   constructor(

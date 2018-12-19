@@ -6,7 +6,8 @@ import {
   getCandidateSearchResults,
   getResultsAreLoading,
   getTotalCount,
-  InitResultListAction
+  InitResultListAction,
+  LoadNextPageAction
 } from '../state-management';
 import { select, Store } from '@ngrx/store';
 
@@ -39,6 +40,7 @@ export class CandidateSearchComponent implements OnInit {
   }
 
   onScroll() {
+    this.store.dispatch(new LoadNextPageAction());
   }
 
 }

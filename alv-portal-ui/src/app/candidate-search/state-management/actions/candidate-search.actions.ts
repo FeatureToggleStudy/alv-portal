@@ -5,6 +5,8 @@ import { CandidateSearchFilter } from '..';
 export const INIT_RESULT_LIST = 'CANDIDATES:INIT_RESULT_LIST';
 export const APPLY_FILTER = 'CANDIDATES:APPLY_FILTER';
 export const FILTER_APPLIED = 'CANDIDATES:FILTER_APPLIED';
+export const LOAD_NEXT_PAGE = 'CANDIDATES:LOAD_NEXT_PAGE';
+export const NEXT_PAGE_LOADED = 'CANDIDATES:NEXT_PAGE_LOADED';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -27,7 +29,23 @@ export class FilterAppliedAction implements Action {
   }
 }
 
+export class LoadNextPageAction implements Action {
+  readonly type = LOAD_NEXT_PAGE;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class NextPageLoadedAction implements Action {
+  readonly type = NEXT_PAGE_LOADED;
+
+  constructor(public payload: { page: CandidateProfile[] }) {
+  }
+}
+
 export type Actions = InitResultListAction
   | ApplyFilterAction
   | FilterAppliedAction
+  | LoadNextPageAction
+  | NextPageLoadedAction
   ;
