@@ -1349,7 +1349,7 @@ portal,portal.home.job-seeker.browser-title,Stellensuchende,Job seekers,Demandeu
 portal,portal.home.company.browser-title,Arbeitgeber,Employers,Employeurs,Datori di lavoro
 portal,portal.home.pav.browser-title,Arbeitsvermittler,Recruitment agencies,Agence de placement,Collocatori
 portal,portal.candidate-search.browser-title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
-portal,portal.candidate-search.results-count.label,Stellen,Positions,Offres,Posti
+portal,portal.candidate-search.results-count.label,Kandidaten,Candidates,candidats,candidati
 portal,portal.job-detail.next-result,Nächstes,Next
 portal,portal.job-detail.previous-result,Vorheriges,Previous
 portal,portal.job-detail.occupation,Beruf,Occupation
