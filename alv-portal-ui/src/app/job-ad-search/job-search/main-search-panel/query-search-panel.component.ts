@@ -1,7 +1,9 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { timeout } from 'rxjs/operators';
+import { QueryPanelValues } from '../query-panel-values';
+import { OccupationMultiTypeaheadItem } from '../../occupation-multi-typeahead-item';
 import { MultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/multi-typeahead-item';
 
 @Component({
@@ -19,14 +21,14 @@ export class QuerySearchPanelComponent implements OnInit {
   occupationsControl = new FormControl();
 
   @Output()
-  filtersChange: Subject<any> = new Subject<any>();
+  filtersChange = new EventEmitter<QueryPanelValues>();
 
 
   ngOnInit() {
   }
 
-  loadOccupations(): Observable<MultiTypeaheadItem<any>[]> {
-    return of([]).pipe(timeout(1));
+  loadOccupations(): Observable<OccupationMultiTypeaheadItem[]> {
+    return of([new OccupationMultiTypeaheadItem('mockType', [{type: 'mockType', value: 3}], 'mockLabel', 0)]).pipe(timeout(1));
   }
 
   loadKeywords(): Observable<MultiTypeaheadItem<any>[]> {
