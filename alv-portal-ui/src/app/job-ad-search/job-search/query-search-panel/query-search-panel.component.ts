@@ -38,8 +38,8 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
   ngOnInit() {
     this.form = this.fb.group({
       occupations: [this.jobSearchFilter.occupations],
-      keywords: [],
-      localities: [],
+      keywords: [this.jobSearchFilter.keywords],
+      localities: [this.jobSearchFilter.localities],
     });
     this.form.valueChanges
       .pipe(
@@ -58,7 +58,9 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
 
   private map(valueChanges: any): QueryPanelValues {
     return {
-      occupations: valueChanges.occupations
+      occupations: valueChanges.occupations,
+      keywords: valueChanges.keywords,
+      localities: valueChanges.localities
     };
   }
 

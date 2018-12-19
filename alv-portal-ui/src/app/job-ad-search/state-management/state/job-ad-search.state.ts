@@ -24,6 +24,8 @@ export const initialState: JobAdSearchState = {
     company: null,
     onlineSince: 30,
     occupations: [],
+    keywords: [],
+    localities: []
   },
   resultList: [],
   selectedJobAdvertisement: null,

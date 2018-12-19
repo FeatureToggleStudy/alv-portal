@@ -22,10 +22,6 @@ import { JobSearchFilterParameterService } from './job-search-filter-parameter.s
 import { QueryPanelValues } from './query-search-panel/query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
-import {
-  OccupationMultiTypeaheadItem,
-  OccupationMultiTypeaheadItemType
-} from '../../shared/occupations/occupation-multi-typeahead-item';
 
 @Component({
   selector: 'alv-job-search',
@@ -81,18 +77,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
           }
         }
       });
-  }
-
-  // TODO DF-410 REMOVE ME
-  testing() {
-    this.onQueryChange({
-      occupations: [
-        new OccupationMultiTypeaheadItem(OccupationMultiTypeaheadItemType.OCCUPATION, [
-          { type: 'X28', value: 11001105 },
-          { type: 'AVAM', value: 72202 }
-        ], 'test', 0)
-      ]
-    });
   }
 
   onQueryChange(queryPanelValues: QueryPanelValues) {

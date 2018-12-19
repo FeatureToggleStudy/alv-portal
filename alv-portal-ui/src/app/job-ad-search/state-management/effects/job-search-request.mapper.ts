@@ -4,6 +4,7 @@ import {
   ProfessionCode
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -21,7 +22,9 @@ export class JobSearchRequestMapper {
         companyName: jobSearchFilter.company,
         onlineSince: jobSearchFilter.onlineSince,
         displayRestricted: jobSearchFilter.displayRestricted,
-        professionCodes: JobSearchRequestMapper.mapProfessionCodes(jobSearchFilter.occupations)
+        professionCodes: JobSearchRequestMapper.mapProfessionCodes(jobSearchFilter.occupations),
+        keywords: JobSearchRequestMapper.mapKeywords(jobSearchFilter.keywords),
+        communalCodes: JobSearchRequestMapper.mapCommunalCodes(jobSearchFilter.localities),
       }
     };
   }
@@ -53,4 +56,11 @@ export class JobSearchRequestMapper {
   }
 
 
+  private static mapKeywords(keywords: SimpleMultiTypeaheadItem[]): string[] {
+    return keywords.map((i) => i.payload)
+  }
+
+  private static mapCommunalCodes(localities: SimpleMultiTypeaheadItem[]): string[] {
+    return localities.map((i) => i.payload)
+  }
 }
