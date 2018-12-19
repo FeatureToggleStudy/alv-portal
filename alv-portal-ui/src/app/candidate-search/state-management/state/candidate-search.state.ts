@@ -9,10 +9,11 @@ import {
   LanguageSkill,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
+import { Candidate } from '../../../shared/backend-services/candidate/candidate.types';
 
 export interface CandidateSearchState {
   candidateSearchFilter: CandidateSearchFilter;
-  resultList: any[];
+  resultList: Candidate[];
 }
 
 export const initialState: CandidateSearchState = {

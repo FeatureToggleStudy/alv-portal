@@ -10,6 +10,7 @@ import {
   getCandidateSearchState
 } from '../state/candidate-search.state';
 import { APPLY_FILTER, INIT_RESULT_LIST } from '../actions/candidate-search.actions';
+import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
 
 export const CANDIDATE_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('CANDIDATE_SEARCH_EFFECTS_DEBOUNCE');
 export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('CANDIDATE_SEARCH_EFFECTS_SCHEDULER');
@@ -28,6 +29,7 @@ export class CandidateSearchEffects {
   constructor(
     private actions$: Actions,
     private store: Store<CandidateSearchState>,
+    private candidateRepository: CandidateRepository,
     @Optional() @Inject(CANDIDATE_SEARCH_EFFECTS_DEBOUNCE) private debounce,
     @Optional() @Inject(CANDIDATE_SEARCH_EFFECTS_SCHEDULER) private scheduler: AsyncScheduler
   ) {

@@ -11,14 +11,19 @@ import {
   CandidateSearchEffects
 } from './candidate-search.effects';
 import { Observable } from 'rxjs/index';
+import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
+import SpyObj = jasmine.SpyObj;
 
 describe('CandidateSearchEffects', () => {
   let sut: CandidateSearchEffects;
 
-  let store: Store<CandidateSearchState>;
   let actions$: Observable<any>;
+  let store: Store<CandidateSearchState>;
+  let candidateRepository: SpyObj<CandidateRepository>;
 
   beforeEach(() => {
+    candidateRepository = jasmine.createSpyObj('mockCandidateRepository', ['search']);
+
 
     TestBed.configureTestingModule({
       imports: [
@@ -27,6 +32,7 @@ describe('CandidateSearchEffects', () => {
       providers: [
         CandidateSearchEffects,
         provideMockActions(() => actions$),
+        { provide: CandidateRepository, useValue: candidateRepository },
         { provide: CANDIDATE_SEARCH_EFFECTS_DEBOUNCE, useValue: 30 },
         { provide: CANDIDATE_SEARCH_EFFECTS_SCHEDULER, useFactory: getTestScheduler },
       ]
