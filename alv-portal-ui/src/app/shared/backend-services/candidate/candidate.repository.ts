@@ -5,9 +5,11 @@ import { Observable } from 'rxjs/index';
 import { map } from 'rxjs/operators';
 import {
   Candidate,
+  CandidateProfile,
   CandidateSearchRequest,
   CandidateSearchResponse
 } from './candidate.types';
+import { JobAdvertisement } from '../job-advertisement/job-advertisement.types';
 
 @Injectable({ providedIn: 'root' })
 export class CandidateRepository {
@@ -32,5 +34,13 @@ export class CandidateRepository {
           result: resp.body
         };
       }));
+  }
+
+  findById(id: string): Observable<JobAdvertisement> {
+    return this.http.get<JobAdvertisement>(`${this.resourceUrl}/${id}`);
+  }
+
+  findCandidateProfileById(id: string): Observable<CandidateProfile> {
+    return this.http.get<CandidateProfile>(`${this.resourceUrl}/profiles/${id}`);
   }
 }
