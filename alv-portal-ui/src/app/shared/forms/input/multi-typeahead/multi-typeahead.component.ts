@@ -55,11 +55,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   @ViewChild(NgbTypeahead) ngbTypeahead;
 
-  /**
-   * Needed to get the actual value of the input field because ng-bootstrap does not
-   * update the "inputValue" property through the [(ngModel)] if editable=false
-   */
-  @ViewChild('inputField') inputField: ElementRef;
+  inputValue: string;
 
   helpId = this.id + '-help';
 
@@ -98,7 +94,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   showPlaceholder(): boolean {
-    return !this.getInputFieldNativeElement().value && (!this.control.value || this.control.value && this.control.value.length === 0);
+    return !this.inputValue && (!this.control.value || this.control.value && this.control.value.length === 0);
   }
 
   formatResultItem(item: MultiTypeaheadItem<any>): string {
@@ -114,7 +110,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   getInputWidth(): string {
-    const value = this.getInputFieldNativeElement().value || '';
+    const value = this.inputValue || '';
     if (value.length > 0) {
       return `${value.length}em`;
     }
@@ -133,7 +129,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       return;
     }
     if (event.code === 'Backspace') {
-      if (!this.getInputFieldNativeElement().value && this.control.value && this.control.value.length) {
+      if (!this.inputValue && this.control.value && this.control.value.length) {
         this.control.value.splice(this.control.value.length - 1, 1);
       }
       return;
@@ -163,14 +159,14 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   selectFreeText(): MultiTypeaheadItem<any> {
     if (this.itemLimitReached()
       || !this.editable
-      || !this.getInputFieldNativeElement().value
-      || this.getInputFieldNativeElement().value.length < TYPEAHEAD_QUERY_MIN_LENGTH) {
+      || !this.inputValue
+      || this.inputValue.length < TYPEAHEAD_QUERY_MIN_LENGTH) {
       return null;
     }
     const freeTextItem = new SimpleMultiTypeaheadItem(
       'free-text',
-      this.getInputFieldNativeElement().value,
-      this.getInputFieldNativeElement().value
+      this.inputValue,
+      this.inputValue
     );
     if (this.exists(freeTextItem)) {
       return null;
@@ -223,14 +219,11 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     // This hack removes the invalid value from the input field on blur.
     this.ngbTypeahead._inputValueBackup = '';
 
-    this.getInputFieldNativeElement().value = '';
+    this.inputValue = '';
   }
 
   private getTypeaheadNativeElement(): any {
     return this.ngbTypeahead && this.ngbTypeahead._elementRef.nativeElement || {};
   }
-
-  private getInputFieldNativeElement(): any {
-    return this.inputField && this.inputField.nativeElement || {};
-  }
+  
 }
