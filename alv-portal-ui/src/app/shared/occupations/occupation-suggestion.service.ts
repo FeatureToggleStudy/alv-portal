@@ -54,7 +54,7 @@ export class OccupationSuggestionService {
       type: occupation.type,
       value: occupation.code
     }];
-    if (occupation.mappings['AVAM']) {
+    if (occupation.mappings && occupation.mappings['AVAM']) {
       professionCodes.push({
         type: 'AVAM',
         value: occupation.mappings['AVAM']
