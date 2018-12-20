@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 
 import { UserRole } from '../../../core/auth/user.model';
@@ -11,6 +11,20 @@ import {
   JobSearchFilter,
   Sort
 } from '../../../job-ad-search/job-search-filter.types';
+import {
+  Canton,
+  Degree,
+  Experience,
+  Graduation
+} from '../../../shared/backend-services/shared.types';
+import { MultiTypeaheadItemModel } from '../../../shared/forms/input/multi-typeahead/multi-typeahead-item.model';
+import {
+  CantonSuggestion,
+  LocalityAutocomplete, LocalityInputType,
+  LocalitySuggestion
+} from '../../../showcase/showcase.component';
+import { TranslateService } from '@ngx-translate/core';
+import { CandidateSearchFilter } from '../../state-management/state/candidate-search.state';
 
 export interface FilterPanelValues {
   sort: Sort;
@@ -37,34 +51,53 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   filtersChange: Subject<FilterPanelValues> = new Subject<FilterPanelValues>();
 
   @Input()
-  jobSearchFilter: JobSearchFilter;
+  candidateSearchFilter: CandidateSearchFilter;
+
+  suggestCantonsFn = this.getCantonOptions.bind(this);
 
   expanded = false;
 
-  restrictOptions$: Observable<SelectableOption[]> = of([
+  degreeOptions$: Observable<SelectableOption[]> = of([
     {
-      value: false,
-      label: 'portal.job-search.filter.reporting-obligation.all.label'
-    },
-    {
-      value: true,
-      label: 'job-search.filter.restricted-jobs.label'
+      value: null,
+      label: 'candidate-search.no-selection'
     }
-  ]);
+  ].concat(
+    Object.keys(Degree).map(degree => {
+      return {
+        value: degree,
+        label: 'global.degree.' + degree
+      };
+    })
+  ));
 
-  sortOptions$: Observable<SelectableOption[]> = of([
+  graduationOptions$: Observable<SelectableOption[]> = of([
     {
-      value: Sort.RELEVANCE_DESC,
-      label: 'job-search.filter.sort.option.RELEVANCE_DESC'
-    },
+      value: null,
+      label: 'candidate-search.toolbar.graduation.default'
+    }
+  ].concat(
+    Object.keys(Graduation).map(graduation => {
+      return {
+        value: graduation,
+        label: 'candidate-search.graduation.' + graduation
+      };
+    })
+  ));
+
+  experienceOptions$: Observable<SelectableOption[]> = of([
     {
-      value: Sort.DATE_ASC,
-      label: 'job-search.filter.sort.option.DATE_ASC'
-    },
-    {
-      value: Sort.DATE_DESC,
-      label: 'job-search.filter.sort.option.DATE_DESC'
-    }]);
+      value: null,
+      label: 'candidate-search.no-selection'
+    }
+  ].concat(
+    Object.keys(Experience).map(experience => {
+      return {
+        value: experience,
+        label: 'global.experience.' + experience
+      };
+    })
+  ));
 
   defaultPercentages = [
     { label: '0%', value: 0 },
@@ -101,19 +134,17 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   onlineSinceSliderLabel: number;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private translateService: TranslateService) {
     super();
   }
 
   ngOnInit() {
     this.form = this.fb.group({
-      displayRestricted: [this.jobSearchFilter.displayRestricted],
-      sort: [this.jobSearchFilter.sort],
-      company: [this.jobSearchFilter.company],
-      contractType: [this.jobSearchFilter.contractType],
-      workloadPercentageMin: [this.jobSearchFilter.workloadPercentageMin],
-      workloadPercentageMax: [this.jobSearchFilter.workloadPercentageMax],
-      onlineSince: [this.jobSearchFilter.onlineSince]
+      degree: [this.candidateSearchFilter.degree],
+      graduation: [this.candidateSearchFilter.graduation],
+      experience: [this.candidateSearchFilter.experience],
+      residence: [this.candidateSearchFilter.residence]
     });
     this.form.valueChanges
       .pipe(
@@ -134,24 +165,36 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       });
   }
 
-  updateSliderValue(value: number) {
-    this.form.controls.onlineSince.setValue(value);
-  }
-
-  updateSliderLabel(value: number) {
-    this.onlineSinceSliderLabel = value;
-  }
-
-  getOnlineSinceLabel(value: number): string {
-    if (value === 1) {
-      return 'job-search.filter.online-since.day.one';
-    } else {
-      return 'job-search.filter.online-since.day.many';
-    }
-  }
-
   toggleExpanded() {
     this.expanded = !this.expanded;
+  }
+
+  suggestCanton(query: string) {
+
+  }
+
+  getCantonOptions(query: string): Observable<MultiTypeaheadItemModel[]> {
+
+    const translatedOptions = Object.keys(Canton)
+     // .filter((key) => !isNaN(Number(Canton[key])))
+
+      .map(this.cantonAutocompleteMapper)
+      .map((option: MultiTypeaheadItemModel) => {
+        return this.translateService.stream(option.label).pipe(
+          map((translation) => Object.assign({}, option, { label: translation }))
+        );
+
+      });
+
+    return combineLatest(translatedOptions);
+  }
+
+  private cantonAutocompleteMapper(cantonKey: string, index: number): MultiTypeaheadItemModel {
+    return new MultiTypeaheadItemModel(
+      LocalityInputType.CANTON,
+      cantonKey,
+      `global.reference.canton.${cantonKey}`,
+      index);
   }
 
   private map(valueChanges: any): FilterPanelValues {

@@ -32,50 +32,14 @@
     [options$]="experienceOptions$">
   </alv-select>
 
-  <alv-input-field
-    label="job-search.filter.company-name.label"
-    alvFormControlName="company">
-  </alv-input-field>
+  <alv-multi-typeahead
+    label="test"
+    alvFormControlName="residence"
+    [loadItems]="suggestCantonsFn"
+    [editable]="false"
+    [focusFirst]="true">
+  </alv-multi-typeahead>
 
-  <alv-select
-    label="job-search.filter.contract-type.label"
-    alvFormControlName="contractType"
-    [options$]="contractTypeOptions$">
-  </alv-select>
-
-  <div class="form-row">
-    <div class="col-6">
-      <alv-select
-        label="portal.job-search.filter.workload.from.label"
-        alvFormControlName="workloadPercentageMin"
-        [options$]="percentagesMin$">
-      </alv-select>
-    </div>
-    <div class="col-6">
-      <alv-select
-        label="portal.job-search.filter.workload.to.label"
-        alvFormControlName="workloadPercentageMax"
-        [options$]="percentagesMax$">
-      </alv-select>
-    </div>
-  </div>
-
-  <div class="form-group range-slider">
-    <label class="mb-1">{{ 'job-search.filter.online-since.label' | translate}}</label>
-    <div>
-      <nouislider [min]="1"
-                  [max]="60"
-                  [config]="{step: 1}"
-                  (change)="updateSliderValue($event)"
-                  (update)="updateSliderLabel($event)"
-                  class="range-input"
-                  [formControl]="form.get('onlineSince')">
-      </nouislider>
-      <span class="range-input-value text-nowrap ml-2">
-        {{ onlineSinceSliderLabel }} {{ getOnlineSinceLabel(onlineSinceSliderLabel) | translate }}
-      </span>
-    </div>
-  </div>
 
 </form>
 
