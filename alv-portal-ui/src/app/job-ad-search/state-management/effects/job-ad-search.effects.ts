@@ -13,8 +13,7 @@ import {
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
-  RESET_FILTER,
-  ResetFilterApplied
+  RESET_FILTER
 } from '../actions/job-ad-search.actions';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
@@ -80,12 +79,7 @@ export class JobAdSearchEffects {
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => {
-      return [
-        new ApplyFilterAction(state.jobSearchFilter),
-        new ResetFilterApplied(state.jobSearchFilter)
-      ]
-    })
+    map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
   );
 
   @Effect()

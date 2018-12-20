@@ -1,9 +1,16 @@
-<alv-query-search-panel (queriesChange)="onQueryChange($event)"
-                        (resetFilter)="onResetFilter($event)"
-                        [applyFilterReset$]="applyFilterReset$"
-                        [loading$]="resultsAreLoading$"
-                        [jobSearchFilter]="jobSearchFilter$ | async">
-</alv-query-search-panel>
+<div class="container-fluid">
+
+  <alv-query-search-panel (queriesChange)="onQueryChange($event)"
+                          [applyFilterReset$]="applyFilterReset$"
+                          [loading$]="resultsAreLoading$"
+                          [jobSearchFilter]="jobSearchFilter$ | async">
+  </alv-query-search-panel>
+
+  <button class="btn btn-text"
+          (click)="onResetFilter()">
+    {{ 'job-search.toolbar.reset' | translate }}
+  </button>
+</div>
 
 <div (scrolled)="onScroll()"
      [fromRoot]="true"

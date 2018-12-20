@@ -19,12 +19,11 @@ import {
 } from '../state-management/state/job-ad-search.state';
 import { Observable } from 'rxjs';
 import {
+  APPLY_FILTER,
   ApplyFilterAction,
   InitResultListAction,
   LoadNextPageAction,
-  RESET_FILTER_APPLIED,
   ResetFilterAction,
-  ResetFilterApplied
 } from '../state-management/actions/job-ad-search.actions';
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
@@ -81,8 +80,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     );
 
     this.applyFilterReset$ = this.jobAdSearchEffects.resetFilter$.pipe(
-      ofType(RESET_FILTER_APPLIED),
-      map((a: ResetFilterApplied) => a.payload)
+      ofType(APPLY_FILTER),
+      map((a: ApplyFilterAction) => {
+        return a.payload;
+      })
     );
 
   }

@@ -37,9 +37,6 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
   @Output()
   queriesChange = new EventEmitter<QueryPanelValues>();
 
-  @Output()
-  resetFilter = new EventEmitter<void>();
-
   form: FormGroup;
 
   showSpinner = false;
@@ -86,10 +83,6 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
     if (!ctrl.value.find((i: SimpleMultiTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
       ctrl.setValue([...ctrl.value, geoLocalitySuggestion]);
     }
-  }
-
-  onResetFilter() {
-    this.resetFilter.emit();
   }
 
   private onFilterFormReset(filter: JobSearchFilter): void {

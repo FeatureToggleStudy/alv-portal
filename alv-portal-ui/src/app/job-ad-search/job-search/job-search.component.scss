@@ -1,6 +1,12 @@
 @import '../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../node_modules/bootstrap/scss/mixins';
+@import "../../../scss/common/colors";
+
+.container-fluid {
+  background-color: $color-super-light-grey;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+}
 
 @include media-breakpoint-up(md) {
   .side-panel {

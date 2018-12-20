@@ -3,10 +3,7 @@
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
-.container-fluid {
-  background-color: $color-super-light-grey;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
-}
+
 
 .geo-location-selector {
   position: absolute;
