@@ -39,7 +39,11 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   jobSearchFilter: JobSearchFilter;
 
   @Input()
-  applyFilterReset$: Observable<JobSearchFilter>;
+  set applyFilterReset(filter: JobSearchFilter) {
+    if (this.form && filter) {
+      this.onFilterFormReset(filter);
+    }
+  }
 
   expanded = false;
 
@@ -134,10 +138,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       .subscribe(percentageMax => {
         this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
       });
-
-    this.applyFilterReset$.pipe(
-      takeUntil(this.ngUnsubscribe))
-      .subscribe((filter) => this.onFilterFormReset(filter));
   }
 
   private onFilterFormReset(filter: JobSearchFilter): void {

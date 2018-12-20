@@ -19,7 +19,7 @@ import { JobAdvertisementRepository } from '../../../shared/backend-services/job
 import {
   catchError,
   debounceTime,
-  map,
+  map, share,
   switchMap,
   take,
   takeUntil,
@@ -79,7 +79,8 @@ export class JobAdSearchEffects {
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
+    map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter)),
+    share()
   );
 
   @Effect()

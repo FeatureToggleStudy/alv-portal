@@ -29,17 +29,19 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
   jobSearchFilter: JobSearchFilter;
 
   @Input()
-  loading$: Observable<boolean>;
+  showSpinner: boolean;
 
   @Input()
-  applyFilterReset$: Observable<JobSearchFilter>;
+  set applyFilterReset(filter: JobSearchFilter) {
+    if (this.form && filter) {
+      this.onFilterFormReset(filter);
+    }
+  }
 
   @Output()
   queriesChange = new EventEmitter<QueryPanelValues>();
 
   form: FormGroup;
-
-  showSpinner = false;
 
   constructor(private fb: FormBuilder,
               private occupationSuggestionService: OccupationSuggestionService,
@@ -54,19 +56,10 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
       localities: [this.jobSearchFilter.localities],
     });
 
-    this.loading$.pipe(
-      takeUntil(this.ngUnsubscribe))
-      .subscribe((loading) => this.showSpinner = loading);
-
     this.form.valueChanges.pipe(
       map<any, QueryPanelValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
       .subscribe(queryPanelValues => this.queriesChange.next(queryPanelValues));
-
-    this.applyFilterReset$.pipe(
-      takeUntil(this.ngUnsubscribe))
-      .subscribe((filter) => this.onFilterFormReset(filter));
-
   }
 
   loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
