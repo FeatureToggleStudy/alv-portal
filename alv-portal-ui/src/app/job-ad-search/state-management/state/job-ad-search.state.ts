@@ -16,7 +16,7 @@ export const initialState: JobAdSearchState = {
   totalCount: 0,
   page: 0,
   jobSearchFilter: {
-    sort: Sort.DATE_ASC,
+    sort: Sort.RELEVANCE_DESC,
     displayRestricted: false,
     contractType: ContractType.ALL,
     workloadPercentageMin: 0,

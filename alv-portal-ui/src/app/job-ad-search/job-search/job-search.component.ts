@@ -19,9 +19,11 @@ import {
 } from '../state-management/state/job-ad-search.state';
 import { Observable } from 'rxjs';
 import {
+  APPLY_FILTER,
   ApplyFilterAction,
   InitResultListAction,
-  LoadNextPageAction
+  LoadNextPageAction,
+  ResetFilterAction,
 } from '../state-management/actions/job-ad-search.actions';
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
@@ -29,6 +31,8 @@ import { QueryPanelValues } from './query-search-panel/query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { DOCUMENT } from '@angular/common';
+import { JobAdSearchEffects } from '../state-management/effects/job-ad-search.effects';
+import { ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'alv-job-search',
@@ -48,7 +52,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   jobSearchMailToLink$: Observable<string>;
 
+  applyFilterReset$: Observable<JobSearchFilter>;
+
   constructor(private store: Store<JobAdSearchState>,
+              private jobAdSearchEffects: JobAdSearchEffects,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               @Inject(DOCUMENT) private document: any) {
     super();
@@ -70,6 +77,13 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       map((jobSearchFilter: JobSearchFilter) => this.jobSearchFilterParameterService.encode(jobSearchFilter)),
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
+    );
+
+    this.applyFilterReset$ = this.jobAdSearchEffects.resetFilter$.pipe(
+      ofType(APPLY_FILTER),
+      map((a: ApplyFilterAction) => {
+        return a.payload;
+      })
     );
 
   }
@@ -105,6 +119,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       .subscribe((jobSearchFilter) => {
         this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
       });
+  }
+
+  onResetFilter() {
+    this.store.dispatch(new ResetFilterAction({}));
   }
 
   onScroll() {

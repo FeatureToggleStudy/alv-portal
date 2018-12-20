@@ -1,7 +1,18 @@
-<alv-query-search-panel (filtersChange)="onQueryChange($event)"
-                        [loading$]="resultsAreLoading$"
-                        [jobSearchFilter]="jobSearchFilter$ | async">
-</alv-query-search-panel>
+<div class="container-fluid query-search-area py-4">
+  <div class="form-row">
+    <alv-query-search-panel class="col-md-9"
+                            (queriesChange)="onQueryChange($event)"
+                            [applyFilterReset]="applyFilterReset$ | async"
+                            [showSpinner]="resultsAreLoading$ | async"
+                            [jobSearchFilter]="jobSearchFilter$ | async">
+    </alv-query-search-panel>
+
+    <button class="btn btn-text col-md-1"
+            (click)="onResetFilter()">
+      {{ 'job-search.toolbar.reset' | translate }}
+    </button>
+  </div>
+</div>
 <div (scrolled)="onScroll()"
      [fromRoot]="true"
      [infiniteScrollThrottle]="50"
@@ -19,7 +30,9 @@
           </ng-template>
         </div>
         <alv-filter-panel (filtersChange)="onFiltersChange($event)"
-                          [jobSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>
+                          [applyFilterReset]="applyFilterReset$ | async"
+                          [jobSearchFilter]="jobSearchFilter$ | async">
+        </alv-filter-panel>
       </div>
     </div>
     <div class="col-xs-12 col-md-6 col-xl-8 order-3 order-md-2">

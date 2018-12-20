@@ -38,6 +38,13 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   @Input()
   jobSearchFilter: JobSearchFilter;
 
+  @Input()
+  set applyFilterReset(filter: JobSearchFilter) {
+    if (this.form && filter) {
+      this.onFilterFormReset(filter);
+    }
+  }
+
   expanded = false;
 
   restrictOptions$: Observable<SelectableOption[]> = of([
@@ -131,6 +138,18 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       .subscribe(percentageMax => {
         this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
       });
+  }
+
+  private onFilterFormReset(filter: JobSearchFilter): void {
+    this.form.reset({
+      displayRestricted: filter.displayRestricted,
+      sort: filter.sort,
+      company: filter.company,
+      contractType: filter.contractType,
+      workloadPercentageMin: filter.workloadPercentageMin,
+      workloadPercentageMax: filter.workloadPercentageMax,
+      onlineSince: filter.onlineSince
+    }, { emitEvent: false });
   }
 
   updateSliderValue(value: number) {
