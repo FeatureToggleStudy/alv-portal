@@ -5,7 +5,7 @@ import { SelectableOption } from '../../../shared/forms/input/selectable-option.
 
 import { UserRole } from '../../../core/auth/user.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { map, takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import {
   ContractType,
   JobSearchFilter,
@@ -66,7 +66,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     Object.keys(Degree).map(degree => {
       return {
         value: degree,
-        label: 'global.degree.' + degree
+        label: 'global.degree.avamCode.' + degree
       };
     })
   ));
@@ -152,17 +152,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
         takeUntil(this.ngUnsubscribe))
       .subscribe(filterPanelData => this.filtersChange.next(filterPanelData));
 
-    this.form.get('workloadPercentageMin').valueChanges
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(percentageMin => {
-        this.percentagesMax$.next(this.defaultPercentages.filter(item => item.value >= percentageMin));
-      });
-
-    this.form.get('workloadPercentageMax').valueChanges
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(percentageMax => {
-        this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
-      });
   }
 
   toggleExpanded() {
@@ -176,17 +165,26 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   getCantonOptions(query: string): Observable<MultiTypeaheadItemModel[]> {
 
     const translatedOptions = Object.keys(Canton)
-     // .filter((key) => !isNaN(Number(Canton[key])))
-
+      .filter((key) => !isNaN(Number(Canton[key])))
       .map(this.cantonAutocompleteMapper)
       .map((option: MultiTypeaheadItemModel) => {
         return this.translateService.stream(option.label).pipe(
-          map((translation) => Object.assign({}, option, { label: translation }))
+          map((translation) => {
+            option.label = translation;
+            return option;
+          })
         );
-
       });
 
-    return combineLatest(translatedOptions);
+    return combineLatest(translatedOptions).pipe(
+      map(this.filterCantons(query))
+    );
+  }
+
+  private filterCantons(query: string) {
+    return (cantons, index) => {
+      return cantons.filter(  option => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
+    };
   }
 
   private cantonAutocompleteMapper(cantonKey: string, index: number): MultiTypeaheadItemModel {
