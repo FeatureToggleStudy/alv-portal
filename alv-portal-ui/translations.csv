@@ -1361,6 +1361,9 @@ portal,portal.job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,T
 portal,portal.job-detail.jobad-info.label,Informationen zur Stelle
 portal,portal.job-detail.min-requirements.label,Berufliche Mindestanforderung
 portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen
+portal,portal.job-detail.reference.job-id,Stellennummer,Job ID,Numéro du poste,Numero posto
+portal,portal.job-detail.reference.phone,Telefon,Telephone,Téléphone,Telefono
+portal,portal.job-detail.reference.responsible-job-center,Zuständiges RAV,Responsible job centre,ORP compétent,URC competente
 
 portal,portal.job-ad.search.query-panel.keywords.placeholder,"Fähigkeiten, Skills"
 portal,portal.job-ad.search.query-panel.keywords.tooltip,"Sie können mehrere Suchbegriffe eingeben. Drücken Sie nach Eingabe Enter um weitere Suchbegriffe hinzuzufügen."
