@@ -1,7 +1,10 @@
-<alv-query-search-panel (filtersChange)="onQueryChange($event)"
+<alv-query-search-panel (queriesChange)="onQueryChange($event)"
+                        (resetFilter)="onResetFilter($event)"
+                        [applyFilterReset$]="applyFilterReset$"
                         [loading$]="resultsAreLoading$"
                         [jobSearchFilter]="jobSearchFilter$ | async">
 </alv-query-search-panel>
+
 <div (scrolled)="onScroll()"
      [fromRoot]="true"
      [infiniteScrollThrottle]="50"
@@ -19,6 +22,7 @@
           </ng-template>
         </div>
         <alv-filter-panel (filtersChange)="onFiltersChange($event)"
+                          [applyFilterReset$]="applyFilterReset$"
                           [jobSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>
       </div>
     </div>

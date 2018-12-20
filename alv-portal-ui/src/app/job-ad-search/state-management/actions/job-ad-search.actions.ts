@@ -6,6 +6,7 @@ export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
 export const APPLY_FILTER = 'JOBS:APPLY_FILTER';
 export const RESET_FILTER = 'JOBS:RESET_FILTER';
+export const RESET_FILTER_APPLIED = 'JOBS:RESET_FILTER_APPLIED';
 export const LOAD_NEXT_PAGE = 'JOBS:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'JOBS:NEXT_PAGE_LOADED';
 
@@ -20,6 +21,9 @@ export class InitResultListAction implements Action {
   }
 }
 
+/**
+ * Action to reset the current filter to it's initial state
+ */
 export class ResetFilterAction implements Action {
   readonly type = RESET_FILTER;
 
@@ -27,6 +31,19 @@ export class ResetFilterAction implements Action {
   }
 }
 
+/**
+ * Action after the filter has been reset
+ */
+export class ResetFilterApplied implements Action {
+  readonly type = RESET_FILTER_APPLIED;
+
+  constructor(public payload: JobSearchFilter) {
+  }
+}
+
+/**
+ * Action in order to apply a new Filter
+ */
 export class ApplyFilterAction implements Action {
   readonly type = APPLY_FILTER;
 
@@ -34,6 +51,9 @@ export class ApplyFilterAction implements Action {
   }
 }
 
+/**
+ * Action after the Filter has been applied
+ */
 export class FilterAppliedAction implements Action {
   readonly type = FILTER_APPLIED;
 

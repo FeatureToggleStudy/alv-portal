@@ -20,6 +20,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         jobSearchFilter: {
           ...action.payload
         },
+        page: 0,
         resultsAreLoading: true
       };
       break;

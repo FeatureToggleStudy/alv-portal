@@ -50,7 +50,8 @@
     </div>
 
   <div class="col-md-3">
-    <button class="btn btn-primary mr-1">
+    <button class="btn btn-primary mr-1"
+            aria-label="search">
       <i *ngIf="showSpinner"
          class="fas fa-sync-alt fa-spin ">
       </i>
@@ -58,6 +59,9 @@
          class="fas fa-search">
       </i>
     </button>
-    <button class="btn btn-text">{{ 'job-search.toolbar.reset' | translate }}</button>
+    <button class="btn btn-text"
+            (click)="onResetFilter()">
+      {{ 'job-search.toolbar.reset' | translate }}
+    </button>
   </div>
 </div>

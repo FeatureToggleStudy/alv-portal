@@ -11,8 +11,8 @@ import {
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { JobSearchFilter } from '../../state-management/state/job-search-filter.types';
 import { map, takeUntil } from 'rxjs/operators';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 @Component({
   selector: 'alv-query-search-panel',
@@ -28,11 +28,17 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
   @Input()
   jobSearchFilter: JobSearchFilter;
 
-  @Output()
-  filtersChange = new EventEmitter<QueryPanelValues>();
-
   @Input()
   loading$: Observable<boolean>;
+
+  @Input()
+  applyFilterReset$: Observable<JobSearchFilter>;
+
+  @Output()
+  queriesChange = new EventEmitter<QueryPanelValues>();
+
+  @Output()
+  resetFilter = new EventEmitter<void>();
 
   form: FormGroup;
 
@@ -58,7 +64,12 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
     this.form.valueChanges.pipe(
       map<any, QueryPanelValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
-      .subscribe(queryPanelValues => this.filtersChange.next(queryPanelValues));
+      .subscribe(queryPanelValues => this.queriesChange.next(queryPanelValues));
+
+    this.applyFilterReset$.pipe(
+      takeUntil(this.ngUnsubscribe))
+      .subscribe((filter) => this.onFilterFormReset(filter));
+
   }
 
   loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
@@ -70,12 +81,23 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
   }
 
   onGeoSelection(locality: LocalitySuggestion) {
-    const currentLocality = new SimpleMultiTypeaheadItem(LocalityInputType.LOCALITY, String(locality.communalCode), locality.city, 0);
+    const geoLocalitySuggestion = new SimpleMultiTypeaheadItem(LocalityInputType.LOCALITY, String(locality.communalCode), locality.city, 0);
     const ctrl = this.form.get('localities');
-    const exists = !!ctrl.value.find((i: SimpleMultiTypeaheadItem) => currentLocality.equals(i));
-    if (!exists) {
-      ctrl.setValue([...ctrl.value, currentLocality]);
+    if (!ctrl.value.find((i: SimpleMultiTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
+      ctrl.setValue([...ctrl.value, geoLocalitySuggestion]);
     }
+  }
+
+  onResetFilter() {
+    this.resetFilter.emit();
+  }
+
+  private onFilterFormReset(filter: JobSearchFilter): void {
+    this.form.reset({
+      occupations: filter.occupations,
+      keywords: filter.keywords,
+      localities: filter.localities,
+    }, { emitEvent: false });
   }
 
   private map(valueChanges: any): QueryPanelValues {

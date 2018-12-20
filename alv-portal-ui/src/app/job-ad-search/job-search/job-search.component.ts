@@ -22,7 +22,9 @@ import {
   ApplyFilterAction,
   InitResultListAction,
   LoadNextPageAction,
-  ResetFilterAction
+  RESET_FILTER_APPLIED,
+  ResetFilterAction,
+  ResetFilterApplied
 } from '../state-management/actions/job-ad-search.actions';
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
@@ -30,6 +32,8 @@ import { QueryPanelValues } from './query-search-panel/query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { DOCUMENT } from '@angular/common';
+import { JobAdSearchEffects } from '../state-management/effects/job-ad-search.effects';
+import { ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'alv-job-search',
@@ -49,7 +53,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   jobSearchMailToLink$: Observable<string>;
 
+  applyFilterReset$: Observable<JobSearchFilter>;
+
   constructor(private store: Store<JobAdSearchState>,
+              private jobAdSearchEffects: JobAdSearchEffects,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               @Inject(DOCUMENT) private document: any) {
     super();
@@ -71,6 +78,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       map((jobSearchFilter: JobSearchFilter) => this.jobSearchFilterParameterService.encode(jobSearchFilter)),
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
+    );
+
+    this.applyFilterReset$ = this.jobAdSearchEffects.resetFilter$.pipe(
+      ofType(RESET_FILTER_APPLIED),
+      map((a: ResetFilterApplied) => a.payload)
     );
 
   }
@@ -108,7 +120,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       });
   }
 
-  onResetFilter(){
+  onResetFilter() {
     this.store.dispatch(new ResetFilterAction({}));
   }
 
