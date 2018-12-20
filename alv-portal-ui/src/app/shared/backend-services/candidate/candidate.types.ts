@@ -8,7 +8,7 @@ import {
   ISCED_1997,
   LanguageSkill
 } from '../shared.types';
-import { Occupation } from '../job-advertisement/job-advertisement.types';
+import { OccupationCode } from '../reference-service/occupation-code';
 
 export interface CandidateSearchRequest {
   page: number;
@@ -19,11 +19,29 @@ export interface CandidateSearchRequest {
 
 export interface CandidateSearchResponse {
   totalCount: number;
-  result: Candidate[];
+  result: CandidateProfile[];
 }
 
 export interface CandidateSearchRequestBody {
-  // todo: add implementation
+  occupationCodes?: OccupationCode[];
+  skills?: Array<string>;
+  experience?: string;
+  workplace?: string;
+  residence?: Array<string>;
+  cantonCode?: string;
+  regionCode?: string;
+  availability?: string;
+  workLoad?: WorkLoad;
+  workForm?: string;
+  degree?: string;
+  graduation?: string;
+  drivingLicenceCategory?: string;
+  languageSkills?: LanguageSkill[];
+}
+
+export interface WorkLoad {
+  min: number;
+  max: number;
 }
 
 export interface Candidate {
@@ -77,4 +95,11 @@ export interface JobExperience {
   remark: string;
   lastJob: boolean;
   wanted: boolean;
+}
+
+export interface Occupation {
+  avamCode: number;
+  bfsCode: number;
+  sbn3Code: number;
+  sbn5Code: number;
 }

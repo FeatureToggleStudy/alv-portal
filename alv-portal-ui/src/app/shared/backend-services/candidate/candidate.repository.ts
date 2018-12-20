@@ -22,9 +22,9 @@ export class CandidateRepository {
   constructor(private http: HttpClient) {
   }
 
-  search(request: CandidateSearchRequest): Observable<CandidateSearchResponse> {
+  searchCandidateProfiles(request: CandidateSearchRequest): Observable<CandidateSearchResponse> {
     const params = createPageableURLSearchParams(request);
-    return this.http.post<Candidate[]>(this.searchUrl, request.body, {
+    return this.http.post<CandidateProfile[]>(this.searchUrl, request.body, {
       params,
       observe: 'response'
     }).pipe(

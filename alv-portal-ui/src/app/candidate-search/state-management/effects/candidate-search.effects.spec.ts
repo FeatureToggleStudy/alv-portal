@@ -1,15 +1,15 @@
 import { Store, StoreModule } from '@ngrx/store';
-import { CandidateSearchState } from '../state/candidate-search.state';
+import {
+  CANDIDATE_SEARCH_EFFECTS_DEBOUNCE,
+  CANDIDATE_SEARCH_EFFECTS_SCHEDULER,
+  CandidateSearchEffects,
+  candidateSearchReducer,
+  CandidateSearchState
+} from '..';
 import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
 import { getTestScheduler } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { candidateSearchReducer } from '../reducers/candidate-search.reducers';
-import {
-  CANDIDATE_SEARCH_EFFECTS_DEBOUNCE,
-  CANDIDATE_SEARCH_EFFECTS_SCHEDULER,
-  CandidateSearchEffects
-} from './candidate-search.effects';
 import { Observable } from 'rxjs/index';
 import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
 import SpyObj = jasmine.SpyObj;

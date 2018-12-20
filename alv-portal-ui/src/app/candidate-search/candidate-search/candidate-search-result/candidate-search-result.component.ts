@@ -3,7 +3,8 @@ import { ResultListItem } from '../../../shared/layout/result-list-item/result-l
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
-import { CandidateSearchResult } from '../candidate-search.component';
+import { CandidateSearchResult } from '../../state-management';
+import { JobExperience } from '../../../shared/backend-services/candidate/candidate.types';
 
 @Component({
   selector: 'alv-candidate-search-result',
@@ -25,15 +26,19 @@ export class CandidateSearchResultComponent implements OnInit {
   }
 
   private candidateSearchResultToResultListItemMapper(candidateSearchResult: CandidateSearchResult): Observable<ResultListItem> {
-    const candidate = candidateSearchResult.candidate;
+    const candidateProfile = candidateSearchResult.candidateProfile;
+
+    //todo: calculate the relevant jobExperience
+    const jobExperience: JobExperience = candidateProfile.jobExperiences[0];
+
     return this.i18nService.currentLanguage$.pipe(
       map(lang => {
         return {
-          title: 'Job experience label',
-          description: 'Job experience description',
-          header: 'date, e.g. 15.12.2018',
+          title: jobExperience ? String(jobExperience.occupation.avamCode) : '',
+          description: jobExperience ? jobExperience.remark : '',
+          header: null,
           badges: [],
-          routerLink: ['/candidate-search', candidate.id],
+          routerLink: ['/candidate-search', candidateProfile.id],
           subtitle: null, // not needed for candidate
           visited: candidateSearchResult.visited
         };

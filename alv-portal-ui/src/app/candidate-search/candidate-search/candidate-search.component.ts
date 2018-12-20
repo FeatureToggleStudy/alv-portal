@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Candidate } from '../../shared/backend-services/candidate/candidate.types';
-import { Degree } from '../../shared/backend-services/shared.types';
+import {
+  CandidateSearchResult,
+  CandidateSearchState,
+  getCandidateSearchResults,
+  getResultsAreLoading,
+  getTotalCount,
+  InitResultListAction,
+  LoadNextPageAction
+} from '../state-management';
+import { select, Store } from '@ngrx/store';
+
 
 @Component({
   selector: 'alv-candidate-search',
@@ -10,19 +19,29 @@ import { Degree } from '../../shared/backend-services/shared.types';
 })
 export class CandidateSearchComponent implements OnInit {
 
-  candidateSearchResults: Observable<CandidateSearchResult[]>;
+  totalCount$: Observable<number>;
 
-  constructor() { }
+  resultsAreLoading$: Observable<boolean>;
+
+  candidateSearchResults$: Observable<CandidateSearchResult[]>;
+
+  constructor(private store: Store<CandidateSearchState>) {
+  }
 
   ngOnInit() {
+
+    this.store.dispatch(new InitResultListAction());
+
+    this.totalCount$ = this.store.pipe(select(getTotalCount));
+
+    this.candidateSearchResults$ = this.store.pipe(select(getCandidateSearchResults));
+
+    this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
+
   }
 
   onScroll() {
+    this.store.dispatch(new LoadNextPageAction());
   }
 
-}
-
-export interface CandidateSearchResult {
-  candidate: Candidate;
-  visited: boolean;
 }

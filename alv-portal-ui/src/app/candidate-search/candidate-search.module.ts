@@ -8,9 +8,8 @@ import { CandidateDetailComponent } from './candidate-detail/candidate-detail.co
 import { CandidateSearchResultComponent } from './candidate-search/candidate-search-result/candidate-search-result.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { CandidateSearchEffects } from './state-management/effects/candidate-search.effects';
-import { candidateSearchReducer } from './state-management/reducers/candidate-search.reducers';
 import { FilterPanelComponent } from './candidate-search/filter-panel/filter-panel.component';
+import { CandidateSearchEffects, candidateSearchReducer } from './state-management';
 
 
 @NgModule({

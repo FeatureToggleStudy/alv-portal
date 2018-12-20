@@ -9,20 +9,17 @@
   <alv-three-column-layout>
     <ng-container class="left-column">
       <div class="alv-bar mb-1">
-        {{'portal.candidate-search.results-count.label' | translate}}
-        <!-- TODO: display candidate count
         <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
         <ng-template #resultsCount>
-          <strong>{{totalCount$ | async }} Stellen</strong>
+          <strong>{{totalCount$ | async }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
         </ng-template>
-        -->
       </div>
       <alv-filter-panel
                         [candidateSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>
     </ng-container>
 
     <ng-container class="main-column">
-      <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults | async"
+      <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults$ | async"
                                    [candidateSearchResult]="candidateSearchResult">
       </alv-candidate-search-result>
     </ng-container>
