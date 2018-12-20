@@ -91,7 +91,7 @@
         <div *ngIf="result.firstInGroup"
              class="typeahead-group-label pull-right"
              [ngClass]="getTypeClass(result.model)">
-          {{ result.model.type | translate}}
+          {{ 'typeahead-multiselect.type.' + result.model.type | translate}}
         </div>
         <div [ngClass]="{'first-in-group-item': result.firstInGroup}">
           <div *ngIf="result.firstInGroup"></div>
