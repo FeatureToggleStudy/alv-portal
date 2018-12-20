@@ -130,7 +130,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     }
     if (event.code === 'Backspace') {
       if (!this.inputValue && this.control.value && this.control.value.length) {
-        let result = [...this.control.value];
+        const result = [...this.control.value];
         result.splice(-1, 1);
         this.control.setValue(result);
       }
