@@ -1,11 +1,10 @@
 <div class="container-fluid query-search-area py-4">
   <div class="form-row">
-    <alv-query-search-panel (queriesChange)="onQueryChange($event)"
+    <alv-query-search-panel class="col-md-9"
+                            (queriesChange)="onQueryChange($event)"
                             [applyFilterReset]="applyFilterReset$ | async"
                             [showSpinner]="resultsAreLoading$ | async"
-                            [jobSearchFilter]="jobSearchFilter$ | async"
-                            class="col-md-9"
-    >
+                            [jobSearchFilter]="jobSearchFilter$ | async">
     </alv-query-search-panel>
 
     <button class="btn btn-text col-md-1"
