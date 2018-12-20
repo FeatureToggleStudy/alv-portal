@@ -21,7 +21,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
           ...action.payload
         },
         page: 0,
-        resultsAreLoading: true
+        resultsAreLoading: true,
       };
       break;
 
@@ -30,7 +30,6 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         ...state,
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
-        page: 0,
         resultsAreLoading: false
       };
       break;
