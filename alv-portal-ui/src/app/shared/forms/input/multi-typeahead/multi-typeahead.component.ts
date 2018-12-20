@@ -130,7 +130,9 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     }
     if (event.code === 'Backspace') {
       if (!this.inputValue && this.control.value && this.control.value.length) {
-        this.control.value.splice(this.control.value.length - 1, 1);
+        let result = [...this.control.value];
+        result.splice(-1, 1);
+        this.control.setValue(result);
       }
       return;
     }
@@ -225,5 +227,5 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   private getTypeaheadNativeElement(): any {
     return this.ngbTypeahead && this.ngbTypeahead._elementRef.nativeElement || {};
   }
-  
+
 }
