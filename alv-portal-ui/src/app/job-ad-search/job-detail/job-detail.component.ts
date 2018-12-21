@@ -29,6 +29,7 @@ import { JobDetailModelFactory } from './job-detail-model-factory';
 import { JobDetailModel } from './job-detail-model';
 import { map } from 'rxjs/operators';
 import { isDeactivated, isExternal, isUnvalidated } from '../job-ad-rules';
+import { ScrollService } from '../../core/scroll.service';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -90,12 +91,12 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     private jobBadgesMapperService: JobBadgesMapperService,
     private jobDetailModelFactory: JobDetailModelFactory,
     private store: Store<JobAdSearchState>,
-    @Inject(DOCUMENT) private document: any) {
+    private scrollService: ScrollService) {
     super();
   }
 
   ngAfterViewInit(): void {
-    this.document.querySelector('main').scroll(0, 0);
+    this.scrollService.scrollToTop();
   }
 
   ngOnInit() {

@@ -20,6 +20,7 @@ import {
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
+import { ScrollService } from '../../core/scroll.service';
 
 
 @Component({
@@ -41,7 +42,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   jobSearchMailToLink$: Observable<string>;
 
   constructor(private store: Store<JobAdSearchState>,
-              private jobSearchFilterParameterService: JobSearchFilterParameterService) {
+              private jobSearchFilterParameterService: JobSearchFilterParameterService,
+              private scrollService: ScrollService) {
     super();
   }
 
@@ -69,10 +71,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       .pipe(take(1))
       .subscribe(job => {
         if (job) {
-          const resultListItemElement = document.getElementById(composeResultListItemId(job.id));
-          if (resultListItemElement) {
-            resultListItemElement.scrollIntoView();
-          }
+          this.scrollService.scrollIntoView(composeResultListItemId(job.id));
         }
       });
   }
