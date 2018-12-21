@@ -5,7 +5,7 @@ import {
   isShortEmployment,
   isTemporary
 } from '../job-ad-rules';
-import { JobCenter } from '../../shared/backend-services/reference-service/reference-service.types';
+import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 import {
   JobAdvertisement,
   JobDescription

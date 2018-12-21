@@ -1,6 +1,6 @@
 import { JobDetailModelFactory } from './job-detail-model-factory';
 import { I18nService } from '../../core/i18n.service';
-import { ReferenceServiceRepository } from '../../shared/backend-services/reference-service/reference-service.repository';
+import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
 import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
 import {
@@ -115,7 +115,7 @@ describe('JobDetailModelFactory', () => {
   let jobDetailModelFactory: JobDetailModelFactory;
   let i18nServiceMock;
 
-  let referenceServiceRepositoryMock: ReferenceServiceRepository;
+  let referenceServiceRepositoryMock: JobCenterRepository;
 
   const LANGUAGE_VALUES = {
     e: 'en',
@@ -138,7 +138,7 @@ describe('JobDetailModelFactory', () => {
       providers: [
         JobDetailModelFactory,
         { provide: I18nService, useValue: i18nServiceMock },
-        { provide: ReferenceServiceRepository, useValue: referenceServiceRepositoryMock },
+        { provide: JobCenterRepository, useValue: referenceServiceRepositoryMock },
       ]
     });
     jobDetailModelFactory = TestBed.get(JobDetailModelFactory);

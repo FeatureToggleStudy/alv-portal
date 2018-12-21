@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { JobSearchFilter } from '../job-search-filter.types';
+import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
 import { select, Store } from '@ngrx/store';
 import {
   getJobSearchFilter,
@@ -13,14 +13,20 @@ import {
 } from '../state-management/state/job-ad-search.state';
 import { Observable } from 'rxjs';
 import {
+  APPLY_FILTER,
   ApplyFilterAction,
   InitResultListAction,
-  LoadNextPageAction
+  LoadNextPageAction,
+  ResetFilterAction,
 } from '../state-management/actions/job-ad-search.actions';
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
+import { QueryPanelValues } from './query-search-panel/query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { ScrollService } from '../../core/scroll.service';
+import { FilterPanelValues } from './filter-panel/filter-panel.component';
+import { JobAdSearchEffects } from '../state-management/effects/job-ad-search.effects';
+import { ofType } from '@ngrx/effects';
 
 
 @Component({
@@ -41,7 +47,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   jobSearchMailToLink$: Observable<string>;
 
+  applyFilterReset$: Observable<JobSearchFilter>;
+
   constructor(private store: Store<JobAdSearchState>,
+              private jobAdSearchEffects: JobAdSearchEffects,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               private scrollService: ScrollService) {
     super();
@@ -64,6 +73,14 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
+
+    this.applyFilterReset$ = this.jobAdSearchEffects.resetFilter$.pipe(
+      ofType(APPLY_FILTER),
+      map((a: ApplyFilterAction) => {
+        return a.payload;
+      })
+    );
+
   }
 
   ngAfterViewInit() {
@@ -72,12 +89,38 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       .subscribe(job => {
         if (job) {
           this.scrollService.scrollIntoView(composeResultListItemId(job.id));
+          this.scrollService.scrollBy(0, -100);
         }
       });
   }
 
-  onFiltersChange(jobSearchFilter: JobSearchFilter) {
-    this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
+  onQueryChange(queryPanelValues
+                  :
+                  QueryPanelValues
+  ) {
+    // TODO DF-410 Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
+    this.jobSearchFilter$.pipe(
+      map((currentFilter) => Object.assign({}, currentFilter, queryPanelValues)),
+      take(1))
+      .subscribe((jobSearchFilter) => {
+        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
+      });
+  }
+
+  onFiltersChange(filterPanelData
+                    :
+                    FilterPanelValues
+  ) {
+    this.jobSearchFilter$.pipe(
+      map((currentFilter) => Object.assign({}, currentFilter, filterPanelData)),
+      take(1))
+      .subscribe((jobSearchFilter) => {
+        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
+      });
+  }
+
+  onResetFilter() {
+    this.store.dispatch(new ResetFilterAction({}));
   }
 
   onScroll() {

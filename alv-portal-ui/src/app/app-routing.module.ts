@@ -31,6 +31,7 @@ const appRoutes: Routes = [
   {
     path: 'showcase',
     component: ShowcaseComponent,
+    data: { titleKey: 'portal.showcase.browser-title' }
   },
   {
     path: '**',

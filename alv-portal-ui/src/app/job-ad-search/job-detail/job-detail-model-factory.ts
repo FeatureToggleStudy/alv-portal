@@ -4,14 +4,14 @@ import { combineLatest, Observable, of } from 'rxjs';
 import { flatMap, map, withLatestFrom } from 'rxjs/operators';
 import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { I18nService } from '../../core/i18n.service';
-import { ReferenceServiceRepository } from '../../shared/backend-services/reference-service/reference-service.repository';
+import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
 import { JobDetailModel } from './job-detail-model';
 
 
 @Injectable()
 export class JobDetailModelFactory {
 
-  constructor(private i18nService: I18nService, private referenceServiceRepository: ReferenceServiceRepository) {
+  constructor(private i18nService: I18nService, private referenceServiceRepository: JobCenterRepository) {
   }
 
   public create(job$: Observable<JobAdvertisement>): Observable<JobDetailModel> {

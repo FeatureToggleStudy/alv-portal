@@ -19,7 +19,7 @@ import {
 import { Observable } from 'rxjs/index';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { jobAdSearchReducer } from '../reducers/job-ad-search.reducers';
-import { JobSearchFilter } from '../../job-search-filter.types';
+import { JobSearchFilter } from '../state/job-search-filter.types';
 import SpyObj = jasmine.SpyObj;
 
 describe('JobAdSearchEffects', () => {

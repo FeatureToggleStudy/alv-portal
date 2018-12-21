@@ -1,4 +1,4 @@
-import { ContractType, JobSearchFilter, Sort } from '../../job-search-filter.types';
+import { ContractType, JobSearchFilter, Sort } from './job-search-filter.types';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
@@ -23,6 +23,9 @@ export const initialState: JobAdSearchState = {
     workloadPercentageMax: 100,
     company: null,
     onlineSince: 30,
+    occupations: [],
+    keywords: [],
+    localities: []
   },
   resultList: [],
   selectedJobAdvertisement: null,

@@ -6,6 +6,7 @@ import {
   HostListener,
   Inject,
   Input,
+  OnInit,
   Optional,
   Output,
   SkipSelf,
@@ -16,12 +17,16 @@ import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
 import { InputType } from '../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
-import { MultiTypeaheadItemModel } from './multi-typeahead-item.model';
+import { MultiTypeaheadItem } from './multi-typeahead-item';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { MultiTypeaheadItemDisplayModel } from './multi-typeahead-item-display.model';
+import { MultiTypeaheadDisplayItem } from './multi-typeahead-display.item';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
+import { SimpleMultiTypeaheadItem } from './simple-multi-typeahead.item';
+import { EMPTY } from 'rxjs';
+
+export const TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
 enum Key {
   Backspace = 8,
@@ -34,13 +39,11 @@ enum Key {
   templateUrl: './multi-typeahead.component.html',
   styleUrls: ['../abstract-input.scss', './multi-typeahead.component.scss']
 })
-export class MultiTypeaheadComponent extends AbstractInput {
-
-  readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
+export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   readonly TYPEAHEAD_DEBOUNCE_TIME = 200;
 
-  @Input() loadItems: (text: string) => Observable<MultiTypeaheadItemModel[]>;
+  @Input() loadItems: (text: string) => Observable<MultiTypeaheadItem<any>[]>;
 
   @Input() editable = true;
 
@@ -48,7 +51,7 @@ export class MultiTypeaheadComponent extends AbstractInput {
 
   @Input() limit = 0;
 
-  @Output() itemSelected = new EventEmitter<MultiTypeaheadItemModel>();
+  @Output() itemSelected = new EventEmitter<MultiTypeaheadItem<any>>();
 
   @ViewChild(NgbTypeahead) ngbTypeahead;
 
@@ -63,6 +66,16 @@ export class MultiTypeaheadComponent extends AbstractInput {
               @Inject(DOCUMENT) private document: any,
               private elRef: ElementRef) {
     super(controlContainer, InputType.MULTI_TYPEAHEAD, inputIdGenerationService);
+  }
+
+
+  ngOnInit() {
+    super.ngOnInit();
+    if (!this.loadItems) {
+      this.loadItems = () => {
+        return EMPTY;
+      };
+    }
   }
 
   /**
@@ -84,11 +97,11 @@ export class MultiTypeaheadComponent extends AbstractInput {
     return !this.inputValue && (!this.control.value || this.control.value && this.control.value.length === 0);
   }
 
-  formatResultItem(item: MultiTypeaheadItemModel): string {
+  formatResultItem(item: MultiTypeaheadItem<any>): string {
     return item.label;
   }
 
-  getTypeClass(item: MultiTypeaheadItemModel): string {
+  getTypeClass(item: MultiTypeaheadItem<any>): string {
     return `badge-${item.type}`;
   }
 
@@ -117,7 +130,9 @@ export class MultiTypeaheadComponent extends AbstractInput {
     }
     if (event.code === 'Backspace') {
       if (!this.inputValue && this.control.value && this.control.value.length) {
-        this.control.value.splice(this.control.value.length - 1, 1);
+        const result = [...this.control.value];
+        result.splice(-1, 1);
+        this.control.setValue(result);
       }
       return;
     }
@@ -143,52 +158,59 @@ export class MultiTypeaheadComponent extends AbstractInput {
     this.getTypeaheadNativeElement().focus();
   }
 
-  selectFreeText(): MultiTypeaheadItemModel {
-    const freeText = new MultiTypeaheadItemModel('free-text', this.inputValue, this.inputValue);
-    if (!this.itemLimitReached() && this.editable && !this.exists(freeText) && freeText.code
-        && freeText.code.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH) {
-
-      this.control.setValue([...this.control.value || [], freeText]);
-
-      this.clearInput();
-      return freeText;
+  selectFreeText(): MultiTypeaheadItem<any> {
+    if (this.itemLimitReached()
+      || !this.editable
+      || !this.inputValue
+      || this.inputValue.length < TYPEAHEAD_QUERY_MIN_LENGTH) {
+      return null;
     }
-    return null;
+    const freeTextItem = new SimpleMultiTypeaheadItem(
+      'free-text',
+      this.inputValue,
+      this.inputValue
+    );
+    if (this.exists(freeTextItem)) {
+      return null;
+    }
+    this.control.setValue([...this.control.value || [], freeTextItem]);
+    this.clearInput();
+    return freeTextItem;
   }
 
-  removeItem(item: MultiTypeaheadItemModel): void {
-    this.control.setValue(this.control.value.filter((i: MultiTypeaheadItemModel) => !item.equals(i)));
+  removeItem(item: MultiTypeaheadItem<any>): void {
+    this.control.setValue(this.control.value.filter((i) => !item.equals(i)));
     this.clearInput();
     this.getTypeaheadNativeElement().focus();
   }
 
-  private loadItemsGuarded(text$: Observable<string>): Observable<MultiTypeaheadItemDisplayModel[]> {
+  private loadItemsGuarded(text$: Observable<string>): Observable<MultiTypeaheadDisplayItem[]> {
     return text$.pipe(
-        debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
-        switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
-            ? this.loadItems(query)
-            : of([])),
-        map(this.toDisplayModelArray.bind(this))
+      debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
+      switchMap((query: string) => query.length >= TYPEAHEAD_QUERY_MIN_LENGTH
+        ? this.loadItems(query)
+        : of([])),
+      map(this.toDisplayModelArray.bind(this))
     );
   }
 
-  private toDisplayModelArray(items: MultiTypeaheadItemModel[]): MultiTypeaheadItemDisplayModel[] {
+  private toDisplayModelArray(items: MultiTypeaheadItem<any>[]): MultiTypeaheadDisplayItem[] {
     return items
-      .filter((item: MultiTypeaheadItemModel) => !this.exists(item))
-      .sort((item1: MultiTypeaheadItemModel, item2: MultiTypeaheadItemModel) => item1.compare(item2))
-        .map(this.toDisplayModel);
+      .filter((item: MultiTypeaheadItem<any>) => !this.exists(item))
+      .sort((item1: MultiTypeaheadItem<any>, item2: MultiTypeaheadItem<any>) => item1.compare(item2))
+      .map(this.toDisplayModel);
   }
 
-  private toDisplayModel(item: MultiTypeaheadItemModel, idx: number, array: MultiTypeaheadItemModel[]): MultiTypeaheadItemDisplayModel {
+  private toDisplayModel(item: MultiTypeaheadItem<any>, idx: number, array: MultiTypeaheadItem<any>[]): MultiTypeaheadDisplayItem {
     let firstInGroup = false;
     if (idx === 0 || item.type !== array[idx - 1].type) {
       firstInGroup = true;
     }
-    return new MultiTypeaheadItemDisplayModel(item, idx === 0, firstInGroup);
+    return new MultiTypeaheadDisplayItem(item, idx === 0, firstInGroup);
   }
 
-  private exists(model: MultiTypeaheadItemModel): boolean {
-    return this.control.value && !!this.control.value.find((itemModel: MultiTypeaheadItemModel) => model.equals(itemModel));
+  private exists(model: MultiTypeaheadItem<any>): boolean {
+    return this.control.value && !!this.control.value.find((itemModel) => model.equals(itemModel));
   }
 
   private itemLimitReached(): boolean {
@@ -202,7 +224,8 @@ export class MultiTypeaheadComponent extends AbstractInput {
     this.inputValue = '';
   }
 
-  private getTypeaheadNativeElement(): any  {
+  private getTypeaheadNativeElement(): any {
     return this.ngbTypeahead && this.ngbTypeahead._elementRef.nativeElement || {};
   }
+
 }
