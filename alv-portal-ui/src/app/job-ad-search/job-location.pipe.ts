@@ -11,6 +11,9 @@ export class JobLocationPipe implements PipeTransform {
 
   transform(location: Location, args?: any): any {
     let result = '';
+    if (!location) {
+      return result;
+    }
     if (location.postalCode) {
       result += location.postalCode;
     }

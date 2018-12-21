@@ -2,12 +2,14 @@
 
 .badge-job,
 .badge-workplace,
-.badge-locality {
+.badge-locality,
+.badge-occupation {
   background-color: $color-medium-green;
 }
 
 .badge-job-category,
-.badge-canton {
+.badge-canton,
+.badge-classification {
   background-color: $color-medium-blue;
 }
 

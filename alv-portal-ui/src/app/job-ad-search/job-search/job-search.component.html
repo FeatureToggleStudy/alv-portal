@@ -1,3 +1,18 @@
+<div class="container-fluid query-search-area py-4">
+  <div class="form-row">
+    <alv-query-search-panel class="col-md-9"
+                            (queriesChange)="onQueryChange($event)"
+                            [applyFilterReset]="applyFilterReset$ | async"
+                            [showSpinner]="resultsAreLoading$ | async"
+                            [jobSearchFilter]="jobSearchFilter$ | async">
+    </alv-query-search-panel>
+
+    <button class="btn btn-text col-md-1"
+            (click)="onResetFilter()">
+      {{ 'job-search.toolbar.reset' | translate }}
+    </button>
+  </div>
+</div>
 <div (scrolled)="onScroll()"
      [fromRoot]="true"
      [infiniteScrollThrottle]="50"
@@ -13,9 +28,12 @@
         <ng-template #resultsCount>
           <strong>{{totalCount$ | async }} {{'portal.job-ad-search.results-count.label' | translate}}</strong>
         </ng-template>
+
       </div>
       <alv-filter-panel (filtersChange)="onFiltersChange($event)"
-                        [jobSearchFilter]="jobSearchFilter$ | async"></alv-filter-panel>
+                        [applyFilterReset]="applyFilterReset$ | async"
+                        [jobSearchFilter]="jobSearchFilter$ | async">
+      </alv-filter-panel>
     </ng-container>
 
     <ng-container class="main-column">
@@ -25,13 +43,13 @@
 
     <ng-container class="right-column"
                   *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink">
-      <a class="btn btn-text btn-text-icon side-panel"
+      <a class="btn btn-text btn-text-icon btn-truncate"
          [href]="jobSearchMailToLink">
         <i aria-hidden="true"
            class="fa fa-share mr-1"></i>
         {{'job-detail.action.sendEmail' | translate}}
       </a>
+
     </ng-container>
   </alv-three-column-layout>
-
 </div>

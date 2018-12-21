@@ -5,7 +5,8 @@ import {
   FILTER_APPLIED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
-  NEXT_PAGE_LOADED
+  NEXT_PAGE_LOADED,
+  RESET_FILTER
 } from '../actions/job-ad-search.actions';
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
@@ -19,7 +20,8 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         jobSearchFilter: {
           ...action.payload
         },
-        resultsAreLoading: true
+        page: 0,
+        resultsAreLoading: true,
       };
       break;
 
@@ -28,8 +30,16 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         ...state,
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
-        page: 0,
         resultsAreLoading: false
+      };
+      break;
+
+    case RESET_FILTER:
+      newState = {
+        ...state,
+        jobSearchFilter: {
+          ...initialState.jobSearchFilter
+        },
       };
       break;
 

@@ -12,13 +12,14 @@ import {
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
-  NextPageLoadedAction
+  NextPageLoadedAction,
+  RESET_FILTER
 } from '../actions/job-ad-search.actions';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
   catchError,
   debounceTime,
-  map,
+  map, share,
   switchMap,
   take,
   takeUntil,
@@ -49,7 +50,7 @@ export class JobAdSearchEffects {
     ofType(INIT_RESULT_LIST),
     take(1),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([filter, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
+    switchMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
       map((response) => new FilterAppliedAction({
         page: response.result,
         totalCount: response.totalCount
@@ -72,6 +73,14 @@ export class JobAdSearchEffects {
       })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
+  );
+
+  @Effect()
+  resetFilter$: Observable<Action> = this.actions$.pipe(
+    ofType(RESET_FILTER),
+    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
+    map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter)),
+    share()
   );
 
   @Effect()

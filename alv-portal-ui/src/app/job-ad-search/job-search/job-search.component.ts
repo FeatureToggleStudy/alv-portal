@@ -1,24 +1,38 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit
+} from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { JobSearchFilter } from '../job-search-filter.types';
+import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
 import { select, Store } from '@ngrx/store';
 import {
   getJobSearchFilter,
   getJobSearchResults,
   getResultsAreLoading,
+  getSelectedJobAdvertisement,
   getTotalCount,
   JobAdSearchState,
   JobSearchResult
 } from '../state-management/state/job-ad-search.state';
 import { Observable } from 'rxjs';
 import {
+  APPLY_FILTER,
   ApplyFilterAction,
   InitResultListAction,
-  LoadNextPageAction
+  LoadNextPageAction,
+  ResetFilterAction,
 } from '../state-management/actions/job-ad-search.actions';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
-
+import { QueryPanelValues } from './query-search-panel/query-panel-values';
+import { composeResultListItemId } from './result-list-item/result-list-item.component';
+import { FilterPanelValues } from './filter-panel/filter-panel.component';
+import { DOCUMENT } from '@angular/common';
+import { JobAdSearchEffects } from '../state-management/effects/job-ad-search.effects';
+import { ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'alv-job-search',
@@ -26,7 +40,7 @@ import { JobSearchFilterParameterService } from './job-search-filter-parameter.s
   styleUrls: ['./job-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JobSearchComponent extends AbstractSubscriber implements OnInit {
+export class JobSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
   totalCount$: Observable<number>;
 
@@ -38,8 +52,12 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
 
   jobSearchMailToLink$: Observable<string>;
 
+  applyFilterReset$: Observable<JobSearchFilter>;
+
   constructor(private store: Store<JobAdSearchState>,
-              private jobSearchFilterParameterService: JobSearchFilterParameterService) {
+              private jobAdSearchEffects: JobAdSearchEffects,
+              private jobSearchFilterParameterService: JobSearchFilterParameterService,
+              @Inject(DOCUMENT) private document: any) {
     super();
   }
 
@@ -60,10 +78,51 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit {
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
+
+    this.applyFilterReset$ = this.jobAdSearchEffects.resetFilter$.pipe(
+      ofType(APPLY_FILTER),
+      map((a: ApplyFilterAction) => {
+        return a.payload;
+      })
+    );
+
   }
 
-  onFiltersChange(jobSearchFilter: JobSearchFilter) {
-    this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
+  ngAfterViewInit() {
+    this.store.pipe(select(getSelectedJobAdvertisement))
+      .pipe(take(1))
+      .subscribe(selectedJobAdvertisement => {
+        if (selectedJobAdvertisement) {
+          const resultListItemElement = this.document.getElementById(composeResultListItemId(selectedJobAdvertisement.id));
+          if (resultListItemElement) {
+            resultListItemElement.scrollIntoView();
+            this.document.querySelector('main').scrollBy(0, -100);
+          }
+        }
+      });
+  }
+
+  onQueryChange(queryPanelValues: QueryPanelValues) {
+    // TODO DF-410 Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
+    this.jobSearchFilter$.pipe(
+      map((currentFilter) => Object.assign({}, currentFilter, queryPanelValues)),
+      take(1))
+      .subscribe((jobSearchFilter) => {
+        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
+      });
+  }
+
+  onFiltersChange(filterPanelData: FilterPanelValues) {
+    this.jobSearchFilter$.pipe(
+      map((currentFilter) => Object.assign({}, currentFilter, filterPanelData)),
+      take(1))
+      .subscribe((jobSearchFilter) => {
+        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
+      });
+  }
+
+  onResetFilter() {
+    this.store.dispatch(new ResetFilterAction({}));
   }
 
   onScroll() {

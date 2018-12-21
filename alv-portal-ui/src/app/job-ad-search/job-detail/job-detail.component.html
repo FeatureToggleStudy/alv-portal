@@ -35,13 +35,13 @@
             </button>
             <a *ngIf="jobDetailModel.applyChannel?.formUrl"
                class="dropdown-item"
-               href="{{jobDetailModel.applyChannel?.formUrl}}"
+               [href]="jobDetailModel.applyChannel?.formUrl"
                target="_blank">
               {{'job-detail.action.applyNow' | translate}}
             </a>
             <a *ngIf="jobDetailModel.jobContent.externalUrl"
                class="dropdown-item"
-               href="{{jobDetailModel.jobContent.externalUrl}}"
+               [href]="jobDetailModel.jobContent.externalUrl"
                target="_blank}">
               {{'job-detail.action.showExternalPage' | translate}}
             </a>
@@ -50,7 +50,7 @@
               <span>{{'job-detail.action.print' | translate}}</span>
             </button>
             <a class="dropdown-item"
-               href="{{'mailto:?body=' + getEncodedUrl()}}">
+               [href]="'mailto:?body=' + getEncodedUrl()">
               <span>{{'job-detail.action.sendEmail' | translate}}</span>
             </a>
           </div>
@@ -103,7 +103,7 @@
 
             <div *ngIf="jobCenter.address as address">
               <strong>
-                {{ 'job-detail.reference.responsible-job-center' | translate }}
+                {{ 'portal.job-detail.reference.responsible-job-center' | translate }}
               </strong>
               <alv-post-address [address]="{
                         name: address.name,
@@ -113,13 +113,13 @@
                         city: address.city}">
               </alv-post-address>
               <br>
-              {{'job-detail.reference.phone' | translate}}
+              {{'portal.job-detail.reference.phone' | translate}}
               <a class="link"
                  href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
             </div>
 
             <ng-container *ngIf="jobDetailModel.stellennummerAvam || jobDetailModel.stellennummerEgov">
-              <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
+              <strong>{{'portal.job-detail.reference.job-id' | translate}}:</strong>
               <br>
 
               <ng-container *ngIf="jobDetailModel.stellennummerAvam">
@@ -285,7 +285,7 @@
             <li *ngIf="applyChannel.formUrl as formUrl">
               <strong>{{ 'job-detail.application.online' | translate }}</strong>
               <a class="link list-item-content"
-                 href="{{formUrl | normalizeUrl}}">
+                 [href]="formUrl | normalizeUrl">
                 <i class="fas fa-caret-right link-icon"></i>
                 {{ 'job-publication-details.application.online-form' | translate}}
               </a>
@@ -343,14 +343,14 @@
       <p>
         <a *ngIf="jobDetailModel.applyChannel?.formUrl"
            class="btn btn-primary btn-block btn-sm mb-1"
-           href="{{jobDetailModel.applyChannel?.formUrl | normalizeUrl}}"
+           [href]="jobDetailModel.applyChannel?.formUrl | normalizeUrl"
            target="_blank">
           {{'job-detail.action.applyNow' | translate}}
         </a>
         <a *ngIf="jobDetailModel.jobContent.externalUrl"
            class="btn btn-secondary btn-truncate btn-sm"
-           href="{{jobDetailModel.jobContent.externalUrl | normalizeUrl}}"
-           target="{{jobDetailModel.id}}">
+           [href]="jobDetailModel.jobContent.externalUrl | normalizeUrl"
+           [target]="jobDetailModel.id">
           {{'job-detail.action.showExternalPage' | translate}}
         </a>
       </p>
