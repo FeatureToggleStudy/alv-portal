@@ -9,7 +9,6 @@ import {
   LanguageSkill
 } from '../shared.types';
 import { OccupationLabelSuggestion } from '../reference-service/occupation-label.types';
-import { Occupation } from '../job-advertisement/job-advertisement.types';
 
 export interface CandidateSearchRequest {
   page: number;
