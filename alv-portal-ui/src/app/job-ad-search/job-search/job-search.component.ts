@@ -86,7 +86,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       ofType(FILTER_APPLIED))
       .subscribe(() => {
         this.scrollService.scrollToTop();
-      })
+      });
   }
 
   ngAfterViewInit() {
