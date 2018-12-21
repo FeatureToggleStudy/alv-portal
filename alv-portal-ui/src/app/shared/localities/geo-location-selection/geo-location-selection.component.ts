@@ -14,7 +14,7 @@ import { Subscriber } from 'rxjs/src/internal/Subscriber';
   templateUrl: './geo-location-selection.component.html',
   styleUrls: ['./geo-location-selection.component.scss']
 })
-export class GeoLocationSelectionComponent extends AbstractSubscriber implements OnInit {
+export class GeoLocationSelectionComponent extends AbstractSubscriber {
 
   @Output() localitySelect = new EventEmitter<LocalitySuggestion>();
 
@@ -24,10 +24,6 @@ export class GeoLocationSelectionComponent extends AbstractSubscriber implements
 
   constructor(private localityRepository: LocalityRepository) {
     super();
-  }
-
-  ngOnInit() {
-
   }
 
   getLocation(): void {
