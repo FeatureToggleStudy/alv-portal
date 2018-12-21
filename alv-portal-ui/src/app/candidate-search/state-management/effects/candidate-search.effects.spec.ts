@@ -12,6 +12,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs/index';
 import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
+import { Router } from '@angular/router';
 import SpyObj = jasmine.SpyObj;
 
 describe('CandidateSearchEffects', () => {
@@ -20,10 +21,11 @@ describe('CandidateSearchEffects', () => {
   let actions$: Observable<any>;
   let store: Store<CandidateSearchState>;
   let candidateRepository: SpyObj<CandidateRepository>;
+  let router: Router;
 
   beforeEach(() => {
     candidateRepository = jasmine.createSpyObj('mockCandidateRepository', ['search']);
-
+    router = jasmine.createSpyObj('mockRouter', ['navigate']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -33,6 +35,7 @@ describe('CandidateSearchEffects', () => {
         CandidateSearchEffects,
         provideMockActions(() => actions$),
         { provide: CandidateRepository, useValue: candidateRepository },
+        { provide: Router, useValue: router },
         { provide: CANDIDATE_SEARCH_EFFECTS_DEBOUNCE, useValue: 30 },
         { provide: CANDIDATE_SEARCH_EFFECTS_SCHEDULER, useFactory: getTestScheduler },
       ]
