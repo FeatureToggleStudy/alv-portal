@@ -62,7 +62,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
         occupations: this.jobQueryPanelValues.occupations,
         keywords: this.jobQueryPanelValues.keywords,
         localities: this.jobQueryPanelValues.localities,
-      })
+      });
     }
     this.form.valueChanges.pipe(
       map<any, JobQueryPanelValues>((valueChanges) => this.map(valueChanges)),
