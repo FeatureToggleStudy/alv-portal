@@ -1,25 +1,26 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { QueryPanelValues } from './query-panel-values';
-import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
-import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
+import { JobSearchWidgetValues } from './job-search-widget-values';
+import { OccupationMultiTypeaheadItem } from '../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationSuggestionService } from '../../shared/occupations/occupation-suggestion.service';
 import {
   LocalityInputType,
   LocalitySuggestionService
-} from '../../../shared/localities/locality-suggestion.service';
-import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
-import { JobSearchFilter } from '../../state-management/state/job-search-filter.types';
+} from '../../shared/localities/locality-suggestion.service';
+import { SimpleMultiTypeaheadItem } from '../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+// TODO Think about how to expose that
+import { JobSearchFilter } from '../../job-ad-search/state-management/state/job-search-filter.types';
 import { map, takeUntil } from 'rxjs/operators';
-import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { LocalitySuggestion } from '../../shared/backend-services/reference-service/locality.types';
+import { AbstractSubscriber } from '../../core/abstract-subscriber';
 
 @Component({
-  selector: 'alv-query-search-panel',
-  templateUrl: './query-search-panel.component.html',
-  styleUrls: ['./query-search-panel.component.scss']
+  selector: 'alv-job-search-widget',
+  templateUrl: './job-search-widget.component.html',
+  styleUrls: ['./job-search-widget.component.scss']
 })
-export class QuerySearchPanelComponent extends AbstractSubscriber implements OnInit {
+export class JobSearchWidgetComponent extends AbstractSubscriber implements OnInit {
 
   loadOccupationsFn = this.loadOccupations.bind(this);
 
@@ -39,7 +40,7 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
   }
 
   @Output()
-  queriesChange = new EventEmitter<QueryPanelValues>();
+  queriesChange = new EventEmitter<JobSearchWidgetValues>();
 
   form: FormGroup;
 
@@ -57,7 +58,7 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
     });
 
     this.form.valueChanges.pipe(
-      map<any, QueryPanelValues>((valueChanges) => this.map(valueChanges)),
+      map<any, JobSearchWidgetValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
       .subscribe(queryPanelValues => this.queriesChange.next(queryPanelValues));
   }
@@ -86,7 +87,7 @@ export class QuerySearchPanelComponent extends AbstractSubscriber implements OnI
     }, { emitEvent: false });
   }
 
-  private map(valueChanges: any): QueryPanelValues {
+  private map(valueChanges: any): JobSearchWidgetValues {
     return {
       occupations: valueChanges.occupations,
       keywords: valueChanges.keywords,

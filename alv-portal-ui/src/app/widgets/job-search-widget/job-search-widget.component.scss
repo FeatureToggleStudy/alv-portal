@@ -1,0 +1,11 @@
+@import "../../../scss/common/colors";
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
+
+.geo-location-selector {
+  position: absolute;
+  right: 0.25em;
+  top: 0.4em;
+}
+

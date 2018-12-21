@@ -21,7 +21,7 @@ import {
 } from '../state-management/actions/job-ad-search.actions';
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
-import { QueryPanelValues } from './query-search-panel/query-panel-values';
+import { JobSearchWidgetValues } from '../../widgets/job-search-widget/job-search-widget-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { ScrollService } from '../../core/scroll.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
@@ -96,7 +96,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   onQueryChange(queryPanelValues
                   :
-                  QueryPanelValues
+                  JobSearchWidgetValues
   ) {
     // TODO DF-410 Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
     this.jobSearchFilter$.pipe(
