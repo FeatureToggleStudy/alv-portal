@@ -75,15 +75,3 @@ export interface LanguageSkill {
   spokenLevel: CEFR_Level;
   writtenLevel: CEFR_Level;
 }
-
-export interface PostAddress {
-  name: string;
-  street?: string;
-  houseNumber?: string;
-  postalCode: string;
-  city: string;
-  postOfficeBoxNumber?: string;
-  postOfficeBoxPostalCode?: string;
-  postOfficeBoxCity?: string;
-  countryIsoCode?: string;
-}

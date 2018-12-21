@@ -1,4 +1,4 @@
-import { Degree, LanguageSkill, PostAddress } from '../shared.types';
+import { Degree, LanguageSkill } from '../shared.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -248,4 +248,16 @@ export interface JobAdvertisementCancelRequest {
   id: string;
   token?: string;
   code: string;
+}
+
+export interface PostAddress {
+  name: string;
+  street?: string;
+  houseNumber?: string;
+  postalCode: string;
+  city: string;
+  postOfficeBoxNumber?: string;
+  postOfficeBoxPostalCode?: string;
+  postOfficeBoxCity?: string;
+  countryIsoCode?: string;
 }

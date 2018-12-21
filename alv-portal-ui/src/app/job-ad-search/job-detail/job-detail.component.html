@@ -98,7 +98,7 @@
             </div>
 
             <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter as jobCenter"
-                 class="order-sm-2 alv-logo-box">
+                 class="order-sm-2 alv-logo-box logo-box logo-box__company flex-height md-whiteframe-1dp">
 
 
               <div *ngIf="jobCenter.address as address">
@@ -357,6 +357,7 @@
         <ul class="nav flex-column">
           <li>
             <a class="btn btn-text btn-text-icon btn-truncate"
+               #copyToClipboard
                ngxClipboard
                [cbContent]="getJobUrl()"
                (cbOnSuccess)="onCopyLink()"
@@ -369,7 +370,7 @@
           </li>
           <li>
             <a class="btn btn-text btn-text-icon btn-truncate"
-               [href]="'mailto:?body=' + getEncodedUrl()">
+               href="{{'mailto:?body=' + getEncodedUrl()}}">
               <i aria-hidden="true"
                  class="fa fa-share mr-1"></i>
               {{'job-detail.action.sendEmail' | translate}}
