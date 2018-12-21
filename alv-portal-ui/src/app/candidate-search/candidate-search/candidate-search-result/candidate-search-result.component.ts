@@ -34,6 +34,7 @@ export class CandidateSearchResultComponent implements OnInit {
     return this.i18nService.currentLanguage$.pipe(
       map(lang => {
         return {
+          id: candidateProfile.id,
           title: jobExperience ? String(jobExperience.occupation.avamCode) : '',
           description: jobExperience ? jobExperience.remark : '',
           header: null,

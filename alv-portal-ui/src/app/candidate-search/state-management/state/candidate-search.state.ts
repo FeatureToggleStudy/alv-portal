@@ -40,7 +40,8 @@ export interface CandidateSearchFilter {
   workplace?: string[];
   residence?: Canton[];
   availability?: Availability;
-  workload?: [number, number];
+  workloadPercentageMin?: number;
+  workloadPercentageMax?: number;
   workForm?: WorkForm;
   degree?: Degree;
   graduation?: Graduation;

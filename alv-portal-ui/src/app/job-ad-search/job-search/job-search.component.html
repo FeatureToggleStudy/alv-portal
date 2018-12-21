@@ -1,16 +1,20 @@
 <div class="container-fluid query-search-area py-4">
   <div class="form-row">
-    <alv-query-search-panel class="col-md-9"
+    <alv-query-search-panel class="col-md-10 col-lg-9"
                             (queriesChange)="onQueryChange($event)"
                             [applyFilterReset]="applyFilterReset$ | async"
                             [showSpinner]="resultsAreLoading$ | async"
                             [jobSearchFilter]="jobSearchFilter$ | async">
     </alv-query-search-panel>
 
-    <button class="btn btn-text col-md-1"
-            (click)="onResetFilter()">
-      {{ 'job-search.toolbar.reset' | translate }}
-    </button>
+    <div class="col-md-2">
+      <button class="btn btn-text h-100"
+              (click)="onResetFilter()">
+        {{ 'job-search.toolbar.reset' | translate }}
+      </button>
+    </div>
+
+
   </div>
 </div>
 <div (scrolled)="onScroll()"

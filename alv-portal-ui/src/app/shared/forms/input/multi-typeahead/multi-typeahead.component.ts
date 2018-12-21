@@ -51,6 +51,8 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   @Input() limit = 0;
 
+  @Input() queryMinLength = TYPEAHEAD_QUERY_MIN_LENGTH;
+
   @Output() itemSelected = new EventEmitter<MultiTypeaheadItem<any>>();
 
   @ViewChild(NgbTypeahead) ngbTypeahead;
@@ -162,7 +164,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     if (this.itemLimitReached()
       || !this.editable
       || !this.inputValue
-      || this.inputValue.length < TYPEAHEAD_QUERY_MIN_LENGTH) {
+      || this.inputValue.length < this.queryMinLength) {
       return null;
     }
     const freeTextItem = new SimpleMultiTypeaheadItem(
@@ -187,7 +189,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   private loadItemsGuarded(text$: Observable<string>): Observable<MultiTypeaheadDisplayItem[]> {
     return text$.pipe(
       debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
-      switchMap((query: string) => query.length >= TYPEAHEAD_QUERY_MIN_LENGTH
+      switchMap((query: string) => query.length >= this.queryMinLength
         ? this.loadItems(query)
         : of([])),
       map(this.toDisplayModelArray.bind(this))

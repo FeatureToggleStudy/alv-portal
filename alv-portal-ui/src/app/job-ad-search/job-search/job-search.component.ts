@@ -28,11 +28,11 @@ import {
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { QueryPanelValues } from './query-search-panel/query-panel-values';
-import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { DOCUMENT } from '@angular/common';
 import { JobAdSearchEffects } from '../state-management/effects/job-ad-search.effects';
 import { ofType } from '@ngrx/effects';
+import { composeResultListItemId } from '../../shared/layout/result-list-item/result-list-item.component';
 
 @Component({
   selector: 'alv-job-search',

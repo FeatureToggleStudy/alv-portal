@@ -33,13 +33,42 @@
   </alv-select>
 
   <alv-multi-typeahead
-    label="test"
+    label="candidate-search.toolbar.residence.placeholder"
     alvFormControlName="residence"
     [loadItems]="suggestCantonsFn"
+    [queryMinLength]="1"
     [editable]="false"
     [focusFirst]="true">
   </alv-multi-typeahead>
 
+  <alv-select
+    label="candidate-search.availability.label"
+    alvFormControlName="availability"
+    [options$]="availabilityOptions$">
+  </alv-select>
+
+  <div class="form-row">
+    <div class="col-6">
+      <alv-select
+        label="portal.job-search.filter.workload.from.label"
+        alvFormControlName="workloadPercentageMin"
+        [options$]="percentagesMin$">
+      </alv-select>
+    </div>
+    <div class="col-6">
+      <alv-select
+        label="portal.job-search.filter.workload.to.label"
+        alvFormControlName="workloadPercentageMax"
+        [options$]="percentagesMax$">
+      </alv-select>
+    </div>
+  </div>
+
+  <alv-select
+    label="candidate-search.languageSkills.label"
+    alvFormControlName="languageSkills"
+    [options$]="languageOptions$">
+  </alv-select>
 
 </form>
 

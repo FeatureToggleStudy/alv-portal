@@ -8,7 +8,7 @@ import {
   ISCED_1997,
   LanguageSkill
 } from '../shared.types';
-import { OccupationCode } from '../reference-service/occupation-code';
+import { OccupationLabelSuggestion } from '../reference-service/occupation-label.types';
 
 export interface CandidateSearchRequest {
   page: number;
@@ -23,7 +23,7 @@ export interface CandidateSearchResponse {
 }
 
 export interface CandidateSearchRequestBody {
-  occupationCodes?: OccupationCode[];
+  occupationCodes?: OccupationLabelSuggestion[];
   skills?: Array<string>;
   experience?: string;
   workplace?: string;

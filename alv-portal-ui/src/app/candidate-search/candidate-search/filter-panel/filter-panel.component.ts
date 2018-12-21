@@ -6,25 +6,22 @@ import { SelectableOption } from '../../../shared/forms/input/selectable-option.
 import { UserRole } from '../../../core/auth/user.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { filter, map, takeUntil } from 'rxjs/operators';
+
 import {
-  ContractType,
-  JobSearchFilter,
-  Sort
-} from '../../../job-ad-search/job-search-filter.types';
-import {
+  Availability,
   Canton,
   Degree,
   Experience,
-  Graduation
+  Graduation, Language
 } from '../../../shared/backend-services/shared.types';
-import { MultiTypeaheadItemModel } from '../../../shared/forms/input/multi-typeahead/multi-typeahead-item.model';
-import {
-  CantonSuggestion,
-  LocalityAutocomplete, LocalityInputType,
-  LocalitySuggestion
-} from '../../../showcase/showcase.component';
 import { TranslateService } from '@ngx-translate/core';
 import { CandidateSearchFilter } from '../../state-management/state/candidate-search.state';
+import {
+  ContractType,
+  Sort
+} from '../../../job-ad-search/state-management/state/job-search-filter.types';
+import { LocalityInputType } from '../../../shared/localities/locality-suggestion.service';
+import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 
 export interface FilterPanelValues {
   sort: Sort;
@@ -53,7 +50,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   @Input()
   candidateSearchFilter: CandidateSearchFilter;
 
-  suggestCantonsFn = this.getCantonOptions.bind(this);
+  suggestCantonsFn = this.suggestCanton.bind(this);
 
   expanded = false;
 
@@ -66,7 +63,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     Object.keys(Degree).map(degree => {
       return {
         value: degree,
-        label: 'global.degree.avamCode.' + degree
+        label: 'global.degree.' + degree
       };
     })
   ));
@@ -117,20 +114,33 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   percentagesMax$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
 
-  contractTypeOptions$: Observable<SelectableOption[]> = of([
+  availabilityOptions$: Observable<SelectableOption[]> = of([
     {
-      value: ContractType.PERMANENT,
-      label: 'job-search.filter.contract-type.option.PERMANENT'
-    },
-    {
-      value: ContractType.TEMPORARY,
-      label: 'job-search.filter.contract-type.option.TEMPORARY'
-    },
-    {
-      value: ContractType.ALL,
-      label: 'job-search.filter.contract-type.option.ALL'
+      value: null,
+      label: 'candidate-search.no-selection'
     }
-  ]);
+  ].concat(
+    Object.keys(Availability).map(availability => {
+      return {
+        value: availability,
+        label: 'candidate-search.availability.' + availability
+      };
+    })
+  ));
+
+  languageOptions$: Observable<SelectableOption[]> = of([
+    {
+      value: null,
+      label: 'global.reference.language.no-selection'
+    }
+  ].concat(
+    Object.values(Language).map(language => {
+      return {
+        value: language,
+        label: 'global.reference.language.' + language
+      };
+    })
+  ));
 
   onlineSinceSliderLabel: number;
 
@@ -144,7 +154,11 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       degree: [this.candidateSearchFilter.degree],
       graduation: [this.candidateSearchFilter.graduation],
       experience: [this.candidateSearchFilter.experience],
-      residence: [this.candidateSearchFilter.residence]
+      residence: [this.candidateSearchFilter.residence],
+      availability: [this.candidateSearchFilter.availability],
+      workloadPercentageMin: [this.candidateSearchFilter.workloadPercentageMin],
+      workloadPercentageMax: [this.candidateSearchFilter.workloadPercentageMax],
+      languageSkills: [this.candidateSearchFilter.languageSkills]
     });
     this.form.valueChanges
       .pipe(
@@ -152,22 +166,29 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
         takeUntil(this.ngUnsubscribe))
       .subscribe(filterPanelData => this.filtersChange.next(filterPanelData));
 
+    this.form.get('workloadPercentageMin').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(percentageMin => {
+        this.percentagesMax$.next(this.defaultPercentages.filter(item => item.value >= percentageMin));
+      });
+
+    this.form.get('workloadPercentageMax').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(percentageMax => {
+        this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
+      });
   }
 
   toggleExpanded() {
     this.expanded = !this.expanded;
   }
 
-  suggestCanton(query: string) {
-
-  }
-
-  getCantonOptions(query: string): Observable<MultiTypeaheadItemModel[]> {
+  suggestCanton(query: string): Observable<SimpleMultiTypeaheadItem[]> {
 
     const translatedOptions = Object.keys(Canton)
       .filter((key) => !isNaN(Number(Canton[key])))
       .map(this.cantonAutocompleteMapper)
-      .map((option: MultiTypeaheadItemModel) => {
+      .map((option: SimpleMultiTypeaheadItem) => {
         return this.translateService.stream(option.label).pipe(
           map((translation) => {
             option.label = translation;
@@ -187,8 +208,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     };
   }
 
-  private cantonAutocompleteMapper(cantonKey: string, index: number): MultiTypeaheadItemModel {
-    return new MultiTypeaheadItemModel(
+  private cantonAutocompleteMapper(cantonKey: string, index: number): SimpleMultiTypeaheadItem {
+    return new SimpleMultiTypeaheadItem(
       LocalityInputType.CANTON,
       cantonKey,
       `global.reference.canton.${cantonKey}`,

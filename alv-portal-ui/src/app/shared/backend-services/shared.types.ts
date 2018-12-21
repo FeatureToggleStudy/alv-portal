@@ -43,11 +43,14 @@ export interface LanguageSkill {
 }
 
 export enum Experience {
-  LESS_THAN_1_YEAR, MORE_THAN_1_YEAR, MORE_THAN_3_YEARS
+  LESS_THAN_1_YEAR = 'LESS_THAN_1_YEAR',
+  MORE_THAN_1_YEAR = 'MORE_THAN_1_YEAR',
+  MORE_THAN_3_YEARS = 'MORE_THAN_3_YEARS'
 }
 
 export enum Availability {
-  IMMEDIATE, BY_ARRANGEMENT
+  IMMEDIATE = 'IMMEDIATE',
+  BY_ARRANGEMENT = 'BY_ARRANGEMENT'
 }
 
 export enum WorkForm {
@@ -59,7 +62,10 @@ export enum ISCED_1997 {
 }
 
 export enum Graduation {
-  CH, ACCEPTED, NOT_ACCEPTED, NONE
+  CH = 'CH',
+  ACCEPTED = 'ACCEPTED',
+  NOT_ACCEPTED = 'NOT_ACCEPTED',
+  NONE = 'NONE'
 }
 
 export enum DrivingLicenceCategory {
@@ -68,6 +74,53 @@ export enum DrivingLicenceCategory {
 
 export enum Canton {
   AG, AI, AR, BE, BL, BS, FR, GE, GL, GR, JU, LU, NE, NW, OW, SG, SH, SO, SZ, TG, TI, UR, VD, VS, ZG, ZH
+}
+
+export enum Language {
+  DE = 'de',
+  FR = 'fr',
+  IT = 'it',
+  EN = 'en',
+  DE_CH = 'de-ch',
+  BG = 'bg',
+  BS = 'bs',
+  CH = 'ch',
+  CS = 'cs',
+  DA = 'da',
+  EL = 'el',
+  ES = 'es',
+  FA = 'fa',
+  FI = 'fi',
+  HE = 'he',
+  HR = 'hr',
+  HU = 'hu',
+  JA = 'ja',
+  KM = 'km',
+  KU = 'ku',
+  LT = 'lt',
+  MK = 'mk',
+  NL = 'nl',
+  NLD = 'nld',
+  NO = 'no',
+  PL = 'ps',
+  PRS = 'prs',
+  PT = 'pt',
+  RM = 'rm',
+  RO = 'ro',
+  RU = 'ru',
+  SK = 'sk',
+  SL = 'sl',
+  SQ = 'sq',
+  SR = 'sr',
+  SR_HR = 'sr-hr',
+  SV = 'sv',
+  TA = 'ta',
+  TH = 'th',
+  TI = 'ti',
+  TR = 'tr',
+  VI = 'vi',
+  ZH = 'zh'
+
 }
 
 export interface LanguageSkill {
