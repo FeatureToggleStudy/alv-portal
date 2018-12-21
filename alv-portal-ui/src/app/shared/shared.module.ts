@@ -9,12 +9,16 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { CommonModule } from '@angular/common';
 import { MarkdownModule } from 'ngx-markdown';
 import { PipesModule } from './pipes/pipes.module';
+import { GeoLocationSelectionComponent } from './localities/geo-location-selection/geo-location-selection.component';
 
 @NgModule({
   declarations: [
     LandingPageComponent,
+    GeoLocationSelectionComponent,
   ],
   imports: [
+    TranslateModule.forChild(),
+    CommonModule,
     AlvFormsModule,
     PrettyJsonModule,
     LayoutModule,
@@ -32,7 +36,8 @@ import { PipesModule } from './pipes/pipes.module';
     PipesModule,
     ClipboardModule,
     MarkdownModule,
-    SharedAuthModule
+    SharedAuthModule,
+    GeoLocationSelectionComponent
   ]
 })
 export class SharedModule {

@@ -39,7 +39,7 @@
              [container]="'body'"
              [resultTemplate]="template"
              [focusFirst]="focusFirst"
-             [editable]="editable"
+             [editable]="true"
              [readonly]="limit && control.value?.length >= limit"
              [(ngModel)]="inputValue"
              (selectItem)="selectItem($event)"
@@ -91,12 +91,10 @@
         <div *ngIf="result.firstInGroup"
              class="typeahead-group-label pull-right"
              [ngClass]="getTypeClass(result.model)">
-          <!--{{'typeahead-multiselect.type.' + result.model.type }}-->
-          {{ result.model.type }}
+          {{ 'typeahead-multiselect.type.' + result.model.type | translate}}
         </div>
         <div [ngClass]="{'first-in-group-item': result.firstInGroup}">
-          <div class="first-in-group-border"
-               *ngIf="result.firstInGroup"></div>
+          <div *ngIf="result.firstInGroup"></div>
           <ngb-highlight [result]="formatResultItem(result.model)"
                          [term]="term">
           </ngb-highlight>

@@ -103,7 +103,7 @@
 
               <div *ngIf="jobCenter.address as address">
                 <strong>
-                  {{ 'job-detail.reference.responsible-job-center' | translate }}
+                  {{ 'portal.job-detail.reference.responsible-job-center' | translate }}
                 </strong>
                 <alv-post-address [address]="{
                         name: address.name,
@@ -113,13 +113,13 @@
                         city: address.city}">
                 </alv-post-address>
                 <br>
-                {{'job-detail.reference.phone' | translate}}
+                {{'portal.job-detail.reference.phone' | translate}}
                 <a class="link"
                    href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
               </div>
 
               <ng-container *ngIf="jobDetailModel.stellennummerAvam || jobDetailModel.stellennummerEgov">
-                <strong>{{'job-detail.reference.job-id' | translate}}:</strong>
+                <strong>{{'portal.job-detail.reference.job-id' | translate}}:</strong>
                 <br>
 
                 <ng-container *ngIf="jobDetailModel.stellennummerAvam">

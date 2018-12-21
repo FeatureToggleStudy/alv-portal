@@ -21,7 +21,6 @@
       border: 0;
     }
     fieldset {
-      height: 21px;
       .typeahead-badge {
         font-weight: 500;
         margin: 1px 2px 0 0;
@@ -48,16 +47,15 @@
 .typeahead-group-label {
   color: $color-grey-black;
   position: absolute;
-  top: -.25rem;
-  right: -1.5rem;
+  top: -0.5rem;
+  margin-left:calc(-16px - 5px);
+
   font-size: 80%;
   padding: 0 .25rem;
+  width: calc(100% + 16px * 2 + 5px);
 }
 
 .first-in-group-item {
   padding-top: 1.25rem;
-  .first-in-group-border {
-    border-top: 1px solid $color-grey;
-    margin: -1.5rem -1.5rem 1rem;
-  }
+
 }

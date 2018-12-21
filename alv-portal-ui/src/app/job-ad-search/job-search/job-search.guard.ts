@@ -7,7 +7,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ApplyFilterAction } from '../state-management/actions/job-ad-search.actions';
-import { JobSearchFilter } from '../job-search-filter.types';
+import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
 import { JobAdSearchState } from '../state-management/state/job-ad-search.state';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 
