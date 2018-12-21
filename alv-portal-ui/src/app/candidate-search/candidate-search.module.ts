@@ -10,6 +10,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CandidateSearchEffects, candidateSearchReducer } from './state-management';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard';
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { EffectsModule } from '@ngrx/effects';
     CandidateSearchResultComponent,
     FilterPanelComponent
   ],
-  providers: []
+  providers: [
+    CandidateDetailGuard
+  ]
 })
 export class CandidateSearchModule {
 }

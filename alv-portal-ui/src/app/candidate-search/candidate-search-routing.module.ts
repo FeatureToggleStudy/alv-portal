@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CandidateSearchComponent } from './candidate-search/candidate-search.component';
 import { CandidateDetailComponent } from './candidate-detail/candidate-detail.component';
+import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard';
 
 const routes: Routes = [
   {
@@ -14,8 +15,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: CandidateDetailComponent,
-    // TODO: add guard
-    // canActivate: [JobDetailGuard],
+    canActivate: [CandidateDetailGuard],
     data: { titleKey: 'portal.candidate-search.browser-title' }
   },
   {

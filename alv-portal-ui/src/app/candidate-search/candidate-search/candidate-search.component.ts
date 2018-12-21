@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   ApplyFilterAction,
@@ -18,7 +18,8 @@ import { select, Store } from '@ngrx/store';
 @Component({
   selector: 'alv-candidate-search',
   templateUrl: './candidate-search.component.html',
-  styleUrls: ['./candidate-search.component.scss']
+  styleUrls: ['./candidate-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CandidateSearchComponent implements OnInit {
 

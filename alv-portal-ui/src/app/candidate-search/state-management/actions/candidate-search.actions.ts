@@ -7,6 +7,9 @@ export const APPLY_FILTER = 'CANDIDATES:APPLY_FILTER';
 export const FILTER_APPLIED = 'CANDIDATES:FILTER_APPLIED';
 export const LOAD_NEXT_PAGE = 'CANDIDATES:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'CANDIDATES:NEXT_PAGE_LOADED';
+export const CANDIDATE_PROFILE_DETAIL_LOADED = 'CANDIDATES:CANDIDATE_PROFILE_DETAIL_LOADED';
+export const LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL = 'CANDIDATES:LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL';
+export const LOAD_NEXT_CANDIDATE_PROFILE_DETAIL = 'CANDIDATES:LOAD_NEXT_CANDIDATE_PROFILE_DETAIL';
 
 
 export class InitResultListAction implements Action {
@@ -44,9 +47,33 @@ export class NextPageLoadedAction implements Action {
   }
 }
 
+export class CandidateProfileDetailLoadedAction implements Action {
+  readonly type = CANDIDATE_PROFILE_DETAIL_LOADED;
+
+  constructor(public payload: { candidateProfile: CandidateProfile }) {
+  }
+}
+
+export class LoadPreviousCandidateProfileDetailAction implements Action {
+  readonly type = LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class LoadNextCandidateProfileDetailAction implements Action {
+  readonly type = LOAD_NEXT_CANDIDATE_PROFILE_DETAIL;
+
+  constructor(public payload = {}) {
+  }
+}
+
 export type Actions = InitResultListAction
   | ApplyFilterAction
   | FilterAppliedAction
   | LoadNextPageAction
   | NextPageLoadedAction
+  | CandidateProfileDetailLoadedAction
+  | LoadPreviousCandidateProfileDetailAction
+  | LoadNextCandidateProfileDetailAction
   ;

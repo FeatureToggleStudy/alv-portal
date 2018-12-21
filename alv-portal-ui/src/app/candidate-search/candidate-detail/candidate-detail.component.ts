@@ -2,6 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Notification } from '../../shared/layout/notifications/notification.model';
 import { CandidateDetailPanelId } from './candidate-detail-panel-id.enum';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/index';
+import { CandidateProfile } from '../../shared/backend-services/candidate/candidate.types';
+import { select, Store } from '@ngrx/store';
+import {
+  CandidateSearchState,
+  getSelectedCandidateProfile,
+  isNextVisible,
+  isPrevVisible,
+  LoadNextCandidateProfileDetailAction,
+  LoadPreviousCandidateProfileDetailAction
+} from '../state-management';
+import { JobBadge } from '../../job-ad-search/job-badges-mapper.service';
+
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -12,14 +25,41 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 })
 export class CandidateDetailComponent implements OnInit {
 
+  candidateProfile$: Observable<CandidateProfile>;
+
+  prevEnabled$: Observable<boolean>;
+
+  nextEnabled$: Observable<boolean>;
+
+  //todo: implement
+  alerts$: Observable<Notification[]>;
+
+  //todo: implement
+  badges$: Observable<JobBadge[]>;
+
   candidateDetailPanelId = CandidateDetailPanelId;
 
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
 
-  constructor() { }
+  constructor(private store: Store<CandidateSearchState>) {
+  }
 
   ngOnInit() {
+    //todo: Create a model for the detail page and map the candidateProfile$ to it
+    this.candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
+
+    this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
+
+    this.nextEnabled$ = this.store.pipe(select(isNextVisible));
+  }
+
+  prev() {
+    this.store.dispatch(new LoadPreviousCandidateProfileDetailAction());
+  }
+
+  next() {
+    this.store.dispatch(new LoadNextCandidateProfileDetailAction());
   }
 
   dismissAlert(alert: Notification, alerts: Notification[]) {

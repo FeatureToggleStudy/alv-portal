@@ -1,5 +1,7 @@
 import {
   Actions,
+  APPLY_FILTER,
+  CANDIDATE_PROFILE_DETAIL_LOADED,
   CandidateSearchState,
   FILTER_APPLIED,
   initialState,
@@ -9,9 +11,18 @@ import {
 
 export function candidateSearchReducer(state = initialState, action: Actions): CandidateSearchState {
   let newState: CandidateSearchState;
-  // todo: implement
 
   switch (action.type) {
+    case APPLY_FILTER:
+      newState = {
+        ...state,
+        candidateSearchFilter: {
+          ...action.payload
+        },
+        resultsAreLoading: true
+      };
+      break;
+
     case FILTER_APPLIED:
       newState = {
         ...state,
@@ -35,6 +46,16 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         resultList: [...state.resultList, ...action.payload.page],
         page: state.page + 1,
         resultsAreLoading: false
+      };
+      break;
+
+    case CANDIDATE_PROFILE_DETAIL_LOADED:
+      const currentVisited = state.visitedCandidates;
+      currentVisited[action.payload.candidateProfile.id] = true;
+      newState = {
+        ...state,
+        selectedCandidateProfile: action.payload.candidateProfile,
+        visitedCandidates: { ...currentVisited }
       };
       break;
 

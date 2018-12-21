@@ -39,11 +39,17 @@ export interface JobSearchResult {
 }
 
 export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobAdSearch');
+
 export const getTotalCount = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.totalCount);
+
 export const getResultList = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultList);
+
 export const getVisitedJobAds = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.visitedJobAds);
+
 export const getJobSearchFilter = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.jobSearchFilter);
+
 export const getSelectedJobAdvertisement = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.selectedJobAdvertisement);
+
 export const getResultsAreLoading = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultsAreLoading);
 
 export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
@@ -54,7 +60,6 @@ export const getJobSearchResults = createSelector(getResultList, getVisitedJobAd
     };
   });
 });
-
 
 export const getPrevId = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, current) => {
   if (current) {
