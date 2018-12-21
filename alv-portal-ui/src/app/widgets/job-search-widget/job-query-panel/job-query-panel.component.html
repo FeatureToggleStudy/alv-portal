@@ -1,4 +1,5 @@
-<div [formGroup]="form"
+<form [formGroup]="form"
+     (ngSubmit)="onSearchSubmit()"
      class="justify-content-between form-row">
   <div class="col-md-11">
     <div class="form-row">
@@ -51,7 +52,7 @@
     </div>
   </div>
   <button class="btn btn-primary col-md-1"
-          (click)="onSearchSubmit()"
+          type="submit"
           aria-label="search">
     <i *ngIf="showSpinner"
        class="fas fa-sync-alt fa-spin">
@@ -60,4 +61,4 @@
        class="fas fa-search">
     </i>
   </button>
-</div>
+</form>

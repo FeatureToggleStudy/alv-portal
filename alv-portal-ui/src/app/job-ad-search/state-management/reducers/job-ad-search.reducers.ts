@@ -2,6 +2,8 @@ import { initialState, JobAdSearchState } from '../state/job-ad-search.state';
 import {
   Actions,
   APPLY_FILTER,
+  APPLY_FILTER_VALUES,
+  APPLY_QUERY_VALUES,
   FILTER_APPLIED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
@@ -14,6 +16,27 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
   let newState: JobAdSearchState;
 
   switch (action.type) {
+
+    case APPLY_QUERY_VALUES:
+      newState = {
+        ...state,
+        jobSearchFilter: {
+          ...(action.init ? initialState.jobSearchFilter : state.jobSearchFilter),
+          ...action.payload
+        }
+      };
+      break;
+
+    case APPLY_FILTER_VALUES:
+      newState = {
+        ...state,
+        jobSearchFilter: {
+          ...state.jobSearchFilter,
+          ...action.payload
+        }
+      };
+      break;
+
     case APPLY_FILTER:
       newState = {
         ...state,

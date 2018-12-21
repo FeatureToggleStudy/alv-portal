@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobSearchFilter } from '../state/job-search-filter.types';
+import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
+import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
@@ -12,6 +14,9 @@ export const NEXT_PAGE_LOADED = 'JOBS:NEXT_PAGE_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_LOADED';
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
+
+export const APPLY_QUERY_VALUES = 'JOBS:APPLY_QUERY_VALUES';
+export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -30,6 +35,25 @@ export class ResetFilterAction implements Action {
   }
 }
 
+/**
+ * Action to Apply the Query Panel Values
+ */
+export class ApplyQueryValuesAction implements Action {
+  readonly type = APPLY_QUERY_VALUES;
+
+  constructor(public payload: JobQueryPanelValues, public init = false) {
+  }
+}
+
+/**
+ * Action to Apply the Filter Panel Value
+ */
+export class ApplyFilterValuesAction implements Action {
+  readonly type = APPLY_FILTER_VALUES;
+
+  constructor(public payload: FilterPanelValues) {
+  }
+}
 
 /**
  * Action in order to apply a new Filter
@@ -95,4 +119,6 @@ export type Actions =
   | JobAdvertisementDetailLoadedAction
   | LoadPreviousJobAdvertisementDetailAction
   | LoadNextJobAdvertisementDetailAction
-  | ResetFilterAction;
+  | ResetFilterAction
+  | ApplyFilterValuesAction
+  | ApplyQueryValuesAction;

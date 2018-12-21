@@ -27,7 +27,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
   loadLocalitiesFn = this.loadLocalities.bind(this);
 
   @Input()
-  jobSearchFilter: JobSearchFilter;
+  jobQueryPanelValues: JobQueryPanelValues;
 
   @Input()
   showSpinner: boolean;
@@ -59,11 +59,11 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
       keywords: [[]],
       localities: [[]],
     });
-    if (this.jobSearchFilter) {
+    if (this.jobQueryPanelValues) {
       this.form.setValue({
-        occupations: this.jobSearchFilter.occupations,
-        keywords: this.jobSearchFilter.keywords,
-        localities: this.jobSearchFilter.localities,
+        occupations: this.jobQueryPanelValues.occupations,
+        keywords: this.jobQueryPanelValues.keywords,
+        localities: this.jobQueryPanelValues.localities,
       })
     }
     this.form.valueChanges.pipe(

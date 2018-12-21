@@ -16,7 +16,8 @@ import {
   APPLY_FILTER,
   FILTER_APPLIED,
   ApplyFilterAction,
-  InitResultListAction,
+  ApplyFilterValuesAction,
+  ApplyQueryValuesAction,
   LoadNextPageAction,
   ResetFilterAction,
 } from '../state-management/actions/job-ad-search.actions';
@@ -58,9 +59,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   ngOnInit() {
-
-    this.store.dispatch(new InitResultListAction());
-
     this.totalCount$ = this.store.pipe(select(getTotalCount));
 
     this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults));
@@ -100,26 +98,12 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       });
   }
 
-  onQueryChange(queryPanelValues
-                  :
-                  JobQueryPanelValues
-  ) {
-    // TODO DF-410 Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
-    this.jobSearchFilter$.pipe(
-      map((currentFilter) => Object.assign({}, currentFilter, queryPanelValues)),
-      take(1))
-      .subscribe((jobSearchFilter) => {
-        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
-      });
+  onQueryChange(queryPanelValues: JobQueryPanelValues) {
+    this.store.dispatch(new ApplyQueryValuesAction(queryPanelValues));
   }
 
   onFiltersChange(filterPanelData: FilterPanelValues) {
-    this.jobSearchFilter$.pipe(
-      map((currentFilter) => Object.assign({}, currentFilter, filterPanelData)),
-      take(1))
-      .subscribe((jobSearchFilter) => {
-        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
-      });
+    this.store.dispatch(new ApplyFilterValuesAction(filterPanelData));
   }
 
   onResetFilter() {

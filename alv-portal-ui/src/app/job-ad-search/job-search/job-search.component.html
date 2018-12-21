@@ -4,7 +4,7 @@
                          (queriesChange)="onQueryChange($event)"
                          [applyFilterReset]="applyFilterReset$ | async"
                          [showSpinner]="resultsAreLoading$ | async"
-                         [jobSearchFilter]="jobSearchFilter$ | async">
+                         [jobQueryPanelValues]="jobSearchFilter$ | async">
     </alv-job-query-panel>
 
     <button class="btn btn-text col-md-1"
@@ -31,7 +31,7 @@
         </div>
         <alv-filter-panel (filtersChange)="onFiltersChange($event)"
                           [applyFilterReset]="applyFilterReset$ | async"
-                          [jobSearchFilter]="jobSearchFilter$ | async">
+                          [filterPanelValues]="jobSearchFilter$ | async">
         </alv-filter-panel>
       </div>
     </div>
