@@ -1,10 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import {
-  Notification,
-  NotificationType
-} from '../shared/layout/notifications/notification.model';
 import { DOCUMENT } from '@angular/common';
-import { composeResultListItemId } from '../job-ad-search/job-search/result-list-item/result-list-item.component';
 
 @Injectable({
   providedIn: 'root'

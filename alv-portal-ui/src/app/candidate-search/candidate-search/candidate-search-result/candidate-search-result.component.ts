@@ -29,6 +29,7 @@ export class CandidateSearchResultComponent implements OnInit {
     return this.i18nService.currentLanguage$.pipe(
       map(lang => {
         return {
+          id: 'id',
           title: 'Job experience label',
           description: 'Job experience description',
           header: 'date, e.g. 15.12.2018',
