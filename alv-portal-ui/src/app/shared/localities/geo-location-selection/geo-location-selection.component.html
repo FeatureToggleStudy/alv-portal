@@ -1,5 +1,5 @@
 <button *ngIf="isVisible()"
-        attr.aria-label="{{'portal.shared.localities.geo-location-selection.aria-label' | translate}}"
+        [attr.aria-label]="'portal.shared.localities.geo-location-selection.aria-label' | translate"
         (click)="getLocation()">
   <span class="fa-stack">
     <i *ngIf="loading; else mapIcon"
