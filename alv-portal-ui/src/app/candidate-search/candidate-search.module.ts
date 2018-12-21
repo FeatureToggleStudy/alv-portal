@@ -9,6 +9,7 @@ import { CandidateSearchResultComponent } from './candidate-search/candidate-sea
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { CandidateSearchEffects, candidateSearchReducer } from './state-management';
+import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard';
 
 
 @NgModule({
@@ -25,7 +26,9 @@ import { CandidateSearchEffects, candidateSearchReducer } from './state-manageme
     CandidateDetailComponent,
     CandidateSearchResultComponent
   ],
-  providers: []
+  providers: [
+    CandidateDetailGuard
+  ]
 })
 export class CandidateSearchModule {
 }

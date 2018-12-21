@@ -39,7 +39,7 @@
 
             <div class="contact-panel">
 
-              <div class="panel-title">     Weitere Auskünfte erteilt</div>
+              <div class="panel-title"> Weitere Auskünfte erteilt</div>
 
               <!-- display job center information, if available -->
 
@@ -62,7 +62,7 @@
       </div>
 
       <!-----------------Title-->
-      <h2 class="mb-4">Grafiker Designer</h2>
+      <h2 class="mb-4">{{(candidateProfile$ | async).id}}</h2>
 
       <!--Badges-->
       <div class="mb-4">
@@ -128,13 +128,17 @@
       <div class="side-panel">
         <div class="d-flex">
           <button
-                  class="btn btn-text btn-text-icon btn-truncate mb-2">
+            (click)="prev()"
+            [disabled]="!(prevEnabled$ | async)"
+            class="btn btn-text btn-text-icon btn-truncate mb-2">
             <i class="fa fa-caret-left mr-1"></i>
             {{'portal.job-detail.previous-result' | translate}}
           </button>
           <div class="flex-grow-1"></div>
           <button
-                  class="btn btn-text btn-text-icon btn-truncate mb-2">
+            (click)="next()"
+            [disabled]="!(nextEnabled$ | async)"
+            class="btn btn-text btn-text-icon btn-truncate mb-2">
             {{'portal.job-detail.next-result' | translate}}
             <i class="fa fa-caret-right ml-1"></i>
           </button>
