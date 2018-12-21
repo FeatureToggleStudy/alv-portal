@@ -42,6 +42,9 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
   @Output()
   queriesChange = new EventEmitter<JobQueryPanelValues>();
 
+  @Output()
+  searchSubmit = new EventEmitter<JobQueryPanelValues>();
+
   form: FormGroup;
 
   constructor(private fb: FormBuilder,
@@ -83,6 +86,10 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     if (!ctrl.value.find((i: SimpleMultiTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
       ctrl.setValue([...ctrl.value, geoLocalitySuggestion]);
     }
+  }
+
+  onSearchSubmit() {
+    this.searchSubmit.emit(this.map(this.form.value));
   }
 
   private onFilterFormReset(filter: JobSearchFilter): void {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
+import { JobQueryPanelValues } from './job-query-panel/job-query-panel-values';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'alv-job-search-widget',
@@ -8,11 +10,19 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
 })
 export class JobSearchWidgetComponent extends AbstractSubscriber implements OnInit {
 
+
+  constructor(private router: Router) {
+    super();
+  }
+
   ngOnInit(): void {
   }
 
-  public onQueryChanged() {
+  public onSearchSubmit(jobQueryPanelValues: JobQueryPanelValues) {
     // Routing
+    //this.jobSearchFilterParameterService.encode(jobQueryPanelValues);
+    this.router.navigate(['job-search']);
+
   }
 
 }
