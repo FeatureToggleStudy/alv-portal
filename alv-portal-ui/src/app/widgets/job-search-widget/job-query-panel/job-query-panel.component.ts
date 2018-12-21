@@ -9,8 +9,6 @@ import {
   LocalitySuggestionService
 } from '../../../shared/localities/locality-suggestion.service';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
-// TODO Think about how to expose that
-import { JobSearchFilter } from '../../../job-ad-search/state-management/state/job-search-filter.types';
 import { map, takeUntil } from 'rxjs/operators';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
@@ -33,7 +31,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
   showSpinner: boolean;
 
   @Input()
-  set applyFilterReset(filter: JobSearchFilter) {
+  set applyFilterReset(filter: JobQueryPanelValues) {
     if (this.form && filter) {
       this.onFilterFormReset(filter);
     }
@@ -92,7 +90,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     this.searchSubmit.emit(this.map(this.form.value));
   }
 
-  private onFilterFormReset(filter: JobSearchFilter): void {
+  private onFilterFormReset(filter: JobQueryPanelValues): void {
     this.form.reset({
       occupations: filter.occupations,
       keywords: filter.keywords,
