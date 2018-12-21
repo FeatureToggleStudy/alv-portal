@@ -1,11 +1,11 @@
 <!--TODO add rounded corners-->
+
 <alv-panel class="container">
   <div class="panel-title">
     <i class="fa fa-search mr-2"></i> {{'portal.home.jobSeekers.search-widget.find-jobs' | translate}}
   </div>
   <alv-job-query-panel
-    (queriesChange)="onQueryChanged($event)">
-
+    (searchSubmit)="onSearchSubmit($event)">
   </alv-job-query-panel>
 </alv-panel>
 
