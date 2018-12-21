@@ -32,11 +32,11 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   form: FormGroup;
 
+  @Input()
+  filterPanelValues: FilterPanelValues;
+
   @Output()
   filtersChange: Subject<FilterPanelValues> = new Subject<FilterPanelValues>();
-
-  @Input()
-  jobSearchFilter: JobSearchFilter;
 
   @Input()
   set applyFilterReset(filter: JobSearchFilter) {
@@ -113,13 +113,13 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      displayRestricted: [this.jobSearchFilter.displayRestricted],
-      sort: [this.jobSearchFilter.sort],
-      company: [this.jobSearchFilter.company],
-      contractType: [this.jobSearchFilter.contractType],
-      workloadPercentageMin: [this.jobSearchFilter.workloadPercentageMin],
-      workloadPercentageMax: [this.jobSearchFilter.workloadPercentageMax],
-      onlineSince: [this.jobSearchFilter.onlineSince]
+      displayRestricted: [this.filterPanelValues.displayRestricted],
+      sort: [this.filterPanelValues.sort],
+      company: [this.filterPanelValues.company],
+      contractType: [this.filterPanelValues.contractType],
+      workloadPercentageMin: [this.filterPanelValues.workloadPercentageMin],
+      workloadPercentageMax: [this.filterPanelValues.workloadPercentageMax],
+      onlineSince: [this.filterPanelValues.onlineSince]
     });
     this.form.valueChanges
       .pipe(
