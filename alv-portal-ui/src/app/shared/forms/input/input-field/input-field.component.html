@@ -38,14 +38,14 @@
          class="readonly-input">
       {{control.value}}
     </div>
-    <label [for]="id">
+    <label [attr.for]="id">
       {{label | translate}}
     </label>
   </div>
   <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
-                           [id]="validationId"
+                           [attr.id]="validationId"
                            [customValidationMessages]="validationMessages">
   </alv-validation-messages>
 </div>
