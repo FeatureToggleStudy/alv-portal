@@ -61,6 +61,8 @@ export class CandidateSearchEffects {
         map((response) => new NextPageLoadedAction({ page: response.result })),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       )),
+    takeUntil(this.actions$.pipe(ofType(APPLY_FILTER))),
+    // todo: implement
   );
 
   constructor(

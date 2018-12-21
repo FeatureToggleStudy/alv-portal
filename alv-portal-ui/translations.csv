@@ -1367,7 +1367,9 @@ portal,portal.home.job-seeker.browser-title,Stellensuchende,Job seekers,Demandeu
 portal,portal.home.company.browser-title,Arbeitgeber,Employers,Employeurs,Datori di lavoro
 portal,portal.home.pav.browser-title,Arbeitsvermittler,Recruitment agencies,Agence de placement,Collocatori
 portal,portal.candidate-search.browser-title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
+
 portal,portal.candidate-search.results-count.label,Kandidaten,Candidates,candidats,candidati
+
 portal,portal.job-detail.next-result,Nächstes,Next
 portal,portal.job-detail.previous-result,Vorheriges,Previous
 portal,portal.job-detail.occupation,Beruf,Occupation
@@ -1399,3 +1401,8 @@ portal,portal.job-ad.search.query-panel.localities.placeholder,"Arbeitsort, Kant
 portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl möglich,Multiple selection possible,Sélection multiple possible,Selezione multipla possibile
 
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
+
+portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
+portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
+
+portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa

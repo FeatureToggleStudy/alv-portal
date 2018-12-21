@@ -8,6 +8,7 @@ export const FILTER_APPLIED = 'CANDIDATES:FILTER_APPLIED';
 export const LOAD_NEXT_PAGE = 'CANDIDATES:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'CANDIDATES:NEXT_PAGE_LOADED';
 
+
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
 

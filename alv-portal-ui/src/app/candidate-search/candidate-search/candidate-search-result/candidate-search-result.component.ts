@@ -3,8 +3,8 @@ import { ResultListItem } from '../../../shared/layout/result-list-item/result-l
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
-import { CandidateSearchResult } from '../../state-management';
 import { JobExperience } from '../../../shared/backend-services/candidate/candidate.types';
+import { CandidateSearchResult } from '../../state-management';
 
 @Component({
   selector: 'alv-candidate-search-result',

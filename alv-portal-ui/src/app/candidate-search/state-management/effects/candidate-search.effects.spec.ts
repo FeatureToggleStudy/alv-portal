@@ -10,8 +10,9 @@ import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
 import { getTestScheduler } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs/index';
+
 import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
+import { Observable } from 'rxjs';
 import SpyObj = jasmine.SpyObj;
 
 describe('CandidateSearchEffects', () => {

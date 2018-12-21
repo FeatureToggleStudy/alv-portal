@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
 import { select, Store } from '@ngrx/store';
@@ -28,11 +22,12 @@ import {
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { QueryPanelValues } from './query-search-panel/query-panel-values';
+import { ScrollService } from '../../core/scroll.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
-import { DOCUMENT } from '@angular/common';
 import { JobAdSearchEffects } from '../state-management/effects/job-ad-search.effects';
 import { ofType } from '@ngrx/effects';
 import { composeResultListItemId } from '../../shared/layout/result-list-item/result-list-item.component';
+
 
 @Component({
   selector: 'alv-job-search',
@@ -57,7 +52,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   constructor(private store: Store<JobAdSearchState>,
               private jobAdSearchEffects: JobAdSearchEffects,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
-              @Inject(DOCUMENT) private document: any) {
+              private scrollService: ScrollService) {
     super();
   }
 
@@ -91,13 +86,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   ngAfterViewInit() {
     this.store.pipe(select(getSelectedJobAdvertisement))
       .pipe(take(1))
-      .subscribe(selectedJobAdvertisement => {
-        if (selectedJobAdvertisement) {
-          const resultListItemElement = this.document.getElementById(composeResultListItemId(selectedJobAdvertisement.id));
-          if (resultListItemElement) {
-            resultListItemElement.scrollIntoView();
-            this.document.querySelector('main').scrollBy(0, -100);
-          }
+      .subscribe(job => {
+        if (job) {
+          this.scrollService.scrollIntoView(composeResultListItemId(job.id));
+          this.scrollService.scrollBy(0, -100);
         }
       });
   }
