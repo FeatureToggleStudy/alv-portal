@@ -73,6 +73,7 @@ export class JobAdSearchEffects {
       })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
+    share()
   );
 
   @Effect()
