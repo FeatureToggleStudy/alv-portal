@@ -52,11 +52,17 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
 
   ngOnInit() {
     this.form = this.fb.group({
-      occupations: [this.jobSearchFilter.occupations],
-      keywords: [this.jobSearchFilter.keywords],
-      localities: [this.jobSearchFilter.localities],
+      occupations: [],
+      keywords: [],
+      localities: [],
     });
-
+    if (this.jobSearchFilter) {
+      this.form.setValue({
+        occupations: this.jobSearchFilter.occupations,
+        keywords: this.jobSearchFilter.keywords,
+        localities: this.jobSearchFilter.localities,
+      })
+    }
     this.form.valueChanges.pipe(
       map<any, JobQueryPanelValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
