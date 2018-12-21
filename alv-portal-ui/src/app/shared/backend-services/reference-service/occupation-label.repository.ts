@@ -20,7 +20,6 @@ export class OccupationLabelRepository {
   constructor(private http: HttpClient) {
   }
 
-  //
   /**
    *
    * @param query the query/term
