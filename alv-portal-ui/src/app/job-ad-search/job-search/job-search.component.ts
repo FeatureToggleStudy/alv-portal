@@ -107,10 +107,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       });
   }
 
-  onFiltersChange(filterPanelData
-                    :
-                    FilterPanelValues
-  ) {
+  onFiltersChange(filterPanelData: FilterPanelValues) {
     this.jobSearchFilter$.pipe(
       map((currentFilter) => Object.assign({}, currentFilter, filterPanelData)),
       take(1))
