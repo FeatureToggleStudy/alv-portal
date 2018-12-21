@@ -2,11 +2,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import {
-  ContractType,
-  JobSearchFilter,
-  Sort
-} from '../../state-management/state/job-search-filter.types';
+import { ContractType, Sort } from '../../state-management/state/job-search-filter.types';
 import { UserRole } from '../../../core/auth/user.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { map, takeUntil } from 'rxjs/operators';
@@ -39,7 +35,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   filtersChange: Subject<FilterPanelValues> = new Subject<FilterPanelValues>();
 
   @Input()
-  set applyFilterReset(filter: JobSearchFilter) {
+  set applyFilterReset(filter: FilterPanelValues) {
     if (this.form && filter) {
       this.onFilterFormReset(filter);
     }
@@ -140,7 +136,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       });
   }
 
-  private onFilterFormReset(filter: JobSearchFilter): void {
+  private onFilterFormReset(filter: FilterPanelValues): void {
     this.form.reset({
       displayRestricted: filter.displayRestricted,
       sort: filter.sort,
