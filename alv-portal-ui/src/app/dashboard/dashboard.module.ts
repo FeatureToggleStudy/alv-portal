@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { DashboardHeaderComponent } from './widgets/dashboard-header/dashboard-header.component';
-import { FindJobWidgetComponent } from './widgets/find-job-widget/find-job-widget.component';
 import { FindCandidateWidgetComponent } from './widgets/find-candidate-widget/find-candidate-widget.component';
 import { CompanyDashboardPageComponent } from './pages/company-dashboard-page/company-dashboard-page.component';
 import { JobSeekerDashboardPageComponent } from './pages/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
@@ -12,11 +11,11 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardPageComponent } from './pages/dashboard-page.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { GravatarModule } from 'ngx-gravatar';
+import { WidgetsModule } from '../widgets/widgets.module';
 
 @NgModule({
   declarations: [
     DashboardHeaderComponent,
-    FindJobWidgetComponent,
     FindCandidateWidgetComponent,
     CompanyDashboardPageComponent,
     JobSeekerDashboardPageComponent,
@@ -29,12 +28,12 @@ import { GravatarModule } from 'ngx-gravatar';
     CommonModule,
     DashboardRoutingModule,
     NgbTooltipModule,
-    GravatarModule
+    GravatarModule,
+    WidgetsModule
   ],
   entryComponents: [],
   exports: [
     DashboardHeaderComponent,
-    FindJobWidgetComponent,
     FindCandidateWidgetComponent,
     CompanyDashboardPageComponent,
     JobSeekerDashboardPageComponent,

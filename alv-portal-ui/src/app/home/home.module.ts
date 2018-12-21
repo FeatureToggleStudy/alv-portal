@@ -9,8 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FindCandidateHomeWidgetComponent } from './widgets/find-candidate-home-widget/find-candidate-home-widget.component';
-import { FindJobHomeWidgetComponent } from './widgets/find-job-home-widget/find-job-home-widget.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { WidgetsModule } from '../widgets/widgets.module';
 
 @NgModule({
   imports: [
@@ -19,7 +19,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     SharedModule,
     CommonModule,
     HomeRoutingModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    WidgetsModule
   ],
   declarations: [
     HomePageComponent,
@@ -27,12 +28,10 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     CompanyHomePageComponent,
     PavHomePageComponent,
     ToolbarButtonComponent,
-    FindCandidateHomeWidgetComponent,
-    FindJobHomeWidgetComponent
+    FindCandidateHomeWidgetComponent
   ],
   exports: [
-    FindCandidateHomeWidgetComponent,
-    FindJobHomeWidgetComponent
+    FindCandidateHomeWidgetComponent
   ]
 })
 export class HomeModule {

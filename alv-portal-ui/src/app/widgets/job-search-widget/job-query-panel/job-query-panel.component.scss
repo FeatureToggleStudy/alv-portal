@@ -1,19 +1,11 @@
+@import "../../../../scss/common/colors";
 @import '../../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
-@include media-breakpoint-up(md) {
-  .zoom {
-    transform: scale(1.2);
-    width: 83%;
-    transform-origin: left;
-  }
+.geo-location-selector {
+  position: absolute;
+  right: 0.25em;
+  top: 0.4em;
 }
 
-.zoom div {
-  width: inherit;
-}
-
-alv-input-field, alv-typeahead {
-
-}
