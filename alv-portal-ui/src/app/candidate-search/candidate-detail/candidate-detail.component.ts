@@ -13,6 +13,7 @@ import {
   LoadNextCandidateProfileDetailAction,
   LoadPreviousCandidateProfileDetailAction
 } from '../state-management';
+import { JobBadge } from '../../job-ad-search/job-badges-mapper.service';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
@@ -30,6 +31,12 @@ export class CandidateDetailComponent implements OnInit {
 
   nextEnabled$: Observable<boolean>;
 
+  //todo: implement
+  alerts$: Observable<Notification[]>;
+
+  //todo: implement
+  badges$: Observable<JobBadge[]>;
+
   candidateDetailPanelId = CandidateDetailPanelId;
 
   @ViewChild(NgbTooltip)
@@ -39,8 +46,11 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    //todo: Create a model for the detail page and map the candidateProfile$ to it
     this.candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
+
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
+
     this.nextEnabled$ = this.store.pipe(select(isNextVisible));
   }
 
