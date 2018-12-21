@@ -14,6 +14,7 @@ import {
 import { Observable } from 'rxjs';
 import {
   APPLY_FILTER,
+  FILTER_APPLIED,
   ApplyFilterAction,
   InitResultListAction,
   LoadNextPageAction,
@@ -81,6 +82,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       })
     );
 
+    this.jobAdSearchEffects.applyFilter$.pipe(
+      ofType(FILTER_APPLIED))
+      .subscribe(() => {
+        this.scrollService.scrollToTop();
+      });
   }
 
   ngAfterViewInit() {
