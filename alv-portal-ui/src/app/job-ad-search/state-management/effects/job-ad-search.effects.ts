@@ -82,9 +82,11 @@ export class JobAdSearchEffects {
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    map(([action, state]) => {
-      this.store.dispatch(new ApplyFilterAction(state.jobSearchFilter));
-      return new FilterResetAction(state.jobSearchFilter);
+    switchMap(([action, state]) => {
+      return [
+        new ApplyFilterAction(state.jobSearchFilter),
+        new FilterResetAction(state.jobSearchFilter)
+      ]
     })
   );
 
