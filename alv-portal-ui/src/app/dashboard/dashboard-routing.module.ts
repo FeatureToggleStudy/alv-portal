@@ -1,10 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { JobSeekerDashboardPageComponent } from './pages/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
-import { PavDashboardPageComponent } from './pages/pav-dashboard-page/pav-dashboard-page.component';
+import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-dashboard.component';
+import { PavDashboardComponent } from './pav-dashboard/pav-dashboard.component';
 import { NavigationGuard } from '../core/auth/navigation-guard.service';
-import { DashboardPageComponent } from './pages/dashboard-page.component';
-import { CompanyDashboardPageComponent } from './pages/company-dashboard-page/company-dashboard-page.component';
+import { DashboardComponent } from './dashboard.component';
+import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 
 const routes: Routes = [
   {
@@ -13,21 +13,21 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: DashboardPageComponent,
+    component: DashboardComponent,
     children: [
       {
         path: 'job-seeker',
-        component: JobSeekerDashboardPageComponent,
+        component: JobSeekerDashboardComponent,
         data: { titleKey: 'portal.home.job-seeker.browser-title' }
       },
       {
         path: 'pav',
-        component: PavDashboardPageComponent,
+        component: PavDashboardComponent,
         data: { titleKey: 'portal.home.company.browser-title' }
       },
       {
         path: 'company',
-        component: CompanyDashboardPageComponent,
+        component: CompanyDashboardComponent,
         data: { titleKey: 'portal.home.pav.browser-title' }
       }
     ]

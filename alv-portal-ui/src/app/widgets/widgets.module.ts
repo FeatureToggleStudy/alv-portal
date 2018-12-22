@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { JobQueryPanelComponent } from './job-search-widget/job-query-panel/job-query-panel.component';
 import { SharedModule } from '../shared/shared.module';
 import { JobSearchWidgetComponent } from './job-search-widget/job-search-widget.component';
+import { CandidateSearchWidgetComponent } from './candidate-search-widget/candidate-search-widget.component';
 
 @NgModule({
   imports: [
@@ -9,11 +10,13 @@ import { JobSearchWidgetComponent } from './job-search-widget/job-search-widget.
   ],
   declarations: [
     JobSearchWidgetComponent,
-    JobQueryPanelComponent
+    JobQueryPanelComponent,
+    CandidateSearchWidgetComponent
   ],
   exports: [
     JobSearchWidgetComponent,
-    JobQueryPanelComponent
+    JobQueryPanelComponent,
+    CandidateSearchWidgetComponent
   ]
 })
 export class WidgetsModule {

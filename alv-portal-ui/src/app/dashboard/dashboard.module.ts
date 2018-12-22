@@ -2,25 +2,23 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { DashboardHeaderComponent } from './widgets/dashboard-header/dashboard-header.component';
-import { FindCandidateWidgetComponent } from './widgets/find-candidate-widget/find-candidate-widget.component';
-import { CompanyDashboardPageComponent } from './pages/company-dashboard-page/company-dashboard-page.component';
-import { JobSeekerDashboardPageComponent } from './pages/job-seeker-dashboard-page/job-seeker-dashboard-page.component';
-import { PavDashboardPageComponent } from './pages/pav-dashboard-page/pav-dashboard-page.component';
+import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
+import { PavDashboardComponent } from './pav-dashboard/pav-dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardPageComponent } from './pages/dashboard-page.component';
+import { DashboardComponent } from './dashboard.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { GravatarModule } from 'ngx-gravatar';
 import { WidgetsModule } from '../widgets/widgets.module';
+import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
+import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-dashboard.component';
 
 @NgModule({
   declarations: [
     DashboardHeaderComponent,
-    FindCandidateWidgetComponent,
-    CompanyDashboardPageComponent,
-    JobSeekerDashboardPageComponent,
-    PavDashboardPageComponent,
-    DashboardPageComponent
+    CompanyDashboardComponent,
+    JobSeekerDashboardComponent,
+    PavDashboardComponent,
+    DashboardComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -32,13 +30,7 @@ import { WidgetsModule } from '../widgets/widgets.module';
     WidgetsModule
   ],
   entryComponents: [],
-  exports: [
-    DashboardHeaderComponent,
-    FindCandidateWidgetComponent,
-    CompanyDashboardPageComponent,
-    JobSeekerDashboardPageComponent,
-    PavDashboardPageComponent
-  ],
+  exports: [],
   providers: []
 })
 export class DashboardModule {
