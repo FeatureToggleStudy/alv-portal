@@ -1,11 +1,12 @@
 <alv-panel class="container">
-    <h2 class="panel-title">
-        <i class="fa fa-search mr-2"
-           aria-hidden=""></i> {{'portal.widgets.job-search.title' | translate}}
-    </h2>
-    <alv-job-query-panel
-            (searchSubmit)="onSearchSubmit($event)">
-    </alv-job-query-panel>
+  <h2 class="panel-title">
+    <i class="fa fa-search mr-2"
+       aria-hidden="true"></i>
+    {{'portal.widgets.job-search.title' | translate}}
+  </h2>
+  <alv-job-query-panel
+    (searchSubmit)="onSearchSubmit($event)">
+  </alv-job-query-panel>
 </alv-panel>
 
 

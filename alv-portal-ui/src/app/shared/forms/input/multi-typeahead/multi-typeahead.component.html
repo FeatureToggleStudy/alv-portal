@@ -14,16 +14,17 @@
 
       <fieldset>
         <legend class="sr-only">Selected Items</legend>
-        <div class="badge typeahead-badge d-inline-flex align-items-center"
+        <div
+          class="badge typeahead-badge d-inline-flex align-items-center"
              *ngFor="let item of control.value; let i = index"
-             [ngClass]="getTypeClass(item)">
+          [ngClass]="getTypeClass(item)">
           <div class="typeahead-badge-label text-truncate">
             {{item.label}}
           </div>
           <a class="remove-button ml-1"
              role="button"
-             (click)="removeItem(item)"
-             [attr.aria-label]="'Remove Item ' + item.label">
+                  (click)="removeItem(item)"
+                  [attr.aria-label]="'Remove Item ' + item.label">
             <i class="fa fa-times"></i>
           </a>
         </div>
@@ -33,7 +34,7 @@
              [attr.id]="id"
              [attr.required]="required"
              [attr.aria-required]="!!required"
-             [attr.aria-describedby]="allyHelpId"
+             [attr.aria-describedby]="validationId + ' ' + allyHelpId"
              [alvAutofocus]="autofocus"
              [style.width]="getInputWidth()"
              [ngbTypeahead]="loadItemsGuardedFn"
