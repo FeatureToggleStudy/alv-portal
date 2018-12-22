@@ -21,6 +21,7 @@ import {
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
   catchError,
+  concatMap,
   debounceTime,
   map,
   switchMap,
@@ -82,11 +83,11 @@ export class JobAdSearchEffects {
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => {
+    concatMap(([action, state]) => {
       return [
         new ApplyFilterAction(state.jobSearchFilter),
         new FilterResetAction(state.jobSearchFilter)
-      ]
+      ];
     })
   );
 

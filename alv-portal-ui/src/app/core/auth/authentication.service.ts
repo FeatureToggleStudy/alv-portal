@@ -37,7 +37,7 @@ export class AuthenticationService {
       map((a: CurrentUserLoadedAction) => {
         return a.payload.currentUser;
       })
-    )
+    );
   }
 
   getCurrentUser(): Observable<User> {
