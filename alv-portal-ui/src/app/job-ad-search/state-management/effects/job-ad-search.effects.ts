@@ -4,6 +4,8 @@ import { asyncScheduler, Observable, of } from 'rxjs/index';
 import { Action, select, Store } from '@ngrx/store';
 import {
   APPLY_FILTER,
+  APPLY_FILTER_VALUES,
+  APPLY_QUERY_VALUES,
   ApplyFilterAction,
   FilterAppliedAction,
   INIT_RESULT_LIST,
@@ -19,7 +21,8 @@ import { JobAdvertisementRepository } from '../../../shared/backend-services/job
 import {
   catchError,
   debounceTime,
-  map, share,
+  map,
+  share,
   switchMap,
   take,
   takeUntil,
@@ -82,6 +85,20 @@ export class JobAdSearchEffects {
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter)),
     share()
+  );
+
+  @Effect()
+  applyQueryValues$: Observable<Action> = this.actions$.pipe(
+    ofType(APPLY_QUERY_VALUES),
+    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
+    map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
+  );
+
+  @Effect()
+  applyFilterValues: Observable<Action> = this.actions$.pipe(
+    ofType(APPLY_FILTER_VALUES),
+    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
+    map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
   );
 
   @Effect()

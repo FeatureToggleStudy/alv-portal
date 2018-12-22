@@ -1,9 +1,9 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { JobSeekerHomePageComponent } from './pages/job-seeker-home-page/job-seeker-home-page.component';
-import { CompanyHomePageComponent } from './pages/company-home-page/company-home-page.component';
-import { PavHomePageComponent } from './pages/pav-home-page/pav-home-page.component';
-import { HomePageComponent } from './pages/home-page.component';
+import { JobSeekerHomeComponent } from './job-seeker-home/job-seeker-home.component';
+import { CompanyHomeComponent } from './company-home/company-home.component';
+import { PavHomeComponent } from './pav-home/pav-home.component';
+import { HomeComponent } from './home.component';
 
 const routes: Routes = [
   {
@@ -13,21 +13,21 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: HomePageComponent,
+    component: HomeComponent,
     children: [
       {
         path: 'job-seeker',
-        component: JobSeekerHomePageComponent,
+        component: JobSeekerHomeComponent,
         data: { titleKey: 'portal.home.job-seeker.browser-title' }
       },
       {
         path: 'company',
-        component: CompanyHomePageComponent,
+        component: CompanyHomeComponent,
         data: { titleKey: 'portal.home.company.browser-title' }
       },
       {
         path: 'pav',
-        component: PavHomePageComponent,
+        component: PavHomeComponent,
         data: { titleKey: 'portal.home.pav.browser-title' }
       }
     ]

@@ -1,11 +1,14 @@
 <div class="container-fluid query-search-area py-4">
   <div class="form-row">
-    <alv-query-search-panel class="col-md-9"
-                            (queriesChange)="onQueryChange($event)"
-                            [applyFilterReset]="applyFilterReset$ | async"
-                            [showSpinner]="resultsAreLoading$ | async"
-                            [jobSearchFilter]="jobSearchFilter$ | async">
-    </alv-query-search-panel>
+    <h2 class="sr-only">
+      Stellen suchen
+    </h2>
+    <alv-job-query-panel class="col-md-9"
+                         (queriesChange)="onQueryChange($event)"
+                         [applyFilterReset]="applyFilterReset$ | async"
+                         [showSpinner]="resultsAreLoading$ | async"
+                         [jobQueryPanelValues]="jobSearchFilter$ | async">
+    </alv-job-query-panel>
 
     <button class="btn btn-text col-md-1"
             (click)="onResetFilter()">
@@ -29,13 +32,19 @@
             <strong>{{totalCount$ | async }} Stellen</strong>
           </ng-template>
         </div>
+        <h2 class="sr-only">
+          Stellen filtern
+        </h2>
         <alv-filter-panel (filtersChange)="onFiltersChange($event)"
                           [applyFilterReset]="applyFilterReset$ | async"
-                          [jobSearchFilter]="jobSearchFilter$ | async">
+                          [filterPanelValues]="jobSearchFilter$ | async">
         </alv-filter-panel>
       </div>
     </div>
     <div class="col-xs-12 col-md-6 col-xl-8 order-3 order-md-2">
+      <h2 class="sr-only">
+        Stellen Suchresultate
+      </h2>
       <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults$ | async"
                              [jobSearchResult]="jobSearchResult"></alv-job-search-result>
     </div>

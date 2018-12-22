@@ -4,14 +4,15 @@
          type="checkbox"
          [formControl]="control"
          [attr.id]="id"
+         [attr.aria-describedby]="validationId"
          (click)="!readonly">
   <label class="form-check-label"
-         [for]="id"
+         [attr.for]="id"
          [innerHTML]="label | translate">
   </label>
 </div>
 <alv-validation-messages *ngIf="!readonly && control"
                          [control]="control"
-                         [id]="validationId"
+                         [attr.id]="validationId"
                          [customValidationMessages]="validationMessages">
 </alv-validation-messages>

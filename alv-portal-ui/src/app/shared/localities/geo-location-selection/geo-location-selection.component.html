@@ -1,4 +1,5 @@
 <button *ngIf="isVisible()"
+        tabindex="-1"
         [attr.aria-label]="'portal.shared.localities.geo-location-selection.aria-label' | translate"
         (click)="getLocation()">
   <span class="fa-stack">

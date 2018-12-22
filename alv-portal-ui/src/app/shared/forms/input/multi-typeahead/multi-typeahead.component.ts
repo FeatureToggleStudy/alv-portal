@@ -57,9 +57,9 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   inputValue: string;
 
-  helpId = this.id + '-help';
-
   loadItemsGuardedFn = this.loadItemsGuarded.bind(this);
+
+  allyHelpId: string;
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService,
@@ -76,6 +76,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
         return EMPTY;
       };
     }
+    this.allyHelpId = `${this.id}-ally-help`;
   }
 
   /**

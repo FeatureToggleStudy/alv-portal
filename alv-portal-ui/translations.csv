@@ -1329,7 +1329,7 @@ portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Tau
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
 
-portal,portal.navigation.menu-entry.job-search,Job-Suchen
+portal,portal.navigation.menu-entry.job-search,Stelle finden
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht
 portal,portal.dashboard.header.welcome.time.morning,Guten Morgen
@@ -1373,3 +1373,6 @@ portal,portal.job-ad.search.query-panel.localities.placeholder,"Arbeitsort, Kant
 portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl möglich,Multiple selection possible,Sélection multiple possible,Selezione multipla possibile
 
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
+
+portal,portal.widgets.job-search.title,Stelle finden
+

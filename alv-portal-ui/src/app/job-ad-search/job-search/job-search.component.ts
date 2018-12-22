@@ -16,13 +16,14 @@ import {
   APPLY_FILTER,
   FILTER_APPLIED,
   ApplyFilterAction,
-  InitResultListAction,
+  ApplyFilterValuesAction,
+  ApplyQueryValuesAction,
   LoadNextPageAction,
   ResetFilterAction,
 } from '../state-management/actions/job-ad-search.actions';
 import { map, take } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
-import { QueryPanelValues } from './query-search-panel/query-panel-values';
+import { JobQueryPanelValues } from '../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { ScrollService } from '../../core/scroll.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
@@ -58,9 +59,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   ngOnInit() {
-
-    this.store.dispatch(new InitResultListAction());
-
     this.totalCount$ = this.store.pipe(select(getTotalCount));
 
     this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults));
@@ -100,26 +98,12 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       });
   }
 
-  onQueryChange(queryPanelValues
-                  :
-                  QueryPanelValues
-  ) {
-    // TODO DF-410 Maybe create dedicated ApplyQueryAction with payload of type: QueryPanelValues
-    this.jobSearchFilter$.pipe(
-      map((currentFilter) => Object.assign({}, currentFilter, queryPanelValues)),
-      take(1))
-      .subscribe((jobSearchFilter) => {
-        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
-      });
+  onQueryChange(queryPanelValues: JobQueryPanelValues) {
+    this.store.dispatch(new ApplyQueryValuesAction(queryPanelValues));
   }
 
   onFiltersChange(filterPanelData: FilterPanelValues) {
-    this.jobSearchFilter$.pipe(
-      map((currentFilter) => Object.assign({}, currentFilter, filterPanelData)),
-      take(1))
-      .subscribe((jobSearchFilter) => {
-        this.store.dispatch(new ApplyFilterAction(jobSearchFilter));
-      });
+    this.store.dispatch(new ApplyFilterValuesAction(filterPanelData));
   }
 
   onResetFilter() {

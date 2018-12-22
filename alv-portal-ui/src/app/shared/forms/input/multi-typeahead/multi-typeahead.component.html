@@ -14,17 +14,19 @@
 
       <fieldset>
         <legend class="sr-only">Selected Items</legend>
-        <div class="badge typeahead-badge d-inline-flex align-items-center"
+        <div
+          class="badge typeahead-badge d-inline-flex align-items-center"
              *ngFor="let item of control.value; let i = index"
-             [ngClass]="getTypeClass(item)">
+          [ngClass]="getTypeClass(item)">
           <div class="typeahead-badge-label text-truncate">
             {{item.label}}
           </div>
-          <button class="remove-button ml-1"
+          <a class="remove-button ml-1"
+             role="button"
                   (click)="removeItem(item)"
                   [attr.aria-label]="'Remove Item ' + item.label">
             <i class="fa fa-times"></i>
-          </button>
+          </a>
         </div>
       </fieldset>
 
@@ -32,7 +34,7 @@
              [attr.id]="id"
              [attr.required]="required"
              [attr.aria-required]="!!required"
-             [attr.aria-describedby]="validationId + ' ' + helpId"
+             [attr.aria-describedby]="validationId + ' ' + allyHelpId"
              [alvAutofocus]="autofocus"
              [style.width]="getInputWidth()"
              [ngbTypeahead]="loadItemsGuardedFn"
@@ -47,7 +49,7 @@
              (blur)="control.markAsTouched()">
     </div>
     <label class="d-flex"
-           [for]="id">
+           [attr.for]="id">
       {{label | translate}}
       <span class="flex-grow-1"></span>
       <span *ngIf="limit && control.value?.length">
@@ -64,7 +66,7 @@
 
     <!-- a11y help texts -->
     <div class="sr-only"
-         [attr.id]="helpId">
+         [attr.id]="allyHelpId">
       <ng-container *ngIf="limit && control.value?.length >= limit; else a11yHelpText">
         Limit of {{ limit }} reached. Press Shift + Tab to delete selected items.
       </ng-container>
@@ -107,7 +109,7 @@
   <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
-                           [id]="validationId"
+                           [attr.id]="validationId"
                            [customValidationMessages]="validationMessages">
   </alv-validation-messages>
 </div>
