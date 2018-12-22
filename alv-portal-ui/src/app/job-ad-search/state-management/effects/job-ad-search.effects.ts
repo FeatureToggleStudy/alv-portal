@@ -8,6 +8,7 @@ import {
   APPLY_QUERY_VALUES,
   ApplyFilterAction,
   FilterAppliedAction,
+  FilterResetAction,
   INIT_RESULT_LIST,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
@@ -81,7 +82,10 @@ export class JobAdSearchEffects {
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
+    map(([action, state]) => {
+      this.store.dispatch(new ApplyFilterAction(state.jobSearchFilter));
+      return new FilterResetAction(state.jobSearchFilter);
+    })
   );
 
   @Effect()
@@ -137,6 +141,8 @@ export class JobAdSearchEffects {
           map((nextPageLoadedAction: NextPageLoadedAction) => {
             return nextPageLoadedAction.payload.page[0].id;
           }),
+          // BUG: even though we specify take(1) this Observable is still subscribed and thus
+          // is invoked for the next NextPageLoadedAction
           take(1)
         );
       }

@@ -13,15 +13,15 @@ import {
 } from '../state-management/state/job-ad-search.state';
 import { Observable } from 'rxjs';
 import {
-  APPLY_FILTER,
-  ApplyFilterAction,
   ApplyFilterValuesAction,
   ApplyQueryValuesAction,
   FILTER_APPLIED,
+  FILTER_RESET,
+  FilterResetAction,
   LoadNextPageAction,
   ResetFilterAction,
 } from '../state-management/actions/job-ad-search.actions';
-import { map, take } from 'rxjs/operators';
+import { map, take, takeUntil } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobQueryPanelValues } from '../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
@@ -73,14 +73,15 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     );
 
     this.applyFilterReset$ = this.actionsSubject.pipe(
-      ofType(APPLY_FILTER),
-      map((a: ApplyFilterAction) => {
+      ofType(FILTER_RESET),
+      map((a: FilterResetAction) => {
         return a.payload;
       })
     );
 
     this.actionsSubject.pipe(
-      ofType(FILTER_APPLIED))
+      ofType(FILTER_APPLIED),
+      takeUntil(this.ngUnsubscribe))
       .subscribe(() => {
         this.scrollService.scrollToTop();
       });
