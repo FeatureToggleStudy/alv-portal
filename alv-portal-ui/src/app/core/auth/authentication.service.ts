@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { RegistrationStatus, User, UserRole } from './user.model';
 import { HttpClient } from '@angular/common/http';
-import { select, Store } from '@ngrx/store';
+import { ActionsSubject, select, Store } from '@ngrx/store';
 import { CoreState, getCurrentUser } from '../state-management/state/core.state.ts';
 import {
+  CURRENT_USER_LOADED,
+  CurrentUserLoadedAction,
   LoadCurrentUserAction,
   LogoutUserAction
 } from '../state-management/actions/core.actions';
-import { filter, switchMap, take } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { ofType } from '@ngrx/effects';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +21,7 @@ export class AuthenticationService {
   private readonly currentUser$: Observable<User>;
 
   constructor(private httpClient: HttpClient,
+              private actionsSubject: ActionsSubject,
               private store: Store<CoreState>) {
     this.currentUser$ = this.store.pipe(select(getCurrentUser));
   }
@@ -26,25 +30,24 @@ export class AuthenticationService {
     this.store.dispatch(new LoadCurrentUserAction({}));
   }
 
-  reloadCurrentUser() {
-    // TODO we should find a better solution that we wait until the currentUser has changed / was fetched from the backend
-    this.store.dispatch(new LoadCurrentUserAction({}));
-    return this.getCurrentUser().pipe(
-      filter((user) => !!user),
-      take(1));
+  reloadCurrentUser(jwt: string = null): Observable<User> {
+    this.store.dispatch(new LoadCurrentUserAction(jwt ? { jwt: jwt } : {}));
+    return this.actionsSubject.pipe(
+      ofType(CURRENT_USER_LOADED),
+      map((a: CurrentUserLoadedAction) => {
+        return a.payload.currentUser;
+      })
+    )
   }
 
   getCurrentUser(): Observable<User> {
     return this.currentUser$;
   }
 
-  localLogin(credentials: Credentials) {
+  localLogin(credentials: Credentials): Observable<User> {
     return this.httpClient.post<User>('/api/authenticate', credentials, { observe: 'response' }).pipe(
       switchMap(response => {
-        this.store.dispatch(new LoadCurrentUserAction({ jwt: response.headers.get('Authorization') }));
-        return this.getCurrentUser().pipe(
-          filter((user) => !!user),
-          take(1));
+        return this.reloadCurrentUser(response.headers.get('Authorization'));
       })
     );
   }

@@ -22,7 +22,6 @@ import {
   catchError,
   debounceTime,
   map,
-  share,
   switchMap,
   take,
   takeUntil,
@@ -75,16 +74,14 @@ export class JobAdSearchEffects {
         totalCount: response.totalCount
       })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-    )),
-    share()
+    ))
   );
 
   @Effect()
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter)),
-    share()
+    map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
   );
 
   @Effect()

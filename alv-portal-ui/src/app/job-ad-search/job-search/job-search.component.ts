@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
-import { select, Store } from '@ngrx/store';
+import { ActionsSubject, select, Store } from '@ngrx/store';
 import {
   getJobSearchFilter,
   getJobSearchResults,
@@ -14,10 +14,10 @@ import {
 import { Observable } from 'rxjs';
 import {
   APPLY_FILTER,
-  FILTER_APPLIED,
   ApplyFilterAction,
   ApplyFilterValuesAction,
   ApplyQueryValuesAction,
+  FILTER_APPLIED,
   LoadNextPageAction,
   ResetFilterAction,
 } from '../state-management/actions/job-ad-search.actions';
@@ -27,7 +27,6 @@ import { JobQueryPanelValues } from '../../widgets/job-search-widget/job-query-p
 import { composeResultListItemId } from './result-list-item/result-list-item.component';
 import { ScrollService } from '../../core/scroll.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
-import { JobAdSearchEffects } from '../state-management/effects/job-ad-search.effects';
 import { ofType } from '@ngrx/effects';
 
 
@@ -52,7 +51,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   applyFilterReset$: Observable<JobSearchFilter>;
 
   constructor(private store: Store<JobAdSearchState>,
-              private jobAdSearchEffects: JobAdSearchEffects,
+              private actionsSubject: ActionsSubject,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               private scrollService: ScrollService) {
     super();
@@ -73,14 +72,14 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       map((link) => `mailto:?body=${link}`)
     );
 
-    this.applyFilterReset$ = this.jobAdSearchEffects.resetFilter$.pipe(
+    this.applyFilterReset$ = this.actionsSubject.pipe(
       ofType(APPLY_FILTER),
       map((a: ApplyFilterAction) => {
         return a.payload;
       })
     );
 
-    this.jobAdSearchEffects.applyFilter$.pipe(
+    this.actionsSubject.pipe(
       ofType(FILTER_APPLIED))
       .subscribe(() => {
         this.scrollService.scrollToTop();
