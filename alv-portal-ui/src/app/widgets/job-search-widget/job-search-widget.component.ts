@@ -10,12 +10,18 @@ import { Router } from '@angular/router';
 })
 export class JobSearchWidgetComponent extends AbstractSubscriber implements OnInit {
 
+  jobQueryPanelValues: JobQueryPanelValues;
 
   constructor(private router: Router) {
     super();
   }
 
   ngOnInit(): void {
+    this.jobQueryPanelValues = {
+      occupations: [],
+      keywords: [],
+      localities: [],
+    }
   }
 
   public onSearchSubmit(jobQueryPanelValues: JobQueryPanelValues) {
