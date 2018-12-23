@@ -83,7 +83,7 @@ export class JobAdSearchEffects {
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    concatMap(([action, state]) => {
+    switchMap(([action, state]) => {
       return [
         new ApplyFilterAction(state.jobSearchFilter),
         new FilterResetAction(state.jobSearchFilter)
@@ -110,7 +110,7 @@ export class JobAdSearchEffects {
     ofType(LOAD_NEXT_PAGE),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1)).pipe(
+    concatMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1)).pipe(
       map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
@@ -138,15 +138,12 @@ export class JobAdSearchEffects {
         return of(id);
       } else {
         this.store.dispatch(new LoadNextPageAction());
-
         return this.actions$.pipe(
           ofType(NEXT_PAGE_LOADED),
+          take(1),
           map((nextPageLoadedAction: NextPageLoadedAction) => {
             return nextPageLoadedAction.payload.page[0].id;
-          }),
-          // BUG: even though we specify take(1) this Observable is still subscribed and thus
-          // is invoked for the next NextPageLoadedAction
-          take(1)
+          })
         );
       }
     }),
