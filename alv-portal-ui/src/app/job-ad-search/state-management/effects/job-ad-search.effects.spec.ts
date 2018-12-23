@@ -154,8 +154,8 @@ describe('JobAdSearchEffects', () => {
       });
 
       expect(sut.loadNextJobAdvertisementDetail$).toBeObservable(expected);
-      expect(router.navigate).toHaveBeenCalledWith(['/job-search', 'job-ad-001'])
+      expect(router.navigate).toHaveBeenCalledWith(['/job-search', 'job-ad-001']);
     });
-  })
+  });
 
 });
