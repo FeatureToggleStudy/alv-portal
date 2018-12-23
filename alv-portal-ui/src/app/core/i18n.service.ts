@@ -61,7 +61,7 @@ export class I18nService {
   }
 
   private saveLangugeInPersistentMemory(language: string): void {
-    this.cookieService.set(LANGUAGE_KEY, language);
+    this.cookieService.set(LANGUAGE_KEY, language, undefined, '/');
   }
 
   private getPersistentLanguage(): string | null {
