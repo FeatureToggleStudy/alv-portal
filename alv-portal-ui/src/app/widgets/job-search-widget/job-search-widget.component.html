@@ -6,6 +6,7 @@
   </h2>
   <alv-job-query-panel
     [jobQueryPanelValues]="jobQueryPanelValues"
+    (queriesChange)="onQueryChanged($event)"
     (searchSubmit)="onSearchSubmit($event)">
   </alv-job-query-panel>
 </alv-panel>

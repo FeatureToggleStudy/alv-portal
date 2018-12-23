@@ -16,8 +16,6 @@ import {
   ApplyFilterValuesAction,
   ApplyQueryValuesAction,
   FILTER_APPLIED,
-  FILTER_RESET,
-  FilterResetAction,
   LoadNextPageAction,
   ResetFilterAction,
 } from '../state-management/actions/job-ad-search.actions';
@@ -48,8 +46,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   jobSearchMailToLink$: Observable<string>;
 
-  applyFilterReset$: Observable<JobSearchFilter>;
-
   constructor(private store: Store<JobAdSearchState>,
               private actionsSubject: ActionsSubject,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
@@ -70,13 +66,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       map((jobSearchFilter: JobSearchFilter) => this.jobSearchFilterParameterService.encode(jobSearchFilter)),
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
-    );
-
-    this.applyFilterReset$ = this.actionsSubject.pipe(
-      ofType(FILTER_RESET),
-      map((a: FilterResetAction) => {
-        return a.payload;
-      })
     );
 
     this.actionsSubject.pipe(

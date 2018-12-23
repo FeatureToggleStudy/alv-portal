@@ -5,7 +5,6 @@
     </h2>
     <alv-job-query-panel class="col-md-9"
                          (queriesChange)="onQueryChange($event)"
-                         [applyFilterReset]="applyFilterReset$ | async"
                          [showSpinner]="resultsAreLoading$ | async"
                          [jobQueryPanelValues]="jobSearchFilter$ | async">
     </alv-job-query-panel>
@@ -36,7 +35,6 @@
           Stellen filtern
         </h2>
         <alv-filter-panel (filtersChange)="onFiltersChange($event)"
-                          [applyFilterReset]="applyFilterReset$ | async"
                           [filterPanelValues]="jobSearchFilter$ | async">
         </alv-filter-panel>
       </div>
