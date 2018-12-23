@@ -1,11 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { OccupationLabelAutocomplete } from './occupation-label.types';
+import { Observable, of } from 'rxjs';
+import {
+  OccupationLabelAutocomplete,
+  OccupationLabelData
+} from './occupation-label.types';
+import { tap } from 'rxjs/operators';
 
 const DEFAULT_RESPONSE_SIZE = '10';
 
 const OCCUPATION_LABEL_RESOURCE_SEARCH_URL = '/referenceservice/api/_search/occupations/label';
+
+const OCCUPATION_LABEL_RESOURCE_URL = '/referenceservice/api/occupations/label';
 
 export enum OccupationTypes {
   X28 = 'x28',
@@ -17,7 +23,21 @@ export enum OccupationTypes {
 @Injectable({ providedIn: 'root' })
 export class OccupationLabelRepository {
 
+  private occupationLabelDataCache: { [key: string]: OccupationLabelData } = {};
+
   constructor(private http: HttpClient) {
+  }
+
+  getOccupationLabelsByKey(type: string, value: string, language: string): Observable<OccupationLabelData> {
+    const cacheKey = `${type}_${value}_${language}`;
+    if (this.occupationLabelDataCache[cacheKey]) {
+      return of(this.occupationLabelDataCache[cacheKey]);
+    }
+    return this.http.get<OccupationLabelData>(`${OCCUPATION_LABEL_RESOURCE_URL}/${type}/${value}`, { headers: { 'Cache-Control': 'no-cache' } }).pipe(
+      tap((label) => {
+        this.occupationLabelDataCache[cacheKey] = label;
+      })
+    )
   }
 
   /**

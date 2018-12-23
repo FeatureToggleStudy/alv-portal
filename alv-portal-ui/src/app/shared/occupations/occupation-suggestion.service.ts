@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import {
   OccupationLabelRepository,
   OccupationTypes
@@ -20,6 +20,22 @@ import {
 export class OccupationSuggestionService {
 
   constructor(private occupationLabelRepository: OccupationLabelRepository) {
+  }
+
+  translateAll(occupations: OccupationMultiTypeaheadItem[], language: string): Observable<OccupationMultiTypeaheadItem[]> {
+    return forkJoin(occupations.map((o) => this.translate(o, language)));
+  }
+
+  translate(occupation: OccupationMultiTypeaheadItem, language: string): Observable<OccupationMultiTypeaheadItem> {
+    if (occupation.type !== OccupationMultiTypeaheadItemType.CLASSIFICATION) {
+      return of(occupation);
+    }
+    const professionCode = occupation.payload[0];
+    return this.occupationLabelRepository.getOccupationLabelsByKey(professionCode.type, '' + professionCode.value, language).pipe(
+      map((label) => {
+        return new OccupationMultiTypeaheadItem(<OccupationMultiTypeaheadItemType>occupation.type, occupation.payload, label.default, occupation.order);
+      })
+    )
   }
 
   fetch(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
