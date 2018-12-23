@@ -63,8 +63,8 @@
     <div>
       <nouislider [min]="1"
                   [max]="60"
+                  [keyboard]="true"
                   [config]="{step: 1}"
-                  (change)="updateSliderValue($event)"
                   (update)="updateSliderLabel($event)"
                   class="range-input"
                   [formControl]="form.get('onlineSince')">
