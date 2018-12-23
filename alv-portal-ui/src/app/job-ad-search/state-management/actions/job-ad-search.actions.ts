@@ -125,7 +125,7 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
 }
 
 /**
- * Action that is fired if the language changed on the selected occupations have been translated again
+ * Action that is fired if the language changed and the selected occupations have been translated again
  */
 export class OccupationLanguageChangedAction implements Action {
   readonly type = OCCUPATION_LANGUAGE_CHANGED_ACTION;

@@ -169,7 +169,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       workloadPercentageMin: filter.workloadPercentageMin,
       workloadPercentageMax: filter.workloadPercentageMax,
       onlineSince: filter.onlineSince
-    }, { emitEvent: false })
+    }, { emitEvent: false });
   }
 
   private map(valueChanges: any): FilterPanelValues {

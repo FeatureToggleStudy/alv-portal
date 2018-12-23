@@ -35,7 +35,7 @@ export class OccupationSuggestionService {
       map((label) => {
         return new OccupationMultiTypeaheadItem(<OccupationMultiTypeaheadItemType>occupation.type, occupation.payload, label.default, occupation.order);
       })
-    )
+    );
   }
 
   fetch(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {

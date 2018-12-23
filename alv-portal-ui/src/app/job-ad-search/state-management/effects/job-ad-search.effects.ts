@@ -141,7 +141,7 @@ export class JobAdSearchEffects {
     map((a: LanguageChangedAction) => a),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     switchMap(([action, state]) => {
-      return this.occupationSuggestionService.translateAll(state.jobSearchFilter.occupations, action.payload.language)
+      return this.occupationSuggestionService.translateAll(state.jobSearchFilter.occupations, action.payload.language);
     }),
     map((updatedOccupations) => {
       return new OccupationLanguageChangedAction({ occupations: updatedOccupations });

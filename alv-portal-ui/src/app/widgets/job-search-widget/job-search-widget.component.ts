@@ -35,7 +35,7 @@ export class JobSearchWidgetComponent extends AbstractSubscriber implements OnIn
       this.jobQueryPanelValues = {
         ...this.jobQueryPanelValues,
         occupations: [...data]
-      }
+      };
     });
   }
 

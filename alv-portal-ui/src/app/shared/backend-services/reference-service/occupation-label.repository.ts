@@ -37,7 +37,7 @@ export class OccupationLabelRepository {
       tap((label) => {
         this.occupationLabelDataCache[cacheKey] = label;
       })
-    )
+    );
   }
 
   /**
