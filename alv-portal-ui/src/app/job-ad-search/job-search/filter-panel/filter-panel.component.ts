@@ -5,7 +5,7 @@ import { SelectableOption } from '../../../shared/forms/input/selectable-option.
 import { ContractType, Sort } from '../../state-management/state/job-search-filter.types';
 import { UserRole } from '../../../core/auth/user.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { map, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, takeUntil } from 'rxjs/operators';
 
 export interface FilterPanelValues {
   sort: Sort;
@@ -29,19 +29,18 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   form: FormGroup;
 
   @Input()
-  filterPanelValues: FilterPanelValues;
-
-  @Output()
-  filtersChange: Subject<FilterPanelValues> = new Subject<FilterPanelValues>();
-
-  @Input()
-  set applyFilterReset(filter: FilterPanelValues) {
-    if (this.form && filter) {
-      this.onFilterFormReset(filter);
-    }
+  set filterPanelValues(value: FilterPanelValues) {
+    this._filterPanelValues = value;
+    this.setFormValues(value);
   }
 
+  @Output()
+  filtersChange = new Subject<FilterPanelValues>();
+
   expanded = false;
+
+  private _filterPanelValues: FilterPanelValues;
+
 
   restrictOptions$: Observable<SelectableOption[]> = of([
     {
@@ -109,19 +108,25 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      displayRestricted: [this.filterPanelValues.displayRestricted],
-      sort: [this.filterPanelValues.sort],
-      company: [this.filterPanelValues.company],
-      contractType: [this.filterPanelValues.contractType],
-      workloadPercentageMin: [this.filterPanelValues.workloadPercentageMin],
-      workloadPercentageMax: [this.filterPanelValues.workloadPercentageMax],
-      onlineSince: [this.filterPanelValues.onlineSince]
+      displayRestricted: [],
+      sort: [],
+      company: [],
+      contractType: [],
+      workloadPercentageMin: [],
+      workloadPercentageMax: [],
+      onlineSince: []
     });
+
+    this.setFormValues(this._filterPanelValues);
+
     this.form.valueChanges
       .pipe(
+        debounceTime(400),
         map<any, FilterPanelValues>((valueChanges) => this.map(valueChanges)),
         takeUntil(this.ngUnsubscribe))
-      .subscribe(filterPanelData => this.filtersChange.next(filterPanelData));
+      .subscribe(filterPanelData => {
+        return this.filtersChange.next(filterPanelData);
+      });
 
     this.form.get('workloadPercentageMin').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -134,22 +139,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       .subscribe(percentageMax => {
         this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
       });
-  }
-
-  private onFilterFormReset(filter: FilterPanelValues): void {
-    this.form.reset({
-      displayRestricted: filter.displayRestricted,
-      sort: filter.sort,
-      company: filter.company,
-      contractType: filter.contractType,
-      workloadPercentageMin: filter.workloadPercentageMin,
-      workloadPercentageMax: filter.workloadPercentageMax,
-      onlineSince: filter.onlineSince
-    }, { emitEvent: false });
-  }
-
-  updateSliderValue(value: number) {
-    this.form.controls.onlineSince.setValue(value);
   }
 
   updateSliderLabel(value: number) {
@@ -166,6 +155,21 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   toggleExpanded() {
     this.expanded = !this.expanded;
+  }
+
+  private setFormValues(filter: FilterPanelValues): void {
+    if (!(this.form && filter)) {
+      return;
+    }
+    this.form.setValue({
+      displayRestricted: filter.displayRestricted,
+      sort: filter.sort,
+      company: filter.company,
+      contractType: filter.contractType,
+      workloadPercentageMin: filter.workloadPercentageMin,
+      workloadPercentageMax: filter.workloadPercentageMax,
+      onlineSince: filter.onlineSince
+    }, { emitEvent: false })
   }
 
   private map(valueChanges: any): FilterPanelValues {
