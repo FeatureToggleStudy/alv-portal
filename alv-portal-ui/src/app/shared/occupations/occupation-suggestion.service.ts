@@ -27,15 +27,15 @@ export class OccupationSuggestionService {
   }
 
   translate(occupation: OccupationMultiTypeaheadItem, language: string): Observable<OccupationMultiTypeaheadItem> {
-    if (occupation.type !== OccupationMultiTypeaheadItemType.CLASSIFICATION) {
-      return of(occupation);
+    const professionCode = this.translatableProfessionCode(occupation);
+    if (professionCode) {
+      return this.occupationLabelRepository.getOccupationLabelsByKey(professionCode.type, '' + professionCode.value, language).pipe(
+        map((label) => {
+          return new OccupationMultiTypeaheadItem(<OccupationMultiTypeaheadItemType>occupation.type, occupation.payload, label.default, occupation.order);
+        })
+      );
     }
-    const professionCode = occupation.payload[0];
-    return this.occupationLabelRepository.getOccupationLabelsByKey(professionCode.type, '' + professionCode.value, language).pipe(
-      map((label) => {
-        return new OccupationMultiTypeaheadItem(<OccupationMultiTypeaheadItemType>occupation.type, occupation.payload, label.default, occupation.order);
-      })
-    );
+    return of(occupation);
   }
 
   fetch(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
@@ -56,6 +56,13 @@ export class OccupationSuggestionService {
           return [].concat(occupationItems, classificationItems);
         })
       );
+  }
+
+  private translatableProfessionCode(occupation: OccupationMultiTypeaheadItem) {
+    if (occupation.type === OccupationMultiTypeaheadItemType.CLASSIFICATION) {
+      return { type: occupation.payload[0].type, value: occupation.payload[0].value };
+    }
+    return;
   }
 
   private toProfessionCodesFromClassification(classification: OccupationLabel) {
@@ -82,4 +89,5 @@ export class OccupationSuggestionService {
   private determineStartIndex(occupationLabelAutocomplete, idx) {
     return occupationLabelAutocomplete.occupations.length + idx;
   }
+
 }

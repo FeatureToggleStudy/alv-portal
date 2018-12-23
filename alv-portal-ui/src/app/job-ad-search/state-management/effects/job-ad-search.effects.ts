@@ -24,6 +24,7 @@ import {
   catchError,
   concatMap,
   debounceTime,
+  filter,
   map,
   switchMap,
   take,
@@ -33,6 +34,7 @@ import {
 } from 'rxjs/internal/operators';
 import {
   getJobAdSearchState,
+  getJobSearchFilter,
   getNextId,
   getPrevId,
   JobAdSearchState
@@ -76,7 +78,7 @@ export class JobAdSearchEffects {
     map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([filter, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(filter, state.page)).pipe(
+    switchMap(([jobSearchFilter, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(jobSearchFilter, state.page)).pipe(
       map((response) => new FilterAppliedAction({
         page: response.result,
         totalCount: response.totalCount
@@ -139,9 +141,11 @@ export class JobAdSearchEffects {
   translateOccupationsOnLanguageChanged$: Observable<Action> = this.actions$.pipe(
     ofType(LANGUAGE_CHANGED),
     map((a: LanguageChangedAction) => a),
-    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => {
-      return this.occupationSuggestionService.translateAll(state.jobSearchFilter.occupations, action.payload.language);
+    withLatestFrom(this.store.pipe(select(getJobSearchFilter))),
+    filter(([action, jobSearchFilter]) => !!jobSearchFilter.occupations),
+    filter(([action, jobSearchFilter]) => jobSearchFilter.occupations.length > 0),
+    switchMap(([action, jobSearchFilter]) => {
+      return this.occupationSuggestionService.translateAll(jobSearchFilter.occupations, action.payload.language);
     }),
     map((updatedOccupations) => {
       return new OccupationLanguageChangedAction({ occupations: updatedOccupations });

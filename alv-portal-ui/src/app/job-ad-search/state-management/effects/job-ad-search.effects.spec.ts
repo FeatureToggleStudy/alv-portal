@@ -20,6 +20,7 @@ import { Observable } from 'rxjs/index';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { jobAdSearchReducer } from '../reducers/job-ad-search.reducers';
 import { JobSearchFilter } from '../state/job-search-filter.types';
+import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import SpyObj = jasmine.SpyObj;
 
 describe('JobAdSearchEffects', () => {
@@ -28,11 +29,13 @@ describe('JobAdSearchEffects', () => {
   let store: Store<JobAdSearchState>;
   let actions$: Observable<any>;
   let jobAdService: SpyObj<JobAdvertisementRepository>;
+  let occupationSuggestionService: SpyObj<OccupationSuggestionService>;
   let router: Router;
 
   beforeEach(() => {
     router = jasmine.createSpyObj('mockRouter', ['navigate']);
     jobAdService = jasmine.createSpyObj('mockJobAdsService', ['search', 'findById']);
+    occupationSuggestionService = jasmine.createSpyObj('mockOccupationSuggestionService', ['translateAll']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -42,6 +45,7 @@ describe('JobAdSearchEffects', () => {
         JobAdSearchEffects,
         provideMockActions(() => actions$),
         { provide: Router, useValue: router },
+        { provide: OccupationSuggestionService, useValue: occupationSuggestionService },
         { provide: JobAdvertisementRepository, useValue: jobAdService },
         { provide: JOB_AD_SEARCH_EFFECTS_DEBOUNCE, useValue: 30 },
         { provide: JOB_AD_SEARCH_EFFECTS_SCHEDULER, useFactory: getTestScheduler },
