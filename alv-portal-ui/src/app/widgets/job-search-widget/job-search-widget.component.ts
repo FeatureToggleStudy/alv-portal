@@ -39,10 +39,6 @@ export class JobSearchWidgetComponent extends AbstractSubscriber implements OnIn
     });
   }
 
-  public onQueryChanged(jobQueryPanelValues: JobQueryPanelValues) {
-    this.jobQueryPanelValues = jobQueryPanelValues;
-  }
-
   public onSearchSubmit(jobQueryPanelValues: JobQueryPanelValues) {
     this.router.navigate(['job-search'], {
       queryParams: {

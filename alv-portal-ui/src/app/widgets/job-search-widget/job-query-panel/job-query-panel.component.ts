@@ -36,7 +36,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
   showSpinner: boolean;
 
   @Output()
-  queriesChange = new EventEmitter<JobQueryPanelValues>();
+  jobQueryPanelValuesChange = new EventEmitter<JobQueryPanelValues>();
 
   @Output()
   searchSubmit = new EventEmitter<JobQueryPanelValues>();
@@ -61,7 +61,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     this.form.valueChanges.pipe(
       map<any, JobQueryPanelValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
-      .subscribe(queryPanelValues => this.queriesChange.next(queryPanelValues));
+      .subscribe(queryPanelValues => this.jobQueryPanelValuesChange.next(queryPanelValues));
   }
 
   loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {

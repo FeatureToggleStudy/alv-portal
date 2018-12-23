@@ -4,7 +4,7 @@
       Stellen suchen
     </h2>
     <alv-job-query-panel class="col-md-9"
-                         (queriesChange)="onQueryChange($event)"
+                         (jobQueryPanelValuesChange)="onQueryChange($event)"
                          [showSpinner]="resultsAreLoading$ | async"
                          [jobQueryPanelValues]="jobSearchFilter$ | async">
     </alv-job-query-panel>
