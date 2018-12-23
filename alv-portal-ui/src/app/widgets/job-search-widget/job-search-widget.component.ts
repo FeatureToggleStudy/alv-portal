@@ -21,7 +21,7 @@ export class JobSearchWidgetComponent extends AbstractSubscriber implements OnIn
       occupations: [],
       keywords: [],
       localities: [],
-    }
+    };
   }
 
   public onSearchSubmit(jobQueryPanelValues: JobQueryPanelValues) {
