@@ -3,6 +3,7 @@ import { JobAdvertisement } from '../../../shared/backend-services/job-advertise
 import { JobSearchFilter } from '../state/job-search-filter.types';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
+import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
@@ -18,6 +19,8 @@ export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEM
 
 export const APPLY_QUERY_VALUES = 'JOBS:APPLY_QUERY_VALUES';
 export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
+
+export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -57,7 +60,7 @@ export class ApplyQueryValuesAction implements Action {
 }
 
 /**
- * Action to Apply the Filter Panel Value
+ * Action to apply the Filter Panel Value
  */
 export class ApplyFilterValuesAction implements Action {
   readonly type = APPLY_FILTER_VALUES;
@@ -121,6 +124,17 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
   }
 }
 
+/**
+ * Action that is fired if the language changed on the selected occupations have been translated again
+ */
+export class OccupationLanguageChangedAction implements Action {
+  readonly type = OCCUPATION_LANGUAGE_CHANGED_ACTION;
+
+  constructor(public payload: { occupations: OccupationMultiTypeaheadItem[] }) {
+  }
+}
+
+
 export type Actions =
   | InitResultListAction
   | FilterAppliedAction
@@ -132,4 +146,5 @@ export type Actions =
   | LoadNextJobAdvertisementDetailAction
   | ResetFilterAction
   | ApplyFilterValuesAction
-  | ApplyQueryValuesAction;
+  | ApplyQueryValuesAction
+  | OccupationLanguageChangedAction;

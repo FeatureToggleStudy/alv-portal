@@ -16,6 +16,7 @@ import {
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
+  OccupationLanguageChangedAction,
   RESET_FILTER
 } from '../actions/job-ad-search.actions';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
@@ -41,7 +42,12 @@ import { Router } from '@angular/router';
 import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
-import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';
+import {
+  EffectErrorOccurredAction,
+  LANGUAGE_CHANGED,
+  LanguageChangedAction
+} from '../../../core/state-management/actions/core.actions';
+import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
@@ -130,6 +136,19 @@ export class JobAdSearchEffects {
   );
 
   @Effect()
+  translateOccupationsOnLanguageChanged$: Observable<Action> = this.actions$.pipe(
+    ofType(LANGUAGE_CHANGED),
+    map((a: LanguageChangedAction) => a),
+    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
+    switchMap(([action, state]) => {
+      return this.occupationSuggestionService.translateAll(state.jobSearchFilter.occupations, action.payload.language)
+    }),
+    map((updatedOccupations) => {
+      return new OccupationLanguageChangedAction({ occupations: updatedOccupations });
+    })
+  );
+
+  @Effect()
   loadNextJobAdvertisementDetail$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL),
     withLatestFrom(this.store.pipe(select(getNextId))),
@@ -156,6 +175,7 @@ export class JobAdSearchEffects {
   );
 
   constructor(private actions$: Actions,
+              private occupationSuggestionService: OccupationSuggestionService,
               private jobAdvertisementRepository: JobAdvertisementRepository,
               private store: Store<JobAdSearchState>,
               private router: Router,
