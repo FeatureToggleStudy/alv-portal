@@ -27,7 +27,7 @@ export class OccupationSuggestionService {
   }
 
   translate(occupation: OccupationMultiTypeaheadItem, language: string): Observable<OccupationMultiTypeaheadItem> {
-    const professionCode = this.translatableProfessionCode(occupation);
+    const professionCode = this.translateableProfessionCode(occupation);
     if (professionCode) {
       return this.occupationLabelRepository.getOccupationLabelsByKey(professionCode.type, '' + professionCode.value, language).pipe(
         map((label) => {
@@ -58,7 +58,7 @@ export class OccupationSuggestionService {
       );
   }
 
-  private translatableProfessionCode(occupation: OccupationMultiTypeaheadItem) {
+  private translateableProfessionCode(occupation: OccupationMultiTypeaheadItem) {
     if (occupation.type === OccupationMultiTypeaheadItemType.CLASSIFICATION) {
       return { type: occupation.payload[0].type, value: occupation.payload[0].value };
     }
