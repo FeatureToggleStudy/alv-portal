@@ -24,21 +24,19 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
 
   loadLocalitiesFn = this.loadLocalities.bind(this);
 
+  private _jobQueryPanelValues: JobQueryPanelValues;
+
   @Input()
-  jobQueryPanelValues: JobQueryPanelValues;
+  set jobQueryPanelValues(value: JobQueryPanelValues) {
+    this._jobQueryPanelValues = value;
+    this.setFormValues(value);
+  }
 
   @Input()
   showSpinner: boolean;
 
-  @Input()
-  set applyFilterReset(filter: JobQueryPanelValues) {
-    if (this.form && filter) {
-      this.onFilterFormReset(filter);
-    }
-  }
-
   @Output()
-  queriesChange = new EventEmitter<JobQueryPanelValues>();
+  jobQueryPanelValuesChange = new EventEmitter<JobQueryPanelValues>();
 
   @Output()
   searchSubmit = new EventEmitter<JobQueryPanelValues>();
@@ -53,21 +51,17 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
 
   ngOnInit() {
     this.form = this.fb.group({
-      occupations: [[]],
-      keywords: [[]],
-      localities: [[]],
+      occupations: [],
+      keywords: [],
+      localities: [],
     });
-    if (this.jobQueryPanelValues) {
-      this.form.setValue({
-        occupations: this.jobQueryPanelValues.occupations,
-        keywords: this.jobQueryPanelValues.keywords,
-        localities: this.jobQueryPanelValues.localities,
-      });
-    }
+
+    this.setFormValues(this._jobQueryPanelValues);
+
     this.form.valueChanges.pipe(
       map<any, JobQueryPanelValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
-      .subscribe(queryPanelValues => this.queriesChange.next(queryPanelValues));
+      .subscribe(queryPanelValues => this.jobQueryPanelValuesChange.next(queryPanelValues));
   }
 
   loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
@@ -90,12 +84,14 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     this.searchSubmit.emit(this.map(this.form.value));
   }
 
-  private onFilterFormReset(filter: JobQueryPanelValues): void {
-    this.form.reset({
-      occupations: filter.occupations,
-      keywords: filter.keywords,
-      localities: filter.localities,
-    }, { emitEvent: false });
+  private setFormValues(jobQueryPanelValues: JobQueryPanelValues) {
+    if (this.form && jobQueryPanelValues) {
+      this.form.setValue({
+        occupations: jobQueryPanelValues.occupations,
+        keywords: jobQueryPanelValues.keywords,
+        localities: jobQueryPanelValues.localities,
+      }, { emitEvent: false });
+    }
   }
 
   private map(valueChanges: any): JobQueryPanelValues {

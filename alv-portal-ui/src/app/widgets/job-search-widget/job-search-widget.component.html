@@ -5,7 +5,7 @@
     {{'portal.widgets.job-search.title' | translate}}
   </h2>
   <alv-job-query-panel
-    [jobQueryPanelValues]="jobQueryPanelValues"
+    [(jobQueryPanelValues)]="jobQueryPanelValues"
     (searchSubmit)="onSearchSubmit($event)">
   </alv-job-query-panel>
 </alv-panel>

@@ -8,6 +8,7 @@ import {
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
+  OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET_FILTER
 } from '../actions/job-ad-search.actions';
 
@@ -54,6 +55,16 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
         resultsAreLoading: false
+      };
+      break;
+
+    case OCCUPATION_LANGUAGE_CHANGED_ACTION:
+      newState = {
+        ...state,
+        jobSearchFilter: {
+          ...state.jobSearchFilter,
+          occupations: action.payload.occupations,
+        }
       };
       break;
 
