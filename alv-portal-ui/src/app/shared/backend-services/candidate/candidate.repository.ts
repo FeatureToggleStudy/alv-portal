@@ -12,11 +12,12 @@ import { JobAdvertisement } from '../job-advertisement/job-advertisement.types';
 
 @Injectable({ providedIn: 'root' })
 export class CandidateRepository {
-  private resourceUrl = 'candidateservice/api/candidates';
 
-  private searchUrl = 'candidateservice/api/_search/candidates';
+  private resourceUrl = '/candidateservice/api/candidates';
 
-  private countUrl = 'candidateservice/api/_count/candidates';
+  private searchUrl = '/candidateservice/api/_search/candidates';
+
+  private countUrl = '/candidateservice/api/_count/candidates';
 
   constructor(private http: HttpClient) {
   }
