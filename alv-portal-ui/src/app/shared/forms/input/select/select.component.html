@@ -27,14 +27,15 @@
         </ng-container>
       </ng-container>
     </div>
-    <label [for]="id" class="text-truncate">{{label | translate}}</label>
+    <label [attr.for]="id"
+           class="text-truncate">{{label | translate}}</label>
     <i class="fas fa-caret-down dropdown-icon"
        *ngIf="!readonly"></i>
   </div>
   <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
-                           [id]="validationId"
+                           [attr.id]="validationId"
                            [customValidationMessages]="validationMessages">
   </alv-validation-messages>
 </div>

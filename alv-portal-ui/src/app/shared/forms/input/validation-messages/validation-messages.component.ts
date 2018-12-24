@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ValidationMessage } from './validation-message.model';
 import { ValidationService } from '../../validation.service';
@@ -16,6 +16,8 @@ import { ValidationService } from '../../validation.service';
   styleUrls: ['./validation-messages.component.scss']
 })
 export class ValidationMessagesComponent implements OnInit {
+
+  @HostBinding('attr.role') readonly role = 'alert';
 
   /**
    * FormControl object that should be validated
@@ -35,7 +37,8 @@ export class ValidationMessagesComponent implements OnInit {
 
   validationMessages: Array<ValidationMessage>;
 
-  constructor(private validationService: ValidationService) { }
+  constructor(private validationService: ValidationService) {
+  }
 
   ngOnInit() {
     this.validationMessages = this.validationService.prepareValidationMessages(this.customValidationMessages);

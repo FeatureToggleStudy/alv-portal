@@ -1,0 +1,11 @@
+@import "../../../scss/common/colors";
+
+.panel-title {
+  font-size: xx-large;
+  color: $color-grey-black;
+  margin-bottom: 1rem;
+}
+
+::ng-deep .alv-panel {
+  padding-bottom: 2rem;
+}

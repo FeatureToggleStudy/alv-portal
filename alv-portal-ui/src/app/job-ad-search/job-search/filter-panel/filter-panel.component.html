@@ -1,10 +1,13 @@
 <button class="title-bar alv-bar text-truncate mb-3 w-100"
         (click)="toggleExpanded()">
   {{'job-search.filter.title' | translate}}
-  <i *ngIf="!expanded" class="fas fa-chevron-down"></i>
-  <i *ngIf="expanded" class="fas fa-chevron-up"></i>
+  <i *ngIf="!expanded"
+     class="fas fa-chevron-down"></i>
+  <i *ngIf="expanded"
+     class="fas fa-chevron-up"></i>
 </button>
-<div class="title-bar alv-bar text-truncate mb-3">
+<div class="title-bar alv-bar text-truncate mb-3"
+     aria-hidden="true">
   {{'job-search.filter.title' | translate}}
 </div>
 
@@ -60,8 +63,8 @@
     <div>
       <nouislider [min]="1"
                   [max]="60"
+                  [keyboard]="true"
                   [config]="{step: 1}"
-                  (change)="updateSliderValue($event)"
                   (update)="updateSliderLabel($event)"
                   class="range-input"
                   [formControl]="form.get('onlineSince')">
