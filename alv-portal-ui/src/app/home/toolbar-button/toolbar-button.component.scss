@@ -1,0 +1,62 @@
+@import "../../../scss/common/colors";
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
+
+.nav-link__icon {
+  border: solid 2px $color-primary;
+  border-radius: 50%;
+  color: $color-primary;
+  width: 60px;
+  height: 60px;
+  font-size: 2em;
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.nav-item__text {
+  color: $color-dark-grey;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.inner-circle {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  z-index: 1;
+  i.fa {
+    line-height: 1.65em;
+  }
+}
+
+:host:hover, :host.active {
+  cursor: pointer;
+  color: $color-white;
+  .inner-circle {
+    background-color: $color-primary;
+  }
+  .nav-link__icon {
+    color: $color-white;
+  }
+}
+
+:host:hover {
+  background: $color-white-transparent;
+}
+
+:host.active .nav-item__text {
+  color: $color-primary;
+  font-weight: 700;
+}
+
+
+@include media-breakpoint-down(md) {
+  .nav-item__text {
+    text-align: center;
+  }
+}
+

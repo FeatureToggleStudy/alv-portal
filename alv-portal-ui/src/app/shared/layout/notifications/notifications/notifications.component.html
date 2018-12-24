@@ -1,6 +1,8 @@
-<div @insertRemoveNotification *ngFor="let notification of notifications">
+<div @insertRemoveNotification
+     *ngFor="let notification of notifications">
 
-  <alv-notification [notification]="notification"
+  <alv-notification role="alert"
+                    [notification]="notification"
                     (dismiss)="dismiss($event)"></alv-notification>
 
 </div>

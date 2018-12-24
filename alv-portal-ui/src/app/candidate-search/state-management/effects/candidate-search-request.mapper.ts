@@ -9,7 +9,9 @@ export class CandidateSearchRequestMapper {
     return {
       page: page,
       size: ITEMS_PER_PAGE,
-      body: {}
+      body: {
+        //todo DF-391: Implement mapping
+      }
     };
   }
 

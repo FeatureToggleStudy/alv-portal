@@ -18,7 +18,7 @@ import { JobSearchFilterParameterService } from './job-search/job-search-filter-
 import { JobDetailGuard } from './job-detail/job-detail.guard';
 import { JobSearchGuard } from './job-search/job-search.guard';
 import { JobDetailModelFactory } from './job-detail/job-detail-model-factory';
-import { QuerySearchPanelComponent } from './job-search/query-search-panel/query-search-panel.component';
+import { WidgetsModule } from '../widgets/widgets.module';
 
 @NgModule({
   imports: [
@@ -29,14 +29,14 @@ import { QuerySearchPanelComponent } from './job-search/query-search-panel/query
     JobAdSearchRoutingModule,
     InfiniteScrollModule,
     NouisliderModule,
+    WidgetsModule
   ],
   declarations: [
     JobSearchComponent,
     FilterPanelComponent,
     JobSearchResultComponent,
     JobDetailComponent,
-    JobLocationPipe,
-    QuerySearchPanelComponent
+    JobLocationPipe
   ],
   providers: [
     JobSearchFilterParameterService,

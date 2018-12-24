@@ -6,7 +6,11 @@ import {
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ApplyFilterAction } from '../state-management/actions/job-ad-search.actions';
+import {
+  ApplyFilterAction,
+  ApplyQueryValuesAction,
+  InitResultListAction
+} from '../state-management/actions/job-ad-search.actions';
 import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
 import { JobAdSearchState } from '../state-management/state/job-ad-search.state';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
@@ -31,6 +35,16 @@ export class JobSearchGuard implements CanActivate {
         return false;
       }
     }
+    const queryString = route.queryParams['query-values'];
+    if (queryString) {
+      const queryFilterValues = this.jobSearchFilterParameterService.decodeQueryPanelValues(queryString);
+      this.store.dispatch(new ApplyQueryValuesAction(queryFilterValues, true));
+      this.router.navigate(['job-search']);
+      return false;
+    }
+
+    this.store.dispatch(new InitResultListAction());
+
     return true;
   }
 

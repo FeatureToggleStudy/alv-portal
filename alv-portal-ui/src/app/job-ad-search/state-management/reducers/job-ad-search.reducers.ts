@@ -2,10 +2,13 @@ import { initialState, JobAdSearchState } from '../state/job-ad-search.state';
 import {
   Actions,
   APPLY_FILTER,
+  APPLY_FILTER_VALUES,
+  APPLY_QUERY_VALUES,
   FILTER_APPLIED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
+  OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET_FILTER
 } from '../actions/job-ad-search.actions';
 
@@ -14,6 +17,27 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
   let newState: JobAdSearchState;
 
   switch (action.type) {
+
+    case APPLY_QUERY_VALUES:
+      newState = {
+        ...state,
+        jobSearchFilter: {
+          ...(action.init ? initialState.jobSearchFilter : state.jobSearchFilter),
+          ...action.payload
+        }
+      };
+      break;
+
+    case APPLY_FILTER_VALUES:
+      newState = {
+        ...state,
+        jobSearchFilter: {
+          ...state.jobSearchFilter,
+          ...action.payload
+        }
+      };
+      break;
+
     case APPLY_FILTER:
       newState = {
         ...state,
@@ -31,6 +55,16 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
         resultsAreLoading: false
+      };
+      break;
+
+    case OCCUPATION_LANGUAGE_CHANGED_ACTION:
+      newState = {
+        ...state,
+        jobSearchFilter: {
+          ...state.jobSearchFilter,
+          occupations: action.payload.occupations,
+        }
       };
       break;
 

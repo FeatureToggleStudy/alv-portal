@@ -5,6 +5,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
 
+const FALLBACK_TITLE_KEY = 'global.title';
+
 @Component({
   selector: 'alv-root',
   templateUrl: './app.component.html',
@@ -42,7 +44,10 @@ export class AppComponent implements OnInit {
       mergeMap((route) => route.data),
       map((data) => data.titleKey),
       switchMap((titleKey) => {
-        return this.i18nService.stream(titleKey);
+        if (titleKey) {
+          return this.i18nService.stream(titleKey);
+        }
+        return this.i18nService.stream(FALLBACK_TITLE_KEY);
       })
     ).subscribe((title) => {
       this.a11yMessage = title;

@@ -23,7 +23,6 @@
         <dependency>
             <groupId>ch.admin.seco</groupId>
             <artifactId>alv-portal-ui</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
         <!-- spring boot -->

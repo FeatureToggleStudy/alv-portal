@@ -21,3 +21,7 @@ export interface OccupationLabelAutocomplete {
   occupations: OccupationLabelSuggestion[];
   classifications: OccupationLabel[];
 }
+
+export interface OccupationLabelData {
+  [key: string]: string;
+}

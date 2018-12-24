@@ -24,7 +24,7 @@
            [resultTemplate]="template"
            class="form-control">
 
-    <label [for]="id">
+    <label [attr.for]="id">
       {{label | translate}}
     </label>
 
@@ -57,6 +57,6 @@
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
                            [customValidationMessages]="validationMessages"
-                           [id]="validationId">
+                           [attr.id]="validationId">
   </alv-validation-messages>
 </div>

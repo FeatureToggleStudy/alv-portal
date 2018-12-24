@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import {
   OccupationLabelRepository,
   OccupationTypes
@@ -22,6 +22,22 @@ export class OccupationSuggestionService {
   constructor(private occupationLabelRepository: OccupationLabelRepository) {
   }
 
+  translateAll(occupations: OccupationMultiTypeaheadItem[], language: string): Observable<OccupationMultiTypeaheadItem[]> {
+    return forkJoin(occupations.map((o) => this.translate(o, language)));
+  }
+
+  translate(occupation: OccupationMultiTypeaheadItem, language: string): Observable<OccupationMultiTypeaheadItem> {
+    const professionCode = this.translateableProfessionCode(occupation);
+    if (professionCode) {
+      return this.occupationLabelRepository.getOccupationLabelsByKey(professionCode.type, '' + professionCode.value, language).pipe(
+        map((label) => {
+          return new OccupationMultiTypeaheadItem(<OccupationMultiTypeaheadItemType>occupation.type, occupation.payload, label.default, occupation.order);
+        })
+      );
+    }
+    return of(occupation);
+  }
+
   fetch(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
     return this.occupationLabelRepository.suggestOccupations(query, [OccupationTypes.X28, OccupationTypes.SBN3, OccupationTypes.SBN5])
       .pipe(
@@ -40,6 +56,13 @@ export class OccupationSuggestionService {
           return [].concat(occupationItems, classificationItems);
         })
       );
+  }
+
+  private translateableProfessionCode(occupation: OccupationMultiTypeaheadItem) {
+    if (occupation.type === OccupationMultiTypeaheadItemType.CLASSIFICATION) {
+      return { type: occupation.payload[0].type, value: occupation.payload[0].value };
+    }
+    return;
   }
 
   private toProfessionCodesFromClassification(classification: OccupationLabel) {
@@ -66,4 +89,5 @@ export class OccupationSuggestionService {
   private determineStartIndex(occupationLabelAutocomplete, idx) {
     return occupationLabelAutocomplete.occupations.length + idx;
   }
+
 }
