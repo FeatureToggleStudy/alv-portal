@@ -35,12 +35,11 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   }
 
   @Output()
-  filtersChange = new Subject<FilterPanelValues>();
+  filterPanelValueChange = new Subject<FilterPanelValues>();
 
   expanded = false;
 
   private _filterPanelValues: FilterPanelValues;
-
 
   restrictOptions$: Observable<SelectableOption[]> = of([
     {
@@ -125,7 +124,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
         map<any, FilterPanelValues>((valueChanges) => this.map(valueChanges)),
         takeUntil(this.ngUnsubscribe))
       .subscribe(filterPanelData => {
-        return this.filtersChange.next(filterPanelData);
+        return this.filterPanelValueChange.next(filterPanelData);
       });
 
     this.form.get('workloadPercentageMin').valueChanges

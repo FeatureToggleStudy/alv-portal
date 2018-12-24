@@ -34,7 +34,7 @@
         <h2 class="sr-only">
           Stellen filtern
         </h2>
-        <alv-filter-panel (filtersChange)="onFiltersChange($event)"
+        <alv-filter-panel (filterPanelValueChange)="onFiltersChange($event)"
                           [filterPanelValues]="jobSearchFilter$ | async">
         </alv-filter-panel>
       </div>
