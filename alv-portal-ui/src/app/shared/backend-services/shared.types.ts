@@ -102,7 +102,7 @@ export enum Language {
   NL = 'nl',
   NLD = 'nld',
   NO = 'no',
-  PL = 'ps',
+  PL = 'pl',
   PRS = 'prs',
   PT = 'pt',
   RM = 'rm',

@@ -10,7 +10,8 @@
                              label="portal.job-ad.search.query-panel.occupations.placeholder"
                              [ngbTooltip]="occupationsTP"
                              placement="bottom"
-                             [focusFirst]="true">
+                             [focusFirst]="true"
+                             class="narrow-form">
         </alv-multi-typeahead>
         <ng-template #occupationsTP>
           {{ 'portal.job-ad.search.query-panel.occupations.tooltip' | translate}}
@@ -21,7 +22,8 @@
                              [limit]="4"
                              label="portal.job-ad.search.query-panel.keywords.placeholder"
                              [ngbTooltip]="keywordsTP"
-                             placement="bottom">
+                             placement="bottom"
+                             class="narrow-form">
         </alv-multi-typeahead>
         <ng-template #keywordsTP>
           {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
@@ -37,7 +39,7 @@
                              label="portal.job-ad.search.query-panel.localities.placeholder"
                              [ngbTooltip]="localitiesTP"
                              placement="bottom"
-                             class="append-button">
+                             class="append-button narrow-form">
         </alv-multi-typeahead>
 
         <alv-geo-location-selection class="geo-location-selector"
@@ -50,16 +52,14 @@
       </div>
     </div>
   </div>
-  <div class="col-md-1">
-    <button class="btn btn-primary"
-            aria-label="search">
-      <i *ngIf="showSpinner"
-         class="fas fa-sync-alt fa-spin">
-      </i>
-      <i *ngIf="!showSpinner"
-         class="fas fa-search">
-      </i>
-    </button>
-  </div>
+  <button class="btn btn-primary col-md-1"
+          aria-label="search">
+    <i *ngIf="showSpinner"
+       class="fas fa-sync-alt fa-spin">
+    </i>
+    <i *ngIf="!showSpinner"
+       class="fas fa-search">
+    </i>
+  </button>
 
 </div>
