@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'alv-candidate-search-widget',
@@ -10,7 +11,7 @@ export class CandidateSearchWidgetComponent implements OnInit {
 
   findCandidateForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
   }
 
   ngOnInit() {
@@ -19,6 +20,10 @@ export class CandidateSearchWidgetComponent implements OnInit {
       skills: this.fb.control(''),
       city: this.fb.control('')
     });
+  }
+
+  onSubmit() {
+    this.router.navigate(['candidate-search']);
   }
 
 }
