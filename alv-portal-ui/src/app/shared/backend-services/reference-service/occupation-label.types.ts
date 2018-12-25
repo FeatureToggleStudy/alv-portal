@@ -1,16 +1,16 @@
 export interface OccupationLabelSuggestion {
   id: string;
-  code: number;
+  code: string;
   type: string;
   language: string;
   classifier: string;
   label: string;
-  mappings?: { [key: string]: number };
+  mappings?: { [key: string]: string };
 }
 
 export interface OccupationLabel {
   id: string;
-  code: number;
+  code: string;
   type: string;
   language: string;
   classifier: string;
