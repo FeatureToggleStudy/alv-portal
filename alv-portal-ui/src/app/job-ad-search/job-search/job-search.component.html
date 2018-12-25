@@ -37,9 +37,9 @@
 
       </div>
       <h2 class="sr-only">
-          Stellen filtern
-        </h2>
-        <alv-filter-panel (filterPanelValueChange)="onFiltersChange($event)"
+        Stellen filtern
+      </h2>
+      <alv-filter-panel (filterPanelValueChange)="onFiltersChange($event)"
                         [filterPanelValues]="jobSearchFilter$ | async">
       </alv-filter-panel>
     </ng-container>
@@ -52,9 +52,9 @@
                              [jobSearchResult]="jobSearchResult"></alv-job-search-result>
     </ng-container>
 
-    <ng-container class="right-column"
-                  *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink">
-      <a class="btn btn-text btn-text-icon btn-truncate"
+    <ng-container class="right-column">
+      <a *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
+         class="btn btn-text btn-text-icon btn-truncate"
          [href]="jobSearchMailToLink">
         <i aria-hidden="true"
            class="fa fa-share mr-1"></i>

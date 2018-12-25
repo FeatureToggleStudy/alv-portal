@@ -39,8 +39,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   expanded = false;
 
-  private _filterPanelValues: FilterPanelValues;
-
   restrictOptions$: Observable<SelectableOption[]> = of([
     {
       value: false,
@@ -99,7 +97,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     }
   ]);
 
-  onlineSinceSliderLabel: number;
+  private _filterPanelValues: FilterPanelValues;
 
   constructor(private fb: FormBuilder) {
     super();
@@ -138,18 +136,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       .subscribe(percentageMax => {
         this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
       });
-  }
-
-  updateSliderLabel(value: number) {
-    this.onlineSinceSliderLabel = value;
-  }
-
-  getOnlineSinceLabel(value: number): string {
-    if (value === 1) {
-      return 'job-search.filter.online-since.day.one';
-    } else {
-      return 'job-search.filter.online-since.day.many';
-    }
   }
 
   toggleExpanded() {
