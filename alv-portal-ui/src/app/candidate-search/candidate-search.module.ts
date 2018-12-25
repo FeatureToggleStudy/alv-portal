@@ -11,6 +11,8 @@ import { CandidateSearchEffects, candidateSearchReducer } from './state-manageme
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard';
+import { CandidateSearchGuard } from './candidate-search/candidate-search.guard';
+import { CandidateSearchFilterParameterService } from './candidate-search/candidate-search-filter-parameter.service';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard'
     FilterPanelComponent
   ],
   providers: [
-    CandidateDetailGuard
+    CandidateDetailGuard,
+    CandidateSearchGuard,
+    CandidateSearchFilterParameterService
   ]
 })
 export class CandidateSearchModule {

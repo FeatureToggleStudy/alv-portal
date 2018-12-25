@@ -5,15 +5,18 @@ import {
   CandidateSearchFilter,
   CandidateSearchResult,
   CandidateSearchState,
+  FILTER_APPLIED,
   getCandidateSearchFilter,
   getCandidateSearchResults,
   getResultsAreLoading,
   getTotalCount,
-  InitResultListAction,
   LoadNextPageAction
 } from '../state-management';
-import { select, Store } from '@ngrx/store';
-
+import { ActionsSubject, select, Store } from '@ngrx/store';
+import { ofType } from '@ngrx/effects';
+import { takeUntil } from 'rxjs/operators';
+import { ScrollService } from '../../core/scroll.service';
+import { AbstractSubscriber } from '../../core/abstract-subscriber';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -21,7 +24,7 @@ import { select, Store } from '@ngrx/store';
   styleUrls: ['./candidate-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CandidateSearchComponent implements OnInit {
+export class CandidateSearchComponent extends AbstractSubscriber implements OnInit {
 
   totalCount$: Observable<number>;
 
@@ -31,13 +34,13 @@ export class CandidateSearchComponent implements OnInit {
 
   candidateSearchResults$: Observable<CandidateSearchResult[]>;
 
-  constructor(private store: Store<CandidateSearchState>) {
+  constructor(private store: Store<CandidateSearchState>,
+              private actionsSubject: ActionsSubject,
+              private scrollService: ScrollService) {
+    super();
   }
 
   ngOnInit() {
-
-    this.store.dispatch(new InitResultListAction());
-
     this.totalCount$ = this.store.pipe(select(getTotalCount));
 
     this.candidateSearchFilter$ = this.store.pipe(select(getCandidateSearchFilter));
@@ -45,6 +48,13 @@ export class CandidateSearchComponent implements OnInit {
     this.candidateSearchResults$ = this.store.pipe(select(getCandidateSearchResults));
 
     this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
+
+    this.actionsSubject.pipe(
+      ofType(FILTER_APPLIED),
+      takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.scrollService.scrollToTop();
+      });
 
   }
 
