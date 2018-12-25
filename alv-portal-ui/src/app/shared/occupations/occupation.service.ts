@@ -17,8 +17,8 @@ export class OccupationService {
           default: occupationLabelData['default'],
           male: occupationLabelData['m'],
           female: occupationLabelData['f']
-        }
-      }))
+        };
+      }));
   }
 }
 

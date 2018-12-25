@@ -10,6 +10,7 @@ import {
   OccupationService
 } from '../../../shared/occupations/occupation.service';
 import { Gender } from '../../../shared/backend-services/shared.types';
+import { findRelevantJobExperience } from '../../candidate-rules';
 
 @Component({
   selector: 'alv-candidate-search-result',
@@ -33,10 +34,7 @@ export class CandidateSearchResultComponent implements OnInit {
 
   private candidateSearchResultToResultListItemMapper(candidateSearchResult: CandidateSearchResult): Observable<ResultListItem> {
     const candidateProfile = candidateSearchResult.candidateProfile;
-
-    //todo: calculate the relevant jobExperience
-    const jobExperience = candidateProfile.jobExperiences[0];
-
+    const jobExperience = findRelevantJobExperience(candidateProfile);
     return this.i18nService.currentLanguage$.pipe(
       switchMap((lang) => this.resolveOccupation(jobExperience, lang)),
       map(occupation => this.map(candidateSearchResult, occupation, jobExperience)),
@@ -78,6 +76,7 @@ export class CandidateSearchResultComponent implements OnInit {
       type: 'AVAM'
     };
   }
+
 }
 
 
