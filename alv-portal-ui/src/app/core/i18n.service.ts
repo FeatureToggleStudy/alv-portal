@@ -56,6 +56,10 @@ export class I18nService {
     return this.translateService.stream(key, interpolateParams);
   }
 
+  instant(key: string | Array<string>, interpolateParams?: Object): string {
+    return this.translateService.instant(key, interpolateParams);
+  }
+
   private isLanguagePersisted(): boolean {
     return (this.cookieService.check(LANGUAGE_KEY));
   }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { map, takeUntil } from 'rxjs/operators';
@@ -16,9 +16,9 @@ import {
   LanguageSkill,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { TranslateService } from '@ngx-translate/core';
 import { LocalityInputType } from '../../../shared/localities/locality-suggestion.service';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { I18nService } from '../../../core/i18n.service';
 
 export interface FilterPanelValues {
   experience: Experience;
@@ -146,7 +146,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   private _filterPanelValues: FilterPanelValues;
 
   constructor(private fb: FormBuilder,
-              private translateService: TranslateService) {
+              private i18nService: I18nService) {
     super();
   }
 
@@ -188,34 +188,19 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   }
 
   suggestCanton(query: string): Observable<SimpleMultiTypeaheadItem[]> {
-    const translatedOptions = Object.keys(Canton)
+    const cantonSuggestions = Object.keys(Canton)
       .filter((key) => !isNaN(Number(Canton[key])))
-      .map(this.cantonAutocompleteMapper)
-      .map((option: SimpleMultiTypeaheadItem) => {
-        return this.translateService.stream(option.label).pipe(
-          map((translation) => {
-            option.label = translation;
-            return option;
-          })
-        );
-      });
-
-    return combineLatest(translatedOptions).pipe(
-      map(this.filterCantons(query))
-    );
-  }
-
-  private filterCantons(query: string) {
-    return (cantons, index) => {
-      return cantons.filter(option => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
-    };
+      .map((key, index) => this.cantonAutocompleteMapper(key, index))
+      .filter((option) => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
+    return of(cantonSuggestions);
   }
 
   private cantonAutocompleteMapper(cantonKey: string, index: number): SimpleMultiTypeaheadItem {
+    const instant = this.i18nService.instant(`global.reference.canton.${cantonKey}`);
     return new SimpleMultiTypeaheadItem(
       LocalityInputType.CANTON,
       cantonKey,
-      `global.reference.canton.${cantonKey}`,
+      instant,
       index);
   }
 
