@@ -13,7 +13,7 @@ import {
   LoadNextCandidateProfileDetailAction,
   LoadPreviousCandidateProfileDetailAction
 } from '../state-management';
-import { JobBadge } from '../../job-ad-search/job-badges-mapper.service';
+import { CandidateProfileBadge } from '../candidate-profile-badges-mapper.service';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
@@ -35,7 +35,7 @@ export class CandidateDetailComponent implements OnInit {
   alerts$: Observable<Notification[]>;
 
   //todo: implement
-  badges$: Observable<JobBadge[]>;
+  badges$: Observable<CandidateProfileBadge[]>;
 
   candidateDetailPanelId = CandidateDetailPanelId;
 

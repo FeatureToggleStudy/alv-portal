@@ -41,8 +41,7 @@ export class CandidateSearchResultComponent implements OnInit {
     const jobExperience = findRelevantJobExperience(candidateProfile);
     return this.i18nService.currentLanguage$.pipe(
       switchMap((lang) => this.resolveOccupation(jobExperience, lang)),
-      map(occupationLabel => this.map(candidateSearchResult, jobExperience, occupationLabel)),
-      shareReplay()
+      map(occupationLabel => this.map(candidateSearchResult, jobExperience, occupationLabel))
     );
   }
 

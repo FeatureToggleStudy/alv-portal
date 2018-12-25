@@ -1,6 +1,7 @@
 import {
   Actions,
   APPLY_FILTER,
+  APPLY_FILTER_VALUES,
   CANDIDATE_PROFILE_DETAIL_LOADED,
   CandidateSearchState,
   FILTER_APPLIED,
@@ -13,6 +14,16 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
   let newState: CandidateSearchState;
 
   switch (action.type) {
+    case APPLY_FILTER_VALUES:
+      newState = {
+        ...state,
+        candidateSearchFilter: {
+          ...state.candidateSearchFilter,
+          ...action.payload
+        }
+      };
+      break;
+
     case APPLY_FILTER:
       newState = {
         ...state,

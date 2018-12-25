@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
-  ApplyFilterAction,
+  ApplyFilterValuesAction,
   CandidateSearchFilter,
   CandidateSearchResult,
   CandidateSearchState,
@@ -15,10 +15,12 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { take, takeUntil } from 'rxjs/operators';
+import { map, take, takeUntil } from 'rxjs/operators';
 import { ScrollService } from '../../core/scroll.service';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { composeResultListItemId } from '../../shared/layout/result-list-item/result-list-item.component';
+import { CandidateSearchFilterParameterService } from './candidate-search-filter-parameter.service';
+import { FilterPanelValues } from './filter-panel/filter-panel.component';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -36,7 +38,10 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   candidateSearchResults$: Observable<CandidateSearchResult[]>;
 
+  searchMailToLink$: Observable<string>;
+
   constructor(private store: Store<CandidateSearchState>,
+              private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
               private actionsSubject: ActionsSubject,
               private scrollService: ScrollService) {
     super();
@@ -50,6 +55,12 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
     this.candidateSearchResults$ = this.store.pipe(select(getCandidateSearchResults));
 
     this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
+
+    this.searchMailToLink$ = this.candidateSearchFilter$.pipe(
+      map((candidateSearchFilter: CandidateSearchFilter) => this.candidateSearchFilterParameterService.encode(candidateSearchFilter)),
+      map((filterParam) => `${window.location.href}?filter=${filterParam}`),
+      map((link) => `mailto:?body=${link}`)
+    );
 
     this.actionsSubject.pipe(
       ofType(FILTER_APPLIED),
@@ -74,7 +85,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
     this.store.dispatch(new LoadNextPageAction());
   }
 
-  onFiltersChange(candidateSearchFilter: CandidateSearchFilter) {
-    this.store.dispatch(new ApplyFilterAction(candidateSearchFilter));
+  onFiltersChange(filterPanelValues: FilterPanelValues) {
+    this.store.dispatch(new ApplyFilterValuesAction(filterPanelValues));
   }
 }

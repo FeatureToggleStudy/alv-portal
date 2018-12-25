@@ -18,6 +18,7 @@ import { asyncScheduler, Observable, of } from 'rxjs/index';
 import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';
 import {
   APPLY_FILTER,
+  APPLY_FILTER_VALUES,
   ApplyFilterAction,
   CandidateSearchRequestMapper,
   CandidateSearchState,
@@ -71,6 +72,13 @@ export class CandidateSearchEffects {
       })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
+  );
+
+  @Effect()
+  applyFilterValues: Observable<Action> = this.actions$.pipe(
+    ofType(APPLY_FILTER_VALUES),
+    withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
+    map(([action, state]) => new ApplyFilterAction(state.candidateSearchFilter))
   );
 
   @Effect()
