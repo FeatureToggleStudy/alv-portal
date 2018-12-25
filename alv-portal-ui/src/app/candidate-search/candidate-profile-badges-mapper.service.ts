@@ -24,21 +24,21 @@ export class CandidateProfileBadgesMapperService {
         badgeType: CandidateProfileBadgeType.WORKPLACE,
         cssClass: 'badge-job-workplace',
         label: 'global.reference.canton.' + candidateProfile.residenceCantonCode
-      })
+      });
     }
     if (candidateProfile.availability) {
       result.push({
         badgeType: CandidateProfileBadgeType.AVAILABILITY,
         cssClass: 'badge-availability',
         label: 'candidate-search.availability.' + candidateProfile.availability
-      })
+      });
     }
     if (candidateProfile.workLoad) {
       result.push({
         badgeType: CandidateProfileBadgeType.WORKLOAD,
         cssClass: 'badge-workload',
-        label: candidateProfile.workLoad + "%"
-      })
+        label: candidateProfile.workLoad + '%'
+      });
     }
     const jobExperience = findRelevantJobExperience(candidateProfile);
     if (jobExperience && jobExperience.experience) {
@@ -46,7 +46,7 @@ export class CandidateProfileBadgesMapperService {
         badgeType: CandidateProfileBadgeType.EXPERIENCE,
         cssClass: 'badge-contract-type',
         label: 'global.experience.' + jobExperience.experience
-      })
+      });
     }
 
     return result.filter((b) => badgeTypes.includes(b.badgeType));
