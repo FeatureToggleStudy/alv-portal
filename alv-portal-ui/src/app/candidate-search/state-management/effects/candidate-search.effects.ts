@@ -19,10 +19,13 @@ import { EffectErrorOccurredAction } from '../../../core/state-management/action
 import {
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
+  APPLY_QUERY_VALUES,
   ApplyFilterAction,
   CandidateSearchRequestMapper,
   CandidateSearchState,
   FilterAppliedAction,
+  FilterResetAction,
+  getCandidateSearchFilter,
   getCandidateSearchState,
   getNextId,
   getPrevId,
@@ -32,7 +35,8 @@ import {
   LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
-  NextPageLoadedAction
+  NextPageLoadedAction,
+  RESET_FILTER
 } from '..';
 import { Router } from '@angular/router';
 
@@ -80,6 +84,24 @@ export class CandidateSearchEffects {
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.candidateSearchFilter))
   );
+
+  @Effect()
+  applyQueryValues: Observable<Action> = this.actions$.pipe(
+    ofType(APPLY_QUERY_VALUES),
+    withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
+    map(([action, state]) => new ApplyFilterAction(state.candidateSearchFilter))
+  );
+
+  @Effect()
+  resetFilter$: Observable<Action> = this.actions$.pipe(
+    ofType(RESET_FILTER),
+    withLatestFrom(this.store.pipe(select(getCandidateSearchFilter))),
+    switchMap(([action, filter]) => {
+      return [
+        new ApplyFilterAction(filter),
+        new FilterResetAction(filter)
+      ];
+    }));
 
   @Effect()
   loadNextPage$: Observable<Action> = this.actions$.pipe(

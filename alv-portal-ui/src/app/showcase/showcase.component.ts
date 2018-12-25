@@ -4,8 +4,8 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../shared/forms/input/selectable-option.model';
 import { NotificationsService } from '../core/notifications.service';
 import { ModalService } from '../shared/layout/modal/modal.service';
-import { SimpleMultiTypeaheadItem } from '../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { LocalitySuggestionService } from '../shared/localities/locality-suggestion.service';
+import { LocalityMultiTypeaheadItem } from '../shared/localities/locality-multi-typeahead-item';
 
 @Component({
   selector: 'alv-showcase',
@@ -44,10 +44,9 @@ export class ShowcaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  fetchSuggestions(prefix: string): Observable<SimpleMultiTypeaheadItem[]> {
+  fetchSuggestions(prefix: string): Observable<LocalityMultiTypeaheadItem[]> {
     return this.localitySuggestionService.fetch(prefix);
   }
-
 
   openConfirmModal() {
     this.modalService.openConfirm({

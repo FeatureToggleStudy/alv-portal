@@ -1,39 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SimpleMultiTypeaheadItem } from '../forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { LocalityRepository } from '../backend-services/reference-service/locality.repository';
 import { map } from 'rxjs/operators';
 import {
   CantonSuggestion,
   LocalitySuggestion
 } from '../backend-services/reference-service/locality.types';
-
-export class LocalityInputType {
-  static LOCALITY = 'locality';
-  static CANTON = 'canton';
-}
+import {
+  LocalityInputType,
+  LocalityMultiTypeaheadItem
+} from './locality-multi-typeahead-item';
 
 @Injectable({ providedIn: 'root' })
 export class LocalitySuggestionService {
 
-
   constructor(private localityRepository: LocalityRepository) {
   }
 
-  fetch(query: string): Observable<SimpleMultiTypeaheadItem[]> {
+  public static toLocality(locality: LocalitySuggestion, order = 0) {
+    return new LocalityMultiTypeaheadItem(LocalityInputType.LOCALITY, {
+        regionCode: locality.regionCode,
+        cantonCode: locality.cantonCode,
+        communalCode: String(locality.communalCode),
+      }, locality.city,
+      order);
+  }
+
+  fetch(query: string): Observable<LocalityMultiTypeaheadItem[]> {
     return this.localityRepository.suggestLocalities(query).pipe(
       map((localityAutocomplete) => {
         const localities = localityAutocomplete.localities
-          .map((o: LocalitySuggestion, index) =>
-            new SimpleMultiTypeaheadItem(LocalityInputType.LOCALITY, String(o.communalCode), o.city, index));
+          .map((o: LocalitySuggestion, index) => LocalitySuggestionService.toLocality(o, index));
 
         const cantons = localityAutocomplete.cantons
           .map((o: CantonSuggestion, index) =>
-            new SimpleMultiTypeaheadItem(LocalityInputType.CANTON, String(o.code),
+            new LocalityMultiTypeaheadItem(LocalityInputType.CANTON, {
+              cantonCode: o.code,
+            },
               o.name + ' (' + o.code + ')', localities.length + index));
         return [].concat(localities, cantons);
       })
     );
   }
-
 }

@@ -4,15 +4,11 @@ import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupa
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
-import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
-import {
-  LocalityInputType,
-  LocalitySuggestionService
-} from '../../../shared/localities/locality-suggestion.service';
+import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { CandidateQueryPanelValues } from './candidate-query-panel-values';
 import { map, takeUntil } from 'rxjs/operators';
-import { JobQueryPanelValues } from '../../job-search-widget/job-query-panel/job-query-panel-values';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
 
 @Component({
   selector: 'alv-candidate-query-panel',
@@ -60,7 +56,7 @@ export class CandidateQueryPanelComponent extends AbstractSubscriber implements 
     this.setFormValues(this._candidateQueryPanelValues);
 
     this.form.valueChanges.pipe(
-      map<any, JobQueryPanelValues>((valueChanges) => this.map(valueChanges)),
+      map<any, CandidateQueryPanelValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
       .subscribe(queryPanelValues => this.candidateQueryPanelValuesChange.next(queryPanelValues));
   }
@@ -69,15 +65,15 @@ export class CandidateQueryPanelComponent extends AbstractSubscriber implements 
     return this.occupationSuggestionService.fetchCandidateSearchOccupations(query);
   }
 
-  loadLocalities(query: string): Observable<SimpleMultiTypeaheadItem[]> {
+  loadLocalities(query: string): Observable<LocalityMultiTypeaheadItem[]> {
     return this.localitySuggestionService.fetch(query);
   }
 
   onGeoSelection(locality: LocalitySuggestion) {
-    const geoLocalitySuggestion = new SimpleMultiTypeaheadItem(LocalityInputType.LOCALITY, String(locality.communalCode), locality.city, 0);
+    const geoLocalitySuggestion = LocalitySuggestionService.toLocality(locality);
     const ctrl = this.form.get('localities');
-    if (!ctrl.value.find((i: SimpleMultiTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
-      ctrl.setValue([...ctrl.value, geoLocalitySuggestion]);
+    if (!ctrl.value.find((i: LocalityMultiTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
+      ctrl.setValue([geoLocalitySuggestion]);
     }
   }
 
@@ -89,7 +85,7 @@ export class CandidateQueryPanelComponent extends AbstractSubscriber implements 
     return {
       occupations: valueChanges.occupations,
       keywords: valueChanges.keywords,
-      localities: valueChanges.localities
+      workplace: valueChanges.localities[0]
     };
   }
 
@@ -98,7 +94,7 @@ export class CandidateQueryPanelComponent extends AbstractSubscriber implements 
       this.form.setValue({
         occupations: value.occupations,
         keywords: value.keywords,
-        localities: value.localities,
+        localities: value.workplace ? [value.workplace] : [],
       }, { emitEvent: false });
     }
   }

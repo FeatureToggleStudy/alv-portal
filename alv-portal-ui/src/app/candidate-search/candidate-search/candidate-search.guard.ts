@@ -8,6 +8,7 @@ import {
 import { Store } from '@ngrx/store';
 import {
   ApplyFilterAction,
+  ApplyQueryValuesAction,
   CandidateSearchFilter,
   CandidateSearchState,
   InitResultListAction
@@ -34,9 +35,8 @@ export class CandidateSearchGuard implements CanActivate {
     }
     const queryString = route.queryParams['query-values'];
     if (queryString) {
-      // const queryFilterValues = this.candidateSearchFilterParameterService.decodeQueryPanelValues(queryString);
-      // this.store.dispatch(new ApplyQueryValuesAction(queryFilterValues, true));
-      this.store.dispatch(new InitResultListAction());
+      const queryFilterValues = this.candidateSearchFilterParameterService.decodeQueryPanelValues(queryString);
+      this.store.dispatch(new ApplyQueryValuesAction(queryFilterValues, true));
       this.router.navigate(['candidate-search']);
       return false;
     }
@@ -45,10 +45,10 @@ export class CandidateSearchGuard implements CanActivate {
     return true;
   }
 
-  private extractFilterFromParam(jobSearchFilterParamValue: string): CandidateSearchFilter {
-    if (!jobSearchFilterParamValue) {
+  private extractFilterFromParam(filterAsString: string): CandidateSearchFilter {
+    if (!filterAsString) {
       return null;
     }
-    return this.candidateSearchFilterParameterService.decode(jobSearchFilterParamValue);
+    return this.candidateSearchFilterParameterService.decode(filterAsString);
   }
 }

@@ -12,6 +12,7 @@ import {
 import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
 
 
 export interface CandidateSearchState {
@@ -29,8 +30,8 @@ export const initialState: CandidateSearchState = {
   page: 0,
   candidateSearchFilter: {
     occupations: [],
-    skills: [],
-    workplace: [],
+    keywords: [],
+    workplace: null,
     experience: null,
     residence: [],
     availability: null,
@@ -51,8 +52,8 @@ export const initialState: CandidateSearchState = {
 export interface CandidateSearchFilter {
   // todo: implement
   occupations: OccupationMultiTypeaheadItem[];
-  skills: OccupationMultiTypeaheadItem[];
-  workplace: SimpleMultiTypeaheadItem[];
+  keywords: SimpleMultiTypeaheadItem[];
+  workplace: LocalityMultiTypeaheadItem;
   experience: Experience;
   residence: Canton[];
   availability: Availability;

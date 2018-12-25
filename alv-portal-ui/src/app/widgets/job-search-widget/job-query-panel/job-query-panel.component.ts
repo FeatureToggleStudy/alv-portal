@@ -4,14 +4,12 @@ import { Observable } from 'rxjs';
 import { JobQueryPanelValues } from './job-query-panel-values';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
-import {
-  LocalityInputType,
-  LocalitySuggestionService
-} from '../../../shared/localities/locality-suggestion.service';
+import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { map, takeUntil } from 'rxjs/operators';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
 
 @Component({
   selector: 'alv-job-query-panel',
@@ -68,12 +66,12 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     return this.occupationSuggestionService.fetchJobSearchOccupations(query);
   }
 
-  loadLocalities(query: string): Observable<SimpleMultiTypeaheadItem[]> {
+  loadLocalities(query: string): Observable<LocalityMultiTypeaheadItem[]> {
     return this.localitySuggestionService.fetch(query);
   }
 
   onGeoSelection(locality: LocalitySuggestion) {
-    const geoLocalitySuggestion = new SimpleMultiTypeaheadItem(LocalityInputType.LOCALITY, String(locality.communalCode), locality.city, 0);
+    const geoLocalitySuggestion = LocalitySuggestionService.toLocality(locality);
     const ctrl = this.form.get('localities');
     if (!ctrl.value.find((i: SimpleMultiTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
       ctrl.setValue([...ctrl.value, geoLocalitySuggestion]);

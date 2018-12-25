@@ -1,3 +1,23 @@
+<div class="container-fluid query-search-area py-4">
+  <div class="form-row">
+    <h2 class="sr-only">
+      Kandidaten suchen
+    </h2>
+    <alv-candidate-query-panel class="col-md-10 col-lg-9"
+                               (candidateQueryPanelValuesChange)="onQueryChange($event)"
+                               [showSpinner]="resultsAreLoading$ | async"
+                               [candidateQueryPanelValues]="candidateSearchFilter$ | async">
+    </alv-candidate-query-panel>
+
+    <div class="col-md-2">
+      <button class="btn btn-text h-100"
+              (click)="onResetFilter()">
+        {{ 'job-search.toolbar.reset' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
 <div (scrolled)="onScroll()"
      [fromRoot]="true"
      [infiniteScrollThrottle]="50"

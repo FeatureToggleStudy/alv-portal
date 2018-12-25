@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angu
 import { Observable } from 'rxjs';
 import {
   ApplyFilterValuesAction,
+  ApplyQueryValuesAction,
   CandidateSearchFilter,
   CandidateSearchResult,
   CandidateSearchState,
@@ -11,7 +12,8 @@ import {
   getResultsAreLoading,
   getSelectedCandidateProfile,
   getTotalCount,
-  LoadNextPageAction
+  LoadNextPageAction,
+  ResetFilterAction
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
@@ -21,6 +23,7 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { composeResultListItemId } from '../../shared/layout/result-list-item/result-list-item.component';
 import { CandidateSearchFilterParameterService } from './candidate-search-filter-parameter.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
+import { CandidateQueryPanelValues } from '../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -87,5 +90,13 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   onFiltersChange(filterPanelValues: FilterPanelValues) {
     this.store.dispatch(new ApplyFilterValuesAction(filterPanelValues));
+  }
+
+  onResetFilter() {
+    this.store.dispatch(new ResetFilterAction({}));
+  }
+
+  onQueryChange(queryValues: CandidateQueryPanelValues) {
+    this.store.dispatch(new ApplyQueryValuesAction(queryValues));
   }
 }

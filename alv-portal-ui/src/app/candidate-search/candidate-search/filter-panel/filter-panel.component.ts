@@ -16,9 +16,9 @@ import {
   LanguageSkill,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { LocalityInputType } from '../../../shared/localities/locality-suggestion.service';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { I18nService } from '../../../core/i18n.service';
+import { LocalityInputType } from '../../../shared/localities/locality-multi-typeahead-item';
 
 export interface FilterPanelValues {
   experience: Experience;
@@ -196,11 +196,11 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   }
 
   private cantonAutocompleteMapper(cantonKey: string, index: number): SimpleMultiTypeaheadItem {
-    const instant = this.i18nService.instant(`global.reference.canton.${cantonKey}`);
+    const cantonLabel = this.i18nService.instant(`global.reference.canton.${cantonKey}`);
     return new SimpleMultiTypeaheadItem(
       LocalityInputType.CANTON,
       cantonKey,
-      instant,
+      cantonLabel,
       index);
   }
 

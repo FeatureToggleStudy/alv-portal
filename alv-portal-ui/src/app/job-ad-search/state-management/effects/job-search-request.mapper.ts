@@ -5,7 +5,10 @@ import {
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
-import { LocalityInputType } from '../../../shared/localities/locality-suggestion.service';
+import {
+  LocalityInputType,
+  LocalityMultiTypeaheadItem
+} from '../../../shared/localities/locality-multi-typeahead-item';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -61,16 +64,16 @@ export class JobSearchRequestMapper {
     return keywords.map((i) => i.payload);
   }
 
-  private static mapCommunalCodes(localities: SimpleMultiTypeaheadItem[]): string[] {
+  private static mapCommunalCodes(localities: LocalityMultiTypeaheadItem[]): string[] {
     return localities
       .filter((i) => i.type === LocalityInputType.LOCALITY)
-      .map((i) => i.payload);
+      .map((i) => i.payload.communalCode);
   }
 
-  private static mapCantonCodes(localities: SimpleMultiTypeaheadItem[]): string[] {
+  private static mapCantonCodes(localities: LocalityMultiTypeaheadItem[]): string[] {
     return localities
       .filter((i) => i.type === LocalityInputType.CANTON)
-      .map((i) => i.payload);
+      .map((i) => i.payload.cantonCode);
   }
 
 }

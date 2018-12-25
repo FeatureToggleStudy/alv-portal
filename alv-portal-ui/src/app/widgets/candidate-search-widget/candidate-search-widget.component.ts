@@ -17,7 +17,7 @@ export class CandidateSearchWidgetComponent extends AbstractSubscriber implement
   candidateQueryPanelValues: CandidateQueryPanelValues = {
     occupations: [],
     keywords: [],
-    localities: [],
+    workplace: null,
   };
 
   constructor(private router: Router, private i18nService: I18nService, private occupationSuggestionService: OccupationSuggestionService) {
