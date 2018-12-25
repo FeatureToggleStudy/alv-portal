@@ -3,6 +3,8 @@ import { CandidateProfile } from '../../../shared/backend-services/candidate/can
 import { CandidateSearchFilter } from '..';
 import { FilterPanelValues } from '../../candidate-search/filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
+import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+
 
 export const INIT_RESULT_LIST = 'CANDIDATES:INIT_RESULT_LIST';
 export const APPLY_FILTER = 'CANDIDATES:APPLY_FILTER';
@@ -16,6 +18,7 @@ export const APPLY_FILTER_VALUES = 'CANDIDATES:APPLY_FILTER_VALUES';
 export const APPLY_QUERY_VALUES = 'CANDIDATES:APPLY_QUERY_VALUES';
 export const RESET_FILTER = 'CANDIDATES:RESET_FILTER';
 export const FILTER_RESET = 'CANDIDATES:FILTER_RESET';
+export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'CANDIDATES:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -72,6 +75,18 @@ export class FilterResetAction implements Action {
   }
 }
 
+
+/**
+ * Action that is fired if the language changed and the selected occupations have been translated again
+ */
+export class OccupationLanguageChangedAction implements Action {
+  readonly type = OCCUPATION_LANGUAGE_CHANGED_ACTION;
+
+  constructor(public payload: { occupations: OccupationMultiTypeaheadItem[] }) {
+  }
+}
+
+
 export class LoadNextPageAction implements Action {
   readonly type = LOAD_NEXT_PAGE;
 
@@ -119,4 +134,5 @@ export type Actions = InitResultListAction
   | ApplyQueryValuesAction
   | FilterResetAction
   | ResetFilterAction
+  | OccupationLanguageChangedAction
   ;

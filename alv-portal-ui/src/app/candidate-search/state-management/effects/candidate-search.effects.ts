@@ -5,6 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
   catchError,
   debounceTime,
+  filter,
   map,
   switchMap,
   take,
@@ -15,7 +16,11 @@ import {
 import { Action, select, Store } from '@ngrx/store';
 import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
 import { asyncScheduler, Observable, of } from 'rxjs/index';
-import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';
+import {
+  EffectErrorOccurredAction,
+  LANGUAGE_CHANGED,
+  LanguageChangedAction
+} from '../../../core/state-management/actions/core.actions';
 import {
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
@@ -36,9 +41,11 @@ import {
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
+  OccupationLanguageChangedAction,
   RESET_FILTER
 } from '..';
 import { Router } from '@angular/router';
+import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 
 export const CANDIDATE_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('CANDIDATE_SEARCH_EFFECTS_DEBOUNCE');
 export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('CANDIDATE_SEARCH_EFFECTS_SCHEDULER');
@@ -51,7 +58,7 @@ export class CandidateSearchEffects {
     ofType(INIT_RESULT_LIST),
     take(1),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
-    switchMap(([filter, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
+    switchMap(([a, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
       .pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
@@ -69,7 +76,7 @@ export class CandidateSearchEffects {
     map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
-    switchMap(([filter, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(filter, state.page)).pipe(
+    switchMap(([candidateSearchFilter, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(candidateSearchFilter, state.page)).pipe(
       map((response) => new FilterAppliedAction({
         page: response.result,
         totalCount: response.totalCount
@@ -96,12 +103,27 @@ export class CandidateSearchEffects {
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
     withLatestFrom(this.store.pipe(select(getCandidateSearchFilter))),
-    switchMap(([action, filter]) => {
+    switchMap(([action, candidateSearchFilter]) => {
       return [
-        new ApplyFilterAction(filter),
-        new FilterResetAction(filter)
+        new ApplyFilterAction(candidateSearchFilter),
+        new FilterResetAction(candidateSearchFilter)
       ];
     }));
+
+  @Effect()
+  translateOccupationsOnLanguageChanged$: Observable<Action> = this.actions$.pipe(
+    ofType(LANGUAGE_CHANGED),
+    map((a: LanguageChangedAction) => a),
+    withLatestFrom(this.store.pipe(select(getCandidateSearchFilter))),
+    filter(([action, candidateSearchFilter]) => !!candidateSearchFilter.occupations),
+    filter(([action, candidateSearchFilter]) => candidateSearchFilter.occupations.length > 0),
+    switchMap(([action, candidateSearchFilter]) => {
+      return this.occupationSuggestionService.translateAll(candidateSearchFilter.occupations, action.payload.language);
+    }),
+    map((updatedOccupations) => {
+      return new OccupationLanguageChangedAction({ occupations: updatedOccupations });
+    })
+  );
 
   @Effect()
   loadNextPage$: Observable<Action> = this.actions$.pipe(
@@ -158,6 +180,7 @@ export class CandidateSearchEffects {
   );
 
   constructor(
+    private occupationSuggestionService: OccupationSuggestionService,
     private actions$: Actions,
     private store: Store<CandidateSearchState>,
     private candidateRepository: CandidateRepository,

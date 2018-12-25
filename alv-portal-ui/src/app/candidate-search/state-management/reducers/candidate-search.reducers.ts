@@ -9,6 +9,7 @@ import {
   initialState,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
+  OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET_FILTER
 } from '..';
 
@@ -62,6 +63,16 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         candidateSearchFilter: {
           ...initialState.candidateSearchFilter
         },
+      };
+      break;
+
+    case OCCUPATION_LANGUAGE_CHANGED_ACTION:
+      newState = {
+        ...state,
+        candidateSearchFilter: {
+          ...state.candidateSearchFilter,
+          occupations: action.payload.occupations,
+        }
       };
       break;
 

@@ -14,6 +14,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import SpyObj = jasmine.SpyObj;
 
 describe('CandidateSearchEffects', () => {
@@ -22,11 +23,13 @@ describe('CandidateSearchEffects', () => {
   let actions$: Observable<any>;
   let store: Store<CandidateSearchState>;
   let candidateRepository: SpyObj<CandidateRepository>;
+  let occupationSuggestionService: SpyObj<OccupationSuggestionService>;
   let router: Router;
 
   beforeEach(() => {
     candidateRepository = jasmine.createSpyObj('mockCandidateRepository', ['search']);
     router = jasmine.createSpyObj('mockRouter', ['navigate']);
+    occupationSuggestionService = jasmine.createSpyObj('mockOccupationSuggestionService', ['translateAll']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -36,6 +39,7 @@ describe('CandidateSearchEffects', () => {
         CandidateSearchEffects,
         provideMockActions(() => actions$),
         { provide: CandidateRepository, useValue: candidateRepository },
+        { provide: OccupationSuggestionService, useValue: occupationSuggestionService },
         { provide: Router, useValue: router },
         { provide: CANDIDATE_SEARCH_EFFECTS_DEBOUNCE, useValue: 30 },
         { provide: CANDIDATE_SEARCH_EFFECTS_SCHEDULER, useFactory: getTestScheduler },
