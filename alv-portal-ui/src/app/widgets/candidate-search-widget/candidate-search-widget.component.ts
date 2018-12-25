@@ -42,11 +42,11 @@ export class CandidateSearchWidgetComponent extends AbstractSubscriber implement
   }
 
   public onSearchSubmit(candidateQueryPanelValues1: CandidateQueryPanelValues) {
-    // this.router.navigate(['candidate-search'], {
-    //   queryParams: {
-    //     'query-values': JSON.stringify(candidateQueryPanelValues1)
-    //   }
-    // });
+    this.router.navigate(['candidate-search'], {
+      queryParams: {
+        'query-values': JSON.stringify(candidateQueryPanelValues1)
+      }
+    });
   }
 
 }
