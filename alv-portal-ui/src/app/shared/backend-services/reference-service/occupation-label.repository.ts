@@ -14,11 +14,11 @@ const OCCUPATION_LABEL_RESOURCE_SEARCH_URL = '/referenceservice/api/_search/occu
 const OCCUPATION_LABEL_RESOURCE_URL = '/referenceservice/api/occupations/label';
 
 export enum OccupationTypes {
-  X28 = 'x28',
-  SBN3 = 'sbn3',
-  SBN5 = 'sbn5',
+  AVAM = 'AVAM',
+  X28 = 'X28',
+  SBN3 = 'SBN3',
+  SBN5 = 'SBN5',
 }
-
 
 @Injectable({ providedIn: 'root' })
 export class OccupationLabelRepository {

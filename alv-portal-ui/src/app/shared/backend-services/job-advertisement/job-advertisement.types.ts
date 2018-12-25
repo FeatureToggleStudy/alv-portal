@@ -219,7 +219,7 @@ export interface JobAdvertisementSearchResponse {
 
 export interface ProfessionCode {
   type: string;
-  value: number;
+  value: string;
 }
 
 export interface JobAdvertisementSearchRequestBody {

@@ -65,7 +65,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
   }
 
   loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
-    return this.occupationSuggestionService.fetch(query);
+    return this.occupationSuggestionService.fetchJobSearchOccupations(query);
   }
 
   loadLocalities(query: string): Observable<SimpleMultiTypeaheadItem[]> {

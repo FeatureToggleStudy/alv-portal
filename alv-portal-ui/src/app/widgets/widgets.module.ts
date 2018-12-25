@@ -3,6 +3,7 @@ import { JobQueryPanelComponent } from './job-search-widget/job-query-panel/job-
 import { SharedModule } from '../shared/shared.module';
 import { JobSearchWidgetComponent } from './job-search-widget/job-search-widget.component';
 import { CandidateSearchWidgetComponent } from './candidate-search-widget/candidate-search-widget.component';
+import { CandidateQueryPanelComponent } from './candidate-search-widget/candidate-query-panel/candidate-query-panel.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { CandidateSearchWidgetComponent } from './candidate-search-widget/candid
   declarations: [
     JobSearchWidgetComponent,
     JobQueryPanelComponent,
-    CandidateSearchWidgetComponent
+    CandidateSearchWidgetComponent,
+    CandidateQueryPanelComponent
   ],
   exports: [
     JobSearchWidgetComponent,

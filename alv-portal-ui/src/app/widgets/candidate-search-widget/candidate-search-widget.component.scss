@@ -1,11 +1,11 @@
-@import '../../../../node_modules/bootstrap/scss/functions';
-@import '../../../../node_modules/bootstrap/scss/variables';
-@import '../../../../node_modules/bootstrap/scss/mixins';
+@import "../../../scss/common/colors";
 
-@include media-breakpoint-up(md) {
-  .zoom {
-    transform: scale(1.2);
-    width: 83%;
-    transform-origin: left;
-  }
+.panel-title {
+  font-size: xx-large;
+  color: $color-grey-black;
+  margin-bottom: 1rem;
+}
+
+::ng-deep .alv-panel {
+  padding-bottom: 2rem;
 }
