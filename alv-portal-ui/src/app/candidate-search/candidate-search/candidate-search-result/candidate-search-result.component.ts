@@ -13,10 +13,7 @@ import {
   extractGenderAwareTitle,
   findRelevantJobExperience
 } from '../../candidate-rules';
-import {
-  CandidateProfileBadgesMapperService,
-  CandidateProfileBadgeType
-} from '../../candidate-profile-badges-mapper.service';
+import { CandidateProfileBadgesMapperService } from '../../candidate-profile-badges-mapper.service';
 
 @Component({
   selector: 'alv-candidate-search-result',
@@ -56,13 +53,7 @@ export class CandidateSearchResultComponent implements OnInit {
       title: extractGenderAwareTitle(candidateProfile, occupationLabel),
       description: jobExperience ? jobExperience.remark : '',
       header: null,
-      badges: this.candidateProfileBadgesMapperService.map(candidateProfile,
-        [
-          CandidateProfileBadgeType.WORKPLACE,
-          CandidateProfileBadgeType.AVAILABILITY,
-          CandidateProfileBadgeType.WORKLOAD,
-          CandidateProfileBadgeType.EXPERIENCE
-        ]),
+      badges: this.candidateProfileBadgesMapperService.map(candidateProfile),
       routerLink: ['/candidate-search', candidateProfile.id],
       subtitle: null, // not needed for candidate
       visited: candidateSearchResult.visited

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   ApplyFilterAction,
@@ -9,14 +9,16 @@ import {
   getCandidateSearchFilter,
   getCandidateSearchResults,
   getResultsAreLoading,
+  getSelectedCandidateProfile,
   getTotalCount,
   LoadNextPageAction
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { ScrollService } from '../../core/scroll.service';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
+import { composeResultListItemId } from '../../shared/layout/result-list-item/result-list-item.component';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -24,7 +26,7 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
   styleUrls: ['./candidate-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CandidateSearchComponent extends AbstractSubscriber implements OnInit {
+export class CandidateSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
   totalCount$: Observable<number>;
 
@@ -55,7 +57,17 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       .subscribe(() => {
         this.scrollService.scrollToTop();
       });
+  }
 
+  ngAfterViewInit() {
+    this.store.pipe(select(getSelectedCandidateProfile))
+      .pipe(take(1))
+      .subscribe(candidateProfile => {
+        if (candidateProfile) {
+          this.scrollService.scrollIntoView(composeResultListItemId(candidateProfile.id));
+          this.scrollService.scrollBy(0, -100);
+        }
+      });
   }
 
   onScroll() {

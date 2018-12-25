@@ -11,13 +11,20 @@ export interface CandidateProfileBadge extends InlineBadge {
   badgeType: CandidateProfileBadgeType;
 }
 
+const ALL = [
+  CandidateProfileBadgeType.WORKPLACE,
+  CandidateProfileBadgeType.AVAILABILITY,
+  CandidateProfileBadgeType.WORKLOAD,
+  CandidateProfileBadgeType.EXPERIENCE
+];
+
 @Injectable()
 export class CandidateProfileBadgesMapperService {
 
   constructor() {
   }
 
-  public map(candidateProfile: CandidateProfile, badgeTypes: CandidateProfileBadgeType[]): CandidateProfileBadge[] {
+  public map(candidateProfile: CandidateProfile, badgeTypes = ALL): CandidateProfileBadge[] {
     const result: CandidateProfileBadge[] = [];
     if (candidateProfile.residenceCantonCode) {
       result.push({

@@ -105,13 +105,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     this.jobDetailModel$ = this.jobDetailModelFactory.create(job$);
 
     this.alerts$ = job$.pipe(map(JobDetailComponent.mapJobAdAlerts));
-    this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job, [
-      JobBadgeType.CONTRACT_TYPE,
-      JobBadgeType.AVAILABILITY,
-      JobBadgeType.WORKPLACE,
-      JobBadgeType.WORKLOAD,
-      JobBadgeType.REPORTING_OBLIGATION
-    ])));
+    this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
     this.nextEnabled$ = this.store.pipe(select(isNextVisible));

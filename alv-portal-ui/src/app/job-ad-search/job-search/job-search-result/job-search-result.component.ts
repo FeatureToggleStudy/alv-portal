@@ -5,7 +5,7 @@ import { JobSearchResult } from '../../state-management/state/job-ad-search.stat
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
-import { JobBadgesMapperService, JobBadgeType } from '../../job-badges-mapper.service';
+import { JobBadgesMapperService } from '../../job-badges-mapper.service';
 
 @Component({
   selector: 'alv-job-search-result',
@@ -36,13 +36,7 @@ export class JobSearchResultComponent implements OnInit {
           title: jobDescription.title,
           description: jobDescription.description,
           header: jobAdvertisement.publication.startDate,
-          badges: this.jobBadgesMapperService.map(jobAdvertisement, [
-            JobBadgeType.CONTRACT_TYPE,
-            JobBadgeType.AVAILABILITY,
-            JobBadgeType.WORKPLACE,
-            JobBadgeType.WORKLOAD,
-            JobBadgeType.REPORTING_OBLIGATION
-          ]),
+          badges: this.jobBadgesMapperService.map(jobAdvertisement),
           routerLink: ['/job-search', jobAdvertisement.id],
           subtitle: jobAdvertisement.jobContent.company.name,
           visited: jobSearchResult.visited
