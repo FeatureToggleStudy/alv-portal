@@ -2,7 +2,8 @@ import {
   CandidateProfile,
   JobExperience
 } from '../shared/backend-services/candidate/candidate.types';
-import { Experience } from '../shared/backend-services/shared.types';
+import { Experience, Gender } from '../shared/backend-services/shared.types';
+import { GenderAwareOccupationLabel } from '../shared/occupations/occupation.service';
 
 //todo: calculate the relevant jobExperience
 export const findRelevantJobExperience = (candidateProfile: CandidateProfile): JobExperience => {
@@ -31,4 +32,13 @@ export const findRelevantJobExperience = (candidateProfile: CandidateProfile): J
   }
 
   return jobExperiences[0];
+};
+
+export const extractGenderAwareTitle = (candidateProfile, occupationLabel: GenderAwareOccupationLabel) => {
+  if (candidateProfile.gender === Gender.MALE && occupationLabel.male) {
+    return occupationLabel.male;
+  } else if (candidateProfile.gender === Gender.FEMALE && occupationLabel.female) {
+    return occupationLabel.female;
+  }
+  return occupationLabel.default;
 };

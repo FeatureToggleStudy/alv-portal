@@ -9,8 +9,10 @@ import {
   GenderAwareOccupationLabel,
   OccupationService
 } from '../../../shared/occupations/occupation.service';
-import { Gender } from '../../../shared/backend-services/shared.types';
-import { findRelevantJobExperience } from '../../candidate-rules';
+import {
+  extractGenderAwareTitle,
+  findRelevantJobExperience
+} from '../../candidate-rules';
 import {
   CandidateProfileBadgesMapperService,
   CandidateProfileBadgeType
@@ -42,7 +44,7 @@ export class CandidateSearchResultComponent implements OnInit {
     const jobExperience = findRelevantJobExperience(candidateProfile);
     return this.i18nService.currentLanguage$.pipe(
       switchMap((lang) => this.resolveOccupation(jobExperience, lang)),
-      map(occupation => this.map(candidateSearchResult, jobExperience, occupation)),
+      map(occupationLabel => this.map(candidateSearchResult, jobExperience, occupationLabel)),
       shareReplay()
     );
   }
@@ -51,23 +53,20 @@ export class CandidateSearchResultComponent implements OnInit {
     const candidateProfile = candidateSearchResult.candidateProfile;
     return {
       id: candidateProfile.id,
-      title: this.extractGenderAwareTitle(occupationLabel, candidateProfile),
+      title: extractGenderAwareTitle(candidateProfile, occupationLabel),
       description: jobExperience ? jobExperience.remark : '',
       header: null,
-      badges: this.candidateProfileBadgesMapperService.map(candidateProfile, [CandidateProfileBadgeType.WORKPLACE, CandidateProfileBadgeType.AVAILABILITY, CandidateProfileBadgeType.WORKLOAD, CandidateProfileBadgeType.EXPERIENCE]),
+      badges: this.candidateProfileBadgesMapperService.map(candidateProfile,
+        [
+          CandidateProfileBadgeType.WORKPLACE,
+          CandidateProfileBadgeType.AVAILABILITY,
+          CandidateProfileBadgeType.WORKLOAD,
+          CandidateProfileBadgeType.EXPERIENCE
+        ]),
       routerLink: ['/candidate-search', candidateProfile.id],
       subtitle: null, // not needed for candidate
       visited: candidateSearchResult.visited
     };
-  }
-
-  private extractGenderAwareTitle(occupationLabel: GenderAwareOccupationLabel, candidateProfile) {
-    if (candidateProfile.gender === Gender.MALE && occupationLabel.male) {
-      return occupationLabel.male;
-    } else if (candidateProfile.gender === Gender.FEMALE && occupationLabel.female) {
-      return occupationLabel.female;
-    }
-    return occupationLabel.default;
   }
 
   private resolveOccupation(jobExperience: JobExperience, lang: string): Observable<GenderAwareOccupationLabel> {
