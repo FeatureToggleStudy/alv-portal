@@ -10,7 +10,7 @@ import {
   LanguageInitializedAction
 } from './state-management/actions/core.actions';
 
-const LANGUAGE_KEY = 'NG_TRANSLATE_LANG_KEY';
+export const LANGUAGE_KEY = 'NG_TRANSLATE_LANG_KEY';
 
 
 /**

@@ -18,6 +18,7 @@ import locale from '@angular/common/locales/de';
 import localeFr from '@angular/common/locales/fr';
 import localeIt from '@angular/common/locales/it';
 import localeEn from '@angular/common/locales/en';
+import { LanguageCacheKeyInterceptor } from './language-cache-key.interceptor';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, environment.translationBaseUrl, '.json');
@@ -61,6 +62,11 @@ export function LocalIdFactory(translateService: TranslateService) {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: XhrMarkerInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LanguageCacheKeyInterceptor,
       multi: true
     }
   ]
