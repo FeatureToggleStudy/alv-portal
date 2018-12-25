@@ -11,6 +11,10 @@ import {
 } from '../../../shared/occupations/occupation.service';
 import { Gender } from '../../../shared/backend-services/shared.types';
 import { findRelevantJobExperience } from '../../candidate-rules';
+import {
+  CandidateProfileBadgesMapperService,
+  CandidateProfileBadgeType
+} from '../../candidate-profile-badges-mapper.service';
 
 @Component({
   selector: 'alv-candidate-search-result',
@@ -25,6 +29,7 @@ export class CandidateSearchResultComponent implements OnInit {
   resultListItem$: Observable<ResultListItem>;
 
   constructor(private i18nService: I18nService,
+              private candidateProfileBadgesMapperService: CandidateProfileBadgesMapperService,
               private occupationService: OccupationService) {
   }
 
@@ -37,19 +42,19 @@ export class CandidateSearchResultComponent implements OnInit {
     const jobExperience = findRelevantJobExperience(candidateProfile);
     return this.i18nService.currentLanguage$.pipe(
       switchMap((lang) => this.resolveOccupation(jobExperience, lang)),
-      map(occupation => this.map(candidateSearchResult, occupation, jobExperience)),
+      map(occupation => this.map(candidateSearchResult, jobExperience, occupation)),
       shareReplay()
     );
   }
 
-  private map(candidateSearchResult: CandidateSearchResult, occupationLabel: GenderAwareOccupationLabel, jobExperience: JobExperience): ResultListItem {
+  private map(candidateSearchResult: CandidateSearchResult, jobExperience: JobExperience, occupationLabel: GenderAwareOccupationLabel): ResultListItem {
     const candidateProfile = candidateSearchResult.candidateProfile;
     return {
       id: candidateProfile.id,
       title: this.extractGenderAwareTitle(occupationLabel, candidateProfile),
       description: jobExperience ? jobExperience.remark : '',
       header: null,
-      badges: [],
+      badges: this.candidateProfileBadgesMapperService.map(candidateProfile, [CandidateProfileBadgeType.WORKPLACE, CandidateProfileBadgeType.AVAILABILITY, CandidateProfileBadgeType.WORKLOAD, CandidateProfileBadgeType.EXPERIENCE]),
       routerLink: ['/candidate-search', candidateProfile.id],
       subtitle: null, // not needed for candidate
       visited: candidateSearchResult.visited

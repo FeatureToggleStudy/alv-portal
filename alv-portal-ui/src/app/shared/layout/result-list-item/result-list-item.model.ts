@@ -1,10 +1,10 @@
-import { JobBadge } from '../../../job-ad-search/job-badges-mapper.service';
+import { InlineBadge } from '../inline-badges/inline-badge.types';
 
 export interface ResultListItem {
   id: string;
   title: string;
   subtitle: string;
-  badges: JobBadge[];
+  badges: InlineBadge[];
   header: string;
   description: string;
   routerLink: string[];

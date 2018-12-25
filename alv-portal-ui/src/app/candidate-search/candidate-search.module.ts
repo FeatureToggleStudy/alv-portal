@@ -13,6 +13,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard';
 import { CandidateSearchGuard } from './candidate-search/candidate-search.guard';
 import { CandidateSearchFilterParameterService } from './candidate-search/candidate-search-filter-parameter.service';
+import { CandidateProfileBadgesMapperService } from './candidate-profile-badges-mapper.service';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { CandidateSearchFilterParameterService } from './candidate-search/candid
   providers: [
     CandidateDetailGuard,
     CandidateSearchGuard,
-    CandidateSearchFilterParameterService
+    CandidateSearchFilterParameterService,
+    CandidateProfileBadgesMapperService
   ]
 })
 export class CandidateSearchModule {
