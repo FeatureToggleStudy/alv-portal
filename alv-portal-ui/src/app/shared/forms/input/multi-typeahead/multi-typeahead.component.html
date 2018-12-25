@@ -16,17 +16,17 @@
         <legend class="sr-only">Selected Items</legend>
         <div
           class="badge typeahead-badge d-inline-flex align-items-center"
-             *ngFor="let item of control.value; let i = index"
+          *ngFor="let item of control.value; let i = index"
           [ngClass]="getTypeClass(item)">
           <div class="typeahead-badge-label text-truncate">
             {{item.label}}
           </div>
-          <a class="remove-button ml-1"
-             role="button"
+          <button class="remove-button ml-1"
+                  type="button"
                   (click)="removeItem(item)"
                   [attr.aria-label]="'Remove Item ' + item.label">
             <i class="fa fa-times"></i>
-          </a>
+          </button>
         </div>
       </fieldset>
 
