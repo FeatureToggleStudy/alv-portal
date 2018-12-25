@@ -245,12 +245,12 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       graduation: filterPanelValues.graduation,
       experience: filterPanelValues.experience,
       residence: filterPanelValues.residence.map((r, i) => {
-        return this.cantonAutocompleteMapper(r.toString(), i)
+        return this.cantonAutocompleteMapper(r.toString(), i);
       }),
       availability: filterPanelValues.availability,
       workloadPercentageMin: filterPanelValues.workloadPercentageMin,
       workloadPercentageMax: filterPanelValues.workloadPercentageMax,
       languageSkills: filterPanelValues.languageSkills
-    }, { emitEvent: false })
+    }, { emitEvent: false });
   }
 }
