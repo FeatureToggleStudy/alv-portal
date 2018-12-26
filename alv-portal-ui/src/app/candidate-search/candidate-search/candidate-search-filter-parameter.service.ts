@@ -28,16 +28,16 @@ export class CandidateSearchFilterParameterService {
     return filter;
   }
 
-  private initObjects(jobQueryPanelValues: CandidateQueryPanelValues) {
-    if (jobQueryPanelValues.occupations) {
-      jobQueryPanelValues.occupations = jobQueryPanelValues.occupations
+  private initObjects(candidateQueryPanelValues: CandidateQueryPanelValues) {
+    if (candidateQueryPanelValues.occupations) {
+      candidateQueryPanelValues.occupations = candidateQueryPanelValues.occupations
         .map((a) => OccupationMultiTypeaheadItem.fromJson(a));
     }
-    if (jobQueryPanelValues.workplace) {
-      jobQueryPanelValues.workplace = LocalityMultiTypeaheadItem.fromJson(jobQueryPanelValues.workplace);
+    if (candidateQueryPanelValues.workplace) {
+      candidateQueryPanelValues.workplace = LocalityMultiTypeaheadItem.fromJson(candidateQueryPanelValues.workplace);
     }
-    if (jobQueryPanelValues.keywords) {
-      jobQueryPanelValues.keywords = jobQueryPanelValues.keywords
+    if (candidateQueryPanelValues.keywords) {
+      candidateQueryPanelValues.keywords = candidateQueryPanelValues.keywords
         .map((a) => SimpleMultiTypeaheadItem.fromJson(a));
     }
   }
