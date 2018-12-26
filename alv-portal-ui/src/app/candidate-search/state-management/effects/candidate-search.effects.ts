@@ -166,7 +166,7 @@ export class CandidateSearchEffects {
           map((nextPageLoadedAction: NextPageLoadedAction) => {
             return nextPageLoadedAction.payload.page[0].id;
           })
-        )
+        );
       }
     }),
     tap((id) => {
