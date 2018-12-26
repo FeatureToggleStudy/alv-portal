@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
@@ -20,7 +20,8 @@ export interface FilterPanelValues {
 @Component({
   selector: 'alv-filter-panel',
   templateUrl: './filter-panel.component.html',
-  styleUrls: ['./filter-panel.component.scss']
+  styleUrls: ['./filter-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 

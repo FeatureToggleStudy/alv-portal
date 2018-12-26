@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { JobSearchResult } from '../../state-management/state/job-ad-search.state';
@@ -10,7 +10,8 @@ import { JobBadgesMapperService } from '../../job-badges-mapper.service';
 @Component({
   selector: 'alv-job-search-result',
   templateUrl: './job-search-result.component.html',
-  styleUrls: ['./job-search-result.component.scss']
+  styleUrls: ['./job-search-result.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobSearchResultComponent implements OnInit {
 

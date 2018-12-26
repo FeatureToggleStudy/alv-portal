@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { JobQueryPanelValues } from './job-query-panel-values';
@@ -14,7 +21,8 @@ import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-
 @Component({
   selector: 'alv-job-query-panel',
   templateUrl: './job-query-panel.component.html',
-  styleUrls: ['./job-query-panel.component.scss']
+  styleUrls: ['./job-query-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit {
 

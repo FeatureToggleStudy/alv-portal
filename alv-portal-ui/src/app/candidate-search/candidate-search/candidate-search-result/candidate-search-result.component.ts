@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -19,7 +19,8 @@ import { OccupationCode } from '../../../shared/backend-services/reference-servi
 @Component({
   selector: 'alv-candidate-search-result',
   templateUrl: './candidate-search-result.component.html',
-  styleUrls: ['./candidate-search-result.component.scss']
+  styleUrls: ['./candidate-search-result.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CandidateSearchResultComponent implements OnInit {
 

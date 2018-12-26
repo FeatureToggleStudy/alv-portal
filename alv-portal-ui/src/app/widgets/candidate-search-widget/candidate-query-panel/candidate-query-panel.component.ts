@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
@@ -13,7 +20,8 @@ import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-
 @Component({
   selector: 'alv-candidate-query-panel',
   templateUrl: './candidate-query-panel.component.html',
-  styleUrls: ['./candidate-query-panel.component.scss']
+  styleUrls: ['./candidate-query-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CandidateQueryPanelComponent extends AbstractSubscriber implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CandidateQueryPanelValues } from './candidate-query-panel/candidate-query-panel-values';
 import { Router } from '@angular/router';
 import { I18nService } from '../../core/i18n.service';
@@ -10,7 +10,8 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
 @Component({
   selector: 'alv-candidate-search-widget',
   templateUrl: './candidate-search-widget.component.html',
-  styleUrls: ['./candidate-search-widget.component.scss']
+  styleUrls: ['./candidate-search-widget.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CandidateSearchWidgetComponent extends AbstractSubscriber implements OnInit {
 
