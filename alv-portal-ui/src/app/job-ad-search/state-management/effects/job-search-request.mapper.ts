@@ -37,6 +37,19 @@ export class JobSearchRequestMapper {
   private static mapProfessionCodes(occupationMultiTypeaheadItems: OccupationMultiTypeaheadItem[]): ProfessionCode[] {
     return occupationMultiTypeaheadItems
       .map((occupationMultiTypeaheadItem: OccupationMultiTypeaheadItem) => occupationMultiTypeaheadItem.payload)
+      .map((occupationCode) => {
+        const professionalCodes = [{
+          type: occupationCode.type,
+          value: occupationCode.value
+        }];
+        if (occupationCode.mapping) {
+          professionalCodes.push({
+            type: occupationCode.mapping.type,
+            value: occupationCode.mapping.value
+          });
+        }
+        return professionalCodes;
+      })
       .reduce((previousValue, currentValue) => previousValue.concat(currentValue), []);
   }
 

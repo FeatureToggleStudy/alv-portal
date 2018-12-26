@@ -25,3 +25,9 @@ export interface OccupationLabelAutocomplete {
 export interface OccupationLabelData {
   [key: string]: string;
 }
+
+export interface OccupationCode {
+  value: string;
+  type: string;
+  mapping?: { value: string; type: string };
+}

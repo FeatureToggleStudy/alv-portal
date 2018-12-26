@@ -3,6 +3,8 @@ import { CandidateSearchFilter } from '..';
 import { Canton } from '../../../shared/backend-services/shared.types';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
+import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -14,6 +16,10 @@ export class CandidateSearchRequestMapper {
       page: page,
       size: ITEMS_PER_PAGE,
       body: {
+        occupationCodes: CandidateSearchRequestMapper.mapOccupationCodes(candidateSearchFilter.occupations),
+        skills: CandidateSearchRequestMapper.mapKeywords(candidateSearchFilter.keywords),
+        cantonCode: CandidateSearchRequestMapper.mapCantonCode(candidateSearchFilter.workplace),
+        regionCode: CandidateSearchRequestMapper.mapRegionCode(candidateSearchFilter.workplace),
         degree: candidateSearchFilter.degree,
         graduation: candidateSearchFilter.graduation,
         experience: candidateSearchFilter.experience,
@@ -21,9 +27,6 @@ export class CandidateSearchRequestMapper {
         availability: candidateSearchFilter.availability,
         workLoad: CandidateSearchRequestMapper.mapWorkLoad(candidateSearchFilter.workloadPercentageMin, candidateSearchFilter.workloadPercentageMax),
         //todo DF-391: Implement mapping
-        skills: CandidateSearchRequestMapper.mapKeywords(candidateSearchFilter.keywords),
-        cantonCode: CandidateSearchRequestMapper.mapCantonCode(candidateSearchFilter.workplace),
-        regionCode: CandidateSearchRequestMapper.mapRegionCode(candidateSearchFilter.workplace),
       }
     };
   }
@@ -53,4 +56,9 @@ export class CandidateSearchRequestMapper {
     }
     return workplace.payload.regionCode;
   }
+
+  private static mapOccupationCodes(occupations: OccupationMultiTypeaheadItem[]): OccupationCode[] {
+    return occupations.map((a) => a.payload);
+  }
+
 }
