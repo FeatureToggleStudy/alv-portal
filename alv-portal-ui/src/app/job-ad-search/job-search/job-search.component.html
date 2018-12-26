@@ -32,7 +32,7 @@
       <div class="alv-bar mb-1">
         <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
         <ng-template #resultsCount>
-          <strong>{{totalCount$ | async }} {{'portal.job-ad-search.results-count.label' | translate}}</strong>
+          <strong>{{totalCount$ | async | number}} {{'portal.job-ad-search.results-count.label' | translate}}</strong>
         </ng-template>
 
       </div>

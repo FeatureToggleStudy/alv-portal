@@ -31,7 +31,7 @@
       <div class="alv-bar mb-1">
         <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
         <ng-template #resultsCount>
-          <strong>{{totalCount$ | async }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
+          <strong>{{totalCount$ | async | number }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
         </ng-template>
       </div>
       <alv-filter-panel (filterPanelValuesChange)="onFiltersChange($event)"
