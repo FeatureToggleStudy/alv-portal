@@ -85,6 +85,7 @@ export const getResultsAreLoading = createSelector(getCandidateSearchState, (sta
 
 export const getSelectedCandidateProfile = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.selectedCandidateProfile);
 
+export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations);
 
 export const getCandidateSearchResults = createSelector(getResultList, getVisitedCandidates, (resultList, visitedCandidates) => {
   return resultList.map((candidateProfile) => {

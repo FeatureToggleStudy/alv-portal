@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CandidateProfile } from '../shared/backend-services/candidate/candidate.types';
+import {
+  CandidateProfile,
+  JobExperience
+} from '../shared/backend-services/candidate/candidate.types';
 import { InlineBadge } from '../shared/layout/inline-badges/inline-badge.types';
-import { findRelevantJobExperience } from './candidate-rules';
 
 export enum CandidateProfileBadgeType {
   WORKPLACE, AVAILABILITY, WORKLOAD, EXPERIENCE
@@ -24,7 +26,7 @@ export class CandidateProfileBadgesMapperService {
   constructor() {
   }
 
-  public map(candidateProfile: CandidateProfile, badgeTypes = ALL): CandidateProfileBadge[] {
+  public map(candidateProfile: CandidateProfile, jobExperience?: JobExperience, badgeTypes = ALL): CandidateProfileBadge[] {
     const result: CandidateProfileBadge[] = [];
     if (candidateProfile.residenceCantonCode) {
       result.push({
@@ -47,7 +49,6 @@ export class CandidateProfileBadgesMapperService {
         label: candidateProfile.workLoad + '%'
       });
     }
-    const jobExperience = findRelevantJobExperience(candidateProfile);
     if (jobExperience && jobExperience.experience) {
       result.push({
         badgeType: CandidateProfileBadgeType.EXPERIENCE,

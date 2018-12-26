@@ -11,6 +11,7 @@ import {
   getCandidateSearchResults,
   getResultsAreLoading,
   getSelectedCandidateProfile,
+  getSelectedOccupations,
   getTotalCount,
   LoadNextPageAction,
   ResetFilterAction
@@ -24,6 +25,7 @@ import { composeResultListItemId } from '../../shared/layout/result-list-item/re
 import { CandidateSearchFilterParameterService } from './candidate-search-filter-parameter.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
+import { OccupationCode } from '../../shared/backend-services/reference-service/occupation-label.types';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -43,6 +45,8 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   searchMailToLink$: Observable<string>;
 
+  selectedOccupationCodes: Observable<OccupationCode[]>;
+
   constructor(private store: Store<CandidateSearchState>,
               private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
               private actionsSubject: ActionsSubject,
@@ -58,6 +62,10 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
     this.candidateSearchResults$ = this.store.pipe(select(getCandidateSearchResults));
 
     this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
+
+    this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations)).pipe(
+      map((occupations) => occupations.map((b) => b.payload))
+    );
 
     this.searchMailToLink$ = this.candidateSearchFilter$.pipe(
       map((candidateSearchFilter: CandidateSearchFilter) => this.candidateSearchFilterParameterService.encode(candidateSearchFilter)),

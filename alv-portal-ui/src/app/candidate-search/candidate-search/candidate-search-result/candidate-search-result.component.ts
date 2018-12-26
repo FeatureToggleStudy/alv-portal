@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
 import { Observable } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
 import { JobExperience } from '../../../shared/backend-services/candidate/candidate.types';
 import { CandidateSearchResult } from '../../state-management';
@@ -14,6 +14,7 @@ import {
   findRelevantJobExperience
 } from '../../candidate-rules';
 import { CandidateProfileBadgesMapperService } from '../../candidate-profile-badges-mapper.service';
+import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
 
 @Component({
   selector: 'alv-candidate-search-result',
@@ -24,6 +25,9 @@ export class CandidateSearchResultComponent implements OnInit {
 
   @Input()
   candidateSearchResult: CandidateSearchResult;
+
+  @Input()
+  selectedOccupationCodes: OccupationCode[];
 
   resultListItem$: Observable<ResultListItem>;
 
@@ -38,10 +42,10 @@ export class CandidateSearchResultComponent implements OnInit {
 
   private candidateSearchResultToResultListItemMapper(candidateSearchResult: CandidateSearchResult): Observable<ResultListItem> {
     const candidateProfile = candidateSearchResult.candidateProfile;
-    const jobExperience = findRelevantJobExperience(candidateProfile);
+    const relevantJobExperience = findRelevantJobExperience(candidateProfile, this.selectedOccupationCodes);
     return this.i18nService.currentLanguage$.pipe(
-      switchMap((lang) => this.resolveOccupation(jobExperience, lang)),
-      map(occupationLabel => this.map(candidateSearchResult, jobExperience, occupationLabel))
+      switchMap((lang) => this.resolveOccupation(relevantJobExperience, lang)),
+      map(occupationLabel => this.map(candidateSearchResult, relevantJobExperience, occupationLabel))
     );
   }
 
@@ -52,7 +56,7 @@ export class CandidateSearchResultComponent implements OnInit {
       title: extractGenderAwareTitle(candidateProfile, occupationLabel),
       description: jobExperience ? jobExperience.remark : '',
       header: null,
-      badges: this.candidateProfileBadgesMapperService.map(candidateProfile),
+      badges: this.candidateProfileBadgesMapperService.map(candidateProfile, jobExperience),
       routerLink: ['/candidate-search', candidateProfile.id],
       subtitle: null, // not needed for candidate
       visited: candidateSearchResult.visited

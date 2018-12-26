@@ -4,13 +4,20 @@ import {
 } from '../shared/backend-services/candidate/candidate.types';
 import { Experience, Gender } from '../shared/backend-services/shared.types';
 import { GenderAwareOccupationLabel } from '../shared/occupations/occupation.service';
+import { OccupationCode } from '../shared/backend-services/reference-service/occupation-label.types';
 
-//todo: calculate the relevant jobExperience
-export const findRelevantJobExperience = (candidateProfile: CandidateProfile): JobExperience => {
+export const findRelevantJobExperience = (candidateProfile: CandidateProfile, occupationCodes?: OccupationCode[]): JobExperience => {
   const jobExperiences = candidateProfile.jobExperiences;
   const wantedJobExperiences = jobExperiences.filter((jobExperience) => jobExperience.wanted);
   if (!wantedJobExperiences) {
     return null;
+  }
+
+  if (wantedJobExperiences && occupationCodes) {
+    const bestMatchingJobExperience = getBestMatchingJobExperience(occupationCodes, jobExperiences);
+    if (bestMatchingJobExperience) {
+      return bestMatchingJobExperience;
+    }
   }
 
   const keywordHitJobExperience = jobExperiences
@@ -42,3 +49,46 @@ export const extractGenderAwareTitle = (candidateProfile, occupationLabel: Gende
   }
   return occupationLabel.default;
 };
+
+const getBestMatchingJobExperience = (occupationCodes: OccupationCode[], jobExperiences: JobExperience[]) => {
+
+  const isMatched = (jobExperience: JobExperience, occupationCode: OccupationCode) => {
+    const { avamCode, bfsCode, sbn3Code, sbn5Code } = jobExperience.occupation;
+    return (String(avamCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'avam')
+      || (String(bfsCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'bfs')
+      || (String(sbn3Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn3')
+      || (String(sbn5Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn5');
+  };
+
+  const hasOccupationCode = (occupationCode: OccupationCode) => (jobExperience: JobExperience) => {
+    const matchedByPrimaryOccupation = isMatched(jobExperience, occupationCode);
+    return occupationCode.mapping ? matchedByPrimaryOccupation || isMatched(jobExperience, occupationCode.mapping) : matchedByPrimaryOccupation;
+  };
+
+  const matchingExperiences = occupationCodes
+    .map((occupationCode) => jobExperiences.find(hasOccupationCode(occupationCode)))
+    .filter((jobExperience) => !!jobExperience)
+    .reduce((acc, curr) => {
+      const key = JSON.stringify(curr);
+      if (!acc[key]) {
+        acc[key] = { count: 0, jobExperience: curr }
+      }
+      acc[key].count++;
+
+      return acc;
+    }, []);
+
+  const matchingExperienceKeys = Object.keys(matchingExperiences);
+  if (matchingExperienceKeys.length > 0) {
+    const bestMatchingExperienceKey = matchingExperienceKeys
+      .sort((k1, k2) => matchingExperiences[k1].count === matchingExperiences[k2].count
+        ? 0
+        : matchingExperiences[k1].count > matchingExperiences[k2].count ? -1 : 1
+      )[0];
+
+    return matchingExperiences[bestMatchingExperienceKey].jobExperience;
+  } else {
+    return null;
+  }
+};
+
