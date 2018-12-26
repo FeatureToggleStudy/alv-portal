@@ -23,5 +23,7 @@ export interface OccupationLabelAutocomplete {
 }
 
 export interface OccupationLabelData {
-  [key: string]: string;
+  default: string;
+  m: string;
+  f: string;
 }

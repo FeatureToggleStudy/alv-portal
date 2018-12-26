@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Observable } from 'rxjs';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +19,6 @@ import {
   JobBadgesMapperService,
   JobBadgeType
 } from '../job-badges-mapper.service';
-import { DOCUMENT } from '@angular/common';
 import {
   Notification,
   NotificationType
