@@ -4,6 +4,7 @@ import { SchedulerLike } from 'rxjs/src/internal/types';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
   catchError,
+  concatMap,
   debounceTime,
   filter,
   map,
@@ -130,13 +131,11 @@ export class CandidateSearchEffects {
     ofType(LOAD_NEXT_PAGE),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
-    switchMap(([action, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
+    concatMap(([action, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
       .pipe(
         map((response) => new NextPageLoadedAction({ page: response.result })),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-      )),
-    takeUntil(this.actions$.pipe(ofType(APPLY_FILTER))),
-    // todo: implement
+      ))
   );
 
   @Effect()
@@ -161,14 +160,13 @@ export class CandidateSearchEffects {
         return of(id);
       } else {
         this.store.dispatch(new LoadNextPageAction());
-
         return this.actions$.pipe(
           ofType(NEXT_PAGE_LOADED),
+          take(1),
           map((nextPageLoadedAction: NextPageLoadedAction) => {
             return nextPageLoadedAction.payload.page[0].id;
-          }),
-          take(1)
-        );
+          })
+        )
       }
     }),
     tap((id) => {
