@@ -14,18 +14,18 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../../environments/environment';
 import { XhrMarkerInterceptor } from './xhr-marker.interceptor';
 import { registerLocaleData } from '@angular/common';
-import locale from '@angular/common/locales/de';
-import localeFr from '@angular/common/locales/fr';
-import localeIt from '@angular/common/locales/it';
-import localeEn from '@angular/common/locales/en';
+import localeDeCH from '@angular/common/locales/de-CH';
+import localeFrCH from '@angular/common/locales/fr-CH';
+import localeItCH from '@angular/common/locales/it-CH';
+import localeEnCH from '@angular/common/locales/en-CH';
 import { LanguageCacheKeyInterceptor } from './language-cache-key.interceptor';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, environment.translationBaseUrl, '.json');
 }
 
-export function LocalIdFactory(translateService: TranslateService) {
-  return translateService.currentLang;
+export function LocaleIdFactory(translateService: TranslateService) {
+  return `${translateService.currentLang}-CH`;
 }
 
 @NgModule({
@@ -51,7 +51,7 @@ export function LocalIdFactory(translateService: TranslateService) {
   providers: [
     {
       provide: LOCALE_ID,
-      useFactory: LocalIdFactory,
+      useFactory: LocaleIdFactory,
       deps: [TranslateService]
     },
     CookieService,
@@ -79,10 +79,10 @@ export class CoreModule {
    */
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
-    registerLocaleData(locale);
-    registerLocaleData(localeFr);
-    registerLocaleData(localeIt);
-    registerLocaleData(localeEn);
+    registerLocaleData(localeDeCH);
+    registerLocaleData(localeFrCH);
+    registerLocaleData(localeItCH);
+    registerLocaleData(localeEnCH);
   }
 }
 
