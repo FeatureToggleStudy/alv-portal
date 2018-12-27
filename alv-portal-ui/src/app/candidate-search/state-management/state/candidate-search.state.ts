@@ -25,7 +25,21 @@ export interface CandidateSearchState {
 export const initialState: CandidateSearchState = {
   totalCount: 0,
   page: 0,
-  candidateSearchFilter: {},
+  candidateSearchFilter: {
+    occupations: [],
+    skills: [],
+    experience: null,
+    workplace: [],
+    residence: [],
+    availability: null,
+    workloadPercentageMin: 0,
+    workloadPercentageMax: 100,
+    workForm: null,
+    degree: null,
+    graduation: null,
+    drivingLicenceCategory: null,
+    languageSkills: []
+  },
   resultList: [],
   selectedCandidateProfile: null,
   resultsAreLoading: false,

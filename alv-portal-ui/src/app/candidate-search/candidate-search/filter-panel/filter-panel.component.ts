@@ -1,18 +1,19 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 
 import { UserRole } from '../../../core/auth/user.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { filter, map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 
 import {
   Availability,
-  Canton,
+  Canton, CEFR_Level,
   Degree,
   Experience,
-  Graduation, Language
+  Graduation,
+  Language, LanguageSkill
 } from '../../../shared/backend-services/shared.types';
 import { TranslateService } from '@ngx-translate/core';
 import { CandidateSearchFilter } from '../../state-management/state/candidate-search.state';
@@ -142,7 +143,19 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     })
   ));
 
-  onlineSinceSliderLabel: number;
+  languageLevelOptions$:  Observable<SelectableOption[]> = of([
+    {
+      value: null,
+      label: 'global.reference.language.no-selection'
+    }
+  ].concat(
+    Object.values(CEFR_Level).map(level => {
+      return {
+        value: level,
+        label: 'global.reference.language.level.' + level
+      };
+    })
+  ));
 
   constructor(private fb: FormBuilder,
               private translateService: TranslateService) {
@@ -158,7 +171,9 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       availability: [this.candidateSearchFilter.availability],
       workloadPercentageMin: [this.candidateSearchFilter.workloadPercentageMin],
       workloadPercentageMax: [this.candidateSearchFilter.workloadPercentageMax],
-      languageSkills: [this.candidateSearchFilter.languageSkills]
+      languageSkills: this.fb.array([
+        this.createNewLanguageSkillItem()
+      ])
     });
     this.form.valueChanges
       .pipe(
@@ -202,9 +217,27 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     );
   }
 
+  removeLanguageSkill(languageSkill: LanguageSkill) {
+    const languageSkills = this.form.get('languageSkills') as FormArray;
+    languageSkills.removeAt(this.form.value.languageSkills.indexOf(languageSkill));
+  }
+
+  addNewLanguageSkill() {
+    const languageSkills = this.form.get('languageSkills') as FormArray;
+    languageSkills.push(this.createNewLanguageSkillItem());
+  }
+
+  private createNewLanguageSkillItem(): FormGroup {
+    return this.fb.group({
+      languageIsoCode: [''],
+      writtenLevel: [''],
+      spokenLevel: ['']
+    });
+  }
+
   private filterCantons(query: string) {
     return (cantons, index) => {
-      return cantons.filter(  option => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
+      return cantons.filter(option => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
     };
   }
 
