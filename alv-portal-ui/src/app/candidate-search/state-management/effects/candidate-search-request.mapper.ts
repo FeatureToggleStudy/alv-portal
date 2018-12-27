@@ -29,6 +29,8 @@ export class CandidateSearchRequestMapper {
         residence: CandidateSearchRequestMapper.mapResidences(candidateSearchFilter.residence),
         availability: candidateSearchFilter.availability,
         workLoad: CandidateSearchRequestMapper.mapWorkLoad(candidateSearchFilter.workloadPercentageMin, candidateSearchFilter.workloadPercentageMax),
+        drivingLicenceCategory: candidateSearchFilter.drivingLicenceCategory,
+        workForm: candidateSearchFilter.workForm,
         languageSkills: CandidateSearchRequestMapper.mapLanguageSkills(candidateSearchFilter.languageSkills)
       }
     };
