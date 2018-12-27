@@ -33,7 +33,7 @@ export class ThreeColumnLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    window.addEventListener('resize', this.setSidePanelHeight);
+    window.addEventListener('resize', this.setSidePanelHeight.bind(this));
     this.setSidePanelHeight();
   }
 
@@ -45,7 +45,7 @@ export class ThreeColumnLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    window.removeEventListener('resize', this.setSidePanelHeight);
+    window.removeEventListener('resize', this.setSidePanelHeight.bind(this));
   }
 
   private setSidePanelHeight() {

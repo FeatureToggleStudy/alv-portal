@@ -1,9 +1,10 @@
 <div *ngIf="currentUser$ |async as currentUser"
      class="container mt-2 mt-md-4">
 
-  <alv-dashboard-header [user]="currentUser"></alv-dashboard-header>
+
 
   <div class="dashboard-content">
+    <alv-dashboard-header [user]="currentUser"></alv-dashboard-header>
     <router-outlet></router-outlet>
   </div>
 
