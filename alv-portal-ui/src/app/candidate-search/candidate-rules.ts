@@ -83,7 +83,7 @@ export const findRelevantJobExperience = (candidateProfile: CandidateProfile, se
   return jobExperiences[0];
 };
 
-export const extractGenderAwareTitle = (candidateProfile, occupationLabel: GenderAwareOccupationLabel) => {
+export const extractGenderAwareTitle = (candidateProfile, occupationLabel: GenderAwareOccupationLabel): string => {
   if (candidateProfile.gender === Gender.MALE && occupationLabel.male) {
     return occupationLabel.male;
   } else if (candidateProfile.gender === Gender.FEMALE && occupationLabel.female) {
