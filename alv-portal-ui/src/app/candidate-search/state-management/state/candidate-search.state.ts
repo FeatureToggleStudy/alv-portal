@@ -10,6 +10,9 @@ import {
   WorkForm
 } from '../../../shared/backend-services/shared.types';
 import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
+import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
 
 
 export interface CandidateSearchState {
@@ -25,7 +28,21 @@ export interface CandidateSearchState {
 export const initialState: CandidateSearchState = {
   totalCount: 0,
   page: 0,
-  candidateSearchFilter: {},
+  candidateSearchFilter: {
+    occupations: [],
+    keywords: [],
+    workplace: null,
+    experience: null,
+    residence: [],
+    availability: null,
+    workloadPercentageMin: 0,
+    workloadPercentageMax: 100,
+    workForm: null,
+    degree: null,
+    graduation: null,
+    drivingLicenceCategory: null,
+    languageSkills: []
+  },
   resultList: [],
   selectedCandidateProfile: null,
   resultsAreLoading: false,
@@ -34,19 +51,19 @@ export const initialState: CandidateSearchState = {
 
 export interface CandidateSearchFilter {
   // todo: implement
-  occupations?: string[];
-  skills?: string[];
-  experience?: Experience;
-  workplace?: string[];
-  residence?: Canton[];
-  availability?: Availability;
-  workloadPercentageMin?: number;
-  workloadPercentageMax?: number;
-  workForm?: WorkForm;
-  degree?: Degree;
-  graduation?: Graduation;
-  drivingLicenceCategory?: DrivingLicenceCategory;
-  languageSkills?: LanguageSkill[];
+  occupations: OccupationMultiTypeaheadItem[];
+  keywords: SimpleMultiTypeaheadItem[];
+  workplace: LocalityMultiTypeaheadItem;
+  experience: Experience;
+  residence: Canton[];
+  availability: Availability;
+  workloadPercentageMin: number;
+  workloadPercentageMax: number;
+  workForm: WorkForm;
+  degree: Degree;
+  graduation: Graduation;
+  drivingLicenceCategory: DrivingLicenceCategory;
+  languageSkills: LanguageSkill[];
 }
 
 export interface CandidateSearchResult {
@@ -68,6 +85,7 @@ export const getResultsAreLoading = createSelector(getCandidateSearchState, (sta
 
 export const getSelectedCandidateProfile = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.selectedCandidateProfile);
 
+export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations);
 
 export const getCandidateSearchResults = createSelector(getResultList, getVisitedCandidates, (resultList, visitedCandidates) => {
   return resultList.map((candidateProfile) => {

@@ -1,15 +1,13 @@
-import { JobBadge } from '../../../job-ad-search/job-badges-mapper.service';
+import { InlineBadge } from '../inline-badges/inline-badge.types';
 
 export interface ResultListItem {
   id: string;
   title: string;
   subtitle: string;
-  badges: JobBadge[];
+  badges: InlineBadge[];
   header: string;
   description: string;
   routerLink: string[];
   visited: boolean;
-  // maybe in the future we will need to add queryParams and  fragment properties
-  // visited: boolean; //first let's try to use css :visited attribute
 }
 

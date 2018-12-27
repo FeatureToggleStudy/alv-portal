@@ -18,7 +18,8 @@ import { CandidateQueryPanelComponent } from './candidate-search-widget/candidat
   exports: [
     JobSearchWidgetComponent,
     JobQueryPanelComponent,
-    CandidateSearchWidgetComponent
+    CandidateSearchWidgetComponent,
+    CandidateQueryPanelComponent
   ]
 })
 export class WidgetsModule {

@@ -23,6 +23,14 @@ export interface JobBadge extends InlineBadge {
   badgeType: JobBadgeType;
 }
 
+const ALL = [
+  JobBadgeType.CONTRACT_TYPE,
+  JobBadgeType.AVAILABILITY,
+  JobBadgeType.WORKPLACE,
+  JobBadgeType.WORKLOAD,
+  JobBadgeType.REPORTING_OBLIGATION
+];
+
 @Injectable()
 export class JobBadgesMapperService {
 
@@ -31,7 +39,7 @@ export class JobBadgesMapperService {
               private jobLocationPipe: JobLocationPipe) {
   }
 
-  public map(job: JobAdvertisement, badgeTypes: JobBadgeType[]): JobBadge[] {
+  public map(job: JobAdvertisement, badgeTypes = ALL): JobBadge[] {
     const badges: JobBadge[] = [];
 
     if (hasLocation(job)) {

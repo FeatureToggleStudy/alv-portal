@@ -13,6 +13,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard';
 import { CandidateDetailModelFactory } from './candidate-detail/candidate-detail-model-factory';
 
+import { CandidateSearchGuard } from './candidate-search/candidate-search.guard';
+import { CandidateSearchFilterParameterService } from './candidate-search/candidate-search-filter-parameter.service';
+import { CandidateProfileBadgesMapperService } from './candidate-profile-badges-mapper.service';
+import { WidgetsModule } from '../widgets/widgets.module';
 
 @NgModule({
   imports: [
@@ -21,7 +25,8 @@ import { CandidateDetailModelFactory } from './candidate-detail/candidate-detail
     CommonModule,
     SharedModule,
     CandidateSearchRoutingModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    WidgetsModule
   ],
   declarations: [
     CandidateSearchComponent,
@@ -31,6 +36,9 @@ import { CandidateDetailModelFactory } from './candidate-detail/candidate-detail
   ],
   providers: [
     CandidateDetailGuard,
+    CandidateSearchGuard,
+    CandidateSearchFilterParameterService,
+    CandidateProfileBadgesMapperService,
     CandidateDetailModelFactory
   ]
 })

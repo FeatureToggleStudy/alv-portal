@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { JobQueryPanelValues } from './job-query-panel/job-query-panel-values';
 import { Router } from '@angular/router';
@@ -10,7 +10,8 @@ import { OccupationSuggestionService } from '../../shared/occupations/occupation
 @Component({
   selector: 'alv-job-search-widget',
   templateUrl: './job-search-widget.component.html',
-  styleUrls: ['./job-search-widget.component.scss']
+  styleUrls: ['./job-search-widget.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobSearchWidgetComponent extends AbstractSubscriber implements OnInit {
 

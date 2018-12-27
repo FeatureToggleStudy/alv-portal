@@ -1,4 +1,11 @@
-import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  Input,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { ResultListItem } from './result-list-item.model';
 
 const RESULT_LIST_ITEM_ID_PREFIX = 'result-list-item_';
@@ -15,7 +22,8 @@ export const composeResultListItemId = (id: string) => {
   templateUrl: './result-list-item.component.html',
   styleUrls: ['./result-list-item.component.scss'],
   /* tslint:disable:use-view-encapsulation */
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResultListItemComponent implements OnInit {
 
