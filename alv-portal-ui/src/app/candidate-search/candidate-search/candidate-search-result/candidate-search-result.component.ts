@@ -45,7 +45,7 @@ export class CandidateSearchResultComponent implements OnInit {
     const candidateProfile = candidateSearchResult.candidateProfile;
     const relevantJobExperience = findRelevantJobExperience(candidateProfile, this.selectedOccupationCodes);
     if (!relevantJobExperience) {
-      console.warn("Could not find a relevantJobExperience for candidate profile: ", candidateProfile.id);
+      console.warn('Could not find a relevantJobExperience for candidate profile: ', candidateProfile.id);
       return EMPTY;
     }
     return this.i18nService.currentLanguage$.pipe(
