@@ -4,8 +4,10 @@
 
 .side-panel {
   position: sticky;
-  top: calc(1.5rem + 94px);
   overflow-y: auto;
+  overflow-x: hidden;
+  margin: 0 -7px;
+  padding: 0 7px;
 }
 
 @include media-breakpoint-down(sm) {

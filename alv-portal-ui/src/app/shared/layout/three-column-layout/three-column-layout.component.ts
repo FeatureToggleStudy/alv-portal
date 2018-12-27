@@ -9,6 +9,10 @@ export class ThreeColumnLayoutComponent implements OnInit {
 
   @Input() mobileOrdering: number[];
 
+  @Input() stickyTop = 0;
+
+  private readonly bootstrapBreakpointSm = 576;
+
   constructor() {
   }
 
@@ -34,8 +38,17 @@ export class ThreeColumnLayoutComponent implements OnInit {
   }
 
   private setSidePanelHeight() {
+    const mainContainer = document.querySelector('main');
+    const marginTop = '1.5rem';
     document.querySelectorAll('.side-panel').forEach(sidePanel => {
-      sidePanel.setAttribute('style', `height: ${document.querySelector('main').clientHeight - 100}px`);
+      if (mainContainer.clientWidth > this.bootstrapBreakpointSm) {
+        sidePanel.setAttribute('style',
+          `height: calc(${mainContainer.clientHeight - this.stickyTop}px - ${marginTop});
+                 top: calc(${marginTop} + ${this.stickyTop}px)`);
+
+      } else {
+        sidePanel.setAttribute('style', '');
+      }
     });
   }
 }
