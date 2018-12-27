@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
 import { JobExperience } from '../../../shared/backend-services/candidate/candidate.types';
@@ -44,6 +44,10 @@ export class CandidateSearchResultComponent implements OnInit {
   private candidateSearchResultToResultListItemMapper(candidateSearchResult: CandidateSearchResult): Observable<ResultListItem> {
     const candidateProfile = candidateSearchResult.candidateProfile;
     const relevantJobExperience = findRelevantJobExperience(candidateProfile, this.selectedOccupationCodes);
+    if (!relevantJobExperience) {
+      console.warn("Could not find a relevantJobExperience for candidate profile: ", candidateProfile.id);
+      return EMPTY;
+    }
     return this.i18nService.currentLanguage$.pipe(
       switchMap((lang) => this.resolveOccupation(relevantJobExperience, lang)),
       map(occupationLabel => this.map(candidateSearchResult, relevantJobExperience, occupationLabel))
