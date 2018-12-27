@@ -9,8 +9,8 @@ import {
   Degree,
   DrivingLicenceCategory,
   Experience,
-  Graduation, Language,
-  LanguageSkill,
+  Graduation,
+  Language,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
@@ -19,6 +19,7 @@ import { LocalityInputType } from '../../../shared/localities/locality-multi-typ
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { LanguageSkill } from '../../../shared/backend-services/candidate/candidate.types';
 
 export interface FilterPanelValues {
   experience: Experience;
@@ -144,19 +145,14 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     })
   ));
 
-  languageLevelOptions$:  Observable<SelectableOption[]> = of([
-    {
-      value: null,
-      label: 'global.reference.language.no-selection'
-    }
-  ].concat(
+  languageLevelOptions$: Observable<SelectableOption[]> = of(
     Object.values(CEFR_Level).map(level => {
       return {
         value: level,
         label: 'global.reference.language.level.' + level
       };
     })
-  ));
+  );
 
   private _filterPanelValues: FilterPanelValues;
 
@@ -177,11 +173,12 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       workloadPercentageMin: [],
       workloadPercentageMax: [],
       languageSkills: this.fb.array([
-        this.createNewLanguageSkillItem()
+        this.createNewLanguageSkillFormGroup()
       ])
     });
 
     this.setFormValues(this._filterPanelValues);
+
 
     this.form.valueChanges
       .pipe(
@@ -222,21 +219,28 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   addNewLanguageSkill() {
     const languageSkills = this.form.get('languageSkills') as FormArray;
-    languageSkills.push(this.createNewLanguageSkillItem());
+    languageSkills.push(this.createNewLanguageSkillFormGroup());
   }
 
   isAddLanguageSkillEnabled(): boolean {
     const languageSkills = this.form.get('languageSkills') as FormArray;
     const maxNotReached = languageSkills.length < this.MAX_LANGUAGE_OPTIONS_NUM;
-    const lastValid = !!languageSkills.at(languageSkills.length - 1).get('languageIsoCode').value;
+    const lastValid = !!languageSkills.at(languageSkills.length - 1).get('code').value;
     return maxNotReached && lastValid;
   }
 
-  private createNewLanguageSkillItem(): FormGroup {
+  onLanguageSkillCodeChanged(languageSkillFormGroup: FormGroup) {
+    languageSkillFormGroup.patchValue({
+      written: CEFR_Level.NONE,
+      spoken: CEFR_Level.NONE
+    })
+  }
+
+  private createNewLanguageSkillFormGroup(): FormGroup {
     return this.fb.group({
-      languageIsoCode: [''],
-      writtenLevel: [''],
-      spokenLevel: ['']
+      code: [null],
+      written: [CEFR_Level.NONE],
+      spoken: [CEFR_Level.NONE]
     });
   }
 
@@ -270,6 +274,11 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     if (!(this.form && filterPanelValues)) {
       return;
     }
+    const emptyLanguageSkill: LanguageSkill = {
+      code: null,
+      written: null,
+      spoken: null
+    };
     this.form.setValue({
       degree: filterPanelValues.degree,
       graduation: filterPanelValues.graduation,
@@ -280,7 +289,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       availability: filterPanelValues.availability,
       workloadPercentageMin: filterPanelValues.workloadPercentageMin,
       workloadPercentageMax: filterPanelValues.workloadPercentageMax,
-      languageSkills: filterPanelValues.languageSkills
+      languageSkills: filterPanelValues.languageSkills.length ? filterPanelValues.languageSkills : [emptyLanguageSkill]
     }, { emitEvent: false });
   }
 }

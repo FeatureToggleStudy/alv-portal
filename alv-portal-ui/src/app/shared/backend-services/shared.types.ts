@@ -119,13 +119,6 @@ export enum Language {
 
 }
 
-export interface LanguageSkill {
-  languageIsoCode: string;
-  nativeLanguage?: boolean;
-  spokenLevel: CEFR_Level;
-  writtenLevel: CEFR_Level;
-}
-
 export interface PostAddress {
   name: string;
   street?: string;

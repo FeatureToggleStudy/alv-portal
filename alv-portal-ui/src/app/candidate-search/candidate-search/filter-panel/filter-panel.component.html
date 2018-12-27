@@ -73,7 +73,8 @@
       <div class="col">
         <alv-select
           label="candidate-search.languageSkills.label"
-          alvFormControlName="languageIsoCode"
+          alvFormControlName="code"
+          (change)="onLanguageSkillCodeChanged(languageSkill)"
           [options$]="languageOptions$">
         </alv-select>
       </div>
@@ -90,19 +91,19 @@
       </div>
     </div>
 
-    <div *ngIf="languageSkill.get('languageIsoCode').value"
+    <div *ngIf="languageSkill.get('code').value"
          class="form-row">
       <div class="col">
         <alv-select
           label="global.reference.language.spoken"
-          alvFormControlName="spokenLevel"
+          alvFormControlName="spoken"
           [options$]="languageLevelOptions$">
         </alv-select>
       </div>
       <div class="col">
         <alv-select
           label="global.reference.language.written"
-          alvFormControlName="writtenLevel"
+          alvFormControlName="written"
           [options$]="languageLevelOptions$">
         </alv-select>
       </div>
@@ -114,7 +115,7 @@
           (click)="addNewLanguageSkill()"
           *ngIf="isAddLanguageSkillEnabled()">
     <span class="fa fa-plus"
-           aria-hidden="true"></span>
+          aria-hidden="true"></span>
     {{'global.button.add.title'| translate}}
   </button>
 

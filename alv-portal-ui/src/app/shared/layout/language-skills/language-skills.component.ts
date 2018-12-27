@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LanguageSkill } from '../../backend-services/shared.types';
+import { LanguageSkill } from '../../backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-language-skills',
   templateUrl: './language-skills.component.html'
 })
-
 export class LanguageSkillsComponent implements OnInit {
   @Input() languages: LanguageSkill[];
 
