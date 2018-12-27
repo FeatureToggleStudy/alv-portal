@@ -11,7 +11,7 @@ export class ThreeColumnLayoutComponent implements OnInit {
 
   @Input() stickyTop = 0;
 
-  private readonly BOOTSTRAP_BREAKPOINT_SM = 576;
+  private readonly BOOTSTRAP_BREAKPOINT_SM = '(max-width: 767.98px)';
 
   constructor() {
   }
@@ -40,14 +40,15 @@ export class ThreeColumnLayoutComponent implements OnInit {
   private setSidePanelHeight() {
     const mainContainer = document.querySelector('main');
     const marginTop = '1.5rem';
+    const isMobileViewPort = window.matchMedia(this.BOOTSTRAP_BREAKPOINT_SM);
+
     document.querySelectorAll('alv-three-column-layout .side-panel').forEach(sidePanel => {
-      if (mainContainer.clientWidth > this.BOOTSTRAP_BREAKPOINT_SM) {
+      if (isMobileViewPort.matches) {
+        sidePanel.setAttribute('style', '');
+      } else {
         sidePanel.setAttribute('style',
           `height: calc(${mainContainer.clientHeight - this.stickyTop}px - ${marginTop});
                  top: calc(${marginTop} + ${this.stickyTop}px)`);
-
-      } else {
-        sidePanel.setAttribute('style', '');
       }
     });
   }
