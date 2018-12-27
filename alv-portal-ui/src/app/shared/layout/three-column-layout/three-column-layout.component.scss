@@ -6,8 +6,6 @@
   position: sticky;
   overflow-y: auto;
   overflow-x: hidden;
-  margin: 0 -7px;
-  padding: 0 7px;
 }
 
 @include media-breakpoint-down(sm) {
