@@ -11,7 +11,12 @@ import { CandidateSearchEffects, candidateSearchReducer } from './state-manageme
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard';
+import { CandidateDetailModelFactory } from './candidate-detail/candidate-detail-model-factory';
 
+import { CandidateSearchGuard } from './candidate-search/candidate-search.guard';
+import { CandidateSearchFilterParameterService } from './candidate-search/candidate-search-filter-parameter.service';
+import { CandidateProfileBadgesMapperService } from './candidate-profile-badges-mapper.service';
+import { WidgetsModule } from '../widgets/widgets.module';
 
 @NgModule({
   imports: [
@@ -20,7 +25,8 @@ import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard'
     CommonModule,
     SharedModule,
     CandidateSearchRoutingModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    WidgetsModule
   ],
   declarations: [
     CandidateSearchComponent,
@@ -29,7 +35,11 @@ import { CandidateDetailGuard } from './candidate-detail/candidate-detail.guard'
     FilterPanelComponent
   ],
   providers: [
-    CandidateDetailGuard
+    CandidateDetailGuard,
+    CandidateSearchGuard,
+    CandidateSearchFilterParameterService,
+    CandidateProfileBadgesMapperService,
+    CandidateDetailModelFactory
   ]
 })
 export class CandidateSearchModule {

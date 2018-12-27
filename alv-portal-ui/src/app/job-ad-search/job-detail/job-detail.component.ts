@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Observable } from 'rxjs';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
@@ -14,12 +20,7 @@ import {
 } from '../state-management/actions/job-ad-search.actions';
 import { select, Store } from '@ngrx/store';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import {
-  JobBadge,
-  JobBadgesMapperService,
-  JobBadgeType
-} from '../job-badges-mapper.service';
-import { DOCUMENT } from '@angular/common';
+import { JobBadge, JobBadgesMapperService } from '../job-badges-mapper.service';
 import {
   Notification,
   NotificationType
@@ -36,7 +37,8 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 @Component({
   selector: 'alv-job-detail',
   templateUrl: './job-detail.component.html',
-  styleUrls: ['./job-detail.component.scss']
+  styleUrls: ['./job-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
@@ -105,13 +107,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     this.jobDetailModel$ = this.jobDetailModelFactory.create(job$);
 
     this.alerts$ = job$.pipe(map(JobDetailComponent.mapJobAdAlerts));
-    this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job, [
-      JobBadgeType.CONTRACT_TYPE,
-      JobBadgeType.AVAILABILITY,
-      JobBadgeType.WORKPLACE,
-      JobBadgeType.WORKLOAD,
-      JobBadgeType.REPORTING_OBLIGATION
-    ])));
+    this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
     this.nextEnabled$ = this.store.pipe(select(isNextVisible));

@@ -2,8 +2,8 @@ import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupa
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
 
-export interface JobQueryPanelValues {
+export interface CandidateQueryPanelValues {
   occupations: OccupationMultiTypeaheadItem[];
   keywords: SimpleMultiTypeaheadItem[];
-  localities: LocalityMultiTypeaheadItem[];
+  workplace: LocalityMultiTypeaheadItem;
 }

@@ -4,6 +4,7 @@ import { Base64Service } from '../../core/base64.service';
 import { OccupationMultiTypeaheadItem } from '../../shared/occupations/occupation-multi-typeahead-item';
 import { SimpleMultiTypeaheadItem } from '../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { JobQueryPanelValues } from '../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
+import { LocalityMultiTypeaheadItem } from '../../shared/localities/locality-multi-typeahead-item';
 
 @Injectable()
 export class JobSearchFilterParameterService {
@@ -34,7 +35,7 @@ export class JobSearchFilterParameterService {
     }
     if (jobQueryPanelValues.localities) {
       jobQueryPanelValues.localities = jobQueryPanelValues.localities
-        .map((a) => SimpleMultiTypeaheadItem.fromJson(a));
+        .map((a) => LocalityMultiTypeaheadItem.fromJson(a));
     }
     if (jobQueryPanelValues.keywords) {
       jobQueryPanelValues.keywords = jobQueryPanelValues.keywords

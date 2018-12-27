@@ -13,7 +13,9 @@ import {
   LoadNextCandidateProfileDetailAction,
   LoadPreviousCandidateProfileDetailAction
 } from '../state-management';
-import { JobBadge } from '../../job-ad-search/job-badges-mapper.service';
+import { CandidateProfileBadge } from '../candidate-profile-badges-mapper.service';
+import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
+import { CandidateDetailModel } from './candidate-detail-model';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
@@ -27,6 +29,8 @@ export class CandidateDetailComponent implements OnInit {
 
   candidateProfile$: Observable<CandidateProfile>;
 
+  candidateDetailModel$: Observable<CandidateDetailModel>;
+
   prevEnabled$: Observable<boolean>;
 
   nextEnabled$: Observable<boolean>;
@@ -35,19 +39,23 @@ export class CandidateDetailComponent implements OnInit {
   alerts$: Observable<Notification[]>;
 
   //todo: implement
-  badges$: Observable<JobBadge[]>;
+  badges$: Observable<CandidateProfileBadge[]>;
 
   candidateDetailPanelId = CandidateDetailPanelId;
 
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
 
-  constructor(private store: Store<CandidateSearchState>) {
+  constructor(private store: Store<CandidateSearchState>,
+              private candidateDetailModelFactory: CandidateDetailModelFactory) {
   }
 
   ngOnInit() {
     //todo: Create a model for the detail page and map the candidateProfile$ to it
+
     this.candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
+
+    this.candidateDetailModel$ = this.candidateDetailModelFactory.create(this.candidateProfile$);
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
 

@@ -1,3 +1,23 @@
+<div class="container-fluid query-search-area py-4">
+  <div class="form-row">
+    <h2 class="sr-only">
+      Kandidaten suchen
+    </h2>
+    <alv-candidate-query-panel class="col-md-10 col-lg-9"
+                               (candidateQueryPanelValuesChange)="onQueryChange($event)"
+                               [showSpinner]="resultsAreLoading$ | async"
+                               [candidateQueryPanelValues]="candidateSearchFilter$ | async">
+    </alv-candidate-query-panel>
+
+    <div class="col-md-2">
+      <button class="btn btn-text h-100"
+              (click)="onResetFilter()">
+        {{ 'job-search.toolbar.reset' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
+
 <div (scrolled)="onScroll()"
      [fromRoot]="true"
      [infiniteScrollThrottle]="50"
@@ -11,23 +31,25 @@
       <div class="alv-bar mb-1">
         <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
         <ng-template #resultsCount>
-          <strong>{{totalCount$ | async }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
+          <strong>{{totalCount$ | async | number }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
         </ng-template>
       </div>
-      <alv-filter-panel (filtersChange)="onFiltersChange($event)"
-                        [candidateSearchFilter]="candidateSearchFilter$ | async"></alv-filter-panel>
+      <alv-filter-panel (filterPanelValuesChange)="onFiltersChange($event)"
+                        [filterPanelValues]="candidateSearchFilter$ | async"></alv-filter-panel>
     </ng-container>
 
     <ng-container class="main-column">
       <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults$ | async"
+                                   [selectedOccupationCodes]="selectedOccupationCodes | async"
                                    [candidateSearchResult]="candidateSearchResult">
       </alv-candidate-search-result>
     </ng-container>
 
     <ng-container class="right-column">
       <div class="w-100 mb-3 text-right text-md-left">
-        <a class="btn btn-text btn-text-icon btn-truncate"
-           [href]="'#'">
+        <a *ngIf="searchMailToLink$ | async as searchMailToLink"
+           class="btn btn-text btn-text-icon btn-truncate"
+           [href]="searchMailToLink">
           <i aria-hidden="true"
              class="fa fa-share mr-1"></i>
           {{'candidate-search.filter.candidate-search-link' | translate}}

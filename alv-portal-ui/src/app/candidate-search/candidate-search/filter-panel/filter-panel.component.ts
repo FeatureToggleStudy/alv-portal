@@ -1,55 +1,56 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-
-import { UserRole } from '../../../core/auth/user.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { map, takeUntil } from 'rxjs/operators';
 
 import {
   Availability,
-  Canton, CEFR_Level,
+  Canton,
+  CEFR_Level,
   Degree,
+  DrivingLicenceCategory,
   Experience,
-  Graduation,
-  Language, LanguageSkill
+  Graduation, Language,
+  LanguageSkill,
+  WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { TranslateService } from '@ngx-translate/core';
-import { CandidateSearchFilter } from '../../state-management/state/candidate-search.state';
-import {
-  ContractType,
-  Sort
-} from '../../../job-ad-search/state-management/state/job-search-filter.types';
-import { LocalityInputType } from '../../../shared/localities/locality-suggestion.service';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { I18nService } from '../../../core/i18n.service';
+import { LocalityInputType } from '../../../shared/localities/locality-multi-typeahead-item';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 
 export interface FilterPanelValues {
-  sort: Sort;
-  displayRestricted: boolean;
-  contractType: ContractType;
-  workloadPercentageMax: number;
+  experience: Experience;
+  residence: Canton[];
+  availability: Availability;
   workloadPercentageMin: number;
-  company?: string;
-  onlineSince: number;
+  workloadPercentageMax: number;
+  workForm: WorkForm;
+  degree: Degree;
+  graduation: Graduation;
+  drivingLicenceCategory: DrivingLicenceCategory;
+  languageSkills: LanguageSkill[];
 }
 
 @Component({
   selector: 'alv-filter-panel',
   templateUrl: './filter-panel.component.html',
-  styleUrls: ['./filter-panel.component.scss']
+  styleUrls: ['./filter-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
-
-  userRole = UserRole;
 
   form: FormGroup;
 
   @Output()
-  filtersChange: Subject<FilterPanelValues> = new Subject<FilterPanelValues>();
+  filterPanelValuesChange: Subject<FilterPanelValues> = new Subject<FilterPanelValues>();
 
   @Input()
-  candidateSearchFilter: CandidateSearchFilter;
+  set filterPanelValues(value: FilterPanelValues) {
+    this._filterPanelValues = value;
+    this.setFormValues(this._filterPanelValues);
+  }
 
   suggestCantonsFn = this.suggestCanton.bind(this);
 
@@ -157,29 +158,34 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     })
   ));
 
+  private _filterPanelValues: FilterPanelValues;
+
   constructor(private fb: FormBuilder,
-              private translateService: TranslateService) {
+              private i18nService: I18nService) {
     super();
   }
 
   ngOnInit() {
     this.form = this.fb.group({
-      degree: [this.candidateSearchFilter.degree],
-      graduation: [this.candidateSearchFilter.graduation],
-      experience: [this.candidateSearchFilter.experience],
-      residence: [this.candidateSearchFilter.residence],
-      availability: [this.candidateSearchFilter.availability],
-      workloadPercentageMin: [this.candidateSearchFilter.workloadPercentageMin],
-      workloadPercentageMax: [this.candidateSearchFilter.workloadPercentageMax],
+      degree: [this.filterPanelValues.degree],
+      graduation: [this.filterPanelValues.graduation],
+      experience: [this.filterPanelValues.experience],
+      residence: [this.filterPanelValues.residence],
+      availability: [this.filterPanelValues.availability],
+      workloadPercentageMin: [this.filterPanelValues.workloadPercentageMin],
+      workloadPercentageMax: [this.filterPanelValues.workloadPercentageMax],
       languageSkills: this.fb.array([
         this.createNewLanguageSkillItem()
       ])
     });
+
+    this.setFormValues(this._filterPanelValues);
+
     this.form.valueChanges
       .pipe(
         map<any, FilterPanelValues>((valueChanges) => this.map(valueChanges)),
         takeUntil(this.ngUnsubscribe))
-      .subscribe(filterPanelData => this.filtersChange.next(filterPanelData));
+      .subscribe(filterPanelData => this.filterPanelValuesChange.next(filterPanelData));
 
     this.form.get('workloadPercentageMin').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -199,22 +205,12 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   }
 
   suggestCanton(query: string): Observable<SimpleMultiTypeaheadItem[]> {
-
-    const translatedOptions = Object.keys(Canton)
+    const cantonSuggestions = Object.keys(Canton)
       .filter((key) => !isNaN(Number(Canton[key])))
-      .map(this.cantonAutocompleteMapper)
-      .map((option: SimpleMultiTypeaheadItem) => {
-        return this.translateService.stream(option.label).pipe(
-          map((translation) => {
-            option.label = translation;
-            return option;
-          })
-        );
-      });
 
-    return combineLatest(translatedOptions).pipe(
-      map(this.filterCantons(query))
-    );
+      .map((key, index) => this.cantonAutocompleteMapper(key, index))
+      .filter((option) => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
+    return of(cantonSuggestions);
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {
@@ -235,29 +231,47 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     });
   }
 
-  private filterCantons(query: string) {
-    return (cantons, index) => {
-      return cantons.filter(option => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
-    };
-  }
-
   private cantonAutocompleteMapper(cantonKey: string, index: number): SimpleMultiTypeaheadItem {
+    const cantonLabel = this.i18nService.instant(`global.reference.canton.${cantonKey}`);
     return new SimpleMultiTypeaheadItem(
       LocalityInputType.CANTON,
       cantonKey,
-      `global.reference.canton.${cantonKey}`,
+      cantonLabel,
       index);
   }
 
   private map(valueChanges: any): FilterPanelValues {
     return {
-      sort: valueChanges.sort,
-      displayRestricted: valueChanges.displayRestricted,
-      contractType: valueChanges.contractType,
-      workloadPercentageMax: valueChanges.workloadPercentageMax,
+      degree: valueChanges.degree,
+      graduation: valueChanges.graduation,
+      experience: valueChanges.experience,
+      residence: valueChanges.residence.map((r: SimpleMultiTypeaheadItem) => {
+        return r.payload;
+      }),
+      availability: valueChanges.availability,
       workloadPercentageMin: valueChanges.workloadPercentageMin,
-      company: valueChanges.company,
-      onlineSince: valueChanges.onlineSince
+      workloadPercentageMax: valueChanges.workloadPercentageMax,
+      languageSkills: valueChanges.languageSkills,
+      workForm: null,
+      drivingLicenceCategory: null
     };
+  }
+
+  private setFormValues(filterPanelValues: FilterPanelValues) {
+    if (!(this.form && filterPanelValues)) {
+      return;
+    }
+    this.form.setValue({
+      degree: filterPanelValues.degree,
+      graduation: filterPanelValues.graduation,
+      experience: filterPanelValues.experience,
+      residence: filterPanelValues.residence.map((r, i) => {
+        return this.cantonAutocompleteMapper(r.toString(), i);
+      }),
+      availability: filterPanelValues.availability,
+      workloadPercentageMin: filterPanelValues.workloadPercentageMin,
+      workloadPercentageMax: filterPanelValues.workloadPercentageMax,
+      languageSkills: filterPanelValues.languageSkills
+    }, { emitEvent: false });
   }
 }

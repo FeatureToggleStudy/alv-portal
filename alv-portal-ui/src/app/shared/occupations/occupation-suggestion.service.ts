@@ -9,12 +9,14 @@ import {
   OccupationMultiTypeaheadItemType
 } from './occupation-multi-typeahead-item';
 import { map } from 'rxjs/operators';
-import { ProfessionCode } from '../backend-services/job-advertisement/job-advertisement.types';
 import {
+  OccupationCode,
   OccupationLabel,
   OccupationLabelSuggestion
 } from '../backend-services/reference-service/occupation-label.types';
 
+
+const translateableOccupationTypes: string[] = [OccupationTypes.AVAM, OccupationTypes.SBN3, OccupationTypes.SBN5];
 
 @Injectable({ providedIn: 'root' })
 export class OccupationSuggestionService {
@@ -27,9 +29,9 @@ export class OccupationSuggestionService {
   }
 
   translate(occupation: OccupationMultiTypeaheadItem, language: string): Observable<OccupationMultiTypeaheadItem> {
-    const professionCode = this.translateableProfessionCode(occupation);
-    if (professionCode) {
-      return this.occupationLabelRepository.getOccupationLabelsByKey(professionCode.type, '' + professionCode.value, language).pipe(
+    const occupationCode = this.translateableOccupationCode(occupation);
+    if (occupationCode) {
+      return this.occupationLabelRepository.getOccupationLabelsByKey(occupationCode.type, occupationCode.value, language).pipe(
         map((label) => {
           return new OccupationMultiTypeaheadItem(<OccupationMultiTypeaheadItemType>occupation.type, occupation.payload, label.default, occupation.order);
         })
@@ -38,13 +40,21 @@ export class OccupationSuggestionService {
     return of(occupation);
   }
 
-  fetch(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
-    return this.occupationLabelRepository.suggestOccupations(query, [OccupationTypes.X28, OccupationTypes.SBN3, OccupationTypes.SBN5])
+  fetchJobSearchOccupations(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
+    return this.fetch(query, [OccupationTypes.X28, OccupationTypes.SBN3, OccupationTypes.SBN5], this.toJobSearchOccupationCode);
+  }
+
+  fetchCandidateSearchOccupations(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
+    return this.fetch(query, [OccupationTypes.AVAM, OccupationTypes.SBN3, OccupationTypes.SBN5], this.toCandidateSearchOccupationCode);
+  }
+
+  private fetch(query: string, occupationTypes: OccupationTypes[], occupationMapping: (o: OccupationLabelSuggestion) => OccupationCode): Observable<OccupationMultiTypeaheadItem[]> {
+    return this.occupationLabelRepository.suggestOccupations(query, occupationTypes)
       .pipe(
         map((occupationLabelAutocomplete) => {
           const occupationItems = occupationLabelAutocomplete.occupations
             .map((occupation, idx) => {
-              const professionCodes = this.toProfessionCodes(occupation);
+              const professionCodes = occupationMapping(occupation);
               return new OccupationMultiTypeaheadItem(OccupationMultiTypeaheadItemType.OCCUPATION, professionCodes, occupation.label, idx);
             });
 
@@ -58,32 +68,47 @@ export class OccupationSuggestionService {
       );
   }
 
-  private translateableProfessionCode(occupation: OccupationMultiTypeaheadItem) {
-    if (occupation.type === OccupationMultiTypeaheadItemType.CLASSIFICATION) {
-      return { type: occupation.payload[0].type, value: occupation.payload[0].value };
+  private translateableOccupationCode(occupation: OccupationMultiTypeaheadItem): OccupationCode {
+    if (translateableOccupationTypes.includes(occupation.payload.type)) {
+      return occupation.payload;
     }
     return;
   }
 
   private toProfessionCodesFromClassification(classification: OccupationLabel) {
-    return [{
+    return {
       type: classification.type,
-      value: classification.code
-    }];
+      value: classification.code,
+      classifier: classification.classifier
+    };
   }
 
-  private toProfessionCodes(occupation: OccupationLabelSuggestion) {
-    const professionCodes: ProfessionCode[] = [{
+  private toJobSearchOccupationCode(occupation: OccupationLabelSuggestion) {
+    const occupationCode: OccupationCode = {
       type: occupation.type,
-      value: occupation.code
-    }];
-    if (occupation.mappings && occupation.mappings['AVAM']) {
-      professionCodes.push({
+      value: occupation.code,
+    };
+    if (occupation.type === 'X28' && occupation.mappings && occupation.mappings['AVAM']) {
+      occupationCode.mapping = {
         type: 'AVAM',
         value: occupation.mappings['AVAM']
-      });
+      };
     }
-    return professionCodes;
+    return occupationCode;
+  }
+
+  private toCandidateSearchOccupationCode(occupation: OccupationLabelSuggestion) {
+    const occupationCode: OccupationCode = {
+      type: occupation.type,
+      value: occupation.code
+    };
+    if (occupation.type === 'AVAM' && occupation.mappings && occupation.mappings['BFS']) {
+      occupationCode.mapping = {
+        type: 'BFS',
+        value: occupation.mappings['BFS']
+      };
+    }
+    return occupationCode;
   }
 
   private determineStartIndex(occupationLabelAutocomplete, idx) {

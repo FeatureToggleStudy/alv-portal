@@ -16,17 +16,17 @@
         <legend class="sr-only">Selected Items</legend>
         <div
           class="badge typeahead-badge d-inline-flex align-items-center"
-             *ngFor="let item of control.value; let i = index"
+          *ngFor="let item of control.value;"
           [ngClass]="getTypeClass(item)">
           <div class="typeahead-badge-label text-truncate">
             {{item.label}}
           </div>
-          <a class="remove-button ml-1"
-             role="button"
+          <button class="remove-button ml-1"
+                  type="button"
                   (click)="removeItem(item)"
                   [attr.aria-label]="'Remove Item ' + item.label">
             <i class="fa fa-times"></i>
-          </a>
+          </button>
         </div>
       </fieldset>
 
@@ -67,17 +67,20 @@
     <!-- a11y help texts -->
     <div class="sr-only"
          [attr.id]="allyHelpId">
+      <ng-container *ngIf="control.value?.length">
+        <span *ngFor="let item of control.value; let i = index">
+          {{item.label}}
+        </span>
+        Press Shift + Tab or use Return to delete selected items.
+      </ng-container>
       <ng-container *ngIf="limit && control.value?.length >= limit; else a11yHelpText">
-        Limit of {{ limit }} reached. Press Shift + Tab to delete selected items.
+        Limit of {{ limit }} reached.
       </ng-container>
       <ng-template #a11yHelpText>
         Enter at least {{ queryMinLength }} characters to query the list of
         selectable items. Select by using the up and down arrow keys.
         <ng-container *ngIf="editable">
           You can add free text items by hitting Tab or Enter without selection.
-        </ng-container>
-        <ng-container *ngIf="control.value?.length">
-          Press Shift + Tab or use Return to delete selected items.
         </ng-container>
         <ng-container *ngIf="limit">
           You can select up to {{ limit }} items.
