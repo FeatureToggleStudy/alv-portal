@@ -55,7 +55,7 @@ export const findRelevantJobExperience = (candidateProfile: CandidateProfile, se
     return null;
   }
 
-  if (wantedJobExperiences && selectedOccupationCodes) {
+  if (selectedOccupationCodes) {
     const bestMatchingJobExperience = getBestMatchingJobExperience(selectedOccupationCodes, jobExperiences);
     if (bestMatchingJobExperience) {
       return bestMatchingJobExperience;
