@@ -8,11 +8,11 @@
       <ng-content select=".left-column"></ng-content>
     </div>
   </div>
-  <div class="col-xs-12 col-md-6 col-xl-8 order-3 order-md-2"
+  <div class="col-xs-12 col-md-6 col-xl-8 order-md-2"
        [ngClass]="getColumnClass(1)">
     <ng-content select=".main-column"></ng-content>
   </div>
-  <div class="col-xs-12 col-md-3 col-xl-2 order-2 order-md-3"
+  <div class="col-xs-12 col-md-3 col-xl-2 order-md-3"
        [ngClass]="getColumnClass(2)">
     <div class="side-panel">
       <ng-content select=".right-column"></ng-content>

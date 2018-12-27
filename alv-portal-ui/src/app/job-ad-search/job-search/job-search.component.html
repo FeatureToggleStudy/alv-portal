@@ -24,7 +24,8 @@
      class="container-fluid"
      infiniteScroll>
 
-  <alv-three-column-layout [mobileOrdering]="[1, 3, 2]">
+  <alv-three-column-layout [mobileOrdering]="[1, 3, 2]"
+                           [stickyTop]="94">
     <ng-container class="left-column">
       <div class="alv-bar mb-1">
         <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
