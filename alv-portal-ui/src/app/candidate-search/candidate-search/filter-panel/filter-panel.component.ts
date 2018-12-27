@@ -160,6 +160,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   private _filterPanelValues: FilterPanelValues;
 
+  private readonly MAX_LANGUAGE_OPTIONS_NUM = 5;
+
   constructor(private fb: FormBuilder,
               private i18nService: I18nService) {
     super();
@@ -221,6 +223,13 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   addNewLanguageSkill() {
     const languageSkills = this.form.get('languageSkills') as FormArray;
     languageSkills.push(this.createNewLanguageSkillItem());
+  }
+
+  isAddLanguageSkillEnabled(): boolean {
+    const languageSkills = this.form.get('languageSkills') as FormArray;
+    const maxNotReached = languageSkills.length < this.MAX_LANGUAGE_OPTIONS_NUM;
+    const lastValid = !!languageSkills.at(languageSkills.length - 1).get('languageIsoCode').value;
+    return maxNotReached && lastValid;
   }
 
   private createNewLanguageSkillItem(): FormGroup {

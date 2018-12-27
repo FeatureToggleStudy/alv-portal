@@ -110,12 +110,13 @@
   </div>
 
 
-  <div class="button-bar">
-    <button class="btn btn-primary btn-sm"
-            (click)="addNewLanguageSkill()"><span class="fa fa-plus"
-                                                  aria-hidden="true"></span>
-      {{'global.button.add.title'| translate}}
-    </button>
-  </div>
+  <button class="btn btn-primary btn-sm"
+          (click)="addNewLanguageSkill()"
+          *ngIf="isAddLanguageSkillEnabled()">
+    <span class="fa fa-plus"
+           aria-hidden="true"></span>
+    {{'global.button.add.title'| translate}}
+  </button>
+
 </form>
 
