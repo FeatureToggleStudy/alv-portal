@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Observable } from 'rxjs';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
@@ -14,12 +20,7 @@ import {
 } from '../state-management/actions/job-ad-search.actions';
 import { select, Store } from '@ngrx/store';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import {
-  JobBadge,
-  JobBadgesMapperService,
-  JobBadgeType
-} from '../job-badges-mapper.service';
-import { DOCUMENT } from '@angular/common';
+import { JobBadge, JobBadgesMapperService } from '../job-badges-mapper.service';
 import {
   Notification,
   NotificationType
@@ -36,7 +37,8 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 @Component({
   selector: 'alv-job-detail',
   templateUrl: './job-detail.component.html',
-  styleUrls: ['./job-detail.component.scss']
+  styleUrls: ['./job-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
