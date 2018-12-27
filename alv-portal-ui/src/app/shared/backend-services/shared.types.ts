@@ -12,7 +12,10 @@ export interface Contact {
 }
 
 export enum CEFR_Level {
-  NONE, BASIC, INTERMEDIATE, PROFICIENT
+  NONE = 'NONE',
+  BASIC = 'BASIC',
+  INTERMEDIATE = 'INTERMEDIATE',
+  PROFICIENT = 'PROFICIENT'
 }
 
 /**
@@ -33,13 +36,6 @@ export enum Degree {
   TER_MASTER_FACHHOCHSCHULE = '172',
   TER_MASTER_UNIVERSITAET = '173',
   TER_DOKTORAT_UNIVERSITAET = '180'
-}
-
-export interface LanguageSkill {
-  code: string;
-  nativeLanguage?: boolean;
-  spoken: CEFR_Level;
-  written: CEFR_Level;
 }
 
 export enum Experience {
@@ -81,10 +77,10 @@ export enum Language {
   FR = 'fr',
   IT = 'it',
   EN = 'en',
-  DE_CH = 'de-ch',
+  // DE_CH = 'de-ch' <- is not working for filtering of candidates
+  CH = 'ch',
   BG = 'bg',
   BS = 'bs',
-  CH = 'ch',
   CS = 'cs',
   DA = 'da',
   EL = 'el',
@@ -102,7 +98,7 @@ export enum Language {
   NL = 'nl',
   NLD = 'nld',
   NO = 'no',
-  PL = 'ps',
+  PL = 'pl',
   PRS = 'prs',
   PT = 'pt',
   RM = 'rm',
@@ -121,12 +117,6 @@ export enum Language {
   VI = 'vi',
   ZH = 'zh'
 
-}
-
-export interface LanguageSkill {
-  languageIsoCode: string;
-  spokenLevel: CEFR_Level;
-  writtenLevel: CEFR_Level;
 }
 
 export interface PostAddress {
