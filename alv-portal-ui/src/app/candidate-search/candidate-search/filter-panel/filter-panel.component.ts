@@ -241,6 +241,10 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     }, { emitEvent: false });
   }
 
+  get languageSkillFormArray() {
+    return this.form.controls['languageSkills'] as FormArray;
+  }
+
   private createNewLanguageSkillFormGroup(): FormGroup {
     const formGroup = this.fb.group({
       code: [],
