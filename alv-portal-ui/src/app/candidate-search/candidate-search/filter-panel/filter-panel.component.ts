@@ -21,6 +21,12 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { LanguageSkill } from '../../../shared/backend-services/candidate/candidate.types';
 
+const EMPTY_LANGUAGE_SKILL: LanguageSkill = {
+  code: null,
+  written: CEFR_Level.NONE,
+  spoken: CEFR_Level.NONE
+};
+
 export interface FilterPanelValues {
   experience: Experience;
   residence: Canton[];
@@ -179,7 +185,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
     this.setFormValues(this._filterPanelValues);
 
-
     this.form.valueChanges
       .pipe(
         map<any, FilterPanelValues>((valueChanges) => this.map(valueChanges)),
@@ -231,17 +236,19 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   onLanguageSkillCodeChanged(languageSkillFormGroup: FormGroup) {
     languageSkillFormGroup.patchValue({
-      written: CEFR_Level.NONE,
-      spoken: CEFR_Level.NONE
-    })
+      written: EMPTY_LANGUAGE_SKILL.written,
+      spoken: EMPTY_LANGUAGE_SKILL.spoken
+    }, { emitEvent: false })
   }
 
   private createNewLanguageSkillFormGroup(): FormGroup {
-    return this.fb.group({
-      code: [null],
-      written: [CEFR_Level.NONE],
-      spoken: [CEFR_Level.NONE]
+    const formGroup = this.fb.group({
+      code: [],
+      written: [],
+      spoken: []
     });
+    formGroup.setValue(EMPTY_LANGUAGE_SKILL);
+    return formGroup;
   }
 
   private cantonAutocompleteMapper(cantonKey: string, index: number): SimpleMultiTypeaheadItem {
@@ -274,11 +281,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     if (!(this.form && filterPanelValues)) {
       return;
     }
-    const emptyLanguageSkill: LanguageSkill = {
-      code: null,
-      written: null,
-      spoken: null
-    };
+    this.prepareLanguageSkillsFormArray(filterPanelValues.languageSkills);
     this.form.setValue({
       degree: filterPanelValues.degree,
       graduation: filterPanelValues.graduation,
@@ -289,7 +292,17 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       availability: filterPanelValues.availability,
       workloadPercentageMin: filterPanelValues.workloadPercentageMin,
       workloadPercentageMax: filterPanelValues.workloadPercentageMax,
-      languageSkills: filterPanelValues.languageSkills.length ? filterPanelValues.languageSkills : [emptyLanguageSkill]
+      languageSkills: filterPanelValues.languageSkills.length ? filterPanelValues.languageSkills : [EMPTY_LANGUAGE_SKILL]
     }, { emitEvent: false });
+  }
+
+  private prepareLanguageSkillsFormArray(languageSkills: LanguageSkill[]) {
+    const languageSkillsFormArray = this.form.get('languageSkills') as FormArray;
+    if (languageSkills.length > languageSkillsFormArray.controls.length) {
+      const diff = languageSkills.length - languageSkillsFormArray.controls.length;
+      for (let i = 0; i < diff; i++) {
+        this.addNewLanguageSkill();
+      }
+    }
   }
 }
