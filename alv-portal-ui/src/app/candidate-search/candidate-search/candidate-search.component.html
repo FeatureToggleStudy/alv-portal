@@ -9,12 +9,11 @@
                                [candidateQueryPanelValues]="candidateSearchFilter$ | async">
     </alv-candidate-query-panel>
 
-    <div class="col-md-2">
-      <button class="btn btn-text h-100"
-              (click)="onResetFilter()">
-        {{ 'job-search.toolbar.reset' | translate }}
-      </button>
-    </div>
+    <button class="btn btn-text col-md-2 ml-md-1"
+            (click)="onResetFilter()">
+      {{ 'job-search.toolbar.reset' | translate }}
+    </button>
+
   </div>
 </div>
 

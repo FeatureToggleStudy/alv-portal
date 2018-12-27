@@ -51,16 +51,14 @@
       </div>
     </div>
   </div>
-  <div class="col-md-1">
-    <button class="btn btn-primary"
-            type="submit"
-            aria-label="search">
-      <i *ngIf="showSpinner"
-         class="fas fa-sync-alt fa-spin">
-      </i>
-      <i *ngIf="!showSpinner"
-         class="fas fa-search">
-      </i>
-    </button>
-  </div>
+  <button class="btn btn-primary col-md-1"
+          type="submit"
+          aria-label="search">
+    <i *ngIf="showSpinner"
+       class="fas fa-sync-alt fa-spin">
+    </i>
+    <i *ngIf="!showSpinner"
+       class="fas fa-search">
+    </i>
+  </button>
 </form>
