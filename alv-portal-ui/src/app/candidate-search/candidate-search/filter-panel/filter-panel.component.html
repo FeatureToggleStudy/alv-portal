@@ -66,6 +66,18 @@
     </div>
   </div>
 
+  <alv-select
+    label="global.drivingLicenceCategory.label"
+    alvFormControlName="drivingLicenceCategory"
+    [options$]="drivingLicenceCategoryOptions$">
+  </alv-select>
+
+  <alv-select
+    label="global.workForm.label"
+    alvFormControlName="workForm"
+    [options$]="workFormOptions$">
+  </alv-select>
+
   <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first"
        [ngClass]="{'language-selector-item': !first}"
        [formGroup]="languageSkill">

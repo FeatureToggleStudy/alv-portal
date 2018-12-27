@@ -1,7 +1,7 @@
 <div class="container-fluid query-search-area py-4">
   <div class="form-row">
     <h2 class="sr-only">
-      Kandidaten suchen
+      {{'portal.candidate-search.browser-title' | translate}}
     </h2>
     <alv-candidate-query-panel class="col-md-10 col-lg-9"
                                (candidateQueryPanelValuesChange)="onQueryChange($event)"
@@ -34,6 +34,11 @@
           <strong>{{totalCount$ | async | number }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
         </ng-template>
       </div>
+
+      <h2 class="sr-only">
+        {{'candidate-search.filter.title' | translate}}
+      </h2>
+
       <alv-filter-panel (filterPanelValuesChange)="onFiltersChange($event)"
                         [filterPanelValues]="candidateSearchFilter$ | async"></alv-filter-panel>
     </ng-container>

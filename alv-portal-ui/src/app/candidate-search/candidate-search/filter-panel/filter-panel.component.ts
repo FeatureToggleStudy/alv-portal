@@ -137,6 +137,34 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     })
   ));
 
+  drivingLicenceCategoryOptions$: Observable<SelectableOption[]> = of([
+    {
+      value: null,
+      label: 'candidate-search.no-selection'
+    }
+  ].concat(
+    Object.keys(DrivingLicenceCategory).map(drivingLicenceCategory => {
+      return {
+        value: drivingLicenceCategory,
+        label: 'global.drivingLicenceCategory.' + drivingLicenceCategory
+      };
+    })
+  ));
+
+  workFormOptions$: Observable<SelectableOption[]> = of([
+    {
+      value: null,
+      label: 'candidate-search.no-selection'
+    }
+  ].concat(
+    Object.keys(WorkForm).map(workForm => {
+      return {
+        value: workForm,
+        label: 'global.workForm.' + workForm
+      };
+    })
+  ));
+
   languageOptions$: Observable<SelectableOption[]> = of([
     {
       value: null,
@@ -178,6 +206,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       availability: [],
       workloadPercentageMin: [],
       workloadPercentageMax: [],
+      drivingLicenceCategory: [],
+      workForm: [],
       languageSkills: this.fb.array([])
     });
 
@@ -273,8 +303,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       workloadPercentageMin: valueChanges.workloadPercentageMin,
       workloadPercentageMax: valueChanges.workloadPercentageMax,
       languageSkills: valueChanges.languageSkills,
-      workForm: null,
-      drivingLicenceCategory: null
+      workForm: valueChanges.workForm,
+      drivingLicenceCategory: valueChanges.drivingLicenceCategory
     };
   }
 
@@ -293,6 +323,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       availability: filterPanelValues.availability,
       workloadPercentageMin: filterPanelValues.workloadPercentageMin,
       workloadPercentageMax: filterPanelValues.workloadPercentageMax,
+      drivingLicenceCategory: filterPanelValues.drivingLicenceCategory,
+      workForm: filterPanelValues.workForm,
       languageSkills: filterPanelValues.languageSkills.length ? filterPanelValues.languageSkills : [EMPTY_LANGUAGE_SKILL]
     }, { emitEvent: false });
   }
