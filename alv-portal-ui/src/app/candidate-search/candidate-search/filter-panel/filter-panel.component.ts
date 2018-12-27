@@ -167,13 +167,13 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      degree: [this.filterPanelValues.degree],
-      graduation: [this.filterPanelValues.graduation],
-      experience: [this.filterPanelValues.experience],
-      residence: [this.filterPanelValues.residence],
-      availability: [this.filterPanelValues.availability],
-      workloadPercentageMin: [this.filterPanelValues.workloadPercentageMin],
-      workloadPercentageMax: [this.filterPanelValues.workloadPercentageMax],
+      degree: [],
+      graduation: [],
+      experience: [],
+      residence: [],
+      availability: [],
+      workloadPercentageMin: [],
+      workloadPercentageMax: [],
       languageSkills: this.fb.array([
         this.createNewLanguageSkillItem()
       ])
