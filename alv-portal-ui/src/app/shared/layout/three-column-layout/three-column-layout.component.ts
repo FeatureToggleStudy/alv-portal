@@ -40,7 +40,7 @@ export class ThreeColumnLayoutComponent implements OnInit {
   private setSidePanelHeight() {
     const mainContainer = document.querySelector('main');
     const marginTop = '1.5rem';
-    document.querySelectorAll('.side-panel').forEach(sidePanel => {
+    document.querySelectorAll('alv-three-column-layout .side-panel').forEach(sidePanel => {
       if (mainContainer.clientWidth > this.bootstrapBreakpointSm) {
         sidePanel.setAttribute('style',
           `height: calc(${mainContainer.clientHeight - this.stickyTop}px - ${marginTop});
