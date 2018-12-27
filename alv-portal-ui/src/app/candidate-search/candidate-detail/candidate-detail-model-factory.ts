@@ -37,7 +37,6 @@ export class CandidateDetailModelFactory {
       ));
     return combineLatest(candidateProfile$, lastJobOccupationLabel$).pipe(
       map((both) => new CandidateDetailModel(both[0], both[1]))
-    )
+    );
   }
-
 }
