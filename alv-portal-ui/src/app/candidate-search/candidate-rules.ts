@@ -6,23 +6,27 @@ import { Experience, Gender } from '../shared/backend-services/shared.types';
 import { GenderAwareOccupationLabel } from '../shared/occupations/occupation.service';
 import { OccupationCode } from '../shared/backend-services/reference-service/occupation-label.types';
 
+
+const matches = (jobExperience: JobExperience, occupationCode: { value: string; type: string }) => {
+  const { avamCode, bfsCode, sbn3Code, sbn5Code } = jobExperience.occupation;
+  return (String(avamCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'avam')
+    || (String(bfsCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'bfs')
+    || (String(sbn3Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn3')
+    || (String(sbn5Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn5');
+};
+
+const hasOccupationCode = (jobExperience: JobExperience, occupationCode: OccupationCode) => {
+  if (!occupationCode.mapping) {
+    return matches(jobExperience, occupationCode);
+  } else {
+    return matches(jobExperience, occupationCode) || matches(jobExperience, occupationCode.mapping);
+  }
+};
+
 const getBestMatchingJobExperience = (selectedOccupationCodes: OccupationCode[], jobExperiences: JobExperience[]) => {
 
-  const isMatched = (jobExperience: JobExperience, occupationCode: OccupationCode) => {
-    const { avamCode, bfsCode, sbn3Code, sbn5Code } = jobExperience.occupation;
-    return (String(avamCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'avam')
-      || (String(bfsCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'bfs')
-      || (String(sbn3Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn3')
-      || (String(sbn5Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn5');
-  };
-
-  const hasOccupationCode = (occupationCode: OccupationCode) => (jobExperience: JobExperience) => {
-    const matchedByPrimaryOccupation = isMatched(jobExperience, occupationCode);
-    return occupationCode.mapping ? matchedByPrimaryOccupation || isMatched(jobExperience, occupationCode.mapping) : matchedByPrimaryOccupation;
-  };
-
   const matchingExperiences = selectedOccupationCodes
-    .map((occupationCode) => jobExperiences.find(hasOccupationCode(occupationCode)))
+    .map((occupationCode) => jobExperiences.find((jobExperience) => hasOccupationCode(jobExperience, occupationCode)))
     .filter((jobExperience) => !!jobExperience)
     .reduce((acc, curr) => {
       const key = JSON.stringify(curr);

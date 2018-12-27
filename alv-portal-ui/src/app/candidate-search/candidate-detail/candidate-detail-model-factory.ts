@@ -20,24 +20,24 @@ export class CandidateDetailModelFactory {
               private i18nService: I18nService) {
 
   }
+
+  private static getLastJob(candidateProfile: CandidateProfile) {
+    return candidateProfile.jobExperiences[0];
+  }
+
   public create(candidateProfile$: Observable<CandidateProfile>): Observable<CandidateDetailModel> {
 
     const lastJob$ = candidateProfile$.pipe(map(CandidateDetailModelFactory.getLastJob));
     const lastJobOccupationLabel$: Observable<OccupationLabelData> = combineLatest(lastJob$, this.i18nService.currentLanguage$).pipe(
       flatMap((jobExperienceAndLang: [JobExperience, string]) => {
-        const avamCode = String(jobExperienceAndLang[0].occupation.avamCode);
-        const language = jobExperienceAndLang[1];
-        return this.occupationLabelRepository.getOccupationLabelsByKey(OccupationTypes.AVAM, avamCode, language)}
+          const avamCode = String(jobExperienceAndLang[0].occupation.avamCode);
+          const language = jobExperienceAndLang[1];
+          return this.occupationLabelRepository.getOccupationLabelsByKey(OccupationTypes.AVAM, avamCode, language);
+        }
       ));
     return combineLatest(candidateProfile$, lastJobOccupationLabel$).pipe(
       map((both) => new CandidateDetailModel(both[0], both[1]))
     )
-
-
-  }
-
-  private static getLastJob(candidateProfile: CandidateProfile) {
-    return candidateProfile.jobExperiences[0];
   }
 
 }
