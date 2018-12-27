@@ -178,9 +178,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       availability: [],
       workloadPercentageMin: [],
       workloadPercentageMax: [],
-      languageSkills: this.fb.array([
-        this.createNewLanguageSkillFormGroup()
-      ])
+      languageSkills: this.fb.array([])
     });
 
     this.setFormValues(this._filterPanelValues);
@@ -211,24 +209,23 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   suggestCanton(query: string): Observable<SimpleMultiTypeaheadItem[]> {
     const cantonSuggestions = Object.keys(Canton)
       .filter((key) => !isNaN(Number(Canton[key])))
-
       .map((key, index) => this.cantonAutocompleteMapper(key, index))
       .filter((option) => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
     return of(cantonSuggestions);
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {
-    const languageSkills = this.form.get('languageSkills') as FormArray;
+    const languageSkills = this.languageSkillFormArray;
     languageSkills.removeAt(this.form.value.languageSkills.indexOf(languageSkill));
   }
 
   addNewLanguageSkill() {
-    const languageSkills = this.form.get('languageSkills') as FormArray;
+    const languageSkills = this.languageSkillFormArray;
     languageSkills.push(this.createNewLanguageSkillFormGroup());
   }
 
   isAddLanguageSkillEnabled(): boolean {
-    const languageSkills = this.form.get('languageSkills') as FormArray;
+    const languageSkills = this.languageSkillFormArray;
     const maxNotReached = languageSkills.length < this.MAX_LANGUAGE_OPTIONS_NUM;
     const lastValid = !!languageSkills.at(languageSkills.length - 1).get('code').value;
     return maxNotReached && lastValid;
@@ -241,7 +238,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     }, { emitEvent: false });
   }
 
-  get languageSkillFormArray() {
+  get languageSkillFormArray(): FormArray {
     return this.form.controls['languageSkills'] as FormArray;
   }
 
@@ -301,7 +298,10 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   }
 
   private prepareLanguageSkillsFormArray(languageSkills: LanguageSkill[]) {
-    const languageSkillsFormArray = this.form.get('languageSkills') as FormArray;
+    const languageSkillsFormArray = this.languageSkillFormArray;
+    if (languageSkillsFormArray.controls.length === 0) {
+      this.addNewLanguageSkill();
+    }
     if (languageSkills.length > languageSkillsFormArray.controls.length) {
       const diff = languageSkills.length - languageSkillsFormArray.controls.length;
       for (let i = 0; i < diff; i++) {
