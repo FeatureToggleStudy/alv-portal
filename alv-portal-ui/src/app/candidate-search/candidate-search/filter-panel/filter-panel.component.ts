@@ -238,7 +238,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     languageSkillFormGroup.patchValue({
       written: EMPTY_LANGUAGE_SKILL.written,
       spoken: EMPTY_LANGUAGE_SKILL.spoken
-    }, { emitEvent: false })
+    }, { emitEvent: false });
   }
 
   private createNewLanguageSkillFormGroup(): FormGroup {
