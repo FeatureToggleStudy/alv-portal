@@ -6,7 +6,7 @@ import { Experience, Gender } from '../shared/backend-services/shared.types';
 import { GenderAwareOccupationLabel } from '../shared/occupations/occupation.service';
 import { OccupationCode } from '../shared/backend-services/reference-service/occupation-label.types';
 
-const getBestMatchingJobExperience = (occupationCodes: OccupationCode[], jobExperiences: JobExperience[]) => {
+const getBestMatchingJobExperience = (selectedOccupationCodes: OccupationCode[], jobExperiences: JobExperience[]) => {
 
   const isMatched = (jobExperience: JobExperience, occupationCode: OccupationCode) => {
     const { avamCode, bfsCode, sbn3Code, sbn5Code } = jobExperience.occupation;
@@ -21,7 +21,7 @@ const getBestMatchingJobExperience = (occupationCodes: OccupationCode[], jobExpe
     return occupationCode.mapping ? matchedByPrimaryOccupation || isMatched(jobExperience, occupationCode.mapping) : matchedByPrimaryOccupation;
   };
 
-  const matchingExperiences = occupationCodes
+  const matchingExperiences = selectedOccupationCodes
     .map((occupationCode) => jobExperiences.find(hasOccupationCode(occupationCode)))
     .filter((jobExperience) => !!jobExperience)
     .reduce((acc, curr) => {
