@@ -70,6 +70,7 @@ export class CandidateDetailModelFactory {
 
   private resolveJobExperience(jobExperience: JobExperience): Observable<JobExperienceModel> {
     return this.i18nService.currentLanguage$.pipe(
+      first(),
       withLatestFrom(this.candidateProfile$),
       flatMap(([language, candidateProfile]) => {
         const professionCode = CandidateDetailModelFactory.extractProfessionCode(jobExperience);
@@ -80,7 +81,7 @@ export class CandidateDetailModelFactory {
           }))
         );
       }),
-      first());
+    );
   }
 
   private getJobCenter() {
