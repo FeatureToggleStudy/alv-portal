@@ -4,15 +4,19 @@ import {
   CandidateProfile,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
-import { catchError, concatMap, flatMap, map, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  flatMap,
+  map,
+  switchMap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { OccupationLabelRepository, } from '../../shared/backend-services/reference-service/occupation-label.repository';
 import { I18nService } from '../../core/i18n.service';
 import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
 import { extractGenderAwareTitle, findRelevantJobExperience } from '../candidate-rules';
-import {
-  GenderAwareOccupationLabel,
-  OccupationService
-} from '../../shared/occupations/occupation.service';
+import { OccupationService } from '../../shared/occupations/occupation.service';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
 
@@ -26,17 +30,19 @@ export class CandidateDetailModelFactory {
 
   }
 
+  candidateProfile$: Observable<CandidateProfile>;
 
   create(candidateProfile$: Observable<CandidateProfile>): Observable<CandidateDetailModel> {
 
-    const jobCenter$ = this.getJobCenter(candidateProfile$);
+    this.candidateProfile$ = candidateProfile$;
+    const jobCenter$ = this.getJobCenter();
 
-    const lastJobExperience$ = candidateProfile$.pipe(map(candidateProfile => findRelevantJobExperience(candidateProfile)));
-    const lastJobOccupationLabel$: Observable<GenderAwareOccupationLabel> = lastJobExperience$.pipe(
+    const lastJobExperience$ = this.candidateProfile$.pipe(map(candidateProfile => findRelevantJobExperience(candidateProfile)));
+    const lastJobOccupationLabel$: Observable<string> = lastJobExperience$.pipe(
       flatMap(jobExperience => this.resolveOccupationLabel(jobExperience))
     );
 
-    const jobExperiences$ = candidateProfile$.pipe(map(candidateProfile => candidateProfile.jobExperiences));
+    const jobExperiences$ = this.candidateProfile$.pipe(map(candidateProfile => candidateProfile.jobExperiences));
 
     const jobExperiencesModels$: Observable<JobExperienceModel[]> = jobExperiences$.pipe(
       flatMap((jobExperiences) => {
@@ -48,10 +54,10 @@ export class CandidateDetailModelFactory {
       }),
     );
 
-    return combineLatest(candidateProfile$, lastJobOccupationLabel$, jobCenter$, jobExperiencesModels$).pipe(
+    return combineLatest(this.candidateProfile$, lastJobOccupationLabel$, jobCenter$, jobExperiencesModels$).pipe(
       map(([candidateProfile, genderAwareOccupationLabel, jobCenter, jobExperiencesModels]) => {
         return new CandidateDetailModel(candidateProfile,
-          extractGenderAwareTitle(candidateProfile, genderAwareOccupationLabel),
+          genderAwareOccupationLabel,
           jobCenter,
           jobExperiencesModels);
       })
@@ -60,19 +66,20 @@ export class CandidateDetailModelFactory {
 
   private resolveJobExperience(jobExperience: JobExperience): Observable<JobExperienceModel> {
     return this.i18nService.currentLanguage$.pipe(
-      flatMap((language) => {
+      withLatestFrom(this.candidateProfile$),
+      flatMap(([language, candidateProfile]) => {
         const professionCode = CandidateDetailModelFactory.extractProfessionCode(jobExperience);
         return this.occupationService.findLabel(professionCode, language).pipe(
           map(label => ({
             jobExperience: jobExperience,
-            occupationLabel: label
+            occupationLabel: extractGenderAwareTitle(candidateProfile, label)
           }))
         );
       }));
   }
 
-  private getJobCenter(candidateProfile$: Observable<CandidateProfile>) {
-    const jobCenterCode$ = candidateProfile$.pipe(map((candidateProfile) => candidateProfile.jobCenterCode));
+  private getJobCenter() {
+    const jobCenterCode$ = this.candidateProfile$.pipe(map((candidateProfile) => candidateProfile.jobCenterCode));
     const jobCenter$: Observable<JobCenter> = combineLatest(jobCenterCode$, this.i18nService.currentLanguage$).pipe(
       switchMap(([jobCenterCode, lang]) => {
         if (!jobCenterCode) {
@@ -86,7 +93,7 @@ export class CandidateDetailModelFactory {
   }
 
 
-  private resolveOccupationLabel(jobExperience: JobExperience): Observable<GenderAwareOccupationLabel> {
+  private resolveOccupationLabel(jobExperience: JobExperience): Observable<string> {
     return this.resolveJobExperience(jobExperience).pipe(map(j => j.occupationLabel))
   }
 

@@ -89,14 +89,14 @@
 
       <!-----------------Details about candidate-->
       <div class="mb-3">
-        <!--<pre>{{candidateDetailModel.jobExperiencesModels|json}}</pre>-->
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_QUALIFICATION"
                             panelTitle="candidate-detail.job-experience.title">
           <ul class="alv-list"
               *ngIf="candidateDetailModel.jobExperiencesModels  as jobExperiences">
+            <pre>{{jobExperiences|json}}</pre>
             <li *ngFor="let jobExperience of jobExperiences">
               <strong>
-                {{jobExperience.occupationLabel|json}}
+                {{jobExperience.occupationLabel}}
               </strong>
               <div class="list-item-content">
                 List item
