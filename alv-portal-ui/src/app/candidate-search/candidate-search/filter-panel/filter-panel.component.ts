@@ -311,7 +311,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     if (!(this.form && filterPanelValues)) {
       return;
     }
-    this.prepareLanguageSkillsFormArray(filterPanelValues.languageSkills);
     this.form.patchValue({
       degree: filterPanelValues.degree,
       graduation: filterPanelValues.graduation,
@@ -325,6 +324,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       drivingLicenceCategory: filterPanelValues.drivingLicenceCategory,
       workForm: filterPanelValues.workForm
     }, { emitEvent: false });
+
+    this.prepareLanguageSkillsFormArray(filterPanelValues.languageSkills);
   }
 
   private prepareLanguageSkillsFormArray(languageSkills: FilterLanguageSkill[]) {
