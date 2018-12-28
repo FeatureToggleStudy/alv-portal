@@ -36,7 +36,7 @@ export interface CandidateSearchRequestBody {
   degree?: string;
   graduation?: string;
   drivingLicenceCategory?: string;
-  languageSkills?: LanguageSkill[];
+  languageSkills?: FilterLanguageSkill[];
 }
 
 export interface WorkLoad {
@@ -80,6 +80,12 @@ export interface CandidateProfile {
 }
 
 export interface LanguageSkill {
+  code: string;
+  spokenLevel: CEFR_Level;
+  writtenLevel: CEFR_Level;
+}
+
+export interface FilterLanguageSkill {
   code: string;
   spoken: CEFR_Level;
   written: CEFR_Level;

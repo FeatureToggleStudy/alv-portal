@@ -20,9 +20,9 @@ import { LocalityInputType } from '../../../shared/localities/locality-multi-typ
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { LanguageSkill } from '../../../shared/backend-services/candidate/candidate.types';
+import { FilterLanguageSkill } from '../../../shared/backend-services/candidate/candidate.types';
 
-const EMPTY_LANGUAGE_SKILL: LanguageSkill = {
+const EMPTY_LANGUAGE_SKILL: FilterLanguageSkill = {
   code: null,
   written: CEFR_Level.NONE,
   spoken: CEFR_Level.NONE
@@ -38,7 +38,7 @@ export interface FilterPanelValues {
   degree: Degree;
   graduation: Graduation;
   drivingLicenceCategory: DrivingLicenceCategory;
-  languageSkills: LanguageSkill[];
+  languageSkills: FilterLanguageSkill[];
 }
 
 @Component({
@@ -245,7 +245,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     return of(cantonSuggestions);
   }
 
-  removeLanguageSkill(languageSkill: LanguageSkill) {
+  removeLanguageSkill(languageSkill: FilterLanguageSkill) {
     const languageSkills = this.languageSkillFormArray;
     languageSkills.removeAt(this.form.value.languageSkills.indexOf(languageSkill));
   }
@@ -327,7 +327,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     }, { emitEvent: false });
   }
 
-  private prepareLanguageSkillsFormArray(languageSkills: LanguageSkill[]) {
+  private prepareLanguageSkillsFormArray(languageSkills: FilterLanguageSkill[]) {
     const languageSkillFormArray = this.languageSkillFormArray;
     // This is a hack to avoid an infinity loop
     // angular FormArray emits a changed event each time we modify the controls (push, remove)
