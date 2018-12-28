@@ -10,10 +10,14 @@ import { JobCenter } from '../../shared/backend-services/reference-service/job-c
  */
 export class CandidateDetailModel {
   constructor(public candidateProfile: CandidateProfile,
-              public lastJobOccupationLabel: string,
               public jobCenter: JobCenter,
               public jobExperiencesModels?: JobExperienceModel[]) {
   }
+
+  get lastJobExperience() {
+    return this.jobExperiencesModels[0];
+  }
+
 }
 
 export interface JobExperienceModel {

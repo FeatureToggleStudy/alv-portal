@@ -15,7 +15,7 @@ import {
 import { OccupationLabelRepository, } from '../../shared/backend-services/reference-service/occupation-label.repository';
 import { I18nService } from '../../core/i18n.service';
 import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
-import { extractGenderAwareTitle, findRelevantJobExperience } from '../candidate-rules';
+import { extractGenderAwareTitle } from '../candidate-rules';
 import { OccupationService } from '../../shared/occupations/occupation.service';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
@@ -36,12 +36,10 @@ export class CandidateDetailModelFactory {
 
     this.candidateProfile$ = candidateProfile$;
     const jobCenter$ = this.getJobCenter();
-    const lastJobOccupationLabel$ = this.getLastJobOccupationLabel();
     const jobExperiencesModels$ = this.getJobExperiencesModels();
-    return combineLatest(this.candidateProfile$, lastJobOccupationLabel$, jobCenter$, jobExperiencesModels$).pipe(
-      map(([candidateProfile, genderAwareOccupationLabel, jobCenter, jobExperiencesModels]) => {
+    return combineLatest(this.candidateProfile$, jobCenter$, jobExperiencesModels$).pipe(
+      map(([candidateProfile, jobCenter, jobExperiencesModels]) => {
         return new CandidateDetailModel(candidateProfile,
-          genderAwareOccupationLabel,
           jobCenter,
           jobExperiencesModels);
       })
@@ -50,14 +48,6 @@ export class CandidateDetailModelFactory {
 
   private static sortLastJobFirst(experiences) {
     return experiences.sort((a, b) => +b.jobExperience.lastJob - +a.jobExperience.lastJob)
-  }
-
-  private getLastJobOccupationLabel(): Observable<string> {
-    const lastJobExperience$ = this.candidateProfile$.pipe(map(candidateProfile => findRelevantJobExperience(candidateProfile)));
-    const lastJobOccupationLabel$: Observable<string> = lastJobExperience$.pipe(
-      flatMap(jobExperience => this.resolveOccupationLabel(jobExperience))
-    );
-    return lastJobOccupationLabel$;
   }
 
   private resolveJobExperience(jobExperience: JobExperience): Observable<JobExperienceModel> {
@@ -88,11 +78,6 @@ export class CandidateDetailModelFactory {
       catchError(() => of(null as JobCenter))
     );
     return jobCenter$;
-  }
-
-
-  private resolveOccupationLabel(jobExperience: JobExperience): Observable<string> {
-    return this.resolveJobExperience(jobExperience).pipe(map(j => j.occupationLabel))
   }
 
   private static extractProfessionCode(jobExperience: JobExperience) {
