@@ -1,7 +1,7 @@
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { map, takeUntil } from 'rxjs/operators';
-import { isEqual } from 'lodash'
+import { isEqual } from 'lodash';
 
 import {
   Availability,
