@@ -1,4 +1,4 @@
-<div class="container-fluid mt-2 mt-md-4">
+<div class="container-fluid">
   <alv-three-column-layout *ngIf="candidateDetailModel$ | async as candidateDetailModel"
                            [mobileOrdering]="[2, 1, null]">
     <!--Mobile only - back button and dropdown menu-->
@@ -29,7 +29,7 @@
     </div>
     <!-------------Left panel-->
     <div class="left-column">
-      <div class="side-panel">
+
         <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
            routerLink="/candidate-search">
           <i class="fa fa-caret-left pr-1"></i>
@@ -64,8 +64,8 @@
               </div>
             </div>
           </div>
+
         </div>
-      </div>
 
     </div>
     <!-------------Main screen-->
@@ -110,7 +110,6 @@
           <alv-language-skills [languages]="candidateDetailModel.candidateProfile.languages">
           </alv-language-skills>
 
-
         </alv-collapse-panel>
 
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_OTHER_INFO"
@@ -144,8 +143,7 @@
     </div>
     <!-------------Right panel-->
     <div class="right-column">
-      <div class="side-panel">
-        <div class="d-flex">
+      <div class="d-flex">
           <button
             (click)="prev()"
             [disabled]="!(prevEnabled$ | async)"
@@ -194,9 +192,9 @@
           </li>
         </ul>
       </div>
-    </div>
+
   </alv-three-column-layout>
 </div>
-<pre>{{candidateProfile$ | async | json}}</pre>
+
 
 

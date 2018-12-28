@@ -14,10 +14,3 @@
 .dropdown-toggle::after {
   display: none;
 }
-
-@include media-breakpoint-up(md) {
-  .side-panel {
-    position: sticky;
-    top:1.5rem;
-  }
-}

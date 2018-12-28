@@ -50,7 +50,10 @@ export enum Availability {
 }
 
 export enum WorkForm {
-  SUNDAY_AND_HOLIDAYS, SHIFT_WORK, NIGHT_WORK, HOME_WORK
+  SUNDAY_AND_HOLIDAYS = 'SUNDAY_AND_HOLIDAYS',
+  SHIFT_WORK = 'SHIFT_WORK',
+  NIGHT_WORK = 'NIGHT_WORK',
+  HOME_WORK = 'HOME_WORK'
 }
 
 export enum ISCED_1997 {
@@ -65,7 +68,22 @@ export enum Graduation {
 }
 
 export enum DrivingLicenceCategory {
-  A, A1, B, B1, BE, C, C1, C1E, CE, D, D1, D1E, DE, F, G, M
+  A = 'A',
+  A1 = 'A1',
+  B = 'B',
+  B1 = 'B1',
+  BE = 'BE',
+  C = 'C',
+  C1 = 'C1',
+  C1E = 'C1E',
+  CE = 'CE',
+  D = 'D',
+  D1 = 'D1',
+  D1E = 'D1E',
+  DE = 'DE',
+  F = 'F',
+  G = 'G',
+  M = 'M'
 }
 
 export enum Canton {

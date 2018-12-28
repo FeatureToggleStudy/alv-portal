@@ -9,10 +9,6 @@
 }
 
 @include media-breakpoint-up(md) {
-  .side-panel {
-    position: sticky;
-    top: calc(1.5rem + 94px);
-  }
   .query-search-area {
     position: sticky;
     top: 0;
