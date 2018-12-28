@@ -1,6 +1,7 @@
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { map, takeUntil } from 'rxjs/operators';
+import { isEqual } from 'lodash'
 
 import {
   Availability,
@@ -208,7 +209,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       workloadPercentageMax: [],
       drivingLicenceCategory: [],
       workForm: [],
-      languageSkills: this.fb.array([])
+      languageSkills: this.fb.array([this.createNewLanguageSkillFormGroup()])
     });
 
     this.setFormValues(this._filterPanelValues);
@@ -272,14 +273,12 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     return this.form.controls['languageSkills'] as FormArray;
   }
 
-  private createNewLanguageSkillFormGroup(): FormGroup {
-    const formGroup = this.fb.group({
-      code: [],
-      written: [],
-      spoken: []
+  private createNewLanguageSkillFormGroup(languageSkill = EMPTY_LANGUAGE_SKILL): FormGroup {
+    return this.fb.group({
+      code: [languageSkill.code],
+      written: [languageSkill.written],
+      spoken: [languageSkill.spoken]
     });
-    formGroup.setValue(EMPTY_LANGUAGE_SKILL);
-    return formGroup;
   }
 
   private cantonAutocompleteMapper(cantonKey: string, index: number): SimpleMultiTypeaheadItem {
@@ -313,7 +312,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       return;
     }
     this.prepareLanguageSkillsFormArray(filterPanelValues.languageSkills);
-    this.form.setValue({
+    this.form.patchValue({
       degree: filterPanelValues.degree,
       graduation: filterPanelValues.graduation,
       experience: filterPanelValues.experience,
@@ -324,21 +323,25 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       workloadPercentageMin: filterPanelValues.workloadPercentageMin,
       workloadPercentageMax: filterPanelValues.workloadPercentageMax,
       drivingLicenceCategory: filterPanelValues.drivingLicenceCategory,
-      workForm: filterPanelValues.workForm,
-      languageSkills: filterPanelValues.languageSkills.length ? filterPanelValues.languageSkills : [EMPTY_LANGUAGE_SKILL]
+      workForm: filterPanelValues.workForm
     }, { emitEvent: false });
   }
 
   private prepareLanguageSkillsFormArray(languageSkills: LanguageSkill[]) {
-    const languageSkillsFormArray = this.languageSkillFormArray;
-    if (languageSkillsFormArray.controls.length === 0) {
-      this.addNewLanguageSkill();
+    const languageSkillFormArray = this.languageSkillFormArray;
+    // This is a hack to avoid an infinity loop
+    // angular FormArray emits a changed event each time we modify the controls (push, remove)
+    // We listen for valueChanges on the form and propagate the change to the parent component, which itself triggers a ngrx state change.
+    // We then receive the changed FilterPanelValues again due to the set filterPanelValues
+    if (isEqual(languageSkillFormArray.value, languageSkills)) {
+      return;
     }
-    if (languageSkills.length > languageSkillsFormArray.controls.length) {
-      const diff = languageSkills.length - languageSkillsFormArray.controls.length;
-      for (let i = 0; i < diff; i++) {
-        this.addNewLanguageSkill();
-      }
+    languageSkillFormArray.controls.length = 0;
+    languageSkills.forEach((languageSkill) => {
+      languageSkillFormArray.push(this.createNewLanguageSkillFormGroup(languageSkill));
+    });
+    if (languageSkillFormArray.length === 0) {
+      languageSkillFormArray.push(this.createNewLanguageSkillFormGroup());
     }
   }
 }
