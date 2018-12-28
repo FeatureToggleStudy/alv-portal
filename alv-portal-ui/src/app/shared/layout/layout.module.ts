@@ -20,8 +20,6 @@ import {
   ɵr
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { PanelComponent } from './panel/panel.component';
-import { PanelGroupComponent } from './panel-group/panel-group.component';
 import { NotificationComponent } from './notifications/notification/notification.component';
 import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
@@ -67,8 +65,6 @@ import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
     NavigationContainerComponent,
     VersionComponent,
     HeaderComponent,
-    PanelComponent,
-    PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
@@ -96,8 +92,6 @@ import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
     NavigationContainerComponent,
     HeaderComponent,
     VersionComponent,
-    PanelComponent,
-    PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
