@@ -96,7 +96,7 @@
               *ngIf="candidateDetailModel.jobExperiencesModels  as jobExperiences">
             <li *ngFor="let jobExperience of jobExperiences">
               <strong>
-                {{jobExperience.occupationLabel|async|json}}
+                {{jobExperience.occupationLabel|json}}
               </strong>
               <div class="list-item-content">
                 List item
@@ -107,10 +107,9 @@
 
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_LANGUAGES"
                             panelTitle="portal.candidate-detail.language-skills.label">
-          <!-- TODO: reuse the language skills component
-          <alv-language-skills [languages]="candidateDetailModel.jobContent.languageSkills">
+          <alv-language-skills [languages]="candidateDetailModel.candidateProfile.languages">
           </alv-language-skills>
-          -->
+
 
         </alv-collapse-panel>
 

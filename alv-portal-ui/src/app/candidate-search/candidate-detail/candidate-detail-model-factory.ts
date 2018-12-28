@@ -6,11 +6,11 @@ import {
 } from '../../shared/backend-services/candidate/candidate.types';
 import {
   catchError,
-  concatMap, first,
+  concatMap,
+  first,
   flatMap,
   map,
   switchMap,
-  take,
   toArray
 } from 'rxjs/operators';
 import { OccupationLabelRepository, } from '../../shared/backend-services/reference-service/occupation-label.repository';
@@ -68,14 +68,15 @@ export class CandidateDetailModelFactory {
 
   private resolveJobExperience(jobExperience: JobExperience): Observable<JobExperienceModel> {
     return this.i18nService.currentLanguage$.pipe(
-      map((language) => {
-          const professionCode = CandidateDetailModelFactory.extractProfessionCode(jobExperience);
-          return {
+      flatMap((language) => {
+        const professionCode = CandidateDetailModelFactory.extractProfessionCode(jobExperience);
+        return this.occupationService.findLabel(professionCode, language).pipe(
+          map(label => ({
             jobExperience: jobExperience,
-            occupationLabel: this.occupationService.findLabel(professionCode, language)
-          };
-        }
-      ),
+            occupationLabel: label
+          }))
+        );
+      }),
       first());
   }
 
@@ -95,7 +96,7 @@ export class CandidateDetailModelFactory {
 
 
   private resolveOccupationLabel(jobExperience: JobExperience): Observable<GenderAwareOccupationLabel> {
-    return this.resolveJobExperience(jobExperience).pipe(flatMap(j => j.occupationLabel))
+    return this.resolveJobExperience(jobExperience).pipe(map(j => j.occupationLabel))
   }
 
   private static extractProfessionCode(jobExperience: JobExperience) {

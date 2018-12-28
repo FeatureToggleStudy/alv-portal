@@ -2,7 +2,6 @@ import {
   CandidateProfile,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
-import { Observable } from 'rxjs';
 import { GenderAwareOccupationLabel } from '../../shared/occupations/occupation.service';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 
@@ -20,5 +19,5 @@ export class CandidateDetailModel {
 
 export interface JobExperienceModel {
   jobExperience: JobExperience
-  occupationLabel: Observable<GenderAwareOccupationLabel>;
+  occupationLabel: GenderAwareOccupationLabel; //fixme not that nessesary, can be already gender-aware
 }
