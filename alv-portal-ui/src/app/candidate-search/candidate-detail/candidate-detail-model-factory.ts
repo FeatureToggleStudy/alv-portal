@@ -24,6 +24,16 @@ import { JobCenterRepository } from '../../shared/backend-services/reference-ser
 import { CandidateRepository } from '../../shared/backend-services/candidate/candidate.repository';
 import { User, UserRole } from '../../core/auth/user.model';
 import { AuthenticationService } from '../../core/auth/authentication.service';
+import { Degree, Graduation } from '../../shared/backend-services/shared.types';
+
+function isDisplayGraduation(graduation: Graduation): boolean {
+  return graduation && graduation !== Graduation[Graduation.NONE];
+}
+
+function isDisplayDegree(degree: Degree): boolean {
+  return degree && Degree[degree] >= Degree.SEK_II_WEITERFUEHRENDE_SCHULE
+    && Degree[degree] <= Degree.TER_DOKTORAT_UNIVERSITAET;
+}
 
 @Injectable()
 export class CandidateDetailModelFactory {
@@ -76,7 +86,9 @@ export class CandidateDetailModelFactory {
         return this.occupationService.findLabel(professionCode, language).pipe(
           map(label => ({
             jobExperience: jobExperience,
-            occupationLabel: extractGenderAwareTitle(candidateProfile, label)
+            occupationLabel: extractGenderAwareTitle(candidateProfile, label),
+            displayGraduation: isDisplayGraduation(jobExperience.graduation),
+            displayDegree: isDisplayDegree(jobExperience.degree)
           }))
         );
       }),

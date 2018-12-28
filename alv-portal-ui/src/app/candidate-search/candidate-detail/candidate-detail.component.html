@@ -108,13 +108,13 @@
                   {{remark}}
                 </div>
               </li>
-              <li *ngIf="jobExperience.jobExperience.graduation as graduation">
+              <li *ngIf="jobExperience.displayGraduation && jobExperience.jobExperience.graduation as graduation">
                 <strong>{{ 'candidate-detail.job-experience.graduation.label' | translate }}</strong>
                 <div class="list-item-content">
                   {{ 'candidate-detail.graduation.' + graduation | translate}}
                 </div>
               </li>
-              <li *ngIf="jobExperience.jobExperience.degree as degree">
+              <li *ngIf="jobExperience.displayDegree && jobExperience.jobExperience.degree as degree">
                 <strong>{{ 'candidate-detail.job-experience.degree.label' | translate }}</strong>
                 <div class="list-item-content">
                   {{ 'global.degree.' + degree | translate}}

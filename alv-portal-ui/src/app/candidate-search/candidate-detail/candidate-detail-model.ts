@@ -38,4 +38,6 @@ export class CandidateDetailModel {
 export interface JobExperienceModel {
   jobExperience: JobExperience;
   occupationLabel: string;
+  displayGraduation: boolean;
+  displayDegree: boolean;
 }
