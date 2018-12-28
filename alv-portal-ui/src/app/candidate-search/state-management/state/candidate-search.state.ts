@@ -6,10 +6,12 @@ import {
   DrivingLicenceCategory,
   Experience,
   Graduation,
-  LanguageSkill,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
+import {
+  CandidateProfile,
+  FilterLanguageSkill
+} from '../../../shared/backend-services/candidate/candidate.types';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
@@ -63,7 +65,7 @@ export interface CandidateSearchFilter {
   degree: Degree;
   graduation: Graduation;
   drivingLicenceCategory: DrivingLicenceCategory;
-  languageSkills: LanguageSkill[];
+  languageSkills: FilterLanguageSkill[];
 }
 
 export interface CandidateSearchResult {

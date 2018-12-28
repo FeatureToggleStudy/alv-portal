@@ -1,8 +1,10 @@
 <button class="title-bar alv-bar text-truncate mb-3 w-100"
         (click)="toggleExpanded()">
   {{'candidate-search.filter.title' | translate}}
-  <i *ngIf="!expanded" class="fas fa-chevron-down"></i>
-  <i *ngIf="expanded" class="fas fa-chevron-up"></i>
+  <i *ngIf="!expanded"
+     class="fas fa-chevron-down"></i>
+  <i *ngIf="expanded"
+     class="fas fa-chevron-up"></i>
 </button>
 <div class="title-bar alv-bar text-truncate mb-3">
   {{'candidate-search.filter.title' | translate}}
@@ -65,10 +67,68 @@
   </div>
 
   <alv-select
-    label="candidate-search.languageSkills.label"
-    alvFormControlName="languageSkills"
-    [options$]="languageOptions$">
+    label="global.drivingLicenceCategory.label"
+    alvFormControlName="drivingLicenceCategory"
+    [options$]="drivingLicenceCategoryOptions$">
   </alv-select>
+
+  <alv-select
+    label="global.workForm.label"
+    alvFormControlName="workForm"
+    [options$]="workFormOptions$">
+  </alv-select>
+
+  <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first"
+       [formGroup]="languageSkill">
+    <div class="form-row">
+      <div class="col">
+        <alv-select
+          label="candidate-search.languageSkills.label"
+          alvFormControlName="code"
+          (change)="onLanguageSkillCodeChanged(languageSkill)"
+          [options$]="languageOptions$">
+        </alv-select>
+      </div>
+      <div *ngIf="!first"
+           class="col-auto">
+        <div class="form-group">
+          <button class="btn btn-primary btn-icon"
+                  [attr.aria-label]="'global.button.remove.title'| translate"
+                  (click)="removeLanguageSkill(languageSkill)">
+            <span class="fa fa-minus"
+                  aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="languageSkill.get('code').value"
+         class="form-row">
+      <div class="col">
+        <alv-select
+          label="global.reference.language.spoken"
+          alvFormControlName="spoken"
+          [options$]="languageLevelOptions$">
+        </alv-select>
+      </div>
+      <div class="col">
+        <alv-select
+          label="global.reference.language.written"
+          alvFormControlName="written"
+          [options$]="languageLevelOptions$">
+        </alv-select>
+      </div>
+    </div>
+  </div>
+
+
+  <button class="btn btn-primary btn-sm"
+          (click)="addNewLanguageSkill()"
+          *ngIf="isAddLanguageSkillEnabled()">
+    <span class="fa fa-plus"
+          aria-hidden="true"></span>
+    {{'global.button.add.title'| translate}}
+  </button>
 
 </form>
 

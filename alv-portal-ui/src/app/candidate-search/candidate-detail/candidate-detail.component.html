@@ -1,184 +1,182 @@
-<div class="container-fluid mt-2 mt-md-4">
+<div class="container-fluid">
   <alv-three-column-layout *ngIf="candidateDetailModel$ | async as candidateDetailModel"
                            [mobileOrdering]="[2, 1, null]">
-      <!--Mobile only - back button and dropdown menu-->
-      <div class="mobile-menu-bar">
-        <div>
-          <a class="btn btn-text btn-text-icon mb-2"
-             routerLink="/candidate-search">
-            <i class="fa fa-caret-left mr-1"></i>
-            {{'candidate-detail.back' | translate}}
-          </a>
-        </div>
-        <div #mobileActionsMenu="ngbDropdown"
-             class="d-inline-block"
-             ngbDropdown
-             placement="bottom-right">
-          <button (click)="mobileActionsMenu.toggle()"
-                  class="btn btn-text btn-icon"
-                  id="dropdownMenu"
-                  ngbDropdownAnchor
-                  aria-label="Open candidate detail menu">
-            <i class="fa fa-ellipsis-v"></i>
-          </button>
-          <div aria-label="Candidate detail menu"
-               ngbDropdownMenu>
-            <!-- TODO: mobile actions -->
-          </div>
+    <!--Mobile only - back button and dropdown menu-->
+    <div class="mobile-menu-bar">
+      <div>
+        <a class="btn btn-text btn-text-icon mb-2"
+           routerLink="/candidate-search">
+          <i class="fa fa-caret-left mr-1"></i>
+          {{'candidate-detail.back' | translate}}
+        </a>
+      </div>
+      <div #mobileActionsMenu="ngbDropdown"
+           class="d-inline-block"
+           ngbDropdown
+           placement="bottom-right">
+        <button (click)="mobileActionsMenu.toggle()"
+                class="btn btn-text btn-icon"
+                id="dropdownMenu"
+                ngbDropdownAnchor
+                aria-label="Open candidate detail menu">
+          <i class="fa fa-ellipsis-v"></i>
+        </button>
+        <div aria-label="Candidate detail menu"
+             ngbDropdownMenu>
+          <!-- TODO: mobile actions -->
         </div>
       </div>
-      <!-------------Left panel-->
-      <div class="left-column">
-        <div class="side-panel">
-          <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
-             routerLink="/candidate-search">
-            <i class="fa fa-caret-left pr-1"></i>
-            {{'candidate-detail.back' | translate}}
-          </a>
-          <div class="alv-panel p-2 mb-3">
-            <div class="d-flex d-sm-block flex-column-reverse">
+    </div>
+    <!-------------Left panel-->
+    <div class="left-column">
 
-              <div class="contact-panel">
+      <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
+         routerLink="/candidate-search">
+        <i class="fa fa-caret-left pr-1"></i>
+        {{'candidate-detail.back' | translate}}
+      </a>
+      <div class="alv-panel p-2 mb-3">
+        <div class="d-flex d-sm-block flex-column-reverse">
 
-                <div class="panel-title"> Weitere Auskünfte erteilt</div>
+          <div class="contact-panel">
 
-                <!-- display job center information, if available -->
+            <div class="panel-title"> Weitere Auskünfte erteilt</div>
 
-              </div>
+            <!-- display job center information, if available -->
 
-            </div>
           </div>
+
         </div>
 
       </div>
-      <!-------------Main screen-->
-      <div class="main-column">
-        <!-----------------Alerts-->
-        <div *ngIf="(alerts$ | async) as alerts"
-             class="mb-4">
-          <alv-alert *ngFor="let alert of alerts"
-                     [notification]="alert"
-                     (dismiss)="dismissAlert(alert, alerts)">
-          </alv-alert>
-        </div>
+
+    </div>
+    <!-------------Main screen-->
+    <div class="main-column">
+      <!-----------------Alerts-->
+      <div *ngIf="(alerts$ | async) as alerts"
+           class="mb-4">
+        <alv-alert *ngFor="let alert of alerts"
+                   [notification]="alert"
+                   (dismiss)="dismissAlert(alert, alerts)">
+        </alv-alert>
+      </div>
 
       <!-----------------Title-->
       <h2 class="mb-4">{{candidateDetailModel.lastJobOccupationLabel.default}}</h2>
 
-        <!--Badges-->
-        <div class="mb-4">
-          <alv-inline-badges [badges]="badges$ | async"></alv-inline-badges>
-        </div>
-
-        <!-----------------Details about candidate-->
-        <div class="mb-3">
-          <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_QUALIFICATION"
-                              panelTitle="candidate-detail.job-experience.title">
-            <ul class="alv-list">
-              <li>
-                <strong>
-                  List title
-                </strong>
-                <div class="list-item-content">
-                  List item
-                </div>
-              </li>
-            </ul>
-          </alv-collapse-panel>
-
-          <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_LANGUAGES"
-                              panelTitle="portal.candidate-detail.language-skills.label">
-            <!-- TODO: reuse the language skills component
-            <alv-language-skills [languages]="candidateDetailModel.jobContent.languageSkills">
-            </alv-language-skills>
-            -->
-
-          </alv-collapse-panel>
-
-          <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_OTHER_INFO"
-                              panelTitle="candidate-detail.additional-information.title">
-            <ul class="alv-list">
-              <li>
-                <strong>
-                  List title
-                </strong>
-                <div class="list-item-content">
-                  List item
-                </div>
-              </li>
-            </ul>
-          </alv-collapse-panel>
-
-          <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
-                              panelTitle="candidate-detail.personal-information.title">
-            <ul class="alv-list">
-              <li>
-                <strong>
-                  List title
-                </strong>
-                <div class="list-item-content">
-                  List item
-                </div>
-              </li>
-            </ul>
-          </alv-collapse-panel>
-        </div>
+      <!--Badges-->
+      <div class="mb-4">
+        <alv-inline-badges [badges]="badges$ | async"></alv-inline-badges>
       </div>
-      <!-------------Right panel-->
-      <div class="right-column">
-        <div class="side-panel">
-          <div class="d-flex">
-            <button
-              (click)="prev()"
-              [disabled]="!(prevEnabled$ | async)"
-              class="btn btn-text btn-text-icon btn-truncate mb-2">
-              <i class="fa fa-caret-left mr-1"></i>
-              {{'portal.job-detail.previous-result' | translate}}
-            </button>
-            <div class="flex-grow-1"></div>
-            <button
-              (click)="next()"
-              [disabled]="!(nextEnabled$ | async)"
-              class="btn btn-text btn-text-icon btn-truncate mb-2">
-              {{'portal.job-detail.next-result' | translate}}
-              <i class="fa fa-caret-right ml-1"></i>
-            </button>
-          </div>
 
-          <ul class="nav flex-column">
+      <!-----------------Details about candidate-->
+      <div class="mb-3">
+        <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_QUALIFICATION"
+                            panelTitle="candidate-detail.job-experience.title">
+          <ul class="alv-list">
             <li>
-              <a class="btn btn-text btn-text-icon btn-truncate"
-                 ngxClipboard
-                 [cbContent]="getCandidateUrl()"
-                 (cbOnSuccess)="onCopyLink()"
-                 [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
-                 triggers="manual">
-                <i aria-hidden="true"
-                   class="fa fa-copy mr-1"></i>
-                {{'candidate-detail.candidate-copy-link' | translate}}
-              </a>
-            </li>
-            <li>
-              <a class="btn btn-text btn-text-icon btn-truncate"
-                 [href]="'mailto:?body=' + getEncodedUrl()">
-                <i aria-hidden="true"
-                   class="fa fa-share mr-1"></i>
-                {{'job-detail.action.sendEmail' | translate}}
-              </a>
-            </li>
-            <li class="d-none d-md-block">
-              <a class="btn btn-text btn-text-icon btn-truncate"
-                 (click)="printCandidate()">
-                <i aria-hidden="true"
-                   class="fa fa-print mr-1"></i>
-                {{'candidate-detail.candidate-print' | translate}}
-              </a>
+              <strong>
+                List title
+              </strong>
+              <div class="list-item-content">
+                List item
+              </div>
             </li>
           </ul>
-        </div>
+        </alv-collapse-panel>
+
+        <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_LANGUAGES"
+                            panelTitle="portal.candidate-detail.language-skills.label">
+          <!-- TODO: reuse the language skills component
+          <alv-language-skills [languages]="candidateDetailModel.jobContent.languageSkills">
+          </alv-language-skills>
+          -->
+
+        </alv-collapse-panel>
+
+        <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_OTHER_INFO"
+                            panelTitle="candidate-detail.additional-information.title">
+          <ul class="alv-list">
+            <li>
+              <strong>
+                List title
+              </strong>
+              <div class="list-item-content">
+                List item
+              </div>
+            </li>
+          </ul>
+        </alv-collapse-panel>
+
+        <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
+                            panelTitle="candidate-detail.personal-information.title">
+          <ul class="alv-list">
+            <li>
+              <strong>
+                List title
+              </strong>
+              <div class="list-item-content">
+                List item
+              </div>
+            </li>
+          </ul>
+        </alv-collapse-panel>
       </div>
+    </div>
+    <!-------------Right panel-->
+    <div class="right-column">
+      <div class="d-flex">
+        <button
+          (click)="prev()"
+          [disabled]="!(prevEnabled$ | async)"
+          class="btn btn-text btn-text-icon btn-truncate mb-2">
+          <i class="fa fa-caret-left mr-1"></i>
+          {{'portal.job-detail.previous-result' | translate}}
+        </button>
+        <div class="flex-grow-1"></div>
+        <button
+          (click)="next()"
+          [disabled]="!(nextEnabled$ | async)"
+          class="btn btn-text btn-text-icon btn-truncate mb-2">
+          {{'portal.job-detail.next-result' | translate}}
+          <i class="fa fa-caret-right ml-1"></i>
+        </button>
+      </div>
+
+      <ul class="nav flex-column">
+        <li>
+          <a class="btn btn-text btn-text-icon btn-truncate"
+             ngxClipboard
+             [cbContent]="getCandidateUrl()"
+             (cbOnSuccess)="onCopyLink()"
+             [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
+             triggers="manual">
+            <i aria-hidden="true"
+               class="fa fa-copy mr-1"></i>
+            {{'candidate-detail.candidate-copy-link' | translate}}
+          </a>
+        </li>
+        <li>
+          <a class="btn btn-text btn-text-icon btn-truncate"
+             [href]="'mailto:?body=' + getEncodedUrl()">
+            <i aria-hidden="true"
+               class="fa fa-share mr-1"></i>
+            {{'job-detail.action.sendEmail' | translate}}
+          </a>
+        </li>
+        <li class="d-none d-md-block">
+          <a class="btn btn-text btn-text-icon btn-truncate"
+             (click)="printCandidate()">
+            <i aria-hidden="true"
+               class="fa fa-print mr-1"></i>
+            {{'candidate-detail.candidate-print' | translate}}
+          </a>
+        </li>
+      </ul>
+    </div>
   </alv-three-column-layout>
 </div>
-<pre>{{candidateProfile$ | async | json}}</pre>
+
 
 

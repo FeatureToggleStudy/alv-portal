@@ -1,4 +1,7 @@
-import { CandidateSearchRequest } from '../../../shared/backend-services/candidate/candidate.types';
+import {
+  CandidateSearchRequest,
+  FilterLanguageSkill
+} from '../../../shared/backend-services/candidate/candidate.types';
 import { CandidateSearchFilter } from '..';
 import { Canton } from '../../../shared/backend-services/shared.types';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
@@ -26,7 +29,9 @@ export class CandidateSearchRequestMapper {
         residence: CandidateSearchRequestMapper.mapResidences(candidateSearchFilter.residence),
         availability: candidateSearchFilter.availability,
         workLoad: CandidateSearchRequestMapper.mapWorkLoad(candidateSearchFilter.workloadPercentageMin, candidateSearchFilter.workloadPercentageMax),
-        //todo DF-391: Implement mapping
+        drivingLicenceCategory: candidateSearchFilter.drivingLicenceCategory,
+        workForm: candidateSearchFilter.workForm,
+        languageSkills: CandidateSearchRequestMapper.mapLanguageSkills(candidateSearchFilter.languageSkills)
       }
     };
   }
@@ -61,4 +66,7 @@ export class CandidateSearchRequestMapper {
     return occupations.map((a) => a.payload);
   }
 
+  private static mapLanguageSkills(languageSkills: FilterLanguageSkill[]) {
+    return languageSkills.filter((l) => l.code);
+  }
 }

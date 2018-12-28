@@ -1,12 +1,12 @@
 import {
   Availability,
+  CEFR_Level,
   Contact,
   Degree,
   Experience,
   Gender,
   Graduation,
-  ISCED_1997,
-  LanguageSkill
+  ISCED_1997
 } from '../shared.types';
 import { OccupationCode } from '../reference-service/occupation-label.types';
 
@@ -36,7 +36,7 @@ export interface CandidateSearchRequestBody {
   degree?: string;
   graduation?: string;
   drivingLicenceCategory?: string;
-  languageSkills?: LanguageSkill[];
+  languageSkills?: FilterLanguageSkill[];
 }
 
 export interface WorkLoad {
@@ -77,6 +77,18 @@ export interface CandidateProfile {
   jobCenterCode: string;
   jobAdvisor: Contact;
   contactTypes?: string[];
+}
+
+export interface LanguageSkill {
+  code: string;
+  spokenLevel: CEFR_Level;
+  writtenLevel: CEFR_Level;
+}
+
+export interface FilterLanguageSkill {
+  code: string;
+  spoken: CEFR_Level;
+  written: CEFR_Level;
 }
 
 export interface Address {
