@@ -125,7 +125,6 @@ describe('JobAdSearchEffects', () => {
      *    1st: ERROR response after 10 F + 10 F = 20 F delay
      *    2nd: value response after another 30 F + 10 F = 40 F delay
      *    3rd: end subscription after 60 F delay (irrelevant of response F)
-     * response delay here isn't counted because we are ending subscription after first triggering 'a'
      */
     it('should throw an EffectErrorOccurredAction on error, then proceed to another InitResultListAction, ' +
       'and finish with an FilterAppliedAction and terminate subscription to initJobSearch', () => {
