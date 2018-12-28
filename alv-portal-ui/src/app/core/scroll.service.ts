@@ -44,6 +44,14 @@ export class ScrollService {
     }
   }
 
+  startListenOnScroll(listener: (event) => void) {
+    this.getMainElement().addEventListener('scroll', listener);
+  }
+
+  stopListenOnScroll(listener: (event) => void) {
+    this.getMainElement().removeAllListeners('scroll', listener);
+  }
+
   private getMainElement() {
     return this.document.querySelector('main');
   }
