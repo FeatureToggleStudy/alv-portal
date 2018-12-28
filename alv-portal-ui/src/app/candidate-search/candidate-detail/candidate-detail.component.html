@@ -95,6 +95,7 @@
           <!--last job-->
           <ng-container *ngFor="let jobExperience of jobExperiences">
             <strong>
+              <!--fixme candidate-detail.job-experience.job.label mustn't repear-->
               {{ (jobExperience.jobExperience.lastJob ? 'candidate-detail.job-experience.last-job.label' :
               'candidate-detail.job-experience.job.label') | translate}}
             </strong>
@@ -102,7 +103,7 @@
             <ul class="alv-list">
               <li *ngIf="jobExperience.jobExperience.remark as remark">
                 <strong>
-                  Kenntnisse, Fähigkeiten, Skills
+                  {{ 'candidate-detail.job-experience.description.label' | translate }}
                 </strong>
                 <div class="list-item-content">
                   {{remark}}
@@ -132,6 +133,7 @@
         </alv-collapse-panel>
 
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_LANGUAGES"
+                            *ngIf="candidateDetailModel.languages"
                             panelTitle="portal.candidate-detail.language-skills.label">
           <alv-language-skills [languages]="candidateDetailModel.languages">
           </alv-language-skills>
@@ -167,6 +169,33 @@
                 {{ 'global.education.' + candidateDetailModel.candidateProfile.highestEducationLevel | translate }}
               </div>
             </li>
+            <li>
+              <!--fixme proper ngif is missing here-->
+              <strong>
+                {{ 'candidate-detail.additional-information.education.label' | translate }}
+              </strong>
+              <div class="list-item-content">
+                {{ 'global.degree.' + candidateDetailModel.candidateProfile.highestDegree | translate }}
+              </div>
+            </li>
+            <li *ngIf="candidateDetailModel.candidateProfile.preferredWorkRegions?.length || candidateDetailModel.candidateProfile.preferredWorkCantons?.length">
+              <strong>
+                {{ 'candidate-detail.additional-information.preferredWorkRegions.label' | translate }}
+              </strong>
+              <div class="list-item-content">
+                <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkRegions?.length">
+                  <span *ngFor="let region of candidateDetailModel.candidateProfile.preferredWorkRegions">
+                    {{'global.reference.region.' + region | translate}},
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkCantons?.length">
+                  <span *ngFor="let canton of candidateDetailModel.candidateProfile.preferredWorkCantons">
+                    {{'global.reference.canton.' + canton | translate}},
+                  </span>
+                </ng-container>
+              </div>
+            </li>
+
             <!--fixme more fields-->
           </ul>
         </alv-collapse-panel>
