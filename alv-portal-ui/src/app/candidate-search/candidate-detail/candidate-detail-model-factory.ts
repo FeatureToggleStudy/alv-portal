@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, forkJoin, Observable, of } from 'rxjs';
+import { combineLatest, forkJoin, merge, Observable, of } from 'rxjs';
 import {
   CandidateProfile,
   CandidateProtectedData,
@@ -7,6 +7,7 @@ import {
 } from '../../shared/backend-services/candidate/candidate.types';
 import {
   catchError,
+  filter,
   first,
   flatMap,
   map,
@@ -21,6 +22,8 @@ import { OccupationService } from '../../shared/occupations/occupation.service';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
 import { CandidateRepository } from '../../shared/backend-services/candidate/candidate.repository';
+import { User, UserRole } from '../../core/auth/user.model';
+import { AuthenticationService } from '../../core/auth/authentication.service';
 
 @Injectable()
 export class CandidateDetailModelFactory {
@@ -29,7 +32,8 @@ export class CandidateDetailModelFactory {
               private i18nService: I18nService,
               private occupationService: OccupationService,
               private referenceServiceRepository: JobCenterRepository,
-              private candidateRepository: CandidateRepository) {
+              private candidateRepository: CandidateRepository,
+              private authenticationService: AuthenticationService) {
 
   }
 
@@ -107,9 +111,25 @@ export class CandidateDetailModelFactory {
     return jobExperiencesModels$;
   }
 
-  private getCandidateProtectedData(): Observable<CandidateProtectedData> {
-    return this.candidateProfile$.pipe(
-      flatMap((candidateProfile) => this.candidateRepository.getCandidateProtectedData(candidateProfile.id))
+  private static canViewCandidateProtectedData(candidateProfile: CandidateProfile, currentUser: User): boolean {
+    return true; // fixme xxx
+    return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV]) && candidateProfile.showProtectedData);
+  }
+
+  private getCandidateProtectedData(): Observable<CandidateProtectedData | null> {
+    const dataForEntitled$ = this.candidateProfile$.pipe(
+      withLatestFrom(this.authenticationService.getCurrentUser()),
+      filter(([candidateProfile, currentUser]) => CandidateDetailModelFactory.canViewCandidateProtectedData(candidateProfile, currentUser)),
+      flatMap(([candidateProfile]) => this.candidateRepository.getCandidateProtectedData(candidateProfile.id)),
     );
+
+    const exceptionData = this.candidateProfile$.pipe(
+      withLatestFrom(this.authenticationService.getCurrentUser()),
+      filter(([candidateProfile, currentUser]) => !CandidateDetailModelFactory.canViewCandidateProtectedData(candidateProfile, currentUser)),
+      map(() => null)
+    );
+
+    // inspired by https://blog.rangle.io/rxjs-where-is-the-if-else-operator/
+    return merge(dataForEntitled$, exceptionData);
   }
 }

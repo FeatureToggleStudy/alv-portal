@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { createPageableURLSearchParams } from '../request-util';
 import { Observable, of } from 'rxjs';
-import { catchError, flatMap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import {
   CandidateProfile,
   CandidateProtectedData,
@@ -10,8 +10,6 @@ import {
   CandidateSearchResponse
 } from './candidate.types';
 import { JobAdvertisement } from '../job-advertisement/job-advertisement.types';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { UserRole } from '../../../core/auth/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class CandidateRepository {
@@ -23,7 +21,7 @@ export class CandidateRepository {
   private countUrl = '/candidateservice/api/_count/candidates';
 
   constructor(private http: HttpClient,
-              private authenticationService: AuthenticationService,) {
+  ) {
   }
 
   searchCandidateProfiles(request: CandidateSearchRequest): Observable<CandidateSearchResponse> {
@@ -64,20 +62,6 @@ export class CandidateRepository {
       nationalityCode: 'CH',
       candidateProfile: null
     });
-    return this.canViewCandidateProtectedData(candidateProfile).pipe(
-      flatMap((canViewProtectedData) => {
-        if (canViewProtectedData) {
-          return this.http.get<CandidateProtectedData>(`${this.resourceUrl}/${candidateProfile.id}`);
-        }
-        return of(null as CandidateProtectedData);
-      }));
-  }
-
-  private canViewCandidateProtectedData(candidateProfile: CandidateProfile): Observable<boolean> {
-    return of(true); // fixme xxx
-    return this.authenticationService.getCurrentUser().pipe(
-      map(currentUser => currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV]) && candidateProfile.showProtectedData),
-      catchError(err => of(false))
-    )
+    return this.http.get<CandidateProtectedData>(`${this.resourceUrl}/${candidateProfile.id}`);
   }
 }
