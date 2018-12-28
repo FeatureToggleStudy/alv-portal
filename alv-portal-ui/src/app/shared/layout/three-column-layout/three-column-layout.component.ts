@@ -24,16 +24,11 @@ export class ThreeColumnLayoutComponent implements OnInit, OnDestroy {
    */
   private readonly BOOTSTRAP_BREAKPOINT_SM = '(max-width: 767.98px)';
 
-  /**
-   * This value equals to number 4 of the bootstrap default sizes (e.g. .mt-md-4, .m-4, etc.)
-   */
-  private readonly BOOTSTRAP_SIZE_4 = '1.5rem';
-
   constructor() {
   }
 
   ngOnInit() {
-    window.addEventListener('resize', this.setSidePanelHeight);
+    window.addEventListener('resize', this.setSidePanelHeight.bind(this));
     this.setSidePanelHeight();
   }
 
@@ -45,7 +40,7 @@ export class ThreeColumnLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    window.removeEventListener('resize', this.setSidePanelHeight);
+    window.removeEventListener('resize', this.setSidePanelHeight.bind(this));
   }
 
   private setSidePanelHeight() {
@@ -57,8 +52,8 @@ export class ThreeColumnLayoutComponent implements OnInit, OnDestroy {
         sidePanel.setAttribute('style', '');
       } else {
         sidePanel.setAttribute('style',
-          `height: calc(${mainContainer.clientHeight - this.stickyTop}px - ${this.BOOTSTRAP_SIZE_4});
-                 top: calc(${this.BOOTSTRAP_SIZE_4} + ${this.stickyTop}px)`);
+          `height: ${mainContainer.clientHeight - this.stickyTop}px;
+                 top: ${this.stickyTop}px`);
       }
     });
   }

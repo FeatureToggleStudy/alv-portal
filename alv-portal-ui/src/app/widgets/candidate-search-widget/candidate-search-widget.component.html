@@ -1,12 +1,12 @@
-<alv-panel class="container">
+<div class="alv-panel">
   <h2 class="panel-title">
-    <i class="fa fa-search mr-2"
+    <i class="panel-icon fa fa-search mr-2"
        aria-hidden="true"></i>
     {{'portal.widgets.candidate-search.title' | translate}}
   </h2>
   <alv-candidate-query-panel [(candidateQueryPanelValues)]="candidateQueryPanelValues"
                              (searchSubmit)="onSearchSubmit($event)">
   </alv-candidate-query-panel>
-</alv-panel>
+</div>
 
 
