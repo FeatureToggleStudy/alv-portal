@@ -108,18 +108,6 @@ textarea.form-control,
   .readonly-input:not(.placeholder-shown) ~ label {
     color: $color-grey-black;
   }
-  /* Label style on focus */
-  &:not(.invalid) {
-    input:not(.placeholder-shown):focus ~ label,
-    textarea:not(.placeholder-shown):focus ~ label,
-    select:not(.placeholder-shown):focus ~ label,
-    .typeahead-form-control.has-focus ~ label {
-      color: $color-primary;
-    }
-    > input:focus + label {
-      color: $color-primary;
-    }
-  }
   .readonly-input {
     min-height: 46px;
   }
