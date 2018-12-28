@@ -209,8 +209,8 @@
               <strong>
                 {{ 'candidate-detail.personal-information.name.label' | translate }}
               </strong>
-              <div class="list-item-content">
-                {{ candidateProtectedData.lastName }} {{ candidateProtectedData.firstName }}
+              <div class="list-item-content capitalize-text">
+                {{ candidateProtectedData.lastName | lowercase}} {{ candidateProtectedData.firstName | lowercase}}
               </div>
             </li>
             <li *ngIf="candidateProtectedData.nationalityCode">
