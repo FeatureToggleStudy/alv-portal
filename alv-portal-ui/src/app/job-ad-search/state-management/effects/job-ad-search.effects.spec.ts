@@ -21,8 +21,9 @@ import {
 import { Observable } from 'rxjs/index';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { jobAdSearchReducer } from '../reducers/job-ad-search.reducers';
-import { JobSearchFilter } from '../state/job-search-filter.types';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
+import { HttpErrorResponse } from "@angular/common/http";
+import { EffectErrorOccurredAction } from "../../../core/state-management/actions/core.actions";
 import SpyObj = jasmine.SpyObj;
 
 describe('JobAdSearchEffects', () => {
@@ -60,17 +61,22 @@ describe('JobAdSearchEffects', () => {
   });
 
   describe('initJobSearch$', () => {
+
     const initResultListAction = new InitResultListAction();
 
+    const jobAd: any = { id: 1 };
+    const result = [jobAd as JobAdvertisement];
+    const jobAdSearchResult = {
+      totalCount: 10,
+      result
+    };
+
+    const filterApplied = new FilterAppliedAction({
+      page: result,
+      totalCount: 10
+    });
+
     it('should return a new FilterAppliedAction on success, and completes', () => {
-      const jobAd: any = { id: 1 };
-      const result = [jobAd as JobAdvertisement];
-
-      const jobAdSearchResult = {
-        totalCount: 10,
-        result
-      };
-
       actions$ = hot('-a--a-', { a: initResultListAction });
       jobAdService.search.and.returnValue(cold('--b|', { b: jobAdSearchResult }));
 
@@ -84,10 +90,10 @@ describe('JobAdSearchEffects', () => {
       expect(sut.initJobSearch$).toBeObservable(expected);
     });
 
-    it('should complete after ApplyFilterAction', () => {
+    it('should complete after FilterAppliedAction', () => {
 
       actions$ = hot('-a-b--b-', {
-        a: new ApplyFilterAction({} as JobSearchFilter),
+        a: filterApplied,
         b: initResultListAction
       });
       jobAdService.search.and.returnValue(cold('-c|', { c: {} }));
@@ -97,32 +103,61 @@ describe('JobAdSearchEffects', () => {
       expect(sut.initJobSearch$).toBeObservable(expected);
     });
 
+    it('should throw an EffectErrorOccurredAction on error, then proceed to another InitResultListAction, ' +
+      'and finish with an FilterAppliedAction and terminate subscription to initJobSearch', () => {
+
+      const httpError = new HttpErrorResponse({});
+
+      actions$ = hot('-a-a--b', { a: initResultListAction, b: filterApplied });
+      jobAdService.search.and.returnValues(
+        cold('-#', {}, httpError),
+        cold('-c|', {c: jobAdSearchResult})
+      );
+
+      const expected = cold('--e-d-|', {
+        e: new EffectErrorOccurredAction({ httpError }),
+        d: filterApplied
+      });
+
+      expect(sut.initJobSearch$).toBeObservable(expected);
+    });
+
   });
 
   describe('applyFilter$', () => {
-    const jobSearchFilter = initialState.jobSearchFilter;
 
+    const jobSearchFilter = initialState.jobSearchFilter;
     const applyFilterAction = new ApplyFilterAction(jobSearchFilter);
 
     it('should return a new FilterAppliedAction on success, and completes with debouncing', () => {
+
       const jobAd: any = { id: 1 };
       const result = [jobAd as JobAdvertisement];
-
       const jobAdSearchResult = {
         totalCount: 10,
         result
       };
 
-      const a = '-a-a-a';
-      const r = '---------c'; // debouncing 30 = 3 x _
-
-      actions$ = hot(a, { a: applyFilterAction });
+      actions$ = hot('-a-a-a', { a: applyFilterAction });
       jobAdService.search.and.returnValue(cold('-b|', { b: jobAdSearchResult }));
-      const expected = cold(r, {
+      const expected = cold('---------c', { // debouncing 30 = 3 x _
         c: new FilterAppliedAction({
           page: result,
           totalCount: 10
         })
+      });
+
+      expect(sut.applyFilter$).toBeObservable(expected);
+    });
+
+    it('should return an EffectErrorOccurredAction on error', () => {
+
+      const httpError = new HttpErrorResponse({});
+
+      actions$ = hot('-a---', { a: applyFilterAction });
+      jobAdService.search.and.returnValue(cold('-#|', {}, httpError));
+      const expected = cold('-----c', {
+        c: new EffectErrorOccurredAction({ httpError })
       });
 
       expect(sut.applyFilter$).toBeObservable(expected);
