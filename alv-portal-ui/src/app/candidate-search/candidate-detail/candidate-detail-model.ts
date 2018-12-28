@@ -9,6 +9,12 @@ import { JobCenter } from '../../shared/backend-services/reference-service/job-c
  * avoid duplication and calculations in functions. Delegate pattern.
  */
 export class CandidateDetailModel {
+  /**
+   *
+   * @param candidateProfile
+   * @param jobCenter
+   * @param jobExperiencesModels sorted in the way that the last job experience is the first element
+   */
   constructor(public candidateProfile: CandidateProfile,
               public jobCenter: JobCenter,
               public jobExperiencesModels?: JobExperienceModel[]) {
@@ -16,6 +22,10 @@ export class CandidateDetailModel {
 
   get lastJobExperience() {
     return this.jobExperiencesModels[0];
+  }
+
+  get olderJobExperiences() {
+    return this.jobExperiencesModels.slice(1);
   }
 
 }
