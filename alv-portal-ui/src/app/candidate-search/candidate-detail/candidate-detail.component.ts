@@ -13,9 +13,14 @@ import {
   LoadNextCandidateProfileDetailAction,
   LoadPreviousCandidateProfileDetailAction
 } from '../state-management';
-import { CandidateProfileBadge } from '../candidate-profile-badges-mapper.service';
+import {
+  CandidateProfileBadge,
+  CandidateProfileBadgesMapperService
+} from '../candidate-profile-badges-mapper.service';
 import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
 import { CandidateDetailModel } from './candidate-detail-model';
+import { map } from 'rxjs/operators';
+import { findRelevantJobExperience } from '../candidate-rules';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
@@ -38,7 +43,6 @@ export class CandidateDetailComponent implements OnInit {
   //todo: implement
   alerts$: Observable<Notification[]>;
 
-  //todo: implement
   badges$: Observable<CandidateProfileBadge[]>;
 
   candidateDetailPanelId = CandidateDetailPanelId;
@@ -47,13 +51,18 @@ export class CandidateDetailComponent implements OnInit {
   clipboardTooltip: NgbTooltip;
 
   constructor(private store: Store<CandidateSearchState>,
-              private candidateDetailModelFactory: CandidateDetailModelFactory) {
+              private candidateDetailModelFactory: CandidateDetailModelFactory,
+              private candidateProfileBadgesMapperService: CandidateProfileBadgesMapperService) {
   }
 
   ngOnInit() {
     //todo: Create a model for the detail page and map the candidateProfile$ to it
 
     this.candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
+
+    this.badges$ = this.candidateProfile$.pipe(
+      map(candidateProfile => this.candidateProfileBadgesMapperService.map(candidateProfile, findRelevantJobExperience( candidateProfile)))
+    );
 
     this.candidateDetailModel$ = this.candidateDetailModelFactory.create(this.candidateProfile$);
 

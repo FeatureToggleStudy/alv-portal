@@ -93,7 +93,6 @@ export interface Address {
 
 export interface JobExperience {
   occupation: Occupation;
-  occupationLabel: string;
   experience: Experience;
   graduation: Graduation;
   degree: Degree;
