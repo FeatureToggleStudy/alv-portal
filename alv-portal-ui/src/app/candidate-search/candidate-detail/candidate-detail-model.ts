@@ -1,6 +1,6 @@
 import {
-  Candidate,
   CandidateProfile,
+  CandidateProtectedData,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
@@ -19,7 +19,7 @@ export class CandidateDetailModel {
   constructor(public candidateProfile: CandidateProfile,
               public jobCenter: JobCenter,
               public jobExperiencesModels: JobExperienceModel[],
-              public protectedData: Candidate) {
+              public protectedData: CandidateProtectedData) {
   }
 
   get lastJobExperience() {

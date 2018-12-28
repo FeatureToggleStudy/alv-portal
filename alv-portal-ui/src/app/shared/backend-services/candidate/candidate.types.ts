@@ -44,7 +44,7 @@ export interface WorkLoad {
   max: number;
 }
 
-export interface Candidate {
+export interface CandidateProtectedData {
   id: string;
   firstName: string;
   lastName: string;

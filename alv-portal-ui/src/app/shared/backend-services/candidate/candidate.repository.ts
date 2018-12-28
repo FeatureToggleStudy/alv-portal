@@ -4,8 +4,8 @@ import { createPageableURLSearchParams } from '../request-util';
 import { Observable, of } from 'rxjs';
 import { catchError, flatMap, map } from 'rxjs/operators';
 import {
-  Candidate,
   CandidateProfile,
+  CandidateProtectedData,
   CandidateSearchRequest,
   CandidateSearchResponse
 } from './candidate.types';
@@ -48,13 +48,13 @@ export class CandidateRepository {
     return this.http.get<CandidateProfile>(`${this.resourceUrl}/profiles/${id}`);
   }
 
-  getCandidateProtectedData(candidateProfile): Observable<Candidate> {
+  getCandidateProtectedData(candidateProfile): Observable<CandidateProtectedData> {
     return this.canViewCandidateProtectedData(candidateProfile).pipe(
       flatMap((canViewProtectedData) => {
         if (canViewProtectedData) {
-          return this.http.get<Candidate>(`${this.resourceUrl}/${candidateProfile.id}`);
+          return this.http.get<CandidateProtectedData>(`${this.resourceUrl}/${candidateProfile.id}`);
         }
-        return of(null as Candidate);
+        return of(null as CandidateProtectedData);
       }));
   }
 

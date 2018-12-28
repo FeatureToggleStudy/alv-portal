@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, forkJoin, Observable, of } from 'rxjs';
 import {
-  Candidate,
   CandidateProfile,
+  CandidateProtectedData,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
 import {
@@ -107,7 +107,7 @@ export class CandidateDetailModelFactory {
     return jobExperiencesModels$;
   }
 
-  private getCandidateProtectedData(): Observable<Candidate> {
+  private getCandidateProtectedData(): Observable<CandidateProtectedData> {
     return this.candidateProfile$.pipe(
       flatMap((candidateProfile) => this.candidateRepository.getCandidateProtectedData(candidateProfile.id))
     );
