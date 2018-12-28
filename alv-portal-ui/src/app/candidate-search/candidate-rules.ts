@@ -95,4 +95,3 @@ export const extractGenderAwareTitle = (candidateProfile, occupationLabel: Gende
   }
   return occupationLabel.default;
 };
-

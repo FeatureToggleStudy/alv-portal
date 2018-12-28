@@ -79,12 +79,24 @@ export interface CandidateProfile {
   contactTypes?: string[];
 }
 
+/**
+ * pay attention that this language skills is different from the one used for jobads in
+ * app/shared/backend-services/job-advertisement/job-advertisement.types.ts
+ *
+ * this is due to a technical debt on the server
+ */
 export interface LanguageSkill {
   code: string;
   spokenLevel: CEFR_Level;
   writtenLevel: CEFR_Level;
 }
 
+/**
+ * pay attention that this the language skill FilterLanguageSkill is used for POST filtering queries is different
+ * from the we receive from the backend.
+ *
+ * this is due to a technical debt on the server
+ */
 export interface FilterLanguageSkill {
   code: string;
   spoken: CEFR_Level;

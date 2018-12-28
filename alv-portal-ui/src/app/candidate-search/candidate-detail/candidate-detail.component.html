@@ -95,10 +95,8 @@
           <!--last job-->
           <ng-container *ngFor="let jobExperience of jobExperiences">
             <strong>
-              <ng-container *ngIf="jobExperience.jobExperience.lastJob; else notLastJob">
-                Zuletzt ausgeübter Beruf
-              </ng-container>
-              <ng-template #notLastJob>Weitere Berufserfahrung</ng-template>
+              {{ (jobExperience.jobExperience.lastJob ? 'candidate-detail.job-experience.last-job.label' :
+              'candidate-detail.job-experience.job.label') | translate}}
             </strong>
             <h3>{{jobExperience.occupationLabel}}</h3>
             <ul class="alv-list">
@@ -111,21 +109,21 @@
                 </div>
               </li>
               <li *ngIf="jobExperience.jobExperience.graduation as graduation">
-                <strong>Berufsabschluss</strong>
+                <strong>{{ 'candidate-detail.job-experience.graduation.label' | translate }}</strong>
                 <div class="list-item-content">
-                  {{graduation}}
+                  {{ 'candidate-detail.graduation.' + graduation | translate}}
                 </div>
               </li>
               <li *ngIf="jobExperience.jobExperience.degree as degree">
-                <strong>Ausbildung</strong>
+                <strong>{{ 'candidate-detail.job-experience.degree.label' | translate }}</strong>
                 <div class="list-item-content">
-                  {{degree}}
+                  {{ 'global.degree.' + degree | translate}}
                 </div>
               </li>
               <li *ngIf="jobExperience.jobExperience.experience as experience">
-                <strong>Berufserfahrung</strong>
+                <strong>{{ 'candidate-detail.job-experience.experience.label' | translate }}</strong>
                 <div class="list-item-content">
-                  {{experience}}
+                  {{ 'global.experience.' + experience | translate }}
                 </div>
               </li>
             </ul>
