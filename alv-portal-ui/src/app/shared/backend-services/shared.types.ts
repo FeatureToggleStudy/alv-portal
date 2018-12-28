@@ -12,7 +12,10 @@ export interface Contact {
 }
 
 export enum CEFR_Level {
-  NONE, BASIC, INTERMEDIATE, PROFICIENT
+  NONE = 'NONE',
+  BASIC = 'BASIC',
+  INTERMEDIATE = 'INTERMEDIATE',
+  PROFICIENT = 'PROFICIENT'
 }
 
 /**
@@ -35,13 +38,6 @@ export enum Degree {
   TER_DOKTORAT_UNIVERSITAET = '180'
 }
 
-export interface LanguageSkill {
-  code: string;
-  nativeLanguage?: boolean;
-  spoken: CEFR_Level;
-  written: CEFR_Level;
-}
-
 export enum Experience {
   LESS_THAN_1_YEAR = 'LESS_THAN_1_YEAR',
   MORE_THAN_1_YEAR = 'MORE_THAN_1_YEAR',
@@ -54,7 +50,10 @@ export enum Availability {
 }
 
 export enum WorkForm {
-  SUNDAY_AND_HOLIDAYS, SHIFT_WORK, NIGHT_WORK, HOME_WORK
+  SUNDAY_AND_HOLIDAYS = 'SUNDAY_AND_HOLIDAYS',
+  SHIFT_WORK = 'SHIFT_WORK',
+  NIGHT_WORK = 'NIGHT_WORK',
+  HOME_WORK = 'HOME_WORK'
 }
 
 export enum ISCED_1997 {
@@ -69,7 +68,22 @@ export enum Graduation {
 }
 
 export enum DrivingLicenceCategory {
-  A, A1, B, B1, BE, C, C1, C1E, CE, D, D1, D1E, DE, F, G, M
+  A = 'A',
+  A1 = 'A1',
+  B = 'B',
+  B1 = 'B1',
+  BE = 'BE',
+  C = 'C',
+  C1 = 'C1',
+  C1E = 'C1E',
+  CE = 'CE',
+  D = 'D',
+  D1 = 'D1',
+  D1E = 'D1E',
+  DE = 'DE',
+  F = 'F',
+  G = 'G',
+  M = 'M'
 }
 
 export enum Canton {
@@ -81,10 +95,10 @@ export enum Language {
   FR = 'fr',
   IT = 'it',
   EN = 'en',
-  DE_CH = 'de-ch',
+  // DE_CH = 'de-ch' <- is not working for filtering of candidates
+  CH = 'ch',
   BG = 'bg',
   BS = 'bs',
-  CH = 'ch',
   CS = 'cs',
   DA = 'da',
   EL = 'el',
@@ -102,7 +116,7 @@ export enum Language {
   NL = 'nl',
   NLD = 'nld',
   NO = 'no',
-  PL = 'ps',
+  PL = 'pl',
   PRS = 'prs',
   PT = 'pt',
   RM = 'rm',
@@ -121,12 +135,6 @@ export enum Language {
   VI = 'vi',
   ZH = 'zh'
 
-}
-
-export interface LanguageSkill {
-  languageIsoCode: string;
-  spokenLevel: CEFR_Level;
-  writtenLevel: CEFR_Level;
 }
 
 export interface PostAddress {
