@@ -167,25 +167,45 @@
                 {{ 'global.education.' + candidateDetailModel.candidateProfile.highestEducationLevel | translate }}
               </div>
             </li>
+            <!--fixme more fields-->
           </ul>
         </alv-collapse-panel>
 
-        <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
-                            *alvHasAnyAuthority="[userRole.ROLE_PAV]"
+        <!--<ng-container *alvHasAnyAuthority="[userRole.ROLE_PAV]">-->
+        <alv-collapse-panel *ngIf="candidateDetailModel.protectedData as candidateProtectedData"
+                            [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
                             panelTitle="candidate-detail.personal-information.title">
-          <ul *ngIf="candidateDetailModel.protectedData as protectedData"
-              class="alv-list">
-            <li>
+          <ul class="alv-list">
+            <li *ngIf="candidateProtectedData.firstName || candidateProtectedData.lastName">
               <strong>
-                List title
+                {{ 'candidate-detail.personal-information.name.label' | translate }}
               </strong>
               <div class="list-item-content">
-                List item
+                {{ candidateProtectedData.lastName }} {{ candidateProtectedData.firstName }}
               </div>
             </li>
+            <li *ngIf="candidateProtectedData.nationalityCode">
+              <strong>
+                {{ 'candidate-detail.personal-information.nationality.label' | translate }}
+              </strong>
+              <div class="list-item-content">
+                {{ candidateProtectedData.nationalityCode }}
+              </div>
+            </li>
+            <li *ngIf="candidateProtectedData.address">
+              <strong>
+                {{ 'candidate-detail.personal-information.address.label' | translate }}
+              </strong>
+              <div class="list-item-content">
+                {{candidateProtectedData.address.street}}
+                , {{candidateProtectedData.address.zipCode}} {{candidateProtectedData.address.city}}
+              </div>
+            </li>
+            <!--fixme more fields-->
           </ul>
           <pre>{{protectedData|json}}</pre>
         </alv-collapse-panel>
+        <!--</ng-container>-->
       </div>
     </div>
     <!-------------Right panel-->
