@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, from, Observable, of, zip } from 'rxjs';
+import { combineLatest, forkJoin, Observable, of } from 'rxjs';
 import {
   CandidateProfile,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
 import {
   catchError,
-  concatMap,
+  first,
   flatMap,
   map,
   switchMap,
@@ -45,15 +45,11 @@ export class CandidateDetailModelFactory {
     const jobExperiences$ = this.candidateProfile$.pipe(map(candidateProfile => candidateProfile.jobExperiences));
 
     const jobExperiencesModels$: Observable<JobExperienceModel[]> = jobExperiences$.pipe(
-      flatMap((jobExperiences) => {
-        return zip(
-          from(jobExperiences).pipe(
-            concatMap(jobExperience => this.resolveJobExperience(jobExperience))
-          )
-        );
-      }),
+      flatMap(jobExperiences => {
+        const jobExperiencesModelsObservables = jobExperiences.map(x => this.resolveJobExperience(x));
+        return forkJoin(jobExperiencesModelsObservables)
+      })
     );
-
     return combineLatest(this.candidateProfile$, lastJobOccupationLabel$, jobCenter$, jobExperiencesModels$).pipe(
       map(([candidateProfile, genderAwareOccupationLabel, jobCenter, jobExperiencesModels]) => {
         return new CandidateDetailModel(candidateProfile,
@@ -75,7 +71,8 @@ export class CandidateDetailModelFactory {
             occupationLabel: extractGenderAwareTitle(candidateProfile, label)
           }))
         );
-      }));
+      }),
+      first());
   }
 
   private getJobCenter() {
