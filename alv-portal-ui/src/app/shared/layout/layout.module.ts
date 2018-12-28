@@ -20,8 +20,6 @@ import {
   ɵr
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { PanelComponent } from './panel/panel.component';
-import { PanelGroupComponent } from './panel-group/panel-group.component';
 import { NotificationComponent } from './notifications/notification/notification.component';
 import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
@@ -42,6 +40,7 @@ import { PostAddressComponent } from './post-address/post-address.component';
 import { ResultListItemComponent } from './result-list-item/result-list-item.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-layout.component';
+import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 
 @NgModule({
   imports: [
@@ -66,8 +65,6 @@ import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-l
     NavigationContainerComponent,
     VersionComponent,
     HeaderComponent,
-    PanelComponent,
-    PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
@@ -84,7 +81,8 @@ import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-l
     CollapsePanelComponent,
     PostAddressComponent,
     ResultListItemComponent,
-    ThreeColumnLayoutComponent
+    ThreeColumnLayoutComponent,
+    ScrollToTopComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
@@ -94,8 +92,6 @@ import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-l
     NavigationContainerComponent,
     HeaderComponent,
     VersionComponent,
-    PanelComponent,
-    PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
@@ -115,7 +111,8 @@ import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-l
     CollapsePanelComponent,
     PostAddressComponent,
     ResultListItemComponent,
-    ThreeColumnLayoutComponent
+    ThreeColumnLayoutComponent,
+    ScrollToTopComponent
   ]
 })
 export class LayoutModule {
