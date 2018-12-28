@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, forkJoin, Observable, of } from 'rxjs';
 import {
+  Candidate,
   CandidateProfile,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
@@ -19,6 +20,7 @@ import { extractGenderAwareTitle } from '../candidate-rules';
 import { OccupationService } from '../../shared/occupations/occupation.service';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
+import { CandidateRepository } from '../../shared/backend-services/candidate/candidate.repository';
 
 @Injectable()
 export class CandidateDetailModelFactory {
@@ -26,7 +28,8 @@ export class CandidateDetailModelFactory {
   constructor(private occupationLabelRepository: OccupationLabelRepository,
               private i18nService: I18nService,
               private occupationService: OccupationService,
-              private referenceServiceRepository: JobCenterRepository) {
+              private referenceServiceRepository: JobCenterRepository,
+              private candidateRepository: CandidateRepository) {
 
   }
 
@@ -48,15 +51,16 @@ export class CandidateDetailModelFactory {
     this.candidateProfile$ = candidateProfile$;
     const jobCenter$ = this.getJobCenter();
     const jobExperiencesModels$ = this.getJobExperiencesModels();
-    return combineLatest(this.candidateProfile$, jobCenter$, jobExperiencesModels$).pipe(
-      map(([candidateProfile, jobCenter, jobExperiencesModels]) => {
+    const candidateProtectedData$ = this.getCandidateProtectedData();
+    return combineLatest(this.candidateProfile$, jobCenter$, jobExperiencesModels$, candidateProtectedData$).pipe(
+      map(([candidateProfile, jobCenter, jobExperiencesModels, candidateProtectedData]) => {
         return new CandidateDetailModel(candidateProfile,
           jobCenter,
-          jobExperiencesModels);
+          jobExperiencesModels,
+          candidateProtectedData);
       })
     );
   }
-
 
 
   private resolveJobExperience(jobExperience: JobExperience): Observable<JobExperienceModel> {
@@ -101,5 +105,11 @@ export class CandidateDetailModelFactory {
       map(CandidateDetailModelFactory.sortLastJobFirst)
     );
     return jobExperiencesModels$;
+  }
+
+  private getCandidateProtectedData(): Observable<Candidate> {
+    return this.candidateProfile$.pipe(
+      flatMap((candidateProfile) => this.candidateRepository.getCandidateProtectedData(candidateProfile.id))
+    );
   }
 }

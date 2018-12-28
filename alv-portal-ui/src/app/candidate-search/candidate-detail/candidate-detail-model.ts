@@ -1,4 +1,5 @@
 import {
+  Candidate,
   CandidateProfile,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
@@ -17,7 +18,8 @@ export class CandidateDetailModel {
    */
   constructor(public candidateProfile: CandidateProfile,
               public jobCenter: JobCenter,
-              public jobExperiencesModels?: JobExperienceModel[]) {
+              public jobExperiencesModels: JobExperienceModel[],
+              public protectedData: Candidate) {
   }
 
   get lastJobExperience() {

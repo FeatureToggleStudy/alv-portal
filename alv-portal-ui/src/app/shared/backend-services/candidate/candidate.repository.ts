@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { createPageableURLSearchParams } from '../request-util';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, flatMap, map } from 'rxjs/operators';
 import {
+  Candidate,
   CandidateProfile,
   CandidateSearchRequest,
   CandidateSearchResponse
 } from './candidate.types';
 import { JobAdvertisement } from '../job-advertisement/job-advertisement.types';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { UserRole } from '../../../core/auth/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class CandidateRepository {
@@ -19,7 +22,8 @@ export class CandidateRepository {
 
   private countUrl = '/candidateservice/api/_count/candidates';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private authenticationService: AuthenticationService,) {
   }
 
   searchCandidateProfiles(request: CandidateSearchRequest): Observable<CandidateSearchResponse> {
@@ -42,5 +46,22 @@ export class CandidateRepository {
 
   findCandidateProfileById(id: string): Observable<CandidateProfile> {
     return this.http.get<CandidateProfile>(`${this.resourceUrl}/profiles/${id}`);
+  }
+
+  getCandidateProtectedData(candidateProfile): Observable<Candidate> {
+    return this.canViewCandidateProtectedData(candidateProfile).pipe(
+      flatMap((canViewProtectedData) => {
+        if (canViewProtectedData) {
+          return this.http.get<Candidate>(`${this.resourceUrl}/${candidateProfile.id}`);
+        }
+        return of(null as Candidate);
+      }));
+  }
+
+  private canViewCandidateProtectedData(candidateProfile: CandidateProfile): Observable<boolean> {
+    return this.authenticationService.getCurrentUser().pipe(
+      map(currentUser => currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV]) && candidateProfile.showProtectedData),
+      catchError(err => of(false))
+    )
   }
 }
