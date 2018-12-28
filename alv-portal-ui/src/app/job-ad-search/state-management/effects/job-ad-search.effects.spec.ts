@@ -76,7 +76,7 @@ describe('JobAdSearchEffects', () => {
       totalCount: 10
     });
 
-    it('should return a new FilterAppliedAction on success, and completes', () => {
+    it('should return a new FilterAppliedAction on success', () => {
       actions$ = hot('-a----', { a: initResultListAction });
       jobAdService.search.and.returnValue(cold('--b|', { b: jobAdSearchResult }));
 
