@@ -171,6 +171,7 @@
         </alv-collapse-panel>
 
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
+                            *alvHasAnyAuthority="[userRole.ROLE_PAV]"
                             panelTitle="candidate-detail.personal-information.title">
           <ul class="alv-list">
             <li>

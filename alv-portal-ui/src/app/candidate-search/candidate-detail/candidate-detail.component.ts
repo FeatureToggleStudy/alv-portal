@@ -21,6 +21,7 @@ import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
 import { CandidateDetailModel } from './candidate-detail-model';
 import { map } from 'rxjs/operators';
 import { findRelevantJobExperience } from '../candidate-rules';
+import { UserRole } from '../../core/auth/user.model';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
@@ -31,6 +32,8 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
   styleUrls: ['./candidate-detail.component.scss']
 })
 export class CandidateDetailComponent implements OnInit {
+
+  userRole = UserRole;
 
   candidateProfile$: Observable<CandidateProfile>;
 
