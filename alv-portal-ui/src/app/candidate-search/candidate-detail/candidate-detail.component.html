@@ -30,42 +30,42 @@
     <!-------------Left panel-->
     <div class="left-column">
 
-        <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
-           routerLink="/candidate-search">
-          <i class="fa fa-caret-left pr-1"></i>
-          {{'candidate-detail.back' | translate}}
-        </a>
-        <div class="alv-panel p-2 mb-3">
-          <div class="d-flex d-sm-block flex-column-reverse">
+      <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
+         routerLink="/candidate-search">
+        <i class="fa fa-caret-left pr-1"></i>
+        {{'candidate-detail.back' | translate}}
+      </a>
+      <div class="alv-panel p-2 mb-3">
+        <div class="d-flex d-sm-block flex-column-reverse">
 
-            <div class="contact-panel">
+          <div class="contact-panel">
 
-              <div class="panel-title"> Weitere Auskünfte erteilt</div>
+            <div class="panel-title"> Weitere Auskünfte erteilt</div>
 
-              <!-- display job center information, if available -->
-              <div *ngIf="candidateDetailModel.jobCenter as jobCenter"
-                   class="order-sm-2 alv-logo-box">
-                <div *ngIf="jobCenter.address as address">
-                  <strong>
-                    {{ 'portal.job-detail.reference.responsible-job-center' | translate }}
-                  </strong>
-                  <alv-post-address [address]="{
+            <!-- display job center information, if available -->
+            <div *ngIf="candidateDetailModel.jobCenter as jobCenter"
+                 class="order-sm-2 alv-logo-box">
+              <div *ngIf="jobCenter.address as address">
+                <strong>
+                  {{ 'portal.job-detail.reference.responsible-job-center' | translate }}
+                </strong>
+                <alv-post-address [address]="{
                         name: address.name,
                         street: address.street,
                         houseNumber: address.houseNumber,
                         postalCode: address.zipCode,
                         city: address.city}">
-                  </alv-post-address>
-                  <br>
-                  {{'portal.job-detail.reference.phone' | translate}}
-                  <a class="link"
-                     href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
-                </div>
+                </alv-post-address>
+                <br>
+                {{'portal.job-detail.reference.phone' | translate}}
+                <a class="link"
+                   href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
               </div>
             </div>
           </div>
-
         </div>
+
+      </div>
 
     </div>
     <!-------------Main screen-->
@@ -142,12 +142,14 @@
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_OTHER_INFO"
                             panelTitle="candidate-detail.additional-information.title">
           <ul class="alv-list">
-            <li>
+            <li *ngIf="candidateDetailModel.candidateProfile.workForm.length">
               <strong>
-                List title
+                {{ 'candidate-detail.additional-information.workForm.label' | translate }}
               </strong>
               <div class="list-item-content">
-                List item
+                <ng-container *ngFor="let workForm of candidateDetailModel.candidateProfile.workForm | keys; last as isLast">
+                  {{('global.workForm.' + workForm.value | translate) + (isLast ? '' : ', ')}}
+                </ng-container>
               </div>
             </li>
           </ul>
@@ -171,54 +173,54 @@
     <!-------------Right panel-->
     <div class="right-column">
       <div class="d-flex">
-          <button
-            (click)="prev()"
-            [disabled]="!(prevEnabled$ | async)"
-            class="btn btn-text btn-text-icon btn-truncate mb-2">
-            <i class="fa fa-caret-left mr-1"></i>
-            {{'portal.job-detail.previous-result' | translate}}
-          </button>
-          <div class="flex-grow-1"></div>
-          <button
-            (click)="next()"
-            [disabled]="!(nextEnabled$ | async)"
-            class="btn btn-text btn-text-icon btn-truncate mb-2">
-            {{'portal.job-detail.next-result' | translate}}
-            <i class="fa fa-caret-right ml-1"></i>
-          </button>
-        </div>
-
-        <ul class="nav flex-column">
-          <li>
-            <a class="btn btn-text btn-text-icon btn-truncate"
-               ngxClipboard
-               [cbContent]="getCandidateUrl()"
-               (cbOnSuccess)="onCopyLink()"
-               [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
-               triggers="manual">
-              <i aria-hidden="true"
-                 class="fa fa-copy mr-1"></i>
-              {{'candidate-detail.candidate-copy-link' | translate}}
-            </a>
-          </li>
-          <li>
-            <a class="btn btn-text btn-text-icon btn-truncate"
-               [href]="'mailto:?body=' + getEncodedUrl()">
-              <i aria-hidden="true"
-                 class="fa fa-share mr-1"></i>
-              {{'job-detail.action.sendEmail' | translate}}
-            </a>
-          </li>
-          <li class="d-none d-md-block">
-            <a class="btn btn-text btn-text-icon btn-truncate"
-               (click)="printCandidate()">
-              <i aria-hidden="true"
-                 class="fa fa-print mr-1"></i>
-              {{'candidate-detail.candidate-print' | translate}}
-            </a>
-          </li>
-        </ul>
+        <button
+          (click)="prev()"
+          [disabled]="!(prevEnabled$ | async)"
+          class="btn btn-text btn-text-icon btn-truncate mb-2">
+          <i class="fa fa-caret-left mr-1"></i>
+          {{'portal.job-detail.previous-result' | translate}}
+        </button>
+        <div class="flex-grow-1"></div>
+        <button
+          (click)="next()"
+          [disabled]="!(nextEnabled$ | async)"
+          class="btn btn-text btn-text-icon btn-truncate mb-2">
+          {{'portal.job-detail.next-result' | translate}}
+          <i class="fa fa-caret-right ml-1"></i>
+        </button>
       </div>
+
+      <ul class="nav flex-column">
+        <li>
+          <a (cbOnSuccess)="onCopyLink()"
+             [cbContent]="getCandidateUrl()"
+             [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
+             class="btn btn-text btn-text-icon btn-truncate"
+             ngxClipboard
+             triggers="manual">
+            <i aria-hidden="true"
+               class="fa fa-copy mr-1"></i>
+            {{'candidate-detail.candidate-copy-link' | translate}}
+          </a>
+        </li>
+        <li>
+          <a [href]="'mailto:?body=' + getEncodedUrl()"
+             class="btn btn-text btn-text-icon btn-truncate">
+            <i aria-hidden="true"
+               class="fa fa-share mr-1"></i>
+            {{'job-detail.action.sendEmail' | translate}}
+          </a>
+        </li>
+        <li class="d-none d-md-block">
+          <a (click)="printCandidate()"
+             class="btn btn-text btn-text-icon btn-truncate">
+            <i aria-hidden="true"
+               class="fa fa-print mr-1"></i>
+            {{'candidate-detail.candidate-print' | translate}}
+          </a>
+        </li>
+      </ul>
+    </div>
 
   </alv-three-column-layout>
 </div>
