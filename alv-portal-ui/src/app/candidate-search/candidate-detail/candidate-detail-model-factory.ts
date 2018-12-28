@@ -1,18 +1,10 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, from, Observable, of } from 'rxjs';
+import { combineLatest, from, Observable, of, zip } from 'rxjs';
 import {
   CandidateProfile,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
-import {
-  catchError,
-  concatMap,
-  first,
-  flatMap,
-  map,
-  switchMap,
-  toArray
-} from 'rxjs/operators';
+import { catchError, concatMap, flatMap, map, switchMap } from 'rxjs/operators';
 import { OccupationLabelRepository, } from '../../shared/backend-services/reference-service/occupation-label.repository';
 import { I18nService } from '../../core/i18n.service';
 import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
@@ -48,12 +40,12 @@ export class CandidateDetailModelFactory {
 
     const jobExperiencesModels$: Observable<JobExperienceModel[]> = jobExperiences$.pipe(
       flatMap((jobExperiences) => {
-        return from(jobExperiences).pipe(
-          concatMap(jobExperience => this.resolveJobExperience(jobExperience))
+        return zip(
+          from(jobExperiences).pipe(
+            concatMap(jobExperience => this.resolveJobExperience(jobExperience))
+          )
         );
       }),
-      first(),
-      toArray()
     );
 
     return combineLatest(candidateProfile$, lastJobOccupationLabel$, jobCenter$, jobExperiencesModels$).pipe(
@@ -76,8 +68,7 @@ export class CandidateDetailModelFactory {
             occupationLabel: label
           }))
         );
-      }),
-      first());
+      }));
   }
 
   private getJobCenter(candidateProfile$: Observable<CandidateProfile>) {
