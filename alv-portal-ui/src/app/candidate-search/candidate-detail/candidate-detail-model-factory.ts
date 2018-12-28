@@ -36,20 +36,8 @@ export class CandidateDetailModelFactory {
 
     this.candidateProfile$ = candidateProfile$;
     const jobCenter$ = this.getJobCenter();
-
-    const lastJobExperience$ = this.candidateProfile$.pipe(map(candidateProfile => findRelevantJobExperience(candidateProfile)));
-    const lastJobOccupationLabel$: Observable<string> = lastJobExperience$.pipe(
-      flatMap(jobExperience => this.resolveOccupationLabel(jobExperience))
-    );
-
-    const jobExperiences$ = this.candidateProfile$.pipe(map(candidateProfile => candidateProfile.jobExperiences));
-
-    const jobExperiencesModels$: Observable<JobExperienceModel[]> = jobExperiences$.pipe(
-      flatMap(jobExperiences => {
-        const jobExperiencesModelsObservables = jobExperiences.map(x => this.resolveJobExperience(x));
-        return forkJoin(jobExperiencesModelsObservables)
-      })
-    );
+    const lastJobOccupationLabel$ = this.getLastJobOccupationLabel();
+    const jobExperiencesModels$ = this.getJobExperiencesModels();
     return combineLatest(this.candidateProfile$, lastJobOccupationLabel$, jobCenter$, jobExperiencesModels$).pipe(
       map(([candidateProfile, genderAwareOccupationLabel, jobCenter, jobExperiencesModels]) => {
         return new CandidateDetailModel(candidateProfile,
@@ -58,6 +46,26 @@ export class CandidateDetailModelFactory {
           jobExperiencesModels);
       })
     );
+  }
+
+  private getLastJobOccupationLabel() {
+    const lastJobExperience$ = this.candidateProfile$.pipe(map(candidateProfile => findRelevantJobExperience(candidateProfile)));
+    const lastJobOccupationLabel$: Observable<string> = lastJobExperience$.pipe(
+      flatMap(jobExperience => this.resolveOccupationLabel(jobExperience))
+    );
+    return lastJobOccupationLabel$;
+  }
+
+  private getJobExperiencesModels() {
+    const jobExperiences$ = this.candidateProfile$.pipe(map(candidateProfile => candidateProfile.jobExperiences));
+
+    const jobExperiencesModels$: Observable<JobExperienceModel[]> = jobExperiences$.pipe(
+      flatMap(jobExperiences => {
+        const jobExperiencesModelsObservables = jobExperiences.map(x => this.resolveJobExperience(x));
+        return forkJoin(jobExperiencesModelsObservables)
+      })
+    );
+    return jobExperiencesModels$;
   }
 
   private resolveJobExperience(jobExperience: JobExperience): Observable<JobExperienceModel> {
