@@ -90,24 +90,51 @@
       <!-----------------Details about candidate-->
       <div class="mb-3">
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_QUALIFICATION"
+                            *ngIf="candidateDetailModel.jobExperiencesModels  as jobExperiences"
                             panelTitle="candidate-detail.job-experience.title">
-          <ul class="alv-list"
-              *ngIf="candidateDetailModel.jobExperiencesModels  as jobExperiences">
-            <pre>{{jobExperiences|json}}</pre>
-            <li *ngFor="let jobExperience of jobExperiences">
-              <strong>
-                {{jobExperience.occupationLabel}}
-              </strong>
-              <div class="list-item-content">
-                List item
-              </div>
-            </li>
-          </ul>
+          <!--last job-->
+          <ng-container *ngFor="let jobExperience of jobExperiences">
+            <strong>
+              <ng-container *ngIf="jobExperience.jobExperience.lastJob; else notLastJob">
+                Zuletzt ausgeübter Beruf
+              </ng-container>
+              <ng-template #notLastJob>Weitere Berufserfahrung</ng-template>
+            </strong>
+            <h3>{{jobExperience.occupationLabel}}</h3>
+            <ul class="alv-list">
+              <li *ngIf="jobExperience.jobExperience.remark as remark">
+                <strong>
+                  Kenntnisse, Fähigkeiten, Skills
+                </strong>
+                <div class="list-item-content">
+                  {{remark}}
+                </div>
+              </li>
+              <li *ngIf="jobExperience.jobExperience.graduation as graduation">
+                <strong>Berufsabschluss</strong>
+                <div class="list-item-content">
+                  {{graduation}}
+                </div>
+              </li>
+              <li *ngIf="jobExperience.jobExperience.degree as degree">
+                <strong>Ausbildung</strong>
+                <div class="list-item-content">
+                  {{degree}}
+                </div>
+              </li>
+              <li *ngIf="jobExperience.jobExperience.experience as experience">
+                <strong>Berufserfahrung</strong>
+                <div class="list-item-content">
+                  {{experience}}
+                </div>
+              </li>
+            </ul>
+          </ng-container>
         </alv-collapse-panel>
 
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_LANGUAGES"
                             panelTitle="portal.candidate-detail.language-skills.label">
-          <alv-language-skills [languages]="candidateDetailModel.candidateProfile.languages">
+          <alv-language-skills [languages]="candidateDetailModel.languages">
           </alv-language-skills>
 
         </alv-collapse-panel>

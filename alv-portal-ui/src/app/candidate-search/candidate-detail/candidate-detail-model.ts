@@ -28,6 +28,9 @@ export class CandidateDetailModel {
     return this.jobExperiencesModels.slice(1);
   }
 
+  get languages() {
+    return this.candidateProfile.languages.map(l => Object.assign({}, l, { languageIsoCode: l.code }))
+  }
 }
 
 export interface JobExperienceModel {
