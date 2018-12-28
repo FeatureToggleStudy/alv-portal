@@ -18,7 +18,7 @@ import {
   LoadNextJobAdvertisementDetailAction,
   NextPageLoadedAction
 } from '../actions/job-ad-search.actions';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { jobAdSearchReducer } from '../reducers/job-ad-search.reducers';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
@@ -77,10 +77,10 @@ describe('JobAdSearchEffects', () => {
     });
 
     it('should return a new FilterAppliedAction on success, and completes', () => {
-      actions$ = hot('-a--a-', { a: initResultListAction });
+      actions$ = hot('-a----', { a: initResultListAction });
       jobAdService.search.and.returnValue(cold('--b|', { b: jobAdSearchResult }));
 
-      const expected = cold('---c|-', {
+      const expected = cold('---c', {
         c: new FilterAppliedAction({
           page: result,
           totalCount: 10
