@@ -83,9 +83,9 @@ export class CandidateDetailModelFactory {
     );
   }
 
-  private getJobCenter() {
+  private getJobCenter(): Observable<JobCenter> {
     const jobCenterCode$ = this.candidateProfile$.pipe(map((candidateProfile) => candidateProfile.jobCenterCode));
-    const jobCenter$: Observable<JobCenter> = combineLatest(jobCenterCode$, this.i18nService.currentLanguage$).pipe(
+    return combineLatest(jobCenterCode$, this.i18nService.currentLanguage$).pipe(
       switchMap(([jobCenterCode, lang]) => {
         if (!jobCenterCode) {
           return of(null as JobCenter);
@@ -94,7 +94,6 @@ export class CandidateDetailModelFactory {
       }),
       catchError(() => of(null as JobCenter))
     );
-    return jobCenter$;
   }
 
 

@@ -61,7 +61,7 @@ export class CandidateRepository {
       },
       nationalityCode: 'CH',
       candidateProfile: null
-    });
+    }); // fixme xxx
     return this.http.get<CandidateProtectedData>(`${this.resourceUrl}/${candidateProfile.id}`);
   }
 }
