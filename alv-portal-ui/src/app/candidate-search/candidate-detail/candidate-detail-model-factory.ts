@@ -48,24 +48,16 @@ export class CandidateDetailModelFactory {
     );
   }
 
-  private getLastJobOccupationLabel() {
+  private static sortLastJobFirst(experiences) {
+    return experiences.sort((a, b) => +b.jobExperience.lastJob - +a.jobExperience.lastJob)
+  }
+
+  private getLastJobOccupationLabel(): Observable<string> {
     const lastJobExperience$ = this.candidateProfile$.pipe(map(candidateProfile => findRelevantJobExperience(candidateProfile)));
     const lastJobOccupationLabel$: Observable<string> = lastJobExperience$.pipe(
       flatMap(jobExperience => this.resolveOccupationLabel(jobExperience))
     );
     return lastJobOccupationLabel$;
-  }
-
-  private getJobExperiencesModels() {
-    const jobExperiences$ = this.candidateProfile$.pipe(map(candidateProfile => candidateProfile.jobExperiences));
-
-    const jobExperiencesModels$: Observable<JobExperienceModel[]> = jobExperiences$.pipe(
-      flatMap(jobExperiences => {
-        const jobExperiencesModelsObservables = jobExperiences.map(x => this.resolveJobExperience(x));
-        return forkJoin(jobExperiencesModelsObservables)
-      })
-    );
-    return jobExperiencesModels$;
   }
 
   private resolveJobExperience(jobExperience: JobExperience): Observable<JobExperienceModel> {
@@ -108,5 +100,18 @@ export class CandidateDetailModelFactory {
       value: String(jobExperience.occupation.avamCode),
       type: 'AVAM'
     };
+  }
+
+  private getJobExperiencesModels(): Observable<JobExperienceModel[]> {
+    const jobExperiences$ = this.candidateProfile$.pipe(map(candidateProfile => candidateProfile.jobExperiences));
+
+    const jobExperiencesModels$: Observable<JobExperienceModel[]> = jobExperiences$.pipe(
+      flatMap(jobExperiences => {
+        const jobExperiencesModelsObservables = jobExperiences.map(x => this.resolveJobExperience(x));
+        return forkJoin(jobExperiencesModelsObservables)
+      }),
+      map(CandidateDetailModelFactory.sortLastJobFirst)
+    );
+    return jobExperiencesModels$;
   }
 }
