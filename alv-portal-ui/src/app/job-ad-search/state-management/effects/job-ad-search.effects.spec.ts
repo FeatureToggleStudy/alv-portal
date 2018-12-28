@@ -22,8 +22,8 @@ import { Observable } from 'rxjs';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { jobAdSearchReducer } from '../reducers/job-ad-search.reducers';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
-import { HttpErrorResponse } from "@angular/common/http";
-import { EffectErrorOccurredAction } from "../../../core/state-management/actions/core.actions";
+import { HttpErrorResponse } from '@angular/common/http';
+import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';
 import SpyObj = jasmine.SpyObj;
 
 describe('JobAdSearchEffects', () => {
