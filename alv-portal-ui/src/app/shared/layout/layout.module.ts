@@ -42,6 +42,7 @@ import { PostAddressComponent } from './post-address/post-address.component';
 import { ResultListItemComponent } from './result-list-item/result-list-item.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-layout.component';
+import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 
 @NgModule({
   imports: [
@@ -84,7 +85,8 @@ import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-l
     CollapsePanelComponent,
     PostAddressComponent,
     ResultListItemComponent,
-    ThreeColumnLayoutComponent
+    ThreeColumnLayoutComponent,
+    ScrollToTopComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
@@ -115,7 +117,8 @@ import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-l
     CollapsePanelComponent,
     PostAddressComponent,
     ResultListItemComponent,
-    ThreeColumnLayoutComponent
+    ThreeColumnLayoutComponent,
+    ScrollToTopComponent
   ]
 })
 export class LayoutModule {
