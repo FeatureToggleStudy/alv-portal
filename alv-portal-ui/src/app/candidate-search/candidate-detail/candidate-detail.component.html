@@ -151,6 +151,22 @@
                 </ng-container>
               </div>
             </li>
+            <li *ngIf="candidateDetailModel.candidateProfile.gender">
+              <strong>
+                {{ 'candidate-detail.additional-information.gender.label' | translate }}
+              </strong>
+              <div class="list-item-content">
+                {{ 'global.gender.' + candidateDetailModel.candidateProfile.gender | translate }}
+              </div>
+            </li>
+            <li *ngIf="candidateDetailModel.candidateProfile.highestEducationLevel">
+              <strong>
+                {{ 'candidate-detail.additional-information.highestEducationLevel.label' | translate }}
+              </strong>
+              <div class="list-item-content">
+                {{ 'global.education.' + candidateDetailModel.candidateProfile.highestEducationLevel | translate }}
+              </div>
+            </li>
           </ul>
         </alv-collapse-panel>
 
