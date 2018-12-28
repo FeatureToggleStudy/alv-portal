@@ -29,11 +29,11 @@ export class CandidateDetailModel {
   }
 
   get languages() {
-    return this.candidateProfile.languages.map(l => Object.assign({}, l, { languageIsoCode: l.code }))
+    return this.candidateProfile.languages.map(l => Object.assign({}, l, { languageIsoCode: l.code }));
   }
 }
 
 export interface JobExperienceModel {
-  jobExperience: JobExperience
+  jobExperience: JobExperience;
   occupationLabel: string;
 }

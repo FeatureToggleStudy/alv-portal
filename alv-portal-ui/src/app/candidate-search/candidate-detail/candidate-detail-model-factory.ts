@@ -32,6 +32,17 @@ export class CandidateDetailModelFactory {
 
   candidateProfile$: Observable<CandidateProfile>;
 
+  private static sortLastJobFirst(experiences) {
+    return experiences.sort((a, b) => +b.jobExperience.lastJob - +a.jobExperience.lastJob);
+  }
+
+  private static extractProfessionCode(jobExperience: JobExperience) {
+    return {
+      value: String(jobExperience.occupation.avamCode),
+      type: 'AVAM'
+    };
+  }
+
   create(candidateProfile$: Observable<CandidateProfile>): Observable<CandidateDetailModel> {
 
     this.candidateProfile$ = candidateProfile$;
@@ -46,9 +57,7 @@ export class CandidateDetailModelFactory {
     );
   }
 
-  private static sortLastJobFirst(experiences) {
-    return experiences.sort((a, b) => +b.jobExperience.lastJob - +a.jobExperience.lastJob)
-  }
+
 
   private resolveJobExperience(jobExperience: JobExperience): Observable<JobExperienceModel> {
     return this.i18nService.currentLanguage$.pipe(
@@ -71,21 +80,15 @@ export class CandidateDetailModelFactory {
     const jobCenter$: Observable<JobCenter> = combineLatest(jobCenterCode$, this.i18nService.currentLanguage$).pipe(
       switchMap(([jobCenterCode, lang]) => {
         if (!jobCenterCode) {
-          return of(null as JobCenter)
+          return of(null as JobCenter);
         }
-        return this.referenceServiceRepository.resolveJobCenter(jobCenterCode, lang)
+        return this.referenceServiceRepository.resolveJobCenter(jobCenterCode, lang);
       }),
       catchError(() => of(null as JobCenter))
     );
     return jobCenter$;
   }
 
-  private static extractProfessionCode(jobExperience: JobExperience) {
-    return {
-      value: String(jobExperience.occupation.avamCode),
-      type: 'AVAM'
-    };
-  }
 
   private getJobExperiencesModels(): Observable<JobExperienceModel[]> {
     const jobExperiences$ = this.candidateProfile$.pipe(map(candidateProfile => candidateProfile.jobExperiences));
@@ -93,7 +96,7 @@ export class CandidateDetailModelFactory {
     const jobExperiencesModels$: Observable<JobExperienceModel[]> = jobExperiences$.pipe(
       flatMap(jobExperiences => {
         const jobExperiencesModelsObservables = jobExperiences.map(x => this.resolveJobExperience(x));
-        return forkJoin(jobExperiencesModelsObservables)
+        return forkJoin(jobExperiencesModelsObservables);
       }),
       map(CandidateDetailModelFactory.sortLastJobFirst)
     );
