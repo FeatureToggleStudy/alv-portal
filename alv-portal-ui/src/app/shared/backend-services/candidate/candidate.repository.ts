@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { createPageableURLSearchParams } from '../request-util';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   CandidateProfile,
@@ -46,22 +46,7 @@ export class CandidateRepository {
     return this.http.get<CandidateProfile>(`${this.resourceUrl}/profiles/${id}`);
   }
 
-  getCandidateProtectedData(candidateProfile): Observable<CandidateProtectedData> {
-    return of({
-      id: '3edkf',
-      firstName: 'Yuri',
-      lastName: 'Katkov',
-      phone: '+414211111',
-      mobile: '+414211111',
-      email: 'kakka@example.com',
-      address: {
-        street: 'street',
-        zipCode: '1006',
-        city: 'Lausanne'
-      },
-      nationalityCode: 'CH',
-      candidateProfile: null
-    }); // fixme xxx
-    return this.http.get<CandidateProtectedData>(`${this.resourceUrl}/${candidateProfile.id}`);
+  getCandidateProtectedData(id: string): Observable<CandidateProtectedData> {
+    return this.http.get<CandidateProtectedData>(`${this.resourceUrl}/${id}`);
   }
 }

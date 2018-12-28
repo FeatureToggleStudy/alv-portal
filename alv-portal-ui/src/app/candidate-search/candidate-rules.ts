@@ -2,9 +2,15 @@ import {
   CandidateProfile,
   JobExperience
 } from '../shared/backend-services/candidate/candidate.types';
-import { Experience, Gender } from '../shared/backend-services/shared.types';
+import {
+  Degree,
+  Experience,
+  Gender,
+  Graduation
+} from '../shared/backend-services/shared.types';
 import { GenderAwareOccupationLabel } from '../shared/occupations/occupation.service';
 import { OccupationCode } from '../shared/backend-services/reference-service/occupation-label.types';
+import { User, UserRole } from '../core/auth/user.model';
 
 
 const matches = (jobExperience: JobExperience, occupationCode: { value: string; type: string }) => {
@@ -95,3 +101,17 @@ export const extractGenderAwareTitle = (candidateProfile, occupationLabel: Gende
   }
   return occupationLabel.default;
 };
+
+export const isDisplayGraduation = (graduation: Graduation): boolean => {
+  return graduation && graduation !== Graduation[Graduation.NONE];
+};
+
+export const isDisplayDegree = (degree: Degree): boolean => {
+  return degree && Degree[degree] >= Degree.SEK_II_WEITERFUEHRENDE_SCHULE
+    && Degree[degree] <= Degree.TER_DOKTORAT_UNIVERSITAET;
+};
+
+
+export const canViewCandidateProtectedData = (candidateProfile: CandidateProfile, currentUser: User): boolean => {
+  return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_ADMIN]) && candidateProfile.showProtectedData);
+}

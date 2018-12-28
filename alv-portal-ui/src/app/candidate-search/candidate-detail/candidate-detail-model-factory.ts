@@ -5,35 +5,22 @@ import {
   CandidateProtectedData,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
-import {
-  catchError,
-  filter,
-  first,
-  flatMap,
-  map,
-  switchMap,
-  withLatestFrom
-} from 'rxjs/operators';
+import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { OccupationLabelRepository, } from '../../shared/backend-services/reference-service/occupation-label.repository';
 import { I18nService } from '../../core/i18n.service';
 import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
-import { extractGenderAwareTitle } from '../candidate-rules';
+import {
+  canViewCandidateProtectedData,
+  extractGenderAwareTitle,
+  isDisplayDegree,
+  isDisplayGraduation
+} from '../candidate-rules';
 import { OccupationService } from '../../shared/occupations/occupation.service';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
 import { CandidateRepository } from '../../shared/backend-services/candidate/candidate.repository';
-import { User, UserRole } from '../../core/auth/user.model';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import { Degree, Graduation } from '../../shared/backend-services/shared.types';
 
-function isDisplayGraduation(graduation: Graduation): boolean {
-  return graduation && graduation !== Graduation[Graduation.NONE];
-}
-
-function isDisplayDegree(degree: Degree): boolean {
-  return degree && Degree[degree] >= Degree.SEK_II_WEITERFUEHRENDE_SCHULE
-    && Degree[degree] <= Degree.TER_DOKTORAT_UNIVERSITAET;
-}
 
 @Injectable()
 export class CandidateDetailModelFactory {
@@ -47,8 +34,6 @@ export class CandidateDetailModelFactory {
 
   }
 
-  candidateProfile$: Observable<CandidateProfile>;
-
   private static sortLastJobFirst(experiences) {
     return experiences.sort((a, b) => +b.jobExperience.lastJob - +a.jobExperience.lastJob);
   }
@@ -61,86 +46,72 @@ export class CandidateDetailModelFactory {
   }
 
   create(candidateProfile$: Observable<CandidateProfile>): Observable<CandidateDetailModel> {
-
-    this.candidateProfile$ = candidateProfile$;
-    const jobCenter$ = this.getJobCenter();
-    const jobExperiencesModels$ = this.getJobExperiencesModels();
-    const candidateProtectedData$ = this.getCandidateProtectedData();
-    return combineLatest(this.candidateProfile$, jobCenter$, jobExperiencesModels$, candidateProtectedData$).pipe(
+    const jobCenter$ = this.getJobCenter(candidateProfile$);
+    const jobExperiencesModels$ = this.getJobExperiencesModels(candidateProfile$);
+    const candidateProtectedData$ = this.getCandidateProtectedData(candidateProfile$);
+    return combineLatest(candidateProfile$, jobCenter$, jobExperiencesModels$, candidateProtectedData$).pipe(
       map(([candidateProfile, jobCenter, jobExperiencesModels, candidateProtectedData]) => {
-        return new CandidateDetailModel(candidateProfile,
+        return new CandidateDetailModel(
+          candidateProfile,
           jobCenter,
           jobExperiencesModels,
-          candidateProtectedData);
+          candidateProtectedData
+        );
       })
     );
   }
 
-
-  private resolveJobExperience(jobExperience: JobExperience): Observable<JobExperienceModel> {
-    return this.i18nService.currentLanguage$.pipe(
-      first(),
-      withLatestFrom(this.candidateProfile$),
-      flatMap(([language, candidateProfile]) => {
-        const professionCode = CandidateDetailModelFactory.extractProfessionCode(jobExperience);
-        return this.occupationService.findLabel(professionCode, language).pipe(
-          map(label => ({
-            jobExperience: jobExperience,
-            occupationLabel: extractGenderAwareTitle(candidateProfile, label),
-            displayGraduation: isDisplayGraduation(jobExperience.graduation),
-            displayDegree: isDisplayDegree(jobExperience.degree)
-          }))
-        );
-      }),
+  private resolveJobExperience(candidateProfile, language, jobExperience: JobExperience): Observable<JobExperienceModel> {
+    const professionCode = CandidateDetailModelFactory.extractProfessionCode(jobExperience);
+    return this.occupationService.findLabel(professionCode, language).pipe(
+      map(label => ({
+        jobExperience: jobExperience,
+        occupationLabel: extractGenderAwareTitle(candidateProfile, label),
+        displayGraduation: isDisplayGraduation(jobExperience.graduation),
+        displayDegree: isDisplayDegree(jobExperience.degree)
+      }))
     );
   }
 
-  private getJobCenter(): Observable<JobCenter> {
-    const jobCenterCode$ = this.candidateProfile$.pipe(map((candidateProfile) => candidateProfile.jobCenterCode));
+  private getJobCenter(candidateProfile$: Observable<CandidateProfile>): Observable<JobCenter> {
+    const jobCenterCode$ = candidateProfile$.pipe(
+      map((candidateProfile) => candidateProfile.jobCenterCode)
+    );
     return combineLatest(jobCenterCode$, this.i18nService.currentLanguage$).pipe(
       switchMap(([jobCenterCode, lang]) => {
-        if (!jobCenterCode) {
-          return of(null as JobCenter);
+        if (jobCenterCode) {
+          return this.referenceServiceRepository.resolveJobCenter(jobCenterCode, lang);
         }
-        return this.referenceServiceRepository.resolveJobCenter(jobCenterCode, lang);
+        return of(null);
       }),
       catchError(() => of(null as JobCenter))
     );
   }
 
-
-  private getJobExperiencesModels(): Observable<JobExperienceModel[]> {
-    const jobExperiences$ = this.candidateProfile$.pipe(map(candidateProfile => candidateProfile.jobExperiences));
-
-    const jobExperiencesModels$: Observable<JobExperienceModel[]> = jobExperiences$.pipe(
-      flatMap(jobExperiences => {
-        const jobExperiencesModelsObservables = jobExperiences.map(x => this.resolveJobExperience(x));
-        return forkJoin(jobExperiencesModelsObservables);
+  private getJobExperiencesModels(candidateProfile$: Observable<CandidateProfile>): Observable<JobExperienceModel[]> {
+    return combineLatest(candidateProfile$, this.i18nService.currentLanguage$).pipe(
+      switchMap(([candidateProfile, language]) => {
+        const jobExperiencesModels$ = candidateProfile.jobExperiences
+          .map(jobExperience => this.resolveJobExperience(candidateProfile, language, jobExperience));
+        return forkJoin(jobExperiencesModels$);
       }),
       map(CandidateDetailModelFactory.sortLastJobFirst)
     );
-    return jobExperiencesModels$;
   }
 
-  private static canViewCandidateProtectedData(candidateProfile: CandidateProfile, currentUser: User): boolean {
-    return true; // fixme xxx
-    return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV]) && candidateProfile.showProtectedData);
-  }
-
-  private getCandidateProtectedData(): Observable<CandidateProtectedData | null> {
-    const dataForEntitled$ = this.candidateProfile$.pipe(
+  private getCandidateProtectedData(candidateProfile$: Observable<CandidateProfile>): Observable<CandidateProtectedData> {
+    const candidateProtectedData = candidateProfile$.pipe(
       withLatestFrom(this.authenticationService.getCurrentUser()),
-      filter(([candidateProfile, currentUser]) => CandidateDetailModelFactory.canViewCandidateProtectedData(candidateProfile, currentUser)),
-      flatMap(([candidateProfile]) => this.candidateRepository.getCandidateProtectedData(candidateProfile.id)),
+      filter(([candidateProfile, currentUser]) => canViewCandidateProtectedData(candidateProfile, currentUser)),
+      switchMap(([candidateProfile]) => this.candidateRepository.getCandidateProtectedData(candidateProfile.id)),
     );
-
-    const exceptionData = this.candidateProfile$.pipe(
+    const canNotViewProtectedData = candidateProfile$.pipe(
       withLatestFrom(this.authenticationService.getCurrentUser()),
-      filter(([candidateProfile, currentUser]) => !CandidateDetailModelFactory.canViewCandidateProtectedData(candidateProfile, currentUser)),
-      map(() => null)
+      filter(([candidateProfile, currentUser]) => !canViewCandidateProtectedData(candidateProfile, currentUser)),
+      switchMap(() => of(null))
     );
 
     // inspired by https://blog.rangle.io/rxjs-where-is-the-if-else-operator/
-    return merge(dataForEntitled$, exceptionData);
+    return merge(candidateProtectedData, canNotViewProtectedData);
   }
 }

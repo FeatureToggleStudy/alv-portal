@@ -8,9 +8,10 @@ export enum RegistrationStatus {
 }
 
 export enum UserRole {
-  ROLE_JOB_SEEKER = <any> 'ROLE_JOBSEEKER_CLIENT',
-  ROLE_PAV = <any> 'ROLE_PRIVATE_EMPLOYMENT_AGENT',
-  ROLE_COMPANY = <any> 'ROLE_COMPANY'
+  ROLE_JOB_SEEKER = <any>'ROLE_JOBSEEKER_CLIENT',
+  ROLE_PAV = <any>'ROLE_PRIVATE_EMPLOYMENT_AGENT',
+  ROLE_COMPANY = <any>'ROLE_COMPANY',
+  ROLE_ADMIN = <any>'ROLE_ADMIN'
 }
 
 export const isAnyUser = () => {
