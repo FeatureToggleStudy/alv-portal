@@ -74,8 +74,12 @@ import 'zone.js/dist/zone'; // Included with Angular CLI.
  */
 // (window as any).__Zone_enable_cross_context_check = true;
 
-
+/**
+ * In order to make the NodeList.forEach() method work on IE, we need to add the following polyfill
+ */
+import 'nodelist-foreach-polyfill';
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
