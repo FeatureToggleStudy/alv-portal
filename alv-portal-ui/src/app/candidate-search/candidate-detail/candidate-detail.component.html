@@ -184,14 +184,12 @@
               <div class="list-item-content">
                 <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkRegions?.length">
                   <span *ngFor="let region of candidateDetailModel.candidateProfile.preferredWorkRegions; let last = last">
-                    {{'global.reference.region.' + region | translate}}
-                    <ng-container *ngIf="!last || candidateDetailModel.candidateProfile.preferredWorkCantons?.length">,</ng-container>
+                    {{'global.reference.region.' + region | translate}}<ng-container *ngIf="!last || candidateDetailModel.candidateProfile.preferredWorkCantons?.length">,</ng-container>
                   </span>
                 </ng-container>
                 <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkCantons?.length">
                   <span *ngFor="let canton of candidateDetailModel.candidateProfile.preferredWorkCantons; let last = last">
-                    {{'global.reference.canton.' + canton | translate}}
-                    <ng-container *ngIf="!last">,</ng-container>
+                    {{'global.reference.canton.' + canton | translate}}<ng-container *ngIf="!last">,</ng-container>
                   </span>
                 </ng-container>
               </div>
