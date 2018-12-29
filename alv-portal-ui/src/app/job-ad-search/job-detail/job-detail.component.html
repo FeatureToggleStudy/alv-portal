@@ -357,7 +357,7 @@
 
       <ul class="nav flex-column">
         <li>
-          <a class="btn btn-text btn-text-icon btn-truncate"
+          <button class="btn btn-text btn-text-icon btn-truncate"
              ngxClipboard
              [cbContent]="getJobUrl()"
              (cbOnSuccess)="onCopyLink()"
@@ -366,7 +366,7 @@
             <i aria-hidden="true"
                class="fa fa-copy mr-1"></i>
             {{'job-detail.action.copyLink' | translate}}
-          </a>
+          </button>
         </li>
         <li>
           <a class="btn btn-text btn-text-icon btn-truncate"
@@ -377,12 +377,12 @@
           </a>
         </li>
         <li class="d-none d-md-block">
-          <a class="btn btn-text btn-text-icon btn-truncate"
+          <button class="btn btn-text btn-text-icon btn-truncate"
              (click)="printJob()">
             <i aria-hidden="true"
                class="fa fa-print mr-1"></i>
             {{'job-detail.action.print' | translate}}
-          </a>
+          </button>
         </li>
       </ul>
     </ng-container>

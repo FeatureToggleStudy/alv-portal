@@ -262,7 +262,7 @@
 
       <ul class="nav flex-column">
         <li>
-          <a (cbOnSuccess)="onCopyLink()"
+          <button (cbOnSuccess)="onCopyLink()"
              [cbContent]="getCandidateUrl()"
              [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
              class="btn btn-text btn-text-icon btn-truncate"
@@ -271,7 +271,7 @@
             <i aria-hidden="true"
                class="fa fa-copy mr-1"></i>
             {{'candidate-detail.candidate-copy-link' | translate}}
-          </a>
+          </button>
         </li>
         <li>
           <a [href]="'mailto:?body=' + getEncodedUrl()"
@@ -282,12 +282,12 @@
           </a>
         </li>
         <li class="d-none d-md-block">
-          <a (click)="printCandidate()"
+          <button (click)="printCandidate()"
              class="btn btn-text btn-text-icon btn-truncate">
             <i aria-hidden="true"
                class="fa fa-print mr-1"></i>
             {{'candidate-detail.candidate-print' | translate}}
-          </a>
+          </button>
         </li>
       </ul>
     </div>
