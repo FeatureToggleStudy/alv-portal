@@ -114,4 +114,4 @@ export const isDisplayDegree = (degree: Degree): boolean => {
 
 export const canViewCandidateProtectedData = (candidateProfile: CandidateProfile, currentUser: User): boolean => {
   return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_ADMIN]) && candidateProfile.showProtectedData);
-}
+};
