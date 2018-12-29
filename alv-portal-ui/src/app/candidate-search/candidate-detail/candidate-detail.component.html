@@ -81,7 +81,7 @@
       </div>
 
       <!-----------------Title-->
-      <h2 class="mb-4">{{candidateDetailModel.lastJobExperience.occupationLabel}}</h2>
+      <h2 class="mb-4 text-capitalize">{{candidateDetailModel.lastJobExperience.occupationLabel}}</h2>
 
       <!--Badges-->
       <div class="mb-4">
@@ -101,7 +101,7 @@
               'candidate-detail.job-experience.last-job.label' :
               'portal.candidate-detail.other-work-experience.label') | translate}}
             </strong>
-            <h3 class="text-primary">{{jobExperience.occupationLabel}}</h3>
+            <h3 class="text-primary text-capitalize">{{jobExperience.occupationLabel}}</h3>
             <ul class="alv-list">
               <li *ngIf="jobExperience.jobExperience.remark as remark">
                 <strong>
