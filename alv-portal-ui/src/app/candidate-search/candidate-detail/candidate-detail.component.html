@@ -93,13 +93,14 @@
                             *ngIf="candidateDetailModel.jobExperiencesModels  as jobExperiences"
                             panelTitle="candidate-detail.job-experience.title">
           <!--last job-->
-          <ng-container *ngFor="let jobExperience of jobExperiences">
-            <strong>
-              <!--fixme candidate-detail.job-experience.job.label mustn't repear-->
-              {{ (jobExperience.jobExperience.lastJob ? 'candidate-detail.job-experience.last-job.label' :
-              'candidate-detail.job-experience.job.label') | translate}}
+          <ng-container *ngFor="let jobExperience of jobExperiences | slice:0:3; let i = index">
+            <hr *ngIf="i > 0">
+            <strong *ngIf="i < 2">
+              {{ (jobExperience.jobExperience.lastJob ?
+              'candidate-detail.job-experience.last-job.label' :
+              'portal.candidate-detail.other-work-experience.label') | translate}}
             </strong>
-            <h3>{{jobExperience.occupationLabel}}</h3>
+            <h3 class="text-primary">{{jobExperience.occupationLabel}}</h3>
             <ul class="alv-list">
               <li *ngIf="jobExperience.jobExperience.remark as remark">
                 <strong>
@@ -128,7 +129,6 @@
                 </div>
               </li>
             </ul>
-            <hr>
           </ng-container>
         </alv-collapse-panel>
 
@@ -169,8 +169,7 @@
                 {{ 'global.education.' + candidateDetailModel.candidateProfile.highestEducationLevel | translate }}
               </div>
             </li>
-            <li>
-              <!--fixme proper ngif is missing here-->
+            <li *ngIf="candidateDetailModel.candidateProfile.highestDegree">
               <strong>
                 {{ 'candidate-detail.additional-information.education.label' | translate }}
               </strong>
@@ -184,13 +183,15 @@
               </strong>
               <div class="list-item-content">
                 <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkRegions?.length">
-                  <span *ngFor="let region of candidateDetailModel.candidateProfile.preferredWorkRegions">
-                    {{'global.reference.region.' + region | translate}},
+                  <span *ngFor="let region of candidateDetailModel.candidateProfile.preferredWorkRegions; let last = last">
+                    {{'global.reference.region.' + region | translate}}
+                    <ng-container *ngIf="!last || candidateDetailModel.candidateProfile.preferredWorkCantons?.length">,</ng-container>
                   </span>
                 </ng-container>
                 <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkCantons?.length">
-                  <span *ngFor="let canton of candidateDetailModel.candidateProfile.preferredWorkCantons">
-                    {{'global.reference.canton.' + canton | translate}},
+                  <span *ngFor="let canton of candidateDetailModel.candidateProfile.preferredWorkCantons; let last = last">
+                    {{'global.reference.canton.' + canton | translate}}
+                    <ng-container *ngIf="!last">,</ng-container>
                   </span>
                 </ng-container>
               </div>
