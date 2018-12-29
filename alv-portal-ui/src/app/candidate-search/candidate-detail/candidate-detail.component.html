@@ -61,6 +61,7 @@
                 <a class="link"
                    href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
               </div>
+              <!-- FIXME SHOW candidateDetailModel.candidateProfile.jobAdvisor -->
             </div>
           </div>
         </div>
@@ -184,12 +185,14 @@
               <div class="list-item-content">
                 <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkRegions?.length">
                   <span *ngFor="let region of candidateDetailModel.candidateProfile.preferredWorkRegions; let last = last">
-                    {{'global.reference.region.' + region | translate}}<ng-container *ngIf="!last || candidateDetailModel.candidateProfile.preferredWorkCantons?.length">,</ng-container>
+                    {{'global.reference.region.' + region | translate}}
+                    <ng-container *ngIf="!last || candidateDetailModel.candidateProfile.preferredWorkCantons?.length">,</ng-container>
                   </span>
                 </ng-container>
                 <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkCantons?.length">
                   <span *ngFor="let canton of candidateDetailModel.candidateProfile.preferredWorkCantons; let last = last">
-                    {{'global.reference.canton.' + canton | translate}}<ng-container *ngIf="!last">,</ng-container>
+                    {{'global.reference.canton.' + canton | translate}}
+                    <ng-container *ngIf="!last">,</ng-container>
                   </span>
                 </ng-container>
               </div>
@@ -199,7 +202,6 @@
           </ul>
         </alv-collapse-panel>
 
-        <!--<ng-container *alvHasAnyAuthority="[userRole.ROLE_PAV]">-->
         <alv-collapse-panel *ngIf="candidateDetailModel.protectedData as candidateProtectedData"
                             [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
                             panelTitle="candidate-detail.personal-information.title">
@@ -220,20 +222,22 @@
                 {{ candidateProtectedData.nationalityCode }}
               </div>
             </li>
-            <li *ngIf="candidateProtectedData.address">
+            <li *ngIf="candidateProtectedData.address as address">
               <strong>
                 {{ 'candidate-detail.personal-information.address.label' | translate }}
               </strong>
-              <div class="list-item-content">
-                {{candidateProtectedData.address.street}}
-                , {{candidateProtectedData.address.zipCode}} {{candidateProtectedData.address.city}}
-              </div>
+              <alv-post-address class="list-item-content"
+                                [address]="{
+                                  name: null,
+                                  street: address.street,
+                                  postalCode: address.zipCode,
+                                  city: address.city}">
+              </alv-post-address>
             </li>
             <!--fixme more fields-->
           </ul>
           <pre>{{protectedData|json}}</pre>
         </alv-collapse-panel>
-        <!--</ng-container>-->
       </div>
     </div>
     <!-------------Right panel-->

@@ -1,6 +1,8 @@
 <address *ngIf="address">
-  <b>{{address.name}}</b>
-  <br>
+  <span *ngIf="address.name">
+      <b>{{address.name}}</b>
+      <br>
+  </span>
   <span *ngIf="address.postOfficeBoxNumber; else noPostOfficeBoxNumber">
     {{'home.tools.job-publication.company.postbox' | translate}} {{address.postOfficeBoxNumber}}
     <br>

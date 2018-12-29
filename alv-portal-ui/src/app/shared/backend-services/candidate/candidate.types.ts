@@ -80,8 +80,7 @@ export interface CandidateProfile {
 }
 
 /**
- * pay attention that this language skills is different from the one used for jobads in
- * app/shared/backend-services/job-advertisement/job-advertisement.types.ts
+ * pay attention that this language skills is different from the one used for jobads
  *
  * this is due to a technical debt on the server
  */

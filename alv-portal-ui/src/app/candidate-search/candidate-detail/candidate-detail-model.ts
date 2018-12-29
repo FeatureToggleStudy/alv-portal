@@ -4,18 +4,15 @@ import {
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
+import { LanguageSkill } from '../../shared/backend-services/shared.types';
+
 
 /**
  * A "view-model" for the Candidate-Detail Page that has all of our business logic in it to
  * avoid duplication and calculations in functions. Delegate pattern.
  */
 export class CandidateDetailModel {
-  /**
-   *
-   * @param candidateProfile
-   * @param jobCenter
-   * @param jobExperiencesModels sorted in the way that the last job experience is the first element
-   */
+
   constructor(public candidateProfile: CandidateProfile,
               public jobCenter: JobCenter,
               public jobExperiencesModels: JobExperienceModel[],
@@ -30,8 +27,12 @@ export class CandidateDetailModel {
     return this.jobExperiencesModels.slice(1);
   }
 
-  get languages() {
-    return this.candidateProfile.languages.map(l => Object.assign({}, l, { languageIsoCode: l.code }));
+  get languages(): LanguageSkill[] {
+    return this.candidateProfile.languages
+      .map(languageSkill => ({
+        ...languageSkill,
+        languageIsoCode: languageSkill.code
+      }));
   }
 }
 
