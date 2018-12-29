@@ -10,12 +10,10 @@ import { animate, keyframes, style, transition, trigger } from '@angular/animati
     trigger('insertRemoveButton', [
       transition(':enter', [
         style({
-          transform: 'translateY(200px)',
-          opacity: 1
+          transform: 'translateY(200px)'
         }),
         animate('0.5s ease-in-out', style({
-          transform: 'translateY(0)',
-          opacity: 1
+          transform: 'translateY(0)'
         })),
       ]),
       transition(':leave', [
