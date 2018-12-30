@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Notification } from '../../shared/layout/notifications/notification.model';
 import { CandidateDetailPanelId } from './candidate-detail-panel-id.enum';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, Observable } from 'rxjs';
-import { CandidateProfile } from '../../shared/backend-services/candidate/candidate.types';
+import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import {
   CandidateSearchState,
@@ -21,7 +20,6 @@ import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
 import { CandidateDetailModel } from './candidate-detail-model';
 import { map } from 'rxjs/operators';
 import { findRelevantJobExperience } from '../candidate-rules';
-import { UserRole } from '../../core/auth/user.model';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 
 
@@ -33,10 +31,6 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
   styleUrls: ['./candidate-detail.component.scss']
 })
 export class CandidateDetailComponent implements OnInit {
-
-  userRole = UserRole;
-
-  candidateProfile$: Observable<CandidateProfile>;
 
   candidateDetailModel$: Observable<CandidateDetailModel>;
 
@@ -63,13 +57,13 @@ export class CandidateDetailComponent implements OnInit {
   ngOnInit() {
     //todo: Create a model for the detail page and map the candidateProfile$ to it
 
-    this.candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
+    const candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
 
-    this.badges$ = this.candidateProfile$.pipe(
+    this.badges$ = candidateProfile$.pipe(
       map(candidateProfile => this.candidateProfileBadgesMapperService.map(candidateProfile, findRelevantJobExperience(candidateProfile)))
     );
 
-    this.candidateDetailModel$ = this.candidateDetailModelFactory.create(this.candidateProfile$);
+    this.candidateDetailModel$ = this.candidateDetailModelFactory.create(candidateProfile$);
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
 
