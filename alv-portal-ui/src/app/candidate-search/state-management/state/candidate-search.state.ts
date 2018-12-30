@@ -52,7 +52,6 @@ export const initialState: CandidateSearchState = {
 };
 
 export interface CandidateSearchFilter {
-  // todo: implement
   occupations: OccupationMultiTypeaheadItem[];
   keywords: SimpleMultiTypeaheadItem[];
   workplace: LocalityMultiTypeaheadItem;
