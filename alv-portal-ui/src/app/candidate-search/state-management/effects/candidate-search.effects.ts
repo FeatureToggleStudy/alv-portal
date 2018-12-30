@@ -143,6 +143,7 @@ export class CandidateSearchEffects {
   @Effect()
   loadPreviousCandidateProfileDetail$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL),
+    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getPrevId))),
     map(([action, id]) => id),
     tap((id) => {
@@ -156,6 +157,7 @@ export class CandidateSearchEffects {
   @Effect()
   loadNextCandidateProfileDetail$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_CANDIDATE_PROFILE_DETAIL),
+    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getNextId))),
     switchMap(([action, id]) => {
       if (id) {
