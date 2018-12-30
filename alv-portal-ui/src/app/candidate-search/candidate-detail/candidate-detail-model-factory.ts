@@ -20,6 +20,7 @@ import {
   candidateContact,
   canViewCandidateProtectedData,
   extractGenderAwareTitle,
+  findWantedJobExperiences,
   isDisplayDegree,
   isDisplayGraduation
 } from '../candidate-rules';
@@ -107,7 +108,7 @@ export class CandidateDetailModelFactory {
   private getJobExperiencesModels(candidateProfile$: Observable<CandidateProfile>): Observable<JobExperienceModel[]> {
     return combineLatest(candidateProfile$, this.i18nService.currentLanguage$).pipe(
       switchMap(([candidateProfile, language]) => {
-        const jobExperiencesModels$ = candidateProfile.jobExperiences
+        const jobExperiencesModels$ = findWantedJobExperiences(candidateProfile)
           .map(jobExperience => this.resolveJobExperience(candidateProfile, language, jobExperience));
         return forkJoin(jobExperiencesModels$);
       }),

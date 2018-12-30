@@ -65,9 +65,13 @@ const getBestMatchingJobExperience = (selectedOccupationCodes: OccupationCode[],
   }
 };
 
+export const findWantedJobExperiences = (candidateProfile: CandidateProfile) => {
+  return candidateProfile.jobExperiences.filter((jobExperience) => jobExperience.wanted);
+};
+
 export const findRelevantJobExperience = (candidateProfile: CandidateProfile, selectedOccupationCodes?: OccupationCode[]): JobExperience => {
   const jobExperiences = candidateProfile.jobExperiences;
-  const wantedJobExperiences = jobExperiences.filter((jobExperience) => jobExperience.wanted);
+  const wantedJobExperiences = findWantedJobExperiences(candidateProfile);
   if (!wantedJobExperiences) {
     return null;
   }
