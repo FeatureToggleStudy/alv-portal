@@ -56,7 +56,7 @@ export class CandidateDetailModelFactory {
   }
 
   create(candidateProfile$: Observable<CandidateProfile>): Observable<CandidateDetailModel> {
-    const jobCenter$ = this.getJobCenter(candidateProfile$);
+    const jobCenter$ = this.getJobCenter(candidateProfile$).pipe(share());
     const jobExperiencesModels$ = this.getJobExperiencesModels(candidateProfile$);
     const candidateProtectedData$ = this.getCandidateProtectedData(candidateProfile$);
     const contact$ = this.getContact(candidateProfile$, jobCenter$);
@@ -100,8 +100,7 @@ export class CandidateDetailModelFactory {
         }
         return of(null);
       }),
-      catchError(() => of(null as JobCenter)),
-      share()
+      catchError(() => of(null as JobCenter))
     );
   }
 
@@ -133,11 +132,12 @@ export class CandidateDetailModelFactory {
   }
 
   private getContact(candidateProfile$: Observable<CandidateProfile>, jobCenter$: Observable<JobCenter>): Observable<Contact> {
-    return jobCenter$.pipe(
-      withLatestFrom(candidateProfile$, this.authenticationService.getCurrentUser()),
-      map(([a, b, c]) => {
-        return candidateContact(b, a, c);
-      }),
+    return combineLatest(
+      candidateProfile$,
+      jobCenter$,
+      this.authenticationService.getCurrentUser()
+    ).pipe(
+      map(([candidateProfile, jobCenter, user]) => candidateContact(candidateProfile, jobCenter, user)),
     );
   }
 }
