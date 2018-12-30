@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { RegistrationStatus, User } from '../../../core/auth/user.model';
+import { User } from '../../../core/auth/user.model';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { LandingNavigationService } from '../../../core/landing-navigation.service';
@@ -36,7 +36,7 @@ export class UserMenuComponent implements OnInit {
 
   @Input() set user(user: User) {
     this._user = user;
-    this.hideRegistrationAction = this._user.registrationStatus === RegistrationStatus.REGISTERED;
+    this.hideRegistrationAction = this.user.isRegistered();
   }
 
   ngOnInit() {
@@ -64,7 +64,7 @@ export class UserMenuComponent implements OnInit {
     this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd)
     ).subscribe(() => {
-      if (this.user.registrationStatus !== RegistrationStatus.REGISTERED) {
+      if (!this.user.isRegistered()) {
         this.hideRegistrationAction = this.location.isCurrentPathEqualTo(this.FINISH_REGISTRATION_URL) ||
           this.location.isCurrentPathEqualTo(this.ACCESS_CODE_URL);
       }
