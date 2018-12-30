@@ -59,14 +59,18 @@ export class CandidateDetailModelFactory {
     const jobExperiencesModels$ = this.getJobExperiencesModels(candidateProfile$);
     const candidateProtectedData$ = this.getCandidateProtectedData(candidateProfile$);
     const contact$ = this.getContact(candidateProfile$, jobCenter$);
-    return combineLatest(candidateProfile$, jobCenter$, jobExperiencesModels$, candidateProtectedData$, contact$).pipe(
-      map(([candidateProfile, jobCenter, jobExperiencesModels, candidateProtectedData, contact]) => {
-        return new CandidateDetailModel(
-          candidateProfile,
-          jobCenter,
-          jobExperiencesModels,
-          candidateProtectedData,
-          contact
+    return candidateProfile$.pipe(
+      switchMap((candidateProfile) => {
+        return combineLatest(jobCenter$, jobExperiencesModels$, candidateProtectedData$, contact$).pipe(
+          map(([jobCenter, jobExperiencesModels, candidateProtectedData, contact]) => {
+            return new CandidateDetailModel(
+              candidateProfile,
+              jobCenter,
+              jobExperiencesModels,
+              candidateProtectedData,
+              contact
+            );
+          })
         );
       })
     );
