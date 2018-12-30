@@ -164,6 +164,13 @@
                                    label="candidate-detail.additional-information.education.label">
               {{ 'global.degree.' + candidateDetailModel.candidateProfile.highestDegree | translate }}
             </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.drivingCategories?.length"
+                                   label="candidate-detail.additional-information.drivingCategories.label">
+              <span *ngFor="let drivingCategory of candidateDetailModel.candidateProfile.drivingCategories; let last= last">
+                {{drivingCategory}}
+                <ng-container *ngIf="!last">,</ng-container>
+              </span>
+            </alv-list-item-content>
             <alv-list-item-content *ngIf="candidateDetailModel.workRegions.length"
                                    label="candidate-detail.additional-information.preferredWorkRegions.label">
                 <span *ngFor="let region of candidateDetailModel.workRegions; let last = last">
@@ -171,7 +178,6 @@
                   <ng-container *ngIf="!last">,</ng-container>
                 </span>
             </alv-list-item-content>
-            <!--fixme more fields-->
           </ul>
         </alv-collapse-panel>
 
