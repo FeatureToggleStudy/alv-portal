@@ -56,10 +56,26 @@
                         postalCode: address.zipCode,
                         city: address.city}">
                 </alv-post-address>
-                <br>
-                {{'portal.job-detail.reference.phone' | translate}}
-                <a class="link"
-                   href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
+              </div>
+              <div *ngIf="candidateDetailModel.contact as contact">
+                <div *ngIf="contact.firstName || contact.lastName">
+                  {{contact.firstName}} {{contact.lastName}}
+                </div>
+                <div>
+                  <span>{{'candidate-detail.job-center.phone.label' | translate}} </span>
+                  <a href="tel:{{contact.phone}}">{{contact.phone}}</a>
+                </div>
+                <div *ngIf="contact.email">
+                  <span>{{'candidate-detail.job-center.email.label' | translate}}</span>
+                  <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+                </div>
+              </div>
+
+              <div *ngIf="candidateDetailModel.candidateProfile as candidateProfile">
+                <strong>
+                  {{'candidate-detail.external-id' | translate}}
+                  : {{candidateProfile.externalId }}
+                </strong>
               </div>
               <!-- FIXME SHOW candidateDetailModel.candidateProfile.jobAdvisor -->
             </div>

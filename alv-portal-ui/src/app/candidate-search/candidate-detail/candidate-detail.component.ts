@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Notification } from '../../shared/layout/notifications/notification.model';
 import { CandidateDetailPanelId } from './candidate-detail-panel-id.enum';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { CandidateProfile } from '../../shared/backend-services/candidate/candidate.types';
 import { select, Store } from '@ngrx/store';
 import {
@@ -22,6 +22,7 @@ import { CandidateDetailModel } from './candidate-detail-model';
 import { map } from 'rxjs/operators';
 import { findRelevantJobExperience } from '../candidate-rules';
 import { UserRole } from '../../core/auth/user.model';
+import { AuthenticationService } from '../../core/auth/authentication.service';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
@@ -54,6 +55,7 @@ export class CandidateDetailComponent implements OnInit {
   clipboardTooltip: NgbTooltip;
 
   constructor(private store: Store<CandidateSearchState>,
+              private authenticationService: AuthenticationService,
               private candidateDetailModelFactory: CandidateDetailModelFactory,
               private candidateProfileBadgesMapperService: CandidateProfileBadgesMapperService) {
   }
@@ -64,7 +66,7 @@ export class CandidateDetailComponent implements OnInit {
     this.candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
 
     this.badges$ = this.candidateProfile$.pipe(
-      map(candidateProfile => this.candidateProfileBadgesMapperService.map(candidateProfile, findRelevantJobExperience( candidateProfile)))
+      map(candidateProfile => this.candidateProfileBadgesMapperService.map(candidateProfile, findRelevantJobExperience(candidateProfile)))
     );
 
     this.candidateDetailModel$ = this.candidateDetailModelFactory.create(this.candidateProfile$);

@@ -3,6 +3,7 @@ import {
   JobExperience
 } from '../shared/backend-services/candidate/candidate.types';
 import {
+  Contact,
   Degree,
   Experience,
   Gender,
@@ -10,7 +11,8 @@ import {
 } from '../shared/backend-services/shared.types';
 import { GenderAwareOccupationLabel } from '../shared/occupations/occupation.service';
 import { OccupationCode } from '../shared/backend-services/reference-service/occupation-label.types';
-import { User, UserRole } from '../core/auth/user.model';
+import { isAuthenticatedUser, User, UserRole } from '../core/auth/user.model';
+import { JobCenter } from '../shared/backend-services/reference-service/job-center.types';
 
 const SWISS_CANTONS_NUMBER = 26;
 
@@ -138,6 +140,20 @@ export const preferredWorkLocations = (candidateProfile: CandidateProfile): stri
     }
   }
   return result;
+};
+
+export const candidateContact = (candidateProfile: CandidateProfile, jobCenter: JobCenter, user: User): Contact => {
+  if (jobCenter && (jobCenter.code.startsWith('BEA') || jobCenter.code.startsWith('BSA'))) {
+    return { phone: jobCenter.phone, email: jobCenter.email };
+  } else {
+    const jobAdvisorContact = candidateProfile.jobAdvisor;
+    if (!(jobCenter.showContactDetailsToPublic || isAuthenticatedUser(user))) {
+      jobAdvisorContact.firstName = null;
+      jobAdvisorContact.lastName = null;
+      jobAdvisorContact.email = null;
+    }
+    return jobAdvisorContact;
+  }
 };
 
 export const canViewCandidateProtectedData = (candidateProfile: CandidateProfile, currentUser: User): boolean => {

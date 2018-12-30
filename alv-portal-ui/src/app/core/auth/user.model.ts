@@ -19,7 +19,7 @@ export const isAnyUser = () => {
 };
 
 export const isAuthenticatedUser = (user: User) => {
-  return !!user && user.isRegistered();
+  return !!user && (user.isRegistered() || user.isAdmin());
 };
 
 export const isNotAuthenticatedUser = (user: User) => {
@@ -79,6 +79,9 @@ export class User {
     return this.registrationStatus === RegistrationStatus.REGISTERED;
   }
 
+  isAdmin() {
+    return this.hasAnyAuthorities([UserRole.ROLE_ADMIN])
+  }
 }
 
 

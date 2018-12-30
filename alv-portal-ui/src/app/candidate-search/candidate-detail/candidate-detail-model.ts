@@ -4,7 +4,7 @@ import {
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
-import { LanguageSkill } from '../../shared/backend-services/shared.types';
+import { Contact, LanguageSkill } from '../../shared/backend-services/shared.types';
 import { preferredWorkLocations } from '../candidate-rules';
 
 /**
@@ -18,7 +18,9 @@ export class CandidateDetailModel {
   constructor(public candidateProfile: CandidateProfile,
               public jobCenter: JobCenter,
               public jobExperiencesModels: JobExperienceModel[],
-              public protectedData: CandidateProtectedData) {
+              public protectedData: CandidateProtectedData,
+              public contact: Contact
+  ) {
     this.workRegions = preferredWorkLocations(this.candidateProfile);
   }
 
@@ -45,3 +47,4 @@ export interface JobExperienceModel {
   displayGraduation: boolean;
   displayDegree: boolean;
 }
+
