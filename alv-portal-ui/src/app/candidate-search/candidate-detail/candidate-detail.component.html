@@ -62,12 +62,12 @@
                   {{contact.firstName}} {{contact.lastName}}
                 </div>
                 <div>
-                  <span>{{'candidate-detail.job-center.phone.label' | translate}} </span>
-                  <a href="tel:{{contact.phone}}">{{contact.phone}}</a>
+                  {{'candidate-detail.job-center.phone.label' | translate}}
+                  : <a href="tel:{{contact.phone}}">{{contact.phone}}</a>
                 </div>
                 <div *ngIf="contact.email">
-                  <span>{{'candidate-detail.job-center.email.label' | translate}}</span>
-                  <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+                  {{'candidate-detail.job-center.email.label' | translate}}
+                  : <a href="mailto:{{contact.email}}">{{contact.email}}</a>
                 </div>
               </div>
 
