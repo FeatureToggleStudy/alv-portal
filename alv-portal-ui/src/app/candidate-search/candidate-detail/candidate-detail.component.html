@@ -103,32 +103,22 @@
             </strong>
             <h3 class="text-primary text-capitalize">{{jobExperience.occupationLabel}}</h3>
             <ul class="alv-list">
-              <li *ngIf="jobExperience.jobExperience.remark as remark">
-                <strong>
-                  {{ 'candidate-detail.job-experience.description.label' | translate }}
-                </strong>
-                <div class="list-item-content">
-                  {{remark}}
-                </div>
-              </li>
-              <li *ngIf="jobExperience.displayGraduation && jobExperience.jobExperience.graduation as graduation">
-                <strong>{{ 'candidate-detail.job-experience.graduation.label' | translate }}</strong>
-                <div class="list-item-content">
-                  {{ 'candidate-detail.graduation.' + graduation | translate}}
-                </div>
-              </li>
-              <li *ngIf="jobExperience.displayDegree && jobExperience.jobExperience.degree as degree">
-                <strong>{{ 'candidate-detail.job-experience.degree.label' | translate }}</strong>
-                <div class="list-item-content">
-                  {{ 'global.degree.' + degree | translate}}
-                </div>
-              </li>
-              <li *ngIf="jobExperience.jobExperience.experience as experience">
-                <strong>{{ 'candidate-detail.job-experience.experience.label' | translate }}</strong>
-                <div class="list-item-content">
-                  {{ 'global.experience.' + experience | translate }}
-                </div>
-              </li>
+              <alv-list-item-content *ngIf="jobExperience.jobExperience.remark as remark"
+                                     label="candidate-detail.job-experience.description.label">
+                {{remark}}
+              </alv-list-item-content>
+              <alv-list-item-content *ngIf="jobExperience.displayGraduation && jobExperience.jobExperience.graduation as graduation"
+                                     label="candidate-detail.job-experience.graduation.label">
+                {{ 'candidate-detail.graduation.' + graduation | translate}}
+              </alv-list-item-content>
+              <alv-list-item-content *ngIf="jobExperience.displayDegree && jobExperience.jobExperience.degree as degree"
+                                     label="candidate-detail.job-experience.degree.label">
+                {{ 'global.degree.' + degree | translate}}
+              </alv-list-item-content>
+              <alv-list-item-content *ngIf="jobExperience.jobExperience.experience as experience"
+                                     label="candidate-detail.job-experience.experience.label">
+                {{ 'global.experience.' + experience | translate }}
+              </alv-list-item-content>
             </ul>
           </ng-container>
         </alv-collapse-panel>
@@ -138,58 +128,36 @@
                             panelTitle="portal.candidate-detail.language-skills.label">
           <alv-language-skills [languages]="candidateDetailModel.languages">
           </alv-language-skills>
-
         </alv-collapse-panel>
 
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_OTHER_INFO"
                             panelTitle="candidate-detail.additional-information.title">
           <ul class="alv-list">
-            <li *ngIf="candidateDetailModel.candidateProfile.workForm.length">
-              <strong>
-                {{ 'candidate-detail.additional-information.workForm.label' | translate }}
-              </strong>
-              <div class="list-item-content">
-                <ng-container *ngFor="let workForm of candidateDetailModel.candidateProfile.workForm | keys; last as isLast">
-                  {{('global.workForm.' + workForm.value | translate) + (isLast ? '' : ', ')}}
-                </ng-container>
-              </div>
-            </li>
-            <li *ngIf="candidateDetailModel.candidateProfile.gender">
-              <strong>
-                {{ 'candidate-detail.additional-information.gender.label' | translate }}
-              </strong>
-              <div class="list-item-content">
-                {{ 'global.gender.' + candidateDetailModel.candidateProfile.gender | translate }}
-              </div>
-            </li>
-            <li *ngIf="candidateDetailModel.candidateProfile.highestEducationLevel">
-              <strong>
-                {{ 'candidate-detail.additional-information.highestEducationLevel.label' | translate }}
-              </strong>
-              <div class="list-item-content">
-                {{ 'global.education.' + candidateDetailModel.candidateProfile.highestEducationLevel | translate }}
-              </div>
-            </li>
-            <li *ngIf="candidateDetailModel.candidateProfile.highestDegree">
-              <strong>
-                {{ 'candidate-detail.additional-information.education.label' | translate }}
-              </strong>
-              <div class="list-item-content">
-                {{ 'global.degree.' + candidateDetailModel.candidateProfile.highestDegree | translate }}
-              </div>
-            </li>
-            <li *ngIf="candidateDetailModel.workRegions.length">
-              <strong>
-                {{ 'candidate-detail.additional-information.preferredWorkRegions.label' | translate }}
-              </strong>
-              <div class="list-item-content">
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.workForm.length"
+                                   label="candidate-detail.additional-information.workForm.label">
+              <ng-container *ngFor="let workForm of candidateDetailModel.candidateProfile.workForm | keys; last as isLast">
+                {{('global.workForm.' + workForm.value | translate) + (isLast ? '' : ', ')}}
+              </ng-container>
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.gender"
+                                   label="candidate-detail.additional-information.gender.label">
+              {{ 'global.gender.' + candidateDetailModel.candidateProfile.gender | translate }}
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.highestEducationLevel"
+                                   label="candidate-detail.additional-information.highestEducationLevel.label">
+              {{ 'global.education.' + candidateDetailModel.candidateProfile.highestEducationLevel | translate }}
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.highestDegree"
+                                   label="candidate-detail.additional-information.education.label">
+              {{ 'global.degree.' + candidateDetailModel.candidateProfile.highestDegree | translate }}
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.workRegions.length"
+                                   label="candidate-detail.additional-information.preferredWorkRegions.label">
                 <span *ngFor="let region of candidateDetailModel.workRegions; let last = last">
                     {{ region | translate}}
                   <ng-container *ngIf="!last">,</ng-container>
                 </span>
-              </div>
-            </li>
-
+            </alv-list-item-content>
             <!--fixme more fields-->
           </ul>
         </alv-collapse-panel>
@@ -198,26 +166,18 @@
                             [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
                             panelTitle="candidate-detail.personal-information.title">
           <ul class="alv-list">
-            <li *ngIf="candidateProtectedData.firstName || candidateProtectedData.lastName">
-              <strong>
-                {{ 'candidate-detail.personal-information.name.label' | translate }}
-              </strong>
-              <div class="list-item-content text-capitalize">
+            <alv-list-item-content *ngIf="candidateProtectedData.firstName || candidateProtectedData.lastName"
+                                   label="candidate-detail.personal-information.name.label">
+              <div class="text-capitalize">
                 {{ candidateProtectedData.lastName | lowercase}} {{ candidateProtectedData.firstName | lowercase}}
               </div>
-            </li>
-            <li *ngIf="candidateProtectedData.nationalityCode">
-              <strong>
-                {{ 'candidate-detail.personal-information.nationality.label' | translate }}
-              </strong>
-              <div class="list-item-content">
-                {{ candidateProtectedData.nationalityCode }}
-              </div>
-            </li>
-            <li *ngIf="candidateProtectedData.address as address">
-              <strong>
-                {{ 'candidate-detail.personal-information.address.label' | translate }}
-              </strong>
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateProtectedData.nationalityCode"
+                                   label="candidate-detail.personal-information.nationality.label">
+              {{ candidateProtectedData.nationalityCode }}
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateProtectedData.address as address"
+                                   label="candidate-detail.personal-information.address.label">
               <alv-post-address class="list-item-content"
                                 [address]="{
                                   name: null,
@@ -225,7 +185,7 @@
                                   postalCode: address.zipCode,
                                   city: address.city}">
               </alv-post-address>
-            </li>
+            </alv-list-item-content>
             <!--fixme more fields-->
           </ul>
           <pre>{{protectedData|json}}</pre>
@@ -283,7 +243,6 @@
         </li>
       </ul>
     </div>
-
   </alv-three-column-layout>
 </div>
 
