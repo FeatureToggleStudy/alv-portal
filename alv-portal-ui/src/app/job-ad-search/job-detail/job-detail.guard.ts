@@ -3,10 +3,12 @@ import {
   CanActivate,
   RouterStateSnapshot
 } from '@angular/router';
-import { Observable, of } from 'rxjs/index';
-import { JobAdSearchState } from '../state-management/state/job-ad-search.state';
+import { Observable, of } from 'rxjs';
+import {
+  JobAdSearchState,
+  JobAdvertisementDetailLoadedAction
+} from '../state-management';
 import { Store } from '@ngrx/store';
-import { JobAdvertisementDetailLoadedAction } from '../state-management/actions/job-ad-search.actions';
 import { catchError, map, tap } from 'rxjs/internal/operators';
 import { JobAdvertisementRepository } from '../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { Injectable } from '@angular/core';

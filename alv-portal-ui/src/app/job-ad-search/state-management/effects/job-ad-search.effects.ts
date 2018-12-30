@@ -18,7 +18,7 @@ import {
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
   RESET_FILTER
-} from '../actions/job-ad-search.actions';
+} from '../actions';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
   catchError,
