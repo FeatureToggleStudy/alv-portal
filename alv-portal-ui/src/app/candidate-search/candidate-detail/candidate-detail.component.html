@@ -178,23 +178,15 @@
                 {{ 'global.degree.' + candidateDetailModel.candidateProfile.highestDegree | translate }}
               </div>
             </li>
-            <li *ngIf="candidateDetailModel.candidateProfile.preferredWorkRegions?.length || candidateDetailModel.candidateProfile.preferredWorkCantons?.length">
+            <li *ngIf="candidateDetailModel.workRegions.length">
               <strong>
                 {{ 'candidate-detail.additional-information.preferredWorkRegions.label' | translate }}
               </strong>
               <div class="list-item-content">
-                <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkRegions?.length">
-                  <span *ngFor="let region of candidateDetailModel.candidateProfile.preferredWorkRegions; let last = last">
-                    {{'global.reference.region.' + region | translate}}
-                    <ng-container *ngIf="!last || candidateDetailModel.candidateProfile.preferredWorkCantons?.length">,</ng-container>
-                  </span>
-                </ng-container>
-                <ng-container *ngIf="candidateDetailModel.candidateProfile.preferredWorkCantons?.length">
-                  <span *ngFor="let canton of candidateDetailModel.candidateProfile.preferredWorkCantons; let last = last">
-                    {{'global.reference.canton.' + canton | translate}}
-                    <ng-container *ngIf="!last">,</ng-container>
-                  </span>
-                </ng-container>
+                <span *ngFor="let region of candidateDetailModel.workRegions; let last = last">
+                    {{ region | translate}}
+                  <ng-container *ngIf="!last">,</ng-container>
+                </span>
               </div>
             </li>
 
@@ -263,11 +255,11 @@
       <ul class="nav flex-column">
         <li>
           <button (cbOnSuccess)="onCopyLink()"
-             [cbContent]="getCandidateUrl()"
-             [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
-             class="btn btn-text btn-text-icon btn-truncate"
-             ngxClipboard
-             triggers="manual">
+                  [cbContent]="getCandidateUrl()"
+                  [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
+                  class="btn btn-text btn-text-icon btn-truncate"
+                  ngxClipboard
+                  triggers="manual">
             <i aria-hidden="true"
                class="fa fa-copy mr-1"></i>
             {{'candidate-detail.candidate-copy-link' | translate}}
@@ -283,7 +275,7 @@
         </li>
         <li class="d-none d-md-block">
           <button (click)="printCandidate()"
-             class="btn btn-text btn-text-icon btn-truncate">
+                  class="btn btn-text btn-text-icon btn-truncate">
             <i aria-hidden="true"
                class="fa fa-print mr-1"></i>
             {{'candidate-detail.candidate-print' | translate}}
