@@ -40,15 +40,14 @@
 
           <div class="contact-panel">
 
-            <div class="panel-title"> Weitere Auskünfte erteilt</div>
+            <div class="panel-title">
+              {{ 'candidate-detail.job-center.title' | translate }}
+            </div>
 
             <!-- display job center information, if available -->
             <div *ngIf="candidateDetailModel.jobCenter as jobCenter"
                  class="order-sm-2 alv-logo-box">
               <div *ngIf="jobCenter.address as address">
-                <strong>
-                  {{ 'portal.job-detail.reference.responsible-job-center' | translate }}
-                </strong>
                 <alv-post-address [address]="{
                         name: address.name,
                         street: address.street,
