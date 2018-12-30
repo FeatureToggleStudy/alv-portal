@@ -80,7 +80,7 @@ export class User {
   }
 
   isAdmin() {
-    return this.hasAnyAuthorities([UserRole.ROLE_ADMIN])
+    return this.hasAnyAuthorities([UserRole.ROLE_ADMIN]);
   }
 }
 
