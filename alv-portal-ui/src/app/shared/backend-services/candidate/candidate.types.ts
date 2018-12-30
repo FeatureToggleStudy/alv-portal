@@ -23,20 +23,20 @@ export interface CandidateSearchResponse {
 }
 
 export interface CandidateSearchRequestBody {
-  occupationCodes?: OccupationCode[];
-  skills?: Array<string>;
-  experience?: string;
+  occupationCodes: OccupationCode[];
+  skills: string[];
+  experience: string;
   workplace?: string;
-  residence?: Array<string>;
-  cantonCode?: string;
-  regionCode?: string;
-  availability?: string;
-  workLoad?: WorkLoad;
-  workForm?: string;
-  degree?: string;
-  graduation?: string;
-  drivingLicenceCategory?: string;
-  languageSkills?: FilterLanguageSkill[];
+  residence: string[];
+  cantonCode: string;
+  regionCode: string;
+  availability: string;
+  workLoad: WorkLoad;
+  workForm: string;
+  degree: string;
+  graduation: string;
+  drivingLicenceCategory: string;
+  languageSkills: FilterLanguageSkill[];
 }
 
 export interface WorkLoad {

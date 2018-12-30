@@ -29,6 +29,7 @@ import {
   ApplyFilterAction,
   CandidateSearchRequestMapper,
   CandidateSearchState,
+  FILTER_APPLIED,
   FilterAppliedAction,
   FilterResetAction,
   getCandidateSearchFilter,
@@ -57,7 +58,6 @@ export class CandidateSearchEffects {
   @Effect()
   initCandidateSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
-    take(1),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
     switchMap(([a, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
       .pipe(
@@ -68,7 +68,7 @@ export class CandidateSearchEffects {
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       )
     ),
-    takeUntil(this.actions$.pipe(ofType(APPLY_FILTER)))
+    takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED)))
   );
 
   @Effect()
