@@ -1,17 +1,16 @@
+import { CandidateSearchState, initialState } from '../state';
 import {
   Actions,
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
   CANDIDATE_PROFILE_DETAIL_LOADED,
-  CandidateSearchState,
   FILTER_APPLIED,
-  initialState,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET_FILTER
-} from '..';
+} from '../actions';
 
 export function candidateSearchReducer(state = initialState, action: Actions): CandidateSearchState {
   let newState: CandidateSearchState;

@@ -16,7 +16,6 @@ import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupa
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
 import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
 
-
 export interface CandidateSearchState {
   totalCount: number;
   page: number;

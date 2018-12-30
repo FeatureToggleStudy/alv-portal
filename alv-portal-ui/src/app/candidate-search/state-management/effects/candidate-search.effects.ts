@@ -27,15 +27,9 @@ import {
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
   ApplyFilterAction,
-  CandidateSearchRequestMapper,
-  CandidateSearchState,
   FILTER_APPLIED,
   FilterAppliedAction,
   FilterResetAction,
-  getCandidateSearchFilter,
-  getCandidateSearchState,
-  getNextId,
-  getPrevId,
   INIT_RESULT_LIST,
   LOAD_NEXT_CANDIDATE_PROFILE_DETAIL,
   LOAD_NEXT_PAGE,
@@ -45,9 +39,17 @@ import {
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
   RESET_FILTER
-} from '..';
+} from '../actions';
 import { Router } from '@angular/router';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
+import {
+  CandidateSearchState,
+  getCandidateSearchFilter,
+  getCandidateSearchState,
+  getNextId,
+  getPrevId
+} from '../state';
+import { CandidateSearchRequestMapper } from './candidate-search-request.mapper';
 
 export const CANDIDATE_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('CANDIDATE_SEARCH_EFFECTS_DEBOUNCE');
 export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('CANDIDATE_SEARCH_EFFECTS_SCHEDULER');
