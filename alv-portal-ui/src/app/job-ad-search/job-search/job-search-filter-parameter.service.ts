@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { JobSearchFilter, } from '../state-management/state/job-search-filter.types';
+import { JobSearchFilter, } from '../state-management';
 import { Base64Service } from '../../core/base64.service';
 import { OccupationMultiTypeaheadItem } from '../../shared/occupations/occupation-multi-typeahead-item';
 import { SimpleMultiTypeaheadItem } from '../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';

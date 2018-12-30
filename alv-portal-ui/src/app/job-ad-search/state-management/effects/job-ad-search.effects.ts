@@ -38,7 +38,7 @@ import {
   getNextId,
   getPrevId,
   JobAdSearchState
-} from '../state/job-ad-search.state';
+} from '../state';
 import { JobSearchRequestMapper } from './job-search-request.mapper';
 import { Router } from '@angular/router';
 import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';

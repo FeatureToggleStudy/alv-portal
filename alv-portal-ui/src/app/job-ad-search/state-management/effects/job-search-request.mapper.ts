@@ -1,4 +1,3 @@
-import { ContractType, JobSearchFilter, Sort } from '../state/job-search-filter.types';
 import {
   JobAdvertisementSearchRequest,
   ProfessionCode
@@ -9,6 +8,7 @@ import {
   LocalityInputType,
   LocalityMultiTypeaheadItem
 } from '../../../shared/localities/locality-multi-typeahead-item';
+import { ContractType, JobSearchFilter, Sort } from '../state';
 
 const ITEMS_PER_PAGE = 20;
 
