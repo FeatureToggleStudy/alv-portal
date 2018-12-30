@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Notification } from '../../shared/layout/notifications/notification.model';
 import { CandidateDetailPanelId } from './candidate-detail-panel-id.enum';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { CandidateProfile } from '../../shared/backend-services/candidate/candidate.types';
 import { select, Store } from '@ngrx/store';
 import {

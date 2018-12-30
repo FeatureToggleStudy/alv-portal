@@ -10,7 +10,7 @@ import {
   CandidateSearchState
 } from '../state-management';
 import { CandidateRepository } from '../../shared/backend-services/candidate/candidate.repository';
-import { Observable, of } from 'rxjs/index';
+import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/internal/operators';
 
 @Injectable()
