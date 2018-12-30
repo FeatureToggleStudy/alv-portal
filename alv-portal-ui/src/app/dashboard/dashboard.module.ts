@@ -11,6 +11,7 @@ import { GravatarModule } from 'ngx-gravatar';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-d
     CompanyDashboardComponent,
     JobSeekerDashboardComponent,
     PavDashboardComponent,
-    DashboardComponent
+    DashboardComponent,
+    AdminDashboardComponent
   ],
   imports: [
     ReactiveFormsModule,

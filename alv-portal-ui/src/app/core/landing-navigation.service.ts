@@ -16,15 +16,19 @@ export class LandingNavigationService {
       return this.router.navigate(['home']);
     }
 
-    // For authorised user without permissions - navigate to finish registration page:
-    if (user.registrationStatus === RegistrationStatus.UNREGISTERED) {
-      return this.router.navigate(['registration', 'finish']);
+    if (!user.isRegistered()) {
+      // For authorised user without permissions - navigate to finish registration page:
+      if (user.registrationStatus === RegistrationStatus.UNREGISTERED
+      ) {
+        return this.router.navigate(['registration', 'finish']);
+      }
+      // For PAV and companies with open validation - navigate to access code page
+      if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
+        user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
+        return this.router.navigate(['registration', 'access-code']);
+      }
     }
-    // For PAV and companies with open validation - navigate to access code page
-    if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
-      user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
-      return this.router.navigate(['registration', 'access-code']);
-    }
+
     // For jobseekers: to dashboard page for jobseeker
     if (user.hasAnyAuthorities([UserRole.ROLE_JOB_SEEKER])) {
       return this.router.navigate(['dashboard', 'job-seeker']);
@@ -37,6 +41,11 @@ export class LandingNavigationService {
     if (user.hasAnyAuthorities([UserRole.ROLE_PAV])) {
       return this.router.navigate(['dashboard', 'pav']);
     }
+
+    if (user.hasAnyAuthorities([UserRole.ROLE_ADMIN])) {
+      return this.router.navigate(['dashboard', 'admin']);
+    }
+
     return this.router.navigate(['home']);
   }
 }
