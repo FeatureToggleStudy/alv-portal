@@ -178,12 +178,11 @@
             </alv-list-item-content>
             <alv-list-item-content *ngIf="candidateProtectedData.address as address"
                                    label="candidate-detail.personal-information.address.label">
-              <alv-post-address class="list-item-content"
-                                [address]="{
-                                  name: null,
-                                  street: address.street,
-                                  postalCode: address.zipCode,
-                                  city: address.city}">
+              <alv-post-address [address]="{
+                                 name: null,
+                                 street: address.street,
+                                 postalCode: address.zipCode,
+                                 city: address.city}">
               </alv-post-address>
             </alv-list-item-content>
             <!--fixme more fields-->
