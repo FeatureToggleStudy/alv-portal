@@ -13,5 +13,5 @@ export interface JobCenter {
   phone: string;
   fax: string;
   address: Address;
-  showContactDetailsToPublic: boolean;
+  showContactDetailsToPublic?: boolean;
 }
