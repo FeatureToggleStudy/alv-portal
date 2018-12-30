@@ -12,6 +12,11 @@ import { GenderAwareOccupationLabel } from '../shared/occupations/occupation.ser
 import { OccupationCode } from '../shared/backend-services/reference-service/occupation-label.types';
 import { User, UserRole } from '../core/auth/user.model';
 
+const SWISS_CANTONS_NUMBER = 26;
+
+const ABROAD_CODE = '99';
+
+const SWISS_CODE = 'CH';
 
 const matches = (jobExperience: JobExperience, occupationCode: { value: string; type: string }) => {
   const { avamCode, bfsCode, sbn3Code, sbn5Code } = jobExperience.occupation;
@@ -111,6 +116,29 @@ export const isDisplayDegree = (degree: Degree): boolean => {
     && Degree[degree] <= Degree.TER_DOKTORAT_UNIVERSITAET;
 };
 
+export const preferredWorkLocations = (candidateProfile: CandidateProfile): string[] => {
+  let result = [];
+  if (candidateProfile.preferredWorkRegions) {
+    result = result.concat(candidateProfile.preferredWorkRegions
+      .map((r) => `global.reference.region.${r}`));
+  }
+  if (candidateProfile.preferredWorkCantons) {
+    const swissCantons = candidateProfile.preferredWorkCantons
+      .filter((c) => c !== ABROAD_CODE);
+    if (swissCantons.length < SWISS_CANTONS_NUMBER) {
+      result = result.concat(candidateProfile.preferredWorkCantons
+        .map((c) => `global.reference.canton.${c}`));
+    } else {
+      result.push(`global.reference.canton.${SWISS_CODE}`);
+      const workAbroad = candidateProfile.preferredWorkCantons
+        .some((c) => c === ABROAD_CODE);
+      if (workAbroad) {
+        result.push(`global.reference.canton.${ABROAD_CODE}`);
+      }
+    }
+  }
+  return result;
+};
 
 export const canViewCandidateProtectedData = (candidateProfile: CandidateProfile, currentUser: User): boolean => {
   return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_ADMIN]) && candidateProfile.showProtectedData);

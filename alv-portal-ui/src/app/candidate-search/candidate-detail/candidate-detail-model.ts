@@ -5,7 +5,7 @@ import {
 } from '../../shared/backend-services/candidate/candidate.types';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 import { LanguageSkill } from '../../shared/backend-services/shared.types';
-
+import { preferredWorkLocations } from '../candidate-rules';
 
 /**
  * A "view-model" for the Candidate-Detail Page that has all of our business logic in it to
@@ -19,20 +19,7 @@ export class CandidateDetailModel {
               public jobCenter: JobCenter,
               public jobExperiencesModels: JobExperienceModel[],
               public protectedData: CandidateProtectedData) {
-    this.workRegions = this.calculateWorkRegions();
-  }
-
-  private calculateWorkRegions(): string[] {
-    let result = [];
-    if (this.candidateProfile.preferredWorkRegions) {
-      result = result.concat(this.candidateProfile.preferredWorkRegions
-        .map((i) => 'global.reference.region.' + i));
-    }
-    if (this.candidateProfile.preferredWorkCantons) {
-      result = result.concat(this.candidateProfile.preferredWorkCantons
-        .map((i) => 'global.reference.canton.' + i));
-    }
-    return result;
+    this.workRegions = preferredWorkLocations(this.candidateProfile);
   }
 
   get lastJobExperience() {

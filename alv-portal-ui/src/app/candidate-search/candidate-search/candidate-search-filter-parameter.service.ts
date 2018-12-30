@@ -22,7 +22,7 @@ export class CandidateSearchFilterParameterService {
     return encodeURIComponent(this.base64Service.encode(JSON.stringify(filter)));
   }
 
-  public decode(filterAsString: string): CandidateSearchFilter {
+  public decodeSearchFilter(filterAsString: string): CandidateSearchFilter {
     const filter: CandidateSearchFilter = JSON.parse(this.base64Service.decode(decodeURIComponent(filterAsString)));
     this.initObjects(filter);
     return filter;
