@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { EMPTY, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import {
@@ -39,13 +39,13 @@ export class CoreEffects {
           this.sessionManagerService.setToken(response.headers.get('Authorization'));
           return new CurrentUserLoadedAction({ currentUser: User.toUser(response.body) });
         }),
-        catchError(err => {
+        catchError<any, Action>((err) => {
           if (err.status === 401) {
-            return EMPTY;
+            return of(new CurrentUserLoadedAction({ currentUser: null }));
           } else {
             return of(new EffectErrorOccurredAction({ httpError: err }));
           }
-        }),
+        })
       );
     }),
   );

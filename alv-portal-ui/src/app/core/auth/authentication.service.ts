@@ -3,14 +3,18 @@ import { Observable } from 'rxjs/internal/Observable';
 import { RegistrationStatus, User, UserRole } from './user.model';
 import { HttpClient } from '@angular/common/http';
 import { ActionsSubject, select, Store } from '@ngrx/store';
-import { CoreState, getCurrentUser } from '../state-management/state/core.state.ts';
+import {
+  CoreState,
+  getCurrentUser,
+  userNotFetched
+} from '../state-management/state/core.state.ts';
 import {
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   LoadCurrentUserAction,
   LogoutUserAction
 } from '../state-management/actions/core.actions';
-import { map, switchMap } from 'rxjs/operators';
+import { map, skipWhile, switchMap } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
 
 @Injectable({
@@ -23,7 +27,10 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient,
               private actionsSubject: ActionsSubject,
               private store: Store<CoreState>) {
-    this.currentUser$ = this.store.pipe(select(getCurrentUser));
+    this.currentUser$ = this.store.pipe(
+      select(getCurrentUser),
+      skipWhile(userNotFetched)
+    );
   }
 
   init() {

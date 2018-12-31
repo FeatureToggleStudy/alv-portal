@@ -3,7 +3,7 @@ import { User } from '../../auth/user.model';
 
 export const initialState: CoreState = {
   currentLanguage: null,
-  currentUser: null,
+  currentUser: undefined,
   mainNavigationExpanded: false
 };
 
@@ -18,3 +18,7 @@ const getCoreState = createFeatureSelector<CoreState>('coreState');
 export const getCurrentLanguage = createSelector(getCoreState, (state: CoreState) => state.currentLanguage);
 export const getCurrentUser = createSelector(getCoreState, (state: CoreState) => state.currentUser);
 export const getMainNavigationExpanded = createSelector(getCoreState, (state: CoreState) => state.mainNavigationExpanded);
+
+export const userNotFetched = (u: User) => {
+  return u === undefined;
+};
