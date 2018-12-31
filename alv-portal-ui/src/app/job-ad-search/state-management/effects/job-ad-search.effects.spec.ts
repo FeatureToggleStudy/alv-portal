@@ -5,7 +5,7 @@ import {
 } from './job-ad-search.effects';
 import { Actions } from '@ngrx/effects';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import { initialState, JobAdSearchState, JobSearchFilter } from '../state';
+import { initialState, JobAdSearchState } from '../state';
 import { Router } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { TestBed } from '@angular/core/testing';
@@ -22,6 +22,8 @@ import { Observable } from 'rxjs';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { jobAdSearchReducer } from '../reducers';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';
 import SpyObj = jasmine.SpyObj;
 
 describe('JobAdSearchEffects', () => {
@@ -59,39 +61,92 @@ describe('JobAdSearchEffects', () => {
   });
 
   describe('initJobSearch$', () => {
+
     const initResultListAction = new InitResultListAction();
 
-    it('should return a new FilterAppliedAction on success, and completes', () => {
-      const jobAd: any = { id: 1 };
-      const result = [jobAd as JobAdvertisement];
+    const jobAd: any = { id: 1 };
+    const result = [jobAd as JobAdvertisement];
+    const jobAdSearchResult = {
+      totalCount: 10,
+      result
+    };
 
-      const jobAdSearchResult = {
-        totalCount: 10,
-        result
-      };
+    const filterApplied = new FilterAppliedAction({
+      page: result,
+      totalCount: 10
+    });
 
-      actions$ = hot('-a--a-', { a: initResultListAction });
+    /*
+     * action : triggered 1x after 10 F and 40 F delay and after it continues
+     * response : returned after 20 F delay
+     * expected : 10 F + 20 F = 30 F delay before we emit 1st result, and 40 F + 20 F = 60 F delay before 2nd result
+     */
+    it('should return a new FilterAppliedAction on success', () => {
+
+      // action
+      actions$ = hot('-a--a--', { a: initResultListAction });
+      // response
       jobAdService.search.and.returnValue(cold('--b|', { b: jobAdSearchResult }));
-
-      const expected = cold('---c|-', {
-        c: new FilterAppliedAction({
-          page: result,
-          totalCount: 10
-        })
-      });
+      // expected
+      const expected = cold('---c--c-', { c: filterApplied });
 
       expect(sut.initJobSearch$).toBeObservable(expected);
     });
 
-    it('should complete after ApplyFilterAction', () => {
+    /*
+     * action : triggered 'a' 1x after 10 F delay and after it continues 2x with 'b' which shouldn't be executed
+     * response : returned empty response after 20 F delay and more importantly ends subscription
+     * expected : 10 F + ends subscription = 10 F delay before we emit result which is ending of subscription
+     *
+     * response delay here isn't counted because we are ending subscription after first triggering 'a'
+     */
+    it('should complete (unsubscribe) after FilterAppliedAction is triggered', () => {
 
+      // action
       actions$ = hot('-a-b--b-', {
-        a: new ApplyFilterAction({} as JobSearchFilter),
+        a: filterApplied,
         b: initResultListAction
       });
-      jobAdService.search.and.returnValue(cold('-c|', { c: {} }));
+      // response
+      jobAdService.search.and.returnValue(cold('--|', {}));
+      // expected
+      const expected = cold('-|----');
 
-      const expected = cold('-|--');
+      expect(sut.initJobSearch$).toBeObservable(expected);
+    });
+
+    /*
+     * action : triggered 'a' 2x after 10 F and 30 F delay and after it continues with 'b' after 60 F delay
+     * response : returned values :
+     *    1st: ERROR response after 10 F delay (for 1st 'a')
+     *    2nd: value response after 10 F delay (for 2nd 'a')
+     *    3rd: end subscription after filterApplied action (irrelevant of F delays) (for 'b')
+     * expected : 3 emitted actions, one from error and one successful action and ending subscription from initResultListAction
+     *    1st: ERROR response after 10 F + 10 F = 20 F delay
+     *    2nd: value response after another 30 F + 10 F = 40 F delay
+     *    3rd: end subscription after 60 F delay (irrelevant of response F)
+     */
+    it('should throw an EffectErrorOccurredAction on error, then proceed to another InitResultListAction, ' +
+      'and finish with an FilterAppliedAction and terminate subscription to initJobSearch', () => {
+
+      const httpError = new HttpErrorResponse({});
+
+      // action
+      actions$ = hot('-a-a--b', {
+        a: initResultListAction,
+        b: filterApplied
+      });
+      // response
+      jobAdService.search.and.returnValues(
+        cold('-#', {}, httpError),
+        cold('-c', {c: jobAdSearchResult}),
+        cold('-|', {})
+      );
+      // expected
+      const expected = cold('--e-d-|', {
+        e: new EffectErrorOccurredAction({ httpError }),
+        d: filterApplied
+      });
 
       expect(sut.initJobSearch$).toBeObservable(expected);
     });
@@ -99,57 +154,130 @@ describe('JobAdSearchEffects', () => {
   });
 
   describe('applyFilter$', () => {
-    const jobSearchFilter = initialState.jobSearchFilter;
 
+    const jobSearchFilter = initialState.jobSearchFilter;
     const applyFilterAction = new ApplyFilterAction(jobSearchFilter);
 
-    it('should return a new FilterAppliedAction on success, and completes with debouncing', () => {
-      const jobAd: any = { id: 1 };
-      const result = [jobAd as JobAdvertisement];
+    const jobAd: any = { id: 1 };
+    const result = [jobAd as JobAdvertisement];
+    const jobAdSearchResult = {
+      totalCount: 10,
+      result
+    };
 
-      const jobAdSearchResult = {
-        totalCount: 10,
-        result
-      };
+    const filterApplied = new FilterAppliedAction({
+      page: result,
+      totalCount: 10
+    });
 
-      const a = '-a-a-a';
-      const r = '---------c'; // debouncing 30 = 3 x _
+    const httpError = new HttpErrorResponse({});
 
-      actions$ = hot(a, { a: applyFilterAction });
+    /*
+     * action : triggered 3x, but only last 'a' is dispatched after 50 F delay
+     * response : returned after 10 F delay
+     * expected : 50 F + 10 F + 30 F from the debounce = 90 F delay before we emit result
+     */
+    it('should return a new FilterAppliedAction on success, and completes with de-bouncing', () => {
+
+      // action
+      actions$ = hot('-a-a-a', { a: applyFilterAction });
+      // response
       jobAdService.search.and.returnValue(cold('-b|', { b: jobAdSearchResult }));
-      const expected = cold(r, {
-        c: new FilterAppliedAction({
-          page: result,
-          totalCount: 10
-        })
+      // expected
+      const expected = cold('---------c', { c: filterApplied });
+
+      expect(sut.applyFilter$).toBeObservable(expected);
+    });
+
+    /*
+     * action : triggered 3x, but only 2nd and 3rd 'a' are dispatched, 2nd after 30 F delay and 3rd after 70 F delay
+     * response : returned after 10 F delay (both actions)
+     * expected : emit 2 same action results,
+     *    1st: after 30 F + 10 F + 30 F from the debounce = 70 F delay
+     *    2nd: after 70 F + 10 F + 30 F from the debounce = 110 F delay (all together from the start!)
+     */
+    it('should return multiple new FilterAppliedAction on success, and completes with de-bouncing', () => {
+
+      // action
+      actions$ = hot('-a-a---a', { a: applyFilterAction });
+      // response
+      jobAdService.search.and.returnValue(cold('-b|', { b: jobAdSearchResult }));
+      // expected
+      const expected = cold('-------c---c', { c: filterApplied });
+
+      expect(sut.applyFilter$).toBeObservable(expected);
+    });
+
+    /*
+     * action : dispatched after 10 F delay
+     * response : return ERROR after 10 F delay
+     * expected : 10 F + 10 F + 30 F from the debounce = 50 F delay before we emit result
+     */
+    it('should return an EffectErrorOccurredAction on error', () => {
+
+      // action
+      actions$ = hot('-a', { a: applyFilterAction });
+      // response
+      jobAdService.search.and.returnValue(cold('-#|', {}, httpError));
+      // expected
+      const expected = cold('-----c', {
+        c: new EffectErrorOccurredAction({ httpError })
       });
 
       expect(sut.applyFilter$).toBeObservable(expected);
     });
+
+    /*
+     * action : dispatched after 10 F delay and after debounce again after 50 F delay
+     * response : return ERROR after 10 F delay, and another response is correct result after additional 10 F delay
+     * expected : two emitted results, one error and one successful
+     *    1st: after 10 F + 10 F + 30 F debounce = 50 F delay (emitted ERROR)
+     *    2nd: after 50 F + 10 F + 30 F debounce = 90 F delay (emitted valid result)
+     */
+    it('should return an EffectErrorOccurredAction on error, and after it correct result', function () {
+      // action
+      actions$ = hot('-a---a-', { a: applyFilterAction });
+      // response
+      jobAdService.search.and.returnValues(
+          cold('-#', {}, httpError),
+          cold('-b', {b: jobAdSearchResult})
+      );
+      // expected
+      const expected = cold('-----e---c-', {
+        e: new EffectErrorOccurredAction({ httpError }),
+        c: filterApplied
+      });
+
+      expect(sut.applyFilter$).toBeObservable(expected);
+    });
+
   });
 
   describe('loadNextJobAdvertisementDetail$', () => {
 
+    /*
+     * action : triggered 3x, 'a' after 10 F  and 30 F delay, and 'b' after 60 F delay
+     * response : returned after 10 F delay result (irrelevant because we are actually triggering
+     *    nextPageLoadedAction in H.O. so it's already returned response there, with no delay
+     * expected : emit result after 60 F delay, when we get nextPageLoadedAction
+     */
     it('should load next job ad', () => {
+
       const jobAd: any = { id: 'job-ad-001' };
       const result = [jobAd as JobAdvertisement];
-
-      const jobAdSearchResult = {
-        totalCount: 10,
-        result
-      };
 
       const loadNextJobAdvertisementDetailAction = new LoadNextJobAdvertisementDetailAction();
       const nextPageLoadedAction = new NextPageLoadedAction({ page: result });
 
-      actions$ = hot('-a-b--b', {
+      // action
+      actions$ = hot('-a-a--b--', {
         a: loadNextJobAdvertisementDetailAction,
         b: nextPageLoadedAction
       });
-      jobAdService.search.and.returnValue(cold('-b|', { b: jobAdSearchResult }));
 
-      const expected = cold('---c---', {
-        c: { type: 'nothing' }
+      // expected
+      const expected = cold('------d-', {
+        d: { type: 'nothing' }
       });
 
       expect(sut.loadNextJobAdvertisementDetail$).toBeObservable(expected);
