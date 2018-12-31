@@ -17,6 +17,7 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
+  FILTER_APPLIED,
   RESET_FILTER
 } from '../actions/job-ad-search.actions';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
@@ -60,16 +61,15 @@ export class JobAdSearchEffects {
   @Effect()
   initJobSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
-    take(1),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     switchMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
-      map((response) => new FilterAppliedAction({
-        page: response.result,
-        totalCount: response.totalCount
-      })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-    )),
-    takeUntil(this.actions$.pipe(ofType(APPLY_FILTER))),
+        map((response) => new FilterAppliedAction({
+            page: response.result,
+            totalCount: response.totalCount
+          })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      )),
+    takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
   );
 
   @Effect()
