@@ -61,10 +61,10 @@
                   {{contact.firstName}} {{contact.lastName}}
                 </div>
                 <div *ngIf="contact.phone">
-                  <a href="tel:{{contact.phone}}">{{contact.phone | phoneNumber}}</a>
+                  <a class="link" href="tel:{{contact.phone}}">{{contact.phone | phoneNumber}}</a>
                 </div>
                 <div *ngIf="contact.email">
-                  <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+                  <a class="link" href="mailto:{{contact.email}}">{{contact.email}}</a>
                 </div>
               </div>
 
@@ -106,7 +106,7 @@
                             *ngIf="candidateDetailModel.jobExperiencesModels  as jobExperiences"
                             panelTitle="candidate-detail.job-experience.title">
           <!--last job-->
-          <ng-container *ngFor="let jobExperience of jobExperiences | slice:0:3; let i = index">
+          <ng-container *ngFor="let jobExperience of jobExperiences; let i = index">
             <hr *ngIf="i > 0">
             <strong *ngIf="i < 2">
               {{ (jobExperience.jobExperience.lastJob ?
@@ -203,9 +203,22 @@
                                  city: address.city}">
               </alv-post-address>
             </alv-list-item-content>
-            <!--fixme DF-413 add more fields-->
+
+            <alv-list-item-content *ngIf="candidateProtectedData.phone"
+                                   label="candidate-detail.personal-information.phone.label">
+              <a class="link" href="tel:{{candidateProtectedData.phone}}">{{candidateProtectedData.phone | phoneNumber}}</a>
+            </alv-list-item-content>
+
+            <alv-list-item-content *ngIf="candidateProtectedData.mobile"
+                                   label="candidate-detail.personal-information.mobile.label">
+              <a class="link" href="tel:{{candidateProtectedData.mobile}}">{{candidateProtectedData.mobile | phoneNumber}}</a>
+            </alv-list-item-content>
+
+            <alv-list-item-content *ngIf="candidateProtectedData.email"
+                                   label="candidate-detail.personal-information.e-mail.label">
+              <a class="link" href="mailto:{{candidateProtectedData.email}}">{{candidateProtectedData.email}}</a>
+            </alv-list-item-content>
           </ul>
-          <pre>{{protectedData|json}}</pre>
         </alv-collapse-panel>
       </div>
     </div>
