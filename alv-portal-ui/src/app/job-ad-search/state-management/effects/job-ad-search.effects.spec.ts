@@ -266,11 +266,6 @@ describe('JobAdSearchEffects', () => {
       const jobAd: any = { id: 'job-ad-001' };
       const result = [jobAd as JobAdvertisement];
 
-      const jobAdSearchResult = {
-        totalCount: 10,
-        result
-      };
-
       const loadNextJobAdvertisementDetailAction = new LoadNextJobAdvertisementDetailAction();
       const nextPageLoadedAction = new NextPageLoadedAction({ page: result });
 
@@ -279,8 +274,7 @@ describe('JobAdSearchEffects', () => {
         a: loadNextJobAdvertisementDetailAction,
         b: nextPageLoadedAction
       });
-      // response
-      jobAdService.search.and.returnValue(cold('-c', { c: jobAdSearchResult }));
+
       // expected
       const expected = cold('------d-', {
         d: { type: 'nothing' }
