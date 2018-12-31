@@ -38,9 +38,6 @@ export class CandidateDetailComponent implements OnInit {
 
   nextEnabled$: Observable<boolean>;
 
-  //todo: implement
-  alerts$: Observable<Notification[]>;
-
   badges$: Observable<CandidateProfileBadge[]>;
 
   candidateDetailPanelId = CandidateDetailPanelId;

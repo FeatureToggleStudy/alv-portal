@@ -3,29 +3,59 @@
                            [mobileOrdering]="[2, 1, null]">
     <!--Mobile only - back button and dropdown menu-->
     <div class="mobile-menu-bar">
-      <div>
-        <a class="btn btn-text btn-text-icon mb-2"
-           routerLink="/candidate-search">
-          <i class="fa fa-caret-left mr-1"></i>
-          {{'candidate-detail.back' | translate}}
-        </a>
-      </div>
-      <div #mobileActionsMenu="ngbDropdown"
-           class="d-inline-block"
-           ngbDropdown
-           placement="bottom-right">
-        <button (click)="mobileActionsMenu.toggle()"
-                class="btn btn-text btn-icon"
-                id="dropdownMenu"
-                ngbDropdownAnchor
-                aria-label="Open candidate detail menu">
-          <i class="fa fa-ellipsis-v"></i>
-        </button>
-        <div aria-label="Candidate detail menu"
-             ngbDropdownMenu>
-          <!-- TODO: mobile actions -->
+      <div class="d-flex justify-content-between">
+        <div>
+          <a class="btn btn-text btn-text-icon"
+             routerLink="/candidate-search">
+            <i class="fa fa-caret-left mr-1"></i>
+            {{'candidate-detail.back' | translate}}
+          </a>
+        </div>
+        <div #mobileActionsMenu="ngbDropdown"
+             class="d-inline-block"
+             ngbDropdown
+             placement="bottom-right">
+          <button (click)="mobileActionsMenu.toggle()"
+                  class="btn btn-text btn-icon"
+                  id="dropdownMenu"
+                  ngbDropdownAnchor
+                  aria-label="Open candidate detail menu">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <div aria-label="Candidate detail menu"
+               ngbDropdownMenu>
+
+            <button (click)="prev()"
+                    [disabled]="!(prevEnabled$ | async)"
+                    class="dropdown-item">
+              {{'portal.job-detail.previous-result' | translate}}
+            </button>
+
+            <button (click)="next()"
+                    [disabled]="!(nextEnabled$ | async)"
+                    class="dropdown-item">
+              {{'portal.job-detail.next-result' | translate}}
+            </button>
+            <button (cbOnSuccess)="onCopyLink()"
+                    [cbContent]="getCandidateUrl()"
+                    [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
+                    class="dropdown-item"
+                    ngxClipboard
+                    triggers="manual">
+              {{'candidate-detail.candidate-copy-link' | translate}}
+            </button>
+            <a [href]="'mailto:?body=' + getEncodedUrl()"
+               class="dropdown-item">
+              {{'job-detail.action.sendEmail' | translate}}
+            </a>
+            <button (click)="printCandidate()"
+                    class="dropdown-item">
+              {{'candidate-detail.candidate-print' | translate}}
+            </button>
+          </div>
         </div>
       </div>
+
     </div>
     <!-------------Left panel-->
     <div class="left-column">
@@ -61,10 +91,12 @@
                   {{contact.firstName}} {{contact.lastName}}
                 </div>
                 <div *ngIf="contact.phone">
-                  <a class="link" href="tel:{{contact.phone}}">{{contact.phone | phoneNumber}}</a>
+                  <a class="link"
+                     href="tel:{{contact.phone}}">{{contact.phone | phoneNumber}}</a>
                 </div>
                 <div *ngIf="contact.email">
-                  <a class="link" href="mailto:{{contact.email}}">{{contact.email}}</a>
+                  <a class="link"
+                     href="mailto:{{contact.email}}">{{contact.email}}</a>
                 </div>
               </div>
 
@@ -83,14 +115,6 @@
     </div>
     <!-------------Main screen-->
     <div class="main-column">
-      <!-----------------Alerts-->
-      <div *ngIf="(alerts$ | async) as alerts"
-           class="mb-4">
-        <alv-alert *ngFor="let alert of alerts"
-                   [notification]="alert"
-                   (dismiss)="dismissAlert(alert, alerts)">
-        </alv-alert>
-      </div>
 
       <!-----------------Title-->
       <h2 class="mb-4 text-capitalize">{{candidateDetailModel.lastJobExperience.occupationLabel}}</h2>
@@ -203,20 +227,22 @@
                                  city: address.city}">
               </alv-post-address>
             </alv-list-item-content>
-
             <alv-list-item-content *ngIf="candidateProtectedData.phone"
                                    label="candidate-detail.personal-information.phone.label">
-              <a class="link" href="tel:{{candidateProtectedData.phone}}">{{candidateProtectedData.phone | phoneNumber}}</a>
+              <a class="link"
+                 href="tel:{{candidateProtectedData.phone}}">{{candidateProtectedData.phone | phoneNumber}}</a>
             </alv-list-item-content>
 
             <alv-list-item-content *ngIf="candidateProtectedData.mobile"
                                    label="candidate-detail.personal-information.mobile.label">
-              <a class="link" href="tel:{{candidateProtectedData.mobile}}">{{candidateProtectedData.mobile | phoneNumber}}</a>
+              <a class="link"
+                 href="tel:{{candidateProtectedData.mobile}}">{{candidateProtectedData.mobile | phoneNumber}}</a>
             </alv-list-item-content>
 
             <alv-list-item-content *ngIf="candidateProtectedData.email"
                                    label="candidate-detail.personal-information.e-mail.label">
-              <a class="link" href="mailto:{{candidateProtectedData.email}}">{{candidateProtectedData.email}}</a>
+              <a class="link"
+                 href="mailto:{{candidateProtectedData.email}}">{{candidateProtectedData.email}}</a>
             </alv-list-item-content>
           </ul>
         </alv-collapse-panel>
