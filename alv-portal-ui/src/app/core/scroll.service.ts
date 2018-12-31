@@ -36,12 +36,15 @@ export class ScrollService {
   /**
    * Scroll element into view, works in all browsers
    * @param elementId
+   * @return true if the element was found and scrolled into otherwise false
    */
-  scrollIntoView(elementId: string) {
+  scrollIntoView(elementId: string): boolean {
     const element = this.document.getElementById(elementId);
     if (element) {
       element.scrollIntoView();
+      return true;
     }
+    return false;
   }
 
   startListenOnScroll(listener: (event) => void) {

@@ -77,9 +77,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     this.store.pipe(select(getSelectedJobAdvertisement))
       .pipe(take(1))
       .subscribe(job => {
-        if (job) {
-          this.scrollService.scrollIntoView(composeResultListItemId(job.id));
+        if (job && this.scrollService.scrollIntoView(composeResultListItemId(job.id))) {
           this.scrollService.scrollBy(0, -100);
+        } else {
+          this.scrollService.scrollToTop();
         }
       });
   }
