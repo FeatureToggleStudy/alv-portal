@@ -170,9 +170,9 @@
                 <ng-container *ngIf="!last">,</ng-container>
               </span>
             </alv-list-item-content>
-            <alv-list-item-content *ngIf="candidateDetailModel.workRegions.length"
+            <alv-list-item-content *ngIf="candidateDetailModel.workLocations.length"
                                    label="candidate-detail.additional-information.preferredWorkRegions.label">
-                <span *ngFor="let region of candidateDetailModel.workRegions; let last = last">
+                <span *ngFor="let region of candidateDetailModel.workLocations; let last = last">
                     {{ region | translate}}
                   <ng-container *ngIf="!last">,</ng-container>
                 </span>

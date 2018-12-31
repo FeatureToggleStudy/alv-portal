@@ -13,7 +13,7 @@ import { preferredWorkLocations } from '../candidate-rules';
  */
 export class CandidateDetailModel {
 
-  public workRegions: string[];
+  public workLocations: string[];
 
   constructor(public candidateProfile: CandidateProfile,
               public jobCenter: JobCenter,
@@ -21,7 +21,7 @@ export class CandidateDetailModel {
               public protectedData: CandidateProtectedData,
               public contact: Contact
   ) {
-    this.workRegions = preferredWorkLocations(this.candidateProfile);
+    this.workLocations = preferredWorkLocations(this.candidateProfile);
   }
 
   get lastJobExperience() {
