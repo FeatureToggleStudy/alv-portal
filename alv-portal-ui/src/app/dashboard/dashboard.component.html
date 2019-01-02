@@ -3,9 +3,12 @@
 
 
 
-  <div class="dashboard-content">
-    <alv-dashboard-header [user]="currentUser"></alv-dashboard-header>
-    <router-outlet></router-outlet>
+  <div class="row">
+    <div class="offset-md-0 offset-lg-1 offset-xl-2 col-md-12 col-lg-10 col-xl-8">
+      <alv-dashboard-header [user]="currentUser"></alv-dashboard-header>
+      <router-outlet></router-outlet>
+    </div>
+
   </div>
 
 </div>
