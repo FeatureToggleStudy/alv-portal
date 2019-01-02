@@ -15,3 +15,10 @@
   }
 }
 
+
+@media print {
+  .side-panel {
+    height: auto !important;
+  }
+}
+

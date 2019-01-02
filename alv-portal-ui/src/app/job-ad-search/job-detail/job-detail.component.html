@@ -64,76 +64,73 @@
         <i class="fa fa-caret-left pr-1"></i>
         {{'job-detail.back' | translate}}
       </a>
-      <div class="alv-panel p-2 mb-3">
-        <div class="d-flex d-sm-block flex-column-reverse">
-
-          <div class="company-panel">
-            <div *ngIf="jobDetailModel.jobContent.company as company">
-              <alv-post-address [address]="company">
-              </alv-post-address>
-            </div>
-
-            <div *ngIf="!jobDetailModel.publication.companyAnonymous && jobDetailModel.jobContent.publicContact as contact">
-              <strong>{{'job-detail.contactPerson' | translate}}</strong>
-              <br>
-              <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
-              {{ contact.firstName }}&nbsp;{{ contact.lastName }}
-              <br>
-
-              <ng-container *ngIf="contact.phone">
-                <a class="link"
-                   href="tel:{{contact.phone}}">
-                  {{ contact.phone | phoneNumber }}
-                </a>
-                <br>
-              </ng-container>
-
-              <a *ngIf="contact.email"
-                 class="link"
-                 style="max-width: 100%"
-                 href="mailto:{{ contact.email }}">
-                {{ contact.email }}
-              </a>
-            </div>
+      <div class="d-flex d-sm-block flex-column-reverse">
+        <div class="company-panel alv-panel p-2 mb-3">
+          <div *ngIf="jobDetailModel.jobContent.company as company">
+            <alv-post-address [address]="company">
+            </alv-post-address>
           </div>
 
-          <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter as jobCenter"
-               class="order-sm-2 alv-logo-box">
+          <div *ngIf="!jobDetailModel.publication.companyAnonymous && jobDetailModel.jobContent.publicContact as contact">
+            <strong>{{'job-detail.contactPerson' | translate}}</strong>
+            <br>
+            <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
+            {{ contact.firstName }}&nbsp;{{ contact.lastName }}
+            <br>
 
+            <ng-container *ngIf="contact.phone">
+              <a class="link"
+                 href="tel:{{contact.phone}}">
+                {{ contact.phone | phoneNumber }}
+              </a>
+              <br>
+            </ng-container>
 
-            <div *ngIf="jobCenter.address as address">
-              <strong>
-                {{ 'portal.job-detail.reference.responsible-job-center' | translate }}
-              </strong>
-              <alv-post-address [address]="{
+            <a *ngIf="contact.email"
+               class="link"
+               style="max-width: 100%"
+               href="mailto:{{ contact.email }}">
+              {{ contact.email }}
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter as jobCenter"
+           class="company-panel alv-panel p-2 mb-3">
+        <div class="order-sm-2 alv-logo-box">
+          <div *ngIf="jobCenter.address as address">
+            <strong>
+              {{ 'portal.job-detail.reference.responsible-job-center' | translate }}
+            </strong>
+            <alv-post-address [address]="{
                         name: address.name,
                         street: address.street,
                         houseNumber: address.houseNumber,
                         postalCode: address.zipCode,
                         city: address.city}">
-              </alv-post-address>
-              <br>
-              {{'portal.job-detail.reference.phone' | translate}}
-              <a class="link"
-                 href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
-            </div>
-
-            <ng-container *ngIf="jobDetailModel.stellennummerAvam || jobDetailModel.stellennummerEgov">
-              <strong>{{'portal.job-detail.reference.job-id' | translate}}:</strong>
-              <br>
-
-              <ng-container *ngIf="jobDetailModel.stellennummerAvam">
-                {{'job-detail.avam.label' | translate}}
-                : {{jobDetailModel.stellennummerAvam}}
-                <br>
-              </ng-container>
-
-              <ng-container *ngIf="jobDetailModel.stellennummerEgov">
-                {{'job-detail.job-room-id' | translate}} {{jobDetailModel.stellennummerEgov}}
-              </ng-container>
-            </ng-container>
+            </alv-post-address>
+            <br>
+            {{'portal.job-detail.reference.phone' | translate}}
+            <a class="link"
+               href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
           </div>
 
+          <ng-container *ngIf="jobDetailModel.stellennummerAvam || jobDetailModel.stellennummerEgov">
+            <strong>{{'portal.job-detail.reference.job-id' | translate}}:</strong>
+            <br>
+
+            <ng-container *ngIf="jobDetailModel.stellennummerAvam">
+              {{'job-detail.avam.label' | translate}}
+              : {{jobDetailModel.stellennummerAvam}}
+              <br>
+            </ng-container>
+
+            <ng-container *ngIf="jobDetailModel.stellennummerEgov">
+              {{'job-detail.job-room-id' | translate}} {{jobDetailModel.stellennummerEgov}}
+            </ng-container>
+          </ng-container>
         </div>
       </div>
     </ng-container>
@@ -309,13 +306,13 @@
 
       <p>
         <a *ngIf="jobDetailModel.applyChannel?.formUrl"
-           class="btn btn-primary btn-block btn-sm mb-1"
+           class="btn btn-primary btn-block btn-truncate mb-1"
            [href]="jobDetailModel.applyChannel?.formUrl | normalizeUrl"
            target="_blank">
           {{'job-detail.action.applyNow' | translate}}
         </a>
         <a *ngIf="jobDetailModel.jobContent.externalUrl"
-           class="btn btn-secondary btn-truncate btn-sm"
+           class="btn btn-secondary btn-block btn-truncate"
            [href]="jobDetailModel.jobContent.externalUrl | normalizeUrl"
            [target]="jobDetailModel.id">
           {{'job-detail.action.showExternalPage' | translate}}

@@ -190,15 +190,13 @@
             <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.drivingCategories?.length"
                                    label="candidate-detail.additional-information.drivingCategories.label">
               <span *ngFor="let drivingCategory of candidateDetailModel.candidateProfile.drivingCategories; let last= last">
-                {{drivingCategory}}
-                <ng-container *ngIf="!last">,</ng-container>
+                {{drivingCategory}}{{last ? '' : ','}}
               </span>
             </alv-list-item-content>
             <alv-list-item-content *ngIf="candidateDetailModel.workLocations.length"
                                    label="candidate-detail.additional-information.preferredWorkRegions.label">
                 <span *ngFor="let region of candidateDetailModel.workLocations; let last = last">
-                    {{ region | translate}}
-                  <ng-container *ngIf="!last">,</ng-container>
+                    {{region | translate}}{{last ? '' : ','}}
                 </span>
             </alv-list-item-content>
           </ul>
