@@ -27,12 +27,12 @@ import {
     OccupationMultiTypeaheadItemType
 } from '../../../shared/occupations/occupation-multi-typeahead-item';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
-import { OccupationCode } from "../../../shared/backend-services/reference-service/occupation-label.types";
+import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
 import {
     LocalityInputType,
     LocalityItem,
     LocalityMultiTypeaheadItem
-} from "../../../shared/localities/locality-multi-typeahead-item";
+} from '../../../shared/localities/locality-multi-typeahead-item';
 
 describe('jobAdSearchReducers', () => {
 
