@@ -107,7 +107,7 @@ export class JobAdSearchEffects {
   );
 
   @Effect()
-  applyFilterValues: Observable<Action> = this.actions$.pipe(
+  applyFilterValues$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER_VALUES),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
