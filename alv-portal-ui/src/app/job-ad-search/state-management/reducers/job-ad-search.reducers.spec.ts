@@ -1,4 +1,4 @@
-import {initialState, JobAdSearchState} from '../state/job-ad-search.state';
+import { initialState, JobAdSearchState } from '../state/job-ad-search.state';
 import * as actions from '../actions/job-ad-search.actions';
 import {
     ApplyFilterAction,
@@ -104,6 +104,9 @@ describe('jobAdSearchReducers', () => {
        expect(newState.jobSearchFilter.occupations).toEqual(payload.occupations);
        expect(newState.jobSearchFilter.keywords).toEqual(payload.keywords);
        expect(newState.jobSearchFilter.localities).toEqual(payload.localities);
+
+       verifyUnchanged(newState, initialState, ['jobSearchFilter']);
+       verifyUnchanged(newState.jobSearchFilter, initialState.jobSearchFilter, ['occupations', 'keywords', 'localities']);
     });
 
     /*
@@ -134,6 +137,9 @@ describe('jobAdSearchReducers', () => {
 
         expect(newState.jobSearchFilter.sort).toEqual(initialState.jobSearchFilter.sort);
         expect(newState.jobSearchFilter.contractType).toEqual(initialState.jobSearchFilter.contractType);
+
+        verifyUnchanged(newState, initialState, ['jobSearchFilter']);
+        verifyUnchanged(newState.jobSearchFilter, initialState.jobSearchFilter, ['occupations', 'keywords', 'localities']);
     });
 
     /* APPLY_FILTER_VALUES
@@ -157,6 +163,8 @@ describe('jobAdSearchReducers', () => {
 
         // THEN
         expect(newState.jobSearchFilter).toEqual(jobSearchFilterChanged);
+
+        verifyUnchanged(newState, initialState, ['jobSearchFilter']);
     });
 
     /*
@@ -200,6 +208,8 @@ describe('jobAdSearchReducers', () => {
        expect(newState.resultList).toEqual(jobAdPageOne);
        expect(newState.totalCount).toEqual(50);
        expect(newState.resultsAreLoading).toBeFalsy();
+
+       verifyUnchanged(newState, initialState, ['resultList', 'totalCount', 'resultsAreLoading']);
     });
 
     /*
@@ -229,6 +239,9 @@ describe('jobAdSearchReducers', () => {
         // THEN
         expect(newState.jobSearchFilter.occupations).toBeNonEmptyArray();
         expect(newState.jobSearchFilter.occupations).toEqual([ classificationEN ]);
+
+        verifyUnchanged(newState, state, ['jobSearchFilter']);
+        verifyUnchanged(newState.jobSearchFilter, state.jobSearchFilter, ['occupations']);
     });
 
     /*
@@ -245,6 +258,8 @@ describe('jobAdSearchReducers', () => {
 
        // THEN
        expect(newState.jobSearchFilter).toEqual(initialState.jobSearchFilter);
+
+       verifyUnchanged(newState, jobAdStateChanged, ['jobSearchFilter']);
     });
 
     /*
@@ -260,6 +275,8 @@ describe('jobAdSearchReducers', () => {
 
         //THEN
         expect(newState.resultsAreLoading).toBeTruthy();
+
+        verifyUnchanged(newState, initialState, ['resultsAreLoading']);
     });
 
     /*
@@ -287,6 +304,8 @@ describe('jobAdSearchReducers', () => {
        expect(newState.resultsAreLoading).toBeFalsy();
        expect(newState.resultList).toBeNonEmptyArray();
        expect(newState.resultList).toBeArrayOfSize(jobAdStateChanged.resultList.length + jobAdPageTwo.length);
+
+       verifyUnchanged(newState, jobAdStateChanged, ['page', 'resultsAreLoading', 'resultList']);
     });
 
     /*
@@ -307,6 +326,8 @@ describe('jobAdSearchReducers', () => {
        expect(newStateOne.selectedJobAdvertisement).toEqual(selectedJobAdOne);
        expect(newStateOne.visitedJobAds).toEqual(visitedJobAdOne);
 
+       verifyUnchanged(newStateOne, jobAdStateChanged, ['selectedJobAdvertisement', 'visitedJobAds']);
+
        // GIVEN
        const selectedJobAdTwo = jobAdPageOne[4];
        const visitedJobAdTwo = { [selectedJobAdOne.id]: true , [selectedJobAdTwo.id]: true };
@@ -319,6 +340,17 @@ describe('jobAdSearchReducers', () => {
        // THEN
        expect(newStateTwo.selectedJobAdvertisement).toEqual(selectedJobAdTwo);
        expect(newStateTwo.visitedJobAds).toEqual(visitedJobAdTwo);
+
+       verifyUnchanged(newStateTwo, newStateOne, ['selectedJobAdvertisement', 'visitedJobAds']);
     });
 
 });
+
+// check if key elements of an object are unchanged
+function verifyUnchanged(afterAction, beforeAction, ignoreFields: Array<string>) {
+    Object.keys(afterAction)
+        .filter((key: string) => ignoreFields.indexOf(key) < 0)
+        .forEach((key: string) => {
+            expect(afterAction[key]).toEqual(beforeAction[key]);
+        });
+}
