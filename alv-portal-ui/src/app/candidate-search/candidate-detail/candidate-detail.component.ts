@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Notification } from '../../shared/layout/notifications/notification.model';
 import { CandidateDetailPanelId } from './candidate-detail-panel-id.enum';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs/index';
-import { CandidateProfile } from '../../shared/backend-services/candidate/candidate.types';
+import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import {
   CandidateSearchState,
@@ -13,9 +12,15 @@ import {
   LoadNextCandidateProfileDetailAction,
   LoadPreviousCandidateProfileDetailAction
 } from '../state-management';
-import { CandidateProfileBadge } from '../candidate-profile-badges-mapper.service';
+import {
+  CandidateProfileBadge,
+  CandidateProfileBadgesMapperService
+} from '../candidate-profile-badges-mapper.service';
 import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
 import { CandidateDetailModel } from './candidate-detail-model';
+import { map } from 'rxjs/operators';
+import { findRelevantJobExperience } from '../candidate-rules';
+import { AuthenticationService } from '../../core/auth/authentication.service';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
@@ -27,7 +32,7 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 })
 export class CandidateDetailComponent implements OnInit {
 
-  candidateProfile$: Observable<CandidateProfile>;
+  readonly NUMBER_OF_JOBS_TO_SHOW = 3;
 
   candidateDetailModel$: Observable<CandidateDetailModel>;
 
@@ -35,10 +40,6 @@ export class CandidateDetailComponent implements OnInit {
 
   nextEnabled$: Observable<boolean>;
 
-  //todo: implement
-  alerts$: Observable<Notification[]>;
-
-  //todo: implement
   badges$: Observable<CandidateProfileBadge[]>;
 
   candidateDetailPanelId = CandidateDetailPanelId;
@@ -47,15 +48,19 @@ export class CandidateDetailComponent implements OnInit {
   clipboardTooltip: NgbTooltip;
 
   constructor(private store: Store<CandidateSearchState>,
-              private candidateDetailModelFactory: CandidateDetailModelFactory) {
+              private authenticationService: AuthenticationService,
+              private candidateDetailModelFactory: CandidateDetailModelFactory,
+              private candidateProfileBadgesMapperService: CandidateProfileBadgesMapperService) {
   }
 
   ngOnInit() {
-    //todo: Create a model for the detail page and map the candidateProfile$ to it
+    const candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
 
-    this.candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
+    this.badges$ = candidateProfile$.pipe(
+      map(candidateProfile => this.candidateProfileBadgesMapperService.map(candidateProfile, findRelevantJobExperience(candidateProfile)))
+    );
 
-    this.candidateDetailModel$ = this.candidateDetailModelFactory.create(this.candidateProfile$);
+    this.candidateDetailModel$ = this.candidateDetailModelFactory.create(candidateProfile$);
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
 

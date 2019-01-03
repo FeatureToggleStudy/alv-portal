@@ -1,24 +1,22 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
-import { ActionsSubject, select, Store } from '@ngrx/store';
 import {
+  ApplyFilterValuesAction,
+  ApplyQueryValuesAction,
+  FILTER_APPLIED,
   getJobSearchFilter,
   getJobSearchResults,
   getResultsAreLoading,
   getSelectedJobAdvertisement,
   getTotalCount,
   JobAdSearchState,
-  JobSearchResult
-} from '../state-management/state/job-ad-search.state';
-import { Observable } from 'rxjs';
-import {
-  ApplyFilterValuesAction,
-  ApplyQueryValuesAction,
-  FILTER_APPLIED,
+  JobSearchFilter,
+  JobSearchResult,
   LoadNextPageAction,
-  ResetFilterAction,
-} from '../state-management/actions/job-ad-search.actions';
+  ResetFilterAction
+} from '../state-management';
+import { ActionsSubject, select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobQueryPanelValues } from '../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
@@ -26,7 +24,6 @@ import { ScrollService } from '../../core/scroll.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { ofType } from '@ngrx/effects';
 import { composeResultListItemId } from '../../shared/layout/result-list-item/result-list-item.component';
-
 
 @Component({
   selector: 'alv-job-search',
@@ -80,9 +77,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     this.store.pipe(select(getSelectedJobAdvertisement))
       .pipe(take(1))
       .subscribe(job => {
-        if (job) {
-          this.scrollService.scrollIntoView(composeResultListItemId(job.id));
+        if (job && this.scrollService.scrollIntoView(composeResultListItemId(job.id))) {
           this.scrollService.scrollBy(0, -100);
+        } else {
+          this.scrollService.scrollToTop();
         }
       });
   }

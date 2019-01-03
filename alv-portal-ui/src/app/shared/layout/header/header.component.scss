@@ -36,7 +36,7 @@ header {
       border: none;
       cursor: pointer;
       font-size: 16px;
-      height: 29px;
+      height: 30px;
       background-color: $color-light-grey;
       i.fa-bars {
         vertical-align: initial;
@@ -48,10 +48,10 @@ header {
 
     .header-buttons {
       height: 40px;
-      button, a {
+      > button, a {
         margin-right: 4px;
         font-size: 16px;
-        height: 29px;
+        height: 30px;
         border: none;
         cursor: pointer;
         padding: 2px 5px;
@@ -74,7 +74,6 @@ header {
     }
     .language-switchers {
       .language-switch-button {
-        text-transform: uppercase;
         &.active {
           font-weight: bold;
         }

@@ -2,10 +2,23 @@ import {
   CandidateProfile,
   JobExperience
 } from '../shared/backend-services/candidate/candidate.types';
-import { Experience, Gender } from '../shared/backend-services/shared.types';
+import {
+  Contact,
+  Degree,
+  Experience,
+  Gender,
+  Graduation
+} from '../shared/backend-services/shared.types';
 import { GenderAwareOccupationLabel } from '../shared/occupations/occupation.service';
 import { OccupationCode } from '../shared/backend-services/reference-service/occupation-label.types';
+import { isAuthenticatedUser, User, UserRole } from '../core/auth/user.model';
+import { JobCenter } from '../shared/backend-services/reference-service/job-center.types';
 
+const SWISS_CANTONS_NUMBER = 26;
+
+const ABROAD_CODE = '99';
+
+const SWISS_CODE = 'CH';
 
 const matches = (jobExperience: JobExperience, occupationCode: { value: string; type: string }) => {
   const { avamCode, bfsCode, sbn3Code, sbn5Code } = jobExperience.occupation;
@@ -52,9 +65,13 @@ const getBestMatchingJobExperience = (selectedOccupationCodes: OccupationCode[],
   }
 };
 
+export const findWantedJobExperiences = (candidateProfile: CandidateProfile) => {
+  return candidateProfile.jobExperiences.filter((jobExperience) => jobExperience.wanted);
+};
+
 export const findRelevantJobExperience = (candidateProfile: CandidateProfile, selectedOccupationCodes?: OccupationCode[]): JobExperience => {
   const jobExperiences = candidateProfile.jobExperiences;
-  const wantedJobExperiences = jobExperiences.filter((jobExperience) => jobExperience.wanted);
+  const wantedJobExperiences = findWantedJobExperiences(candidateProfile);
   if (!wantedJobExperiences) {
     return null;
   }
@@ -96,3 +113,53 @@ export const extractGenderAwareTitle = (candidateProfile, occupationLabel: Gende
   return occupationLabel.default;
 };
 
+export const isGraduationDisplayed = (graduation: Graduation): boolean => {
+  return graduation && graduation !== Graduation[Graduation.NONE];
+};
+
+export const isDegreeDisplayed = (degree: Degree): boolean => {
+  return degree && Degree[degree] >= Degree.SEK_II_WEITERFUEHRENDE_SCHULE
+    && Degree[degree] <= Degree.TER_DOKTORAT_UNIVERSITAET;
+};
+
+export const preferredWorkLocations = (candidateProfile: CandidateProfile): string[] => {
+  let result = [];
+  if (candidateProfile.preferredWorkRegions) {
+    result = result.concat(candidateProfile.preferredWorkRegions
+      .map((r) => `global.reference.region.${r}`));
+  }
+  if (candidateProfile.preferredWorkCantons) {
+    const swissCantons = candidateProfile.preferredWorkCantons
+      .filter((c) => c !== ABROAD_CODE);
+    if (swissCantons.length < SWISS_CANTONS_NUMBER) {
+      result = result.concat(candidateProfile.preferredWorkCantons
+        .map((c) => `global.reference.canton.${c}`));
+    } else {
+      result.push(`global.reference.canton.${SWISS_CODE}`);
+      const workAbroad = candidateProfile.preferredWorkCantons
+        .some((c) => c === ABROAD_CODE);
+      if (workAbroad) {
+        result.push(`global.reference.canton.${ABROAD_CODE}`);
+      }
+    }
+  }
+  return result;
+};
+
+export const candidateContact = (candidateProfile: CandidateProfile, jobCenter: JobCenter, user: User): Contact => {
+  if (jobCenter && (jobCenter.code.startsWith('BEA') || jobCenter.code.startsWith('BSA'))) {
+    return { phone: jobCenter.phone, email: jobCenter.email };
+  } else {
+    const jobAdvisorContact = candidateProfile.jobAdvisor;
+    if (!(jobCenter.showContactDetailsToPublic || isAuthenticatedUser(user))) {
+      jobAdvisorContact.firstName = null;
+      jobAdvisorContact.lastName = null;
+      jobAdvisorContact.email = null;
+    }
+    return jobAdvisorContact;
+  }
+};
+
+export const canViewCandidateProtectedData = (candidateProfile: CandidateProfile, currentUser: User): boolean => {
+  return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_ADMIN]) && candidateProfile.showProtectedData);
+};

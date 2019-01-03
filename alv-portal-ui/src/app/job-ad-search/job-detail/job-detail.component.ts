@@ -12,12 +12,10 @@ import {
   getSelectedJobAdvertisement,
   isNextVisible,
   isPrevVisible,
-  JobAdSearchState
-} from '../state-management/state/job-ad-search.state';
-import {
+  JobAdSearchState,
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
-} from '../state-management/actions/job-ad-search.actions';
+} from '../state-management';
 import { select, Store } from '@ngrx/store';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { JobBadge, JobBadgesMapperService } from '../job-badges-mapper.service';

@@ -1,5 +1,6 @@
 <button class="scroll-top-button btn btn-secondary btn-icon"
         *ngIf="!hidden"
+        @insertRemoveButton
         (click)="scrollToTop()"
         [attr.aria-label]="'navigation.scroll-to-top' | translate"
         [ngbTooltip]="'navigation.scroll-to-top' | translate">

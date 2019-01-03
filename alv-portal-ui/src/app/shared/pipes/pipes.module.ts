@@ -6,6 +6,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { MarkdownEscapePipe } from './markdown-escape.pipe';
 import { WorkingTimeRangePipe } from './working-time-range.pipe';
 import { NormalizeUrlPipe } from './normalize-url.pipe';
+import { KeysPipe } from './enum-keys.pipe';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { NormalizeUrlPipe } from './normalize-url.pipe';
     WorkingTimeRangePipe,
     PhoneNumberPipe,
     MarkdownEscapePipe,
-    NormalizeUrlPipe
+    NormalizeUrlPipe,
+    KeysPipe
   ],
   providers: [
     LocaleAwareDatePipe,
@@ -30,7 +32,8 @@ import { NormalizeUrlPipe } from './normalize-url.pipe';
     WorkingTimeRangePipe,
     PhoneNumberPipe,
     MarkdownEscapePipe,
-    NormalizeUrlPipe
+    NormalizeUrlPipe,
+    KeysPipe
   ]
 })
 export class PipesModule {

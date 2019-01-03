@@ -2,8 +2,11 @@
 body {
   margin: 0;
   font-family: 'Open Sans', Calibri, sans-serif;
+  overflow: hidden;
 }
 
+@import "scss/overrides/theme";
+@import "../node_modules/bootstrap/scss/bootstrap";
 @import "scss/overrides/button";
 @import "scss/overrides/badges";
 @import "scss/overrides/popover";
@@ -13,11 +16,12 @@ body {
 @import "scss/overrides/container";
 @import "scss/common/panel";
 @import "scss/common/bar";
-@import "scss/common/_badges";
+@import "scss/common/badges";
 @import "scss/common/_layout";
 @import "scss/common/link";
 @import "scss/common/line-clamp";
 @import "scss/common/list";
 @import "scss/common/print";
 @import "~nouislider/distribute/nouislider.min.css";
+
 

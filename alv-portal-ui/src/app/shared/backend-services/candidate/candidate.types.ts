@@ -23,20 +23,20 @@ export interface CandidateSearchResponse {
 }
 
 export interface CandidateSearchRequestBody {
-  occupationCodes?: OccupationCode[];
-  skills?: Array<string>;
-  experience?: string;
+  occupationCodes: OccupationCode[];
+  skills: string[];
+  experience: string;
   workplace?: string;
-  residence?: Array<string>;
-  cantonCode?: string;
-  regionCode?: string;
-  availability?: string;
-  workLoad?: WorkLoad;
-  workForm?: string;
-  degree?: string;
-  graduation?: string;
-  drivingLicenceCategory?: string;
-  languageSkills?: FilterLanguageSkill[];
+  residence: string[];
+  cantonCode: string;
+  regionCode: string;
+  availability: string;
+  workLoad: WorkLoad;
+  workForm: string;
+  degree: string;
+  graduation: string;
+  drivingLicenceCategory: string;
+  languageSkills: FilterLanguageSkill[];
 }
 
 export interface WorkLoad {
@@ -44,7 +44,7 @@ export interface WorkLoad {
   max: number;
 }
 
-export interface Candidate {
+export interface CandidateProtectedData {
   id: string;
   firstName: string;
   lastName: string;
@@ -79,12 +79,23 @@ export interface CandidateProfile {
   contactTypes?: string[];
 }
 
+/**
+ * pay attention that this language skills is different from the one used for jobads
+ *
+ * this is due to a technical debt on the server
+ */
 export interface LanguageSkill {
   code: string;
   spokenLevel: CEFR_Level;
   writtenLevel: CEFR_Level;
 }
 
+/**
+ * pay attention that this the language skill FilterLanguageSkill is used for POST filtering queries is different
+ * from the we receive from the backend.
+ *
+ * this is due to a technical debt on the server
+ */
 export interface FilterLanguageSkill {
   code: string;
   spoken: CEFR_Level;
@@ -99,7 +110,6 @@ export interface Address {
 
 export interface JobExperience {
   occupation: Occupation;
-  occupationLabel: string;
   experience: Experience;
   graduation: Graduation;
   degree: Degree;

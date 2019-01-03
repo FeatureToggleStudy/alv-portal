@@ -9,10 +9,10 @@ import { Store } from '@ngrx/store';
 import {
   ApplyFilterAction,
   ApplyQueryValuesAction,
-  InitResultListAction
-} from '../state-management/actions/job-ad-search.actions';
-import { JobSearchFilter } from '../state-management/state/job-search-filter.types';
-import { JobAdSearchState } from '../state-management/state/job-ad-search.state';
+  InitResultListAction,
+  JobAdSearchState,
+  JobSearchFilter
+} from '../state-management';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 
 @Injectable()

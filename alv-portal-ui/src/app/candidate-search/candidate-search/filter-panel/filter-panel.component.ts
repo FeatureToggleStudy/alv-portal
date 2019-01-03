@@ -198,6 +198,22 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     super();
   }
 
+  get languageSkillFormArray(): FormArray {
+    return this.form.controls['languageSkills'] as FormArray;
+  }
+
+  toggleExpanded() {
+    this.expanded = !this.expanded;
+  }
+
+  suggestCanton(query: string): Observable<SimpleMultiTypeaheadItem[]> {
+    const cantonSuggestions = Object.keys(Canton)
+      .filter((key) => !isNaN(Number(Canton[key])))
+      .map((key, index) => this.cantonAutocompleteMapper(key, index))
+      .filter((option) => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
+    return of(cantonSuggestions);
+  }
+
   ngOnInit() {
     this.form = this.fb.group({
       degree: [],
@@ -233,18 +249,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       });
   }
 
-  toggleExpanded() {
-    this.expanded = !this.expanded;
-  }
-
-  suggestCanton(query: string): Observable<SimpleMultiTypeaheadItem[]> {
-    const cantonSuggestions = Object.keys(Canton)
-      .filter((key) => !isNaN(Number(Canton[key])))
-      .map((key, index) => this.cantonAutocompleteMapper(key, index))
-      .filter((option) => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
-    return of(cantonSuggestions);
-  }
-
   removeLanguageSkill(languageSkill: FilterLanguageSkill) {
     const languageSkills = this.languageSkillFormArray;
     languageSkills.removeAt(this.form.value.languageSkills.indexOf(languageSkill));
@@ -267,10 +271,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       written: EMPTY_LANGUAGE_SKILL.written,
       spoken: EMPTY_LANGUAGE_SKILL.spoken
     }, { emitEvent: false });
-  }
-
-  get languageSkillFormArray(): FormArray {
-    return this.form.controls['languageSkills'] as FormArray;
   }
 
   private createNewLanguageSkillFormGroup(languageSkill = EMPTY_LANGUAGE_SKILL): FormGroup {

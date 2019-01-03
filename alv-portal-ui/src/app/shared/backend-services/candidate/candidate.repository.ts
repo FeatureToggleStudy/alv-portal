@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   CandidateProfile,
+  CandidateProtectedData,
   CandidateSearchRequest,
   CandidateSearchResponse
 } from './candidate.types';
@@ -19,7 +20,8 @@ export class CandidateRepository {
 
   private countUrl = '/candidateservice/api/_count/candidates';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+  ) {
   }
 
   searchCandidateProfiles(request: CandidateSearchRequest): Observable<CandidateSearchResponse> {
@@ -42,5 +44,9 @@ export class CandidateRepository {
 
   findCandidateProfileById(id: string): Observable<CandidateProfile> {
     return this.http.get<CandidateProfile>(`${this.resourceUrl}/profiles/${id}`);
+  }
+
+  getCandidateProtectedData(id: string): Observable<CandidateProtectedData> {
+    return this.http.get<CandidateProtectedData>(`${this.resourceUrl}/${id}`);
   }
 }

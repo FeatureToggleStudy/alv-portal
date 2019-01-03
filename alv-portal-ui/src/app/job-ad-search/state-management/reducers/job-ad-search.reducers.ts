@@ -1,4 +1,4 @@
-import { initialState, JobAdSearchState } from '../state/job-ad-search.state';
+import { initialState, JobAdSearchState } from '../state';
 import {
   Actions,
   APPLY_FILTER,
@@ -10,7 +10,7 @@ import {
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET_FILTER
-} from '../actions/job-ad-search.actions';
+} from '../actions';
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
 

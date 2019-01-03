@@ -27,14 +27,9 @@ import {
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
   ApplyFilterAction,
-  CandidateSearchRequestMapper,
-  CandidateSearchState,
+  FILTER_APPLIED,
   FilterAppliedAction,
   FilterResetAction,
-  getCandidateSearchFilter,
-  getCandidateSearchState,
-  getNextId,
-  getPrevId,
   INIT_RESULT_LIST,
   LOAD_NEXT_CANDIDATE_PROFILE_DETAIL,
   LOAD_NEXT_PAGE,
@@ -44,9 +39,17 @@ import {
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
   RESET_FILTER
-} from '..';
+} from '../actions';
 import { Router } from '@angular/router';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
+import {
+  CandidateSearchState,
+  getCandidateSearchFilter,
+  getCandidateSearchState,
+  getNextId,
+  getPrevId
+} from '../state';
+import { CandidateSearchRequestMapper } from './candidate-search-request.mapper';
 
 export const CANDIDATE_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('CANDIDATE_SEARCH_EFFECTS_DEBOUNCE');
 export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('CANDIDATE_SEARCH_EFFECTS_SCHEDULER');
@@ -57,7 +60,6 @@ export class CandidateSearchEffects {
   @Effect()
   initCandidateSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
-    take(1),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
     switchMap(([a, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
       .pipe(
@@ -68,7 +70,7 @@ export class CandidateSearchEffects {
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       )
     ),
-    takeUntil(this.actions$.pipe(ofType(APPLY_FILTER)))
+    takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED)))
   );
 
   @Effect()
@@ -141,6 +143,7 @@ export class CandidateSearchEffects {
   @Effect()
   loadPreviousCandidateProfileDetail$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL),
+    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getPrevId))),
     map(([action, id]) => id),
     tap((id) => {
@@ -154,6 +157,7 @@ export class CandidateSearchEffects {
   @Effect()
   loadNextCandidateProfileDetail$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_CANDIDATE_PROFILE_DETAIL),
+    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getNextId))),
     switchMap(([action, id]) => {
       if (id) {

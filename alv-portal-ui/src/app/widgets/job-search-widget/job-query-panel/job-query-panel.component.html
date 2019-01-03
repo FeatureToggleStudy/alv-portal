@@ -1,7 +1,7 @@
 <form [formGroup]="form"
       (ngSubmit)="onSearchSubmit()"
-      class="justify-content-between form-row">
-  <div class="col-md-11">
+      class="justify-content-between d-flex flex-column flex-md-row">
+  <div class="flex-grow-1">
     <div class="form-row">
       <div class="col-12 col-md-4 mb-1 mb-md-0">
         <alv-multi-typeahead alvFormControlName="occupations"
@@ -53,8 +53,9 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-primary col-md-1"
-          aria-label="search">
+  <button class="btn btn-primary ml-md-2"
+          aria-label="search"
+          type="submit">
     <i *ngIf="showSpinner"
        class="fas fa-sync-alt fa-spin">
     </i>

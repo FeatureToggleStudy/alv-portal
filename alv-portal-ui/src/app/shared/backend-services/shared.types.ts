@@ -134,7 +134,6 @@ export enum Language {
   TR = 'tr',
   VI = 'vi',
   ZH = 'zh'
-
 }
 
 export interface PostAddress {
@@ -147,4 +146,11 @@ export interface PostAddress {
   postOfficeBoxPostalCode?: string;
   postOfficeBoxCity?: string;
   countryIsoCode?: string;
+}
+
+export interface LanguageSkill {
+  languageIsoCode: string;
+  nativeLanguage?: boolean;
+  spokenLevel: CEFR_Level;
+  writtenLevel: CEFR_Level;
 }
