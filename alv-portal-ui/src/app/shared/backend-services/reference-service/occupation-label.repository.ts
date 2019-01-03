@@ -33,7 +33,7 @@ export class OccupationLabelRepository {
     if (this.occupationLabelDataCache[cacheKey]) {
       return of(this.occupationLabelDataCache[cacheKey]);
     }
-    return this.http.get<OccupationLabelData>(`${OCCUPATION_LABEL_RESOURCE_URL}/${type}/${value}`, { headers: { 'Cache-Control': 'no-cache' } }).pipe(
+    return this.http.get<OccupationLabelData>(`${OCCUPATION_LABEL_RESOURCE_URL}/${type}/${value}`).pipe(
       tap((label) => {
         this.occupationLabelDataCache[cacheKey] = label;
       })

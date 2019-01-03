@@ -1,0 +1,3 @@
+describe('candidateSearchReducer', () => {
+// todo: implement
+});

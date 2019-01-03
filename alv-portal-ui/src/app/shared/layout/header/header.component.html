@@ -40,14 +40,15 @@
            class="mx-2">Hilfe</a>
         <ng-container *ngFor="let language of LANGUAGES">
           <button (click)="changeLanguage(language)"
-                  class="language-switch-button"
+                  class="language-switch-button text-uppercase"
                   [ngClass]="{active: language===currentLanguage}">{{language}}
           </button>
         </ng-container>
       </div>
       <div ngbDropdown
-           class="d-block d-lg-none d-xl-none">
-        <button class="btn btn-secondary language-switch-button"
+           placement="bottom-right"
+           class="d-flex d-lg-none d-xl-none header-buttons align-items-center">
+        <button class="btn btn-secondary text-uppercase"
                 id="dropdownBasic1"
                 ngbDropdownToggle>{{currentLanguage}}
         </button>
@@ -55,7 +56,8 @@
           <ng-container *ngFor="let language of LANGUAGES">
             <button (click)="changeLanguage(language)"
                     class="dropdown-item language-switch-button"
-                    [ngClass]="{active: language===currentLanguage}">{{language}}
+                    [ngClass]="{active: language===currentLanguage}">
+              {{'global.reference.language.' + language | translate}}
             </button>
           </ng-container>
         </div>

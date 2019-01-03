@@ -1,10 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import {
-  Notification,
-  NotificationType
-} from '../shared/layout/notifications/notification.model';
 import { DOCUMENT } from '@angular/common';
-import { composeResultListItemId } from '../job-ad-search/job-search/result-list-item/result-list-item.component';
 
 @Injectable({
   providedIn: 'root'
@@ -41,12 +36,23 @@ export class ScrollService {
   /**
    * Scroll element into view, works in all browsers
    * @param elementId
+   * @return true if the element was found and scrolled into otherwise false
    */
-  scrollIntoView(elementId: string) {
+  scrollIntoView(elementId: string): boolean {
     const element = this.document.getElementById(elementId);
     if (element) {
       element.scrollIntoView();
+      return true;
     }
+    return false;
+  }
+
+  startListenOnScroll(listener: (event) => void) {
+    this.getMainElement().addEventListener('scroll', listener);
+  }
+
+  stopListenOnScroll(listener: (event) => void) {
+    this.getMainElement().removeAllListeners('scroll', listener);
   }
 
   private getMainElement() {

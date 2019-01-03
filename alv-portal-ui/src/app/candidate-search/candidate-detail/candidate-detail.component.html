@@ -1,0 +1,304 @@
+<div class="container-fluid">
+  <alv-three-column-layout *ngIf="candidateDetailModel$ | async as candidateDetailModel"
+                           [mobileOrdering]="[2, 1, null]">
+    <!--Mobile only - back button and dropdown menu-->
+    <div class="mobile-menu-bar">
+      <div class="d-flex justify-content-between">
+        <div>
+          <a class="btn btn-text btn-text-icon"
+             routerLink="/candidate-search">
+            <i class="fa fa-caret-left mr-1"></i>
+            {{'candidate-detail.back' | translate}}
+          </a>
+        </div>
+        <div #mobileActionsMenu="ngbDropdown"
+             class="d-inline-block"
+             ngbDropdown
+             placement="bottom-right">
+          <button (click)="mobileActionsMenu.toggle()"
+                  class="btn btn-text btn-icon"
+                  id="dropdownMenu"
+                  ngbDropdownAnchor
+                  aria-label="Open candidate detail menu">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <div aria-label="Candidate detail menu"
+               ngbDropdownMenu>
+
+            <button (click)="prev()"
+                    [disabled]="!(prevEnabled$ | async)"
+                    class="dropdown-item">
+              {{'portal.job-detail.previous-result' | translate}}
+            </button>
+
+            <button (click)="next()"
+                    [disabled]="!(nextEnabled$ | async)"
+                    class="dropdown-item">
+              {{'portal.job-detail.next-result' | translate}}
+            </button>
+            <button (cbOnSuccess)="onCopyLink()"
+                    [cbContent]="getCandidateUrl()"
+                    [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
+                    class="dropdown-item"
+                    ngxClipboard
+                    triggers="manual">
+              {{'candidate-detail.candidate-copy-link' | translate}}
+            </button>
+            <a [href]="'mailto:?body=' + getEncodedUrl()"
+               class="dropdown-item">
+              {{'job-detail.action.sendEmail' | translate}}
+            </a>
+            <button (click)="printCandidate()"
+                    class="dropdown-item">
+              {{'candidate-detail.candidate-print' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-------------Left panel-->
+    <div class="left-column">
+
+      <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
+         routerLink="/candidate-search">
+        <i class="fa fa-caret-left pr-1"></i>
+        {{'candidate-detail.back' | translate}}
+      </a>
+      <div class="alv-panel p-2 mb-3">
+        <div class="d-flex d-sm-block flex-column-reverse">
+
+          <div class="contact-panel">
+
+            <div class="panel-title">
+              {{ 'candidate-detail.job-center.title' | translate }}
+            </div>
+
+            <!-- display job center information, if available -->
+            <div *ngIf="candidateDetailModel.jobCenter as jobCenter"
+                 class="order-sm-2 alv-logo-box">
+              <div *ngIf="jobCenter.address as address">
+                <alv-post-address [address]="{
+                        name: address.name,
+                        street: address.street,
+                        houseNumber: address.houseNumber,
+                        postalCode: address.zipCode,
+                        city: address.city}">
+                </alv-post-address>
+              </div>
+              <div *ngIf="candidateDetailModel.contact as contact">
+                <div *ngIf="contact.firstName || contact.lastName">
+                  {{contact.firstName}} {{contact.lastName}}
+                </div>
+                <div *ngIf="contact.phone">
+                  <a class="link"
+                     href="tel:{{contact.phone}}">{{contact.phone | phoneNumber}}</a>
+                </div>
+                <div *ngIf="contact.email">
+                  <a class="link"
+                     href="mailto:{{contact.email}}">{{contact.email}}</a>
+                </div>
+              </div>
+
+              <div *ngIf="candidateDetailModel.candidateProfile as candidateProfile">
+                <strong>
+                  {{'candidate-detail.external-id' | translate}}
+                  : {{candidateProfile.externalId }}
+                </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-------------Main screen-->
+    <div class="main-column">
+
+      <!-----------------Title-->
+      <h2 class="mb-4 text-capitalize">{{candidateDetailModel.lastJobExperience?.occupationLabel}}</h2>
+
+      <!--Badges-->
+      <div class="mb-4">
+        <alv-inline-badges [badges]="badges$ | async"></alv-inline-badges>
+      </div>
+
+      <!-----------------Details about candidate-->
+      <div class="mb-3">
+        <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_QUALIFICATION"
+                            *ngIf="candidateDetailModel.hasJobExperiences && candidateDetailModel.jobExperiencesModels  as jobExperiences"
+                            panelTitle="candidate-detail.job-experience.title">
+          <!--last job-->
+          <ng-container *ngFor="let jobExperience of jobExperiences; let i = index">
+            <hr *ngIf="i > 0">
+            <strong *ngIf="i < NUMBER_OF_JOBS_TO_SHOW - 1 ">
+              {{ (jobExperience.jobExperience.lastJob ?
+              'candidate-detail.job-experience.last-job.label' :
+              'portal.candidate-detail.other-work-experience.label') | translate}}
+            </strong>
+            <h3 class="text-primary text-capitalize">{{jobExperience.occupationLabel}}</h3>
+            <ul class="alv-list">
+              <alv-list-item-content *ngIf="jobExperience.jobExperience.remark as remark"
+                                     label="candidate-detail.job-experience.description.label">
+                {{remark}}
+              </alv-list-item-content>
+              <alv-list-item-content *ngIf="jobExperience.displayGraduation && jobExperience.jobExperience.graduation as graduation"
+                                     label="candidate-detail.job-experience.graduation.label">
+                {{ 'candidate-detail.graduation.' + graduation | translate}}
+              </alv-list-item-content>
+              <alv-list-item-content *ngIf="jobExperience.displayDegree && jobExperience.jobExperience.degree as degree"
+                                     label="candidate-detail.job-experience.degree.label">
+                {{ 'global.degree.' + degree | translate}}
+              </alv-list-item-content>
+              <alv-list-item-content *ngIf="jobExperience.jobExperience.experience as experience"
+                                     label="candidate-detail.job-experience.experience.label">
+                {{ 'global.experience.' + experience | translate }}
+              </alv-list-item-content>
+            </ul>
+          </ng-container>
+        </alv-collapse-panel>
+
+        <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_LANGUAGES"
+                            *ngIf="candidateDetailModel.languages"
+                            panelTitle="portal.candidate-detail.language-skills.label">
+          <alv-language-skills [languages]="candidateDetailModel.languages">
+          </alv-language-skills>
+        </alv-collapse-panel>
+
+        <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_OTHER_INFO"
+                            panelTitle="candidate-detail.additional-information.title">
+          <ul class="alv-list">
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.workForm.length"
+                                   label="candidate-detail.additional-information.workForm.label">
+              <ng-container *ngFor="let workForm of candidateDetailModel.candidateProfile.workForm | keys; last as isLast">
+                {{('global.workForm.' + workForm.value | translate) + (isLast ? '' : ', ')}}
+              </ng-container>
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.gender"
+                                   label="candidate-detail.additional-information.gender.label">
+              {{ 'global.gender.' + candidateDetailModel.candidateProfile.gender | translate }}
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.highestEducationLevel"
+                                   label="candidate-detail.additional-information.highestEducationLevel.label">
+              {{ 'global.education.' + candidateDetailModel.candidateProfile.highestEducationLevel | translate }}
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.highestDegree"
+                                   label="candidate-detail.additional-information.education.label">
+              {{ 'global.degree.' + candidateDetailModel.candidateProfile.highestDegree | translate }}
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.candidateProfile.drivingCategories?.length"
+                                   label="candidate-detail.additional-information.drivingCategories.label">
+              <span *ngFor="let drivingCategory of candidateDetailModel.candidateProfile.drivingCategories; let last= last">
+                {{drivingCategory}}{{last ? '' : ','}}
+              </span>
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateDetailModel.workLocations.length"
+                                   label="candidate-detail.additional-information.preferredWorkRegions.label">
+                <span *ngFor="let region of candidateDetailModel.workLocations; let last = last">
+                    {{region | translate}}{{last ? '' : ','}}
+                </span>
+            </alv-list-item-content>
+          </ul>
+        </alv-collapse-panel>
+
+        <alv-collapse-panel *ngIf="candidateDetailModel.protectedData as candidateProtectedData"
+                            [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
+                            panelTitle="candidate-detail.personal-information.title">
+          <ul class="alv-list">
+            <alv-list-item-content *ngIf="candidateProtectedData.firstName || candidateProtectedData.lastName"
+                                   label="candidate-detail.personal-information.name.label">
+              <div class="text-capitalize">
+                {{ candidateProtectedData.lastName | lowercase}} {{ candidateProtectedData.firstName | lowercase}}
+              </div>
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateProtectedData.nationalityCode"
+                                   label="candidate-detail.personal-information.nationality.label">
+              {{ candidateProtectedData.nationalityCode }}
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateProtectedData.address as address"
+                                   label="candidate-detail.personal-information.address.label">
+              <alv-post-address [address]="{
+                                 name: null,
+                                 street: address.street,
+                                 postalCode: address.zipCode,
+                                 city: address.city}">
+              </alv-post-address>
+            </alv-list-item-content>
+            <alv-list-item-content *ngIf="candidateProtectedData.phone"
+                                   label="candidate-detail.personal-information.phone.label">
+              <a class="link"
+                 href="tel:{{candidateProtectedData.phone}}">{{candidateProtectedData.phone | phoneNumber}}</a>
+            </alv-list-item-content>
+
+            <alv-list-item-content *ngIf="candidateProtectedData.mobile"
+                                   label="candidate-detail.personal-information.mobile.label">
+              <a class="link"
+                 href="tel:{{candidateProtectedData.mobile}}">{{candidateProtectedData.mobile | phoneNumber}}</a>
+            </alv-list-item-content>
+
+            <alv-list-item-content *ngIf="candidateProtectedData.email"
+                                   label="candidate-detail.personal-information.e-mail.label">
+              <a class="link"
+                 href="mailto:{{candidateProtectedData.email}}">{{candidateProtectedData.email}}</a>
+            </alv-list-item-content>
+          </ul>
+        </alv-collapse-panel>
+      </div>
+    </div>
+    <!-------------Right panel-->
+    <div class="right-column">
+      <div class="d-flex">
+        <button
+          (click)="prev()"
+          [disabled]="!(prevEnabled$ | async)"
+          class="btn btn-text btn-text-icon btn-truncate mb-2">
+          <i class="fa fa-caret-left mr-1"></i>
+          {{'portal.job-detail.previous-result' | translate}}
+        </button>
+        <div class="flex-grow-1"></div>
+        <button
+          (click)="next()"
+          [disabled]="!(nextEnabled$ | async)"
+          class="btn btn-text btn-text-icon btn-truncate mb-2">
+          {{'portal.job-detail.next-result' | translate}}
+          <i class="fa fa-caret-right ml-1"></i>
+        </button>
+      </div>
+
+      <ul class="nav flex-column">
+        <li>
+          <button (cbOnSuccess)="onCopyLink()"
+                  [cbContent]="getCandidateUrl()"
+                  [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
+                  class="btn btn-text btn-text-icon btn-truncate"
+                  ngxClipboard
+                  triggers="manual">
+            <i aria-hidden="true"
+               class="fa fa-copy mr-1"></i>
+            {{'candidate-detail.candidate-copy-link' | translate}}
+          </button>
+        </li>
+        <li>
+          <a [href]="'mailto:?body=' + getEncodedUrl()"
+             class="btn btn-text btn-text-icon btn-truncate">
+            <i aria-hidden="true"
+               class="fa fa-share mr-1"></i>
+            {{'job-detail.action.sendEmail' | translate}}
+          </a>
+        </li>
+        <li class="d-none d-md-block">
+          <button (click)="printCandidate()"
+                  class="btn btn-text btn-text-icon btn-truncate">
+            <i aria-hidden="true"
+               class="fa fa-print mr-1"></i>
+            {{'candidate-detail.candidate-print' | translate}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </alv-three-column-layout>
+</div>
+
+
+

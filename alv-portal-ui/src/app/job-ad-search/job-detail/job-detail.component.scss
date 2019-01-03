@@ -9,15 +9,9 @@
 
 .company-panel {
   word-break: break-word;
+  line-height: 1.75em;
 }
 
 .dropdown-toggle::after {
   display: none;
-}
-
-@include media-breakpoint-up(md) {
-  .side-panel {
-    position: sticky;
-    top:1.5rem;
-  }
 }

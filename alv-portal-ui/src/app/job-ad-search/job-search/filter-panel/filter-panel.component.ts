@@ -1,8 +1,8 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import { ContractType, Sort } from '../../state-management/state/job-search-filter.types';
+import { ContractType, Sort } from '../../state-management';
 import { UserRole } from '../../../core/auth/user.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { debounceTime, map, takeUntil } from 'rxjs/operators';
@@ -20,7 +20,8 @@ export interface FilterPanelValues {
 @Component({
   selector: 'alv-filter-panel',
   templateUrl: './filter-panel.component.html',
-  styleUrls: ['./filter-panel.component.scss']
+  styleUrls: ['./filter-panel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
@@ -38,8 +39,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   filterPanelValueChange = new Subject<FilterPanelValues>();
 
   expanded = false;
-
-  private _filterPanelValues: FilterPanelValues;
 
   restrictOptions$: Observable<SelectableOption[]> = of([
     {
@@ -100,6 +99,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   ]);
 
   onlineSinceSliderLabel: number;
+
+  private _filterPanelValues: FilterPanelValues;
 
   constructor(private fb: FormBuilder) {
     super();

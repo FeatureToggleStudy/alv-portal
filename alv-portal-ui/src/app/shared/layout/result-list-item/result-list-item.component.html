@@ -1,0 +1,24 @@
+<div class="result-list-item flex-height position-relative mb-2"
+     [routerLink]="result.routerLink"
+     [ngClass]="{'visited' : result.visited}">
+  <div class="selected-indicator h-100"></div>
+  <div class="d-flex flex-column flex-sm-row justify-content-between mb-1">
+    <h3 class="title order-2 order-sm-1 mb-0 w-100"
+        [innerHtml]="result.title | safeHtml">
+    </h3>
+    <div class="order-1 order-sm-2">
+      <small class="date text-truncate">
+        {{ result.header | date:'dd.MM.yyyy' }}
+      </small>
+    </div>
+  </div>
+
+  <span class="subtitle mr-1">{{result.subtitle}}</span>
+
+  <alv-inline-badges [badges]="result.badges"></alv-inline-badges>
+
+  <div class="line-clamp-2"
+       [style.-webkit-box-orient]="'vertical'"
+       [innerHtml]="result.description | markdownEscape | safeHtml">
+  </div>
+</div>

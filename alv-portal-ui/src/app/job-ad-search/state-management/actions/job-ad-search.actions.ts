@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { JobSearchFilter } from '../state/job-search-filter.types';
+import { JobSearchFilter } from '../state';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';

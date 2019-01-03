@@ -1,18 +1,20 @@
 <div class="container-fluid query-search-area py-4">
   <div class="form-row">
     <h2 class="sr-only">
-      Stellen suchen
+      {{'portal.job-ad-search.browser-title' | translate}}
     </h2>
-    <alv-job-query-panel class="col-md-9"
+    <alv-job-query-panel class="col-md-10 col-lg-9"
                          (jobQueryPanelValuesChange)="onQueryChange($event)"
                          [showSpinner]="resultsAreLoading$ | async"
                          [jobQueryPanelValues]="jobSearchFilter$ | async">
     </alv-job-query-panel>
 
-    <button class="btn btn-text col-md-1"
-            (click)="onResetFilter()">
-      {{ 'job-search.toolbar.reset' | translate }}
-    </button>
+    <div class="col-md-2 col-lg-3 d-flex">
+      <button class="btn btn-text h-100 mt-1 mt-md-0 flex-grow-1 flex-md-grow-0"
+              (click)="onResetFilter()">
+        {{ 'job-search.toolbar.reset' | translate }}
+      </button>
+    </div>
   </div>
 </div>
 <div (scrolled)="onScroll()"
@@ -22,39 +24,42 @@
      [infiniteScrollContainer]="'main'"
      class="container-fluid"
      infiniteScroll>
-  <div class="row mt-md-4 mt-3">
-    <div class="col-xs-12 col-md-3 col-xl-2">
-      <div class="side-panel">
-        <div class="alv-bar mb-1">
-          <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
-          <ng-template #resultsCount>
-            <strong>{{totalCount$ | async }} Stellen</strong>
-          </ng-template>
-        </div>
-        <h2 class="sr-only">
-          Stellen filtern
-        </h2>
-        <alv-filter-panel (filterPanelValueChange)="onFiltersChange($event)"
-                          [filterPanelValues]="jobSearchFilter$ | async">
-        </alv-filter-panel>
+
+  <alv-three-column-layout [mobileOrdering]="[1, 3, 2]"
+                           [stickyTop]="94">
+    <ng-container class="left-column">
+      <div class="alv-bar mb-1">
+        <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
+        <ng-template #resultsCount>
+          <strong>{{totalCount$ | async | number}} {{'portal.job-ad-search.results-count.label' | translate}}</strong>
+        </ng-template>
+
       </div>
-    </div>
-    <div class="col-xs-12 col-md-6 col-xl-8 order-3 order-md-2">
+      <h2 class="sr-only">
+        {{'job-search.filter.title' | translate}}
+      </h2>
+      <alv-filter-panel (filterPanelValueChange)="onFiltersChange($event)"
+                        [filterPanelValues]="jobSearchFilter$ | async">
+      </alv-filter-panel>
+    </ng-container>
+
+    <ng-container class="main-column">
       <h2 class="sr-only">
         Stellen Suchresultate
       </h2>
       <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults$ | async"
                              [jobSearchResult]="jobSearchResult"></alv-job-search-result>
-    </div>
+    </ng-container>
 
-    <div *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
-         class="col-xs-12 col-md-3 col-xl-2 order-2 order-md-3 mb-3 text-right text-md-left">
-      <a class="btn btn-text btn-text-icon btn-truncate side-panel"
-         href="{{jobSearchMailToLink}}">
+    <ng-container class="right-column">
+      <a *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
+         class="btn btn-text btn-text-icon btn-truncate"
+         [href]="jobSearchMailToLink">
         <i aria-hidden="true"
            class="fa fa-share mr-1"></i>
         {{'job-detail.action.sendEmail' | translate}}
       </a>
-    </div>
-  </div>
+
+    </ng-container>
+  </alv-three-column-layout>
 </div>

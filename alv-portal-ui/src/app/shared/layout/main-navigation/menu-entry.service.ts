@@ -28,6 +28,13 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     labelKey: 'portal.navigation.menu-entry.job-search',
     path: ['job-search'],
     userPredicate: isAnyUser
+  },
+  ,
+  {
+    icon: 'search',
+    labelKey: 'portal.navigation.menu-entry.candidate-search',
+    path: ['candidate-search'],
+    userPredicate: isAnyUser
   }
 ];
 

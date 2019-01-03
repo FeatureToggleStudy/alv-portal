@@ -10,7 +10,7 @@ import {
   LanguageInitializedAction
 } from './state-management/actions/core.actions';
 
-const LANGUAGE_KEY = 'NG_TRANSLATE_LANG_KEY';
+export const LANGUAGE_KEY = 'NG_TRANSLATE_LANG_KEY';
 
 
 /**
@@ -54,6 +54,10 @@ export class I18nService {
 
   stream(key: string | Array<string>, interpolateParams?: Object): Observable<string | any> {
     return this.translateService.stream(key, interpolateParams);
+  }
+
+  instant(key: string | Array<string>, interpolateParams?: Object): string {
+    return this.translateService.instant(key, interpolateParams);
   }
 
   private isLanguagePersisted(): boolean {

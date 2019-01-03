@@ -1,0 +1,16 @@
+<address *ngIf="address">
+  <span *ngIf="address.name">
+      <b>{{address.name}}</b>
+      <br>
+  </span>
+  <span *ngIf="address.postOfficeBoxNumber; else noPostOfficeBoxNumber">
+    {{'home.tools.job-publication.company.postbox' | translate}} {{address.postOfficeBoxNumber}}
+    <br>
+    {{address.postOfficeBoxPostalCode}}  {{address.postOfficeBoxCity}}
+  </span>
+  <ng-template #noPostOfficeBoxNumber>
+    {{address.street}} {{address.houseNumber}}
+    <br>
+    {{address.postalCode}} {{address.city}}
+  </ng-template>
+</address>
