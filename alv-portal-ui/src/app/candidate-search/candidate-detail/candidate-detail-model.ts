@@ -24,12 +24,12 @@ export class CandidateDetailModel {
     this.workLocations = preferredWorkLocations(this.candidateProfile);
   }
 
-  get lastJobExperience() {
+  get lastJobExperience(): JobExperienceModel {
     return this.jobExperiencesModels[0];
   }
 
-  get hasJobExperiences() {
-    return this.jobExperiencesModels.length;
+  get hasJobExperiences(): boolean {
+    return Boolean(this.jobExperiencesModels.length);
   }
 
   get languages(): LanguageSkill[] {
