@@ -93,17 +93,15 @@ describe('jobAdSearchReducers', () => {
      */
     it('APPLY_QUERY_VALUES : should update state with new JobQueryPanelValues', () => {
        // GIVEN
-       const payload: JobQueryPanelValues = queryPanelValues;
-
-       const action = new ApplyQueryValuesAction(payload);
+       const action = new ApplyQueryValuesAction(queryPanelValues);
 
        // WHEN
        const newState = jobAdSearchReducer(initialState, action);
 
        // THEN
-       expect(newState.jobSearchFilter.occupations).toEqual(payload.occupations);
-       expect(newState.jobSearchFilter.keywords).toEqual(payload.keywords);
-       expect(newState.jobSearchFilter.localities).toEqual(payload.localities);
+       expect(newState.jobSearchFilter.occupations).toEqual(queryPanelValues.occupations);
+       expect(newState.jobSearchFilter.keywords).toEqual(queryPanelValues.keywords);
+       expect(newState.jobSearchFilter.localities).toEqual(queryPanelValues.localities);
 
        verifyUnchanged(newState, initialState, ['jobSearchFilter']);
        verifyUnchanged(newState.jobSearchFilter, initialState.jobSearchFilter, ['occupations', 'keywords', 'localities']);
@@ -115,7 +113,6 @@ describe('jobAdSearchReducers', () => {
      */
     it('APPLY_QUERY_VALUES : should update state with JobQueryPanelValues', () => {
         // GIVEN
-        const payload: JobQueryPanelValues = queryPanelValues;
         const state: JobAdSearchState = {
             ...initialState,
             jobSearchFilter: {
@@ -125,15 +122,15 @@ describe('jobAdSearchReducers', () => {
             }
         };
 
-        const action = new ApplyQueryValuesAction(payload, true);
+        const action = new ApplyQueryValuesAction(queryPanelValues, true);
 
         // WHEN
         const newState = jobAdSearchReducer(state, action);
 
         // THEN
-        expect(newState.jobSearchFilter.occupations).toEqual(payload.occupations);
-        expect(newState.jobSearchFilter.keywords).toEqual(payload.keywords);
-        expect(newState.jobSearchFilter.localities).toEqual(payload.localities);
+        expect(newState.jobSearchFilter.occupations).toEqual(queryPanelValues.occupations);
+        expect(newState.jobSearchFilter.keywords).toEqual(queryPanelValues.keywords);
+        expect(newState.jobSearchFilter.localities).toEqual(queryPanelValues.localities);
 
         expect(newState.jobSearchFilter.sort).toEqual(initialState.jobSearchFilter.sort);
         expect(newState.jobSearchFilter.contractType).toEqual(initialState.jobSearchFilter.contractType);
@@ -147,16 +144,14 @@ describe('jobAdSearchReducers', () => {
      */
     it('APPLY_FILTER_VALUES : should update state with new FilterPanelValues', () => {
         // GIVEN
-        const payload: FilterPanelValues = filterPanelValues;
-
         const jobSearchFilterChanged: JobSearchFilter = {
-            ...payload,
+            ...filterPanelValues,
             occupations: [],
             keywords: [],
             localities: []
         };
 
-        const action = new ApplyFilterValuesAction(payload);
+        const action = new ApplyFilterValuesAction(filterPanelValues);
 
         // WHEN
         const newState = jobAdSearchReducer(initialState, action);
