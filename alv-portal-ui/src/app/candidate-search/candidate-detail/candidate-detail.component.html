@@ -117,7 +117,7 @@
     <div class="main-column">
 
       <!-----------------Title-->
-      <h2 class="mb-4 text-capitalize">{{candidateDetailModel.lastJobExperience.occupationLabel}}</h2>
+      <h2 class="mb-4 text-capitalize">{{candidateDetailModel.lastJobExperience?.occupationLabel}}</h2>
 
       <!--Badges-->
       <div class="mb-4">
@@ -127,7 +127,7 @@
       <!-----------------Details about candidate-->
       <div class="mb-3">
         <alv-collapse-panel [panelId]="candidateDetailPanelId.CANDIDATE_QUALIFICATION"
-                            *ngIf="candidateDetailModel.jobExperiencesModels  as jobExperiences"
+                            *ngIf="candidateDetailModel.hasJobExperiences && candidateDetailModel.jobExperiencesModels  as jobExperiences"
                             panelTitle="candidate-detail.job-experience.title">
           <!--last job-->
           <ng-container *ngFor="let jobExperience of jobExperiences; let i = index">

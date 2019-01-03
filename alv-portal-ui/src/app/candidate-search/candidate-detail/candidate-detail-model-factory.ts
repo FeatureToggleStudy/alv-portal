@@ -107,7 +107,11 @@ export class CandidateDetailModelFactory {
   private getJobExperiencesModels(candidateProfile$: Observable<CandidateProfile>): Observable<JobExperienceModel[]> {
     return combineLatest(candidateProfile$, this.i18nService.currentLanguage$).pipe(
       switchMap(([candidateProfile, language]) => {
-        const jobExperiencesModels$ = findWantedJobExperiences(candidateProfile)
+        const wantedJobExperiences = findWantedJobExperiences(candidateProfile);
+        if (wantedJobExperiences.length === 0) {
+          return of([]);
+        }
+        const jobExperiencesModels$ = wantedJobExperiences
           .map(jobExperience => this.resolveJobExperience(candidateProfile, language, jobExperience));
         return forkJoin(jobExperiencesModels$);
       }),

@@ -28,6 +28,10 @@ export class CandidateDetailModel {
     return this.jobExperiencesModels[0];
   }
 
+  get hasJobExperiences() {
+    return this.jobExperiencesModels.length;
+  }
+
   get languages(): LanguageSkill[] {
     return this.candidateProfile.languages
       .map(languageSkill => ({
