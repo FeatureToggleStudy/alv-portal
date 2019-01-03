@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of } from 'rxjs';
-import { Action, Store } from '@ngrx/store';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { Action, select, Store } from '@ngrx/store';
+import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {
+  ACCOUNTABILITIES_LOADED,
+  AcountabilitiesLoaded,
+  CompanySelectedAction,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   EFFECT_ERROR_OCCURRED,
   EffectErrorOccurredAction,
+  LOAD_ACCOUNTABILITIES,
   LOAD_CURRENT_USER,
+  LoadAccountabilities,
   LoadCurrentUserAction,
   LOGOUT_USER,
   LogoutUserAction,
+  SELECT_COMPANY,
+  SelectCompanyAction,
   SESSION_EXPIRED,
   ToggleMainNavigationAction
 } from '../actions/core.actions';
@@ -22,7 +29,13 @@ import { User } from '../../auth/user.model';
 import { ErrorHandlerService } from '../../error-handler/error-handler.service';
 import { NotificationsService } from '../../notifications.service';
 import { Router } from '@angular/router';
-import { CoreState } from '../state/core.state.ts';
+import { CoreState, getCurrentUser } from '../state/core.state.ts';
+import { UserInfoRepository } from '../../../shared/backend-services/user-info/user-info-repository';
+import { CompanyRepository } from '../../../shared/backend-services/company/company-repository';
+import {
+  Accountability,
+  CompanyContactTemplate
+} from '../../../shared/backend-services/user-info/user-info.types';
 
 @Injectable()
 export class CoreEffects {
@@ -53,9 +66,52 @@ export class CoreEffects {
   @Effect()
   currentUserLoaded: Observable<Action> = this.actions$.pipe(
     ofType(CURRENT_USER_LOADED),
-    map(() => {
-      return new ToggleMainNavigationAction({ expanded: true });
+    map(action => <CurrentUserLoadedAction>action),
+    switchMap((action) => {
+      const actions: Action[] = [new ToggleMainNavigationAction({ expanded: true })];
+      if (action.payload.currentUser) {
+        actions.push(new LoadAccountabilities({ userId: action.payload.currentUser.id }));
+      }
+      return actions;
     })
+  );
+
+  @Effect()
+  loadAccountabilities: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_ACCOUNTABILITIES),
+    map(action => <LoadAccountabilities>action),
+    switchMap((action) => {
+      return this.userInfoRepository.findAccountabilities(action.payload.userId)
+    }),
+    map(accountabilities => {
+      return new AcountabilitiesLoaded({ accountabilities: accountabilities });
+    }),
+    catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+  );
+
+  @Effect()
+  acountabilitiesLoaded: Observable<Action> = this.actions$.pipe(
+    ofType(ACCOUNTABILITIES_LOADED),
+    map(action => <AcountabilitiesLoaded>action),
+    map(action => {
+      const accountability = action.payload.accountabilities[0];
+      if (accountability) {
+        return new SelectCompanyAction({ accountability: accountability });
+      }
+      return { type: 'nothing' };
+    })
+  );
+
+  @Effect()
+  selectCompany: Observable<Action> = this.actions$.pipe(
+    ofType(SELECT_COMPANY),
+    map(action => <SelectCompanyAction>action),
+    withLatestFrom(this.store.pipe(select(getCurrentUser))),
+    switchMap(([action, user]) => {
+      return this.loadCompanyContactTemplate(user, action.payload.accountability);
+    }),
+    map(companyContactTemplate => new CompanySelectedAction({ company: companyContactTemplate })),
+    catchError<any, Action>((err) => of(new EffectErrorOccurredAction({ httpError: err })))
   );
 
   @Effect({ dispatch: false })
@@ -86,14 +142,39 @@ export class CoreEffects {
     })
   );
 
+
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
+              private companyRepository: CompanyRepository,
               private router: Router,
               private store: Store<CoreState>,
+              private userInfoRepository: UserInfoRepository,
               private notificationsService: NotificationsService,
               private errorHandlerService: ErrorHandlerService,
               private sessionManagerService: SessionManagerService) {
 
+  }
+
+  private loadCompanyContactTemplate(user: User, accountability: Accountability): Observable<CompanyContactTemplate> {
+    return this.userInfoRepository.findCompanyContactTemplate(user.id, accountability.companyId).pipe(
+      catchError((err) => {
+        if (err.status !== 404) {
+          return throwError(err);
+        }
+        return this.companyRepository.findByExternalId(accountability.companyExternalId).pipe(
+          map(company => {
+            return {
+              companyId: company.id,
+              companyName: company.name,
+              companyStreet: company.street,
+              companyZipCode: company.zipCode,
+              companyCity: company.city,
+              email: user.email
+            };
+          })
+        );
+      })
+    );
   }
 
 }
