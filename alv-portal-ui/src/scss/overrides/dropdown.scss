@@ -8,23 +8,22 @@
     border-left: 5px solid transparent;
     padding: .5rem 1rem;
 
-    &:hover {
-      cursor: pointer;
+    &:hover, &:active, &.active {
       border-left: 5px solid $color-primary;
       color: $color-primary;
+      background-color: transparent;
     }
-    &:active {
-      color: $color-white;
+    &:hover {
+      cursor: pointer;
+      background-color: $color-light-grey;
     }
 
-    &.active {
-      background-color: $color-light-grey;
-      color: $color-primary;
+    &.active, &:active {
+
     }
 
     .ngb-highlight {
       background-color: $color-light-yellow;
-
     }
 
     &.highlight {
