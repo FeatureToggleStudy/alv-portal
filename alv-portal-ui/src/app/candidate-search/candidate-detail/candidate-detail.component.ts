@@ -32,7 +32,7 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 })
 export class CandidateDetailComponent implements OnInit {
 
-  NUMBER_OF_JOBS_TO_SHOW = 3;
+  readonly NUMBER_OF_JOBS_TO_SHOW = 3;
 
   candidateDetailModel$: Observable<CandidateDetailModel>;
 
@@ -54,8 +54,6 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    //todo: Create a model for the detail page and map the candidateProfile$ to it
-
     const candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
 
     this.badges$ = candidateProfile$.pipe(

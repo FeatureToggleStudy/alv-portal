@@ -21,8 +21,8 @@ import {
   canViewCandidateProtectedData,
   extractGenderAwareTitle,
   findWantedJobExperiences,
-  isDisplayDegree,
-  isDisplayGraduation
+  isDegreeDisplayed,
+  isGraduationDisplayed
 } from '../candidate-rules';
 import { OccupationService } from '../../shared/occupations/occupation.service';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
@@ -83,8 +83,8 @@ export class CandidateDetailModelFactory {
       map(label => ({
         jobExperience: jobExperience,
         occupationLabel: extractGenderAwareTitle(candidateProfile, label),
-        displayGraduation: isDisplayGraduation(jobExperience.graduation),
-        displayDegree: isDisplayDegree(jobExperience.degree)
+        displayGraduation: isGraduationDisplayed(jobExperience.graduation),
+        displayDegree: isDegreeDisplayed(jobExperience.degree)
       }))
     );
   }

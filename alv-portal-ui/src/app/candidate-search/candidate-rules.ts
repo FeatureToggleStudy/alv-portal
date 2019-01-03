@@ -113,11 +113,11 @@ export const extractGenderAwareTitle = (candidateProfile, occupationLabel: Gende
   return occupationLabel.default;
 };
 
-export const isDisplayGraduation = (graduation: Graduation): boolean => {
+export const isGraduationDisplayed = (graduation: Graduation): boolean => {
   return graduation && graduation !== Graduation[Graduation.NONE];
 };
 
-export const isDisplayDegree = (degree: Degree): boolean => {
+export const isDegreeDisplayed = (degree: Degree): boolean => {
   return degree && Degree[degree] >= Degree.SEK_II_WEITERFUEHRENDE_SCHULE
     && Degree[degree] <= Degree.TER_DOKTORAT_UNIVERSITAET;
 };
