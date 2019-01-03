@@ -1,4 +1,10 @@
-import { initialState, JobAdSearchState } from '../state/job-ad-search.state';
+import {
+    initialState,
+    JobAdSearchState,
+    ContractType,
+    JobSearchFilter,
+    Sort
+} from '../state';
 import * as actions from '../actions/job-ad-search.actions';
 import {
     ApplyFilterAction,
@@ -10,30 +16,33 @@ import {
     NextPageLoadedAction,
     OccupationLanguageChangedAction,
     ResetFilterAction
-} from '../actions/job-ad-search.actions';
+} from '../actions';
 import { jobAdSearchReducer } from './job-ad-search.reducers';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
-import { ContractType, JobSearchFilter, Sort } from '../state/job-search-filter.types';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { createJobAdvertisement } from './job-ad-search.reducers.spec-util';
-import {
-    JobAdvertisement,
-    ProfessionCode
-} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
     OccupationMultiTypeaheadItem,
     OccupationMultiTypeaheadItemType
 } from '../../../shared/occupations/occupation-multi-typeahead-item';
 import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { OccupationCode } from "../../../shared/backend-services/reference-service/occupation-label.types";
+import {
+    LocalityInputType,
+    LocalityItem,
+    LocalityMultiTypeaheadItem
+} from "../../../shared/localities/locality-multi-typeahead-item";
 
 describe('jobAdSearchReducers', () => {
 
     /* QUERY PANEL VALUES CHANGED */
-    const professionCode: ProfessionCode[] = [{ type: 'X28', value: '11000976' }, { type: 'AVAM', value: '68913' }];
+    const occupationCode: OccupationCode = { type: 'X28', value: '11000976' };
+    const localityItem: LocalityItem = { communalCode: '351' };
     const occupation = new OccupationMultiTypeaheadItem(
-        OccupationMultiTypeaheadItemType.OCCUPATION, professionCode, 'Java Applikationsentwickler', 7);
+        OccupationMultiTypeaheadItemType.OCCUPATION, occupationCode, 'Java Applikationsentwickler', 7);
     const keyword = new SimpleMultiTypeaheadItem('free-text', 'angular', 'angular', 0);
-    const locality = new SimpleMultiTypeaheadItem('locality', '351', 'Bern', 0);
+    const locality = new LocalityMultiTypeaheadItem(LocalityInputType.LOCALITY, localityItem, 'Bern', 0);
     const queryPanelValues: JobQueryPanelValues = {
         occupations: [ occupation ],
         keywords: [ keyword ],
@@ -213,11 +222,11 @@ describe('jobAdSearchReducers', () => {
      */
     it('OCCUPATION_LANGUAGE_CHANGED_ACTION : should update occupation category for language and value', () => {
         // GIVEN
-        const profCode: ProfessionCode[] = [{ type: 'SBN3', value: '361' }];
+        const occupCode: OccupationCode = { type: 'SBN3', value: '361' };
         const classificationDE = new OccupationMultiTypeaheadItem(
-            OccupationMultiTypeaheadItemType.CLASSIFICATION, profCode, 'Berufe der Informatik', 10);
+            OccupationMultiTypeaheadItemType.CLASSIFICATION, occupCode, 'Berufe der Informatik', 10);
         const classificationEN = new OccupationMultiTypeaheadItem(
-            OccupationMultiTypeaheadItemType.CLASSIFICATION, profCode, 'IT occupations', 10);
+            OccupationMultiTypeaheadItemType.CLASSIFICATION, occupCode, 'IT occupations', 10);
         const state: JobAdSearchState = {
             ...initialState,
             jobSearchFilter: {
