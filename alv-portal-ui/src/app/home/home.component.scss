@@ -1,6 +1,7 @@
 @import '../../../node_modules/bootstrap/scss/functions';
 @import '../../../node_modules/bootstrap/scss/variables';
 @import '../../../node_modules/bootstrap/scss/mixins';
+@import "../../scss/common/colors";
 
 .toolbar {
   background-color: rgba(255, 255, 255, 0.7);
@@ -12,3 +13,16 @@
   }
 }
 
+.btn.btn-secondary {
+  background-color: $color-light-grey;
+  border-color: transparent;
+
+  .route-label {
+    font-size: 1.25em;
+    display: none;
+    tab-index: -1;
+    &.visible {
+      display: inline;
+    }
+  }
+}

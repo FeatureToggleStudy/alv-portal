@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 /**
  * The home page component is a default component for the user that comes to the portal
@@ -11,11 +12,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {
+  toolbarButtons: ToolbarButton[] = [
+    {
+      label: 'home.toolbar.jobSeekers',
+      icon: 'binoculars',
+      route: 'job-seeker'
+    },
+    {
+      label: 'home.toolbar.companies' ,
+      icon: 'building',
+      route: 'company'
+    },
+    {
+      label: 'home.toolbar.recruitmentAgencies',
+      icon: 'eye',
+      route: 'pav'
+    }
+  ];
+
+  activeRouteLabel: string;
+
+  constructor(private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-    // the component automatically activates one of the child routes
+    console.log(this.activatedRoute.children.map(c => c.data));
+
   }
 
+}
+
+interface ToolbarButton {
+  label: string;
+  icon: string;
+  route: string;
 }
