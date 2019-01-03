@@ -28,8 +28,8 @@ export class CandidateDetailModel {
     return this.jobExperiencesModels[0];
   }
 
-  get olderJobExperiences() {
-    return this.jobExperiencesModels.slice(1);
+  get hasJobExperiences() {
+    return this.jobExperiencesModels.length;
   }
 
   get languages(): LanguageSkill[] {
