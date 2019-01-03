@@ -13,9 +13,9 @@ export class CompanyRepository {
   constructor(private http: HttpClient) {
   }
 
-  findByExternalId(id: string): Observable<Company> {
+  findByExternalId(externalId: string): Observable<Company> {
     return this.http.get<Company>(`${this.resourceUrl}/find/by-external-id`,
-      { params: new HttpParams().set('id', id) });
+      { params: new HttpParams().set('id', externalId) });
   }
 
 }

@@ -1,6 +1,7 @@
 <div class="d-flex align-items-center">
   <div class="mr-4">
-    <img class="photo-user" ngxGravatar
+    <img class="photo-user"
+         ngxGravatar
          [email]="user.email"
          size="80"
          [fallback]="'identicon'">
@@ -8,5 +9,9 @@
   <div class="flex-grow-1">
     <div class="">{{timeTextKey | translate}},</div>
     <div class="greeting">{{user.firstName}} {{user.lastName}}</div>
+  </div>
+
+  <div *ngIf="company">
+    Company: {{company.companyName}}
   </div>
 </div>

@@ -81,7 +81,7 @@ export class CoreEffects {
     ofType(LOAD_ACCOUNTABILITIES),
     map(action => <LoadAccountabilities>action),
     switchMap((action) => {
-      return this.userInfoRepository.findAccountabilities(action.payload.userId)
+      return this.userInfoRepository.findAccountabilities(action.payload.userId);
     }),
     map(accountabilities => {
       return new AcountabilitiesLoaded({ accountabilities: accountabilities });

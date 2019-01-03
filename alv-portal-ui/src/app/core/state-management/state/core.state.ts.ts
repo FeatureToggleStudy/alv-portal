@@ -29,7 +29,10 @@ export const getCurrentUser = createSelector(getCoreState, (state: CoreState) =>
 export const getCurrentCompanyContactTemplate = createSelector(getCoreState, (state: CoreState) => state.currentCompanyContactTemplate);
 export const getMainNavigationExpanded = createSelector(getCoreState, (state: CoreState) => state.mainNavigationExpanded);
 export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUser, getCurrentCompanyContactTemplate, (user, companyContactTemplate) => {
-  return new CompanyContactTemplateModel(companyContactTemplate, user);
+  if (companyContactTemplate && user) {
+    return new CompanyContactTemplateModel(companyContactTemplate, user);
+  }
+  return null;
 });
 
 export const userNotFetched = (u: User) => {
