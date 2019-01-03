@@ -2,9 +2,8 @@
 
 .result-list-item {
   padding: 1em;
-  border: 1px solid $color-medium-grey;
   cursor: pointer;
-  border-bottom-right-radius: 15px;
+  border-bottom: 1px solid $color-medium-grey;
 
   .title:first-letter {
     text-transform: capitalize;
@@ -45,7 +44,6 @@
   .date {
     vertical-align: text-top;
   }
-
 
 }
 
