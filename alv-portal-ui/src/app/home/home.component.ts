@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  * The home page component is a default component for the user that comes to the portal
@@ -30,14 +30,10 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  activeRouteLabel: string;
-
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor() {
   }
 
   ngOnInit() {
-    console.log(this.activatedRoute.children.map(c => c.data));
-
   }
 
 }
