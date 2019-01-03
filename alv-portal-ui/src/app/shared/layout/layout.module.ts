@@ -20,8 +20,6 @@ import {
   ɵr
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { PanelComponent } from './panel/panel.component';
-import { PanelGroupComponent } from './panel-group/panel-group.component';
 import { NotificationComponent } from './notifications/notification/notification.component';
 import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
@@ -38,6 +36,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MenuEntryComponent } from './main-navigation/menu-entry/menu-entry.component';
 import { InlineBadgesComponent } from './inline-badges/inline-badges.component';
 import { CollapsePanelComponent } from './collapse-panel/collapse-panel.component';
+import { PostAddressComponent } from './post-address/post-address.component';
+import { ResultListItemComponent } from './result-list-item/result-list-item.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-layout.component';
+import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
+import { ListItemContentComponent } from './list-item-content/list-item-content.component';
 
 @NgModule({
   imports: [
@@ -54,6 +58,7 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
     NgbAlertModule,
     NgbTooltipModule,
     NgbDropdownModule,
+    PipesModule
   ],
   declarations: [
     UserMenuComponent,
@@ -61,8 +66,6 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
     NavigationContainerComponent,
     VersionComponent,
     HeaderComponent,
-    PanelComponent,
-    PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
@@ -76,7 +79,12 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
     LocalLoginComponent,
     MenuEntryComponent,
     InlineBadgesComponent,
-    CollapsePanelComponent
+    CollapsePanelComponent,
+    PostAddressComponent,
+    ResultListItemComponent,
+    ThreeColumnLayoutComponent,
+    ScrollToTopComponent,
+    ListItemContentComponent
   ],
   entryComponents: [
     ConfirmModalComponent,
@@ -86,8 +94,6 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
     NavigationContainerComponent,
     HeaderComponent,
     VersionComponent,
-    PanelComponent,
-    PanelGroupComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
@@ -104,7 +110,12 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
     StepIndicatorComponent,
     ReactiveFormsModule,
     InlineBadgesComponent,
-    CollapsePanelComponent
+    CollapsePanelComponent,
+    PostAddressComponent,
+    ResultListItemComponent,
+    ThreeColumnLayoutComponent,
+    ScrollToTopComponent,
+    ListItemContentComponent
   ]
 })
 export class LayoutModule {

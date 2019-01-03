@@ -5,6 +5,7 @@ import { PavDashboardComponent } from './pav-dashboard/pav-dashboard.component';
 import { NavigationGuard } from '../core/auth/navigation-guard.service';
 import { DashboardComponent } from './dashboard.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
         path: 'company',
         component: CompanyDashboardComponent,
         data: { titleKey: 'portal.home.pav.browser-title' }
+      },
+      {
+        path: 'admin',
+        component: AdminDashboardComponent,
+        data: { titleKey: 'portal.home.admin.browser-title' }
       }
     ]
   }

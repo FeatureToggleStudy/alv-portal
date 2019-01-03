@@ -19,7 +19,7 @@ import {
   OccupationLanguageChangedAction,
   FILTER_APPLIED,
   RESET_FILTER
-} from '../actions/job-ad-search.actions';
+} from '../actions';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
   catchError,
@@ -39,7 +39,7 @@ import {
   getNextId,
   getPrevId,
   JobAdSearchState
-} from '../state/job-ad-search.state';
+} from '../state';
 import { JobSearchRequestMapper } from './job-search-request.mapper';
 import { Router } from '@angular/router';
 import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -90,11 +90,11 @@ export class JobAdSearchEffects {
   @Effect()
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
-    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => {
+    withLatestFrom(this.store.pipe(select(getJobSearchFilter))),
+    switchMap(([action, jobSearchFilter]) => {
       return [
-        new ApplyFilterAction(state.jobSearchFilter),
-        new FilterResetAction(state.jobSearchFilter)
+        new ApplyFilterAction(jobSearchFilter),
+        new FilterResetAction(jobSearchFilter)
       ];
     })
   );

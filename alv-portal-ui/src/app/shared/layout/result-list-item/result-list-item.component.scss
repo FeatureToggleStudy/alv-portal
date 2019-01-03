@@ -1,0 +1,51 @@
+@import "../../../../scss/common/colors";
+
+.result-list-item {
+  padding: 1em;
+  border: 1px solid $color-medium-grey;
+  cursor: pointer;
+  border-bottom-right-radius: 15px;
+
+  .title:first-letter {
+    text-transform: capitalize;
+  }
+
+  &:hover {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+
+    .title {
+      color: $color-primary;
+    }
+
+    .selected-indicator {
+      background-color: $color-primary;
+    }
+  }
+
+  &.visited {
+    background: $color-light-grey;
+  }
+
+  .subtitle {
+    font-weight: 700;
+  }
+
+  .selected-indicator {
+    width: 5px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  em {
+    padding: 0 0.125rem;
+    background-color: $color-light-yellow;
+  }
+
+  .date {
+    vertical-align: text-top;
+  }
+
+
+}
+

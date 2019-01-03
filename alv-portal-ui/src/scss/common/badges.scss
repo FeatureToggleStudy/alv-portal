@@ -1,0 +1,38 @@
+@import "../common/colors";
+
+.badge-job,
+.badge-workplace,
+.badge-locality,
+.badge-occupation {
+  background-color: $color-medium-green;
+}
+
+.badge-job-category,
+.badge-canton,
+.badge-classification {
+  background-color: $color-medium-blue;
+}
+
+.badge-skill,
+.badge-free-text,
+.badge-availability {
+  background-color: $color-light-yellow;
+}
+
+.badge-job-workplace,
+.badge-place-of-residence {
+  background-color: $color-light-red;
+}
+
+.badge-workload,
+.badge-job-experience {
+  background-color: $color-light-grey;
+}
+
+.badge-contract-type {
+  background-color: $color-light-green;
+}
+
+.badge-danger {
+  color: $color-white;
+}

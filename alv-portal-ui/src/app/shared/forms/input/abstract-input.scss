@@ -125,6 +125,12 @@ textarea.form-control,
     }
   }
 }
+/* removes the margin of the form group */
+:host-context(.narrow-form) {
+  .form-group {
+    margin-bottom: 0;
+  }
+}
 /* FF only: Removes the red box-shadow */
 :not(output):-moz-ui-invalid {
   box-shadow: none;

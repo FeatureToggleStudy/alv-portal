@@ -12,7 +12,10 @@ export interface Contact {
 }
 
 export enum CEFR_Level {
-  NONE, BASIC, INTERMEDIATE, PROFICIENT
+  NONE = 'NONE',
+  BASIC = 'BASIC',
+  INTERMEDIATE = 'INTERMEDIATE',
+  PROFICIENT = 'PROFICIENT'
 }
 
 /**
@@ -35,23 +38,22 @@ export enum Degree {
   TER_DOKTORAT_UNIVERSITAET = '180'
 }
 
-export interface LanguageSkill {
-  code: string;
-  nativeLanguage?: boolean;
-  spoken: CEFR_Level;
-  written: CEFR_Level;
-}
-
 export enum Experience {
-  LESS_THAN_1_YEAR, MORE_THAN_1_YEAR, MORE_THAN_3_YEARS
+  LESS_THAN_1_YEAR = 'LESS_THAN_1_YEAR',
+  MORE_THAN_1_YEAR = 'MORE_THAN_1_YEAR',
+  MORE_THAN_3_YEARS = 'MORE_THAN_3_YEARS'
 }
 
 export enum Availability {
-  IMMEDIATE, BY_ARRANGEMENT
+  IMMEDIATE = 'IMMEDIATE',
+  BY_ARRANGEMENT = 'BY_ARRANGEMENT'
 }
 
 export enum WorkForm {
-  SUNDAY_AND_HOLIDAYS, SHIFT_WORK, NIGHT_WORK, HOME_WORK
+  SUNDAY_AND_HOLIDAYS = 'SUNDAY_AND_HOLIDAYS',
+  SHIFT_WORK = 'SHIFT_WORK',
+  NIGHT_WORK = 'NIGHT_WORK',
+  HOME_WORK = 'HOME_WORK'
 }
 
 export enum ISCED_1997 {
@@ -59,19 +61,96 @@ export enum ISCED_1997 {
 }
 
 export enum Graduation {
-  CH, ACCEPTED, NOT_ACCEPTED, NONE
+  CH = 'CH',
+  ACCEPTED = 'ACCEPTED',
+  NOT_ACCEPTED = 'NOT_ACCEPTED',
+  NONE = 'NONE'
 }
 
 export enum DrivingLicenceCategory {
-  A, A1, B, B1, BE, C, C1, C1E, CE, D, D1, D1E, DE, F, G, M
+  A = 'A',
+  A1 = 'A1',
+  B = 'B',
+  B1 = 'B1',
+  BE = 'BE',
+  C = 'C',
+  C1 = 'C1',
+  C1E = 'C1E',
+  CE = 'CE',
+  D = 'D',
+  D1 = 'D1',
+  D1E = 'D1E',
+  DE = 'DE',
+  F = 'F',
+  G = 'G',
+  M = 'M'
 }
 
 export enum Canton {
   AG, AI, AR, BE, BL, BS, FR, GE, GL, GR, JU, LU, NE, NW, OW, SG, SH, SO, SZ, TG, TI, UR, VD, VS, ZG, ZH
 }
 
+export enum Language {
+  DE = 'de',
+  FR = 'fr',
+  IT = 'it',
+  EN = 'en',
+  // DE_CH = 'de-ch' <- is not working for filtering of candidates
+  CH = 'ch',
+  BG = 'bg',
+  BS = 'bs',
+  CS = 'cs',
+  DA = 'da',
+  EL = 'el',
+  ES = 'es',
+  FA = 'fa',
+  FI = 'fi',
+  HE = 'he',
+  HR = 'hr',
+  HU = 'hu',
+  JA = 'ja',
+  KM = 'km',
+  KU = 'ku',
+  LT = 'lt',
+  MK = 'mk',
+  NL = 'nl',
+  NLD = 'nld',
+  NO = 'no',
+  PL = 'pl',
+  PRS = 'prs',
+  PT = 'pt',
+  RM = 'rm',
+  RO = 'ro',
+  RU = 'ru',
+  SK = 'sk',
+  SL = 'sl',
+  SQ = 'sq',
+  SR = 'sr',
+  SR_HR = 'sr-hr',
+  SV = 'sv',
+  TA = 'ta',
+  TH = 'th',
+  TI = 'ti',
+  TR = 'tr',
+  VI = 'vi',
+  ZH = 'zh'
+}
+
+export interface PostAddress {
+  name: string;
+  street?: string;
+  houseNumber?: string;
+  postalCode: string;
+  city: string;
+  postOfficeBoxNumber?: string;
+  postOfficeBoxPostalCode?: string;
+  postOfficeBoxCity?: string;
+  countryIsoCode?: string;
+}
+
 export interface LanguageSkill {
   languageIsoCode: string;
+  nativeLanguage?: boolean;
   spokenLevel: CEFR_Level;
   writtenLevel: CEFR_Level;
 }

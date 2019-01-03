@@ -1,7 +1,7 @@
 <form [formGroup]="form"
       (ngSubmit)="onSearchSubmit()"
-      class="justify-content-between form-row">
-  <div class="col-md-11">
+      class="justify-content-between d-flex flex-column flex-md-row">
+  <div class="flex-grow-1">
     <div class="form-row">
       <div class="col-12 col-md-4 mb-1 mb-md-0">
         <alv-multi-typeahead alvFormControlName="occupations"
@@ -11,7 +11,8 @@
                              label="portal.job-ad.search.query-panel.occupations.placeholder"
                              [ngbTooltip]="occupationsTP"
                              placement="bottom"
-                             [focusFirst]="true">
+                             [focusFirst]="true"
+                             class="narrow-form">
         </alv-multi-typeahead>
         <ng-template #occupationsTP>
           {{ 'portal.job-ad.search.query-panel.occupations.tooltip' | translate}}
@@ -22,7 +23,8 @@
                              [limit]="4"
                              label="portal.job-ad.search.query-panel.keywords.placeholder"
                              [ngbTooltip]="keywordsTP"
-                             placement="bottom">
+                             placement="bottom"
+                             class="narrow-form">
         </alv-multi-typeahead>
         <ng-template #keywordsTP>
           {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
@@ -38,7 +40,7 @@
                              label="portal.job-ad.search.query-panel.localities.placeholder"
                              [ngbTooltip]="localitiesTP"
                              placement="bottom"
-                             class="append-button">
+                             class="append-button narrow-form">
         </alv-multi-typeahead>
 
         <alv-geo-location-selection class="geo-location-selector"
@@ -51,9 +53,9 @@
       </div>
     </div>
   </div>
-  <button class="btn btn-primary col-md-1"
-          type="submit"
-          aria-label="search">
+  <button class="btn btn-primary ml-md-2"
+          aria-label="search"
+          type="submit">
     <i *ngIf="showSpinner"
        class="fas fa-sync-alt fa-spin">
     </i>
@@ -61,4 +63,5 @@
        class="fas fa-search">
     </i>
   </button>
+
 </form>

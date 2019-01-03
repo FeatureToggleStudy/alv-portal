@@ -1,6 +1,6 @@
 <div class="w-100"
      *ngIf="control">
-  <div class="form-label-group position-relative"
+  <div class="form-label-group form-group position-relative"
        [class.invalid]="control.touched && control.invalid">
     <span *ngIf="required && !readonly"
           class="required-indicator h-100">
@@ -77,7 +77,7 @@
         Limit of {{ limit }} reached.
       </ng-container>
       <ng-template #a11yHelpText>
-        Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of
+        Enter at least {{ queryMinLength }} characters to query the list of
         selectable items. Select by using the up and down arrow keys.
         <ng-container *ngIf="editable">
           You can add free text items by hitting Tab or Enter without selection.

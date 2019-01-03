@@ -5,7 +5,7 @@ import {
 } from './job-ad-search.effects';
 import { Actions } from '@ngrx/effects';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import { initialState, JobAdSearchState } from '../state/job-ad-search.state';
+import { initialState, JobAdSearchState } from '../state';
 import { Router } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { TestBed } from '@angular/core/testing';
@@ -17,10 +17,10 @@ import {
   InitResultListAction,
   LoadNextJobAdvertisementDetailAction,
   NextPageLoadedAction
-} from '../actions/job-ad-search.actions';
+} from '../actions';
 import { Observable } from 'rxjs';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { jobAdSearchReducer } from '../reducers/job-ad-search.reducers';
+import { jobAdSearchReducer } from '../reducers';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';

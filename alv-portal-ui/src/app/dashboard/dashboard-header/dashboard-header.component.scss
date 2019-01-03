@@ -1,4 +1,7 @@
 @import "../../../scss/common/colors";
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../node_modules/bootstrap/scss/mixins';
 
 .photo-user {
   font-size: 42px;
@@ -13,4 +16,10 @@
 
 .greeting {
   font-size: 2em
+}
+
+@include media-breakpoint-down(sm) {
+  .greeting {
+    font-size: 1.5em;
+  }
 }

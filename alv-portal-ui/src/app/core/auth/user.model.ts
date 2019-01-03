@@ -8,9 +8,10 @@ export enum RegistrationStatus {
 }
 
 export enum UserRole {
-  ROLE_JOB_SEEKER = <any> 'ROLE_JOBSEEKER_CLIENT',
-  ROLE_PAV = <any> 'ROLE_PRIVATE_EMPLOYMENT_AGENT',
-  ROLE_COMPANY = <any> 'ROLE_COMPANY'
+  ROLE_JOB_SEEKER = <any>'ROLE_JOBSEEKER_CLIENT',
+  ROLE_PAV = <any>'ROLE_PRIVATE_EMPLOYMENT_AGENT',
+  ROLE_COMPANY = <any>'ROLE_COMPANY',
+  ROLE_ADMIN = <any>'ROLE_ADMIN'
 }
 
 export const isAnyUser = () => {
@@ -75,9 +76,12 @@ export class User {
   }
 
   isRegistered(): boolean {
-    return this.registrationStatus === RegistrationStatus.REGISTERED;
+    return this.registrationStatus === RegistrationStatus.REGISTERED || this.isAdmin();
   }
 
+  isAdmin() {
+    return this.hasAnyAuthorities([UserRole.ROLE_ADMIN]);
+  }
 }
 
 

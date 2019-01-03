@@ -2,7 +2,7 @@ import { inject, TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController
-} from '../../../../../node_modules/@angular/common/http/testing';
+} from '@angular/common/http/testing';
 import { ProfileInfoService } from './profile-info.service';
 
 describe('ProfileInfoService', () => {

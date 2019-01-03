@@ -25,6 +25,10 @@ const appRoutes: Routes = [
     loadChildren: './job-ad-search/job-ad-search.module#JobAdSearchModule'
   },
   {
+    path: 'candidate-search',
+    loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule'
+  },
+  {
     path: 'landing',
     component: LandingPageComponent,
   },
