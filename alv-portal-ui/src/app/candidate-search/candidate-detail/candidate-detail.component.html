@@ -132,7 +132,7 @@
           <!--last job-->
           <ng-container *ngFor="let jobExperience of jobExperiences; let i = index">
             <hr *ngIf="i > 0">
-            <strong *ngIf="i < 2">
+            <strong *ngIf="i < NUMBER_OF_JOBS_TO_SHOW - 1 ">
               {{ (jobExperience.jobExperience.lastJob ?
               'candidate-detail.job-experience.last-job.label' :
               'portal.candidate-detail.other-work-experience.label') | translate}}

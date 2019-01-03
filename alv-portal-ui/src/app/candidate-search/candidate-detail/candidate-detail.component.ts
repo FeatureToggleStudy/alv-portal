@@ -32,6 +32,8 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 })
 export class CandidateDetailComponent implements OnInit {
 
+  NUMBER_OF_JOBS_TO_SHOW = 3;
+
   candidateDetailModel$: Observable<CandidateDetailModel>;
 
   prevEnabled$: Observable<boolean>;
