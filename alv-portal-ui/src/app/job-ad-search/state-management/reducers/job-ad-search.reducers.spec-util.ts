@@ -49,10 +49,7 @@ export function createJobAdvertisement(id = 'id', stellennummerAvam = 'avam'): J
                 avamOccupationCode: 'avam'
             }],
             languageSkills: [{
-                code: 'de',
                 languageIsoCode: 'de',
-                spoken: CEFR_Level.BASIC,
-                written: CEFR_Level.BASIC,
                 spokenLevel: CEFR_Level.BASIC,
                 writtenLevel: CEFR_Level.BASIC
             }],
