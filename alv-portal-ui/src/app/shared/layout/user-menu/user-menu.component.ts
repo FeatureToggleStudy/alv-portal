@@ -5,6 +5,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { LandingNavigationService } from '../../../core/landing-navigation.service';
 import { DOCUMENT, Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { Company } from '../../backend-services/company/company.types';
+import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 
 @Component({
   selector: 'alv-user-menu',
@@ -38,6 +40,8 @@ export class UserMenuComponent implements OnInit {
     this._user = user;
     this.hideRegistrationAction = this.user.isRegistered();
   }
+
+  @Input() company: CompanyContactTemplate;
 
   ngOnInit() {
     this.subscribeOnRouteChanges();

@@ -66,7 +66,7 @@ export class AuthenticationService {
     return this.currentUser$;
   }
 
-  getCurrentCompany() {
+  getCurrentCompany(): Observable<CompanyContactTemplateModel> {
     return this.currentCompany$;
   }
 
