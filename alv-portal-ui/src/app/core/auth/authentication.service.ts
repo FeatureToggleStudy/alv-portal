@@ -10,6 +10,7 @@ import {
   userNotFetched
 } from '../state-management/state/core.state.ts';
 import {
+  AccountabilitySelectedAction,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   LoadCurrentUserAction,
@@ -18,6 +19,7 @@ import {
 import { map, skipWhile, switchMap } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
 import { CompanyContactTemplateModel } from './company-contact-template-model';
+import { CompanyContactTemplate } from '../../shared/backend-services/user-info/user-info.types';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +56,10 @@ export class AuthenticationService {
         return a.payload.currentUser;
       })
     );
+  }
+
+  updateCompanyContactTemplate(company: CompanyContactTemplate) {
+    this.store.dispatch(new AccountabilitySelectedAction({ company: company }));
   }
 
   getCurrentUser(): Observable<User> {

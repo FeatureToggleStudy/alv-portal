@@ -21,4 +21,8 @@ export class UserInfoRepository {
     return this.http.get<Array<Accountability>>(`${UserInfoRepository.USER_INFO_URL}${userId}/accountabilities`);
   }
 
+  public createCompanyContactTemplate(userId: string, companyContactTemplate: CompanyContactTemplate): Observable<void> {
+    return this.http.post<void>(`${UserInfoRepository.USER_INFO_URL}${userId}/company-contact-templates`, companyContactTemplate);
+  }
+
 }
