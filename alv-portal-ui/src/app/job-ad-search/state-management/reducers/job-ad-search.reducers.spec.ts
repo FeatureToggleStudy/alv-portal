@@ -5,18 +5,7 @@ import {
     JobSearchFilter,
     Sort
 } from '../state';
-import * as actions from '../actions/job-ad-search.actions';
-import {
-    ApplyFilterAction,
-    ApplyFilterValuesAction,
-    ApplyQueryValuesAction,
-    FilterAppliedAction,
-    JobAdvertisementDetailLoadedAction,
-    LoadNextPageAction,
-    NextPageLoadedAction,
-    OccupationLanguageChangedAction,
-    ResetFilterAction
-} from '../actions';
+import * as jobActions from '../actions/job-ad-search.actions';
 import { jobAdSearchReducer } from './job-ad-search.reducers';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
@@ -81,13 +70,11 @@ describe('jobAdSearchReducers', () => {
         }
     };
 
-    /*
-     * DEFAULT
-     * it should not change state for undefined action
-     */
+    /*--------------------START--------------------*/
+
     it('DEFAULT : should not change state for undefined action', () => {
         // GIVEN
-        const action = {} as actions.Actions;
+        const action = {} as jobActions.Actions;
 
         // WHEN
         const newState = jobAdSearchReducer(initialState, action);
@@ -96,13 +83,9 @@ describe('jobAdSearchReducers', () => {
         expect(newState).toEqual(initialState);
     });
 
-    /*
-     * APPLY_QUERY_VALUES with init = false
-     * it should update state with new JobQueryPanelValues
-     */
-    it('APPLY_QUERY_VALUES : should update state with new JobQueryPanelValues', () => {
+    it('APPLY_QUERY_VALUES : with init = false, should update state with new JobQueryPanelValues', () => {
        // GIVEN
-       const action = new ApplyQueryValuesAction(queryPanelValues);
+       const action = new jobActions.ApplyQueryValuesAction(queryPanelValues);
 
        // WHEN
        const newState = jobAdSearchReducer(initialState, action);
@@ -116,11 +99,7 @@ describe('jobAdSearchReducers', () => {
        verifyUnchanged(newState.jobSearchFilter, initialState.jobSearchFilter, ['occupations', 'keywords', 'localities']);
     });
 
-    /*
-     * APPLY_QUERY_VALUES with init = true
-     * it should update state with new JobQueryPanelValues and return to initial jobSearchFilter values
-     */
-    it('APPLY_QUERY_VALUES : should update state with JobQueryPanelValues', () => {
+    it('APPLY_QUERY_VALUES : with init = true, should update state with JobQueryPanelValues and return to initial jobSearchFilter values', () => {
         // GIVEN
         const state: JobAdSearchState = {
             ...initialState,
@@ -131,7 +110,7 @@ describe('jobAdSearchReducers', () => {
             }
         };
 
-        const action = new ApplyQueryValuesAction(queryPanelValues, true);
+        const action = new jobActions.ApplyQueryValuesAction(queryPanelValues, true);
 
         // WHEN
         const newState = jobAdSearchReducer(state, action);
@@ -148,9 +127,6 @@ describe('jobAdSearchReducers', () => {
         verifyUnchanged(newState.jobSearchFilter, initialState.jobSearchFilter, ['occupations', 'keywords', 'localities']);
     });
 
-    /* APPLY_FILTER_VALUES
-     * it should update state with new FilterPanelValues
-     */
     it('APPLY_FILTER_VALUES : should update state with new FilterPanelValues', () => {
         // GIVEN
         const jobSearchFilterChanged: JobSearchFilter = {
@@ -160,7 +136,7 @@ describe('jobAdSearchReducers', () => {
             localities: []
         };
 
-        const action = new ApplyFilterValuesAction(filterPanelValues);
+        const action = new jobActions.ApplyFilterValuesAction(filterPanelValues);
 
         // WHEN
         const newState = jobAdSearchReducer(initialState, action);
@@ -171,19 +147,14 @@ describe('jobAdSearchReducers', () => {
         verifyUnchanged(newState, initialState, ['jobSearchFilter']);
     });
 
-    /*
-     * APPLY_FILTER
-     * it should update state with new jobSearchFilter (FilterValues and QueryValues)
-     * page should be 0 and resultAreLoading should be true
-     */
-    it('APPLY_FILTER : should update jobSearchFilter', () => {
+    it('APPLY_FILTER : should update jobSearchFilter, page and resultAreLoading', () => {
         // GIVEN
         const payload: JobSearchFilter = {
             ...filterPanelValues,
             ...queryPanelValues
         };
 
-        const action = new ApplyFilterAction(payload);
+        const action = new jobActions.ApplyFilterAction(payload);
 
         // WHEN
         const newState = jobAdSearchReducer(initialState, action);
@@ -195,13 +166,9 @@ describe('jobAdSearchReducers', () => {
         expect(newState.resultsAreLoading).toBeTruthy();
     });
 
-    /*
-     * FILTER_APPLIED
-     * it should update state with Array of JobAdvertisement (page) and totalCount
-     */
     it('FILTER_APPLIED : it should update Array of JobAdvertisement and totalCount', () => {
        // GIVEN
-       const action = new FilterAppliedAction( { page: jobAdPageOne, totalCount: 50});
+       const action = new jobActions.FilterAppliedAction( { page: jobAdPageOne, totalCount: 50});
 
        // WHEN
        const newState = jobAdSearchReducer(initialState, action);
@@ -216,10 +183,6 @@ describe('jobAdSearchReducers', () => {
        verifyUnchanged(newState, initialState, ['resultList', 'totalCount', 'resultsAreLoading']);
     });
 
-    /*
-     * OCCUPATION_LANGUAGE_CHANGED_ACTION
-     * it should update (translate) Occupation CATEGORY based on input language
-     */
     it('OCCUPATION_LANGUAGE_CHANGED_ACTION : should update occupation category for language and value', () => {
         // GIVEN
         const occupCode: OccupationCode = { type: 'SBN3', value: '361' };
@@ -235,7 +198,7 @@ describe('jobAdSearchReducers', () => {
             }
         };
 
-        const action = new OccupationLanguageChangedAction( { occupations: [ classificationEN ] });
+        const action = new jobActions.OccupationLanguageChangedAction( { occupations: [ classificationEN ] });
 
         // WHEN
         const newState = jobAdSearchReducer(state, action);
@@ -248,14 +211,9 @@ describe('jobAdSearchReducers', () => {
         verifyUnchanged(newState.jobSearchFilter, state.jobSearchFilter, ['occupations']);
     });
 
-    /*
-     * RESET_FILTER
-     * it should update filter and query values to their initial state
-     * but other state elements should be still unchanged at this point
-     */
     it('RESET_FILTER : should update filter and query values to their initial state', () => {
        // GIVEN
-       const action = new ResetFilterAction({});
+       const action = new jobActions.ResetFilterAction({});
 
        // WHAT
        const newState = jobAdSearchReducer(jobAdStateChanged, action);
@@ -266,13 +224,9 @@ describe('jobAdSearchReducers', () => {
        verifyUnchanged(newState, jobAdStateChanged, ['jobSearchFilter']);
     });
 
-    /*
-     * LOAD_NEXT_PAGE
-     * results are loading should be flagged true
-     */
     it('LOAD_NEXT_PAGE : should only flag true that results are loading', () => {
         // GIVEN
-        const action = new LoadNextPageAction();
+        const action = new jobActions.LoadNextPageAction();
 
         // WHEN
         const newState = jobAdSearchReducer(initialState, action);
@@ -283,11 +237,6 @@ describe('jobAdSearchReducers', () => {
         verifyUnchanged(newState, initialState, ['resultsAreLoading']);
     });
 
-    /*
-     * NEXT_PAGE_LOADED
-     * it should update resultList with new add payload, also the page number and
-     * flagged false the results are loading
-     */
     it('NEXT_PAGE_LOADED : should update resultList, page and results are loading flagged false', () => {
        // GIVEN
         const jobAdPageTwo: JobAdvertisement[] = [
@@ -298,7 +247,7 @@ describe('jobAdSearchReducers', () => {
             createJobAdvertisement('10')
         ];
 
-        const action = new NextPageLoadedAction({ page: jobAdPageTwo });
+        const action = new jobActions.NextPageLoadedAction({ page: jobAdPageTwo });
 
        // WHEN
         const newState = jobAdSearchReducer(jobAdStateChanged, action);
@@ -312,16 +261,12 @@ describe('jobAdSearchReducers', () => {
        verifyUnchanged(newState, jobAdStateChanged, ['page', 'resultsAreLoading', 'resultList']);
     });
 
-    /*
-     * JOB_ADVERTISEMENT_DETAIL_LOADED
-     * it should update selectedJobAdvertisement and visitedJobAds
-     */
     it('JOB_ADVERTISEMENT_DETAIL_LOADED : should update selectedJobAdvertisement and visitedJobAds', () => {
        // GIVEN
        const selectedJobAdOne = jobAdPageOne[0];
        const visitedJobAdOne = { [ selectedJobAdOne.id]: true };
 
-       let action = new JobAdvertisementDetailLoadedAction({ jobAdvertisement: selectedJobAdOne } );
+       let action = new jobActions.JobAdvertisementDetailLoadedAction({ jobAdvertisement: selectedJobAdOne } );
 
        // WHEN
        const newStateOne = jobAdSearchReducer(jobAdStateChanged, action);
@@ -336,7 +281,7 @@ describe('jobAdSearchReducers', () => {
        const selectedJobAdTwo = jobAdPageOne[4];
        const visitedJobAdTwo = { [selectedJobAdOne.id]: true , [selectedJobAdTwo.id]: true };
 
-       action = new JobAdvertisementDetailLoadedAction({ jobAdvertisement: selectedJobAdTwo } );
+       action = new jobActions.JobAdvertisementDetailLoadedAction({ jobAdvertisement: selectedJobAdTwo } );
 
        // WHEN
        const newStateTwo = jobAdSearchReducer(newStateOne, action);
@@ -348,10 +293,12 @@ describe('jobAdSearchReducers', () => {
        verifyUnchanged(newStateTwo, newStateOne, ['selectedJobAdvertisement', 'visitedJobAds']);
     });
 
+    /*----------------------END----------------------*/
+
 });
 
 // check if key elements of an object are unchanged
-function verifyUnchanged(afterAction, beforeAction, ignoreFields: Array<string>) {
+function verifyUnchanged(afterAction: Object, beforeAction: Object, ignoreFields: Array<string>) {
     Object.keys(afterAction)
         .filter((key: string) => ignoreFields.indexOf(key) < 0)
         .forEach((key: string) => {
