@@ -15,6 +15,7 @@ import {
   Notification,
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
+import { phoneInputValidator } from '../../shared/forms/input/phone-input/phone-input.validator';
 
 
 @Component({
@@ -72,7 +73,7 @@ export class ContactTemplateManagementComponent extends AbstractSubscriber imple
       salutation: [null, Validators.required],
       firstName: [null],
       lastName: [null],
-      phone: [null, Validators.required],
+      phone: [null, [Validators.required, phoneInputValidator()]],
       email: [null, [Validators.required, Validators.pattern(EMAIL_REGEX)]],
       companyName: [null, Validators.required],
       companyStreet: [null, Validators.required],
