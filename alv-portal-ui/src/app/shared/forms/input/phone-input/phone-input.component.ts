@@ -1,5 +1,5 @@
 import { Component, Host, OnInit, Optional, SkipSelf } from '@angular/core';
-import { AsYouType, CountryCode, isValidNumber } from 'libphonenumber-js';
+import { AsYouType, CountryCode, format, isValidNumber, parse } from 'libphonenumber-js';
 import { AbstractInput } from '../abstract-input';
 import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
@@ -30,7 +30,7 @@ export class PhoneInputComponent extends AbstractInput implements OnInit {
     if (isValidNumber(eventValue, this.country)) {
       const formatter = new AsYouType(this.country);
       const value = formatter.input(eventValue);
-      this.control.patchValue(value, {emitEvent: false});
+      this.control.patchValue(format(parse(value, this.country), 'International'), {emitEvent: false});
     }
   }
 
