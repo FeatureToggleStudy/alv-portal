@@ -2,8 +2,8 @@ import { CoreState, initialState } from '../state/core.state.ts';
 import {
   ACCOUNTABILITIES_LOADED,
   AcountabilitiesLoaded,
-  COMPANY_SELECTED,
-  CompanySelectedAction,
+  ACCOUNTABILITY_SELECTED,
+  AccountabilitySelectedAction,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   LANGUAGE_CHANGED,
@@ -41,7 +41,7 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
         accountabilities: action.payload.accountabilities
       };
       break;
-    case COMPANY_SELECTED:
+    case ACCOUNTABILITY_SELECTED:
       newState = {
         ...state,
         currentCompanyContactTemplate: action.payload.company
@@ -77,6 +77,6 @@ export type Actions =
   | ToggleMainNavigationAction
   | LoadCurrentUserAction
   | AcountabilitiesLoaded
-  | CompanySelectedAction
+  | AccountabilitySelectedAction
   ;
 

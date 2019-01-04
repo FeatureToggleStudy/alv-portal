@@ -6,7 +6,7 @@ import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators'
 import {
   ACCOUNTABILITIES_LOADED,
   AcountabilitiesLoaded,
-  CompanySelectedAction,
+  AccountabilitySelectedAction,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   EFFECT_ERROR_OCCURRED,
@@ -17,8 +17,8 @@ import {
   LoadCurrentUserAction,
   LOGOUT_USER,
   LogoutUserAction,
-  SELECT_COMPANY,
-  SelectCompanyAction,
+  SELECT_ACCOUNTABILITY,
+  SelectAccountabilityAction,
   SESSION_EXPIRED,
   ToggleMainNavigationAction
 } from '../actions/core.actions';
@@ -96,21 +96,21 @@ export class CoreEffects {
     map(action => {
       const accountability = action.payload.accountabilities[0];
       if (accountability) {
-        return new SelectCompanyAction({ accountability: accountability });
+        return new SelectAccountabilityAction({ accountability: accountability });
       }
       return { type: 'nothing' };
     })
   );
 
   @Effect()
-  selectCompany: Observable<Action> = this.actions$.pipe(
-    ofType(SELECT_COMPANY),
-    map(action => <SelectCompanyAction>action),
+  selectAccountability: Observable<Action> = this.actions$.pipe(
+    ofType(SELECT_ACCOUNTABILITY),
+    map(action => <SelectAccountabilityAction>action),
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
     switchMap(([action, user]) => {
       return this.loadCompanyContactTemplate(user, action.payload.accountability);
     }),
-    map(companyContactTemplate => new CompanySelectedAction({ company: companyContactTemplate })),
+    map(companyContactTemplate => new AccountabilitySelectedAction({ company: companyContactTemplate })),
     catchError<any, Action>((err) => of(new EffectErrorOccurredAction({ httpError: err })))
   );
 
