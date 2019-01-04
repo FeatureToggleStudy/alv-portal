@@ -1,10 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+@import "scss/overrides/typography";
+
 body {
   margin: 0;
   font-family: 'Open Sans', Calibri, sans-serif;
   overflow: hidden;
 }
+
 
 @import "scss/overrides/theme";
 @import "../node_modules/bootstrap/scss/bootstrap";
@@ -13,7 +16,6 @@ body {
 @import "scss/overrides/popover";
 @import "scss/overrides/dropdown";
 @import "scss/overrides/modal";
-@import "scss/overrides/typography";
 @import "scss/overrides/container";
 @import "scss/common/panel";
 @import "scss/common/bar";
