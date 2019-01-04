@@ -29,8 +29,7 @@ export function LocaleIdFactory(translateService: TranslateService) {
 }
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
-  const baseHrefFromDOM = platformLocation.getBaseHrefFromDOM();
-  return baseHrefFromDOM;
+  return platformLocation.getBaseHrefFromDOM();
 }
 
 @NgModule({
