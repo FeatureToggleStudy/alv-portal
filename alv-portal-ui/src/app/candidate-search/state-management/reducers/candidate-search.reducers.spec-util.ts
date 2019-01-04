@@ -69,5 +69,5 @@ export function createCandidateProfile(id = 'id'): CandidateProfile {
         highestDegree: null,
         jobCenterCode: null,
         jobAdvisor: null
-    }
+    };
 }
