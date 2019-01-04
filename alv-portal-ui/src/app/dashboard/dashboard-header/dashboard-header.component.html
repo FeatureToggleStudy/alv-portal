@@ -7,11 +7,11 @@
          [fallback]="'identicon'">
   </div>
   <div class="flex-grow-1">
-    <div class="">{{timeTextKey | translate}},</div>
+    <div>{{timeTextKey | translate}},</div>
     <div class="greeting">{{user.firstName}} {{user.lastName}}</div>
   </div>
 
   <div *ngIf="company">
-    Company: {{company.companyName}}
+    {{company.companyName}}
   </div>
 </div>
