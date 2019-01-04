@@ -69,10 +69,10 @@ export class ContactTemplateManagementComponent extends AbstractSubscriber imple
   }
 
   private prepareForm(): FormGroup {
-    const contactTemplateForm = this.fb.group({
+    return this.fb.group({
       salutation: [null, Validators.required],
-      firstName: [null],
-      lastName: [null],
+      firstName: [{value: null, disabled: true}],
+      lastName: [{value: null, disabled: true}],
       phone: [null, [Validators.required, phoneInputValidator()]],
       email: [null, [Validators.required, Validators.pattern(EMAIL_REGEX)]],
       companyName: [null, Validators.required],
@@ -81,9 +81,6 @@ export class ContactTemplateManagementComponent extends AbstractSubscriber imple
       companyZipCode: [null, Validators.required],
       companyCity: [null, Validators.required]
     });
-    contactTemplateForm.get('firstName').disable();
-    contactTemplateForm.get('lastName').disable();
-    return contactTemplateForm;
   }
 
   private patchFormValues(selectedTemplate: CompanyContactTemplateModel): void {
