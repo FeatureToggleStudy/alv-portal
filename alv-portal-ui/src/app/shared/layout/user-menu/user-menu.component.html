@@ -1,19 +1,26 @@
 <div ngbDropdown
      [placement]="'bottom-right'"
      #userDropdown="ngbDropdown">
-  <button class="btn btn-header mr-1"
+  <button class="btn btn-header mr-1 d-flex"
           id="userMenu"
           ngbDropdownToggle>
-    <i *ngIf="!hideRegistrationAction"
-       class="fa fa-exclamation-triangle mr-2"
+    <span class="text-left">
+          <i *ngIf="!hideRegistrationAction"
+             class="fa fa-exclamation-triangle mr-2"
+             aria-hidden="true">
+    </i>
+    <i class="fa fa-user d-inline d-lg-none"
        aria-hidden="true">
     </i>
-    <i class="fa fa-user mr-1"
-       aria-hidden="true">
-    </i>
-    <span class="d-none d-lg-inline">
+    <span class="d-none d-lg-block">
       {{user.firstName}} {{user.lastName}}
     </span>
+    <small class="company d-none d-lg-inline-block text-left"
+           *ngIf="company">
+      {{company.companyName}}
+    </small>
+    </span>
+
   </button>
   <div ngbDropdownMenu
        aria-label="User Menu">

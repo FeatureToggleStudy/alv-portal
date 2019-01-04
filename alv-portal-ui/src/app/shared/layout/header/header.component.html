@@ -2,7 +2,7 @@
   <!-- a11y -->
   <h1 class="sr-only">Header</h1>
 
-  <div class="header p-0 pt-lg-3 pb-lg-3 d-flex align-items-center">
+  <div class="header p-0 d-flex align-items-center">
     <a routerLink="/">
       <div class="logo pl-2 d-none d-lg-flex">
 
@@ -21,6 +21,7 @@
 
     <alv-user-menu *ngIf="user"
                    [user]="user"
+                   [company]="company"
                    [noEiam]="noEiam">
     </alv-user-menu>
 
