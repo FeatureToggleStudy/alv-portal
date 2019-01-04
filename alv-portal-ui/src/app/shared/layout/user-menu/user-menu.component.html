@@ -36,6 +36,13 @@
             (click)="goToEiamProfile()">
       <i class="fas fa-user-circle mr-2"></i> Profile
     </button>
+    <!-- Contact template -->
+    <a *ngIf="company"
+            class="dropdown-item"
+            routerLink="dashboard/contact-template">
+      <i class="fas fa-clipboard mr-2"></i>
+      {{'global.menu.admin.contact-template-management' | translate}}
+    </a>
     <!-- Logout -->
     <button class="dropdown-item"
             (click)="logout()">
