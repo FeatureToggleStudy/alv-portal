@@ -51,21 +51,31 @@
                      alvFormControlName="companyName">
     </alv-input-field>
 
-    <alv-input-field label="contact-template-management.companyStreet"
-                     alvFormControlName="companyStreet">
-    </alv-input-field>
+    <div class="form-row">
+      <div class="form-group col-md-9">
+        <alv-input-field label="contact-template-management.companyStreet"
+                         alvFormControlName="companyStreet">
+        </alv-input-field>
+      </div>
+      <div class="form-group col-md-3">
+        <alv-input-field label="contact-template-management.companyHouseNr"
+                         alvFormControlName="companyHouseNr">
+        </alv-input-field>
+      </div>
+    </div>
 
-    <alv-input-field label="contact-template-management.companyHouseNr"
-                     alvFormControlName="companyHouseNr">
-    </alv-input-field>
-
-    <alv-input-field label="contact-template-management.companyZipCode"
-                     alvFormControlName="companyZipCode">
-    </alv-input-field>
-
-    <alv-input-field label="contact-template-management.companyCity"
-                     alvFormControlName="companyCity">
-    </alv-input-field>
+    <div class="form-row">
+      <div class="form-group col-md-9">
+        <alv-input-field label="contact-template-management.companyZipCode"
+                         alvFormControlName="companyZipCode">
+        </alv-input-field>
+      </div>
+      <div class="form-group col-md-3">
+        <alv-input-field label="contact-template-management.companyCity"
+                         alvFormControlName="companyCity">
+        </alv-input-field>
+      </div>
+    </div>
 
     <button type="submit"
             class="btn btn-primary">{{'entity.action.save' | translate }}
