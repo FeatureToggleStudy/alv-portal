@@ -123,6 +123,11 @@ export class ContactTemplateManagementComponent extends AbstractSubscriber imple
     });
   }
 
+  onReset() {
+    this.contactTemplateForm.reset();
+    this.patchFormValues(this.currentCompany);
+  }
+
   dismissAlert(alert: Notification, alerts: Notification[]) {
     alerts.splice(alerts.indexOf(alert), 1);
   }

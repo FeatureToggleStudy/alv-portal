@@ -1,4 +1,4 @@
-<div>
+<div class="container">
 
   <h2 class="mb-3">{{ 'contact-template-management.title' | translate }}
     <strong>{{currentCompany?.companyName}}</strong></h2>
@@ -16,6 +16,8 @@
   <form alvFormSubmitValidation
         (validSubmit)="onSubmit()"
         [formGroup]="contactTemplateForm">
+
+    <h3 class="mt-4 mb-3">{{ 'contact-template-management.userInformation' | translate }}</h3>
 
     <alv-select
       label="contact-template-management.salutation"
@@ -67,6 +69,11 @@
 
     <button type="submit"
             class="btn btn-primary">{{'entity.action.save' | translate }}
+    </button>
+
+    <button type="button"
+            (click)="onReset()"
+            class="btn btn-text">{{'entity.action.cancel' | translate }}
     </button>
   </form>
 
