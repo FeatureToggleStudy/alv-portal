@@ -83,7 +83,7 @@ describe('CandidateDetailModelFactory', () => {
   beforeEach(() => {
     i18nServiceMock = {
       get currentLanguage$() {
-        return hot('-e-------', LANGUAGE_VALUES)
+        return hot('-e-------', LANGUAGE_VALUES);
       }
     };
 
