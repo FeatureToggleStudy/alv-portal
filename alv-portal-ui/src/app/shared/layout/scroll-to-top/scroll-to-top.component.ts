@@ -54,7 +54,8 @@ export class ScrollToTopComponent implements OnInit, OnDestroy {
 
   onScroll(event) {
     const wasHidden = this.hidden;
-    this.hidden = event.srcElement.scrollTop < 200;
+    const target = event.target || event.srcElement;
+    this.hidden = target.scrollTop < 200;
     // Only trigger the change detection if something has changed
     if (wasHidden !== this.hidden) {
       this.cdRef.detectChanges();

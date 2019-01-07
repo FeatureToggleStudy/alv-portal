@@ -1,5 +1,9 @@
 import { CoreState, initialState } from '../state/core.state.ts';
 import {
+  ACCOUNTABILITIES_LOADED,
+  AcountabilitiesLoaded,
+  ACCOUNTABILITY_SELECTED,
+  AccountabilitySelectedAction,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   LANGUAGE_CHANGED,
@@ -31,10 +35,24 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
         currentUser: action.payload.currentUser
       };
       break;
+    case ACCOUNTABILITIES_LOADED:
+      newState = {
+        ...state,
+        accountabilities: action.payload.accountabilities
+      };
+      break;
+    case ACCOUNTABILITY_SELECTED:
+      newState = {
+        ...state,
+        currentCompanyContactTemplate: action.payload.company
+      };
+      break;
     case LOGOUT_USER:
       newState = {
         ...state,
-        currentUser: null
+        currentUser: null,
+        accountabilities: null,
+        currentCompanyContactTemplate: null
       };
       break;
     case TOGGLE_MAIN_NAVIGATION:
@@ -58,5 +76,7 @@ export type Actions =
   | LogoutUserAction
   | ToggleMainNavigationAction
   | LoadCurrentUserAction
+  | AcountabilitiesLoaded
+  | AccountabilitySelectedAction
   ;
 

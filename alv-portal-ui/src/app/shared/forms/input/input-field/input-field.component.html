@@ -18,9 +18,9 @@
            [attr.required]="required"
            [attr.aria-required]="!!required"
            [attr.aria-describedby]="validationId"
-           #input
            [class.placeholder-shown]="!control.value"
            [alvAutofocus]="autofocus"
+           (input)="onInput($event)"
            class="form-control">
 
     <textarea *ngIf="multiline && !readonly"
@@ -30,7 +30,7 @@
               [rows]="getRows()"
               [attr.aria-describedby]="validationId"
               [class.placeholder-shown]="!control.value"
-              #textarea
+              (input)="onInput($event)"
               class="form-control">
     </textarea>
     <div *ngIf="readonly"
