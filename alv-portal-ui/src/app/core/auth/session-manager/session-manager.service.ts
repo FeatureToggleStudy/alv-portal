@@ -48,7 +48,7 @@ export class SessionManagerService {
     }
     const expiryTime = new Date(jwtToken.exp * 1000).getTime();
     const currentTime = Date.now();
-    return expiryTime - currentTime;
+    return Math.max(expiryTime - currentTime, 0);
   }
 }
 
