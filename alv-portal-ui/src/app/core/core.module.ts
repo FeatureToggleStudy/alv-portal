@@ -13,7 +13,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../../environments/environment';
 import { XhrMarkerInterceptor } from './xhr-marker.interceptor';
-import { registerLocaleData } from '@angular/common';
+import { APP_BASE_HREF, PlatformLocation, registerLocaleData } from '@angular/common';
 import localeDeCH from '@angular/common/locales/de-CH';
 import localeFrCH from '@angular/common/locales/fr-CH';
 import localeItCH from '@angular/common/locales/it-CH';
@@ -26,6 +26,10 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 
 export function LocaleIdFactory(translateService: TranslateService) {
   return `${translateService.currentLang}-CH`;
+}
+
+export function getBaseHref(platformLocation: PlatformLocation): string {
+  return platformLocation.getBaseHrefFromDOM();
 }
 
 @NgModule({
@@ -68,6 +72,11 @@ export function LocaleIdFactory(translateService: TranslateService) {
       provide: HTTP_INTERCEPTORS,
       useClass: LanguageCacheKeyInterceptor,
       multi: true
+    },
+    {
+      provide: APP_BASE_HREF,
+      useFactory: getBaseHref,
+      deps: [PlatformLocation]
     }
   ]
 })

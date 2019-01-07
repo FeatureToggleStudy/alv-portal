@@ -11,11 +11,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  toolbarButtons: ToolbarButton[] = [
+    {
+      label: 'home.toolbar.jobSeekers',
+      icon: 'binoculars',
+      route: 'job-seeker'
+    },
+    {
+      label: 'home.toolbar.companies' ,
+      icon: 'building',
+      route: 'company'
+    },
+    {
+      label: 'home.toolbar.recruitmentAgencies',
+      icon: 'eye',
+      route: 'pav'
+    }
+  ];
+
   constructor() {
   }
 
   ngOnInit() {
-    // the component automatically activates one of the child routes
   }
 
+}
+
+interface ToolbarButton {
+  label: string;
+  icon: string;
+  route: string;
 }
