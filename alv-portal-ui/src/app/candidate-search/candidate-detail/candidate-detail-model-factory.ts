@@ -31,7 +31,7 @@ export class CandidateDetailModelFactory {
   constructor(private occupationLabelRepository: OccupationLabelRepository,
               private i18nService: I18nService,
               private occupationService: OccupationService,
-              private referenceServiceRepository: JobCenterRepository,
+              private jobCenterRepository: JobCenterRepository,
               private candidateRepository: CandidateRepository,
               private authenticationService: AuthenticationService) {
 
@@ -85,7 +85,7 @@ export class CandidateDetailModelFactory {
     return this.i18nService.currentLanguage$.pipe(
       switchMap((lang) => {
         if (jobCenterCode) {
-          return this.referenceServiceRepository.resolveJobCenter(jobCenterCode, lang);
+          return this.jobCenterRepository.resolveJobCenter(jobCenterCode, lang);
         }
         return of(null);
       }),

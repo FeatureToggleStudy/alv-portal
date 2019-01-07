@@ -21,7 +21,7 @@ describe('CandidateDetailModelFactory', () => {
   let candidateDetailModelFactory: CandidateDetailModelFactory;
   let i18nServiceMock;
   let occupationLabelRepositoryMock;
-  let referenceServiceRepositoryMock: JobCenterRepository;
+  let jobCenterRepositoryMock: JobCenterRepository;
   let candidateRepositoryMock;
   let authenticationServiceMock;
 
@@ -97,7 +97,7 @@ describe('CandidateDetailModelFactory', () => {
       }
     };
 
-    referenceServiceRepositoryMock = jasmine.createSpyObj('ReferenceServiceRepository', {
+    jobCenterRepositoryMock = jasmine.createSpyObj('JobCenterRepository', {
       'resolveJobCenter': cold('-x', { x: mockJobCenter })
     });
 
@@ -116,7 +116,7 @@ describe('CandidateDetailModelFactory', () => {
       providers: [
         CandidateDetailModelFactory,
         { provide: I18nService, useValue: i18nServiceMock },
-        { provide: JobCenterRepository, useValue: referenceServiceRepositoryMock },
+        { provide: JobCenterRepository, useValue: jobCenterRepositoryMock },
         { provide: OccupationLabelRepository, useValue: occupationLabelRepositoryMock },
         { provide: CandidateRepository, useValue: candidateRepositoryMock },
         { provide: AuthenticationService, useValue: authenticationServiceMock }
@@ -125,7 +125,7 @@ describe('CandidateDetailModelFactory', () => {
     candidateDetailModelFactory = TestBed.get(CandidateDetailModelFactory);
   });
 
-  it('should create CandidateDetailModelFactory ', () => {
+  it('should be created', () => {
     expect(candidateDetailModelFactory).toBeTruthy();
   });
 
