@@ -39,9 +39,8 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   ngOnInit() {
     this.authenticationService.getCurrentUser()
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(user => {
-        this.user = user;
-      });
+      .subscribe(user => this.user = user);
+
     this.profileInfoService.getProfileInfo()
       .subscribe(profileInfo => {
         this.noEiam = profileInfo.noEiam;
