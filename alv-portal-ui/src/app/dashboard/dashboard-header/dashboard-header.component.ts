@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../core/auth/user.model';
+import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
 
 const TIME_KEYS: Array<{ from: number, to: number, key: string }> = [
   { from: 0, to: 5, key: 'portal.dashboard.header.welcome.time.night' },
@@ -16,6 +17,8 @@ const TIME_KEYS: Array<{ from: number, to: number, key: string }> = [
 export class DashboardHeaderComponent implements OnInit {
 
   @Input() user: User;
+
+  @Input() company: CompanyContactTemplateModel;
 
   timeTextKey: string;
 

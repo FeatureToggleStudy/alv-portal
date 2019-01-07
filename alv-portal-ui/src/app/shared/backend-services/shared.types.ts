@@ -136,6 +136,11 @@ export enum Language {
   ZH = 'zh'
 }
 
+export enum Salutation {
+  MR = 'mr',
+  MS = 'ms'
+}
+
 export interface PostAddress {
   name: string;
   street?: string;

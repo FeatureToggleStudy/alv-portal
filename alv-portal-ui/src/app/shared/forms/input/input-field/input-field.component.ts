@@ -1,4 +1,12 @@
-import { Component, Host, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Host,
+  HostBinding,
+  Input,
+  Optional, Output,
+  SkipSelf
+} from '@angular/core';
 import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
 import { ControlContainer } from '@angular/forms';
@@ -68,6 +76,11 @@ export class InputFieldComponent extends AbstractInput {
    */
   @Input() multiline?: boolean;
 
+  /**
+   * Output event on input
+   */
+  @Output() input = new EventEmitter<Event>();
+
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {
     super(controlContainer, InputType.INPUT_FIELD, inputIdGenerationService);
@@ -75,5 +88,9 @@ export class InputFieldComponent extends AbstractInput {
 
   getRows() {
     return (this.control.value.match(/\n/g) || []).length + 1;
+  }
+
+  onInput(event: Event) {
+    this.input.emit(event);
   }
 }

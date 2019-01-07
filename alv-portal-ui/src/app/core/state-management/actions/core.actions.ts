@@ -1,6 +1,10 @@
 import { Action } from '@ngrx/store';
 import { User } from '../../auth/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import {
+  Accountability,
+  CompanyContactTemplate
+} from '../../../shared/backend-services/user-info/user-info.types';
 
 export const LANGUAGE_CHANGED = 'CORE:LANGUAGE_CHANGED';
 export const LANGUAGE_INITIALIZED = 'CORE:LANGUAGE_INITIALIZED';
@@ -9,8 +13,11 @@ export const CURRENT_USER_LOADED = 'CORE:CURRENT_USER_LOADED';
 export const LOGOUT_USER = 'CORE:LOGOUT_USER';
 export const TOGGLE_MAIN_NAVIGATION = 'CORE:TOGGLE_MAIN_NAVIGATION';
 export const EFFECT_ERROR_OCCURRED = 'CORE:EFFECT_ERROR_OCCURRED';
-
 export const SESSION_EXPIRED = 'CORE:SESSION_EXPIRED';
+export const SELECT_ACCOUNTABILITY = 'CORE:SELECT_ACCOUNTABILITY';
+export const ACCOUNTABILITY_SELECTED = 'CORE:ACCOUNTABILITY_SELECTED';
+export const LOAD_ACCOUNTABILITIES = 'CORE:LOAD_ACCOUNTABILITIES';
+export const ACCOUNTABILITIES_LOADED = 'CORE:ACCOUNTABILITIES_LOADED';
 
 export class LanguageChangedAction implements Action {
   readonly type = LANGUAGE_CHANGED;
@@ -68,3 +75,34 @@ export class SessionExpiredAction implements Action {
   }
 }
 
+export class SelectAccountabilityAction implements Action {
+  readonly type = SELECT_ACCOUNTABILITY;
+
+  constructor(public payload: { accountability: Accountability }) {
+  }
+
+}
+
+export class AccountabilitySelectedAction implements Action {
+  readonly type = ACCOUNTABILITY_SELECTED;
+
+  constructor(public payload: { company: CompanyContactTemplate }) {
+  }
+
+}
+
+export class LoadAccountabilities implements Action {
+  readonly type = LOAD_ACCOUNTABILITIES;
+
+  constructor(public payload: { userId: string }) {
+  }
+
+}
+
+export class AcountabilitiesLoaded implements Action {
+  readonly type = ACCOUNTABILITIES_LOADED;
+
+  constructor(public payload: { accountabilities: Accountability[] }) {
+  }
+
+}

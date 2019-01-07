@@ -13,6 +13,7 @@ import { CoreState } from '../../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { ToggleMainNavigationAction } from '../../../core/state-management/actions/core.actions';
 import { ModalService } from '../modal/modal.service';
+import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 import { APP_BASE_HREF } from '@angular/common';
 
 @Component({
@@ -23,6 +24,8 @@ import { APP_BASE_HREF } from '@angular/common';
 export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   user: User;
+
+  company: CompanyContactTemplate;
 
   noEiam: boolean;
 
@@ -46,6 +49,11 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(user => {
         this.user = user;
+      });
+    this.authenticationService.getCurrentCompany()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(company => {
+        this.company = company;
       });
     this.profileInfoService.getProfileInfo()
       .subscribe(profileInfo => {

@@ -6,6 +6,7 @@ import { NavigationGuard } from '../core/auth/navigation-guard.service';
 import { DashboardComponent } from './dashboard.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ContactTemplateManagementComponent } from './contact-template-management/contact-template-management.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,12 @@ const routes: Routes = [
         data: { titleKey: 'portal.home.admin.browser-title' }
       }
     ]
-  }
+  },
+  {
+    path: 'contact-template',
+    component: ContactTemplateManagementComponent,
+    data: { titleKey: 'portal.dashboard.contact-template-management.browser-title' }
+  },
 ];
 
 @NgModule({
