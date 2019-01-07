@@ -1,10 +1,10 @@
-@import "scss/common/fonts";
 
 body {
   margin: 0;
   overflow: hidden;
 }
 
+@import "scss/common/fonts";
 @import "scss/overrides/theme";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "scss/overrides/button";
