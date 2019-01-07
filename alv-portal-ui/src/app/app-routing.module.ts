@@ -4,7 +4,7 @@ import { LandingPageComponent } from './shared/landing-page/landing-page.compone
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { NotAuthenticatedGuard } from './core/auth/not-authenticated.guard';
-import { LandingPageGuard } from "./shared/landing-page/landing-page.guard";
+import { LandingPageGuard } from './shared/landing-page/landing-page.guard';
 
 const appRoutes: Routes = [
   {
