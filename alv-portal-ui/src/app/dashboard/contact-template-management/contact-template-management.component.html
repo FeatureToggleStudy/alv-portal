@@ -1,0 +1,100 @@
+<div class="container pt-md-4 pt-3 px-3">
+
+  <div class="alv-panel mb-3">
+    <h2 class="panel-title"><i class="panel-icon fas fa-address-card"></i>
+      {{ 'contact-template-management.title' | translate }}
+      <strong>{{currentCompany?.companyName}}</strong></h2>
+
+    <p>
+      <small>{{ 'contact-template-management.helptext' | translate }}</small>
+    </p>
+
+    <!-- TODO create a alv-local-alert component -->
+    <alv-alert *ngFor="let alert of alerts"
+               [notification]="alert"
+               (dismiss)="dismissAlert(alert, alerts)">
+    </alv-alert>
+
+    <form alvFormSubmitValidation
+          (validSubmit)="onSubmit()"
+          [formGroup]="contactTemplateForm">
+
+      <fieldset>
+        <legend class="sr-only">{{ 'contact-template-management.userInformation' | translate }}</legend>
+        <h3 class="mt-4 mb-3">{{ 'contact-template-management.userInformation' | translate }}</h3>
+
+        <alv-select
+          label="contact-template-management.salutation"
+          alvFormControlName="salutation"
+          [options$]="salutationOptions$">
+        </alv-select>
+
+        <alv-input-field label="contact-template-management.firstName"
+                         alvFormControlName="firstName">
+        </alv-input-field>
+
+        <alv-input-field label="contact-template-management.lastName"
+                         alvFormControlName="lastName">
+        </alv-input-field>
+
+        <alv-phone-input label="contact-template-management.phone"
+                         alvFormControlName="phone">
+        </alv-phone-input>
+
+        <alv-input-field label="contact-template-management.email"
+                         [validationMessages]="[
+                      {error: 'pattern', message: 'home.tools.job-publication.messages.validate.email-format'}
+                     ]"
+                         alvFormControlName="email">
+        </alv-input-field>
+      </fieldset>
+
+      <fieldset>
+        <legend class="sr-only">{{ 'contact-template-management.companyInformation' | translate }}</legend>
+        <h3 class="mt-4 mb-3">{{ 'contact-template-management.companyInformation' | translate }}</h3>
+
+        <alv-input-field label="contact-template-management.companyName"
+                         alvFormControlName="companyName">
+        </alv-input-field>
+
+        <div class="form-row">
+          <div class="col-md-9">
+            <alv-input-field label="contact-template-management.companyStreet"
+                             alvFormControlName="companyStreet">
+            </alv-input-field>
+          </div>
+          <div class="col-md-3">
+            <alv-input-field label="contact-template-management.companyHouseNr"
+                             alvFormControlName="companyHouseNr">
+            </alv-input-field>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-9">
+            <alv-input-field label="contact-template-management.companyZipCode"
+                             alvFormControlName="companyZipCode">
+            </alv-input-field>
+          </div>
+          <div class="col-md-3">
+            <alv-input-field label="contact-template-management.companyCity"
+                             alvFormControlName="companyCity">
+            </alv-input-field>
+          </div>
+        </div>
+
+        <div class="d-flex">
+          <div class="flex-grow-1">
+          </div>
+          <button type="button"
+                  (click)="onReset()"
+                  class="btn btn-text">{{'entity.action.cancel' | translate }}
+          </button>
+          <button type="submit"
+                  class="btn btn-primary ml-1">{{'entity.action.save' | translate }}
+          </button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
