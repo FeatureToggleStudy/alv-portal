@@ -18,7 +18,7 @@ import {
 } from '../candidate-profile-badges-mapper.service';
 import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
 import { CandidateDetailModel } from './candidate-detail-model';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { findRelevantJobExperience } from '../candidate-rules';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 
@@ -60,7 +60,7 @@ export class CandidateDetailComponent implements OnInit {
       map(candidateProfile => this.candidateProfileBadgesMapperService.map(candidateProfile, findRelevantJobExperience(candidateProfile)))
     );
 
-    this.candidateDetailModel$ = this.candidateDetailModelFactory.create(candidateProfile$);
+    this.candidateDetailModel$ = candidateProfile$.pipe(switchMap(candidateProfile => this.candidateDetailModelFactory.create(candidateProfile)));
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
 
