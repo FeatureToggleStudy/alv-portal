@@ -36,6 +36,10 @@ export class ValidationService {
       message: 'portal.forms.validation.ngbDate',
       requiredBefore: 'portal.forms.validation.ngbDate.before',
       requiredAfter: 'portal.forms.validation.ngbDate.after'
+    },
+    {
+      error: 'phoneValidator',
+      message: 'global.messages.validate.phone.format'
     }
   ];
 
