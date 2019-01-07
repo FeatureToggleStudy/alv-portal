@@ -90,7 +90,7 @@ export class CoreEffects {
   );
 
   @Effect()
-  acountabilitiesLoaded: Observable<Action> = this.actions$.pipe(
+  accountabilitiesLoaded: Observable<Action> = this.actions$.pipe(
     ofType(ACCOUNTABILITIES_LOADED),
     map(action => <AcountabilitiesLoaded>action),
     map(action => {
