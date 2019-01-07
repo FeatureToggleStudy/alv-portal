@@ -63,17 +63,17 @@ Before executing any of the following commands:
 
 ### Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the _target/dist_ directory.
+Run `npm run build` to build the project. The build artifacts will be stored in the _target/dist_ directory.
 * If you don't have installed _ng_ client globally, replace _ng_ command with a full path as follows: `node_modules/.bin/ng build`
 
 ### Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ### Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ### Run development server with Angular CLI
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run start:dev` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

@@ -137,9 +137,7 @@ describe('JobDetailModelFactory', () => {
 
   it('should create a jobdetail model object', () => {
 
-    const jobDetailModel = jobDetailModelFactory.create(cold('j--', {
-      j: mockJobAd
-    }));
+    const jobDetailModel = jobDetailModelFactory.create(mockJobAd);
     const expectedJobDetailModel = new JobDetailModel(
       mockJobAd.jobContent.jobDescriptions[0],
       mockJobCenter,
