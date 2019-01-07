@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { MarkdownModule } from 'ngx-markdown';
 import { PipesModule } from './pipes/pipes.module';
 import { GeoLocationSelectionComponent } from './localities/geo-location-selection/geo-location-selection.component';
-import { LandingPageGuard } from "./landing-page/landing-page.guard";
+import { LandingPageGuard } from './landing-page/landing-page.guard';
 
 @NgModule({
   declarations: [
