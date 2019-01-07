@@ -9,21 +9,8 @@ import {
   SourceSystem
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobDetailModel } from './job-detail-model';
+import { mockJobCenter } from '../../shared/backend-services/reference-service/job-center.mock';
 
-const mockJobCenter = {
-  id: '1',
-  code: 'mycode',
-  email: 'example@exampele.org',
-  phone: '+4140787840106',
-  fax: '+4140787840106',
-  address: {
-    name: 'John Examp',
-    street: 'example sdtreen',
-    houseNumber: '23243',
-    zipCode: '1003',
-    city: 'Bern',
-  }
-};
 
 const mockJobAd: JobAdvertisement = {
   'id': '865850f6-0002-11e9-977c-005056ac086d',
