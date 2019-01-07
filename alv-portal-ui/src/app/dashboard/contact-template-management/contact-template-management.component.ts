@@ -108,7 +108,7 @@ export class ContactTemplateManagementComponent extends AbstractSubscriber imple
       tap(() => this.authenticationService.updateCompanyContactTemplate(companyContactTemplate))
     ).subscribe(() => {
       this.alerts.push({
-        type: NotificationType.INFO,
+        type: NotificationType.SUCCESS,
         messageKey: 'contact-template-management.successSaveMessage',
         isSticky: true
       });
