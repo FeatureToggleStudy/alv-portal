@@ -26,7 +26,7 @@ import {
 import { JobDetailPanelId } from './job-detail-panel-id.enum';
 import { JobDetailModelFactory } from './job-detail-model-factory';
 import { JobDetailModel } from './job-detail-model';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { isDeactivated, isExternal, isUnvalidated } from '../job-ad-rules';
 import { ScrollService } from '../../core/scroll.service';
 
@@ -102,7 +102,9 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   ngOnInit() {
     const job$ = this.store.pipe(select(getSelectedJobAdvertisement));
 
-    this.jobDetailModel$ = this.jobDetailModelFactory.create(job$);
+    this.jobDetailModel$ = job$.pipe(
+      switchMap((job) => this.jobDetailModelFactory.create(job))
+    );
 
     this.alerts$ = job$.pipe(map(JobDetailComponent.mapJobAdAlerts));
     this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
