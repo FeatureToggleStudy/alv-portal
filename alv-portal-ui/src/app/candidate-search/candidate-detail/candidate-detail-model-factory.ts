@@ -124,7 +124,7 @@ export class CandidateDetailModelFactory {
 
   private getContact(candidateProfile: CandidateProfile, jobCenter: JobCenter): Observable<Contact> {
     return this.authenticationService.getCurrentUser().pipe(
-      map((user) => candidateContact(candidateProfile, jobCenter, user)),
+      map((currentUser) => candidateContact(candidateProfile, jobCenter, currentUser)),
     );
   }
 }
