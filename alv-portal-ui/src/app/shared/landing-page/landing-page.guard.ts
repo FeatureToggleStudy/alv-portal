@@ -12,10 +12,7 @@ export class LandingPageGuard implements CanActivate {
               private authenticationService: AuthenticationService) {
   }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.authenticationService
       .getCurrentUser()
       .pipe(
