@@ -5,14 +5,7 @@ import {
   CandidateProtectedData,
   JobExperience
 } from '../../shared/backend-services/candidate/candidate.types';
-import {
-  catchError,
-  filter,
-  map,
-  share,
-  switchMap,
-  withLatestFrom
-} from 'rxjs/operators';
+import { catchError, filter, map, share, switchMap } from 'rxjs/operators';
 import { OccupationLabelRepository, } from '../../shared/backend-services/reference-service/occupation-label.repository';
 import { I18nService } from '../../core/i18n.service';
 import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
@@ -55,23 +48,21 @@ export class CandidateDetailModelFactory {
     };
   }
 
-  create(candidateProfile$: Observable<CandidateProfile>): Observable<CandidateDetailModel> {
-    const jobCenter$ = this.getJobCenter(candidateProfile$).pipe(share());
-    const jobExperiencesModels$ = this.getJobExperiencesModels(candidateProfile$);
-    const candidateProtectedData$ = this.getCandidateProtectedData(candidateProfile$);
-    const contact$ = this.getContact(candidateProfile$, jobCenter$);
-    return candidateProfile$.pipe(
-      switchMap((candidateProfile) => {
-        return combineLatest(jobCenter$, jobExperiencesModels$, candidateProtectedData$, contact$).pipe(
-          map(([jobCenter, jobExperiencesModels, candidateProtectedData, contact]) => {
-            return new CandidateDetailModel(
-              candidateProfile,
-              jobCenter,
-              jobExperiencesModels,
-              candidateProtectedData,
-              contact
-            );
-          })
+  create(candidateProfile: CandidateProfile): Observable<CandidateDetailModel> {
+    const jobCenter$ = this.getJobCenter(candidateProfile).pipe(share());
+    const jobExperiencesModels$ = this.getJobExperiencesModels(candidateProfile);
+    const candidateProtectedData$ = this.getCandidateProtectedData(candidateProfile);
+    const contact$: Observable<Contact> = jobCenter$.pipe(switchMap((jobCenter => this.getContact(candidateProfile, jobCenter))));
+
+
+    return combineLatest(jobCenter$, jobExperiencesModels$, candidateProtectedData$, contact$).pipe(
+      map(([jobCenter, jobExperiencesModels, candidateProtectedData, contact]) => {
+        return new CandidateDetailModel(
+          candidateProfile,
+          jobCenter,
+          jobExperiencesModels,
+          candidateProtectedData,
+          contact
         );
       })
     );
@@ -89,12 +80,10 @@ export class CandidateDetailModelFactory {
     );
   }
 
-  private getJobCenter(candidateProfile$: Observable<CandidateProfile>): Observable<JobCenter> {
-    const jobCenterCode$ = candidateProfile$.pipe(
-      map((candidateProfile) => candidateProfile.jobCenterCode)
-    );
-    return combineLatest(jobCenterCode$, this.i18nService.currentLanguage$).pipe(
-      switchMap(([jobCenterCode, lang]) => {
+  private getJobCenter(candidateProfile: CandidateProfile): Observable<JobCenter> {
+    const jobCenterCode = candidateProfile.jobCenterCode;
+    return this.i18nService.currentLanguage$.pipe(
+      switchMap((lang) => {
         if (jobCenterCode) {
           return this.referenceServiceRepository.resolveJobCenter(jobCenterCode, lang);
         }
@@ -104,9 +93,9 @@ export class CandidateDetailModelFactory {
     );
   }
 
-  private getJobExperiencesModels(candidateProfile$: Observable<CandidateProfile>): Observable<JobExperienceModel[]> {
-    return combineLatest(candidateProfile$, this.i18nService.currentLanguage$).pipe(
-      switchMap(([candidateProfile, language]) => {
+  private getJobExperiencesModels(candidateProfile: CandidateProfile): Observable<JobExperienceModel[]> {
+    return this.i18nService.currentLanguage$.pipe(
+      switchMap((language) => {
         const wantedJobExperiences = findWantedJobExperiences(candidateProfile);
         if (wantedJobExperiences.length === 0) {
           return of([]);
@@ -119,15 +108,13 @@ export class CandidateDetailModelFactory {
     );
   }
 
-  private getCandidateProtectedData(candidateProfile$: Observable<CandidateProfile>): Observable<CandidateProtectedData> {
-    const candidateProtectedData = candidateProfile$.pipe(
-      withLatestFrom(this.authenticationService.getCurrentUser()),
-      filter(([candidateProfile, currentUser]) => canViewCandidateProtectedData(candidateProfile, currentUser)),
-      switchMap(([candidateProfile]) => this.candidateRepository.getCandidateProtectedData(candidateProfile.id)),
+  private getCandidateProtectedData(candidateProfile: CandidateProfile): Observable<CandidateProtectedData> {
+    const candidateProtectedData = this.authenticationService.getCurrentUser().pipe(
+      filter((currentUser) => canViewCandidateProtectedData(candidateProfile, currentUser)),
+      switchMap(() => this.candidateRepository.getCandidateProtectedData(candidateProfile.id)),
     );
-    const canNotViewProtectedData = candidateProfile$.pipe(
-      withLatestFrom(this.authenticationService.getCurrentUser()),
-      filter(([candidateProfile, currentUser]) => !canViewCandidateProtectedData(candidateProfile, currentUser)),
+    const canNotViewProtectedData = this.authenticationService.getCurrentUser().pipe(
+      filter((currentUser) => !canViewCandidateProtectedData(candidateProfile, currentUser)),
       switchMap(() => of(null))
     );
 
@@ -135,13 +122,9 @@ export class CandidateDetailModelFactory {
     return merge(candidateProtectedData, canNotViewProtectedData);
   }
 
-  private getContact(candidateProfile$: Observable<CandidateProfile>, jobCenter$: Observable<JobCenter>): Observable<Contact> {
-    return combineLatest(
-      candidateProfile$,
-      jobCenter$,
-      this.authenticationService.getCurrentUser()
-    ).pipe(
-      map(([candidateProfile, jobCenter, user]) => candidateContact(candidateProfile, jobCenter, user)),
+  private getContact(candidateProfile: CandidateProfile, jobCenter: JobCenter): Observable<Contact> {
+    return this.authenticationService.getCurrentUser().pipe(
+      map((user) => candidateContact(candidateProfile, jobCenter, user)),
     );
   }
 }

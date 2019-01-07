@@ -1,6 +1,6 @@
 import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
-import { cold } from 'jasmine-marbles';
-import { async, TestBed } from '@angular/core/testing';
+import { cold, hot } from 'jasmine-marbles';
+import { TestBed } from '@angular/core/testing';
 import { I18nService } from '../../core/i18n.service';
 import { mockJobCenter } from '../../shared/backend-services/reference-service/job-center.mock';
 import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
@@ -14,8 +14,7 @@ import {
   mockCandidateProfile,
   mockJobExperience
 } from '../../shared/backend-services/candidate/candidate.mock';
-import { of } from 'rxjs';
-import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
+import { JobExperienceModel } from './candidate-detail-model';
 import { Contact } from '../../shared/backend-services/shared.types';
 
 describe('CandidateDetailModelFactory', () => {
@@ -93,22 +92,23 @@ describe('CandidateDetailModelFactory', () => {
 
   beforeEach(() => {
     i18nServiceMock = {
-      currentLanguage$: cold('--e--', LANGUAGE_VALUES)
+      get currentLanguage$() {
+        return hot('e---i----', LANGUAGE_VALUES)
+      }
     };
 
     referenceServiceRepositoryMock = jasmine.createSpyObj('ReferenceServiceRepository', {
-      'resolveJobCenter': cold('-x|', { x: mockJobCenter })
+      'resolveJobCenter': cold('-x', { x: mockJobCenter })
     });
 
-    occupationLabelRepositoryMock = jasmine.createSpyObj('OccupationLabelRepository', {
-      'getOccupationLabelsByKey': cold('--x|', { x: occupationLabelDataMock })
-    });
+    occupationLabelRepositoryMock = jasmine.createSpyObj('OccupationLabelRepository', ['getOccupationLabelsByKey']);
+    occupationLabelRepositoryMock.getOccupationLabelsByKey.and.returnValue(cold('-x---x-x-x-', { x: occupationLabelDataMock }));
 
     candidateRepositoryMock = jasmine.createSpyObj('CandidateRepository', {
-      'getCandidateProtectedData': cold('---x|', { x: mockProtectedData })
+      'getCandidateProtectedData': cold('-x---x-x-x-', { x: mockProtectedData })
     });
     authenticationServiceMock = jasmine.createSpyObj('AuthenticationService', {
-      'getCurrentUser': cold('----x|', { x: userMock })
+      'getCurrentUser': cold('-x---x-x-x-', { x: userMock })
     });
 
     TestBed.configureTestingModule({
@@ -129,19 +129,19 @@ describe('CandidateDetailModelFactory', () => {
     expect(candidateDetailModelFactory).toBeTruthy();
   });
 
-  it('should create a CandidateDetail model object', async(() => {
-    const candidateDetailModel = candidateDetailModelFactory.create(of(mockCandidateProfile));
+  it('should create a CandidateDetail model object', () => {
+    const candidateDetailModel$ = candidateDetailModelFactory.create(mockCandidateProfile);
     // i18nServiceMock.currentLanguage$.
+    //
+    // const expectedCandidateDetailModel = new CandidateDetailModel(
+    //   mockCandidateProfile,
+    //   mockJobCenter,
+    //   [mockJobExperienceModel],
+    //   mockProtectedData,
+    //   mockContact
+    // );
+    const expected = cold('-----', { r: null });
 
-    const expectedCandidateDetailModel = new CandidateDetailModel(
-      mockCandidateProfile,
-      mockJobCenter,
-      [mockJobExperienceModel],
-      mockProtectedData,
-      mockContact
-    );
-    const expected = cold('-------', { r: null });
-
-    expect(candidateDetailModel).toBeObservable(expected);
-  }));
+    expect(candidateDetailModel$).toBeObservable(expected);
+  });
 });
