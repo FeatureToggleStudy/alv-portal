@@ -5,7 +5,6 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { LandingNavigationService } from '../../../core/landing-navigation.service';
 import { DOCUMENT, Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
-import { Company } from '../../backend-services/company/company.types';
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 
 @Component({
