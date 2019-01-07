@@ -1,0 +1,27 @@
+/* Regular */
+@font-face {
+  font-family: 'Open Sans';
+  src: url("/assets/fonts/OpenSans-Regular-webfont.woff") format("woff");
+}
+/* Bold */
+@font-face {
+  font-family: "Open Sans";
+  src: url("/assets/fonts/OpenSans-Bold-webfont.woff");
+  font-weight: bold;
+}
+/* Italic */
+@font-face {
+  font-family: "Open Sans";
+  src: url("/assets/fonts/OpenSans-Italic-webfont.woff");
+  font-style: italic;
+}
+/* Light */
+@font-face {
+  font-family: "Open Sans";
+  src: url("/assets/fonts/OpenSans-Light-webfont.woff");
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+

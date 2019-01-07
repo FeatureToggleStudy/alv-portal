@@ -1,16 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import "scss/overrides/typography";
+@import "scss/common/fonts";
 
 body {
   margin: 0;
-  font-family: 'Open Sans', Calibri, sans-serif;
   overflow: hidden;
 }
 
-
 @import "scss/overrides/theme";
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import "scss/overrides/typography";
 @import "scss/overrides/button";
 @import "scss/overrides/badges";
 @import "scss/overrides/popover";
@@ -26,5 +23,6 @@ body {
 @import "scss/common/list";
 @import "scss/common/print";
 @import "~nouislider/distribute/nouislider.min.css";
+
 
 
