@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angul
 import { Observable } from 'rxjs';
 import { LandingNavigationService } from "../../core/landing-navigation.service";
 import { AuthenticationService } from "../../core/auth/authentication.service";
+import { map, tap } from "rxjs/operators";
 
 @Injectable()
 export class LandingPageGuard implements CanActivate {
@@ -15,8 +16,10 @@ export class LandingPageGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    this.authenticationService.getCurrentUser()
-      .subscribe((user) => this.landingNavigationService.navigateUser(user));
-    return false;
+    return this.authenticationService
+      .getCurrentUser()
+      .pipe(
+        tap((user) => this.landingNavigationService.navigateUser(user)),
+        map(() => false));
   }
 }
