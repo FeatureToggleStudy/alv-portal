@@ -5,8 +5,8 @@ import { Action, select, Store } from '@ngrx/store';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {
   ACCOUNTABILITIES_LOADED,
-  AcountabilitiesLoaded,
   AccountabilitySelectedAction,
+  AcountabilitiesLoaded,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   EFFECT_ERROR_OCCURRED,
@@ -167,9 +167,12 @@ export class CoreEffects {
               companyId: company.id,
               companyName: company.name,
               companyStreet: company.street,
+              companyHouseNr: null,
               companyZipCode: company.zipCode,
               companyCity: company.city,
-              email: user.email
+              phone: null,
+              email: user.email,
+              salutation: null,
             };
           })
         );
