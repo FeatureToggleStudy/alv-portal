@@ -14,8 +14,8 @@ import {
   mockCandidateProfile,
   mockJobExperience
 } from '../../shared/backend-services/candidate/candidate.mock';
-import { JobExperienceModel } from './candidate-detail-model';
-import { Contact } from '../../shared/backend-services/shared.types';
+import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
+import { of } from 'rxjs';
 
 describe('CandidateDetailModelFactory', () => {
   let candidateDetailModelFactory: CandidateDetailModelFactory;
@@ -73,42 +73,32 @@ describe('CandidateDetailModelFactory', () => {
     }
   };
 
-  const mockContact: Contact = {
-    salutation: 'mr',
-    firstName: 'ads',
-    lastName: 'las',
-    phone: '+213231212',
-    email: 'oooa@gma.com'
-  };
-
-
   const mockJobExperienceModel: JobExperienceModel = {
     jobExperience: mockJobExperience,
-    occupationLabel: 'string',
+    occupationLabel: occupationLabelDataMock.f,
     displayGraduation: true,
-    displayDegree: true,
+    displayDegree: false,
   };
-
 
   beforeEach(() => {
     i18nServiceMock = {
       get currentLanguage$() {
-        return hot('e---i----', LANGUAGE_VALUES)
+        return hot('-e-------', LANGUAGE_VALUES)
       }
     };
 
     jobCenterRepositoryMock = jasmine.createSpyObj('JobCenterRepository', {
-      'resolveJobCenter': cold('-x', { x: mockJobCenter })
+      'resolveJobCenter': of(mockJobCenter)
     });
 
     occupationLabelRepositoryMock = jasmine.createSpyObj('OccupationLabelRepository', ['getOccupationLabelsByKey']);
-    occupationLabelRepositoryMock.getOccupationLabelsByKey.and.returnValue(cold('-x---x-x-x-', { x: occupationLabelDataMock }));
+    occupationLabelRepositoryMock.getOccupationLabelsByKey.and.returnValue(of(occupationLabelDataMock));
 
     candidateRepositoryMock = jasmine.createSpyObj('CandidateRepository', {
-      'getCandidateProtectedData': cold('-x---x-x-x-', { x: mockProtectedData })
+      'getCandidateProtectedData': of(mockProtectedData)
     });
     authenticationServiceMock = jasmine.createSpyObj('AuthenticationService', {
-      'getCurrentUser': cold('-x---x-x-x-', { x: userMock })
+      'getCurrentUser': of(userMock)
     });
 
     TestBed.configureTestingModule({
@@ -131,16 +121,14 @@ describe('CandidateDetailModelFactory', () => {
 
   it('should create a CandidateDetail model object', () => {
     const candidateDetailModel$ = candidateDetailModelFactory.create(mockCandidateProfile);
-    // i18nServiceMock.currentLanguage$.
-    //
-    // const expectedCandidateDetailModel = new CandidateDetailModel(
-    //   mockCandidateProfile,
-    //   mockJobCenter,
-    //   [mockJobExperienceModel],
-    //   mockProtectedData,
-    //   mockContact
-    // );
-    const expected = cold('-----', { r: null });
+    const expectedCandidateDetailModel = new CandidateDetailModel(
+      mockCandidateProfile,
+      mockJobCenter,
+      [mockJobExperienceModel],
+      mockProtectedData,
+      null
+    );
+    const expected = cold('-r', { r: expectedCandidateDetailModel });
 
     expect(candidateDetailModel$).toBeObservable(expected);
   });
