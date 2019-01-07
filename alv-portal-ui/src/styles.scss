@@ -7,12 +7,12 @@ body {
 
 @import "scss/overrides/theme";
 @import "../node_modules/bootstrap/scss/bootstrap";
-@import "scss/overrides/typography";
 @import "scss/overrides/button";
 @import "scss/overrides/badges";
 @import "scss/overrides/popover";
 @import "scss/overrides/dropdown";
 @import "scss/overrides/modal";
+@import "scss/overrides/typography";
 @import "scss/overrides/container";
 @import "scss/common/panel";
 @import "scss/common/bar";
