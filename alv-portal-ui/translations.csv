@@ -154,7 +154,7 @@ contact-template-management,contact-template-management.firstName,Vorname,First 
 contact-template-management,contact-template-management.lastName,Nachname,Last name,Nom,Cognome
 contact-template-management,contact-template-management.salutation,Anrede,Title,Civilité,Appellativo
 contact-template-management,contact-template-management.userInformation,Benutzerinformationen,User information,Information utilisateur,Informazioni utente
-contact-template-management,contact-template-management.companyInformation,Unternehemnsinformationen,Company Information,Information Entreprise,Informazioni Impresa
+contact-template-management,contact-template-management.companyInformation,Unternehmensinformationen,Company Information,Information Entreprise,Informazioni Impresa
 contact-template-management,contact-template-management.successSaveMessage,Ihre persönlichen Kontaktangaben wurden erfolgreich gespeichert!,Your personal contact information was successfully saved!,Your personal contact information was successfully saved!,Your personal contact information was successfully saved!
 contact-template-management,contact-template-management.failureSaveMessage,Ihre persönlichen Kontaktangaben konnten nicht gespeichert werden,There was an error saving your personal contact information,There was an error saving your personal contact information,There was an error saving your personal contact information
 contact-template-management,contact-template-management.companyhousenr.message,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
@@ -1403,7 +1403,7 @@ portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl mögl
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
 
 portal,portal.widgets.job-search.title,Stelle finden
-portal,portal.widgets.candidate-search.title,Kandidaten finden
+portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa

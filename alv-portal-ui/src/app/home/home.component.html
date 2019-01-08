@@ -1,33 +1,45 @@
-<div class="toolbar py-3 py-lg-4">
+<div class="toolbar pt-3 py-md-3 py-lg-4">
   <div class="container-fluid pt-0">
-    <div class="row">
+    <div class="row d-none d-md-block">
       <div class="offset-md-0 offset-lg-1 offset-xl-2 col-md-12 col-lg-10 col-xl-8">
         <div class="d-flex flex-column flex-md-row align-items-stretch align-items-xl-center justify-content-between">
-          <alv-toolbar-button icon="binoculars"
-                              routerLink="job-seeker"
+          <alv-toolbar-button *ngFor="let toolbarButton of toolbarButtons"
+                              [icon]="toolbarButton.icon"
+                              [routerLink]="toolbarButton.route"
                               routerLinkActive="active"
                               queryParamsHandling="preserve"
                               class="nav-link p-1 p-md-3">
-            {{'home.toolbar.jobSeekers' | translate}}
-          </alv-toolbar-button>
-          <alv-toolbar-button icon="building"
-                              routerLink="company"
-                              class="nav-link p-1 p-md-3"
-                              routerLinkActive="active"
-                              queryParamsHandling="preserve">
-            {{'home.toolbar.companies' | translate}}
-          </alv-toolbar-button>
-          <alv-toolbar-button icon="eye"
-                              routerLink="pav"
-                              class="nav-link p-1 p-md-3"
-                              routerLinkActive="active"
-                              queryParamsHandling="preserve">
-            {{'home.toolbar.recruitmentAgencies' | translate}}
+            {{toolbarButton.label| translate}}
           </alv-toolbar-button>
         </div>
       </div>
-
     </div>
+
+    <div class="d-block d-md-none w-100"
+         ngbDropdown
+         placement="bottom">
+      <button class="btn btn-secondary btn-block py-1"
+              ngbDropdownToggle>
+        <small class="d-block">{{'home.toolbar.title' | translate}}</small>
+        <span *ngFor="let toolbarButton of toolbarButtons"
+              [routerLink]="toolbarButton.route"
+              class="route-label"
+              routerLinkActive="visible"
+              tabindex="-1">
+          {{toolbarButton.label | translate}}
+        </span>
+      </button>
+      <div class="w-100"
+           ngbDropdownMenu>
+        <a *ngFor="let toolbarButton of toolbarButtons"
+           [routerLink]="toolbarButton.route"
+           class="dropdown-item"
+           routerLinkActive="active">
+          {{toolbarButton.label | translate}}
+        </a>
+      </div>
+    </div>
+
   </div>
 </div>
 

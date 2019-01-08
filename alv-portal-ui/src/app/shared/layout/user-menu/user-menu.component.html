@@ -1,19 +1,26 @@
 <div ngbDropdown
      [placement]="'bottom-right'"
      #userDropdown="ngbDropdown">
-  <button class="btn btn-header mr-1"
+  <button class="btn btn-header mr-1 d-flex"
           id="userMenu"
           ngbDropdownToggle>
-    <i *ngIf="!hideRegistrationAction"
-       class="fa fa-exclamation-triangle mr-2"
+    <span class="text-left">
+          <i *ngIf="!hideRegistrationAction"
+             aria-hidden="true"
+             class="fa fa-exclamation-triangle mr-2">
+    </i>
+    <i class="fa fa-user d-inline d-lg-none"
        aria-hidden="true">
     </i>
-    <i class="fa fa-user mr-1"
-       aria-hidden="true">
-    </i>
-    <span class="d-none d-lg-inline">
+    <span class="d-none d-lg-block">
       {{user.firstName}} {{user.lastName}}
     </span>
+    <small *ngIf="company"
+           class="company d-none d-lg-inline-block text-left">
+      {{company.companyName}}
+    </small>
+    </span>
+
   </button>
   <div ngbDropdownMenu
        aria-label="User Menu">
@@ -29,6 +36,13 @@
             (click)="goToEiamProfile()">
       <i class="fas fa-user-circle mr-2"></i> Profile
     </button>
+    <!-- Contact template -->
+    <a *ngIf="company"
+       class="dropdown-item"
+       routerLink="dashboard/contact-template">
+      <i class="fas fa-address-card mr-2"></i>
+      {{'global.menu.admin.contact-template-management' | translate}}
+    </a>
     <!-- Logout -->
     <button class="dropdown-item"
             (click)="logout()">

@@ -1,4 +1,4 @@
-import { CEFR_Level, Degree, LanguageSkill, PostAddress } from '../shared.types';
+import { Degree, LanguageSkill, PostAddress, Salutation } from '../shared.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -26,10 +26,6 @@ export enum SourceSystem {
   API = 'API',
   RAV = 'RAV',
   EXTERN = 'EXTERN'
-}
-
-export enum Salutation {
-  MR, MS
 }
 
 export enum WorkExperience {
@@ -152,7 +148,6 @@ export interface Occupation {
   workExperience?: WorkExperience;
   educationCode?: Degree;
 }
-
 
 export interface ApplyChannel {
   postAddress: PostAddress;

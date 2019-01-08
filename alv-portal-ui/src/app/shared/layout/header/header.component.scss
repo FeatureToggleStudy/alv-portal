@@ -1,10 +1,14 @@
 @import "../../../../scss/common/colors";
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
 
 header {
   background-color: $color-light-grey;
   border-bottom: 1px solid $color-medium-grey;
 
   .header {
+    height: 74px;
     .logo {
       position: absolute;
       left: 0;
@@ -79,5 +83,11 @@ header {
         }
       }
     }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  header .header {
+    height: 42px;
   }
 }

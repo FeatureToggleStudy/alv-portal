@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
 import { takeUntil } from 'rxjs/operators';
@@ -13,6 +13,8 @@ import { CoreState } from '../../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { ToggleMainNavigationAction } from '../../../core/state-management/actions/core.actions';
 import { ModalService } from '../modal/modal.service';
+import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
+import { APP_BASE_HREF } from '@angular/common';
 
 @Component({
   selector: 'alv-header',
@@ -22,11 +24,17 @@ import { ModalService } from '../modal/modal.service';
 export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   user: User;
+
+  company: CompanyContactTemplate;
+
   noEiam: boolean;
+
   LANGUAGES: string[] = LANGUAGES;
+
   currentLanguage$: Observable<string>;
 
-  constructor(private store: Store<CoreState>,
+  constructor(@Inject(APP_BASE_HREF) private baseHref: string,
+              private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
               private profileInfoService: ProfileInfoService,
               private router: Router,
@@ -42,6 +50,11 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
       .subscribe(user => {
         this.user = user;
       });
+    this.authenticationService.getCurrentCompany()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(company => {
+        this.company = company;
+      });
     this.profileInfoService.getProfileInfo()
       .subscribe(profileInfo => {
         this.noEiam = profileInfo.noEiam;
@@ -56,7 +69,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
     if (this.noEiam) {
       this.modalService.openMedium(LocalLoginComponent, true);
     } else {
-      document.location.href = '/login';
+      document.location.href = `/login?redirectUrl=${this.baseHref}landing`;
     }
   }
 

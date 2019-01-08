@@ -7,6 +7,7 @@ import {
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
   ApplyFilterAction,
+  FILTER_APPLIED,
   FilterAppliedAction,
   FilterResetAction,
   INIT_RESULT_LIST,
@@ -17,7 +18,6 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
-  FILTER_APPLIED,
   RESET_FILTER
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
@@ -107,7 +107,7 @@ export class JobAdSearchEffects {
   );
 
   @Effect()
-  applyFilterValues: Observable<Action> = this.actions$.pipe(
+  applyFilterValues$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER_VALUES),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
