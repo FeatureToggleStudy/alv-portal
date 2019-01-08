@@ -17,6 +17,7 @@ import { CandidateSearchGuard } from './candidate-search/candidate-search.guard'
 import { CandidateSearchFilterParameterService } from './candidate-search/candidate-search-filter-parameter.service';
 import { CandidateProfileBadgesMapperService } from './candidate-profile-badges-mapper.service';
 import { WidgetsModule } from '../widgets/widgets.module';
+import { ContactModalComponent } from './candidate-detail/contact-modal/contact-modal.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { WidgetsModule } from '../widgets/widgets.module';
     CandidateSearchComponent,
     CandidateDetailComponent,
     CandidateSearchResultComponent,
-    FilterPanelComponent
+    FilterPanelComponent,
+    ContactModalComponent
   ],
   providers: [
     CandidateDetailGuard,
