@@ -42,6 +42,7 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         candidateSearchFilter: {
           ...action.payload
         },
+        page: 0,
         resultsAreLoading: true
       };
       break;
@@ -51,7 +52,6 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         ...state,
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
-        page: 0,
         resultsAreLoading: false
       };
       break;
