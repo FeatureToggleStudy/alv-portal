@@ -9,12 +9,14 @@ import { manageJobAdsReducer } from './state-management/reducers';
 import { ManageJobAdsRoutingModule } from './manage-job-ads-routing.module';
 import { ManagedJobAdSearchGuard } from './manage-job-ad-search/managed-job-ad-search.guard';
 import { JobAdManagementRowComponent } from './manage-job-ad-search/job-ad-management-row/job-ad-management-row.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     StoreModule.forFeature('manageJobAds', manageJobAdsReducer),
     EffectsModule.forFeature([ManageJobAdsEffects]),
+    SharedModule,
     ManageJobAdsRoutingModule
   ],
   declarations: [
