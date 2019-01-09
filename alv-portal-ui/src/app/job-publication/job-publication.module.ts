@@ -6,6 +6,7 @@ import { JobPublicationRoutingModule } from './job-publication-routing.module';
 import { JobPublicationComponent } from './job-publication.component';
 import { JobPublicationFormComponent } from './job-publication-form/job-publication-form.component';
 import { OccupationComponent } from './job-publication-form/occupation/occupation.component';
+import { JobDescriptionComponent } from './job-publication-form/job-description/job-description.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { OccupationComponent } from './job-publication-form/occupation/occupatio
   declarations: [
     JobPublicationComponent,
     JobPublicationFormComponent,
-    OccupationComponent
+    OccupationComponent,
+    JobDescriptionComponent
   ],
   providers: []
 })
