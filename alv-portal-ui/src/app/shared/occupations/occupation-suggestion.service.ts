@@ -48,6 +48,10 @@ export class OccupationSuggestionService {
     return this.fetch(query, [OccupationTypes.AVAM, OccupationTypes.SBN3, OccupationTypes.SBN5], this.toCandidateSearchOccupationCode);
   }
 
+  fetchJobPublicationOccupations(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
+    return this.fetch(query, [OccupationTypes.AVAM], this.toJobPublicationOccupations);
+  }
+
   private fetch(query: string, occupationTypes: OccupationTypes[], occupationMapping: (o: OccupationLabelSuggestion) => OccupationCode): Observable<OccupationMultiTypeaheadItem[]> {
     return this.occupationLabelRepository.suggestOccupations(query, occupationTypes)
       .pipe(
@@ -109,6 +113,13 @@ export class OccupationSuggestionService {
       };
     }
     return occupationCode;
+  }
+
+  private toJobPublicationOccupations(occupation: OccupationLabelSuggestion) {
+    return {
+      type: occupation.type,
+      value: occupation.code
+    };
   }
 
   private determineStartIndex(occupationLabelAutocomplete, idx) {
