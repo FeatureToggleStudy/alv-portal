@@ -18,7 +18,7 @@
                 ngbDropdownAnchor>
           <i class="fa fa-ellipsis-v"></i>
         </button>
-        <div aria-label="Job advertisement row actions for the row {{jobAdManagementRow.title}}"
+        <div [attr.aria-label]="'Job advertisement row actions for the row '+ jobAdManagementRow.title"
              ngbDropdownMenu>
           <button class="dropdown-item">
             action1
