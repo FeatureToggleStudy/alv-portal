@@ -111,6 +111,7 @@ export class InputFieldComponent extends AbstractInput {
     }
     if (this.multiline) {
       // Multiline auto expand feature
+      target.style.height = this.MIN_HEIGHT + 'px';
       target.style.height = Math.max(target.scrollHeight, this.MIN_HEIGHT) + 'px';
     }
     this.input.emit(event);
