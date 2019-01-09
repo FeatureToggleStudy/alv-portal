@@ -15,7 +15,7 @@ import {
   Notification,
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
-import { phoneInputValidator } from '../../shared/forms/input/phone-input/phone-input.validator';
+import { phoneInputValidator } from '../../shared/forms/input/input-field/phone-input.validator';
 
 
 @Component({
