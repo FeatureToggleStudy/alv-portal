@@ -1414,3 +1414,5 @@ portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,
 portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
 
 portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
+portal,portal.job-publication.language-skills.add,Neue Sprachkompetenz hinzufügen,Add new language skill,Ajouter une nouvelle compétence linguistique,Aggiungi nuova conoscenza linguistica
+portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
