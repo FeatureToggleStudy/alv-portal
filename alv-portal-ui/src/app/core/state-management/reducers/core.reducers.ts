@@ -6,6 +6,7 @@ import {
   AcountabilitiesLoaded,
   COMPANY_SELECTED,
   CompanySelectedAction,
+  AcountabilitiesLoaded,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   LANGUAGE_CHANGED,

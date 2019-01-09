@@ -1405,9 +1405,11 @@ portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Stan
 
 portal,portal.widgets.job-search.title,Stelle finden
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
-
+portal,portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 
 portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
+
+portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
