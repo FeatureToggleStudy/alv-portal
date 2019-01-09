@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { JobPublicationRoutingModule } from './job-publication-routing.module';
 import { JobPublicationComponent } from './job-publication.component';
+import { JobPublicationFormComponent } from './job-publication-form/job-publication-form.component';
+import { OccupationComponent } from './job-publication-form/occupation/occupation.component';
 
 @NgModule({
   imports: [
@@ -13,7 +15,9 @@ import { JobPublicationComponent } from './job-publication.component';
     WidgetsModule
   ],
   declarations: [
-    JobPublicationComponent
+    JobPublicationComponent,
+    JobPublicationFormComponent,
+    OccupationComponent
   ],
   providers: []
 })

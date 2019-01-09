@@ -1,0 +1,16 @@
+<form [formGroup]="jobPublicationForm">
+  <fieldset>
+    <alv-input-field label="label.title"
+                     alvFormControlName="title">
+    </alv-input-field>
+
+    <alv-input-field label="label.title"
+                     alvFormControlName="numberOfJobs">
+    </alv-input-field>
+  </fieldset>
+
+  <alv-occupation [jobPublicationForm]="jobPublicationForm"></alv-occupation>
+</form>
+
+
+{{jobPublicationForm.value | json}}
