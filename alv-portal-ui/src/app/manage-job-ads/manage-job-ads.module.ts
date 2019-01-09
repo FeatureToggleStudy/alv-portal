@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ManageJobAdsEffects } from './state-management/effects';
 import { manageJobAdsReducer } from './state-management/reducers';
+import { JobAdManagementRowComponent } from './manage-job-ad-search/job-ad-management-row/job-ad-management-row.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { manageJobAdsReducer } from './state-management/reducers';
     StoreModule.forFeature('manageJobAds', manageJobAdsReducer),
     EffectsModule.forFeature([ManageJobAdsEffects]),
   ],
-  declarations: [ManageJobAdSearchComponent, ManageJobAdDetailComponent]
+  declarations: [ManageJobAdSearchComponent, ManageJobAdDetailComponent, JobAdManagementRowComponent]
 })
 export class ManageJobAdsModule {
 }

@@ -92,7 +92,7 @@ export class JobAdvertisementRepository {
       map((result) => result.status));
   }
 
-  isJobAdvertisementCancellable(status: string | JobAdvertisementStatus): boolean {
+  static isJobAdvertisementCancellable(status: string | JobAdvertisementStatus): boolean {
     const statusEnum = typeof status === 'string' ? JobAdvertisementStatus[status] : status;
     return statusEnum !== JobAdvertisementStatus.INSPECTING
       && statusEnum !== JobAdvertisementStatus.REJECTED
