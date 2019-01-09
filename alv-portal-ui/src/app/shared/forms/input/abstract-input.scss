@@ -127,7 +127,7 @@ textarea.form-control,
 }
 /* removes the margin of the form group */
 :host-context(.narrow-form) {
-  .form-group {
+  .form-group, &.form-group {
     margin-bottom: 0;
   }
 }
