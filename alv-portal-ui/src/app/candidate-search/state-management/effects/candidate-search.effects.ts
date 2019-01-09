@@ -89,14 +89,14 @@ export class CandidateSearchEffects {
   );
 
   @Effect()
-  applyFilterValues: Observable<Action> = this.actions$.pipe(
+  applyFilterValues$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER_VALUES),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.candidateSearchFilter))
   );
 
   @Effect()
-  applyQueryValues: Observable<Action> = this.actions$.pipe(
+  applyQueryValues$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_QUERY_VALUES),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.candidateSearchFilter))
@@ -143,7 +143,6 @@ export class CandidateSearchEffects {
   @Effect()
   loadPreviousCandidateProfileDetail$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL),
-    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getPrevId))),
     map(([action, id]) => id),
     tap((id) => {

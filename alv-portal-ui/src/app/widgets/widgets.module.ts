@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { JobSearchWidgetComponent } from './job-search-widget/job-search-widget.component';
 import { CandidateSearchWidgetComponent } from './candidate-search-widget/candidate-search-widget.component';
 import { CandidateQueryPanelComponent } from './candidate-search-widget/candidate-query-panel/candidate-query-panel.component';
+import { JobPublicationWidgetComponent } from './job-publication-widget/job-publication-widget.component';
 
 @NgModule({
   imports: [
@@ -13,13 +14,15 @@ import { CandidateQueryPanelComponent } from './candidate-search-widget/candidat
     JobSearchWidgetComponent,
     JobQueryPanelComponent,
     CandidateSearchWidgetComponent,
-    CandidateQueryPanelComponent
+    CandidateQueryPanelComponent,
+    JobPublicationWidgetComponent
   ],
   exports: [
     JobSearchWidgetComponent,
     JobQueryPanelComponent,
     CandidateSearchWidgetComponent,
-    CandidateQueryPanelComponent
+    CandidateQueryPanelComponent,
+    JobPublicationWidgetComponent
   ]
 })
 export class WidgetsModule {

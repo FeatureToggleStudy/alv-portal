@@ -1,11 +1,11 @@
-<alv-input-field [label]="label"
-                 [id]="id"
+<alv-input-field (input)="onInput($event)"
                  [alvControl]="control"
                  [autofocus]="autofocus"
-                 [readonly]="readonly"
-                 (input)="onInput($event)"
-                 type="text"
                  [helpText]="helpText"
-                 [validationMessages]="validationMessages">
+                 [id]="id"
+                 [label]="label"
+                 [readonly]="readonly"
+                 [validationMessages]="validationMessages"
+                 type="text">
 </alv-input-field>
 

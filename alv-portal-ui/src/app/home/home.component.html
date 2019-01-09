@@ -15,26 +15,26 @@
       </div>
     </div>
 
-    <div ngbDropdown
-         placement="bottom"
-         class="d-block d-md-none w-100">
+    <div class="d-block d-md-none w-100"
+         ngbDropdown
+         placement="bottom">
       <button class="btn btn-secondary btn-block py-1"
               ngbDropdownToggle>
         <small class="d-block">{{'home.toolbar.title' | translate}}</small>
         <span *ngFor="let toolbarButton of toolbarButtons"
               [routerLink]="toolbarButton.route"
+              class="route-label"
               routerLinkActive="visible"
-              tabindex="-1"
-              class="route-label">
+              tabindex="-1">
           {{toolbarButton.label | translate}}
         </span>
       </button>
-      <div ngbDropdownMenu
-           class="w-100">
+      <div class="w-100"
+           ngbDropdownMenu>
         <a *ngFor="let toolbarButton of toolbarButtons"
            [routerLink]="toolbarButton.route"
-           routerLinkActive="active"
-           class="dropdown-item">
+           class="dropdown-item"
+           routerLinkActive="active">
           {{toolbarButton.label | translate}}
         </a>
       </div>

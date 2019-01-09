@@ -12,9 +12,11 @@ button.btn-header {
   &:hover {
     background-color: lighten($color-light-grey, 5%);
   }
+
   .company {
     color: $color-dark-grey;
   }
+
   &.dropdown-toggle::after {
     margin: 0.3em 0 0 0.4em;
   }
