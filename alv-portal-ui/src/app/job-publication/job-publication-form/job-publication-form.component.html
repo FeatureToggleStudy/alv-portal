@@ -1,15 +1,9 @@
 <form [formGroup]="jobPublicationForm">
-  <fieldset>
-    <alv-input-field label="label.title"
-                     alvFormControlName="title">
-    </alv-input-field>
 
-    <alv-input-field label="label.title"
-                     alvFormControlName="numberOfJobs">
-    </alv-input-field>
-  </fieldset>
+  <alv-job-description [jobPublicationForm]="jobPublicationForm"></alv-job-description>
 
   <alv-occupation [jobPublicationForm]="jobPublicationForm"></alv-occupation>
+
 </form>
 
 
