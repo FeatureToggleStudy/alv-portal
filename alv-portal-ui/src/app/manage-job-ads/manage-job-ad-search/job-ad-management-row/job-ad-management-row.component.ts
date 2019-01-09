@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { JobAdManagementRow } from './job-ad-management-row';
 
 @Component({
   selector: 'alv-job-ad-management-row',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./job-ad-management-row.component.scss']
 })
 export class JobAdManagementRowComponent implements OnInit {
+
+  @Input()
+  jobAdManagementRow: JobAdManagementRow;
 
   constructor() {
   }

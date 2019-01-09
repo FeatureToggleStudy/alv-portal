@@ -6,7 +6,7 @@ import { JobAdvertisementRepository } from '../../../shared/backend-services/job
  * A decorator around job advertisement for the representation of the
  * ManageJobAdSearch table row
  */
-class JobAdManagementRow {
+export class JobAdManagementRow {
 
   id: string;
 

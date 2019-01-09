@@ -1,3 +1,36 @@
-<p>
-  job-ad-management-row works!
-</p>
+<tr>
+  <td>{{jobAdManagementRow.egov}}</td>
+  <td>{{jobAdManagementRow.avam}}</td>
+  <td>{{jobAdManagementRow.publicationDate | date:'dd.MM.yyyy'}}</td>
+  <td>{{jobAdManagementRow.title}}</td>
+  <td>{{jobAdManagementRow.location}}</td>
+  <td>{{ 'global.job-publication.status.' + jobAdManagementRow.status | translate }}</td>
+  <td>
+    <div class="actions">
+      <div #mobileActionsMenu="ngbDropdown"
+           class="d-inline-block"
+           ngbDropdown
+           placement="bottom-right">
+        <button (click)="mobileActionsMenu.toggle()"
+                aria-label="Open candidate detail menu"
+                class="btn btn-text btn-icon"
+                id="dropdownMenu"
+                ngbDropdownAnchor>
+          <i class="fa fa-ellipsis-v"></i>
+        </button>
+        <div aria-label="Job advertisement row actions for the row {{jobAdManagementRow.title}}"
+             ngbDropdownMenu>
+          <button class="dropdown-item">
+            action1
+          </button>
+          <button class="dropdown-item">
+            action2
+          </button>
+          <button class="dropdown-item">
+            action3
+          </button>
+        </div>
+      </div>
+    </div>
+  </td>
+</tr>
