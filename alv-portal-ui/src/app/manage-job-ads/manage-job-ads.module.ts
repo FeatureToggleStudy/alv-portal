@@ -10,6 +10,8 @@ import { ManageJobAdsRoutingModule } from './manage-job-ads-routing.module';
 import { ManagedJobAdSearchGuard } from './manage-job-ad-search/managed-job-ad-search.guard';
 import { JobAdManagementRowComponent } from './manage-job-ad-search/job-ad-management-row/job-ad-management-row.component';
 import { SharedModule } from '../shared/shared.module';
+import { JobAdCancellationComponent } from './shared/job-ad-cancellation/job-ad-cancellation.component';
+import { ModalService } from '../shared/layout/modal/modal.service';
 
 @NgModule({
   imports: [
@@ -22,10 +24,15 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     ManageJobAdSearchComponent,
     ManageJobAdDetailComponent,
-    JobAdManagementRowComponent
+    JobAdManagementRowComponent,
+    JobAdCancellationComponent
   ],
   providers: [
+    ModalService,
     ManagedJobAdSearchGuard
+  ],
+  entryComponents: [
+    JobAdCancellationComponent
   ]
 })
 export class ManageJobAdsModule {

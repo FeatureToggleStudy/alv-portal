@@ -11,8 +11,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let jobAdManagementRow of jobAdManagementRows$ | async"
-      [jobAdManagementRow]="jobAdManagementRow"
+  <tr *ngFor="let jobAdvertisement of jobSearchResults$ | async"
+      [jobAdvertisement]="jobAdvertisement"
       alv-job-ad-management-row>
   </tr>
   </tbody>
