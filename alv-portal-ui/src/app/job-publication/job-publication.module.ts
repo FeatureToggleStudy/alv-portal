@@ -7,6 +7,7 @@ import { JobPublicationComponent } from './job-publication.component';
 import { JobPublicationFormComponent } from './job-publication-form/job-publication-form.component';
 import { OccupationComponent } from './job-publication-form/occupation/occupation.component';
 import { JobDescriptionComponent } from './job-publication-form/job-description/job-description.component';
+import { LanguagesComponent } from './job-publication-form/languages/languages.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { JobDescriptionComponent } from './job-publication-form/job-description/
     JobPublicationComponent,
     JobPublicationFormComponent,
     OccupationComponent,
-    JobDescriptionComponent
+    JobDescriptionComponent,
+    LanguagesComponent
   ],
   providers: []
 })
