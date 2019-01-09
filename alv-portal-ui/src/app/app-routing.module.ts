@@ -37,6 +37,7 @@ const appRoutes: Routes = [
   {
     path: 'manage-job-ads',
     loadChildren: './manage-job-ads/manage-job-ads.module#ManageJobAdsModule',
+    canActivateChild: [AuthenticatedGuard],
   },
   {
     path: 'landing',
