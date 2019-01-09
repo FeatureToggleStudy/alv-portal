@@ -20,17 +20,18 @@ import { asyncScheduler, Observable, of } from 'rxjs';
 import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';
 import { getManageJobAdsState, ManageJobAdsState } from '../state';
 import {
+  APPLY_FILTER,
+  ApplyFilterAction,
   FILTER_APPLIED,
   FilterAppliedAction,
-  INIT_RESULT_LIST
+  INIT_RESULT_LIST,
+  LOAD_NEXT_PAGE,
+  NextPageLoadedAction
 } from '../actions/manage-job-ads.actions';
 import { ManagedJobAdsSearchRequestMapper } from './managed-job-ads-search-request.mapper';
 import { getCurrentCompanyContactTemplateModel } from '../../../core/state-management/state/core.state.ts';
-import {
-  LOAD_NEXT_PAGE,
-  NextPageLoadedAction
-} from '../../../job-ad-search/state-management/actions';
 import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+
 
 @Injectable()
 export class ManageJobAdsEffects {
@@ -49,6 +50,21 @@ export class ManageJobAdsEffects {
       );
     }),
     takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
+  );
+
+  @Effect()
+  applyFilter$: Observable<Action> = this.actions$.pipe(
+    ofType(APPLY_FILTER),
+    map((action: ApplyFilterAction) => action.payload),
+    debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
+    withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
+    switchMap(([managedJobAdsSearchFilter, state, company]) => this.jobAdvertisementRepository.findManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(managedJobAdsSearchFilter, state.page, company.companyExternalId)).pipe(
+      map((response) => new FilterAppliedAction({
+        page: response.result,
+        totalCount: response.totalCount
+      })),
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+    ))
   );
 
   @Effect()
