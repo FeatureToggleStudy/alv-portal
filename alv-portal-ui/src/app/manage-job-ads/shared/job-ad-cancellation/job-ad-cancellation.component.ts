@@ -23,7 +23,7 @@ export class JobAdCancellationComponent implements OnInit {
 
   form: FormGroup;
 
-  optionsA$ = of([
+  cancellationCodeOptionsA$ = of([
     {
       label: 'job-publication-cancel.job.occupied.jobCenter',
       value: CancellationReason.OCCUPIED_JOBCENTER
@@ -34,7 +34,7 @@ export class JobAdCancellationComponent implements OnInit {
     }
   ]);
 
-  optionsB$ = of([
+  cancellationCodeOptionsB$ = of([
     {
       label: 'job-publication-cancel.job.occupied.jobroom',
       value: CancellationReason.OCCUPIED_JOBROOM
@@ -45,7 +45,7 @@ export class JobAdCancellationComponent implements OnInit {
     }
   ]);
 
-  optionsC$ = of([
+  cancellationCodeOptionsC$ = of([
     {
       label: 'job-publication-cancel.job.change-or-repost',
       value: CancellationReason.CHANGE_OR_REPOSE
