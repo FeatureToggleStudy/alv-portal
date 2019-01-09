@@ -97,8 +97,9 @@ export class CoreEffects {
       const accountability = action.payload.accountabilities[0];
       if (accountability) {
         return new AccountabilitySelectedAction({ accountability: accountability });
+      } else {
+        return new AccountabilitySelectedAction({ accountability: null });
       }
-      return { type: 'nothing' };
     })
   );
 
@@ -106,11 +107,15 @@ export class CoreEffects {
   accountabilitySelected: Observable<Action> = this.actions$.pipe(
     ofType(ACCOUNTABILITY_SELECTED),
     map(action => <AccountabilitySelectedAction>action),
-    map((action) => {
+    map(action => action.payload.accountability),
+    map((accountability) => {
+      if (!accountability) {
+        return new SelectCompanyAction({ companySelection: null });
+      }
       return new SelectCompanyAction({
         companySelection: {
-          companyExternalId: action.payload.accountability.companyExternalId,
-          companyId: action.payload.accountability.companyId
+          companyId: accountability.companyId,
+          companyExternalId: accountability.companyExternalId
         }
       });
     }));
@@ -119,9 +124,13 @@ export class CoreEffects {
   selectCompany$: Observable<Action> = this.actions$.pipe(
     ofType(SELECT_COMPANY),
     map(action => <SelectCompanyAction>action),
+    map(action => action.payload.companySelection),
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
-    switchMap(([action, user]) => {
-      return this.loadCompanyContactTemplate(user, action.payload.companySelection).pipe(
+    switchMap(([companySelection, user]) => {
+      if (!companySelection) {
+        return of(new CompanySelectedAction({ company: null }));
+      }
+      return this.loadCompanyContactTemplate(user, companySelection).pipe(
         map(companyContactTemplate => new CompanySelectedAction({ company: companyContactTemplate })),
       );
     }),
