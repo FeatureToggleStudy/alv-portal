@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { JobAdManagementRow } from './job-ad-management-row';
 
 @Component({
-  selector: 'alv-job-ad-management-row',
+  // we need to use attribute selector because we don't want angular to create an element
+  // in the html structure breaking the bootstrap styles.
+  selector: '[alv-job-ad-management-row]',
   templateUrl: './job-ad-management-row.component.html',
   styleUrls: ['./job-ad-management-row.component.scss']
 })
