@@ -1348,6 +1348,7 @@ portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tut
 
 portal,portal.navigation.menu-entry.job-search,Stelle finden
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden
+portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht
 portal,portal.dashboard.header.welcome.time.morning,Guten Morgen
