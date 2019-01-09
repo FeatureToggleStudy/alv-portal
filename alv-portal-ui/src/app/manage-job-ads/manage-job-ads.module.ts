@@ -8,6 +8,7 @@ import { ManageJobAdsEffects } from './state-management/effects';
 import { manageJobAdsReducer } from './state-management/reducers';
 import { ManageJobAdsRoutingModule } from './manage-job-ads-routing.module';
 import { ManagedJobAdSearchGuard } from './manage-job-ad-search/managed-job-ad-search.guard';
+import { JobAdManagementRowComponent } from './manage-job-ad-search/job-ad-management-row/job-ad-management-row.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,11 @@ import { ManagedJobAdSearchGuard } from './manage-job-ad-search/managed-job-ad-s
     EffectsModule.forFeature([ManageJobAdsEffects]),
     ManageJobAdsRoutingModule
   ],
-  declarations: [ManageJobAdSearchComponent, ManageJobAdDetailComponent],
+  declarations: [
+    ManageJobAdSearchComponent,
+    ManageJobAdDetailComponent,
+    JobAdManagementRowComponent
+  ],
   providers: [
     ManagedJobAdSearchGuard
   ]
