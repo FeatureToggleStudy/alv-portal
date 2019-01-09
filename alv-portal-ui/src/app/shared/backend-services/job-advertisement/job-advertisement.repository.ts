@@ -6,9 +6,7 @@ import {
   JobAdvertisement,
   JobAdvertisementCancelRequest,
   JobAdvertisementSearchRequest,
-  JobAdvertisementSearchRequestBody,
   JobAdvertisementSearchResponse,
-  JobAdvertisementStatus,
   ManagedJobAdsSearchRequest,
   ManagedJobAdsSearchResponse
 } from './job-advertisement.types';
@@ -36,7 +34,7 @@ export class JobAdvertisementRepository {
       map((resp: HttpResponse<JobAdvertisement>) => new ResponseWrapper(resp.headers, resp.body, resp.status)));
   }
 
-  findManagedJobAds(request: ManagedJobAdsSearchRequest): Observable<ManagedJobAdsSearchResponse> {
+  searchManagedJobAds(request: ManagedJobAdsSearchRequest): Observable<ManagedJobAdsSearchResponse> {
     const params = createPageableURLSearchParams(request);
     return this.http.post<JobAdvertisement[]>(`${this.searchUrl}/pea`, request.body, {
       params,
@@ -64,11 +62,6 @@ export class JobAdvertisementRepository {
       }));
   }
 
-  count(request: JobAdvertisementSearchRequestBody): Observable<number> {
-    return this.http.post(this.countUrl, request, { observe: 'response' }).pipe(
-      map((resp) => (<any>resp.body).totalCount));
-  }
-
   findById(id: string): Observable<JobAdvertisement> {
     return this.http.get<JobAdvertisement>(`${this.resourceUrl}/${id}`);
   }
@@ -81,15 +74,13 @@ export class JobAdvertisementRepository {
     return this.http.get<JobAdvertisement>(`${this.resourceUrl}/byFingerprint/${fingerprint}`);
   }
 
-  cancel(jobAdCancelRequest: JobAdvertisementCancelRequest): Observable<number> {
+  cancel(jobAdCancelRequest: JobAdvertisementCancelRequest): Observable<void> {
     const { code } = jobAdCancelRequest;
     let params = new HttpParams();
     if (jobAdCancelRequest.token) {
       params = params.set('token', jobAdCancelRequest.token);
     }
-    return this.http.patch(`${this.resourceUrl}/${jobAdCancelRequest.id}/cancel`,
-      { code }, { params, observe: 'response' }).pipe(
-      map((result) => result.status));
+    return this.http.patch<void>(`${this.resourceUrl}/${jobAdCancelRequest.id}/cancel`, { code }, { params });
   }
 
 }

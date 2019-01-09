@@ -12,6 +12,7 @@ import { JobAdManagementRowComponent } from './manage-job-ad-search/job-ad-manag
 import { SharedModule } from '../shared/shared.module';
 import { JobAdCancellationComponent } from './shared/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../shared/layout/modal/modal.service';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ModalService } from '../shared/layout/modal/modal.service';
     StoreModule.forFeature('manageJobAds', manageJobAdsReducer),
     EffectsModule.forFeature([ManageJobAdsEffects]),
     SharedModule,
-    ManageJobAdsRoutingModule
+    ManageJobAdsRoutingModule,
+    InfiniteScrollModule
   ],
   declarations: [
     ManageJobAdSearchComponent,

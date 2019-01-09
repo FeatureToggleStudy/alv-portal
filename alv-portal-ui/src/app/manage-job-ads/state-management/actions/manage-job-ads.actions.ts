@@ -29,14 +29,12 @@ export class FilterAppliedAction implements Action {
   }
 }
 
-
 export class LoadNextPageAction implements Action {
   readonly type = LOAD_NEXT_PAGE;
 
   constructor(public payload = {}) {
   }
 }
-
 
 export class NextPageLoadedAction implements Action {
   readonly type = NEXT_PAGE_LOADED;

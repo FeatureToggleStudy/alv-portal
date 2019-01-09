@@ -10,12 +10,15 @@
     <th>{{ 'dashboard.job-publication.action' | translate }}</th>
   </tr>
   </thead>
-  <tbody>
+  <tbody (scrolled)="onScroll()"
+         [fromRoot]="true"
+         [infiniteScrollThrottle]="50"
+         [immediateCheck]="true"
+         [infiniteScrollContainer]="'main'"
+         infiniteScroll>
   <tr *ngFor="let jobAdvertisement of jobSearchResults$ | async"
       [jobAdvertisement]="jobAdvertisement"
       alv-job-ad-management-row>
   </tr>
   </tbody>
 </table>
-
-

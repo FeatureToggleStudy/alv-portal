@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { getManagedJobAdResults, ManageJobAdsState } from '../state-management/state';
+import {
+  getManagedJobAdResults,
+  LoadNextPageAction,
+  ManageJobAdsState
+} from '../state-management';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -18,6 +22,10 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   ngOnInit() {
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
+  }
+
+  onScroll() {
+    this.store.dispatch(new LoadNextPageAction());
   }
 
 }

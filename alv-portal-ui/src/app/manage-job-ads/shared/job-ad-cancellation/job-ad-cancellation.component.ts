@@ -7,13 +7,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 @Component({
   selector: 'alv-job-ad-cancelation-dialog',
   templateUrl: './job-ad-cancellation.component.html',
   styleUrls: ['./job-ad-cancellation.component.scss']
 })
-export class JobAdCancellationComponent implements OnInit {
+export class JobAdCancellationComponent extends AbstractSubscriber implements OnInit {
 
   @Input()
   jobAdvertisement: JobAdvertisement;
@@ -57,6 +58,7 @@ export class JobAdCancellationComponent implements OnInit {
   ]);
 
   constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private jobAdvertisementRepository: JobAdvertisementRepository) {
+    super();
   }
 
   ngOnInit() {
