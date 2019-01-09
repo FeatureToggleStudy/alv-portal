@@ -1,9 +1,9 @@
 import { CoreState, initialState } from '../state/core.state.ts';
 import {
   ACCOUNTABILITIES_LOADED,
-  AcountabilitiesLoaded,
   ACCOUNTABILITY_SELECTED,
   AccountabilitySelectedAction,
+  AcountabilitiesLoaded,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   LANGUAGE_CHANGED,
