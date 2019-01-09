@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CandidateProfile} from '../../../shared/backend-services/candidate/candidate.types';
-import {AuthenticationService} from '../../../core/auth/authentication.service';
-import {I18nService} from '../../../core/i18n.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {takeUntil, withLatestFrom} from 'rxjs/operators';
-import {AbstractSubscriber} from '../../../core/abstract-subscriber';
-import {phoneInputValidator} from '../../../shared/forms/input/phone-input/phone-input.validator';
-import {EMAIL_REGEX, HOUSE_NUMBER_REGEX} from '../../../shared/forms/regex-patterns';
-import {CompanyContactTemplateModel} from '../../../core/auth/company-contact-template-model';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from '@angular/core';
+import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { I18nService } from '../../../core/i18n.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { takeUntil, withLatestFrom } from 'rxjs/operators';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { phoneInputValidator } from '../../../shared/forms/input/phone-input/phone-input.validator';
+import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
+import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'alv-contact-modal',

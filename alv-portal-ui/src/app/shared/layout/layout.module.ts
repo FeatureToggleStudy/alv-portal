@@ -42,7 +42,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-layout.component';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ListItemContentComponent } from './list-item-content/list-item-content.component';
-import {ContactModalComponent} from '../../candidate-search/candidate-detail/contact-modal/contact-modal.component';
+import { ContactModalComponent } from '../../candidate-search/candidate-detail/contact-modal/contact-modal.component';
 
 @NgModule({
   imports: [

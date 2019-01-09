@@ -21,9 +21,9 @@ import { CandidateDetailModel } from './candidate-detail-model';
 import { map, switchMap } from 'rxjs/operators';
 import { findRelevantJobExperience } from '../candidate-rules';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import {CandidateProfile} from '../../shared/backend-services/candidate/candidate.types';
-import {ModalService} from '../../shared/layout/modal/modal.service';
-import {ContactModalComponent} from './contact-modal/contact-modal.component';
+import { CandidateProfile } from '../../shared/backend-services/candidate/candidate.types';
+import { ModalService } from '../../shared/layout/modal/modal.service';
+import { ContactModalComponent } from './contact-modal/contact-modal.component';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;

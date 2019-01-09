@@ -96,7 +96,6 @@ candidate-detail,candidate-detail.personal-information.phone.label,Telefon,Telep
 candidate-detail,candidate-detail.personal-information.title,Personalien / Kontaktdaten des Kandidaten,Personal information / Candidate contact details,Coordonnées du candidat,Generalità / coordinate del candidato
 candidate-search,candidate-search.availability.BY_ARRANGEMENT,Nach Vereinbarung,By agreement,À convenir,Previo accordo
 candidate-search,candidate-search.availability.IMMEDIATE,Ab sofort,Immediately,Tout de suite,Da subito
-candidate-search,candidate-search.availability.IMMEDIATE,Ab sofort,Immediately,Tout de suite,Da subito
 candidate-search,candidate-search.availability.label,Verfügbarkeit,Availability,Disponibilité,Disponibilità
 candidate-search,candidate-search.candidate-search-list.error-message,Die Resultate der Kandidatensuche konnten nicht geladen werden,Failed to load candidate result list.,Les résultats de la recherche de candidats n'ont pas pu être chargés,Impossibile caricare la lista risultati dei candidati!
 candidate-search,candidate-search.candidate-search-list.title.many,{{count}} Kandidaten,{{count}} candidates,{{count}} candidats,{{count}} candidati
