@@ -7,7 +7,15 @@
   </alv-input-field>
 
   <alv-input-field label="home.tools.job-publication.number-of-jobs"
-                   alvFormControlName="numberOfJobs">
+                   alvFormControlName="numberOfJobs"
+                   type="number"
+                   [min]="1"
+                   [max]="99">
+  </alv-input-field>
+
+  <alv-input-field label="home.tools.job-publication.description.label"
+                   alvFormControlName="jobDescription"
+                   [multiline]="true">
   </alv-input-field>
 
 </fieldset>
