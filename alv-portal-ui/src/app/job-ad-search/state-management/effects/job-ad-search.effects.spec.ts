@@ -12,8 +12,8 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import {
-  ApplyFilterAction,
-  FilterAppliedAction,
+  ApplyFilterAction, ApplyFilterValuesAction, ApplyQueryValuesAction,
+  FilterAppliedAction, FilterResetAction, ResetFilterAction,
   InitResultListAction,
   LoadNextJobAdvertisementDetailAction,
   NextPageLoadedAction
@@ -25,6 +25,8 @@ import { OccupationSuggestionService } from '../../../shared/occupations/occupat
 import { HttpErrorResponse } from '@angular/common/http';
 import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';
 import SpyObj = jasmine.SpyObj;
+import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
+import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 
 describe('JobAdSearchEffects', () => {
   let sut: JobAdSearchEffects;
@@ -249,6 +251,66 @@ describe('JobAdSearchEffects', () => {
       });
 
       expect(sut.applyFilter$).toBeObservable(expected);
+    });
+
+  });
+
+  describe('applyFilterAndQueryValues$', () => {
+
+    const applyFilterAction = new ApplyFilterAction(initialState.jobSearchFilter);
+
+    /*
+     * action : trigger applyFilterValuesAction after 10 F delay
+     * expected : emit applyFilterAction after 10 F delay
+     */
+    it('should return new ApplyFilterAction when ApplyFilterValues is called', () => {
+
+      const applyFilterValuesAction = new ApplyFilterValuesAction(initialState.jobSearchFilter as FilterPanelValues);
+
+      // action
+      actions$ = hot('-a', { a: applyFilterValuesAction });
+      // expected
+      const expected = cold('-b', { b: applyFilterAction });
+
+      expect(sut.applyFilterValues$).toBeObservable(expected);
+    });
+
+    /*
+     * action : trigger applyQueryValuesAction after 10 F delay
+     * expected : emit applyFilterAction after 10 F delay
+     */
+    it('should return new ApplyFilterAction when ApplyQueryValues is called', () => {
+
+      const applyQueryValuesAction = new ApplyQueryValuesAction(initialState.jobSearchFilter as JobQueryPanelValues);
+
+      // action
+      actions$ = hot('-a', { a: applyQueryValuesAction });
+      // expected
+      const expected = cold('-b', { b: applyFilterAction });
+
+      expect(sut.applyQueryValues$).toBeObservable(expected);
+    });
+
+  });
+
+  describe('resetFilter$', () => {
+
+    /*
+     * action : trigger resetFilterAction after 10 F delay
+     * expected : emit both applyFilterAction and filterResetAction in same frame after 10 F delay
+     */
+    it('should reset filter to initial state', () => {
+
+      const resetFilterAction = new ResetFilterAction({});
+      const applyFilterAction = new ApplyFilterAction(initialState.jobSearchFilter);
+      const filterResetAction = new FilterResetAction(initialState.jobSearchFilter);
+
+      // action
+      actions$ = hot('-a', { a: resetFilterAction });
+      // expected
+      const expected = cold('-(bc)', { b: applyFilterAction, c: filterResetAction });
+
+      expect(sut.resetFilter$).toBeObservable(expected);
     });
 
   });

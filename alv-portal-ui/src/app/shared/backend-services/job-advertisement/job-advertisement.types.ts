@@ -1,10 +1,4 @@
-import {
-  CEFR_Level,
-  Degree,
-  LanguageSkill,
-  PostAddress,
-  Salutation
-} from '../shared.types';
+import { Degree, LanguageSkill, PostAddress, Salutation } from '../shared.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',

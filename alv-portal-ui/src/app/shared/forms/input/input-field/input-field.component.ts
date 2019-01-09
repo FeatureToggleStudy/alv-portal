@@ -4,7 +4,8 @@ import {
   Host,
   HostBinding,
   Input,
-  Optional, Output,
+  Optional,
+  Output,
   SkipSelf
 } from '@angular/core';
 import { AbstractInput } from '../abstract-input';
