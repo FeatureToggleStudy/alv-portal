@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -10,8 +10,18 @@ export class JobPublicationFormComponent implements OnInit {
 
   jobPublicationForm: FormGroup;
 
+  constructor(private fb: FormBuilder) {
+  }
+
   ngOnInit(): void {
-    this.jobPublicationForm = new FormGroup({});
+    this.jobPublicationForm = this.prepareForm();
+  }
+
+  private prepareForm(): FormGroup {
+    return this.fb.group({
+      title: [''],
+      numberOfJobs: ['']
+    });
   }
 }
 

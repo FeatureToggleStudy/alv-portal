@@ -64,6 +64,6 @@ export class OccupationComponent implements OnInit {
 
 
   private loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
-    return this.occupationSuggestionService.fetchJobPublicationOccupations(query);
+    return this.occupationSuggestionService.fetchCandidateSearchOccupations(query);
   }
 }

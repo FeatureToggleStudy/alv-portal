@@ -1,13 +1,15 @@
 <form [formGroup]="jobPublicationForm">
+  <fieldset>
+    <alv-input-field label="label.title"
+                     alvFormControlName="title">
+    </alv-input-field>
 
-  <alv-job-description [jobPublicationForm]="jobPublicationForm"></alv-job-description>
+    <alv-input-field label="label.title"
+                     alvFormControlName="numberOfJobs">
+    </alv-input-field>
+  </fieldset>
 
   <alv-occupation [jobPublicationForm]="jobPublicationForm"></alv-occupation>
-
-  <alv-collapse-panel panelId="occupationPanel"
-                      panelTitle="portal.job-publication.language-skills.label">
-    <alv-languages [parentForm]="jobPublicationForm"></alv-languages>
-  </alv-collapse-panel>
 </form>
 
 
