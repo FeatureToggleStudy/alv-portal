@@ -10,21 +10,18 @@
           aria-hidden="true">
       </i>
       <span>
-         <i class="fa fa-user d-inline d-lg-none"
+        <i class="fa fa-user d-inline d-lg-none"
             aria-hidden="true">
-      </i>
-      <span class="d-none d-lg-block">
-        {{user.firstName}} {{user.lastName}}
+        </i>
+        <span class="d-none d-lg-block">
+          {{user.firstName}} {{user.lastName}}
+        </span>
+        <small class="company d-none d-lg-inline-block text-left"
+               *ngIf="company">
+          {{company.companyName}}
+        </small>
       </span>
-      <small class="company d-none d-lg-inline-block text-left"
-             *ngIf="company">
-        {{company.companyName}}
-      </small>
-      </span>
-
-
     </span>
-
   </button>
   <div ngbDropdownMenu
        aria-label="User Menu">
