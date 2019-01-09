@@ -7,7 +7,7 @@ import {
   CoreState,
   getCurrentCompanyContactTemplateModel,
   getCurrentUser,
-  userNotFetched
+  notFetched,
 } from '../state-management/state/core.state.ts';
 import {
   CompanySelectedAction,
@@ -36,11 +36,12 @@ export class AuthenticationService {
 
     this.currentUser$ = this.store.pipe(
       select(getCurrentUser),
-      skipWhile(userNotFetched)
+      skipWhile(notFetched)
     );
 
     this.currentCompany$ = this.store.pipe(
-      select(getCurrentCompanyContactTemplateModel)
+      select(getCurrentCompanyContactTemplateModel),
+      skipWhile(notFetched)
     );
   }
 

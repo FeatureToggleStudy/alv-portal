@@ -38,10 +38,6 @@ export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUs
   return undefined;
 });
 
-export const userNotFetched = (u: User) => {
-  return u === undefined;
-};
-
 export const notFetched = (u: any) => {
   return u === undefined;
 };
