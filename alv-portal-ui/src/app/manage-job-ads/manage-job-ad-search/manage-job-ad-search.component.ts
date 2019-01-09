@@ -35,7 +35,7 @@ export class ManageJobAdSearchComponent implements OnInit {
           new JobAdManagementRow(jobSearchResult, currentLanguage)
         )
       )
-    )
+    );
   }
 
 }

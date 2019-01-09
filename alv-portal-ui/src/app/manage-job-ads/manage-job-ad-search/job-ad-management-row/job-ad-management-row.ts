@@ -32,8 +32,8 @@ export class JobAdManagementRow {
     this.title = JobAdvertisementUtils.getJobDescription(this.jobAdvertisement, this.currentLanguage).title;
     this.location = this.jobAdvertisement.jobContent.location.city;
     this.status = this.jobAdvertisement.status.toString();
-    this.isCancellable = JobAdvertisementRepository.isJobAdvertisementCancellable(this.status);
-  };
+    this.isCancellable = JobAdvertisementUtils.isJobAdvertisementCancellable(this.status);
+  }
 
 }
 
