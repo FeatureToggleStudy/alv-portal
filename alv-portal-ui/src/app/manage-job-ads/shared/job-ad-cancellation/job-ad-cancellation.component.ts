@@ -6,6 +6,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'alv-job-ad-cancelation-dialog',
@@ -22,22 +23,38 @@ export class JobAdCancellationComponent implements OnInit {
 
   form: FormGroup;
 
-  static mapToCancellationReason(formValue): CancellationReason {
-    switch (formValue.positionOccupied) {
-      case 'jobCenter':
-        return CancellationReason.OCCUPIED_JOBCENTER;
-      case 'privateAgency':
-        return CancellationReason.OCCUPIED_AGENCY;
-      case 'jobRoom':
-        return CancellationReason.OCCUPIED_JOBROOM;
-      case 'notJobRoom':
-        return CancellationReason.OCCUPIED_OTHER;
-      case 'changeOrRepost':
-        return CancellationReason.CHANGE_OR_REPOSE;
-      default:
-        return CancellationReason.NOT_OCCUPIED;
+  optionsA$ = of([
+    {
+      label: 'job-publication-cancel.job.occupied.jobCenter',
+      value: CancellationReason.OCCUPIED_JOBCENTER
+    },
+    {
+      label: 'job-publication-cancel.job.occupied.privateAgency',
+      value: CancellationReason.OCCUPIED_AGENCY
     }
-  }
+  ]);
+
+  optionsB$ = of([
+    {
+      label: 'job-publication-cancel.job.occupied.jobroom',
+      value: CancellationReason.OCCUPIED_JOBROOM
+    },
+    {
+      label: 'job-publication-cancel.job.occupied.not-jobroom',
+      value: CancellationReason.OCCUPIED_OTHER
+    }
+  ]);
+
+  optionsC$ = of([
+    {
+      label: 'job-publication-cancel.job.change-or-repost',
+      value: CancellationReason.CHANGE_OR_REPOSE
+    },
+    {
+      label: 'job-publication-cancel.job.not-occupied',
+      value: CancellationReason.NOT_OCCUPIED
+    }
+  ]);
 
   constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private jobAdvertisementRepository: JobAdvertisementRepository) {
   }
@@ -48,7 +65,7 @@ export class JobAdCancellationComponent implements OnInit {
 
   onSubmit() {
     this.jobAdvertisementRepository.cancel({
-      code: JobAdCancellationComponent.mapToCancellationReason(this.form.value.positionOccupied),
+      code: this.form.value.positionOccupied,
       id: this.jobAdvertisement.id,
       token: this.accessToken
     }).subscribe(() => {

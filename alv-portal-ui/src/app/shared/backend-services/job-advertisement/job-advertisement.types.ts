@@ -245,5 +245,5 @@ export interface JobAdvertisementSearchRequest {
 export interface JobAdvertisementCancelRequest {
   id: string;
   token?: string;
-  code: string;
+  code: CancellationReason;
 }

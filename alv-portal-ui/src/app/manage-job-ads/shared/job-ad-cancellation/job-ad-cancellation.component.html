@@ -5,4 +5,21 @@
            (secondaryAction)="activeModal.dismiss()"
            [formGroup]="form">
 
+  {{ 'job-publication-cancel.job.occupied.text' | translate }}
+  <alv-radio-button alvFormControlName="positionOccupied"
+                    [options$]="optionsA$">
+  </alv-radio-button>
+
+  {{ 'job-publication-cancel.job.occupied.self' | translate }}
+  <alv-radio-button alvFormControlName="positionOccupied"
+                    [options$]="optionsB$">
+  </alv-radio-button>
+
+  Andere Gründe
+  <alv-radio-button alvFormControlName="positionOccupied"
+                    [options$]="optionsC$">
+  </alv-radio-button>
+
+  <pre>{{form.value.positionOccupied}}</pre>
+
 </alv-modal>

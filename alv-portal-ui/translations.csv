@@ -199,7 +199,7 @@ dashboard,job-publication-cancel.alert,Bitte füllen Sie die Abmeldeinformatione
 dashboard,job-publication-cancel.job.confirm,Abmeldung bestätigen,Confirm cancellation,Confirmer l'annulation,Confermare la cancellazione
 dashboard,job-publication-cancel.job.dismiss,Abbrechen,Cancel,Interrompre,Interrompere
 dashboard,job-publication-cancel.job.not-occupied,Sie konnten die Stelle nicht besetzen,You were unable to fill the position,Vous n'avez pas pu pourvoir le poste,Il posto non è stato assegnato
-dashboard,job-publication-cancel.job.occupied,Sie konnten die Stelle besetzen,You were able to fill the position,Vous avez pourvu le poste,Il posto è stato assegnato
+dashboard,job-publication-cancel.job.occupied.text,Sie konnten die Stelle besetzen,You were able to fill the position,Vous avez pourvu le poste,Il posto è stato assegnato
 dashboard,job-publication-cancel.job.occupied.jobCenter,in Zusammenarbeit mit der regionalen Arbeitsvermittlung (RAV),in cooperation with the regional employment centre (RAV),en collaboration avec l'Office régional de placement (ORP),in collaborazione con l'Ufficio regionale di collocamento (URC)
 dashboard,job-publication-cancel.job.occupied.privateAgency,in Zusammenarbeit mit der privaten Arbeitsvermittlung (pAV),in cooperation with the private employment agency (pAV),en collaboration avec un placeur privé,in collaborazione con le agenzie private di collocamento
 dashboard,job-publication-cancel.job.occupied.self,Sie konnten die Stelle selber besetzen,You were able to fill the position yourself,Vous avez pourvu le poste par vos propres soins.,Il posto è stato assegnato senza interventi esterni
