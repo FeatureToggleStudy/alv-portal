@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { getManagedJobAdResults, ManageJobAdsState } from '../state-management/state';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdManagementRow } from './job-ad-management-row/job-ad-management-row';
 import { I18nService } from '../../core/i18n.service';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-manage-job-ad-search',
@@ -18,18 +18,13 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   jobAdManagementRows$: Observable<JobAdManagementRow[]>;
 
-  currentLanguage: Observable<string>;
-
-
   constructor(private store: Store<ManageJobAdsState>,
               private i18nService: I18nService) {
   }
 
   ngOnInit() {
-    this.currentLanguage = this.i18nService.currentLanguage$;
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
-    this.jobAdManagementRows$ = this.jobSearchResults$.pipe(
-      withLatestFrom(this.currentLanguage),
+    this.jobAdManagementRows$ = combineLatest(this.jobSearchResults$, this.i18nService.currentLanguage$).pipe(
       map(([jobSearchResults, currentLanguage]) =>
         jobSearchResults.map(jobSearchResult =>
           new JobAdManagementRow(jobSearchResult, currentLanguage)
