@@ -4,7 +4,10 @@
 
   <alv-occupation [jobPublicationForm]="jobPublicationForm"></alv-occupation>
 
-  <alv-languages [parentForm]="jobPublicationForm"></alv-languages>
+  <alv-collapse-panel panelId="occupationPanel"
+                      panelTitle="portal.job-publication.language-skills.label">
+    <alv-languages [parentForm]="jobPublicationForm"></alv-languages>
+  </alv-collapse-panel>
 </form>
 
 

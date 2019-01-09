@@ -1342,6 +1342,7 @@ portal,portal.forms.validation.pattern,Dieses Feld muss das Muster {{ requiredPa
 portal,portal.forms.validation.ngbDate,"Datumsformat ungültig, richtiges Format: TT.MM.JJJJ","Invalid date format, correct format: DD.MM.YYYY",Le format de la date n’est pas conforme. Format correct: JJ.MM.AAAA,Il formato della data non è corretto. Formato corretto: GG.MM.AAAA
 portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{day}}.{{month}}.{{year}} liegen,Date must be before {{day}}.{{month}}.{{year}},La date doit être antérieure au {{day}}.{{month}}.{{year}},La data deve essere precedente all'{{day}}.{{month}}.{{year}}
 portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{day}}.{{month}}.{{year}} liegen,Date must be after {{day}}.{{month}}.{{year}},La date doit être après le {{day}}.{{month}}.{{year}},La data deve essere successiva all'{{day}}.{{month}}.{{year}}
+portal,portal.forms.validation.character-counter,{{count}} Zeichen verbleibend,{{count}} characters available,{{count}} caractères disponibles,{{count}} caratteri disponibili
 
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
