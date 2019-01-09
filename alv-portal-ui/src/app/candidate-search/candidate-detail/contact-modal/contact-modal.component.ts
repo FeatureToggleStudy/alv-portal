@@ -141,4 +141,8 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     onSubmit() {
         console.log(this.form.value);
     }
+
+    onDismiss() {
+        this.activeModal.dismiss();
+    }
 }
