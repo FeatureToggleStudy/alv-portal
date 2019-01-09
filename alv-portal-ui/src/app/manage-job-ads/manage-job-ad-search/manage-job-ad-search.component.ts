@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { getManagedJobAdResults, ManageJobAdsState } from '../state-management/state';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-manage-job-ad-search',
@@ -7,9 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageJobAdSearchComponent implements OnInit {
 
-  constructor() { }
+  private jobSearchResults$: Observable<JobAdvertisement[]>;
+
+  constructor(private store: Store<ManageJobAdsState>) {
+  }
 
   ngOnInit() {
+    this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
   }
 
 }

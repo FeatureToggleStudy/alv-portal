@@ -1,3 +1,5 @@
-<p>
-  manage-job-ad-search works!
-</p>
+<div *ngFor="let jobSearchResult of jobSearchResults$ | async">
+  {{jobSearchResult.id}}
+</div>
+
+

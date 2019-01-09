@@ -9,7 +9,8 @@ import {
   JobAdvertisementSearchRequestBody,
   JobAdvertisementSearchResponse,
   JobAdvertisementStatus,
-  PEAJobAdsSearchRequest
+  ManagedJobAdsSearchRequest,
+  ManagedJobAdsSearchResponse
 } from './job-advertisement.types';
 
 import { map } from 'rxjs/operators';
@@ -35,14 +36,18 @@ export class JobAdvertisementRepository {
       map((resp: HttpResponse<JobAdvertisement>) => new ResponseWrapper(resp.headers, resp.body, resp.status)));
   }
 
-  searchPEAJobAds(request: PEAJobAdsSearchRequest): Observable<ResponseWrapper> {
+  findManagedJobAds(request: ManagedJobAdsSearchRequest): Observable<ManagedJobAdsSearchResponse> {
     const params = createPageableURLSearchParams(request);
-
-    return this.http.post(`${this.searchUrl}/pea`, request.body, {
+    return this.http.post<JobAdvertisement[]>(`${this.searchUrl}/pea`, request.body, {
       params,
       observe: 'response'
     }).pipe(
-      map((resp) => new ResponseWrapper(resp.headers, resp.body, resp.status)));
+      map((resp) => {
+        return {
+          totalCount: parseInt(resp.headers.get('X-Total-Count'), 10),
+          result: resp.body
+        };
+      }));
   }
 
   search(request: JobAdvertisementSearchRequest): Observable<JobAdvertisementSearchResponse> {

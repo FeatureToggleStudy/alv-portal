@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: ManageJobAdSearchComponent,
-    //canActivate: [JobSearchGuard],
+    //canActivate: [ManagedJobAdSearchGuard],
     //data: { titleKey: 'portal.job-ad-search.browser-title' }
   },
   {

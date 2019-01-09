@@ -198,25 +198,28 @@ export interface CreateJobAdvertisement {
   publicContact: PublicContact;
 }
 
-
-export interface PEAJobAdsSearchRequestBody {
+export interface ManageJobAdsSearchBody {
   jobTitle: string;
   onlineSinceDays: number;
   companyId: string;
 }
 
-export interface PEAJobAdsSearchRequest {
+export interface ManagedJobAdsSearchRequest {
   page: number;
   size: number;
   sort: string;
-  body: PEAJobAdsSearchRequestBody;
+  body: ManageJobAdsSearchBody;
+}
+
+export interface ManagedJobAdsSearchResponse {
+  totalCount: number;
+  result: JobAdvertisement[];
 }
 
 export interface JobAdvertisementSearchResponse {
   totalCount: number;
   result: JobAdvertisement[];
 }
-
 
 export interface ProfessionCode {
   type: string;
