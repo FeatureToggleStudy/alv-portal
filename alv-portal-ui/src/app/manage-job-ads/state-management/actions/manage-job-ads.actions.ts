@@ -5,6 +5,8 @@ import { ManagedJobAdsSearchFilter } from '../state';
 export const INIT_RESULT_LIST = 'MANAGEJOBADS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'MANAGEJOBADS:FILTER_APPLIED';
 export const APPLY_FILTER = 'MANAGEJOBADS:APPLY_FILTER';
+export const LOAD_NEXT_PAGE = 'MANAGEJOBADS:LOAD_NEXT_PAGE';
+export const NEXT_PAGE_LOADED = 'MANAGEJOBADS:NEXT_PAGE_LOADED';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -27,7 +29,25 @@ export class FilterAppliedAction implements Action {
   }
 }
 
+
+export class LoadNextPageAction implements Action {
+  readonly type = LOAD_NEXT_PAGE;
+
+  constructor(public payload = {}) {
+  }
+}
+
+
+export class NextPageLoadedAction implements Action {
+  readonly type = NEXT_PAGE_LOADED;
+
+  constructor(public payload: { page: Array<JobAdvertisement> }) {
+  }
+}
+
 export type Actions =
   | InitResultListAction
   | FilterAppliedAction
-  | ApplyFilterAction;
+  | ApplyFilterAction
+  | LoadNextPageAction
+  | NextPageLoadedAction;
