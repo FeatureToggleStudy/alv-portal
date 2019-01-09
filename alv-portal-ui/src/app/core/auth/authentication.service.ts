@@ -10,7 +10,7 @@ import {
   userNotFetched
 } from '../state-management/state/core.state.ts';
 import {
-  AccountabilitySelectedAction,
+  CompanySelectedAction,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   LoadCurrentUserAction,
@@ -59,7 +59,7 @@ export class AuthenticationService {
   }
 
   updateCompanyContactTemplate(company: CompanyContactTemplate) {
-    this.store.dispatch(new AccountabilitySelectedAction({ company: company }));
+    this.store.dispatch(new CompanySelectedAction({ company: company }));
   }
 
   getCurrentUser(): Observable<User> {
