@@ -27,6 +27,7 @@
             action2
           </button>
           <button class="dropdown-item"
+                  *ngIf="jobAdManagementRow.isCancellable"
                   (click)="cancelJobAdAction()">
             cancel
           </button>
