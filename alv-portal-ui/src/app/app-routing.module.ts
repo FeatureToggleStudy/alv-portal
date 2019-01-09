@@ -30,6 +30,10 @@ const appRoutes: Routes = [
     loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule'
   },
   {
+    path: 'job-publication',
+    loadChildren: './job-publication/job-publication.module#JobPublicationModule'
+  },
+  {
     path: 'landing',
     component: LandingPageComponent,
     canActivate: [LandingPageGuard],
