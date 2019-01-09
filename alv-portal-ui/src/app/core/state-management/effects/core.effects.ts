@@ -108,9 +108,13 @@ export class CoreEffects {
     map(action => <SelectAccountabilityAction>action),
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
     switchMap(([action, user]) => {
-      return this.loadCompanyContactTemplate(user, action.payload.accountability);
+      return this.loadCompanyContactTemplate(user, action.payload.accountability).pipe(
+        map(companyContactTemplate => new AccountabilitySelectedAction({
+          company: companyContactTemplate,
+          accountability: action.payload.accountability
+        })),
+      );
     }),
-    map(companyContactTemplate => new AccountabilitySelectedAction({ company: companyContactTemplate })),
     catchError<any, Action>((err) => of(new EffectErrorOccurredAction({ httpError: err })))
   );
 

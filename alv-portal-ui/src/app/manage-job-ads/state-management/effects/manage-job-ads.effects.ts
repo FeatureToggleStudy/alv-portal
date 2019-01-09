@@ -17,6 +17,7 @@ import {
   INIT_RESULT_LIST
 } from '../actions/manage-job-ads.actions';
 import { ManagedJobAdsSearchRequestMapper } from './managed-job-ads-search-request.mapper';
+import { getCurrentCompanyContactTemplateModel } from '../../../core/state-management/state/core.state.ts';
 
 @Injectable()
 export class ManageJobAdsEffects {
@@ -24,9 +25,9 @@ export class ManageJobAdsEffects {
   @Effect()
   initJobSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
-    withLatestFrom(this.store.pipe(select(getManageJobAdsState))),
-    switchMap(([action, state]) => {
-      return this.jobAdvertisementRepository.findManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page)).pipe(
+    withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
+    switchMap(([action, state, company]) => {
+      return this.jobAdvertisementRepository.findManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount

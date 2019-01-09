@@ -10,6 +10,7 @@ export const initialState: CoreState = {
   currentLanguage: null,
   currentUser: undefined,
   currentCompanyContactTemplate: undefined,
+  currentAccountability: undefined,
   accountabilities: undefined,
   mainNavigationExpanded: false
 };
@@ -18,6 +19,7 @@ export interface CoreState {
   currentLanguage: string;
   currentUser: User;
   currentCompanyContactTemplate: CompanyContactTemplate;
+  currentAccountability: Accountability;
   accountabilities: Accountability[];
   mainNavigationExpanded: boolean;
 }
@@ -28,13 +30,18 @@ export const getCurrentLanguage = createSelector(getCoreState, (state: CoreState
 export const getCurrentUser = createSelector(getCoreState, (state: CoreState) => state.currentUser);
 export const getCurrentCompanyContactTemplate = createSelector(getCoreState, (state: CoreState) => state.currentCompanyContactTemplate);
 export const getMainNavigationExpanded = createSelector(getCoreState, (state: CoreState) => state.mainNavigationExpanded);
-export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUser, getCurrentCompanyContactTemplate, (user, companyContactTemplate) => {
-  if (companyContactTemplate && user) {
-    return new CompanyContactTemplateModel(companyContactTemplate, user);
+export const getCurrentAccountability = createSelector(getCoreState, (state: CoreState) => state.currentAccountability);
+export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUser, getCurrentCompanyContactTemplate, getCurrentAccountability, (user, companyContactTemplate, accountability) => {
+  if (companyContactTemplate && accountability && user) {
+    return new CompanyContactTemplateModel(companyContactTemplate, user, accountability);
   }
-  return null;
+  return undefined;
 });
 
 export const userNotFetched = (u: User) => {
+  return u === undefined;
+};
+
+export const notFetched = (u: any) => {
   return u === undefined;
 };

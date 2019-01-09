@@ -86,7 +86,7 @@ export class SelectAccountabilityAction implements Action {
 export class AccountabilitySelectedAction implements Action {
   readonly type = ACCOUNTABILITY_SELECTED;
 
-  constructor(public payload: { company: CompanyContactTemplate }) {
+  constructor(public payload: { company: CompanyContactTemplate, accountability?: Accountability }) {
   }
 
 }
