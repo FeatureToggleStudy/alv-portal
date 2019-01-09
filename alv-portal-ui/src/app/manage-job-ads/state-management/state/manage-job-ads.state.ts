@@ -20,7 +20,7 @@ export const initialState: ManageJobAdsState = {
   page: 0,
   filter: {
     query: null,
-    onlineSinceDays: 30
+    onlineSinceDays: null
   },
   resultList: [],
   selectedJobAdvertisement: null,

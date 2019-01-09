@@ -9,7 +9,7 @@ import { CompanyContactTemplateModel } from '../../auth/company-contact-template
 export const initialState: CoreState = {
   currentLanguage: null,
   currentUser: undefined,
-  currentCompanyContactTemplate: undefined,
+  currentCompany: undefined,
   currentAccountability: undefined,
   accountabilities: undefined,
   mainNavigationExpanded: false
@@ -18,7 +18,7 @@ export const initialState: CoreState = {
 export interface CoreState {
   currentLanguage: string;
   currentUser: User;
-  currentCompanyContactTemplate: CompanyContactTemplate;
+  currentCompany: CompanyContactTemplate;
   currentAccountability: Accountability;
   accountabilities: Accountability[];
   mainNavigationExpanded: boolean;
@@ -28,10 +28,10 @@ const getCoreState = createFeatureSelector<CoreState>('coreState');
 
 export const getCurrentLanguage = createSelector(getCoreState, (state: CoreState) => state.currentLanguage);
 export const getCurrentUser = createSelector(getCoreState, (state: CoreState) => state.currentUser);
-export const getCurrentCompanyContactTemplate = createSelector(getCoreState, (state: CoreState) => state.currentCompanyContactTemplate);
+export const getCurrentCompany = createSelector(getCoreState, (state: CoreState) => state.currentCompany);
 export const getMainNavigationExpanded = createSelector(getCoreState, (state: CoreState) => state.mainNavigationExpanded);
 export const getCurrentAccountability = createSelector(getCoreState, (state: CoreState) => state.currentAccountability);
-export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUser, getCurrentCompanyContactTemplate, getCurrentAccountability, (user, companyContactTemplate, accountability) => {
+export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUser, getCurrentCompany, getCurrentAccountability, (user, companyContactTemplate, accountability) => {
   if (companyContactTemplate && accountability && user) {
     return new CompanyContactTemplateModel(companyContactTemplate, user, accountability);
   }
