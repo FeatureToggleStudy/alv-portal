@@ -4,23 +4,24 @@
   <button class="btn btn-header mr-1 d-flex"
           id="userMenu"
           ngbDropdownToggle>
-    <span class="text-left">
-          <i *ngIf="!hideRegistrationAction"
-             class="fa fa-exclamation-triangle mr-2"
-             aria-hidden="true">
-    </i>
-    <i class="fa fa-user d-inline d-lg-none"
-       aria-hidden="true">
-    </i>
-    <span class="d-none d-lg-block">
-      {{user.firstName}} {{user.lastName}}
+    <span class="text-left d-flex">
+       <i *ngIf="!hideRegistrationAction"
+          class="fa fa-exclamation-triangle mr-2"
+          aria-hidden="true">
+      </i>
+      <span>
+        <i class="fa fa-user d-inline d-lg-none"
+            aria-hidden="true">
+        </i>
+        <span class="d-none d-lg-block">
+          {{user.firstName}} {{user.lastName}}
+        </span>
+        <small class="company d-none d-lg-inline-block text-left"
+               *ngIf="company">
+          {{company.companyName}}
+        </small>
+      </span>
     </span>
-    <small class="company d-none d-lg-inline-block text-left"
-           *ngIf="company">
-      {{company.companyName}}
-    </small>
-    </span>
-
   </button>
   <div ngbDropdownMenu
        aria-label="User Menu">
@@ -37,9 +38,9 @@
       <i class="fas fa-user-circle mr-2"></i> Profile
     </button>
     <!-- Contact template -->
-    <a *ngIf="company"
-            class="dropdown-item"
-            routerLink="dashboard/contact-template">
+    <a *ngIf="company && user.isRegistered()"
+       class="dropdown-item"
+       routerLink="dashboard/contact-template">
       <i class="fas fa-address-card mr-2"></i>
       {{'global.menu.admin.contact-template-management' | translate}}
     </a>
