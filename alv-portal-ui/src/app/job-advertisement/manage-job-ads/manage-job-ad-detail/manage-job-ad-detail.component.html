@@ -2,7 +2,15 @@
   <alv-three-column-layout *ngIf="jobDetailModel$ | async as jobDetailModel"
                            [mobileOrdering]="[2, 1, null]">
     <ng-container class="mobile-menu-bar">
-
+      <div class="d-flex justify-content-between">
+        <div>
+          <a class="btn btn-text btn-text-icon"
+             routerLink="/manage-job-ads">
+            <i class="fa fa-caret-left mr-1"></i>
+            {{'job-detail.back' | translate}}
+          </a>
+        </div>
+      </div>
     </ng-container>
 
     <ng-container class="left-column">
@@ -19,7 +27,7 @@
       </div>
       <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter"
            class="company-panel alv-panel p-2 mb-3">
-        <div class="order-sm-2 alv-logo-box">
+        <div class="order-sm-2">
           <alv-job-center-context [jobDetailModel]="jobDetailModel">
           </alv-job-center-context>
         </div>
