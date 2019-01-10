@@ -5,8 +5,11 @@ import { Action, select, Store } from '@ngrx/store';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {
   ACCOUNTABILITIES_LOADED,
+  ACCOUNTABILITY_SELECTED,
   AccountabilitySelectedAction,
   AcountabilitiesLoaded,
+  CompanySelectedAction,
+  CompanySelection,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   EFFECT_ERROR_OCCURRED,
@@ -17,8 +20,8 @@ import {
   LoadCurrentUserAction,
   LOGOUT_USER,
   LogoutUserAction,
-  SELECT_ACCOUNTABILITY,
-  SelectAccountabilityAction,
+  SELECT_COMPANY,
+  SelectCompanyAction,
   SESSION_EXPIRED,
   ToggleMainNavigationAction
 } from '../actions/core.actions';
@@ -32,10 +35,7 @@ import { Router } from '@angular/router';
 import { CoreState, getCurrentUser } from '../state/core.state.ts';
 import { UserInfoRepository } from '../../../shared/backend-services/user-info/user-info-repository';
 import { CompanyRepository } from '../../../shared/backend-services/company/company-repository';
-import {
-  Accountability,
-  CompanyContactTemplate
-} from '../../../shared/backend-services/user-info/user-info.types';
+import { CompanyContactTemplate } from '../../../shared/backend-services/user-info/user-info.types';
 
 @Injectable()
 export class CoreEffects {
@@ -96,21 +96,44 @@ export class CoreEffects {
     map(action => {
       const accountability = action.payload.accountabilities[0];
       if (accountability) {
-        return new SelectAccountabilityAction({ accountability: accountability });
+        return new AccountabilitySelectedAction({ accountability: accountability });
+      } else {
+        return new AccountabilitySelectedAction({ accountability: null });
       }
-      return { type: 'nothing' };
     })
   );
 
   @Effect()
-  selectAccountability: Observable<Action> = this.actions$.pipe(
-    ofType(SELECT_ACCOUNTABILITY),
-    map(action => <SelectAccountabilityAction>action),
+  accountabilitySelected: Observable<Action> = this.actions$.pipe(
+    ofType(ACCOUNTABILITY_SELECTED),
+    map(action => <AccountabilitySelectedAction>action),
+    map(action => action.payload.accountability),
+    map((accountability) => {
+      if (!accountability) {
+        return new SelectCompanyAction({ companySelection: null });
+      }
+      return new SelectCompanyAction({
+        companySelection: {
+          companyId: accountability.companyId,
+          companyExternalId: accountability.companyExternalId
+        }
+      });
+    }));
+
+  @Effect()
+  selectCompany$: Observable<Action> = this.actions$.pipe(
+    ofType(SELECT_COMPANY),
+    map(action => <SelectCompanyAction>action),
+    map(action => action.payload.companySelection),
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
-    switchMap(([action, user]) => {
-      return this.loadCompanyContactTemplate(user, action.payload.accountability);
+    switchMap(([companySelection, user]) => {
+      if (!companySelection) {
+        return of(new CompanySelectedAction({ company: null }));
+      }
+      return this.loadCompanyContactTemplate(user, companySelection).pipe(
+        map(companyContactTemplate => new CompanySelectedAction({ company: companyContactTemplate })),
+      );
     }),
-    map(companyContactTemplate => new AccountabilitySelectedAction({ company: companyContactTemplate })),
     catchError<any, Action>((err) => of(new EffectErrorOccurredAction({ httpError: err })))
   );
 
@@ -142,7 +165,6 @@ export class CoreEffects {
     })
   );
 
-
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
               private companyRepository: CompanyRepository,
@@ -155,13 +177,13 @@ export class CoreEffects {
 
   }
 
-  private loadCompanyContactTemplate(user: User, accountability: Accountability): Observable<CompanyContactTemplate> {
-    return this.userInfoRepository.findCompanyContactTemplate(user.id, accountability.companyId).pipe(
+  private loadCompanyContactTemplate(user: User, companySelection: CompanySelection): Observable<CompanyContactTemplate> {
+    return this.userInfoRepository.findCompanyContactTemplate(user.id, companySelection.companyId).pipe(
       catchError((err) => {
         if (err.status !== 404) {
           return throwError(err);
         }
-        return this.companyRepository.findByExternalId(accountability.companyExternalId).pipe(
+        return this.companyRepository.findByExternalId(companySelection.companyExternalId).pipe(
           map(company => {
             return {
               companyId: company.id,
@@ -179,7 +201,5 @@ export class CoreEffects {
       })
     );
   }
-
 }
-
 

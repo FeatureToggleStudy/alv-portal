@@ -5,6 +5,7 @@
        [class.readonly]="readonly">
     <span class="required-indicator"
           *ngIf="required && !readonly"></span>
+    <!--<pre>{{options$|async|json}}</pre>-->
     <select class="form-control custom-select"
             *ngIf="!readonly"
             [attr.id]="id"
@@ -15,15 +16,20 @@
             [alvAutofocus]="autofocus"
             [class.placeholder-shown]="control.value === ''">
       <option *ngFor="let option of options$ | async"
-              [ngValue]="option.value">{{option.label | translate}}
+              [ngValue]="option.value">
+        <ng-container *ngIf="!option.labelParameters">{{option.label | translate}}
+        </ng-container>
+        <ng-container *ngIf="option.labelParameters">{{option.label | translate: stringify(option.labelParameters) }}
+        </ng-container>
       </option>
     </select>
     <div *ngIf="readonly"
          [class.placeholder-shown]="control.value === ''"
          class="readonly-input">
       <ng-container *ngFor="let option of options$ | async">
-        <ng-container *ngIf="option.value === control.value">
-          {{option.label | translate}}
+        <ng-container *ngIf="!option.labelParameters">{{option.label | translate}}
+        </ng-container>
+        <ng-container *ngIf="option.labelParameters">{{option.label | translate: stringify(option.labelParameters) }}
         </ng-container>
       </ng-container>
     </div>

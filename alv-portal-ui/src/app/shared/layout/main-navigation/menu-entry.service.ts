@@ -3,9 +3,11 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
+  hasAnyAuthorities,
   isAnyUser,
   isAuthenticatedUser,
-  isNotAuthenticatedUser
+  isNotAuthenticatedUser,
+  UserRole
 } from '../../../core/auth/user.model';
 import { MenuEntry } from './menu-entry.type';
 
@@ -29,12 +31,17 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     path: ['job-search'],
     userPredicate: isAnyUser
   },
-  ,
   {
     icon: 'search',
     labelKey: 'portal.navigation.menu-entry.candidate-search',
     path: ['candidate-search'],
     userPredicate: isAnyUser
+  },
+  {
+    icon: 'table',
+    labelKey: 'portal.navigation.menu-entry.manage-job-ads',
+    path: ['manage-job-ads'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
   }
 ];
 
