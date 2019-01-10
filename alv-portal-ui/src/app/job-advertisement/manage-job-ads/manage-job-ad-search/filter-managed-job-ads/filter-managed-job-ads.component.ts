@@ -23,14 +23,23 @@ export class FilterManagedJobAdsComponent implements OnInit {
     },
     {
       label: 'dashboard.job-publication.publication-period.months',
+      labelParameters: {
+        months: 3
+      },
       value: 90
     },
     {
       label: 'dashboard.job-publication.publication-period.months',
+      labelParameters: {
+        months: 3
+      },
       value: 180
     },
     {
       label: 'dashboard.job-publication.publication-period.year',
+      labelParameters: {
+        years: 1
+      },
       value: 365
     },
     {

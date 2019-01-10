@@ -14,7 +14,7 @@ import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-ma
 })
 export class ManageJobAdSearchComponent implements OnInit {
 
-  private jobSearchResults$: Observable<JobAdvertisement[]>;
+  jobSearchResults$: Observable<JobAdvertisement[]>;
 
   constructor(private store: Store<ManageJobAdsState>,
               private modalService: ModalService) {

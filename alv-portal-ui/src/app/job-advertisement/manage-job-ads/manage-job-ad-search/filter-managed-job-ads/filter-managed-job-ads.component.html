@@ -18,16 +18,6 @@
           [options$]="onlineSinceOptions$"
           [validationMessages]="[{error: 'require', message: 'Custom message'}]">
         </alv-select>
-        <select formControlName="onlineSinceDays"
-                class="form-control custom-select"
-                id="filter-age">
-          <option [ngValue]="7">{{ 'dashboard.job-publication.publication-period.week' | translate:'{ week: 1 }' }}</option>
-          <option [ngValue]="30">{{ 'dashboard.job-publication.publication-period.month' | translate:'{ month: 1 }' }}</option>
-          <option [ngValue]="90">{{ 'dashboard.job-publication.publication-period.months' | translate:'{ months: 3 }' }}</option>
-          <option [ngValue]="180">{{ 'dashboard.job-publication.publication-period.months' | translate:'{ months: 6 }' }}</option>
-          <option [ngValue]="365">{{ 'dashboard.job-publication.publication-period.year' | translate:'{ years: 1 }' }}</option>
-          <option [ngValue]="null">{{ 'dashboard.job-publication.publication-period.all' | translate }}</option>
-        </select>
       </div>
     </div>
   </div>

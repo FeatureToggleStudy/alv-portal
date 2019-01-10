@@ -187,10 +187,10 @@ dashboard,dashboard.job-publication.location,Arbeitsort,Place of work,Lieu de tr
 dashboard,dashboard.job-publication.publication-date,Meldedatum,Registration date,Date de l'annonce,Data dell'annuncio
 dashboard,dashboard.job-publication.publication-period.all,Alle,All,Tous,Tutti
 dashboard,dashboard.job-publication.publication-period.label,Alter der Stellen,Age of posts,Ancienneté des postes,Pubblicato da
-dashboard,dashboard.job-publication.publication-period.month,{{ month }} Monat,{{ month }} month,{{ month }} mois,{{ month }} mese
+dashboard,dashboard.job-publication.publication-period.month,1 Monat,1 month,1 mois,1 mese
 dashboard,dashboard.job-publication.publication-period.months,{{ months }} Monate,{{ months }} months,{{ months }} mois,{{ months }} mesi
-dashboard,dashboard.job-publication.publication-period.week,{{ week }} Woche,{{ week }} week,{{ week }} semaine,{{ week }} settimana
-dashboard,dashboard.job-publication.publication-period.year,{{ years }} Jahr,{{ years }} year,{{ years }} années,{{ years }} anni
+dashboard,dashboard.job-publication.publication-period.week,1 Woche,1 week,{1 semaine,{1 settimana
+dashboard,dashboard.job-publication.publication-period.year,1 Jahr,1 year,1 années,1 anni
 dashboard,dashboard.job-publication.status,Status,Status,Statut,Stato
 dashboard,dashboard.job-publication.title,Stellenanzeigen bewirtschaften,Manage job ads,Gérer les annonces,Gestire gli annunci
 dashboard,dashboard.job-publication.user-information.title,Sie sind eingeloggt als,You are logged in as,Vous êtes connecté(e),Registrato in qualità di:
