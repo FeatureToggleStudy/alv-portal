@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { JobPublicationFormPanelId } from './job-publication-form-panel-id.enum';
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -9,6 +10,8 @@ import { FormGroup } from '@angular/forms';
 export class JobPublicationFormComponent implements OnInit {
 
   jobPublicationForm: FormGroup;
+
+  jobPublicationFormPanelId = JobPublicationFormPanelId;
 
   ngOnInit(): void {
     this.jobPublicationForm = new FormGroup({});
