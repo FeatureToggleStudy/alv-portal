@@ -1,0 +1,58 @@
+<fieldset>
+  <legend class="sr-only">{{'portal.job-publication.language-skills.label' | translate }}</legend>
+
+  <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first"
+       [formGroup]="languageSkill"
+       class="alv-bar p-2 mb-2">
+    <div class="form-row">
+      <div class="col">
+        <alv-select
+          class="narrow-form"
+          label="candidate-search.languageSkills.label"
+          alvFormControlName="code"
+          (change)="onLanguageSkillCodeChanged(languageSkill)"
+          [options$]="languageOptions$">
+        </alv-select>
+      </div>
+      <div class="col-auto delete-col">
+        <button *ngIf="!first"
+                class="btn btn-text btn-icon"
+                [attr.aria-label]="'global.button.remove.title'| translate"
+                (click)="removeLanguageSkill(languageSkill.value)">
+          <i class="fa fa-trash-alt"
+             aria-hidden="true">
+          </i>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="languageSkill.get('code').value"
+         class="form-row">
+      <div class="col">
+        <alv-select
+          class="narrow-form d-block mt-3"
+          label="global.reference.language.spoken"
+          alvFormControlName="spoken"
+          [options$]="languageLevelOptions$">
+        </alv-select>
+      </div>
+      <div class="col">
+        <alv-select
+          class="narrow-form d-block mt-3"
+          label="global.reference.language.written"
+          alvFormControlName="written"
+          [options$]="languageLevelOptions$">
+        </alv-select>
+      </div>
+      <div class="col-auto delete-col">
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary btn-sm"
+          (click)="addNewLanguageSkill()"
+          *ngIf="isAddLanguageSkillEnabled()">
+    {{'portal.job-publication.language-skills.add'| translate}}
+  </button>
+
+</fieldset>
+

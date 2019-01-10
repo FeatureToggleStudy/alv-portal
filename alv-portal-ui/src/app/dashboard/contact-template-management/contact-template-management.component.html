@@ -37,9 +37,10 @@
                          label="contact-template-management.lastName">
         </alv-input-field>
 
-        <alv-phone-input alvFormControlName="phone"
-                         label="contact-template-management.phone">
-        </alv-phone-input>
+        <alv-input-field alvFormControlName="phone"
+                         label="contact-template-management.phone"
+                         type="tel">
+        </alv-input-field>
 
         <alv-input-field [validationMessages]="[
                       {error: 'pattern', message: 'home.tools.job-publication.messages.validate.email-format'}
