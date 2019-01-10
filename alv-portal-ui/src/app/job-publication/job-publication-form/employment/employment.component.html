@@ -1,0 +1,40 @@
+<fieldset [formGroup]="employmentGroup">
+  <div class="form-row">
+    <div class="col-6">
+      <alv-select
+        label="portal.job-search.filter.workload.from.label"
+        alvFormControlName="workloadPercentageMin"
+        [options$]="percentagesMin$">
+      </alv-select>
+    </div>
+    <div class="col-6">
+      <alv-select
+        label="portal.job-search.filter.workload.to.label"
+        alvFormControlName="workloadPercentageMax"
+        [options$]="percentagesMax$">
+      </alv-select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <alv-radio-button
+      label="home.tools.job-publication.employmentStartDate.title"
+      alvFormControlName="employmentStartDate"
+      [options$]="employmentStartDateOptions$">
+    </alv-radio-button>
+  </div>
+
+  <div class="form-group">
+    <label class="col-form-label">
+      {{ 'global.workForm.label' | translate }}
+    </label>
+    <ng-container *ngFor="let workForm of workForms.controls; let i = index">
+      <div class="alv-bar p-2 mb-2">
+        <alv-checkbox
+          [label]="workFormOptions[i].label"
+          [alvControl]="workForm">
+        </alv-checkbox>
+      </div>
+    </ng-container>
+  </div>
+</fieldset>
