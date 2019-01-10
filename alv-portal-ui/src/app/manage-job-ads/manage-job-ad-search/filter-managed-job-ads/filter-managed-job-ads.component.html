@@ -6,15 +6,18 @@
       <select class="form-control custom-select">
         <option *ngFor="let i of [1,2,3,4,5]"
                 value="{{i}}">Something long {{i}}</option>
-
       </select>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group">
-      <label for="filter-age"
-             class="col-form-label">{{ 'dashboard.job-publication.publication-period.label' | translate }}</label>
       <div>
+        <alv-select
+          label="dashboard.job-publication.publication-period.label"
+          [alvControl]="form.get('onlineSinceDays')"
+          [options$]="onlineSinceOptions$"
+          [validationMessages]="[{error: 'require', message: 'Custom message'}]">
+        </alv-select>
         <select formControlName="onlineSinceDays"
                 class="form-control custom-select"
                 id="filter-age">
