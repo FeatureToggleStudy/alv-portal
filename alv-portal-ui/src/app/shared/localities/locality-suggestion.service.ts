@@ -26,6 +26,15 @@ export class LocalitySuggestionService {
       order);
   }
 
+  public static toCityZip(locality: LocalitySuggestion, order = 0) {
+    const { zipCode, city } = locality;
+
+    return new LocalityMultiTypeaheadItem(LocalityInputType.LOCALITY, {
+        city, zipCode
+      }, (zipCode || '') + (city ? ' ' : '') + (city || ''),
+      order);
+  }
+
   fetch(query: string): Observable<LocalityMultiTypeaheadItem[]> {
     return this.localityRepository.suggestLocalities(query).pipe(
       map((localityAutocomplete) => {
@@ -40,6 +49,19 @@ export class LocalitySuggestionService {
               o.name + ' (' + o.code + ')', localities.length + index));
         return [].concat(localities, cantons);
       })
+    );
+  }
+
+  fetchJobPublicationLocations(query: string): Observable<LocalityMultiTypeaheadItem[]> {
+    const localityComparator = (a: LocalitySuggestion, b: LocalitySuggestion) =>
+      a.city.localeCompare(b.city) || a.zipCode.localeCompare(b.zipCode);
+
+    return this.localityRepository.suggestLocalities(query, false).pipe(
+      map((localityAutocomplete) => localityAutocomplete.localities
+        .filter((locality) => locality.zipCode !== '----')
+        .sort(localityComparator)
+        .map((o: LocalitySuggestion, index) => LocalitySuggestionService.toCityZip(o, index))
+      )
     );
   }
 }

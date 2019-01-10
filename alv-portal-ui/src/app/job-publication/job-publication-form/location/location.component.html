@@ -1,0 +1,33 @@
+<fieldset [formGroup]="locationGroup">
+  <legend class="sr-only">{{'home.tools.job-publication.locality.title' | translate }}</legend>
+
+  <alv-select label="home.tools.job-publication.locality.country"
+              alvFormControlName="countryIsoCode"
+              [options$]="countryOptions$"></alv-select>
+
+  <ng-container *ngIf="isCityZipAutocomplete()">
+    <alv-single-typeahead label="home.tools.job-publication.locality.zipcode"
+                          alvFormControlName="cityAndZip"
+                          [loadItems]="loadLocationsFn">
+    </alv-single-typeahead>
+  </ng-container>
+
+  <div class="form-row" *ngIf="!isCityZipAutocomplete()">
+    <div class="col-4">
+      <alv-input-field label="home.tools.job-publication.locality.zip"
+                       alvFormControlName="zip">
+      </alv-input-field>
+    </div>
+
+    <div class="col-8">
+      <alv-input-field label="home.tools.job-publication.locality.city"
+                       alvFormControlName="city">
+      </alv-input-field>
+    </div>
+  </div>
+
+  <alv-input-field label="home.tools.job-publication.locality.additional-text"
+                   alvFormControlName="remarks">
+  </alv-input-field>
+
+</fieldset>

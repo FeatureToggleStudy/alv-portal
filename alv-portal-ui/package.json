@@ -52,6 +52,7 @@
     "angular2-prettyjson": "3.0.1",
     "bootstrap": "4.1.3",
     "core-js": "2.5.7",
+    "i18n-iso-countries": "3.7.8",
     "jwt-decode": "2.2.0",
     "libphonenumber-js": "1.7.4",
     "ng2-file-upload": "1.3.0",
