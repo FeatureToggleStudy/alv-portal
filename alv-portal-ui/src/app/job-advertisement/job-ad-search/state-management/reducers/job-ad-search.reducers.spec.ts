@@ -7,21 +7,21 @@ import {
 } from '../state';
 import * as jobActions from '../actions/job-ad-search.actions';
 import { jobAdSearchReducer } from './job-ad-search.reducers';
-import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
+import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { createJobAdvertisement } from './job-ad-search.reducers.spec-util';
-import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   OccupationMultiTypeaheadItem,
   OccupationMultiTypeaheadItemType
-} from '../../../shared/occupations/occupation-multi-typeahead-item';
-import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
-import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
+} from '../../../../shared/occupations/occupation-multi-typeahead-item';
+import { SimpleMultiTypeaheadItem } from '../../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
 import {
   LocalityInputType,
   LocalityItem,
   LocalityMultiTypeaheadItem
-} from '../../../shared/localities/locality-multi-typeahead-item';
+} from '../../../../shared/localities/locality-multi-typeahead-item';
 
 describe('jobAdSearchReducers', () => {
 
