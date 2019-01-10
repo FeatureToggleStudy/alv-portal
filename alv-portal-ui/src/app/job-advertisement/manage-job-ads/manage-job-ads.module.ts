@@ -10,9 +10,11 @@ import { ManageJobAdsRoutingModule } from './manage-job-ads-routing.module';
 import { ManagedJobAdSearchGuard } from './manage-job-ad-search/managed-job-ad-search.guard';
 import { JobAdManagementRowComponent } from './manage-job-ad-search/job-ad-management-row/job-ad-management-row.component';
 import { SharedModule } from '../../shared/shared.module';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { JobAdCancellationComponent } from './shared/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../../shared/layout/modal/modal.service';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FilterManagedJobAdsComponent } from './manage-job-ad-search/filter-managed-job-ads/filter-managed-job-ads.component';
 import { ManageJobAdDetailGuard } from './manage-job-ad-detail/manage-job-ad-detail.guard';
 import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement.module';
 
@@ -22,23 +24,26 @@ import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement
     StoreModule.forFeature('manageJobAds', manageJobAdsReducer),
     EffectsModule.forFeature([ManageJobAdsEffects]),
     SharedModule,
-    ManageJobAdsRoutingModule,
     InfiniteScrollModule,
-    SharedJobAdvertisementModule
+    ManageJobAdsRoutingModule,
+    SharedJobAdvertisementModule,
+    NgbPopoverModule
   ],
   declarations: [
     ManageJobAdSearchComponent,
     ManageJobAdDetailComponent,
     JobAdManagementRowComponent,
-    JobAdCancellationComponent
+    JobAdCancellationComponent,
+    FilterManagedJobAdsComponent
   ],
   providers: [
     ModalService,
+    ManageJobAdDetailGuard,
     ManagedJobAdSearchGuard,
-    ManageJobAdDetailGuard
   ],
   entryComponents: [
-    JobAdCancellationComponent
+    JobAdCancellationComponent,
+    FilterManagedJobAdsComponent
   ]
 })
 export class ManageJobAdsModule {
