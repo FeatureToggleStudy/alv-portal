@@ -14,6 +14,7 @@ import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { JobAdCancellationComponent } from './shared/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../shared/layout/modal/modal.service';
+import { FilterManagedJobAdsComponent } from './manage-job-ad-search/filter-managed-job-ads/filter-managed-job-ads.component';
 
 @NgModule({
   imports: [
@@ -29,14 +30,16 @@ import { ModalService } from '../shared/layout/modal/modal.service';
     ManageJobAdSearchComponent,
     ManageJobAdDetailComponent,
     JobAdManagementRowComponent,
-    JobAdCancellationComponent
+    JobAdCancellationComponent,
+    FilterManagedJobAdsComponent
   ],
   providers: [
     ModalService,
-    ManagedJobAdSearchGuard
+    ManagedJobAdSearchGuard,
   ],
   entryComponents: [
-    JobAdCancellationComponent
+    JobAdCancellationComponent,
+    FilterManagedJobAdsComponent
   ]
 })
 export class ManageJobAdsModule {

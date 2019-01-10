@@ -4,6 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { LoadNextPageAction } from '../../candidate-search/state-management/actions';
+import { ModalService } from '../../shared/layout/modal/modal.service';
+import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 
 @Component({
   selector: 'alv-manage-job-ad-search',
@@ -14,7 +16,8 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   private jobSearchResults$: Observable<JobAdvertisement[]>;
 
-  constructor(private store: Store<ManageJobAdsState>) {
+  constructor(private store: Store<ManageJobAdsState>,
+              private modalService: ModalService) {
   }
 
   ngOnInit() {
@@ -23,6 +26,13 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   onScroll() {
     this.store.dispatch(new LoadNextPageAction());
+  }
+
+  onFilterClick() {
+    const filterModalRef = this.modalService.openMedium(FilterManagedJobAdsComponent);
+    const filterComponent = <FilterManagedJobAdsComponent>filterModalRef.componentInstance;
+
+
   }
 
 }
