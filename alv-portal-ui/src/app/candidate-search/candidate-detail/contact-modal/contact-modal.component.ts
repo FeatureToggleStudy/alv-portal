@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { phoneInputValidator } from '../../../shared/forms/input/phone-input/phone-input.validator';
@@ -19,22 +19,37 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     readonly TITLE_MAX_LENGTH = 150;
     readonly MESSAGE_MAX_LENGTH = 1000;
+    readonly LABEL_VALUES: string[] = [
+        'candidate-detail.candidate-anonymous-contact.subject',
+        'candidate-detail.anonymous-contact.personal-message',
+        'global.reference.canton.CH'
+    ];
 
     @Input()
     candidate: CandidateProfile;
 
     form: FormGroup;
 
+    countryValue: string;
+
     constructor(private authenticationService: AuthenticationService,
                 private i18nService: I18nService,
                 private fb: FormBuilder,
-                private activeModal: NgbActiveModal) {
+                public activeModal: NgbActiveModal) {
         super();
     }
 
     ngOnInit() {
 
         this.form = this.prepareForm();
+
+        this.authenticationService.getCurrentCompany().pipe(
+            withLatestFrom(this.i18nService.stream(this.LABEL_VALUES)),
+            takeUntil(this.ngUnsubscribe))
+            .subscribe( ([company, translate]) => {
+                this.countryValue = translate[this.LABEL_VALUES[2]];
+                this.patchFormValues(company, translate);
+            });
 
         this.form.get('postCheckbox').valueChanges.pipe(
             withLatestFrom(this.authenticationService.getCurrentCompany()))
@@ -79,12 +94,17 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
                 }
             });
 
-        this.authenticationService.getCurrentCompany().pipe(
-            takeUntil(this.ngUnsubscribe))
-            .subscribe(company => this.patchFormValues(company));
     }
 
     private prepareForm(): FormGroup {
+
+        const atLeastOneRequiredValidator: ValidatorFn = (formGroup: FormGroup) => {
+            const phone = formGroup.get('phoneCheckbox').value;
+            const email = formGroup.get('emailCheckbox').value;
+            const post = formGroup.get('postCheckbox').value;
+            return phone || email || post ? null : { atLeastOneRequired: true };
+        };
+
         return this.fb.group({
             subject: [null, Validators.required],
             body: [null, Validators.required],
@@ -94,14 +114,17 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             emailCheckbox: [false],
             email: [null],
             postCheckbox: [false]
+        }, {
+            validator: [ atLeastOneRequiredValidator ]
         });
+
     }
 
-    private patchFormValues(company: CompanyContactTemplateModel): void {
+    private patchFormValues(company: CompanyContactTemplateModel, translate: Object): void {
 
         this.form.patchValue({
-            subject: 'Title translate',
-            body: 'Message translate',
+            subject: translate[this.LABEL_VALUES[0]],
+            body: translate[this.LABEL_VALUES[1]],
             companyName: company.companyName,
             phone: company.phone,
             email: company.email
@@ -122,7 +145,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             companyHouseNr: company.companyHouseNr,
             companyZipCode: company.companyZipCode,
             companyCity: company.companyCity,
-            companyCountry: 'global.reference.canton.CH translate'
+            companyCountry: this.countryValue
         });
     }
 
@@ -140,9 +163,11 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     onSubmit() {
         console.log(this.form.value);
+
+        if(this.form.invalid) {
+            return;
+        }
+        // this.activeModal.close();
     }
 
-    onDismiss() {
-        this.activeModal.dismiss();
-    }
 }

@@ -10,17 +10,20 @@
 
             xxx: {{ form.valid }}
             <alv-input-field label="contact-template-management.salutation"
+                             [maxLength]="TITLE_MAX_LENGTH"
                              aria-placeholder="candidate-detail.anonymous-contact.subject"
                              alvFormControlName="subject" disabled>
             </alv-input-field>
             <p>
                 {{ 'candidate-detail.anonymous-contact.mail-body-preamble' | translate }}
             </p>
-            <alv-input-field label="candidate-detail.anonymous-contact.personal-message"
-                             aria-placeholder="candidate-detail.anonymous-contact.personal-message"
+            <alv-input-field label="candidate-detail.anonymous-contact.your-message"
+                             [maxLength]="MESSAGE_MAX_LENGTH"
+                             aria-placeholder="candidate-detail.anonymous-contact.your-message"
                              alvFormControlName="body">
             </alv-input-field>
             <alv-input-field label="candidate-detail.anonymous-contact.company"
+                             [maxLength]="TITLE_MAX_LENGTH"
                              alvFormControlName="companyName" disabled>
             </alv-input-field>
             <p>
@@ -76,11 +79,11 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-text"
-                    (click)="onDismiss()">
+                    (click)="activeModal.dismiss()">
                 {{ 'candidate-detail.anonymous-contact.dismiss' | translate }}
             </button>
-            <button type="submit" class="btn btn-primary ml-1">
-                {{ 'candidate-detail.anonymous-contact.confirm' | translate }}
+            <button type="submit" class="btn btn-primary ml-1" [disabled]="form.invalid">
+                {{ 'candidate-detail.anonymous-contact.send' | translate }}
             </button>
         </div>
     </form>

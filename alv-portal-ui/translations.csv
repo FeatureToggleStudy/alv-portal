@@ -64,7 +64,7 @@ candidate-detail,candidate-detail.anonymous-contact.city,Ort,City,Place,Posto
 candidate-detail,candidate-detail.anonymous-contact.country,Land,Country,Pays,Paese
 candidate-detail,candidate-detail.anonymous-contact.send-to,Post,Mail,Poste,Posta
 candidate-detail,candidate-detail.back,Zurück zu den Suchergebnissen,Back to search results,Retour aux résultats,"Torna ai risultati della ricerca "
-candidate-detail,candidate-detail.candidate-anonymous-contact,Kandidat/in kontaktieren,Contact candidate,Contacter le/la candidat-e,Contattare candidato/a
+candidate-detail,candidate-detail.candidate-anonymous-contact.name,Kandidat/in kontaktieren,Contact candidate,Contacter le/la candidat-e,Contattare candidato/a
 candidate-detail,candidate-detail.candidate-anonymous-contact.subject,"Liebe RAV-Kundin, lieber RAV-Kunde","Dear Customer","Chère cliente, cher client ORP","Cara cliente, caro cliente dell'URC"
 candidate-detail,candidate-detail.candidate-anonymous-contact.success,"Ihr E-mail wurde versandt. Vielen Dank, dass Sie Job-Room benutzen.","Your e-mail was succesfully sent. Thank you for using Job-Room.","Votre courriel a été envoyé. Merci d'utiliser Job-Room.","La sua e-mail è stata inviata. Grazie di avere utilizzato Job-Room."
 candidate-detail,candidate-detail.candidate-copy-link,Link kopieren,Copy link,Copier le lien,Copia link
@@ -1412,3 +1412,6 @@ portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,
 portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
 
 portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
+
+candidate-detail,candidate-detail.anonymous-contact.send,Absenden
+candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
