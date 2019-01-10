@@ -5,7 +5,6 @@
        [class.readonly]="readonly">
     <span class="required-indicator"
           *ngIf="required && !readonly"></span>
-    <!--<pre>{{options$|async|json}}</pre>-->
     <select class="form-control custom-select"
             *ngIf="!readonly"
             [attr.id]="id"
