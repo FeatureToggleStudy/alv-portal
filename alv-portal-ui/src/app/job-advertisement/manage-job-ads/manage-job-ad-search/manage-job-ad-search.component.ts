@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import {
   getManagedJobAdResults,
   getManagedJobAdsSearchFilter,
+  ManagedJobAdsSearchFilter,
   ManageJobAdsState
 } from '../state-management/state';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-manage-job-ad-search',
@@ -20,6 +22,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ManageJobAdSearchComponent implements OnInit {
 
   jobSearchResults$: Observable<JobAdvertisement[]>;
+  filtersInStore: Observable<ManagedJobAdsSearchFilter>;
+
+  filtersChanged$: BehaviorSubject<ManagedJobAdsSearchFilter>;
+  queryChanged$: BehaviorSubject<string>;
 
   form: FormGroup;
 
@@ -30,9 +36,32 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   ngOnInit() {
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
+    this.filtersInStore = this.store.pipe(select(getManagedJobAdsSearchFilter));
+
     this.form = this.fb.group({
-      query: this.fb.control('')
+      query: ['']
     });
+
+    this.filtersChanged$ = new BehaviorSubject<ManagedJobAdsSearchFilter>({
+      onlineSinceDays: null,
+      query: ''
+    });
+
+    this.queryChanged$ = new BehaviorSubject<string>('');
+
+    combineLatest(this.filtersChanged$, this.queryChanged$).pipe(
+      map(([filters, query]) => {
+        return {
+          onlineSinceDays: filters.onlineSinceDays,
+          query: query,
+        } as ManagedJobAdsSearchFilter;
+      }),
+      tap(filter => {
+        return this.store.dispatch(new ApplyFilterAction(filter));
+      })
+    )
+      .subscribe();
+
   }
 
   onScroll() {
@@ -42,16 +71,19 @@ export class ManageJobAdSearchComponent implements OnInit {
   onFilterClick() {
     const filterModalRef = this.modalService.openMedium(FilterManagedJobAdsComponent);
     const filterComponent = <FilterManagedJobAdsComponent>filterModalRef.componentInstance;
-    filterComponent.currentFilters = this.store.pipe(select(getManagedJobAdsSearchFilter));
+
+    filterComponent.currentFiltering = this.filtersInStore;
+
     filterModalRef.result
       .then(value => {
-        this.store.dispatch(new ApplyFilterAction({
-          query: this.form.controls['query'].value,
-          onlineSinceDays: value.onlineSinceDays
-        }));
+        this.filtersChanged$.next(value);
       })
       .catch(() => {
       });
+  }
+
+  onQueryChange($event) {
+    this.queryChanged$.next($event.target.value);
   }
 
 }

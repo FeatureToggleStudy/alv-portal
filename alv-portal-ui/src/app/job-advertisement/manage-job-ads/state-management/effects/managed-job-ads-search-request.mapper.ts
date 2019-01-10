@@ -11,7 +11,7 @@ export class ManagedJobAdsSearchRequestMapper {
     return {
       body: {
         companyId: companyExternalId,
-        jobTitle: null,
+        jobTitle: filter.query,
         onlineSinceDays: filter.onlineSinceDays
       },
       page: page,

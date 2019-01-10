@@ -14,7 +14,7 @@ export class FilterManagedJobAdsComponent implements OnInit {
 
   form: FormGroup;
 
-  currentFilters: Observable<ManagedJobAdsSearchFilter>;
+  currentFiltering: Observable<ManagedJobAdsSearchFilter>;
 
   onlineSinceOptions$: Observable<SelectableOption[]> = of([
     {
