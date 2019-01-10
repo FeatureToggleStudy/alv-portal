@@ -3,8 +3,8 @@ import { getManagedJobAdResults, ManageJobAdsState } from '../state-management/s
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { LoadNextPageAction } from '../../candidate-search/state-management/actions';
-import { ModalService } from '../../shared/layout/modal/modal.service';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { LoadNextPageAction } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 
 @Component({
