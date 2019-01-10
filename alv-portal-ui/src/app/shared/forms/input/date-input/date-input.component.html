@@ -2,7 +2,7 @@
      *ngIf="control">
   <div class="form-label-group position-relative d-flex"
        [class.invalid]="control.touched && control.invalid">
-    <span *ngIf="!readonly"
+    <span *ngIf="!!required && !readonly"
           class="required-indicator h-100">
     </span>
     <input type="text"
@@ -37,6 +37,7 @@
               aria-label="Open Calendar"
               type="button"
               (click)="datePicker.toggle()"
+              [disabled]="control.disabled"
               placement="top"
               ngbTooltip="Open Calendar">
         <i class="fas fa-calendar-alt"></i>

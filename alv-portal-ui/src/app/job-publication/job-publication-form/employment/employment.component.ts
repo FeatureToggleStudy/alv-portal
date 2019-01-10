@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import { BehaviorSubject, of } from 'rxjs/index';
+import { BehaviorSubject, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { WorkForm } from '../../../shared/backend-services/shared.types';
+import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { DateInputComponent } from '../../../shared/forms/input/date-input/date-input.component';
 
 @Component({
   selector: 'alv-employment',
@@ -13,8 +15,13 @@ import { WorkForm } from '../../../shared/backend-services/shared.types';
 })
 export class EmploymentComponent extends AbstractSubscriber implements OnInit {
 
-  @Input()
-  parentForm: FormGroup;
+  minDateEmploymentStart = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
+
+  @Input() parentForm: FormGroup;
+
+  @ViewChild('startDate') startDate: DateInputComponent;
+
+  @ViewChild('endDate') endDate: DateInputComponent;
 
   employmentGroup: FormGroup;
 
@@ -43,13 +50,41 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
     };
   });
 
-  employmentStartDateOptions$ = of([
-    { value: true, label: 'immediate' },
-    { value: false, label: 'from' },
+  employmentStartImmediate$ = of([
+    { value: true, label: 'home.tools.job-publication.employmentStartDate.immediately' }
+  ]);
+  employmentStartFrom$ = of([
+    {
+      value: false,
+      label: 'home.tools.job-publication.employmentStartDate.by-arrangement'
+    }
+  ]);
+  employmentDurationPermanent$ = of([
+    {
+      value: EmploymentDuration.PERMANENT,
+      label: 'home.tools.job-publication.employmentEndDate.permanent'
+    }
+  ]);
+  employmentDurationTemporary$ = of([
+    {
+      value: EmploymentDuration.TEMPORARY,
+      label: 'home.tools.job-publication.employmentEndDate.temporary'
+    }
+  ]);
+  employmentDurationShortEmployment$ = of([
+    {
+      value: EmploymentDuration.SHORT_EMPLOYMENT,
+      label: 'home.tools.job-publication.shortEmployment.label'
+    }
   ]);
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private ngbDateNativeAdapter: NgbDateNativeAdapter) {
     super();
+  }
+
+  get workForms() {
+    return this.employmentGroup.get('workForms');
   }
 
   ngOnInit(): void {
@@ -57,7 +92,9 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
       workloadPercentageMin: 100,
       workloadPercentageMax: 100,
       immediately: true,
-
+      duration: EmploymentDuration.PERMANENT,
+      startDate: { value: null, disabled: true },
+      endDate: { value: null, disabled: true },
       workForms: this.fb.array(this.workFormOptions.map(option => {
         return this.fb.group({
           [option.value]: false
@@ -78,9 +115,46 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
       .subscribe(percentageMax => {
         this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
       });
-  }
 
-  get workForms() {
-    return this.employmentGroup.get('workForms');
+    this.employmentGroup.get('immediately').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(immediately => {
+        const control = this.employmentGroup.get('startDate');
+        if (!immediately) {
+          control.enable();
+          setTimeout(() => {
+            this.startDate.focus();
+          });
+        } else {
+          control.disable();
+        }
+      });
+
+    this.employmentGroup.get('duration').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(duration => {
+        const control = this.employmentGroup.get('endDate');
+        switch (duration) {
+          case EmploymentDuration.PERMANENT:
+            control.disable();
+            break;
+          case EmploymentDuration.TEMPORARY:
+            control.enable();
+            setTimeout(() => {
+              this.endDate.focus();
+            });
+            break;
+          case EmploymentDuration.SHORT_EMPLOYMENT:
+            control.disable();
+            break;
+        }
+      });
+
   }
+}
+
+enum EmploymentDuration {
+  PERMANENT = 'permanent',
+  TEMPORARY = 'temporary',
+  SHORT_EMPLOYMENT = 'short-employment'
 }

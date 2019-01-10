@@ -5,7 +5,7 @@
   <legend class="label mb-2"
           *ngIf="label">{{label | translate}}
   </legend>
-  <div class="form-check mb-2"
+  <div class="form-check"
        *ngFor="let option of options$ | async">
     <input class="form-check-input"
            type="radio"

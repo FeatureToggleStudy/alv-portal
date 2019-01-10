@@ -5,3 +5,14 @@
 .form-check-label {
   margin-left: 10px;
 }
+
+.form-check:not(:first-of-type) {
+  margin-top: 0.5rem;
+}
+
+/* removes the margin of the form group */
+:host-context(.narrow-form) {
+  .form-group{
+    margin-bottom: 0;
+  }
+}

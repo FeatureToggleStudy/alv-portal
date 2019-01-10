@@ -16,18 +16,80 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <alv-radio-button
-      label="home.tools.job-publication.employmentStartDate.title"
-      alvFormControlName="immediately"
-      [options$]="employmentStartDateOptions$">
-    </alv-radio-button>
-  </div>
+  <fieldset class="mb-2">
+    <legend class="label">{{'home.tools.job-publication.employmentStartDate.title' | translate}}
+    </legend>
+    <div class="alv-bar radio-button mb-1 d-flex align-items-center">
+      <alv-radio-button
+        [id]="'employment-start'"
+        alvFormControlName="immediately"
+        [options$]="employmentStartImmediate$"
+        class="narrow-form">
+      </alv-radio-button>
+    </div>
 
-  <div class="form-group">
-    <label class="col-form-label">
+    <div class="alv-bar radio-button d-flex align-items-center mb-1">
+      <alv-radio-button
+        [id]="'employment-start'"
+        alvFormControlName="immediately"
+        [options$]="employmentStartFrom$"
+        class="narrow-form">
+      </alv-radio-button>
+
+      <alv-date-input #startDate
+                      label="audits.table.header.date"
+                      alvFormControlName="startDate"
+                      [minDate]="minDateEmploymentStart"
+                      [maxDate]="employmentGroup.get('endDate').value"
+                      class="ml-5 narrow-form">
+      </alv-date-input>
+    </div>
+
+  </fieldset>
+
+  <fieldset class="mb-2">
+    <legend class="label">{{'home.tools.job-publication.employmentEndDate.title' | translate}}
+    </legend>
+    <div class="alv-bar radio-button mb-1 d-flex align-items-center">
+      <alv-radio-button
+        [id]="'employment-duration'"
+        alvFormControlName="duration"
+        [options$]="employmentDurationPermanent$"
+        class="narrow-form">
+      </alv-radio-button>
+    </div>
+
+    <div class="alv-bar radio-button d-flex align-items-center mb-1">
+      <alv-radio-button
+        [id]="'employment-duration'"
+        alvFormControlName="duration"
+        [options$]="employmentDurationTemporary$"
+        class="narrow-form">
+      </alv-radio-button>
+
+      <alv-date-input #endDate
+                      label="audits.table.header.date"
+                      alvFormControlName="endDate"
+                      [minDate]="this.employmentGroup.get('startDate').value"
+                      class="ml-5 narrow-form">
+      </alv-date-input>
+    </div>
+
+    <div class="alv-bar radio-button mb-1 d-flex align-items-center">
+      <alv-radio-button
+        [id]="'employment-duration'"
+        alvFormControlName="duration"
+        [options$]="employmentDurationShortEmployment$"
+        class="narrow-form">
+      </alv-radio-button>
+    </div>
+
+  </fieldset>
+
+  <fieldset class="mb-2">
+    <legend class="label">
       {{ 'global.workForm.label' | translate }}
-    </label>
+    </legend>
     <ng-container *ngFor="let workForm of workForms.controls; let i = index">
       <div class="alv-bar p-2 pb-1 mb-1"
            [formGroup]="workForm">
@@ -37,5 +99,5 @@
         </alv-checkbox>
       </div>
     </ng-container>
-  </div>
+  </fieldset>
 </fieldset>
