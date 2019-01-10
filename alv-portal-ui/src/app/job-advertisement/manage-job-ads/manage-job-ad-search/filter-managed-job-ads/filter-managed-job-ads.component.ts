@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { Observable, of } from 'rxjs';
 
 @Component({
