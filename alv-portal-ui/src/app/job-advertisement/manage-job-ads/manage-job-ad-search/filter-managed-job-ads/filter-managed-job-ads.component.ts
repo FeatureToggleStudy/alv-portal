@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { Observable, of } from 'rxjs';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ManagedJobAdsSearchFilter } from '../../state-management/state';
 
 @Component({
   selector: 'alv-filter-managed-job-ads',
@@ -11,6 +13,8 @@ import { Observable, of } from 'rxjs';
 export class FilterManagedJobAdsComponent implements OnInit {
 
   form: FormGroup;
+
+  currentFilters: Observable<ManagedJobAdsSearchFilter>;
 
   onlineSinceOptions$: Observable<SelectableOption[]> = of([
     {
@@ -48,7 +52,8 @@ export class FilterManagedJobAdsComponent implements OnInit {
     }
   ]);
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              public activeModal: NgbActiveModal) {
   }
 
   ngOnInit() {
@@ -58,8 +63,15 @@ export class FilterManagedJobAdsComponent implements OnInit {
   }
 
   filter() {
-    console.log('filter');
+    console.log(this.form.controls['onlineSinceDays'].value);
+
+    this.activeModal.close({
+      onlineSinceDays: this.form.controls['onlineSinceDays'].value
+    });
   }
 
+  cancel() {
+    this.activeModal.dismiss();
+  }
 
 }
