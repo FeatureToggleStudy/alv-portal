@@ -8,22 +8,29 @@
   <fieldset>
 
     {{ 'job-publication-cancel.job.occupied.text' | translate }}
-    <alv-radio-button alvFormControlName="positionOccupied"
-                      name="cancellationCode"
-                      [options$]="cancellationCodeOptionsA$">
-    </alv-radio-button>
+    <div class="alv-bar">
+      <alv-radio-button alvFormControlName="positionOccupied"
+                        name="cancellationCode"
+                        [options$]="cancellationCodeOptionsA$">
+      </alv-radio-button>
+    </div>
+
 
     {{ 'job-publication-cancel.job.occupied.self' | translate }}
-    <alv-radio-button alvFormControlName="positionOccupied"
-                      name="cancellationCode"
-                      [options$]="cancellationCodeOptionsB$">
-    </alv-radio-button>
+    <div class="alv-bar">
+      <alv-radio-button alvFormControlName="positionOccupied"
+                        name="cancellationCode"
+                        [options$]="cancellationCodeOptionsB$">
+      </alv-radio-button>
+    </div>
 
     Andere Gründe
-    <alv-radio-button alvFormControlName="positionOccupied"
-                      name="cancellationCode"
-                      [options$]="cancellationCodeOptionsC$">
-    </alv-radio-button>
+    <div class="alv-bar">
+      <alv-radio-button alvFormControlName="positionOccupied"
+                        name="cancellationCode"
+                        [options$]="cancellationCodeOptionsC$">
+      </alv-radio-button>
+    </div>
 
   </fieldset>
 

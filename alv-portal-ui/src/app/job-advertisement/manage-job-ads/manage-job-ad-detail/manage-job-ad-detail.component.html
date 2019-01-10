@@ -42,7 +42,23 @@
     </ng-container>
 
     <ng-container class="right-column">
+      <div class="d-flex flex-column">
+        <button class="btn btn-text btn-text-icon btn-truncate"
+                [disabled]="!isCancellable"
+                (click)="cancelJobAdAction()">
+          <i aria-hidden="true"
+             class="fa fa-trash mr-1"></i>
+          {{'job-publication-details.cancel' |translate}}
+        </button>
 
+      <!--<button class="btn btn-text btn-text-icon btn-truncate mt-1"
+                [disabled]="!isCancellable"
+                (click)="cancelJobAdAction()">
+          <i aria-hidden="true"
+             class="fa fa-trash mr-1"></i>
+          {{'job-publication-details.cancel' |translate}}
+        </button>-->
+      </div>
     </ng-container>
   </alv-three-column-layout>
 </div>

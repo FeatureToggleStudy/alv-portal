@@ -21,16 +21,16 @@
         <div [attr.aria-label]="'Job advertisement row actions for the row '+ jobAdManagementRow.title"
              ngbDropdownMenu>
           <button class="dropdown-item">
-            action1
+            {{ 'job-publication-details.copy' | translate }}
           </button>
           <button class="dropdown-item"
                   [routerLink]="jobAdManagementRow.detailRouterLink">
-            detail
+            {{ 'entity.action.open' | translate }}
           </button>
           <button class="dropdown-item"
                   *ngIf="jobAdManagementRow.isCancellable"
                   (click)="cancelJobAdAction()">
-            cancel
+            {{'job-publication-details.cancel' | translate }}
           </button>
         </div>
       </div>
