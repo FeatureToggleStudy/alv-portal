@@ -3,5 +3,5 @@ export interface SelectableOption {
   value: any;
   labelParameters?: {
     [index: string]: any;
-  }
+  };
 }
