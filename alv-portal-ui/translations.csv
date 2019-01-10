@@ -187,10 +187,10 @@ dashboard,dashboard.job-publication.location,Arbeitsort,Place of work,Lieu de tr
 dashboard,dashboard.job-publication.publication-date,Meldedatum,Registration date,Date de l'annonce,Data dell'annuncio
 dashboard,dashboard.job-publication.publication-period.all,Alle,All,Tous,Tutti
 dashboard,dashboard.job-publication.publication-period.label,Alter der Stellen,Age of posts,Ancienneté des postes,Pubblicato da
-dashboard,dashboard.job-publication.publication-period.month,{{ month }} Monat,{{ month }} month,{{ month }} mois,{{ month }} mese
+dashboard,dashboard.job-publication.publication-period.month,1 Monat,1 month,1 mois,1 mese
 dashboard,dashboard.job-publication.publication-period.months,{{ months }} Monate,{{ months }} months,{{ months }} mois,{{ months }} mesi
-dashboard,dashboard.job-publication.publication-period.week,{{ week }} Woche,{{ week }} week,{{ week }} semaine,{{ week }} settimana
-dashboard,dashboard.job-publication.publication-period.year,{{ years }} Jahr,{{ years }} year,{{ years }} années,{{ years }} anni
+dashboard,dashboard.job-publication.publication-period.week,1 Woche,1 week,{1 semaine,{1 settimana
+dashboard,dashboard.job-publication.publication-period.year,1 Jahr,1 year,1 années,1 anni
 dashboard,dashboard.job-publication.status,Status,Status,Statut,Stato
 dashboard,dashboard.job-publication.title,Stellenanzeigen bewirtschaften,Manage job ads,Gérer les annonces,Gestire gli annunci
 dashboard,dashboard.job-publication.user-information.title,Sie sind eingeloggt als,You are logged in as,Vous êtes connecté(e),Registrato in qualità di:
@@ -199,7 +199,7 @@ dashboard,job-publication-cancel.alert,Bitte füllen Sie die Abmeldeinformatione
 dashboard,job-publication-cancel.job.confirm,Abmeldung bestätigen,Confirm cancellation,Confirmer l'annulation,Confermare la cancellazione
 dashboard,job-publication-cancel.job.dismiss,Abbrechen,Cancel,Interrompre,Interrompere
 dashboard,job-publication-cancel.job.not-occupied,Sie konnten die Stelle nicht besetzen,You were unable to fill the position,Vous n'avez pas pu pourvoir le poste,Il posto non è stato assegnato
-dashboard,job-publication-cancel.job.occupied,Sie konnten die Stelle besetzen,You were able to fill the position,Vous avez pourvu le poste,Il posto è stato assegnato
+dashboard,job-publication-cancel.job.occupied.text,Sie konnten die Stelle besetzen,You were able to fill the position,Vous avez pourvu le poste,Il posto è stato assegnato
 dashboard,job-publication-cancel.job.occupied.jobCenter,in Zusammenarbeit mit der regionalen Arbeitsvermittlung (RAV),in cooperation with the regional employment centre (RAV),en collaboration avec l'Office régional de placement (ORP),in collaborazione con l'Ufficio regionale di collocamento (URC)
 dashboard,job-publication-cancel.job.occupied.privateAgency,in Zusammenarbeit mit der privaten Arbeitsvermittlung (pAV),in cooperation with the private employment agency (pAV),en collaboration avec un placeur privé,in collaborazione con le agenzie private di collocamento
 dashboard,job-publication-cancel.job.occupied.self,Sie konnten die Stelle selber besetzen,You were able to fill the position yourself,Vous avez pourvu le poste par vos propres soins.,Il posto è stato assegnato senza interventi esterni
@@ -853,7 +853,7 @@ job-detail,job-detail.application.mail,Per Post,By post,Par la poste,Per posta
 job-detail,job-detail.application.phone,Telefonisch,By phone,Par téléphone,Telefonicamente
 job-detail,job-detail.application.online,Elektronisch,Electronic,En ligne,Elettronica
 job-detail,job-detail.application.title,Bewerbungsformen,Application forms,Types de postulation,Tipologie di candidatura
-job-detail,job-detail.back,Zurück zu den Suchergebnissen,Back to search results,Retour à la liste des résultats,Torna ai risultati della ricerca
+job-detail,job-detail.back,Zurück,Back,Retour,Indietro
 job-detail,job-detail.contactPerson,Ihre Kontaktperson,Your contact person,Votre personne de contact,La tua persona di contatto
 job-detail,job-detail.external-job-disclaimer,"Dieses Inserat wurde auf einer externen Website gefunden. Die Arbeitslosenversicherung und öffentliche Arbeitsvermittlung stellt Ihnen dieses Suchresultat als zusätzliche Dienstleistung zur Verfügung, hat aber keinerlei Einfluss auf dessen Inhalt und Qualität.","This job posting was found on an external website. The unemployment insurance and public employment service provides this search result as an additional service. It has no influence on its content and quality.","Cette annonce a été trouvée sur un site externe. L'assurance-chômage et le service public de l'emploi fournissent ce résultat de recherche en tant que service supplémentaire, mais n'a aucune influence sur son contenu et sa qualité.","Questo annuncio è stato trovato su un sito web esterno. L'assicurazione contro la disoccupazione e il servizio pubblico per l'impiego fornisce questo risultato di ricerca come un servizio aggiuntivo, ma non ha alcun influsso sul suo contenuto né sulla sua qualità."
 job-detail,job-detail.onlineSince,Vakant seit,Vacant since,Libre depuis,Vacante dal
@@ -1350,6 +1350,7 @@ portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tut
 
 portal,portal.navigation.menu-entry.job-search,Stelle finden
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden
+portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht
 portal,portal.dashboard.header.welcome.time.morning,Guten Morgen
