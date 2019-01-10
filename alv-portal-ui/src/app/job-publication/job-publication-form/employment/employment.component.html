@@ -19,7 +19,7 @@
   <div class="form-group">
     <alv-radio-button
       label="home.tools.job-publication.employmentStartDate.title"
-      alvFormControlName="employmentStartDate"
+      alvFormControlName="immediately"
       [options$]="employmentStartDateOptions$">
     </alv-radio-button>
   </div>
@@ -29,10 +29,11 @@
       {{ 'global.workForm.label' | translate }}
     </label>
     <ng-container *ngFor="let workForm of workForms.controls; let i = index">
-      <div class="alv-bar p-2 mb-2">
+      <div class="alv-bar p-2 pb-1 mb-1"
+           [formGroup]="workForm">
         <alv-checkbox
           [label]="workFormOptions[i].label"
-          [alvControl]="workForm">
+          [alvFormControlName]="workFormOptions[i].value">
         </alv-checkbox>
       </div>
     </ng-container>

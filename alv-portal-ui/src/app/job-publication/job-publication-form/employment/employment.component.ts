@@ -44,8 +44,8 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   });
 
   employmentStartDateOptions$ = of([
-    { value: 'immediate', label: 'immediate' },
-    { value: 'from', label: 'from' },
+    { value: true, label: 'immediate' },
+    { value: false, label: 'from' },
   ]);
 
   constructor(private fb: FormBuilder) {
@@ -56,8 +56,13 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
     this.employmentGroup = this.fb.group({
       workloadPercentageMin: 100,
       workloadPercentageMax: 100,
-      employmentStartDate: null,
-      workForms: this.fb.array(this.workFormOptions.map(option => false))
+      immediately: true,
+
+      workForms: this.fb.array(this.workFormOptions.map(option => {
+        return this.fb.group({
+          [option.value]: false
+        });
+      }))
     });
 
     this.parentForm.addControl('employment', this.employmentGroup);
