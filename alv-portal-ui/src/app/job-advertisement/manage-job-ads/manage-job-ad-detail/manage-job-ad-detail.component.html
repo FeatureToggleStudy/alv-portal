@@ -42,7 +42,19 @@
     </ng-container>
 
     <ng-container class="right-column">
-
+      <ul class="nav flex-column">
+        <li>
+          <button class="btn btn-text btn-text-icon btn-truncate"
+                  [disabled]="!isCancellable"
+                  (click)="cancelJobAdAction()">
+            <i aria-hidden="true"
+               class="fa fa-trash mr-1"></i>
+            {{'job-publication-details.cancel' |translate}}
+          </button>
+        </li>
+        <li>
+        </li>
+      </ul>
     </ng-container>
   </alv-three-column-layout>
 </div>

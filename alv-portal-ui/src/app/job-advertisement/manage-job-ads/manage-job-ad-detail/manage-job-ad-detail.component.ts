@@ -13,6 +13,10 @@ import {
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { hasAnyAuthorities, UserRole } from '../../../core/auth/user.model';
 import { ActivatedRoute } from '@angular/router';
+import { JobAdCancellationComponent } from '../shared/job-ad-cancellation/job-ad-cancellation.component';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 
 @Component({
   selector: 'alv-manage-job-ad-detail',
@@ -27,18 +31,30 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
 
   isPavOrCompany = false;
 
-  token: string;
+  private token: string;
+
+  private jobAdvertisement: JobAdvertisement;
+
+  public isCancellable = false;
 
   constructor(private jobBadgesMapperService: JobBadgesMapperService,
               private jobDetailModelFactory: JobDetailModelFactory,
               private store: Store<ManageJobAdsState>,
               private route: ActivatedRoute,
+              private modalService: ModalService,
               private authenticationService: AuthenticationService) {
     super();
   }
 
   ngOnInit() {
     const job$ = this.store.pipe(select(getSelectedJobAdvertisement));
+
+    job$.pipe(
+      takeUntil(this.ngUnsubscribe))
+      .subscribe(jobAdvertisement => {
+        this.jobAdvertisement = jobAdvertisement;
+        this.isCancellable = JobAdvertisementUtils.isJobAdvertisementCancellable(jobAdvertisement.status);
+      });
 
     this.jobDetailModel$ = job$.pipe(
       switchMap((job) => this.jobDetailModelFactory.create(job))
@@ -56,6 +72,17 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
         takeUntil(this.ngUnsubscribe))
       .subscribe(value => {
         this.isPavOrCompany = value;
+      });
+  }
+
+  cancelJobAdAction() {
+    const jobAdCancellationModalRef = this.modalService.openLarge(JobAdCancellationComponent);
+    const jobAdCancellationComponent = <JobAdCancellationComponent>jobAdCancellationModalRef.componentInstance;
+    jobAdCancellationComponent.jobAdvertisement = this.jobAdvertisement;
+    jobAdCancellationComponent.accessToken = this.token;
+    jobAdCancellationModalRef.result
+      .then(value => console.log(value))
+      .catch(() => {
       });
   }
 
