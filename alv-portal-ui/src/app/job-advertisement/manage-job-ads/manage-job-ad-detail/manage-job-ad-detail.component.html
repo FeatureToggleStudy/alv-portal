@@ -15,7 +15,8 @@
 
     <ng-container class="left-column">
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
-         routerLink="/manage-job-ads">
+         routerLink="/manage-job-ads"
+         *ngIf="isPavOrCompany">
         <i class="fa fa-caret-left pr-1"></i>
         {{'job-detail.back' | translate}}
       </a>
