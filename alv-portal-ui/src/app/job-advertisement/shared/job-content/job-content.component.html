@@ -1,0 +1,140 @@
+<ng-container *ngIf="jobDetailModel.jobDescription as jobDescription">
+
+  <!-----------------Title-->
+  <h2 class="mt-1 mb-4"
+      [innerHTML]="jobDescription.title | safeHtml"></h2>
+  <span class="job-company mr-2 mr-md-4"
+        *ngIf="jobDetailModel.jobContent.company; else ravLabel">{{jobDetailModel.jobContent.company.name}}</span>
+  <ng-template #ravLabel>
+    {{ 'jobroomApp.job.rav' | translate }}
+  </ng-template>
+  <small class="mr-2 mr-md-4"
+         *ngIf="jobDetailModel.publication.startDate">
+    {{'job-detail.onlineSince' | translate}}
+    : {{ jobDetailModel.publication.startDate | localeAwareDate }}
+  </small>
+  <small *ngIf="jobDetailModel.jobContent.numberOfJobs">
+    {{'jobroomApp.job.numberOfJobs' | translate}}
+    : {{ jobDetailModel.jobContent.numberOfJobs }}
+  </small>
+
+  <!--Badges-->
+  <div class="mb-4">
+    <alv-inline-badges [badges]="badges"></alv-inline-badges>
+  </div>
+
+  <!-----------------Description-->
+
+  <div *ngIf="jobDescription.description">
+    <markdown [data]="jobDescription.description"
+              ngPreserveWhitespaces>
+    </markdown>
+  </div>
+
+  <!-----------------Bottom details about job-->
+
+  <div class="mb-3">
+    <alv-collapse-panel [panelId]="jobDetailPanelId.JOB_AD_INFO"
+                        panelTitle="portal.job-detail.jobad-info.label">
+      <ul class="alv-list">
+        <alv-list-item-content label="portal.job-detail.workplace.label">
+          {{jobDetailModel.jobContent.location | jobLocation}}
+        </alv-list-item-content>
+
+        <alv-list-item-content *ngIf="jobDetailModel.hasStartDate()"
+                               label="portal.job-detail.employmentStartDate.label">
+          {{jobDetailModel.employment.startDate | localeAwareDate}}
+        </alv-list-item-content>
+
+        <alv-list-item-content *ngIf="jobDetailModel.hasImmediately()"
+                               label="portal.job-detail.employmentStartDate.label">
+          {{'job-detail.startsImmediately.' + jobDetailModel.employment.immediately | translate}}
+        </alv-list-item-content>
+
+        <alv-list-item-content label="portal.job-detail.workload.label">
+          {{[jobDetailModel.employment?.workloadPercentageMin, jobDetailModel.employment?.workloadPercentageMax] | workingTimeRange}}
+        </alv-list-item-content>
+
+        <alv-list-item-content *ngIf="jobDetailModel.isTemporary()"
+                               label="portal.job-detail.employmentEndDate.label">
+          {{'job-search.job-search-list-item.badge.temporary' | translate}}
+        </alv-list-item-content>
+
+        <alv-list-item-content *ngIf="jobDetailModel.isPermanent()"
+                               label="portal.job-detail.employmentEndDate.label">
+          {{'job-search.job-search-list-item.badge.permanent' | translate}}
+        </alv-list-item-content>
+
+        <alv-list-item-content *ngIf="jobDetailModel.isShortEmployment()"
+                               label="portal.job-detail.workForm.label">
+          {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
+        </alv-list-item-content>
+      </ul>
+    </alv-collapse-panel>
+
+    <alv-collapse-panel *ngIf="jobDetailModel.firstOccupation as occupation"
+                        [panelId]="jobDetailPanelId.JOB_AD_REQUIREMENTS"
+                        panelTitle="portal.job-detail.min-requirements.label">
+      <ul class="alv-list">
+        <alv-list-item-content label="portal.job-detail.workExperience">
+          {{'global.experience.' + occupation.workExperience | translate}}
+        </alv-list-item-content>
+
+        <alv-list-item-content label="portal.job-detail.education">
+          {{'global.degree.avamCode.' + occupation.educationCode| translate}}
+        </alv-list-item-content>
+      </ul>
+    </alv-collapse-panel>
+
+    <alv-collapse-panel *ngIf="jobDetailModel.jobContent.languageSkills?.length"
+                        [panelId]="jobDetailPanelId.JOB_AD_LANGUAGES"
+                        panelTitle="global.reference.languages">
+      <alv-language-skills [languages]="jobDetailModel.jobContent.languageSkills">
+      </alv-language-skills>
+    </alv-collapse-panel>
+
+    <alv-collapse-panel *ngIf="jobDetailModel.applyChannel as applyChannel"
+                        [panelId]="jobDetailPanelId.JOB_AD_CONTACT_DETAILS"
+                        panelTitle="portal.job-detail.contact-details.label">
+      <ul class="alv-list">
+        <alv-list-item-content *ngIf="applyChannel.formUrl as formUrl"
+                               label="job-detail.application.online">
+          <a class="link"
+             [attr.href]="formUrl | normalizeUrl">
+            <i class="fas fa-caret-right link-icon"></i>
+            {{ 'job-publication-details.application.online-form' | translate}}
+          </a>
+        </alv-list-item-content>
+
+        <alv-list-item-content *ngIf="applyChannel.emailAddress as emailAddress"
+                               label="job-detail.application.email">
+          <a class="link"
+             href="mailto:{{emailAddress}}">
+            <i class="fas fa-caret-right link-icon"></i>
+            {{emailAddress}}
+          </a>
+        </alv-list-item-content>
+
+        <alv-list-item-content *ngIf="applyChannel.phoneNumber as phoneNumber"
+                               label="job-detail.application.phone">
+          <a class="link"
+             href="tel:{{phoneNumber}}">
+            <i class="fas fa-caret-right link-icon"></i>
+            {{(phoneNumber) | phoneNumber}}
+          </a>
+        </alv-list-item-content>
+
+        <alv-list-item-content *ngIf="applyChannel.postAddress || applyChannel.rawPostAddress"
+                               label="job-detail.application.mail">
+          <ng-container *ngIf="applyChannel.postAddress; else rawPostAddress">
+            <alv-post-address [address]="applyChannel.postAddress">
+            </alv-post-address>
+          </ng-container>
+          <ng-template #rawPostAddress>
+            {{applyChannel.rawPostAddress}}
+          </ng-template>
+        </alv-list-item-content>
+      </ul>
+    </alv-collapse-panel>
+  </div>
+</ng-container>

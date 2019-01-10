@@ -24,7 +24,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'job-search',
-    loadChildren: './job-ad-search/job-ad-search.module#JobAdSearchModule'
+    loadChildren: './job-advertisement/job-ad-search/job-ad-search.module#JobAdSearchModule'
   },
   {
     path: 'candidate-search',
@@ -36,8 +36,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'manage-job-ads',
-    loadChildren: './manage-job-ads/manage-job-ads.module#ManageJobAdsModule',
-    canActivateChild: [AuthenticatedGuard],
+    loadChildren: './job-advertisement/manage-job-ads/manage-job-ads.module#ManageJobAdsModule',
   },
   {
     path: 'landing',

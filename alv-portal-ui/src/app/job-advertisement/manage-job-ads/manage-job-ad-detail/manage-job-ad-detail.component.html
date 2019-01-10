@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <alv-three-column-layout *ngIf="jobDetailModel$ | async as jobDetailModel"
+                           [mobileOrdering]="[2, 1, null]">
+    <ng-container class="mobile-menu-bar">
+
+    </ng-container>
+
+    <ng-container class="left-column">
+      <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
+         routerLink="/manage-job-ads">
+        <i class="fa fa-caret-left pr-1"></i>
+        {{'job-detail.back' | translate}}
+      </a>
+      <div class="d-flex d-sm-block flex-column-reverse">
+        <div class="company-panel alv-panel p-2 mb-3">
+          <alv-job-company-context [jobDetailModel]="jobDetailModel">
+          </alv-job-company-context>
+        </div>
+      </div>
+      <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter"
+           class="company-panel alv-panel p-2 mb-3">
+        <div class="order-sm-2 alv-logo-box">
+          <alv-job-center-context [jobDetailModel]="jobDetailModel">
+          </alv-job-center-context>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container class="main-column">
+      <alv-job-content [jobDetailModel]="jobDetailModel"
+                       [badges]="badges$ | async">
+      </alv-job-content>
+    </ng-container>
+
+    <ng-container class="right-column">
+
+    </ng-container>
+  </alv-three-column-layout>
+</div>
