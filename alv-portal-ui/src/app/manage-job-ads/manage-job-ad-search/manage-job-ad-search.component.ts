@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { getManagedJobAdResults, ManageJobAdsState } from '../state-management/state';
+import {
+  getManagedJobAdResults,
+  getManagedJobAdsSearchFilter, ManagedJobAdsSearchFilter,
+  ManageJobAdsState
+} from '../state-management/state';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -18,6 +22,8 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   jobAdManagementRows$: Observable<JobAdManagementRow[]>;
 
+  appliedFilters$: Observable<ManagedJobAdsSearchFilter>;
+
   currentLanguage: Observable<string>;
 
 
@@ -28,6 +34,7 @@ export class ManageJobAdSearchComponent implements OnInit {
   ngOnInit() {
     this.currentLanguage = this.i18nService.currentLanguage$;
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
+    this.appliedFilters$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
     this.jobAdManagementRows$ = this.jobSearchResults$.pipe(
       withLatestFrom(this.currentLanguage),
       map(([jobSearchResults, currentLanguage]) =>
