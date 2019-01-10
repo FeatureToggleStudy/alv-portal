@@ -21,7 +21,8 @@ import { LanguagesComponent } from './job-publication-form/languages/languages.c
     JobPublicationFormComponent,
     OccupationComponent,
     JobDescriptionComponent,
-    LanguagesComponent
+    LanguagesComponent,
+    JobDescriptionComponent
   ],
   providers: []
 })
