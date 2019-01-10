@@ -1,6 +1,5 @@
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 
 /**
  * A decorator around job advertisement for the representation of the
@@ -32,8 +31,8 @@ export class JobAdManagementRow {
     this.title = JobAdvertisementUtils.getJobDescription(this.jobAdvertisement, this.currentLanguage).title;
     this.location = this.jobAdvertisement.jobContent.location.city;
     this.status = this.jobAdvertisement.status.toString();
-    this.isCancellable = JobAdvertisementRepository.isJobAdvertisementCancellable(this.status);
-  };
+    this.isCancellable = JobAdvertisementUtils.isJobAdvertisementCancellable(this.status);
+  }
 
 }
 

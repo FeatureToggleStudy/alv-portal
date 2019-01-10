@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -10,11 +11,17 @@
     "experimentalDecorators": true,
     "target": "es5",
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "manual_typings"
     ],
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "lodash/*": [
+        "node_modules/@types/lodash-es/*"
+      ]
+    }
   }
 }

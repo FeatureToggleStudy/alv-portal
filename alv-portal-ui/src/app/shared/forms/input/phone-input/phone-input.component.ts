@@ -30,7 +30,7 @@ export class PhoneInputComponent extends AbstractInput implements OnInit {
     if (isValidNumber(eventValue, this.country)) {
       const formatter = new AsYouType(this.country);
       const value = formatter.input(eventValue);
-      this.control.patchValue(format(parse(value, this.country), 'International'), {emitEvent: false});
+      this.control.patchValue(format(parse(value, this.country), 'International'), { emitEvent: false });
     }
   }
 

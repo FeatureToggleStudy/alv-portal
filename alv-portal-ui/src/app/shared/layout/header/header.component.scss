@@ -85,6 +85,7 @@ header {
     }
   }
 }
+
 @include media-breakpoint-down(md) {
   header .header {
     height: 42px;

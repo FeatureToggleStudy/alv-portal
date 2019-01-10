@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
-import { AuthenticationService } from './authentication.service';
-import { isAuthenticatedUser, User } from './user.model';
-import { AbstractAuthenticationGuard } from './abstract-authentication.guard';
-import { LandingNavigationService } from '../landing-navigation.service';
 import { ActivatedRouteSnapshot } from '@angular/router';
+import { hasAnyAuthorities, User } from './user.model';
+import { AbstractAuthenticationGuard } from './abstract-authentication.guard';
+import { AuthenticationService } from './authentication.service';
+import { LandingNavigationService } from '../landing-navigation.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticatedGuard extends AbstractAuthenticationGuard {
+export class HasAnyAuthoritiesGuard extends AbstractAuthenticationGuard {
 
   constructor(authenticationService: AuthenticationService, landingNavigationService: LandingNavigationService) {
     super(authenticationService, landingNavigationService);
   }
 
   protected canUserActivate(user: User, route: ActivatedRouteSnapshot): boolean {
-    return isAuthenticatedUser(user);
+    const authorities = route.data.authorities || [];
+    return hasAnyAuthorities(user, authorities);
   }
 
 }

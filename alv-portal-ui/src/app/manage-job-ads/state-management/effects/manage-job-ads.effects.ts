@@ -1,10 +1,6 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import {
-  JOB_AD_SEARCH_EFFECTS_DEBOUNCE,
-  JOB_AD_SEARCH_EFFECTS_SCHEDULER
-} from '../../../job-ad-search/state-management/effects';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
 import {
   catchError,
@@ -27,11 +23,14 @@ import {
   INIT_RESULT_LIST,
   LOAD_NEXT_PAGE,
   NextPageLoadedAction
-} from '../actions/manage-job-ads.actions';
-import { ManagedJobAdsSearchRequestMapper } from './managed-job-ads-search-request.mapper';
+} from '../actions';
 import { getCurrentCompanyContactTemplateModel } from '../../../core/state-management/state/core.state.ts';
 import { JobAdvertisementSearchResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { SchedulerLike } from 'rxjs/src/internal/types';
+import { ManagedJobAdsSearchRequestMapper } from './managed-job-ads-search-request.mapper';
 
+export const MANAGE_JOB_ADS_EFFECTS_DEBOUNCE = new InjectionToken<number>('MANAGE_JOB_ADS_EFFECTS_DEBOUNCE');
+export const MANAGE_JOB_ADS_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('MANAGE_JOB_ADS_EFFECTS_SCHEDULER');
 
 @Injectable()
 export class ManageJobAdsEffects {
@@ -41,7 +40,7 @@ export class ManageJobAdsEffects {
     ofType(INIT_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
     switchMap(([action, state, company]) => {
-      return this.jobAdvertisementRepository.findManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
+      return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount
@@ -58,7 +57,7 @@ export class ManageJobAdsEffects {
     map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
-    switchMap(([managedJobAdsSearchFilter, state, company]) => this.jobAdvertisementRepository.findManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(managedJobAdsSearchFilter, state.page, company.companyExternalId)).pipe(
+    switchMap(([managedJobAdsSearchFilter, state, company]) => this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(managedJobAdsSearchFilter, state.page, company.companyExternalId)).pipe(
       map((response) => new FilterAppliedAction({
         page: response.result,
         totalCount: response.totalCount
@@ -72,7 +71,7 @@ export class ManageJobAdsEffects {
     ofType(LOAD_NEXT_PAGE),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
-    concatMap(([action, state, company]) => this.jobAdvertisementRepository.findManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page + 1, company.companyExternalId)).pipe(
+    concatMap(([action, state, company]) => this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page + 1, company.companyExternalId)).pipe(
       map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
@@ -82,10 +81,10 @@ export class ManageJobAdsEffects {
               private store: Store<ManageJobAdsState>,
               private jobAdvertisementRepository: JobAdvertisementRepository,
               @Optional()
-              @Inject(JOB_AD_SEARCH_EFFECTS_DEBOUNCE)
+              @Inject(MANAGE_JOB_ADS_EFFECTS_DEBOUNCE)
               private debounce,
               @Optional()
-              @Inject(JOB_AD_SEARCH_EFFECTS_SCHEDULER)
+              @Inject(MANAGE_JOB_ADS_EFFECTS_SCHEDULER)
               private scheduler: AsyncScheduler) {
   }
 }
