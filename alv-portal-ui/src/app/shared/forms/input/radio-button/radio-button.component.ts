@@ -13,9 +13,6 @@ import { ControlContainer } from '@angular/forms';
 })
 export class RadioButtonComponent extends AbstractSelectableInput implements OnInit {
 
-  @Input()
-  name: string;
-
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {
     super(controlContainer, InputType.RADIO_BUTTON, inputIdGenerationService);
@@ -23,7 +20,6 @@ export class RadioButtonComponent extends AbstractSelectableInput implements OnI
 
   ngOnInit() {
     super.ngOnInit();
-    this.name = this.name || this.id;
     this.options$ = this.options$ || this.getDefaultOptions();
   }
 
