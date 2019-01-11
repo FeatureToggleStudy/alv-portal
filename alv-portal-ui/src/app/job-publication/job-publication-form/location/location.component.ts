@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as countries from 'i18n-iso-countries';
 import { Observable } from 'rxjs/index';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
@@ -50,15 +45,17 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
     this.countryOptions$ = this.initCountryOptions();
     this.locationGroup = this.buildLocationGroup();
     this.parentForm.addControl('location', this.locationGroup);
-    this.locationGroup.get('countryIsoCode').valueChanges
+
+    this.countryIsoCode.valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(value => {
-        this.initCityAndZipComponents(this.locationGroup);
+        this.locationGroup.removeControl('zipAndCity');
+        this.locationGroup.addControl('zipAndCity', this.buildCityAndZip(value));
       });
   }
 
   public isCityZipAutocomplete() {
-    return this._isCityZipAutocomplete(this.locationGroup.get('countryIsoCode').value);
+    return this._isCityZipAutocomplete(this.countryIsoCode.value);
   }
 
   private _isCityZipAutocomplete(selectedCountryIsoCode: string) {
@@ -71,8 +68,8 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
       remarks: ['', [
         Validators.maxLength(this.REMARK_MAX_LENGTH)
       ]],
+      zipAndCity: this.buildCityAndZip(this.ISO_CODE_SWITZERLAND)
     });
-    this.initCityAndZipComponents(locationGroup);
 
     return locationGroup;
   }
@@ -97,30 +94,24 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
     return this.localitySuggestionService.fetchJobPublicationLocations(query);
   }
 
-  private initCityAndZipComponents(locationGroup: FormGroup) {
-    locationGroup.removeControl('zipAndCity');
+  private buildCityAndZip(selectedCountryIsoCode: string): AbstractControl {
 
-    let zipAndCity: AbstractControl;
-
-    if (this._isCityZipAutocomplete(locationGroup.get('countryIsoCode').value)) {
-      zipAndCity = this.fb.control('', [
+    if (this._isCityZipAutocomplete(selectedCountryIsoCode)) {
+      return this.fb.control('', [
         Validators.required
       ]);
-
-    } else {
-      const city = this.fb.control('', [
-        Validators.required,
-        Validators.maxLength(this.CITY_MAX_LENGTH)
-      ]);
-      const zipCode = this.fb.control('', [
-        Validators.required,
-        Validators.pattern(this.ZIP_CODE_REGEX)
-      ]);
-
-      zipAndCity = this.fb.group({ city, zipCode });
     }
 
-    locationGroup.addControl('zipAndCity', zipAndCity);
+    const city = this.fb.control('', [
+      Validators.required,
+      Validators.maxLength(this.CITY_MAX_LENGTH)
+    ]);
+    const zipCode = this.fb.control('', [
+      Validators.required,
+      Validators.pattern(this.ZIP_CODE_REGEX)
+    ]);
+
+    return this.fb.group({ city, zipCode });
   }
 
   get countryIsoCode() {
