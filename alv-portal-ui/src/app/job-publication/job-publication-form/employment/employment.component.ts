@@ -4,7 +4,10 @@ import { SelectableOption } from '../../../shared/forms/input/selectable-option.
 import { BehaviorSubject, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { WorkForm } from '../../../shared/backend-services/shared.types';
+import {
+  EmploymentDuration,
+  WorkForm
+} from '../../../shared/backend-services/shared.types';
 import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { DateInputComponent } from '../../../shared/forms/input/date-input/date-input.component';
 
@@ -153,8 +156,3 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   }
 }
 
-enum EmploymentDuration {
-  PERMANENT = 'permanent',
-  TEMPORARY = 'temporary',
-  SHORT_EMPLOYMENT = 'short-employment'
-}
