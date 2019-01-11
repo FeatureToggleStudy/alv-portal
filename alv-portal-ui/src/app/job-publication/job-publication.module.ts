@@ -12,6 +12,7 @@ import { EmploymentComponent } from './job-publication-form/employment/employmen
 import { LocationComponent } from './job-publication-form/location/location.component';
 import { CompanyComponent } from './job-publication-form/company/company.component';
 import { IsoCountryService } from './job-publication-form/iso-country.service';
+import { ZipCityInputComponent } from './job-publication-form/zip-city-input/zip-city-input.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { IsoCountryService } from './job-publication-form/iso-country.service';
     LanguagesComponent,
     EmploymentComponent,
     LocationComponent,
-    CompanyComponent
+    CompanyComponent,
+    ZipCityInputComponent
   ],
   providers: [
     IsoCountryService

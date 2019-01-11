@@ -5,31 +5,11 @@
               alvFormControlName="countryIsoCode"
               [options$]="countryOptions$"></alv-select>
 
-  <ng-container *ngIf="isCityZipAutocomplete()">
-    <alv-single-typeahead label="home.tools.job-publication.locality.zipcode"
-                          alvFormControlName="zipAndCity"
-                          [loadItems]="loadLocationsFn">
-    </alv-single-typeahead>
-  </ng-container>
 
-  <div class="form-row"
-       *ngIf="!isCityZipAutocomplete()"
-       [formGroup]="locationGroup.get('zipAndCity')">
-    <div class="col-4">
-      <alv-input-field label="home.tools.job-publication.locality.zip"
-                       alvFormControlName="zipCode"
-                       [validationMessages]="[
-                       {error: 'pattern', message: 'home.tools.job-publication.messages.validate.zip-format'}
-                       ]">
-      </alv-input-field>
-    </div>
+  <alv-zip-city-input [parent]="locationGroup"
+                      [countryIsoCode]="countryIsoCode$ | async">
+  </alv-zip-city-input>
 
-    <div class="col-8">
-      <alv-input-field label="home.tools.job-publication.locality.city"
-                       alvFormControlName="city">
-      </alv-input-field>
-    </div>
-  </div>
 
   <alv-input-field label="home.tools.job-publication.locality.additional-text"
                    alvFormControlName="remarks"

@@ -19,6 +19,15 @@
     </div>
   </div>
 
+  <alv-zip-city-input [parent]="companyGroup"
+                      [countryIsoCode]="countryIsoCode$ | async">
+  </alv-zip-city-input>
+
+  <alv-input-field label="home.tools.job-publication.company.postbox-number"
+                   alvFormControlName="postOfficeBoxNumber"
+                   type="number">
+  </alv-input-field>
+
   <alv-select label="home.tools.job-publication.company.country"
               alvFormControlName="countryIsoCode"
               [options$]="countryOptions$"></alv-select>
