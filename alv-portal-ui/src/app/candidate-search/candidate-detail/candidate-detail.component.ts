@@ -21,10 +21,18 @@ import { AuthenticationService } from '../../core/auth/authentication.service';
 import { CandidateProfile } from '../../shared/backend-services/candidate/candidate.types';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ContactModalComponent } from './contact-modal/contact-modal.component';
-import { User, UserRole } from '../../core/auth/user.model';
+import { UserRole } from '../../core/auth/user.model';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
+
+const SUCCESS = {
+  contactModalNotification: {
+    type: NotificationType.SUCCESS,
+    messageKey: 'candidate-detail.candidate-anonymous-contact.success',
+    isSticky: true
+  } as Notification
+};
 
 @Component({
   selector: 'alv-candidate-detail',
@@ -34,12 +42,6 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 export class CandidateDetailComponent implements OnInit {
 
   readonly NUMBER_OF_JOBS_TO_SHOW = 3;
-
-  readonly CONTACT_MODAL_NOTIFICATION: Notification = {
-    type: NotificationType.SUCCESS,
-    messageKey: 'candidate-detail.candidate-anonymous-contact.success',
-    isSticky: true
-  };
 
   candidateDetailModel$: Observable<CandidateDetailModel>;
 
@@ -53,7 +55,7 @@ export class CandidateDetailComponent implements OnInit {
 
   candidateDetailPanelId = CandidateDetailPanelId;
 
-  contactModalSuccess = false;
+  contactModalSuccess: Notification;
 
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
@@ -80,7 +82,13 @@ export class CandidateDetailComponent implements OnInit {
 
     this.canContactCandidatePerEmail$ = candidateProfile$.pipe(
         withLatestFrom(this.authenticationService.getCurrentUser()),
-        map(([candidate, user]) => this.isValid(candidate, user))
+        map(([candidate, user]) => {
+          console.log(user.id + ' , ' + candidate.id);
+          const rolePavOrCompany = user && user.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]);
+          const emailContactType = candidate && candidate.contactTypes && candidate.contactTypes.includes('EMAIL');
+
+          return rolePavOrCompany && emailContactType;
+        })
     );
 
   }
@@ -93,39 +101,23 @@ export class CandidateDetailComponent implements OnInit {
     this.store.dispatch(new LoadNextCandidateProfileDetailAction());
   }
 
-  dismissAlert(alert: Notification, alerts: Notification[]) {
-    alerts.splice(alerts.indexOf(alert), 1);
-  }
-
   printCandidate() {
     window.print();
   }
 
   openContactModal(candidateProfile: CandidateProfile): void {
     this.appendCandidate(candidateProfile)
-        .then( () => this.contactModalSuccess = true, () => {});
+        .then( () => this.contactModalSuccess = SUCCESS.contactModalNotification, () => {});
   }
 
-  hideContactModalSuccess() {
-    this.contactModalSuccess = false;
+  dismissAlert() {
+    this.contactModalSuccess = null;
   }
 
   appendCandidate(candidateProfile: CandidateProfile) {
     const ngbModalRef = this.modalService.openLarge(ContactModalComponent);
     ngbModalRef.componentInstance.candidate = Object.assign({}, candidateProfile);
     return ngbModalRef.result;
-  }
-
-  isValid(candidate: CandidateProfile, user: User) {
-
-    if(candidate == null || user == null) {
-      return false;
-    }
-    console.log(user.id + ' , ' + candidate.id);
-    const rolePavOrCompany = user.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]);
-    const emailContactType = candidate.contactTypes && candidate.contactTypes.includes('EMAIL');
-
-    return rolePavOrCompany && emailContactType;
   }
 
   onCopyLink(): void {

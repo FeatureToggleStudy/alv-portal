@@ -167,7 +167,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
         if(this.form.invalid) {
             return;
         }
-        // this.activeModal.close();
+        this.activeModal.close();
     }
 
 }

@@ -116,8 +116,8 @@
     <!-------------Main screen-->
     <div class="main-column">
       <alv-alert *ngIf="contactModalSuccess"
-                 [notification]="CONTACT_MODAL_NOTIFICATION"
-                 (dismiss)="hideContactModalSuccess()">
+                 [notification]="contactModalSuccess"
+                 (dismiss)="dismissAlert()">
       </alv-alert>
 
       <!-----------------Title-->
