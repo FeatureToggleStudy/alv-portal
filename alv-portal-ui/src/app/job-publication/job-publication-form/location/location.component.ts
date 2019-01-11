@@ -28,8 +28,6 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
   @Input()
   parentForm: FormGroup;
 
-  locationGroup: FormGroup;
-
   countryOptions$: Observable<SelectableOption[]>;
 
   loadLocationsFn = this.loadLocations.bind(this);
@@ -43,15 +41,11 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
 
   ngOnInit(): void {
     this.countryOptions$ = this.initCountryOptions();
-    this.locationGroup = this.buildLocationGroup();
-    this.parentForm.addControl('location', this.locationGroup);
+    this.parentForm.addControl('location', this.buildLocationGroup());
 
     this.countryIsoCode.valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(value => {
-        this.locationGroup.removeControl('zipAndCity');
-        this.locationGroup.addControl('zipAndCity', this.buildCityAndZip(value));
-      });
+      .subscribe(value => this.locationGroup.setControl('zipAndCity', this.buildCityAndZip(value)));
   }
 
   public isCityZipAutocomplete() {
@@ -62,50 +56,42 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
     return selectedCountryIsoCode === this.ISO_CODE_SWITZERLAND;
   }
 
-  private buildLocationGroup(): FormGroup {
-    const locationGroup = this.fb.group({
-      countryIsoCode: [this.ISO_CODE_SWITZERLAND, []],
-      remarks: ['', [
-        Validators.maxLength(this.REMARK_MAX_LENGTH)
-      ]],
-      zipAndCity: this.buildCityAndZip(this.ISO_CODE_SWITZERLAND)
-    });
-
-    return locationGroup;
-  }
-
-
   private initCountryOptions(): Observable<SelectableOption[]> {
     countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
     countries.registerLocale(require('i18n-iso-countries/langs/fr.json'));
     countries.registerLocale(require('i18n-iso-countries/langs/de.json'));
     countries.registerLocale(require('i18n-iso-countries/langs/it.json'));
 
-    return this.i18nService.currentLanguage$.pipe(map(
-      (lang: string) => {
-        const countryNames = countries.getNames(lang);
-        return Object.keys(countryNames)
-          .map((value) => ({ value, label: countryNames[value] }));
-      }
-    ));
+    return this.i18nService.currentLanguage$.pipe(
+      map((lang: string) => {
+          const countryNames = countries.getNames(lang);
+          return Object.keys(countryNames)
+            .map((value) => ({ value, label: countryNames[value] }));
+        }
+      ));
   }
 
-  private loadLocations(query: string): Observable<SingleTypeaheadItem[]> {
-    return this.localitySuggestionService.fetchJobPublicationLocations(query);
+  private buildLocationGroup(): FormGroup {
+    return this.fb.group({
+      countryIsoCode: [this.ISO_CODE_SWITZERLAND],
+      remarks: ['', [
+        Validators.maxLength(this.REMARK_MAX_LENGTH)
+      ]],
+      zipAndCity: this.buildCityAndZip(this.ISO_CODE_SWITZERLAND)
+    });
   }
 
   private buildCityAndZip(selectedCountryIsoCode: string): AbstractControl {
 
     if (this._isCityZipAutocomplete(selectedCountryIsoCode)) {
-      return this.fb.control('', [
-        Validators.required
-      ]);
+      return this.fb.control('', [Validators.required]);
     }
 
     const city = this.fb.control('', [
       Validators.required,
       Validators.maxLength(this.CITY_MAX_LENGTH)
     ]);
+
     const zipCode = this.fb.control('', [
       Validators.required,
       Validators.pattern(this.ZIP_CODE_REGEX)
@@ -114,7 +100,15 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
     return this.fb.group({ city, zipCode });
   }
 
+  private loadLocations(query: string): Observable<SingleTypeaheadItem[]> {
+    return this.localitySuggestionService.fetchJobPublicationLocations(query);
+  }
+
   get countryIsoCode() {
     return this.locationGroup.get('countryIsoCode');
+  }
+
+  get locationGroup(): FormGroup {
+    return <FormGroup>this.parentForm.get('location');
   }
 }
