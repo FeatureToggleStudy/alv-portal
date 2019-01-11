@@ -3,10 +3,10 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import {
   CEFR_Level,
-  Language, LanguageSkill
+  Language,
+  LanguageSkill
 } from '../../../shared/backend-services/shared.types';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FilterLanguageSkill } from '../../../shared/backend-services/candidate/candidate.types';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 const EMPTY_LANGUAGE_SKILL: LanguageSkill = {
   languageIsoCode: null,
@@ -69,9 +69,8 @@ export class LanguagesComponent implements OnInit {
   }
 
   isAddLanguageSkillEnabled(): boolean {
-    const languageSkills = this.languageSkillFormArray;
-    const maxNotReached = languageSkills.length < this.MAX_LANGUAGE_OPTIONS_NUM;
-    const lastValid = !!languageSkills.at(languageSkills.length - 1).get('code').value;
+    const maxNotReached = this.languageSkillFormArray.length < this.MAX_LANGUAGE_OPTIONS_NUM;
+    const lastValid = !!this.languageSkillFormArray.at(this.languageSkillFormArray.length - 1).get('languageIsoCode').value;
     return maxNotReached && lastValid;
   }
 
