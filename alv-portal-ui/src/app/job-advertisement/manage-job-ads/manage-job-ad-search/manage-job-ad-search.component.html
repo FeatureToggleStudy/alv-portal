@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="d-flex justify-content-between p-2">
+    <h2 class="dashboard__title text--light">
+  <span class="fa fa-table"
+        aria-hidden="true"></span>
+      {{ 'dashboard.job-publication.title' | translate }}
+    </h2>
+    <button type="button"
+            class="btn btn-secondary"
+            data-toggle="popover"
+            (click)="onFilterClick()">
+      <i class="fa fa-filter mr-2"></i>Filter
+    </button>
+  </div>
+
+  <hr>
+
+  <input type="text"
+         class="form-control"
+         placeholder="search"
+  >
+  <table class="table">
+    <thead>
+    <tr>
+      <th>{{ 'dashboard.job-publication.job-room-id' | translate }}</th>
+      <th>{{ 'dashboard.job-publication.avam' | translate }}</th>
+      <th>{{ 'dashboard.job-publication.publication-date' | translate }}</th>
+      <th>{{ 'dashboard.job-publication.job-title' | translate }}</th>
+      <th>{{ 'dashboard.job-publication.location' | translate }}</th>
+      <th>{{ 'dashboard.job-publication.status' | translate }}</th>
+      <th>{{ 'dashboard.job-publication.action' | translate }}</th>
+    </tr>
+    </thead>
+    <tbody (scrolled)="onScroll()"
+           [fromRoot]="true"
+           [infiniteScrollThrottle]="50"
+           [immediateCheck]="true"
+           [infiniteScrollContainer]="'main'"
+           infiniteScroll>
+    <tr *ngFor="let jobAdvertisement of jobSearchResults$ | async"
+        [jobAdvertisement]="jobAdvertisement"
+        alv-job-ad-management-row>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

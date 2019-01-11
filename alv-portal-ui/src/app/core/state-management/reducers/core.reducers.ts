@@ -4,6 +4,8 @@ import {
   ACCOUNTABILITY_SELECTED,
   AccountabilitySelectedAction,
   AcountabilitiesLoaded,
+  COMPANY_SELECTED,
+  CompanySelectedAction,
   CURRENT_USER_LOADED,
   CurrentUserLoadedAction,
   LANGUAGE_CHANGED,
@@ -44,7 +46,13 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
     case ACCOUNTABILITY_SELECTED:
       newState = {
         ...state,
-        currentCompanyContactTemplate: action.payload.company
+        currentAccountability: action.payload.accountability
+      };
+      break;
+    case COMPANY_SELECTED:
+      newState = {
+        ...state,
+        currentCompany: action.payload.company
       };
       break;
     case LOGOUT_USER:
@@ -52,7 +60,8 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
         ...state,
         currentUser: null,
         accountabilities: null,
-        currentCompanyContactTemplate: null
+        currentCompany: null,
+        currentAccountability: null
       };
       break;
     case TOGGLE_MAIN_NAVIGATION:
@@ -77,6 +86,6 @@ export type Actions =
   | ToggleMainNavigationAction
   | LoadCurrentUserAction
   | AcountabilitiesLoaded
-  | AccountabilitySelectedAction
-  ;
+  | CompanySelectedAction
+  | AccountabilitySelectedAction;
 

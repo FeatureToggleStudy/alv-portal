@@ -1,0 +1,27 @@
+<form [formGroup]="form"
+      (ngSubmit)="filter()"
+      class="form container mb-4">
+  <div class="form-row">
+    <div class="form-group">
+      <select class="form-control custom-select">
+        <option *ngFor="let i of [1,2,3,4,5]"
+                value="{{i}}">Something long {{i}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <div>
+        <alv-select
+          label="dashboard.job-publication.publication-period.label"
+          [alvControl]="form.get('onlineSinceDays')"
+          [options$]="onlineSinceOptions$"
+          [validationMessages]="[{error: 'require', message: 'Custom message'}]">
+        </alv-select>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <button class="btn btn-secondary">Filter</button>
+  </div>
+</form>

@@ -22,6 +22,7 @@ import { ControlContainer } from '@angular/forms';
 })
 export class SelectComponent extends AbstractSelectableInput {
 
+  stringify = JSON.stringify;
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {
     super(controlContainer, InputType.SELECT, inputIdGenerationService);
