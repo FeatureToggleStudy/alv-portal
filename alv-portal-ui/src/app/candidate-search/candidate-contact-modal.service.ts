@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 export interface EmailContactModal {
     candidateId: string;
@@ -24,9 +25,9 @@ export interface Company {
 @Injectable()
 export class CandidateContactModalService {
 
-    constructor() {}
+    constructor(private httpClient: HttpClient) {}
 
     sendContactModalEmail(emailContactModal: EmailContactModal): Observable<void> {
-        return null;
+        return this.httpClient.post<void>('/api/messages/send-anonymous-message', emailContactModal);
     }
 }

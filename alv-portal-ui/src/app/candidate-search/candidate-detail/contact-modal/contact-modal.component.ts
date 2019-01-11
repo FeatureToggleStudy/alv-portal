@@ -5,11 +5,11 @@ import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { phoneInputValidator } from '../../../shared/forms/input/phone-input/phone-input.validator';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { EmailContactModal } from '../../candidate-contact-modal.service';
+import { CandidateContactModalService, EmailContactModal } from '../../candidate-contact-modal.service';
+import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 
 @Component({
     selector: 'alv-contact-modal',
@@ -38,6 +38,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     constructor(private authenticationService: AuthenticationService,
                 private i18nService: I18nService,
                 private fb: FormBuilder,
+                private candidateContactModalService: CandidateContactModalService,
                 public activeModal: NgbActiveModal) {
         super();
     }
@@ -100,6 +101,18 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     }
 
+    onSubmit() {
+
+        if (this.form.invalid) {
+            return;
+        }
+
+        const emailContent = this.mapEmailContent();
+
+        this.candidateContactModalService.sendContactModalEmail(emailContent)
+            .subscribe( () => this.activeModal.close());
+    }
+
     private prepareForm(): FormGroup {
 
         const atLeastOneRequiredValidator: ValidatorFn = (formGroup: FormGroup) => {
@@ -110,6 +123,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
         };
 
         return this.fb.group({
+            candidateId: [null],
             subject: [null, Validators.required],
             personalMessage: [null, Validators.required],
             companyName: [null, Validators.required],
@@ -127,6 +141,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     private patchFormValues(company: CompanyContactTemplateModel, translate: Object): void {
 
         this.form.patchValue({
+            candidateId: this.candidate.id,
             subject: translate[this.LABEL_VALUES[0]],
             personalMessage: translate[this.LABEL_VALUES[1]],
             companyName: company.companyName,
@@ -174,20 +189,6 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
         return Object.assign({}, emailContent,
             { personalMessage: this.mailBodyPreamble.concat('\n', emailContent.personalMessage) } );
-    }
-
-    onSubmit() {
-
-        if (this.form.invalid) {
-            return;
-        }
-
-        const emailContent = this.mapEmailContent();
-
-        console.log('EMAIL CONTENT ... ', emailContent);
-        console.log('FORM ... ', this.form.value);
-        // TODO send email
-        // this.activeModal.close();
     }
 
 }

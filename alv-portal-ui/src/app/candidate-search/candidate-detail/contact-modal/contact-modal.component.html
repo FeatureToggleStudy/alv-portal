@@ -12,6 +12,7 @@
         <p>{{ mailBodyPreamble }}</p>
         <alv-input-field label="candidate-detail.anonymous-contact.your-message"
                          [maxLength]="MESSAGE_MAX_LENGTH"
+                         [showCharacterCounter]="true"
                          [multiline]="true"
                          alvFormControlName="personalMessage">
         </alv-input-field>

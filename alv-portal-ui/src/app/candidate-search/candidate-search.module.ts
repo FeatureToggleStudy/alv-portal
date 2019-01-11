@@ -17,7 +17,6 @@ import { CandidateSearchGuard } from './candidate-search/candidate-search.guard'
 import { CandidateSearchFilterParameterService } from './candidate-search/candidate-search-filter-parameter.service';
 import { CandidateProfileBadgesMapperService } from './candidate-profile-badges-mapper.service';
 import { WidgetsModule } from '../widgets/widgets.module';
-import { CandidateContactModalService } from "./candidate-contact-modal.service";
 
 @NgModule({
   imports: [
@@ -40,8 +39,7 @@ import { CandidateContactModalService } from "./candidate-contact-modal.service"
     CandidateSearchGuard,
     CandidateSearchFilterParameterService,
     CandidateProfileBadgesMapperService,
-    CandidateDetailModelFactory,
-    CandidateContactModalService
+    CandidateDetailModelFactory
   ]
 })
 export class CandidateSearchModule {
