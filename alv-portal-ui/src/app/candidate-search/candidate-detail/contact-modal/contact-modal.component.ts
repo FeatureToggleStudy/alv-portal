@@ -19,7 +19,7 @@ import { phoneInputValidator } from '../../../shared/forms/input/input-field/pho
 export class ContactModalComponent extends AbstractSubscriber implements OnInit {
 
     readonly TITLE_MAX_LENGTH = 150;
-    readonly MESSAGE_MAX_LENGTH = 1000;
+    readonly BODY_MAX_LENGTH = 1000;
     readonly LABEL_VALUES: string[] = [
         'candidate-detail.candidate-anonymous-contact.subject',
         'candidate-detail.anonymous-contact.personal-message',
@@ -125,7 +125,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
         return this.fb.group({
             candidateId: [null],
             subject: [null, Validators.required],
-            personalMessage: [null, Validators.required],
+            body: [null, Validators.required],
             companyName: [null, Validators.required],
             phoneCheckbox: [false],
             phone: [null],
@@ -143,7 +143,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
         this.form.patchValue({
             candidateId: this.candidate.id,
             subject: translate[this.LABEL_VALUES[0]],
-            personalMessage: translate[this.LABEL_VALUES[1]],
+            body: translate[this.LABEL_VALUES[1]],
             companyName: company.companyName,
             phone: company.phone,
             email: company.email
@@ -188,7 +188,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
                 .map((key) => ({ [key]: this.form.value[key] }) ) );
 
         return Object.assign({}, emailContent,
-            { personalMessage: this.mailBodyPreamble.concat('\n', emailContent.personalMessage) } );
+            { body: this.mailBodyPreamble.concat('\n', emailContent.body) } );
     }
 
 }

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 export interface EmailContactModal {
     candidateId: string;
     subject: string;
-    personalMessage: string;
+    body: string;
     companyName: string;
     phone?: string;
     email?: string;
