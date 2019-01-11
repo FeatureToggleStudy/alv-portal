@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as countries from 'i18n-iso-countries';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { I18nService } from '../../../core/i18n.service';
 import { map, takeUntil } from 'rxjs/internal/operators';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { SingleTypeaheadItem } from '../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
+import { CityZip } from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-location',
@@ -100,7 +101,7 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
     return this.fb.group({ city, zipCode });
   }
 
-  private loadLocations(query: string): Observable<SingleTypeaheadItem[]> {
+  private loadLocations(query: string): Observable<SingleTypeaheadItem<CityZip>[]> {
     return this.localitySuggestionService.fetchJobPublicationLocations(query);
   }
 

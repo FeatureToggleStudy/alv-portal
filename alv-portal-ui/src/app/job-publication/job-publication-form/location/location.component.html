@@ -27,7 +27,11 @@
   </div>
 
   <alv-input-field label="home.tools.job-publication.locality.additional-text"
-                   alvFormControlName="remarks">
+                   alvFormControlName="remarks"
+                   placeholder="portal.job-publication.locality.additional-text.placeholder"
+                   [multiline]="true"
+                   [maxLength]="255"
+                   [showCharacterCounter]="true">
   </alv-input-field>
 
 </fieldset>

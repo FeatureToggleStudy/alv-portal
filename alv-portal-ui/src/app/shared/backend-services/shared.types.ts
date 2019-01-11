@@ -160,6 +160,11 @@ export interface LanguageSkill {
   writtenLevel: CEFR_Level;
 }
 
+export interface CityZip {
+  zipCode: string;
+  city: string;
+}
+
 export enum EmploymentDuration {
   PERMANENT = 'permanent',
   TEMPORARY = 'temporary',

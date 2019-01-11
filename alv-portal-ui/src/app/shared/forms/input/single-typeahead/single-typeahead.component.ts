@@ -17,12 +17,6 @@ import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 
-enum Key {
-  Backspace = 8,
-  Tab = 9,
-  Enter = 13,
-}
-
 @Component({
   selector: 'alv-single-typeahead',
   templateUrl: './single-typeahead.component.html',
@@ -34,11 +28,11 @@ export class SingleTypeaheadComponent extends AbstractInput {
 
   readonly TYPEAHEAD_DEBOUNCE_TIME = 200;
 
-  @Input() loadItems: (text: string) => Observable<SingleTypeaheadItem[]>;
+  @Input() loadItems: (text: string) => Observable<SingleTypeaheadItem<any>[]>;
 
   @Input() focusFirst = true;
 
-  @Output() itemSelected = new EventEmitter<SingleTypeaheadItem>();
+  @Output() itemSelected = new EventEmitter<SingleTypeaheadItem<any>>();
 
   helpId = this.id + '-help';
 
@@ -49,20 +43,20 @@ export class SingleTypeaheadComponent extends AbstractInput {
     super(controlContainer, InputType.SINGLE_TYPEAHEAD, inputIdGenerationService);
   }
 
-  formatResultItem(item: SingleTypeaheadItem): string {
+  formatResultItem(item: SingleTypeaheadItem<any>): string {
     return item.label;
   }
 
   selectItem(event: NgbTypeaheadSelectItemEvent): void {
 
-    const item = <SingleTypeaheadItem>event.item;
+    const item = <SingleTypeaheadItem<any>>event.item;
 
-    this.control.setValue(item.model);
+    this.control.setValue(item.payload);
 
-    this.itemSelected.emit(item.model);
+    this.itemSelected.emit(item);
   }
 
-  private loadItemsGuarded(text$: Observable<string>): Observable<SingleTypeaheadItem[]> {
+  private loadItemsGuarded(text$: Observable<string>): Observable<SingleTypeaheadItem<any>[]> {
     return text$.pipe(
       debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
       switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
@@ -72,13 +66,13 @@ export class SingleTypeaheadComponent extends AbstractInput {
     );
   }
 
-  private toModelArray(items: SingleTypeaheadItem[]): SingleTypeaheadItem[] {
+  private toModelArray(items: SingleTypeaheadItem<any>[]): SingleTypeaheadItem<any>[] {
     return items
-      .filter((item: SingleTypeaheadItem) => !this.exists(item))
-      .sort((item1: SingleTypeaheadItem, item2: SingleTypeaheadItem) => item1.compare(item2));
+      .filter((item: SingleTypeaheadItem<any>) => !this.exists(item))
+      .sort((item1: SingleTypeaheadItem<any>, item2: SingleTypeaheadItem<any>) => item1.compare(item2));
   }
 
-  private exists(model: SingleTypeaheadItem): boolean {
+  private exists(model: SingleTypeaheadItem<any>): boolean {
     return this.control.value && this.control.value === model;
   }
 }
