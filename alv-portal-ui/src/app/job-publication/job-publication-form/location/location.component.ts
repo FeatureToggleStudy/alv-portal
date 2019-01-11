@@ -54,7 +54,7 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(value => {
         this.initCityAndZipComponents(this.locationGroup);
-      })
+      });
   }
 
   public isCityZipAutocomplete() {
