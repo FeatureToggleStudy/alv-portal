@@ -133,7 +133,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             email: company.email
         });
 
-        if(this.form.controls.company) {
+        if (this.form.controls.company) {
             this.patchCompanyValues(company);
         }
 
@@ -166,7 +166,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     onSubmit() {
 
-        if(this.form.invalid) {
+        if (this.form.invalid) {
             return;
         }
         // TODO send email
