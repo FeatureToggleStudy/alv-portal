@@ -16,8 +16,6 @@ export class OccupationComponent implements OnInit {
   @Input()
   parentForm: FormGroup;
 
-  occupationGroup: FormGroup;
-
   degreeOptions$: Observable<SelectableOption[]> = of([
     {
       value: null,
@@ -53,17 +51,22 @@ export class OccupationComponent implements OnInit {
 
   ngOnInit(): void {
     //todo: Set initial value
-    this.occupationGroup = this.fb.group({
-      occupationSuggestion: ['', Validators.required],
+    this.parentForm.addControl('occupation', this.buildOccupationGroup());
+  }
+
+  private buildOccupationGroup(): FormGroup {
+    return this.fb.group({
+      occupationSuggestion: ['', [Validators.required]],
       degree: [''],
       experience: ['']
     });
-
-    this.parentForm.addControl('occupation', this.occupationGroup);
   }
-
 
   private loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
     return this.occupationSuggestionService.fetchJobPublicationOccupations(query);
+  }
+
+  get occupationGroup(): FormGroup {
+    return <FormGroup>this.parentForm.get('occupation');
   }
 }

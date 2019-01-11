@@ -20,15 +20,18 @@ export class JobDescriptionComponent implements OnInit {
   @Input()
   parentForm: FormGroup;
 
-  jobDescriptionGroup: FormGroup;
-
 
   constructor(private fb: FormBuilder) {
   }
 
+
   ngOnInit(): void {
     //todo: Set initial value
-    this.jobDescriptionGroup = this.fb.group({
+    this.parentForm.addControl('jobDescription', this.buildJobDescriptionGroup());
+  }
+
+  private buildJobDescriptionGroup(): FormGroup {
+    return this.fb.group({
       title: ['', [
         Validators.required,
         Validators.maxLength(this.TITLE_MAX_LENGTH)
@@ -41,9 +44,10 @@ export class JobDescriptionComponent implements OnInit {
       jobDescription: ['', [
         Validators.maxLength(this.DESCRIPTION_MAX_LENGTH)
       ]]
-    });
-
-    this.parentForm.addControl('jobDescription', this.jobDescriptionGroup);
+    })
   }
 
+  get jobDescriptionGroup(): FormGroup {
+    return <FormGroup>this.parentForm.get('jobDescription');
+  }
 }
