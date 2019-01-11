@@ -18,7 +18,7 @@ export class JobDescriptionComponent implements OnInit {
 
 
   @Input()
-  jobPublicationForm: FormGroup;
+  parentForm: FormGroup;
 
   jobDescriptionGroup: FormGroup;
 
@@ -43,7 +43,7 @@ export class JobDescriptionComponent implements OnInit {
       ]]
     });
 
-    this.jobPublicationForm.addControl('jobDescription', this.jobDescriptionGroup);
+    this.parentForm.addControl('jobDescription', this.jobDescriptionGroup);
   }
 
 }

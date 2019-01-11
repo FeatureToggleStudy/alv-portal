@@ -14,7 +14,7 @@ import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupa
 export class OccupationComponent implements OnInit {
 
   @Input()
-  jobPublicationForm: FormGroup;
+  parentForm: FormGroup;
 
   occupationGroup: FormGroup;
 
@@ -59,7 +59,7 @@ export class OccupationComponent implements OnInit {
       experience: ['']
     });
 
-    this.jobPublicationForm.addControl('occupation', this.occupationGroup);
+    this.parentForm.addControl('occupation', this.occupationGroup);
   }
 
 
