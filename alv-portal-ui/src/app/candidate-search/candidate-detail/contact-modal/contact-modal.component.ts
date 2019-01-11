@@ -9,6 +9,7 @@ import { phoneInputValidator } from '../../../shared/forms/input/phone-input/pho
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { EmailContactModal } from '../../candidate-contact-modal.service';
 
 @Component({
     selector: 'alv-contact-modal',
@@ -110,7 +111,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
         return this.fb.group({
             subject: [null, Validators.required],
-            body: [null, Validators.required],
+            personalMessage: [null, Validators.required],
             companyName: [null, Validators.required],
             phoneCheckbox: [false],
             phone: [null],
@@ -127,7 +128,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
         this.form.patchValue({
             subject: translate[this.LABEL_VALUES[0]],
-            body: translate[this.LABEL_VALUES[1]],
+            personalMessage: translate[this.LABEL_VALUES[1]],
             companyName: company.companyName,
             phone: company.phone,
             email: company.email
@@ -164,13 +165,29 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
         });
     }
 
+    private mapEmailContent() {
+
+        const emailContent: EmailContactModal = Object.assign(
+            {}, ...Object.keys(this.form.value)
+                .filter((key: string) => ['phoneCheckbox', 'emailCheckbox', 'postCheckbox'].indexOf(key) < 0)
+                .map((key) => ({ [key]: this.form.value[key] }) ) );
+
+        return Object.assign({}, emailContent,
+            { personalMessage: this.mailBodyPreamble.concat('\n', emailContent.personalMessage) } );
+    }
+
     onSubmit() {
 
         if (this.form.invalid) {
             return;
         }
+
+        const emailContent = this.mapEmailContent();
+
+        console.log('EMAIL CONTENT ... ', emailContent);
+        console.log('FORM ... ', this.form.value);
         // TODO send email
-        this.activeModal.close();
+        // this.activeModal.close();
     }
 
 }

@@ -26,7 +26,7 @@ import { UserRole } from '../../core/auth/user.model';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
-const SUCCESS = {
+const ALERT = {
   contactModalNotification: {
     type: NotificationType.SUCCESS,
     messageKey: 'candidate-detail.candidate-anonymous-contact.success',
@@ -83,7 +83,6 @@ export class CandidateDetailComponent implements OnInit {
     this.canContactCandidatePerEmail$ = candidateProfile$.pipe(
         withLatestFrom(this.authenticationService.getCurrentUser()),
         map(([candidate, user]) => {
-          console.log(user.id + ' , ' + candidate.id);
           const rolePavOrCompany = user && user.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]);
           const emailContactType = candidate && candidate.contactTypes && candidate.contactTypes.includes('EMAIL');
 
@@ -106,15 +105,15 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   openContactModal(candidateProfile: CandidateProfile): void {
-    this.appendCandidate(candidateProfile)
-        .then( () => this.contactModalSuccess = SUCCESS.contactModalNotification, () => {});
+    this.appendCandidateToModalRef(candidateProfile)
+        .then( () => this.contactModalSuccess = ALERT.contactModalNotification, () => {});
   }
 
   dismissAlert() {
     this.contactModalSuccess = null;
   }
 
-  appendCandidate(candidateProfile: CandidateProfile) {
+  appendCandidateToModalRef(candidateProfile: CandidateProfile) {
     const ngbModalRef = this.modalService.openLarge(ContactModalComponent);
     ngbModalRef.componentInstance.candidate = Object.assign({}, candidateProfile);
     return ngbModalRef.result;
