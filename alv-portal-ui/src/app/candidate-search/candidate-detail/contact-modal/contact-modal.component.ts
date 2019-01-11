@@ -57,7 +57,8 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             });
 
         this.form.get('postCheckbox').valueChanges.pipe(
-            withLatestFrom(this.authenticationService.getCurrentCompany()))
+            withLatestFrom(this.authenticationService.getCurrentCompany()),
+            takeUntil(this.ngUnsubscribe))
             .subscribe(([postCheckBoxEnabled, company]) => {
                 if (postCheckBoxEnabled) {
                     this.form.addControl('company', this.fb.group({
@@ -76,7 +77,8 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             });
 
         this.form.get('phoneCheckbox').valueChanges.pipe(
-            withLatestFrom(this.authenticationService.getCurrentCompany()))
+            withLatestFrom(this.authenticationService.getCurrentCompany()),
+            takeUntil(this.ngUnsubscribe))
             .subscribe(([phoneCheckBoxEnabled, company]) => {
                 if (phoneCheckBoxEnabled) {
                     this.form.get('phone').setValidators([Validators.required, phoneInputValidator()]);
@@ -88,7 +90,8 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             });
 
         this.form.get('emailCheckbox').valueChanges.pipe(
-            withLatestFrom(this.authenticationService.getCurrentCompany()))
+            withLatestFrom(this.authenticationService.getCurrentCompany()),
+            takeUntil(this.ngUnsubscribe))
             .subscribe(([emailCheckBoxEnabled, company]) => {
                 if (emailCheckBoxEnabled) {
                     this.form.get('email').setValidators([Validators.required, Validators.pattern(EMAIL_REGEX)]);
@@ -102,14 +105,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     }
 
     onSubmit() {
-
-        if (this.form.invalid) {
-            return;
-        }
-
-        const emailContent = this.mapEmailContent();
-
-        this.candidateContactModalService.sendContactModalEmail(emailContent)
+        this.candidateContactModalService.sendContactModalEmail(this.mapEmailContent())
             .subscribe( () => this.activeModal.close());
     }
 
