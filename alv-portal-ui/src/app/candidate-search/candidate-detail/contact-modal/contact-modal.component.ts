@@ -180,15 +180,14 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
         });
     }
 
-    private mapEmailContent() {
+    private mapEmailContent(): EmailContactModal {
 
-        const emailContent: EmailContactModal = Object.assign(
-            {}, ...Object.keys(this.form.value)
+        return Object.assign({}, ...Object.keys(this.form.value)
                 .filter((key: string) => ['phoneCheckbox', 'emailCheckbox', 'postCheckbox'].indexOf(key) < 0)
-                .map((key) => ({ [key]: this.form.value[key] }) ) );
-
-        return Object.assign({}, emailContent,
-            { personalMessage: this.mailBodyPreamble.concat('\n', emailContent.personalMessage) } );
+                .map((key) => (
+                    { [key]: this.form.value[key] })
+                )
+        );
     }
 
 }
