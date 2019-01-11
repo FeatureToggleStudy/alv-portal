@@ -1,101 +1,82 @@
-<div class="modal-content">
-    <form class="form-horizontal"
-          alvFormSubmitValidation
-          (validSubmit)="onSubmit()"
-          [formGroup]="form">
-        <div class="modal-header">
-            <h2> {{ 'candidate-detail.anonymous-contact.title' | translate }}</h2>
+<alv-modal modalTitle="candidate-detail.anonymous-contact.title"
+           primaryLabel="candidate-detail.anonymous-contact.send"
+           (primaryAction)="onSubmit()"
+           secondaryLabel="candidate-detail.anonymous-contact.dismiss"
+           (secondaryAction)="activeModal.dismiss()"
+           [formGroup]="form">
+    <fieldset>
+        <alv-input-field label="contact-template-management.salutation"
+                         [maxLength]="TITLE_MAX_LENGTH"
+                         aria-placeholder="candidate-detail.anonymous-contact.subject"
+                         alvFormControlName="subject" disabled>
+        </alv-input-field>
+        <p>{{ mailBodyPreamble }}</p>
+        <alv-input-field label="candidate-detail.anonymous-contact.your-message"
+                         [maxLength]="MESSAGE_MAX_LENGTH"
+                         [multiline]="true"
+                         aria-placeholder="candidate-detail.anonymous-contact.your-message"
+                         alvFormControlName="body">
+        </alv-input-field>
+        <alv-input-field label="candidate-detail.anonymous-contact.company"
+                         [maxLength]="TITLE_MAX_LENGTH"
+                         alvFormControlName="companyName" disabled>
+        </alv-input-field>
+        <p>{{ 'candidate-detail.anonymous-contact.contact-via' | translate }}</p>
+        <div class="contact-modal-checkbox">
+            <alv-checkbox label="candidate-detail.anonymous-contact.phone"
+                          alvFormControlName="phoneCheckbox">
+            </alv-checkbox>
+            <alv-phone-input label="candidate-detail.anonymous-contact.phone"
+                             alvFormControlName="phone" *ngIf="form.get('phoneCheckbox').value">
+            </alv-phone-input>
         </div>
-        <div class="modal-body">
-            <alv-input-field label="contact-template-management.salutation"
-                             [maxLength]="TITLE_MAX_LENGTH"
-                             aria-placeholder="candidate-detail.anonymous-contact.subject"
-                             alvFormControlName="subject" disabled>
+        <div class="contact-modal-checkbox">
+            <alv-checkbox label="candidate-detail.anonymous-contact.email"
+                          alvFormControlName="emailCheckbox">
+            </alv-checkbox>
+            <alv-input-field label="candidate-detail.anonymous-contact.email"
+                             alvFormControlName="email" *ngIf="form.get('emailCheckbox').value">
             </alv-input-field>
-            <p>
-                {{ mailBodyPreamble }}
-            </p>
-            <alv-input-field label="candidate-detail.anonymous-contact.your-message"
-                             [maxLength]="MESSAGE_MAX_LENGTH"
-                             [multiline]="true"
-                             aria-placeholder="candidate-detail.anonymous-contact.your-message"
-                             alvFormControlName="body">
-            </alv-input-field>
-            <alv-input-field label="candidate-detail.anonymous-contact.company"
-                             [maxLength]="TITLE_MAX_LENGTH"
-                             alvFormControlName="companyName" disabled>
-            </alv-input-field>
-            <p>
-                {{ 'candidate-detail.anonymous-contact.contact-via' | translate }}
-            </p>
-            <div class="modal-checkbox">
-                <alv-checkbox label="candidate-detail.anonymous-contact.phone"
-                              alvFormControlName="phoneCheckbox">
-                </alv-checkbox>
-                <alv-phone-input label="candidate-detail.anonymous-contact.phone"
-                                 alvFormControlName="phone" *ngIf="form.get('phoneCheckbox').value">
-                </alv-phone-input>
-            </div>
-            <br>
-            <div class="modal-checkbox">
-                <alv-checkbox label="candidate-detail.anonymous-contact.email"
-                              alvFormControlName="emailCheckbox">
-                </alv-checkbox>
-                <alv-input-field label="candidate-detail.anonymous-contact.email"
-                                 alvFormControlName="email" *ngIf="form.get('emailCheckbox').value">
+        </div>
+        <div class="contact-modal-checkbox">
+            <alv-checkbox label="candidate-detail.anonymous-contact.send-to"
+                          alvFormControlName="postCheckbox">
+            </alv-checkbox>
+            <div *ngIf="form.get('postCheckbox').value" formGroupName="company">
+                <alv-input-field label="candidate-detail.anonymous-contact.company"
+                                 alvFormControlName="companyName">
+                </alv-input-field>
+                <alv-input-field label="candidate-detail.anonymous-contact.name-lastname"
+                                 alvFormControlName="contactPerson">
+                </alv-input-field>
+                <div class="form-row">
+                    <div class="col-md-10">
+                        <alv-input-field label="candidate-detail.anonymous-contact.street"
+                                         alvFormControlName="companyStreet">
+                        </alv-input-field>
+                    </div>
+                    <div class="col-md-2">
+                        <alv-input-field label="candidate-detail.anonymous-contact.house"
+                                         alvFormControlName="companyHouseNr">
+                        </alv-input-field>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <alv-input-field label="candidate-detail.anonymous-contact.zip-code"
+                                         alvFormControlName="companyZipCode">
+                        </alv-input-field>
+                    </div>
+                    <div class="col-md-10">
+                        <alv-input-field label="candidate-detail.anonymous-contact.city"
+                                         alvFormControlName="companyCity">
+                        </alv-input-field>
+                    </div>
+                </div>
+                <alv-input-field label="candidate-detail.anonymous-contact.country"
+                                 alvFormControlName="companyCountry">
                 </alv-input-field>
             </div>
-            <br>
-            <div class="modal-checkbox">
-                <alv-checkbox label="candidate-detail.anonymous-contact.send-to"
-                              alvFormControlName="postCheckbox">
-                </alv-checkbox>
-                <div *ngIf="form.get('postCheckbox').value" formGroupName="company">
-                    <alv-input-field label="candidate-detail.anonymous-contact.company"
-                                     alvFormControlName="companyName">
-                    </alv-input-field>
-                    <alv-input-field label="candidate-detail.anonymous-contact.name-lastname"
-                                     alvFormControlName="contactPerson">
-                    </alv-input-field>
-                    <div class="form-row">
-                        <div class="col-md-10">
-                            <alv-input-field label="candidate-detail.anonymous-contact.street"
-                                             alvFormControlName="companyStreet">
-                            </alv-input-field>
-                        </div>
-                        <div class="col-md-2">
-                            <alv-input-field label="candidate-detail.anonymous-contact.house"
-                                             alvFormControlName="companyHouseNr">
-                            </alv-input-field>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-2">
-                            <alv-input-field label="candidate-detail.anonymous-contact.zip-code"
-                                             alvFormControlName="companyZipCode">
-                            </alv-input-field>
-                        </div>
-                        <div class="col-md-10">
-                            <alv-input-field label="candidate-detail.anonymous-contact.city"
-                                             alvFormControlName="companyCity">
-                            </alv-input-field>
-                        </div>
-                    </div>
-                    <alv-input-field label="candidate-detail.anonymous-contact.country"
-                                     alvFormControlName="companyCountry">
-                    </alv-input-field>
-                </div>
-            </div>
-            <br>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-text"
-                    (click)="activeModal.dismiss()">
-                {{ 'candidate-detail.anonymous-contact.dismiss' | translate }}
-            </button>
-            <button type="submit" class="btn btn-primary ml-1" [disabled]="form.invalid">
-                {{ 'candidate-detail.anonymous-contact.send' | translate }}
-            </button>
-        </div>
-    </form>
-</div>
+    </fieldset>
+</alv-modal>
