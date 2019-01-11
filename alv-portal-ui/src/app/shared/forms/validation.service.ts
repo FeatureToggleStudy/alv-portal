@@ -33,7 +33,7 @@ export class ValidationService {
     },
     {
       error: 'ngbDate',
-      message: 'portal.forms.validation.ngbDate',
+      message: 'portal.forms.validation.ngbDate.format',
       requiredBefore: 'portal.forms.validation.ngbDate.before',
       requiredAfter: 'portal.forms.validation.ngbDate.after'
     },
