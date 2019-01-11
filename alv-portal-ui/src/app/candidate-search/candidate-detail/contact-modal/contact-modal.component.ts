@@ -22,7 +22,8 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     readonly LABEL_VALUES: string[] = [
         'candidate-detail.candidate-anonymous-contact.subject',
         'candidate-detail.anonymous-contact.personal-message',
-        'global.reference.canton.CH'
+        'global.reference.canton.CH',
+        'candidate-detail.anonymous-contact.mail-body-preamble'
     ];
 
     @Input()
@@ -31,6 +32,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     form: FormGroup;
 
     countryValue: string;
+    mailBodyPreamble: string;
 
     constructor(private authenticationService: AuthenticationService,
                 private i18nService: I18nService,
@@ -48,6 +50,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             takeUntil(this.ngUnsubscribe))
             .subscribe( ([company, translate]) => {
                 this.countryValue = translate[this.LABEL_VALUES[2]];
+                this.mailBodyPreamble = translate[this.LABEL_VALUES[3]];
                 this.patchFormValues(company, translate);
             });
 
@@ -130,7 +133,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             email: company.email
         });
 
-        if (this.form.controls.company) {
+        if(this.form.controls.company) {
             this.patchCompanyValues(company);
         }
 
@@ -162,11 +165,11 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     }
 
     onSubmit() {
-        console.log(this.form.value);
 
         if(this.form.invalid) {
             return;
         }
+        // TODO send email
         this.activeModal.close();
     }
 

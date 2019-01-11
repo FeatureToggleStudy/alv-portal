@@ -59,7 +59,7 @@ candidate-detail,candidate-detail.anonymous-contact.company,Unternehmen,Company,
 candidate-detail,candidate-detail.anonymous-contact.contact-person,Kontaktperson,Contact person,Personne de contact,Contatto
 candidate-detail,candidate-detail.anonymous-contact.street,Strasse,Street,Rue,Strada
 candidate-detail,candidate-detail.anonymous-contact.house,Nr.,No.,No.,No.
-candidate-detail,candidate-detail.anonymous-contact.zip-code,Postal code,Postal code,Postal code,Postal code
+candidate-detail,candidate-detail.anonymous-contact.zip-code,PLZ,Postal code,NPA,NPA
 candidate-detail,candidate-detail.anonymous-contact.city,Ort,City,Place,Posto
 candidate-detail,candidate-detail.anonymous-contact.country,Land,Country,Pays,Paese
 candidate-detail,candidate-detail.anonymous-contact.send-to,Post,Mail,Poste,Posta
@@ -1416,3 +1416,4 @@ portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job des
 
 candidate-detail,candidate-detail.anonymous-contact.send,Absenden
 candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
+candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"

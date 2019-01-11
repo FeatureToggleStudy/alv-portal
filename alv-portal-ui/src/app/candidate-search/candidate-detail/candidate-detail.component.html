@@ -36,6 +36,11 @@
                     class="dropdown-item">
               {{'portal.job-detail.next-result' | translate}}
             </button>
+            <button *ngIf="(canContactCandidatePerEmail$ | async)"
+                    (click)="openContactModal(candidateDetailModel.candidateProfile)"
+                    class="dropdown-item">
+              {{ 'candidate-detail.candidate-anonymous-contact.name' | translate }}
+            </button>
             <button (cbOnSuccess)="onCopyLink()"
                     [cbContent]="getCandidateUrl()"
                     [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"

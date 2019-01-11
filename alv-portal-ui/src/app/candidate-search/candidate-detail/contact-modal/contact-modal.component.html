@@ -7,18 +7,17 @@
             <h2> {{ 'candidate-detail.anonymous-contact.title' | translate }}</h2>
         </div>
         <div class="modal-body">
-
-            xxx: {{ form.valid }}
             <alv-input-field label="contact-template-management.salutation"
                              [maxLength]="TITLE_MAX_LENGTH"
                              aria-placeholder="candidate-detail.anonymous-contact.subject"
                              alvFormControlName="subject" disabled>
             </alv-input-field>
             <p>
-                {{ 'candidate-detail.anonymous-contact.mail-body-preamble' | translate }}
+                {{ mailBodyPreamble }}
             </p>
             <alv-input-field label="candidate-detail.anonymous-contact.your-message"
                              [maxLength]="MESSAGE_MAX_LENGTH"
+                             [multiline]="true"
                              aria-placeholder="candidate-detail.anonymous-contact.your-message"
                              alvFormControlName="body">
             </alv-input-field>
@@ -29,7 +28,7 @@
             <p>
                 {{ 'candidate-detail.anonymous-contact.contact-via' | translate }}
             </p>
-            <div style="background-color: #E8E8E8; padding:  2px 4px;">
+            <div class="modal-checkbox">
                 <alv-checkbox label="candidate-detail.anonymous-contact.phone"
                               alvFormControlName="phoneCheckbox">
                 </alv-checkbox>
@@ -38,7 +37,7 @@
                 </alv-phone-input>
             </div>
             <br>
-            <div style="background-color: #E8E8E8; padding:  2px 4px;">
+            <div class="modal-checkbox">
                 <alv-checkbox label="candidate-detail.anonymous-contact.email"
                               alvFormControlName="emailCheckbox">
                 </alv-checkbox>
@@ -47,7 +46,7 @@
                 </alv-input-field>
             </div>
             <br>
-            <div style="background-color: #E8E8E8; padding:  2px 4px;">
+            <div class="modal-checkbox">
                 <alv-checkbox label="candidate-detail.anonymous-contact.send-to"
                               alvFormControlName="postCheckbox">
                 </alv-checkbox>
@@ -55,21 +54,33 @@
                     <alv-input-field label="candidate-detail.anonymous-contact.company"
                                      alvFormControlName="companyName">
                     </alv-input-field>
-                    <alv-input-field label="candidate-detail.anonymous-contact.contact-person"
+                    <alv-input-field label="candidate-detail.anonymous-contact.name-lastname"
                                      alvFormControlName="contactPerson">
                     </alv-input-field>
-                    <alv-input-field label="candidate-detail.anonymous-contact.street"
-                                     alvFormControlName="companyStreet">
-                    </alv-input-field>
-                    <alv-input-field label="candidate-detail.anonymous-contact.house"
-                                     alvFormControlName="companyHouseNr">
-                    </alv-input-field>
-                    <alv-input-field label="candidate-detail.anonymous-contact.zip-code"
-                                     alvFormControlName="companyZipCode">
-                    </alv-input-field>
-                    <alv-input-field label="candidate-detail.anonymous-contact.city"
-                                     alvFormControlName="companyCity">
-                    </alv-input-field>
+                    <div class="form-row">
+                        <div class="col-md-10">
+                            <alv-input-field label="candidate-detail.anonymous-contact.street"
+                                             alvFormControlName="companyStreet">
+                            </alv-input-field>
+                        </div>
+                        <div class="col-md-2">
+                            <alv-input-field label="candidate-detail.anonymous-contact.house"
+                                             alvFormControlName="companyHouseNr">
+                            </alv-input-field>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-2">
+                            <alv-input-field label="candidate-detail.anonymous-contact.zip-code"
+                                             alvFormControlName="companyZipCode">
+                            </alv-input-field>
+                        </div>
+                        <div class="col-md-10">
+                            <alv-input-field label="candidate-detail.anonymous-contact.city"
+                                             alvFormControlName="companyCity">
+                            </alv-input-field>
+                        </div>
+                    </div>
                     <alv-input-field label="candidate-detail.anonymous-contact.country"
                                      alvFormControlName="companyCountry">
                     </alv-input-field>
