@@ -10,6 +10,7 @@ import { JobDescriptionComponent } from './job-publication-form/job-description/
 import { LanguagesComponent } from './job-publication-form/languages/languages.component';
 import { EmploymentComponent } from './job-publication-form/employment/employment.component';
 import { LocationComponent } from './job-publication-form/location/location.component';
+import { CompanyComponent } from './job-publication-form/company/company.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { LocationComponent } from './job-publication-form/location/location.comp
     JobDescriptionComponent,
     LanguagesComponent,
     EmploymentComponent,
-    LocationComponent
+    LocationComponent,
+    CompanyComponent
   ],
   providers: []
 })
