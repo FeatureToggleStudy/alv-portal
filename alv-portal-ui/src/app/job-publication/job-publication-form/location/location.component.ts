@@ -1,25 +1,34 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import * as countries from 'i18n-iso-countries';
 import { Observable } from 'rxjs/index';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { I18nService } from '../../../core/i18n.service';
-import { map } from 'rxjs/internal/operators';
+import { map, takeUntil } from 'rxjs/internal/operators';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
-import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { SingleTypeaheadItem } from '../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
 
 @Component({
   selector: 'alv-location',
   templateUrl: './location.component.html',
   styleUrls: ['./location.component.scss']
 })
-export class LocationComponent implements OnInit {
+export class LocationComponent extends AbstractSubscriber implements OnInit {
 
   readonly CITY_MAX_LENGTH = 100;
 
   readonly ZIP_CODE_REGEX = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
 
   readonly REMARK_MAX_LENGTH = 50;
+
+  readonly ISO_CODE_SWITZERLAND = 'CH';
 
 
   @Input()
@@ -35,24 +44,31 @@ export class LocationComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private localitySuggestionService: LocalitySuggestionService,
               private i18nService: I18nService) {
+    super();
   }
 
   ngOnInit(): void {
+    this.countryOptions$ = this.initCountryOptions();
     this.locationGroup = this.buildLocationGroup();
     this.parentForm.addControl('location', this.locationGroup);
-    this.countryOptions$ = this.initCountryOptions();
-    this.locationGroup.get('countryIsoCode').valueChanges.subscribe(value => {
-      this.initCityAndZipComponents(this.locationGroup);
-    })
+    this.locationGroup.get('countryIsoCode').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(value => {
+        this.initCityAndZipComponents(this.locationGroup);
+      })
   }
 
   public isCityZipAutocomplete() {
-    return this.locationGroup.get('countryIsoCode').value === 'CH';
+    return this._isCityZipAutocomplete(this.locationGroup.get('countryIsoCode').value);
+  }
+
+  private _isCityZipAutocomplete(selectedCountryIsoCode: string) {
+    return selectedCountryIsoCode === this.ISO_CODE_SWITZERLAND;
   }
 
   private buildLocationGroup(): FormGroup {
     const locationGroup = this.fb.group({
-      countryIsoCode: ['CH', []],
+      countryIsoCode: [this.ISO_CODE_SWITZERLAND, []],
       remarks: ['', [
         Validators.maxLength(this.REMARK_MAX_LENGTH)
       ]],
@@ -78,34 +94,37 @@ export class LocationComponent implements OnInit {
     ));
   }
 
-  private loadLocations(query: string): Observable<LocalityMultiTypeaheadItem[]> {
+  private loadLocations(query: string): Observable<SingleTypeaheadItem[]> {
     return this.localitySuggestionService.fetchJobPublicationLocations(query);
   }
 
   private initCityAndZipComponents(locationGroup: FormGroup) {
-    locationGroup.removeControl('zip');
-    locationGroup.removeControl('city');
-    locationGroup.removeControl('cityAndZip');
+    locationGroup.removeControl('zipAndCity');
 
-    if (locationGroup.get('countryIsoCode').value === 'CH') {
-      const cityAndZip = this.fb.control('', [
+    let zipAndCity: AbstractControl;
+
+    if (this._isCityZipAutocomplete(locationGroup.get('countryIsoCode').value)) {
+      zipAndCity = this.fb.control('', [
         Validators.required
       ]);
-
-      locationGroup.addControl('cityAndZip', cityAndZip);
 
     } else {
       const city = this.fb.control('', [
         Validators.required,
         Validators.maxLength(this.CITY_MAX_LENGTH)
       ]);
-      const zip = this.fb.control('', [
+      const zipCode = this.fb.control('', [
         Validators.required,
         Validators.pattern(this.ZIP_CODE_REGEX)
       ]);
 
-      locationGroup.addControl('city', city);
-      locationGroup.addControl('zip', zip);
+      zipAndCity = this.fb.group({ city, zipCode });
     }
+
+    locationGroup.addControl('zipAndCity', zipAndCity);
+  }
+
+  get countryIsoCode() {
+    return this.locationGroup.get('countryIsoCode');
   }
 }

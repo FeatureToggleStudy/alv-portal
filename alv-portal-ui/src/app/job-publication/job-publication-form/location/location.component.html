@@ -7,15 +7,15 @@
 
   <ng-container *ngIf="isCityZipAutocomplete()">
     <alv-single-typeahead label="home.tools.job-publication.locality.zipcode"
-                          alvFormControlName="cityAndZip"
+                          alvFormControlName="zipAndCity"
                           [loadItems]="loadLocationsFn">
     </alv-single-typeahead>
   </ng-container>
 
-  <div class="form-row" *ngIf="!isCityZipAutocomplete()">
+  <div class="form-row" *ngIf="!isCityZipAutocomplete()" [formGroup]="locationGroup.get('zipAndCity')">
     <div class="col-4">
       <alv-input-field label="home.tools.job-publication.locality.zip"
-                       alvFormControlName="zip">
+                       alvFormControlName="zipCode">
       </alv-input-field>
     </div>
 

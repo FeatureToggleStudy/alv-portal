@@ -55,9 +55,11 @@ export class SingleTypeaheadComponent extends AbstractInput {
 
   selectItem(event: NgbTypeaheadSelectItemEvent): void {
 
-    this.control.setValue(event.item);
+    const item = <SingleTypeaheadItem>event.item;
 
-    this.itemSelected.emit(event.item);
+    this.control.setValue(item.model);
+
+    this.itemSelected.emit(item.model);
   }
 
   private loadItemsGuarded(text$: Observable<string>): Observable<SingleTypeaheadItem[]> {
