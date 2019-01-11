@@ -26,13 +26,13 @@
       </div>
     </div>
 
-    <div *ngIf="languageSkill.get('code').value"
+    <div *ngIf="languageSkill.get('languageIsoCode').value"
          class="form-row">
       <div class="col">
         <alv-select
           class="narrow-form d-block mt-3"
           label="global.reference.language.spoken"
-          alvFormControlName="spoken"
+          alvFormControlName="spokenLevel"
           [options$]="languageLevelOptions$">
         </alv-select>
       </div>
@@ -40,7 +40,7 @@
         <alv-select
           class="narrow-form d-block mt-3"
           label="global.reference.language.written"
-          alvFormControlName="written"
+          alvFormControlName="writtenLevel"
           [options$]="languageLevelOptions$">
         </alv-select>
       </div>

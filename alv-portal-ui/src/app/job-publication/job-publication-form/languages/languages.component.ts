@@ -3,16 +3,15 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import {
   CEFR_Level,
-  Language,
-  LanguageSkill
+  Language, LanguageSkill
 } from '../../../shared/backend-services/shared.types';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterLanguageSkill } from '../../../shared/backend-services/candidate/candidate.types';
 
-const EMPTY_LANGUAGE_SKILL: FilterLanguageSkill = {
-  code: null,
-  written: CEFR_Level.NONE,
-  spoken: CEFR_Level.NONE
+const EMPTY_LANGUAGE_SKILL: LanguageSkill = {
+  languageIsoCode: null,
+  writtenLevel: CEFR_Level.NONE,
+  spokenLevel: CEFR_Level.NONE
 };
 
 @Component({
@@ -78,16 +77,16 @@ export class LanguagesComponent implements OnInit {
 
   onLanguageSkillCodeChanged(languageSkillFormGroup: FormGroup) {
     languageSkillFormGroup.patchValue({
-      written: EMPTY_LANGUAGE_SKILL.written,
-      spoken: EMPTY_LANGUAGE_SKILL.spoken
+      writtenLevel: EMPTY_LANGUAGE_SKILL.writtenLevel,
+      spokenLevel: EMPTY_LANGUAGE_SKILL.spokenLevel
     }, { emitEvent: false });
   }
 
   private createNewLanguageSkillFormGroup(languageSkill = EMPTY_LANGUAGE_SKILL): FormGroup {
     return this.fb.group({
-      code: [languageSkill.code],
-      written: [languageSkill.written],
-      spoken: [languageSkill.spoken]
+      languageIsoCode: [languageSkill.languageIsoCode],
+      writtenLevel: [languageSkill.writtenLevel],
+      spokenLevel: [languageSkill.spokenLevel]
     });
   }
 
