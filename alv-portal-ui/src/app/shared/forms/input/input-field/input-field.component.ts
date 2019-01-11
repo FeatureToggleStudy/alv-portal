@@ -12,6 +12,8 @@ import { AbstractInput } from '../abstract-input';
 import { InputType } from '../input-type.enum';
 import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
+import { AsYouType, format, isValidNumber, parse } from 'libphonenumber-js';
+import { defaultPhoneCountry } from './phone-input.validator';
 
 
 /**
@@ -73,25 +75,53 @@ export class InputFieldComponent extends AbstractInput {
   @Input() maxLength?: number;
 
   /**
+   * (optional) show character counter (only works if a maxLength is set)
+   */
+  @Input() showCharacterCounter?: boolean;
+
+  /**
    * (optional) if true, multiline input (textarea) is displayed instead of ordinary input
    */
   @Input() multiline?: boolean;
+
+  /**
+   * (optional) placeholder value that will be displayed beside the label
+   */
+  @Input() placeholder?: string;
 
   /**
    * Output event on input
    */
   @Output() input = new EventEmitter<Event>();
 
+  private readonly MIN_HEIGHT = 46;
+
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {
     super(controlContainer, InputType.INPUT_FIELD, inputIdGenerationService);
   }
 
-  getRows() {
-    return (this.control.value.match(/\n/g) || []).length + 1;
+  onInput(event: any) {
+    const target = event.target || event.srcElement;
+
+    if (this.type === 'tel') {
+      // Phone number formatting
+      const eventValue = target.value;
+      this.formatPhoneNumber(target.value);
+    }
+    if (this.multiline) {
+      // Multiline auto expand feature
+      target.style.height = this.MIN_HEIGHT + 'px';
+      target.style.height = Math.max(target.scrollHeight, this.MIN_HEIGHT) + 'px';
+    }
+    this.input.emit(event);
   }
 
-  onInput(event: Event) {
-    this.input.emit(event);
+  private formatPhoneNumber(phoneNumber: string) {
+    if (isValidNumber(phoneNumber, defaultPhoneCountry)) {
+      const formatter = new AsYouType(defaultPhoneCountry);
+      const value = formatter.input(phoneNumber);
+      this.control.patchValue(format(parse(value, defaultPhoneCountry), 'International'), { emitEvent: false });
+    }
   }
 }

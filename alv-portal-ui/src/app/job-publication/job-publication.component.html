@@ -1,3 +1,20 @@
-<div>
-  <h1>Job publication</h1>
+<div class="container-fluid">
+  <alv-three-column-layout [mobileOrdering]="[2, 1, null]">
+
+    <!-------------Left panel-->
+    <div class="left-column">
+
+    </div>
+
+    <!-------------Main screen-->
+    <div class="main-column">
+      <h2>{{'home.tools.jobPublicationTab' | translate}}</h2>
+      <alv-job-publication-form></alv-job-publication-form>
+    </div>
+
+    <!-------------Right panel-->
+    <div class="right-column">
+
+    </div>
+  </alv-three-column-layout>
 </div>

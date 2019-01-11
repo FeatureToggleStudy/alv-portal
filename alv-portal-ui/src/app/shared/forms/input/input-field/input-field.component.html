@@ -27,7 +27,6 @@
               [attr.id]="id"
               [formControl]="control"
               [attr.required]="required"
-              [rows]="getRows()"
               [attr.aria-describedby]="validationId"
               [class.placeholder-shown]="!control.value"
               (input)="onInput($event)"
@@ -40,9 +39,23 @@
     </div>
     <label [attr.for]="id">
       {{label | translate}}
+      <span *ngIf="placeholder"
+            class="placeholder text-truncate">
+        {{placeholder | translate}}
+      </span>
     </label>
   </div>
-  <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
+  <div *ngIf="!(control.touched && control.invalid)"
+       class="help-text d-flex">
+    <small *ngIf="helpText"
+           class="mt-1">{{helpText | translate}}</small>
+    <div class="flex-grow-1"></div>
+    <small *ngIf="showCharacterCounter"
+           class="mt-1">
+      {{'portal.forms.validation.character-counter' | translate:{count: maxLength - (control.value || '').length} }}
+    </small>
+  </div>
+
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
                            [attr.id]="validationId"

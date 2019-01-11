@@ -21,7 +21,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MultiTypeaheadComponent } from './input/multi-typeahead/multi-typeahead.component';
 import { SingleTypeaheadComponent } from './input/single-typeahead/single-typeahead.component';
 import { AutofocusDirective } from './autofocus.directive';
-import { PhoneInputComponent } from './input/phone-input/phone-input.component';
 
 @NgModule({
   imports: [
@@ -43,8 +42,7 @@ import { PhoneInputComponent } from './input/phone-input/phone-input.component';
     FormSubmitValidationDirective,
     MultiTypeaheadComponent,
     SingleTypeaheadComponent,
-    AutofocusDirective,
-    PhoneInputComponent
+    AutofocusDirective
   ],
   exports: [
     DateIntervalInputComponent,
@@ -57,8 +55,7 @@ import { PhoneInputComponent } from './input/phone-input/phone-input.component';
     FormSubmitValidationDirective,
     MultiTypeaheadComponent,
     SingleTypeaheadComponent,
-    ReactiveFormsModule,
-    PhoneInputComponent
+    ReactiveFormsModule
   ],
   providers: [
     NgbPopoverConfig,

@@ -1,0 +1,26 @@
+<form [formGroup]="jobPublicationForm">
+
+  <alv-job-description [parentForm]="jobPublicationForm"></alv-job-description>
+
+  <alv-collapse-panel panelId="occupationPanel"
+                      panelTitle="home.tools.job-publication.occupation.label">
+    <alv-occupation [parentForm]="jobPublicationForm"></alv-occupation>
+  </alv-collapse-panel>
+
+  <alv-collapse-panel panelId="occupationPanel"
+                      panelTitle="portal.job-publication.language-skills.label">
+    <alv-languages [parentForm]="jobPublicationForm"></alv-languages>
+  </alv-collapse-panel>
+
+  <alv-collapse-panel panelId="employmentPanel"
+                      panelTitle="home.tools.job-publication.employment.title">
+    <alv-employment [parentForm]="jobPublicationForm"></alv-employment>
+  </alv-collapse-panel>
+
+</form>
+
+
+<hr>
+{{jobPublicationForm.value | json}} <br>
+errors: {{jobPublicationForm.errors }} <br>
+valid:  {{jobPublicationForm.valid }}

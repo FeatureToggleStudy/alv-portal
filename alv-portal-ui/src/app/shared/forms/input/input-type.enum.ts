@@ -5,6 +5,5 @@ export enum InputType {
   RADIO_BUTTON = 'radio-button',
   SELECT = 'select',
   SINGLE_TYPEAHEAD = 'single-typeahead',
-  MULTI_TYPEAHEAD = 'multi-typeahead',
-  PHONE_INPUT = 'phone-input'
+  MULTI_TYPEAHEAD = 'multi-typeahead'
 }

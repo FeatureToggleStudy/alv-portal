@@ -159,3 +159,9 @@ export interface LanguageSkill {
   spokenLevel: CEFR_Level;
   writtenLevel: CEFR_Level;
 }
+
+export enum EmploymentDuration {
+  PERMANENT = 'permanent',
+  TEMPORARY = 'temporary',
+  SHORT_EMPLOYMENT = 'short-employment'
+}
