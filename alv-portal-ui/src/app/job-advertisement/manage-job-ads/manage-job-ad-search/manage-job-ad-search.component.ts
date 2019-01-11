@@ -13,6 +13,7 @@ import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actio
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, tap } from 'rxjs/operators';
+import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 
 @Component({
   selector: 'alv-manage-job-ad-search',
@@ -22,10 +23,12 @@ import { map, tap } from 'rxjs/operators';
 export class ManageJobAdSearchComponent implements OnInit {
 
   jobSearchResults$: Observable<JobAdvertisement[]>;
-  filtersInStore: Observable<ManagedJobAdsSearchFilter>;
+  filterInStore$: Observable<ManagedJobAdsSearchFilter>;
 
   filtersChanged$: BehaviorSubject<ManagedJobAdsSearchFilter>;
   queryChanged$: BehaviorSubject<string>;
+
+  currentBadges$: Observable<InlineBadge[]>;
 
   form: FormGroup;
 
@@ -36,7 +39,30 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   ngOnInit() {
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
-    this.filtersInStore = this.store.pipe(select(getManagedJobAdsSearchFilter));
+    this.filterInStore$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
+
+    this.currentBadges$ = this.filterInStore$.pipe(
+      map(filter => {
+          console.log(filter);
+          const badges = [];
+          for (const key in filter) {
+            if (key === 'onlineSinceDays') {
+              badges.push({
+                label: 'dashboard.job-publication.publication-period.' + (filter[key] ? filter[key] : 'all'),
+                cssClass: 'badge-manage-jobads-filter'
+              });
+            } else if (key === 'jobsCreatedBy') {
+              badges.push({
+                label: 'dashboard.job-publication.createdBy.' + (filter[key] ? 'me' : 'all'),
+                cssClass: 'badge-manage-jobads-filter'
+              });
+            }
+          }
+
+          return badges;
+        }
+      )
+    );
 
     this.form = this.fb.group({
       query: ['']
@@ -44,7 +70,8 @@ export class ManageJobAdSearchComponent implements OnInit {
 
     this.filtersChanged$ = new BehaviorSubject<ManagedJobAdsSearchFilter>({
       onlineSinceDays: null,
-      query: ''
+      query: '',
+      jobsCreatedBy: ''
     });
 
     this.queryChanged$ = new BehaviorSubject<string>('');
@@ -54,6 +81,7 @@ export class ManageJobAdSearchComponent implements OnInit {
         return {
           onlineSinceDays: filters.onlineSinceDays,
           query: query,
+          jobsCreatedBy: filters.jobsCreatedBy
         } as ManagedJobAdsSearchFilter;
       }),
       tap(filter => {
@@ -68,11 +96,15 @@ export class ManageJobAdSearchComponent implements OnInit {
     this.store.dispatch(new LoadNextPageAction());
   }
 
+  removeCurrentBadge(badge: InlineBadge) {
+    // todo implement (or better not)
+  }
+
   onFilterClick() {
     const filterModalRef = this.modalService.openMedium(FilterManagedJobAdsComponent);
     const filterComponent = <FilterManagedJobAdsComponent>filterModalRef.componentInstance;
 
-    filterComponent.currentFiltering = this.filtersInStore;
+    filterComponent.currentFiltering$ = this.filterInStore$;
 
     filterModalRef.result
       .then(value => {

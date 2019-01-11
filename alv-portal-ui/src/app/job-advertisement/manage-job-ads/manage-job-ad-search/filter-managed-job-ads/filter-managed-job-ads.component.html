@@ -1,27 +1,40 @@
 <form [formGroup]="form"
-      (ngSubmit)="filter()"
-      class="form container mb-4">
-  <div class="form-row">
-    <div class="form-group">
-      <select class="form-control custom-select">
-        <option *ngFor="let i of [1,2,3,4,5]"
-                value="{{i}}">Something long {{i}}</option>
-      </select>
+      (ngSubmit)="filter()">
+
+  <div class="modal-header">
+    <h4 class="modal-title">Filter managed jobs</h4>
+    <button type="button"
+            aria-label="Close"
+            class="btn btn-text"
+            (click)="activeModal.dismiss('Cross click')">
+      <i aria-hidden="true"
+         class="fa fa-times"></i>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="form-group w-100">
+      <alv-select
+        label="Stellen"
+        [alvControl]="form.get('jobsCreatedBy')"
+        [options$]="jobsCreatorOptions$">
+      </alv-select>
+    </div>
+    <div class="form-group w-100">
+      <alv-select
+        label="dashboard.job-publication.publication-period.label"
+        [alvControl]="form.get('onlineSinceDays')"
+        [options$]="onlineSinceOptions$">
+      </alv-select>
     </div>
   </div>
-  <div class="form-row">
-    <div class="form-group">
-      <div>
-        <alv-select
-          label="dashboard.job-publication.publication-period.label"
-          [alvControl]="form.get('onlineSinceDays')"
-          [options$]="onlineSinceOptions$"
-          [validationMessages]="[{error: 'require', message: 'Custom message'}]">
-        </alv-select>
-      </div>
-    </div>
-  </div>
-  <div class="form-row">
-    <button class="btn btn-secondary">Filter</button>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-secondary"
+            aria-label="Cancel"
+            (click)="activeModal.dismiss('Cancel click')">
+      {{'entity.action.cancel' | translate}}
+    </button>
+    <button class="btn btn-primary">Filter</button>
   </div>
 </form>

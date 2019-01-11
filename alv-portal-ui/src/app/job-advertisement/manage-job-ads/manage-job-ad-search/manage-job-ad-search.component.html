@@ -15,6 +15,18 @@
 
   <hr>
 
+  <!--Badges panel-->
+  <div class="d-flex justify-content-end mb-3"
+       *ngIf="currentBadges$ | async as currentBadges">
+    <div *ngFor="let badge of currentBadges"
+         class="badge mr-1"
+         [ngClass]="badge.cssClass">
+      {{badge.label | translate}}
+      <a (click)="removeCurrentBadge(badge)"
+         class="fa fa-times"></a>
+    </div>
+  </div>
+
   <input type="text"
          class="form-control"
          placeholder="search"
