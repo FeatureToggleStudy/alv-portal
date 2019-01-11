@@ -1,0 +1,29 @@
+<div class="company-panel">
+  <div *ngIf="jobDetailModel.jobContent.company as company">
+    <alv-post-address [address]="company">
+    </alv-post-address>
+  </div>
+
+  <div *ngIf="!jobDetailModel.publication.companyAnonymous && jobDetailModel.jobContent.publicContact as contact">
+    <strong>{{'job-detail.contactPerson' | translate}}</strong>
+    <br>
+    <span *ngIf="contact.salutation">{{ 'global.contactPerson.salutation.' + contact.salutation | translate }}</span>
+    {{ contact.firstName }}&nbsp;{{ contact.lastName }}
+    <br>
+
+    <ng-container *ngIf="contact.phone">
+      <a class="link"
+         href="tel:{{contact.phone}}">
+        {{ contact.phone | phoneNumber }}
+      </a>
+      <br>
+    </ng-container>
+
+    <a *ngIf="contact.email"
+       class="link"
+       style="max-width: 100%"
+       href="mailto:{{ contact.email }}">
+      {{ contact.email }}
+    </a>
+  </div>
+</div>

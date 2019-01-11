@@ -1,4 +1,7 @@
-import { CompanyContactTemplate } from '../../shared/backend-services/user-info/user-info.types';
+import {
+  Accountability,
+  CompanyContactTemplate
+} from '../../shared/backend-services/user-info/user-info.types';
 import { User } from './user.model';
 
 export class CompanyContactTemplateModel {
@@ -9,10 +12,13 @@ export class CompanyContactTemplateModel {
 
   private readonly _lastName: string;
 
-  constructor(companyContactTemplate: CompanyContactTemplate, user: User) {
+  public readonly companyExternalId: string;
+
+  constructor(companyContactTemplate: CompanyContactTemplate, user: User, accountability: Accountability) {
     this._companyContactTemplate = companyContactTemplate;
     this._firstName = user.firstName;
     this._lastName = user.lastName;
+    this.companyExternalId = accountability.companyExternalId;
   }
 
   get companyContactTemplate(): CompanyContactTemplate {
