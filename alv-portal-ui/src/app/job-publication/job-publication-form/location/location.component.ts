@@ -1,14 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as countries from 'i18n-iso-countries';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/index';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import { I18nService } from '../../../core/i18n.service';
-import { map, takeUntil } from 'rxjs/internal/operators';
+import { takeUntil } from 'rxjs/internal/operators';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { SingleTypeaheadItem } from '../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
-import { CityZip } from '../../../shared/backend-services/shared.types';
+import { IsoCountryService } from '../iso-country.service';
 
 @Component({
   selector: 'alv-location',
@@ -23,7 +21,6 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
 
   readonly REMARK_MAX_LENGTH = 50;
 
-  readonly ISO_CODE_SWITZERLAND = 'CH';
 
   @Input()
   parentForm: FormGroup;
@@ -32,14 +29,19 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
 
   loadLocationsFn = this.loadLocations.bind(this);
 
+
   constructor(private fb: FormBuilder,
               private localitySuggestionService: LocalitySuggestionService,
-              private i18nService: I18nService) {
+              private isoCountryService: IsoCountryService) {
     super();
+    this.countryOptions$ = this.isoCountryService.countryOptions$;
+  }
+
+  private static isCityZipAutocomplete(selectedCountryIsoCode: string) {
+    return selectedCountryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND;
   }
 
   ngOnInit(): void {
-    this.countryOptions$ = this.initCountryOptions();
     this.parentForm.addControl('location', this.buildLocationGroup());
 
     this.countryIsoCode.valueChanges
@@ -48,41 +50,22 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
   }
 
   public isCityZipAutocomplete() {
-    return this._isCityZipAutocomplete(this.countryIsoCode.value);
-  }
-
-  private _isCityZipAutocomplete(selectedCountryIsoCode: string) {
-    return selectedCountryIsoCode === this.ISO_CODE_SWITZERLAND;
-  }
-
-  private initCountryOptions(): Observable<SelectableOption[]> {
-    countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
-    countries.registerLocale(require('i18n-iso-countries/langs/fr.json'));
-    countries.registerLocale(require('i18n-iso-countries/langs/de.json'));
-    countries.registerLocale(require('i18n-iso-countries/langs/it.json'));
-
-    return this.i18nService.currentLanguage$.pipe(
-      map((lang: string) => {
-          const countryNames = countries.getNames(lang);
-          return Object.keys(countryNames)
-            .map((value) => ({ value, label: countryNames[value] }));
-        }
-      ));
+    return LocationComponent.isCityZipAutocomplete(this.countryIsoCode.value);
   }
 
   private buildLocationGroup(): FormGroup {
     return this.fb.group({
-      countryIsoCode: [this.ISO_CODE_SWITZERLAND],
+      countryIsoCode: [IsoCountryService.ISO_CODE_SWITZERLAND],
       remarks: ['', [
         Validators.maxLength(this.REMARK_MAX_LENGTH)
       ]],
-      zipAndCity: this.buildCityAndZip(this.ISO_CODE_SWITZERLAND)
+      zipAndCity: this.buildCityAndZip(IsoCountryService.ISO_CODE_SWITZERLAND)
     });
   }
 
   private buildCityAndZip(selectedCountryIsoCode: string): AbstractControl {
 
-    if (this._isCityZipAutocomplete(selectedCountryIsoCode)) {
+    if (LocationComponent.isCityZipAutocomplete(selectedCountryIsoCode)) {
       return this.fb.control('', [Validators.required]);
     }
 

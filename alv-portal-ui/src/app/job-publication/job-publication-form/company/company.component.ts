@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IsoCountryService } from '../iso-country.service';
+import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { Observable } from 'rxjs/index';
 
 
 @Component({
@@ -12,16 +15,26 @@ export class CompanyComponent implements OnInit {
   @Input()
   parentForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  countryOptions$: Observable<SelectableOption[]>;
+
+  constructor(private fb: FormBuilder,
+              private isoCountryService: IsoCountryService) {
+    this.countryOptions$ = this.isoCountryService.countryOptions$;
   }
 
   ngOnInit(): void {
     this.parentForm.addControl('company', this.buildCompanyGroup());
   }
 
-
   private buildCompanyGroup(): FormGroup {
-    return this.fb.group({});
+    return this.fb.group({
+      name: ['', [
+        Validators.required
+      ]],
+      street: ['', []],
+      houseNumber: ['', []],
+      countryIsoCode: [IsoCountryService.ISO_CODE_SWITZERLAND]
+    });
   }
 
   get companyGroup(): FormGroup {

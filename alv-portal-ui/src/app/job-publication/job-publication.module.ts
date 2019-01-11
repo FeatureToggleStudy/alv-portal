@@ -11,6 +11,7 @@ import { LanguagesComponent } from './job-publication-form/languages/languages.c
 import { EmploymentComponent } from './job-publication-form/employment/employment.component';
 import { LocationComponent } from './job-publication-form/location/location.component';
 import { CompanyComponent } from './job-publication-form/company/company.component';
+import { IsoCountryService } from './job-publication-form/iso-country.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,9 @@ import { CompanyComponent } from './job-publication-form/company/company.compone
     LocationComponent,
     CompanyComponent
   ],
-  providers: []
+  providers: [
+    IsoCountryService
+  ]
 })
 export class JobPublicationModule {
 
