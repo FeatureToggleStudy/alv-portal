@@ -15,6 +15,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, tap } from 'rxjs/operators';
 import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 
+interface InlineFilterBadge extends InlineBadge {
+  key: string; // is needed to identify the filter that corresponds to a badge
+}
+
 @Component({
   selector: 'alv-manage-job-ad-search',
   templateUrl: './manage-job-ad-search.component.html',
@@ -28,7 +32,7 @@ export class ManageJobAdSearchComponent implements OnInit {
   filtersChanged$: BehaviorSubject<ManagedJobAdsSearchFilter>;
   queryChanged$: BehaviorSubject<string>;
 
-  currentBadges$: Observable<InlineBadge[]>;
+  currentBadges$: Observable<InlineFilterBadge[]>;
 
   form: FormGroup;
 
@@ -43,18 +47,22 @@ export class ManageJobAdSearchComponent implements OnInit {
 
     this.currentBadges$ = this.filterInStore$.pipe(
       map(filter => {
-          const badges = [];
+          let badges = [];
           for (const key in filter) {
-            if (key === 'onlineSinceDays') {
+            if (key === 'onlineSinceDays' && filter[key] ) {
               badges.push({
-                label: 'dashboard.job-publication.publication-period.' + (filter[key] ? filter[key] : 'all'),
-                cssClass: 'badge-manage-jobads-filter'
+                label: 'dashboard.job-publication.publication-period.' + filter[key],
+                cssClass: 'badge-manage-jobads-filter',
+                key
               });
-            } else if (key === 'ownerUserId') {
+            } else if (key === 'ownerUserId' && filter[key]) {
               badges.push({
-                label: 'dashboard.job-publication.createdBy.' + (filter[key] ? 'me' : 'all'),
-                cssClass: 'badge-manage-jobads-filter'
+                label: 'dashboard.job-publication.createdBy.' + filter[key],
+                cssClass: 'badge-manage-jobads-filter',
+                key
               });
+            } else if (!filter[key]) {
+              badges = badges.filter(badge => badge.key);
             }
           }
 
@@ -77,7 +85,6 @@ export class ManageJobAdSearchComponent implements OnInit {
 
     combineLatest(this.filtersChanged$, this.queryChanged$).pipe(
       map(([filters, query]) => {
-        debugger;
         return {
           onlineSinceDays: filters.onlineSinceDays,
           query: query,
@@ -96,8 +103,10 @@ export class ManageJobAdSearchComponent implements OnInit {
     this.store.dispatch(new LoadNextPageAction());
   }
 
-  removeCurrentBadge(badge: InlineBadge) {
-    // todo implement (or better not)
+  removeCurrentBadge(badge: InlineFilterBadge) {
+    const newFilter = Object.assign({}, this.filtersChanged$.value);
+    newFilter[badge.key] = null;
+    this.filtersChanged$.next(newFilter);
   }
 
   onFilterClick() {
