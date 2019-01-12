@@ -8,6 +8,8 @@ export const APPLY_FILTER = 'MANAGEJOBADS:APPLY_FILTER';
 export const LOAD_NEXT_PAGE = 'MANAGEJOBADS:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'MANAGEJOBADS:NEXT_PAGE_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'MANAGEJOBADS:JOB_ADVERTISEMENT_DETAIL_LOADED';
+export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'MANAGEJOBADS:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
+export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'MANAGEJOBADS:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -48,6 +50,20 @@ export class JobAdvertisementDetailLoadedAction implements Action {
   readonly type = JOB_ADVERTISEMENT_DETAIL_LOADED;
 
   constructor(public payload: { jobAdvertisement: JobAdvertisement }) {
+  }
+}
+
+export class LoadPreviousJobAdvertisementDetailAction implements Action {
+  readonly type = LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class LoadNextJobAdvertisementDetailAction implements Action {
+  readonly type = LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL;
+
+  constructor(public payload = {}) {
   }
 }
 

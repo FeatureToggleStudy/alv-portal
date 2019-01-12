@@ -42,6 +42,23 @@
     </ng-container>
 
     <ng-container class="right-column">
+
+      <div class="d-flex">
+        <button (click)="prev()"
+                [disabled]="!(prevEnabled$ | async)"
+                class="btn btn-text btn-text-icon btn-truncate mb-2">
+          <i class="fa fa-caret-left mr-1"></i>
+          {{'portal.job-detail.previous-result' | translate}}
+        </button>
+        <div class="flex-grow-1"></div>
+        <button (click)="next()"
+                [disabled]="!(nextEnabled$ | async)"
+                class="btn btn-text btn-text-icon btn-truncate mb-2">
+          {{'portal.job-detail.next-result' | translate}}
+          <i class="fa fa-caret-right ml-1"></i>
+        </button>
+      </div>
+
       <div class="d-flex flex-column">
         <button class="btn btn-text btn-text-icon btn-truncate"
                 [disabled]="!isCancellable"
@@ -51,13 +68,13 @@
           {{'job-publication-details.cancel' |translate}}
         </button>
 
-      <!--<button class="btn btn-text btn-text-icon btn-truncate mt-1"
-                [disabled]="!isCancellable"
-                (click)="cancelJobAdAction()">
-          <i aria-hidden="true"
-             class="fa fa-trash mr-1"></i>
-          {{'job-publication-details.cancel' |translate}}
-        </button>-->
+        <!--<button class="btn btn-text btn-text-icon btn-truncate mt-1"
+                  [disabled]="!isCancellable"
+                  (click)="cancelJobAdAction()">
+            <i aria-hidden="true"
+               class="fa fa-trash mr-1"></i>
+            {{'job-publication-details.cancel' |translate}}
+          </button>-->
       </div>
     </ng-container>
   </alv-three-column-layout>
