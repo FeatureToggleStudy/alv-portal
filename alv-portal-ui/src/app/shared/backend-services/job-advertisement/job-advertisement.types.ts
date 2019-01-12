@@ -196,6 +196,7 @@ export interface ManageJobAdsSearchBody {
   jobTitle: string;
   onlineSinceDays: number;
   companyId: string;
+  ownerUserId?: string;
 }
 
 export interface ManagedJobAdsSearchRequest {

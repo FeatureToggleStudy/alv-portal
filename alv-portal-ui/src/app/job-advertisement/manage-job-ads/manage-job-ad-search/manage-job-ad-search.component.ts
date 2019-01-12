@@ -43,7 +43,6 @@ export class ManageJobAdSearchComponent implements OnInit {
 
     this.currentBadges$ = this.filterInStore$.pipe(
       map(filter => {
-          console.log(filter);
           const badges = [];
           for (const key in filter) {
             if (key === 'onlineSinceDays') {
@@ -51,7 +50,7 @@ export class ManageJobAdSearchComponent implements OnInit {
                 label: 'dashboard.job-publication.publication-period.' + (filter[key] ? filter[key] : 'all'),
                 cssClass: 'badge-manage-jobads-filter'
               });
-            } else if (key === 'jobsCreatedBy') {
+            } else if (key === 'ownerUserId') {
               badges.push({
                 label: 'dashboard.job-publication.createdBy.' + (filter[key] ? 'me' : 'all'),
                 cssClass: 'badge-manage-jobads-filter'
@@ -71,17 +70,18 @@ export class ManageJobAdSearchComponent implements OnInit {
     this.filtersChanged$ = new BehaviorSubject<ManagedJobAdsSearchFilter>({
       onlineSinceDays: null,
       query: '',
-      jobsCreatedBy: ''
+      ownerUserId: ''
     });
 
     this.queryChanged$ = new BehaviorSubject<string>('');
 
     combineLatest(this.filtersChanged$, this.queryChanged$).pipe(
       map(([filters, query]) => {
+        debugger;
         return {
           onlineSinceDays: filters.onlineSinceDays,
           query: query,
-          jobsCreatedBy: filters.jobsCreatedBy
+          ownerUserId: filters.ownerUserId
         } as ManagedJobAdsSearchFilter;
       }),
       tap(filter => {

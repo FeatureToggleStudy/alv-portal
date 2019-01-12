@@ -43,30 +43,31 @@ export class FilterManagedJobAdsComponent implements OnInit {
     this.currentFiltering$.subscribe(currentFilter => {
       this.form = this.fb.group({
         onlineSinceDays: [currentFilter.onlineSinceDays],
-        jobsCreatedBy: ['']
+        ownerUserId: [currentFilter.ownerUserId]
       });
     });
 
     this.jobsCreatorOptions$ = this.authenticationService.getCurrentUser().pipe(
-      map(user => [
-        {
-          label: 'All',
-          value: '',
-        },
-        {
-          label: 'Current user',
-          value: user.id
-        }
-      ])
+      map(user => {
+        return [
+          {
+            label: 'All',
+            value: '',
+          },
+          {
+            label: 'Current user',
+            value: user.id
+          }
+        ];
+      })
     );
   }
 
   filter() {
-    console.log(this.form.controls['onlineSinceDays'].value);
 
     this.activeModal.close({
       onlineSinceDays: this.form.controls['onlineSinceDays'].value,
-      jobsCreatedBy: this.form.controls['jobsCreatedBy'].value
+      ownerUserId: this.form.controls['ownerUserId'].value
     });
   }
 

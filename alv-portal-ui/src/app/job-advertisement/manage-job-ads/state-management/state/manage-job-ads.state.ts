@@ -4,7 +4,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 export interface ManagedJobAdsSearchFilter {
   query: string;
   onlineSinceDays: number;
-  jobsCreatedBy: string;
+  ownerUserId: string;
 }
 
 export interface ManageJobAdsState {
@@ -22,7 +22,7 @@ export const initialState: ManageJobAdsState = {
   filter: {
     query: null,
     onlineSinceDays: null,
-    jobsCreatedBy: null
+    ownerUserId: null
   },
   resultList: [],
   selectedJobAdvertisement: null,
