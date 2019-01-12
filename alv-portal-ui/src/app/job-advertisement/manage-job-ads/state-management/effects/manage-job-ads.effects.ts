@@ -8,26 +8,33 @@ import {
   debounceTime,
   map,
   switchMap,
+  take,
   takeUntil,
+  tap,
   withLatestFrom
 } from 'rxjs/operators';
 import { Action, select, Store } from '@ngrx/store';
 import { asyncScheduler, Observable, of } from 'rxjs';
 import { EffectErrorOccurredAction } from '../../../../core/state-management/actions/core.actions';
-import { getManageJobAdsState, ManageJobAdsState } from '../state';
+import { getManageJobAdsState, getNextId, getPrevId, ManageJobAdsState } from '../state';
 import {
   APPLY_FILTER,
   ApplyFilterAction,
   FILTER_APPLIED,
   FilterAppliedAction,
   INIT_RESULT_LIST,
+  LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
+  LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
+  LoadNextPageAction,
+  NEXT_PAGE_LOADED,
   NextPageLoadedAction
 } from '../actions';
 import { getCurrentCompanyContactTemplateModel } from '../../../../core/state-management/state/core.state.ts';
 import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { ManagedJobAdsSearchRequestMapper } from './managed-job-ads-search-request.mapper';
+import { Router } from '@angular/router';
 
 export const MANAGE_JOB_ADS_EFFECTS_DEBOUNCE = new InjectionToken<number>('MANAGE_JOB_ADS_EFFECTS_DEBOUNCE');
 export const MANAGE_JOB_ADS_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('MANAGE_JOB_ADS_EFFECTS_SCHEDULER');
@@ -79,9 +86,49 @@ export class ManageJobAdsEffects {
     )),
   );
 
+  @Effect()
+  loadPreviousJobAdvertisementDetail$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL),
+    withLatestFrom(this.store.pipe(select(getPrevId))),
+    map(([action, id]) => id),
+    tap((id) => {
+      this.router.navigate(['/manage-job-ads', id]);
+    }),
+    map(() => {
+      return { type: 'nothing' };
+    })
+  );
+
+  @Effect()
+  loadNextJobAdvertisementDetail$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL),
+    withLatestFrom(this.store.pipe(select(getNextId))),
+    switchMap(([action, id]) => {
+      if (id) {
+        return of(id);
+      } else {
+        this.store.dispatch(new LoadNextPageAction());
+        return this.actions$.pipe(
+          ofType(NEXT_PAGE_LOADED),
+          take(1),
+          map((nextPageLoadedAction: NextPageLoadedAction) => {
+            return nextPageLoadedAction.payload.page[0].id;
+          })
+        );
+      }
+    }),
+    tap((id) => {
+      this.router.navigate(['/manage-job-ads', id]);
+    }),
+    map(() => {
+      return { type: 'nothing' };
+    })
+  );
+
   constructor(private actions$: Actions,
               private store: Store<ManageJobAdsState>,
               private jobAdvertisementRepository: JobAdvertisementRepository,
+              private router: Router,
               @Optional()
               @Inject(MANAGE_JOB_ADS_EFFECTS_DEBOUNCE)
               private debounce,

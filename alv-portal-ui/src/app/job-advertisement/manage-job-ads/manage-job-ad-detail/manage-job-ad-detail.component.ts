@@ -8,6 +8,8 @@ import { JobDetailModel } from '../../shared/job-detail-model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   getSelectedJobAdvertisement,
+  isNextVisible,
+  isPrevVisible,
   ManageJobAdsState
 } from '../state-management/state';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
@@ -17,6 +19,11 @@ import { JobAdCancellationComponent } from '../shared/job-ad-cancellation/job-ad
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
+import {
+  LoadNextJobAdvertisementDetailAction,
+  LoadPreviousJobAdvertisementDetailAction
+} from '../state-management/actions';
+
 
 @Component({
   selector: 'alv-manage-job-ad-detail',
@@ -36,6 +43,10 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
   private jobAdvertisement: JobAdvertisement;
 
   public isCancellable = false;
+
+  public prevEnabled$: Observable<boolean>;
+
+  public nextEnabled$: Observable<boolean>;
 
   constructor(private jobBadgesMapperService: JobBadgesMapperService,
               private jobDetailModelFactory: JobDetailModelFactory,
@@ -73,6 +84,17 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
       .subscribe(value => {
         this.isPavOrCompany = value;
       });
+
+    this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
+    this.nextEnabled$ = this.store.pipe(select(isNextVisible));
+  }
+
+  prev() {
+    this.store.dispatch(new LoadPreviousJobAdvertisementDetailAction());
+  }
+
+  next() {
+    this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
   }
 
   cancelJobAdAction() {
