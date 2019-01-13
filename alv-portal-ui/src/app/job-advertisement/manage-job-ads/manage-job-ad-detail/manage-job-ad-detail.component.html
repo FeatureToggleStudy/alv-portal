@@ -10,6 +10,39 @@
             {{'job-detail.back' | translate}}
           </a>
         </div>
+        <div #mobileActionsMenu="ngbDropdown"
+             class="d-inline-block"
+             ngbDropdown
+             placement="bottom-right">
+          <button (click)="mobileActionsMenu.toggle()"
+                  class="btn btn-text btn-icon"
+                  id="dropdownMenu"
+                  ngbDropdownAnchor
+                  aria-label="Open job detail menu">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <div aria-label="Job detail menu"
+               ngbDropdownMenu>
+            <button (click)="prev()"
+                    [disabled]="!(prevEnabled$ | async)"
+                    class="dropdown-item">
+              {{'portal.job-detail.previous-result' | translate}}
+            </button>
+            <button (click)="next()"
+                    [disabled]="!(nextEnabled$ | async)"
+                    class="dropdown-item">
+              {{'portal.job-detail.next-result' | translate}}
+            </button>
+            <button class="dropdown-item"
+                    [disabled]="!isCancellable"
+                    (click)="cancelJobAdAction()">
+              <i aria-hidden="true"
+                 class="fa fa-trash mr-1"></i>
+              {{'job-publication-details.cancel' |translate}}
+            </button>
+          </div>
+        </div>
+
       </div>
     </ng-container>
 

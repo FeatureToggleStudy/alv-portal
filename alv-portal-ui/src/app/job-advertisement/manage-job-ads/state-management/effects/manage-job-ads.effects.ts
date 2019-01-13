@@ -65,7 +65,6 @@ export class ManageJobAdsEffects {
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
     switchMap(([managedJobAdsSearchFilter, state, company]) => {
-      debugger;
       return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(managedJobAdsSearchFilter, state.page, company.companyExternalId)).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,

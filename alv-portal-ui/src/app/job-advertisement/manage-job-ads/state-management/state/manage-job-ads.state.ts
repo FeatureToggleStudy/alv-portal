@@ -1,9 +1,26 @@
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
+
+export enum MangedJobAdsSort {
+  STELLEN_NUMMER_EGOV = 'jobAdvertisement.stellennummerEgov',
+  STELLEN_NUMMER_AVAM = 'jobAdvertisement.stellennummerAvam',
+  MELDE_DATUM = 'jobAdvertisement.publication.startDate'
+}
+
+export enum SortDirection {
+  DESC = 'DESC',
+  ASC = 'ASC'
+}
+
+
 export interface ManagedJobAdsSearchFilter {
   query: string;
   onlineSinceDays: number;
+  sort: {
+    column: MangedJobAdsSort,
+    direction: SortDirection
+  };
 }
 
 export interface ManageJobAdsState {
@@ -20,7 +37,11 @@ export const initialState: ManageJobAdsState = {
   page: 0,
   filter: {
     query: null,
-    onlineSinceDays: null
+    onlineSinceDays: null,
+    sort: {
+      column: MangedJobAdsSort.MELDE_DATUM,
+      direction: SortDirection.DESC
+    }
   },
   resultList: [],
   selectedJobAdvertisement: null,

@@ -3,16 +3,19 @@ import {
   getManagedJobAdResults,
   getManagedJobAdsSearchFilter,
   ManagedJobAdsSearchFilter,
-  ManageJobAdsState
+  ManageJobAdsState,
+  MangedJobAdsSort,
+  SortDirection
 } from '../state-management/state';
 import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { map, tap } from 'rxjs/operators';
+import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-manage-job-ad-search',
@@ -22,12 +25,14 @@ import { map, tap } from 'rxjs/operators';
 export class ManageJobAdSearchComponent implements OnInit {
 
   jobSearchResults$: Observable<JobAdvertisement[]>;
+
   filtersInStore: Observable<ManagedJobAdsSearchFilter>;
 
-  filtersChanged$: BehaviorSubject<ManagedJobAdsSearchFilter>;
-  queryChanged$: BehaviorSubject<string>;
-
   form: FormGroup;
+
+  MangedJobAdsSort = MangedJobAdsSort;
+
+  SortDirection = SortDirection;
 
   constructor(private store: Store<ManageJobAdsState>,
               private modalService: ModalService,
@@ -41,27 +46,6 @@ export class ManageJobAdSearchComponent implements OnInit {
     this.form = this.fb.group({
       query: ['']
     });
-
-    this.filtersChanged$ = new BehaviorSubject<ManagedJobAdsSearchFilter>({
-      onlineSinceDays: null,
-      query: ''
-    });
-
-    this.queryChanged$ = new BehaviorSubject<string>('');
-
-    combineLatest(this.filtersChanged$, this.queryChanged$).pipe(
-      map(([filters, query]) => {
-        return {
-          onlineSinceDays: filters.onlineSinceDays,
-          query: query,
-        } as ManagedJobAdsSearchFilter;
-      }),
-      tap(filter => {
-        return this.store.dispatch(new ApplyFilterAction(filter));
-      })
-    )
-      .subscribe();
-
   }
 
   onScroll() {
@@ -71,19 +55,55 @@ export class ManageJobAdSearchComponent implements OnInit {
   onFilterClick() {
     const filterModalRef = this.modalService.openMedium(FilterManagedJobAdsComponent);
     const filterComponent = <FilterManagedJobAdsComponent>filterModalRef.componentInstance;
-
     filterComponent.currentFiltering = this.filtersInStore;
-
     filterModalRef.result
       .then(value => {
-        this.filtersChanged$.next(value);
+        this.applyFilter(value);
       })
       .catch(() => {
       });
   }
 
   onQueryChange($event) {
-    this.queryChanged$.next($event.target.value);
+    this.applyQuery($event.target.value);
   }
 
+  onSortChange(selectedColumn: MangedJobAdsSort, current: { column: MangedJobAdsSort; direction: SortDirection }) {
+    const direction = this.determineSortDirection(selectedColumn, current);
+    this.applySort({ column: selectedColumn, direction: direction });
+  }
+
+  private determineSortDirection(selectedColumn: MangedJobAdsSort, current: { column: MangedJobAdsSort; direction: SortDirection }) {
+    if (selectedColumn !== current.column) {
+      return SortDirection.ASC;
+    }
+    return current.direction === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC;
+  }
+
+  private applyFilter(newFilter: ManagedJobAdSearchFilterValues) {
+    this.filtersInStore.pipe(take(1)).subscribe(value => {
+      this.store.dispatch(new ApplyFilterAction({
+        ...value,
+        onlineSinceDays: newFilter.onlineSinceDays
+      }));
+    });
+  }
+
+  private applyQuery(newQuery: string) {
+    this.filtersInStore.pipe(take(1)).subscribe(value => {
+      this.store.dispatch(new ApplyFilterAction({
+        ...value,
+        query: newQuery
+      }));
+    });
+  }
+
+  private applySort(newSort: { column: MangedJobAdsSort; direction: SortDirection }) {
+    this.filtersInStore.pipe(take(1)).subscribe(value => {
+      this.store.dispatch(new ApplyFilterAction({
+        ...value,
+        sort: newSort
+      }));
+    });
+  }
 }
