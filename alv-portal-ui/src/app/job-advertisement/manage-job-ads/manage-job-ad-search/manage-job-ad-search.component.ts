@@ -22,7 +22,6 @@ interface InlineFilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
 }
 
-
 @Component({
   selector: 'alv-manage-job-ad-search',
   templateUrl: './manage-job-ad-search.component.html',
@@ -49,6 +48,7 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   ngOnInit() {
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
+
     this.currentFilter$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
 
     this.currentBadges$ = this.currentFilter$.pipe(
@@ -78,7 +78,7 @@ export class ManageJobAdSearchComponent implements OnInit {
     );
 
     this.form = this.fb.group({
-      query: ['']
+      query: [null]
     });
   }
 
@@ -89,11 +89,9 @@ export class ManageJobAdSearchComponent implements OnInit {
   removeCurrentBadge(badge: InlineFilterBadge) {
     this.currentFilter$.pipe(take(1))
       .subscribe(currentFilter => {
-        const newFilter = Object.assign({}, currentFilter);
+        const newFilter = { ...currentFilter };
         newFilter[badge.key] = null;
-        this.store.dispatch(new ApplyFilterAction({
-          ...newFilter
-        }));
+        this.store.dispatch(new ApplyFilterAction(newFilter));
       });
   }
 
