@@ -14,10 +14,9 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { map, tap } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
-import { take } from 'rxjs/operators';
 
 interface InlineFilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
@@ -56,7 +55,7 @@ export class ManageJobAdSearchComponent implements OnInit {
       map(filter => {
           let badges = [];
           for (const key in filter) {
-            if (key === 'onlineSinceDays' && filter[key] ) {
+            if (key === 'onlineSinceDays' && filter[key]) {
               badges.push({
                 label: 'dashboard.job-publication.publication-period.' + filter[key],
                 cssClass: 'badge-manage-jobads-filter',
@@ -88,20 +87,28 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   removeCurrentBadge(badge: InlineFilterBadge) {
-    const newFilter = Object.assign({}, this.filtersChanged$.value);
-    newFilter[badge.key] = null;
-    this.filtersChanged$.next(newFilter);
+    this.filterInStore$.pipe(take(1))
+      .subscribe(currentFilter => {
+        const newFilter = Object.assign({}, currentFilter);
+        newFilter[badge.key] = null;
+        this.store.dispatch(new ApplyFilterAction({
+          ...newFilter
+        }));
+      });
   }
 
   onFilterClick() {
-    const filterModalRef = this.modalService.openMedium(FilterManagedJobAdsComponent);
-    const filterComponent = <FilterManagedJobAdsComponent>filterModalRef.componentInstance;
-    filterComponent.currentFiltering = this.filtersInStore;
-    filterModalRef.result
-      .then(value => {
-        this.applyFilter(value);
-      })
-      .catch(() => {
+    this.filterInStore$.pipe(take(1))
+      .subscribe(currentFilter => {
+        const filterModalRef = this.modalService.openMedium(FilterManagedJobAdsComponent);
+        const filterComponent = <FilterManagedJobAdsComponent>filterModalRef.componentInstance;
+        filterComponent.currentFiltering = currentFilter;
+        filterModalRef.result
+          .then(newFilter => {
+            this.applyFilter(newFilter);
+          })
+          .catch(() => {
+          });
       });
   }
 

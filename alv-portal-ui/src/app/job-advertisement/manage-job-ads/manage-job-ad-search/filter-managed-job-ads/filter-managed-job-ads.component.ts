@@ -16,9 +16,10 @@ export class FilterManagedJobAdsComponent implements OnInit {
 
   form: FormGroup;
 
-  currentFiltering$: Observable<ManagedJobAdSearchFilterValues>;
+  currentFiltering: ManagedJobAdSearchFilterValues;
 
   onlineSinceOptions$: Observable<SelectableOption[]>;
+
   jobsCreatorOptions$: Observable<SelectableOption[]>;
 
   constructor(private fb: FormBuilder,
@@ -40,11 +41,10 @@ export class FilterManagedJobAdsComponent implements OnInit {
 
   ngOnInit() {
     this.onlineSinceOptions$ = of(FilterManagedJobAdsComponent.prepareOnlineSinceOptions());
-    this.currentFiltering$.subscribe(currentFilter => {
-      this.form = this.fb.group({
-        onlineSinceDays: [currentFilter.onlineSinceDays],
-        ownerUserId: [currentFilter.ownerUserId]
-      });
+
+    this.form = this.fb.group({
+      onlineSinceDays: [this.currentFiltering.onlineSinceDays],
+      ownerUserId: [this.currentFiltering.ownerUserId]
     });
 
     this.jobsCreatorOptions$ = this.authenticationService.getCurrentUser().pipe(
@@ -64,7 +64,6 @@ export class FilterManagedJobAdsComponent implements OnInit {
   }
 
   filter() {
-    console.log(this.form.controls['onlineSinceDays'].value);
     const result: ManagedJobAdSearchFilterValues = {
       onlineSinceDays: this.form.controls['onlineSinceDays'].value,
       ownerUserId: this.form.controls['ownerUserId'].value
