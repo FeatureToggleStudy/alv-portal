@@ -33,40 +33,40 @@
          (input)="onQueryChange($event)">
 
   <table class="table"
-         *ngIf="currentFilter$ | async as filter">
+         *ngIf="currentFilter$ | async as currentFilter">
     <thead>
     <tr>
       <th scope="col"
           *ngIf="MangedJobAdsSort.MELDE_DATUM as column"
-          (click)="onSortChange(column, filter.sort)">
+          (click)="onSortChange(column, currentFilter.sort)">
         <span>{{ 'dashboard.job-publication.publication-date' | translate }}</span>
         <span class="fa fa-sort"
               [ngClass]="{
-              'fa-sort-down': filter.sort.column === column && filter.sort.direction === SortDirection.DESC,
-              'fa-sort-up': filter.sort.column === column && filter.sort.direction === SortDirection.ASC
+              'fa-sort-down': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.DESC,
+              'fa-sort-up': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.ASC
               }">
         </span>
       </th>
       <th scope="col">{{ 'dashboard.job-publication.job-title' | translate }}</th>
       <th scope="col"
           *ngIf="MangedJobAdsSort.STELLEN_NUMMER_EGOV as column"
-          (click)="onSortChange(column, filter.sort)">
+          (click)="onSortChange(column, currentFilter.sort)">
         <span>{{ 'dashboard.job-publication.job-room-id' | translate }}</span>
         <span class="fa fa-sort"
               [ngClass]="{
-              'fa-sort-down': filter.sort.column === column && filter.sort.direction === SortDirection.DESC,
-              'fa-sort-up': filter.sort.column === column && filter.sort.direction === SortDirection.ASC
+              'fa-sort-down': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.DESC,
+              'fa-sort-up': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.ASC
               }">
         </span>
       </th>
       <th scope="col"
           *ngIf="MangedJobAdsSort.STELLEN_NUMMER_AVAM as column"
-          (click)="onSortChange(column, filter.sort)">
+          (click)="onSortChange(column, currentFilter.sort)">
         <span>{{ 'dashboard.job-publication.avam' | translate }}</span>
         <span class="fa fa-sort"
               [ngClass]="{
-              'fa-sort-down': filter.sort.column === column && filter.sort.direction === SortDirection.DESC,
-              'fa-sort-up': filter.sort.column === column && filter.sort.direction === SortDirection.ASC
+              'fa-sort-down': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.DESC,
+              'fa-sort-up': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.ASC
               }">
         </span>
       </th>
