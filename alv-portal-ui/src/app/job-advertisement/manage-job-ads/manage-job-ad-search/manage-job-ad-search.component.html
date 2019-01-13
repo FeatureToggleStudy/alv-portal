@@ -41,9 +41,10 @@
           (click)="onSortChange(column, currentFilter.sort)">
         <span>{{ 'dashboard.job-publication.publication-date' | translate }}</span>
         <span class="fa fa-sort"
+              *ngIf="currentFilter.sort.column === column"
               [ngClass]="{
-              'fa-sort-down': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.DESC,
-              'fa-sort-up': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.ASC
+              'fa-sort-down': currentFilter.sort.direction === SortDirection.DESC,
+              'fa-sort-up': currentFilter.sort.direction === SortDirection.ASC
               }">
         </span>
       </th>
@@ -53,9 +54,10 @@
           (click)="onSortChange(column, currentFilter.sort)">
         <span>{{ 'dashboard.job-publication.job-room-id' | translate }}</span>
         <span class="fa fa-sort"
+              *ngIf="currentFilter.sort.column === column"
               [ngClass]="{
-              'fa-sort-down': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.DESC,
-              'fa-sort-up': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.ASC
+              'fa-sort-down': currentFilter.sort.direction === SortDirection.DESC,
+              'fa-sort-up': currentFilter.sort.direction === SortDirection.ASC
               }">
         </span>
       </th>
@@ -64,9 +66,10 @@
           (click)="onSortChange(column, currentFilter.sort)">
         <span>{{ 'dashboard.job-publication.avam' | translate }}</span>
         <span class="fa fa-sort"
+              *ngIf="currentFilter.sort.column === column"
               [ngClass]="{
-              'fa-sort-down': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.DESC,
-              'fa-sort-up': currentFilter.sort.column === column && currentFilter.sort.direction === SortDirection.ASC
+              'fa-sort-down': currentFilter.sort.direction === SortDirection.DESC,
+              'fa-sort-up': currentFilter.sort.direction === SortDirection.ASC
               }">
         </span>
       </th>
