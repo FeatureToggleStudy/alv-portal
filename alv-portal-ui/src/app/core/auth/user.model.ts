@@ -48,11 +48,14 @@ export class User {
 
   registrationStatus: RegistrationStatus;
 
+  displayName: string;
+
   public static toUser(userDto: UserDto) {
     const user = new User();
     user.id = userDto.id;
     user.firstName = userDto.firstName;
     user.lastName = userDto.lastName;
+    user.displayName = `${userDto.firstName} ${userDto.lastName}`;
     user.authorities = userDto.authorities;
     user.registrationStatus = userDto.registrationStatus;
     user.login = userDto.login;

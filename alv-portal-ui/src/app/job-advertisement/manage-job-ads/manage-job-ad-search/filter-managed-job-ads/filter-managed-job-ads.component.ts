@@ -52,10 +52,10 @@ export class FilterManagedJobAdsComponent implements OnInit {
         return [
           {
             label: 'All',
-            value: '',
+            value: null,
           },
           {
-            label: 'Current user',
+            label: 'Current user: ' + user.displayName,
             value: user.id
           }
         ];

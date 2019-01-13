@@ -32,7 +32,7 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   jobSearchResults$: Observable<JobAdvertisement[]>;
 
-  filterInStore$: Observable<ManagedJobAdsSearchFilter>;
+  currentFilter$: Observable<ManagedJobAdsSearchFilter>;
 
   form: FormGroup;
 
@@ -49,9 +49,9 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   ngOnInit() {
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
-    this.filterInStore$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
+    this.currentFilter$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
 
-    this.currentBadges$ = this.filterInStore$.pipe(
+    this.currentBadges$ = this.currentFilter$.pipe(
       map(filter => {
           let badges = [];
           for (const key in filter) {
@@ -87,7 +87,7 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   removeCurrentBadge(badge: InlineFilterBadge) {
-    this.filterInStore$.pipe(take(1))
+    this.currentFilter$.pipe(take(1))
       .subscribe(currentFilter => {
         const newFilter = Object.assign({}, currentFilter);
         newFilter[badge.key] = null;
@@ -98,7 +98,7 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   onFilterClick() {
-    this.filterInStore$.pipe(take(1))
+    this.currentFilter$.pipe(take(1))
       .subscribe(currentFilter => {
         const filterModalRef = this.modalService.openMedium(FilterManagedJobAdsComponent);
         const filterComponent = <FilterManagedJobAdsComponent>filterModalRef.componentInstance;
@@ -129,16 +129,17 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   private applyFilter(newFilter: ManagedJobAdSearchFilterValues) {
-    this.filterInStore$.pipe(take(1)).subscribe(value => {
+    this.currentFilter$.pipe(take(1)).subscribe(value => {
       this.store.dispatch(new ApplyFilterAction({
         ...value,
-        onlineSinceDays: newFilter.onlineSinceDays
+        onlineSinceDays: newFilter.onlineSinceDays,
+        ownerUserId: newFilter.ownerUserId
       }));
     });
   }
 
   private applyQuery(newQuery: string) {
-    this.filterInStore$.pipe(take(1)).subscribe(value => {
+    this.currentFilter$.pipe(take(1)).subscribe(value => {
       this.store.dispatch(new ApplyFilterAction({
         ...value,
         query: newQuery
@@ -147,7 +148,7 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   private applySort(newSort: { column: MangedJobAdsSort; direction: SortDirection }) {
-    this.filterInStore$.pipe(take(1)).subscribe(value => {
+    this.currentFilter$.pipe(take(1)).subscribe(value => {
       this.store.dispatch(new ApplyFilterAction({
         ...value,
         sort: newSort

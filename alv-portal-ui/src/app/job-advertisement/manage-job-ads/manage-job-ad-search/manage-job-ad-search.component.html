@@ -33,7 +33,7 @@
          (input)="onQueryChange($event)">
 
   <table class="table"
-         *ngIf="filterInStore$ | async as filter">
+         *ngIf="currentFilter$ | async as filter">
     <thead>
     <tr>
       <th scope="col"
