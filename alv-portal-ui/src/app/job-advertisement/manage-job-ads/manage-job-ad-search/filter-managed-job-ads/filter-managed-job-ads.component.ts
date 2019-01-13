@@ -4,6 +4,8 @@ import { SelectableOption } from '../../../../shared/forms/input/selectable-opti
 import { Observable, of } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ManagedJobAdSearchFilterValues } from '../managed-job-ad-search-types';
+import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-filter-managed-job-ads',
@@ -14,58 +16,58 @@ export class FilterManagedJobAdsComponent implements OnInit {
 
   form: FormGroup;
 
-  currentFiltering: Observable<ManagedJobAdSearchFilterValues>;
+  currentFiltering$: Observable<ManagedJobAdSearchFilterValues>;
 
-  onlineSinceOptions$: Observable<SelectableOption[]> = of([
-    {
-      label: 'dashboard.job-publication.publication-period.week',
-      value: 7
-    },
-    {
-      label: 'dashboard.job-publication.publication-period.month',
-      value: 30
-    },
-    {
-      label: 'dashboard.job-publication.publication-period.months',
-      labelParameters: {
-        months: 3
-      },
-      value: 90
-    },
-    {
-      label: 'dashboard.job-publication.publication-period.months',
-      labelParameters: {
-        months: 3
-      },
-      value: 180
-    },
-    {
-      label: 'dashboard.job-publication.publication-period.year',
-      labelParameters: {
-        years: 1
-      },
-      value: 365
-    },
-    {
-      label: 'dashboard.job-publication.publication-period.all',
-      value: null
-    }
-  ]);
+  onlineSinceOptions$: Observable<SelectableOption[]>;
+  jobsCreatorOptions$: Observable<SelectableOption[]>;
 
   constructor(private fb: FormBuilder,
-              public activeModal: NgbActiveModal) {
+              public activeModal: NgbActiveModal,
+              private authenticationService: AuthenticationService) {
+  }
+
+  private static prepareOnlineSinceOptions() {
+    const options = [7, 30, 90, 180, 365].map(days => ({
+      label: 'dashboard.job-publication.publication-period.' + days,
+      value: days
+    }));
+    options.push({
+      label: 'dashboard.job-publication.publication-period.all',
+      value: null
+    });
+    return options;
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      onlineSinceDays: ['']
+    this.onlineSinceOptions$ = of(FilterManagedJobAdsComponent.prepareOnlineSinceOptions());
+    this.currentFiltering$.subscribe(currentFilter => {
+      this.form = this.fb.group({
+        onlineSinceDays: [currentFilter.onlineSinceDays],
+        ownerUserId: [currentFilter.ownerUserId]
+      });
     });
+
+    this.jobsCreatorOptions$ = this.authenticationService.getCurrentUser().pipe(
+      map(user => {
+        return [
+          {
+            label: 'All',
+            value: '',
+          },
+          {
+            label: 'Current user',
+            value: user.id
+          }
+        ];
+      })
+    );
   }
 
   filter() {
     console.log(this.form.controls['onlineSinceDays'].value);
     const result: ManagedJobAdSearchFilterValues = {
-      onlineSinceDays: this.form.controls['onlineSinceDays'].value
+      onlineSinceDays: this.form.controls['onlineSinceDays'].value,
+      ownerUserId: this.form.controls['ownerUserId'].value
     };
     this.activeModal.close(result);
   }
@@ -73,5 +75,6 @@ export class FilterManagedJobAdsComponent implements OnInit {
   cancel() {
     this.activeModal.dismiss();
   }
+
 
 }

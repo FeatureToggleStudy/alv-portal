@@ -15,8 +15,20 @@
 
   <hr>
 
+  <!--Badges panel-->
+  <div class="d-flex justify-content-end mb-3"
+       *ngIf="currentBadges$ | async as currentBadges">
+    <div *ngFor="let badge of currentBadges;"
+         class="badge mr-1"
+         [ngClass]="badge.cssClass">
+      {{badge.label | translate}}
+      <a (click)="removeCurrentBadge(badge)"
+         class="fa fa-times"></a>
+    </div>
+  </div>
+
   <input type="text"
-         class="form-control"
+         class="form-control mb-2"
          placeholder="search"
          (input)="onQueryChange($event)">
 
@@ -58,6 +70,8 @@
         </span>
       </th>
       <th>{{ 'dashboard.job-publication.job-title' | translate }}</th>
+      <th>{{ 'dashboard.job-publication.job-room-id' | translate }}</th>
+      <th>{{ 'dashboard.job-publication.avam' | translate }}</th>
       <th>{{ 'dashboard.job-publication.location' | translate }}</th>
       <th>{{ 'dashboard.job-publication.status' | translate }}</th>
       <th>{{ 'dashboard.job-publication.action' | translate }}</th>

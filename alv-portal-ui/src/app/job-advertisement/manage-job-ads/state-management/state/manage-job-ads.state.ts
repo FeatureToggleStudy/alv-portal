@@ -17,6 +17,7 @@ export enum SortDirection {
 export interface ManagedJobAdsSearchFilter {
   query: string;
   onlineSinceDays: number;
+  ownerUserId: string;
   sort: {
     column: MangedJobAdsSort,
     direction: SortDirection
@@ -38,6 +39,7 @@ export const initialState: ManageJobAdsState = {
   filter: {
     query: null,
     onlineSinceDays: null,
+    ownerUserId: null,
     sort: {
       column: MangedJobAdsSort.MELDE_DATUM,
       direction: SortDirection.DESC

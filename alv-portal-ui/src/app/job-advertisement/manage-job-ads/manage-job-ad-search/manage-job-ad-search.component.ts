@@ -14,8 +14,15 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { map, tap } from 'rxjs/operators';
+import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
 import { take } from 'rxjs/operators';
+
+interface InlineFilterBadge extends InlineBadge {
+  key: string; // is needed to identify the filter that corresponds to a badge
+}
+
 
 @Component({
   selector: 'alv-manage-job-ad-search',
@@ -26,9 +33,11 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   jobSearchResults$: Observable<JobAdvertisement[]>;
 
-  filtersInStore: Observable<ManagedJobAdsSearchFilter>;
+  filterInStore$: Observable<ManagedJobAdsSearchFilter>;
 
   form: FormGroup;
+
+  currentBadges$: Observable<InlineFilterBadge[]>;
 
   MangedJobAdsSort = MangedJobAdsSort;
 
@@ -41,7 +50,33 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   ngOnInit() {
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
-    this.filtersInStore = this.store.pipe(select(getManagedJobAdsSearchFilter));
+    this.filterInStore$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
+
+    this.currentBadges$ = this.filterInStore$.pipe(
+      map(filter => {
+          let badges = [];
+          for (const key in filter) {
+            if (key === 'onlineSinceDays' && filter[key] ) {
+              badges.push({
+                label: 'dashboard.job-publication.publication-period.' + filter[key],
+                cssClass: 'badge-manage-jobads-filter',
+                key
+              });
+            } else if (key === 'ownerUserId' && filter[key]) {
+              badges.push({
+                label: 'dashboard.job-publication.createdBy.' + filter[key],
+                cssClass: 'badge-manage-jobads-filter',
+                key
+              });
+            } else if (!filter[key]) {
+              badges = badges.filter(badge => badge.key);
+            }
+          }
+
+          return badges;
+        }
+      )
+    );
 
     this.form = this.fb.group({
       query: ['']
@@ -50,6 +85,12 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   onScroll() {
     this.store.dispatch(new LoadNextPageAction());
+  }
+
+  removeCurrentBadge(badge: InlineFilterBadge) {
+    const newFilter = Object.assign({}, this.filtersChanged$.value);
+    newFilter[badge.key] = null;
+    this.filtersChanged$.next(newFilter);
   }
 
   onFilterClick() {
@@ -81,7 +122,7 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   private applyFilter(newFilter: ManagedJobAdSearchFilterValues) {
-    this.filtersInStore.pipe(take(1)).subscribe(value => {
+    this.filterInStore$.pipe(take(1)).subscribe(value => {
       this.store.dispatch(new ApplyFilterAction({
         ...value,
         onlineSinceDays: newFilter.onlineSinceDays
@@ -90,7 +131,7 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   private applyQuery(newQuery: string) {
-    this.filtersInStore.pipe(take(1)).subscribe(value => {
+    this.filterInStore$.pipe(take(1)).subscribe(value => {
       this.store.dispatch(new ApplyFilterAction({
         ...value,
         query: newQuery
@@ -99,7 +140,7 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   private applySort(newSort: { column: MangedJobAdsSort; direction: SortDirection }) {
-    this.filtersInStore.pipe(take(1)).subscribe(value => {
+    this.filterInStore$.pipe(take(1)).subscribe(value => {
       this.store.dispatch(new ApplyFilterAction({
         ...value,
         sort: newSort
