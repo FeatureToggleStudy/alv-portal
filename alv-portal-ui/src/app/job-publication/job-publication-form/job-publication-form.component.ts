@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { JobPublicationFormPanelId } from './job-publication-form-panel-id.enum';
+import { CompanyGroup, emptyCompanyGroup } from './company/company-group.types';
+import { IsoCountryService } from './iso-country.service';
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -10,12 +12,14 @@ import { JobPublicationFormPanelId } from './job-publication-form-panel-id.enum'
 })
 export class JobPublicationFormComponent implements OnInit {
 
-  jobPublicationForm: FormGroup;
+  jobPublicationForm = new FormGroup({});
 
   jobPublicationFormPanelId = JobPublicationFormPanelId;
 
+  companyGroupValue: CompanyGroup;
+
   ngOnInit(): void {
-    this.jobPublicationForm = new FormGroup({});
+    this.companyGroupValue = emptyCompanyGroup;
   }
 }
 

@@ -25,7 +25,9 @@
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_COMPANY"
                       panelTitle="home.tools.job-publication.company.title">
-    <alv-company [parentForm]="jobPublicationForm"></alv-company>
+    <alv-company [parentForm]="jobPublicationForm"
+                 [groupValue]="companyGroupValue">
+    </alv-company>
   </alv-collapse-panel>
 
 </form>

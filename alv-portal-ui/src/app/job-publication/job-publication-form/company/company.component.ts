@@ -5,6 +5,8 @@ import { SelectableOption } from '../../../shared/forms/input/selectable-option.
 import { Observable } from 'rxjs/index';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { filter, startWith } from 'rxjs/internal/operators';
+import { ValidationErrors } from '@angular/forms/src/directives/validators';
+import { CompanyGroup } from './company-group.types';
 
 
 @Component({
@@ -17,9 +19,13 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
   @Input()
   parentForm: FormGroup;
 
+  @Input()
+  groupValue: CompanyGroup;
+
   countryOptions$: Observable<SelectableOption[]>;
 
   countryIsoCode$: Observable<String>;
+
 
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService) {
@@ -28,7 +34,7 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('company', this.buildCompanyGroup());
+    this.parentForm.addControl('company', this.buildCompanyGroup(this.groupValue));
 
     this.countryIsoCode$ = this.countryIsoCode.valueChanges
       .pipe(
@@ -37,15 +43,23 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
       );
   }
 
-  private buildCompanyGroup(): FormGroup {
+  private buildCompanyGroup(value: CompanyGroup): FormGroup {
+    const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = value;
+
     return this.fb.group({
-      name: ['', [
+      name: [name, [
         Validators.required
       ]],
-      street: ['', []],
-      houseNumber: ['', []],
-      countryIsoCode: [IsoCountryService.ISO_CODE_SWITZERLAND],
-      postOfficeBoxNumber: ['', [Validators.maxLength(6)]],
+      houseNumber: [houseNumber, []],
+      countryIsoCode: [countryIsoCode, []],
+      postOfficeBoxNumberOrStreet: this.fb.group({
+          street: [postOfficeBoxNumberOrStreet.street, []],
+          postOfficeBoxNumber: [postOfficeBoxNumberOrStreet.postOfficeBoxNumber, [
+            Validators.maxLength(6)
+          ]],
+        },
+        { validator: companyGroupValidator }
+      )
     });
   }
 
@@ -56,4 +70,17 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
   get countryIsoCode(): FormControl {
     return <FormControl>this.companyGroup.get('countryIsoCode');
   }
+}
+
+function companyGroupValidator(companyGroup: FormGroup): ValidationErrors | null {
+  const streetValue = companyGroup.get('street').value;
+  const postOfficeBoxNumberValue = companyGroup.get('postOfficeBoxNumber').value;
+
+  if (!!streetValue || !!postOfficeBoxNumberValue) {
+    return null;
+  }
+
+  return {
+    'postOfficeBoxNumberOrStreetRequired': true
+  };
 }
