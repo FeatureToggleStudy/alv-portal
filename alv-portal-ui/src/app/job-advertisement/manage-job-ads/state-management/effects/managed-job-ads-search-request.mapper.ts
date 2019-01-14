@@ -13,7 +13,8 @@ export class ManagedJobAdsSearchRequestMapper {
         companyId: companyExternalId,
         keywordsText: filter.query,
         onlineSinceDays: filter.onlineSinceDays,
-        ownerUserId: filter.ownerUserId //todo add this as soon as the staging backend is ready
+        status: filter.status,
+        ownerUserId: filter.ownerUserId
       },
       page: page,
       size: ITEMS_PER_PAGE,

@@ -167,7 +167,8 @@ export class ManageJobAdSearchComponent implements OnInit {
       this.store.dispatch(new ApplyFilterAction({
         ...value,
         onlineSinceDays: newFilter.onlineSinceDays,
-        ownerUserId: newFilter.ownerUserId
+        ownerUserId: newFilter.ownerUserId,
+        status: newFilter.status
       }));
     });
   }
