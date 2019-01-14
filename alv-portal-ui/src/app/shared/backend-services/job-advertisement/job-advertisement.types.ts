@@ -55,6 +55,11 @@ export interface JobAdvertisement {
   updatedTime?: string; //date string
   status: JobAdvertisementStatus;
   sourceSystem: SourceSystem;
+  owner: {
+    companyId: string;
+    userDisplayName: string;
+    userId: string
+  };
   externalReference: string;
   stellennummerEgov: string;
   stellennummerAvam: string;

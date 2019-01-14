@@ -3,8 +3,8 @@ import {
   getManagedJobAdResults,
   getManagedJobAdsSearchFilter,
   ManagedJobAdsSearchFilter,
-  ManageJobAdsState,
   ManagedJobAdsSort,
+  ManageJobAdsState,
   SortDirection
 } from '../state-management/state';
 import { select, Store } from '@ngrx/store';
@@ -24,7 +24,7 @@ interface InlineFilterBadge extends InlineBadge {
 
 interface ColumnHeader {
   backendKey: ManagedJobAdsSort;
-  translationKey: string
+  translationKey: string;
 }
 
 @Component({
@@ -77,6 +77,10 @@ export class ManageJobAdSearchComponent implements OnInit {
       {
         backendKey: ManagedJobAdsSort.STATUS,
         translationKey: 'dashboard.job-publication.status'
+      },
+      {
+        backendKey: ManagedJobAdsSort.OWNER_NAME,
+        translationKey: 'portal.dashboard.job-publication.owner-name'
       }
     ];
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
@@ -95,7 +99,7 @@ export class ManageJobAdSearchComponent implements OnInit {
               });
             } else if (key === 'ownerUserId' && filter[key]) {
               badges.push({
-                label: 'dashboard.job-publication.createdBy.' + filter[key],
+                label: 'portal.dashboard.job-publication.createdBy.me',
                 cssClass: 'badge-manage-jobads-filter',
                 key
               });

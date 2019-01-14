@@ -25,6 +25,10 @@ export class JobAdManagementRow {
 
   detailRouterLink: string[];
 
+  ownerName: string;
+
+  ownerId: string;
+
   constructor(private jobAdvertisement: JobAdvertisement, private currentLanguage: string) {
     this.id = this.jobAdvertisement.id;
     this.egov = this.jobAdvertisement.stellennummerEgov;
@@ -35,6 +39,8 @@ export class JobAdManagementRow {
     this.status = this.jobAdvertisement.status.toString();
     this.isCancellable = JobAdvertisementUtils.isJobAdvertisementCancellable(this.status);
     this.detailRouterLink = ['/manage-job-ads', this.id];
+    this.ownerName = this.jobAdvertisement.owner.userDisplayName;
+    this.ownerId = this.jobAdvertisement.owner.userId;
   }
 
 }

@@ -8,7 +8,8 @@ export enum ManagedJobAdsSort {
   PUBLICATION_DATE = 'jobAdvertisement.publication.startDate',
   TITLE = 'jobAdvertisement.jobContent.jobDescriptions.title',
   LOCATION = 'jobAdvertisement.jobContent.location.city',
-  STATUS = 'jobAdvertisement.status'
+  STATUS = 'jobAdvertisement.status',
+  OWNER_NAME = 'jobAdvertisement.owner.userDisplayName'
 }
 
 export enum SortDirection {

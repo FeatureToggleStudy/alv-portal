@@ -5,6 +5,7 @@
   <td>{{jobAdManagementRow.avam}}</td>
   <td>{{jobAdManagementRow.location}}</td>
   <td>{{ 'global.job-publication.status.' + jobAdManagementRow.status | translate }}</td>
+  <td>{{jobAdManagementRow.ownerName || jobAdManagementRow.ownerId}}</td>
   <td>
     <div class="actions">
       <div #mobileActionsMenu="ngbDropdown"

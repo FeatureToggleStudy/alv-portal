@@ -16,6 +16,11 @@ const mockJobAd: JobAdvertisement = {
   'id': '865850f6-0002-11e9-977c-005056ac086d',
   'createdTime': '2018-12-15T01:44:05.538',
   'updatedTime': '2018-12-15T01:44:05.538',
+  owner: {
+    userId: 'ww',
+    userDisplayName: 'www',
+    companyId: 'sdf'
+  },
   'status': JobAdvertisementStatus.PUBLISHED_PUBLIC,
   'sourceSystem': SourceSystem.EXTERN,
   'externalReference': null,
