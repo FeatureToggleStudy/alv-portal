@@ -12,10 +12,15 @@
     </alv-single-typeahead>
   </ng-container>
 
-  <div class="form-row" *ngIf="!isCityZipAutocomplete()" [formGroup]="locationGroup.get('zipAndCity')">
+  <div class="form-row"
+       *ngIf="!isCityZipAutocomplete()"
+       [formGroup]="locationGroup.get('zipAndCity')">
     <div class="col-4">
       <alv-input-field label="home.tools.job-publication.locality.zip"
-                       alvFormControlName="zipCode">
+                       alvFormControlName="zipCode"
+                       [validationMessages]="[
+                       {error: 'pattern', message: 'home.tools.job-publication.messages.validate.zip-format'}
+                       ]">
       </alv-input-field>
     </div>
 
@@ -30,7 +35,7 @@
                    alvFormControlName="remarks"
                    placeholder="portal.job-publication.locality.additional-text.placeholder"
                    [multiline]="true"
-                   [maxLength]="255"
+                   [maxLength]="REMARK_MAX_LENGTH"
                    [showCharacterCounter]="true">
   </alv-input-field>
 
