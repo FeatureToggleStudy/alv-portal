@@ -43,7 +43,7 @@ import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-l
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ListItemContentComponent } from './list-item-content/list-item-content.component';
 import { ContactModalComponent } from '../../candidate-search/candidate-detail/contact-modal/contact-modal.component';
-import { CandidateContactModalService } from '../../candidate-search/candidate-contact-modal.service';
+import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
 
 @NgModule({
   imports: [
@@ -90,7 +90,7 @@ import { CandidateContactModalService } from '../../candidate-search/candidate-c
     ContactModalComponent
   ],
   providers: [
-    CandidateContactModalService
+    CandidateContactRepository
   ],
   entryComponents: [
     ConfirmModalComponent,

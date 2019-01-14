@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Notification, NotificationType } from '../../shared/layout/notifications/notification.model';
+import {
+  Notification,
+  NotificationType
+} from '../../shared/layout/notifications/notification.model';
 import { CandidateDetailPanelId } from './candidate-detail-panel-id.enum';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -12,16 +15,19 @@ import {
   LoadNextCandidateProfileDetailAction,
   LoadPreviousCandidateProfileDetailAction
 } from '../state-management';
-import { CandidateProfileBadge, CandidateProfileBadgesMapperService } from '../candidate-profile-badges-mapper.service';
+import {
+  CandidateProfileBadge,
+  CandidateProfileBadgesMapperService
+} from '../candidate-profile-badges-mapper.service';
 import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
 import { CandidateDetailModel } from './candidate-detail-model';
-import {  map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { findRelevantJobExperience } from '../candidate-rules';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { findRelevantJobExperience, hasEmailContactType } from '../candidate-rules';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { CandidateProfile } from '../../shared/backend-services/candidate/candidate.types';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ContactModalComponent } from './contact-modal/contact-modal.component';
-import { UserRole } from '../../core/auth/user.model';
+import { hasAnyAuthorities, UserRole } from '../../core/auth/user.model';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
@@ -81,15 +87,13 @@ export class CandidateDetailComponent implements OnInit {
     this.nextEnabled$ = this.store.pipe(select(isNextVisible));
 
     this.canContactCandidatePerEmail$ = candidateProfile$.pipe(
-        withLatestFrom(this.authenticationService.getCurrentUser()),
-        map(([candidate, user]) => {
-          const rolePavOrCompany = user && user.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]);
-          const emailContactType = candidate && candidate.contactTypes && candidate.contactTypes.includes('EMAIL');
-
-          return rolePavOrCompany && emailContactType;
-        })
+      withLatestFrom(this.authenticationService.getCurrentUser()),
+      map(([candidate, user]) => {
+        const rolePavOrCompany = hasAnyAuthorities(user, [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]);
+        const emailContactType = hasEmailContactType(candidate);
+        return rolePavOrCompany && emailContactType;
+      })
     );
-
   }
 
   prev() {
@@ -106,7 +110,8 @@ export class CandidateDetailComponent implements OnInit {
 
   openContactModal(candidateProfile: CandidateProfile): void {
     this.appendCandidateToModalRef(candidateProfile)
-        .then( () => this.contactModalSuccess = ALERT.contactModalNotification, () => {});
+      .then(() => this.contactModalSuccess = ALERT.contactModalNotification, () => {
+      });
   }
 
   dismissAlert() {

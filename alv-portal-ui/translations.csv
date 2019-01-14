@@ -47,7 +47,7 @@ candidate-detail,candidate-detail.additional-information.preferredWorkRegions.la
 candidate-detail,candidate-detail.additional-information.title,Weitere Angaben,Additional information,Autres indications,Altri dati
 candidate-detail,candidate-detail.additional-information.workForm.label,Arbeitsform,Work form,Forme de travail,Tipologia lavorativa
 candidate-detail,candidate-detail.anonymous-contact.confirm,Bestätigen,Confirm,Confirmer,Conferma
-candidate-detail,candidate-detail.anonymous-contact.contact-via,Bitte kontaktieren Sie mich per:,Please contact me by:,Veuillez prendre contact avec moi par:,Voglio essere contattato via:
+candidate-detail,candidate-detail.anonymous-contact.contact-via.text,Bitte kontaktieren Sie mich per:,Please contact me by:,Veuillez prendre contact avec moi par:,Voglio essere contattato via:
 candidate-detail,candidate-detail.anonymous-contact.email,E-Mail,Email,Courriel,E-mail
 candidate-detail,candidate-detail.anonymous-contact.phone,Telefon,Phone,Téléphone,Telefono
 candidate-detail,candidate-detail.anonymous-contact.contact-via.validation,Mindestens eine der folgenden Optionen ist erforderlich,At least one of the following options are required,Il faut qu'une option es selectionné,Almeno una è necessaria
