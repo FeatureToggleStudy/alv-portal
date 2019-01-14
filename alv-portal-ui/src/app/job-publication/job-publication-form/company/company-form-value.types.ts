@@ -1,6 +1,6 @@
 import { IsoCountryService } from '../iso-country.service';
 
-export interface CompanyGroup {
+export interface CompanyFormValue {
   name: string;
   houseNumber: string;
   countryIsoCode: string;
@@ -10,7 +10,7 @@ export interface CompanyGroup {
   };
 }
 
-export const emptyCompanyGroup: CompanyGroup = {
+export const emptyCompanyFormValue: CompanyFormValue = {
   name: null,
   countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
   houseNumber: null,

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/index';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { filter, startWith } from 'rxjs/internal/operators';
 import { ValidationErrors } from '@angular/forms/src/directives/validators';
-import { CompanyGroup } from './company-group.types';
+import { CompanyFormValue } from './company-form-value.types';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  groupValue: CompanyGroup;
+  groupValue: CompanyFormValue;
 
   countryOptions$: Observable<SelectableOption[]>;
 
@@ -43,7 +43,7 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
       );
   }
 
-  private buildCompanyGroup(value: CompanyGroup): FormGroup {
+  private buildCompanyGroup(value: CompanyFormValue): FormGroup {
     const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = value;
 
     return this.fb.group({
