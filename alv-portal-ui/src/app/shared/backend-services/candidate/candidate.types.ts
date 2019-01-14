@@ -125,3 +125,23 @@ export interface Occupation {
   sbn3Code: number;
   sbn5Code: number;
 }
+
+export interface EmailContactModal {
+  candidateId: string;
+  subject: string;
+  personalMessage: string;
+  companyName: string;
+  phone?: string;
+  email?: string;
+  company?: Company;
+}
+
+export interface Company {
+  name: string;
+  contactPerson: string;
+  street: string;
+  houseNumber: string;
+  zipCode: string;
+  city: string;
+  country: string;
+}

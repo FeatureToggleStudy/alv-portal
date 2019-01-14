@@ -47,9 +47,9 @@ candidate-detail,candidate-detail.additional-information.preferredWorkRegions.la
 candidate-detail,candidate-detail.additional-information.title,Weitere Angaben,Additional information,Autres indications,Altri dati
 candidate-detail,candidate-detail.additional-information.workForm.label,Arbeitsform,Work form,Forme de travail,Tipologia lavorativa
 candidate-detail,candidate-detail.anonymous-contact.confirm,Bestätigen,Confirm,Confirmer,Conferma
-candidate-detail,candidate-detail.anonymous-contact.contact-via,Bitte kontaktieren Sie mich per:,Please contact me by:,Veuillez prendre contact avec moi par:,Voglio essere contattato via:
-candidate-detail,candidate-detail.anonymous-contact.contact-via.email,E-Mail,Email,Courriel,E-mail
-candidate-detail,candidate-detail.anonymous-contact.contact-via.phone,Telefon,Phone,Téléphone,Telefono
+candidate-detail,candidate-detail.anonymous-contact.contact-via.text,Bitte kontaktieren Sie mich per:,Please contact me by:,Veuillez prendre contact avec moi par:,Voglio essere contattato via:
+candidate-detail,candidate-detail.anonymous-contact.email,E-Mail,Email,Courriel,E-mail
+candidate-detail,candidate-detail.anonymous-contact.phone,Telefon,Phone,Téléphone,Telefono
 candidate-detail,candidate-detail.anonymous-contact.contact-via.validation,Mindestens eine der folgenden Optionen ist erforderlich,At least one of the following options are required,Il faut qu'une option es selectionné,Almeno una è necessaria
 candidate-detail,candidate-detail.anonymous-contact.dismiss,Abbrechen,Cancel,Interrompre,Interrompere
 candidate-detail,candidate-detail.anonymous-contact.title,Kandidat-/in kontaktieren,Contact candidate,Prendre contact avec un/e candidat/e,Contattare il candidato
@@ -59,12 +59,12 @@ candidate-detail,candidate-detail.anonymous-contact.company,Unternehmen,Company,
 candidate-detail,candidate-detail.anonymous-contact.contact-person,Kontaktperson,Contact person,Personne de contact,Contatto
 candidate-detail,candidate-detail.anonymous-contact.street,Strasse,Street,Rue,Strada
 candidate-detail,candidate-detail.anonymous-contact.house,Nr.,No.,No.,No.
-candidate-detail,candidate-detail.anonymous-contact.zip-code,Postal code,Postal code,Postal code,Postal code
+candidate-detail,candidate-detail.anonymous-contact.zip-code,PLZ,Postal code,NPA,NPA
 candidate-detail,candidate-detail.anonymous-contact.city,Ort,City,Place,Posto
 candidate-detail,candidate-detail.anonymous-contact.country,Land,Country,Pays,Paese
 candidate-detail,candidate-detail.anonymous-contact.send-to,Post,Mail,Poste,Posta
 candidate-detail,candidate-detail.back,Zurück zu den Suchergebnissen,Back to search results,Retour aux résultats,"Torna ai risultati della ricerca "
-candidate-detail,candidate-detail.candidate-anonymous-contact,Kandidat/in kontaktieren,Contact candidate,Contacter le/la candidat-e,Contattare candidato/a
+candidate-detail,candidate-detail.candidate-anonymous-contact.name,Kandidat/in kontaktieren,Contact candidate,Contacter le/la candidat-e,Contattare candidato/a
 candidate-detail,candidate-detail.candidate-anonymous-contact.subject,"Liebe RAV-Kundin, lieber RAV-Kunde","Dear Customer","Chère cliente, cher client ORP","Cara cliente, caro cliente dell'URC"
 candidate-detail,candidate-detail.candidate-anonymous-contact.success,"Ihr E-mail wurde versandt. Vielen Dank, dass Sie Job-Room benutzen.","Your e-mail was succesfully sent. Thank you for using Job-Room.","Votre courriel a été envoyé. Merci d'utiliser Job-Room.","La sua e-mail è stata inviata. Grazie di avere utilizzato Job-Room."
 candidate-detail,candidate-detail.candidate-copy-link,Link kopieren,Copy link,Copier le lien,Copia link
@@ -1417,3 +1417,7 @@ portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
 portal,portal.job-publication.language-skills.add,Neue Sprachkompetenz hinzufügen,Add new language skill,Ajouter une nouvelle compétence linguistique,Aggiungi nuova conoscenza linguistica
 portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
+
+candidate-detail,candidate-detail.anonymous-contact.send,Absenden
+candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
+candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"

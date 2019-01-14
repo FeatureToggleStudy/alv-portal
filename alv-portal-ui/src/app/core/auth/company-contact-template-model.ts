@@ -14,11 +14,14 @@ export class CompanyContactTemplateModel {
 
   public readonly companyExternalId: string;
 
+  private readonly _displayName: string;
+
   constructor(companyContactTemplate: CompanyContactTemplate, user: User, accountability: Accountability) {
     this._companyContactTemplate = companyContactTemplate;
     this._firstName = user.firstName;
     this._lastName = user.lastName;
     this.companyExternalId = accountability.companyExternalId;
+    this._displayName = `${user.lastName} ${user.firstName}`;
   }
 
   get companyContactTemplate(): CompanyContactTemplate {
@@ -68,4 +71,9 @@ export class CompanyContactTemplateModel {
   get lastName(): string {
     return this._lastName;
   }
+
+  get displayName(): string {
+    return this._displayName;
+  }
 }
+
