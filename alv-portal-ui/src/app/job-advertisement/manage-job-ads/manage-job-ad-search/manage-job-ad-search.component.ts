@@ -24,7 +24,7 @@ interface InlineFilterBadge extends InlineBadge {
 
 interface ColumnHeader {
   backendKey: ManagedJobAdsSort;
-  translationKey: string
+  translationKey: string;
 }
 
 @Component({
@@ -99,7 +99,7 @@ export class ManageJobAdSearchComponent implements OnInit {
               });
             } else if (key === 'ownerUserId' && filter[key]) {
               badges.push({
-                label: 'dashboard.job-publication.createdBy.' + filter[key],
+                label: 'dashboard.job-publication.createdBy.me',
                 cssClass: 'badge-manage-jobads-filter',
                 key
               });
