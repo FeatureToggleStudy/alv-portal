@@ -15,15 +15,12 @@ export class JobDescriptionComponent implements OnInit {
   readonly NUMBER_OF_JOBS_MAX = 99;
 
   readonly DESCRIPTION_MAX_LENGTH = 10000;
-
-
+  
   @Input()
   parentForm: FormGroup;
 
-
   constructor(private fb: FormBuilder) {
   }
-
 
   ngOnInit(): void {
     //todo: Set initial value
@@ -44,7 +41,7 @@ export class JobDescriptionComponent implements OnInit {
       jobDescription: ['', [
         Validators.maxLength(this.DESCRIPTION_MAX_LENGTH)
       ]]
-    })
+    });
   }
 
   get jobDescriptionGroup(): FormGroup {
