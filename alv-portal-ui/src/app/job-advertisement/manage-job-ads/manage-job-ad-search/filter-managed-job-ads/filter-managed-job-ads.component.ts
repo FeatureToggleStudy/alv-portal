@@ -51,11 +51,11 @@ export class FilterManagedJobAdsComponent implements OnInit {
       map(user => {
         return [
           {
-            label: 'All',
+            label: 'portal.dashboard.job-publication.createdBy.all',
             value: null,
           },
           {
-            label: 'Current user: ' + user.displayName,
+            label: 'portal.dashboard.job-publication.createdBy.me',
             value: user.id
           }
         ];

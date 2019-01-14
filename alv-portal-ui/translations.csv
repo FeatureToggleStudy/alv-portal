@@ -1424,3 +1424,5 @@ candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
 candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"
 
 portal,portal.dashboard.job-publication.owner-name
+portal,portal.dashboard.job-publication.createdBy.me
+portal,portal.dashboard.job-publication.createdBy.all

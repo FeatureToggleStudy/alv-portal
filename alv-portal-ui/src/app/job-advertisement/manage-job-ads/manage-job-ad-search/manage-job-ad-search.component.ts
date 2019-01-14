@@ -99,7 +99,7 @@ export class ManageJobAdSearchComponent implements OnInit {
               });
             } else if (key === 'ownerUserId' && filter[key]) {
               badges.push({
-                label: 'dashboard.job-publication.createdBy.me',
+                label: 'portal.dashboard.job-publication.createdBy.me',
                 cssClass: 'badge-manage-jobads-filter',
                 key
               });
