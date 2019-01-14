@@ -193,10 +193,10 @@ export interface CreateJobAdvertisement {
 }
 
 export interface ManageJobAdsSearchBody {
-  jobTitle: string;
+  keywordsText: string;
   onlineSinceDays: number;
   companyId: string;
-  ownerUserId?: string;
+  ownerUserId: string;
 }
 
 export interface ManagedJobAdsSearchRequest {

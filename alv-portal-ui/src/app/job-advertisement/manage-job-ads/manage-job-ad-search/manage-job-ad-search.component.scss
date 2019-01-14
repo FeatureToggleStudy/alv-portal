@@ -2,3 +2,12 @@
 thead {
   background-color: $color-light-grey
 }
+
+
+th {
+  font-weight: normal;
+
+  &.active-sort {
+    font-weight: bold;
+  }
+}
