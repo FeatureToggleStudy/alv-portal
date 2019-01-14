@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JobDescriptionFormValue } from './job-description-form-value.types';
 
 @Component({
   selector: 'alv-job-description',
@@ -19,26 +20,30 @@ export class JobDescriptionComponent implements OnInit {
   @Input()
   parentForm: FormGroup;
 
+  @Input()
+  jobDescriptionFormValue: JobDescriptionFormValue;
+
   constructor(private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
-    //todo: Set initial value
-    this.parentForm.addControl('jobDescription', this.buildJobDescriptionGroup());
+    this.parentForm.addControl('jobDescription', this.buildJobDescriptionGroup(this.jobDescriptionFormValue));
   }
 
-  private buildJobDescriptionGroup(): FormGroup {
+  private buildJobDescriptionGroup(value: JobDescriptionFormValue): FormGroup {
+    const { title, numberOfJobs, jobDescription } = value;
+
     return this.fb.group({
-      title: ['', [
+      title: [title, [
         Validators.required,
         Validators.maxLength(this.TITLE_MAX_LENGTH)
       ]],
-      numberOfJobs: [1, [
+      numberOfJobs: [numberOfJobs, [
         Validators.required,
         Validators.min(this.NUMBER_OF_JOBS_MIN),
         Validators.max(this.NUMBER_OF_JOBS_MAX)
       ]],
-      jobDescription: ['', [
+      jobDescription: [jobDescription, [
         Validators.maxLength(this.DESCRIPTION_MAX_LENGTH)
       ]]
     });

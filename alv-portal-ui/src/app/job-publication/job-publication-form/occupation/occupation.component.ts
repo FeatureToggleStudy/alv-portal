@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs/index';
 import { Degree, Experience } from '../../../shared/backend-services/shared.types';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationFormValue } from './occupation-form-value.types';
 
 @Component({
   selector: 'alv-occupation',
@@ -15,6 +16,9 @@ export class OccupationComponent implements OnInit {
 
   @Input()
   parentForm: FormGroup;
+
+  @Input()
+  occupationFormValue: OccupationFormValue;
 
   degreeOptions$: Observable<SelectableOption[]> = of([
     {
@@ -33,7 +37,7 @@ export class OccupationComponent implements OnInit {
   experienceOptions$: Observable<SelectableOption[]> = of([
     {
       value: null,
-      label: 'candidate-search.no-selection'
+      label: 'home.tools.job-publication.no-selection'
     },
     ...Object.keys(Experience).map(experience => {
       return {
@@ -50,15 +54,18 @@ export class OccupationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //todo: Set initial value
-    this.parentForm.addControl('occupation', this.buildOccupationGroup());
+    this.parentForm.addControl('occupation', this.buildOccupationGroup(this.occupationFormValue));
   }
 
-  private buildOccupationGroup(): FormGroup {
+  private buildOccupationGroup(value: OccupationFormValue): FormGroup {
+    const { occupationSuggestion, degree, experience } = value;
+
     return this.fb.group({
-      occupationSuggestion: ['', [Validators.required]],
-      degree: [''],
-      experience: ['']
+      occupationSuggestion: [occupationSuggestion, [
+        Validators.required
+      ]],
+      degree: [degree],
+      experience: [experience]
     });
   }
 

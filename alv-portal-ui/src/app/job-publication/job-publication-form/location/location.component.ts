@@ -5,6 +5,7 @@ import { SelectableOption } from '../../../shared/forms/input/selectable-option.
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { IsoCountryService } from '../iso-country.service';
 import { filter, startWith } from 'rxjs/internal/operators';
+import { LocationFormValue } from './location-form-value.types';
 
 @Component({
   selector: 'alv-location',
@@ -18,6 +19,9 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
   @Input()
   parentForm: FormGroup;
 
+  @Input()
+  locationFormValue: LocationFormValue;
+
   countryOptions$: Observable<SelectableOption[]>;
 
   countryIsoCode$: Observable<String>;
@@ -29,7 +33,7 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('location', this.buildLocationGroup());
+    this.parentForm.addControl('location', this.buildLocationGroup(this.locationFormValue));
 
 
     this.countryIsoCode$ = this.countryIsoCode.valueChanges
@@ -39,10 +43,12 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
       );
   }
 
-  private buildLocationGroup(): FormGroup {
+  private buildLocationGroup(value: LocationFormValue): FormGroup {
+    const { countryIsoCode, remarks } = value;
+
     return this.fb.group({
-      countryIsoCode: [IsoCountryService.ISO_CODE_SWITZERLAND],
-      remarks: ['', [
+      countryIsoCode: [countryIsoCode],
+      remarks: [remarks, [
         Validators.maxLength(this.REMARK_MAX_LENGTH)
       ]]
     });

@@ -1,10 +1,14 @@
 <form [formGroup]="jobPublicationForm">
 
-  <alv-job-description [parentForm]="jobPublicationForm"></alv-job-description>
+  <alv-job-description [parentForm]="jobPublicationForm"
+                       [jobDescriptionFormValue]="jobDescriptionFormValue">
+  </alv-job-description>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_OCCUPATION"
                       panelTitle="home.tools.job-publication.occupation.label">
-    <alv-occupation [parentForm]="jobPublicationForm"></alv-occupation>
+    <alv-occupation [parentForm]="jobPublicationForm"
+                    [occupationFormValue]="occupationFormValue">
+    </alv-occupation>
   </alv-collapse-panel>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_LANGUAGES"
@@ -17,16 +21,17 @@
     <alv-employment [parentForm]="jobPublicationForm"></alv-employment>
   </alv-collapse-panel>
 
-
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_LOCATION"
                       panelTitle="home.tools.job-publication.locality.title">
-    <alv-location [parentForm]="jobPublicationForm"></alv-location>
+    <alv-location [parentForm]="jobPublicationForm"
+                  [locationFormValue]="locationFormValue">
+    </alv-location>
   </alv-collapse-panel>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_COMPANY"
                       panelTitle="home.tools.job-publication.company.title">
     <alv-company [parentForm]="jobPublicationForm"
-                 [groupValue]="companyGroupValue">
+                 [companyFormValue]="companyGroupValue">
     </alv-company>
   </alv-collapse-panel>
 

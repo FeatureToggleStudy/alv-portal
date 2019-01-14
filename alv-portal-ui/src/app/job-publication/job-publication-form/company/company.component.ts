@@ -20,7 +20,7 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  groupValue: CompanyFormValue;
+  companyFormValue: CompanyFormValue;
 
   countryOptions$: Observable<SelectableOption[]>;
 
@@ -34,7 +34,7 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('company', this.buildCompanyGroup(this.groupValue));
+    this.parentForm.addControl('company', this.buildCompanyGroup(this.companyFormValue));
 
     this.countryIsoCode$ = this.countryIsoCode.valueChanges
       .pipe(

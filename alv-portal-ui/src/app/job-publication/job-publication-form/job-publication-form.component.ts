@@ -5,6 +5,18 @@ import {
   CompanyFormValue,
   emptyCompanyFormValue
 } from './company/company-form-value.types';
+import {
+  emptyJobDescriptionFormValue,
+  JobDescriptionFormValue
+} from './job-description/job-description-form-value.types';
+import {
+  emptyLocationFormValue,
+  LocationFormValue
+} from './location/location-form-value.types';
+import {
+  emptyOccupationFormValue,
+  OccupationFormValue
+} from './occupation/occupation-form-value.types';
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -20,8 +32,17 @@ export class JobPublicationFormComponent implements OnInit {
 
   companyGroupValue: CompanyFormValue;
 
+  jobDescriptionFormValue: JobDescriptionFormValue;
+
+  locationFormValue: LocationFormValue;
+
+  occupationFormValue: OccupationFormValue;
+
   ngOnInit(): void {
     this.companyGroupValue = emptyCompanyFormValue;
+    this.jobDescriptionFormValue = emptyJobDescriptionFormValue;
+    this.locationFormValue = emptyLocationFormValue;
+    this.occupationFormValue = emptyOccupationFormValue;
   }
 }
 
