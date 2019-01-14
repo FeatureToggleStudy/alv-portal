@@ -42,7 +42,7 @@
           [ngClass]="{'active-sort': currentFilter.sort.column === column.backendKey}">
         <span>{{ column.translationKey | translate }}</span>
         <span class="fa fa-sort ml-2"
-              *ngIf="currentFilter.sort.column === column.backendKey"
+              *ngIf="currentFilter.sort.column === column.backendKey; else placeholder"
               [ngClass]="{
               'fa-sort-down': currentFilter.sort.direction === SortDirection.DESC,
               'fa-sort-up': currentFilter.sort.direction === SortDirection.ASC
@@ -65,3 +65,7 @@
     </tbody>
   </table>
 </div>
+
+<ng-template #placeholder>
+  <!--<i class="fa fa-sort ml-2"></i>-->
+</ng-template>
