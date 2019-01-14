@@ -6,6 +6,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ManagedJobAdSearchFilterValues } from '../managed-job-ad-search-types';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { map } from 'rxjs/operators';
+import { JobAdvertisementStatus } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-filter-managed-job-ads',
@@ -21,6 +22,8 @@ export class FilterManagedJobAdsComponent implements OnInit {
   onlineSinceOptions$: Observable<SelectableOption[]>;
 
   jobsCreatorOptions$: Observable<SelectableOption[]>;
+
+  statusOptions$: Observable<SelectableOption[]>;
 
   constructor(private fb: FormBuilder,
               public activeModal: NgbActiveModal,
@@ -44,7 +47,8 @@ export class FilterManagedJobAdsComponent implements OnInit {
 
     this.form = this.fb.group({
       onlineSinceDays: [this.currentFiltering.onlineSinceDays],
-      ownerUserId: [this.currentFiltering.ownerUserId]
+      ownerUserId: [this.currentFiltering.ownerUserId],
+      status: ['']
     });
 
     this.jobsCreatorOptions$ = this.authenticationService.getCurrentUser().pipe(
@@ -60,6 +64,12 @@ export class FilterManagedJobAdsComponent implements OnInit {
           }
         ];
       })
+    );
+    this.statusOptions$ = of(Object.values(JobAdvertisementStatus)
+      .map(s => ({
+        label: 'global.job-publication.status.' + s,
+        value: s
+      }))
     );
   }
 
