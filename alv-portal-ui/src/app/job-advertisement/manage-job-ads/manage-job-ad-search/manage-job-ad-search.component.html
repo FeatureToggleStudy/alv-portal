@@ -38,10 +38,11 @@
     <tr>
       <th scope="col"
           *ngIf="MangedJobAdsSort.MELDE_DATUM as column"
-          (click)="onSortChange(column, currentFilter.sort)">
+          (click)="onSortChange(column, currentFilter.sort)"
+          [ngClass]="{'active-sort': currentFilter.sort.column === column}">
         <span>{{ 'dashboard.job-publication.publication-date' | translate }}</span>
-        <span class="fa fa-sort"
-              *ngIf="currentFilter.sort.column === column"
+        <span class="fa fa-sort ml-2"
+              *ngIf="currentFilter.sort.column === column; else placeholder"
               [ngClass]="{
               'fa-sort-down': currentFilter.sort.direction === SortDirection.DESC,
               'fa-sort-up': currentFilter.sort.direction === SortDirection.ASC
@@ -51,10 +52,11 @@
       <th scope="col">{{ 'dashboard.job-publication.job-title' | translate }}</th>
       <th scope="col"
           *ngIf="MangedJobAdsSort.STELLEN_NUMMER_EGOV as column"
-          (click)="onSortChange(column, currentFilter.sort)">
+          (click)="onSortChange(column, currentFilter.sort)"
+          [ngClass]="{'active-sort': currentFilter.sort.column === column}">
         <span>{{ 'dashboard.job-publication.job-room-id' | translate }}</span>
-        <span class="fa fa-sort"
-              *ngIf="currentFilter.sort.column === column"
+        <span class="fa fa-sort  ml-2"
+              *ngIf="currentFilter.sort.column === column; else placeholder"
               [ngClass]="{
               'fa-sort-down': currentFilter.sort.direction === SortDirection.DESC,
               'fa-sort-up': currentFilter.sort.direction === SortDirection.ASC
@@ -63,10 +65,11 @@
       </th>
       <th scope="col"
           *ngIf="MangedJobAdsSort.STELLEN_NUMMER_AVAM as column"
-          (click)="onSortChange(column, currentFilter.sort)">
+          (click)="onSortChange(column, currentFilter.sort)"
+          [ngClass]="{'active-sort': currentFilter.sort.column === column}">
         <span>{{ 'dashboard.job-publication.avam' | translate }}</span>
-        <span class="fa fa-sort"
-              *ngIf="currentFilter.sort.column === column"
+        <span class="fa fa-sort ml-2"
+              *ngIf="currentFilter.sort.column === column; else placeholder"
               [ngClass]="{
               'fa-sort-down': currentFilter.sort.direction === SortDirection.DESC,
               'fa-sort-up': currentFilter.sort.direction === SortDirection.ASC
@@ -92,3 +95,6 @@
   </table>
 </div>
 
+<ng-template #placeholder>
+  <i class="fa fa-sort ml-2"></i>
+</ng-template>
