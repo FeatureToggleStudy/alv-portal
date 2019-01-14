@@ -37,7 +37,10 @@ export class ValidationService {
       requiredBefore: 'portal.forms.validation.ngbDate.before',
       requiredAfter: 'portal.forms.validation.ngbDate.after'
     },
-    // TODO create a emailValidator global message
+    {
+      error: 'emailValidator',
+      message: 'home.tools.job-publication.messages.validate.email-format'
+    },
     {
       error: 'phoneValidator',
       message: 'global.messages.validate.phone.format'

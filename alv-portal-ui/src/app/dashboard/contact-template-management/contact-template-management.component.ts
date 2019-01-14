@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../shared/forms/regex-patterns';
+import { HOUSE_NUMBER_REGEX } from '../../shared/forms/regex-patterns';
 import { takeUntil, tap } from 'rxjs/operators';
 import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
 import { Observable, of } from 'rxjs';
@@ -16,6 +16,7 @@ import {
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
 import { phoneInputValidator } from '../../shared/forms/input/input-field/phone-input.validator';
+import { emailInputValidator } from '../../shared/forms/input/input-field/email-input.validator';
 
 
 @Component({
@@ -103,7 +104,7 @@ export class ContactTemplateManagementComponent extends AbstractSubscriber imple
       firstName: [{ value: null, disabled: true }],
       lastName: [{ value: null, disabled: true }],
       phone: [null, [Validators.required, phoneInputValidator()]],
-      email: [null, [Validators.required, Validators.pattern(EMAIL_REGEX)]],
+      email: [null, [Validators.required, emailInputValidator()]],
       companyName: [null, Validators.required],
       companyStreet: [null, Validators.required],
       companyHouseNr: [null, Validators.pattern(HOUSE_NUMBER_REGEX)],

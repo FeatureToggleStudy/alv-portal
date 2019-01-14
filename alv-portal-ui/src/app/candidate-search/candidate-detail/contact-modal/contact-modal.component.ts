@@ -6,14 +6,15 @@ import {
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { takeUntil, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
+import { HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { combineLatest } from 'rxjs';
 import { CandidateContactRepository } from '../../../shared/backend-services/candidate/candidate-contact-repository';
+import { emailInputValidator } from '../../../shared/forms/input/input-field/email-input.validator';
 
 @Component({
   selector: 'alv-contact-modal',
@@ -64,6 +65,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     this.form.get('postCheckbox').valueChanges.pipe(
       withLatestFrom(this.authenticationService.getCurrentCompany()),
+      distinctUntilChanged(),
       takeUntil(this.ngUnsubscribe))
       .subscribe(([postCheckBoxEnabled, company]) => {
         if (postCheckBoxEnabled) {
@@ -84,6 +86,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     this.form.get('phoneCheckbox').valueChanges.pipe(
       withLatestFrom(this.authenticationService.getCurrentCompany()),
+      distinctUntilChanged(),
       takeUntil(this.ngUnsubscribe))
       .subscribe(([phoneCheckBoxEnabled, company]) => {
         if (phoneCheckBoxEnabled) {
@@ -97,10 +100,11 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     this.form.get('emailCheckbox').valueChanges.pipe(
       withLatestFrom(this.authenticationService.getCurrentCompany()),
+      distinctUntilChanged(),
       takeUntil(this.ngUnsubscribe))
       .subscribe(([emailCheckBoxEnabled, company]) => {
         if (emailCheckBoxEnabled) {
-          this.form.get('email').setValidators([Validators.required, Validators.pattern(EMAIL_REGEX)]);
+          this.form.get('email').setValidators([Validators.required, emailInputValidator()]);
           this.patchEmailValue(company.email);
         } else {
           this.form.get('email').clearValidators();
