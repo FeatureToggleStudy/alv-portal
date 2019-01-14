@@ -3,9 +3,12 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 
 export enum ManagedJobAdsSort {
-  STELLEN_NUMMER_EGOV = 'jobAdvertisement.stellennummerEgov',
-  STELLEN_NUMMER_AVAM = 'jobAdvertisement.stellennummerAvam',
-  MELDE_DATUM = 'jobAdvertisement.publication.startDate'
+  EGOV = 'jobAdvertisement.stellennummerEgov',
+  AVAM = 'jobAdvertisement.stellennummerAvam',
+  PUBLICATION_DATE = 'jobAdvertisement.publication.startDate',
+  TITLE = 'jobAdvertisement.jobContent.jobDescriptions.title',
+  LOCATION = 'jobAdvertisement.jobContent.location.city',
+  STATUS = 'jobAdvertisement.status'
 }
 
 export enum SortDirection {
@@ -41,7 +44,7 @@ export const initialState: ManageJobAdsState = {
     onlineSinceDays: null,
     ownerUserId: null,
     sort: {
-      column: ManagedJobAdsSort.MELDE_DATUM,
+      column: ManagedJobAdsSort.PUBLICATION_DATE,
       direction: SortDirection.DESC
     }
   },

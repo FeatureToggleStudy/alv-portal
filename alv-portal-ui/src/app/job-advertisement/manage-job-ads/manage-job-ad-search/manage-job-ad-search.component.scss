@@ -6,7 +6,8 @@ thead {
 th {
   font-weight: normal;
 
-  &.active-sort {
+  &.active-sort, &:hover {
     font-weight: bold;
   }
+
 }

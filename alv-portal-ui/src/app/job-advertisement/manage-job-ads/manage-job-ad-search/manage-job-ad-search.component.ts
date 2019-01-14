@@ -22,6 +22,11 @@ interface InlineFilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
 }
 
+interface ColumnHeader {
+  backendKey: ManagedJobAdsSort;
+  translationKey: string
+}
+
 @Component({
   selector: 'alv-manage-job-ad-search',
   templateUrl: './manage-job-ad-search.component.html',
@@ -37,7 +42,8 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   currentBadges$: Observable<InlineFilterBadge[]>;
 
-  MangedJobAdsSort = ManagedJobAdsSort;
+
+  columns: ColumnHeader[];
 
   SortDirection = SortDirection;
 
@@ -47,6 +53,32 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.columns = [
+      {
+        backendKey: ManagedJobAdsSort.PUBLICATION_DATE,
+        translationKey: 'dashboard.job-publication.publication-date'
+      },
+      {
+        backendKey: ManagedJobAdsSort.TITLE,
+        translationKey: 'dashboard.job-publication.job-title'
+      },
+      {
+        backendKey: ManagedJobAdsSort.EGOV,
+        translationKey: 'dashboard.job-publication.job-room-id'
+      },
+      {
+        backendKey: ManagedJobAdsSort.AVAM,
+        translationKey: 'dashboard.job-publication.avam'
+      },
+      {
+        backendKey: ManagedJobAdsSort.LOCATION,
+        translationKey: 'dashboard.job-publication.location'
+      },
+      {
+        backendKey: ManagedJobAdsSort.STATUS,
+        translationKey: 'dashboard.job-publication.status'
+      }
+    ];
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
 
     this.currentFilter$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
