@@ -39,8 +39,8 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
     });
   }
 
-  itemSelected(item: PavSuggestion) {
-    this.pavSelected.emit(item);
+  itemSelected(item: SingleTypeaheadItem<PavSuggestion>) {
+    this.pavSelected.emit(item.payload);
   }
 
   goToRequestAccessCodeStep() {
