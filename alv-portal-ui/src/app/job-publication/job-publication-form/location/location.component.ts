@@ -25,14 +25,12 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
 
   readonly ISO_CODE_SWITZERLAND = 'CH';
 
-
   @Input()
   parentForm: FormGroup;
 
   countryOptions$: Observable<SelectableOption[]>;
 
   loadLocationsFn = this.loadLocations.bind(this);
-
 
   constructor(private fb: FormBuilder,
               private localitySuggestionService: LocalitySuggestionService,
