@@ -90,12 +90,6 @@ export class InputFieldComponent extends AbstractInput {
   @Input() placeholder?: string;
 
   /**
-   * if true, displays the parent group errors
-   * @type {boolean}
-   */
-  @Input() showGroupErrors = false;
-
-  /**
    * Output event on input
    */
   @Output() input = new EventEmitter<Event>();
@@ -121,20 +115,6 @@ export class InputFieldComponent extends AbstractInput {
       target.style.height = Math.max(target.scrollHeight, this.MIN_HEIGHT) + 'px';
     }
     this.input.emit(event);
-  }
-
-  hasInvalidClass() {
-    if (this.showGroupErrors && this.control.parent.invalid) {
-      const parentErrors = this.control.parent.errors || {};
-      const hasRelevantGroupError = this.validationMessages
-        .map((msg) => msg.error)
-        .reduce((accumulator, currentValue) => !!parentErrors[currentValue] || accumulator, false);
-
-      if (hasRelevantGroupError) {
-        return this.control.parent.touched;
-      }
-    }
-    return this.control.touched && this.control.invalid;
   }
 
   private formatPhoneNumber(phoneNumber: string) {
