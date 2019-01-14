@@ -31,18 +31,19 @@
     border: 1px solid $color-grey;
     background-color: $color-white;
     border-radius: 2px;
+    
     left: 0;
-
-    /*(24px line-height - 20px height of fake checkbox) / 2 - 1px for the border
-     *to vertically center it.
-     */
     top: 2px;
   }
 
+  label:hover::before {
+    background-color: $color-super-light-grey;
+  }
   /* Checkmark of the fake checkbox */
   label::after {
     height: 7px;
     width: 11px;
+
     border-left: 3px solid;
     border-bottom: 3px solid;
     border-color: $color-dark-grey;
