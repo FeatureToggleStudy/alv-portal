@@ -9,13 +9,23 @@ import {
   ManagedJobAdsSortingColumn
 } from './job-ad-management-table/job-ad-management.table-types';
 
+export const ALL_COLUMNS = [
+  ManagedJobAdsSortingColumn.PUBLICATION_DATE,
+  ManagedJobAdsSortingColumn.TITLE,
+  ManagedJobAdsSortingColumn.EGOV,
+  ManagedJobAdsSortingColumn.AVAM,
+  ManagedJobAdsSortingColumn.LOCATION,
+  ManagedJobAdsSortingColumn.STATUS,
+  ManagedJobAdsSortingColumn.OWNER_NAME
+];
+
 @Injectable()
 export class JobAdManagementColumnService {
 
   constructor(private i18n: I18nService, private localeAwareDatePipe: LocaleAwareDatePipe) {
   }
 
-  public createColumnDefinitions(): Observable<JobAdColumnDefinition[]> {
+  public createColumnDefinitions(columns = ALL_COLUMNS): Observable<JobAdColumnDefinition[]> {
     return this.i18n.currentLanguage$.pipe(
       map(currentLang => {
         return [
@@ -69,7 +79,8 @@ export class JobAdManagementColumnService {
             }
           }
         ];
-      })
+      }),
+      map(result => result.filter((b) => columns.includes(b.backendKey)))
     );
   }
 }

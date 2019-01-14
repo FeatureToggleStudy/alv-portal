@@ -77,7 +77,14 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
         return throwError(err);
       })
     );
-    this.columns$ = this.jobAdManagementColumnService.createColumnDefinitions();
+    this.columns$ = this.jobAdManagementColumnService.createColumnDefinitions(
+      [
+        ManagedJobAdsSortingColumn.PUBLICATION_DATE,
+        ManagedJobAdsSortingColumn.TITLE,
+        ManagedJobAdsSortingColumn.STATUS,
+        ManagedJobAdsSortingColumn.OWNER_NAME
+      ]
+    );
   }
 
   onSortChange(sortChangeEvent: MangedJobAdsSorting) {
