@@ -4,7 +4,7 @@ import {
   getManagedJobAdsSearchFilter,
   ManagedJobAdsSearchFilter,
   ManageJobAdsState,
-  MangedJobAdsSort,
+  ManagedJobAdsSort,
   SortDirection
 } from '../state-management/state';
 import { select, Store } from '@ngrx/store';
@@ -37,7 +37,7 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   currentBadges$: Observable<InlineFilterBadge[]>;
 
-  MangedJobAdsSort = MangedJobAdsSort;
+  MangedJobAdsSort = ManagedJobAdsSort;
 
   SortDirection = SortDirection;
 
@@ -114,12 +114,12 @@ export class ManageJobAdSearchComponent implements OnInit {
     this.applyQuery($event.target.value);
   }
 
-  onSortChange(selectedColumn: MangedJobAdsSort, current: { column: MangedJobAdsSort; direction: SortDirection }) {
+  onSortChange(selectedColumn: ManagedJobAdsSort, current: { column: ManagedJobAdsSort; direction: SortDirection }) {
     const direction = this.determineSortDirection(selectedColumn, current);
     this.applySort({ column: selectedColumn, direction: direction });
   }
 
-  private determineSortDirection(selectedColumn: MangedJobAdsSort, current: { column: MangedJobAdsSort; direction: SortDirection }) {
+  private determineSortDirection(selectedColumn: ManagedJobAdsSort, current: { column: ManagedJobAdsSort; direction: SortDirection }) {
     if (selectedColumn !== current.column) {
       return SortDirection.ASC;
     }
@@ -145,7 +145,7 @@ export class ManageJobAdSearchComponent implements OnInit {
     });
   }
 
-  private applySort(newSort: { column: MangedJobAdsSort; direction: SortDirection }) {
+  private applySort(newSort: { column: ManagedJobAdsSort; direction: SortDirection }) {
     this.currentFilter$.pipe(take(1)).subscribe(value => {
       this.store.dispatch(new ApplyFilterAction({
         ...value,

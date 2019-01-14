@@ -1,4 +1,4 @@
-import { ManagedJobAdsSearchFilter, MangedJobAdsSort, SortDirection } from '../state';
+import { ManagedJobAdsSearchFilter, ManagedJobAdsSort, SortDirection } from '../state';
 import { ManagedJobAdsSearchRequest } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 const ITEMS_PER_PAGE = 20;
@@ -21,7 +21,7 @@ export class ManagedJobAdsSearchRequestMapper {
     };
   }
 
-  private static mapSorting(sort: { column: MangedJobAdsSort, direction: SortDirection }) {
+  private static mapSorting(sort: { column: ManagedJobAdsSort, direction: SortDirection }) {
     return `${sort.column},${sort.direction}`;
   }
 
