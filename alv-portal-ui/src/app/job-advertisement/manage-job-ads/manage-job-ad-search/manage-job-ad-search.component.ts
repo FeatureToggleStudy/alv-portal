@@ -3,8 +3,8 @@ import {
   getManagedJobAdResults,
   getManagedJobAdsSearchFilter,
   ManagedJobAdsSearchFilter,
-  ManageJobAdsState,
   ManagedJobAdsSort,
+  ManageJobAdsState,
   SortDirection
 } from '../state-management/state';
 import { select, Store } from '@ngrx/store';
@@ -77,6 +77,10 @@ export class ManageJobAdSearchComponent implements OnInit {
       {
         backendKey: ManagedJobAdsSort.STATUS,
         translationKey: 'dashboard.job-publication.status'
+      },
+      {
+        backendKey: ManagedJobAdsSort.OWNER_NAME,
+        translationKey: 'portal.dashboard.job-publication.owner-name'
       }
     ];
     this.jobSearchResults$ = this.store.pipe(select(getManagedJobAdResults));
