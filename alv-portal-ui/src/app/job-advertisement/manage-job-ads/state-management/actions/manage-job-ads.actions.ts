@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { ManagedJobAdsSearchFilter } from '../state';
+import { ManagedJobAdsSearchFilter } from '../../../../widgets/manage-job-ads-widget/job-ad-management-table/job-ad-management.table-types';
 
 export const INIT_RESULT_LIST = 'MANAGEJOBADS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'MANAGEJOBADS:FILTER_APPLIED';

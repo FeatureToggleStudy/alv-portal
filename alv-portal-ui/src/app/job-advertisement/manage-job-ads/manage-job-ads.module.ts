@@ -11,7 +11,6 @@ import { ManagedJobAdSearchGuard } from './manage-job-ad-search/managed-job-ad-s
 import { SharedModule } from '../../shared/shared.module';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { JobAdCancellationComponent } from './shared/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ManageJobAdDetailGuard } from './manage-job-ad-detail/manage-job-ad-detail.guard';
 import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement.module';
@@ -33,7 +32,6 @@ import { WidgetsModule } from '../../widgets/widgets.module';
   declarations: [
     ManageJobAdSearchComponent,
     ManageJobAdDetailComponent,
-    JobAdCancellationComponent,
     FilterManagedJobAdsComponent
   ],
   providers: [
@@ -42,7 +40,6 @@ import { WidgetsModule } from '../../widgets/widgets.module';
     ManagedJobAdSearchGuard,
   ],
   entryComponents: [
-    JobAdCancellationComponent,
     FilterManagedJobAdsComponent
   ]
 })

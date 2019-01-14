@@ -1,12 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  getManagedJobAdResults,
-  getManagedJobAdsSearchFilter,
-  ManagedJobAdsSearchFilter,
-  ManagedJobAdsSort,
-  ManageJobAdsState,
-  SortDirection
-} from '../state-management/state';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
@@ -17,20 +9,25 @@ import { map, take } from 'rxjs/operators';
 import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
 import { JobAdManagementColumnService } from '../../../widgets/manage-job-ads-widget/job-ad-management-column.service';
+import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import {
   JobAdColumnDefinition,
-  JobAdManagementRow2,
-  SortChangeEvent
-} from '../../../widgets/manage-job-ads-widget/job-ad-management-table/job-ad-management-table.component';
-import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
+  JobAdManagementRow,
+  ManagedJobAdsSearchFilter,
+  MangedJobAdsAction,
+  MangedJobAdsActionType,
+  MangedJobAdsSorting
+} from '../../../widgets/manage-job-ads-widget/job-ad-management-table/job-ad-management.table-types';
+import {
+  getManagedJobAdResults,
+  getManagedJobAdsSearchFilter,
+  ManageJobAdsState
+} from '../state-management/state';
+import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
+import { Router } from '@angular/router';
 
 interface InlineFilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
-}
-
-interface ColumnHeader {
-  backendKey: ManagedJobAdsSort;
-  translationKey: string;
 }
 
 @Component({
@@ -46,19 +43,20 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   currentBadges$: Observable<InlineFilterBadge[]>;
 
-  rows$: Observable<JobAdManagementRow2[]>;
+  rows$: Observable<JobAdManagementRow[]>;
 
   columns$: Observable<JobAdColumnDefinition[]>;
 
   constructor(private store: Store<ManageJobAdsState>,
               private modalService: ModalService,
               private jobAdManagementColumnService: JobAdManagementColumnService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private router: Router) {
   }
 
   ngOnInit() {
 
-    this.columns$ = this.jobAdManagementColumnService.map();
+    this.columns$ = this.jobAdManagementColumnService.createColumnDefinitions();
 
     this.rows$ = this.store.pipe(
       select(getManagedJobAdResults),
@@ -137,9 +135,31 @@ export class ManageJobAdSearchComponent implements OnInit {
     this.applyQuery($event.target.value);
   }
 
-  onSortChange(sortChangeEvent: SortChangeEvent) {
+  onSortChange(sortChangeEvent: MangedJobAdsSorting) {
     this.applySort(sortChangeEvent);
   }
+
+  onAction(action: MangedJobAdsAction) {
+    switch (action.type) {
+      case MangedJobAdsActionType.ON_CANCEL:
+        const jobAdCancellationModalRef = this.modalService.openLarge(JobAdCancellationComponent);
+        const jobAdCancellationComponent = <JobAdCancellationComponent>jobAdCancellationModalRef.componentInstance;
+        jobAdCancellationComponent.jobAdvertisement = action.row.jobAdvertisement;
+        jobAdCancellationComponent.accessToken = null;
+        jobAdCancellationModalRef.result
+          .then(value => console.log(value))
+          .catch(() => {
+          });
+        break;
+      case MangedJobAdsActionType.ON_OPEN:
+        this.router.navigate(action.row.detailRouterLink);
+        break;
+      case MangedJobAdsActionType.ON_DUPLICATE:
+        // TODO
+        break;
+    }
+  }
+
 
   private applyFilter(newFilter: ManagedJobAdSearchFilterValues) {
     this.currentFilter$.pipe(take(1)).subscribe(value => {
@@ -160,7 +180,7 @@ export class ManageJobAdSearchComponent implements OnInit {
     });
   }
 
-  private applySort(newSort: { column: ManagedJobAdsSort; direction: SortDirection }) {
+  private applySort(newSort: MangedJobAdsSorting) {
     this.currentFilter$.pipe(take(1)).subscribe(value => {
       this.store.dispatch(new ApplyFilterAction({
         ...value,

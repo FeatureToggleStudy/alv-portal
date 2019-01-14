@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { JobAdvertisementRepository } from '../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import { ManagedJobAdsSearchRequestMapper } from '../../job-advertisement/manage-job-ads/state-management/effects';
-import {
-  ManagedJobAdsSearchFilter,
-  ManagedJobAdsSort,
-  SortDirection
-} from '../../job-advertisement/manage-job-ads/state-management/state';
+import { ManagedJobAdsSearchRequestMapper } from './managed-job-ads-search-request.mapper';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import { map, switchMap } from 'rxjs/operators';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, throwError } from 'rxjs';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import {
-  JobAdColumnDefinition,
-  JobAdManagementRow2,
-  SortChangeEvent
-} from './job-ad-management-table/job-ad-management-table.component';
 import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { JobAdManagementColumnService } from './job-ad-management-column.service';
-
-
-interface ColumnHeader {
-  backendKey: ManagedJobAdsSort;
-  translationKey: string;
-}
+import {
+  JobAdColumnDefinition,
+  JobAdManagementRow,
+  ManagedJobAdsSearchFilter,
+  ManagedJobAdsSortingColumn,
+  MangedJobAdsAction,
+  MangedJobAdsActionType,
+  MangedJobAdsSorting,
+  SortDirection
+} from './job-ad-management-table/job-ad-management.table-types';
+import { JobAdCancellationComponent } from './job-ad-cancellation/job-ad-cancellation.component';
+import { ModalService } from '../../shared/layout/modal/modal.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'alv-manage-job-ads-widget',
@@ -37,15 +34,20 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
     query: null,
     sort: {
       direction: SortDirection.ASC,
-      column: ManagedJobAdsSort.PUBLICATION_DATE
+      column: ManagedJobAdsSortingColumn.PUBLICATION_DATE
     }
   });
 
-  rows$: Observable<JobAdManagementRow2[]>;
+  rows$: Observable<JobAdManagementRow[]>;
 
   columns$: Observable<JobAdColumnDefinition[]>;
 
+  isLoading = false;
+
+
   constructor(private jobAdvertisementRepository: JobAdvertisementRepository,
+              private modalService: ModalService,
+              private router: Router,
               private jobAdManagementColumnService: JobAdManagementColumnService,
               private authenticationService: AuthenticationService
   ) {
@@ -54,6 +56,7 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
 
   ngOnInit() {
     this.rows$ = combineLatest(this.authenticationService.getCurrentCompany(), this.currentFilter$).pipe(
+      tap(() => this.isLoading = true),
       map(([company, currentFilter]) => {
         return ManagedJobAdsSearchRequestMapper.mapToRequest(currentFilter, 0, company.companyExternalId, 5);
       }),
@@ -68,16 +71,41 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
           title: JobAdvertisementUtils.getJobDescription(job).title,
         }));
       }),
+      tap(() => this.isLoading = false),
+      catchError(err => {
+        this.isLoading = false;
+        return throwError(err);
+      })
     );
-    this.columns$ = this.jobAdManagementColumnService.map();
+    this.columns$ = this.jobAdManagementColumnService.createColumnDefinitions();
   }
 
-  onSortChange(sortChangeEvent: SortChangeEvent) {
-    const result: ManagedJobAdsSearchFilter = {
+  onSortChange(sortChangeEvent: MangedJobAdsSorting) {
+    const newFilter: ManagedJobAdsSearchFilter = {
       ...this.currentFilter$.value,
       sort: sortChangeEvent
     };
-    this.currentFilter$.next(result);
+    this.currentFilter$.next(newFilter);
   }
 
+  onAction(action: MangedJobAdsAction) {
+    switch (action.type) {
+      case MangedJobAdsActionType.ON_CANCEL:
+        const jobAdCancellationModalRef = this.modalService.openLarge(JobAdCancellationComponent);
+        const jobAdCancellationComponent = <JobAdCancellationComponent>jobAdCancellationModalRef.componentInstance;
+        jobAdCancellationComponent.jobAdvertisement = action.row.jobAdvertisement;
+        jobAdCancellationComponent.accessToken = null;
+        jobAdCancellationModalRef.result
+          .then(value => console.log(value))
+          .catch(() => {
+          });
+        break;
+      case MangedJobAdsActionType.ON_OPEN:
+        this.router.navigate(action.row.detailRouterLink);
+        break;
+      case MangedJobAdsActionType.ON_DUPLICATE:
+        // TODO
+        break;
+    }
+  }
 }

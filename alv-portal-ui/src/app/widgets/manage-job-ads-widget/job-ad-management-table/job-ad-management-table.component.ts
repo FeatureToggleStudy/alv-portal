@@ -1,37 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  ManagedJobAdsSort,
+  JobAdColumnDefinition,
+  JobAdManagementRow,
+  ManagedJobAdsSortingColumn,
+  MangedJobAdsAction,
+  MangedJobAdsActionType,
+  MangedJobAdsSorting,
   SortDirection
-} from '../../../job-advertisement/manage-job-ads/state-management/state';
-import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-
-
-export interface JobAdManagementRow2 {
-
-  jobAdvertisement: JobAdvertisement;
-
-  title: string;
-
-  isCancellable: boolean;
-
-  detailRouterLink: string[];
-}
-
-export interface JobAdColumnDefinition {
-  backendKey: ManagedJobAdsSort;
-  columnName: string;
-  render: (job: JobAdvertisement) => string;
-}
-
-export interface SortChangeEvent {
-  column: ManagedJobAdsSort;
-  direction: SortDirection;
-}
-
-interface CurrentSorting {
-  column: ManagedJobAdsSort;
-  direction: SortDirection;
-}
+} from './job-ad-management.table-types';
 
 @Component({
   selector: 'alv-job-ad-management-table',
@@ -44,16 +20,19 @@ export class JobAdManagementTableComponent implements OnInit {
   columns: JobAdColumnDefinition[];
 
   @Input()
-  currentSorting: CurrentSorting;
+  currentSorting: MangedJobAdsSorting;
 
   @Input()
-  rows: JobAdManagementRow2[];
+  rows: JobAdManagementRow[];
 
   @Output()
   scroll = new EventEmitter<void>();
 
   @Output()
-  sort = new EventEmitter<SortChangeEvent>();
+  sort = new EventEmitter<MangedJobAdsSorting>();
+
+  @Output()
+  action = new EventEmitter<MangedJobAdsAction>();
 
   SortDirection = SortDirection;
 
@@ -64,15 +43,15 @@ export class JobAdManagementTableComponent implements OnInit {
     //
   }
 
-  onSortChange(selectedColumn: ManagedJobAdsSort) {
+  onSortChange(selectedColumn: ManagedJobAdsSortingColumn) {
     this.sort.emit({
       column: selectedColumn,
       direction: this.determineSortDirection(selectedColumn)
     });
   }
 
-  private determineSortDirection(newSelectedColumn: ManagedJobAdsSort) {
-    if (newSelectedColumn !== this.currentSorting.column) {
+  private determineSortDirection(selectedColumn: ManagedJobAdsSortingColumn) {
+    if (selectedColumn !== this.currentSorting.column) {
       return SortDirection.ASC;
     }
     return this.currentSorting.direction === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC;
@@ -82,7 +61,15 @@ export class JobAdManagementTableComponent implements OnInit {
     this.scroll.emit();
   }
 
-  cancelJobAdAction() {
-    // TODO
+  cancel(row: JobAdManagementRow) {
+    this.action.emit({ row: row, type: MangedJobAdsActionType.ON_CANCEL });
+  }
+
+  open(row: JobAdManagementRow) {
+    this.action.emit({ row: row, type: MangedJobAdsActionType.ON_OPEN });
+  }
+
+  duplicate(row: JobAdManagementRow) {
+    this.action.emit({ row: row, type: MangedJobAdsActionType.ON_DUPLICATE });
   }
 }

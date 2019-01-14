@@ -36,11 +36,9 @@
     [columns]="columns$ | async"
     [currentSorting]="(currentFilter$ | async).sort"
     [rows]="rows$ | async"
+    (action)="onAction($event)"
     (scroll)="onScroll()"
     (sort)="onSortChange($event)">
   </alv-job-ad-management-table>
-</div>
 
-<ng-template #placeholder>
-  <i class="fa fa-sort mr-2"></i>
-</ng-template>
+</div>

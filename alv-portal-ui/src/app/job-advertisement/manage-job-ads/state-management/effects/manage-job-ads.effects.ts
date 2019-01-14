@@ -33,7 +33,7 @@ import {
 import { getCurrentCompanyContactTemplateModel } from '../../../../core/state-management/state/core.state.ts';
 import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
-import { ManagedJobAdsSearchRequestMapper } from './managed-job-ads-search-request.mapper';
+import { ManagedJobAdsSearchRequestMapper } from '../../../../widgets/manage-job-ads-widget/managed-job-ads-search-request.mapper';
 import { Router } from '@angular/router';
 
 export const MANAGE_JOB_ADS_EFFECTS_DEBOUNCE = new InjectionToken<number>('MANAGE_JOB_ADS_EFFECTS_DEBOUNCE');

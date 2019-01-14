@@ -1,32 +1,10 @@
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-
-
-export enum ManagedJobAdsSort {
-  EGOV = 'jobAdvertisement.stellennummerEgov',
-  AVAM = 'jobAdvertisement.stellennummerAvam',
-  PUBLICATION_DATE = 'jobAdvertisement.publication.startDate',
-  TITLE = 'jobAdvertisement.jobContent.jobDescriptions.title',
-  LOCATION = 'jobAdvertisement.jobContent.location.city',
-  STATUS = 'jobAdvertisement.status',
-  OWNER_NAME = 'jobAdvertisement.owner.userDisplayName'
-}
-
-export enum SortDirection {
-  DESC = 'DESC',
-  ASC = 'ASC'
-}
-
-
-export interface ManagedJobAdsSearchFilter {
-  query: string;
-  onlineSinceDays: number;
-  ownerUserId: string;
-  sort: {
-    column: ManagedJobAdsSort,
-    direction: SortDirection
-  };
-}
+import {
+  ManagedJobAdsSearchFilter,
+  ManagedJobAdsSortingColumn,
+  SortDirection
+} from '../../../../widgets/manage-job-ads-widget/job-ad-management-table/job-ad-management.table-types';
 
 export interface ManageJobAdsState {
   totalCount: number;
@@ -45,7 +23,7 @@ export const initialState: ManageJobAdsState = {
     onlineSinceDays: null,
     ownerUserId: null,
     sort: {
-      column: ManagedJobAdsSort.PUBLICATION_DATE,
+      column: ManagedJobAdsSortingColumn.PUBLICATION_DATE,
       direction: SortDirection.DESC
     }
   },

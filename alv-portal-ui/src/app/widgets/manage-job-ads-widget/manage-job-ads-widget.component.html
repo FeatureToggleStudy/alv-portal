@@ -8,6 +8,7 @@
     [columns]="columns$ | async"
     [currentSorting]="(currentFilter$ | async).sort"
     [rows]="rows$ | async"
+    (action)="onAction($event)"
     (sort)="onSortChange($event)">
   </alv-job-ad-management-table>
 </div>

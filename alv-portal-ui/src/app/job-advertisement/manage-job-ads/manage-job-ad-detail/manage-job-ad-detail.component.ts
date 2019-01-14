@@ -15,7 +15,7 @@ import {
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { hasAnyAuthorities, UserRole } from '../../../core/auth/user.model';
 import { ActivatedRoute } from '@angular/router';
-import { JobAdCancellationComponent } from '../shared/job-ad-cancellation/job-ad-cancellation.component';
+import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';

@@ -10,12 +10,14 @@ import { RouterModule } from '@angular/router';
 import { JobAdManagementTableComponent } from './manage-job-ads-widget/job-ad-management-table/job-ad-management-table.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { JobAdManagementColumnService } from './manage-job-ads-widget/job-ad-management-column.service';
+import { JobAdCancellationComponent } from './manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
+import { ModalService } from '../shared/layout/modal/modal.service';
 
 @NgModule({
   imports: [
     SharedModule,
     RouterModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
   ],
   declarations: [
     JobSearchWidgetComponent,
@@ -24,10 +26,15 @@ import { JobAdManagementColumnService } from './manage-job-ads-widget/job-ad-man
     CandidateQueryPanelComponent,
     JobPublicationWidgetComponent,
     ManageJobAdsWidgetComponent,
-    JobAdManagementTableComponent
+    JobAdManagementTableComponent,
+    JobAdCancellationComponent
   ],
   providers: [
+    ModalService,
     JobAdManagementColumnService
+  ],
+  entryComponents: [
+    JobAdCancellationComponent
   ],
   exports:
     [
@@ -37,7 +44,8 @@ import { JobAdManagementColumnService } from './manage-job-ads-widget/job-ad-man
       CandidateQueryPanelComponent,
       JobPublicationWidgetComponent,
       ManageJobAdsWidgetComponent,
-      JobAdManagementTableComponent
+      JobAdManagementTableComponent,
+      JobAdCancellationComponent
     ]
 })
 
