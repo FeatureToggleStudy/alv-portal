@@ -4,6 +4,7 @@ import { IsoCountryService } from '../iso-country.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { SingleTypeaheadItem } from '../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
 import { Observable } from 'rxjs/index';
+import { ZipCity } from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-zip-city-input',
@@ -40,7 +41,7 @@ export class ZipCityInputComponent implements OnInit {
     return selectedCountryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND;
   }
 
-  loadLocationsFn = (query: string): Observable<SingleTypeaheadItem[]> =>
+  loadLocationsFn = (query: string): Observable<SingleTypeaheadItem<ZipCity>[]> =>
     this.localitySuggestionService.fetchJobPublicationLocations(query)
 
   ngOnInit(): void {

@@ -160,7 +160,7 @@ export interface LanguageSkill {
   writtenLevel: CEFR_Level;
 }
 
-export interface CityZip {
+export interface ZipCity {
   zipCode: string;
   city: string;
 }

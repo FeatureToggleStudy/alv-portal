@@ -7,7 +7,7 @@ export interface CompanyGroup {
   postOfficeBoxNumberOrStreet: {
     street?: string;
     postOfficeBoxNumber?: string;
-  }
+  };
 }
 
 export const emptyCompanyGroup: CompanyGroup = {

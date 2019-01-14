@@ -11,7 +11,7 @@ import {
   LocalityMultiTypeaheadItem
 } from './locality-multi-typeahead-item';
 import { SingleTypeaheadItem } from '../forms/input/single-typeahead/single-typeahead-item.model';
-import { CityZip } from '../backend-services/shared.types';
+import { ZipCity } from '../backend-services/shared.types';
 
 @Injectable({ providedIn: 'root' })
 export class LocalitySuggestionService {
@@ -55,7 +55,7 @@ export class LocalitySuggestionService {
     );
   }
 
-  fetchJobPublicationLocations(query: string): Observable<SingleTypeaheadItem<CityZip>[]> {
+  fetchJobPublicationLocations(query: string): Observable<SingleTypeaheadItem<ZipCity>[]> {
     const localityComparator = (a: LocalitySuggestion, b: LocalitySuggestion) =>
       a.city.localeCompare(b.city) || a.zipCode.localeCompare(b.zipCode);
 
