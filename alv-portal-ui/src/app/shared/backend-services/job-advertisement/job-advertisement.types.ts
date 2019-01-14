@@ -9,7 +9,7 @@ export enum JobAdvertisementStatus {
   PUBLISHED_RESTRICTED = 'PUBLISHED_RESTRICTED',
   PUBLISHED_PUBLIC = 'PUBLISHED_PUBLIC',
   CANCELLED = 'CANCELLED',
-  ARCHIVE = 'ARCHIVE',
+  ARCHIVED = 'ARCHIVED',
 }
 
 export enum CancellationReason {
