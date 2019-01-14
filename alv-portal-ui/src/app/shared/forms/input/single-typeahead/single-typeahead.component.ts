@@ -51,7 +51,7 @@ export class SingleTypeaheadComponent extends AbstractInput {
 
     const item = <SingleTypeaheadItem<any>>event.item;
 
-    this.control.setValue(item.payload);
+    this.control.setValue(item);
 
     this.itemSelected.emit(item);
   }
