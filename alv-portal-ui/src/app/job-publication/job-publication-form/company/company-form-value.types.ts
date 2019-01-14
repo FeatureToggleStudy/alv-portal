@@ -6,7 +6,7 @@ export interface CompanyFormValue {
   countryIsoCode: string;
   postOfficeBoxNumberOrStreet: {
     street?: string;
-    postOfficeBoxNumber?: string;
+    postOfficeBoxNumber?: number;
   };
 }
 
@@ -15,7 +15,7 @@ export const emptyCompanyFormValue: CompanyFormValue = {
   countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
   houseNumber: null,
   postOfficeBoxNumberOrStreet: {
-    postOfficeBoxNumber: null,
-    street: null
+    street: null,
+    postOfficeBoxNumber: null
   }
 };

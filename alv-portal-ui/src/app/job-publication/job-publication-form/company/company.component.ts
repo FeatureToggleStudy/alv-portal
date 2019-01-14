@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IsoCountryService } from '../iso-country.service';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { Observable } from 'rxjs/index';
@@ -20,7 +20,11 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  companyFormValue: CompanyFormValue;
+  set companyFormValue(value: CompanyFormValue) {
+    this.company.patchValue({ ...value }, { emitEvent: false });
+  }
+
+  company: FormGroup;
 
   countryOptions$: Observable<SelectableOption[]>;
 
@@ -30,31 +34,18 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService) {
     super();
+
     this.countryOptions$ = this.isoCountryService.countryOptions$;
-  }
 
-  ngOnInit(): void {
-    this.parentForm.addControl('company', this.buildCompanyGroup(this.companyFormValue));
-
-    this.countryIsoCode$ = this.countryIsoCode.valueChanges
-      .pipe(
-        filter((value) => !!value),
-        startWith(this.countryIsoCode.value),
-      );
-  }
-
-  private buildCompanyGroup(value: CompanyFormValue): FormGroup {
-    const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = value;
-
-    return this.fb.group({
-      name: [name, [
+    this.company = this.fb.group({
+      name: [, [
         Validators.required
       ]],
-      houseNumber: [houseNumber, []],
-      countryIsoCode: [countryIsoCode, []],
+      houseNumber: [, []],
+      countryIsoCode: [, []],
       postOfficeBoxNumberOrStreet: this.fb.group({
-          street: [postOfficeBoxNumberOrStreet.street, []],
-          postOfficeBoxNumber: [postOfficeBoxNumberOrStreet.postOfficeBoxNumber, [
+          street: [, []],
+          postOfficeBoxNumber: [, [
             Validators.maxLength(6)
           ]],
         },
@@ -63,12 +54,15 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
     });
   }
 
-  get companyGroup(): FormGroup {
-    return <FormGroup>this.parentForm.get('company');
-  }
+  ngOnInit(): void {
+    this.parentForm.addControl('company', this.company);
 
-  get countryIsoCode(): FormControl {
-    return <FormControl>this.companyGroup.get('countryIsoCode');
+    const countryIsoCode = this.company.get('countryIsoCode');
+    this.countryIsoCode$ = countryIsoCode.valueChanges
+      .pipe(
+        filter((value) => !!value),
+        startWith(countryIsoCode.value),
+      );
   }
 }
 

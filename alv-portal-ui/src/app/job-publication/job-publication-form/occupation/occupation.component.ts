@@ -18,7 +18,11 @@ export class OccupationComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  occupationFormValue: OccupationFormValue;
+  set occupationFormValue(value: OccupationFormValue) {
+    this.occupation.patchValue({ ...value }, { emitEvent: false });
+  }
+
+  occupation: FormGroup;
 
   degreeOptions$: Observable<SelectableOption[]> = of([
     {
@@ -49,31 +53,23 @@ export class OccupationComponent implements OnInit {
 
   loadOccupationsFn = this.loadOccupations.bind(this);
 
-  constructor(private fb: FormBuilder,
-              private occupationSuggestionService: OccupationSuggestionService) {
+  constructor(private occupationSuggestionService: OccupationSuggestionService,
+              private fb: FormBuilder) {
+
+    this.occupation = this.fb.group({
+      occupationSuggestion: [, [
+        Validators.required
+      ]],
+      degree: [],
+      experience: []
+    });
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('occupation', this.buildOccupationGroup(this.occupationFormValue));
-  }
-
-  private buildOccupationGroup(value: OccupationFormValue): FormGroup {
-    const { occupationSuggestion, degree, experience } = value;
-
-    return this.fb.group({
-      occupationSuggestion: [occupationSuggestion, [
-        Validators.required
-      ]],
-      degree: [degree],
-      experience: [experience]
-    });
+    this.parentForm.addControl('occupation', this.occupation);
   }
 
   private loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
     return this.occupationSuggestionService.fetchJobPublicationOccupations(query);
-  }
-
-  get occupationGroup(): FormGroup {
-    return <FormGroup>this.parentForm.get('occupation');
   }
 }

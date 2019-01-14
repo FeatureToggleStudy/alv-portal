@@ -1,4 +1,4 @@
-<fieldset [formGroup]="companyGroup">
+<fieldset [formGroup]="company">
 
   <legend class="sr-only">{{'home.tools.job-publication.company.title' | translate }}</legend>
 
@@ -7,7 +7,7 @@
   </alv-input-field>
 
   <div class="form-row">
-    <div class="col-8" [formGroup]="companyGroup.get('postOfficeBoxNumberOrStreet')">
+    <div class="col-8" [formGroup]="company.get('postOfficeBoxNumberOrStreet')">
       <alv-input-field label="home.tools.job-publication.company.street"
                        alvFormControlName="street"
                        [showGroupErrors]="true"
@@ -24,11 +24,11 @@
     </div>
   </div>
 
-  <alv-zip-city-input [parent]="companyGroup"
+  <alv-zip-city-input [parent]="company"
                       [countryIsoCode]="countryIsoCode$ | async">
   </alv-zip-city-input>
 
-  <ng-container [formGroup]="companyGroup.get('postOfficeBoxNumberOrStreet')">
+  <ng-container [formGroup]="company.get('postOfficeBoxNumberOrStreet')">
     <alv-input-field label="home.tools.job-publication.company.postbox-number"
                      alvFormControlName="postOfficeBoxNumber"
                      [showGroupErrors]="true"

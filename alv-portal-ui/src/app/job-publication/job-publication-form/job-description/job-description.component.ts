@@ -21,35 +21,30 @@ export class JobDescriptionComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  jobDescriptionFormValue: JobDescriptionFormValue;
+  set jobDescriptionFormValue(value: JobDescriptionFormValue) {
+    this.jobDescription.patchValue({ ...value }, { emitEvent: false });
+  }
+
+  jobDescription: FormGroup;
 
   constructor(private fb: FormBuilder) {
-  }
-
-  ngOnInit(): void {
-    this.parentForm.addControl('jobDescription', this.buildJobDescriptionGroup(this.jobDescriptionFormValue));
-  }
-
-  private buildJobDescriptionGroup(value: JobDescriptionFormValue): FormGroup {
-    const { title, numberOfJobs, jobDescription } = value;
-
-    return this.fb.group({
-      title: [title, [
+    this.jobDescription = this.fb.group({
+      title: [, [
         Validators.required,
         Validators.maxLength(this.TITLE_MAX_LENGTH)
       ]],
-      numberOfJobs: [numberOfJobs, [
+      numberOfJobs: [, [
         Validators.required,
         Validators.min(this.NUMBER_OF_JOBS_MIN),
         Validators.max(this.NUMBER_OF_JOBS_MAX)
       ]],
-      jobDescription: [jobDescription, [
+      jobDescription: [, [
         Validators.maxLength(this.DESCRIPTION_MAX_LENGTH)
       ]]
     });
   }
 
-  get jobDescriptionGroup(): FormGroup {
-    return <FormGroup>this.parentForm.get('jobDescription');
+  ngOnInit(): void {
+    this.parentForm.addControl('jobDescription', this.jobDescription);
   }
 }

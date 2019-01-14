@@ -1,4 +1,4 @@
-<fieldset [formGroup]="locationGroup">
+<fieldset [formGroup]="location">
   <legend class="sr-only">{{'home.tools.job-publication.locality.title' | translate }}</legend>
 
   <alv-select label="home.tools.job-publication.locality.country"
@@ -6,7 +6,7 @@
               [options$]="countryOptions$"></alv-select>
 
 
-  <alv-zip-city-input [parent]="locationGroup"
+  <alv-zip-city-input [parent]="location"
                       [countryIsoCode]="countryIsoCode$ | async">
   </alv-zip-city-input>
 

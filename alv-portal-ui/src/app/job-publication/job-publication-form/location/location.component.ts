@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/index';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
@@ -20,7 +20,11 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  locationFormValue: LocationFormValue;
+  set locationFormValue(value: LocationFormValue) {
+    this.location.patchValue({ ...value }, { emitEvent: false });
+  }
+
+  location: FormGroup;
 
   countryOptions$: Observable<SelectableOption[]>;
 
@@ -29,36 +33,25 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService) {
     super();
+
     this.countryOptions$ = this.isoCountryService.countryOptions$;
-  }
 
-  ngOnInit(): void {
-    this.parentForm.addControl('location', this.buildLocationGroup(this.locationFormValue));
-
-
-    this.countryIsoCode$ = this.countryIsoCode.valueChanges
-      .pipe(
-        filter((value) => !!value),
-        startWith(this.countryIsoCode.value),
-      );
-  }
-
-  private buildLocationGroup(value: LocationFormValue): FormGroup {
-    const { countryIsoCode, remarks } = value;
-
-    return this.fb.group({
-      countryIsoCode: [countryIsoCode],
-      remarks: [remarks, [
+    this.location = this.fb.group({
+      countryIsoCode: [],
+      remarks: [, [
         Validators.maxLength(this.REMARK_MAX_LENGTH)
       ]]
     });
   }
 
-  get locationGroup(): FormGroup {
-    return <FormGroup>this.parentForm.get('location');
-  }
+  ngOnInit(): void {
+    this.parentForm.addControl('location', this.location);
 
-  get countryIsoCode(): FormControl {
-    return <FormControl>this.locationGroup.get('countryIsoCode');
+    const countryIsoCode = this.location.get('countryIsoCode');
+    this.countryIsoCode$ = countryIsoCode.valueChanges
+      .pipe(
+        filter((value) => !!value),
+        startWith(countryIsoCode.value),
+      );
   }
 }
