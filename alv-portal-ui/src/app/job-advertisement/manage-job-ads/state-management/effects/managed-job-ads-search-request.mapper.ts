@@ -7,7 +7,7 @@ export const DEFAULT_SORT = 'jobAdvertisement.stellennummerEgov,desc';
 
 export class ManagedJobAdsSearchRequestMapper {
 
-  static mapToRequest(filter: ManagedJobAdsSearchFilter, page: number, companyExternalId: string): ManagedJobAdsSearchRequest {
+  static mapToRequest(filter: ManagedJobAdsSearchFilter, page: number, companyExternalId: string, itemsperpage = ITEMS_PER_PAGE): ManagedJobAdsSearchRequest {
     return {
       body: {
         companyId: companyExternalId,
@@ -16,7 +16,7 @@ export class ManagedJobAdsSearchRequestMapper {
         ownerUserId: filter.ownerUserId //todo add this as soon as the staging backend is ready
       },
       page: page,
-      size: ITEMS_PER_PAGE,
+      size: itemsperpage,
       sort: ManagedJobAdsSearchRequestMapper.mapSorting(filter.sort)
     };
   }

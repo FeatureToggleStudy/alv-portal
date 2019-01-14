@@ -1,0 +1,66 @@
+<table class="table table-sm">
+  <thead>
+  <tr>
+    <th scope="col"
+        *ngFor="let column of columns"
+        (click)="onSortChange(column.backendKey)"
+        [ngClass]="{'active-sort': currentSorting.column === column.backendKey}">
+        <span class="fa fa-sort mr-2 text-primary"
+              *ngIf="currentSorting.column === column.backendKey; else placeholder"
+              [ngClass]="{
+              'fa-sort-down': currentSorting.direction === SortDirection.DESC,
+              'fa-sort-up': currentSorting.direction === SortDirection.ASC
+              }">
+        </span>
+      <span>{{ column.columnName | translate }}</span>
+    </th>
+    <th scope="col">{{ 'dashboard.job-publication.action' | translate }}</th>
+  </tr>
+  </thead>
+  <tbody (scrolled)="onScroll()"
+         [fromRoot]="true"
+         [infiniteScrollThrottle]="50"
+         [immediateCheck]="true"
+         [infiniteScrollContainer]="'main'"
+         infiniteScroll>
+  <tr *ngFor="let row of rows">
+    <td *ngFor="let column of columns ">
+      {{ column.render(row.jobAdvertisement) | translate }}
+    </td>
+    <td>
+      <div class="actions">
+        <div #mobileActionsMenu="ngbDropdown"
+             class="d-inline-block"
+             ngbDropdown
+             placement="bottom-right">
+          <button (click)="mobileActionsMenu.toggle()"
+                  aria-label="Open candidate detail menu"
+                  class="btn btn-text btn-icon"
+                  id="dropdownMenu"
+                  ngbDropdownAnchor>
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <div [attr.aria-label]="'Job advertisement row actions for the row '+ row.title"
+               ngbDropdownMenu>
+            <button class="dropdown-item">
+              {{ 'job-publication-details.copy' | translate }}
+            </button>
+            <button class="dropdown-item"
+                    [routerLink]="row.detailRouterLink">
+              {{ 'entity.action.open' | translate }}
+            </button>
+            <button class="dropdown-item"
+                    *ngIf="row.isCancellable"
+                    (click)="cancelJobAdAction()">
+              {{'job-publication-details.cancel' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<ng-template #placeholder>
+  <i class="fa fa-sort mr-2"></i>
+</ng-template>
