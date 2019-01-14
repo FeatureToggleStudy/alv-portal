@@ -33,10 +33,11 @@ export class ValidationService {
     },
     {
       error: 'ngbDate',
-      message: 'portal.forms.validation.ngbDate',
+      message: 'portal.forms.validation.ngbDate.format',
       requiredBefore: 'portal.forms.validation.ngbDate.before',
       requiredAfter: 'portal.forms.validation.ngbDate.after'
     },
+    // TODO create a emailValidator global message
     {
       error: 'phoneValidator',
       message: 'global.messages.validate.phone.format'
@@ -51,10 +52,10 @@ export class ValidationService {
       return this.defaultValidationMessages;
     } else {
       return this.defaultValidationMessages.map(
-          validationMessage => customValidationMessages.find(
-            customValidationMessage => customValidationMessage.error === validationMessage.error
-            )
-              || validationMessage);
+        validationMessage => customValidationMessages.find(
+          customValidationMessage => customValidationMessage.error === validationMessage.error
+          )
+          || validationMessage);
     }
   }
 

@@ -1,0 +1,20 @@
+<fieldset [formGroup]="occupationGroup">
+
+  <legend class="sr-only">{{'home.tools.job-publication.occupation.label' | translate }}</legend>
+
+  <alv-single-typeahead label="home.tools.job-publication.occupation.label"
+                        alvFormControlName="occupationSuggestion"
+                        [loadItems]="loadOccupationsFn">
+  </alv-single-typeahead>
+
+  <alv-select label="home.tools.job-publication.degree"
+              alvFormControlName="degree"
+              [options$]="degreeOptions$">
+  </alv-select>
+
+  <alv-select label="home.tools.job-publication.experience"
+              alvFormControlName="experience"
+              [options$]="experienceOptions$">
+  </alv-select>
+
+</fieldset>

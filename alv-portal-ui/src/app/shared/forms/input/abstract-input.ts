@@ -95,4 +95,7 @@ export abstract class AbstractInput implements OnInit {
     return validators && validators['required'];
   }
 
+  public focus() {
+    alert('not implemented for input type ' + this.inputType);
+  }
 }

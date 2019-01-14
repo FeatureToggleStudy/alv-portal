@@ -15,20 +15,15 @@
             [alvAutofocus]="autofocus"
             [class.placeholder-shown]="control.value === ''">
       <option *ngFor="let option of options$ | async"
-              [ngValue]="option.value">
-        <ng-container *ngIf="!option.labelParameters">{{option.label | translate}}
-        </ng-container>
-        <ng-container *ngIf="option.labelParameters">{{option.label | translate: stringify(option.labelParameters) }}
-        </ng-container>
+              [ngValue]="option.value">{{option.label | translate}}
       </option>
     </select>
     <div *ngIf="readonly"
          [class.placeholder-shown]="control.value === ''"
          class="readonly-input">
       <ng-container *ngFor="let option of options$ | async">
-        <ng-container *ngIf="!option.labelParameters">{{option.label | translate}}
-        </ng-container>
-        <ng-container *ngIf="option.labelParameters">{{option.label | translate: stringify(option.labelParameters) }}
+        <ng-container *ngIf="option.value === control.value">
+          {{option.label | translate}}
         </ng-container>
       </ng-container>
     </div>
@@ -37,7 +32,10 @@
     <i class="fas fa-caret-down dropdown-icon"
        *ngIf="!readonly"></i>
   </div>
-  <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
+  <small *ngIf="helpText && !(control.touched && control.invalid)"
+         class="help-text" >
+    {{helpText | translate}}
+  </small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
                            [attr.id]="validationId"

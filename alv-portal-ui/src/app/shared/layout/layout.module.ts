@@ -42,6 +42,8 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-layout.component';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ListItemContentComponent } from './list-item-content/list-item-content.component';
+import { ContactModalComponent } from '../../candidate-search/candidate-detail/contact-modal/contact-modal.component';
+import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
 
 @NgModule({
   imports: [
@@ -84,11 +86,16 @@ import { ListItemContentComponent } from './list-item-content/list-item-content.
     ResultListItemComponent,
     ThreeColumnLayoutComponent,
     ScrollToTopComponent,
-    ListItemContentComponent
+    ListItemContentComponent,
+    ContactModalComponent
+  ],
+  providers: [
+    CandidateContactRepository
   ],
   entryComponents: [
     ConfirmModalComponent,
-    LocalLoginComponent
+    LocalLoginComponent,
+    ContactModalComponent
   ],
   exports: [
     NavigationContainerComponent,

@@ -163,3 +163,7 @@ export const candidateContact = (candidateProfile: CandidateProfile, jobCenter: 
 export const canViewCandidateProtectedData = (candidateProfile: CandidateProfile, currentUser: User): boolean => {
   return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_ADMIN]) && candidateProfile.showProtectedData);
 };
+
+export const hasEmailContactType = (candidateProfile: CandidateProfile): boolean => {
+  return candidateProfile && candidateProfile.contactTypes && candidateProfile.contactTypes.includes('EMAIL');
+};
