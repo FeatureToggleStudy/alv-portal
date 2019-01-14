@@ -115,4 +115,9 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
         break;
     }
   }
+
+  showAll() {
+    this.router.navigate(['/manage-job-ads']);
+  }
+
 }
