@@ -34,6 +34,11 @@ interface ColumnHeader {
 })
 export class ManageJobAdSearchComponent implements OnInit {
 
+  constructor(private store: Store<ManageJobAdsState>,
+              private modalService: ModalService,
+              private fb: FormBuilder) {
+  }
+
   jobSearchResults$: Observable<JobAdvertisement[]>;
 
   currentFilter$: Observable<ManagedJobAdsSearchFilter>;
@@ -47,9 +52,37 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   SortDirection = SortDirection;
 
-  constructor(private store: Store<ManageJobAdsState>,
-              private modalService: ModalService,
-              private fb: FormBuilder) {
+  /**
+   * todo looks very ad-hoc, is it possible to make it nicer
+   * @param filter
+   */
+  private static mapBadges(filter) {
+    let badges = [];
+    for (const key in filter) {
+      if (key === 'onlineSinceDays' && filter[key]) {
+        badges.push({
+          label: 'dashboard.job-publication.publication-period.' + filter[key],
+          cssClass: 'badge-manage-jobads-filter',
+          key
+        });
+      } else if (key === 'ownerUserId' && filter[key]) {
+        badges.push({
+          label: 'portal.dashboard.job-publication.createdBy.me',
+          cssClass: 'badge-manage-jobads-filter',
+          key
+        });
+      } else if (key === 'status' && filter [key]) {
+        badges.push({
+          label: 'portal.dashboard.job-publication.createdBy.' + filter[key],
+          css: 'badge-manage-jobads-filter',
+          key
+        });
+      } else if (!filter[key]) {
+        badges = badges.filter(badge => badge.key);
+      }
+    }
+
+    return badges;
   }
 
   ngOnInit() {
@@ -88,29 +121,7 @@ export class ManageJobAdSearchComponent implements OnInit {
     this.currentFilter$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
 
     this.currentBadges$ = this.currentFilter$.pipe(
-      map(filter => {
-          let badges = [];
-          for (const key in filter) {
-            if (key === 'onlineSinceDays' && filter[key]) {
-              badges.push({
-                label: 'dashboard.job-publication.publication-period.' + filter[key],
-                cssClass: 'badge-manage-jobads-filter',
-                key
-              });
-            } else if (key === 'ownerUserId' && filter[key]) {
-              badges.push({
-                label: 'portal.dashboard.job-publication.createdBy.me',
-                cssClass: 'badge-manage-jobads-filter',
-                key
-              });
-            } else if (!filter[key]) {
-              badges = badges.filter(badge => badge.key);
-            }
-          }
-
-          return badges;
-        }
-      )
+      map(ManageJobAdSearchComponent.mapBadges)
     );
 
     this.form = this.fb.group({
