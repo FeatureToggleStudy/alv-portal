@@ -2,7 +2,7 @@
      *ngIf="control">
 
   <div class="form-label-group position-relative"
-       [class.invalid]="control.touched && control.invalid">
+       [class.invalid]="isTouched() && isInvalid()">
     <span *ngIf="required && !readonly"
           class="required-indicator h-100">
     </span>
@@ -47,10 +47,11 @@
       </span>
     </label>
   </div>
-  <div *ngIf="!(control.touched && control.invalid)"
+  <div *ngIf="!(isTouched() && isInvalid())"
        class="help-text d-flex">
     <small *ngIf="helpText"
-           class="mt-1">{{helpText | translate}}</small>
+           class="mt-1">{{helpText | translate}}
+    </small>
     <div class="flex-grow-1"></div>
     <small *ngIf="showCharacterCounter"
            class="mt-1">
@@ -60,6 +61,11 @@
 
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
+                           [attr.id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
+  <alv-validation-messages *ngIf="!readonly && showGroupErrors"
+                           [control]="control.parent"
                            [attr.id]="validationId"
                            [customValidationMessages]="validationMessages">
   </alv-validation-messages>

@@ -58,11 +58,10 @@ export class ValidationService {
     if (!customValidationMessages || customValidationMessages.length === 0) {
       return this.defaultValidationMessages;
     } else {
-      return this.defaultValidationMessages.map(
+      return [...this.defaultValidationMessages.map(
         validationMessage => customValidationMessages.find(
-          customValidationMessage => customValidationMessage.error === validationMessage.error
-          )
-          || validationMessage);
+          customValidationMessage => customValidationMessage.error === validationMessage.error)
+          || validationMessage), ...customValidationMessages];
     }
   }
 
