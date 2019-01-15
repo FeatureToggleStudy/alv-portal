@@ -17,6 +17,8 @@ import {
   emptyOccupationFormValue,
   OccupationFormValue
 } from './occupation/occupation-form-value.types';
+import { LanguageSkill } from '../../shared/backend-services/shared.types';
+import { emptyLanguagesFormValue } from './languages/languages-form-value.types';
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -38,12 +40,14 @@ export class JobPublicationFormComponent implements OnInit {
 
   occupationFormValue: OccupationFormValue;
 
+  languagesFormValue: LanguageSkill[];
+
   ngOnInit(): void {
     this.companyGroupValue = emptyCompanyFormValue;
     this.jobDescriptionFormValue = emptyJobDescriptionFormValue;
     this.locationFormValue = emptyLocationFormValue;
     this.occupationFormValue = emptyOccupationFormValue;
+    this.languagesFormValue = emptyLanguagesFormValue;
   }
 }
-
 

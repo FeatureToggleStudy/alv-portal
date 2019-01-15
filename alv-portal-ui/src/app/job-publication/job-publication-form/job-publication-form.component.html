@@ -13,7 +13,9 @@
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_LANGUAGES"
                       panelTitle="portal.job-publication.language-skills.label">
-    <alv-languages [parentForm]="jobPublicationForm"></alv-languages>
+    <alv-languages [parentForm]="jobPublicationForm"
+                    [languagesFormValue]="[{ 'languageIsoCode': 'fr', 'writtenLevel': 'BASIC', 'spokenLevel': 'INTERMEDIATE' }, { 'languageIsoCode': 'it', 'writtenLevel': 'BASIC', 'spokenLevel': 'INTERMEDIATE' }]">
+    </alv-languages>
   </alv-collapse-panel>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_EMPLOYMENT"

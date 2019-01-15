@@ -1,13 +1,13 @@
-import { CEFR_Level } from '../../../shared/backend-services/shared.types';
+import { CEFR_Level, LanguageSkill } from '../../../shared/backend-services/shared.types';
 
-export interface LanguagesFormValue {
-  languageIsoCode: string;
-  writtenLevel: string;
-  spokenLevel: string;
-}
 
-export const emptyLanguagesFormValue: LanguagesFormValue[] = [{
+export const emptyLanguageSkill: LanguageSkill = {
   languageIsoCode: null,
   writtenLevel: CEFR_Level.NONE,
   spokenLevel: CEFR_Level.NONE
-}];
+};
+
+export const emptyLanguagesFormValue: LanguageSkill[] = [
+  emptyLanguageSkill
+];
+
