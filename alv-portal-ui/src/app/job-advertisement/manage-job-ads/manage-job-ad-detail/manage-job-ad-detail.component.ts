@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { JobBadge, JobBadgesMapperService } from '../../shared/job-badges-mapper.service';
+import {
+  ALL_JOB_BADGES,
+  JobBadge,
+  JobBadgesMapperService,
+  JobBadgeType
+} from '../../shared/job-badges-mapper.service';
 import { JobDetailModelFactory } from '../../shared/job-detail-model-factory';
 import { select, Store } from '@ngrx/store';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
@@ -71,7 +76,7 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
       switchMap((job) => this.jobDetailModelFactory.create(job))
     );
 
-    this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
+    this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job, [...ALL_JOB_BADGES, JobBadgeType.STATUS])));
 
     this.route.queryParamMap.pipe(
       takeUntil(this.ngUnsubscribe))

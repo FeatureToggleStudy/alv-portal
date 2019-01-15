@@ -16,14 +16,14 @@ import {
 import { JobLocationPipe } from './job-location.pipe';
 
 export enum JobBadgeType {
-  WORKLOAD, WORKPLACE, AVAILABILITY, REPORTING_OBLIGATION, CONTRACT_TYPE
+  WORKLOAD, WORKPLACE, AVAILABILITY, REPORTING_OBLIGATION, CONTRACT_TYPE, STATUS
 }
 
 export interface JobBadge extends InlineBadge {
   badgeType: JobBadgeType;
 }
 
-const ALL = [
+export const ALL_JOB_BADGES = [
   JobBadgeType.CONTRACT_TYPE,
   JobBadgeType.AVAILABILITY,
   JobBadgeType.WORKPLACE,
@@ -39,7 +39,7 @@ export class JobBadgesMapperService {
               private jobLocationPipe: JobLocationPipe) {
   }
 
-  public map(job: JobAdvertisement, badgeTypes = ALL): JobBadge[] {
+  public map(job: JobAdvertisement, badgeTypes: JobBadgeType[] = ALL_JOB_BADGES): JobBadge[] {
     const badges: JobBadge[] = [];
 
     if (hasLocation(job)) {
@@ -107,6 +107,13 @@ export class JobBadgesMapperService {
         cssClass: 'badge-danger',
       });
     }
+
+    badges.push({
+      badgeType: JobBadgeType.STATUS,
+      label: 'global.job-publication.status.' + job.status,
+      cssClass: 'badge-status',
+    });
+
     return badges.filter((b) => badgeTypes.includes(b.badgeType));
   }
 
