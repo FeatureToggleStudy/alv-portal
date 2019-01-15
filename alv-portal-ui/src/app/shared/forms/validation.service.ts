@@ -43,7 +43,7 @@ export class ValidationService {
     },
     {
       error: 'houseNumValidator',
-      message: 'home.tools.job-publication.messages.validate.default-pattern-format'
+      message: 'home.tools.job-publication.messages.validate.housenr'
     },
     {
       error: 'emailValidator',
