@@ -19,6 +19,6 @@ export class JobAdvertisementUtils {
     return statusEnum !== JobAdvertisementStatus.INSPECTING
       && statusEnum !== JobAdvertisementStatus.REJECTED
       && statusEnum !== JobAdvertisementStatus.CANCELLED
-      && statusEnum !== JobAdvertisementStatus.ARCHIVE;
+      && statusEnum !== JobAdvertisementStatus.ARCHIVED;
   }
 }

@@ -47,6 +47,35 @@ export class ManageJobAdSearchComponent implements OnInit {
 
   columns$: Observable<JobAdColumnDefinition[]>;
 
+  private static mapBadges(filter) {
+    let badges = [];
+    for (const key in filter) {
+      if (key === 'onlineSinceDays' && filter[key]) {
+        badges.push({
+          label: 'dashboard.job-publication.publication-period.' + filter[key],
+          cssClass: 'badge-manage-jobads-filter',
+          key
+        });
+      } else if (key === 'ownerUserId' && filter[key]) {
+        badges.push({
+          label: 'portal.dashboard.job-publication.createdBy.me',
+          cssClass: 'badge-manage-jobads-filter',
+          key
+        });
+      } else if (key === 'status' && filter [key]) {
+        badges.push({
+          label: 'portal.dashboard.job-publication.createdBy.' + filter[key],
+          css: 'badge-manage-jobads-filter',
+          key
+        });
+      } else if (!filter[key]) {
+        badges = badges.filter(badge => badge.key);
+      }
+    }
+
+    return badges;
+  }
+
   constructor(private store: Store<ManageJobAdsState>,
               private modalService: ModalService,
               private jobAdManagementColumnService: JobAdManagementColumnService,
@@ -73,29 +102,7 @@ export class ManageJobAdSearchComponent implements OnInit {
     this.currentFilter$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
 
     this.currentBadges$ = this.currentFilter$.pipe(
-      map(filter => {
-          let badges = [];
-          for (const key in filter) {
-            if (key === 'onlineSinceDays' && filter[key]) {
-              badges.push({
-                label: 'dashboard.job-publication.publication-period.' + filter[key],
-                cssClass: 'badge-manage-jobads-filter',
-                key
-              });
-            } else if (key === 'ownerUserId' && filter[key]) {
-              badges.push({
-                label: 'portal.dashboard.job-publication.createdBy.me',
-                cssClass: 'badge-manage-jobads-filter',
-                key
-              });
-            } else if (!filter[key]) {
-              badges = badges.filter(badge => badge.key);
-            }
-          }
-
-          return badges;
-        }
-      )
+      map(ManageJobAdSearchComponent.mapBadges)
     );
 
     this.form = this.fb.group({
@@ -166,7 +173,8 @@ export class ManageJobAdSearchComponent implements OnInit {
       this.store.dispatch(new ApplyFilterAction({
         ...value,
         onlineSinceDays: newFilter.onlineSinceDays,
-        ownerUserId: newFilter.ownerUserId
+        ownerUserId: newFilter.ownerUserId,
+        status: newFilter.status
       }));
     });
   }

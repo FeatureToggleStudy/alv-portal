@@ -1426,3 +1426,4 @@ candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname
 portal,portal.dashboard.job-publication.owner-name,Erfasser
 portal,portal.dashboard.job-publication.createdBy.me,Meine
 portal,portal.dashboard.job-publication.createdBy.all,Alle
+global,global.job-publication.status.ALL,Alle

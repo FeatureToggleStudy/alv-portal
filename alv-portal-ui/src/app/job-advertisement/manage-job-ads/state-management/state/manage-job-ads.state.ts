@@ -1,4 +1,7 @@
-import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  JobAdvertisement,
+  JobAdvertisementStatus
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   ManagedJobAdsSearchFilter,
@@ -22,6 +25,7 @@ export const initialState: ManageJobAdsState = {
     query: null,
     onlineSinceDays: null,
     ownerUserId: null,
+    status: null,
     sort: {
       column: ManagedJobAdsSortingColumn.PUBLICATION_DATE,
       direction: SortDirection.DESC

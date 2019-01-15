@@ -9,7 +9,7 @@ export enum JobAdvertisementStatus {
   PUBLISHED_RESTRICTED = 'PUBLISHED_RESTRICTED',
   PUBLISHED_PUBLIC = 'PUBLISHED_PUBLIC',
   CANCELLED = 'CANCELLED',
-  ARCHIVE = 'ARCHIVE',
+  ARCHIVED = 'ARCHIVED',
 }
 
 export enum CancellationReason {
@@ -202,6 +202,7 @@ export interface ManageJobAdsSearchBody {
   onlineSinceDays: number;
   companyId: string;
   ownerUserId: string;
+  status: JobAdvertisementStatus;
 }
 
 export interface ManagedJobAdsSearchRequest {
