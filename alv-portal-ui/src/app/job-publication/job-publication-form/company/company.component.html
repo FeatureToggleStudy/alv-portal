@@ -1,0 +1,48 @@
+<fieldset [formGroup]="company">
+
+  <legend class="sr-only">{{'home.tools.job-publication.company.title' | translate }}</legend>
+
+  <alv-input-field label="home.tools.job-publication.company.name"
+                   alvFormControlName="name">
+  </alv-input-field>
+
+  <div class="form-row">
+    <div class="col-8" [formGroup]="company.get('postOfficeBoxNumberOrStreet')">
+      <alv-input-field label="home.tools.job-publication.company.street"
+                       alvFormControlName="street"
+                       [showGroupErrors]="true"
+                       [validationMessages]="[{
+                                error: 'postOfficeBoxNumberOrStreetRequired',
+                                message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
+                                ]">
+      </alv-input-field>
+    </div>
+    <div class="col-4">
+      <alv-input-field label="home.tools.job-publication.company.house-number"
+                       alvFormControlName="houseNumber">
+      </alv-input-field>
+    </div>
+  </div>
+
+  <alv-zip-city-input [parent]="company"
+                      [zipCityFormValue]="companyFormValue.zipAndCity"
+                      [countryIsoCode]="countryIsoCode$ | async">
+  </alv-zip-city-input>
+
+  <ng-container [formGroup]="company.get('postOfficeBoxNumberOrStreet')">
+    <alv-input-field label="home.tools.job-publication.company.postbox-number"
+                     type="number"
+                     alvFormControlName="postOfficeBoxNumber"
+                     [showGroupErrors]="true"
+                     [validationMessages]="[{
+                                error: 'postOfficeBoxNumberOrStreetRequired',
+                                message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
+                                ]">
+    </alv-input-field>
+  </ng-container>
+
+  <alv-select label="home.tools.job-publication.company.country"
+              alvFormControlName="countryIsoCode"
+              [options$]="countryOptions$"></alv-select>
+
+</fieldset>

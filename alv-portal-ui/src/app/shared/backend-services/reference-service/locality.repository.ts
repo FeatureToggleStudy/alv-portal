@@ -18,11 +18,11 @@ export class LocalityRepository {
   constructor(private http: HttpClient) {
   }
 
-  public suggestLocalities(query: string): Observable<LocalityAutocomplete> {
+  public suggestLocalities(query: string, distinctByLocalityCity = true): Observable<LocalityAutocomplete> {
     const params = new HttpParams()
       .set('prefix', query)
       .set('resultSize', '10')
-      .set('distinctByLocalityCity', 'true');
+      .set('distinctByLocalityCity', distinctByLocalityCity.toString());
     return this.http.get<LocalityAutocomplete>(this.LOCALITIES_SUGGESTION, { params });
   }
 
