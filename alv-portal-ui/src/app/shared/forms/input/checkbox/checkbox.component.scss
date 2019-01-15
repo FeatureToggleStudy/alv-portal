@@ -4,6 +4,10 @@
   padding-left: 2rem;
 }
 
+/**
+ * Checkbox implementation inspired by
+ * https://medium.com/claritydesignsystem/pure-css-accessible-checkboxes-and-radios-buttons-54063e759bb3
+ */
 .checkbox {
   label {
     position: relative;
