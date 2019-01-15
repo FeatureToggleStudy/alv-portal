@@ -59,7 +59,7 @@
 
   /* Hide the check mark by default */
   input + label::after {
-    transition: all 0.25s ease;
+    transition: all 0.25s ease-out;
     opacity: 0;
   }
 
