@@ -1,4 +1,4 @@
-<fieldset [formGroup]="employmentGroup">
+<fieldset [formGroup]="employment">
   <div class="form-row">
     <div class="col-6">
       <alv-select
@@ -40,7 +40,7 @@
                       label="audits.table.header.date"
                       alvFormControlName="startDate"
                       [minDate]="minDateEmploymentStart"
-                      [maxDate]="employmentGroup.get('endDate').value"
+                      [maxDate]="employment.get('endDate').value"
                       class="ml-5 narrow-form">
       </alv-date-input>
     </div>
@@ -70,7 +70,7 @@
       <alv-date-input #endDate
                       label="audits.table.header.date"
                       alvFormControlName="endDate"
-                      [minDate]="this.employmentGroup.get('startDate').value"
+                      [minDate]="this.employment.get('startDate').value"
                       class="ml-5 narrow-form">
       </alv-date-input>
     </div>
@@ -86,18 +86,19 @@
 
   </fieldset>
 
-  <fieldset class="mb-2">
+  <fieldset class="mb-2"
+            [formGroup]="workForms">
     <legend class="label">
       {{ 'global.workForm.label' | translate }}
     </legend>
-    <ng-container *ngFor="let workForm of workForms.controls; let i = index">
-      <div class="alv-bar p-2 pb-1 mb-1"
-           [formGroup]="workForm">
+    <ng-container *ngFor="let workForm of workFormOptions; let i = index">
+      <div class="alv-bar p-2 pb-1 mb-1">
         <alv-checkbox
-          [label]="workFormOptions[i].label"
-          [alvFormControlName]="workFormOptions[i].value">
+          [label]="workForm.label"
+          [alvFormControlName]="workForm.value">
         </alv-checkbox>
       </div>
     </ng-container>
+
   </fieldset>
 </fieldset>

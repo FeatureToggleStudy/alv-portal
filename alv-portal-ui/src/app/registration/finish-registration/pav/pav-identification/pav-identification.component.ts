@@ -39,8 +39,8 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
     });
   }
 
-  itemSelected(item: SingleTypeaheadItem) {
-    this.pavSelected.emit(item.model);
+  itemSelected(item: SingleTypeaheadItem<PavSuggestion>) {
+    this.pavSelected.emit(item.payload);
   }
 
   goToRequestAccessCodeStep() {
@@ -55,7 +55,7 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
     this.router.navigate(['home']);
   }
 
-  private searchOrganizations(term: string): Observable<SingleTypeaheadItem[]> {
+  private searchOrganizations(term: string): Observable<SingleTypeaheadItem<PavSuggestion>[]> {
     return this.pavSearchRepository.suggest(term).pipe(
       mergeMap(organizations => from(organizations)),
       map(this.mapToItem),
@@ -63,7 +63,7 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
     );
   }
 
-  private mapToItem(pavSuggestion: PavSuggestion): SingleTypeaheadItem {
+  private mapToItem(pavSuggestion: PavSuggestion): SingleTypeaheadItem<PavSuggestion> {
     return new SingleTypeaheadItem(
       pavSuggestion.externalId,
       PavSearchRepository.formatOrganizationName(pavSuggestion),
