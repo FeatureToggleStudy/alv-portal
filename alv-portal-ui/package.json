@@ -45,7 +45,7 @@
     "@ngrx/store-devtools": "6.1.2",
     "@ngx-translate/core": "11.0.0",
     "@ngx-translate/http-loader": "4.0.0",
-    "@types/dom-inputevent": "^1.0.3",
+    "@types/dom-inputevent": "1.0.3",
     "@types/jwt-decode": "2.2.1",
     "@types/lodash": "4.14.119",
     "@types/lodash-es": "4.17.1",
