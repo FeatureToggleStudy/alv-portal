@@ -1,7 +1,7 @@
 import { ManagedJobAdsSearchRequest } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   ManagedJobAdsSearchFilter,
-  MangedJobAdsSorting
+  ManagedJobAdsSorting
 } from './job-ad-management-table/job-ad-management.table-types';
 
 const DEFAULT_ITEMS_PER_PAGE = 20;
@@ -23,7 +23,7 @@ export class ManagedJobAdsSearchRequestMapper {
     };
   }
 
-  private static mapSorting(sort: MangedJobAdsSorting) {
+  private static mapSorting(sort: ManagedJobAdsSorting) {
     return `${sort.column},${sort.direction}`;
   }
 

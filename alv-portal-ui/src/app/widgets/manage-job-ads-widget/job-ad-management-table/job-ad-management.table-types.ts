@@ -18,17 +18,17 @@ export enum SortDirection {
   ASC = 'ASC'
 }
 
-export interface MangedJobAdsSorting {
+export interface ManagedJobAdsSorting {
   column: ManagedJobAdsSortingColumn;
   direction: SortDirection;
 }
 
-export enum MangedJobAdsActionType {
+export enum ManagedJobAdsActionType {
   ON_CANCEL, ON_OPEN, ON_DUPLICATE
 }
 
-export interface MangedJobAdsAction {
-  type: MangedJobAdsActionType;
+export interface ManagedJobAdsAction {
+  type: ManagedJobAdsActionType;
   row: JobAdManagementRow;
 }
 
@@ -37,7 +37,7 @@ export interface ManagedJobAdsSearchFilter {
   status: JobAdvertisementStatus;
   onlineSinceDays: number;
   ownerUserId: string;
-  sort: MangedJobAdsSorting;
+  sort: ManagedJobAdsSorting;
 }
 
 export interface JobAdManagementRow {
