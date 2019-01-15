@@ -26,7 +26,7 @@
     opacity: 0;
     /* Hide the check mark by default */
     & + label::after {
-      transition: all 0.25s ease-out;
+      transition: all 0.15s ease-out;
       opacity: 0;
     }
 
