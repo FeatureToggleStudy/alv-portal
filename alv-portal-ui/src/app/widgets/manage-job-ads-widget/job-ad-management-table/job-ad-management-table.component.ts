@@ -1,18 +1,29 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation
+} from '@angular/core';
 import {
   JobAdColumnDefinition,
   JobAdManagementRow,
-  ManagedJobAdsSortingColumn,
   ManagedJobAdsAction,
   ManagedJobAdsActionType,
   ManagedJobAdsSorting,
+  ManagedJobAdsSortingColumn,
   SortDirection
 } from './job-ad-management.table-types';
 
 @Component({
   selector: 'alv-job-ad-management-table',
   templateUrl: './job-ad-management-table.component.html',
-  styleUrls: ['./job-ad-management-table.component.scss']
+  styleUrls: ['./job-ad-management-table.component.scss'],
+  /* tslint:disable:use-view-encapsulation */
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobAdManagementTableComponent implements OnInit {
 

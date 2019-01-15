@@ -17,3 +17,10 @@ th {
   display: none;
 }
 
+td {
+  em {
+    padding: 0 0.125rem;
+    background-color: $color-light-yellow;
+  }
+}
+
