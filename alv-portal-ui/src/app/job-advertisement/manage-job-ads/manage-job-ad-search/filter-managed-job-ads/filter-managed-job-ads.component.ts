@@ -55,11 +55,11 @@ export class FilterManagedJobAdsComponent implements OnInit {
       map(user => {
         return [
           {
-            label: 'portal.dashboard.job-publication.createdBy.all',
+            label: 'portal.manage-job-ads.search.filter.createdBy.all',
             value: null,
           },
           {
-            label: 'portal.dashboard.job-publication.createdBy.me',
+            label: 'portal.manage-job-ads.search.filter.createdBy.myself',
             value: user.id
           }
         ];
@@ -71,7 +71,7 @@ export class FilterManagedJobAdsComponent implements OnInit {
         value: s
       }));
     statusOptions.push({
-      label: 'global.job-publication.status.all',
+      label: 'portal.manage-job-ads.search.filter.status.all',
       value: null
     });
     this.statusOptions$ = of(statusOptions);

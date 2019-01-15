@@ -5,7 +5,7 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { map, take } from 'rxjs/operators';
+import { debounceTime, map, take, takeUntil } from 'rxjs/operators';
 import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
 import { JobAdManagementColumnService } from '../../../widgets/manage-job-ads-widget/job-ad-management-column.service';
@@ -25,6 +25,7 @@ import {
 } from '../state-management/state';
 import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { Router } from '@angular/router';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 interface InlineFilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
@@ -35,7 +36,7 @@ interface InlineFilterBadge extends InlineBadge {
   templateUrl: './manage-job-ad-search.component.html',
   styleUrls: ['./manage-job-ad-search.component.scss']
 })
-export class ManageJobAdSearchComponent implements OnInit {
+export class ManageJobAdSearchComponent extends AbstractSubscriber implements OnInit {
 
   currentFilter$: Observable<ManagedJobAdsSearchFilter>;
 
@@ -58,7 +59,7 @@ export class ManageJobAdSearchComponent implements OnInit {
         });
       } else if (key === 'ownerUserId' && filter[key]) {
         badges.push({
-          label: 'portal.dashboard.job-publication.createdBy.me',
+          label: 'portal.manage-job-ads.search.filter.createdBy.myself',
           cssClass: 'badge-manage-jobads-filter',
           key
         });
@@ -81,6 +82,7 @@ export class ManageJobAdSearchComponent implements OnInit {
               private jobAdManagementColumnService: JobAdManagementColumnService,
               private fb: FormBuilder,
               private router: Router) {
+    super();
   }
 
   ngOnInit() {
@@ -108,6 +110,11 @@ export class ManageJobAdSearchComponent implements OnInit {
     this.form = this.fb.group({
       query: [null]
     });
+
+    this.form.get('query').valueChanges.pipe(
+      debounceTime(300),
+      takeUntil(this.ngUnsubscribe))
+      .subscribe(value => this.applyQuery(value));
   }
 
   onScroll() {
@@ -115,7 +122,8 @@ export class ManageJobAdSearchComponent implements OnInit {
   }
 
   removeCurrentBadge(badge: InlineFilterBadge) {
-    this.currentFilter$.pipe(take(1))
+    this.currentFilter$.pipe(
+      take(1))
       .subscribe(currentFilter => {
         const newFilter = { ...currentFilter };
         newFilter[badge.key] = null;
@@ -136,10 +144,6 @@ export class ManageJobAdSearchComponent implements OnInit {
           .catch(() => {
           });
       });
-  }
-
-  onQueryChange($event) {
-    this.applyQuery($event.target.value);
   }
 
   onSortChange(sortChangeEvent: MangedJobAdsSorting) {
@@ -167,33 +171,38 @@ export class ManageJobAdSearchComponent implements OnInit {
     }
   }
 
-
   private applyFilter(newFilter: ManagedJobAdSearchFilterValues) {
-    this.currentFilter$.pipe(take(1)).subscribe(value => {
-      this.store.dispatch(new ApplyFilterAction({
-        ...value,
-        onlineSinceDays: newFilter.onlineSinceDays,
-        ownerUserId: newFilter.ownerUserId,
-        status: newFilter.status
-      }));
-    });
+    this.currentFilter$.pipe(
+      take(1))
+      .subscribe(value => {
+        this.store.dispatch(new ApplyFilterAction({
+          ...value,
+          onlineSinceDays: newFilter.onlineSinceDays,
+          ownerUserId: newFilter.ownerUserId,
+          status: newFilter.status
+        }));
+      });
   }
 
   private applyQuery(newQuery: string) {
-    this.currentFilter$.pipe(take(1)).subscribe(value => {
-      this.store.dispatch(new ApplyFilterAction({
-        ...value,
-        query: newQuery
-      }));
-    });
+    this.currentFilter$.pipe(
+      take(1))
+      .subscribe(value => {
+        this.store.dispatch(new ApplyFilterAction({
+          ...value,
+          query: newQuery
+        }));
+      });
   }
 
   private applySort(newSort: MangedJobAdsSorting) {
-    this.currentFilter$.pipe(take(1)).subscribe(value => {
-      this.store.dispatch(new ApplyFilterAction({
-        ...value,
-        sort: newSort
-      }));
-    });
+    this.currentFilter$.pipe(
+      take(1))
+      .subscribe(value => {
+        this.store.dispatch(new ApplyFilterAction({
+          ...value,
+          sort: newSort
+        }));
+      });
   }
 }

@@ -73,7 +73,7 @@ export class JobAdManagementColumnService {
           },
           {
             backendKey: ManagedJobAdsSortingColumn.OWNER_NAME,
-            columnName: 'portal.dashboard.job-publication.owner-name',
+            columnName: 'portal.manage-job-ads.search.owner-name',
             render: job => {
               return job.owner.userDisplayName;
             }

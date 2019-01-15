@@ -1409,6 +1409,7 @@ portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Stan
 portal,portal.widgets.job-search.title,Stelle finden
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
+portal,portal.widgets.manage-job-ads.title,Stellenanzeigen bewirtschaften
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
@@ -1423,7 +1424,8 @@ candidate-detail,candidate-detail.anonymous-contact.send,Absenden
 candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
 candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"
 
-portal,portal.dashboard.job-publication.owner-name,Erfasser
-portal,portal.dashboard.job-publication.createdBy.me,Meine
-portal,portal.dashboard.job-publication.createdBy.all,Alle
-global,global.job-publication.status.ALL,Alle
+portal,portal.manage-job-ads.search.query,Stellen durchsuchen
+portal,portal.manage-job-ads.search.owner-name,Erfasser
+portal,portal.manage-job-ads.search.filter.createdBy.myself,Meine
+portal,portal.manage-job-ads.search.filter.createdBy.all,Alle
+portal,portal.manage-job-ads.search.filter.status.all,Alle

@@ -27,10 +27,9 @@
     </div>
   </div>
 
-  <input type="text"
-         class="form-control mb-2"
-         placeholder="search"
-         (input)="onQueryChange($event)">
+  <alv-input-field [alvControl]="form.get('query')"
+                   label="portal.manage-job-ads.search.query">
+  </alv-input-field>
 
   <alv-job-ad-management-table
     [columns]="columns$ | async"
