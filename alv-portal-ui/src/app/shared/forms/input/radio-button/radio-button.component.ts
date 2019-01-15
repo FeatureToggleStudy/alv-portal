@@ -1,4 +1,4 @@
-import { Component, Host, OnInit, Optional, SkipSelf } from '@angular/core';
+import { Component, Host, Input, OnInit, Optional, SkipSelf } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../selectable-option.model';
 import { InputType } from '../input-type.enum';

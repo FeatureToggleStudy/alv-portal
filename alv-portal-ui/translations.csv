@@ -47,9 +47,9 @@ candidate-detail,candidate-detail.additional-information.preferredWorkRegions.la
 candidate-detail,candidate-detail.additional-information.title,Weitere Angaben,Additional information,Autres indications,Altri dati
 candidate-detail,candidate-detail.additional-information.workForm.label,Arbeitsform,Work form,Forme de travail,Tipologia lavorativa
 candidate-detail,candidate-detail.anonymous-contact.confirm,Bestätigen,Confirm,Confirmer,Conferma
-candidate-detail,candidate-detail.anonymous-contact.contact-via,Bitte kontaktieren Sie mich per:,Please contact me by:,Veuillez prendre contact avec moi par:,Voglio essere contattato via:
-candidate-detail,candidate-detail.anonymous-contact.contact-via.email,E-Mail,Email,Courriel,E-mail
-candidate-detail,candidate-detail.anonymous-contact.contact-via.phone,Telefon,Phone,Téléphone,Telefono
+candidate-detail,candidate-detail.anonymous-contact.contact-via.text,Bitte kontaktieren Sie mich per:,Please contact me by:,Veuillez prendre contact avec moi par:,Voglio essere contattato via:
+candidate-detail,candidate-detail.anonymous-contact.email,E-Mail,Email,Courriel,E-mail
+candidate-detail,candidate-detail.anonymous-contact.phone,Telefon,Phone,Téléphone,Telefono
 candidate-detail,candidate-detail.anonymous-contact.contact-via.validation,Mindestens eine der folgenden Optionen ist erforderlich,At least one of the following options are required,Il faut qu'une option es selectionné,Almeno una è necessaria
 candidate-detail,candidate-detail.anonymous-contact.dismiss,Abbrechen,Cancel,Interrompre,Interrompere
 candidate-detail,candidate-detail.anonymous-contact.title,Kandidat-/in kontaktieren,Contact candidate,Prendre contact avec un/e candidat/e,Contattare il candidato
@@ -59,12 +59,12 @@ candidate-detail,candidate-detail.anonymous-contact.company,Unternehmen,Company,
 candidate-detail,candidate-detail.anonymous-contact.contact-person,Kontaktperson,Contact person,Personne de contact,Contatto
 candidate-detail,candidate-detail.anonymous-contact.street,Strasse,Street,Rue,Strada
 candidate-detail,candidate-detail.anonymous-contact.house,Nr.,No.,No.,No.
-candidate-detail,candidate-detail.anonymous-contact.zip-code,Postal code,Postal code,Postal code,Postal code
+candidate-detail,candidate-detail.anonymous-contact.zip-code,PLZ,Postal code,NPA,NPA
 candidate-detail,candidate-detail.anonymous-contact.city,Ort,City,Place,Posto
 candidate-detail,candidate-detail.anonymous-contact.country,Land,Country,Pays,Paese
 candidate-detail,candidate-detail.anonymous-contact.send-to,Post,Mail,Poste,Posta
 candidate-detail,candidate-detail.back,Zurück zu den Suchergebnissen,Back to search results,Retour aux résultats,"Torna ai risultati della ricerca "
-candidate-detail,candidate-detail.candidate-anonymous-contact,Kandidat/in kontaktieren,Contact candidate,Contacter le/la candidat-e,Contattare candidato/a
+candidate-detail,candidate-detail.candidate-anonymous-contact.name,Kandidat/in kontaktieren,Contact candidate,Contacter le/la candidat-e,Contattare candidato/a
 candidate-detail,candidate-detail.candidate-anonymous-contact.subject,"Liebe RAV-Kundin, lieber RAV-Kunde","Dear Customer","Chère cliente, cher client ORP","Cara cliente, caro cliente dell'URC"
 candidate-detail,candidate-detail.candidate-anonymous-contact.success,"Ihr E-mail wurde versandt. Vielen Dank, dass Sie Job-Room benutzen.","Your e-mail was succesfully sent. Thank you for using Job-Room.","Votre courriel a été envoyé. Merci d'utiliser Job-Room.","La sua e-mail è stata inviata. Grazie di avere utilizzato Job-Room."
 candidate-detail,candidate-detail.candidate-copy-link,Link kopieren,Copy link,Copier le lien,Copia link
@@ -187,10 +187,10 @@ dashboard,dashboard.job-publication.location,Arbeitsort,Place of work,Lieu de tr
 dashboard,dashboard.job-publication.publication-date,Meldedatum,Registration date,Date de l'annonce,Data dell'annuncio
 dashboard,dashboard.job-publication.publication-period.all,Alle,All,Tous,Tutti
 dashboard,dashboard.job-publication.publication-period.label,Alter der Stellen,Age of posts,Ancienneté des postes,Pubblicato da
-dashboard,dashboard.job-publication.publication-period.month,{{ month }} Monat,{{ month }} month,{{ month }} mois,{{ month }} mese
+dashboard,dashboard.job-publication.publication-period.month,1 Monat,1 month,1 mois,1 mese
 dashboard,dashboard.job-publication.publication-period.months,{{ months }} Monate,{{ months }} months,{{ months }} mois,{{ months }} mesi
-dashboard,dashboard.job-publication.publication-period.week,{{ week }} Woche,{{ week }} week,{{ week }} semaine,{{ week }} settimana
-dashboard,dashboard.job-publication.publication-period.year,{{ years }} Jahr,{{ years }} year,{{ years }} années,{{ years }} anni
+dashboard,dashboard.job-publication.publication-period.week,1 Woche,1 week,{1 semaine,{1 settimana
+dashboard,dashboard.job-publication.publication-period.year,1 Jahr,1 year,1 années,1 anni
 dashboard,dashboard.job-publication.status,Status,Status,Statut,Stato
 dashboard,dashboard.job-publication.title,Stellenanzeigen bewirtschaften,Manage job ads,Gérer les annonces,Gestire gli annunci
 dashboard,dashboard.job-publication.user-information.title,Sie sind eingeloggt als,You are logged in as,Vous êtes connecté(e),Registrato in qualità di:
@@ -199,7 +199,7 @@ dashboard,job-publication-cancel.alert,Bitte füllen Sie die Abmeldeinformatione
 dashboard,job-publication-cancel.job.confirm,Abmeldung bestätigen,Confirm cancellation,Confirmer l'annulation,Confermare la cancellazione
 dashboard,job-publication-cancel.job.dismiss,Abbrechen,Cancel,Interrompre,Interrompere
 dashboard,job-publication-cancel.job.not-occupied,Sie konnten die Stelle nicht besetzen,You were unable to fill the position,Vous n'avez pas pu pourvoir le poste,Il posto non è stato assegnato
-dashboard,job-publication-cancel.job.occupied,Sie konnten die Stelle besetzen,You were able to fill the position,Vous avez pourvu le poste,Il posto è stato assegnato
+dashboard,job-publication-cancel.job.occupied.text,Sie konnten die Stelle besetzen,You were able to fill the position,Vous avez pourvu le poste,Il posto è stato assegnato
 dashboard,job-publication-cancel.job.occupied.jobCenter,in Zusammenarbeit mit der regionalen Arbeitsvermittlung (RAV),in cooperation with the regional employment centre (RAV),en collaboration avec l'Office régional de placement (ORP),in collaborazione con l'Ufficio regionale di collocamento (URC)
 dashboard,job-publication-cancel.job.occupied.privateAgency,in Zusammenarbeit mit der privaten Arbeitsvermittlung (pAV),in cooperation with the private employment agency (pAV),en collaboration avec un placeur privé,in collaborazione con le agenzie private di collocamento
 dashboard,job-publication-cancel.job.occupied.self,Sie konnten die Stelle selber besetzen,You were able to fill the position yourself,Vous avez pourvu le poste par vos propres soins.,Il posto è stato assegnato senza interventi esterni
@@ -314,6 +314,7 @@ global,global.degree.NOT_KNOWN,Unbekannt,Unknown,Inconnue,Ignoto
 global,global.degree.PRIMAR_OBLIGATORISCHE_SCHULE,Obligatorische Schule (Primarstufe),Compulsory school (primary education),École obligatoire (Primaire),Scuola obligatoria (Elementare)
 global,global.degree.SEK_II_BERUFSMATURITAET,Berufsmaturität oder äquivalent,Vocational and professional school-leaving certificate or equivalent,Maturité professionnelle ou équivalent,Maturità professionale o equivalente
 global,global.degree.SEK_II_FACHMATURITAET,Fachmaturität oder äquivalent,Specialised school-leaving certificate or equivalent,Maturité spécialisée ou équivalent,Maturità specializzata o equivalente
+global,global.degree.SEK_II_FACHMITTELSCHULE,Fachmittelschule oder äquivalent,Upper-secondary specialised school or equivalent,Ecole de culture générale ou équivalent,Scuola specializzata o equivalente
 global,global.degree.SEK_II_FACHMITTELSCHULE,Fachmittelschule oder äquivalent,Upper-secondary specialised school or equivalent,Ecole de culture générale ou équivalent,Scuola specializzata o equivalente
 global,global.degree.SEK_II_GRUNDBILDUNG_EBA,Berufliche Grundbildung EBA oder äquivalent,Vocational education and training with the Swiss Federal VET Certificate or equivalent,Formation professionnelle initiale AFP ou équivalent,Formazione professionale di base CFP o equivalente
 global,global.degree.SEK_II_GRUNDBILDUNG_EFZ,Berufliche Grundbildung EFZ oder äquivalent,Vocational education and training with the Swiss Federal VET Diploma or equivalent,Formation professionnelle initiale CFC ou équivalent,Formazione professionale di base AFC o equivalente
@@ -852,7 +853,7 @@ job-detail,job-detail.application.mail,Per Post,By post,Par la poste,Per posta
 job-detail,job-detail.application.phone,Telefonisch,By phone,Par téléphone,Telefonicamente
 job-detail,job-detail.application.online,Elektronisch,Electronic,En ligne,Elettronica
 job-detail,job-detail.application.title,Bewerbungsformen,Application forms,Types de postulation,Tipologie di candidatura
-job-detail,job-detail.back,Zurück zu den Suchergebnissen,Back to search results,Retour à la liste des résultats,Torna ai risultati della ricerca
+job-detail,job-detail.back,Zurück,Back,Retour,Indietro
 job-detail,job-detail.contactPerson,Ihre Kontaktperson,Your contact person,Votre personne de contact,La tua persona di contatto
 job-detail,job-detail.external-job-disclaimer,"Dieses Inserat wurde auf einer externen Website gefunden. Die Arbeitslosenversicherung und öffentliche Arbeitsvermittlung stellt Ihnen dieses Suchresultat als zusätzliche Dienstleistung zur Verfügung, hat aber keinerlei Einfluss auf dessen Inhalt und Qualität.","This job posting was found on an external website. The unemployment insurance and public employment service provides this search result as an additional service. It has no influence on its content and quality.","Cette annonce a été trouvée sur un site externe. L'assurance-chômage et le service public de l'emploi fournissent ce résultat de recherche en tant que service supplémentaire, mais n'a aucune influence sur son contenu et sa qualité.","Questo annuncio è stato trovato su un sito web esterno. L'assicurazione contro la disoccupazione e il servizio pubblico per l'impiego fornisce questo risultato di ricerca come un servizio aggiuntivo, ma non ha alcun influsso sul suo contenuto né sulla sua qualità."
 job-detail,job-detail.onlineSince,Vakant seit,Vacant since,Libre depuis,Vacante dal
@@ -1338,9 +1339,10 @@ portal,portal.registration.request.access.code,Freischaltcode anfordern,Request 
 portal,portal.forms.validation.maxlength,Dieses Feld darf max. {{ requiredLength }} Zeichen lang sein.,This field cannot be longer than {{ requiredLength }} characters.,Ce champ doit comporter au maximum {{ requiredLength }} caractères.,Questo campo non può essere più di {{ requiredLength }} caratteri.
 portal,portal.forms.validation.minlength,Dieses Feld muss mind. {{ requiredLength }} Zeichen lang sein.,This field must be at least {{ requiredLength }} characters.,Ce champ doit avoir au minimum {{ requiredLength }} caractères.,Questo campo deve essere di almeno {{ requiredLength }} caratteri.
 portal,portal.forms.validation.pattern,Dieses Feld muss das Muster {{ requiredPattern }} erfüllen.,This field must follow the pattern {{ requiredPattern }}.,Ce champ doit respecter le modèle {{ requiredPattern }}.,Questo campo dovrebbe corrispondere al modello {{ requiredPattern }}.
-portal,portal.forms.validation.ngbDate,"Datumsformat ungültig, richtiges Format: TT.MM.JJJJ","Invalid date format, correct format: DD.MM.YYYY",Le format de la date n’est pas conforme. Format correct: JJ.MM.AAAA,Il formato della data non è corretto. Formato corretto: GG.MM.AAAA
-portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{day}}.{{month}}.{{year}} liegen,Date must be before {{day}}.{{month}}.{{year}},La date doit être antérieure au {{day}}.{{month}}.{{year}},La data deve essere precedente all'{{day}}.{{month}}.{{year}}
-portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{day}}.{{month}}.{{year}} liegen,Date must be after {{day}}.{{month}}.{{year}},La date doit être après le {{day}}.{{month}}.{{year}},La data deve essere successiva all'{{day}}.{{month}}.{{year}}
+portal,portal.forms.validation.ngbDate.format,"Datumsformat ungültig, richtiges Format: TT.MM.JJJJ","Invalid date format, correct format: DD.MM.YYYY",Le format de la date n’est pas conforme. Format correct: JJ.MM.AAAA,Il formato della data non è corretto. Formato corretto: GG.MM.AAAA
+portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}} liegen,Date must be before {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La date doit être antérieure au {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La data deve essere precedente all'{{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}}
+portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}} liegen,Date must be after {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La date doit être après le {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La data deve essere successiva all'{{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}
+portal,portal.forms.validation.character-counter,{{count}} Zeichen verbleibend,{{count}} characters available,{{count}} caractères disponibles,{{count}} caratteri disponibili
 
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
@@ -1348,6 +1350,7 @@ portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tut
 
 portal,portal.navigation.menu-entry.job-search,Stelle finden
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden
+portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht
 portal,portal.dashboard.header.welcome.time.morning,Guten Morgen
@@ -1404,9 +1407,21 @@ portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Stan
 
 portal,portal.widgets.job-search.title,Stelle finden
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
-
+portal,portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 
 portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
+
+portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
+portal,portal.job-publication.language-skills.add,Neue Sprachkompetenz hinzufügen,Add new language skill,Ajouter une nouvelle compétence linguistique,Aggiungi nuova conoscenza linguistica
+portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
+
+candidate-detail,candidate-detail.anonymous-contact.send,Absenden
+candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
+candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"
+
+portal,portal.job-publication.locality.additional-text.placeholder,z. B. Aussendienst in der ganzen Schweiz,e.g. in the field throughout Switzerland,p. ex. service externe dans toute la Suisse,p. es. servizio esterno in tutta la Svizzera
+portal,portal.form.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
+

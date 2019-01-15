@@ -17,18 +17,18 @@ export abstract class AbstractAuthenticationGuard implements CanActivate, CanAct
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.canActivateRoute();
+    return this.canActivateRoute(route);
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.canActivateRoute();
+    return this.canActivateRoute(childRoute);
   }
 
-  private canActivateRoute(): Observable<boolean> {
+  private canActivateRoute(route: ActivatedRouteSnapshot): Observable<boolean> {
     return this.authenticationService.getCurrentUser()
       .pipe(
         map((user) => {
-          const result = this.canUserActivate(user);
+          const result = this.canUserActivate(user, route);
           if (!result) {
             this.onActivationFailed(user);
           }
@@ -37,7 +37,7 @@ export abstract class AbstractAuthenticationGuard implements CanActivate, CanAct
       );
   }
 
-  protected abstract canUserActivate(user: User): boolean;
+  protected abstract canUserActivate(user: User, route: ActivatedRouteSnapshot): boolean;
 
   protected onActivationFailed(user: User): void {
     this.landingNavigationService.navigateUser(user);

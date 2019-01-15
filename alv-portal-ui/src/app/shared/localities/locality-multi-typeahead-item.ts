@@ -4,6 +4,8 @@ export interface LocalityItem {
   communalCode?: string;
   cantonCode?: string;
   regionCode?: string;
+  city?: string;
+  zipCode?: string;
 }
 
 export enum LocalityInputType {

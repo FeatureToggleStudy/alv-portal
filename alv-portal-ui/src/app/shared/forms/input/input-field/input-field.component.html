@@ -2,7 +2,7 @@
      *ngIf="control">
 
   <div class="form-label-group position-relative"
-       [class.invalid]="control.touched && control.invalid">
+       [class.invalid]="isTouched() && isInvalid()">
     <span *ngIf="required && !readonly"
           class="required-indicator h-100">
     </span>
@@ -27,7 +27,8 @@
               [attr.id]="id"
               [formControl]="control"
               [attr.required]="required"
-              [rows]="getRows()"
+              [attr.minlength]="minLength"
+              [attr.maxlength]="maxLength"
               [attr.aria-describedby]="validationId"
               [class.placeholder-shown]="!control.value"
               (input)="onInput($event)"
@@ -38,13 +39,33 @@
          class="readonly-input">
       {{control.value}}
     </div>
-    <label [attr.for]="id">
+    <label [attr.for]="id" class="text-truncate">
       {{label | translate}}
+      <span *ngIf="placeholder"
+            class="placeholder">
+        {{placeholder | translate}}
+      </span>
     </label>
   </div>
-  <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
+  <div *ngIf="!(isTouched() && isInvalid())"
+       class="help-text d-flex">
+    <small *ngIf="helpText"
+           class="mt-1">{{helpText | translate}}
+    </small>
+    <div class="flex-grow-1"></div>
+    <small *ngIf="showCharacterCounter"
+           class="mt-1">
+      {{'portal.forms.validation.character-counter' | translate:{count: maxLength - (control.value || '').length} }}
+    </small>
+  </div>
+
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
+                           [attr.id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
+  <alv-validation-messages *ngIf="!readonly && showGroupErrors"
+                           [control]="control.parent"
                            [attr.id]="validationId"
                            [customValidationMessages]="validationMessages">
   </alv-validation-messages>

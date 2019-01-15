@@ -1,10 +1,4 @@
-import {
-  CEFR_Level,
-  Degree,
-  LanguageSkill,
-  PostAddress,
-  Salutation
-} from '../shared.types';
+import { Degree, LanguageSkill, PostAddress, Salutation } from '../shared.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -19,12 +13,12 @@ export enum JobAdvertisementStatus {
 }
 
 export enum CancellationReason {
-  OCCUPIED_JOBCENTER,
-  OCCUPIED_AGENCY,
-  OCCUPIED_JOBROOM,
-  OCCUPIED_OTHER,
-  NOT_OCCUPIED,
-  CHANGE_OR_REPOSE
+  OCCUPIED_JOBCENTER = 'OCCUPIED_JOBCENTER',
+  OCCUPIED_AGENCY = 'OCCUPIED_AGENCY',
+  OCCUPIED_JOBROOM = 'OCCUPIED_JOBROOM',
+  OCCUPIED_OTHER = 'OCCUPIED_OTHER',
+  NOT_OCCUPIED = 'NOT_OCCUPIED',
+  CHANGE_OR_REPOSE = 'CHANGE_OR_REPOSE'
 }
 
 export enum SourceSystem {
@@ -198,25 +192,28 @@ export interface CreateJobAdvertisement {
   publicContact: PublicContact;
 }
 
-
-export interface PEAJobAdsSearchRequestBody {
+export interface ManageJobAdsSearchBody {
   jobTitle: string;
   onlineSinceDays: number;
   companyId: string;
 }
 
-export interface PEAJobAdsSearchRequest {
+export interface ManagedJobAdsSearchRequest {
   page: number;
   size: number;
   sort: string;
-  body: PEAJobAdsSearchRequestBody;
+  body: ManageJobAdsSearchBody;
+}
+
+export interface ManagedJobAdsSearchResponse {
+  totalCount: number;
+  result: JobAdvertisement[];
 }
 
 export interface JobAdvertisementSearchResponse {
   totalCount: number;
   result: JobAdvertisement[];
 }
-
 
 export interface ProfessionCode {
   type: string;
@@ -248,5 +245,5 @@ export interface JobAdvertisementSearchRequest {
 export interface JobAdvertisementCancelRequest {
   id: string;
   token?: string;
-  code: string;
+  code: CancellationReason;
 }

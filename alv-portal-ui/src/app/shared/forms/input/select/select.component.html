@@ -1,7 +1,7 @@
 <div class="form-group"
      *ngIf="control">
   <div class="form-label-group position-relative"
-       [class.invalid]="control.touched && control.invalid"
+       [class.invalid]="isTouched() && isInvalid()"
        [class.readonly]="readonly">
     <span class="required-indicator"
           *ngIf="required && !readonly"></span>
@@ -32,9 +32,17 @@
     <i class="fas fa-caret-down dropdown-icon"
        *ngIf="!readonly"></i>
   </div>
-  <small *ngIf="helpText && !(control.touched && control.invalid)">{{helpText | translate}}</small>
+  <small *ngIf="helpText && !(isTouched() && isInvalid())"
+         class="help-text" >
+    {{helpText | translate}}
+  </small>
   <alv-validation-messages *ngIf="!readonly"
                            [control]="control"
+                           [attr.id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
+  <alv-validation-messages *ngIf="!readonly && showGroupErrors"
+                           [control]="control.parent"
                            [attr.id]="validationId"
                            [customValidationMessages]="validationMessages">
   </alv-validation-messages>

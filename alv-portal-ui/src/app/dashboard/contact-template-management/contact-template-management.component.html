@@ -10,42 +10,40 @@
     </p>
 
     <!-- TODO create a alv-local-alert component -->
-    <alv-alert *ngFor="let alert of alerts"
-               [notification]="alert"
-               (dismiss)="dismissAlert(alert, alerts)">
+    <alv-alert (dismiss)="dismissAlert(alert, alerts)"
+               *ngFor="let alert of alerts"
+               [notification]="alert">
     </alv-alert>
 
-    <form alvFormSubmitValidation
-          (validSubmit)="onSubmit()"
-          [formGroup]="contactTemplateForm">
+    <form (validSubmit)="onSubmit()"
+          [formGroup]="contactTemplateForm"
+          alvFormSubmitValidation>
 
       <fieldset>
         <legend class="sr-only">{{ 'contact-template-management.userInformation' | translate }}</legend>
         <h3 class="mt-4 mb-3">{{ 'contact-template-management.userInformation' | translate }}</h3>
 
         <alv-select
-          label="contact-template-management.salutation"
+          [options$]="salutationOptions$"
           alvFormControlName="salutation"
-          [options$]="salutationOptions$">
+          label="contact-template-management.salutation">
         </alv-select>
 
-        <alv-input-field label="contact-template-management.firstName"
-                         alvFormControlName="firstName">
+        <alv-input-field alvFormControlName="firstName"
+                         label="contact-template-management.firstName">
         </alv-input-field>
 
-        <alv-input-field label="contact-template-management.lastName"
-                         alvFormControlName="lastName">
+        <alv-input-field alvFormControlName="lastName"
+                         label="contact-template-management.lastName">
         </alv-input-field>
 
-        <alv-phone-input label="contact-template-management.phone"
-                         alvFormControlName="phone">
-        </alv-phone-input>
+        <alv-input-field alvFormControlName="phone"
+                         label="contact-template-management.phone"
+                         type="tel">
+        </alv-input-field>
 
-        <alv-input-field label="contact-template-management.email"
-                         [validationMessages]="[
-                      {error: 'pattern', message: 'home.tools.job-publication.messages.validate.email-format'}
-                     ]"
-                         alvFormControlName="email">
+        <alv-input-field alvFormControlName="email"
+                         label="contact-template-management.email">
         </alv-input-field>
       </fieldset>
 
@@ -53,32 +51,32 @@
         <legend class="sr-only">{{ 'contact-template-management.companyInformation' | translate }}</legend>
         <h3 class="mt-4 mb-3">{{ 'contact-template-management.companyInformation' | translate }}</h3>
 
-        <alv-input-field label="contact-template-management.companyName"
-                         alvFormControlName="companyName">
+        <alv-input-field alvFormControlName="companyName"
+                         label="contact-template-management.companyName">
         </alv-input-field>
 
         <div class="form-row">
           <div class="col-md-9">
-            <alv-input-field label="contact-template-management.companyStreet"
-                             alvFormControlName="companyStreet">
+            <alv-input-field alvFormControlName="companyStreet"
+                             label="contact-template-management.companyStreet">
             </alv-input-field>
           </div>
           <div class="col-md-3">
-            <alv-input-field label="contact-template-management.companyHouseNr"
-                             alvFormControlName="companyHouseNr">
+            <alv-input-field alvFormControlName="companyHouseNr"
+                             label="contact-template-management.companyHouseNr">
             </alv-input-field>
           </div>
         </div>
 
         <div class="form-row">
           <div class="col-md-9">
-            <alv-input-field label="contact-template-management.companyZipCode"
-                             alvFormControlName="companyZipCode">
+            <alv-input-field alvFormControlName="companyZipCode"
+                             label="contact-template-management.companyZipCode">
             </alv-input-field>
           </div>
           <div class="col-md-3">
-            <alv-input-field label="contact-template-management.companyCity"
-                             alvFormControlName="companyCity">
+            <alv-input-field alvFormControlName="companyCity"
+                             label="contact-template-management.companyCity">
             </alv-input-field>
           </div>
         </div>
@@ -86,12 +84,12 @@
         <div class="d-flex">
           <div class="flex-grow-1">
           </div>
-          <button type="button"
-                  (click)="onReset()"
-                  class="btn btn-text">{{'entity.action.cancel' | translate }}
+          <button (click)="onReset()"
+                  class="btn btn-text"
+                  type="button">{{'entity.action.cancel' | translate }}
           </button>
-          <button type="submit"
-                  class="btn btn-primary ml-1">{{'entity.action.save' | translate }}
+          <button class="btn btn-primary ml-1"
+                  type="submit">{{'entity.action.save' | translate }}
           </button>
         </div>
       </fieldset>

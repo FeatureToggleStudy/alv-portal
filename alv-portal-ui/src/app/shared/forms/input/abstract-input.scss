@@ -52,6 +52,9 @@ textarea.form-control,
   }
   &.form-label-group > label {
     color: $color-red !important;
+    .placeholder {
+      color: $color-red;
+    }
   }
 }
 
@@ -84,6 +87,10 @@ textarea.form-control,
     border: 1px solid transparent;
     transition: all .1s ease-in-out;
     pointer-events: none;
+    .placeholder {
+      color: $color-grey;
+      margin-left: 1em;
+    }
   }
   /* Filled input/label styling */
   /* NOTE: Set the class "placeholder-shown" manually with JS if the input value is empty */
@@ -104,6 +111,9 @@ textarea.form-control,
     padding-bottom: 1px;
     font-size: 12px;
     color: $color-dark-grey;
+    .placeholder {
+      display: none;
+    }
   }
   .readonly-input:not(.placeholder-shown) ~ label {
     color: $color-grey-black;
@@ -111,6 +121,9 @@ textarea.form-control,
   .readonly-input {
     min-height: 46px;
   }
+}
+.help-text {
+  color: $color-dark-grey;
 }
 /* adds space at the end of the input field for placing a button */
 :host-context(.append-button) {
@@ -127,7 +140,7 @@ textarea.form-control,
 }
 /* removes the margin of the form group */
 :host-context(.narrow-form) {
-  .form-group {
+  .form-group, &.form-group {
     margin-bottom: 0;
   }
 }

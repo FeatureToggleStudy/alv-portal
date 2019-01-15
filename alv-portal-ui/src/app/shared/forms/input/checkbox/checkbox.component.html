@@ -1,4 +1,4 @@
-<div class="form-check mb-2"
+<div class="checkbox"
      *ngIf="control">
   <input class="form-check-input"
          type="checkbox"
@@ -13,6 +13,11 @@
 </div>
 <alv-validation-messages *ngIf="!readonly && control"
                          [control]="control"
+                         [attr.id]="validationId"
+                         [customValidationMessages]="validationMessages">
+</alv-validation-messages>
+<alv-validation-messages *ngIf="!readonly && showGroupErrors"
+                         [control]="control.parent"
                          [attr.id]="validationId"
                          [customValidationMessages]="validationMessages">
 </alv-validation-messages>

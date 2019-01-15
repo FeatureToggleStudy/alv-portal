@@ -49,12 +49,18 @@ export abstract class AbstractInput implements OnInit {
    */
   @Input() autofocus?: boolean;
 
+  /**
+   * if true, displays the parent group errors
+   * @type {boolean}
+   */
+  @Input() showGroupErrors = false;
+
   validationId: string;
 
   protected constructor(
-      private controlContainer: ControlContainer,
-      private inputType: InputType,
-      private inputIdGenerationService: InputIdGenerationService) {
+    private controlContainer: ControlContainer,
+    private inputType: InputType,
+    private inputIdGenerationService: InputIdGenerationService) {
   }
 
   ngOnInit() {
@@ -68,6 +74,27 @@ export abstract class AbstractInput implements OnInit {
 
     this.id = this.id || this.inputIdGenerationService.getNextInputId(this.inputType, this.label);
     this.validationId = `${this.id}-validation`;
+  }
+
+  public isTouched() {
+    if (this.control.parent && this.showGroupErrors) {
+      return this.control.parent.touched || this.control.touched;
+    }
+
+    return this.control.touched;
+  }
+
+  public isInvalid() {
+    if (this.control.parent && this.showGroupErrors && this.control.parent.invalid) {
+      const parentErrors = this.control.parent.errors || {};
+      const hasRelevantGroupError = (this.validationMessages || [])
+        .map((msg) => msg.error)
+        .reduce((accumulator, currentValue) => !!parentErrors[currentValue] || accumulator, false);
+
+      return hasRelevantGroupError || this.control.invalid;
+    }
+
+    return this.control.invalid;
   }
 
   public get control() {
@@ -95,4 +122,7 @@ export abstract class AbstractInput implements OnInit {
     return validators && validators['required'];
   }
 
+  public focus() {
+    alert('not implemented for input type ' + this.inputType);
+  }
 }

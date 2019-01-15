@@ -1,0 +1,92 @@
+<alv-modal modalTitle="candidate-detail.anonymous-contact.title"
+           primaryLabel="candidate-detail.anonymous-contact.send"
+           (primaryAction)="onSubmit()"
+           secondaryLabel="candidate-detail.anonymous-contact.dismiss"
+           (secondaryAction)="activeModal.dismiss()"
+           [formGroup]="form">
+  <fieldset>
+    <alv-input-field label="contact-template-management.salutation"
+                     [maxLength]="TITLE_MAX_LENGTH"
+                     alvFormControlName="subject">
+    </alv-input-field>
+    <p>{{ mailBodyPreamble }}</p>
+    <alv-input-field label="candidate-detail.anonymous-contact.your-message"
+                     [maxLength]="MESSAGE_MAX_LENGTH"
+                     [showCharacterCounter]="true"
+                     [multiline]="true"
+                     alvFormControlName="personalMessage">
+    </alv-input-field>
+    <alv-input-field label="candidate-detail.anonymous-contact.company"
+                     [maxLength]="TITLE_MAX_LENGTH"
+                     alvFormControlName="companyName">
+    </alv-input-field>
+    <p>{{ 'candidate-detail.anonymous-contact.contact-via.text' | translate }}</p>
+
+    <div class="contact-modal-checkbox">
+      <alv-checkbox label="candidate-detail.anonymous-contact.phone"
+                    [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
+                    showGroupErrors="true"
+                    alvFormControlName="phoneCheckbox">
+      </alv-checkbox>
+      <alv-input-field label="candidate-detail.anonymous-contact.phone"
+                       type="tel"
+                       alvFormControlName="phone"
+                       *ngIf="form.get('phoneCheckbox').value">
+      </alv-input-field>
+    </div>
+    <div class="contact-modal-checkbox">
+      <alv-checkbox label="candidate-detail.anonymous-contact.email"
+                    [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
+                    showGroupErrors="true"
+                    alvFormControlName="emailCheckbox">
+      </alv-checkbox>
+      <alv-input-field label="candidate-detail.anonymous-contact.email"
+                       alvFormControlName="email"
+                       *ngIf="form.get('emailCheckbox').value">
+      </alv-input-field>
+    </div>
+    <div class="contact-modal-checkbox">
+      <alv-checkbox label="candidate-detail.anonymous-contact.send-to"
+                    [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
+                    showGroupErrors="true"
+                    alvFormControlName="postCheckbox">
+      </alv-checkbox>
+      <div *ngIf="form.get('postCheckbox').value"
+           formGroupName="company">
+        <alv-input-field label="candidate-detail.anonymous-contact.company"
+                         alvFormControlName="companyName">
+        </alv-input-field>
+        <alv-input-field label="candidate-detail.anonymous-contact.name-lastname"
+                         alvFormControlName="contactPerson">
+        </alv-input-field>
+        <div class="form-row">
+          <div class="col-md-10">
+            <alv-input-field label="candidate-detail.anonymous-contact.street"
+                             alvFormControlName="companyStreet">
+            </alv-input-field>
+          </div>
+          <div class="col-md-2">
+            <alv-input-field label="candidate-detail.anonymous-contact.house"
+                             alvFormControlName="companyHouseNr">
+            </alv-input-field>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-2">
+            <alv-input-field label="candidate-detail.anonymous-contact.zip-code"
+                             alvFormControlName="companyZipCode">
+            </alv-input-field>
+          </div>
+          <div class="col-md-10">
+            <alv-input-field label="candidate-detail.anonymous-contact.city"
+                             alvFormControlName="companyCity">
+            </alv-input-field>
+          </div>
+        </div>
+        <alv-input-field label="candidate-detail.anonymous-contact.country"
+                         alvFormControlName="companyCountry">
+        </alv-input-field>
+      </div>
+    </div>
+  </fieldset>
+</alv-modal>

@@ -52,11 +52,14 @@ export class DateInputComponent extends AbstractInput {
    */
   @Input() placement: 'bottom-left' | 'bottom-right' = 'bottom-left';
 
-  @ViewChild('datePicker') datePicker: ElementRef;
+  @ViewChild('datePicker') datePicker: any;
 
   constructor(@Optional() @Host() @SkipSelf()controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {
     super(controlContainer, InputType.DATE_INPUT, inputIdGenerationService);
   }
 
+  focus() {
+    this.datePicker._elRef.nativeElement.focus();
+  }
 }

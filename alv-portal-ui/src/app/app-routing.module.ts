@@ -19,15 +19,24 @@ const appRoutes: Routes = [
   },
   {
     path: 'registration',
-    loadChildren: './registration/registration.module#RegistrationModule'
+    loadChildren: './registration/registration.module#RegistrationModule',
+    canActivateChild: [NotAuthenticatedGuard],
   },
   {
     path: 'job-search',
-    loadChildren: './job-ad-search/job-ad-search.module#JobAdSearchModule'
+    loadChildren: './job-advertisement/job-ad-search/job-ad-search.module#JobAdSearchModule'
   },
   {
     path: 'candidate-search',
     loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule'
+  },
+  {
+    path: 'job-publication',
+    loadChildren: './job-publication/job-publication.module#JobPublicationModule'
+  },
+  {
+    path: 'manage-job-ads',
+    loadChildren: './job-advertisement/manage-job-ads/manage-job-ads.module#ManageJobAdsModule',
   },
   {
     path: 'landing',

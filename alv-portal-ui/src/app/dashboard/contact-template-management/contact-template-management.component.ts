@@ -15,7 +15,8 @@ import {
   Notification,
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
-import { phoneInputValidator } from '../../shared/forms/input/phone-input/phone-input.validator';
+import { phoneInputValidator } from '../../shared/forms/input/input-field/phone-input.validator';
+import { patternInputValidator } from '../../shared/forms/input/input-field/pattern-input.validator';
 
 
 @Component({
@@ -68,39 +69,6 @@ export class ContactTemplateManagementComponent extends AbstractSubscriber imple
     });
   }
 
-  private prepareForm(): FormGroup {
-    return this.fb.group({
-      salutation: [null, Validators.required],
-      firstName: [{value: null, disabled: true}],
-      lastName: [{value: null, disabled: true}],
-      phone: [null, [Validators.required, phoneInputValidator()]],
-      email: [null, [Validators.required, Validators.pattern(EMAIL_REGEX)]],
-      companyName: [null, Validators.required],
-      companyStreet: [null, Validators.required],
-      companyHouseNr: [null, Validators.pattern(HOUSE_NUMBER_REGEX)],
-      companyZipCode: [null, Validators.required],
-      companyCity: [null, Validators.required]
-    });
-  }
-
-  private patchFormValues(selectedTemplate: CompanyContactTemplateModel): void {
-    if (selectedTemplate == null) {
-      return;
-    }
-    this.contactTemplateForm.patchValue({
-      salutation: selectedTemplate.salutation,
-      firstName: selectedTemplate.firstName,
-      lastName: selectedTemplate.lastName,
-      phone: selectedTemplate.phone,
-      email: selectedTemplate.email,
-      companyName: selectedTemplate.companyName,
-      companyStreet: selectedTemplate.companyStreet,
-      companyHouseNr: selectedTemplate.companyHouseNr,
-      companyZipCode: selectedTemplate.companyZipCode,
-      companyCity: selectedTemplate.companyCity,
-    });
-  }
-
   onSubmit() {
     this.alerts = [];
     const companyContactTemplate = this.preparePayload();
@@ -128,6 +96,39 @@ export class ContactTemplateManagementComponent extends AbstractSubscriber imple
 
   dismissAlert(alert: Notification, alerts: Notification[]) {
     alerts.splice(alerts.indexOf(alert), 1);
+  }
+
+  private prepareForm(): FormGroup {
+    return this.fb.group({
+      salutation: [null, Validators.required],
+      firstName: [{ value: null, disabled: true }],
+      lastName: [{ value: null, disabled: true }],
+      phone: [null, [Validators.required, phoneInputValidator()]],
+      email: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
+      companyName: [null, Validators.required],
+      companyStreet: [null, Validators.required],
+      companyHouseNr: [null, patternInputValidator(HOUSE_NUMBER_REGEX)],
+      companyZipCode: [null, Validators.required],
+      companyCity: [null, Validators.required]
+    });
+  }
+
+  private patchFormValues(selectedTemplate: CompanyContactTemplateModel): void {
+    if (selectedTemplate == null) {
+      return;
+    }
+    this.contactTemplateForm.patchValue({
+      salutation: selectedTemplate.salutation,
+      firstName: selectedTemplate.firstName,
+      lastName: selectedTemplate.lastName,
+      phone: selectedTemplate.phone,
+      email: selectedTemplate.email,
+      companyName: selectedTemplate.companyName,
+      companyStreet: selectedTemplate.companyStreet,
+      companyHouseNr: selectedTemplate.companyHouseNr,
+      companyZipCode: selectedTemplate.companyZipCode,
+      companyCity: selectedTemplate.companyCity,
+    });
   }
 
   private preparePayload(): CompanyContactTemplate {

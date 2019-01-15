@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
       route: 'job-seeker'
     },
     {
-      label: 'home.toolbar.companies' ,
+      label: 'home.toolbar.companies',
       icon: 'building',
       route: 'company'
     },
