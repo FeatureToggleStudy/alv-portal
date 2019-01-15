@@ -51,10 +51,15 @@ export class ValidationService {
     if (!customValidationMessages || customValidationMessages.length === 0) {
       return this.defaultValidationMessages;
     } else {
-      return [...this.defaultValidationMessages.map(
-        validationMessage => customValidationMessages.find(
-          customValidationMessage => customValidationMessage.error === validationMessage.error)
-          || validationMessage), ...customValidationMessages];
+      this.defaultValidationMessages
+          .forEach((message, index) => customValidationMessages
+              .forEach((custom) => {
+                if (message.error === custom.error) {
+                  this.defaultValidationMessages.splice(index, 1);
+                }
+              }));
+
+      return [...this.defaultValidationMessages, ...customValidationMessages];
     }
   }
 
