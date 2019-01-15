@@ -13,9 +13,9 @@ import { JobAdvertisementUtils } from '../../../shared/backend-services/job-adve
 import {
   JobAdColumnDefinition,
   JobAdManagementRow,
-  ManagedJobAdsSearchFilter,
   ManagedJobAdsAction,
   ManagedJobAdsActionType,
+  ManagedJobAdsSearchFilter,
   ManagedJobAdsSorting
 } from '../../../widgets/manage-job-ads-widget/job-ad-management-table/job-ad-management.table-types';
 import {
@@ -27,7 +27,7 @@ import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widg
 import { Router } from '@angular/router';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
-interface InlineFilterBadge extends InlineBadge {
+interface FilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
 }
 
@@ -42,32 +42,32 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
 
   form: FormGroup;
 
-  currentBadges$: Observable<InlineFilterBadge[]>;
+  currentBadges$: Observable<FilterBadge[]>;
 
   rows$: Observable<JobAdManagementRow[]>;
 
   columns$: Observable<JobAdColumnDefinition[]>;
 
-  private static mapBadges(filter) {
-    let badges = [];
+  private static mapBadges(filter: ManagedJobAdsSearchFilter): FilterBadge[] {
+    let badges: FilterBadge[] = [];
     for (const key in filter) {
       if (key === 'onlineSinceDays' && filter[key]) {
         badges.push({
           label: 'dashboard.job-publication.publication-period.' + filter[key],
           cssClass: 'badge-manage-jobads-filter',
-          key
+          key: key
         });
       } else if (key === 'ownerUserId' && filter[key]) {
         badges.push({
           label: 'portal.manage-job-ads.search.filter.createdBy.myself',
           cssClass: 'badge-manage-jobads-filter',
-          key
+          key: key
         });
       } else if (key === 'status' && filter [key]) {
         badges.push({
-          label: 'portal.dashboard.job-publication.createdBy.' + filter[key],
-          css: 'badge-manage-jobads-filter',
-          key
+          label: 'global.job-publication.status.' + filter[key],
+          cssClass: 'badge-manage-jobads-filter',
+          key: key
         });
       } else if (!filter[key]) {
         badges = badges.filter(badge => badge.key);
@@ -121,7 +121,7 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
     this.store.dispatch(new LoadNextPageAction());
   }
 
-  removeCurrentBadge(badge: InlineFilterBadge) {
+  removeCurrentBadge(badge: FilterBadge) {
     this.currentFilter$.pipe(
       take(1))
       .subscribe(currentFilter => {
