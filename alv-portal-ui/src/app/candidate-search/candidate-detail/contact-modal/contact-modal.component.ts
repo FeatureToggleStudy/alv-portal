@@ -8,14 +8,13 @@ import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
+import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { combineLatest } from 'rxjs';
 import { CandidateContactRepository } from '../../../shared/backend-services/candidate/candidate-contact-repository';
-import { customPatternInputValidator } from '../../../shared/forms/input/input-field/custom-pattern-input.validator';
-import { emailInputValidator } from '../../../shared/forms/input/input-field/email-input.validator';
+import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 
 @Component({
   selector: 'alv-contact-modal',
@@ -74,7 +73,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             contactPerson: [null, Validators.required],
             companyName: [null, Validators.required],
             companyStreet: [null, Validators.required],
-            companyHouseNr: [null, [Validators.required, customPatternInputValidator(HOUSE_NUMBER_REGEX)]],
+            companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
             companyZipCode: [null, Validators.required],
             companyCity: [null, Validators.required],
             companyCountry: [null, Validators.required]
@@ -105,7 +104,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       takeUntil(this.ngUnsubscribe))
       .subscribe(([emailCheckBoxEnabled, company]) => {
         if (emailCheckBoxEnabled) {
-          this.form.get('email').setValidators([Validators.required, emailInputValidator()]);
+          this.form.get('email').setValidators([Validators.required, patternInputValidator(EMAIL_REGEX)]);
           this.patchEmailValue(company.email);
         } else {
           this.form.get('email').clearValidators();

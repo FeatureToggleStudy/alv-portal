@@ -38,8 +38,12 @@ export class ValidationService {
       requiredAfter: 'portal.forms.validation.ngbDate.after'
     },
     {
-      error: 'customPatternValidator',
-      message: 'home.tools.job-publication.messages.validate.custom-pattern-format'
+      error: 'defaultPatternValidator',
+      message: 'home.tools.job-publication.messages.validate.default-pattern-format'
+    },
+    {
+      error: 'houseNumValidator',
+      message: 'home.tools.job-publication.messages.validate.default-pattern-format'
     },
     {
       error: 'emailValidator',

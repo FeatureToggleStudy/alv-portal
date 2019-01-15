@@ -1421,4 +1421,4 @@ portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,C
 candidate-detail,candidate-detail.anonymous-contact.send,Absenden
 candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
 candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"
-home,home.tools.job-publication.messages.validate.custom-pattern-format,Dieses Feld ist ungültig.,This field is invalid.
+home,home.tools.job-publication.messages.validate.default-pattern-format,Dieses Feld ist ungültig.,This field is invalid.
