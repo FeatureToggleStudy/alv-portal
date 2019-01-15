@@ -12,9 +12,9 @@ import {
   JobAdManagementRow,
   ManagedJobAdsSearchFilter,
   ManagedJobAdsSortingColumn,
-  MangedJobAdsAction,
-  MangedJobAdsActionType,
-  MangedJobAdsSorting,
+  ManagedJobAdsAction,
+  ManagedJobAdsActionType,
+  ManagedJobAdsSorting,
   SortDirection
 } from './job-ad-management-table/job-ad-management.table-types';
 import { JobAdCancellationComponent } from './job-ad-cancellation/job-ad-cancellation.component';
@@ -88,7 +88,7 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
     );
   }
 
-  onSortChange(sortChangeEvent: MangedJobAdsSorting) {
+  onSortChange(sortChangeEvent: ManagedJobAdsSorting) {
     const newFilter: ManagedJobAdsSearchFilter = {
       ...this.currentFilter$.value,
       sort: sortChangeEvent
@@ -96,9 +96,9 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
     this.currentFilter$.next(newFilter);
   }
 
-  onAction(action: MangedJobAdsAction) {
+  onAction(action: ManagedJobAdsAction) {
     switch (action.type) {
-      case MangedJobAdsActionType.ON_CANCEL:
+      case ManagedJobAdsActionType.ON_CANCEL:
         const jobAdCancellationModalRef = this.modalService.openLarge(JobAdCancellationComponent);
         const jobAdCancellationComponent = <JobAdCancellationComponent>jobAdCancellationModalRef.componentInstance;
         jobAdCancellationComponent.jobAdvertisement = action.row.jobAdvertisement;
@@ -108,10 +108,10 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
           .catch(() => {
           });
         break;
-      case MangedJobAdsActionType.ON_OPEN:
+      case ManagedJobAdsActionType.ON_OPEN:
         this.router.navigate(action.row.detailRouterLink);
         break;
-      case MangedJobAdsActionType.ON_DUPLICATE:
+      case ManagedJobAdsActionType.ON_DUPLICATE:
         // TODO
         break;
     }

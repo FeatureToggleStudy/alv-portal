@@ -3,9 +3,9 @@ import {
   JobAdColumnDefinition,
   JobAdManagementRow,
   ManagedJobAdsSortingColumn,
-  MangedJobAdsAction,
-  MangedJobAdsActionType,
-  MangedJobAdsSorting,
+  ManagedJobAdsAction,
+  ManagedJobAdsActionType,
+  ManagedJobAdsSorting,
   SortDirection
 } from './job-ad-management.table-types';
 
@@ -20,7 +20,7 @@ export class JobAdManagementTableComponent implements OnInit {
   columns: JobAdColumnDefinition[];
 
   @Input()
-  currentSorting: MangedJobAdsSorting;
+  currentSorting: ManagedJobAdsSorting;
 
   @Input()
   rows: JobAdManagementRow[];
@@ -29,10 +29,10 @@ export class JobAdManagementTableComponent implements OnInit {
   scroll = new EventEmitter<void>();
 
   @Output()
-  sort = new EventEmitter<MangedJobAdsSorting>();
+  sort = new EventEmitter<ManagedJobAdsSorting>();
 
   @Output()
-  action = new EventEmitter<MangedJobAdsAction>();
+  action = new EventEmitter<ManagedJobAdsAction>();
 
   SortDirection = SortDirection;
 
@@ -62,14 +62,14 @@ export class JobAdManagementTableComponent implements OnInit {
   }
 
   cancel(row: JobAdManagementRow) {
-    this.action.emit({ row: row, type: MangedJobAdsActionType.ON_CANCEL });
+    this.action.emit({ row: row, type: ManagedJobAdsActionType.ON_CANCEL });
   }
 
   open(row: JobAdManagementRow) {
-    this.action.emit({ row: row, type: MangedJobAdsActionType.ON_OPEN });
+    this.action.emit({ row: row, type: ManagedJobAdsActionType.ON_OPEN });
   }
 
   duplicate(row: JobAdManagementRow) {
-    this.action.emit({ row: row, type: MangedJobAdsActionType.ON_DUPLICATE });
+    this.action.emit({ row: row, type: ManagedJobAdsActionType.ON_DUPLICATE });
   }
 }
