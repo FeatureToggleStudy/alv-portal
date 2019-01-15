@@ -1410,6 +1410,7 @@ portal,portal.widgets.job-search.title,Stelle finden
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.widgets.manage-job-ads.title,Stellenanzeigen bewirtschaften
+portal,portal.widgets.manage-job-ads.show-all,Alle anzeigen
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
@@ -1429,3 +1430,5 @@ portal,portal.manage-job-ads.search.owner-name,Erfasser
 portal,portal.manage-job-ads.search.filter.createdBy.myself,Meine
 portal,portal.manage-job-ads.search.filter.createdBy.all,Alle
 portal,portal.manage-job-ads.search.filter.status.all,Alle
+
+portal,portal.manage-job-ads.cancel.occupied.other,Andere Gründe
