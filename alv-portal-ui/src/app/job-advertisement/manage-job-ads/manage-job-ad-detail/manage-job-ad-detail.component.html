@@ -40,6 +40,12 @@
                  class="fa fa-trash mr-1"></i>
               {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
             </button>
+            <button class="dropdown-item"
+                    (click)="duplicateJobAdAction()">
+              <i aria-hidden="true"
+                 class="fa fa-copy mr-1"></i>
+              {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
+            </button>
           </div>
         </div>
 
@@ -99,6 +105,12 @@
           <i aria-hidden="true"
              class="fa fa-trash mr-1"></i>
           {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
+        </button>
+        <button class="btn btn-text btn-text-icon btn-truncate"
+                (click)="duplicateJobAdAction()">
+          <i aria-hidden="true"
+             class="fa fa-copy mr-1"></i>
+          {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
         </button>
       </div>
     </ng-container>
