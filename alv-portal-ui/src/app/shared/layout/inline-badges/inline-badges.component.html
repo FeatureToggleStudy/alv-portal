@@ -2,4 +2,13 @@
       class="badge mr-1"
       [ngClass]="badge.cssClass">
       {{badge.label | translate:badge.labelParams}}
+
+  <button type="button"
+          class="remove-button ml-1"
+          *ngIf="canRemove"
+          (click)="onRemoved(badge)"
+          [attr.aria-label]="'global.button.remove.title' | translate">
+    <i class="fa fa-times"></i>
+  </button>
+
 </span>

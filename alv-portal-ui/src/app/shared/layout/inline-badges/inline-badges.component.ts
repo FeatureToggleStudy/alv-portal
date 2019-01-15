@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { InlineBadge } from './inline-badge.types';
 
 @Component({
@@ -11,10 +11,20 @@ export class InlineBadgesComponent implements OnInit {
   @Input()
   badges: InlineBadge[];
 
+  @Input()
+  canRemove = false;
+
+  @Output()
+  removed = new EventEmitter<InlineBadge>();
+
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  onRemoved(inlineBadge: InlineBadge) {
+    this.removed.emit(inlineBadge);
   }
 
 }
