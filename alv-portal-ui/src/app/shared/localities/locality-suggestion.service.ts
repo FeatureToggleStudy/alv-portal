@@ -11,21 +11,11 @@ import {
   LocalityMultiTypeaheadItem
 } from './locality-multi-typeahead-item';
 import { SingleTypeaheadItem } from '../forms/input/single-typeahead/single-typeahead-item.model';
-import { ZipCity } from '../backend-services/shared.types';
 
 @Injectable({ providedIn: 'root' })
 export class LocalitySuggestionService {
 
   constructor(private localityRepository: LocalityRepository) {
-  }
-
-  public static toLocality(locality: LocalitySuggestion, order = 0) {
-    return new LocalityMultiTypeaheadItem(LocalityInputType.LOCALITY, {
-        regionCode: locality.regionCode,
-        cantonCode: locality.cantonCode,
-        communalCode: String(locality.communalCode),
-      }, locality.city,
-      order);
   }
 
   public static toCityZip(locality: LocalitySuggestion) {
@@ -36,6 +26,15 @@ export class LocalitySuggestionService {
       (zipCode || '') + (city ? ' ' : '') + (city || ''),
       { city, zipCode }
     );
+  }
+
+  public static toLocality(locality: LocalitySuggestion, order = 0) {
+    return new LocalityMultiTypeaheadItem(LocalityInputType.LOCALITY, {
+        regionCode: locality.regionCode,
+        cantonCode: locality.cantonCode,
+        communalCode: String(locality.communalCode),
+      }, locality.city,
+      order);
   }
 
   fetch(query: string): Observable<LocalityMultiTypeaheadItem[]> {
@@ -55,7 +54,7 @@ export class LocalitySuggestionService {
     );
   }
 
-  fetchJobPublicationLocations(query: string): Observable<SingleTypeaheadItem<ZipCity>[]> {
+  fetchJobPublicationLocations(query: string): Observable<SingleTypeaheadItem<{ zipCode: string, city: string }>[]> {
     const localityComparator = (a: LocalitySuggestion, b: LocalitySuggestion) =>
       a.city.localeCompare(b.city) || a.zipCode.localeCompare(b.zipCode);
 

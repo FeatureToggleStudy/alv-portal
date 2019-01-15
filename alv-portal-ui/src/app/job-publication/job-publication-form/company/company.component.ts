@@ -21,7 +21,12 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
 
   @Input()
   set companyFormValue(value: CompanyFormValue) {
-    this.company.patchValue({ ...value }, { emitEvent: false });
+    this._companyFormValue = value;
+    this.setFormValue(value);
+  }
+
+  get companyFormValue() {
+    return this._companyFormValue;
   }
 
   company: FormGroup;
@@ -30,6 +35,7 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
 
   countryIsoCode$: Observable<String>;
 
+  private _companyFormValue: CompanyFormValue;
 
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService) {
@@ -63,6 +69,16 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
         filter((value) => !!value),
         startWith(countryIsoCode.value),
       );
+  }
+
+  private setFormValue(value: CompanyFormValue) {
+    const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = value;
+    this.company.patchValue({
+      name,
+      houseNumber,
+      countryIsoCode,
+      postOfficeBoxNumberOrStreet
+    }, { emitEvent: false });
   }
 }
 

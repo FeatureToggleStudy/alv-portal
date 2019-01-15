@@ -21,8 +21,15 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
 
   @Input()
   set locationFormValue(value: LocationFormValue) {
-    this.location.patchValue({ ...value }, { emitEvent: false });
+    this._locationFormValue = value;
+    this.setFormValue(value);
   }
+
+  get locationFormValue() {
+    return this._locationFormValue;
+  }
+
+  private _locationFormValue: LocationFormValue;
 
   location: FormGroup;
 
@@ -53,5 +60,10 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
         filter((value) => !!value),
         startWith(countryIsoCode.value),
       );
+  }
+
+  private setFormValue(value: LocationFormValue) {
+    const { countryIsoCode, remarks } = value;
+    this.location.patchValue({ countryIsoCode, remarks }, { emitEvent: false });
   }
 }
