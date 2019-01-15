@@ -10,11 +10,11 @@ import { JobAdManagementColumnService } from './job-ad-management-column.service
 import {
   JobAdColumnDefinition,
   JobAdManagementRow,
-  ManagedJobAdsSearchFilter,
-  ManagedJobAdsSortingColumn,
   ManagedJobAdsAction,
   ManagedJobAdsActionType,
+  ManagedJobAdsSearchFilter,
   ManagedJobAdsSorting,
+  ManagedJobAdsSortingColumn,
   SortDirection
 } from './job-ad-management-table/job-ad-management.table-types';
 import { JobAdCancellationComponent } from './job-ad-cancellation/job-ad-cancellation.component';
@@ -34,7 +34,7 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
     query: null,
     status: null,
     sort: {
-      direction: SortDirection.ASC,
+      direction: SortDirection.DESC,
       column: ManagedJobAdsSortingColumn.PUBLICATION_DATE
     }
   });
