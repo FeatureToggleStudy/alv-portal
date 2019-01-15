@@ -6,14 +6,14 @@
           *ngFor="let column of columns"
           (click)="onSortChange(column.backendKey)"
           [ngClass]="{'active-sort': currentSorting.column === column.backendKey}">
-        <span class="fa fa-sort mr-2 text-primary"
+        <span>{{ column.columnName | translate }}</span>
+        <span class="fa fa-sort ml-2 text-primary"
               *ngIf="currentSorting.column === column.backendKey; else placeholder"
               [ngClass]="{
               'fa-sort-down': currentSorting.direction === SortDirection.DESC,
               'fa-sort-up': currentSorting.direction === SortDirection.ASC
               }">
         </span>
-        <span>{{ column.columnName | translate }}</span>
       </th>
       <th scope="col">
         <span class="sr-only">{{ 'dashboard.job-publication.action' | translate }}</span>
@@ -68,6 +68,6 @@
     </tbody>
   </table>
   <ng-template #placeholder>
-    <i class="fa fa-sort mr-2"></i>
+    <i class="fa fa-sort ml-2 potential-sort"></i>
   </ng-template>
 </div>

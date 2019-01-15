@@ -30,8 +30,8 @@ export class FilterManagedJobAdsComponent implements OnInit {
               private authenticationService: AuthenticationService) {
   }
 
-  private static prepareOnlineSinceOptions() {
-    const options = [7, 30, 90, 180, 365].map(days => ({
+  private static prepareOnlineSinceOptions(): SelectableOption[] {
+    const options: SelectableOption[] = [7, 30, 90, 180, 365].map(days => ({
       label: 'dashboard.job-publication.publication-period.' + days,
       value: days
     }));
