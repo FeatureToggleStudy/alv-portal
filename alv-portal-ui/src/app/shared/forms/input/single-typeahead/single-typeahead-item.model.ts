@@ -1,15 +1,15 @@
-export class SingleTypeaheadItem {
+export class SingleTypeaheadItem<T> {
 
   constructor(public id: string,
               public label: string,
-              public model: any) {
+              public payload: T) {
   }
 
-  equals(other: SingleTypeaheadItem): boolean {
+  equals(other: SingleTypeaheadItem<T>): boolean {
     return !!other && other.id === this.id;
   }
 
-  compare(other: SingleTypeaheadItem): number {
+  compare(other: SingleTypeaheadItem<T>): number {
     if (this.label === other.label) {
       return 0;
     }
