@@ -15,6 +15,7 @@ import { phoneInputValidator } from '../../../shared/forms/input/input-field/pho
 import { combineLatest } from 'rxjs';
 import { CandidateContactRepository } from '../../../shared/backend-services/candidate/candidate-contact-repository';
 import { customPatternInputValidator } from '../../../shared/forms/input/input-field/custom-pattern-input.validator';
+import { emailInputValidator } from '../../../shared/forms/input/input-field/email-input.validator';
 
 @Component({
   selector: 'alv-contact-modal',
@@ -104,7 +105,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       takeUntil(this.ngUnsubscribe))
       .subscribe(([emailCheckBoxEnabled, company]) => {
         if (emailCheckBoxEnabled) {
-          this.form.get('email').setValidators([Validators.required, Validators.email]);
+          this.form.get('email').setValidators([Validators.required, emailInputValidator()]);
           this.patchEmailValue(company.email);
         } else {
           this.form.get('email').clearValidators();

@@ -32,10 +32,6 @@ export class ValidationService {
       message: 'portal.forms.validation.pattern'
     },
     {
-      error: 'email',
-      message: 'home.tools.job-publication.messages.validate.email-format'
-    },
-    {
       error: 'ngbDate',
       message: 'portal.forms.validation.ngbDate.format',
       requiredBefore: 'portal.forms.validation.ngbDate.before',
@@ -44,6 +40,10 @@ export class ValidationService {
     {
       error: 'customPatternValidator',
       message: 'home.tools.job-publication.messages.validate.custom-pattern-format'
+    },
+    {
+      error: 'emailValidator',
+      message: 'home.tools.job-publication.messages.validate.email-format'
     },
     {
       error: 'phoneValidator',
