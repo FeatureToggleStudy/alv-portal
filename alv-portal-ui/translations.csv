@@ -870,7 +870,7 @@ job-detail,job-detail.startsImmediately.true,Ab Sofort,Immediately,Tout de suite
 job-detail,job-detail.title,Stellenbeschreibung,Job detail,Détail de l'emploi,Dettagli sul posto
 job-detail,job-detail.deactivated,Dieses Stelleninserat ist mittlerweile nicht mehr aktiv.,This job posting is no longer active.,Cette offre d'emploi n'est plus active.,Questo annuncio di lavoro non è più attivo.
 job-detail,job-detail.unvalidated,"Dieses Inserat wurde direkt von einem unserer Nutzer elektronisch auf die Internetplattform der öffentlichen Arbeitsvermittlung publiziert. Die Arbeitslosenversicherung und öffentliche Arbeitsvermittlung hat keinen Einfluss auf dessen Inhalt und Qualität.","This advert was published electronically by one of our users on the internet platform of the public employment service. Neither the unemployment insurance office nor the public employment service have any influence over its content or quality.","Cette offre d’emploi a été publiée en ligne sur la plateforme Internet du service public de l’emploi directement par l’un de nos utilisateurs. L’assurance-chômage et le service public de l’emploi ne sont pas responsables de son contenu et de sa qualité.","Questo annuncio è stato pubblicato sul portale del servizio pubblico di collocamento direttamente in formato elettronico da uno dei nostri utenti. L’assicurazione contro la disoccupazione e il servizio pubblico di collocamento non rispondono dei contenuti né della qualità."
-job-detail,job-fingerprint-redirect.not-found,Job not found,Job not found,Job not found,Job not found
+job-detail,job-fingerprint-redirect.not-found,Stelle nicht gefunden,Job not found,Emploi non trouvé,Offerte di lavoro non trovate
 job-publication,job-publication-details.application.additionalInfo,Ergänzende Angaben,Supplementary information,Indications complémentaires,Dati complementari
 job-publication,job-publication-details.application.email,E-Mail,Email,Courriel,E-mail
 job-publication,job-publication-details.application.online-form,Online-Formular,Online form,Formulaire en ligne,Modulo online
@@ -1348,20 +1348,20 @@ portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Tau
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
 
-portal,portal.navigation.menu-entry.job-search,Stelle finden
+portal,portal.navigation.menu-entry.job-search,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden
 portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 
-portal,portal.dashboard.header.welcome.time.night,Gute Nacht
-portal,portal.dashboard.header.welcome.time.morning,Guten Morgen
-portal,portal.dashboard.header.welcome.time.afternoon,Guten Nachmittag
-portal,portal.dashboard.header.welcome.time.evening,Guten Abend
+portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
+portal,portal.dashboard.header.welcome.time.morning,Guten Morgen,Good morning,Bonjourm,Buongiorno
+portal,portal.dashboard.header.welcome.time.afternoon,Guten Nachmittag,Good afternoon,Bonjour,Buongiorno
+portal,portal.dashboard.header.welcome.time.evening,Guten Abend,Good evening,Bonsoir,Buonasera
 
-portal,portal.global.exception.client.unknown,Es ist ein unerwarteter Fehler aufgetreten
-portal,portal.global.exception.server.unknown,Auf dem Server ist ein unerwarteter Fehler aufgetreten
-portal,portal.global.exception.server.403,Zugriff verweigert
-portal,portal.global.exception.server.404,Die angeforderte Resource konnte nicht gefunden werden
-portal,portal.global.exception.server.504,Der Server ist im Moment nicht erreichbar
+portal,portal.global.exception.client.unknown,Es ist ein unerwarteter Fehler aufgetreten,An unexpected error has occurred,Une erreur inattendue s'est produite,Si è verificato un errore imprevisto
+portal,portal.global.exception.server.unknown,Auf dem Server ist ein unerwarteter Fehler aufgetreten,An unexpected error has occurred on the server,Une erreur inattendue s'est produite sur le serveur,Si è verificato un errore imprevisto sul server
+portal,portal.global.exception.server.403,Zugriff verweigert,Access denied,Accès refusé,L'accesso è stato rifiutato
+portal,portal.global.exception.server.404,Die angeforderte Ressource konnte nicht gefunden werden,The requested resource could not be found,La ressource demandée n'a pas été trouvée,Non è stato possibile trovare la risorsa richiesta
+portal,portal.global.exception.server.504,Der Server ist im Moment nicht erreichbar,The server is not available at the moment,Le serveur est inaccessible pour le moment,Il server non è al momento disponibile
 
 portal,portal.job-ad-search.browser-title,Stellen finden,Find positions,Trou­vez des offres,Trovare il posto
 portal,portal.job-ad-search.results-count.label,Stellen,Positions,Offres,Posti
@@ -1373,20 +1373,20 @@ portal,portal.candidate-search.browser-title,Kandidaten finden,Find candidates,T
 
 portal,portal.candidate-search.results-count.label,Kandidaten,Candidates,candidats,candidati
 
-portal,portal.job-detail.next-result,Nächstes,Next
-portal,portal.job-detail.previous-result,Vorheriges,Previous
-portal,portal.job-detail.occupation,Beruf,Occupation
+portal,portal.job-detail.next-result,Nächstes,Next,Prochain,Prossimo
+portal,portal.job-detail.previous-result,Vorheriges,Previous,Précédent,Precedente
+portal,portal.job-detail.occupation,Beruf,Occupation,Profession,Lavoro
 portal,portal.job-detail.qualification,Qualifikation,Qualification,Qualification,Qualifica
-portal,portal.job-detail.workExperience,Berufserfahrung,Work experience
-portal,portal.job-detail.education,Ausbildungsniveau,Education
+portal,portal.job-detail.workExperience,Berufserfahrung,Work experience,Expérience professionnelle,Esperienza professionale
+portal,portal.job-detail.education,Ausbildungsniveau,Education,Niveau de formation,Livello di formazione
 portal,portal.job-detail.workplace.label,Arbeitsort,Work location,Lieu de travail,Luogo di lavoro
 portal,portal.job-detail.workload.label,Arbeitspensum,Workload,Taux d'occupation,Grado di occupazione
 portal,portal.job-detail.employmentStartDate.label,Stellenantritt,Employment start,"Entrée en fonction",Inizio dell'attività
 portal,portal.job-detail.employmentEndDate.label,Anstellungsdauer,Employment duration,Durée de l'engagement,Durata dell'assunzione
 portal,portal.job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,Tipologia lavorativa
-portal,portal.job-detail.jobad-info.label,Informationen zur Stelle
-portal,portal.job-detail.min-requirements.label,Berufliche Mindestanforderung
-portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen
+portal,portal.job-detail.jobad-info.label,Informationen zur Stelle,Information about the job,Informations sur le poste,Informazioni sul posto
+portal,portal.job-detail.min-requirements.label,Berufliche Mindestanforderung,Minimum professional requirement,Exigences professionnelles minimales,Requisito professionale minimo
+portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen,Possible forms of application,Formes possibles de postulation,Forme possibili di candidatura
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
@@ -1405,7 +1405,7 @@ portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl mögl
 
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
 
-portal,portal.widgets.job-search.title,Stelle finden
+portal,portal.widgets.job-search.title,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 
