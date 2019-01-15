@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { BehaviorSubject, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import {
 } from '../../../shared/backend-services/shared.types';
 import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { DateInputComponent } from '../../../shared/forms/input/date-input/date-input.component';
+import { EmploymentFormValue } from './employment-form-value.types';
 
 @Component({
   selector: 'alv-employment',
@@ -26,7 +27,12 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
 
   @ViewChild('endDate') endDate: DateInputComponent;
 
-  employmentGroup: FormGroup;
+  @Input()
+  set employmentFormValue(value: EmploymentFormValue) {
+    this.employment.patchValue({ ...value }, { emitEvent: false });
+  }
+
+  employment: FormGroup;
 
   defaultPercentages = [
     { label: '0%', value: 0 },
@@ -87,75 +93,86 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   constructor(private fb: FormBuilder,
               private ngbDateNativeAdapter: NgbDateNativeAdapter) {
     super();
+    this.employment = this.fb.group({
+      workloadPercentageMin: [null, Validators.required],
+      workloadPercentageMax: [null, Validators.required],
+      immediately: [null, Validators.required],
+      duration: [null, Validators.required],
+      startDate: { value: null, disabled: true },
+      endDate: { value: null, disabled: true },
+      workForms: this.fb.group(this.workFormOptions.reduce((acc, curr) => {
+        acc[curr.value] = false;
+        return acc;
+      }, {}))
+    });
   }
 
-  get workForms(): FormArray {
-    return this.employmentGroup.get('workForms') as FormArray;
+  get workForms(): FormGroup {
+    return this.employment.get('workForms') as FormGroup;
   }
 
   ngOnInit(): void {
-    this.employmentGroup = this.fb.group({
-      workloadPercentageMin: 100,
-      workloadPercentageMax: 100,
-      immediately: true,
-      duration: EmploymentDuration.PERMANENT,
-      startDate: { value: null, disabled: true },
-      endDate: { value: null, disabled: true },
-      workForms: this.fb.array(this.workFormOptions.map(option => {
-        return this.fb.group({
-          [option.value]: false
-        });
-      }))
-    });
+    this.parentForm.addControl('employment', this.employment);
+    this.setupWorkload();
+    this.setupWorkStart();
+    this.setupWorkDuration();
+  }
 
-    this.parentForm.addControl('employment', this.employmentGroup);
-
-    this.employmentGroup.get('workloadPercentageMin').valueChanges
+  private setupWorkload() {
+    this.employment.get('workloadPercentageMin').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(percentageMin => {
         this.percentagesMax$.next(this.defaultPercentages.filter(item => item.value >= percentageMin));
       });
 
-    this.employmentGroup.get('workloadPercentageMax').valueChanges
+    this.employment.get('workloadPercentageMax').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(percentageMax => {
         this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
       });
+  }
 
-    this.employmentGroup.get('immediately').valueChanges
+  private setupWorkStart() {
+    this.employment.get('immediately').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(immediately => {
-        const control = this.employmentGroup.get('startDate');
+        const control = this.employment.get('startDate');
         if (!immediately) {
           control.enable();
+          control.setValidators(Validators.required);
           setTimeout(() => {
             this.startDate.focus();
           });
         } else {
+          control.clearValidators();
           control.disable();
         }
       });
+  }
 
-    this.employmentGroup.get('duration').valueChanges
+  private setupWorkDuration() {
+    this.employment.get('duration').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(duration => {
-        const control = this.employmentGroup.get('endDate');
+        const control = this.employment.get('endDate');
         switch (duration) {
           case EmploymentDuration.PERMANENT:
+            control.clearValidators();
             control.disable();
             break;
           case EmploymentDuration.TEMPORARY:
             control.enable();
+            control.setValidators(Validators.required);
             setTimeout(() => {
               this.endDate.focus();
             });
             break;
           case EmploymentDuration.SHORT_EMPLOYMENT:
+            control.clearValidators();
             control.disable();
             break;
         }
       });
-
   }
 }
 
