@@ -31,9 +31,9 @@
 
   <ng-container [formGroup]="company.get('postOfficeBoxNumberOrStreet')">
     <alv-input-field label="home.tools.job-publication.company.postbox-number"
+                     type="number"
                      alvFormControlName="postOfficeBoxNumber"
                      [showGroupErrors]="true"
-                     type="number"
                      [validationMessages]="[{
                                 error: 'postOfficeBoxNumberOrStreetRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
