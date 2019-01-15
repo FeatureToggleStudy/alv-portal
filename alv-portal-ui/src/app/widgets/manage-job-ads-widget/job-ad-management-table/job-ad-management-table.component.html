@@ -15,7 +15,9 @@
         </span>
         <span>{{ column.columnName | translate }}</span>
       </th>
-      <th scope="col">{{ 'dashboard.job-publication.action' | translate }}</th>
+      <th scope="col">
+        <span class="sr-only">{{ 'dashboard.job-publication.action' | translate }}</span>
+      </th>
     </tr>
     </thead>
     <tbody (scrolled)="onScroll()"
@@ -24,8 +26,10 @@
            [immediateCheck]="true"
            [infiniteScrollContainer]="'main'"
            infiniteScroll>
-    <tr *ngFor="let row of rows">
-      <td *ngFor="let column of columns ">
+    <tr *ngFor="let row of rows"
+        class="tr-content">
+      <td *ngFor="let column of columns; let last = last"
+          class="align-middle">
         <span [innerHTML]="column.render(row.jobAdvertisement) | translate"></span>
       </td>
       <td>

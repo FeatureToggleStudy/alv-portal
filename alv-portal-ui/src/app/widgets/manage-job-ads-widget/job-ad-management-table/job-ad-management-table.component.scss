@@ -24,3 +24,15 @@ td {
   }
 }
 
+.tr-content {
+  border-left: 5px solid transparent;
+  padding: .5rem 1rem;
+  background-color: $color-white;
+
+  &:hover {
+    border-left: 5px solid $color-primary;
+    color: $color-primary;
+    cursor: pointer;
+   /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);*/
+  }
+}
