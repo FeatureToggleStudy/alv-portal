@@ -18,10 +18,10 @@
                   class="btn btn-text btn-icon"
                   id="dropdownMenu"
                   ngbDropdownAnchor
-                  aria-label="Open job detail menu">
+                  aria-hidden="true">
             <i class="fa fa-ellipsis-v"></i>
           </button>
-          <div aria-label="Job detail menu"
+          <div aria-hidden="true"
                ngbDropdownMenu>
             <button (click)="prev()"
                     [disabled]="!(prevEnabled$ | async)"

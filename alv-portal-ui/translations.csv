@@ -1433,8 +1433,10 @@ portal,portal.manage-job-ads.search.owner-name,Erfasser
 portal,portal.manage-job-ads.search.filter.createdBy.myself,Meine
 portal,portal.manage-job-ads.search.filter.createdBy.all,Alle
 portal,portal.manage-job-ads.search.filter.status.all,Alle
+portal,portal.manage-job-ads.search.no-results,,No results
 
 portal,portal.manage-job-ads.cancel.occupied.other,Andere Gründe
 
 portal,portal.manage-job-ads.details.actions.cancel,Stellenanzeige abmelden,Cancel job posting,Retirer l'annonce,Cancellare il posto vacante
 portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio
+portal,portal.manage-job-ads.details.menu-open,Stellenanzeige duplizieren,Opten,Dupliquer l'annonce,Duplicare l'annuncio

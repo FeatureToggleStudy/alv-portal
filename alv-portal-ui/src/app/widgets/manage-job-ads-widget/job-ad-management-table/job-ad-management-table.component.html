@@ -1,4 +1,5 @@
-<div class="table-responsive-sm">
+<div class="table-responsive-sm"
+*ngIf="rows && rows.length; else noResults">
   <table class="table table-sm">
     <thead>
     <tr>
@@ -27,6 +28,7 @@
            [infiniteScrollContainer]="'main'"
            infiniteScroll>
     <tr *ngFor="let row of rows"
+        (click)="open(row)"
         class="tr-content">
       <td *ngFor="let column of columns; let last = last"
           class="align-middle">
@@ -71,3 +73,6 @@
     <i class="fa fa-sort ml-2 potential-sort"></i>
   </ng-template>
 </div>
+<ng-template #noResults>
+  {{'portal.manage-job-ads.search.no-results' | translate}}
+</ng-template>
