@@ -14,7 +14,8 @@ export class ManagedJobAdsSearchRequestMapper {
         companyId: companyExternalId,
         keywordsText: filter.query,
         onlineSinceDays: filter.onlineSinceDays,
-        ownerUserId: filter.ownerUserId
+        ownerUserId: filter.ownerUserId,
+        //status: filter.status
       },
       page: page,
       size: resultSize,

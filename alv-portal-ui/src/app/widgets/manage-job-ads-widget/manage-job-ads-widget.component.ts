@@ -32,6 +32,7 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
     ownerUserId: null,
     onlineSinceDays: null,
     query: null,
+    status: null,
     sort: {
       direction: SortDirection.ASC,
       column: ManagedJobAdsSortingColumn.PUBLICATION_DATE

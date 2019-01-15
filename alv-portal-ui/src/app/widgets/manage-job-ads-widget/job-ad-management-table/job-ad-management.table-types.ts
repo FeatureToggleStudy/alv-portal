@@ -1,4 +1,7 @@
-import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  JobAdvertisement,
+  JobAdvertisementStatus
+} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 export enum ManagedJobAdsSortingColumn {
   EGOV = 'jobAdvertisement.stellennummerEgov',
@@ -31,6 +34,7 @@ export interface MangedJobAdsAction {
 
 export interface ManagedJobAdsSearchFilter {
   query: string;
+  status: JobAdvertisementStatus;
   onlineSinceDays: number;
   ownerUserId: string;
   sort: MangedJobAdsSorting;
