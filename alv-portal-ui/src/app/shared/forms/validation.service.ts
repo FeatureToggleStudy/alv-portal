@@ -39,11 +39,11 @@ export class ValidationService {
     },
     {
       error: 'defaultPatternValidator',
-      message: 'home.tools.job-publication.messages.validate.default-pattern-format'
+      message: 'portal.general.form.validation.message.default'
     },
     {
       error: 'houseNumValidator',
-      message: 'home.tools.job-publication.messages.validate.housenr'
+      message: 'portal.general.form.validation.message.houseNumber'
     },
     {
       error: 'emailValidator',
