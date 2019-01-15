@@ -108,4 +108,7 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
       });
   }
 
+  duplicateJobAdAction() {
+    alert('Not implemented yet');
+  }
 }

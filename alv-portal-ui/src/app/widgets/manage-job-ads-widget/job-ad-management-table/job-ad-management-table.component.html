@@ -48,17 +48,17 @@
             <div [attr.aria-label]="'Job advertisement row actions for the row '+ row.title"
                  ngbDropdownMenu>
               <button class="dropdown-item"
-                      (click)="duplicate(row)">
-                {{ 'job-publication-details.copy' | translate }}
+                      (click)="open(row)">
+                {{ 'portal.widgets.manage-job-ads.actions.open' | translate }}
               </button>
               <button class="dropdown-item"
-                      (click)="open(row)">
-                {{ 'entity.action.open' | translate }}
+                      (click)="duplicate(row)">
+                {{ 'portal.widgets.manage-job-ads.actions.duplicate' | translate }}
               </button>
               <button class="dropdown-item"
                       *ngIf="row.isCancellable"
                       (click)="cancel(row)">
-                {{'job-publication-details.cancel' | translate }}
+                {{'portal.widgets.manage-job-ads.actions.cancel' | translate }}
               </button>
             </div>
           </div>

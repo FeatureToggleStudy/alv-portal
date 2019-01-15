@@ -26,19 +26,25 @@
             <button (click)="prev()"
                     [disabled]="!(prevEnabled$ | async)"
                     class="dropdown-item">
-              {{'portal.job-detail.previous-result' | translate}}
+              {{ 'portal.job-detail.previous-result' | translate }}
             </button>
             <button (click)="next()"
                     [disabled]="!(nextEnabled$ | async)"
                     class="dropdown-item">
-              {{'portal.job-detail.next-result' | translate}}
+              {{ 'portal.job-detail.next-result' | translate }}
             </button>
             <button class="dropdown-item"
                     [disabled]="!isCancellable"
                     (click)="cancelJobAdAction()">
               <i aria-hidden="true"
                  class="fa fa-trash mr-1"></i>
-              {{'job-publication-details.cancel' |translate}}
+              {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
+            </button>
+            <button class="dropdown-item"
+                    (click)="duplicateJobAdAction()">
+              <i aria-hidden="true"
+                 class="fa fa-copy mr-1"></i>
+              {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
             </button>
           </div>
         </div>
@@ -98,16 +104,14 @@
                 (click)="cancelJobAdAction()">
           <i aria-hidden="true"
              class="fa fa-trash mr-1"></i>
-          {{'job-publication-details.cancel' |translate}}
+          {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
         </button>
-
-        <!--<button class="btn btn-text btn-text-icon btn-truncate mt-1"
-                  [disabled]="!isCancellable"
-                  (click)="cancelJobAdAction()">
-            <i aria-hidden="true"
-               class="fa fa-trash mr-1"></i>
-            {{'job-publication-details.cancel' |translate}}
-          </button>-->
+        <button class="btn btn-text btn-text-icon btn-truncate"
+                (click)="duplicateJobAdAction()">
+          <i aria-hidden="true"
+             class="fa fa-copy mr-1"></i>
+          {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
+        </button>
       </div>
     </ng-container>
   </alv-three-column-layout>
