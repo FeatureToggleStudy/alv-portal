@@ -1,0 +1,23 @@
+<fieldset [formGroup]="location">
+  <legend class="sr-only">{{'home.tools.job-publication.locality.title' | translate }}</legend>
+
+  <alv-select label="home.tools.job-publication.locality.country"
+              alvFormControlName="countryIsoCode"
+              [options$]="countryOptions$"></alv-select>
+
+
+  <alv-zip-city-input [parent]="location"
+                      [zipCityFormValue]="locationFormValue.zipAndCity"
+                      [countryIsoCode]="countryIsoCode$ | async">
+  </alv-zip-city-input>
+
+
+  <alv-input-field label="home.tools.job-publication.locality.additional-text"
+                   alvFormControlName="remarks"
+                   placeholder="portal.job-publication.locality.additional-text.placeholder"
+                   [multiline]="true"
+                   [maxLength]="REMARK_MAX_LENGTH"
+                   [showCharacterCounter]="true">
+  </alv-input-field>
+
+</fieldset>

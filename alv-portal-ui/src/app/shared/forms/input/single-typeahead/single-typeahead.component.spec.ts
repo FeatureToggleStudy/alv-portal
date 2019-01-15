@@ -42,7 +42,7 @@ describe('SingleTypeaheadComponent', () => {
       component.selectItem(event);
 
       // THEN
-      expect(component.control.value).toEqual(new SingleTypeaheadItem('id1', 'label1', 'model1'));
+      expect(component.control.value).toEqual('model1');
     });
   });
 

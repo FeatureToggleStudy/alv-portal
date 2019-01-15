@@ -22,18 +22,10 @@
     </alv-input-field>
     <p>{{ 'candidate-detail.anonymous-contact.contact-via.text' | translate }}</p>
 
-    <!-- TODO extract a component/concept to display cross-validation messages-->
-    <div *ngIf="form.errors?.atLeastOneRequired"
-         [ngClass]="{'inline-error': form?.touched && form.invalid}">
-      <small class="form-text">
-        <i class="fas fa-exclamation-circle"
-           aria-hidden="true"></i>
-        {{ 'candidate-detail.anonymous-contact.contact-via.validation' | translate }}
-      </small>
-    </div>
-
     <div class="contact-modal-checkbox">
       <alv-checkbox label="candidate-detail.anonymous-contact.phone"
+                    [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
+                    showGroupErrors="true"
                     alvFormControlName="phoneCheckbox">
       </alv-checkbox>
       <alv-input-field label="candidate-detail.anonymous-contact.phone"
@@ -44,16 +36,19 @@
     </div>
     <div class="contact-modal-checkbox">
       <alv-checkbox label="candidate-detail.anonymous-contact.email"
+                    [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
+                    showGroupErrors="true"
                     alvFormControlName="emailCheckbox">
       </alv-checkbox>
       <alv-input-field label="candidate-detail.anonymous-contact.email"
                        alvFormControlName="email"
-                       [validationMessages]="[{error: 'pattern', message: 'home.tools.job-publication.messages.validate.email-format'}]"
                        *ngIf="form.get('emailCheckbox').value">
       </alv-input-field>
     </div>
     <div class="contact-modal-checkbox">
       <alv-checkbox label="candidate-detail.anonymous-contact.send-to"
+                    [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
+                    showGroupErrors="true"
                     alvFormControlName="postCheckbox">
       </alv-checkbox>
       <div *ngIf="form.get('postCheckbox').value"

@@ -43,6 +43,11 @@
   }
 }
 
+.alv-light-panel {
+  background-color: $color-light-grey;
+  padding: 0.25em 0.5em;
+}
+
 @include media-breakpoint-down(sm) {
   .alv-panel {
     padding: 1em 0.5em 0.5em;
