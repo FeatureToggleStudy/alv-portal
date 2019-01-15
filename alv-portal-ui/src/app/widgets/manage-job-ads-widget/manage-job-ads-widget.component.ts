@@ -112,7 +112,7 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
         this.router.navigate(action.row.detailRouterLink);
         break;
       case ManagedJobAdsActionType.ON_DUPLICATE:
-        // TODO
+        alert('Not implemented yet');
         break;
     }
   }

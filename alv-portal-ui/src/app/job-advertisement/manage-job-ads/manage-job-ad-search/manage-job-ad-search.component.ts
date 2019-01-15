@@ -5,7 +5,7 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, map, take, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, take, takeUntil, tap } from 'rxjs/operators';
 import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
 import { JobAdManagementColumnService } from '../../../widgets/manage-job-ads-widget/job-ad-management-column.service';
@@ -101,20 +101,24 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
       })
     );
 
-    this.currentFilter$ = this.store.pipe(select(getManagedJobAdsSearchFilter));
-
-    this.currentBadges$ = this.currentFilter$.pipe(
-      map(ManageJobAdSearchComponent.mapBadges)
-    );
-
     this.form = this.fb.group({
       query: [null]
     });
+
+    this.currentFilter$ = this.store.pipe(select(getManagedJobAdsSearchFilter)).pipe(
+      tap(currentFilter => {
+        this.form.patchValue({ query: currentFilter.query }, { emitEvent: false });
+      })
+    );
 
     this.form.get('query').valueChanges.pipe(
       debounceTime(300),
       takeUntil(this.ngUnsubscribe))
       .subscribe(value => this.applyQuery(value));
+
+    this.currentBadges$ = this.currentFilter$.pipe(
+      map(ManageJobAdSearchComponent.mapBadges)
+    );
   }
 
   onScroll() {
@@ -166,7 +170,7 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
         this.router.navigate(action.row.detailRouterLink);
         break;
       case ManagedJobAdsActionType.ON_DUPLICATE:
-        // TODO
+        alert('Not implemented yet');
         break;
     }
   }
