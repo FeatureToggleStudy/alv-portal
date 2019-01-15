@@ -38,10 +38,6 @@ export class ValidationService {
       requiredAfter: 'portal.forms.validation.ngbDate.after'
     },
     {
-      error: 'defaultPatternValidator',
-      message: 'portal.general.form.validation.message.default'
-    },
-    {
       error: 'houseNumValidator',
       message: 'portal.general.form.validation.message.houseNumber'
     },

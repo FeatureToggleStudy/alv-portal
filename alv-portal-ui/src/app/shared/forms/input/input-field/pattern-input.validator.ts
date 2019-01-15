@@ -4,9 +4,6 @@ import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../regex-patterns';
 export const patternInputValidator: (regex: RegExp) => ValidatorFn = (regex) => {
   return (control: AbstractControl) => {
 
-    // TODO check
-    //  maybe compare with existing regex patterns and return specific patternValidator
-    //  which can show then the specific error message in validation.service.ts
     if (control.value && regex) {
       if (!regex.test(control.value)) {
         switch (String(regex)) {
@@ -24,7 +21,7 @@ export const patternInputValidator: (regex: RegExp) => ValidatorFn = (regex) => 
             };
           default:
             return {
-              'defaultPatternValidator': {
+              'pattern': {
                 value: control.value
               }
             };

@@ -1422,6 +1422,5 @@ candidate-detail,candidate-detail.anonymous-contact.send,Absenden
 candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
 candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"
 
-portal,portal.general.form.validation.message.default,Dieses Feld ist ungültig.,This field is invalid.
 portal,portal.general.form.validation.message.houseNumber,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
 
