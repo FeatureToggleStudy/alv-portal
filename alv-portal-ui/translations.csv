@@ -1411,6 +1411,9 @@ portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,T
 portal,portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.widgets.manage-job-ads.title,Stellenanzeigen bewirtschaften
 portal,portal.widgets.manage-job-ads.show-all,Alle anzeigen
+portal,portal.widgets.manage-job-ads.actions.open,Öffnen,Open,Ouvrir,Apri
+portal,portal.widgets.manage-job-ads.actions.cancel,Abmelden,Cancel,Retirer,Cancellare
+portal,portal.widgets.manage-job-ads.actions.duplicate,Duplizieren,Duplicate,Dupliquer,Duplicare
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
@@ -1432,3 +1435,6 @@ portal,portal.manage-job-ads.search.filter.createdBy.all,Alle
 portal,portal.manage-job-ads.search.filter.status.all,Alle
 
 portal,portal.manage-job-ads.cancel.occupied.other,Andere Gründe
+
+portal,portal.manage-job-ads.details.actions.cancel,Stellenanzeige abmelden,Cancel job posting,Retirer l'annonce,Cancellare il posto vacante
+portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio
