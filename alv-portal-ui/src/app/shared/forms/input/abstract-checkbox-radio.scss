@@ -1,0 +1,54 @@
+@import "../../../../scss/common/colors";
+
+/**
+ * Checkbox/radio button implementation inspired by
+ * https://medium.com/claritydesignsystem/pure-css-accessible-checkboxes-and-radios-buttons-54063e759bb3
+ */
+.checkbox-radio {
+  label {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  input {
+    opacity: 0;
+  }
+
+  label::before,
+  label::after {
+    position: absolute;
+    content: "";
+    display: inline-block;
+  }
+
+  label:hover::before {
+    background-color: $color-super-light-grey;
+  }
+
+  /* Hide the check mark by default */
+  input + label::after {
+    transition: all 0.25s ease-out;
+    opacity: 0;
+  }
+
+  /* Unhide on the checked state */
+  input:checked + label::after {
+    opacity: 1;
+  }
+
+  /* Adding focus styles on the outer-box of the fake checkbox */
+  input:focus + label::before {
+    box-shadow: 0 0 0 0.2rem $color-blue-transparent;
+  }
+
+  input:disabled + label {
+    cursor: default;
+    &::before {
+      background: $color-light-grey;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
+}
+

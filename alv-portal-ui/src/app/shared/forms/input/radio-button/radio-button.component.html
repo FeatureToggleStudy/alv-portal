@@ -5,8 +5,8 @@
   <legend class="label mb-2"
           *ngIf="label">{{label | translate}}
   </legend>
-  <div class="radio"
-       *ngFor="let option of options$ | async">
+  <div class="checkbox-radio"
+       *ngFor="let option of options$ | async; let first = first">
     <input class="form-check-input"
            type="radio"
            [formControl]="control"
@@ -14,7 +14,7 @@
            [value]="option.value"
            [attr.id]="id + '-' + option.value"
            [attr.aria-readonly]="readonly"
-           [alvAutofocus]="autofocus"
+           [alvAutofocus]="first ? autofocus : false"
            (click)="!readonly">
     <label class="form-check-label"
            [for]="id + '-' + option.value"
