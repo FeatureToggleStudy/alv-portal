@@ -1,11 +1,17 @@
 <div class="table-responsive-sm">
-  <table class="table table-sm">
-    <thead>
-    <tr>
-      <th scope="col"
-          *ngFor="let column of columns"
-          (click)="onSortChange(column.backendKey)"
-          [ngClass]="{'active-sort': currentSorting.column === column.backendKey}">
+  <div class="d-table table table-sm"
+       (scrolled)="onScroll()"
+       [fromRoot]="true"
+       [infiniteScrollThrottle]="50"
+       [immediateCheck]="true"
+       [infiniteScrollContainer]="'main'"
+       infiniteScroll>
+    <div class="d-none d-md-table-row">
+      <div class="d-md-table-cell"
+           scope="col"
+           *ngFor="let column of columns"
+           (click)="onSortChange(column.backendKey)"
+           [ngClass]="{'active-sort': currentSorting.column === column.backendKey}">
         <span class="fa fa-sort mr-2 text-primary"
               *ngIf="currentSorting.column === column.backendKey; else placeholder"
               [ngClass]="{
@@ -14,25 +20,17 @@
               }">
         </span>
         <span>{{ column.columnName | translate }}</span>
-      </th>
-      <th scope="col">
-        <span class="sr-only">{{ 'dashboard.job-publication.action' | translate }}</span>
-      </th>
-    </tr>
-    </thead>
-    <tbody (scrolled)="onScroll()"
-           [fromRoot]="true"
-           [infiniteScrollThrottle]="50"
-           [immediateCheck]="true"
-           [infiniteScrollContainer]="'main'"
-           infiniteScroll>
-    <tr *ngFor="let row of rows"
-        class="tr-content">
-      <td *ngFor="let column of columns; let last = last"
-          class="align-middle">
+      </div>
+      <th scope="col">{{ 'dashboard.job-publication.action' | translate }}</th>
+    </div>
+    <div *ngFor="let row of rows"
+         class="d-block d-md-table-row">
+      <div *ngFor="let column of columns; let i = index"
+           class="d-block d-md-table-cell">
+        <div class="d-inline-block d-md-none"><strong>{{ columns[i].columnName | translate }}:</strong></div>
         <span [innerHTML]="column.render(row.jobAdvertisement) | translate"></span>
-      </td>
-      <td>
+      </div>
+      <div class="d-md-table-cell">
         <div class="actions">
           <div #mobileActionsMenu="ngbDropdown"
                class="d-inline-block"
@@ -63,10 +61,9 @@
             </div>
           </div>
         </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+      </div>
+    </div>
+  </div>
   <ng-template #placeholder>
     <i class="fa fa-sort mr-2"></i>
   </ng-template>
