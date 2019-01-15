@@ -29,7 +29,7 @@ export class OccupationComponent implements OnInit {
       value: null,
       label: 'home.tools.job-publication.no-selection'
     },
-    ... Object.keys(Degree).map(degree => {
+    ...Object.keys(Degree).map(degree => {
       return {
         value: degree,
         label: 'global.degree.' + degree
@@ -56,6 +56,7 @@ export class OccupationComponent implements OnInit {
   constructor(private occupationSuggestionService: OccupationSuggestionService,
               private fb: FormBuilder) {
 
+    //todo (birom): review validators
     this.occupation = this.fb.group({
       occupationSuggestion: [, [
         Validators.required
