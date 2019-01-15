@@ -32,40 +32,13 @@
          placeholder="search"
          (input)="onQueryChange($event)">
 
-  <table class="table"
-         *ngIf="currentFilter$ | async as currentFilter">
-    <thead>
-    <tr>
-      <th scope="col"
-          *ngFor="let column of columns"
-          (click)="onSortChange(column.backendKey, currentFilter.sort)"
-          [ngClass]="{'active-sort': currentFilter.sort.column === column.backendKey}">
-        <span class="fa fa-sort mr-2 text-primary"
-              *ngIf="currentFilter.sort.column === column.backendKey; else placeholder"
-              [ngClass]="{
-              'fa-sort-down': currentFilter.sort.direction === SortDirection.DESC,
-              'fa-sort-up': currentFilter.sort.direction === SortDirection.ASC
-              }">
-        </span>
-        <span>{{ column.translationKey | translate }}</span>
-      </th>
-      <th scope="col">{{ 'dashboard.job-publication.action' | translate }}</th>
-    </tr>
-    </thead>
-    <tbody (scrolled)="onScroll()"
-           [fromRoot]="true"
-           [infiniteScrollThrottle]="50"
-           [immediateCheck]="true"
-           [infiniteScrollContainer]="'main'"
-           infiniteScroll>
-    <tr *ngFor="let jobAdvertisement of jobSearchResults$ | async"
-        [jobAdvertisement]="jobAdvertisement"
-        alv-job-ad-management-row>
-    </tr>
-    </tbody>
-  </table>
-</div>
+  <alv-job-ad-management-table
+    [columns]="columns$ | async"
+    [currentSorting]="(currentFilter$ | async).sort"
+    [rows]="rows$ | async"
+    (action)="onAction($event)"
+    (scroll)="onScroll()"
+    (sort)="onSortChange($event)">
+  </alv-job-ad-management-table>
 
-<ng-template #placeholder>
-  <i class="fa fa-sort mr-2"></i>
-</ng-template>
+</div>

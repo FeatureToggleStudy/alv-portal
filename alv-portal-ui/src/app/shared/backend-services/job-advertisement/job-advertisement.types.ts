@@ -202,7 +202,7 @@ export interface ManageJobAdsSearchBody {
   onlineSinceDays: number;
   companyId: string;
   ownerUserId: string;
-  status: JobAdvertisementStatus;
+  //status: JobAdvertisementStatus;
 }
 
 export interface ManagedJobAdsSearchRequest {

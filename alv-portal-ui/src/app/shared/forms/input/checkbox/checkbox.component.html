@@ -16,3 +16,8 @@
                          [attr.id]="validationId"
                          [customValidationMessages]="validationMessages">
 </alv-validation-messages>
+<alv-validation-messages *ngIf="!readonly && showGroupErrors"
+                         [control]="control.parent"
+                         [attr.id]="validationId"
+                         [customValidationMessages]="validationMessages">
+</alv-validation-messages>
