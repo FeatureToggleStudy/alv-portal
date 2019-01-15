@@ -20,7 +20,7 @@
 }
 
 .checkbox-radio {
-  /* Outer box of the fake checkbox */
+  /* Outer box of the fake radio button */
   label::before {
     height: 18px;
     width: 18px;
@@ -33,7 +33,7 @@
     top: 3px;
   }
 
-  /* Checkmark of the fake checkbox */
+  /* Check mark of the fake radio button */
   label::after {
     height: 10px;
     width: 10px;
