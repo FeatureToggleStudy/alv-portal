@@ -7,7 +7,7 @@ export const patternInputValidator: (regex: RegExp) => ValidatorFn = (regex) => 
     // TODO check
     //  maybe compare with existing regex patterns and return specific patternValidator
     //  which can show then the specific error message in validation.service.ts
-    if(control.value && regex) {
+    if (control.value && regex) {
       if (!regex.test(control.value)) {
         switch (String(regex)) {
           case String(EMAIL_REGEX):
