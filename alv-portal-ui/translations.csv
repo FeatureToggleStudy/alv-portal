@@ -1433,8 +1433,12 @@ portal,portal.manage-job-ads.search.owner-name,Erfasser,Created by
 portal,portal.manage-job-ads.search.filter.createdBy.myself,Meine
 portal,portal.manage-job-ads.search.filter.createdBy.all,Alle
 portal,portal.manage-job-ads.search.filter.status.all,Alle
+portal,portal.manage-job-ads.search.filter.modal.title,Stellenanzeigen filtern
+portal,portal.manage-job-ads.search.filter.modal.owner.label,Stellen
+portal,portal.manage-job-ads.search.filter.modal.action.filter,OK
+
 portal,portal.manage-job-ads.search.no-results,,No results
-portal,portal.manage-job-ads.search.filter,Filtern,Filter
+portal,portal.manage-job-ads.search.filter-button,Filtern
 
 portal,portal.manage-job-ads.cancel.occupied.other,Andere Gründe
 
