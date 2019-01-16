@@ -16,6 +16,7 @@ import { IsoCountryService } from './job-publication-form/iso-country.service';
 import { ZipCityInputComponent } from './job-publication-form/zip-city-input/zip-city-input.component';
 import { PublicContactComponent } from './job-publication-form/public-contact/public-contact.component';
 import { PublicationComponent } from './job-publication-form/publication/publication.component';
+import { EmployerComponent } from './job-publication-form/employer/employer.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,9 @@ import { PublicationComponent } from './job-publication-form/publication/publica
     ZipCityInputComponent,
     PublicContactComponent,
     ZipCityInputComponent,
-    PublicationComponent
+    PublicationComponent,
+    ZipCityInputComponent,
+    EmployerComponent
   ],
   providers: [
     IsoCountryService

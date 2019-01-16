@@ -77,15 +77,17 @@ export class ZipCityInputComponent implements OnInit {
 
   private buildCityAndZip(selectedCountryIsoCode: string): FormGroup | FormControl {
     if (ZipCityInputComponent.isCityZipAutocomplete(selectedCountryIsoCode)) {
-      return this.fb.control(null, [Validators.required]);
+      return this.fb.control(null, [
+        Validators.required
+      ]);
     }
 
     return this.fb.group({
-      city: [, [
+      city: [null, [
         Validators.required,
         Validators.maxLength(this.CITY_MAX_LENGTH)
       ]],
-      zipCode: [, [
+      zipCode: [null, [
         Validators.required,
         Validators.pattern(this.ZIP_CODE_REGEX)
       ]]
