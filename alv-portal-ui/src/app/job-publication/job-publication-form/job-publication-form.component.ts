@@ -23,6 +23,14 @@ import {
   EmploymentFormValue,
   emptyEmploymentFormValue
 } from './employment/employment-form-value.types';
+import {
+  ContactFormValue,
+  emptyContactFormValue
+} from './contact/contact-form-value.types';
+import {
+  emptyPublicContactFormValue,
+  PublicContactFormValue
+} from './public-contact/public-contact-form-value.types';
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -48,6 +56,10 @@ export class JobPublicationFormComponent implements OnInit {
 
   employmentFormValue: EmploymentFormValue;
 
+  contactFormValue: ContactFormValue;
+
+  publicContactFormValue: PublicContactFormValue;
+
   ngOnInit(): void {
     this.companyGroupValue = emptyCompanyFormValue;
     this.jobDescriptionFormValue = emptyJobDescriptionFormValue;
@@ -55,6 +67,12 @@ export class JobPublicationFormComponent implements OnInit {
     this.occupationFormValue = emptyOccupationFormValue;
     this.languagesFormValue = emptyLanguagesFormValue;
     this.employmentFormValue = emptyEmploymentFormValue;
+    this.contactFormValue = emptyContactFormValue;
+    this.publicContactFormValue = emptyPublicContactFormValue;
+  }
+
+  copyFromContact() {
+    this.publicContactFormValue = {... this.jobPublicationForm.get('contact').value};
   }
 }
 

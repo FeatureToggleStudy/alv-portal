@@ -39,6 +39,25 @@
     </alv-company>
   </alv-collapse-panel>
 
+  <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_CONTACT"
+                      panelTitle="home.tools.job-publication.contact.title">
+    <alv-contact [parentForm]="jobPublicationForm"
+                 [contactFormValue]="contactFormValue"></alv-contact>
+  </alv-collapse-panel>
+
+  <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_PUBLIC_CONTACT"
+                      panelTitle="home.tools.job-publication.public-contact.title">
+    <div class="d-flex">
+      <div class="flex-grow-1"></div>
+      <button class="btn btn-secondary mb-3"
+              (click)="copyFromContact()">
+        {{'home.tools.job-publication.public-contact.copy' | translate}}
+      </button>
+    </div>
+    <alv-public-contact [parentForm]="jobPublicationForm"
+                        [publicContactFormValue]="publicContactFormValue">
+    </alv-public-contact>
+  </alv-collapse-panel>
 </form>
 
 

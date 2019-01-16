@@ -9,10 +9,12 @@ import { OccupationComponent } from './job-publication-form/occupation/occupatio
 import { JobDescriptionComponent } from './job-publication-form/job-description/job-description.component';
 import { LanguagesComponent } from './job-publication-form/languages/languages.component';
 import { EmploymentComponent } from './job-publication-form/employment/employment.component';
+import { ContactComponent } from './job-publication-form/contact/contact.component';
 import { LocationComponent } from './job-publication-form/location/location.component';
 import { CompanyComponent } from './job-publication-form/company/company.component';
 import { IsoCountryService } from './job-publication-form/iso-country.service';
 import { ZipCityInputComponent } from './job-publication-form/zip-city-input/zip-city-input.component';
+import { PublicContactComponent } from './job-publication-form/public-contact/public-contact.component';
 
 @NgModule({
   imports: [
@@ -27,10 +29,14 @@ import { ZipCityInputComponent } from './job-publication-form/zip-city-input/zip
     OccupationComponent,
     JobDescriptionComponent,
     LanguagesComponent,
+    JobDescriptionComponent,
+    EmploymentComponent,
+    ContactComponent,
     EmploymentComponent,
     LocationComponent,
     CompanyComponent,
-    ZipCityInputComponent
+    ZipCityInputComponent,
+    PublicContactComponent
   ],
   providers: [
     IsoCountryService
