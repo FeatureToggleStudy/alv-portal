@@ -21,7 +21,7 @@ export class CompanyContactTemplateModel {
     this._firstName = user.firstName;
     this._lastName = user.lastName;
     this.companyExternalId = accountability.companyExternalId;
-    this._displayName = `${user.lastName} ${user.firstName}`;
+    this._displayName = user.displayName;
   }
 
   get companyContactTemplate(): CompanyContactTemplate {
