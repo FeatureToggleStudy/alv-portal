@@ -106,7 +106,6 @@ export class InputFieldComponent extends AbstractInput {
 
     if (this.type === 'tel') {
       // Phone number formatting
-      const eventValue = target.value;
       this.formatPhoneNumber(target.value);
     }
     if (this.multiline) {

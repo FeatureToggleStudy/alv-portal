@@ -39,7 +39,7 @@ Please note, that pushing docker images locally is usually not needed. It will b
 In case you want to run the application locally and enable Spring Cloud capabilities:
 1. First start all dependencies (will start JHipster registry as docker image): `docker-compose -f alv-portal-webapp/src/docker/local-cloud/docker-compose-deps.yml up -d`
     * Make sure the JHipster Registry has started locally at _http://localhost:8761/_ (credentials: _admin/admin_).
-1. Run the app with **local-cloud** profile as follows: `java -jar alv-portal-webapp/target/alv-portal-webapp-<project.version>.jar --spring.profiles.active=local-cloud`
+1. Run the app as follows: `java -jar alv-portal-webapp/target/alv-portal-webapp-<project.version>.jar --spring.cloud.config.uri=http://admin:admin@localhost:8761/config`
     * Now the portal application should be registered in JHipster Registry (see "Instances" in the web console).
 
 ### Run app docker image
