@@ -60,6 +60,7 @@ describe('CandidateDetailModelFactory', () => {
     langKey: 'en',
     firstName: 'Name',
     lastName: 'lastname',
+    displayName: 'Name lasname',
     authorities: [UserRole.ROLE_PAV],
     registrationStatus: RegistrationStatus.REGISTERED,
     hasAnyAuthorities(authorities: Array<UserRole>): boolean {

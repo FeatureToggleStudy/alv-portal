@@ -11,6 +11,11 @@ export function createJobAdvertisement(id = 'id', stellennummerAvam = 'avam'): J
     id,
     status: JobAdvertisementStatus.CREATED,
     sourceSystem: SourceSystem.JOBROOM,
+    owner: {
+      userId: 'ww',
+      userDisplayName: 'www',
+      companyId: 'sdf'
+    },
     externalReference: null,
     stellennummerEgov: 'egov',
     stellennummerAvam,

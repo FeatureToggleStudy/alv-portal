@@ -9,7 +9,7 @@ export enum JobAdvertisementStatus {
   PUBLISHED_RESTRICTED = 'PUBLISHED_RESTRICTED',
   PUBLISHED_PUBLIC = 'PUBLISHED_PUBLIC',
   CANCELLED = 'CANCELLED',
-  ARCHIVE = 'ARCHIVE',
+  ARCHIVED = 'ARCHIVED',
 }
 
 export enum CancellationReason {
@@ -55,6 +55,11 @@ export interface JobAdvertisement {
   updatedTime?: string; //date string
   status: JobAdvertisementStatus;
   sourceSystem: SourceSystem;
+  owner: {
+    companyId: string;
+    userDisplayName: string;
+    userId: string
+  };
   externalReference: string;
   stellennummerEgov: string;
   stellennummerAvam: string;
@@ -193,9 +198,11 @@ export interface CreateJobAdvertisement {
 }
 
 export interface ManageJobAdsSearchBody {
-  jobTitle: string;
+  keywordsText: string;
   onlineSinceDays: number;
   companyId: string;
+  ownerUserId: string;
+  state: JobAdvertisementStatus;
 }
 
 export interface ManagedJobAdsSearchRequest {

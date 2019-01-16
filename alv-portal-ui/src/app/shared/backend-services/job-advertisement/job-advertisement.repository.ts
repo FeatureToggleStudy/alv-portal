@@ -36,7 +36,7 @@ export class JobAdvertisementRepository {
 
   searchManagedJobAds(request: ManagedJobAdsSearchRequest): Observable<ManagedJobAdsSearchResponse> {
     const params = createPageableURLSearchParams(request);
-    return this.http.post<JobAdvertisement[]>(`${this.searchUrl}/pea`, request.body, {
+    return this.http.post<JobAdvertisement[]>(`${this.searchUrl}/managed`, request.body, {
       params,
       observe: 'response'
     }).pipe(

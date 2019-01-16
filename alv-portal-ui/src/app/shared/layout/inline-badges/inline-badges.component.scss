@@ -1,0 +1,12 @@
+@import "../../../../scss/common/colors";
+
+.remove-button {
+  cursor: pointer;
+  padding: 0.1rem;
+  border: none;
+  background-color: transparent;
+
+  &:hover {
+    color: darken($color-white, 10%);
+  }
+}

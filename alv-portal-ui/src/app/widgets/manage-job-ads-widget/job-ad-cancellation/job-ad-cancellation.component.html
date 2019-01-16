@@ -1,0 +1,37 @@
+<alv-modal modalTitle="job-publication-cancel.title"
+           primaryLabel="job-publication-cancel.job.confirm"
+           (primaryAction)="onSubmit()"
+           secondaryLabel="job-publication-cancel.job.dismiss"
+           (secondaryAction)="activeModal.dismiss()"
+           [formGroup]="form">
+
+  <fieldset>
+    <div>{{ 'job-publication-cancel.job.occupied.text' | translate }}</div>
+    <div class="alv-bar">
+      <alv-radio-button alvFormControlName="positionOccupied"
+                        name="cancellationCode"
+                        class="narrow-form"
+                        [options$]="cancellationCodeOptionsA$">
+      </alv-radio-button>
+    </div>
+
+    <div class="mt-3"> {{ 'job-publication-cancel.job.occupied.self' | translate }}</div>
+    <div class="alv-bar">
+      <alv-radio-button alvFormControlName="positionOccupied"
+                        name="cancellationCode"
+                        class="narrow-form"
+                        [options$]="cancellationCodeOptionsB$">
+      </alv-radio-button>
+    </div>
+
+    <div class="mt-3">{{ 'portal.manage-job-ads.cancel.occupied.other' | translate }}</div>
+    <div class="alv-bar">
+      <alv-radio-button alvFormControlName="positionOccupied"
+                        name="cancellationCode"
+                        class="narrow-form"
+                        [options$]="cancellationCodeOptionsC$">
+      </alv-radio-button>
+    </div>
+  </fieldset>
+
+</alv-modal>

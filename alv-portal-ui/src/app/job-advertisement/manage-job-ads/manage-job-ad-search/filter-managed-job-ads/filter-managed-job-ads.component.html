@@ -1,27 +1,25 @@
-<form [formGroup]="form"
-      (ngSubmit)="filter()"
-      class="form container mb-4">
-  <div class="form-row">
-    <div class="form-group">
-      <select class="form-control custom-select">
-        <option *ngFor="let i of [1,2,3,4,5]"
-                value="{{i}}">Something long {{i}}</option>
-      </select>
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-group">
-      <div>
-        <alv-select
-          label="dashboard.job-publication.publication-period.label"
-          [alvControl]="form.get('onlineSinceDays')"
-          [options$]="onlineSinceOptions$"
-          [validationMessages]="[{error: 'require', message: 'Custom message'}]">
-        </alv-select>
-      </div>
-    </div>
-  </div>
-  <div class="form-row">
-    <button class="btn btn-secondary">Filter</button>
-  </div>
-</form>
+<alv-modal modalTitle="portal.manage-job-ads.search.filter.modal.title"
+           (primaryAction)="filter()"
+           (secondaryAction)="cancel()"
+           [formGroup]="form"
+           primaryLabel="portal.manage-job-ads.search.filter.modal.action.filter"
+           secondaryLabel="entity.action.cancel"
+>
+  <fieldset>
+      <alv-select
+        label="{{'portal.manage-job-ads.search.filter.modal.owner.label' | translate}}"
+        [alvControl]="form.get('ownerUserId')"
+        [options$]="jobsCreatorOptions$">
+      </alv-select>
+      <alv-select
+        label="dashboard.job-publication.publication-period.label"
+        [alvControl]="form.get('onlineSinceDays')"
+        [options$]="onlineSinceOptions$">
+      </alv-select>
+      <alv-select
+        label="dashboard.job-publication.status"
+        [alvControl]="form.get('status')"
+        [options$]="statusOptions$">
+      </alv-select>
+  </fieldset>
+</alv-modal>
