@@ -40,7 +40,7 @@
                class="d-inline-block"
                ngbDropdown
                placement="bottom-right">
-            <button (click)="mobileActionsMenu.toggle()"
+            <button (click)="$event.stopPropagation();mobileActionsMenu.toggle()"
                     aria-label="Open candidate detail menu"
                     class="btn btn-text btn-icon"
                     id="dropdownMenu"
@@ -50,7 +50,7 @@
             <div [attr.aria-label]="'Job advertisement row actions for the row '+ row.title"
                  ngbDropdownMenu>
               <button class="dropdown-item"
-                      (click)="open(row)">
+                      (click)="open(row, $event)">
                 {{ 'portal.widgets.manage-job-ads.actions.open' | translate }}
               </button>
               <button class="dropdown-item"

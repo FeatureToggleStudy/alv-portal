@@ -17,6 +17,7 @@ import {
   SortDirection
 } from './job-ad-management.table-types';
 
+
 @Component({
   selector: 'alv-job-ad-management-table',
   templateUrl: './job-ad-management-table.component.html',
@@ -76,7 +77,7 @@ export class JobAdManagementTableComponent implements OnInit {
     this.action.emit({ row: row, type: ManagedJobAdsActionType.ON_CANCEL });
   }
 
-  open(row: JobAdManagementRow) {
+  open(row: JobAdManagementRow, $event: Event) {
     this.action.emit({ row: row, type: ManagedJobAdsActionType.ON_OPEN });
   }
 

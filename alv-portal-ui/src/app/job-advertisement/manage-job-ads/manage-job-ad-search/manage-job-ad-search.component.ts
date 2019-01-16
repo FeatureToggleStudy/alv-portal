@@ -31,6 +31,7 @@ interface FilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
 }
 
+
 @Component({
   selector: 'alv-manage-job-ad-search',
   templateUrl: './manage-job-ad-search.component.html',

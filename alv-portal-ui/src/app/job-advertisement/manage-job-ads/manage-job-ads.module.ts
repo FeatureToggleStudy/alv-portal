@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ManageJobAdSearchComponent } from './manage-job-ad-search/manage-job-ad-search.component';
+import {
+  ManageJobAdSearchComponent
+} from './manage-job-ad-search/manage-job-ad-search.component';
 import { ManageJobAdDetailComponent } from './manage-job-ad-detail/manage-job-ad-detail.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -32,7 +34,7 @@ import { WidgetsModule } from '../../widgets/widgets.module';
   declarations: [
     ManageJobAdSearchComponent,
     ManageJobAdDetailComponent,
-    FilterManagedJobAdsComponent
+    FilterManagedJobAdsComponent,
   ],
   providers: [
     ModalService,
