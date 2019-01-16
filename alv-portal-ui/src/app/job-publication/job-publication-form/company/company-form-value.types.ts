@@ -20,8 +20,5 @@ export const emptyCompanyFormValue: CompanyFormValue = {
     street: null,
     postOfficeBoxNumber: null
   },
-  zipAndCity: {
-    zipCode: null,
-    city: null,
-  }
+  zipAndCity: null
 };
