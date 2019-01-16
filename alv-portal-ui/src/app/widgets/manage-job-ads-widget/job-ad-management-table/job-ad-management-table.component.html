@@ -41,7 +41,7 @@
       <td *ngFor="let column of columnDefinitions; let i=index"
           class="content-cell align-middle d-block d-md-table-cell"
           role="gridcell">
-        <div class="d-inline-block d-md-none">
+        <div class="d-inline-block mr-1 d-md-none">
           <strong>{{ columnDefinitions[i].columnName | translate }}:</strong></div>
         <span [innerHTML]="column.render(row.jobAdvertisement) | translate"></span>
       </td>
