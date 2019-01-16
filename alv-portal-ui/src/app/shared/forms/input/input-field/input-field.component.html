@@ -27,6 +27,8 @@
               [attr.id]="id"
               [formControl]="control"
               [attr.required]="required"
+              [attr.minlength]="minLength"
+              [attr.maxlength]="maxLength"
               [attr.aria-describedby]="validationId"
               [class.placeholder-shown]="!control.value"
               (input)="onInput($event)"
