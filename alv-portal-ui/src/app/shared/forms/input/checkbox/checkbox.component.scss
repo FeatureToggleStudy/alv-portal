@@ -4,43 +4,18 @@
   padding-left: 2rem;
 }
 
-/**
- * Checkbox implementation inspired by
- * https://medium.com/claritydesignsystem/pure-css-accessible-checkboxes-and-radios-buttons-54063e759bb3
- */
-.checkbox {
-  label {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-  }
-
-  input {
-    opacity: 0;
-  }
-
-  label::before,
-  label::after {
-    position: absolute;
-    content: "";
-    display: inline-block;
-  }
-
+.checkbox-radio {
   /* Outer box of the fake checkbox */
   label::before {
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
 
     border: 1px solid $color-grey;
     background-color: $color-white;
     border-radius: 2px;
 
     left: 0;
-    top: 2px;
-  }
-
-  label:hover::before {
-    background-color: $color-super-light-grey;
+    top: 3px;
   }
 
   /* Check mark of the fake checkbox */
@@ -53,33 +28,7 @@
     border-color: $color-dark-grey;
     transform: rotate(-45deg);
 
-    left: 5px;
+    left: 4px;
     top: 7px;
   }
-
-  /* Hide the check mark by default */
-  input + label::after {
-    transition: all 0.25s ease-out;
-    opacity: 0;
-  }
-
-  /* Unhide on the checked state */
-  input:checked + label::after {
-    opacity: 1;
-  }
-
-  /* Adding focus styles on the outer-box of the fake checkbox */
-  input:focus + label::before {
-    box-shadow: 0 0 0 0.2rem $color-blue-transparent;
-  }
-
-  input:disabled + label {
-    cursor: default;
-    &::before {
-      background: $color-light-grey;
-      opacity: 0.6;
-      pointer-events: none;
-    }
-  }
 }
-

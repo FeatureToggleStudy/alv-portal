@@ -50,7 +50,7 @@
     </div>
     <label class="d-flex"
            [attr.for]="id">
-      {{label | translate}}
+      <span class="label text-truncate">{{label | translate}}</span>
       <span class="flex-grow-1"></span>
       <span *ngIf="limit && control.value?.length">
         {{control.value?.length + '/' + limit}}
