@@ -15,7 +15,8 @@
 
 .badge-skill,
 .badge-free-text,
-.badge-availability {
+.badge-availability,
+.badge-manage-jobads-filter {
   background-color: $color-light-yellow;
 }
 
@@ -35,4 +36,8 @@
 
 .badge-danger {
   color: $color-white;
+}
+
+.badge-status {
+  background-color: $color-light-blue;
 }

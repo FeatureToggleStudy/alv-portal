@@ -1,0 +1,29 @@
+<div class="alv-panel pb-4">
+
+  <h2 class="panel-title">
+    <i class="panel-icon fa fa-table mr-2"
+       aria-hidden="true"></i>
+    {{'portal.widgets.manage-job-ads.title' | translate}}
+  </h2>
+
+  <alv-job-ad-management-table
+    [columnDefinitions]="columns$ | async"
+    [currentSorting]="(currentFilter$ | async).sort"
+    [rows]="rows$ | async"
+    (action)="onAction($event)"
+    (sort)="onSortChange($event)">
+  </alv-job-ad-management-table>
+
+  <div class="d-flex">
+    <div class="flex-grow-1"></div>
+    <button class="btn btn-secondary"
+            (click)="showAll()">
+      {{ 'portal.widgets.manage-job-ads.show-all' | translate }}
+    </button>
+  </div>
+
+</div>
+
+
+
+

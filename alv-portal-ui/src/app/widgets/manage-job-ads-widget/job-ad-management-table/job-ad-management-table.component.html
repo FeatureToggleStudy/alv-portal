@@ -1,0 +1,80 @@
+<div class="table-responsive-sm"
+*ngIf="rows && rows.length; else noResults">
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th scope="col"
+          *ngFor="let columnDefinition of columnDefinitions"
+          (click)="onSortChange(columnDefinition)"
+          [ngClass]="{'active-sort': currentSorting.column === columnDefinition.column}">
+        <span>{{ columnDefinition.columnName | translate }}</span>
+        <ng-container *ngIf="columnDefinition.sortingEnabled">
+                 <span class="fa fa-sort ml-2 text-primary"
+                       *ngIf="currentSorting.column === columnDefinition.column; else placeholder"
+                       [ngClass]="{
+              'fa-sort-down': currentSorting.direction === SortDirection.DESC,
+              'fa-sort-up': currentSorting.direction === SortDirection.ASC
+              }">
+        </span>
+        </ng-container>
+      </th>
+      <th scope="col">
+        <span class="sr-only">{{ 'dashboard.job-publication.action' | translate }}</span>
+      </th>
+    </tr>
+    </thead>
+    <tbody (scrolled)="onScroll()"
+           [fromRoot]="true"
+           [infiniteScrollThrottle]="50"
+           [immediateCheck]="true"
+           [infiniteScrollContainer]="'main'"
+           infiniteScroll>
+    <tr *ngFor="let row of rows"
+        (click)="open(row)"
+        class="tr-content">
+      <td *ngFor="let column of columnDefinitions; let last = last"
+          class="align-middle">
+        <span [innerHTML]="column.render(row.jobAdvertisement) | translate"></span>
+      </td>
+      <td>
+        <div class="actions">
+          <div #mobileActionsMenu="ngbDropdown"
+               class="d-inline-block"
+               ngbDropdown
+               placement="bottom-right">
+            <button (click)="$event.stopPropagation();mobileActionsMenu.toggle()"
+                    aria-label="Open candidate detail menu"
+                    class="btn btn-text btn-icon"
+                    id="dropdownMenu"
+                    ngbDropdownAnchor>
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+            <div [attr.aria-label]="'Job advertisement row actions for the row '+ row.title"
+                 ngbDropdownMenu>
+              <button class="dropdown-item"
+                      (click)="open(row, $event)">
+                {{ 'portal.widgets.manage-job-ads.actions.open' | translate }}
+              </button>
+              <button class="dropdown-item"
+                      (click)="duplicate(row)">
+                {{ 'portal.widgets.manage-job-ads.actions.duplicate' | translate }}
+              </button>
+              <button class="dropdown-item"
+                      *ngIf="row.isCancellable"
+                      (click)="cancel(row)">
+                {{'portal.widgets.manage-job-ads.actions.cancel' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <ng-template #placeholder>
+    <i class="fa fa-sort ml-2 potential-sort"></i>
+  </ng-template>
+</div>
+<ng-template #noResults>
+  {{'portal.manage-job-ads.search.no-results' | translate}}
+</ng-template>

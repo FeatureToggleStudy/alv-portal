@@ -22,6 +22,9 @@ export class JobContentComponent implements OnInit {
   @Input()
   badges: JobBadge[];
 
+  @Input()
+  showStatusInformation = false;
+
   jobDetailPanelId = JobDetailPanelId;
 
   constructor() {

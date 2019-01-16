@@ -6,42 +6,37 @@
       {{ 'dashboard.job-publication.title' | translate }}
     </h2>
     <button type="button"
-            class="btn btn-secondary"
+            class="btn btn-text"
             data-toggle="popover"
             (click)="onFilterClick()">
-      <i class="fa fa-filter mr-2"></i>Filter
+      <i class="fa fa-filter mr-2"></i>
+      {{'portal.manage-job-ads.search.filter-button' | translate}}
     </button>
   </div>
 
-  <hr>
+  <hr class="my-1">
 
-  <input type="text"
-         class="form-control"
-         placeholder="search"
-  >
-  <table class="table">
-    <thead>
-    <tr>
-      <th>{{ 'dashboard.job-publication.job-room-id' | translate }}</th>
-      <th>{{ 'dashboard.job-publication.avam' | translate }}</th>
-      <th>{{ 'dashboard.job-publication.publication-date' | translate }}</th>
-      <th>{{ 'dashboard.job-publication.job-title' | translate }}</th>
-      <th>{{ 'dashboard.job-publication.location' | translate }}</th>
-      <th>{{ 'dashboard.job-publication.status' | translate }}</th>
-      <th>{{ 'dashboard.job-publication.action' | translate }}</th>
-    </tr>
-    </thead>
-    <tbody (scrolled)="onScroll()"
-           [fromRoot]="true"
-           [infiniteScrollThrottle]="50"
-           [immediateCheck]="true"
-           [infiniteScrollContainer]="'main'"
-           infiniteScroll>
-    <tr *ngFor="let jobAdvertisement of jobSearchResults$ | async"
-        [jobAdvertisement]="jobAdvertisement"
-        alv-job-ad-management-row>
-    </tr>
-    </tbody>
-  </table>
+  <!--Badges panel-->
+  <div class="d-flex justify-content-end mb-3"
+       *ngIf="currentBadges$ | async as currentBadges">
+    <alv-inline-badges [badges]="currentBadges"
+                       (removed)="removeCurrentBadge($event)"
+                       [canRemove]="true">
+    </alv-inline-badges>
+  </div>
+
+  <alv-input-field [alvControl]="form.get('query')"
+                   label="portal.manage-job-ads.search.query">
+  </alv-input-field>
+
+  <alv-job-ad-management-table
+    [columnDefinitions]="columns$ | async"
+    [currentSorting]="(currentFilter$ | async).sort"
+    [rows]="rows$ | async"
+    (action)="onAction($event)"
+    (scroll)="onScroll()"
+    (sort)="onSortChange($event)"
+    >
+  </alv-job-ad-management-table>
+
 </div>
-

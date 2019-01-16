@@ -10,6 +10,45 @@
             {{'job-detail.back' | translate}}
           </a>
         </div>
+        <div #mobileActionsMenu="ngbDropdown"
+             class="d-inline-block"
+             ngbDropdown
+             placement="bottom-right">
+          <button (click)="mobileActionsMenu.toggle()"
+                  class="btn btn-text btn-icon"
+                  id="dropdownMenu"
+                  ngbDropdownAnchor
+                  aria-hidden="true">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <div aria-hidden="true"
+               ngbDropdownMenu>
+            <button (click)="prev()"
+                    [disabled]="!(prevEnabled$ | async)"
+                    class="dropdown-item">
+              {{ 'portal.job-detail.previous-result' | translate }}
+            </button>
+            <button (click)="next()"
+                    [disabled]="!(nextEnabled$ | async)"
+                    class="dropdown-item">
+              {{ 'portal.job-detail.next-result' | translate }}
+            </button>
+            <button class="dropdown-item"
+                    [disabled]="!isCancellable"
+                    (click)="cancelJobAdAction()">
+              <i aria-hidden="true"
+                 class="fa fa-trash mr-1"></i>
+              {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
+            </button>
+            <button class="dropdown-item"
+                    (click)="duplicateJobAdAction()">
+              <i aria-hidden="true"
+                 class="fa fa-copy mr-1"></i>
+              {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
+            </button>
+          </div>
+        </div>
+
       </div>
     </ng-container>
 
@@ -37,12 +76,44 @@
 
     <ng-container class="main-column">
       <alv-job-content [jobDetailModel]="jobDetailModel"
-                       [badges]="badges$ | async">
+                       [badges]="badges$ | async"
+                       [showStatusInformation]="true">
       </alv-job-content>
     </ng-container>
 
     <ng-container class="right-column">
 
+      <div class="d-flex">
+        <button (click)="prev()"
+                [disabled]="!(prevEnabled$ | async)"
+                class="btn btn-text btn-text-icon btn-truncate mb-2">
+          <i class="fa fa-caret-left mr-1"></i>
+          {{'portal.job-detail.previous-result' | translate}}
+        </button>
+        <div class="flex-grow-1"></div>
+        <button (click)="next()"
+                [disabled]="!(nextEnabled$ | async)"
+                class="btn btn-text btn-text-icon btn-truncate mb-2">
+          {{'portal.job-detail.next-result' | translate}}
+          <i class="fa fa-caret-right ml-1"></i>
+        </button>
+      </div>
+
+      <div class="d-flex flex-column">
+        <button class="btn btn-text btn-text-icon btn-truncate"
+                [disabled]="!isCancellable"
+                (click)="cancelJobAdAction()">
+          <i aria-hidden="true"
+             class="fa fa-trash mr-1"></i>
+          {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
+        </button>
+        <button class="btn btn-text btn-text-icon btn-truncate"
+                (click)="duplicateJobAdAction()">
+          <i aria-hidden="true"
+             class="fa fa-copy mr-1"></i>
+          {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
+        </button>
+      </div>
     </ng-container>
   </alv-three-column-layout>
 </div>

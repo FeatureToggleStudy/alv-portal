@@ -32,10 +32,13 @@ export const getCurrentCompany = createSelector(getCoreState, (state: CoreState)
 export const getMainNavigationExpanded = createSelector(getCoreState, (state: CoreState) => state.mainNavigationExpanded);
 export const getCurrentAccountability = createSelector(getCoreState, (state: CoreState) => state.currentAccountability);
 export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUser, getCurrentCompany, getCurrentAccountability, (user, companyContactTemplate, accountability) => {
+  if (user === undefined || accountability === undefined || companyContactTemplate === undefined) {
+    return undefined;
+  }
   if (companyContactTemplate && accountability && user) {
     return new CompanyContactTemplateModel(companyContactTemplate, user, accountability);
   }
-  return undefined;
+  return null;
 });
 
 export const notFetched = (u: any) => {

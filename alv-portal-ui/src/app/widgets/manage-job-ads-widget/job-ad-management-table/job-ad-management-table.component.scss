@@ -1,0 +1,42 @@
+@import "../../../../scss/common/colors";
+
+thead {
+  background-color: $color-light-grey
+}
+
+th {
+  font-weight: normal;
+
+  &.active-sort {
+    font-weight: bold;
+  }
+
+  .potential-sort {
+    color: $color-dark-grey;
+  }
+
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+td {
+  em {
+    padding: 0 0.125rem;
+    background-color: $color-light-yellow;
+  }
+}
+
+.tr-content {
+  border-left: 5px solid transparent;
+  padding: .5rem 1rem;
+  background-color: $color-white;
+
+  &:hover {
+    border-left: 5px solid $color-primary;
+    color: $color-primary;
+    cursor: pointer;
+   /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);*/
+  }
+}

@@ -2,12 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
   CancellationReason,
   JobAdvertisement
-} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
+import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
-import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 @Component({
   selector: 'alv-job-ad-cancelation-dialog',
