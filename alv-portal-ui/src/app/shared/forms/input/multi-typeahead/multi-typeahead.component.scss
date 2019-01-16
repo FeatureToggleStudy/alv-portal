@@ -20,6 +20,9 @@
       padding: 0 !important;
       border: 0;
     }
+    label .label {
+      max-width: 100%;
+    }
     fieldset {
       .typeahead-badge {
         font-weight: 500;

@@ -7,7 +7,7 @@ import { ControlContainer } from '@angular/forms';
 @Component({
   selector: 'alv-checkbox',
   templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.scss']
+  styleUrls: ['../abstract-checkbox-radio.scss', './checkbox.component.scss']
 })
 export class CheckboxComponent extends AbstractInput {
 

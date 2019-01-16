@@ -9,7 +9,7 @@ import { ControlContainer } from '@angular/forms';
 @Component({
   selector: 'alv-radio-button',
   templateUrl: './radio-button.component.html',
-  styleUrls: ['./radio-button.component.scss']
+  styleUrls: ['../abstract-checkbox-radio.scss', './radio-button.component.scss']
 })
 export class RadioButtonComponent extends AbstractSelectableInput implements OnInit {
 

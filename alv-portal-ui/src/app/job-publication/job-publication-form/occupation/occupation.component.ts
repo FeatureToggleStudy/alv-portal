@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs/index';
 import { Degree, Experience } from '../../../shared/backend-services/shared.types';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationFormValue } from './occupation-form-value.types';
 
 @Component({
   selector: 'alv-occupation',
@@ -16,14 +17,19 @@ export class OccupationComponent implements OnInit {
   @Input()
   parentForm: FormGroup;
 
-  occupationGroup: FormGroup;
+  @Input()
+  set occupationFormValue(value: OccupationFormValue) {
+    this.occupation.patchValue({ ...value }, { emitEvent: false });
+  }
+
+  occupation: FormGroup;
 
   degreeOptions$: Observable<SelectableOption[]> = of([
     {
       value: null,
       label: 'home.tools.job-publication.no-selection'
     },
-    ... Object.keys(Degree).map(degree => {
+    ...Object.keys(Degree).map(degree => {
       return {
         value: degree,
         label: 'global.degree.' + degree
@@ -35,7 +41,7 @@ export class OccupationComponent implements OnInit {
   experienceOptions$: Observable<SelectableOption[]> = of([
     {
       value: null,
-      label: 'candidate-search.no-selection'
+      label: 'home.tools.job-publication.no-selection'
     },
     ...Object.keys(Experience).map(experience => {
       return {
@@ -47,21 +53,22 @@ export class OccupationComponent implements OnInit {
 
   loadOccupationsFn = this.loadOccupations.bind(this);
 
-  constructor(private fb: FormBuilder,
-              private occupationSuggestionService: OccupationSuggestionService) {
+  constructor(private occupationSuggestionService: OccupationSuggestionService,
+              private fb: FormBuilder) {
+
+    //todo (birom): review validators
+    this.occupation = this.fb.group({
+      occupationSuggestion: [, [
+        Validators.required
+      ]],
+      degree: [],
+      experience: []
+    });
   }
 
   ngOnInit(): void {
-    //todo: Set initial value
-    this.occupationGroup = this.fb.group({
-      occupationSuggestion: ['', Validators.required],
-      degree: [''],
-      experience: ['']
-    });
-
-    this.parentForm.addControl('occupation', this.occupationGroup);
+    this.parentForm.addControl('occupation', this.occupation);
   }
-
 
   private loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
     return this.occupationSuggestionService.fetchJobPublicationOccupations(query);

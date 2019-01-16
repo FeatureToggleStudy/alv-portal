@@ -16,6 +16,7 @@ import {
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
 import { phoneInputValidator } from '../../shared/forms/input/input-field/phone-input.validator';
+import { patternInputValidator } from '../../shared/forms/input/input-field/pattern-input.validator';
 
 
 @Component({
@@ -103,10 +104,10 @@ export class ContactTemplateManagementComponent extends AbstractSubscriber imple
       firstName: [{ value: null, disabled: true }],
       lastName: [{ value: null, disabled: true }],
       phone: [null, [Validators.required, phoneInputValidator()]],
-      email: [null, [Validators.required, Validators.pattern(EMAIL_REGEX)]],
+      email: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
       companyName: [null, Validators.required],
       companyStreet: [null, Validators.required],
-      companyHouseNr: [null, Validators.pattern(HOUSE_NUMBER_REGEX)],
+      companyHouseNr: [null, patternInputValidator(HOUSE_NUMBER_REGEX)],
       companyZipCode: [null, Validators.required],
       companyCity: [null, Validators.required]
     });
