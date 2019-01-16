@@ -1,5 +1,5 @@
 <alv-modal modalTitle="candidate-detail.anonymous-contact.title"
-           primaryLabel="candidate-detail.anonymous-contact.send"
+           primaryLabel="portal.candidate-detail.anonymous-contact.send"
            (primaryAction)="onSubmit()"
            secondaryLabel="candidate-detail.anonymous-contact.dismiss"
            (secondaryAction)="activeModal.dismiss()"
@@ -10,7 +10,7 @@
                      alvFormControlName="subject">
     </alv-input-field>
     <p>{{ mailBodyPreamble }}</p>
-    <alv-input-field label="candidate-detail.anonymous-contact.your-message"
+    <alv-input-field label="portal.candidate-detail.anonymous-contact.your-message"
                      [maxLength]="MESSAGE_MAX_LENGTH"
                      [showCharacterCounter]="true"
                      [multiline]="true"
@@ -56,7 +56,7 @@
         <alv-input-field label="candidate-detail.anonymous-contact.company"
                          alvFormControlName="companyName">
         </alv-input-field>
-        <alv-input-field label="candidate-detail.anonymous-contact.name-lastname"
+        <alv-input-field label="portal.candidate-detail.anonymous-contact.name-lastName"
                          alvFormControlName="contactPerson">
         </alv-input-field>
         <div class="form-row">

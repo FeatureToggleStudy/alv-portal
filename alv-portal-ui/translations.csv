@@ -1396,9 +1396,9 @@ portal,portal.candidate-detail.other-work-experience.label,Weitere Berufserfahru
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 
-candidate-detail,candidate-detail.anonymous-contact.send,Absenden
-candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
-candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"
+portal,portal.candidate-detail.anonymous-contact.send,Absenden
+portal,portal.candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
+portal,portal.candidate-detail.anonymous-contact.name-lastName,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"
 
 portal,portal.job-detail.reference.job-id,Stellennummer,Job ID,Numéro du poste,Numero posto
 portal,portal.job-detail.reference.phone,Telefon,Telephone,Téléphone,Telefono
