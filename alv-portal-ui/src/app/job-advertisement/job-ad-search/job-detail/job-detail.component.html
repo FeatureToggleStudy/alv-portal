@@ -81,6 +81,17 @@
     </ng-container>
 
     <ng-container class="main-column">
+
+      <div *ngIf="(alerts$ | async) as alerts">
+        <alv-alert *ngFor="let alert of alerts"
+                   [notification]="alert"
+                   (dismiss)="dismissAlert(alert, alerts)">
+        </alv-alert>
+        <div *ngIf="alerts.length"
+             class="mb-4">
+        </div>
+      </div>
+
       <alv-job-content [jobDetailModel]="jobDetailModel"
                        [badges]="badges$ | async">
       </alv-job-content>
