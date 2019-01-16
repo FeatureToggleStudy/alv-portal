@@ -1434,6 +1434,7 @@ portal,portal.manage-job-ads.search.filter.createdBy.myself,Meine
 portal,portal.manage-job-ads.search.filter.createdBy.all,Alle
 portal,portal.manage-job-ads.search.filter.status.all,Alle
 portal,portal.manage-job-ads.search.no-results,,No results
+portal,portal.manage-job-ads.search.filter,Filtern,Filter
 
 portal,portal.manage-job-ads.cancel.occupied.other,Andere Gründe
 
@@ -1442,6 +1443,5 @@ portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige dupliziere
 portal,portal.manage-job-ads.details.menu-open,Stellenanzeige duplizieren,Opten,Dupliquer l'annonce,Duplicare l'annuncio
 
 portal,portal.grobal.help,Hilfe,Help
-portal,portal.manage-job-ads.search.filter,Filtern,Filter
 
 portal,portal.form.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
