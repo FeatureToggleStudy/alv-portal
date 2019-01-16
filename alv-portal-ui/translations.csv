@@ -1437,7 +1437,7 @@ portal,portal.manage-job-ads.search.filter.modal.title,Stellenanzeigen filtern
 portal,portal.manage-job-ads.search.filter.modal.owner.label,Stellen
 portal,portal.manage-job-ads.search.filter.modal.action.filter,OK
 
-portal,portal.manage-job-ads.search.no-results,,No results
+portal,portal.manage-job-ads.search.no-results,Keine Ergebnisse gefunden
 portal,portal.manage-job-ads.search.filter-button,Filtern
 
 portal,portal.manage-job-ads.cancel.occupied.other,Andere Gründe
