@@ -39,6 +39,10 @@ const appRoutes: Routes = [
     loadChildren: './job-advertisement/manage-job-ads/manage-job-ads.module#ManageJobAdsModule',
   },
   {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
+  },
+  {
     path: 'landing',
     component: LandingPageComponent,
     canActivate: [LandingPageGuard],
