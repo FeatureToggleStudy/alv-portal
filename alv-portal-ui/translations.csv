@@ -1429,7 +1429,7 @@ portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,C
 portal,portal.job-publication.locality.additional-text.placeholder,z. B. Aussendienst in der ganzen Schweiz,e.g. in the field throughout Switzerland,p. ex. service externe dans toute la Suisse,p. es. servizio esterno in tutta la Svizzera
 
 portal,portal.manage-job-ads.search.query,Stellen durchsuchen
-portal,portal.manage-job-ads.search.owner-name,Erfasser
+portal,portal.manage-job-ads.search.owner-name,Erfasser,Created by
 portal,portal.manage-job-ads.search.filter.createdBy.myself,Meine
 portal,portal.manage-job-ads.search.filter.createdBy.all,Alle
 portal,portal.manage-job-ads.search.filter.status.all,Alle
@@ -1440,5 +1440,8 @@ portal,portal.manage-job-ads.cancel.occupied.other,Andere Gründe
 portal,portal.manage-job-ads.details.actions.cancel,Stellenanzeige abmelden,Cancel job posting,Retirer l'annonce,Cancellare il posto vacante
 portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio
 portal,portal.manage-job-ads.details.menu-open,Stellenanzeige duplizieren,Opten,Dupliquer l'annonce,Duplicare l'annuncio
+
+portal,portal.grobal.help,Hilfe,Help
+portal,portal.manage-job-ads.search.filter,Filtern,Filter
 
 portal,portal.form.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
