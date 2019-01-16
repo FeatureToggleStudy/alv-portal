@@ -22,23 +22,24 @@ export class JobDescriptionComponent implements OnInit {
 
   @Input()
   set jobDescriptionFormValue(value: JobDescriptionFormValue) {
-    this.jobDescription.patchValue({ ...value }, { emitEvent: false });
+    this.jobDescription.patchValue(value, { emitEvent: false });
   }
 
   jobDescription: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.jobDescription = this.fb.group({
-      title: [, [
+      title: [null, [
         Validators.required,
         Validators.maxLength(this.TITLE_MAX_LENGTH)
       ]],
-      numberOfJobs: [, [
+      numberOfJobs: [null, [
         Validators.required,
         Validators.min(this.NUMBER_OF_JOBS_MIN),
         Validators.max(this.NUMBER_OF_JOBS_MAX)
       ]],
-      jobDescription: [, [
+      jobDescription: [null, [
+        Validators.required,
         Validators.maxLength(this.DESCRIPTION_MAX_LENGTH)
       ]]
     });
