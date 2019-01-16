@@ -105,7 +105,7 @@ describe('JobDescriptionComponent', () => {
         };
 
         //then
-        expect(field.hasError('required')).toBeTrue()
+        expect(field.hasError('required')).toBeTrue();
       });
 
       it('should not be smaller than NUMBER_OF_JOBS_MIN', () => {
