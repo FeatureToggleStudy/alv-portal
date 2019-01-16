@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { LocaleAwareDatePipe } from '../../shared/pipes/locale-aware-date.pipe';
 import {
-  JobAdColumnDefinition,
+  ManagedJobAdColumnDefinition,
   ManagedJobAdsSortingColumn
 } from './job-ad-management-table/job-ad-management.table-types';
 
@@ -25,62 +25,70 @@ export class JobAdManagementColumnService {
   constructor(private i18n: I18nService, private localeAwareDatePipe: LocaleAwareDatePipe) {
   }
 
-  public createColumnDefinitions(columns = ALL_COLUMNS): Observable<JobAdColumnDefinition[]> {
+  public createColumnDefinitions(columns = ALL_COLUMNS): Observable<ManagedJobAdColumnDefinition[]> {
     return this.i18n.currentLanguage$.pipe(
       map(currentLang => {
-        return [
+        const newVar: ManagedJobAdColumnDefinition[] = [
           {
-            backendKey: ManagedJobAdsSortingColumn.PUBLICATION_DATE,
+            column: ManagedJobAdsSortingColumn.PUBLICATION_DATE,
             columnName: 'dashboard.job-publication.publication-date',
+            sortingEnabled: true,
             render: job => {
               return this.localeAwareDatePipe.transform(job.publication.startDate);
             }
           },
           {
-            backendKey: ManagedJobAdsSortingColumn.TITLE,
+            column: ManagedJobAdsSortingColumn.TITLE,
             columnName: 'dashboard.job-publication.job-title',
+            sortingEnabled: false,
             render: job => {
               return JobAdvertisementUtils.getJobDescription(job, currentLang).title;
             }
           },
           {
-            backendKey: ManagedJobAdsSortingColumn.EGOV,
+            column: ManagedJobAdsSortingColumn.EGOV,
             columnName: 'dashboard.job-publication.job-room-id',
+            sortingEnabled: true,
             render: job => {
               return job.stellennummerEgov;
             }
           },
           {
-            backendKey: ManagedJobAdsSortingColumn.AVAM,
+            column: ManagedJobAdsSortingColumn.AVAM,
             columnName: 'dashboard.job-publication.avam',
+            sortingEnabled: true,
             render: job => {
               return job.stellennummerAvam;
             }
           },
           {
-            backendKey: ManagedJobAdsSortingColumn.LOCATION,
+            column: ManagedJobAdsSortingColumn.LOCATION,
             columnName: 'dashboard.job-publication.location',
+            sortingEnabled: true,
             render: job => {
               return job.jobContent.location.city;
             }
           },
           {
-            backendKey: ManagedJobAdsSortingColumn.STATUS,
+            column: ManagedJobAdsSortingColumn.STATUS,
             columnName: 'dashboard.job-publication.status',
+            sortingEnabled: true,
             render: job => {
               return 'global.job-publication.status.' + job.status;
             }
           },
           {
-            backendKey: ManagedJobAdsSortingColumn.OWNER_NAME,
+            column: ManagedJobAdsSortingColumn.OWNER_NAME,
             columnName: 'portal.manage-job-ads.search.owner-name',
+            sortingEnabled: true,
             render: job => {
               return job.owner.userDisplayName;
             }
           }
         ];
+        return newVar;
       }),
-      map(result => result.filter((b) => columns.includes(b.backendKey)))
+      map(result => result.filter((b) => columns.includes(b.column)))
     );
   }
 }

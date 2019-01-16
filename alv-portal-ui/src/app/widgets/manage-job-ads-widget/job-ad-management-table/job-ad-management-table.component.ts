@@ -8,8 +8,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {
-  JobAdColumnDefinition,
-  JobAdManagementRow,
+  ManagedJobAdColumnDefinition,
+  ManagedJobAdRow,
   ManagedJobAdsAction,
   ManagedJobAdsActionType,
   ManagedJobAdsSorting,
@@ -29,13 +29,13 @@ import {
 export class JobAdManagementTableComponent implements OnInit {
 
   @Input()
-  columns: JobAdColumnDefinition[];
+  columnDefinitions: ManagedJobAdColumnDefinition[];
 
   @Input()
   currentSorting: ManagedJobAdsSorting;
 
   @Input()
-  rows: JobAdManagementRow[];
+  rows: ManagedJobAdRow[];
 
   @Output()
   scroll = new EventEmitter<void>();
@@ -55,11 +55,13 @@ export class JobAdManagementTableComponent implements OnInit {
     //
   }
 
-  onSortChange(selectedColumn: ManagedJobAdsSortingColumn) {
-    this.sort.emit({
-      column: selectedColumn,
-      direction: this.determineSortDirection(selectedColumn)
-    });
+  onSortChange(columnDefinition: ManagedJobAdColumnDefinition) {
+    if (columnDefinition.sortingEnabled) {
+      this.sort.emit({
+        column: columnDefinition.column,
+        direction: this.determineSortDirection(columnDefinition.column)
+      });
+    }
   }
 
   private determineSortDirection(selectedColumn: ManagedJobAdsSortingColumn) {
@@ -73,15 +75,15 @@ export class JobAdManagementTableComponent implements OnInit {
     this.scroll.emit();
   }
 
-  cancel(row: JobAdManagementRow) {
+  cancel(row: ManagedJobAdRow) {
     this.action.emit({ row: row, type: ManagedJobAdsActionType.ON_CANCEL });
   }
 
-  open(row: JobAdManagementRow, $event: Event) {
+  open(row: ManagedJobAdRow, $event: Event) {
     this.action.emit({ row: row, type: ManagedJobAdsActionType.ON_OPEN });
   }
 
-  duplicate(row: JobAdManagementRow) {
+  duplicate(row: ManagedJobAdRow) {
     this.action.emit({ row: row, type: ManagedJobAdsActionType.ON_DUPLICATE });
   }
 }

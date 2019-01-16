@@ -29,7 +29,7 @@ export enum ManagedJobAdsActionType {
 
 export interface ManagedJobAdsAction {
   type: ManagedJobAdsActionType;
-  row: JobAdManagementRow;
+  row: ManagedJobAdRow;
 }
 
 export interface ManagedJobAdsSearchFilter {
@@ -40,15 +40,16 @@ export interface ManagedJobAdsSearchFilter {
   sort: ManagedJobAdsSorting;
 }
 
-export interface JobAdManagementRow {
+export interface ManagedJobAdRow {
   jobAdvertisement: JobAdvertisement;
   title: string;
   isCancellable: boolean;
   detailRouterLink: string[];
 }
 
-export interface JobAdColumnDefinition {
-  backendKey: ManagedJobAdsSortingColumn;
+export interface ManagedJobAdColumnDefinition {
+  column: ManagedJobAdsSortingColumn;
+  sortingEnabled: boolean;
   columnName: string;
   render: (job: JobAdvertisement) => string;
 }

@@ -8,8 +8,8 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { JobAdManagementColumnService } from './job-ad-management-column.service';
 import {
-  JobAdColumnDefinition,
-  JobAdManagementRow,
+  ManagedJobAdColumnDefinition,
+  ManagedJobAdRow,
   ManagedJobAdsAction,
   ManagedJobAdsActionType,
   ManagedJobAdsSearchFilter,
@@ -39,9 +39,9 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
     }
   });
 
-  rows$: Observable<JobAdManagementRow[]>;
+  rows$: Observable<ManagedJobAdRow[]>;
 
-  columns$: Observable<JobAdColumnDefinition[]>;
+  columns$: Observable<ManagedJobAdColumnDefinition[]>;
 
   isLoading = false;
 

@@ -11,8 +11,8 @@ import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
 import { JobAdManagementColumnService } from '../../../widgets/manage-job-ads-widget/job-ad-management-column.service';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import {
-  JobAdColumnDefinition,
-  JobAdManagementRow,
+  ManagedJobAdColumnDefinition,
+  ManagedJobAdRow,
   ManagedJobAdsAction,
   ManagedJobAdsActionType,
   ManagedJobAdsSearchFilter,
@@ -45,9 +45,9 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
 
   currentBadges$: Observable<FilterBadge[]>;
 
-  rows$: Observable<JobAdManagementRow[]>;
+  rows$: Observable<ManagedJobAdRow[]>;
 
-  columns$: Observable<JobAdColumnDefinition[]>;
+  columns$: Observable<ManagedJobAdColumnDefinition[]>;
 
   private static mapBadges(filter: ManagedJobAdsSearchFilter): FilterBadge[] {
     let badges: FilterBadge[] = [];

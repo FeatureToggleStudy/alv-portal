@@ -30,7 +30,7 @@
   </alv-input-field>
 
   <alv-job-ad-management-table
-    [columns]="columns$ | async"
+    [columnDefinitions]="columns$ | async"
     [currentSorting]="(currentFilter$ | async).sort"
     [rows]="rows$ | async"
     (action)="onAction($event)"
