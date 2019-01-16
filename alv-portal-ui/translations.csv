@@ -1388,10 +1388,17 @@ portal,portal.job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,T
 portal,portal.job-detail.jobad-info.label,Informationen zur Stelle
 portal,portal.job-detail.min-requirements.label,Berufliche Mindestanforderung
 portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen
+portal,portal.job-detail.status,Status,Status,Statut,Stato
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 portal,portal.candidate-detail.other-work-experience.label,Weitere Berufserfahrung,Other work experience
+portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
+portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
+
+candidate-detail,candidate-detail.anonymous-contact.send,Absenden
+candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
+candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"
 
 portal,portal.job-detail.reference.job-id,Stellennummer,Job ID,Numéro du poste,Numero posto
 portal,portal.job-detail.reference.phone,Telefon,Telephone,Téléphone,Telefono
@@ -1403,6 +1410,7 @@ portal,portal.job-ad.search.query-panel.occupations.placeholder,"Berufsbezeichnu
 portal,portal.job-ad.search.query-panel.occupations.tooltip,Mehrfachauswahl möglich. Starten Sie Ihre Eingabe und wählen Sie einen Begriff aus der Liste oder drücken Sie «Enter» auf Ihrer Tastatur.,Multiple selection possible. Start typing and choose a term from the list or press “Enter”.,Sélection multiple possible. Commencez votre saisie et choisissez un terme de la liste ou appuyez sur la touche « Enter ».,Selezione multipla possibile. Cominciare a digitare e scegliere nella lista un termine oppure premere «Invio» sulla tastiera.
 portal,portal.job-ad.search.query-panel.localities.placeholder,"Arbeitsort, Kanton"
 portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl möglich,Multiple selection possible,Sélection multiple possible,Selezione multipla possibile
+portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
 
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
 
@@ -1415,18 +1423,10 @@ portal,portal.widgets.manage-job-ads.actions.open,Öffnen,Open,Ouvrir,Apri
 portal,portal.widgets.manage-job-ads.actions.cancel,Abmelden,Cancel,Retirer,Cancellare
 portal,portal.widgets.manage-job-ads.actions.duplicate,Duplizieren,Duplicate,Dupliquer,Duplicare
 
-portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
-portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
-
-portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
-
 portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
 portal,portal.job-publication.language-skills.add,Neue Sprachkompetenz hinzufügen,Add new language skill,Ajouter une nouvelle compétence linguistique,Aggiungi nuova conoscenza linguistica
 portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
-
-candidate-detail,candidate-detail.anonymous-contact.send,Absenden
-candidate-detail,candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
-candidate-detail,candidate-detail.anonymous-contact.name-lastname,"Name, Vorname","Last name, First name","Nom, prénom","Cognome, nome"
+portal,portal.job-publication.locality.additional-text.placeholder,z. B. Aussendienst in der ganzen Schweiz,e.g. in the field throughout Switzerland,p. ex. service externe dans toute la Suisse,p. es. servizio esterno in tutta la Svizzera
 
 portal,portal.manage-job-ads.search.query,Stellen durchsuchen
 portal,portal.manage-job-ads.search.owner-name,Erfasser
@@ -1441,6 +1441,4 @@ portal,portal.manage-job-ads.details.actions.cancel,Stellenanzeige abmelden,Canc
 portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio
 portal,portal.manage-job-ads.details.menu-open,Stellenanzeige duplizieren,Opten,Dupliquer l'annonce,Duplicare l'annuncio
 
-portal,portal.job-publication.locality.additional-text.placeholder,z. B. Aussendienst in der ganzen Schweiz,e.g. in the field throughout Switzerland,p. ex. service externe dans toute la Suisse,p. es. servizio esterno in tutta la Svizzera
 portal,portal.form.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
-

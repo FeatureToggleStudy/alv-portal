@@ -16,7 +16,11 @@ import {
 import { JobLocationPipe } from './job-location.pipe';
 
 export enum JobBadgeType {
-  WORKLOAD, WORKPLACE, AVAILABILITY, REPORTING_OBLIGATION, CONTRACT_TYPE, STATUS
+  WORKLOAD,
+  WORKPLACE,
+  AVAILABILITY,
+  REPORTING_OBLIGATION,
+  CONTRACT_TYPE
 }
 
 export interface JobBadge extends InlineBadge {
@@ -107,12 +111,6 @@ export class JobBadgesMapperService {
         cssClass: 'badge-danger',
       });
     }
-
-    badges.push({
-      badgeType: JobBadgeType.STATUS,
-      label: 'global.job-publication.status.' + job.status,
-      cssClass: 'badge-status',
-    });
 
     return badges.filter((b) => badgeTypes.includes(b.badgeType));
   }

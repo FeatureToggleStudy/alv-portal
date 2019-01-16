@@ -1,8 +1,13 @@
 <ng-container *ngIf="jobDetailModel.jobDescription as jobDescription">
 
   <!-----------------Title-->
-  <h2 class="mt-1 mb-4"
-      [innerHTML]="jobDescription.title | safeHtml"></h2>
+  <h2 class="mt-1 mb-4">
+    <span [innerHTML]="jobDescription.title | safeHtml"></span>
+    <small class="text-muted" *ngIf="showStatusInformation">
+      ({{'portal.job-detail.status' | translate}}: {{'global.job-publication.status.' + jobDetailModel.jobAdvertisement.status | translate}})
+    </small>
+  </h2>
+
   <span class="job-company mr-2 mr-md-4"
         *ngIf="jobDetailModel.jobContent.company; else ravLabel">{{jobDetailModel.jobContent.company.name}}</span>
   <ng-template #ravLabel>
