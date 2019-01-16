@@ -1,0 +1,36 @@
+<fieldset [formGroup]="contact">
+  <legend class="sr-only">{{'home.tools.job-publication.contact.title' | translate}}</legend>
+
+  <alv-select label="home.tools.job-publication.contact.language"
+              alvFormControlName="languageIsoCode"
+              [options$]="contactLanguageOptions$">
+  </alv-select>
+
+  <alv-select label="home.tools.job-publication.contact.salutation"
+              alvFormControlName="salutation"
+              [options$]="salutationOptions$">
+  </alv-select>
+
+  <alv-input-field label="home.tools.job-publication.contact.first-name"
+                   alvFormControlName="firstName"
+                   [maxLength]="FIELDS_MAX_LENGTH">
+  </alv-input-field>
+
+  <alv-input-field label="home.tools.job-publication.contact.last-name"
+                   alvFormControlName="lastName"
+                   [maxLength]="FIELDS_MAX_LENGTH">
+  </alv-input-field>
+
+  <alv-input-field label="home.tools.job-publication.contact.phone"
+                   alvFormControlName="phone"
+                   type="tel"
+                   placeholder="home.tools.job-publication.placeholders.phone">
+  </alv-input-field>
+
+  <alv-input-field label="home.tools.job-publication.contact.email"
+                   alvFormControlName="email"
+                   placeholder="home.tools.job-publication.placeholders.email"
+                   [maxLength]="FIELDS_MAX_LENGTH">
+  </alv-input-field>
+</fieldset>
+
