@@ -6,7 +6,7 @@ import {
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { takeUntil, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
@@ -14,6 +14,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { combineLatest } from 'rxjs';
 import { CandidateContactRepository } from '../../../shared/backend-services/candidate/candidate-contact-repository';
+import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 
 @Component({
   selector: 'alv-contact-modal',
@@ -63,6 +64,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       });
 
     this.form.get('postCheckbox').valueChanges.pipe(
+      distinctUntilChanged(),
       withLatestFrom(this.authenticationService.getCurrentCompany()),
       takeUntil(this.ngUnsubscribe))
       .subscribe(([postCheckBoxEnabled, company]) => {
@@ -71,7 +73,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
             contactPerson: [null, Validators.required],
             companyName: [null, Validators.required],
             companyStreet: [null, Validators.required],
-            companyHouseNr: [null, [Validators.required, Validators.pattern(HOUSE_NUMBER_REGEX)]],
+            companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
             companyZipCode: [null, Validators.required],
             companyCity: [null, Validators.required],
             companyCountry: [null, Validators.required]
@@ -83,6 +85,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       });
 
     this.form.get('phoneCheckbox').valueChanges.pipe(
+      distinctUntilChanged(),
       withLatestFrom(this.authenticationService.getCurrentCompany()),
       takeUntil(this.ngUnsubscribe))
       .subscribe(([phoneCheckBoxEnabled, company]) => {
@@ -96,11 +99,12 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       });
 
     this.form.get('emailCheckbox').valueChanges.pipe(
+      distinctUntilChanged(),
       withLatestFrom(this.authenticationService.getCurrentCompany()),
       takeUntil(this.ngUnsubscribe))
       .subscribe(([emailCheckBoxEnabled, company]) => {
         if (emailCheckBoxEnabled) {
-          this.form.get('email').setValidators([Validators.required, Validators.pattern(EMAIL_REGEX)]);
+          this.form.get('email').setValidators([Validators.required, patternInputValidator(EMAIL_REGEX)]);
           this.patchEmailValue(company.email);
         } else {
           this.form.get('email').clearValidators();

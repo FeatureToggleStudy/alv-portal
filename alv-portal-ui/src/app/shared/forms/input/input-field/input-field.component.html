@@ -27,6 +27,8 @@
               [attr.id]="id"
               [formControl]="control"
               [attr.required]="required"
+              [attr.minlength]="minLength"
+              [attr.maxlength]="maxLength"
               [attr.aria-describedby]="validationId"
               [class.placeholder-shown]="!control.value"
               (input)="onInput($event)"
@@ -37,10 +39,10 @@
          class="readonly-input">
       {{control.value}}
     </div>
-    <label [attr.for]="id">
+    <label [attr.for]="id" class="text-truncate">
       {{label | translate}}
       <span *ngIf="placeholder"
-            class="placeholder text-truncate">
+            class="placeholder">
         {{placeholder | translate}}
       </span>
     </label>
