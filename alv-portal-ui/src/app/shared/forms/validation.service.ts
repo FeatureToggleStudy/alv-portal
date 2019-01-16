@@ -58,9 +58,9 @@ export class ValidationService {
     if (!customValidationMessages || customValidationMessages.length === 0) {
       return this.defaultValidationMessages;
     } else {
-      const customIds = customValidationMessages.map(custom => custom.error);
+      const customErrors = customValidationMessages.map(custom => custom.error);
       return [...this.defaultValidationMessages.filter(
-          validationMessage => !customIds.includes(validationMessage.error)), ...customValidationMessages];
+          validationMessage => !customErrors.includes(validationMessage.error)), ...customValidationMessages];
     }
   }
 
