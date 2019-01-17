@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   CoreState,
@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import { MenuEntry } from './menu-entry.type';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { isAuthenticatedUser } from '../../../core/auth/user.model';
+import { LoginService } from '../../auth/login.service';
 
 @Component({
   selector: 'alv-main-navigation',
@@ -42,6 +43,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   menuEntries$: Observable<Array<MenuEntry>>;
 
   constructor(private router: Router,
+              private loginService: LoginService,
               private authenticationService: AuthenticationService,
               private store: Store<CoreState>,
               private menuEntryService: MenuEntryService) {
@@ -68,6 +70,11 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
     ).subscribe(mainNavigationExpanded => {
       this.mainNavigationCollapsed = !mainNavigationExpanded;
     });
+  }
+
+  login() {
+    this.loginService.login().pipe(take(1))
+      .subscribe();
   }
 
   toggleMobileSideNav() {

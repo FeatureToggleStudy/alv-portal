@@ -3,8 +3,8 @@
 
 <!-- Menu Backdrop -->
 <div class="modal-backdrop"
-*ngIf="mobileMenuExpanded"
-(click)="toggleMobileSideNav()">
+     *ngIf="mobileMenuExpanded"
+     (click)="toggleMobileSideNav()">
 </div>
 
 <!-- Desktop Menu -->
@@ -32,15 +32,26 @@
 <div class="d-md-block d-lg-none d-print-none">
   <div class="navbar-nav animate side-nav"
        [class.open]="mobileMenuExpanded">
+
     <a class="nav-item"
        (click)="toggleMobileSideNav()">
       <i class="nav-icon fas fa-caret-left"></i>
-      <span class="nav-text">Schliessen</span>
+      <span class="nav-text">{{ 'portal.global.close' | translate }}</span>
     </a>
+
+    <!--Login Button-->
+    <a class="nav-item"
+       *alvIsAnonymous
+       (click)="login()">
+      <i class="nav-icon fas fa-key"></i>
+      <span class="nav-text">{{'global.menu.account.login' | translate}}</span>
+    </a>
+
     <!-- Menu Entries -->
     <ng-container *ngFor="let menuEntry of menuEntries$ | async">
       <alv-menu-entry [menuEntry]="menuEntry"
-                      (itemClicked)="toggleMobileSideNav()"></alv-menu-entry>
+                      (itemClicked)="toggleMobileSideNav()">
+      </alv-menu-entry>
     </ng-container>
     <div class="nav-fill-item flex-grow-1">
     </div>
