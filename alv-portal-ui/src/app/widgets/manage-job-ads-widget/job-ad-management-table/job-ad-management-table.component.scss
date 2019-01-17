@@ -65,17 +65,10 @@ td {
     td {
       border: 0;
 
-      .content-cell {
-        width: 80%;
+      &.content-cell {
+        width: calc(100% - 40px);
       }
     }
-
-
   }
-
-}
-
-
-.actions-cell {
 
 }
