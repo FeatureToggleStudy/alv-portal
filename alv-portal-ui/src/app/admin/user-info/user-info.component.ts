@@ -6,9 +6,11 @@ import { patternInputValidator } from '../../shared/forms/input/input-field/patt
 import { EMAIL_REGEX } from '../../shared/forms/regex-patterns';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { UserInfo } from '../../shared/backend-services/user-info/user-info.types';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
 import { EMPTY } from 'rxjs';
 import { catchError, switchMap, takeUntil } from 'rxjs/operators';
+import { I18nService } from '../../core/i18n.service';
+import { UserRole } from '../../core/auth/user.model';
 
 @Component({
   selector: 'alv-user-info',
@@ -27,8 +29,11 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
 
   alert: Notification[]; // TODO implement ->
 
+  private confirmMessage: string;
+
   constructor(private fb: FormBuilder,
               private userInfoRepository: UserInfoRepository,
+              private i18nService: I18nService,
               private authenticationService: AuthenticationService) {
     super();
   }
@@ -36,7 +41,14 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
   ngOnInit() {
     this.setToInit();
     this.error = null;
+
     this.form = this.prepareForm();
+
+    this.i18nService.stream('portal.admin.user-info.confirmMessage', this.form.get('emailAddress').value).pipe(
+        takeUntil(this.ngUnsubscribe))
+        .subscribe((translate) => {
+          this.confirmMessage = translate['portal.admin.user-info.confirmMessage'];
+        });
   }
 
   private setToInit() {
@@ -54,6 +66,30 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
     return this.userRoles == null || this.userRoles.length == 0;
   }
 
+  private confirmUnregister(): boolean {
+    return window.confirm(this.confirmMessage);
+  }
+
+  private getParams(): HttpParams {
+      let params = new HttpParams()
+          .set('eMail', this.form.get('emailAddress').value)
+          .set('role', 'NO_ROLE');
+
+      if (this.isUserRoleEmpty()) {
+          return params;
+      }
+
+      if (this.userRoles.includes(UserRole.ROLE_JOB_SEEKER.toString())) {
+          params = params.set('role', 'JOB_SEEKER');
+      } else if (this.userRoles.includes(UserRole.ROLE_COMPANY.toString())) {
+          params = params.set('role', 'COMPANY');
+      } else if (this.userRoles.includes(UserRole.ROLE_PAV.toString())) {
+          params = params.set('role', 'PRIVATE_AGENT');
+      }
+
+      return params;
+  }
+
   isUserInfoEmpty(): boolean {
     return this.user == null || this.isUserRoleEmpty();
   }
@@ -67,6 +103,15 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
   }
 
   unregister(): void {
+    if (!this.confirmUnregister()) {
+      return;
+    }
+    this.userInfoRepository.unregisterUser(this.getParams())
+        .subscribe( (res: HttpResponse<any>) => {
+          this.onSubmit();
+        }, (error: HttpErrorResponse) => {
+          this.error = error.status;
+        });
     console.log('unregister');
   }
 
