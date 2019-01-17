@@ -32,10 +32,12 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   readonly class = 'side-nav expanded navbar navbar-expand-lg p-0';
 
   @HostBinding('class.collapsed')
-  collapsed = true;
+  mainNavigationCollapsed = true;
 
   @HostBinding('class.d-md-none')
   isAnonymous = true;
+
+  mobileMenuExpanded: boolean;
 
   menuEntries$: Observable<Array<MenuEntry>>;
 
@@ -58,13 +60,13 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
     this.store.pipe(select(getMobileNavigationExpanded)).pipe(
       takeUntil(this.ngUnsubscribe),
     ).subscribe(mobileNavigationExpanded => {
-      this.collapsed = !mobileNavigationExpanded;
+      this.mobileMenuExpanded = mobileNavigationExpanded;
     });
 
     this.store.pipe(select(getMainNavigationExpanded)).pipe(
       takeUntil(this.ngUnsubscribe),
     ).subscribe(mainNavigationExpanded => {
-      this.collapsed = !mainNavigationExpanded;
+      this.mainNavigationCollapsed = !mainNavigationExpanded;
     });
   }
 
