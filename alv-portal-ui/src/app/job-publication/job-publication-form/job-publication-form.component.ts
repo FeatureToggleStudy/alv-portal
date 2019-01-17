@@ -40,6 +40,10 @@ import {
   EmployerFormValue,
   emptyEmployerFormValue
 } from './employer/employer-form-value.types';
+import {
+  ApplicationFormValue,
+  emptyApplicationFormValue
+} from './application/application-form-value.types';
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -71,6 +75,8 @@ export class JobPublicationFormComponent implements OnInit {
 
   publicContactFormValue: PublicContactFormValue;
 
+  applicationFormValue: ApplicationFormValue;
+
   publicationFormValue: PublicationFormValue;
 
   constructor(private fb: FormBuilder) {
@@ -90,6 +96,7 @@ export class JobPublicationFormComponent implements OnInit {
     this.employerFormValue = emptyEmployerFormValue;
     this.contactFormValue = emptyContactFormValue;
     this.publicContactFormValue = emptyPublicContactFormValue;
+    this.applicationFormValue = emptyApplicationFormValue;
     this.publicationFormValue = emptyPublicationFormValue;
   }
 

@@ -1,0 +1,82 @@
+<fieldset [formGroup]="application">
+
+  <legend>{{'portal.job-publication.application.legend' | translate }}</legend>
+
+  <div class="alv-light-panel p-2"
+       [formGroup]="selectedApplicationTypes">
+    <alv-checkbox label="job-detail.application.online"
+                  alvFormControlName="form"
+                  class="narrow-form">
+    </alv-checkbox>
+  </div>
+
+  <div class="alv-light-panel p-2"
+       *ngIf="application.contains('formUrl')">
+    <alv-input-field label="home.tools.job-publication.application.online-form"
+                     placeholder="home.tools.job-publication.placeholders.url"
+                     alvFormControlName="formUrl">
+    </alv-input-field>
+  </div>
+
+
+  <div class="alv-light-panel p-2 mt-2"
+       [formGroup]="selectedApplicationTypes">
+    <alv-checkbox label="job-detail.application.email"
+                  alvFormControlName="email"
+                  class="narrow-form">
+    </alv-checkbox>
+  </div>
+
+  <div class="alv-light-panel p-2"
+       *ngIf="application.contains('emailAddress')">
+    <alv-input-field label="job-detail.application.email"
+                     placeholder="home.tools.job-publication.placeholders.email"
+                     alvFormControlName="emailAddress">
+    </alv-input-field>
+  </div>
+
+
+  <div class="alv-light-panel p-2 mt-2"
+       [formGroup]="selectedApplicationTypes">
+    <alv-checkbox label="job-detail.application.phone"
+                  alvFormControlName="phone"
+                  class="narrow-form">
+    </alv-checkbox>
+  </div>
+
+  <div class="alv-light-panel p-2"
+       *ngIf="application.contains('phoneNumber')">
+    <alv-input-field type="tel"
+                     label="home.tools.job-publication.contact.phone"
+                     placeholder="home.tools.job-publication.placeholders.phone"
+                     alvFormControlName="phoneNumber">
+    </alv-input-field>
+  </div>
+
+
+  <div class="alv-light-panel p-2 mt-2"
+       [formGroup]="selectedApplicationTypes">
+    <alv-checkbox label="job-detail.application.mail"
+                  alvFormControlName="post"
+                  class="narrow-form">
+    </alv-checkbox>
+  </div>
+
+  <div class="alv-light-panel p-2"
+       *ngIf="selectedApplicationTypes.get('post').value">
+    <alv-post-address-form [parentForm]="application"
+                           [postAddressFormValue]="postAddressFormValue"
+                           groupName="postAddress"
+                           legend="home.tools.job-publication.company.title">
+    </alv-post-address-form>
+  </div>
+
+
+  <alv-input-field class="mt-2"
+                   label="home.tools.job-publication.application.additional-info.label"
+                   alvFormControlName="additionalInfo"
+                   [maxLength]="ADDITIONAL_INFO_MAX_LENGTH"
+                   [showCharacterCounter]="true"
+                   [multiline]="true">
+  </alv-input-field>
+</fieldset>

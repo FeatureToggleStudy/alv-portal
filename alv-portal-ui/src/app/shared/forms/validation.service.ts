@@ -48,6 +48,10 @@ export class ValidationService {
     {
       error: 'phoneValidator',
       message: 'global.messages.validate.phone.format'
+    },
+    {
+      error: 'urlValidator',
+      message: 'portal.forms.validation.url'
     }
   ];
 

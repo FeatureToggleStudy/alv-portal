@@ -73,6 +73,13 @@
     </alv-public-contact>
   </alv-collapse-panel>
 
+  <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_APPLICATION"
+                      panelTitle="home.tools.job-publication.application.title">
+    <alv-application [parentForm]="jobPublicationForm"
+                     [applicationFormValue]="applicationFormValue">
+    </alv-application>
+  </alv-collapse-panel>
+
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_PUBLICATION"
                       panelTitle="home.tools.job-publication.publication.title">
     <alv-publication [parentForm]="jobPublicationForm"

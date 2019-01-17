@@ -56,9 +56,8 @@ export class OccupationComponent implements OnInit {
   constructor(private occupationSuggestionService: OccupationSuggestionService,
               private fb: FormBuilder) {
 
-    //todo (birom): review validators
     this.occupation = this.fb.group({
-      occupationSuggestion: [, [
+      occupationSuggestion: [null, [
         Validators.required
       ]],
       degree: [],
