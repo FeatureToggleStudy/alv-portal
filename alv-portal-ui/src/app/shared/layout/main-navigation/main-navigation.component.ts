@@ -35,7 +35,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   @HostBinding('class.collapsed')
   mainNavigationCollapsed = true;
 
-  @HostBinding('class.d-md-none')
+  @HostBinding('class.d-lg-none')
   isAnonymous = true;
 
   mobileMenuExpanded: boolean;
