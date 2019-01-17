@@ -19,7 +19,7 @@
     width: 55px;
 
     /* CSS rule to hide the nav-text only on the collapsed desktop menu */
-    :not(.side-nav) > ::ng-deep .nav-item > .nav-text {
+    > :not(.mobile-menu) ::ng-deep .nav-item > .nav-text {
       display: none;
     }
     ::ng-deep .nav-item {
