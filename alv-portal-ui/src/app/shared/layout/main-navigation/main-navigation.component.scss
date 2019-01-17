@@ -14,12 +14,15 @@
   width: 295px;
   transition: width 0.15s ease-out;
 
+  > :not(.mobile-menu) ::ng-deep .nav-item > .nav-text {
+    animation: expandMainMenu 0.25s ease-out;
+  }
   /* Collapsed desktop menu style */
   &.collapsed {
     width: 55px;
-
+    
     /* CSS rule to hide the nav-text only on the collapsed desktop menu */
-    :not(.side-nav) > ::ng-deep .nav-item > .nav-text {
+    > :not(.mobile-menu) ::ng-deep .nav-item > .nav-text {
       display: none;
     }
     ::ng-deep .nav-item {
@@ -168,5 +171,18 @@
     &.collapsed {
       width: 0;
     }
+  }
+}
+
+@keyframes expandMainMenu {
+  0% {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  100% {
+    overflow: initial;
+    text-overflow: initial;
+    white-space: initial;
   }
 }
