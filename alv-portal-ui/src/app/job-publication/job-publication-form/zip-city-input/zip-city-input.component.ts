@@ -9,8 +9,7 @@ import { ZipCityFormValue } from './zip-city-form-value.types';
 @Component({
   selector: 'alv-zip-city-input',
   templateUrl: './zip-city-input.component.html',
-  styleUrls: ['./zip-city-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./zip-city-input.component.scss']
 })
 export class ZipCityInputComponent implements OnInit {
 
