@@ -87,7 +87,3 @@ export class User {
     return this.hasAnyAuthorities([UserRole.ROLE_ADMIN]);
   }
 }
-
-
-
-
