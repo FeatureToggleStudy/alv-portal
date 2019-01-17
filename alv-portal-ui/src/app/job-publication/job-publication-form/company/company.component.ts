@@ -14,7 +14,7 @@ import { CompanyFormValue } from './company-form-value.types';
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.scss']
 })
-export class CompanyComponent extends AbstractSubscriber implements OnInit {
+export class CompanyComponent implements OnInit {
   readonly PO_BOX_MAX_LENGTH = 9;
 
   @Input()
@@ -40,20 +40,19 @@ export class CompanyComponent extends AbstractSubscriber implements OnInit {
 
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService) {
-    super();
 
     this.countryOptions$ = this.isoCountryService.countryOptions$;
 
     this.company = this.fb.group({
       //todo (birom): review validators
-      name: [, [
+      name: [null, [
         Validators.required
       ]],
-      houseNumber: [, []],
-      countryIsoCode: [, []],
+      houseNumber: [null, []],
+      countryIsoCode: [null, []],
       postOfficeBoxNumberOrStreet: this.fb.group({
-          street: [, []],
-          postOfficeBoxNumber: [, [
+          street: [null, []],
+          postOfficeBoxNumber: [null, [
             Validators.maxLength(this.PO_BOX_MAX_LENGTH)
           ]],
         },
