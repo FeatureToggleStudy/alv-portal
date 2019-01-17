@@ -11,7 +11,7 @@ import { LANGUAGES } from '../../../core/languages.constants';
 import { Observable } from 'rxjs';
 import { CoreState } from '../../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
-import { ToggleMainNavigationAction } from '../../../core/state-management/actions/core.actions';
+import { ToggleMobileNavigationsAction } from '../../../core/state-management/actions/core.actions';
 import { ModalService } from '../modal/modal.service';
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 import { APP_BASE_HREF } from '@angular/common';
@@ -61,8 +61,8 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
       });
   }
 
-  toggleNavigation() {
-    this.store.dispatch(new ToggleMainNavigationAction({}));
+  toggleMobileNavigation() {
+    this.store.dispatch(new ToggleMobileNavigationsAction({}));
   }
 
   login() {

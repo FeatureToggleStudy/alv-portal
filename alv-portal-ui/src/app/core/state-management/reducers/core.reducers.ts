@@ -15,8 +15,8 @@ import {
   LoadCurrentUserAction,
   LOGOUT_USER,
   LogoutUserAction,
-  TOGGLE_MAIN_NAVIGATION,
-  ToggleMainNavigationAction
+  TOGGLE_MAIN_NAVIGATION, TOGGLE_MOBILE_NAVIGATION,
+  ToggleMainNavigationAction, ToggleMobileNavigationsAction
 } from '../actions/core.actions';
 
 export function coreReducers(state: CoreState = initialState, action: Actions): CoreState {
@@ -64,6 +64,12 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
         currentAccountability: null
       };
       break;
+    case TOGGLE_MOBILE_NAVIGATION:
+      newState = {
+        ...state,
+        mobileNavigationExpanded: !state.mobileNavigationExpanded
+      };
+      break;
     case TOGGLE_MAIN_NAVIGATION:
       newState = {
         ...state,
@@ -84,6 +90,7 @@ export type Actions =
   | CurrentUserLoadedAction
   | LogoutUserAction
   | ToggleMainNavigationAction
+  | ToggleMobileNavigationsAction
   | LoadCurrentUserAction
   | AcountabilitiesLoaded
   | CompanySelectedAction
