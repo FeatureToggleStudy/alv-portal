@@ -1,4 +1,4 @@
-import {RegistrationStatus} from "../../../core/auth/user.model";
+import {RegistrationStatus} from '../../../core/auth/user.model';
 
 export interface CompanyContactTemplate {
   companyId: string;
@@ -18,7 +18,7 @@ export interface Accountability {
   companyExternalId: string;
 }
 
-export interface UserInfo {
+export interface UserInfoDTO {
   id: string;
   userExternalId: string;
   firstName: string;

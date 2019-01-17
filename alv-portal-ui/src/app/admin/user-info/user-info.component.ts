@@ -5,7 +5,7 @@ import { UserInfoRepository } from '../../shared/backend-services/user-info/user
 import { patternInputValidator } from '../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX } from '../../shared/forms/regex-patterns';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { UserInfo } from '../../shared/backend-services/user-info/user-info.types';
+import { UserInfoDTO } from '../../shared/backend-services/user-info/user-info.types';
 import { HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
 import { EMPTY } from 'rxjs';
 import { catchError, switchMap, takeUntil } from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
 
   form: FormGroup;
 
-  user: UserInfo;
+  user: UserInfoDTO;
 
   userRoles: string[];
 
@@ -63,7 +63,7 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
   }
 
   private isUserRoleEmpty(): boolean {
-    return this.userRoles == null || this.userRoles.length == 0;
+    return this.userRoles == null || this.userRoles.length < 1;
   }
 
   private confirmUnregister(): boolean {
@@ -102,7 +102,7 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
     return `${accountability.companyName}, ${accountability.companyExternalId}, ${accountability.companySource}`;
   }
 
-  unregister(): void {
+  onUnregister(): void {
     if (!this.confirmUnregister()) {
       return;
     }

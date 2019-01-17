@@ -46,7 +46,9 @@
             </alv-list-item-content>
           </ul>
           <ng-template #no_user_info>
-            <small>{{ 'portal.admin.user-info.user-info.no' | translate }}</small>
+            <div class="no-info-found">
+              <small class="text-muted">{{ 'portal.admin.user-info.user-info.no' | translate }}</small>
+            </div>
           </ng-template>
         </alv-collapse-panel>
 
@@ -67,7 +69,9 @@
             </alv-list-item-content>
           </ul>
           <ng-template #no_account_info>
-            <small>{{ 'portal.admin.user-info.account-info.no' | translate }}</small>
+            <div class="no-info-found">
+              <small class="text-muted">{{ 'portal.admin.user-info.account-info.no' | translate }}</small>
+            </div>
           </ng-template>
         </alv-collapse-panel>
 
@@ -82,7 +86,9 @@
             </alv-list-item-content>
           </ul>
           <ng-template #no_stes_info>
-            <small>{{ 'portal.admin.user-info.stes-info.no' | translate }}</small>
+            <div class="no-info-found">
+              <small class="text-muted">{{ 'portal.admin.user-info.stes-info.no' | translate }}</small>
+            </div>
           </ng-template>
         </alv-collapse-panel>
 
@@ -97,7 +103,9 @@
             </alv-list-item-content>
           </ul>
           <ng-template #no_eIAM_roles>
-            <small>{{ 'portal.admin.user-info.eIAM-roles.no' | translate }}</small>
+            <div class="no-info-found">
+              <small class="text-muted">{{ 'portal.admin.user-info.eIAM-roles.no' | translate }}</small>
+            </div>
           </ng-template>
         </alv-collapse-panel>
 
@@ -109,27 +117,35 @@
             </alv-list-item-content>
           </ul>
           <ng-template #no_accountabilities>
-            <small>{{ 'portal.admin.user-info.accountabilities.no' | translate }}</small>
+            <div class="no-info-found">
+              <small class="text-muted">{{ 'portal.admin.user-info.accountabilities.no' | translate }}</small>
+            </div>
           </ng-template>
         </alv-collapse-panel>
 
         <alv-collapse-panel [panelId]="'actions'"
                             panelTitle="portal.admin.user-info.actions.title">
-          <ul class="alv-list" *ngIf="onlyEIAMRoles()">
-            <alv-list-item-content label="portal.admin.user-info.actions.unregistered-user.title">
-              {{ 'portal.admin.user-info.actions.unregistered-user.desc' | translate }}
-            </alv-list-item-content>
-          </ul>
-          <ul class="alv-list" *ngIf="!isUserInfoEmpty()">
-            <alv-list-item-content label="portal.admin.user-info.actions.unregister.title">
-              {{ 'portal.admin.user-info.actions.unregister.desc' | translate }}
-            </alv-list-item-content>
-            <button type="button" class="btn btn-primary mb-2" (click)="unregister()">
-              {{ 'portal.admin.user-info.actions.unregister.title' | translate }}
-            </button>
-          </ul>
-          <div *ngIf="isUserInfoEmpty() && !onlyEIAMRoles()">
-            <small>{{ 'portal.admin.user-info.actions.no' | translate }}</small>
+          <div *ngIf="onlyEIAMRoles()">
+            <ul class="alv-list">
+              <alv-list-item-content label="portal.admin.user-info.actions.unregistered-user.title">
+                {{ 'portal.admin.user-info.actions.unregistered-user.desc' | translate }}
+              </alv-list-item-content>
+            </ul>
+          </div>
+          <div *ngIf="!isUserInfoEmpty()">
+            <ul class="alv-list" >
+              <alv-list-item-content label="portal.admin.user-info.actions.unregister.title">
+                {{ 'portal.admin.user-info.actions.unregister.desc' | translate }}
+              </alv-list-item-content>
+            </ul>
+            <div class="button-reset">
+              <button type="button" class="btn btn-primary mb-2" (click)="onUnregister()">
+                {{ 'portal.admin.user-info.actions.unregister.title' | translate }}
+              </button>
+            </div>
+          </div>
+          <div *ngIf="isUserInfoEmpty() && !onlyEIAMRoles()" class="no-info-found">
+            <small class="text-muted">{{ 'portal.admin.user-info.actions.no' | translate }}</small>
           </div>
         </alv-collapse-panel>
 
@@ -141,5 +157,6 @@
     <p> userInfo: {{ user | json }}</p>
     <p> userRoles: {{ userRoles | json }}</p>
     <p> errorStatus: {{ error }}</p>
+    <p> confirmMessage: {{ confirmMessage }}</p>
   </div>
 </div>

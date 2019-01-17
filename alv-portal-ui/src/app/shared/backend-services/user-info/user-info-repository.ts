@@ -45,7 +45,7 @@ export class UserInfoRepository {
     return this.http.delete(UserInfoRepository.USER_INFO_URL, {
       params: params,
       observe: 'response'
-    })
+    });
   }
 
 }
