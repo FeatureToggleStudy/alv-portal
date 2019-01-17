@@ -39,7 +39,7 @@ export class ValidationService {
     },
     {
       error: 'houseNumValidator',
-      message: 'portal.form.validation.message.houseNr'
+      message: 'portal.forms.validation.message.houseNr'
     },
     {
       error: 'emailValidator',

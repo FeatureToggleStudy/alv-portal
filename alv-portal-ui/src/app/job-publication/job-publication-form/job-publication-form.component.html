@@ -1,4 +1,6 @@
-<form [formGroup]="jobPublicationForm">
+<form [formGroup]="jobPublicationForm"
+      (validSubmit)="submit()"
+      alvFormSubmitValidation>
 
   <alv-job-description [parentForm]="jobPublicationForm"
                        [jobDescriptionFormValue]="jobDescriptionFormValue">
@@ -78,6 +80,23 @@
     </alv-publication>
   </alv-collapse-panel>
 
+  <div class="alv-light-panel p-2 mt-4">
+    <alv-checkbox label="portal.job-publication.disclaimer.label"
+                  alvFormControlName="disclaimer"
+                  [validationMessages]="[{error: 'required', message: 'portal.job-publication.disclaimer.error'}]"
+                  class="narrow-form">
+    </alv-checkbox>
+  </div>
+  <div class="mt-4">
+    <button class="btn btn-primary">
+      {{'home.tools.job-publication.submit' | translate}}
+    </button>
+    <button class="btn btn-text ml-1"
+            type="button"
+            (click)="reset()">
+      {{'home.tools.job-publication.reset' | translate}}
+    </button>
+  </div>
 </form>
 
 

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { JobPublicationFormPanelId } from './job-publication-form-panel-id.enum';
 import {
   CompanyFormValue,
@@ -40,7 +41,6 @@ import {
   emptyEmployerFormValue
 } from './employer/employer-form-value.types';
 
-
 @Component({
   selector: 'alv-job-publication-form',
   templateUrl: './job-publication-form.component.html',
@@ -75,7 +75,8 @@ export class JobPublicationFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.jobPublicationForm = this.fb.group({
-      surrogate: [false, []]
+      surrogate: [false, []],
+      disclaimer: [false, [Validators.requiredTrue]]
     });
   }
 
@@ -94,6 +95,16 @@ export class JobPublicationFormComponent implements OnInit {
 
   copyFromContact() {
     this.publicContactFormValue = { ...this.jobPublicationForm.get('contact').value };
+  }
+
+  submit() {
+    alert('not yet implemented');
+    // TODO: map the form value to the backend DTO structure
+  }
+
+  reset() {
+    alert('not yet implemented');
+    // TODO: how does the reset work if there are "prefillable" values?
   }
 }
 
