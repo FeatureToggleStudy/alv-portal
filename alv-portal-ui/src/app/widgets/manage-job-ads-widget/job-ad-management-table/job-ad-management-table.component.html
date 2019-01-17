@@ -43,7 +43,7 @@
           role="gridcell">
         <div class="d-inline-block mr-1 d-md-none">
           <strong>{{ columnDefinitions[i].columnName | translate }}:</strong></div>
-        <span [innerHTML]="column.render(row.jobAdvertisement) | translate"></span>
+        <span [innerHTML]="column.render(row.jobAdvertisement) || '&mdash;' | translate"></span>
       </td>
       <td role="gridcell"
           class="actions-cell d-block d-md-table-cell">
