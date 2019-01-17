@@ -43,10 +43,9 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
 
     this.countryOptions$ = this.isoCountryService.countryOptions$;
 
-    //todo (birom): review validators
     this.location = this.fb.group({
-      countryIsoCode: [],
-      remarks: [, [
+      countryIsoCode: [null],
+      remarks: [null, [
         Validators.maxLength(this.REMARK_MAX_LENGTH)
       ]]
     });

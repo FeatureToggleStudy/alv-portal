@@ -1,5 +1,5 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../regex-patterns';
+import { EMAIL_REGEX, HOUSE_NUMBER_REGEX, URL_REGEX } from '../../regex-patterns';
 
 export const patternInputValidator: (regex: RegExp) => ValidatorFn = (regex) => {
   return (control: AbstractControl) => {
@@ -16,6 +16,12 @@ export const patternInputValidator: (regex: RegExp) => ValidatorFn = (regex) => 
           case String(HOUSE_NUMBER_REGEX):
             return {
               'houseNumValidator': {
+                value: control.value
+              }
+            };
+          case String(URL_REGEX):
+            return {
+              'urlValidator': {
                 value: control.value
               }
             };
