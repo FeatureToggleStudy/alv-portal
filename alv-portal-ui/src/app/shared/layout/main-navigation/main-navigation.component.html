@@ -14,9 +14,9 @@
   <button class="nav-item menu-toggle"
           (click)="toggleDesktopSideNav()">
     <i class="fas fa-caret-left"
-       *ngIf="!mainCollapsed"></i>
+       *ngIf="!collapsed"></i>
     <i class="fas fa-caret-right"
-       *ngIf="mainCollapsed"></i>
+       *ngIf="collapsed"></i>
   </button>
   <!-- Menu Entries -->
   <ng-container *ngFor="let menuEntry of menuEntries$ | async">
@@ -31,7 +31,7 @@
 <!-- Mobile Menu -->
 <div class="d-md-block d-lg-none d-print-none">
   <div class="navbar-nav animate side-nav"
-       [class.open]="!mainCollapsed">
+       [class.open]="!collapsed">
     <a class="nav-item"
        (click)="toggleMobileSideNav()">
       <i class="nav-icon fas fa-caret-left"></i>

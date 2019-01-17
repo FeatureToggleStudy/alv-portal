@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   CoreState,
@@ -32,10 +32,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   readonly class = 'side-nav expanded navbar navbar-expand-lg p-0';
 
   @HostBinding('class.collapsed')
-  mainCollapsed = true;
-
-  @HostBinding('class.collapsed')
-  mobileCollapsed = true;
+  collapsed = true;
 
   @HostBinding('class.d-md-none')
   isAnonymous = true;
@@ -59,18 +56,16 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
     });
 
     this.store.pipe(select(getMobileNavigationExpanded)).pipe(
-      tap((mobileNavigationExpanded) => {
-        this.mobileCollapsed = !mobileNavigationExpanded;
-      }),
       takeUntil(this.ngUnsubscribe),
-    ).subscribe();
+    ).subscribe(mobileNavigationExpanded => {
+      this.collapsed = !mobileNavigationExpanded;
+    });
 
     this.store.pipe(select(getMainNavigationExpanded)).pipe(
-      tap((mainNavigationExpanded) => {
-        this.mainCollapsed = !mainNavigationExpanded;
-      }),
       takeUntil(this.ngUnsubscribe),
-    ).subscribe();
+    ).subscribe(mainNavigationExpanded => {
+      this.collapsed = !mainNavigationExpanded;
+    });
   }
 
   toggleMobileSideNav() {
