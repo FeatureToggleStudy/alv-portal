@@ -138,13 +138,14 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
       .subscribe(immediately => {
         const control = this.employment.get('startDate');
         if (!immediately) {
-          control.enable();
           control.setValidators(Validators.required);
+          control.enable();
           setTimeout(() => {
             this.startDate.focus();
           });
         } else {
           control.clearValidators();
+          control.reset();
           control.disable();
         }
       });
@@ -158,17 +159,19 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
         switch (duration) {
           case EmploymentDuration.PERMANENT:
             control.clearValidators();
+            control.reset();
             control.disable();
             break;
           case EmploymentDuration.TEMPORARY:
-            control.enable();
             control.setValidators(Validators.required);
+            control.enable();
             setTimeout(() => {
               this.endDate.focus();
             });
             break;
           case EmploymentDuration.SHORT_EMPLOYMENT:
             control.clearValidators();
+            control.reset();
             control.disable();
             break;
         }

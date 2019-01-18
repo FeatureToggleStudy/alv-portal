@@ -1,0 +1,17 @@
+<fieldset [formGroup]="publication">
+
+  <legend class="sr-only">{{'home.tools.job-publication.publication.title' | translate }}</legend>
+
+  <div class="alv-bar p-2 mb-1">
+    <alv-checkbox class="narrow-form"
+                  label="portal.job-publication.publication.publicDisplay.label"
+                  alvFormControlName="publicDisplay"></alv-checkbox>
+  </div>
+
+  <div class="alv-bar p-2 mb-1">
+    <alv-checkbox class="narrow-form"
+                  label="portal.job-publication.publication.euresDisplay.label"
+                  alvFormControlName="euresDisplay"></alv-checkbox>
+  </div>
+
+</fieldset>
