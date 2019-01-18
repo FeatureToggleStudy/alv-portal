@@ -40,10 +40,8 @@ export class UserInfoRepository {
   }
 
   public unregisterUser(deleteParams): Observable<any> {
-    const params = new HttpParams()
-        .set('deleteParams', deleteParams);
     return this.http.delete(UserInfoRepository.USER_INFO_URL, {
-      params: params,
+      params: deleteParams,
       observe: 'response'
     });
   }

@@ -5,53 +5,53 @@ import { Injectable } from '@angular/core';
 
 
 export enum UserInfoBadgeType {
-    REGISTERED, UNREGISTERED, PAV_OR_EMP
+  REGISTERED, UNREGISTERED, PAV_OR_EMP
 }
 
 export interface UserInfoBadge extends InlineBadge {
-    badgeType: UserInfoBadgeType;
+  badgeType: UserInfoBadgeType;
 }
 
 const ALL = [
-    UserInfoBadgeType.REGISTERED,
-    UserInfoBadgeType.UNREGISTERED,
-    UserInfoBadgeType.PAV_OR_EMP
+  UserInfoBadgeType.REGISTERED,
+  UserInfoBadgeType.UNREGISTERED,
+  UserInfoBadgeType.PAV_OR_EMP
 ];
 
 @Injectable()
 export class UserInfoBadgesMapperService {
 
-    constructor() {}
+  constructor() {}
 
-    public map(userInfo: UserInfoDTO, badgeTypes = ALL): UserInfoBadge[] {
+  public map(userInfo: UserInfoDTO, badgeTypes = ALL): UserInfoBadge[] {
 
-        const result: UserInfoBadge[] = [];
+    const result: UserInfoBadge[] = [];
 
-        if (userInfo == null || userInfo.registrationStatus == null) {
-            return result;
-        }
-
-        if (userInfo.registrationStatus === RegistrationStatus.REGISTERED) {
-            result.push({
-                badgeType: UserInfoBadgeType.REGISTERED,
-                cssClass: 'badge-job-registered',
-                label: `${userInfo.registrationStatus}`
-            });
-        } else if (userInfo.registrationStatus === RegistrationStatus.UNREGISTERED) {
-            result.push({
-                badgeType: UserInfoBadgeType.UNREGISTERED,
-                cssClass: 'badge-job-unregistered',
-                label: `${userInfo.registrationStatus}`
-            });
-        } else if (userInfo.registrationStatus === RegistrationStatus.VALIDATION_PAV
-            || userInfo.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
-            result.push({
-                badgeType: UserInfoBadgeType.PAV_OR_EMP,
-                cssClass: 'badge-job-pav-or-emp',
-                label: `${userInfo.registrationStatus}`
-            });
-        }
-
-        return result.filter((b) => badgeTypes.includes(b.badgeType));
+    if (userInfo == null || userInfo.registrationStatus == null) {
+      return result;
     }
+
+    if (userInfo.registrationStatus === RegistrationStatus.REGISTERED) {
+      result.push({
+        badgeType: UserInfoBadgeType.REGISTERED,
+        cssClass: 'badge-job-registered',
+        label: `${userInfo.registrationStatus}`
+      });
+    } else if (userInfo.registrationStatus === RegistrationStatus.UNREGISTERED) {
+      result.push({
+        badgeType: UserInfoBadgeType.UNREGISTERED,
+        cssClass: 'badge-job-unregistered',
+        label: `${userInfo.registrationStatus}`
+      });
+    } else if (userInfo.registrationStatus === RegistrationStatus.VALIDATION_PAV
+      || userInfo.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
+      result.push({
+        badgeType: UserInfoBadgeType.PAV_OR_EMP,
+        cssClass: 'badge-job-pav-or-emp',
+        label: `${userInfo.registrationStatus}`
+      });
+    }
+
+    return result.filter((b) => badgeTypes.includes(b.badgeType));
+  }
 }
