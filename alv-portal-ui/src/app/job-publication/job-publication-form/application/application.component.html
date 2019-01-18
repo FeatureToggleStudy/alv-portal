@@ -2,77 +2,94 @@
 
   <legend>{{'portal.job-publication.application.legend' | translate }}</legend>
 
-  <div class="alv-light-panel p-2"
-       [formGroup]="selectedApplicationTypes">
-    <alv-checkbox label="job-detail.application.online"
-                  alvFormControlName="form"
-                  class="narrow-form">
-    </alv-checkbox>
-  </div>
+  <div class="alv-light-panel p-2">
+    <ng-container [formGroup]="selectedApplicationTypes">
+      <alv-checkbox label="job-detail.application.online"
+                    alvFormControlName="form"
+                    class="narrow-form">
+      </alv-checkbox>
+    </ng-container>
 
-  <div class="alv-light-panel p-2"
-       *ngIf="application.contains('formUrl')">
-    <alv-input-field label="home.tools.job-publication.application.online-form"
+    <alv-input-field *ngIf="application.contains('formUrl')"
+                     class="narrow-form d-block mt-2"
+                     label="home.tools.job-publication.application.online-form"
                      placeholder="home.tools.job-publication.placeholders.url"
                      alvFormControlName="formUrl">
     </alv-input-field>
   </div>
 
-
-  <div class="alv-light-panel p-2 mt-2"
-       [formGroup]="selectedApplicationTypes">
-    <alv-checkbox label="job-detail.application.email"
-                  alvFormControlName="email"
-                  class="narrow-form">
-    </alv-checkbox>
-  </div>
-
-  <div class="alv-light-panel p-2"
-       *ngIf="application.contains('emailAddress')">
-    <alv-input-field label="job-detail.application.email"
+  <div class="alv-light-panel p-2 mt-1">
+    <div class="d-flex flex-column flex-md-row"
+         [formGroup]="selectedApplicationTypes">
+      <alv-checkbox label="job-detail.application.email"
+                    alvFormControlName="email"
+                    class="narrow-form">
+      </alv-checkbox>
+      <div class="flex-grow-1"></div>
+      <button *ngIf="application.contains('emailAddress')"
+              type="button"
+              class="btn btn-secondary btn-sm my-2 mt-md-0"
+              (click)="copyEmailFromPublicContact()">
+        {{'home.tools.job-publication.application.copy-email-from-public-contact' | translate}}
+      </button>
+    </div>
+    <alv-input-field *ngIf="application.contains('emailAddress')"
+                     class="narrow-form"
+                     label="job-detail.application.email"
                      placeholder="home.tools.job-publication.placeholders.email"
                      alvFormControlName="emailAddress">
     </alv-input-field>
   </div>
 
+  <div class="alv-light-panel p-2 mt-1">
+    <div class="d-flex flex-column flex-md-row"
+         [formGroup]="selectedApplicationTypes">
+      <alv-checkbox label="job-detail.application.phone"
+                    alvFormControlName="phone"
+                    class="narrow-form">
+      </alv-checkbox>
+      <div class="flex-grow-1"></div>
+      <button *ngIf="application.contains('phoneNumber')"
+              type="button"
+              class="btn btn-secondary btn-sm my-2 mt-md-0"
+              (click)="copyPhoneNumberFromPublicContact()">
+        {{'home.tools.job-publication.application.copy-phonenumber-from-public-contact' | translate}}
+      </button>
+    </div>
 
-  <div class="alv-light-panel p-2 mt-2"
-       [formGroup]="selectedApplicationTypes">
-    <alv-checkbox label="job-detail.application.phone"
-                  alvFormControlName="phone"
-                  class="narrow-form">
-    </alv-checkbox>
-  </div>
-
-  <div class="alv-light-panel p-2"
-       *ngIf="application.contains('phoneNumber')">
-    <alv-input-field type="tel"
+    <alv-input-field *ngIf="application.contains('phoneNumber')"
+                     class="narrow-form"
+                     type="tel"
                      label="home.tools.job-publication.contact.phone"
                      placeholder="home.tools.job-publication.placeholders.phone"
                      alvFormControlName="phoneNumber">
     </alv-input-field>
   </div>
 
-
-  <div class="alv-light-panel p-2 mt-2"
-       [formGroup]="selectedApplicationTypes">
-    <alv-checkbox label="job-detail.application.mail"
-                  alvFormControlName="post"
-                  class="narrow-form">
-    </alv-checkbox>
-  </div>
-
-  <div class="alv-light-panel p-2"
-       *ngIf="selectedApplicationTypes.get('post').value">
-    <alv-post-address-form [parentForm]="application"
+  <div class="alv-light-panel p-2 mt-1">
+    <div class="d-flex flex-column flex-md-row"
+         [formGroup]="selectedApplicationTypes">
+      <alv-checkbox label="job-detail.application.mail"
+                    alvFormControlName="post"
+                    class="narrow-form">
+      </alv-checkbox>
+      <div class="flex-grow-1"></div>
+      <button *ngIf="selectedApplicationTypes.get('post').value"
+              type="button"
+              class="btn btn-secondary btn-sm my-2 mt-md-0 "
+              (click)="copyAddressFromCompany()">
+        {{'home.tools.job-publication.application.copy-from-business' | translate}}
+      </button>
+    </div>
+    <alv-post-address-form *ngIf="selectedApplicationTypes.get('post').value"
+                           [parentForm]="application"
                            [postAddressFormValue]="postAddressFormValue"
                            groupName="postAddress"
                            legend="home.tools.job-publication.company.title">
     </alv-post-address-form>
   </div>
 
-
-  <alv-input-field class="mt-2"
+  <alv-input-field class="mt-3"
                    label="home.tools.job-publication.application.additional-info.label"
                    alvFormControlName="additionalInfo"
                    [maxLength]="ADDITIONAL_INFO_MAX_LENGTH"

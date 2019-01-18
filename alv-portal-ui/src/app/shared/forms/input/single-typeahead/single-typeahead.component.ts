@@ -2,7 +2,7 @@ import {
   Component,
   EventEmitter,
   Host,
-  Input,
+  Input, OnInit,
   Optional,
   Output,
   SkipSelf
@@ -14,7 +14,7 @@ import { InputType } from '../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { SingleTypeaheadItem } from './single-typeahead-item.model';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 
 @Component({
@@ -22,7 +22,7 @@ import { of } from 'rxjs/internal/observable/of';
   templateUrl: './single-typeahead.component.html',
   styleUrls: ['../abstract-input.scss', './single-typeahead.component.scss']
 })
-export class SingleTypeaheadComponent extends AbstractInput {
+export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
   readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
@@ -38,9 +38,19 @@ export class SingleTypeaheadComponent extends AbstractInput {
 
   loadItemsGuardedFn = this.loadItemsGuarded.bind(this);
 
+  controlValueChange$: Observable<string>;
+
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {
     super(controlContainer, InputType.SINGLE_TYPEAHEAD, inputIdGenerationService);
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+    this.controlValueChange$ = this.control.valueChanges.pipe(
+      filter(value => !!value),
+      map(this.formatResultItem)
+    );
   }
 
   formatResultItem(item: SingleTypeaheadItem<any>): string {
@@ -51,9 +61,17 @@ export class SingleTypeaheadComponent extends AbstractInput {
 
     const item = <SingleTypeaheadItem<any>>event.item;
 
-    this.control.setValue(item.payload);
+    this.control.setValue(item, {emitEvent: false});
 
     this.itemSelected.emit(item);
+  }
+
+  handleInput(event: KeyboardEvent): void {
+    if (event.code === 'Backspace') {
+      if (this.control.value) {
+        this.control.setValue(null);
+      }
+    }
   }
 
   private loadItemsGuarded(text$: Observable<string>): Observable<SingleTypeaheadItem<any>[]> {

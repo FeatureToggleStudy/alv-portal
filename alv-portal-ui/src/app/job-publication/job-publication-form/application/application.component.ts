@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -61,7 +61,8 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
   private _applicationFormValue: ApplicationFormValue;
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private cdRef: ChangeDetectorRef) {
     super();
 
     this.selectedApplicationTypes = this.fb.group({
@@ -84,6 +85,25 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
     this.selectedApplicationTypes.valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(this.toggleAll.bind(this));
+  }
+
+  copyPhoneNumberFromPublicContact() {
+    const publicContactPhoneNumber = this.parentForm.get('publicContact.phone').value;
+    this.parentForm.get('application.phoneNumber').setValue(publicContactPhoneNumber);
+  }
+
+  copyEmailFromPublicContact() {
+    const publicContactEmail = this.parentForm.get('publicContact.email').value;
+    this.parentForm.get('application.emailAddress').setValue(publicContactEmail);
+  }
+
+  copyAddressFromCompany() {
+    const company = this.parentForm.get('company').value;
+    this.application.get('postAddress.countryIsoCode').setValue(this.parentForm.get('company.countryIsoCode').value);
+    setTimeout(() => {
+      this.application.get('postAddress').setValue(company);
+      this.cdRef.detectChanges();
+    });
   }
 
   private toggleAll(selectedApplicationTypes: SelectedApplicationTypes) {

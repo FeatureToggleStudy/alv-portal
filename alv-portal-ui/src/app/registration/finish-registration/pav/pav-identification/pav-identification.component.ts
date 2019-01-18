@@ -63,11 +63,12 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
     );
   }
 
-  private mapToItem(pavSuggestion: PavSuggestion): SingleTypeaheadItem<PavSuggestion> {
+  private mapToItem(pavSuggestion: PavSuggestion, index: number): SingleTypeaheadItem<PavSuggestion> {
     return new SingleTypeaheadItem(
-      pavSuggestion.externalId,
+      'pav',
+      pavSuggestion,
       PavSearchRepository.formatOrganizationName(pavSuggestion),
-      pavSuggestion
+      index
     );
   }
 

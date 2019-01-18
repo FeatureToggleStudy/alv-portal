@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { JobPublicationFormPanelId } from './job-publication-form-panel-id.enum';
@@ -52,6 +58,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobPublicationFormComponent implements OnInit {
+
+  @Output() jobPublicationCreated = new EventEmitter<null>();
 
   jobPublicationForm: FormGroup;
 
@@ -107,6 +115,7 @@ export class JobPublicationFormComponent implements OnInit {
   submit() {
     alert('not yet implemented');
     // TODO: map the form value to the backend DTO structure
+    this.jobPublicationCreated.emit();
   }
 
   reset() {
