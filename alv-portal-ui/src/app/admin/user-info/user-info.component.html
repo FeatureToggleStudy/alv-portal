@@ -24,6 +24,12 @@
         </div>
       </div>
     </form>
+
+    <alv-alert (dismiss)="dismissAlert(alert, alerts)"
+               *ngFor="let alert of alerts"
+               [notification]="alert">
+    </alv-alert>
+
     <hr>
 
     <div class="row">
