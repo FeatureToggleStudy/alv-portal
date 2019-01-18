@@ -1,25 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IsAuthenticatedDirective } from './is-authenticated/is-authenticated.directive';
-import { HasAnyAuthorityDirective } from './has-any-authority/has-any-authority.directive';
+import { IsAuthenticatedDirective } from './is-authenticated.directive';
+import { HasAnyAuthorityDirective } from './has-any-authority.directive';
+import { IsAnonymousDirective } from './is-anonymous.directive';
 
 
 @NgModule({
   declarations: [
     IsAuthenticatedDirective,
-    HasAnyAuthorityDirective
+    HasAnyAuthorityDirective,
+    IsAnonymousDirective
   ],
   imports: [
     CommonModule
   ],
-  entryComponents: [
-  ],
+  entryComponents: [],
   exports: [
     IsAuthenticatedDirective,
-    HasAnyAuthorityDirective
+    HasAnyAuthorityDirective,
+    IsAnonymousDirective
   ],
-  providers: [
-  ]
+  providers: []
 })
 export class SharedAuthModule {
 
