@@ -143,6 +143,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     }
     this.userInfoRepository.unregisterUser(this.getParams())
       .subscribe(() => {
+        this.alerts.push(ALERTS.unregisterSuccess);
         this.onSubmit();
       }, () => {
         this.alerts.push(ALERTS.unregisterTechError);
@@ -150,7 +151,6 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
   }
 
   onSubmit() {
-    this.alerts = [];
     this.userInfoRepository.loadUserByEmail(this.form.get('emailAddress').value).pipe(
       withLatestFrom(this.i18nService.stream('portal.admin.user-info.confirmMessage', {email: this.form.get('emailAddress').value})),
       switchMap(([res, message]) => {
