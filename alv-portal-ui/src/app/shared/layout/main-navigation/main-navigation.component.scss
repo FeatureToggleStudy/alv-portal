@@ -15,7 +15,7 @@
   transition: width 0.15s ease-out;
   height: 100%;
 
-  > :not(.mobile-menu) ::ng-deep .nav-item > .nav-text {
+  ::ng-deep .nav-item > .nav-text {
     animation: expandMainMenu 0.25s ease-out;
   }
 
@@ -24,7 +24,7 @@
     width: 55px;
 
     /* CSS rule to hide the nav-text only on the collapsed desktop menu */
-    > :not(.mobile-menu) ::ng-deep .nav-item > .nav-text {
+    ::ng-deep .nav-item > .nav-text {
       display: none;
     }
 
