@@ -6,6 +6,7 @@ import { JobDetailGuard } from './job-detail/job-detail.guard';
 import { JobSearchGuard } from './job-search/job-search.guard';
 import { JobFingerprintRedirectResolver } from './job-fingerprint-redirect/job-fingerprint-redirect.resolver';
 import { JobFingerprintRedirectComponent } from './job-fingerprint-redirect/job-fingerprint-redirect.component';
+import { JobFingerprintGuard } from './job-fingerprint-redirect/job-fingerprint.guard';
 
 const routes: Routes = [
   {
@@ -16,10 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'job-fingerprint-redirect',
-    component: JobFingerprintRedirectComponent,
-    resolve: {
-      id: JobFingerprintRedirectResolver
-    }
+    canActivate: [JobFingerprintGuard],
+    component: JobFingerprintRedirectComponent
   },
   {
     path: ':id',

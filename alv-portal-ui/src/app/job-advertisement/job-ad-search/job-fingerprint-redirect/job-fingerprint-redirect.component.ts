@@ -1,15 +1,12 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'alv-job-fingerprint-redirect',
-    templateUrl: './job-fingerprint-redirect.component.html'
+  selector: 'alv-job-fingerprint-redirect',
+  templateUrl: './job-fingerprint-redirect.component.html'
 })
-export class JobFingerprintRedirectComponent implements AfterViewInit {
+export class JobFingerprintRedirectComponent {
 
-    constructor() {
-    }
+  constructor() {
+  }
 
-    ngAfterViewInit(): void {
-        window.scroll(0, 0);
-    }
 }
