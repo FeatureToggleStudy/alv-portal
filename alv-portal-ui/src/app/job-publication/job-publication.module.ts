@@ -19,6 +19,7 @@ import { PublicationComponent } from './job-publication-form/publication/publica
 import { EmployerComponent } from './job-publication-form/employer/employer.component';
 import { ApplicationComponent } from './job-publication-form/application/application.component';
 import { PostAddressFormComponent } from './job-publication-form/post-address-form/post-address-form.component';
+import { JobPublicationFormValueFactory } from './job-publication-form/job-publication-form-value-factory';
 
 @NgModule({
   imports: [
@@ -33,23 +34,20 @@ import { PostAddressFormComponent } from './job-publication-form/post-address-fo
     OccupationComponent,
     JobDescriptionComponent,
     LanguagesComponent,
-    JobDescriptionComponent,
     EmploymentComponent,
     ContactComponent,
-    EmploymentComponent,
     LocationComponent,
     CompanyComponent,
     ZipCityInputComponent,
     PublicContactComponent,
-    ZipCityInputComponent,
     PublicationComponent,
-    ZipCityInputComponent,
     EmployerComponent,
     ApplicationComponent,
     PostAddressFormComponent
   ],
   providers: [
-    IsoCountryService
+    IsoCountryService,
+    JobPublicationFormValueFactory
   ]
 })
 export class JobPublicationModule {

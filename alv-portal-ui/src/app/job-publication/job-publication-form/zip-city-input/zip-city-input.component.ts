@@ -32,10 +32,7 @@ export class ZipCityInputComponent implements OnInit {
   @Input()
   set zipCityFormValue(value: ZipCityFormValue) {
     this._zipCityFormValue = value;
-
-    if (this.zipAndCity) {
-      this.setFormValue(value);
-    }
+    this.setFormValue(value);
   }
 
   private _countryIsoCode: string;

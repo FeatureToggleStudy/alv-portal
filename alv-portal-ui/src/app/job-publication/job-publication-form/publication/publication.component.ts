@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PublicationFormValue } from './publication-form-value.types';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-publication',
@@ -27,6 +28,6 @@ export class PublicationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('publication', this.publication);
+    this.parentForm.addControl(JobPublicationFormValueKeys.publication, this.publication);
   }
 }

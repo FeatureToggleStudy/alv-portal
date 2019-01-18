@@ -9,9 +9,9 @@ export interface EmploymentFormValue {
   workloadPercentageMax: number;
   immediately: boolean;
   duration: EmploymentDuration;
-  startDate: NgbDate;
-  endDate: NgbDate;
-  workForms: {[p: string]: boolean};
+  startDate?: NgbDate;
+  endDate?: NgbDate;
+  workForms: { [p: string]: boolean };
 }
 
 export const emptyEmploymentFormValue: EmploymentFormValue = {
@@ -19,8 +19,6 @@ export const emptyEmploymentFormValue: EmploymentFormValue = {
   workloadPercentageMax: 100,
   immediately: true,
   duration: EmploymentDuration.PERMANENT,
-  startDate: null,
-  endDate: null,
   workForms: Object.keys(WorkForm).reduce((acc, curr) => {
     acc[curr] = false;
     return acc;

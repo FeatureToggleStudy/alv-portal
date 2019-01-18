@@ -8,6 +8,7 @@ import {
 } from '../../../shared/backend-services/shared.types';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { emptyLanguageSkill } from './languages-form-value.types';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-languages',
@@ -31,7 +32,7 @@ export class LanguagesComponent implements OnInit {
       value: null,
       label: 'global.reference.language.no-selection'
     },
-    ... Object.values(Language).map(language => {
+    ...Object.values(Language).map(language => {
       return {
         value: language,
         label: 'global.reference.language.' + language
@@ -57,7 +58,7 @@ export class LanguagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.parentForm.addControl('languageSkills', this.languageSkillFormArray);
+    this.parentForm.addControl(JobPublicationFormValueKeys.languageSkills, this.languageSkillFormArray);
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {

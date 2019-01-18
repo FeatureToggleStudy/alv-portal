@@ -6,6 +6,7 @@ import { phoneInputValidator } from '../../../shared/forms/input/input-field/pho
 import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
 import { PublicContactFormValue } from './public-contact-form-value.types';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-public-contact',
@@ -51,7 +52,7 @@ export class PublicContactComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.parentForm.addControl('publicContact', this.publicContact);
+    this.parentForm.addControl(JobPublicationFormValueKeys.publicContact, this.publicContact);
   }
 }
 

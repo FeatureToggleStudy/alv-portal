@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CompanyFormValue } from './company-form-value.types';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 
 @Component({
@@ -15,4 +16,6 @@ export class CompanyComponent {
 
   @Input()
   companyFormValue: CompanyFormValue;
+
+  groupName = JobPublicationFormValueKeys.company;
 }

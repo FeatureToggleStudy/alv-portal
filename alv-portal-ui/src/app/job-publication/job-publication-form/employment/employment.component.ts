@@ -11,6 +11,7 @@ import {
 import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { DateInputComponent } from '../../../shared/forms/input/date-input/date-input.component';
 import { EmploymentFormValue } from './employment-form-value.types';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-employment',
@@ -112,7 +113,7 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('employment', this.employment);
+    this.parentForm.addControl(JobPublicationFormValueKeys.employment, this.employment);
     this.setupWorkload();
     this.setupWorkStart();
     this.setupWorkDuration();

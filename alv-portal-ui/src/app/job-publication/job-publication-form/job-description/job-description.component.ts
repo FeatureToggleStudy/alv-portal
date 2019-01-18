@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobDescriptionFormValue } from './job-description-form-value.types';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-job-description',
@@ -46,6 +47,6 @@ export class JobDescriptionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('jobDescription', this.jobDescription);
+    this.parentForm.addControl(JobPublicationFormValueKeys.jobDescription, this.jobDescription);
   }
 }
