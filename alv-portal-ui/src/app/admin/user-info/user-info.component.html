@@ -7,6 +7,7 @@
     </h2>
     <form (validSubmit)="onSubmit()"
           [formGroup]="form"
+          autocomplete="off"
           alvFormSubmitValidation>
       <small>{{ 'portal.admin.user-info.desc' | translate }}</small>
       <div class="form-row">
