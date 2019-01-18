@@ -38,11 +38,11 @@ describe('SingleTypeaheadComponent', () => {
 
       // WHEN
       const event = jasmine.createSpyObj('event', ['preventDefault']);
-      event.item = new SingleTypeaheadItem('id1', 'label1', 'model1');
+      event.item = new SingleTypeaheadItem('type1', 'payload1', 'label1');
       component.selectItem(event);
 
       // THEN
-      expect(component.control.value).toEqual('model1');
+      expect(component.control.value).toEqual(event.item);
     });
   });
 

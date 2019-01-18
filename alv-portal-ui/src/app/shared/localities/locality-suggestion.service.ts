@@ -18,13 +18,14 @@ export class LocalitySuggestionService {
   constructor(private localityRepository: LocalityRepository) {
   }
 
-  public static toCityZip(locality: LocalitySuggestion) {
+  public static toCityZip(locality: LocalitySuggestion, order: number) {
     const { zipCode, city } = locality;
 
     return new SingleTypeaheadItem(
-      'id_' + zipCode + '_' + city,
+      LocalityInputType.LOCALITY,
+      { city, zipCode },
       (zipCode || '') + (city ? ' ' : '') + (city || ''),
-      { city, zipCode }
+      order
     );
   }
 
@@ -62,7 +63,7 @@ export class LocalitySuggestionService {
       map((localityAutocomplete) => localityAutocomplete.localities
         .filter((locality) => locality.zipCode !== '----')
         .sort(localityComparator)
-        .map((o: LocalitySuggestion, index) => LocalitySuggestionService.toCityZip(o))
+        .map((o: LocalitySuggestion, index) => LocalitySuggestionService.toCityZip(o, index))
       )
     );
   }

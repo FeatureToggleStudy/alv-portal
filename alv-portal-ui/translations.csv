@@ -1439,6 +1439,11 @@ portal,portal.job-publication.disclaimer.error,"Bitte bestätigen Sie, dass der 
 portal,portal.job-publication.publication.publicDisplay.label,"<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> und <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> and <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> et <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Sito Job-Room</a> e <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>"
 portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://ec.europa.eu/eures/public/de/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/en/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/fr/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/it/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>"
 portal,portal.job-publication.application.legend,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
+portal,portal.job-publication.submit.success,"Besten Dank für Ihre Stellenmeldung. Ihr Inserat wird nun von einem Regionalen Arbeitsvermittlungszentrum (RAV) geprüft. Sie werden per E-Mail informiert, sobald die Stelle veröffentlicht wurde.","Thank you for posting this job ad, which will now be checked by a regional employment centre (RAV). You will be informed by email as soon as it is published.",Merci d'avoir annoncé le poste vacant que l'ORP va examiner. Vous recevrez un courriel dès sa publication.,Grazie di aver annunciato il posto vacante que sarà esaminato dall'URC. Riceverà un'e-mail non appena il posto vacante verrà pubblicato.
+portal,portal.job-publication.create.another,Weitere Stelle melden,???,???,???
+portal,portal.job-publication.submit.info.item1,Bei allfälligen Fragen werden Sie vom RAV kontaktiert.,???,???,???
+portal,portal.job-publication.submit.info.item2,Sie werden per E-Mail informiert, sobald die Stelle aufgeschaltet wurde.,???,???,???
+portal,portal.job-publication.submit.info.item3,Falls Sie in der Zwischenzeit Fragen haben, zögern Sie nicht, Ihr zuständiges RAV zu kontaktieren:,???,???,???
 
 portal,portal.manage-job-ads.search.query,Stellen durchsuchen
 portal,portal.manage-job-ads.search.owner-name,Erfasser,Created by
@@ -1462,6 +1467,7 @@ portal,portal.manage-job-ads.row-label,,Job advertisement row actions for the ro
 
 portal,portal.global.help,Hilfe,Help
 portal,portal.global.search,Suche,Search,Recherche,Cerca
+portal,portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Retour à la page d'accueil,Torna alla pagina iniziale
 portal,portal.global.close,Schliessen,Close,Fermer,Invalida
 
 portal,portal.header.menu.open-navigation

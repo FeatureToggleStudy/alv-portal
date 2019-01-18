@@ -1,18 +1,12 @@
-export class SingleTypeaheadItem<T> {
+import { MultiTypeaheadItem } from '../multi-typeahead/multi-typeahead-item';
 
-  constructor(public id: string,
+export class SingleTypeaheadItem<T> extends MultiTypeaheadItem<T> {
+
+  constructor(public type: string,
+              public payload: T,
               public label: string,
-              public payload: T) {
+              public order = 0) {
+    super(type, payload, label, order);
   }
 
-  equals(other: SingleTypeaheadItem<T>): boolean {
-    return !!other && other.id === this.id;
-  }
-
-  compare(other: SingleTypeaheadItem<T>): number {
-    if (this.label === other.label) {
-      return 0;
-    }
-    return this.label >= other.label ? 1 : -1;
-  }
 }
