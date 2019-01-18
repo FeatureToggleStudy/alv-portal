@@ -16,6 +16,8 @@ import { JobDetailGuard } from './job-detail/job-detail.guard';
 import { JobSearchGuard } from './job-search/job-search.guard';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement.module';
+import { JobFingerprintRedirectComponent } from './job-fingerprint-redirect/job-fingerprint-redirect.component';
+import { JobFingerprintRedirectResolver } from './job-fingerprint-redirect/job-fingerprint-redirect.resolver';
 
 @NgModule({
   imports: [
@@ -34,11 +36,13 @@ import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement
     FilterPanelComponent,
     JobSearchResultComponent,
     JobDetailComponent,
+    JobFingerprintRedirectComponent
   ],
   providers: [
     JobSearchFilterParameterService,
     JobDetailGuard,
-    JobSearchGuard
+    JobSearchGuard,
+    JobFingerprintRedirectResolver
   ]
 })
 export class JobAdSearchModule {
