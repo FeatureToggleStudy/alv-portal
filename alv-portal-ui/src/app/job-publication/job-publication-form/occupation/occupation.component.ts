@@ -9,6 +9,7 @@ import { OccupationFormValue } from './occupation-form-value.types';
 import { I18nService } from '../../../core/i18n.service';
 import { distinctUntilChanged, filter, flatMap, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-occupation',
@@ -81,6 +82,7 @@ export class OccupationComponent extends AbstractSubscriber implements OnInit {
     ).subscribe(translatedOccupation => {
       this.occupation.get('occupationSuggestion').setValue(translatedOccupation);
     });
+    this.parentForm.addControl(JobPublicationFormValueKeys.occupation, this.occupation);
   }
 
   private loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {

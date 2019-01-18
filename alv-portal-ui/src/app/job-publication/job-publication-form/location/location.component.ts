@@ -6,6 +6,7 @@ import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { IsoCountryService } from '../iso-country.service';
 import { filter, startWith } from 'rxjs/internal/operators';
 import { LocationFormValue } from './location-form-value.types';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-location',
@@ -52,7 +53,7 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('location', this.location);
+    this.parentForm.addControl(JobPublicationFormValueKeys.location, this.location);
 
     const countryIsoCode = this.location.get('countryIsoCode');
     this.countryIsoCode$ = countryIsoCode.valueChanges

@@ -92,7 +92,6 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
     this.parentForm.removeControl(this.groupName);
   }
 
-
   private setFormValue(value: PostAddressFormValue) {
     const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = value;
     this.postAddress.patchValue({

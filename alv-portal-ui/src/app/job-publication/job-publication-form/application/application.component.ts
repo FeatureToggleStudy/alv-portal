@@ -16,6 +16,7 @@ import {
   emptyPostAddressFormValue,
   PostAddressFormValue
 } from '../post-address-form/post-address-form-value.types';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 
 interface SelectedApplicationTypes {
@@ -40,15 +41,16 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
   @Input()
   set applicationFormValue(value: ApplicationFormValue) {
     this._applicationFormValue = value;
+
     const selectedApplicationTypes = {
       form: !!value.formUrl,
       email: !!value.emailAddress,
       phone: !!value.phoneNumber,
       post: !!value.postAddress,
     };
-
     this.toggleAll(selectedApplicationTypes);
     this.selectedApplicationTypes.patchValue(selectedApplicationTypes, { emitEvent: false });
+
     this.setFormValue(value);
   }
 
@@ -80,7 +82,7 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('application', this.application);
+    this.parentForm.addControl(JobPublicationFormValueKeys.application, this.application);
 
     this.selectedApplicationTypes.valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))

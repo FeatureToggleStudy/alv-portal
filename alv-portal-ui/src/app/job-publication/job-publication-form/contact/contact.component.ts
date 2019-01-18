@@ -4,11 +4,11 @@ import { Salutation } from '../../../shared/backend-services/shared.types';
 import { of } from 'rxjs';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
-import { take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
-import { EmploymentFormValue } from '../employment/employment-form-value.types';
 import { ContactFormValue } from './contact-form-value.types';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-contact',
@@ -67,7 +67,7 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.parentForm.addControl('contact', this.contact);
+    this.parentForm.addControl(JobPublicationFormValueKeys.contact, this.contact);
 
     this.setDefaultLanguageOption();
   }

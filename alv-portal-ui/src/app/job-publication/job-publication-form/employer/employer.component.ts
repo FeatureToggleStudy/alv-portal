@@ -1,10 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EmployerFormValue } from './employer-form-value.types';
+import { EmployerFormValue, emptyEmployerFormValue } from './employer-form-value.types';
 import { IsoCountryService } from '../iso-country.service';
 import { Observable } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-employer',
@@ -51,7 +52,7 @@ export class EmployerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('employer', this.employer);
+    this.parentForm.addControl(JobPublicationFormValueKeys.employer, this.employer);
 
     const countryIsoCode = this.employer.get('countryIsoCode');
     this.countryIsoCode$ = countryIsoCode.valueChanges
@@ -61,12 +62,12 @@ export class EmployerComponent implements OnInit, OnDestroy {
       );
   }
 
+  ngOnDestroy(): void {
+    this.parentForm.removeControl(JobPublicationFormValueKeys.employer);
+  }
+
   private setFormValue(value: EmployerFormValue) {
     const { name, countryIsoCode } = value;
     this.employer.patchValue({ name, countryIsoCode }, { emitEvent: false });
-  }
-
-  ngOnDestroy(): void {
-    this.parentForm.removeControl('employer');
   }
 }
