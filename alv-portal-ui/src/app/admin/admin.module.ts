@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { UserInfoBadgesMapperService } from './user-info/user-info-badges-mapper.service';
 
 @NgModule({
   imports: [
@@ -10,7 +11,12 @@ import { UserInfoComponent } from './user-info/user-info.component';
     SharedModule,
     AdminRoutingModule
   ],
-  declarations: [UserInfoComponent]
+  declarations: [
+      UserInfoComponent
+  ],
+  providers: [
+      UserInfoBadgesMapperService
+  ]
 })
 export class AdminModule {
 }

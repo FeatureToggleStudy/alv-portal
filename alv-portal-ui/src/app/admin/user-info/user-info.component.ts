@@ -1,17 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../../core/auth/authentication.service';
 import { UserInfoRepository } from '../../shared/backend-services/user-info/user-info-repository';
 import { patternInputValidator } from '../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX } from '../../shared/forms/regex-patterns';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { UserInfoDTO } from '../../shared/backend-services/user-info/user-info.types';
 import { HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { catchError, switchMap, takeUntil } from 'rxjs/operators';
 import { I18nService } from '../../core/i18n.service';
 import { UserRole } from '../../core/auth/user.model';
-import { Notification, NotificationType } from "../../shared/layout/notifications/notification.model";
+import { Notification, NotificationType } from '../../shared/layout/notifications/notification.model';
+import { UserInfoBadge, UserInfoBadgesMapperService } from './user-info-badges-mapper.service';
+
+const ALERTS = {
+    userNotFound: {
+        type: NotificationType.ERROR,
+        messageKey: 'portal.admin.user-info.error.user-info-not-found',
+        isSticky: true
+    } as Notification,
+    userTechError: {
+        type: NotificationType.ERROR,
+        messageKey: 'portal.admin.user-info.error.user-info-technical',
+        isSticky: true
+    } as Notification,
+    userRoleNotFound: {
+        type: NotificationType.ERROR,
+        messageKey: 'portal.admin.user-info.error.eIAM-role-not-found',
+        isSticky: true
+    } as Notification,
+    userRoleTechError: {
+        type: NotificationType.ERROR,
+        messageKey: 'portal.admin.user-info.error.eIAM-role-technical',
+        isSticky: true
+    } as Notification
+};
 
 @Component({
   selector: 'alv-user-info',
@@ -28,16 +51,16 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
 
   error: number = null;
 
-  badges$: Observable<any>;
+  badges: UserInfoBadge[] = [];
 
-  alerts: Notification[] = []; // TODO implement ->
+  alerts: Notification[] = [];
 
   confirmMessage: string;
 
   constructor(private fb: FormBuilder,
               private userInfoRepository: UserInfoRepository,
               private i18nService: I18nService,
-              private authenticationService: AuthenticationService) {
+              private userInfoBadgesMapperService: UserInfoBadgesMapperService) {
     super();
   }
 
@@ -124,23 +147,16 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
     this.userInfoRepository.loadUserByEmail(this.form.get('emailAddress').value).pipe(
         switchMap( (res: HttpResponse<any>) => {
           this.user = res.body;
+          this.badges = this.userInfoBadgesMapperService.map(this.user);
           return this.userInfoRepository.loadUserRoles(this.user.id);
         }),
         catchError((err: HttpErrorResponse) => {
           this.error = err.status;
           this.setToInit();
           if (err.status === 404) {
-            this.alerts.push({
-                type: NotificationType.ERROR,
-                messageKey: 'portal.admin.user-info.error.user-info-not-found',
-                isSticky: true
-            });
+            this.alerts.push(ALERTS.userNotFound);
           } else {
-            this.alerts.push({
-                type: NotificationType.ERROR,
-                messageKey: 'portal.admin.user-info.error.user-info-technical',
-                isSticky: true
-            });
+            this.alerts.push(ALERTS.userTechError);
           }
           return EMPTY;
         }),
@@ -151,17 +167,9 @@ export class UserInfoComponent extends AbstractSubscriber  implements OnInit {
         }, (err: HttpErrorResponse) => {
           this.setToInit();
           if (err.status === 404) {
-              this.alerts.push({
-                  type: NotificationType.ERROR,
-                  messageKey: 'portal.admin.user-info.error.eIAM-role-not-found',
-                  isSticky: true
-              });
+              this.alerts.push(ALERTS.userRoleNotFound);
           } else {
-              this.alerts.push({
-                  type: NotificationType.ERROR,
-                  messageKey: 'portal.admin.user-info.error.eIAM-role-technical',
-                  isSticky: true
-              });
+              this.alerts.push(ALERTS.userRoleTechError);
           }
           return EMPTY;
         });

@@ -61,9 +61,7 @@
         <alv-collapse-panel [panelId]="'account-info'"
                             panelTitle="portal.admin.user-info.account-info.title">
           <ul class="alv-list" *ngIf="user; else no_account_info">
-            <alv-list-item-content label="portal.admin.user-info.account-info.registration-status">
-              {{ user.registrationStatus }} <!-- BADGE -->
-            </alv-list-item-content>
+            <alv-inline-badges [badges]="badges"></alv-inline-badges>
             <alv-list-item-content label="portal.admin.user-info.account-info.created">
               {{ user.createdAt | date:'dd.MM.yyyy' }}
             </alv-list-item-content>
@@ -163,6 +161,7 @@
     <p> userInfo: {{ user | json }}</p>
     <p> userRoles: {{ userRoles | json }}</p>
     <p> errorStatus: {{ error }}</p>
+    <p> badges: {{ badges | json }}</p>
     <p> confirmMessage: {{ confirmMessage }}</p>
   </div>
 </div>
