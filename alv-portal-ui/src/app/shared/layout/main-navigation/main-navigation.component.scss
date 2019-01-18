@@ -59,7 +59,7 @@
 }
 
 /* Nav Item */
-::ng-deep .mobile-menu .nav-item, .desktop-menu .nav-item {
+::ng-deep .mobile-menu .nav-item,::ng-deep .desktop-menu .nav-item {
   display: flex;
   align-items: center;
   padding: 6px 15px;
