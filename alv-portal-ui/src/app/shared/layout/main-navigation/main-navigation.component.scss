@@ -3,7 +3,7 @@
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
-:host {
+.desktop-menu {
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
@@ -13,88 +13,25 @@
   overflow-x: visible;
   width: 295px;
   transition: width 0.15s ease-out;
+  height: 100%;
 
   > :not(.mobile-menu) ::ng-deep .nav-item > .nav-text {
     animation: expandMainMenu 0.25s ease-out;
   }
+
   /* Collapsed desktop menu style */
   &.collapsed {
     width: 55px;
-    
+
     /* CSS rule to hide the nav-text only on the collapsed desktop menu */
     > :not(.mobile-menu) ::ng-deep .nav-item > .nav-text {
       display: none;
     }
+
     ::ng-deep .nav-item {
       .fas.warn {
         display: none;
       }
-    }
-  }
-
-  /* Nav Item */
-  ::ng-deep .nav-item {
-    display: flex;
-    align-items: center;
-    padding: 6px 15px;
-    min-height: 39px;
-    font-size: 18px;
-    color: $color-black;
-    background-color: $color-light-grey;
-    border-left: 5px solid $color-light-grey;
-    cursor: pointer;
-    user-select: none;
-    text-decoration: none;
-    &:focus {
-      z-index: 1000;
-    }
-    &.child-nav-item {
-      background-color: $color-super-light-grey;
-      border-left: 5px solid $color-super-light-grey;
-      margin-top: 2px;
-      &:last-of-type {
-        margin-bottom: 2px;
-      }
-    }
-    &.menu-toggle {
-      border-top: none;
-      border-right: none;
-      border-bottom: none;
-      color: $color-white;
-      i {
-        font-size: 26px;
-      }
-    }
-    &:hover {
-      color: $color-primary;
-      background-color: $color-white;
-    }
-    &:hover, &.active {
-      border-left: 5px solid $color-primary;
-      &:not(.child-nav-item) {
-        color: $color-primary;
-      }
-    }
-    &.active {
-      background-color: $color-white;
-    }
-    i.nav-icon {
-      margin-right: 12px;
-      font-size: 16px;
-    }
-    i.fas.fa-circle {
-      font-size: 8px;
-    }
-
-    .nav-spacer, .nav-fill-item {
-      background-color: $color-light-grey;
-    }
-  }
-
-  ::ng-deep .child-nav-container {
-    height: 0;
-    &.expanded {
-      height: initial;
     }
   }
 
@@ -111,57 +48,138 @@
   .nav-fill-item, .nav-spacer {
     background-color: $color-light-grey;
   }
+}
 
-  .modal-backdrop {
-    opacity: 0.2;
-    z-index: 1040;
-  }
+::ng-deep .child-nav-container {
+  height: 0;
 
-  /* Mobile Menu */
-  .navbar-nav.side-nav {
-    z-index: 1050;
-    background: $color-grey-black;
-    box-shadow: 2px 1px 2px rgba(0, 0, 0, .1);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    flex-direction: column !important;
-    left: -400px;
-    width: 295px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-bottom: 40px;
-
-    &.open {
-      left: 0;
-    }
-    ::ng-deep .nav-item {
-      background-color: $color-grey-black;
-      border-left: 5px solid $color-grey-black;
-      color: $color-white;
-      &.child-nav-item {
-        background-color: lighten($color-grey-black, 10%);
-      }
-      &.active, &:hover {
-        color: $color-primary;
-        background-color: $color-dark-grey;
-        border-left: 5px solid $color-primary;
-      }
-    }
-
-    .nav-spacer, .nav-fill-item {
-      background-color: $color-grey-black;
-    }
-  }
-
-  .navbar-expand-lg .navbar-nav.side-nav {
-    flex-direction: column;
-  }
-
-  .animate {
-    transition: all .3s ease-in-out
+  &.expanded {
+    height: initial;
   }
 }
+
+/* Nav Item */
+::ng-deep .mobile-menu .nav-item, .desktop-menu .nav-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 15px;
+  min-height: 39px;
+  font-size: 18px;
+  color: $color-black;
+  background-color: $color-light-grey;
+  border-left: 5px solid $color-light-grey;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+
+  &:focus {
+    z-index: 1000;
+  }
+
+  &.child-nav-item {
+    background-color: $color-super-light-grey;
+    border-left: 5px solid $color-super-light-grey;
+    margin-top: 2px;
+
+    &:last-of-type {
+      margin-bottom: 2px;
+    }
+  }
+
+  &.menu-toggle {
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    color: $color-white;
+
+    i {
+      font-size: 26px;
+    }
+  }
+
+  &:hover {
+    color: $color-primary;
+    background-color: $color-white;
+  }
+
+  &:hover, &.active {
+    border-left: 5px solid $color-primary;
+
+    &:not(.child-nav-item) {
+      color: $color-primary;
+    }
+  }
+
+  &.active {
+    background-color: $color-white;
+  }
+
+  i.nav-icon {
+    margin-right: 12px;
+    font-size: 16px;
+  }
+
+  i.fas.fa-circle {
+    font-size: 8px;
+  }
+
+  .nav-spacer, .nav-fill-item {
+    background-color: $color-light-grey;
+  }
+}
+
+.modal-backdrop {
+  opacity: 0.2;
+  z-index: 1040;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  transition: all .3s ease-in-out;
+  z-index: 1050;
+  background: $color-grey-black;
+  box-shadow: 2px 1px 2px rgba(0, 0, 0, .1);
+  position: fixed;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  flex-direction: column !important;
+  left: -400px;
+  width: 295px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+
+  &.open {
+    left: 0;
+  }
+
+  ::ng-deep .nav-item {
+    background-color: $color-grey-black;
+    border-left: 5px solid $color-grey-black;
+    color: $color-white;
+
+    &.child-nav-item {
+      background-color: lighten($color-grey-black, 10%);
+    }
+
+    &.active, &:hover {
+      color: $color-primary;
+      background-color: $color-dark-grey;
+      border-left: 5px solid $color-primary;
+    }
+  }
+
+  .nav-spacer, .nav-fill-item {
+    background-color: $color-grey-black;
+  }
+
+  &.open {
+    width: 295px;
+
+  }
+}
+
 
 @include media-breakpoint-down(md) {
   :host {

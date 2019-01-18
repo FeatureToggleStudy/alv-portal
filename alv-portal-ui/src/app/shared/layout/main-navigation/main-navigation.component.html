@@ -8,7 +8,7 @@
 </div>
 
 <!-- Desktop Menu -->
-<div class="d-none d-lg-flex flex-column h-100 w-100 d-print-none">
+<div class="desktop-menu d-none d-lg-flex flex-column h-100 w-100 d-print-none">
   <div class="nav-spacer">
   </div>
   <button class="nav-item menu-toggle"
@@ -29,9 +29,7 @@
 </div>
 
 <!-- Mobile Menu -->
-<div class="mobile-menu d-md-block d-lg-none d-print-none">
-  <div class="navbar-nav animate side-nav"
-       [class.open]="mobileMenuExpanded">
+<div class="mobile-menu d-block d-lg-none d-print-none animate" [class.open]="mobileMenuExpanded">
 
     <a class="nav-item"
        (click)="toggleMobileSideNav()">
@@ -55,5 +53,4 @@
     </ng-container>
     <div class="nav-fill-item flex-grow-1">
     </div>
-  </div>
 </div>
