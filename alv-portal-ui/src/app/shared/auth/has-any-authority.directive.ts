@@ -1,8 +1,8 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { AuthenticationService } from '../../core/auth/authentication.service';
 import { takeUntil } from 'rxjs/operators';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { hasAnyAuthorities, UserRole } from '../../../core/auth/user.model';
+import { AbstractSubscriber } from '../../core/abstract-subscriber';
+import { hasAnyAuthorities, UserRole } from '../../core/auth/user.model';
 
 @Directive({
   selector: '[alvHasAnyAuthority]'

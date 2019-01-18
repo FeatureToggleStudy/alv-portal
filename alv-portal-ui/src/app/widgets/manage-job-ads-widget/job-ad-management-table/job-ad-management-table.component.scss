@@ -1,4 +1,7 @@
 @import "../../../../scss/common/colors";
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
 
 thead {
   background-color: $color-light-grey
@@ -37,6 +40,34 @@ td {
     border-left: 5px solid $color-primary;
     color: $color-primary;
     cursor: pointer;
-   /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);*/
+    /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);*/
   }
+}
+
+@include media-breakpoint-down(sm) {
+  .actions-cell {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+  .tr-content {
+    position: relative;
+    border: 1px $color-light-grey solid;
+  }
+
+  tbody {
+    width: 100%;
+    display: block;
+  }
+
+  .table {
+    td {
+      border: 0;
+
+      &.content-cell {
+        width: calc(100% - 40px);
+      }
+    }
+  }
+
 }

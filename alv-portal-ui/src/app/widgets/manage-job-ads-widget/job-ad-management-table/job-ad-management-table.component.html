@@ -1,9 +1,12 @@
 <div class="table-responsive-sm"
-*ngIf="rows && rows.length; else noResults">
-  <table class="table table-sm">
-    <thead>
-    <tr>
+     *ngIf="rows?.length; else noResults">
+  <table class="table table-sm d-block d-md-table"
+         role="grid">
+    <thead role="presentation">
+    <tr role="row"
+        class="d-none d-md-table-row">
       <th scope="col"
+          role="columnheader"
           *ngFor="let columnDefinition of columnDefinitions"
           (click)="onSortChange(columnDefinition)"
           [ngClass]="{'active-sort': currentSorting.column === columnDefinition.column}">
@@ -18,7 +21,8 @@
         </span>
         </ng-container>
       </th>
-      <th scope="col">
+      <th scope="col"
+          role="columnheader">
         <span class="sr-only">{{ 'dashboard.job-publication.action' | translate }}</span>
       </th>
     </tr>
@@ -28,15 +32,21 @@
            [infiniteScrollThrottle]="50"
            [immediateCheck]="true"
            [infiniteScrollContainer]="'main'"
-           infiniteScroll>
+           infiniteScroll
+           role="presentation">
     <tr *ngFor="let row of rows"
         (click)="open(row)"
-        class="tr-content">
-      <td *ngFor="let column of columnDefinitions; let last = last"
-          class="align-middle">
-        <span [innerHTML]="column.render(row.jobAdvertisement) | translate"></span>
+        class="tr-content d-block d-md-table-row"
+        role="row">
+      <td *ngFor="let column of columnDefinitions; let i=index"
+          class="content-cell align-middle d-block d-md-table-cell"
+          role="gridcell">
+        <div class="d-inline-block mr-1 d-md-none">
+          <strong>{{ columnDefinitions[i].columnName | translate }}:</strong></div>
+        <span [innerHTML]="column.render(row.jobAdvertisement) || '&mdash;' | translate"></span>
       </td>
-      <td>
+      <td role="gridcell"
+          class="actions-cell d-block d-md-table-cell">
         <div class="actions">
           <div #mobileActionsMenu="ngbDropdown"
                class="d-inline-block"
