@@ -55,7 +55,7 @@ export class JobAdManagementTableComponent implements OnInit {
     //
   }
 
-  onSortChange(columnDefinition: ManagedJobAdColumnDefinition) {
+  changeColumnSort(columnDefinition: ManagedJobAdColumnDefinition) {
     if (columnDefinition.sortingEnabled) {
       this.sort.emit({
         column: columnDefinition.column,

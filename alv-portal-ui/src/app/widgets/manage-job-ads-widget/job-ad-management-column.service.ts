@@ -40,7 +40,7 @@ export class JobAdManagementColumnService {
           {
             column: ManagedJobAdsSortingColumn.TITLE,
             columnName: 'dashboard.job-publication.job-title',
-            sortingEnabled: false,
+            sortingEnabled: true,
             render: job => {
               return JobAdvertisementUtils.getJobDescription(job, currentLang).title;
             }
