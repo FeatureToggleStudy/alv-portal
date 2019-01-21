@@ -44,7 +44,7 @@ export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement)
 
 export function mapToCreateJobAdvertisement(jobPublicationFormValue: JobPublicationFormValue, languageIsoCode: string): CreateJobAdvertisement {
   return {
-    reportToAvam: false,
+    reportToAvam: true,
     jobDescriptions: mapToJobDescriptions(jobPublicationFormValue.jobDescription, languageIsoCode),
     numberOfJobs: jobPublicationFormValue.jobDescription.numberOfJobs.toString(),
     occupation: mapToOccupation(jobPublicationFormValue.occupation),
