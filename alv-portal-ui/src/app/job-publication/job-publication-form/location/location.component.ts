@@ -21,16 +21,7 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set locationFormValue(value: LocationFormValue) {
-    this._locationFormValue = value;
-    this.setFormValue(value);
-  }
-
-  get locationFormValue() {
-    return this._locationFormValue;
-  }
-
-  private _locationFormValue: LocationFormValue;
+  locationFormValue: LocationFormValue;
 
   location: FormGroup;
 
@@ -43,23 +34,24 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
     super();
 
     this.countryOptions$ = this.isoCountryService.countryOptions$;
-
-    this.location = this.fb.group({
-      countryIsoCode: [null],
-      remarks: [null, [
-        Validators.maxLength(this.REMARK_MAX_LENGTH)
-      ]]
-    });
   }
 
   ngOnInit(): void {
+    const { countryIsoCode, remarks } = this.locationFormValue;
+
+    this.location = this.fb.group({
+      countryIsoCode: [countryIsoCode],
+      remarks: [remarks, [
+        Validators.maxLength(this.REMARK_MAX_LENGTH)
+      ]]
+    });
+
     this.parentForm.addControl(JobPublicationFormValueKeys.location, this.location);
 
-    const countryIsoCode = this.location.get('countryIsoCode');
-    this.countryIsoCode$ = countryIsoCode.valueChanges
+    this.countryIsoCode$ = this.location.get('countryIsoCode').valueChanges
       .pipe(
         filter((value) => !!value),
-        startWith(countryIsoCode.value),
+        startWith(countryIsoCode),
       );
   }
 

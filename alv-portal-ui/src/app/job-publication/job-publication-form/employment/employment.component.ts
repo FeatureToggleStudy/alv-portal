@@ -29,9 +29,7 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   @ViewChild('endDate') endDate: DateInputComponent;
 
   @Input()
-  set employmentFormValue(value: EmploymentFormValue) {
-    this.employment.patchValue({ ...value }, { emitEvent: false });
-  }
+  employmentFormValue: EmploymentFormValue;
 
   employment: FormGroup;
 
@@ -94,18 +92,6 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   constructor(private fb: FormBuilder,
               private ngbDateNativeAdapter: NgbDateNativeAdapter) {
     super();
-    this.employment = this.fb.group({
-      workloadPercentageMin: [null, Validators.required],
-      workloadPercentageMax: [null, Validators.required],
-      immediately: [null, Validators.required],
-      duration: [null, Validators.required],
-      startDate: { value: null, disabled: true },
-      endDate: { value: null, disabled: true },
-      workForms: this.fb.group(this.workFormOptions.reduce((acc, curr) => {
-        acc[curr.value] = false;
-        return acc;
-      }, {}))
-    });
   }
 
   get workForms(): FormGroup {
@@ -113,6 +99,29 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
+    const { workloadPercentageMin, workloadPercentageMax, duration, immediately, startDate, endDate } = this.employmentFormValue;
+
+    this.employment = this.fb.group({
+      workloadPercentageMin: [workloadPercentageMin, [
+        Validators.required
+      ]],
+      workloadPercentageMax: [workloadPercentageMax, [
+        Validators.required
+      ]],
+      immediately: [immediately, [
+        Validators.required
+      ]],
+      duration: [duration, [
+        Validators.required
+      ]],
+      startDate: { value: startDate, disabled: true },
+      endDate: { value: endDate, disabled: true },
+      workForms: this.fb.group(this.workFormOptions.reduce((acc, curr) => {
+        acc[curr.value] = false;
+        return acc;
+      }, {}))
+    });
+
     this.parentForm.addControl(JobPublicationFormValueKeys.employment, this.employment);
     this.setupWorkload();
     this.setupWorkStart();

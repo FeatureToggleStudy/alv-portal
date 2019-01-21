@@ -3,16 +3,12 @@ import { JobDescriptionComponent } from './job-description.component';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
-import {
-  emptyJobDescriptionFormValue,
-  JobDescriptionFormValue
-} from './job-description-form-value.types';
+import { emptyJobDescriptionFormValue } from './job-description-form-value.types';
 
 describe('JobDescriptionComponent', () => {
 
   let component: JobDescriptionComponent;
   let fixture: ComponentFixture<JobDescriptionComponent>;
-  let jobPublicationForm: FormGroup;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -27,10 +23,10 @@ describe('JobDescriptionComponent', () => {
   }));
 
   beforeEach(() => {
-    jobPublicationForm = new FormGroup({});
     fixture = TestBed.createComponent(JobDescriptionComponent);
     component = fixture.componentInstance;
-    component.parentForm = jobPublicationForm;
+    component.parentForm = new FormGroup({});
+    component.jobDescriptionFormValue = emptyJobDescriptionFormValue;
     fixture.detectChanges();
   });
 
@@ -38,40 +34,27 @@ describe('JobDescriptionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('ngOnInit', () => {
-
-    it('should initialize with the given JobDescriptionFormValue', () => {
-      //given
-      const formValue: JobDescriptionFormValue = {
-        title: 'test-title',
-        numberOfJobs: 2,
-        jobDescription: 'test-description',
-      };
-
-      //when
-      component.jobDescriptionFormValue = formValue;
-      component.ngOnInit();
-
-      //then
-      expect(jobPublicationForm.value['jobDescription']).toEqual(formValue);
-    });
-
-  });
-
   describe('validation', () => {
-    beforeEach(() => {
-      component.jobDescriptionFormValue = emptyJobDescriptionFormValue;
-      component.ngOnInit();
-    });
 
     describe('title field', () => {
-      it('should be required', () => {
+
+      it('should accept valid value', () => {
         //given
-        const field = jobPublicationForm.get('jobDescription.title');
+        const field = component.jobDescription.get('title');
 
         //when
-        const title = null;
-        component.jobDescriptionFormValue = { ...emptyJobDescriptionFormValue, title };
+        field.setValue(generateString(component.TITLE_MAX_LENGTH - 1));
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
+      it('should be required', () => {
+        //given
+        const field = component.jobDescription.get('title');
+
+        //when
+        field.setValue(null);
 
         //then
         expect(field.hasError('required')).toBeTrue();
@@ -79,30 +62,35 @@ describe('JobDescriptionComponent', () => {
 
       it('should not be longer than TITLE_MAX_LENGTH', () => {
         //given
-        const field = jobPublicationForm.get('jobDescription.title');
+        const field = component.jobDescription.get('title');
 
         //when
-        const title = generateString(component.TITLE_MAX_LENGTH + 1);
-        component.jobDescriptionFormValue = { ...emptyJobDescriptionFormValue, title };
+        field.setValue(generateString(component.TITLE_MAX_LENGTH + 1));
 
         //then
         expect(field.hasError('maxlength')).toBeTrue();
       });
-
     });
 
     describe('numberOfJobs field', () => {
 
-      it('should be required', () => {
+      it('should accept valid value', () => {
         //given
-        const field = jobPublicationForm.get('jobDescription.numberOfJobs');
+        const field = component.jobDescription.get('numberOfJobs');
 
         //when
-        const numberOfJobs = null;
-        component.jobDescriptionFormValue = {
-          ...emptyJobDescriptionFormValue,
-          numberOfJobs
-        };
+        field.setValue(component.NUMBER_OF_JOBS_MIN + 1);
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
+      it('should be required', () => {
+        //given
+        const field = component.jobDescription.get('numberOfJobs');
+
+        //when
+        field.setValue(null);
 
         //then
         expect(field.hasError('required')).toBeTrue();
@@ -110,29 +98,21 @@ describe('JobDescriptionComponent', () => {
 
       it('should not be smaller than NUMBER_OF_JOBS_MIN', () => {
         //given
-        const field = jobPublicationForm.get('jobDescription.numberOfJobs');
+        const field = component.jobDescription.get('numberOfJobs');
 
         //when
-        const numberOfJobs = 0;
-        component.jobDescriptionFormValue = {
-          ...emptyJobDescriptionFormValue,
-          numberOfJobs
-        };
+        field.setValue(component.NUMBER_OF_JOBS_MIN - 1);
 
         //then
         expect(field.hasError('min')).toBeTrue();
       });
 
-      it('should not be larger than NUMBER_OF_JOBS_MAX', () => {
+      it('should not be larget than NUMBER_OF_JOBS_MAX', () => {
         //given
-        const field = jobPublicationForm.get('jobDescription.numberOfJobs');
+        const field = component.jobDescription.get('numberOfJobs');
 
         //when
-        const numberOfJobs = 100;
-        component.jobDescriptionFormValue = {
-          ...emptyJobDescriptionFormValue,
-          numberOfJobs
-        };
+        field.setValue(component.NUMBER_OF_JOBS_MAX + 1);
 
         //then
         expect(field.hasError('max')).toBeTrue();
@@ -141,31 +121,34 @@ describe('JobDescriptionComponent', () => {
     });
 
     describe('jobDescription field', () => {
-      it('should be required', () => {
+
+      it('should accept valid value', () => {
         //given
-        const field = jobPublicationForm.get('jobDescription.jobDescription');
+        const field = component.jobDescription.get('jobDescription');
 
         //when
-        const jobDescription = null;
-        component.jobDescriptionFormValue = {
-          ...emptyJobDescriptionFormValue,
-          jobDescription
-        };
+        field.setValue(component.DESCRIPTION_MAX_LENGTH - 1);
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
+      it('should be required', () => {
+        //given
+        const field = component.jobDescription.get('jobDescription');
+
+        field.setValue(null);
 
         //then
         expect(field.hasError('required')).toBeTrue();
       });
 
-      it('should not be longer than TITLE_MAX_LENGTH', () => {
+      it('should not be longer than DESCRIPTION_MAX_LENGTH', () => {
         //given
-        const field = jobPublicationForm.get('jobDescription.jobDescription');
+        const field = component.jobDescription.get('jobDescription');
 
         //when
-        const jobDescription = generateString(component.DESCRIPTION_MAX_LENGTH + 1);
-        component.jobDescriptionFormValue = {
-          ...emptyJobDescriptionFormValue,
-          jobDescription
-        };
+        field.setValue(generateString(component.DESCRIPTION_MAX_LENGTH + 1));
 
         //then
         expect(field.hasError('maxlength')).toBeTrue();

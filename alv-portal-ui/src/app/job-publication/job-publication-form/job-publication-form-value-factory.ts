@@ -13,27 +13,44 @@ import { emptyApplicationFormValue } from './application/application-form-value.
 import { Injectable } from '@angular/core';
 import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
 import * as jobPublicationFormMapper from './job-publication-form.mapper';
+import { Salutation } from '../../shared/backend-services/shared.types';
+import { IsoCountryService } from './iso-country.service';
 
-interface InitialValueConfig {
-  jobAdvertisement: JobAdvertisement;
-  jobAdvertisementTitle: string;
-  companyContactTemplateModel: CompanyContactTemplateModel;
+export interface InitialFormValueConfig {
+  jobAdvertisement?: JobAdvertisement;
+  jobAdvertisementTitle?: string;
+  companyContactTemplateModel?: CompanyContactTemplateModel;
 }
 
 @Injectable()
 export class JobPublicationFormValueFactory {
 
-  public createJobPublicationFormValue(initialValueConfig: InitialValueConfig): JobPublicationFormValue {
-    if (initialValueConfig.jobAdvertisement) {
-      return jobPublicationFormMapper.mapToJobPublicationFormValue(initialValueConfig.jobAdvertisement);
+  public createJobPublicationFormValue(initialFormValueConfig: InitialFormValueConfig): JobPublicationFormValue {
+    if (initialFormValueConfig.jobAdvertisement) {
+      return jobPublicationFormMapper.mapToJobPublicationFormValue(initialFormValueConfig.jobAdvertisement);
     }
 
     const emptyJobPublicationFormValue = this.createEmpty();
-    if (initialValueConfig.jobAdvertisementTitle) {
-      emptyJobPublicationFormValue.jobDescription.title = initialValueConfig.jobAdvertisementTitle;
+    if (initialFormValueConfig.jobAdvertisementTitle) {
+      emptyJobPublicationFormValue.jobDescription.title = initialFormValueConfig.jobAdvertisementTitle;
     }
-    if (initialValueConfig.companyContactTemplateModel) {
-      //todo: implement
+    if (initialFormValueConfig.companyContactTemplateModel) {
+      const { companyName, companyStreet, companyZipCode, companyHouseNr } = initialFormValueConfig.companyContactTemplateModel;
+      emptyJobPublicationFormValue.company.name = companyName;
+      emptyJobPublicationFormValue.company.postOfficeBoxNumberOrStreet.street = companyStreet;
+      //todo: review zip code type
+      emptyJobPublicationFormValue.company.postOfficeBoxNumberOrStreet.postOfficeBoxNumber = +companyZipCode;
+      emptyJobPublicationFormValue.company.houseNumber = companyHouseNr;
+      //todo: set zipAndCity
+      //emptyJobPublicationFormValue.company.zipAndCity
+      emptyJobPublicationFormValue.company.countryIsoCode = IsoCountryService.ISO_CODE_SWITZERLAND;
+
+      const { salutation, firstName, lastName, phone, email } = initialFormValueConfig.companyContactTemplateModel;
+      emptyJobPublicationFormValue.contact.salutation = <Salutation>salutation;
+      emptyJobPublicationFormValue.contact.firstName = firstName;
+      emptyJobPublicationFormValue.contact.lastName = lastName;
+      emptyJobPublicationFormValue.contact.phone = phone;
+      emptyJobPublicationFormValue.contact.email = email;
     }
 
     return emptyJobPublicationFormValue;

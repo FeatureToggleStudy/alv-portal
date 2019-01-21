@@ -14,20 +14,21 @@ export class PublicationComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set publicationFormValue(value: PublicationFormValue) {
-    this.publication.patchValue(value, { emitEvent: false });
-  }
+  publicationFormValue: PublicationFormValue;
 
   publication: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.publication = this.fb.group({
-      publicDisplay: [false, []],
-      euresDisplay: [false, []],
-    });
   }
 
   ngOnInit(): void {
+    const { publicDisplay, euresDisplay } = this.publicationFormValue;
+
+    this.publication = this.fb.group({
+      publicDisplay: [publicDisplay],
+      euresDisplay: [euresDisplay],
+    });
+
     this.parentForm.addControl(JobPublicationFormValueKeys.publication, this.publication);
   }
 }

@@ -2,15 +2,15 @@ import {
   EmploymentDuration,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export interface EmploymentFormValue {
   workloadPercentageMin: number;
   workloadPercentageMax: number;
   immediately: boolean;
   duration: EmploymentDuration;
-  startDate?: NgbDate;
-  endDate?: NgbDate;
+  startDate?: NgbDateStruct;
+  endDate?: NgbDateStruct;
   workForms: { [p: string]: boolean };
 }
 

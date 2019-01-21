@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PublicationComponent } from './publication.component';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
-import { emptyPublicationFormValue } from './publication-form-value.types';
+import { PublicContactComponent } from './public-contact.component';
+import { emptyPublicContactFormValue } from './public-contact-form-value.types';
 
-describe('PublicationComponent', () => {
+describe('PublicContactComponent', () => {
 
-  let component: PublicationComponent;
-  let fixture: ComponentFixture<PublicationComponent>;
+  let component: PublicContactComponent;
+  let fixture: ComponentFixture<PublicContactComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -16,21 +16,26 @@ describe('PublicationComponent', () => {
         CommonModule,
         SharedModule
       ],
-      declarations: [PublicationComponent],
+      declarations: [PublicContactComponent],
     })
-      .overrideTemplate(PublicationComponent, '')
+      .overrideTemplate(PublicContactComponent, '')
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PublicationComponent);
+    fixture = TestBed.createComponent(PublicContactComponent);
     component = fixture.componentInstance;
     component.parentForm = new FormGroup({});
-    component.publicationFormValue = emptyPublicationFormValue;
+    component.publicContactFormValue = emptyPublicContactFormValue;
     fixture.detectChanges();
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('validation', () => {
+    //todo implement
+  });
+
 });

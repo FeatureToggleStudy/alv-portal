@@ -7,8 +7,15 @@ export interface ApplicationFormValue {
   phoneNumber?: string;
   postAddress?: PostAddressFormValue;
   additionalInfo: string;
+  selectedApplicationTypes: { [p: string]: boolean };
 }
 
 export const emptyApplicationFormValue: ApplicationFormValue = {
-  additionalInfo: null
+  additionalInfo: null,
+  selectedApplicationTypes: {
+    form: false,
+    email: false,
+    phone: false,
+    post: false,
+  }
 };

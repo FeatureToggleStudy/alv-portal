@@ -17,6 +17,7 @@ import { JobPublicationFormValue } from './job-publication-form-value.types';
 import { JobDescriptionFormValue } from './job-description/job-description-form-value.types';
 import { OccupationFormValue } from './occupation/occupation-form-value.types';
 import {
+  Degree,
   EmploymentDuration,
   LanguageSkill,
   PostAddress,
@@ -33,6 +34,7 @@ import { EmployerFormValue } from './employer/employer-form-value.types';
 import { PostAddressFormValue } from './post-address-form/post-address-form-value.types';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { formatDate } from '@angular/common';
+import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
 
 
 export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement): JobPublicationFormValue {
@@ -76,6 +78,8 @@ function mapToOccupation(occupationFormValue: OccupationFormValue): Occupation {
       ? WorkExperience[occupationFormValue.experience]
       : null,
     educationCode: occupationFormValue.degree
+      ? Degree[occupationFormValue.degree]
+      : null,
   };
 }
 
@@ -105,8 +109,7 @@ function mapToWorkForms(workFormsFormValue: { [p: string]: boolean }): string[] 
 function mapToLocation(locationFormValue: LocationFormValue): CreateLocation {
   return {
     remarks: locationFormValue.remarks,
-    city: locationFormValue.zipAndCity.city,
-    postalCode: locationFormValue.zipAndCity.zipCode,
+    ...mapToPostalCodeAndCity(locationFormValue.zipAndCity),
     countryIsoCode: locationFormValue.countryIsoCode
   };
 }
@@ -117,8 +120,7 @@ function mapToCompany(companyFormValue: CompanyFormValue, surrogate: boolean): C
     name: companyFormValue.name,
     street: companyFormValue.postOfficeBoxNumberOrStreet.street,
     houseNumber: companyFormValue.houseNumber,
-    postalCode: companyFormValue.zipAndCity.zipCode,
-    city: companyFormValue.zipAndCity.city,
+    ...mapToPostalCodeAndCity(companyFormValue.zipAndCity),
     countryIsoCode: companyFormValue.countryIsoCode,
     postOfficeBoxNumber: !!companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
       ? companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber.toString()
@@ -134,8 +136,7 @@ function mapToEmployer(employerFormValue: EmployerFormValue): Employer {
 
   return {
     name: employerFormValue.name,
-    postalCode: employerFormValue.zipAndCity.zipCode,
-    city: employerFormValue.zipAndCity.city,
+    ...mapToPostalCodeAndCity(employerFormValue.zipAndCity),
     countryIsoCode: employerFormValue.countryIsoCode
   };
 }
@@ -189,14 +190,25 @@ function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue
     name: postAddressFormValue.name,
     street: postAddressFormValue.postOfficeBoxNumberOrStreet.street,
     houseNumber: postAddressFormValue.houseNumber,
-    postalCode: postAddressFormValue.zipAndCity.zipCode,
-    city: postAddressFormValue.zipAndCity.city,
+    ...mapToPostalCodeAndCity(postAddressFormValue.zipAndCity),
     countryIsoCode: postAddressFormValue.countryIsoCode,
     postOfficeBoxNumber: !!postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
       ? postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber.toString()
       : null,
     //todo postOfficeBoxCity, postOfficeBoxPostalCode?
   };
+}
+
+function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCode: string, city: string } {
+  const city = ('city' in zipCityFormValue)
+    ? zipCityFormValue.city
+    : zipCityFormValue.payload.city;
+
+  const postalCode = ('zipCode' in zipCityFormValue)
+    ? zipCityFormValue.zipCode
+    : zipCityFormValue.payload.zipCode;
+
+  return { city, postalCode };
 }
 
 function mapToLocalDateString(date: NgbDateStruct | Date) {

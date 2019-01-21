@@ -22,9 +22,7 @@ export class OccupationComponent extends AbstractSubscriber implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set occupationFormValue(value: OccupationFormValue) {
-    this.occupation.patchValue({ ...value }, { emitEvent: false });
-  }
+  occupationFormValue: OccupationFormValue;
 
   occupation: FormGroup;
 
@@ -61,17 +59,19 @@ export class OccupationComponent extends AbstractSubscriber implements OnInit {
               private fb: FormBuilder,
               private i18nService: I18nService) {
     super();
-
-    this.occupation = this.fb.group({
-      occupationSuggestion: [null, [
-        Validators.required
-      ]],
-      degree: [],
-      experience: []
-    });
   }
 
   ngOnInit(): void {
+    const { occupationSuggestion, degree, experience } = this.occupationFormValue;
+
+    this.occupation = this.fb.group({
+      occupationSuggestion: [occupationSuggestion, [
+        Validators.required
+      ]],
+      degree: [degree],
+      experience: [experience]
+    });
+
     this.parentForm.addControl('occupation', this.occupation);
 
     this.i18nService.currentLanguage$.pipe(

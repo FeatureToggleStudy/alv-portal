@@ -11,7 +11,7 @@ import { phoneInputValidator } from '../../../shared/forms/input/input-field/pho
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
 import {
   emptyPostAddressFormValue,
   PostAddressFormValue
@@ -39,20 +39,7 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set applicationFormValue(value: ApplicationFormValue) {
-    this._applicationFormValue = value;
-
-    const selectedApplicationTypes = {
-      form: !!value.formUrl,
-      email: !!value.emailAddress,
-      phone: !!value.phoneNumber,
-      post: !!value.postAddress,
-    };
-    this.toggleAll(selectedApplicationTypes);
-    this.selectedApplicationTypes.patchValue(selectedApplicationTypes, { emitEvent: false });
-
-    this.setFormValue(value);
-  }
+  applicationFormValue: ApplicationFormValue;
 
   application: FormGroup;
 
@@ -60,33 +47,37 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
 
   postAddressFormValue: PostAddressFormValue;
 
-  private _applicationFormValue: ApplicationFormValue;
-
-
   constructor(private fb: FormBuilder,
               private cdRef: ChangeDetectorRef) {
     super();
-
-    this.selectedApplicationTypes = this.fb.group({
-      form: [false],
-      email: [false],
-      phone: [false],
-      post: [false],
-    }, { validator: atLeastOneRequiredValidator });
-
-    this.application = this.fb.group({
-      additionalInfo: [null, [
-        Validators.maxLength(this.ADDITIONAL_INFO_MAX_LENGTH)
-      ]]
-    });
   }
 
   ngOnInit(): void {
+    const { additionalInfo, formUrl, emailAddress, phoneNumber, postAddress } = this.applicationFormValue;
+
+    this.selectedApplicationTypes = this.fb.group({
+      form: [!!formUrl],
+      email: [!!emailAddress],
+      phone: [!!phoneNumber],
+      post: [!!postAddress]
+    }, { validator: atLeastOneRequiredValidator });
+
+    this.application = this.fb.group({
+      selectedApplicationTypes: this.selectedApplicationTypes,
+      additionalInfo: [additionalInfo, [
+        Validators.maxLength(this.ADDITIONAL_INFO_MAX_LENGTH)
+      ]]
+    });
+
     this.parentForm.addControl(JobPublicationFormValueKeys.application, this.application);
 
     this.selectedApplicationTypes.valueChanges
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(this.toggleAll.bind(this));
+      .pipe(
+        startWith(this.selectedApplicationTypes.value),
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe(this.toggleAll.bind(this));
+
+    this.postAddressFormValue = this.applicationFormValue.postAddress || emptyPostAddressFormValue;
   }
 
   copyPhoneNumberFromPublicContact() {
@@ -152,18 +143,6 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
 
   private togglePostAddress(enabled: boolean) {
     //nothing to do
-  }
-
-  private setFormValue(value: ApplicationFormValue) {
-    const { formUrl, emailAddress, phoneNumber, additionalInfo, postAddress } = value;
-    this.application.patchValue({
-      formUrl,
-      emailAddress,
-      phoneNumber,
-      additionalInfo
-    }, { emitEvent: false });
-
-    this.postAddressFormValue = postAddress || emptyPostAddressFormValue;
   }
 }
 
