@@ -29,9 +29,6 @@ import { JobPublicationFormValueKeys } from './job-publication-form-value.types'
 import { JobPublicationFormValueFactory } from './job-publication-form-value-factory';
 import { JobAdvertisementRepository } from '../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
-import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
