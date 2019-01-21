@@ -18,6 +18,15 @@ export const isAnyUser = () => {
   return true;
 };
 
+export const isAnonymous = (user: User) => {
+  return !user;
+};
+
+/**
+ * User is authenticated if he is logged in AND finished the registration OR is Admin
+ *
+ * @param user
+ */
 export const isAuthenticatedUser = (user: User) => {
   return !!user && user.isRegistered();
 };

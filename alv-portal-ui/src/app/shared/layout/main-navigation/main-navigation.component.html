@@ -1,22 +1,23 @@
 <!-- a11y -->
 <h1 class="sr-only">Navigation</h1>
 
-<!--&lt;!&ndash; Menu Backdrop &ndash;&gt;-->
-<!--<div class="modal-backdrop"-->
-<!--*ngIf="open"-->
-<!--(click)="toggleMobileSideNav()">-->
-<!--</div>-->
+<!-- Menu Backdrop -->
+<div class="modal-backdrop"
+     *ngIf="mobileMenuExpanded"
+     (click)="toggleMobileSideNav()">
+</div>
 
 <!-- Desktop Menu -->
-<div class="d-none d-lg-flex flex-column h-100 w-100 d-print-none">
+<div class="desktop-menu d-none d-lg-flex flex-column h-100 d-print-none"
+     [class.collapsed]="mainNavigationCollapsed">
   <div class="nav-spacer">
   </div>
   <button class="nav-item menu-toggle"
           (click)="toggleDesktopSideNav()">
     <i class="fas fa-caret-left"
-       *ngIf="!collapsed"></i>
+       *ngIf="!mainNavigationCollapsed"></i>
     <i class="fas fa-caret-right"
-       *ngIf="collapsed"></i>
+       *ngIf="mainNavigationCollapsed"></i>
   </button>
   <!-- Menu Entries -->
   <ng-container *ngFor="let menuEntry of menuEntries$ | async">
@@ -29,20 +30,28 @@
 </div>
 
 <!-- Mobile Menu -->
-<div class="d-md-block d-lg-none d-print-none">
-  <div class="navbar-nav animate side-nav"
-       [class.open]="!collapsed">
+<div class="mobile-menu d-block d-lg-none d-print-none animate" [class.open]="mobileMenuExpanded">
+
     <a class="nav-item"
        (click)="toggleMobileSideNav()">
       <i class="nav-icon fas fa-caret-left"></i>
-      <span class="nav-text">Schliessen</span>
+      <span class="nav-text">{{ 'portal.global.close' | translate }}</span>
     </a>
+
+    <!--Login Button-->
+    <a class="nav-item"
+       *alvIsAnonymous
+       (click)="login()">
+      <i class="nav-icon fas fa-key"></i>
+      <span class="nav-text">{{'global.menu.account.login' | translate}}</span>
+    </a>
+
     <!-- Menu Entries -->
     <ng-container *ngFor="let menuEntry of menuEntries$ | async">
       <alv-menu-entry [menuEntry]="menuEntry"
-                      (itemClicked)="toggleMobileSideNav()"></alv-menu-entry>
+                      (itemClicked)="toggleMobileSideNav()">
+      </alv-menu-entry>
     </ng-container>
     <div class="nav-fill-item flex-grow-1">
     </div>
-  </div>
 </div>

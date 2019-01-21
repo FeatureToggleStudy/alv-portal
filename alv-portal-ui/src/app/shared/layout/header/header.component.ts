@@ -1,20 +1,17 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { ProfileInfoService } from './profile-info.service';
-import { LocalLoginComponent } from '../local-login/local-login.component';
 import { Router } from '@angular/router';
 import { I18nService } from '../../../core/i18n.service';
 import { LANGUAGES } from '../../../core/languages.constants';
 import { Observable } from 'rxjs';
 import { CoreState } from '../../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
-import { ToggleMainNavigationAction } from '../../../core/state-management/actions/core.actions';
-import { ModalService } from '../modal/modal.service';
+import { ToggleMobileNavigationsAction } from '../../../core/state-management/actions/core.actions';
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
-import { APP_BASE_HREF } from '@angular/common';
+import { LoginService } from '../../auth/login.service';
 
 @Component({
   selector: 'alv-header',
@@ -33,12 +30,10 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   currentLanguage$: Observable<string>;
 
-  constructor(@Inject(APP_BASE_HREF) private baseHref: string,
-              private store: Store<CoreState>,
+  constructor(private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
-              private profileInfoService: ProfileInfoService,
+              private loginService: LoginService,
               private router: Router,
-              private modalService: ModalService,
               private i18nService: I18nService) {
     super();
     this.currentLanguage$ = this.i18nService.currentLanguage$;
@@ -50,27 +45,28 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
       .subscribe(user => {
         this.user = user;
       });
+
     this.authenticationService.getCurrentCompany()
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(company => {
         this.company = company;
       });
-    this.profileInfoService.getProfileInfo()
-      .subscribe(profileInfo => {
-        this.noEiam = profileInfo.noEiam;
+
+    this.loginService.isEiamDisabled()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(noEiam => {
+        this.noEiam = noEiam;
       });
   }
 
-  toggleNavigation() {
-    this.store.dispatch(new ToggleMainNavigationAction({}));
+  toggleMobileNavigation() {
+    this.store.dispatch(new ToggleMobileNavigationsAction({}));
   }
 
   login() {
-    if (this.noEiam) {
-      this.modalService.openMedium(LocalLoginComponent, true);
-    } else {
-      document.location.href = `/login?redirectUrl=${this.baseHref}landing`;
-    }
+    this.loginService.login().pipe(
+      take(1))
+      .subscribe();
   }
 
   changeLanguage(lang: string) {
