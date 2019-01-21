@@ -5,7 +5,7 @@ import { patternInputValidator } from '../../shared/forms/input/input-field/patt
 import { EMAIL_REGEX } from '../../shared/forms/regex-patterns';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { UserInfoDTO } from '../../shared/backend-services/user-info/user-info.types';
-import { HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { EMPTY } from 'rxjs';
 import { catchError, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { I18nService } from '../../core/i18n.service';
@@ -112,22 +112,19 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     return window.confirm(this.confirmMessage);
   }
 
-  private getParams(): HttpParams {
-    let params = new HttpParams()
-      .set('eMail', this.form.get('emailAddress').value)
-      .set('role', 'NO_ROLE');
-
+  private getRoleParam(): string {
+    let role = 'NO_ROLE';
     if (this.isUserRoleEmpty()) {
-      return params;
+      return role;
     }
     if (this.userRoles.includes(`${UserRole.ROLE_JOB_SEEKER}`)) {
-      params = params.set('role', 'JOB_SEEKER');
+      role = 'JOB_SEEKER';
     } else if (this.userRoles.includes(`${UserRole.ROLE_COMPANY}`)) {
-      params = params.set('role', 'COMPANY');
+      role = 'COMPANY';
     } else if (this.userRoles.includes(`${UserRole.ROLE_PAV}`)) {
-      params = params.set('role', 'PRIVATE_AGENT');
+      role = 'PRIVATE_AGENT';
     }
-    return params;
+    return role;
   }
 
   formatAccountability(accountability): string {
@@ -142,7 +139,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     if (!this.confirmUnregister()) {
       return;
     }
-    this.userInfoRepository.unregisterUser(this.getParams())
+    this.userInfoRepository.unregisterUser(this.form.get('emailAddress').value, this.getRoleParam())
       .subscribe(() => {
         this.alert = ALERTS.unregisterSuccess;
         this.onSubmit();
@@ -153,7 +150,9 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
   onSubmit() {
     this.userInfoRepository.loadUserByEmail(this.form.get('emailAddress').value).pipe(
-      withLatestFrom(this.i18nService.stream('portal.admin.user-info.confirmMessage', {email: this.form.get('emailAddress').value})),
+      withLatestFrom(this.i18nService.stream(
+        'portal.admin.user-info.confirmMessage', { email: this.form.get('emailAddress').value }
+        )),
       switchMap(([res, message]) => {
         this.user = res.body;
         this.setActions();
@@ -171,7 +170,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
         return EMPTY;
       }),
       takeUntil(this.ngUnsubscribe))
-      .subscribe((roles) => {
+      .subscribe((roles: HttpResponse<any>) => {
         this.userRoles = roles.body;
       }, (err: HttpErrorResponse) => {
         this.setToInit();

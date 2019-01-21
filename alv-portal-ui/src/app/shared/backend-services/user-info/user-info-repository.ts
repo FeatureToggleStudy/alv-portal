@@ -39,9 +39,12 @@ export class UserInfoRepository {
     });
   }
 
-  public unregisterUser(deleteParams): Observable<any> {
+  public unregisterUser(email: string, role: string): Observable<any> {
+    let params = new HttpParams()
+      .set('eMail', email)
+      .set('role', role);
     return this.http.delete(UserInfoRepository.USER_INFO_URL, {
-      params: deleteParams,
+      params: params,
       observe: 'response'
     });
   }
