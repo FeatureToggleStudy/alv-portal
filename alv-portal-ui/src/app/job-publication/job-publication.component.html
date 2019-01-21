@@ -40,7 +40,8 @@
       <li class="mb-1">
         {{'portal.job-publication.submit.info.item2' | translate}}
       </li>
-      <li class="mb-1" *ngIf="responsibleJobCenter$ | async as jobCenter">
+      <li class="mb-1"
+          *ngIf="responsibleJobCenter$ | async as jobCenter">
         {{'portal.job-publication.submit.info.item3' | translate}}
         <p class="mt-3">
           <alv-post-address [address]="{
@@ -51,13 +52,21 @@
                         city: jobCenter.address?.city}">
           </alv-post-address>
           <ng-container *ngIf="jobCenter.phone">
-            {{'portal.job-publication.submit.info.phone' | translate}}: {{jobCenter.phone}}<br>
+            {{'portal.job-publication.submit.info.phone' | translate}}:&nbsp;
+            <a [href]="'tel:' + jobCenter.phone"
+               target="_blank">{{jobCenter.phone | phoneNumber}}</a>
+            <br>
           </ng-container>
           <ng-container *ngIf="jobCenter.fax">
-            {{'portal.job-publication.submit.info.fax' | translate}}: {{jobCenter.fax}}<br>
+            {{'portal.job-publication.submit.info.fax' | translate}}:&nbsp;
+            <a [href]="'tel:' + jobCenter.fax"
+               target="_blank">{{jobCenter.fax | phoneNumber}}</a>
+            <br>
           </ng-container>
           <ng-container *ngIf="jobCenter.email">
-            {{'portal.job-publication.submit.info.email' | translate}}: {{jobCenter.email}}
+            {{'portal.job-publication.submit.info.email' | translate}}:&nbsp;
+            <a [href]="'mailto:' + jobCenter.email"
+               target="_blank">{{jobCenter.email}}</a>
           </ng-container>
         </p>
       </li>
