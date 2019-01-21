@@ -5,7 +5,7 @@ import { patternInputValidator } from '../../shared/forms/input/input-field/patt
 import { EMAIL_REGEX } from '../../shared/forms/regex-patterns';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { UserInfoDTO } from '../../shared/backend-services/user-info/user-info.types';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY } from 'rxjs';
 import { catchError, switchMap, takeUntil } from 'rxjs/operators';
 import { UserRole } from '../../core/auth/user.model';
@@ -139,8 +139,8 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
   onSubmit() {
     this.userInfoRepository.loadUserByEmail(this.form.get('emailAddress').value).pipe(
-      switchMap((res: HttpResponse<any>) => {
-        this.user = res.body;
+      switchMap((res: UserInfoDTO) => {
+        this.user = res;
         this.setActions();
         this.badges = this.userInfoBadgesMapperService.map(this.user);
         return this.userInfoRepository.loadUserRoles(this.user.id);
@@ -155,8 +155,8 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
         return EMPTY;
       }),
       takeUntil(this.ngUnsubscribe))
-      .subscribe((roles: HttpResponse<any>) => {
-        this.userRoles = roles.body;
+      .subscribe((roles: string[]) => {
+        this.userRoles = roles;
       }, (err: HttpErrorResponse) => {
         this.setToInit();
         if (err.status === 404) {
