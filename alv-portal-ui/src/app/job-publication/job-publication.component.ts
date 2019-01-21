@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 import { NotificationType } from '../shared/layout/notifications/notification.model';
+import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.types';
+import { Observable } from 'rxjs';
+import { JobCenter } from '../shared/backend-services/reference-service/job-center.types';
+import { JobCenterRepository } from '../shared/backend-services/reference-service/job-center.repository';
+import { I18nService } from '../core/i18n.service';
+import { flatMap, take } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-job-publication',
@@ -21,7 +27,19 @@ export class JobPublicationComponent {
 
   submitted = false;
 
-  jobPublicationCreated() {
+  responsibleJobCenter$: Observable<JobCenter>;
+
+  constructor(private jobCenterRepository: JobCenterRepository,
+              private i18nService: I18nService) {
+  }
+
+  jobPublicationCreated(jobAdvertisement: JobAdvertisement) {
+    if (jobAdvertisement.jobCenterCode) {
+      this.responsibleJobCenter$ = this.i18nService.currentLanguage$.pipe(
+        take(1),
+        flatMap(lang => this.jobCenterRepository.resolveJobCenter(jobAdvertisement.jobCenterCode, lang))
+      );
+    }
     this.submitted = true;
   }
 
