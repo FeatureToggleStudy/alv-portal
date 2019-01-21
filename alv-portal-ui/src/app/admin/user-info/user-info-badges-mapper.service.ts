@@ -34,20 +34,20 @@ export class UserInfoBadgesMapperService {
     if (userInfo.registrationStatus === RegistrationStatus.REGISTERED) {
       result.push({
         badgeType: UserInfoBadgeType.REGISTERED,
-        cssClass: 'badge-job-registered',
+        cssClass: 'badge-user-registered',
         label: `${userInfo.registrationStatus}`
       });
     } else if (userInfo.registrationStatus === RegistrationStatus.UNREGISTERED) {
       result.push({
         badgeType: UserInfoBadgeType.UNREGISTERED,
-        cssClass: 'badge-job-unregistered',
+        cssClass: 'badge-user-unregistered',
         label: `${userInfo.registrationStatus}`
       });
     } else if (userInfo.registrationStatus === RegistrationStatus.VALIDATION_PAV
       || userInfo.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
       result.push({
         badgeType: UserInfoBadgeType.PAV_OR_EMP,
-        cssClass: 'badge-job-pav-or-emp',
+        cssClass: 'badge-user-pav-or-emp',
         label: `${userInfo.registrationStatus}`
       });
     }

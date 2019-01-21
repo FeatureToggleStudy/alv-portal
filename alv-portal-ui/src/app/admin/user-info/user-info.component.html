@@ -25,8 +25,8 @@
       </div>
     </form>
 
-    <alv-alert (dismiss)="dismissAlert(alert, alerts)"
-               *ngFor="let alert of alerts"
+    <alv-alert (dismiss)="dismissAlert()"
+               *ngIf="alert"
                [notification]="alert">
     </alv-alert>
 
@@ -114,7 +114,7 @@
                             panelTitle="portal.admin.user-info.accountabilities.title">
           <ul class="alv-list" *ngIf="user && user.accountabilities?.length > 0; else no_accountabilities">
             <alv-list-item-content *ngFor="let accountability of user.accountabilities"
-                                   [label]="formatAccountability(accountability)">
+                                   [label]="accountability.companyName + ', ' + accountability.companyExternalId + ', ' + accountability.companySource">
             </alv-list-item-content>
           </ul>
           <ng-template #no_accountabilities>
@@ -125,14 +125,14 @@
         </alv-collapse-panel>
         <alv-collapse-panel [panelId]="'actions'"
                             panelTitle="portal.admin.user-info.actions.title">
-          <div *ngIf="onlyEIAMRoles()">
+          <div *ngIf="isOnlyEIAMRoles">
             <ul class="alv-list">
               <alv-list-item-content label="portal.admin.user-info.actions.unregistered-user.title">
                 {{ 'portal.admin.user-info.actions.unregistered-user.desc' | translate }}
               </alv-list-item-content>
             </ul>
           </div>
-          <div *ngIf="!isUserInfoEmpty()">
+          <div *ngIf="isUserInfoFilled">
             <ul class="alv-list">
               <alv-list-item-content label="portal.admin.user-info.actions.unregister.title">
                 {{ 'portal.admin.user-info.actions.unregister.desc' | translate }}
@@ -144,7 +144,7 @@
               </button>
             </div>
           </div>
-          <div *ngIf="isUserInfoEmpty() && !onlyEIAMRoles()" class="no-info-found">
+          <div *ngIf="!isUserInfoFilled && !isOnlyEIAMRoles" class="no-info-found">
             <small class="text-muted">{{ 'portal.admin.user-info.actions.no' | translate }}</small>
           </div>
         </alv-collapse-panel>

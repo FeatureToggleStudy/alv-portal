@@ -61,7 +61,11 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
   badges: UserInfoBadge[] = [];
 
-  alerts: Notification[] = [];
+  alert: Notification = null;
+
+  isUserInfoFilled: boolean = false;
+
+  isOnlyEIAMRoles: boolean = false;
 
   private confirmMessage: string;
 
@@ -99,6 +103,11 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     return this.userRoles == null || this.userRoles.length < 1;
   }
 
+  private setActions(): void {
+    this.isUserInfoFilled = !!this.user || !this.isUserRoleEmpty();
+    this.isOnlyEIAMRoles = this.user == null && !this.isUserRoleEmpty() && this.userRoles.includes('ALLOW');
+  }
+
   private confirmUnregister(): boolean {
     return window.confirm(this.confirmMessage);
   }
@@ -121,20 +130,8 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     return params;
   }
 
-  dismissAlert(alert: Notification, alerts: Notification[]) {
-    alerts.splice(alerts.indexOf(alert), 1);
-  }
-
-  isUserInfoEmpty(): boolean {
-    return this.user == null || this.isUserRoleEmpty();
-  }
-
-  onlyEIAMRoles(): boolean {
-    return this.user == null && !this.isUserRoleEmpty() && this.userRoles.includes('ALLOW');
-  }
-
-  formatAccountability(accountability): string {
-    return `${accountability.companyName}, ${accountability.companyExternalId}, ${accountability.companySource}`;
+  dismissAlert() {
+    this.alert = null;
   }
 
   onUnregister(): void {
@@ -143,10 +140,10 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     }
     this.userInfoRepository.unregisterUser(this.getParams())
       .subscribe(() => {
-        this.alerts.push(ALERTS.unregisterSuccess);
+        this.alert = ALERTS.unregisterSuccess;
         this.onSubmit();
       }, () => {
-        this.alerts.push(ALERTS.unregisterTechError);
+        this.alert = ALERTS.unregisterTechError;
       });
   }
 
@@ -155,6 +152,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       withLatestFrom(this.i18nService.stream('portal.admin.user-info.confirmMessage', {email: this.form.get('emailAddress').value})),
       switchMap(([res, message]) => {
         this.user = res.body;
+        this.setActions();
         this.confirmMessage = message;
         this.badges = this.userInfoBadgesMapperService.map(this.user);
         return this.userInfoRepository.loadUserRoles(this.user.id);
@@ -162,9 +160,9 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       catchError((err: HttpErrorResponse) => {
         this.setToInit();
         if (err.status === 404) {
-          this.alerts.push(ALERTS.userNotFound);
+          this.alert = ALERTS.userNotFound;
         } else {
-          this.alerts.push(ALERTS.userTechError);
+          this.alert = ALERTS.userTechError;
         }
         return EMPTY;
       }),
@@ -174,9 +172,9 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       }, (err: HttpErrorResponse) => {
         this.setToInit();
         if (err.status === 404) {
-          this.alerts.push(ALERTS.userRoleNotFound);
+          this.alert = ALERTS.userRoleNotFound;
         } else {
-          this.alerts.push(ALERTS.userRoleTechError);
+          this.alert = ALERTS.userRoleTechError;
         }
         return EMPTY;
       });

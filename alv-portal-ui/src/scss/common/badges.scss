@@ -4,7 +4,7 @@
 .badge-workplace,
 .badge-locality,
 .badge-occupation,
-.badge-job-registered {
+.badge-user-registered {
   background-color: $color-medium-green;
 }
 
@@ -18,13 +18,13 @@
 .badge-free-text,
 .badge-availability,
 .badge-manage-jobads-filter,
-.badge-job-pav-or-emp {
+.badge-user-pav-or-emp {
   background-color: $color-light-yellow;
 }
 
 .badge-job-workplace,
 .badge-place-of-residence,
-.badge-job-unregistered {
+.badge-user-unregistered {
   background-color: $color-light-red;
 }
 

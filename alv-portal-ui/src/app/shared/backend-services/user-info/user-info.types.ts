@@ -25,7 +25,7 @@ export interface UserInfoDTO {
   lastName: string;
   email: string;
   registrationStatus: RegistrationStatus;
-  accountabilities: Array<{ // TODO use Accountability interface ??
+  accountabilities: Array<{
     companyName: string,
     companyExternalId: string,
     companySource: string
