@@ -1445,6 +1445,7 @@ portal,portal.manage-job-ads.search.no-results,Keine Ergebnisse gefunden
 portal,portal.manage-job-ads.search.filter-button,Filtern
 
 portal,portal.manage-job-ads.cancel.occupied.other,Andere Gründe
+portal,portal.manage-job-ads.cancel.success,Stellenanzeige wurde erfolgreich abgemeldet
 
 portal,portal.manage-job-ads.details.actions.cancel,Stellenanzeige abmelden,Cancel job posting,Retirer l'annonce,Cancellare il posto vacante
 portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio

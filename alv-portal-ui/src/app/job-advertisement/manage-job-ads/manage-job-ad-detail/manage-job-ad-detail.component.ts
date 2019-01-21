@@ -20,6 +20,7 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import {
+  JobAdvertisementChangedAction,
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management/actions';
@@ -103,7 +104,9 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
     jobAdCancellationComponent.jobAdvertisement = this.jobAdvertisement;
     jobAdCancellationComponent.accessToken = this.token;
     jobAdCancellationModalRef.result
-      .then(value => console.log(value))
+      .then(value => {
+        this.store.dispatch(new JobAdvertisementChangedAction({ jobAdvertisement: value }));
+      })
       .catch(() => {
       });
   }
