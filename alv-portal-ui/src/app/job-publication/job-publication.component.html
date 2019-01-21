@@ -43,9 +43,13 @@
       <li class="mb-1" *ngIf="responsibleJobCenter$ | async as jobCenter">
         {{'portal.job-publication.submit.info.item3' | translate}}
         <p class="mt-3">
-          {{jobCenter.address?.name}}<br>
-          {{jobCenter.address?.street}} {{jobCenter.address?.houseNumber}}<br>
-          {{jobCenter.address?.zipCode}} {{jobCenter.address?.city}}<br>
+          <alv-post-address [address]="{
+                        name: jobCenter.address?.name,
+                        street: jobCenter.address?.street,
+                        houseNumber: jobCenter.address?.houseNumber,
+                        postalCode: jobCenter.address?.zipCode,
+                        city: jobCenter.address?.city}">
+          </alv-post-address>
           <ng-container *ngIf="jobCenter.phone">
             {{'portal.job-publication.submit.info.phone' | translate}}: {{jobCenter.phone}}<br>
           </ng-container>
