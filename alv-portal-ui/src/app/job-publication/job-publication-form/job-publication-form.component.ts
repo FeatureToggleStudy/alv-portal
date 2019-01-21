@@ -114,8 +114,8 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
     //todo: use the current language
     const createJobAdvertisement = jobPublicationFormMapper.mapToCreateJobAdvertisement(this.jobPublicationForm.value, 'de');
     this.jobAdvertisementRepository.save(createJobAdvertisement)
-      .subscribe((resp) => {
-        this.jobPublicationCreated.emit(resp.json);
+      .subscribe((jobAdvertisement) => {
+        this.jobPublicationCreated.emit(jobAdvertisement);
       });
   }
 
