@@ -22,6 +22,7 @@ export class JobPublicationFormValueKeys {
   public static publicContact = 'publicContact';
   public static application = 'application';
   public static publication = 'publication';
+  public static surrogate = 'surrogate';
 }
 
 export interface JobPublicationFormValue {

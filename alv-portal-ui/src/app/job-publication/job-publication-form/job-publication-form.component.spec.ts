@@ -24,6 +24,12 @@ import { IsoCountryService } from './iso-country.service';
 import { I18nService } from '../../core/i18n.service';
 import { of } from 'rxjs';
 import { JobPublicationFormValueFactory } from './job-publication-form-value-factory';
+import {
+  CEFR_Level,
+  Degree,
+  Experience
+} from '../../shared/backend-services/shared.types';
+import { ActivatedRoute } from '@angular/router';
 import SpyObj = jasmine.SpyObj;
 
 
@@ -43,6 +49,7 @@ describe('JobPublicationFormComponent', () => {
   };
 
   let mockJobPublicationFormValueFactory: SpyObj<JobPublicationFormValueFactory>;
+  let mockActivatedRoute;
 
   let component: JobPublicationFormComponent;
   let fixture: ComponentFixture<JobPublicationFormComponent>;
@@ -50,6 +57,8 @@ describe('JobPublicationFormComponent', () => {
   beforeEach(async(() => {
     mockJobPublicationFormValueFactory = jasmine.createSpyObj('mockJobPublicationFormValueFactory', ['createJobPublicationFormValue']);
     mockJobPublicationFormValueFactory.createJobPublicationFormValue.and.returnValue(emptyJobPublicationFormValue);
+
+    mockActivatedRoute = { snapshot: { data: {} } };
 
     TestBed.configureTestingModule({
       imports: [
@@ -67,6 +76,7 @@ describe('JobPublicationFormComponent', () => {
       providers: [
         { provide: I18nService, useValue: mockI18nService },
         { provide: IsoCountryService, useValue: mockIsoCountryService },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
         {
           provide: JobPublicationFormValueFactory,
           useValue: mockJobPublicationFormValueFactory
@@ -110,10 +120,28 @@ describe('JobPublicationFormComponent', () => {
     it('should correctly initialise the form with a JobPublicationFormValue', () => {
       //given
       const jobPublicationFormValue = { ...emptyJobPublicationFormValue };
+
       jobPublicationFormValue.jobDescription.numberOfJobs = 8;
       jobPublicationFormValue.jobDescription.title = 'test-title';
       jobPublicationFormValue.jobDescription.jobDescription = 'test-description';
-      //todo: add other sections
+
+      //todo add occupation suggestion
+      jobPublicationFormValue.occupation.degree = Degree.SEK_II_FACHMATURITAET;
+      jobPublicationFormValue.occupation.experience = Experience.MORE_THAN_3_YEARS;
+
+      jobPublicationFormValue.languageSkills = [
+        {
+          languageIsoCode: 'de',
+          spokenLevel: CEFR_Level.BASIC,
+          writtenLevel: CEFR_Level.INTERMEDIATE,
+        },
+        {
+          languageIsoCode: 'en',
+          spokenLevel: CEFR_Level.BASIC,
+          writtenLevel: CEFR_Level.NONE,
+        }
+      ];
+
 
       mockJobPublicationFormValueFactory.createJobPublicationFormValue.and.returnValue(jobPublicationFormValue);
 

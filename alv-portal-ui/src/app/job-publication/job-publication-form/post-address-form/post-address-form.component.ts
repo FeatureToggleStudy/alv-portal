@@ -31,16 +31,7 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
   parentForm: FormGroup;
 
   @Input()
-  set postAddressFormValue(value: PostAddressFormValue) {
-    this._postAddressFormValue = value;
-    if (value) {
-      this.setFormValue(value);
-    }
-  }
-
-  get postAddressFormValue() {
-    return this._postAddressFormValue;
-  }
+  postAddressFormValue: PostAddressFormValue;
 
   postAddress: FormGroup;
 
@@ -48,58 +39,47 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
 
   countryIsoCode$: Observable<String>;
 
-  private _postAddressFormValue: PostAddressFormValue;
-
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService) {
 
     this.countryOptions$ = this.isoCountryService.countryOptions$;
+  }
+
+  ngOnInit(): void {
+    const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = this.postAddressFormValue;
 
     this.postAddress = this.fb.group({
-      name: [null, [
+      name: [name, [
         Validators.required,
         Validators.maxLength(this.NAME_MAX_LENGTH)
       ]],
-      houseNumber: [null, [
+      houseNumber: [houseNumber, [
         patternInputValidator(HOUSE_NUMBER_REGEX)
       ]],
-      countryIsoCode: [null, []],
+      countryIsoCode: [countryIsoCode],
       postOfficeBoxNumberOrStreet: this.fb.group({
-          street: [null, [
+          street: [postOfficeBoxNumberOrStreet.street, [
             Validators.maxLength(this.STREET_MAX_LENGTH)
           ]],
-          postOfficeBoxNumber: [null, [
+          postOfficeBoxNumber: [postOfficeBoxNumberOrStreet.postOfficeBoxNumber, [
             Validators.maxLength(this.PO_BOX_MAX_LENGTH)
           ]],
         },
         { validator: postOfficeBoxNumberOrStreetRequiredValidator }
       )
     });
-  }
 
-  ngOnInit(): void {
     this.parentForm.addControl(this.groupName, this.postAddress);
 
-    const countryIsoCode = this.postAddress.get('countryIsoCode');
-    this.countryIsoCode$ = countryIsoCode.valueChanges
+    this.countryIsoCode$ = this.postAddress.get('countryIsoCode').valueChanges
       .pipe(
         filter((value) => !!value),
-        startWith(countryIsoCode.value),
+        startWith(countryIsoCode),
       );
   }
 
   ngOnDestroy(): void {
     this.parentForm.removeControl(this.groupName);
-  }
-
-  private setFormValue(value: PostAddressFormValue) {
-    const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = value;
-    this.postAddress.patchValue({
-      name,
-      houseNumber,
-      countryIsoCode,
-      postOfficeBoxNumberOrStreet
-    }, { emitEvent: false });
   }
 }
 
@@ -112,6 +92,6 @@ function postOfficeBoxNumberOrStreetRequiredValidator(postOfficeBoxNumberOrStree
   }
 
   return {
-    'postOfficeBoxNumberOrStreetRequired': true
+    postOfficeBoxNumberOrStreetRequired: true
   };
 }

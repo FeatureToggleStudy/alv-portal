@@ -22,31 +22,32 @@ export class JobDescriptionComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set jobDescriptionFormValue(value: JobDescriptionFormValue) {
-    this.jobDescription.patchValue(value, { emitEvent: false });
-  }
+  jobDescriptionFormValue: JobDescriptionFormValue;
 
   jobDescription: FormGroup;
 
   constructor(private fb: FormBuilder) {
+  }
+
+  ngOnInit(): void {
+    const { title, numberOfJobs, jobDescription } = this.jobDescriptionFormValue;
+
     this.jobDescription = this.fb.group({
-      title: [null, [
+      title: [title, [
         Validators.required,
         Validators.maxLength(this.TITLE_MAX_LENGTH)
       ]],
-      numberOfJobs: [null, [
+      numberOfJobs: [numberOfJobs, [
         Validators.required,
         Validators.min(this.NUMBER_OF_JOBS_MIN),
         Validators.max(this.NUMBER_OF_JOBS_MAX)
       ]],
-      jobDescription: [null, [
+      jobDescription: [jobDescription, [
         Validators.required,
         Validators.maxLength(this.DESCRIPTION_MAX_LENGTH)
       ]]
     });
-  }
 
-  ngOnInit(): void {
     this.parentForm.addControl(JobPublicationFormValueKeys.jobDescription, this.jobDescription);
   }
 }

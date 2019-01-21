@@ -21,9 +21,7 @@ export class LanguagesComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set languagesFormValue(value: LanguageSkill[]) {
-    this.prepareLanguageSkillsFormArray(value);
-  }
+  languagesFormValue: LanguageSkill[];
 
   languageSkillFormArray: FormArray;
 
@@ -52,12 +50,13 @@ export class LanguagesComponent implements OnInit {
   private readonly MAX_LANGUAGE_OPTIONS_NUM = 5;
 
   constructor(private fb: FormBuilder) {
-    this.languageSkillFormArray = this.fb.array([
-      this.createNewLanguageSkillFormGroup()
-    ]);
   }
 
   ngOnInit() {
+    const languageSkillGroups = (this.languagesFormValue.length > 0)
+      ? this.languagesFormValue.map((languageSkill) => this.createNewLanguageSkillFormGroup(languageSkill))
+      : [this.createNewLanguageSkillFormGroup()];
+    this.languageSkillFormArray = this.fb.array(languageSkillGroups);
     this.parentForm.addControl(JobPublicationFormValueKeys.languageSkills, this.languageSkillFormArray);
   }
 
@@ -89,17 +88,4 @@ export class LanguagesComponent implements OnInit {
       spokenLevel: [languageSkill.spokenLevel]
     });
   }
-
-  private prepareLanguageSkillsFormArray(languageSkills: LanguageSkill[]) {
-    const languageSkillFormArray = this.languageSkillFormArray;
-
-    languageSkillFormArray.controls.length = 0;
-    languageSkills.forEach((languageSkill) => {
-      languageSkillFormArray.push(this.createNewLanguageSkillFormGroup(languageSkill));
-    });
-    if (languageSkillFormArray.length === 0) {
-      languageSkillFormArray.push(this.createNewLanguageSkillFormGroup());
-    }
-  }
-
 }

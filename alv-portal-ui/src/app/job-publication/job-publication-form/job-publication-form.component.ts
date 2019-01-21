@@ -27,9 +27,8 @@ import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import * as  jobPublicationFormMapper from './job-publication-form.mapper';
 import { JobPublicationFormValueKeys } from './job-publication-form-value.types';
 import { JobPublicationFormValueFactory } from './job-publication-form-value-factory';
-import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
 import { JobAdvertisementRepository } from '../../shared/backend-services/job-advertisement/job-advertisement.repository';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -69,7 +68,8 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
 
   constructor(private fb: FormBuilder,
               private jobPublicationFormValueFactory: JobPublicationFormValueFactory,
-              private jobAdvertisementRepository: JobAdvertisementRepository) {
+              private jobAdvertisementRepository: JobAdvertisementRepository,
+              private route: ActivatedRoute) {
     super();
 
     this.jobPublicationForm = this.fb.group({
@@ -79,16 +79,8 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
   }
 
   ngOnInit(): void {
-    //todo: Fetch jobAdvertisement, title and companyContactTemplateModel
-    const jobAdvertisement: JobAdvertisement = null;
-    const jobAdvertisementTitle: string = null;
-    const companyContactTemplateModel: CompanyContactTemplateModel = null;
-
-    const initialJobPublicationFormValue = this.jobPublicationFormValueFactory.createJobPublicationFormValue({
-      jobAdvertisement,
-      jobAdvertisementTitle,
-      companyContactTemplateModel
-    });
+    const initialFormValueConfig = this.route.snapshot.data.initialFormValueConfig;
+    const initialJobPublicationFormValue = this.jobPublicationFormValueFactory.createJobPublicationFormValue(initialFormValueConfig);
 
     this.jobDescriptionFormValue = initialJobPublicationFormValue.jobDescription;
     this.occupationFormValue = initialJobPublicationFormValue.occupation;
@@ -102,23 +94,23 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
     this.applicationFormValue = initialJobPublicationFormValue.application;
     this.publicationFormValue = initialJobPublicationFormValue.publication;
 
-
-    this.jobPublicationForm.get('surrogate').patchValue(initialJobPublicationFormValue.surrogate, { emitEvent: false });
-    this.jobPublicationForm.get('surrogate').valueChanges.pipe(
+    const surrogateFormControl = this.jobPublicationForm.get(JobPublicationFormValueKeys.surrogate);
+    surrogateFormControl.patchValue(initialJobPublicationFormValue.surrogate, { emitEvent: false });
+    surrogateFormControl.valueChanges.pipe(
       distinctUntilChanged(),
       filter((value: boolean) => value),
       takeUntil(this.ngUnsubscribe)
-    ).subscribe((value) => {
-      this.employerFormValue = emptyEmployerFormValue;
-    });
+    ).subscribe((_) => this.employerFormValue = emptyEmployerFormValue);
   }
 
 
   copyFromContact() {
-    this.publicContactFormValue = { ...this.jobPublicationForm.get(JobPublicationFormValueKeys.contact).value };
+    const contactValue = this.jobPublicationForm.get(JobPublicationFormValueKeys.contact).value;
+    this.jobPublicationForm.get(JobPublicationFormValueKeys.publicContact).patchValue(contactValue, { emitEvent: false });
   }
 
   submit() {
+    //todo: use the current language
     const createJobAdvertisement = jobPublicationFormMapper.mapToCreateJobAdvertisement(this.jobPublicationForm.value, 'de');
     this.jobAdvertisementRepository.save(createJobAdvertisement)
       .subscribe((resp) => {

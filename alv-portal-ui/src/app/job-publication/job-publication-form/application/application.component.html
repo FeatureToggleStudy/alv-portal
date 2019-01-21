@@ -2,6 +2,11 @@
 
   <legend>{{'portal.job-publication.application.legend' | translate }}</legend>
 
+  <alv-validation-messages id="application-at-least-one-required-msg-id"
+                           [control]="selectedApplicationTypes"
+                           [customValidationMessages]="[{error: 'atLeastOneRequired', message: 'portal.job-publication.application.validation.atLeastOneRequired'}]">
+  </alv-validation-messages>
+
   <div class="alv-light-panel p-2">
     <ng-container [formGroup]="selectedApplicationTypes">
       <alv-checkbox label="job-detail.application.online"
