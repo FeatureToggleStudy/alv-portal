@@ -1,4 +1,5 @@
-<div class="icon">
+<div class="icon"
+     aria-hidden="true">
   <i [class]="icon"></i>
 </div>
 
@@ -8,7 +9,7 @@
 </div>
 <button *ngIf="!hideDismiss"
         type="button"
-        aria-label="close notification"
+        [aria-label]="'portal.global.close' | translate"
         class="close close-button"
         (click)="doDismiss(notification)">&times;
 </button>

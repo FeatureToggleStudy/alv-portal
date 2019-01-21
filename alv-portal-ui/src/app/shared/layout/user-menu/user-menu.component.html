@@ -24,18 +24,18 @@
     </span>
   </button>
   <div ngbDropdownMenu
-       aria-label="User Menu">
+       [aria-label]="'portal.header.menu.user-menu.label'|translate">
     <!-- Finish registration -->
     <button *ngIf="!hideRegistrationAction"
             class="dropdown-item highlight"
             (click)="completeRegistration()">
-      <i class="fas fa-hand-point-right mr-2"></i> Complete Registration
+      <i class="fas fa-hand-point-right mr-2"></i>{{'global.menu.account.registration.incomplete'|translate}}
     </button>
     <!-- eIAM profile -->
     <button *ngIf="!noEiam"
             class="dropdown-item"
             (click)="goToEiamProfile()">
-      <i class="fas fa-user-circle mr-2"></i> Profile
+      <i class="fas fa-user-circle mr-2"></i> {{'portal.navigation.menu-entry.account.profile'|translate}}
     </button>
     <!-- Contact template -->
     <a *ngIf="company && user.isRegistered()"
@@ -47,7 +47,7 @@
     <!-- Logout -->
     <button class="dropdown-item"
             (click)="logout()">
-      <i class="fas fa-power-off mr-2"></i> Logout
+      <i class="fas fa-power-off mr-2"></i> {{'global.menu.account.logout'|translate}}
     </button>
   </div>
 </div>

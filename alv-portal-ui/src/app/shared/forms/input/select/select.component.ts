@@ -8,7 +8,7 @@ import { ControlContainer } from '@angular/forms';
  * Component to display a select dropdown
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
  * @example  <alv-select
- *             label="Demo Select"
+ *             label="'path.to.translation.key'"
  *             [alvControl]="form.get('myControl')"
  *             [options$]="optionsObservable$"
  *             [validationMessages]="[{error: 'require', message: 'Custom message'}]">
