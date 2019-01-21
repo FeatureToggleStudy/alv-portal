@@ -18,7 +18,7 @@ export class JobFingerprintGuard implements CanActivate {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    state: RouterStateSnapshot): Observable<boolean> | boolean {
 
     return this.jobAdvertisementRepository.findByFingerprint(next.queryParams['externalId']).pipe(
       map((job) => {
