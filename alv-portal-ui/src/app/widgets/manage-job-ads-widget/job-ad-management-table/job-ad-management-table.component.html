@@ -47,12 +47,13 @@
       </td>
       <td role="gridcell"
           class="actions-cell d-block d-md-table-cell">
-        <div class="actions">
+        <div class="actions"
+             (click)="$event.stopPropagation()">
           <div #mobileActionsMenu="ngbDropdown"
                class="d-inline-block"
                ngbDropdown
                placement="bottom-right">
-            <button (click)="$event.stopPropagation();mobileActionsMenu.toggle()"
+            <button (click)="mobileActionsMenu.toggle()"
                     aria-label="Open candidate detail menu"
                     class="btn btn-text btn-icon"
                     id="dropdownMenu"
