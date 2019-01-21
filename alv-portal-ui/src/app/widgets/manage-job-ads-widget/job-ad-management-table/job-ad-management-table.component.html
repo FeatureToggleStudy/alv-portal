@@ -8,7 +8,7 @@
       <th scope="col"
           role="columnheader"
           *ngFor="let columnDefinition of columnDefinitions"
-          (click)="onSortChange(columnDefinition)"
+          (click)="changeColumnSort(columnDefinition)"
           [ngClass]="{'active-sort': currentSorting.column === columnDefinition.column}">
         <span>{{ columnDefinition.columnName | translate }}</span>
         <ng-container *ngIf="columnDefinition.sortingEnabled">
