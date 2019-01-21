@@ -24,7 +24,7 @@
           <button class="remove-button ml-1"
                   type="button"
                   (click)="removeItem(item)"
-                  [attr.aria-label]="'Remove Item ' + item.label">
+                  [attr.aria-label]="'portal.typeahead-multiselect.remove-item' | translate : {item: item.label}">
             <i class="fa fa-times"></i>
           </button>
         </div>

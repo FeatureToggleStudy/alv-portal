@@ -1450,6 +1450,7 @@ portal,portal.manage-job-ads.cancel.success,Stellenanzeige wurde erfolgreich abg
 portal,portal.manage-job-ads.details.actions.cancel,Stellenanzeige abmelden,Cancel job posting,Retirer l'annonce,Cancellare il posto vacante
 portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio
 portal,portal.manage-job-ads.details.menu-open,Stellenanzeige duplizieren,Opten,Dupliquer l'annonce,Duplicare l'annuncio
+portal,portal.manage-job-ads.row-label,,Job advertisement row actions for the row {{row}}
 
 portal,portal.global.help,Hilfe,Help
 portal,portal.global.search,Suche,Search,Recherche,Cerca
@@ -1467,7 +1468,9 @@ portal,portal.typeahead-multiselect.help-text.delete-selected-items,,Press Shift
 portal,portal.typeahead-multiselect.help-text.limit-reached,,Limit of {{ limit }} reached.
 portal,portal.typeahead-multiselect.help-text.select-up-to-limit,,You can select up to {{ limit }} items.
 portal,portal.typeahead-multiselect.help-text.query-min-length,,Enter at least {{queryMinLength}} characters to query the list of selectable items. Select by using the up and down arrow keys.
+portal,portal.typeahead-multiselect.remove-item,,Remove item {{item}}
 portal,portal.typeahead-multiselect.help-text.add-free-text,,You can add free text items by hitting Tab or Enter without selection.
+portal,portal.typeahead-single.help-text.instruction,,Enter at least {{ number }} characters to query the list of selectable items. Select by using the up and down arrow keys.
 
 
 
