@@ -1445,6 +1445,9 @@ portal,portal.job-publication.create.another,Weitere Stelle melden,???,???,???
 portal,portal.job-publication.submit.info.item1,Bei allfälligen Fragen werden Sie vom RAV kontaktiert.,???,???,???
 portal,portal.job-publication.submit.info.item2,Sie werden per E-Mail informiert, sobald die Stelle aufgeschaltet wurde.,???,???,???
 portal,portal.job-publication.submit.info.item3,Falls Sie in der Zwischenzeit Fragen haben, zögern Sie nicht, Ihr zuständiges RAV zu kontaktieren:,???,???,???
+portal,portal.job-publication.submit.info.phone,Tel.,???,???,???
+portal,portal.job-publication.submit.info.fax,Fax,???,???,???
+portal,portal.job-publication.submit.info.email,Email,???,???,???
 
 portal,portal.manage-job-ads.search.query,Stellen durchsuchen
 portal,portal.manage-job-ads.search.owner-name,Erfasser,Created by
