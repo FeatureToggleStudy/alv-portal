@@ -63,9 +63,9 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
   alert: Notification = null;
 
-  isUserInfoFilled: boolean = false;
+  isUserInfoFilled: boolean;
 
-  isOnlyEIAMRoles: boolean = false;
+  isOnlyEIAMRoles: boolean;
 
   private confirmMessage: string;
 
@@ -128,6 +128,10 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       params = params.set('role', 'PRIVATE_AGENT');
     }
     return params;
+  }
+
+  formatAccountability(accountability): string {
+    return `${accountability.companyName}, ${accountability.companyExternalId}, ${accountability.companySource}`;
   }
 
   dismissAlert() {

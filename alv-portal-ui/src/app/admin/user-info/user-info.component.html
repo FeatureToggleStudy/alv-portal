@@ -114,7 +114,7 @@
                             panelTitle="portal.admin.user-info.accountabilities.title">
           <ul class="alv-list" *ngIf="user && user.accountabilities?.length > 0; else no_accountabilities">
             <alv-list-item-content *ngFor="let accountability of user.accountabilities"
-                                   [label]="accountability.companyName + ', ' + accountability.companyExternalId + ', ' + accountability.companySource">
+                                   [label]="formatAccountability(accountability)">
             </alv-list-item-content>
           </ul>
           <ng-template #no_accountabilities>
