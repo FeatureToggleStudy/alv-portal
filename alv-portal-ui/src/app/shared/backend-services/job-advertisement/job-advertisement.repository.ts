@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   CreateJobAdvertisement,
@@ -12,7 +12,6 @@ import {
 } from './job-advertisement.types';
 
 import { map } from 'rxjs/operators';
-import { ResponseWrapper } from '../response-wrapper.type';
 import { createPageableURLSearchParams } from '../request-util';
 
 @Injectable({ providedIn: 'root' })
@@ -24,14 +23,11 @@ export class JobAdvertisementRepository {
 
   private readonly countUrl = `${this.resourceUrl}/_count`;
 
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
   }
 
-  save(jobPublication: CreateJobAdvertisement): Observable<ResponseWrapper> {
-    return this.http.post(this.resourceUrl, jobPublication, { observe: 'response' }).pipe(
-      map((resp: HttpResponse<JobAdvertisement>) => new ResponseWrapper(resp.headers, resp.body, resp.status)));
+  save(jobPublication: CreateJobAdvertisement): Observable<JobAdvertisement> {
+    return this.http.post<JobAdvertisement>(this.resourceUrl, jobPublication);
   }
 
   searchManagedJobAds(request: ManagedJobAdsSearchRequest): Observable<ManagedJobAdsSearchResponse> {

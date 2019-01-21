@@ -29,6 +29,7 @@ import { JobPublicationFormValueKeys } from './job-publication-form-value.types'
 import { JobPublicationFormValueFactory } from './job-publication-form-value-factory';
 import { JobAdvertisementRepository } from '../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { ActivatedRoute } from '@angular/router';
+import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -38,7 +39,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class JobPublicationFormComponent extends AbstractSubscriber implements OnInit {
 
-  @Output() jobPublicationCreated = new EventEmitter<null>();
+  @Output() jobPublicationCreated = new EventEmitter<JobAdvertisement>();
 
   jobPublicationForm: FormGroup;
 
@@ -113,8 +114,8 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
     //todo: use the current language
     const createJobAdvertisement = jobPublicationFormMapper.mapToCreateJobAdvertisement(this.jobPublicationForm.value, 'de');
     this.jobAdvertisementRepository.save(createJobAdvertisement)
-      .subscribe((resp) => {
-        this.jobPublicationCreated.emit();
+      .subscribe((jobAdvertisement) => {
+        this.jobPublicationCreated.emit(jobAdvertisement);
       });
   }
 

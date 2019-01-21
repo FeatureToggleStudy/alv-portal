@@ -15,7 +15,7 @@
       </h2>
       <hr class="mt-2 mb-3">
       <alv-job-publication-form *ngIf="!submitted, else confirmationMessage"
-                                (jobPublicationCreated)="jobPublicationCreated()">
+                                (jobPublicationCreated)="jobPublicationCreated($event)">
       </alv-job-publication-form>
     </div>
 
@@ -40,15 +40,34 @@
       <li class="mb-1">
         {{'portal.job-publication.submit.info.item2' | translate}}
       </li>
-      <li class="mb-1">
+      <li class="mb-1"
+          *ngIf="responsibleJobCenter$ | async as jobCenter">
         {{'portal.job-publication.submit.info.item3' | translate}}
         <p class="mt-3">
-          RAV Aussendienst<br>
-          Hochstrasse 37<br>
-          4002 Basel<br>
-          Tel.: +41612675033<br>
-          Fax: +41612675052<br>
-          Email: jobroom.rav@bs.ch
+          <alv-post-address [address]="{
+                        name: jobCenter.address?.name,
+                        street: jobCenter.address?.street,
+                        houseNumber: jobCenter.address?.houseNumber,
+                        postalCode: jobCenter.address?.zipCode,
+                        city: jobCenter.address?.city}">
+          </alv-post-address>
+          <ng-container *ngIf="jobCenter.phone">
+            {{'portal.job-publication.submit.info.phone' | translate}}:&nbsp;
+            <a [href]="'tel:' + jobCenter.phone"
+               target="_blank">{{jobCenter.phone | phoneNumber}}</a>
+            <br>
+          </ng-container>
+          <ng-container *ngIf="jobCenter.fax">
+            {{'portal.job-publication.submit.info.fax' | translate}}:&nbsp;
+            <a [href]="'tel:' + jobCenter.fax"
+               target="_blank">{{jobCenter.fax | phoneNumber}}</a>
+            <br>
+          </ng-container>
+          <ng-container *ngIf="jobCenter.email">
+            {{'portal.job-publication.submit.info.email' | translate}}:&nbsp;
+            <a [href]="'mailto:' + jobCenter.email"
+               target="_blank">{{jobCenter.email}}</a>
+          </ng-container>
         </p>
       </li>
     </ul>
