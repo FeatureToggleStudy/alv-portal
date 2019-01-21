@@ -75,6 +75,7 @@ export class JobAdvertisementRepository {
   }
 
   cancel(jobAdCancelRequest: JobAdvertisementCancelRequest): Observable<void> {
+    /*  return of(null);*/
     const { code } = jobAdCancelRequest;
     let params = new HttpParams();
     if (jobAdCancelRequest.token) {
