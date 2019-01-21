@@ -3,11 +3,11 @@ import {
   Actions,
   APPLY_FILTER,
   FILTER_APPLIED,
+  JOB_ADVERTISEMENT_CHANGED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED
-} from '../actions/manage-job-ads.actions';
-
+} from '../actions';
 
 export function manageJobAdsReducer(state = initialState, action: Actions): ManageJobAdsState {
 
@@ -55,6 +55,15 @@ export function manageJobAdsReducer(state = initialState, action: Actions): Mana
       newState = {
         ...state,
         selectedJobAdvertisement: action.payload.jobAdvertisement
+      };
+      break;
+
+    case JOB_ADVERTISEMENT_CHANGED:
+      const updatedJobAd = action.payload.jobAdvertisement;
+      const patchedJobAd = state.selectedJobAdvertisement && state.selectedJobAdvertisement.id === updatedJobAd.id ? updatedJobAd : state.selectedJobAdvertisement;
+      newState = {
+        ...state,
+        selectedJobAdvertisement: patchedJobAd
       };
       break;
 

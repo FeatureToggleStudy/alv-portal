@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LandingPageComponent } from './shared/landing-page/landing-page.component';
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { NotAuthenticatedGuard } from './core/auth/not-authenticated.guard';
 import { LandingPageGuard } from './shared/landing-page/landing-page.guard';
+import { DummyComponent } from './shared/dummy/dummy.component';
 
 const appRoutes: Routes = [
   {
@@ -44,7 +44,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'landing',
-    component: LandingPageComponent,
+    component: DummyComponent,
     canActivate: [LandingPageGuard],
   },
   {
