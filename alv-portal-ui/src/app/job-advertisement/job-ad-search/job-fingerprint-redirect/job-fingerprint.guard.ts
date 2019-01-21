@@ -24,10 +24,10 @@ export class JobFingerprintGuard implements CanActivate {
       map((job) => {
         if (job !== null) {
           this.router.navigate(['/job-search/', job.id]);
-        } else {
-          this.router.navigate(['home']);
           return false;
         }
+        this.router.navigate(['home']);
+        return false;
       }),
       catchError(() => {
         this.router.navigate(['home']);
