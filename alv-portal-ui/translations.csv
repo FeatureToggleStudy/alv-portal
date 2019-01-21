@@ -1459,7 +1459,7 @@ portal,portal.admin.user-info.menu-entry,Benutzerinformationen,User Info,User In
 portal,portal.admin.user-info.desc,Bitte geben Sie die E-Mail-Adresse eines bestehenden Benutzers ein.,Please enter an email address of an existing user.,Please enter an email address of an existing user.,Please enter an email address of an existing user.
 portal,portal.admin.user-info.searchByEmail,Suchen,Search,Search,Search
 portal,portal.admin.user-info.email,E-Mail,E-Mail,E-Mail,E-Mail
-portal,portal.admin.user-info.confirmMessage,Are you sure to unregister {{ email }} ?,Are you sure to unregister {{ email }} ?,Are you sure to unregister {{ email }} ?,Are you sure to unregister {{ email }} ?
+portal,portal.admin.user-info.confirmMessage,Are you sure you want to unregister <br/> {{ email }} ?,Are you sure you want to unregister <br/> {{ email }} ?,Are you sure you want to unregister <br/> {{ email }} ?,Are you sure you want to unregister <br/> {{ email }} ?
 
 portal,portal.admin.user-info.user-info.title,Benutzerinformationen,User Info,User Info,User Info
 portal,portal.admin.user-info.user-info.ext-id,Ext-Id,Ext-Id,Ext-Id,Ext-Id
@@ -1493,3 +1493,5 @@ portal,portal.admin.user-info.alert.user-info-technical,Es ist ein technischer F
 portal,portal.admin.user-info.alert.user-info-not-found,Es konnte kein Benutzer mit dieser E-Mail-Adresse gefunden werden.,No user found with this email address.,No user found with this email address.,No user found with this email address.
 portal,portal.admin.user-info.alert.unregister-technical,Es ist ein technischer Fehler beim Zurücksetzen der Registrierung aufgetreten. Versuchen Sie es später noch mal.,A technical error occurred during unregistering the user. Please try it again later.,A technical error occurred during unregistering the user. Please try it again later.,A technical error occurred during unregistering the user. Please try it again later.
 portal,portal.admin.user-info.alert.unregister-success,Registrierung zurückgesetzt.,Registration reset.,Registration reset.,Registration reset.
+portal,portal.admin.user-info.confirm-dialog.yes,Ja,Yes,Yes,Yes
+portal,portal.admin.user-info.confirm-dialog.no,Nein,No,No,No

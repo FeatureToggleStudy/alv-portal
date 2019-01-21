@@ -12,6 +12,8 @@ import { I18nService } from '../../core/i18n.service';
 import { UserRole } from '../../core/auth/user.model';
 import { Notification, NotificationType } from '../../shared/layout/notifications/notification.model';
 import { UserInfoBadge, UserInfoBadgesMapperService } from './user-info-badges-mapper.service';
+import { ModalService } from '../../shared/layout/modal/modal.service';
+import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 
 const ALERTS = {
   userNotFound: {
@@ -72,6 +74,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
   constructor(private fb: FormBuilder,
               private userInfoRepository: UserInfoRepository,
               private i18nService: I18nService,
+              private modalService: ModalService,
               private userInfoBadgesMapperService: UserInfoBadgesMapperService) {
     super();
   }
@@ -108,10 +111,6 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     this.isOnlyEIAMRoles = this.user == null && !this.isUserRoleEmpty() && this.userRoles.includes('ALLOW');
   }
 
-  private confirmUnregister(): boolean {
-    return window.confirm(this.confirmMessage);
-  }
-
   private getRoleParam(): string {
     let role = 'NO_ROLE';
     if (this.isUserRoleEmpty()) {
@@ -136,23 +135,28 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
   }
 
   onUnregister(): void {
-    if (!this.confirmUnregister()) {
-      return;
-    }
-    this.userInfoRepository.unregisterUser(this.form.get('emailAddress').value, this.getRoleParam())
-      .subscribe(() => {
-        this.alert = ALERTS.unregisterSuccess;
-        this.onSubmit();
-      }, () => {
-        this.alert = ALERTS.unregisterTechError;
-      });
+    this.modalService.openConfirm({
+      title: 'portal.admin.user-info.actions.unregister.title',
+      textHtml: this.confirmMessage,
+      confirmLabel: 'portal.admin.user-info.confirm-dialog.yes',
+      cancelLabel: 'portal.admin.user-info.confirm-dialog.no'
+    } as ConfirmModalConfig).result
+      .then(
+        () => this.userInfoRepository.unregisterUser(this.form.get('emailAddress').value, this.getRoleParam())
+          .subscribe(() => {
+            this.alert = ALERTS.unregisterSuccess;
+            this.onSubmit();
+          }, () => {
+            this.alert = ALERTS.unregisterTechError;
+          }),
+        () => {});
   }
 
   onSubmit() {
     this.userInfoRepository.loadUserByEmail(this.form.get('emailAddress').value).pipe(
       withLatestFrom(this.i18nService.stream(
         'portal.admin.user-info.confirmMessage', { email: this.form.get('emailAddress').value }
-        )),
+      )),
       switchMap(([res, message]) => {
         this.user = res.body;
         this.setActions();
