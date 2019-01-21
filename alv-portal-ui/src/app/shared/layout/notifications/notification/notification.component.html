@@ -9,7 +9,7 @@
 </div>
 <button *ngIf="!hideDismiss"
         type="button"
-        [aria-label]="'portal.global.close' | translate"
+        [attr.aria-label]="'portal.global.close' | translate"
         class="close close-button"
         (click)="doDismiss(notification)">&times;
 </button>

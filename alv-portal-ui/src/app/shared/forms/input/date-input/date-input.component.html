@@ -34,7 +34,7 @@
     <span *ngIf="!readonly"
           class="input-group-append">
       <button class="btn btn-secondary"
-              [aria-label]="'portal.forms.date-input'|translate"
+              [attr.aria-label]="'portal.forms.date-input'|translate"
               type="button"
               (click)="datePicker.toggle()"
               [disabled]="control.disabled"
