@@ -32,7 +32,6 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   @HostBinding('class')
   readonly class = 'side-nav expanded navbar navbar-expand-lg p-0';
 
-  @HostBinding('class.collapsed')
   mainNavigationCollapsed = true;
 
   @HostBinding('class.d-lg-none')
