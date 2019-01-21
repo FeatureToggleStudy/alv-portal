@@ -16,13 +16,21 @@ import {
 import { Action, select, Store } from '@ngrx/store';
 import { asyncScheduler, Observable, of } from 'rxjs';
 import { EffectErrorOccurredAction } from '../../../../core/state-management/actions/core.actions';
-import { getManageJobAdsState, getNextId, getPrevId, ManageJobAdsState } from '../state';
+import {
+  getManagedJobAdsSearchFilter,
+  getManageJobAdsState,
+  getNextId,
+  getPrevId,
+  ManageJobAdsState
+} from '../state';
 import {
   APPLY_FILTER,
   ApplyFilterAction,
   FILTER_APPLIED,
   FilterAppliedAction,
   INIT_RESULT_LIST,
+  JOB_ADVERTISEMENT_CHANGED,
+  JobAdvertisementChangedAction,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
@@ -96,6 +104,16 @@ export class ManageJobAdsEffects {
     }),
     map(() => {
       return { type: 'nothing' };
+    })
+  );
+
+  @Effect()
+  jobAdvertisementChanged: Observable<Action> = this.actions$.pipe(
+    ofType(JOB_ADVERTISEMENT_CHANGED),
+    map((action: JobAdvertisementChangedAction) => action.payload),
+    withLatestFrom(this.store.pipe(select(getManagedJobAdsSearchFilter))),
+    map(([action, filter]) => {
+      return new ApplyFilterAction(filter);
     })
   );
 
