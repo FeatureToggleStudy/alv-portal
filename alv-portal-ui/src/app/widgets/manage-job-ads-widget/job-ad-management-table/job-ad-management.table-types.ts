@@ -7,8 +7,8 @@ export enum ManagedJobAdsSortingColumn {
   EGOV = 'jobAdvertisement.stellennummerEgov',
   AVAM = 'jobAdvertisement.stellennummerAvam',
   PUBLICATION_DATE = 'jobAdvertisement.publication.startDate',
-  TITLE = 'jobAdvertisement.jobContent.jobDescriptions.title',
-  LOCATION = 'jobAdvertisement.jobContent.location.city',
+  TITLE = 'jobAdvertisement.jobContent.jobDescriptions.title.keyword',
+  LOCATION = 'jobAdvertisement.jobContent.location.city.keyword',
   STATUS = 'jobAdvertisement.status',
   OWNER_NAME = 'jobAdvertisement.owner.userDisplayName'
 }
