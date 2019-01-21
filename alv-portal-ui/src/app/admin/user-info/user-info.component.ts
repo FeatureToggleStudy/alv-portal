@@ -111,7 +111,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     this.isOnlyEIAMRoles = this.user == null && !this.isUserRoleEmpty() && this.userRoles.includes('ALLOW');
   }
 
-  private getRoleParam(): string {
+  private determineRoleToBeRemoved(): string {
     let role = 'NO_ROLE';
     if (this.isUserRoleEmpty()) {
       return role;
@@ -137,12 +137,13 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
   onUnregister(): void {
     this.modalService.openConfirm({
       title: 'portal.admin.user-info.actions.unregister.title',
-      textHtml: this.confirmMessage,
+      content: 'portal.admin.user-info.confirmMessage',
+      contentParams: { email: this.form.get('emailAddress').value },
       confirmLabel: 'portal.admin.user-info.confirm-dialog.yes',
       cancelLabel: 'portal.admin.user-info.confirm-dialog.no'
     } as ConfirmModalConfig).result
       .then(
-        () => this.userInfoRepository.unregisterUser(this.form.get('emailAddress').value, this.getRoleParam())
+        () => this.userInfoRepository.unregisterUser(this.form.get('emailAddress').value, this.determineRoleToBeRemoved())
           .subscribe(() => {
             this.alert = ALERTS.unregisterSuccess;
             this.onSubmit();
