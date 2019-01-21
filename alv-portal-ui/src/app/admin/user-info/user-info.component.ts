@@ -7,8 +7,7 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { UserInfoDTO } from '../../shared/backend-services/user-info/user-info.types';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { EMPTY } from 'rxjs';
-import { catchError, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
-import { I18nService } from '../../core/i18n.service';
+import { catchError, switchMap, takeUntil } from 'rxjs/operators';
 import { UserRole } from '../../core/auth/user.model';
 import { Notification, NotificationType } from '../../shared/layout/notifications/notification.model';
 import { UserInfoBadge, UserInfoBadgesMapperService } from './user-info-badges-mapper.service';
@@ -69,30 +68,15 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
   isOnlyEIAMRoles: boolean;
 
-  private confirmMessage: string;
-
   constructor(private fb: FormBuilder,
               private userInfoRepository: UserInfoRepository,
-              private i18nService: I18nService,
               private modalService: ModalService,
               private userInfoBadgesMapperService: UserInfoBadgesMapperService) {
     super();
   }
 
   ngOnInit() {
-    this.form = this.prepareForm();
-
-    this.i18nService.currentLanguage$.pipe(
-      switchMap(() => {
-        const email = this.form.get('emailAddress').value || '';
-        return this.i18nService.stream('portal.admin.user-info.confirmMessage', {email: email});
-      }),
-      takeUntil(this.ngUnsubscribe))
-      .subscribe((message) => this.confirmMessage = message);
-  }
-
-  private prepareForm(): FormGroup {
-    return this.fb.group({
+    this.form = this.fb.group({
       emailAddress: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]]
     });
   }
@@ -155,13 +139,9 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
   onSubmit() {
     this.userInfoRepository.loadUserByEmail(this.form.get('emailAddress').value).pipe(
-      withLatestFrom(this.i18nService.stream(
-        'portal.admin.user-info.confirmMessage', { email: this.form.get('emailAddress').value }
-      )),
-      switchMap(([res, message]) => {
+      switchMap((res: HttpResponse<any>) => {
         this.user = res.body;
         this.setActions();
-        this.confirmMessage = message;
         this.badges = this.userInfoBadgesMapperService.map(this.user);
         return this.userInfoRepository.loadUserRoles(this.user.id);
       }),
