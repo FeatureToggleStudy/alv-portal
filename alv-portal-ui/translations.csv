@@ -707,7 +707,7 @@ health,health.title,Gesundheit Ihrer Anwendung,Health Checks,Diagnostics,Verific
 home,home.contactform.text,Kontakt,Contact,Contact,Contatto
 home,home.contactform.url,https://www.arbeit.swiss/secoalv/de/home/service/kontakt.html,https://www.arbeit.swiss/secoalv/en/home/service/kontakt.html,https://www.arbeit.swiss/secoalv/fr/home/service/kontakt.html,https://www.arbeit.swiss/secoalv/it/home/service/kontakt.html
 home,home.registration.url,https://www.arbeit.swiss/secoalv/de/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,https://www.arbeit.swiss/secoalv/en/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,https://www.arbeit.swiss/secoalv/fr/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,https://www.arbeit.swiss/secoalv/it/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html
-home,home.title,Job-Room,Job-Room,Job-Room,Job-Room
+home,home.title.jobroom,Job-Room,Job-Room,Job-Room,Job-Room
 home,home.title.portal,arbeit,work,travail,lavoro
 home,home.title.portal-url,https://www.arbeit.swiss,https://www.arbeit.swiss/secoalv/en/home.html,https://www.arbeit.swiss/secoalv/fr/home.html,https://www.arbeit.swiss/secoalv/it/home.html
 home,home.title.cms,arbeit.swiss,work.swiss,travail.swiss,lavoro.swiss
@@ -1417,6 +1417,7 @@ portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl mögl
 portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
 
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
+portal,portal.shared.localities.geo-location-selection.not-available,Standort kann nicht ermittelt werden
 
 portal,portal.widgets.job-search.title,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
@@ -1461,8 +1462,9 @@ portal,portal.form.validation.message.houseNr,Bitte überprüfen Sie die korrekt
 portal,portal.job-publication.publication.publicDisplay.label,"<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> und <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> and <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> et <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Sito Job-Room</a> e <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>"
 portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://ec.europa.eu/eures/public/de/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/en/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/fr/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/it/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>"
 
-portal,portal.header.menu.open-navigation,
-portal,portal.header.menu.user-menu.label,
+portal,portal.header.menu.open-navigation
+portal,portal.header.menu.user-menu.label
+portal,portal.header.contact,Kontakt,Contact,Contact,Contatto
 portal,portal.typeahead-multiselect.legend.selected-items,,Selected Items
 portal,portal.typeahead-multiselect.help-text.delete-selected-items,,Press Shift + Tab or use Backspace to delete selected items.
 portal,portal.typeahead-multiselect.help-text.limit-reached,,Limit of {{ limit }} reached.
