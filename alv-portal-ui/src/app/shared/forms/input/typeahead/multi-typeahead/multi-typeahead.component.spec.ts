@@ -10,6 +10,7 @@ import { ValidationMessagesComponent } from '../../validation-messages/validatio
 import { FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { StringTypeaheadItem } from '../string-typeahead-item';
+import { TypeaheadDisplayItem } from '../typeahead-display-item';
 
 describe('MultiTypeaheadComponent', () => {
 
