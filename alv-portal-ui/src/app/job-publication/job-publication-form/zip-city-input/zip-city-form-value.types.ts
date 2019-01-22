@@ -1,8 +1,5 @@
 import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
+import { ZipAndCity } from '../../../shared/localities/zip-and-city-typeahead-item';
 
-export interface ZipAndCity {
-  zipCode: string;
-  city: string;
-}
 
 export type ZipCityFormValue = ZipAndCity | TypeaheadItem<ZipAndCity>;

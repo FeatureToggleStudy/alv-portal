@@ -3,8 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { IsoCountryService } from '../iso-country.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { Observable } from 'rxjs/index';
-import { ZipAndCity, ZipCityFormValue } from './zip-city-form-value.types';
+import { ZipCityFormValue } from './zip-city-form-value.types';
 import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
+import { ZipAndCity } from '../../../shared/localities/zip-and-city-typeahead-item';
 
 @Component({
   selector: 'alv-zip-city-input',
