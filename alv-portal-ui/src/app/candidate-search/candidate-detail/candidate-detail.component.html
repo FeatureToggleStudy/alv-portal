@@ -19,7 +19,7 @@
                   class="btn btn-text btn-icon"
                   id="dropdownMenu"
                   ngbDropdownAnchor
-                  aria-label="Open candidate detail menu">
+                  [attr.aria-label]="'portal.candidate-detail.open-candidate-menu'|translate">
             <i class="fa fa-ellipsis-v"></i>
           </button>
           <div aria-label="Candidate detail menu"

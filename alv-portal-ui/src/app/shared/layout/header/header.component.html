@@ -12,7 +12,7 @@
       </div>
     </a>
     <button class="header-menu d-lg-none align-self-center"
-            aria-label="Open Navigation"
+            [attr.aria-label]="'portal.header.menu.open-navigation'|translate"
             (click)="toggleMobileNavigation()">
       <i class="navbar-toggler-icon fas fa-bars"></i>
     </button>

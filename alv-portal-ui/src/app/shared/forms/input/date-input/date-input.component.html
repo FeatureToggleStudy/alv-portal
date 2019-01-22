@@ -34,12 +34,12 @@
     <span *ngIf="!readonly"
           class="input-group-append">
       <button class="btn btn-secondary"
-              aria-label="Open Calendar"
+              [attr.aria-label]="'portal.forms.date-input'|translate"
               type="button"
               (click)="datePicker.toggle()"
               [disabled]="control.disabled"
               placement="top"
-              ngbTooltip="Open Calendar">
+              [ngbTooltip]="'portal.forms.date-input' | translate">
         <i class="fas fa-calendar-alt"></i>
       </button>
     </span>
