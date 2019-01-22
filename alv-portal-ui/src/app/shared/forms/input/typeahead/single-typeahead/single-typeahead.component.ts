@@ -7,20 +7,20 @@ import {
   Output,
   SkipSelf
 } from '@angular/core';
-import { AbstractInput } from '../abstract-input';
+import { AbstractInput } from '../../abstract-input';
 import { ControlContainer } from '@angular/forms';
-import { InputIdGenerationService } from '../input-id-generation.service';
-import { InputType } from '../input-type.enum';
+import { InputIdGenerationService } from '../../input-id-generation.service';
+import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
-import { SingleTypeaheadItem } from './single-typeahead-item.model';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
+import { TypeaheadItem } from '../typeahead-item';
 
 @Component({
   selector: 'alv-single-typeahead',
   templateUrl: './single-typeahead.component.html',
-  styleUrls: ['../abstract-input.scss', './single-typeahead.component.scss']
+  styleUrls: ['../../abstract-input.scss', './single-typeahead.component.scss']
 })
 export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
@@ -28,11 +28,11 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
   readonly TYPEAHEAD_DEBOUNCE_TIME = 200;
 
-  @Input() loadItems: (text: string) => Observable<SingleTypeaheadItem<any>[]>;
+  @Input() loadItems: (text: string) => Observable<TypeaheadItem<any>[]>;
 
   @Input() focusFirst = true;
 
-  @Output() itemSelected = new EventEmitter<SingleTypeaheadItem<any>>();
+  @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
 
   helpId = this.id + '-help';
 
@@ -53,13 +53,13 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
     );
   }
 
-  formatResultItem(item: SingleTypeaheadItem<any>): string {
+  formatResultItem(item: TypeaheadItem<any>): string {
     return item.label;
   }
 
   selectItem(event: NgbTypeaheadSelectItemEvent): void {
 
-    const item = <SingleTypeaheadItem<any>>event.item;
+    const item = <TypeaheadItem<any>>event.item;
 
     this.control.setValue(item, {emitEvent: false});
 
@@ -74,7 +74,7 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
     }
   }
 
-  private loadItemsGuarded(text$: Observable<string>): Observable<SingleTypeaheadItem<any>[]> {
+  private loadItemsGuarded(text$: Observable<string>): Observable<TypeaheadItem<any>[]> {
     return text$.pipe(
       debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
       switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
@@ -84,13 +84,13 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
     );
   }
 
-  private toModelArray(items: SingleTypeaheadItem<any>[]): SingleTypeaheadItem<any>[] {
+  private toModelArray(items: TypeaheadItem<any>[]): TypeaheadItem<any>[] {
     return items
-      .filter((item: SingleTypeaheadItem<any>) => !this.exists(item))
-      .sort((item1: SingleTypeaheadItem<any>, item2: SingleTypeaheadItem<any>) => item1.compare(item2));
+      .filter((item: TypeaheadItem<any>) => !this.exists(item))
+      .sort((item1: TypeaheadItem<any>, item2: TypeaheadItem<any>) => item1.compare(item2));
   }
 
-  private exists(model: SingleTypeaheadItem<any>): boolean {
+  private exists(model: TypeaheadItem<any>): boolean {
     return this.control.value && this.control.value === model;
   }
 }

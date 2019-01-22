@@ -1,4 +1,4 @@
-import { MultiTypeaheadItem } from '../forms/input/multi-typeahead/multi-typeahead-item';
+import { TypeaheadItem } from '../forms/input/typeahead/typeahead-item';
 
 export interface LocalityItem {
   communalCode?: string;
@@ -13,7 +13,7 @@ export enum LocalityInputType {
   CANTON = 'canton',
 }
 
-export class LocalityMultiTypeaheadItem extends MultiTypeaheadItem<LocalityItem> {
+export class LocalityTypeaheadItem extends TypeaheadItem<LocalityItem> {
 
   constructor(type: LocalityInputType, payload: LocalityItem, label: string, order: number) {
     super(type, payload, label, order);
@@ -23,7 +23,7 @@ export class LocalityMultiTypeaheadItem extends MultiTypeaheadItem<LocalityItem>
    * should be called manually after a JSON.parse to make sure we create a new object instance
    * @param obj after using JSON.parse
    */
-  static fromJson(obj: any): LocalityMultiTypeaheadItem {
-    return new LocalityMultiTypeaheadItem(obj.type, obj.payload, obj.label, obj.order);
+  static fromJson(obj: any): LocalityTypeaheadItem {
+    return new LocalityTypeaheadItem(obj.type, obj.payload, obj.label, obj.order);
   }
 }

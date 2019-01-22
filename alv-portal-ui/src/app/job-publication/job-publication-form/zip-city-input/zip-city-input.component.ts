@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IsoCountryService } from '../iso-country.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
-import { SingleTypeaheadItem } from '../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
 import { Observable } from 'rxjs/index';
 import { ZipAndCity, ZipCityFormValue } from './zip-city-form-value.types';
+import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
 
 @Component({
   selector: 'alv-zip-city-input',
@@ -42,7 +42,7 @@ export class ZipCityInputComponent implements OnInit {
     return selectedCountryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND;
   }
 
-  loadLocationsFn = (query: string): Observable<SingleTypeaheadItem<ZipAndCity>[]> =>
+  loadLocationsFn = (query: string): Observable<TypeaheadItem<ZipAndCity>[]> =>
     this.localitySuggestionService.fetchJobPublicationLocations(query)
 
   ngOnInit(): void {
