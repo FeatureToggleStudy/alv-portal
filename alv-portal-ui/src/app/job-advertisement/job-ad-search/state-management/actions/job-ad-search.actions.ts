@@ -3,7 +3,7 @@ import { JobAdvertisement } from '../../../../shared/backend-services/job-advert
 import { JobSearchFilter } from '../state';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
-import { OccupationMultiTypeaheadItem } from '../../../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
@@ -130,7 +130,7 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
 export class OccupationLanguageChangedAction implements Action {
   readonly type = OCCUPATION_LANGUAGE_CHANGED_ACTION;
 
-  constructor(public payload: { occupations: OccupationMultiTypeaheadItem[] }) {
+  constructor(public payload: { occupations: OccupationTypeaheadItem[] }) {
   }
 }
 

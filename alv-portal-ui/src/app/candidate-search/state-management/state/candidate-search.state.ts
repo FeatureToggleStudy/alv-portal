@@ -12,9 +12,9 @@ import {
   CandidateProfile,
   FilterLanguageSkill
 } from '../../../shared/backend-services/candidate/candidate.types';
-import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
-import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
-import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
+import { SimpleTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-typeahead-item';
+import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
 
 export interface CandidateSearchState {
   totalCount: number;
@@ -51,9 +51,9 @@ export const initialState: CandidateSearchState = {
 };
 
 export interface CandidateSearchFilter {
-  occupations: OccupationMultiTypeaheadItem[];
-  keywords: SimpleMultiTypeaheadItem[];
-  workplace: LocalityMultiTypeaheadItem;
+  occupations: OccupationTypeaheadItem[];
+  keywords: SimpleTypeaheadItem[];
+  workplace: LocalityTypeaheadItem;
   experience: Experience;
   residence: Canton[];
   availability: Availability;

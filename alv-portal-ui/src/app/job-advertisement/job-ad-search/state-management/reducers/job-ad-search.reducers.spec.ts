@@ -12,26 +12,26 @@ import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.co
 import { createJobAdvertisement } from './job-ad-search.reducers.spec-util';
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
-  OccupationMultiTypeaheadItem,
-  OccupationMultiTypeaheadItemType
-} from '../../../../shared/occupations/occupation-multi-typeahead-item';
-import { SimpleMultiTypeaheadItem } from '../../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+  OccupationTypeaheadItem,
+  OccupationTypeaheadItemType
+} from '../../../../shared/occupations/occupation-typeahead-item';
+import { SimpleTypeaheadItem } from '../../../../shared/forms/input/multi-typeahead/simple-typeahead-item';
 import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
 import {
   LocalityInputType,
   LocalityItem,
-  LocalityMultiTypeaheadItem
-} from '../../../../shared/localities/locality-multi-typeahead-item';
+  LocalityTypeaheadItem
+} from '../../../../shared/localities/locality-typeahead-item';
 
 describe('jobAdSearchReducers', () => {
 
   /* QUERY PANEL VALUES CHANGED */
   const occupationCode: OccupationCode = { type: 'X28', value: '11000976' };
   const localityItem: LocalityItem = { communalCode: '351' };
-  const occupation = new OccupationMultiTypeaheadItem(
-    OccupationMultiTypeaheadItemType.OCCUPATION, occupationCode, 'Java Applikationsentwickler', 7);
-  const keyword = new SimpleMultiTypeaheadItem('free-text', 'angular', 'angular', 0);
-  const locality = new LocalityMultiTypeaheadItem(LocalityInputType.LOCALITY, localityItem, 'Bern', 0);
+  const occupation = new OccupationTypeaheadItem(
+    OccupationTypeaheadItemType.OCCUPATION, occupationCode, 'Java Applikationsentwickler', 7);
+  const keyword = new SimpleTypeaheadItem('free-text', 'angular', 'angular', 0);
+  const locality = new LocalityTypeaheadItem(LocalityInputType.LOCALITY, localityItem, 'Bern', 0);
   const queryPanelValues: JobQueryPanelValues = {
     occupations: [occupation],
     keywords: [keyword],
@@ -189,10 +189,10 @@ describe('jobAdSearchReducers', () => {
   it('OCCUPATION_LANGUAGE_CHANGED_ACTION : should update occupation category for language and value', () => {
     // GIVEN
     const occupCode: OccupationCode = { type: 'SBN3', value: '361' };
-    const classificationDE = new OccupationMultiTypeaheadItem(
-      OccupationMultiTypeaheadItemType.CLASSIFICATION, occupCode, 'Berufe der Informatik', 10);
-    const classificationEN = new OccupationMultiTypeaheadItem(
-      OccupationMultiTypeaheadItemType.CLASSIFICATION, occupCode, 'IT occupations', 10);
+    const classificationDE = new OccupationTypeaheadItem(
+      OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Berufe der Informatik', 10);
+    const classificationEN = new OccupationTypeaheadItem(
+      OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'IT occupations', 10);
     const state: JobAdSearchState = {
       ...initialState,
       jobSearchFilter: {

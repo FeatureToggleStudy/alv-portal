@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { map, mergeMap, toArray } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SingleTypeaheadItem } from '../../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
 import { Router } from '@angular/router';
 import { RegistrationStep } from '../../../registration-step.enum';
 import { AbstractRegistrationStep } from '../../../abstract-registration-step';
@@ -10,6 +9,7 @@ import { pavSteps } from '../pav-steps.config';
 import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
 import { PavSuggestion } from '../../../../shared/backend-services/pav-search/pav-search.types';
 import { PavSearchRepository } from '../../../../shared/backend-services/pav-search/pav-search.repository';
+import { TypeaheadItem } from '../../../../shared/forms/input/multi-typeahead/typeahead-item';
 
 @Component({
   selector: 'alv-pav-identification',
@@ -39,7 +39,7 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
     });
   }
 
-  itemSelected(item: SingleTypeaheadItem<PavSuggestion>) {
+  itemSelected(item: TypeaheadItem<PavSuggestion>) {
     this.pavSelected.emit(item.payload);
   }
 
@@ -55,7 +55,7 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
     this.router.navigate(['home']);
   }
 
-  private searchOrganizations(term: string): Observable<SingleTypeaheadItem<PavSuggestion>[]> {
+  private searchOrganizations(term: string): Observable<TypeaheadItem<PavSuggestion>[]> {
     return this.pavSearchRepository.suggest(term).pipe(
       mergeMap(organizations => from(organizations)),
       map(this.mapToItem),
@@ -63,8 +63,8 @@ export class PavIdentificationComponent extends AbstractRegistrationStep impleme
     );
   }
 
-  private mapToItem(pavSuggestion: PavSuggestion, index: number): SingleTypeaheadItem<PavSuggestion> {
-    return new SingleTypeaheadItem(
+  private mapToItem(pavSuggestion: PavSuggestion, index: number): TypeaheadItem<PavSuggestion> {
+    return new TypeaheadItem<PavSuggestion>(
       'pav',
       pavSuggestion,
       PavSearchRepository.formatOrganizationName(pavSuggestion),
