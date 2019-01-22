@@ -43,7 +43,7 @@
                       label="audits.table.header.date"
                       alvFormControlName="startDate"
                       [minDate]="minDateEmploymentStart"
-                      [maxDate]="employment.get('endDate').value"
+                      [maxDate]="getEmploymentStartMaxDate()"
                       class="ml-5 narrow-form">
       </alv-date-input>
     </div>
@@ -73,7 +73,7 @@
       <alv-date-input #endDate
                       label="audits.table.header.date"
                       alvFormControlName="endDate"
-                      [minDate]="this.employment.get('startDate').value"
+                      [minDate]="getEmploymentEndMinDate()"
                       class="ml-5 narrow-form">
       </alv-date-input>
     </div>
