@@ -2,11 +2,11 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable, of } from 'rxjs';
 import { flatMap, map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { InitialFormValueConfig } from './job-publication-form-value-factory';
-import { AuthenticationService } from '../../core/auth/authentication.service';
+import { InitialFormValueConfig } from './job-publication-form/job-publication-form-value-factory';
+import { AuthenticationService } from '../core/auth/authentication.service';
 
 @Injectable()
-export class JobPublicationFormResolver implements Resolve<Observable<InitialFormValueConfig>> {
+export class JobPublicationResolver implements Resolve<Observable<InitialFormValueConfig>> {
 
   constructor(private authenticationService: AuthenticationService) {
   }

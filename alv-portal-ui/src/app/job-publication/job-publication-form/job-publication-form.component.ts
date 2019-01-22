@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output
 } from '@angular/core';
@@ -26,9 +27,11 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import * as  jobPublicationFormMapper from './job-publication-form.mapper';
 import { JobPublicationFormValueKeys } from './job-publication-form-value.types';
-import { JobPublicationFormValueFactory } from './job-publication-form-value-factory';
+import {
+  InitialFormValueConfig,
+  JobPublicationFormValueFactory
+} from './job-publication-form-value-factory';
 import { JobAdvertisementRepository } from '../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import { ActivatedRoute } from '@angular/router';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
@@ -39,7 +42,14 @@ import { JobAdvertisement } from '../../shared/backend-services/job-advertisemen
 })
 export class JobPublicationFormComponent extends AbstractSubscriber implements OnInit {
 
-  @Output() jobPublicationCreated = new EventEmitter<JobAdvertisement>();
+  @Output()
+  jobPublicationCreated = new EventEmitter<JobAdvertisement>();
+
+  @Input()
+  initialFormValueConfig: InitialFormValueConfig;
+
+  @Input()
+  currentLanguage: string;
 
   jobPublicationForm: FormGroup;
 
@@ -69,8 +79,7 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
 
   constructor(private fb: FormBuilder,
               private jobPublicationFormValueFactory: JobPublicationFormValueFactory,
-              private jobAdvertisementRepository: JobAdvertisementRepository,
-              private route: ActivatedRoute) {
+              private jobAdvertisementRepository: JobAdvertisementRepository) {
     super();
 
     this.jobPublicationForm = this.fb.group({
@@ -80,8 +89,7 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
   }
 
   ngOnInit(): void {
-    const initialFormValueConfig = this.route.snapshot.data.initialFormValueConfig;
-    const initialJobPublicationFormValue = this.jobPublicationFormValueFactory.createJobPublicationFormValue(initialFormValueConfig);
+    const initialJobPublicationFormValue = this.jobPublicationFormValueFactory.createJobPublicationFormValue(this.initialFormValueConfig);
 
     this.jobDescriptionFormValue = initialJobPublicationFormValue.jobDescription;
     this.occupationFormValue = initialJobPublicationFormValue.occupation;
@@ -111,8 +119,7 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
   }
 
   submit() {
-    //todo: use the current language
-    const createJobAdvertisement = jobPublicationFormMapper.mapToCreateJobAdvertisement(this.jobPublicationForm.value, 'de');
+    const createJobAdvertisement = jobPublicationFormMapper.mapToCreateJobAdvertisement(this.jobPublicationForm.value, this.currentLanguage);
     this.jobAdvertisementRepository.save(createJobAdvertisement)
       .subscribe((jobAdvertisement) => {
         this.jobPublicationCreated.emit(jobAdvertisement);

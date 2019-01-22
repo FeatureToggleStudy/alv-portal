@@ -6,6 +6,8 @@ import { JobCenter } from '../shared/backend-services/reference-service/job-cent
 import { JobCenterRepository } from '../shared/backend-services/reference-service/job-center.repository';
 import { I18nService } from '../core/i18n.service';
 import { flatMap, take } from 'rxjs/operators';
+import { InitialFormValueConfig } from './job-publication-form/job-publication-form-value-factory';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'alv-job-publication',
@@ -13,6 +15,10 @@ import { flatMap, take } from 'rxjs/operators';
   styleUrls: ['./job-publication.component.scss']
 })
 export class JobPublicationComponent {
+
+  initialFormValueConfig: InitialFormValueConfig;
+
+  currentLanguage$: Observable<string>;
 
   successNotification = {
     type: NotificationType.SUCCESS,
@@ -30,7 +36,10 @@ export class JobPublicationComponent {
   responsibleJobCenter$: Observable<JobCenter>;
 
   constructor(private jobCenterRepository: JobCenterRepository,
-              private i18nService: I18nService) {
+              private i18nService: I18nService,
+              private route: ActivatedRoute) {
+    this.initialFormValueConfig = route.snapshot.data['initialFormValueConfig'];
+    this.currentLanguage$ = i18nService.currentLanguage$;
   }
 
   jobPublicationCreated(jobAdvertisement: JobAdvertisement) {

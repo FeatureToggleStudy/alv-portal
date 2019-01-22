@@ -20,7 +20,7 @@ import { EmployerComponent } from './job-publication-form/employer/employer.comp
 import { ApplicationComponent } from './job-publication-form/application/application.component';
 import { PostAddressFormComponent } from './job-publication-form/post-address-form/post-address-form.component';
 import { JobPublicationFormValueFactory } from './job-publication-form/job-publication-form-value-factory';
-import { JobPublicationFormResolver } from './job-publication-form/job-publication-form.resolver';
+import { JobPublicationResolver } from './job-publication.resolver';
 
 @NgModule({
   imports: [
@@ -49,7 +49,7 @@ import { JobPublicationFormResolver } from './job-publication-form/job-publicati
   providers: [
     IsoCountryService,
     JobPublicationFormValueFactory,
-    JobPublicationFormResolver
+    JobPublicationResolver
   ]
 })
 export class JobPublicationModule {
