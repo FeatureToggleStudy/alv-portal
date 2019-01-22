@@ -74,15 +74,15 @@
         {{'portal.typeahead-multiselect.help-text.delete-selected-items'|translate}}
       </ng-container>
       <ng-container *ngIf="limit && control.value?.length >= limit; else a11yHelpText">
-        {{'portal.typeahead-multiselect.help-text.limit-reached' | translate : { limit: limit} }}
+        {{'portal.typeahead-multiselect.help-text.limit-reached' | translate : {'limit': limit} }}
       </ng-container>
       <ng-template #a11yHelpText>
-          {{'portal.typeahead-multiselect.help-text.query-min-length '| translate : {queryMinLength: queryMinLength}}}
+          {{'portal.typeahead-multiselect.help-text.query-min-length '| translate : {'queryMinLength': queryMinLength} }}
         <ng-container *ngIf="editable">
           {{'portal.typeahead-multiselect.help-text.add-free-text'| translate}}
         </ng-container>
         <ng-container *ngIf="limit">
-          {{'portal.typeahead-multiselect.help-text.select-up-to-limit' | translate : { limit: limit} }}
+          {{'portal.typeahead-multiselect.help-text.select-up-to-limit' | translate : { 'limit': limit} }}
         </ng-container>
       </ng-template>
     </div>
