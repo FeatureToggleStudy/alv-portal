@@ -63,7 +63,7 @@ candidate-detail,candidate-detail.anonymous-contact.zip-code,PLZ,Postal code,NPA
 candidate-detail,candidate-detail.anonymous-contact.city,Ort,City,Place,Posto
 candidate-detail,candidate-detail.anonymous-contact.country,Land,Country,Pays,Paese
 candidate-detail,candidate-detail.anonymous-contact.send-to,Post,Mail,Poste,Posta
-candidate-detail,candidate-detail.back,Zurück zu den Suchergebnissen,Back to search results,Retour aux résultats,"Torna ai risultati della ricerca "
+candidate-detail,candidate-detail.back,Zurück,Back,Retour,Indietro
 candidate-detail,candidate-detail.candidate-anonymous-contact.name,Kandidat/in kontaktieren,Contact candidate,Contacter le/la candidat-e,Contattare candidato/a
 candidate-detail,candidate-detail.candidate-anonymous-contact.subject,"Liebe RAV-Kundin, lieber RAV-Kunde","Dear Customer","Chère cliente, cher client ORP","Cara cliente, caro cliente dell'URC"
 candidate-detail,candidate-detail.candidate-anonymous-contact.success,"Ihr E-mail wurde versandt. Vielen Dank, dass Sie Job-Room benutzen.","Your e-mail was succesfully sent. Thank you for using Job-Room.","Votre courriel a été envoyé. Merci d'utiliser Job-Room.","La sua e-mail è stata inviata. Grazie di avere utilizzato Job-Room."
@@ -403,7 +403,7 @@ global,global.menu.account.login,Login|Registrierung,Login|Registration,Login|En
 global,global.menu.account.logout,Abmelden,Sign out,Déconnexion,Esci
 global,global.menu.account.main,Zugang,Account,Compte,Utente
 global,global.menu.account.password,Passwort,Password,Mot de passe,Password
-global,global.menu.account.registration,Info Registrierung,Registration info,Info enregistrement,Info registrazione
+global,global.menu.account.registration.text,Info Registrierung,Registration info,Info enregistrement,Info registrazione
 global,global.menu.account.registration.incomplete,Registrierung abschliessen,Complete registration,Terminer l'enregistrement,Completa la registrazione
 global,global.menu.account.sessions,Sitzungen,Sessions,Sessions,Sessioni
 global,global.menu.account.settings,Einstellungen,Settings,Paramètres,Impostazioni
