@@ -49,7 +49,6 @@ describe('JobPublicationFormComponent', () => {
   };
 
   let mockJobPublicationFormValueFactory: SpyObj<JobPublicationFormValueFactory>;
-  let mockActivatedRoute;
 
   let component: JobPublicationFormComponent;
   let fixture: ComponentFixture<JobPublicationFormComponent>;
@@ -57,8 +56,6 @@ describe('JobPublicationFormComponent', () => {
   beforeEach(async(() => {
     mockJobPublicationFormValueFactory = jasmine.createSpyObj('mockJobPublicationFormValueFactory', ['createJobPublicationFormValue']);
     mockJobPublicationFormValueFactory.createJobPublicationFormValue.and.returnValue(emptyJobPublicationFormValue);
-
-    mockActivatedRoute = { snapshot: { data: {} } };
 
     TestBed.configureTestingModule({
       imports: [
@@ -76,7 +73,6 @@ describe('JobPublicationFormComponent', () => {
       providers: [
         { provide: I18nService, useValue: mockI18nService },
         { provide: IsoCountryService, useValue: mockIsoCountryService },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute },
         {
           provide: JobPublicationFormValueFactory,
           useValue: mockJobPublicationFormValueFactory
@@ -108,6 +104,8 @@ describe('JobPublicationFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(JobPublicationFormComponent);
     component = fixture.componentInstance;
+    component.currentLanguage = 'de';
+    component.initialFormValueConfig = {};
   });
 
   it('should be created', () => {

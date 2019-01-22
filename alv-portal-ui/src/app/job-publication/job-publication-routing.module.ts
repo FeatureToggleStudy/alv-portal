@@ -1,14 +1,14 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { JobPublicationComponent } from './job-publication.component';
-import { JobPublicationFormResolver } from './job-publication-form/job-publication-form.resolver';
+import { JobPublicationResolver } from './job-publication.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: JobPublicationComponent,
     resolve: {
-      initialFormValueConfig: JobPublicationFormResolver
+      initialFormValueConfig: JobPublicationResolver
     }
   }
 ];

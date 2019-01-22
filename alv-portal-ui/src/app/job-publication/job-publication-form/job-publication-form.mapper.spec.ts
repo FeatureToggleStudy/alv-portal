@@ -1,5 +1,5 @@
 describe('mapToCreateJobAdvertisement', () => {
-  it('XXX', () => {
+  xit('should map correctly', () => {
 //todo implement
   });
 });
