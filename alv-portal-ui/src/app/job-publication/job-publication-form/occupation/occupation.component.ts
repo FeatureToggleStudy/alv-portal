@@ -73,7 +73,6 @@ export class OccupationComponent extends AbstractSubscriber implements OnInit {
     });
 
     this.parentForm.addControl('occupation', this.occupation);
-
     this.i18nService.currentLanguage$.pipe(
       distinctUntilChanged(),
       filter(() => !!this.occupation.value.occupationSuggestion),
