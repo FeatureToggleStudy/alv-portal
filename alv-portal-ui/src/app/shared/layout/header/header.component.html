@@ -25,18 +25,18 @@
     </alv-user-menu>
 
     <div class="header-buttons ml-1 d-none d-lg-flex align-items-center">
-      <a class="btn"
+      <a class="btn mx-3"
          routerLink="home"
       >
         <i class="fas fa-home"></i>
       </a>
-      <a class="btn"
+      <a class="btn mx-3"
          href="https://www.arbeit.swiss/secoalv/en/home/service/kontakt.html"
          target="_blank"
          rel="noopener">
         {{'portal.header.contact' | translate}}
       </a>
-      <a class="btn"
+      <a class="btn mx-3"
          href="https://www.arbeit.swiss/secoalv/en/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html"
          target="_blank"
          rel="noopener">
@@ -57,7 +57,7 @@
         <a href="https://www.arbeit.swiss"
            target="_blank"
            rel="noopener"
-           class="mx-2">{{ 'home.title.cms'| translate }}</a>
+           class="mx-3">{{ 'home.title.cms'| translate }}</a>
         <ng-container *ngFor="let language of LANGUAGES">
           <button (click)="changeLanguage(language)"
                   class="language-switch-button text-uppercase"
