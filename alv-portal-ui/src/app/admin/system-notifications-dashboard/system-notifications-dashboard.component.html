@@ -1,0 +1,54 @@
+<!--FIXME fago: Add Translations, cleanup layout-->
+<div class="container-fluid">
+  <h2>
+    <span>SystemNotifications</span>
+  </h2>
+  <div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>StartDate</th>
+        <th>EndDate</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let systemNotification of (systemNotifications$ | async)">
+        <td>{{systemNotification.title}}</td>
+        <td>{{systemNotification.type}}</td>
+        <td>{{systemNotification.startDate | date:'dd/MM/yy HH:mm'}}</td>
+        <td>{{systemNotification.endDate | date:'dd/MM/yy HH:mm'}}</td>
+        <th>
+          <button class="btn btn-success btn-sm"
+                  *ngIf="systemNotification.active"
+                  (click)="toggleStatus(systemNotification, false)"
+                  jhiTranslate="systemNotificationsManagement.activated">Activated
+          </button>
+          <button class="btn btn-danger btn-sm" *ngIf="!systemNotification.active"
+                  (click)="toggleStatus(systemNotification, true)"
+                  jhiTranslate="systemNotificationsManagement.deactivated">Deactivated
+          </button>
+        </th>
+        <th>
+          <button type="submit"
+                  (click)="openEditModal(systemNotification)"
+                  class="btn btn-secondary">
+            <span class="d-none d-md-inline">Edit</span>
+          </button>
+          <button type="submit"
+                  (click)="openDeleteModal(systemNotification)"
+                  class="btn btn-secondary">
+            <span class="d-none d-md-inline">Delete</span>
+          </button>
+        </th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn btn-primary" (click)="openCreateModal()">
+    <span class="fa fa-plus"></span> <span jhiTranslate="systemNotificationsManagement.home.create">Create a new SystemNotification</span>
+  </button>
+</div>

@@ -44,6 +44,9 @@ import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ListItemContentComponent } from './list-item-content/list-item-content.component';
 import { ContactModalComponent } from '../../candidate-search/candidate-detail/contact-modal/contact-modal.component';
 import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
+import {SystemNotificationEditModalComponent} from "../../admin/system-notifications-dashboard/edit-modal/system-notification-edit-modal.component";
+import {SystemNotificationDeleteModalComponent} from "../../admin/system-notifications-dashboard/delete-modal/system-notification-delete-modal.component";
+import {SystemNotificationCreateModalComponent} from "../../admin/system-notifications-dashboard/create-modal/system-notification-create-modal.component";
 
 @NgModule({
   imports: [
@@ -85,7 +88,10 @@ import { CandidateContactRepository } from '../backend-services/candidate/candid
     ThreeColumnLayoutComponent,
     ScrollToTopComponent,
     ListItemContentComponent,
-    ContactModalComponent
+    ContactModalComponent,
+    SystemNotificationEditModalComponent,
+    SystemNotificationDeleteModalComponent,
+    SystemNotificationCreateModalComponent
   ],
   providers: [
     CandidateContactRepository
@@ -93,7 +99,11 @@ import { CandidateContactRepository } from '../backend-services/candidate/candid
   entryComponents: [
     ConfirmModalComponent,
     LocalLoginComponent,
-    ContactModalComponent
+    ContactModalComponent,
+    //FIXME fago: Is there an issue with loading entrycomponents in lazyloaded modules? Should be in admin.module entrycomponents.
+    SystemNotificationEditModalComponent,
+    SystemNotificationDeleteModalComponent,
+    SystemNotificationCreateModalComponent
   ],
   exports: [
     NavigationContainerComponent,
