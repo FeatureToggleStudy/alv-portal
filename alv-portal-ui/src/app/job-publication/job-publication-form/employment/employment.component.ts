@@ -8,7 +8,7 @@ import {
   EmploymentDuration,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateNativeAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DateInputComponent } from '../../../shared/forms/input/date-input/date-input.component';
 import { EmploymentFormValue } from './employment-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
@@ -114,8 +114,8 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
       duration: [duration, [
         Validators.required
       ]],
-      startDate: { value: startDate, disabled: true },
-      endDate: { value: endDate, disabled: true },
+      startDate: [{ value: startDate, disabled: true }, [Validators.required]],
+      endDate: [{ value: endDate, disabled: true }, [Validators.required]],
       workForms: this.fb.group(this.workFormOptions.reduce((acc, curr) => {
         acc[curr.value] = false;
         return acc;
@@ -126,6 +126,22 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
     this.setupWorkload();
     this.setupWorkStart();
     this.setupWorkDuration();
+  }
+
+  getEmploymentEndMinDate(): NgbDateStruct {
+    if (this.minDateEmploymentStart.after(this.employment.get('startDate').value)) {
+      return this.minDateEmploymentStart;
+    } else {
+      return this.employment.get('startDate').value;
+    }
+  }
+
+  getEmploymentStartMaxDate(): NgbDateStruct {
+    if (this.minDateEmploymentStart.after(this.employment.get('endDate').value)) {
+      return this.minDateEmploymentStart;
+    } else {
+      return this.employment.get('endDate').value;
+    }
   }
 
   private setupWorkload() {
@@ -148,14 +164,11 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
       .subscribe(immediately => {
         const control = this.employment.get('startDate');
         if (!immediately) {
-          control.setValidators(Validators.required);
           control.enable();
           setTimeout(() => {
             this.startDate.focus();
           });
         } else {
-          control.clearValidators();
-          control.reset();
           control.disable();
         }
       });
@@ -168,20 +181,15 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
         const control = this.employment.get('endDate');
         switch (duration) {
           case EmploymentDuration.PERMANENT:
-            control.clearValidators();
-            control.reset();
             control.disable();
             break;
           case EmploymentDuration.TEMPORARY:
-            control.setValidators(Validators.required);
             control.enable();
             setTimeout(() => {
               this.endDate.focus();
             });
             break;
           case EmploymentDuration.SHORT_EMPLOYMENT:
-            control.clearValidators();
-            control.reset();
             control.disable();
             break;
         }
