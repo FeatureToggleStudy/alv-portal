@@ -4,7 +4,7 @@ import {
 } from '../../../shared/backend-services/candidate/candidate.types';
 import { CandidateSearchFilter } from '..';
 import { Canton } from '../../../shared/backend-services/shared.types';
-import { SimpleTypeaheadItem } from '../../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
 import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
 import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
@@ -36,7 +36,7 @@ export class CandidateSearchRequestMapper {
     };
   }
 
-  private static mapKeywords(keywords: SimpleTypeaheadItem[]): string[] {
+  private static mapKeywords(keywords: StringTypeaheadItem[]): string[] {
     return keywords.map((i) => i.payload);
   }
 

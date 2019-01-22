@@ -22,17 +22,11 @@ import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-boot
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
-import { SimpleTypeaheadItem } from '../simple-typeahead-item';
+import { StringTypeaheadItem } from '../string-typeahead-item';
 import { EMPTY } from 'rxjs';
+import { TypeaheadDisplayItem } from '../typeahead-display-item';
 
 export const TYPEAHEAD_QUERY_MIN_LENGTH = 2;
-
-class TypeaheadDisplayItem {
-  constructor(public model: TypeaheadItem<any>,
-              public first = false,
-              public firstInGroup = false) {
-  }
-}
 
 enum Key {
   Backspace = 8,
@@ -86,6 +80,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     }
     this.allyHelpId = `${this.id}-ally-help`;
   }
+
 
   /**
    * Listens for an outside click and selects free text if applicable
@@ -174,7 +169,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       || this.inputValue.length < this.queryMinLength) {
       return null;
     }
-    const freeTextItem = new SimpleTypeaheadItem(
+    const freeTextItem = new StringTypeaheadItem(
       'free-text',
       this.inputValue,
       this.inputValue

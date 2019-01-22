@@ -4,7 +4,7 @@ import { CandidateSearchFilter } from '../state-management';
 import { CandidateQueryPanelValues } from '../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import { OccupationTypeaheadItem } from '../../shared/occupations/occupation-typeahead-item';
 import { LocalityTypeaheadItem } from '../../shared/localities/locality-typeahead-item';
-import { SimpleTypeaheadItem } from '../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../shared/forms/input/typeahead/string-typeahead-item';
 
 @Injectable()
 export class CandidateSearchFilterParameterService {
@@ -38,7 +38,7 @@ export class CandidateSearchFilterParameterService {
     }
     if (candidateQueryPanelValues.keywords) {
       candidateQueryPanelValues.keywords = candidateQueryPanelValues.keywords
-        .map((a) => SimpleTypeaheadItem.fromJson(a));
+        .map((a) => StringTypeaheadItem.fromJson(a));
     }
   }
 

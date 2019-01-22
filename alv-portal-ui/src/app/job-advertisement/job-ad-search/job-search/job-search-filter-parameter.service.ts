@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { JobSearchFilter, } from '../state-management';
 import { Base64Service } from '../../../core/base64.service';
 import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
-import { SimpleTypeaheadItem } from '../../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
 
@@ -39,7 +39,7 @@ export class JobSearchFilterParameterService {
     }
     if (jobQueryPanelValues.keywords) {
       jobQueryPanelValues.keywords = jobQueryPanelValues.keywords
-        .map((a) => SimpleTypeaheadItem.fromJson(a));
+        .map((a) => StringTypeaheadItem.fromJson(a));
     }
   }
 

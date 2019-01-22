@@ -14,7 +14,7 @@ import {
   Language,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { SimpleTypeaheadItem } from '../../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
 import { I18nService } from '../../../core/i18n.service';
 import { LocalityInputType } from '../../../shared/localities/locality-typeahead-item';
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
@@ -206,7 +206,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     this.expanded = !this.expanded;
   }
 
-  suggestCanton(query: string): Observable<SimpleTypeaheadItem[]> {
+  suggestCanton(query: string): Observable<StringTypeaheadItem[]> {
     const cantonSuggestions = Object.keys(Canton)
       .filter((key) => !isNaN(Number(Canton[key])))
       .map((key, index) => this.cantonAutocompleteMapper(key, index))
@@ -281,9 +281,9 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     });
   }
 
-  private cantonAutocompleteMapper(cantonKey: string, index: number): SimpleTypeaheadItem {
+  private cantonAutocompleteMapper(cantonKey: string, index: number): StringTypeaheadItem {
     const cantonLabel = this.i18nService.instant(`global.reference.canton.${cantonKey}`);
-    return new SimpleTypeaheadItem(
+    return new StringTypeaheadItem(
       LocalityInputType.CANTON,
       cantonKey,
       cantonLabel,
@@ -295,7 +295,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       degree: valueChanges.degree,
       graduation: valueChanges.graduation,
       experience: valueChanges.experience,
-      residence: valueChanges.residence.map((r: SimpleTypeaheadItem) => {
+      residence: valueChanges.residence.map((r: StringTypeaheadItem) => {
         return r.payload;
       }),
       availability: valueChanges.availability,

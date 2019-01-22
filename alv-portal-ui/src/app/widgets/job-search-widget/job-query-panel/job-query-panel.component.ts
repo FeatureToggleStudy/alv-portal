@@ -12,7 +12,7 @@ import { JobQueryPanelValues } from './job-query-panel-values';
 import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
-import { SimpleTypeaheadItem } from '../../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
 import { map, takeUntil } from 'rxjs/operators';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
@@ -81,7 +81,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
   onGeoSelection(locality: LocalitySuggestion) {
     const geoLocalitySuggestion = LocalitySuggestionService.toLocality(locality);
     const ctrl = this.form.get('localities');
-    if (!ctrl.value.find((i: SimpleTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
+    if (!ctrl.value.find((i: StringTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
       ctrl.setValue([...ctrl.value, geoLocalitySuggestion]);
     }
   }

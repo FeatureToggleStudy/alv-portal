@@ -1,5 +1,5 @@
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
-import { SimpleTypeaheadItem } from '../../../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import { LocalityTypeaheadItem } from '../../../../shared/localities/locality-typeahead-item';
 
 export enum Sort {
@@ -23,6 +23,6 @@ export interface JobSearchFilter {
   company?: string;
   onlineSince: number;
   occupations: OccupationTypeaheadItem[];
-  keywords: SimpleTypeaheadItem[];
+  keywords: StringTypeaheadItem[];
   localities: LocalityTypeaheadItem[];
 }

@@ -15,7 +15,7 @@ import {
   OccupationTypeaheadItem,
   OccupationTypeaheadItemType
 } from '../../../../shared/occupations/occupation-typeahead-item';
-import { SimpleTypeaheadItem } from '../../../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
 import {
   LocalityInputType,
@@ -30,7 +30,7 @@ describe('jobAdSearchReducers', () => {
   const localityItem: LocalityItem = { communalCode: '351' };
   const occupation = new OccupationTypeaheadItem(
     OccupationTypeaheadItemType.OCCUPATION, occupationCode, 'Java Applikationsentwickler', 7);
-  const keyword = new SimpleTypeaheadItem('free-text', 'angular', 'angular', 0);
+  const keyword = new StringTypeaheadItem('free-text', 'angular', 'angular', 0);
   const locality = new LocalityTypeaheadItem(LocalityInputType.LOCALITY, localityItem, 'Bern', 0);
   const queryPanelValues: JobQueryPanelValues = {
     occupations: [occupation],
