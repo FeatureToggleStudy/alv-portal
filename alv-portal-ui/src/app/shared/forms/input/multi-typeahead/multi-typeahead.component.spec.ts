@@ -4,13 +4,13 @@ import {
   MultiTypeaheadComponent,
   TYPEAHEAD_QUERY_MIN_LENGTH
 } from './multi-typeahead.component';
-import { MultiTypeaheadItem } from './multi-typeahead-item';
+import { TypeaheadItem } from './typeahead-item';
 import { BehaviorSubject, of } from 'rxjs';
-import { MultiTypeaheadDisplayItem } from './multi-typeahead-display.item';
+import { TypeaheadDisplayItem } from './typeahead-display-item';
 import { ValidationMessagesComponent } from '../validation-messages/validation-messages.component';
 import { FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { SimpleMultiTypeaheadItem } from './simple-multi-typeahead.item';
+import { SimpleTypeaheadItem } from './simple-typeahead-item';
 
 describe('MultiTypeaheadComponent', () => {
 
@@ -40,10 +40,10 @@ describe('MultiTypeaheadComponent', () => {
   describe('removeItem', () => {
     it('should remove an existing item', () => {
       // GIVEN
-      component.control.setValue([new SimpleMultiTypeaheadItem('type', 'code', 'label')]);
+      component.control.setValue([new SimpleTypeaheadItem('type', 'code', 'label')]);
 
       // WHEN
-      component.removeItem(new SimpleMultiTypeaheadItem('type', 'code', 'label'));
+      component.removeItem(new SimpleTypeaheadItem('type', 'code', 'label'));
 
       // THEN
       expect(component.control.value.length).toEqual(0);
@@ -53,23 +53,23 @@ describe('MultiTypeaheadComponent', () => {
   describe('selectFreeText', () => {
     it('should add a new model with type: free-text ', () => {
       // GIVEN
-      component.control.setValue([new SimpleMultiTypeaheadItem('type', 'code', 'label')]);
+      component.control.setValue([new SimpleTypeaheadItem('type', 'code', 'label')]);
 
       // WHEN
       component.inputValue = 'free';
       const freeText = component.selectFreeText();
 
       // THEN
-      const expectedFreeText = new SimpleMultiTypeaheadItem('free-text', 'free', 'free');
+      const expectedFreeText = new SimpleTypeaheadItem('free-text', 'free', 'free');
       expect(freeText).toEqual(expectedFreeText);
       expect(component.control.value.length).toEqual(2);
-      expect(component.control.value).toContain(new SimpleMultiTypeaheadItem('type', 'code', 'label'));
+      expect(component.control.value).toContain(new SimpleTypeaheadItem('type', 'code', 'label'));
       expect(component.control.value).toContain(freeText);
     });
 
     it('should not allow duplicates', () => {
       // GIVEN
-      component.control.setValue([new SimpleMultiTypeaheadItem('free-text', 'free text value', 'free text value')]);
+      component.control.setValue([new SimpleTypeaheadItem('free-text', 'free text value', 'free text value')]);
 
       // WHEN
       component.inputValue = 'free text value';
@@ -78,7 +78,7 @@ describe('MultiTypeaheadComponent', () => {
       // THEN
       expect(freeText).toEqual(null);
       expect(component.control.value.length).toEqual(1);
-      expect(component.control.value).toContain(new SimpleMultiTypeaheadItem('free-text', 'free text value', 'free text value'));
+      expect(component.control.value).toContain(new SimpleTypeaheadItem('free-text', 'free text value', 'free text value'));
     });
 
     it('should not allow free text value with length < TYPEAHEAD_QUERY_MIN_LENGTH', () => {
@@ -95,17 +95,17 @@ describe('MultiTypeaheadComponent', () => {
   describe('selectItem', () => {
     it('should add the selected item to the model', () => {
       // GIVEN
-      component.control.setValue([new SimpleMultiTypeaheadItem('type', 'code', 'label')]);
+      component.control.setValue([new SimpleTypeaheadItem('type', 'code', 'label')]);
 
       // WHEN
       const event = jasmine.createSpyObj('event', ['preventDefault']);
-      event.item = { model: new SimpleMultiTypeaheadItem('type', 'code1', 'label1') };
+      event.item = { model: new SimpleTypeaheadItem('type', 'code1', 'label1') };
       component.selectItem(event);
 
       // THEN
       expect(component.control.value.length).toEqual(2);
-      expect(component.control.value).toContain(new SimpleMultiTypeaheadItem('type', 'code', 'label'));
-      expect(component.control.value).toContain(new SimpleMultiTypeaheadItem('type', 'code1', 'label1'));
+      expect(component.control.value).toContain(new SimpleTypeaheadItem('type', 'code', 'label'));
+      expect(component.control.value).toContain(new SimpleTypeaheadItem('type', 'code1', 'label1'));
     });
   });
 
@@ -147,8 +147,8 @@ describe('MultiTypeaheadComponent', () => {
       let loadedItems: Array<any>;
 
       // GIVEN
-      component.control.setValue([new SimpleMultiTypeaheadItem('type', 'code', 'label')]);
-      component.loadItems = (value: string) => of([new SimpleMultiTypeaheadItem('type', 'code', 'label')]);
+      component.control.setValue([new SimpleTypeaheadItem('type', 'code', 'label')]);
+      component.loadItems = (value: string) => of([new SimpleTypeaheadItem('type', 'code', 'label')]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
       // WHEN
@@ -164,10 +164,10 @@ describe('MultiTypeaheadComponent', () => {
 
       // GIVEN
       component.loadItems = (value: string) => of([
-        new SimpleMultiTypeaheadItem('type', 'code0', 'label0', 3),
-        new SimpleMultiTypeaheadItem('type', 'code1', 'label1', 2),
-        new SimpleMultiTypeaheadItem('type', 'code2', 'label2', 0),
-        new SimpleMultiTypeaheadItem('type', 'code3', 'label3', 1)
+        new SimpleTypeaheadItem('type', 'code0', 'label0', 3),
+        new SimpleTypeaheadItem('type', 'code1', 'label1', 2),
+        new SimpleTypeaheadItem('type', 'code2', 'label2', 0),
+        new SimpleTypeaheadItem('type', 'code3', 'label3', 1)
       ]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
@@ -177,10 +177,10 @@ describe('MultiTypeaheadComponent', () => {
 
       // THEN
       expect(loadedItems).toEqual([
-        new MultiTypeaheadDisplayItem(new SimpleMultiTypeaheadItem('type', 'code2', 'label2', 0), true, true),
-        new MultiTypeaheadDisplayItem(new SimpleMultiTypeaheadItem('type', 'code3', 'label3', 1), false, false),
-        new MultiTypeaheadDisplayItem(new SimpleMultiTypeaheadItem('type', 'code1', 'label1', 2), false, false),
-        new MultiTypeaheadDisplayItem(new SimpleMultiTypeaheadItem('type', 'code0', 'label0', 3), false, false)
+        new TypeaheadDisplayItem(new SimpleTypeaheadItem('type', 'code2', 'label2', 0), true, true),
+        new TypeaheadDisplayItem(new SimpleTypeaheadItem('type', 'code3', 'label3', 1), false, false),
+        new TypeaheadDisplayItem(new SimpleTypeaheadItem('type', 'code1', 'label1', 2), false, false),
+        new TypeaheadDisplayItem(new SimpleTypeaheadItem('type', 'code0', 'label0', 3), false, false)
       ]);
     }));
 
@@ -189,10 +189,10 @@ describe('MultiTypeaheadComponent', () => {
 
       // GIVEN
       component.loadItems = (value: string) => of([
-        new SimpleMultiTypeaheadItem('type0', 'code0', 'label0', 0),
-        new SimpleMultiTypeaheadItem('type0', 'code1', 'label1', 0),
-        new SimpleMultiTypeaheadItem('type1', 'code2', 'label2', 1),
-        new SimpleMultiTypeaheadItem('type1', 'code3', 'label3', 1)
+        new SimpleTypeaheadItem('type0', 'code0', 'label0', 0),
+        new SimpleTypeaheadItem('type0', 'code1', 'label1', 0),
+        new SimpleTypeaheadItem('type1', 'code2', 'label2', 1),
+        new SimpleTypeaheadItem('type1', 'code3', 'label3', 1)
       ]);
       component.loadItemsGuardedFn(input$).subscribe((items: any) => loadedItems = items);
 
@@ -202,10 +202,10 @@ describe('MultiTypeaheadComponent', () => {
 
       // THEN
       expect(loadedItems).toEqual([
-        new MultiTypeaheadDisplayItem(new SimpleMultiTypeaheadItem('type0', 'code0', 'label0', 0), true, true),
-        new MultiTypeaheadDisplayItem(new SimpleMultiTypeaheadItem('type0', 'code1', 'label1', 0), false, false),
-        new MultiTypeaheadDisplayItem(new SimpleMultiTypeaheadItem('type1', 'code2', 'label2', 1), false, true),
-        new MultiTypeaheadDisplayItem(new SimpleMultiTypeaheadItem('type1', 'code3', 'label3', 1), false, false)
+        new TypeaheadDisplayItem(new SimpleTypeaheadItem('type0', 'code0', 'label0', 0), true, true),
+        new TypeaheadDisplayItem(new SimpleTypeaheadItem('type0', 'code1', 'label1', 0), false, false),
+        new TypeaheadDisplayItem(new SimpleTypeaheadItem('type1', 'code2', 'label2', 1), false, true),
+        new TypeaheadDisplayItem(new SimpleTypeaheadItem('type1', 'code3', 'label3', 1), false, false)
       ]);
     }));
   });

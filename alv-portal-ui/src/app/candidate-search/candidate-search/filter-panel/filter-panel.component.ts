@@ -14,9 +14,9 @@ import {
   Language,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { SimpleTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-typeahead-item';
 import { I18nService } from '../../../core/i18n.service';
-import { LocalityInputType } from '../../../shared/localities/locality-multi-typeahead-item';
+import { LocalityInputType } from '../../../shared/localities/locality-typeahead-item';
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
@@ -206,7 +206,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     this.expanded = !this.expanded;
   }
 
-  suggestCanton(query: string): Observable<SimpleMultiTypeaheadItem[]> {
+  suggestCanton(query: string): Observable<SimpleTypeaheadItem[]> {
     const cantonSuggestions = Object.keys(Canton)
       .filter((key) => !isNaN(Number(Canton[key])))
       .map((key, index) => this.cantonAutocompleteMapper(key, index))
@@ -281,9 +281,9 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     });
   }
 
-  private cantonAutocompleteMapper(cantonKey: string, index: number): SimpleMultiTypeaheadItem {
+  private cantonAutocompleteMapper(cantonKey: string, index: number): SimpleTypeaheadItem {
     const cantonLabel = this.i18nService.instant(`global.reference.canton.${cantonKey}`);
-    return new SimpleMultiTypeaheadItem(
+    return new SimpleTypeaheadItem(
       LocalityInputType.CANTON,
       cantonKey,
       cantonLabel,
@@ -295,7 +295,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       degree: valueChanges.degree,
       graduation: valueChanges.graduation,
       experience: valueChanges.experience,
-      residence: valueChanges.residence.map((r: SimpleMultiTypeaheadItem) => {
+      residence: valueChanges.residence.map((r: SimpleTypeaheadItem) => {
         return r.payload;
       }),
       availability: valueChanges.availability,

@@ -4,9 +4,9 @@ import {
 } from '../../../shared/backend-services/candidate/candidate.types';
 import { CandidateSearchFilter } from '..';
 import { Canton } from '../../../shared/backend-services/shared.types';
-import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
-import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
-import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { SimpleTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-typeahead-item';
+import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
 
 const ITEMS_PER_PAGE = 20;
@@ -36,7 +36,7 @@ export class CandidateSearchRequestMapper {
     };
   }
 
-  private static mapKeywords(keywords: SimpleMultiTypeaheadItem[]): string[] {
+  private static mapKeywords(keywords: SimpleTypeaheadItem[]): string[] {
     return keywords.map((i) => i.payload);
   }
 
@@ -48,21 +48,21 @@ export class CandidateSearchRequestMapper {
     return residences ? residences.map((residence) => residence.toString()) : null;
   }
 
-  private static mapCantonCode(workplace: LocalityMultiTypeaheadItem) {
+  private static mapCantonCode(workplace: LocalityTypeaheadItem) {
     if (!workplace) {
       return null;
     }
     return workplace.payload.cantonCode;
   }
 
-  private static mapRegionCode(workplace: LocalityMultiTypeaheadItem) {
+  private static mapRegionCode(workplace: LocalityTypeaheadItem) {
     if (!workplace) {
       return null;
     }
     return workplace.payload.regionCode;
   }
 
-  private static mapOccupationCodes(occupations: OccupationMultiTypeaheadItem[]): OccupationCode[] {
+  private static mapOccupationCodes(occupations: OccupationTypeaheadItem[]): OccupationCode[] {
     return occupations.map((a) => a.payload);
   }
 

@@ -2,12 +2,12 @@ import {
   JobAdvertisementSearchRequest,
   ProfessionCode
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { OccupationMultiTypeaheadItem } from '../../../../shared/occupations/occupation-multi-typeahead-item';
-import { SimpleMultiTypeaheadItem } from '../../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
+import { SimpleTypeaheadItem } from '../../../../shared/forms/input/multi-typeahead/simple-typeahead-item';
 import {
   LocalityInputType,
-  LocalityMultiTypeaheadItem
-} from '../../../../shared/localities/locality-multi-typeahead-item';
+  LocalityTypeaheadItem
+} from '../../../../shared/localities/locality-typeahead-item';
 import { ContractType, JobSearchFilter, Sort } from '../state';
 
 const ITEMS_PER_PAGE = 20;
@@ -34,9 +34,9 @@ export class JobSearchRequestMapper {
     };
   }
 
-  private static mapProfessionCodes(occupationMultiTypeaheadItems: OccupationMultiTypeaheadItem[]): ProfessionCode[] {
-    return occupationMultiTypeaheadItems
-      .map((occupationMultiTypeaheadItem: OccupationMultiTypeaheadItem) => occupationMultiTypeaheadItem.payload)
+  private static mapProfessionCodes(occupationTypeaheadItems: OccupationTypeaheadItem[]): ProfessionCode[] {
+    return occupationTypeaheadItems
+      .map((occupationTypeaheadItem: OccupationTypeaheadItem) => occupationTypeaheadItem.payload)
       .map((occupationCode) => {
         const professionalCodes = [{
           type: occupationCode.type,
@@ -73,17 +73,17 @@ export class JobSearchRequestMapper {
     }
   }
 
-  private static mapKeywords(keywords: SimpleMultiTypeaheadItem[]): string[] {
+  private static mapKeywords(keywords: SimpleTypeaheadItem[]): string[] {
     return keywords.map((i) => i.payload);
   }
 
-  private static mapCommunalCodes(localities: LocalityMultiTypeaheadItem[]): string[] {
+  private static mapCommunalCodes(localities: LocalityTypeaheadItem[]): string[] {
     return localities
       .filter((i) => i.type === LocalityInputType.LOCALITY)
       .map((i) => i.payload.communalCode);
   }
 
-  private static mapCantonCodes(localities: LocalityMultiTypeaheadItem[]): string[] {
+  private static mapCantonCodes(localities: LocalityTypeaheadItem[]): string[] {
     return localities
       .filter((i) => i.type === LocalityInputType.CANTON)
       .map((i) => i.payload.cantonCode);

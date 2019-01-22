@@ -9,14 +9,14 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { JobQueryPanelValues } from './job-query-panel-values';
-import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
-import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { SimpleTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-typeahead-item';
 import { map, takeUntil } from 'rxjs/operators';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
+import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
 
 @Component({
   selector: 'alv-job-query-panel',
@@ -70,18 +70,18 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
       .subscribe(queryPanelValues => this.jobQueryPanelValuesChange.next(queryPanelValues));
   }
 
-  loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
+  loadOccupations(query: string): Observable<OccupationTypeaheadItem[]> {
     return this.occupationSuggestionService.fetchJobSearchOccupations(query);
   }
 
-  loadLocalities(query: string): Observable<LocalityMultiTypeaheadItem[]> {
+  loadLocalities(query: string): Observable<LocalityTypeaheadItem[]> {
     return this.localitySuggestionService.fetch(query);
   }
 
   onGeoSelection(locality: LocalitySuggestion) {
     const geoLocalitySuggestion = LocalitySuggestionService.toLocality(locality);
     const ctrl = this.form.get('localities');
-    if (!ctrl.value.find((i: SimpleMultiTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
+    if (!ctrl.value.find((i: SimpleTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
       ctrl.setValue([...ctrl.value, geoLocalitySuggestion]);
     }
   }

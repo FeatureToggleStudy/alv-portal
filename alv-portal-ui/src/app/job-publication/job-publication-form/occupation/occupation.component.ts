@@ -4,7 +4,7 @@ import { SelectableOption } from '../../../shared/forms/input/selectable-option.
 import { Observable, of } from 'rxjs/index';
 import { Degree, Experience } from '../../../shared/backend-services/shared.types';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
-import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationFormValue } from './occupation-form-value.types';
 import { I18nService } from '../../../core/i18n.service';
 import { distinctUntilChanged, filter, flatMap, takeUntil } from 'rxjs/operators';
@@ -84,7 +84,7 @@ export class OccupationComponent extends AbstractSubscriber implements OnInit {
     this.parentForm.addControl(JobPublicationFormValueKeys.occupation, this.occupation);
   }
 
-  private loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
+  private loadOccupations(query: string): Observable<OccupationTypeaheadItem[]> {
     return this.occupationSuggestionService.fetchJobPublicationOccupations(query);
   }
 }

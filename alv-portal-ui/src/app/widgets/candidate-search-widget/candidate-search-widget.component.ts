@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { I18nService } from '../../core/i18n.service';
 import { OccupationSuggestionService } from '../../shared/occupations/occupation-suggestion.service';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
-import { OccupationMultiTypeaheadItem } from '../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationTypeaheadItem } from '../../shared/occupations/occupation-typeahead-item';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 
 @Component({
@@ -30,7 +30,7 @@ export class CandidateSearchWidgetComponent extends AbstractSubscriber implement
       filter(() => !!this.candidateQueryPanelValues.occupations),
       filter(() => this.candidateQueryPanelValues.occupations.length > 0),
       switchMap((lang) => {
-        const occupations: OccupationMultiTypeaheadItem[] = this.candidateQueryPanelValues.occupations;
+        const occupations: OccupationTypeaheadItem[] = this.candidateQueryPanelValues.occupations;
         return this.occupationSuggestionService.translateAll(occupations, lang);
       }),
       takeUntil(this.ngUnsubscribe)
