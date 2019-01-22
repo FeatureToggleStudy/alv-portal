@@ -1344,6 +1344,7 @@ portal,portal.forms.validation.ngbDate.format,"Datumsformat ungültig, richtiges
 portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}} liegen,Date must be before {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La date doit être antérieure au {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La data deve essere precedente all'{{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}}
 portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}} liegen,Date must be after {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La date doit être après le {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La data deve essere successiva all'{{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}
 portal,portal.forms.validation.character-counter,{{count}} Zeichen verbleibend,{{count}} characters available,{{count}} caractères disponibles,{{count}} caratteri disponibili
+portal,portal.forms.date-input.open-calendar-button,
 
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
@@ -1352,6 +1353,8 @@ portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tut
 portal,portal.navigation.menu-entry.job-search,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
+portal,portal.navigation.menu-entry.account.profile,Profile,Profile
+portal,portal.navigation.label.main-navigation,,Main navigation
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
 portal,portal.dashboard.header.welcome.time.morning,Guten Morgen,Good morning,Bonjour,Buongiorno
@@ -1399,6 +1402,7 @@ portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,
 portal,portal.candidate-detail.anonymous-contact.send,Absenden
 portal,portal.candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
 portal,portal.candidate-detail.anonymous-contact.name-lastName,"Vorname / Name","First name / Last name","Prénom / Nom","Nome / Cognome"
+portal,portal.candidate-detail.open-candidate-menu
 
 portal,portal.job-detail.reference.job-id,Stellennummer,Job ID,Numéro du poste,Numero posto
 portal,portal.job-detail.reference.phone,Telefon,Telephone,Téléphone,Telefono
@@ -1446,8 +1450,10 @@ portal,portal.manage-job-ads.cancel.success,Stellenanzeige wurde erfolgreich abg
 portal,portal.manage-job-ads.details.actions.cancel,Stellenanzeige abmelden,Cancel job posting,Retirer l'annonce,Cancellare il posto vacante
 portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio
 portal,portal.manage-job-ads.details.menu-open,Stellenanzeige duplizieren,Opten,Dupliquer l'annonce,Duplicare l'annuncio
+portal,portal.manage-job-ads.row-label,,Job advertisement row actions for the row {{row}}
 
 portal,portal.global.help,Hilfe,Help
+portal,portal.global.search,Suche,Search,Recherche,Cerca
 portal,portal.global.close,Schliessen,Close,Fermer,Invalida
 
 portal,portal.form.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
@@ -1455,6 +1461,16 @@ portal,portal.form.validation.message.houseNr,Bitte überprüfen Sie die korrekt
 portal,portal.job-publication.publication.publicDisplay.label,"<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> und <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> and <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> et <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Sito Job-Room</a> e <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>"
 portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://ec.europa.eu/eures/public/de/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/en/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/fr/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/it/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>"
 
+portal,portal.header.menu.open-navigation,
+portal,portal.header.menu.user-menu.label,
+portal,portal.typeahead-multiselect.legend.selected-items,,Selected Items
+portal,portal.typeahead-multiselect.help-text.delete-selected-items,,Press Shift + Tab or use Backspace to delete selected items.
+portal,portal.typeahead-multiselect.help-text.limit-reached,,Limit of {{ limit }} reached.
+portal,portal.typeahead-multiselect.help-text.select-up-to-limit,,You can select up to {{ limit }} items.
+portal,portal.typeahead-multiselect.help-text.query-min-length,,Enter at least {{queryMinLength}} characters to query the list of selectable items. Select by using the up and down arrow keys.
+portal,portal.typeahead-multiselect.remove-item,,Remove item {{item}}
+portal,portal.typeahead-multiselect.help-text.add-free-text,,You can add free text items by hitting Tab or Enter without selection.
+portal,portal.typeahead-single.help-text.instruction,,Enter at least {{ number }} characters to query the list of selectable items. Select by using the up and down arrow keys.
 
 portal,portal.admin.user-info.menu-entry,Benutzerinformationen,User Info,User Info,User Info
 portal,portal.admin.user-info.desc,Bitte geben Sie die E-Mail-Adresse eines bestehenden Benutzers ein.,Please enter an email address of an existing user.,Please enter an email address of an existing user.,Please enter an email address of an existing user.
