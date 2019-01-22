@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Accountability, CompanyContactTemplate } from './user-info.types';
+import { Accountability, CompanyContactTemplate, UserInfoDTO } from './user-info.types';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,22 @@ export class UserInfoRepository {
 
   public createCompanyContactTemplate(userId: string, companyContactTemplate: CompanyContactTemplate): Observable<void> {
     return this.http.post<void>(`${UserInfoRepository.USER_INFO_URL}${userId}/company-contact-templates`, companyContactTemplate);
+  }
+
+  public loadUserByEmail(email: string): Observable<UserInfoDTO> {
+    const params = new HttpParams().set('eMail', email);
+    return this.http.get<UserInfoDTO>(UserInfoRepository.USER_INFO_URL, { params: params });
+  }
+
+  public loadUserRoles(userId: string): Observable<string[]> {
+    return this.http.get<string[]>(`${UserInfoRepository.USER_INFO_URL}${userId}/roles`);
+  }
+
+  public unregisterUser(email: string, role: string): Observable<any> {
+    const params = new HttpParams()
+      .set('eMail', email)
+      .set('role', role);
+    return this.http.delete(UserInfoRepository.USER_INFO_URL, { params: params });
   }
 
 }

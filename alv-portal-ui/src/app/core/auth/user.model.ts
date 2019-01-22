@@ -11,7 +11,8 @@ export enum UserRole {
   ROLE_JOB_SEEKER = <any>'ROLE_JOBSEEKER_CLIENT',
   ROLE_PAV = <any>'ROLE_PRIVATE_EMPLOYMENT_AGENT',
   ROLE_COMPANY = <any>'ROLE_COMPANY',
-  ROLE_ADMIN = <any>'ROLE_ADMIN'
+  ROLE_ADMIN = <any>'ROLE_ADMIN',
+  ROLE_SYSADMIN = <any>'ROLE_SYSADMIN' // aka. Supporter
 }
 
 export const isAnyUser = () => {
@@ -95,7 +96,3 @@ export class User {
     return this.hasAnyAuthorities([UserRole.ROLE_ADMIN]);
   }
 }
-
-
-
-

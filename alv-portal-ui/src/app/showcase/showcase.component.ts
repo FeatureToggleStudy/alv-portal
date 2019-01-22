@@ -51,7 +51,7 @@ export class ShowcaseComponent implements OnInit {
   openConfirmModal() {
     this.modalService.openConfirm({
       title: 'Confirm Title',
-      textHtml: '<em>This is</em> <code>HTML</code> <strong>text</strong>.'
+      content: '<em>This is</em> <code>HTML</code> <strong>text</strong>.'
     }).result.then(result => {
         // On confirm
         this.confirmModalDemoText = result;

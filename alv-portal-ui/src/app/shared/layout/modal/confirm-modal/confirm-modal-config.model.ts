@@ -1,6 +1,7 @@
 export interface ConfirmModalConfig {
   title: string;
-  textHtml: string;
+  content: string;
+  contentParams?: {};
   confirmLabel?: string;
   cancelLabel?: string;
   size?: 'sm' | 'lg';
