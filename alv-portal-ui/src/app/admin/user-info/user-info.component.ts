@@ -84,6 +84,8 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
   private setToInit() {
     this.user = null;
     this.userRoles = [];
+    this.isUserInfoFilled = false;
+    this.isOnlyEIAMRoles = false;
   }
 
   private isUserRoleEmpty(): boolean {
