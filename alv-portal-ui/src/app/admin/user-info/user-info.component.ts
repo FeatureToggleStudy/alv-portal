@@ -139,8 +139,8 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
   onSubmit() {
     this.userInfoRepository.loadUserByEmail(this.form.get('emailAddress').value).pipe(
-      switchMap((res: UserInfoDTO) => {
-        this.user = res;
+      switchMap((userInfo: UserInfoDTO) => {
+        this.user = userInfo;
         this.setActions();
         this.badges = this.userInfoBadgesMapperService.map(this.user);
         return this.userInfoRepository.loadUserRoles(this.user.id);
