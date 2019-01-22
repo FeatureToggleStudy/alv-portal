@@ -15,7 +15,7 @@ import {
   OccupationTypeaheadItem,
   OccupationTypeaheadItemType
 } from '../../../../shared/occupations/occupation-typeahead-item';
-import { SimpleTypeaheadItem } from '../../../../shared/forms/input/multi-typeahead/simple-typeahead-item';
+import { SimpleTypeaheadItem } from '../../../../shared/forms/input/typeahead/simple-typeahead-item';
 import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
 import {
   LocalityInputType,

@@ -14,7 +14,7 @@ import {
   Language,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import { SimpleTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-typeahead-item';
+import { SimpleTypeaheadItem } from '../../../shared/forms/input/typeahead/simple-typeahead-item';
 import { I18nService } from '../../../core/i18n.service';
 import { LocalityInputType } from '../../../shared/localities/locality-typeahead-item';
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
