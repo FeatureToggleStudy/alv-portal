@@ -3,7 +3,7 @@ import {
   ProfessionCode
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
-import { SimpleTypeaheadItem } from '../../../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import {
   LocalityInputType,
   LocalityTypeaheadItem
@@ -73,7 +73,7 @@ export class JobSearchRequestMapper {
     }
   }
 
-  private static mapKeywords(keywords: SimpleTypeaheadItem[]): string[] {
+  private static mapKeywords(keywords: StringTypeaheadItem[]): string[] {
     return keywords.map((i) => i.payload);
   }
 

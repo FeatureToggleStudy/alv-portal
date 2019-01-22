@@ -16,7 +16,7 @@ import {
   OccupationTypeaheadItem,
   OccupationTypeaheadItemType
 } from '../../../shared/occupations/occupation-typeahead-item';
-import { SimpleTypeaheadItem } from '../../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
 import {
   LocalityInputType,
   LocalityItem,
@@ -54,7 +54,7 @@ describe('candidateSearchReducer', () => {
   };
   const occupation = new OccupationTypeaheadItem(
     OccupationTypeaheadItemType.OCCUPATION, occupationCode, 'Java-Programmierer/in', 0);
-  const keyword = new SimpleTypeaheadItem('free-text', 'datenbank', 'datenbank', 0);
+  const keyword = new StringTypeaheadItem('free-text', 'datenbank', 'datenbank', 0);
   const queryPanelValues: CandidateQueryPanelValues = {
     occupations: [occupation],
     keywords: [keyword],

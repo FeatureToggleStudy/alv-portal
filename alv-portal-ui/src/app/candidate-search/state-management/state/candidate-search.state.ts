@@ -13,7 +13,7 @@ import {
   FilterLanguageSkill
 } from '../../../shared/backend-services/candidate/candidate.types';
 import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
-import { SimpleTypeaheadItem } from '../../../shared/forms/input/typeahead/simple-typeahead-item';
+import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
 import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
 
 export interface CandidateSearchState {
@@ -52,7 +52,7 @@ export const initialState: CandidateSearchState = {
 
 export interface CandidateSearchFilter {
   occupations: OccupationTypeaheadItem[];
-  keywords: SimpleTypeaheadItem[];
+  keywords: StringTypeaheadItem[];
   workplace: LocalityTypeaheadItem;
   experience: Experience;
   residence: Canton[];
