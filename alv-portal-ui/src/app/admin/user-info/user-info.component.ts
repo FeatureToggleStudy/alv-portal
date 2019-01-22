@@ -47,7 +47,7 @@ const ALERTS = {
   } as Notification
 };
 
-const NO_ROLE: string = 'NO_ROLE';
+const NO_ROLE = 'NO_ROLE';
 
 @Component({
   selector: 'alv-user-info',
@@ -110,6 +110,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     } else if (this.userRoles.includes(`${UserRole.ROLE_PAV}`)) {
       return 'PRIVATE_AGENT';
     }
+    return NO_ROLE;
   }
 
   formatAccountability(accountability): string {
