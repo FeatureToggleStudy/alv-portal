@@ -1,5 +1,5 @@
 <div [ngSwitch]="registrationStep"
-     class="container py-4">
+     class="container py-5">
   <alv-role-selection (updateStep)="updateStep($event)"
                       *ngSwitchCase="registrationSteps.SELECT_ROLE_STEP">
   </alv-role-selection>
