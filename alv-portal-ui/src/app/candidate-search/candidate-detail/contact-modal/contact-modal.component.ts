@@ -132,11 +132,11 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       subject: [null, Validators.required],
       personalMessage: [null, Validators.required],
       companyName: [null, Validators.required],
-      phoneCheckbox: [false],
+      phoneCheckbox: [true],
       phone: [null],
-      emailCheckbox: [false],
+      emailCheckbox: [true],
       email: [null],
-      postCheckbox: [false]
+      postCheckbox: [true]
     }, {
       validator: [atLeastOneRequiredValidator]
     });
