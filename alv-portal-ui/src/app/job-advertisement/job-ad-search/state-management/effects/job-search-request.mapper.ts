@@ -3,7 +3,7 @@ import {
   ProfessionCode
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
-import { SimpleTypeaheadItem } from '../../../../shared/forms/input/multi-typeahead/simple-typeahead-item';
+import { SimpleTypeaheadItem } from '../../../../shared/forms/input/typeahead/simple-typeahead-item';
 import {
   LocalityInputType,
   LocalityTypeaheadItem

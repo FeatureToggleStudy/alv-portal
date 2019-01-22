@@ -7,20 +7,20 @@ import {
   Output,
   SkipSelf
 } from '@angular/core';
-import { AbstractInput } from '../abstract-input';
+import { AbstractInput } from '../../abstract-input';
 import { ControlContainer } from '@angular/forms';
-import { InputIdGenerationService } from '../input-id-generation.service';
-import { InputType } from '../input-type.enum';
+import { InputIdGenerationService } from '../../input-id-generation.service';
+import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
-import { TypeaheadItem } from '../multi-typeahead/typeahead-item';
+import { TypeaheadItem } from '../typeahead-item';
 
 @Component({
   selector: 'alv-single-typeahead',
   templateUrl: './single-typeahead.component.html',
-  styleUrls: ['../abstract-input.scss', './single-typeahead.component.scss']
+  styleUrls: ['../../abstract-input.scss', './single-typeahead.component.scss']
 })
 export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 

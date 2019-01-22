@@ -10,7 +10,7 @@ import {
   LocalityInputType,
   LocalityTypeaheadItem
 } from './locality-typeahead-item';
-import { TypeaheadItem } from '../forms/input/multi-typeahead/typeahead-item';
+import { TypeaheadItem } from '../forms/input/typeahead/typeahead-item';
 import { ZipAndCity } from '../../job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
 
 @Injectable({ providedIn: 'root' })

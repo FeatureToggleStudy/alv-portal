@@ -12,21 +12,27 @@ import {
   SkipSelf,
   ViewChild
 } from '@angular/core';
-import { AbstractInput } from '../abstract-input';
+import { AbstractInput } from '../../abstract-input';
 import { ControlContainer } from '@angular/forms';
-import { InputIdGenerationService } from '../input-id-generation.service';
-import { InputType } from '../input-type.enum';
+import { InputIdGenerationService } from '../../input-id-generation.service';
+import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
-import { TypeaheadItem } from './typeahead-item';
+import { TypeaheadItem } from '../typeahead-item';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { TypeaheadDisplayItem } from './typeahead-display-item';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
-import { SimpleTypeaheadItem } from './simple-typeahead-item';
+import { SimpleTypeaheadItem } from '../simple-typeahead-item';
 import { EMPTY } from 'rxjs';
 
 export const TYPEAHEAD_QUERY_MIN_LENGTH = 2;
+
+class TypeaheadDisplayItem {
+  constructor(public model: TypeaheadItem<any>,
+              public first = false,
+              public firstInGroup = false) {
+  }
+}
 
 enum Key {
   Backspace = 8,
@@ -37,7 +43,7 @@ enum Key {
 @Component({
   selector: 'alv-multi-typeahead',
   templateUrl: './multi-typeahead.component.html',
-  styleUrls: ['../abstract-input.scss', './multi-typeahead.component.scss']
+  styleUrls: ['../../abstract-input.scss', './multi-typeahead.component.scss']
 })
 export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 

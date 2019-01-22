@@ -4,13 +4,13 @@ import {
   MultiTypeaheadComponent,
   TYPEAHEAD_QUERY_MIN_LENGTH
 } from './multi-typeahead.component';
-import { TypeaheadItem } from './typeahead-item';
+import { TypeaheadItem } from '../typeahead-item';
 import { BehaviorSubject, of } from 'rxjs';
-import { TypeaheadDisplayItem } from './typeahead-display-item';
-import { ValidationMessagesComponent } from '../validation-messages/validation-messages.component';
+import { TypeaheadDisplayItem } from '../typeahead-display-item';
+import { ValidationMessagesComponent } from '../../validation-messages/validation-messages.component';
 import { FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { SimpleTypeaheadItem } from './simple-typeahead-item';
+import { SimpleTypeaheadItem } from '../simple-typeahead-item';
 
 describe('MultiTypeaheadComponent', () => {
 

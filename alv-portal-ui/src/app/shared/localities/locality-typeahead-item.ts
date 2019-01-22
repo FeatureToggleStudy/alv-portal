@@ -1,4 +1,4 @@
-import { TypeaheadItem } from '../forms/input/multi-typeahead/typeahead-item';
+import { TypeaheadItem } from '../forms/input/typeahead/typeahead-item';
 
 export interface LocalityItem {
   communalCode?: string;

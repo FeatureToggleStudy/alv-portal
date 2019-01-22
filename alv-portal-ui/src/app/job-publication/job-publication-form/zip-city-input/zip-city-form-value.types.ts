@@ -1,4 +1,4 @@
-import { TypeaheadItem } from '../../../shared/forms/input/multi-typeahead/typeahead-item';
+import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
 
 export interface ZipAndCity {
   zipCode: string;

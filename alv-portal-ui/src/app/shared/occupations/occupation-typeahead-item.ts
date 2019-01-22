@@ -1,4 +1,4 @@
-import { TypeaheadItem } from '../forms/input/multi-typeahead/typeahead-item';
+import { TypeaheadItem } from '../forms/input/typeahead/typeahead-item';
 import { OccupationCode } from '../backend-services/reference-service/occupation-label.types';
 
 export enum OccupationTypeaheadItemType {

@@ -9,7 +9,7 @@ import { pavSteps } from '../pav-steps.config';
 import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
 import { PavSuggestion } from '../../../../shared/backend-services/pav-search/pav-search.types';
 import { PavSearchRepository } from '../../../../shared/backend-services/pav-search/pav-search.repository';
-import { TypeaheadItem } from '../../../../shared/forms/input/multi-typeahead/typeahead-item';
+import { TypeaheadItem } from '../../../../shared/forms/input/typeahead/typeahead-item';
 
 @Component({
   selector: 'alv-pav-identification',

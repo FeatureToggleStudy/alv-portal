@@ -2,10 +2,10 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { SingleTypeaheadComponent } from './single-typeahead.component';
 import { BehaviorSubject, of } from 'rxjs';
-import { ValidationMessagesComponent } from '../validation-messages/validation-messages.component';
+import { ValidationMessagesComponent } from '../../validation-messages/validation-messages.component';
 import { FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { TypeaheadItem } from '../multi-typeahead/typeahead-item';
+import { TypeaheadItem } from '../typeahead-item';
 
 describe('SingleTypeaheadComponent', () => {
 
