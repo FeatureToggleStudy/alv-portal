@@ -1,7 +1,7 @@
 <!--FIXME fago: Add Translations, cleanup layout-->
-<div class="container-fluid">
+<div class="container pt-md-4 pt-3 px-3">
   <h2>
-    <span>SystemNotifications</span>
+    System Notifications
   </h2>
   <div>
     <table class="table table-striped">
@@ -19,36 +19,38 @@
       <tr *ngFor="let systemNotification of (systemNotifications$ | async)">
         <td>{{systemNotification.title}}</td>
         <td>{{systemNotification.type}}</td>
-        <td>{{systemNotification.startDate | date:'dd/MM/yy HH:mm'}}</td>
-        <td>{{systemNotification.endDate | date:'dd/MM/yy HH:mm'}}</td>
+        <td>{{systemNotification.startDate | localeAwareDate:'medium' }}</td>
+        <td>{{systemNotification.endDate | localeAwareDate:'medium' }}</td>
         <th>
-          <button class="btn btn-success btn-sm"
-                  *ngIf="systemNotification.active"
-                  (click)="toggleStatus(systemNotification, false)"
-                  jhiTranslate="systemNotificationsManagement.activated">Activated
-          </button>
-          <button class="btn btn-danger btn-sm" *ngIf="!systemNotification.active"
-                  (click)="toggleStatus(systemNotification, true)"
-                  jhiTranslate="systemNotificationsManagement.deactivated">Deactivated
+          <button class="btn btn-sm"
+                  [ngClass]="{'btn-success': systemNotification.active, 'btn-danger': !systemNotification.active}"
+                  (click)="toggleStatus(systemNotification)">
+            <span *ngIf="systemNotification.active">Activated</span>
+            <span *ngIf="!systemNotification.active">De-Activated</span>
           </button>
         </th>
         <th>
           <button type="submit"
                   (click)="openEditModal(systemNotification)"
-                  class="btn btn-secondary">
-            <span class="d-none d-md-inline">Edit</span>
+                  class="btn btn-text">
+            <i class="fa fa-edit"></i>
+            Edit
           </button>
           <button type="submit"
                   (click)="openDeleteModal(systemNotification.id)"
-                  class="btn btn-secondary">
-            <span class="d-none d-md-inline">Delete</span>
+                  class="btn btn-text">
+            <i class="fa fa-trash"></i>
+            Delete
           </button>
         </th>
       </tr>
       </tbody>
     </table>
   </div>
-  <button class="btn btn-primary" (click)="openCreateModal()">
-    <span class="fa fa-plus"></span> <span jhiTranslate="systemNotificationsManagement.home.create">Create a new SystemNotification</span>
+  <button class="btn btn-primary"
+          type="button"
+          (click)="openCreateModal()">
+    <i class="fa fa-plus"></i>
+    Create a new SystemNotification
   </button>
 </div>

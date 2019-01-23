@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AbstractSubscriber} from '../../../core/abstract-subscriber';
 import {SystemNotificationRepository} from '../../../shared/backend-services/system-notifications/system-notification-repository';
 import {LocaleAwareDatePipe} from '../../../shared/pipes/locale-aware-date.pipe';
+import {mapFormToDto} from '../system-notifications-request-mapper';
+import {SystemNotificationFormValue} from '../system-notification-form-value';
 
 @Component({
   selector: 'alv-system-notification-edit-modal',
@@ -43,7 +45,9 @@ export class SystemNotificationCreateModalComponent extends AbstractSubscriber i
   }
 
   onSubmit(form: FormGroup) {
-    this.systemNotificationRepository.createSystemNotification(form.value).subscribe(() => this.activeModal.dismiss());
+    const formValue = <SystemNotificationFormValue> form.value;
+    this.systemNotificationRepository.createSystemNotification(mapFormToDto('', formValue))
+      .subscribe(() => this.activeModal.close());
   }
 
 }

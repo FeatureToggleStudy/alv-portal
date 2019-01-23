@@ -1,5 +1,5 @@
-export interface SystemNotification {
-  id: number;
+export interface SystemNotificationDto {
+  id: string;
   title: string;
   text_de: string;
   text_fr: string;

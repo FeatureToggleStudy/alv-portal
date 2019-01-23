@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
-import {SystemNotification} from './system-notification.types';
+import {SystemNotificationDto} from './system-notification.types';
 
 @Injectable({providedIn: 'root'})
 export class SystemNotificationRepository {
@@ -12,24 +12,24 @@ export class SystemNotificationRepository {
   constructor(private http: HttpClient) {
   }
 
-  createSystemNotification(systemNotification: SystemNotification): Observable<SystemNotification> {
-    return this.http.post<SystemNotification>(SystemNotificationRepository.SYSTEM_NOTIFICATION_URL, systemNotification);
+  createSystemNotification(systemNotification: SystemNotificationDto): Observable<SystemNotificationDto> {
+    return this.http.post<SystemNotificationDto>(SystemNotificationRepository.SYSTEM_NOTIFICATION_URL, systemNotification);
   }
 
-  deleteSystemNotification(id: string): Observable<SystemNotification> {
-    return this.http.delete<SystemNotification>(`${SystemNotificationRepository.SYSTEM_NOTIFICATION_URL}/${id}`);
+  deleteSystemNotification(id: string): Observable<SystemNotificationDto> {
+    return this.http.delete<SystemNotificationDto>(`${SystemNotificationRepository.SYSTEM_NOTIFICATION_URL}${id}`);
   }
 
-  updateSystemNotification(systemNotification: SystemNotification): Observable<SystemNotification> {
-    return this.http.patch<SystemNotification>(SystemNotificationRepository.SYSTEM_NOTIFICATION_URL, systemNotification);
+  updateSystemNotification(systemNotification: SystemNotificationDto): Observable<SystemNotificationDto> {
+    return this.http.patch<SystemNotificationDto>(SystemNotificationRepository.SYSTEM_NOTIFICATION_URL, systemNotification);
   }
 
-  getAllSystemNotifications(): Observable<SystemNotification[]> {
-    return this.http.get<SystemNotification[]>(`${SystemNotificationRepository.SYSTEM_NOTIFICATION_URL}`);
+  getAllSystemNotifications(): Observable<SystemNotificationDto[]> {
+    return this.http.get<SystemNotificationDto[]>(`${SystemNotificationRepository.SYSTEM_NOTIFICATION_URL}`);
   }
 
-  getActiveSystemNotifications(): Observable<SystemNotification[]> {
-    return this.http.get<SystemNotification[]>(SystemNotificationRepository.SYSTEM_NOTIFICATION_URL);
+  getActiveSystemNotifications(): Observable<SystemNotificationDto[]> {
+    return this.http.get<SystemNotificationDto[]>(SystemNotificationRepository.SYSTEM_NOTIFICATION_URL);
   }
 
 }

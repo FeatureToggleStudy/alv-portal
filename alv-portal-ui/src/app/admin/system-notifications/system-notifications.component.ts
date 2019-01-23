@@ -1,31 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractSubscriber} from '../../core/abstract-subscriber';
-import {Observable} from 'rxjs';
-import {SystemNotification} from '../../shared/backend-services/system-notifications/system-notification.types';
+import {Subject} from 'rxjs';
+import {SystemNotificationDto} from '../../shared/backend-services/system-notifications/system-notification.types';
 import {SystemNotificationRepository} from '../../shared/backend-services/system-notifications/system-notification-repository';
 import {ModalService} from '../../shared/layout/modal/modal.service';
 import {SystemNotificationEditModalComponent} from './edit-modal/system-notification-edit-modal.component';
 import {SystemNotificationCreateModalComponent} from './create-modal/system-notification-create-modal.component';
-import {SystemNotificationDeleteModalComponent} from './delete-modal/system-notification-delete-modal.component';
-import {Notification, NotificationType} from '../../shared/layout/notifications/notification.model';
-
-const ALERTS = {
-  createSuccess: {
-    type: NotificationType.SUCCESS,
-    messageKey: 'SUCCESS',
-    isSticky: true
-  } as Notification,
-  editSuccess: {
-    type: NotificationType.SUCCESS,
-    messageKey: 'SUCCESS',
-    isSticky: true
-  } as Notification,
-  deleteSuccess: {
-    type: NotificationType.SUCCESS,
-    messageKey: 'SUCCESS',
-    isSticky: true
-  } as Notification
-};
+import {Notification} from '../../shared/layout/notifications/notification.model';
+import {NotificationsService} from '../../core/notifications.service';
+import {ConfirmModalConfig} from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'alv-system-notifications',
@@ -33,56 +17,76 @@ const ALERTS = {
 })
 export class SystemNotificationsComponent extends AbstractSubscriber implements OnInit {
 
-  systemNotifications$: Observable<SystemNotification[]>;
+  systemNotifications$ = new Subject<SystemNotificationDto[]>();
 
   alert: Notification = null;
 
   constructor(private systemNotificationRepository: SystemNotificationRepository,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private notificationsService: NotificationsService) {
     super();
   }
 
   ngOnInit(): void {
-    this.systemNotifications$ = this.systemNotificationRepository.getAllSystemNotifications();
+    this.loadSystemNotifications();
   }
 
   openCreateModal() {
     const createModalRef = this.modalService.openLarge(SystemNotificationCreateModalComponent);
     createModalRef.result
       .then(() => {
-        this.alert = ALERTS.createSuccess;
+        this.loadSystemNotifications();
+        this.notificationsService.success('Successfully added SystemNotificationDto', true);
       })
       .catch(() => {
       });
   }
 
-  openEditModal(systemNotification: SystemNotification) {
+  openEditModal(systemNotification: SystemNotificationDto) {
     const modalRef = this.modalService.openLarge(SystemNotificationEditModalComponent);
     const editModalComponent = <SystemNotificationEditModalComponent>modalRef.componentInstance;
     editModalComponent.systemNotification = systemNotification;
     modalRef.result.then(() => {
-      this.alert = ALERTS.editSuccess;
+      this.loadSystemNotifications();
+      this.notificationsService.success('Successfully edited SystemNotificationDto', true);
     })
       .catch(() => {
       });
   }
 
-  //FIXME fago: use confirm dialog
   openDeleteModal(id: string) {
-    const modalRef = this.modalService.openLarge(SystemNotificationDeleteModalComponent);
-    const deleteModalComponent = <SystemNotificationDeleteModalComponent>modalRef.componentInstance;
-    deleteModalComponent.id = id;
-    modalRef.result.then(() => {
-      this.alert = ALERTS.deleteSuccess;
-    })
-      .catch(() => {
-      });
+    this.modalService.openConfirm({
+      title: 'title-key',
+      content: 'content-key',
+      confirmLabel: 'confirm-yes',
+      cancelLabel: 'confirm-no'
+    } as ConfirmModalConfig).result
+      .then(
+        () =>
+          this.systemNotificationRepository.deleteSystemNotification(id)
+            .subscribe(() => this.loadSystemNotifications()),
+        () => {
+        });
   }
 
-  //FIXME fago: improve this
-  toggleStatus(systemNotification: SystemNotification,
-               isActivated: boolean) {
-    systemNotification.active = isActivated;
-    this.systemNotificationRepository.updateSystemNotification(systemNotification);
+  toggleStatus(systemNotification: SystemNotificationDto) {
+    const activated = !systemNotification.active;
+    const updatedNotification = {
+      ...systemNotification,
+      active: activated
+    };
+    this.systemNotificationRepository.updateSystemNotification(updatedNotification)
+      .subscribe(() => {
+        systemNotification.active = activated;
+      })
   }
+
+  private loadSystemNotifications() {
+    this.systemNotificationRepository.getAllSystemNotifications().pipe(
+      take(1)
+    ).subscribe(value => {
+      this.systemNotifications$.next(value);
+    })
+  }
+
 }
