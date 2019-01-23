@@ -28,6 +28,7 @@ import { JobDetailModel } from '../../shared/job-detail-model';
 import { map, switchMap } from 'rxjs/operators';
 import { isDeactivated, isExternal, isUnvalidated } from '../../shared/job-ad-rules';
 import { ScrollService } from '../../../core/scroll.service';
+import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
@@ -56,6 +57,8 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       isSticky: true
     }
   };
+
+  layoutConstants = LayoutConstants;
 
   jobDetailModel$: Observable<JobDetailModel>;
 
