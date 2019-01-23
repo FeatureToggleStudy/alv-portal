@@ -28,7 +28,8 @@ export class ModalService {
     const modalRef = this.open(ConfirmModalComponent, config.size, false);
     const component = modalRef.componentInstance;
     component.title = config.title;
-    component.textHtml = config.textHtml;
+    component.content = config.content ;
+    component.contentParams = config.contentParams || component.contentParams;
     component.confirmLabel = config.confirmLabel || component.confirmLabel;
     component.cancelLabel = config.cancelLabel || component.cancelLabel;
 

@@ -10,5 +10,5 @@ echo "Using artifactory password: $ARTIFACTORY_PASSWORD..."
 source ~/.nvm/nvm.sh
 
 echo "Building and deploying Maven and docker artifacts..."
-./mvnw deploy -Pdocker -Powasp-dependency-check -Ddockerfile.username=${ARTIFACTORY_USERNAME} -Ddockerfile.password=${ARTIFACTORY_PASSWORD};
+./mvnw deploy -Pdocker -Ddockerfile.username=${ARTIFACTORY_USERNAME} -Ddockerfile.password=${ARTIFACTORY_PASSWORD};
 

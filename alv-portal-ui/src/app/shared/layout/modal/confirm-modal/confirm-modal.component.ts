@@ -10,7 +10,9 @@ export class ConfirmModalComponent {
 
   title: string;
 
-  textHtml: string;
+  content: string;
+
+  contentParams = {};
 
   confirmLabel = 'portal.modal.confirm.yes';
 
