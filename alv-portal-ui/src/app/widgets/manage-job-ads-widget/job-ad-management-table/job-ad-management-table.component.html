@@ -60,7 +60,7 @@
                     ngbDropdownAnchor>
               <i class="fa fa-ellipsis-v"></i>
             </button>
-            <div [attr.aria-label]="'Job advertisement row actions for the row '+ row.title"
+            <div [attr.aria-label]="'portal.manage-job-ads.row-label' | translate: {row: row.title}"
                  ngbDropdownMenu>
               <button class="dropdown-item"
                       (click)="open(row, $event)">

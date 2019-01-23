@@ -47,6 +47,8 @@ const ALERTS = {
   } as Notification
 };
 
+const NO_ROLE = 'NO_ROLE';
+
 @Component({
   selector: 'alv-user-info',
   templateUrl: './user-info.component.html',
@@ -98,18 +100,17 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
   }
 
   private determineRoleToBeRemoved(): string {
-    let role = 'NO_ROLE';
     if (this.isUserRoleEmpty()) {
-      return role;
+      return NO_ROLE;
     }
     if (this.userRoles.includes(`${UserRole.ROLE_JOB_SEEKER}`)) {
-      role = 'JOB_SEEKER';
+      return 'JOB_SEEKER';
     } else if (this.userRoles.includes(`${UserRole.ROLE_COMPANY}`)) {
-      role = 'COMPANY';
+      return 'COMPANY';
     } else if (this.userRoles.includes(`${UserRole.ROLE_PAV}`)) {
-      role = 'PRIVATE_AGENT';
+      return 'PRIVATE_AGENT';
     }
-    return role;
+    return NO_ROLE;
   }
 
   formatAccountability(accountability): string {

@@ -26,6 +26,7 @@ import { CandidateSearchFilterParameterService } from './candidate-search-filter
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import { OccupationCode } from '../../shared/backend-services/reference-service/occupation-label.types';
+import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -34,6 +35,8 @@ import { OccupationCode } from '../../shared/backend-services/reference-service/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CandidateSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
+
+  layoutConstants = LayoutConstants;
 
   totalCount$: Observable<number>;
 
@@ -86,7 +89,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       .pipe(take(1))
       .subscribe(candidateProfile => {
         if (candidateProfile && this.scrollService.scrollIntoView(composeResultListItemId(candidateProfile.id))) {
-          this.scrollService.scrollBy(0, -100);
+          this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH);
         } else {
           this.scrollService.scrollToTop();
         }

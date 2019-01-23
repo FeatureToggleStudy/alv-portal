@@ -1,5 +1,6 @@
-<div class="container-fluid">
+<div class="container-fluid pt-4">
   <alv-three-column-layout *ngIf="candidateDetailModel$ | async as candidateDetailModel"
+                           [stickyTop]="layoutConstants.STICKY_TOP_DETAIL"
                            [mobileOrdering]="[2, 1, null]">
     <!--Mobile only - back button and dropdown menu-->
     <div class="mobile-menu-bar">
@@ -19,7 +20,7 @@
                   class="btn btn-text btn-icon"
                   id="dropdownMenu"
                   ngbDropdownAnchor
-                  aria-label="Open candidate detail menu">
+                  [attr.aria-label]="'portal.candidate-detail.open-candidate-menu'|translate">
             <i class="fa fa-ellipsis-v"></i>
           </button>
           <div aria-label="Candidate detail menu"

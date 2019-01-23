@@ -5,9 +5,9 @@ import {
 } from '../backend-services/reference-service/occupation-label.repository';
 import { Injectable } from '@angular/core';
 import {
-  OccupationMultiTypeaheadItem,
-  OccupationMultiTypeaheadItemType
-} from './occupation-multi-typeahead-item';
+  OccupationTypeaheadItem,
+  OccupationTypeaheadItemType
+} from './occupation-typeahead-item';
 import { map } from 'rxjs/operators';
 import {
   OccupationCode,
@@ -24,55 +24,55 @@ export class OccupationSuggestionService {
   constructor(private occupationLabelRepository: OccupationLabelRepository) {
   }
 
-  translateAll(occupations: OccupationMultiTypeaheadItem[], language: string): Observable<OccupationMultiTypeaheadItem[]> {
+  translateAll(occupations: OccupationTypeaheadItem[], language: string): Observable<OccupationTypeaheadItem[]> {
     return forkJoin(occupations.map((o) => this.translate(o, language)));
   }
 
-  translate(occupation: OccupationMultiTypeaheadItem, language: string): Observable<OccupationMultiTypeaheadItem> {
+  translate(occupation: OccupationTypeaheadItem, language: string): Observable<OccupationTypeaheadItem> {
     const occupationCode = this.translateableOccupationCode(occupation);
     if (occupationCode) {
       return this.occupationLabelRepository.getOccupationLabelsByKey(occupationCode.type, occupationCode.value, language).pipe(
         map((label) => {
-          return new OccupationMultiTypeaheadItem(<OccupationMultiTypeaheadItemType>occupation.type, occupation.payload, label.default, occupation.order);
+          return new OccupationTypeaheadItem(<OccupationTypeaheadItemType>occupation.type, occupation.payload, label.default, occupation.order);
         })
       );
     }
     return of(occupation);
   }
 
-  fetchJobSearchOccupations(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
+  fetchJobSearchOccupations(query: string): Observable<Array<OccupationTypeaheadItem>> {
     return this.fetch(query, [OccupationTypes.X28, OccupationTypes.SBN3, OccupationTypes.SBN5], this.toJobSearchOccupationCode);
   }
 
-  fetchCandidateSearchOccupations(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
+  fetchCandidateSearchOccupations(query: string): Observable<Array<OccupationTypeaheadItem>> {
     return this.fetch(query, [OccupationTypes.AVAM, OccupationTypes.SBN3, OccupationTypes.SBN5], this.toCandidateSearchOccupationCode);
   }
 
-  fetchJobPublicationOccupations(query: string): Observable<Array<OccupationMultiTypeaheadItem>> {
+  fetchJobPublicationOccupations(query: string): Observable<Array<OccupationTypeaheadItem>> {
     return this.fetch(query, [OccupationTypes.AVAM], this.toJobPublicationOccupations);
   }
 
-  private fetch(query: string, occupationTypes: OccupationTypes[], occupationMapping: (o: OccupationLabelSuggestion) => OccupationCode): Observable<OccupationMultiTypeaheadItem[]> {
+  private fetch(query: string, occupationTypes: OccupationTypes[], occupationMapping: (o: OccupationLabelSuggestion) => OccupationCode): Observable<OccupationTypeaheadItem[]> {
     return this.occupationLabelRepository.suggestOccupations(query, occupationTypes)
       .pipe(
         map((occupationLabelAutocomplete) => {
           const occupationItems = occupationLabelAutocomplete.occupations
             .map((occupation, idx) => {
               const professionCodes = occupationMapping(occupation);
-              return new OccupationMultiTypeaheadItem(OccupationMultiTypeaheadItemType.OCCUPATION, professionCodes, occupation.label, idx);
+              return new OccupationTypeaheadItem(OccupationTypeaheadItemType.OCCUPATION, professionCodes, occupation.label, idx);
             });
 
           const classificationItems = occupationLabelAutocomplete.classifications
             .map((classification, idx) => {
               const professionCodes = this.toProfessionCodesFromClassification(classification);
-              return new OccupationMultiTypeaheadItem(OccupationMultiTypeaheadItemType.CLASSIFICATION, professionCodes, classification.label, this.determineStartIndex(occupationLabelAutocomplete, idx));
+              return new OccupationTypeaheadItem(OccupationTypeaheadItemType.CLASSIFICATION, professionCodes, classification.label, this.determineStartIndex(occupationLabelAutocomplete, idx));
             });
           return [].concat(occupationItems, classificationItems);
         })
       );
   }
 
-  private translateableOccupationCode(occupation: OccupationMultiTypeaheadItem): OccupationCode {
+  private translateableOccupationCode(occupation: OccupationTypeaheadItem): OccupationCode {
     if (translateableOccupationTypes.includes(occupation.payload.type)) {
       return occupation.payload;
     }

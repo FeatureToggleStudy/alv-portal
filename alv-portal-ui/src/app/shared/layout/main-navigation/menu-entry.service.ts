@@ -38,6 +38,12 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     userPredicate: isAnyUser
   },
   {
+    icon: 'edit',
+    labelKey: 'portal.navigation.menu-entry.job-publication',
+    path: ['job-publication'],
+    userPredicate: isAnyUser
+  },
+  {
     icon: 'table',
     labelKey: 'portal.navigation.menu-entry.manage-job-ads',
     path: ['manage-job-ads'],

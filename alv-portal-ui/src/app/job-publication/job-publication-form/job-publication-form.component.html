@@ -1,59 +1,70 @@
-<form [formGroup]="jobPublicationForm">
+<form [formGroup]="jobPublicationForm"
+      (validSubmit)="submit()"
+      alvFormSubmitValidation>
 
-  <alv-job-description [parentForm]="jobPublicationForm"
+  <alv-job-description class="d-block pb-4"
+                       [parentForm]="jobPublicationForm"
                        [jobDescriptionFormValue]="jobDescriptionFormValue">
   </alv-job-description>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_OCCUPATION"
                       panelTitle="home.tools.job-publication.occupation.label">
-    <alv-occupation [parentForm]="jobPublicationForm"
+    <alv-occupation class="d-block pb-4"
+                    [parentForm]="jobPublicationForm"
                     [occupationFormValue]="occupationFormValue">
     </alv-occupation>
   </alv-collapse-panel>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_LANGUAGES"
                       panelTitle="portal.job-publication.language-skills.label">
-    <alv-languages [parentForm]="jobPublicationForm"
+    <alv-languages class="d-block pb-4"
+                   [parentForm]="jobPublicationForm"
                    [languagesFormValue]="languagesFormValue">
     </alv-languages>
   </alv-collapse-panel>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_EMPLOYMENT"
                       panelTitle="home.tools.job-publication.employment.title">
-    <alv-employment [parentForm]="jobPublicationForm"
+    <alv-employment class="d-block pb-4"
+                    [parentForm]="jobPublicationForm"
                     [employmentFormValue]="employmentFormValue">
     </alv-employment>
   </alv-collapse-panel>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_LOCATION"
                       panelTitle="home.tools.job-publication.locality.title">
-    <alv-location [parentForm]="jobPublicationForm"
+    <alv-location class="d-block pb-4"
+                  [parentForm]="jobPublicationForm"
                   [locationFormValue]="locationFormValue">
     </alv-location>
   </alv-collapse-panel>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_COMPANY"
                       panelTitle="home.tools.job-publication.company.title">
-    <alv-company [parentForm]="jobPublicationForm"
-                 [companyFormValue]="companyGroupValue">
+    <alv-company class="d-block pb-4"
+                 [parentForm]="jobPublicationForm"
+                 [companyFormValue]="companyFormValue">
     </alv-company>
   </alv-collapse-panel>
 
-  <div class="alv-light-panel p-2 mb-2">
-    <alv-checkbox label="home.tools.job-publication.company.surrogate"
-                  alvFormControlName="surrogate"
-                  class="narrow-form">
-    </alv-checkbox>
-  </div>
+  <div class="pb-4">
+    <div class="alv-light-panel p-2 mb-2">
+      <alv-checkbox label="home.tools.job-publication.company.surrogate"
+                    alvFormControlName="surrogate"
+                    class="narrow-form">
+      </alv-checkbox>
+    </div>
 
-  <alv-employer *ngIf="jobPublicationForm.get('surrogate').value"
-                [parentForm]="jobPublicationForm"
-                [employerFormValue]="employerFormValue">
-  </alv-employer>
+    <alv-employer *ngIf="jobPublicationForm.get('surrogate').value"
+                  [parentForm]="jobPublicationForm"
+                  [employerFormValue]="employerFormValue">
+    </alv-employer>
+  </div>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_CONTACT"
                       panelTitle="home.tools.job-publication.contact.title">
-    <alv-contact [parentForm]="jobPublicationForm"
+    <alv-contact class="d-block pb-4"
+                 [parentForm]="jobPublicationForm"
                  [contactFormValue]="contactFormValue"></alv-contact>
   </alv-collapse-panel>
 
@@ -62,26 +73,48 @@
     <div class="d-flex">
       <div class="flex-grow-1"></div>
       <button class="btn btn-secondary mb-3"
+              type="button"
               (click)="copyFromContact()">
         {{'home.tools.job-publication.public-contact.copy' | translate}}
       </button>
     </div>
-    <alv-public-contact [parentForm]="jobPublicationForm"
+    <alv-public-contact class="d-block pb-4"
+                        [parentForm]="jobPublicationForm"
                         [publicContactFormValue]="publicContactFormValue">
     </alv-public-contact>
   </alv-collapse-panel>
 
+  <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_APPLICATION"
+                      panelTitle="home.tools.job-publication.application.title">
+    <alv-application class="d-block pb-4"
+                     [parentForm]="jobPublicationForm"
+                     [applicationFormValue]="applicationFormValue">
+    </alv-application>
+  </alv-collapse-panel>
+
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_PUBLICATION"
                       panelTitle="home.tools.job-publication.publication.title">
-    <alv-publication [parentForm]="jobPublicationForm"
+    <alv-publication class="d-block pb-4"
+                     [parentForm]="jobPublicationForm"
                      [publicationFormValue]="publicationFormValue">
     </alv-publication>
   </alv-collapse-panel>
 
+  <div class="alv-light-panel p-2 mt-4">
+    <alv-checkbox label="portal.job-publication.disclaimer.label"
+                  alvFormControlName="disclaimer"
+                  [validationMessages]="[{error: 'required', message: 'portal.job-publication.disclaimer.error'}]"
+                  class="narrow-form">
+    </alv-checkbox>
+  </div>
+  <div class="my-4">
+    <button class="btn btn-primary">
+      {{'home.tools.job-publication.submit' | translate}}
+    </button>
+    <button class="btn btn-text ml-1"
+            type="button"
+            (click)="reset()">
+      {{'home.tools.job-publication.reset' | translate}}
+    </button>
+  </div>
 </form>
-
-
-<hr>
-<pre>{{jobPublicationForm.value | json}}</pre> <br>
-errors: {{jobPublicationForm.errors }} <br>
-valid:  {{jobPublicationForm.valid }}

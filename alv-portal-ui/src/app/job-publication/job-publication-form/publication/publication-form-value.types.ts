@@ -3,7 +3,9 @@ export interface PublicationFormValue {
   euresDisplay: boolean;
 }
 
-export const emptyPublicationFormValue: PublicationFormValue = {
-  publicDisplay: true,
-  euresDisplay: false,
-};
+export function emptyPublicationFormValue(): PublicationFormValue {
+  return {
+    publicDisplay: true,
+    euresDisplay: false,
+  };
+}

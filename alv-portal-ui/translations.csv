@@ -63,7 +63,7 @@ candidate-detail,candidate-detail.anonymous-contact.zip-code,PLZ,Postal code,NPA
 candidate-detail,candidate-detail.anonymous-contact.city,Ort,City,Place,Posto
 candidate-detail,candidate-detail.anonymous-contact.country,Land,Country,Pays,Paese
 candidate-detail,candidate-detail.anonymous-contact.send-to,Post,Mail,Poste,Posta
-candidate-detail,candidate-detail.back,Zurück zu den Suchergebnissen,Back to search results,Retour aux résultats,"Torna ai risultati della ricerca "
+candidate-detail,candidate-detail.back,Zurück,Back,Retour,Indietro
 candidate-detail,candidate-detail.candidate-anonymous-contact.name,Kandidat/in kontaktieren,Contact candidate,Contacter le/la candidat-e,Contattare candidato/a
 candidate-detail,candidate-detail.candidate-anonymous-contact.subject,"Liebe RAV-Kundin, lieber RAV-Kunde","Dear Customer","Chère cliente, cher client ORP","Cara cliente, caro cliente dell'URC"
 candidate-detail,candidate-detail.candidate-anonymous-contact.success,"Ihr E-mail wurde versandt. Vielen Dank, dass Sie Job-Room benutzen.","Your e-mail was succesfully sent. Thank you for using Job-Room.","Votre courriel a été envoyé. Merci d'utiliser Job-Room.","La sua e-mail è stata inviata. Grazie di avere utilizzato Job-Room."
@@ -403,7 +403,7 @@ global,global.menu.account.login,Login|Registrierung,Login|Registration,Login|En
 global,global.menu.account.logout,Abmelden,Sign out,Déconnexion,Esci
 global,global.menu.account.main,Zugang,Account,Compte,Utente
 global,global.menu.account.password,Passwort,Password,Mot de passe,Password
-global,global.menu.account.registration,Info Registrierung,Registration info,Info enregistrement,Info registrazione
+global,global.menu.account.registration.text,Info Registrierung,Registration info,Info enregistrement,Info registrazione
 global,global.menu.account.registration.incomplete,Registrierung abschliessen,Complete registration,Terminer l'enregistrement,Completa la registrazione
 global,global.menu.account.sessions,Sitzungen,Sessions,Sessions,Sessioni
 global,global.menu.account.settings,Einstellungen,Settings,Paramètres,Impostazioni
@@ -707,7 +707,7 @@ health,health.title,Gesundheit Ihrer Anwendung,Health Checks,Diagnostics,Verific
 home,home.contactform.text,Kontakt,Contact,Contact,Contatto
 home,home.contactform.url,https://www.arbeit.swiss/secoalv/de/home/service/kontakt.html,https://www.arbeit.swiss/secoalv/en/home/service/kontakt.html,https://www.arbeit.swiss/secoalv/fr/home/service/kontakt.html,https://www.arbeit.swiss/secoalv/it/home/service/kontakt.html
 home,home.registration.url,https://www.arbeit.swiss/secoalv/de/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,https://www.arbeit.swiss/secoalv/en/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,https://www.arbeit.swiss/secoalv/fr/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,https://www.arbeit.swiss/secoalv/it/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html
-home,home.title,Job-Room,Job-Room,Job-Room,Job-Room
+home,home.title.jobroom,Job-Room,Job-Room,Job-Room,Job-Room
 home,home.title.portal,arbeit,work,travail,lavoro
 home,home.title.portal-url,https://www.arbeit.swiss,https://www.arbeit.swiss/secoalv/en/home.html,https://www.arbeit.swiss/secoalv/fr/home.html,https://www.arbeit.swiss/secoalv/it/home.html
 home,home.title.cms,arbeit.swiss,work.swiss,travail.swiss,lavoro.swiss
@@ -1344,6 +1344,9 @@ portal,portal.forms.validation.ngbDate.format,"Datumsformat ungültig, richtiges
 portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}} liegen,Date must be before {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La date doit être antérieure au {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La data deve essere precedente all'{{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}}
 portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}} liegen,Date must be after {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La date doit être après le {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La data deve essere successiva all'{{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}
 portal,portal.forms.validation.character-counter,{{count}} Zeichen verbleibend,{{count}} characters available,{{count}} caractères disponibles,{{count}} caratteri disponibili
+portal,portal.forms.date-input.open-calendar-button,Kalender öffnen,Open calendar,
+portal,portal.forms.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
+portal,portal.forms.validation.url,Diese URL ist ungültig.,This URL is not valid,Ce lien URL n'est pas valable.,Questo indirizzo URL non è valido.
 
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
@@ -1351,7 +1354,10 @@ portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tut
 
 portal,portal.navigation.menu-entry.job-search,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
+portal,portal.navigation.menu-entry.job-publication,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
+portal,portal.navigation.menu-entry.account.profile,Profile,Profile
+portal,portal.navigation.label.main-navigation,,Main navigation
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
 portal,portal.dashboard.header.welcome.time.morning,Guten Morgen,Good morning,Bonjour,Buongiorno
@@ -1399,6 +1405,7 @@ portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,
 portal,portal.candidate-detail.anonymous-contact.send,Absenden
 portal,portal.candidate-detail.anonymous-contact.your-message,Ihre Mitteilung
 portal,portal.candidate-detail.anonymous-contact.name-lastName,"Vorname / Name","First name / Last name","Prénom / Nom","Nome / Cognome"
+portal,portal.candidate-detail.open-candidate-menu
 
 portal,portal.job-detail.reference.job-id,Stellennummer,Job ID,Numéro du poste,Numero posto
 portal,portal.job-detail.reference.phone,Telefon,Telephone,Téléphone,Telefono
@@ -1413,6 +1420,7 @@ portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl mögl
 portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
 
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
+portal,portal.shared.localities.geo-location-selection.not-available,Standort kann nicht ermittelt werden
 
 portal,portal.widgets.job-search.title,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
@@ -1427,6 +1435,20 @@ portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job des
 portal,portal.job-publication.language-skills.add,Neue Sprachkompetenz hinzufügen,Add new language skill,Ajouter une nouvelle compétence linguistique,Aggiungi nuova conoscenza linguistica
 portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 portal,portal.job-publication.locality.additional-text.placeholder,z. B. Aussendienst in der ganzen Schweiz,e.g. in the field throughout Switzerland,p. ex. service externe dans toute la Suisse,p. es. servizio esterno in tutta la Svizzera
+portal,portal.job-publication.disclaimer.label,"Ich bestätige, dass der Arbeitgeber die orts- und branchenüblichen Lohn- und Arbeitsbedingungen einhält.",I certify that the employer complies with local and industry standards for wage and working conditions.,Je confirme que l'employeur respecte les conditions de travail et de salaire usuelles dans la branche et la localité en question.,Confermo che il datore di lavoro rispetta le condizioni salariali e lavorative usuali nel ramo e nel luogo in questione.
+portal,portal.job-publication.disclaimer.error,"Bitte bestätigen Sie, dass der Arbeitgeber die orts- und branchenüblichen Lohn- und Arbeitsbedingungen einhält.",Please confirm that the employer complies with local and industry standards for wage and working conditions.,Veuillez confirmer que l'employeur respecte bien les conditions de travail et de salaire en vigueur dans la branche et la localité en question.,Confermare che il datore di lavoro rispetta le condizioni salariali e lavorative del luogo e del ramo in questione.
+portal,portal.job-publication.publication.publicDisplay.label,"<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> und <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> and <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> et <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Sito Job-Room</a> e <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>"
+portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://ec.europa.eu/eures/public/de/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/en/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/fr/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/it/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>"
+portal,portal.job-publication.application.legend,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
+portal,portal.job-publication.application.validation.atLeastOneRequired,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
+portal,portal.job-publication.submit.success,"Besten Dank für Ihre Stellenmeldung. Ihr Inserat wird nun von einem Regionalen Arbeitsvermittlungszentrum (RAV) geprüft. Sie werden per E-Mail informiert, sobald die Stelle veröffentlicht wurde.","Thank you for posting this job ad, which will now be checked by a regional employment centre (RAV). You will be informed by email as soon as it is published.",Merci d'avoir annoncé le poste vacant que l'ORP va examiner. Vous recevrez un courriel dès sa publication.,Grazie di aver annunciato il posto vacante que sarà esaminato dall'URC. Riceverà un'e-mail non appena il posto vacante verrà pubblicato.
+portal,portal.job-publication.create.another,Weitere Stelle melden,
+portal,portal.job-publication.submit.info.item1,Bei allfälligen Fragen werden Sie vom RAV kontaktiert.,
+portal,portal.job-publication.submit.info.item2,Sie werden per E-Mail informiert, sobald die Stelle aufgeschaltet wurde.,
+portal,portal.job-publication.submit.info.item3,Falls Sie in der Zwischenzeit Fragen haben, zögern Sie nicht, Ihr zuständiges RAV zu kontaktieren:,
+portal,portal.job-publication.submit.info.phone,Tel.,
+portal,portal.job-publication.submit.info.fax,Fax,
+portal,portal.job-publication.submit.info.email,Email,
 
 portal,portal.manage-job-ads.search.query,Stellen durchsuchen
 portal,portal.manage-job-ads.search.owner-name,Erfasser,Created by
@@ -1446,15 +1468,24 @@ portal,portal.manage-job-ads.cancel.success,Stellenanzeige wurde erfolgreich abg
 portal,portal.manage-job-ads.details.actions.cancel,Stellenanzeige abmelden,Cancel job posting,Retirer l'annonce,Cancellare il posto vacante
 portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio
 portal,portal.manage-job-ads.details.menu-open,Stellenanzeige duplizieren,Opten,Dupliquer l'annonce,Duplicare l'annuncio
+portal,portal.manage-job-ads.row-label,,Job advertisement row actions for the row {{row}}
 
 portal,portal.global.help,Hilfe,Help
+portal,portal.global.search,Suche,Search,Recherche,Cerca
+portal,portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Retour à la page d'accueil,Torna alla pagina iniziale
 portal,portal.global.close,Schliessen,Close,Fermer,Invalida
 
-portal,portal.form.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
-
-portal,portal.job-publication.publication.publicDisplay.label,"<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> und <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> and <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> et <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Sito Job-Room</a> e <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>"
-portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://ec.europa.eu/eures/public/de/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/en/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/fr/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/it/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>"
-
+portal,portal.header.menu.open-navigation
+portal,portal.header.menu.user-menu.label
+portal,portal.header.contact,Kontakt,Contact,Contact,Contatto
+portal,portal.typeahead-multiselect.legend.selected-items,,Selected Items
+portal,portal.typeahead-multiselect.help-text.delete-selected-items,,Press Shift + Tab or use Backspace to delete selected items.
+portal,portal.typeahead-multiselect.help-text.limit-reached,,Limit of {{ limit }} reached.
+portal,portal.typeahead-multiselect.help-text.select-up-to-limit,,You can select up to {{ limit }} items.
+portal,portal.typeahead-multiselect.help-text.query-min-length,,Enter at least {{queryMinLength}} characters to query the list of selectable items. Select by using the up and down arrow keys.
+portal,portal.typeahead-multiselect.remove-item,,Remove item {{item}}
+portal,portal.typeahead-multiselect.help-text.add-free-text,,You can add free text items by hitting Tab or Enter without selection.
+portal,portal.typeahead-single.help-text.instruction,,Enter at least {{ number }} characters to query the list of selectable items. Select by using the up and down arrow keys.
 
 portal,portal.admin.user-info.menu-entry,Benutzerinformationen,User Info,User Info,User Info
 portal,portal.admin.user-info.desc,Bitte geben Sie die E-Mail-Adresse eines bestehenden Benutzers ein.,Please enter an email address of an existing user.,Please enter an email address of an existing user.,Please enter an email address of an existing user.
