@@ -9,13 +9,14 @@ import {SystemNotification} from '../../../shared/backend-services/system-notifi
   templateUrl: './system-notification-edit-modal.component.html',
 })
 export class SystemNotificationEditModalComponent extends AbstractSubscriber implements OnInit {
+
   @Input() systemNotification: SystemNotification;
 
   form: FormGroup;
 
-  readonly "TITLE_MAX_LENGTH" = 50;
+  readonly 'TITLE_MAX_LENGTH' = 50;
 
-  readonly "TEXT_MAX_LENGTH" = 150;
+  readonly 'TEXT_MAX_LENGTH' = 150;
 
   constructor(public activeModal: NgbActiveModal, private fb: FormBuilder) {
     super();

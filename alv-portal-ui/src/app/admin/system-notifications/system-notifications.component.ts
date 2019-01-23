@@ -68,10 +68,10 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
   }
 
   //FIXME fago: use confirm dialog
-  openDeleteModal(systemNotification: SystemNotification) {
+  openDeleteModal(id: string) {
     const modalRef = this.modalService.openLarge(SystemNotificationDeleteModalComponent);
     const deleteModalComponent = <SystemNotificationDeleteModalComponent>modalRef.componentInstance;
-    deleteModalComponent.systemNotification = systemNotification;
+    deleteModalComponent.id = id;
     modalRef.result.then(() => {
       this.alert = ALERTS.deleteSuccess;
     })

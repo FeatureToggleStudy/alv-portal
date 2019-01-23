@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractSubscriber} from '../../../core/abstract-subscriber';
-import {SystemNotification} from '../../../shared/backend-services/system-notifications/system-notification.types';
 import {SystemNotificationRepository} from '../../../shared/backend-services/system-notifications/system-notification-repository';
 
 @Component({
@@ -10,7 +9,7 @@ import {SystemNotificationRepository} from '../../../shared/backend-services/sys
 })
 export class SystemNotificationDeleteModalComponent extends AbstractSubscriber {
 
-  @Input() systemNotification: SystemNotification;
+  @Input() id: string;
 
   constructor(public activeModal: NgbActiveModal,
               private systemNotificationRepository: SystemNotificationRepository) {
@@ -18,7 +17,7 @@ export class SystemNotificationDeleteModalComponent extends AbstractSubscriber {
   }
 
   onSubmit() {
-    this.systemNotificationRepository.deleteSystemNotification(this.systemNotification).subscribe(() => this.activeModal.dismiss());
+    this.systemNotificationRepository.deleteSystemNotification(this.id).subscribe(() => this.activeModal.dismiss());
   }
 
 }

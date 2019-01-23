@@ -16,9 +16,8 @@ export class SystemNotificationRepository {
     return this.http.post<SystemNotification>(SystemNotificationRepository.SYSTEM_NOTIFICATION_URL, systemNotification);
   }
 
-  deleteSystemNotification(systemNotification: SystemNotification): Observable<SystemNotification> {
-    console.log('test');
-    return this.http.delete<SystemNotification>(`${SystemNotificationRepository.SYSTEM_NOTIFICATION_URL}/${systemNotification.id}`);
+  deleteSystemNotification(id: string): Observable<SystemNotification> {
+    return this.http.delete<SystemNotification>(`${SystemNotificationRepository.SYSTEM_NOTIFICATION_URL}/${id}`);
   }
 
   updateSystemNotification(systemNotification: SystemNotification): Observable<SystemNotification> {
