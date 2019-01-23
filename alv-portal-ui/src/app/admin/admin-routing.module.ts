@@ -1,7 +1,7 @@
-import { RouterModule, Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { UserInfoComponent } from './user-info/user-info.component';
-import {SystemNotificationsDashboardComponent} from "./system-notifications-dashboard/system-notifications-dashboard.component";
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {UserInfoComponent} from './user-info/user-info.component';
+import {SystemNotificationsComponent} from './system-notifications/system-notifications.component';
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'system-notifications-dashboard',
-    component: SystemNotificationsDashboardComponent,
+    component: SystemNotificationsComponent,
   }
 
 ];

@@ -1,5 +1,3 @@
-import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
-
 export interface SystemNotification {
   id: number;
   title: string;
@@ -8,7 +6,7 @@ export interface SystemNotification {
   text_it: string;
   text_en: string;
   type: string;
-  startDate: NgbDate;
-  endDate: NgbDate;
+  startDate: string;
+  endDate: string;
   active: boolean;
 }
