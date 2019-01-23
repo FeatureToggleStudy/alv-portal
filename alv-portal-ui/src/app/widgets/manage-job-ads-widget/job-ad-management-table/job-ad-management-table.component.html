@@ -8,7 +8,7 @@
       <th scope="col"
           role="columnheader"
           *ngFor="let columnDefinition of columnDefinitions"
-          (click)="onSortChange(columnDefinition)"
+          (click)="changeColumnSort(columnDefinition)"
           [ngClass]="{'active-sort': currentSorting.column === columnDefinition.column}">
         <span>{{ columnDefinition.columnName | translate }}</span>
         <ng-container *ngIf="columnDefinition.sortingEnabled">
@@ -47,19 +47,20 @@
       </td>
       <td role="gridcell"
           class="actions-cell d-block d-md-table-cell">
-        <div class="actions">
+        <div class="actions"
+             (click)="$event.stopPropagation()">
           <div #mobileActionsMenu="ngbDropdown"
                class="d-inline-block"
                ngbDropdown
                placement="bottom-right">
-            <button (click)="$event.stopPropagation();mobileActionsMenu.toggle()"
+            <button (click)="mobileActionsMenu.toggle()"
                     aria-label="Open candidate detail menu"
                     class="btn btn-text btn-icon"
                     id="dropdownMenu"
                     ngbDropdownAnchor>
               <i class="fa fa-ellipsis-v"></i>
             </button>
-            <div [attr.aria-label]="'Job advertisement row actions for the row '+ row.title"
+            <div [attr.aria-label]="'portal.manage-job-ads.row-label' | translate: {row: row.title}"
                  ngbDropdownMenu>
               <button class="dropdown-item"
                       (click)="open(row, $event)">

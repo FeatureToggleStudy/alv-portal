@@ -7,6 +7,7 @@ import {
   NgbDateParserFormatter,
   NgbDatepickerModule,
   NgbPopoverConfig,
+  NgbTooltipModule,
   NgbTypeaheadModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { DateParserFormatter } from './input/date-input/date-parser-formatter';
@@ -29,6 +30,7 @@ import { AutofocusDirective } from './autofocus.directive';
     ReactiveFormsModule,
     NgbDatepickerModule,
     NgbTypeaheadModule,
+    NgbTooltipModule,
     TranslateModule
   ],
   declarations: [
@@ -55,7 +57,8 @@ import { AutofocusDirective } from './autofocus.directive';
     FormSubmitValidationDirective,
     MultiTypeaheadComponent,
     SingleTypeaheadComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbTooltipModule
   ],
   providers: [
     NgbPopoverConfig,

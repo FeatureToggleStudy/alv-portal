@@ -40,8 +40,7 @@
     <!-- a11y help texts -->
     <div [attr.id]="helpId"
          class="sr-only">
-      Enter at least {{ TYPEAHEAD_QUERY_MIN_LENGTH }} characters to query the list of
-      selectable items. Select by using the up and down arrow keys.
+      {{'portal.typeahead-single.help-text.instruction' | translate : {'number' : TYPEAHEAD_QUERY_MIN_LENGTH} }}
     </div>
 
     <ng-template #template

@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
+import {
+  ApplyFilterAction,
+  JobAdvertisementChangedAction,
+  LoadNextPageAction
+} from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, map, take, takeUntil, tap } from 'rxjs/operators';
@@ -163,7 +167,9 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
         jobAdCancellationComponent.jobAdvertisement = action.row.jobAdvertisement;
         jobAdCancellationComponent.accessToken = null;
         jobAdCancellationModalRef.result
-          .then(value => console.log(value))
+          .then((job) => {
+            this.store.dispatch(new JobAdvertisementChangedAction({ jobAdvertisement: job }));
+          })
           .catch(() => {
           });
         break;

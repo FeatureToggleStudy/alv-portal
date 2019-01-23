@@ -8,6 +8,8 @@ import { JobAdvertisementRepository } from '../../../shared/backend-services/job
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { switchMap } from 'rxjs/operators';
+import { NotificationsService } from '../../../core/notifications.service';
 
 @Component({
   selector: 'alv-job-ad-cancelation-dialog',
@@ -57,7 +59,10 @@ export class JobAdCancellationComponent extends AbstractSubscriber implements On
     }
   ]);
 
-  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private jobAdvertisementRepository: JobAdvertisementRepository) {
+  constructor(public activeModal: NgbActiveModal,
+              private fb: FormBuilder,
+              private jobAdvertisementRepository: JobAdvertisementRepository,
+              private notificationsService: NotificationsService) {
     super();
   }
 
@@ -70,8 +75,11 @@ export class JobAdCancellationComponent extends AbstractSubscriber implements On
       code: this.form.value.positionOccupied,
       id: this.jobAdvertisement.id,
       token: this.accessToken
-    }).subscribe(() => {
-      this.activeModal.close();
+    }).pipe(
+      switchMap(() => this.jobAdvertisementRepository.findById(this.jobAdvertisement.id))
+    ).subscribe((jobAdvertisement) => {
+      this.notificationsService.info('portal.manage-job-ads.cancel.success');
+      this.activeModal.close(jobAdvertisement);
     });
   }
 

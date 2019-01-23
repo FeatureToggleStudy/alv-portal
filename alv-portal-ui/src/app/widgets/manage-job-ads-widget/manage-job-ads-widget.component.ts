@@ -45,7 +45,6 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
 
   isLoading = false;
 
-
   constructor(private jobAdvertisementRepository: JobAdvertisementRepository,
               private modalService: ModalService,
               private router: Router,
@@ -104,7 +103,9 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
         jobAdCancellationComponent.jobAdvertisement = action.row.jobAdvertisement;
         jobAdCancellationComponent.accessToken = null;
         jobAdCancellationModalRef.result
-          .then(value => console.log(value))
+          .then(() => {
+            this.currentFilter$.next(this.currentFilter$.value);
+          })
           .catch(() => {
           });
         break;

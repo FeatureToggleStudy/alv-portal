@@ -13,7 +13,7 @@
          (click)="inputField?.focus()">
 
       <fieldset>
-        <legend class="sr-only">Selected Items</legend>
+        <legend class="sr-only">{{'portal.typeahead-multiselect.legend.selected-items'|translate}}</legend>
         <div
           class="badge typeahead-badge d-inline-flex align-items-center"
           *ngFor="let item of control.value;"
@@ -24,7 +24,7 @@
           <button class="remove-button ml-1"
                   type="button"
                   (click)="removeItem(item)"
-                  [attr.aria-label]="'Remove Item ' + item.label">
+                  [attr.aria-label]="'portal.typeahead-multiselect.remove-item' | translate : {item: item.label}">
             <i class="fa fa-times"></i>
           </button>
         </div>
@@ -71,19 +71,18 @@
         <span *ngFor="let item of control.value; let i = index">
           {{item.label}}
         </span>
-        Press Shift + Tab or use Return to delete selected items.
+        {{'portal.typeahead-multiselect.help-text.delete-selected-items'|translate}}
       </ng-container>
       <ng-container *ngIf="limit && control.value?.length >= limit; else a11yHelpText">
-        Limit of {{ limit }} reached.
+        {{'portal.typeahead-multiselect.help-text.limit-reached' | translate : {'limit': limit} }}
       </ng-container>
       <ng-template #a11yHelpText>
-        Enter at least {{ queryMinLength }} characters to query the list of
-        selectable items. Select by using the up and down arrow keys.
+          {{'portal.typeahead-multiselect.help-text.query-min-length '| translate : {'queryMinLength': queryMinLength} }}
         <ng-container *ngIf="editable">
-          You can add free text items by hitting Tab or Enter without selection.
+          {{'portal.typeahead-multiselect.help-text.add-free-text'| translate}}
         </ng-container>
         <ng-container *ngIf="limit">
-          You can select up to {{ limit }} items.
+          {{'portal.typeahead-multiselect.help-text.select-up-to-limit' | translate : { 'limit': limit} }}
         </ng-container>
       </ng-template>
     </div>

@@ -10,6 +10,7 @@ export const NEXT_PAGE_LOADED = 'MANAGEJOBADS:NEXT_PAGE_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'MANAGEJOBADS:JOB_ADVERTISEMENT_DETAIL_LOADED';
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'MANAGEJOBADS:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'MANAGEJOBADS:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
+export const JOB_ADVERTISEMENT_CHANGED = 'MANAGEJOBADS:JOB_ADVERTISEMENT_CHANGED';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -46,6 +47,13 @@ export class NextPageLoadedAction implements Action {
   }
 }
 
+export class JobAdvertisementChangedAction implements Action {
+  readonly type = JOB_ADVERTISEMENT_CHANGED;
+
+  constructor(public payload: { jobAdvertisement: JobAdvertisement }) {
+  }
+}
+
 export class JobAdvertisementDetailLoadedAction implements Action {
   readonly type = JOB_ADVERTISEMENT_DETAIL_LOADED;
 
@@ -73,4 +81,5 @@ export type Actions =
   | ApplyFilterAction
   | LoadNextPageAction
   | NextPageLoadedAction
+  | JobAdvertisementChangedAction
   | JobAdvertisementDetailLoadedAction;
