@@ -13,9 +13,9 @@ import {
   PublicContact,
   WorkExperience
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { JobPublicationFormValue } from './job-publication-form-value.types';
-import { JobDescriptionFormValue } from './job-description/job-description-form-value.types';
-import { OccupationFormValue } from './occupation/occupation-form-value.types';
+import {JobPublicationFormValue} from './job-publication-form-value.types';
+import {JobDescriptionFormValue} from './job-description/job-description-form-value.types';
+import {OccupationFormValue} from './occupation/occupation-form-value.types';
 import {
   Degree,
   EmploymentDuration,
@@ -23,18 +23,17 @@ import {
   PostAddress,
   WorkForm
 } from '../../shared/backend-services/shared.types';
-import { EmploymentFormValue } from './employment/employment-form-value.types';
-import { LocationFormValue } from './location/location-form-value.types';
-import { CompanyFormValue } from './company/company-form-value.types';
-import { PublicationFormValue } from './publication/publication-form-value.types';
-import { ContactFormValue } from './contact/contact-form-value.types';
-import { PublicContactFormValue } from './public-contact/public-contact-form-value.types';
-import { ApplicationFormValue } from './application/application-form-value.types';
-import { EmployerFormValue } from './employer/employer-form-value.types';
-import { PostAddressFormValue } from './post-address-form/post-address-form-value.types';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { formatDate } from '@angular/common';
-import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
+import {EmploymentFormValue} from './employment/employment-form-value.types';
+import {LocationFormValue} from './location/location-form-value.types';
+import {CompanyFormValue} from './company/company-form-value.types';
+import {PublicationFormValue} from './publication/publication-form-value.types';
+import {ContactFormValue} from './contact/contact-form-value.types';
+import {PublicContactFormValue} from './public-contact/public-contact-form-value.types';
+import {ApplicationFormValue} from './application/application-form-value.types';
+import {EmployerFormValue} from './employer/employer-form-value.types';
+import {PostAddressFormValue} from './post-address-form/post-address-form-value.types';
+import {ZipCityFormValue} from './zip-city-input/zip-city-form-value.types';
+import {now, toISOLocalDate} from '../../shared/forms/input/ngb-date-utils';
 
 
 export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement): JobPublicationFormValue {
@@ -95,8 +94,8 @@ function mapToEmployment(employmentFormValue: EmploymentFormValue): Employment {
     workForms: mapToWorkForms(employmentFormValue.workForms),
     workloadPercentageMin: employmentFormValue.workloadPercentageMin,
     workloadPercentageMax: employmentFormValue.workloadPercentageMax,
-    startDate: mapToLocalDateString(employmentFormValue.startDate),
-    endDate: mapToLocalDateString(employmentFormValue.endDate),
+    startDate: toISOLocalDate(employmentFormValue.startDate),
+    endDate: toISOLocalDate(employmentFormValue.endDate),
   };
 }
 
@@ -166,7 +165,7 @@ function mapToPublication(publicationFormValue: PublicationFormValue): Publicati
   return {
     euresDisplay: publicationFormValue.euresDisplay,
     publicDisplay: publicationFormValue.publicDisplay,
-    startDate: mapToLocalDateString(new Date())
+    startDate: toISOLocalDate(now())
   };
 }
 
@@ -208,18 +207,5 @@ function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCod
     ? zipCityFormValue.zipCode
     : zipCityFormValue.payload.zipCode;
 
-  return { city, postalCode };
-}
-
-function mapToLocalDateString(date: NgbDateStruct | Date) {
-  if (!date) {
-    return null;
-  }
-
-  const dateObj = (date instanceof Date)
-    ? date
-    : new Date(date.year, date.month - 1, date.day, 12);
-
-
-  return formatDate(dateObj, 'yyyy-MM-dd', 'en-US');
+  return {city, postalCode};
 }

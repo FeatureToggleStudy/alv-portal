@@ -1,4 +1,4 @@
-import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 export interface SystemNotificationFormValue {
   title: string;
@@ -7,10 +7,10 @@ export interface SystemNotificationFormValue {
   text_it: string;
   text_en: string;
   type: string;
-  startDate: NgbDate;
+  startDate: NgbDateStruct;
   startTimeHours: string;
   startTimeMinutes: string;
-  endDate: NgbDate;
+  endDate: NgbDateStruct;
   endTimeHours: string;
   endTimeMinutes: string;
   active: boolean;

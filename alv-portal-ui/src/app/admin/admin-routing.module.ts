@@ -2,17 +2,24 @@ import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {UserInfoComponent} from './user-info/user-info.component';
 import {SystemNotificationsComponent} from './system-notifications/system-notifications.component';
+import {UserRole} from '../core/auth/user.model';
 
 const routes: Routes = [
   {
     path: 'user-info',
     component: UserInfoComponent,
+    data: {
+      titleKey: 'xxxx',
+      authorities: [UserRole.ROLE_SYSADMIN, UserRole.ROLE_ADMIN]
+    }
   },
   {
     path: 'system-notifications',
     component: SystemNotificationsComponent,
+    data: {
+      titleKey: 'xxxx'
+    }
   }
-
 ];
 
 @NgModule({

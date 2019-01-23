@@ -6,7 +6,7 @@ import {SystemNotificationDto} from '../../../shared/backend-services/system-not
 import {SystemNotificationRepository} from '../../../shared/backend-services/system-notifications/system-notification-repository';
 import {mapFormToDto} from '../system-notifications-request-mapper';
 import {SystemNotificationFormValue} from '../system-notification-form-value';
-import {fromDateISO} from '../../../shared/forms/input/ngb-date-utils';
+import {fromISODate} from '../../../shared/forms/input/ngb-date-utils';
 
 @Component({
   selector: 'alv-system-notification-edit-modal',
@@ -69,10 +69,10 @@ function mapToFormValue(systemNotification: SystemNotificationDto): SystemNotifi
     text_it: systemNotification.text_it,
     text_en: systemNotification.text_en,
     type: systemNotification.type,
-    startDate: fromDateISO(systemNotification.startDate),
+    startDate: fromISODate(systemNotification.startDate),
     startTimeHours: startDate.getHours().toString(),
     startTimeMinutes: startDate.getMinutes().toString(),
-    endDate: fromDateISO(systemNotification.endDate),
+    endDate: fromISODate(systemNotification.endDate),
     endTimeHours: endDate.getHours().toString(),
     endTimeMinutes: endDate.getMinutes().toString(),
     active: systemNotification.active
