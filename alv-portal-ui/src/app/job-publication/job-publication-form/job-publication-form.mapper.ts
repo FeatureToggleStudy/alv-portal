@@ -70,7 +70,7 @@ export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement)
     location: mapToLocationFormValue(jobContent.location),
     company: mapToCompanyFormValue(jobContent.company),
     //todo: implement
-    contact: emptyContactFormValue,
+    contact: emptyContactFormValue(),
     publicContact: mapToPublicContactFormValue(jobContent.publicContact),
     surrogate: jobContent.company.surrogate,
     employer: mapToEmployerFormValue(jobContent.employer),
@@ -82,7 +82,7 @@ export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement)
 
 function mapToJobDescriptionFormValue(jobDescriptions: JobDescription[], numberOfJobs: string): JobDescriptionFormValue {
   if (!jobDescriptions || jobDescriptions.length === 0) {
-    return emptyJobDescriptionFormValue;
+    return emptyJobDescriptionFormValue();
   }
 
   const jobDescription = jobDescriptions[0];
@@ -96,7 +96,7 @@ function mapToJobDescriptionFormValue(jobDescriptions: JobDescription[], numberO
 
 function mapToOccupationFormValue(occupations: Occupation[]): OccupationFormValue {
   if (!occupations || occupations.length === 0) {
-    return emptyOccupationFormValue;
+    return emptyOccupationFormValue();
   }
 
   const occupation = occupations[0];
@@ -187,7 +187,7 @@ function mapToZipCityFormValue(countryIsoCode: string, zipCode: string, city: st
 
 function mapToPublicContactFormValue(publicContact: PublicContact): PublicContactFormValue {
   if (!publicContact) {
-    return emptyPublicContactFormValue;
+    return emptyPublicContactFormValue();
   }
 
   return {
@@ -199,9 +199,9 @@ function mapToPublicContactFormValue(publicContact: PublicContact): PublicContac
   };
 }
 
-function mapToEmployerFormValue(employer: Employer) {
+function mapToEmployerFormValue(employer: Employer): EmployerFormValue {
   if (!employer) {
-    return emptyEmployerFormValue;
+    return emptyEmployerFormValue();
   }
 
   return {
@@ -213,7 +213,7 @@ function mapToEmployerFormValue(employer: Employer) {
 
 function mapToApplicationFormValue(applyChannel: ApplyChannel): ApplicationFormValue {
   if (!applyChannel) {
-    return emptyApplicationFormValue;
+    return emptyApplicationFormValue();
   }
 
   const application: ApplicationFormValue = {
