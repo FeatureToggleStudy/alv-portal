@@ -28,6 +28,7 @@ import { CandidateProfile } from '../../shared/backend-services/candidate/candid
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ContactModalComponent } from './contact-modal/contact-modal.component';
 import { hasAnyAuthorities, UserRole } from '../../core/auth/user.model';
+import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
@@ -48,6 +49,8 @@ const ALERT = {
 export class CandidateDetailComponent implements OnInit {
 
   readonly NUMBER_OF_JOBS_TO_SHOW = 3;
+
+  layoutConstants = LayoutConstants;
 
   candidateDetailModel$: Observable<CandidateDetailModel>;
 

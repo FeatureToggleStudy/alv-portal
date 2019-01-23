@@ -1,6 +1,6 @@
 <div class="container-fluid pt-4">
   <alv-three-column-layout *ngIf="candidateDetailModel$ | async as candidateDetailModel"
-                           stickyTop="1.5rem"
+                           [stickyTop]="layoutConstants.STICKY_TOP_DETAIL"
                            [mobileOrdering]="[2, 1, null]">
     <!--Mobile only - back button and dropdown menu-->
     <div class="mobile-menu-bar">

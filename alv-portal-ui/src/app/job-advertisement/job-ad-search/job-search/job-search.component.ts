@@ -24,6 +24,7 @@ import { ScrollService } from '../../../core/scroll.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { ofType } from '@ngrx/effects';
 import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
+import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 
 @Component({
   selector: 'alv-job-search',
@@ -32,6 +33,8 @@ import { composeResultListItemId } from '../../../shared/layout/result-list-item
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
+
+  layoutConstants = LayoutConstants;
 
   totalCount$: Observable<number>;
 
@@ -78,7 +81,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       .pipe(take(1))
       .subscribe(job => {
         if (job && this.scrollService.scrollIntoView(composeResultListItemId(job.id))) {
-          this.scrollService.scrollBy(0, -150);
+          this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH);
         } else {
           this.scrollService.scrollToTop();
         }
