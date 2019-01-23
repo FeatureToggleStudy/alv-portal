@@ -26,7 +26,7 @@ describe('PublicationComponent', () => {
     fixture = TestBed.createComponent(PublicationComponent);
     component = fixture.componentInstance;
     component.parentForm = new FormGroup({});
-    component.publicationFormValue = emptyPublicationFormValue;
+    component.publicationFormValue = emptyPublicationFormValue();
     fixture.detectChanges();
   });
 

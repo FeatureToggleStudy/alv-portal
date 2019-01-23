@@ -10,12 +10,14 @@ export interface ApplicationFormValue {
   selectedApplicationTypes: { [p: string]: boolean };
 }
 
-export const emptyApplicationFormValue: ApplicationFormValue = {
-  additionalInfo: null,
-  selectedApplicationTypes: {
-    form: false,
-    email: false,
-    phone: false,
-    post: false,
-  }
-};
+export function emptyApplicationFormValue(): ApplicationFormValue {
+  return {
+    additionalInfo: null,
+    selectedApplicationTypes: {
+      form: false,
+      email: false,
+      phone: false,
+      post: false,
+    }
+  };
+}

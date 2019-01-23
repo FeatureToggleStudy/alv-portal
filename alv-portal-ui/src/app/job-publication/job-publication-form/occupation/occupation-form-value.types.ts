@@ -8,8 +8,10 @@ export interface OccupationFormValue {
   experience: Experience;
 }
 
-export const emptyOccupationFormValue: OccupationFormValue = {
-  occupationSuggestion: null,
-  degree: null,
-  experience: null
-};
+export function emptyOccupationFormValue(): OccupationFormValue {
+  return {
+    occupationSuggestion: null,
+    degree: null,
+    experience: null
+  };
+}

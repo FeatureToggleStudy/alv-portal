@@ -58,16 +58,16 @@ export class JobPublicationFormValueFactory {
 
   createEmpty(): JobPublicationFormValue {
     return {
-      jobDescription: emptyJobDescriptionFormValue,
-      occupation: emptyOccupationFormValue,
-      languageSkills: emptyLanguagesFormValue,
-      employment: emptyEmploymentFormValue,
-      location: emptyLocationFormValue,
-      company: emptyCompanyFormValue,
-      contact: emptyContactFormValue,
-      publicContact: emptyPublicContactFormValue,
-      application: emptyApplicationFormValue,
-      publication: emptyPublicationFormValue,
+      jobDescription: emptyJobDescriptionFormValue(),
+      occupation: emptyOccupationFormValue(),
+      languageSkills: emptyLanguagesFormValue(),
+      employment: emptyEmploymentFormValue(),
+      location: emptyLocationFormValue(),
+      company: emptyCompanyFormValue(),
+      contact: emptyContactFormValue(),
+      publicContact: emptyPublicContactFormValue(),
+      application: emptyApplicationFormValue(),
+      publication: emptyPublicationFormValue(),
       surrogate: false,
       disclaimer: false
     };

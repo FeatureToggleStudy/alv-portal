@@ -12,13 +12,15 @@ export interface PostAddressFormValue {
   zipAndCity: ZipCityFormValue;
 }
 
-export const emptyPostAddressFormValue: PostAddressFormValue = {
-  name: null,
-  countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
-  houseNumber: null,
-  postOfficeBoxNumberOrStreet: {
-    street: null,
-    postOfficeBoxNumber: null
-  },
-  zipAndCity: null
-};
+export function emptyPostAddressFormValue(): PostAddressFormValue {
+  return {
+    name: null,
+    countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
+    houseNumber: null,
+    postOfficeBoxNumberOrStreet: {
+      street: null,
+      postOfficeBoxNumber: null
+    },
+    zipAndCity: null
+  };
+}

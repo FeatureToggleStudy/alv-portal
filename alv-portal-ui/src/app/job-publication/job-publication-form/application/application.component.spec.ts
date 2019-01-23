@@ -31,7 +31,7 @@ describe('ApplicationComponent', () => {
     fixture = TestBed.createComponent(ApplicationComponent);
     component = fixture.componentInstance;
     component.parentForm = new FormGroup({});
-    component.applicationFormValue = emptyApplicationFormValue;
+    component.applicationFormValue = emptyApplicationFormValue();
     fixture.detectChanges();
   });
 

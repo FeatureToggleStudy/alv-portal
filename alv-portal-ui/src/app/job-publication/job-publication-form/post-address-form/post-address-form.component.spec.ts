@@ -38,7 +38,7 @@ describe('PostAddressFormComponent', () => {
     fixture = TestBed.createComponent(PostAddressFormComponent);
     component = fixture.componentInstance;
     component.parentForm = new FormGroup({});
-    component.postAddressFormValue = emptyPostAddressFormValue;
+    component.postAddressFormValue = emptyPostAddressFormValue();
     component.legend = 'legend';
     component.groupName = 'testGroup';
     fixture.detectChanges();

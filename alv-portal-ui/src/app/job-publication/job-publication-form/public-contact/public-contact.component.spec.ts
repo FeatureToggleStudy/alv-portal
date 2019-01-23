@@ -26,7 +26,7 @@ describe('PublicContactComponent', () => {
     fixture = TestBed.createComponent(PublicContactComponent);
     component = fixture.componentInstance;
     component.parentForm = new FormGroup({});
-    component.publicContactFormValue = emptyPublicContactFormValue;
+    component.publicContactFormValue = emptyPublicContactFormValue();
     fixture.detectChanges();
   });
 

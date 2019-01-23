@@ -27,7 +27,7 @@ describe('EmploymentComponent', () => {
     fixture = TestBed.createComponent(EmploymentComponent);
     component = fixture.componentInstance;
     component.parentForm = new FormGroup({});
-    component.employmentFormValue = emptyEmploymentFormValue;
+    component.employmentFormValue = emptyEmploymentFormValue();
     fixture.detectChanges();
   });
 

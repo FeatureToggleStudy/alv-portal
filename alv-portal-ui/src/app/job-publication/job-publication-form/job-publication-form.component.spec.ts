@@ -29,12 +29,12 @@ import {
   Degree,
   Experience
 } from '../../shared/backend-services/shared.types';
-import { ActivatedRoute } from '@angular/router';
 import SpyObj = jasmine.SpyObj;
+import { JobPublicationFormValue } from './job-publication-form-value.types';
 
 
 describe('JobPublicationFormComponent', () => {
-  const emptyJobPublicationFormValue = new JobPublicationFormValueFactory().createEmpty();
+  let emptyJobPublicationFormValue: JobPublicationFormValue;
 
   const currentLanguage = 'de';
   const mockI18nService = {
@@ -54,6 +54,7 @@ describe('JobPublicationFormComponent', () => {
   let fixture: ComponentFixture<JobPublicationFormComponent>;
 
   beforeEach(async(() => {
+    emptyJobPublicationFormValue = new JobPublicationFormValueFactory().createEmpty();
     mockJobPublicationFormValueFactory = jasmine.createSpyObj('mockJobPublicationFormValueFactory', ['createJobPublicationFormValue']);
     mockJobPublicationFormValueFactory.createJobPublicationFormValue.and.returnValue(emptyJobPublicationFormValue);
 

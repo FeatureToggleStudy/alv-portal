@@ -7,8 +7,10 @@ export interface LocationFormValue {
   zipAndCity: ZipCityFormValue;
 }
 
-export const emptyLocationFormValue: LocationFormValue = {
-  countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
-  remarks: null,
-  zipAndCity: null
-};
+export function emptyLocationFormValue(): LocationFormValue {
+  return {
+    countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
+    remarks: null,
+    zipAndCity: null
+  };
+}

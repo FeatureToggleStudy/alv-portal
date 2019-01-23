@@ -38,7 +38,7 @@ describe('LocationComponent', () => {
     fixture = TestBed.createComponent(LocationComponent);
     component = fixture.componentInstance;
     component.parentForm = new FormGroup({});
-    component.locationFormValue = emptyLocationFormValue;
+    component.locationFormValue = emptyLocationFormValue();
     fixture.detectChanges();
   });
 

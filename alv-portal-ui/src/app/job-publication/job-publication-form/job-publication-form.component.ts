@@ -109,7 +109,7 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
       distinctUntilChanged(),
       filter((value: boolean) => value),
       takeUntil(this.ngUnsubscribe)
-    ).subscribe((_) => this.employerFormValue = emptyEmployerFormValue);
+    ).subscribe((_) => this.employerFormValue = emptyEmployerFormValue());
   }
 
 

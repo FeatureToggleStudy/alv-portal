@@ -77,7 +77,7 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
         takeUntil(this.ngUnsubscribe)
       ).subscribe(this.toggleAll.bind(this));
 
-    this.postAddressFormValue = this.applicationFormValue.postAddress || emptyPostAddressFormValue;
+    this.postAddressFormValue = this.applicationFormValue.postAddress || emptyPostAddressFormValue();
   }
 
   copyPhoneNumberFromPublicContact() {

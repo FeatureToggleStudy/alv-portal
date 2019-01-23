@@ -14,13 +14,15 @@ export interface EmploymentFormValue {
   workForms: { [p: string]: boolean };
 }
 
-export const emptyEmploymentFormValue: EmploymentFormValue = {
-  workloadPercentageMin: 100,
-  workloadPercentageMax: 100,
-  immediately: true,
-  duration: EmploymentDuration.PERMANENT,
-  workForms: Object.keys(WorkForm).reduce((acc, curr) => {
-    acc[curr] = false;
-    return acc;
-  }, {})
-};
+export function emptyEmploymentFormValue(): EmploymentFormValue {
+  return {
+    workloadPercentageMin: 100,
+    workloadPercentageMax: 100,
+    immediately: true,
+    duration: EmploymentDuration.PERMANENT,
+    workForms: Object.keys(WorkForm).reduce((acc, curr) => {
+      acc[curr] = false;
+      return acc;
+    }, {})
+  };
+}

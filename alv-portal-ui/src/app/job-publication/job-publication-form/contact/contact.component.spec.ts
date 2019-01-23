@@ -36,7 +36,7 @@ describe('ContactComponent', () => {
     fixture = TestBed.createComponent(ContactComponent);
     component = fixture.componentInstance;
     component.parentForm = new FormGroup({});
-    component.contactFormValue = emptyContactFormValue;
+    component.contactFormValue = emptyContactFormValue();
     fixture.detectChanges();
   });
 
