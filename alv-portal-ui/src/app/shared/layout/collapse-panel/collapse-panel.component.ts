@@ -10,12 +10,14 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
       state('open', style({
         display: 'block',
         'max-height': '100%',
+        transform: 'scaleY(1)',
         opacity: 1
       })),
       state('closed', style({
         display: 'none',
         height: 0,
         'max-height': 0,
+        transform: 'scaleY(0)',
         opacity: 0
       })),
       transition('* <=> *', [animate('200ms')])
