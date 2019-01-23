@@ -9,18 +9,12 @@
           class="fa fa-exclamation-triangle mr-2"
           aria-hidden="true">
       </i>
-      <span>
-        <i class="fa fa-user d-inline d-lg-none"
-           aria-hidden="true">
-        </i>
-        <span class="d-none d-lg-block">
-          {{user.firstName}} {{user.lastName}}
-        </span>
-        <small class="company d-none d-lg-inline-block text-left"
-               *ngIf="company">
-          {{company.companyName}}
-        </small>
-      </span>
+      <alv-user-name-and-company
+                [firstName]="user.firstName"
+                [lastName]="user.lastName"
+                [company]="company?.companyName">
+      </alv-user-name-and-company>
+
     </span>
   </button>
   <div ngbDropdownMenu

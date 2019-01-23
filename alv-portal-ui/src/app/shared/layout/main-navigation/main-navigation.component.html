@@ -32,17 +32,12 @@
 <!-- Mobile Menu -->
 <div class="mobile-menu d-block d-lg-none d-print-none animate" [class.open]="mobileMenuExpanded">
 
-    <a class="nav-item"
-       (click)="toggleMobileSideNav()">
-      <i class="nav-icon fas fa-caret-left"></i>
-      <span class="nav-text">{{ 'portal.global.close' | translate }}</span>
-    </a>
 
     <!--Login Button-->
-    <a class="nav-item"
+    <a class="d-flex align-self-center btn btn-primary my-3 w-80 mx-3"
        *alvIsAnonymous
        (click)="login()">
-      <i class="nav-icon fas fa-key"></i>
+      <i class="nav-icon fas fa-key mx-2"></i>
       <span class="nav-text">{{'global.menu.account.login' | translate}}</span>
     </a>
 
@@ -52,6 +47,16 @@
                       (itemClicked)="toggleMobileSideNav()">
       </alv-menu-entry>
     </ng-container>
+  <div class="nav-item">
+    <img src="assets/img/logo_arbeit_swiss_without_text.svg"
+         class="d-inline-block logo-arbeit-swiss mr-2"
+         alt="">
+    <a [attr.href]="'home.title.portal-url' | translate">
+      {{'home.title.cms' | translate | titlecase}}
+    </a>
+
+  </div>
+
     <div class="nav-fill-item flex-grow-1">
     </div>
 </div>

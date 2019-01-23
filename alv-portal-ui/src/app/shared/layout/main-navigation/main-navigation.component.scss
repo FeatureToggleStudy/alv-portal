@@ -164,7 +164,7 @@
     }
 
     &.active, &:hover {
-      color: $color-primary;
+      color: $color-white;
       background-color: $color-dark-grey;
       border-left: 5px solid $color-primary;
     }
@@ -203,4 +203,8 @@
     text-overflow: initial;
     white-space: initial;
   }
+}
+
+.logo-arbeit-swiss {
+  width: 1em;
 }

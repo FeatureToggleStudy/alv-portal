@@ -44,6 +44,7 @@ import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ListItemContentComponent } from './list-item-content/list-item-content.component';
 import { ContactModalComponent } from '../../candidate-search/candidate-detail/contact-modal/contact-modal.component';
 import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
+import { UserNameAndCompanyComponent } from './user-name-and-company/user-name-and-company.component';
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import { CandidateContactRepository } from '../backend-services/candidate/candid
     ThreeColumnLayoutComponent,
     ScrollToTopComponent,
     ListItemContentComponent,
-    ContactModalComponent
+    ContactModalComponent,
+    UserNameAndCompanyComponent
   ],
   providers: [
     CandidateContactRepository
