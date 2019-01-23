@@ -9,10 +9,14 @@
           class="fa fa-exclamation-triangle mr-2"
           aria-hidden="true">
       </i>
+         <i class="fa fa-user d-inline d-lg-none"
+            aria-hidden="true">
+         </i>
       <alv-user-name-and-company
-                [firstName]="user.firstName"
-                [lastName]="user.lastName"
-                [company]="company?.companyName">
+        class="d-none d-lg-block"
+        [firstName]="user.firstName"
+        [lastName]="user.lastName"
+        [company]="company?.companyName">
       </alv-user-name-and-company>
 
     </span>

@@ -97,16 +97,16 @@
     }
   }
 
-  &:hover {
+  &:not(.not-hoverable):hover {
     color: $color-primary;
     background-color: $color-white;
   }
 
-  &:hover, &.active {
+  &:not(.not-hoverable):hover, &:not(.not-hoverable).active {
     border-left: 5px solid $color-primary;
 
     &:not(.child-nav-item) {
-      color: $color-primary;
+      color: $color-white;
     }
   }
 
@@ -159,11 +159,18 @@
     border-left: 5px solid $color-grey-black;
     color: $color-white;
 
+    a {
+      color: $color-white;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
     &.child-nav-item {
       background-color: lighten($color-grey-black, 10%);
     }
 
-    &.active, &:hover {
+    &.active, &:not(.not-hoverable):hover {
       color: $color-white;
       background-color: $color-dark-grey;
       border-left: 5px solid $color-primary;
@@ -207,4 +214,12 @@
 
 .logo-arbeit-swiss {
   width: 1em;
+}
+
+.not-hoverable {
+  cursor: default;
+}
+
+hr {
+  background-color: $color-white;
 }
