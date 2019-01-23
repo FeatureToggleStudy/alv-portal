@@ -12,13 +12,15 @@ export interface CompanyFormValue {
   zipAndCity: ZipCityFormValue;
 }
 
-export const emptyCompanyFormValue: CompanyFormValue = {
-  name: null,
-  countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
-  houseNumber: null,
-  postOfficeBoxNumberOrStreet: {
-    street: null,
-    postOfficeBoxNumber: null
-  },
-  zipAndCity: null
-};
+export function emptyCompanyFormValue(): CompanyFormValue {
+  return {
+    name: null,
+    countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
+    houseNumber: null,
+    postOfficeBoxNumberOrStreet: {
+      street: null,
+      postOfficeBoxNumber: null
+    },
+    zipAndCity: null
+  };
+}

@@ -6,6 +6,7 @@ import { phoneInputValidator } from '../../../shared/forms/input/input-field/pho
 import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
 import { PublicContactFormValue } from './public-contact-form-value.types';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-public-contact',
@@ -20,9 +21,7 @@ export class PublicContactComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set publicContactFormValue(value: PublicContactFormValue) {
-    this.publicContact.patchValue(value, { emitEvent: false });
-  }
+  publicContactFormValue: PublicContactFormValue;
 
   publicContact: FormGroup;
 
@@ -41,17 +40,33 @@ export class PublicContactComponent implements OnInit {
   );
 
   constructor(private fb: FormBuilder) {
-    this.publicContact = this.fb.group({
-      salutation: ['', Validators.required],
-      firstName: ['', [Validators.required, Validators.maxLength(this.FIELDS_MAX_LENGTH)]],
-      lastName: ['', [Validators.required, Validators.maxLength(this.FIELDS_MAX_LENGTH)]],
-      phone: ['', [phoneInputValidator()]],
-      email: ['', [patternInputValidator(EMAIL_REGEX), Validators.maxLength(this.FIELDS_MAX_LENGTH)]]
-    }, { validator: publicContactGroupValidator });
   }
 
   ngOnInit() {
-    this.parentForm.addControl('publicContact', this.publicContact);
+    const { salutation, firstName, lastName, phone, email } = this.publicContactFormValue;
+
+    this.publicContact = this.fb.group({
+      salutation: [salutation, [
+        Validators.required
+      ]],
+      firstName: [firstName, [
+        Validators.required,
+        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+      ]],
+      lastName: [lastName, [
+        Validators.required,
+        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+      ]],
+      phone: [phone, [
+        phoneInputValidator()
+      ]],
+      email: [email, [
+        patternInputValidator(EMAIL_REGEX),
+        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+      ]]
+    }, { validator: publicContactGroupValidator });
+
+    this.parentForm.addControl(JobPublicationFormValueKeys.publicContact, this.publicContact);
   }
 }
 

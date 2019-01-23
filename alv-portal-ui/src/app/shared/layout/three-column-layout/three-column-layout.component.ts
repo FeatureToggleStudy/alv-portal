@@ -14,10 +14,10 @@ export class ThreeColumnLayoutComponent implements OnInit, OnDestroy {
   @Input() mobileOrdering = [1, 2, 3];
 
   /**
-   * This value indicates the top margin of the component in pixels within the <main>
+   * This value indicates the top margin of the component within the <main>
    * element. It's needed for proper sticky positioning.
    */
-  @Input() stickyTop = 0;
+  @Input() stickyTop = '0px';
 
   /**
    * This is the small (sm) breakpoint copied from the bootstrap 4 library
@@ -52,8 +52,8 @@ export class ThreeColumnLayoutComponent implements OnInit, OnDestroy {
         sidePanel.setAttribute('style', '');
       } else {
         sidePanel.setAttribute('style',
-          `height: ${mainContainer.clientHeight - this.stickyTop}px;
-                 top: ${this.stickyTop}px`);
+          `height: calc(${mainContainer.clientHeight}px - ${this.stickyTop});
+                 top: ${this.stickyTop}`);
       }
     });
   }

@@ -5,7 +5,7 @@ import { SelectableOption } from '../shared/forms/input/selectable-option.model'
 import { NotificationsService } from '../core/notifications.service';
 import { ModalService } from '../shared/layout/modal/modal.service';
 import { LocalitySuggestionService } from '../shared/localities/locality-suggestion.service';
-import { LocalityMultiTypeaheadItem } from '../shared/localities/locality-multi-typeahead-item';
+import { LocalityTypeaheadItem } from '../shared/localities/locality-typeahead-item';
 
 @Component({
   selector: 'alv-showcase',
@@ -44,7 +44,7 @@ export class ShowcaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  fetchSuggestions(prefix: string): Observable<LocalityMultiTypeaheadItem[]> {
+  fetchSuggestions(prefix: string): Observable<LocalityTypeaheadItem[]> {
     return this.localitySuggestionService.fetch(prefix);
   }
 

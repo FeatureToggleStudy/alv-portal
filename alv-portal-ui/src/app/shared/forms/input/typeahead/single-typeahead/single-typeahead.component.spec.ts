@@ -1,11 +1,11 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { SingleTypeaheadComponent } from './single-typeahead.component';
-import { SingleTypeaheadItem } from './single-typeahead-item.model';
 import { BehaviorSubject, of } from 'rxjs';
-import { ValidationMessagesComponent } from '../validation-messages/validation-messages.component';
+import { ValidationMessagesComponent } from '../../validation-messages/validation-messages.component';
 import { FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { TypeaheadItem } from '../typeahead-item';
 
 describe('SingleTypeaheadComponent', () => {
 
@@ -38,11 +38,11 @@ describe('SingleTypeaheadComponent', () => {
 
       // WHEN
       const event = jasmine.createSpyObj('event', ['preventDefault']);
-      event.item = new SingleTypeaheadItem('id1', 'label1', 'model1');
+      event.item = new TypeaheadItem('type1', 'payload1', 'label1');
       component.selectItem(event);
 
       // THEN
-      expect(component.control.value).toEqual('model1');
+      expect(component.control.value).toEqual(event.item);
     });
   });
 

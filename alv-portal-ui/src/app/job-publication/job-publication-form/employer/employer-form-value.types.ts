@@ -7,8 +7,10 @@ export interface EmployerFormValue {
   zipAndCity: ZipCityFormValue;
 }
 
-export const emptyEmployerFormValue: EmployerFormValue = {
-  name: null,
-  countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
-  zipAndCity: null
-};
+export function emptyEmployerFormValue(): EmployerFormValue {
+  return {
+    name: null,
+    countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
+    zipAndCity: null
+  };
+}
