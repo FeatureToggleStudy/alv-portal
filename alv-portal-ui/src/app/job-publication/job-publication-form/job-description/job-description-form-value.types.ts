@@ -4,8 +4,10 @@ export interface JobDescriptionFormValue {
   jobDescription: string;
 }
 
-export const emptyJobDescriptionFormValue: JobDescriptionFormValue = {
-  title: null,
-  numberOfJobs: 1,
-  jobDescription: null
-};
+export function emptyJobDescriptionFormValue(): JobDescriptionFormValue {
+  return {
+    title: null,
+    numberOfJobs: 1,
+    jobDescription: null
+  };
+}

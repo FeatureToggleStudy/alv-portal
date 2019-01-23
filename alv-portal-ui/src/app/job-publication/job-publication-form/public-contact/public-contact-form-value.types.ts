@@ -8,11 +8,13 @@ export interface PublicContactFormValue {
   email: string;
 }
 
-export const emptyPublicContactFormValue: PublicContactFormValue = {
-  salutation: null,
-  firstName: null,
-  lastName: null,
-  phone: null,
-  email: null
-};
+export function emptyPublicContactFormValue(): PublicContactFormValue {
+  return {
+    salutation: null,
+    firstName: null,
+    lastName: null,
+    phone: null,
+    email: null
+  };
+}
 

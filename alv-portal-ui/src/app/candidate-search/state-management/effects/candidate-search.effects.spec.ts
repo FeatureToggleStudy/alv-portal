@@ -29,9 +29,9 @@ import { EffectErrorOccurredAction, LanguageChangedAction } from '../../../core/
 import { FilterPanelValues } from '../../candidate-search/filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import {
-  OccupationMultiTypeaheadItem,
-  OccupationMultiTypeaheadItemType
-} from '../../../shared/occupations/occupation-multi-typeahead-item';
+  OccupationTypeaheadItem,
+  OccupationTypeaheadItemType
+} from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
 
 describe('CandidateSearchEffects', () => {
@@ -277,10 +277,10 @@ describe('CandidateSearchEffects', () => {
   describe('translateOccupationsOnLanguageChanged$', () => {
 
     const occupCode: OccupationCode = { type: 'SBN5', value: '36102' };
-    const classificationDE = new OccupationMultiTypeaheadItem(
-        OccupationMultiTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmierer/innen', 2);
-    const classificationEN = new OccupationMultiTypeaheadItem(
-        OccupationMultiTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmers', 2);
+    const classificationDE = new OccupationTypeaheadItem(
+        OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmierer/innen', 2);
+    const classificationEN = new OccupationTypeaheadItem(
+        OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmers', 2);
 
     const languageChangedAction = new LanguageChangedAction({ language: 'de'});
 

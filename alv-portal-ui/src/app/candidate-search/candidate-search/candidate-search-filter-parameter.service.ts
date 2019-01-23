@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Base64Service } from '../../core/base64.service';
 import { CandidateSearchFilter } from '../state-management';
 import { CandidateQueryPanelValues } from '../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
-import { OccupationMultiTypeaheadItem } from '../../shared/occupations/occupation-multi-typeahead-item';
-import { LocalityMultiTypeaheadItem } from '../../shared/localities/locality-multi-typeahead-item';
-import { SimpleMultiTypeaheadItem } from '../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+import { OccupationTypeaheadItem } from '../../shared/occupations/occupation-typeahead-item';
+import { LocalityTypeaheadItem } from '../../shared/localities/locality-typeahead-item';
+import { StringTypeaheadItem } from '../../shared/forms/input/typeahead/string-typeahead-item';
 
 @Injectable()
 export class CandidateSearchFilterParameterService {
@@ -31,14 +31,14 @@ export class CandidateSearchFilterParameterService {
   private initObjects(candidateQueryPanelValues: CandidateQueryPanelValues) {
     if (candidateQueryPanelValues.occupations) {
       candidateQueryPanelValues.occupations = candidateQueryPanelValues.occupations
-        .map((a) => OccupationMultiTypeaheadItem.fromJson(a));
+        .map((a) => OccupationTypeaheadItem.fromJson(a));
     }
     if (candidateQueryPanelValues.workplace) {
-      candidateQueryPanelValues.workplace = LocalityMultiTypeaheadItem.fromJson(candidateQueryPanelValues.workplace);
+      candidateQueryPanelValues.workplace = LocalityTypeaheadItem.fromJson(candidateQueryPanelValues.workplace);
     }
     if (candidateQueryPanelValues.keywords) {
       candidateQueryPanelValues.keywords = candidateQueryPanelValues.keywords
-        .map((a) => SimpleMultiTypeaheadItem.fromJson(a));
+        .map((a) => StringTypeaheadItem.fromJson(a));
     }
   }
 

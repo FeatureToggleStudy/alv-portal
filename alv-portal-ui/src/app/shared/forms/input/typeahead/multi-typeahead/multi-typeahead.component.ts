@@ -12,19 +12,19 @@ import {
   SkipSelf,
   ViewChild
 } from '@angular/core';
-import { AbstractInput } from '../abstract-input';
+import { AbstractInput } from '../../abstract-input';
 import { ControlContainer } from '@angular/forms';
-import { InputIdGenerationService } from '../input-id-generation.service';
-import { InputType } from '../input-type.enum';
+import { InputIdGenerationService } from '../../input-id-generation.service';
+import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
-import { MultiTypeaheadItem } from './multi-typeahead-item';
+import { TypeaheadItem } from '../typeahead-item';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { MultiTypeaheadDisplayItem } from './multi-typeahead-display.item';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
-import { SimpleMultiTypeaheadItem } from './simple-multi-typeahead.item';
+import { StringTypeaheadItem } from '../string-typeahead-item';
 import { EMPTY } from 'rxjs';
+import { TypeaheadDisplayItem } from '../typeahead-display-item';
 
 export const TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
@@ -37,13 +37,13 @@ enum Key {
 @Component({
   selector: 'alv-multi-typeahead',
   templateUrl: './multi-typeahead.component.html',
-  styleUrls: ['../abstract-input.scss', './multi-typeahead.component.scss']
+  styleUrls: ['../../abstract-input.scss', './multi-typeahead.component.scss']
 })
 export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   readonly TYPEAHEAD_DEBOUNCE_TIME = 200;
 
-  @Input() loadItems: (text: string) => Observable<MultiTypeaheadItem<any>[]>;
+  @Input() loadItems: (text: string) => Observable<TypeaheadItem<any>[]>;
 
   @Input() editable = true;
 
@@ -53,7 +53,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   @Input() queryMinLength = TYPEAHEAD_QUERY_MIN_LENGTH;
 
-  @Output() itemSelected = new EventEmitter<MultiTypeaheadItem<any>>();
+  @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
 
   @ViewChild(NgbTypeahead) ngbTypeahead;
 
@@ -81,6 +81,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     this.allyHelpId = `${this.id}-ally-help`;
   }
 
+
   /**
    * Listens for an outside click and selects free text if applicable
    */
@@ -100,11 +101,11 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     return !this.inputValue && (!this.control.value || this.control.value && this.control.value.length === 0);
   }
 
-  formatResultItem(item: MultiTypeaheadItem<any>): string {
+  formatResultItem(item: TypeaheadItem<any>): string {
     return item.label;
   }
 
-  getTypeClass(item: MultiTypeaheadItem<any>): string {
+  getTypeClass(item: TypeaheadItem<any>): string {
     return `badge-${item.type}`;
   }
 
@@ -161,14 +162,14 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     this.getTypeaheadNativeElement().focus();
   }
 
-  selectFreeText(): MultiTypeaheadItem<any> {
+  selectFreeText(): TypeaheadItem<any> {
     if (this.itemLimitReached()
       || !this.editable
       || !this.inputValue
       || this.inputValue.length < this.queryMinLength) {
       return null;
     }
-    const freeTextItem = new SimpleMultiTypeaheadItem(
+    const freeTextItem = new StringTypeaheadItem(
       'free-text',
       this.inputValue,
       this.inputValue
@@ -181,13 +182,13 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     return freeTextItem;
   }
 
-  removeItem(item: MultiTypeaheadItem<any>): void {
+  removeItem(item: TypeaheadItem<any>): void {
     this.control.setValue(this.control.value.filter((i) => !item.equals(i)));
     this.clearInput();
     this.getTypeaheadNativeElement().focus();
   }
 
-  private loadItemsGuarded(text$: Observable<string>): Observable<MultiTypeaheadDisplayItem[]> {
+  private loadItemsGuarded(text$: Observable<string>): Observable<TypeaheadDisplayItem[]> {
     return text$.pipe(
       debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
       switchMap((query: string) => query.length >= this.queryMinLength
@@ -197,22 +198,22 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     );
   }
 
-  private toDisplayModelArray(items: MultiTypeaheadItem<any>[]): MultiTypeaheadDisplayItem[] {
+  private toDisplayModelArray(items: TypeaheadItem<any>[]): TypeaheadDisplayItem[] {
     return items
-      .filter((item: MultiTypeaheadItem<any>) => !this.exists(item))
-      .sort((item1: MultiTypeaheadItem<any>, item2: MultiTypeaheadItem<any>) => item1.compare(item2))
+      .filter((item: TypeaheadItem<any>) => !this.exists(item))
+      .sort((item1: TypeaheadItem<any>, item2: TypeaheadItem<any>) => item1.compare(item2))
       .map(this.toDisplayModel);
   }
 
-  private toDisplayModel(item: MultiTypeaheadItem<any>, idx: number, array: MultiTypeaheadItem<any>[]): MultiTypeaheadDisplayItem {
+  private toDisplayModel(item: TypeaheadItem<any>, idx: number, array: TypeaheadItem<any>[]): TypeaheadDisplayItem {
     let firstInGroup = false;
     if (idx === 0 || item.type !== array[idx - 1].type) {
       firstInGroup = true;
     }
-    return new MultiTypeaheadDisplayItem(item, idx === 0, firstInGroup);
+    return new TypeaheadDisplayItem(item, idx === 0, firstInGroup);
   }
 
-  private exists(model: MultiTypeaheadItem<any>): boolean {
+  private exists(model: TypeaheadItem<any>): boolean {
     return this.control.value && !!this.control.value.find((itemModel) => model.equals(itemModel));
   }
 

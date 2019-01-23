@@ -4,11 +4,11 @@ import { Salutation } from '../../../shared/backend-services/shared.types';
 import { of } from 'rxjs';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
-import { take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
-import { EmploymentFormValue } from '../employment/employment-form-value.types';
 import { ContactFormValue } from './contact-form-value.types';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-contact',
@@ -25,9 +25,7 @@ export class ContactComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set contactFormValue(value: ContactFormValue) {
-    this.contact.patchValue(value, { emitEvent: false });
-  }
+  contactFormValue: ContactFormValue;
 
   contact: FormGroup;
 
@@ -56,18 +54,35 @@ export class ContactComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private i18nService: I18nService) {
-    this.contact = this.fb.group({
-      languageIsoCode: [null],
-      salutation: [null, Validators.required],
-      firstName: [null, [Validators.required, Validators.maxLength(this.FIELDS_MAX_LENGTH)]],
-      lastName: [null, [Validators.required, Validators.maxLength(this.FIELDS_MAX_LENGTH)]],
-      phone: [null, [Validators.required, phoneInputValidator()]],
-      email: [null, [Validators.required, patternInputValidator(EMAIL_REGEX), Validators.maxLength(this.FIELDS_MAX_LENGTH)]]
-    });
   }
 
   ngOnInit() {
-    this.parentForm.addControl('contact', this.contact);
+    const { languageIsoCode, salutation, firstName, lastName, email, phone } = this.contactFormValue;
+
+    this.contact = this.fb.group({
+      languageIsoCode: [languageIsoCode],
+      salutation: [salutation, [
+        Validators.required
+      ]],
+      firstName: [firstName, [
+        Validators.required,
+        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+      ]],
+      lastName: [lastName, [
+        Validators.required,
+        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+      ]],
+      phone: [phone, [
+        Validators.required,
+        phoneInputValidator()
+      ]],
+      email: [email, [
+        Validators.required, patternInputValidator(EMAIL_REGEX),
+        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+      ]]
+    });
+
+    this.parentForm.addControl(JobPublicationFormValueKeys.contact, this.contact);
 
     this.setDefaultLanguageOption();
   }

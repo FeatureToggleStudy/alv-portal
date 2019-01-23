@@ -19,9 +19,11 @@
            [container]="'body'"
            [editable]="false"
            [focusFirst]="focusFirst"
-           [inputFormatter]="formatResultItem"
+           [value]="controlValueChange$ | async"
            [ngbTypeahead]="loadItemsGuardedFn"
            [resultTemplate]="template"
+           [inputFormatter]="formatResultItem"
+           (input)="handleInput($event)"
            class="form-control">
 
     <label [attr.for]="id"

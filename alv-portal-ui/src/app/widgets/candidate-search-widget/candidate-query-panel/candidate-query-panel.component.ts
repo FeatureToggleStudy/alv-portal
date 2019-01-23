@@ -7,7 +7,7 @@ import {
   Output
 } from '@angular/core';
 import { Observable } from 'rxjs';
-import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
@@ -15,7 +15,7 @@ import { LocalitySuggestionService } from '../../../shared/localities/locality-s
 import { CandidateQueryPanelValues } from './candidate-query-panel-values';
 import { map, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
+import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
 
 @Component({
   selector: 'alv-candidate-query-panel',
@@ -69,18 +69,18 @@ export class CandidateQueryPanelComponent extends AbstractSubscriber implements 
       .subscribe(queryPanelValues => this.candidateQueryPanelValuesChange.next(queryPanelValues));
   }
 
-  loadOccupations(query: string): Observable<OccupationMultiTypeaheadItem[]> {
+  loadOccupations(query: string): Observable<OccupationTypeaheadItem[]> {
     return this.occupationSuggestionService.fetchCandidateSearchOccupations(query);
   }
 
-  loadLocalities(query: string): Observable<LocalityMultiTypeaheadItem[]> {
+  loadLocalities(query: string): Observable<LocalityTypeaheadItem[]> {
     return this.localitySuggestionService.fetch(query);
   }
 
   onGeoSelection(locality: LocalitySuggestion) {
     const geoLocalitySuggestion = LocalitySuggestionService.toLocality(locality);
     const ctrl = this.form.get('localities');
-    if (!ctrl.value.find((i: LocalityMultiTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
+    if (!ctrl.value.find((i: LocalityTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
       ctrl.setValue([geoLocalitySuggestion]);
     }
   }

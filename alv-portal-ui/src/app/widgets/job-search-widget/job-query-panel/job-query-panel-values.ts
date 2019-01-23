@@ -1,9 +1,9 @@
-import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
-import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
-import { LocalityMultiTypeaheadItem } from '../../../shared/localities/locality-multi-typeahead-item';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
+import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
+import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
 
 export interface JobQueryPanelValues {
-  occupations: OccupationMultiTypeaheadItem[];
-  keywords: SimpleMultiTypeaheadItem[];
-  localities: LocalityMultiTypeaheadItem[];
+  occupations: OccupationTypeaheadItem[];
+  keywords: StringTypeaheadItem[];
+  localities: LocalityTypeaheadItem[];
 }
