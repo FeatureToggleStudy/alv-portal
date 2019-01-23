@@ -86,7 +86,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       .pipe(take(1))
       .subscribe(candidateProfile => {
         if (candidateProfile && this.scrollService.scrollIntoView(composeResultListItemId(candidateProfile.id))) {
-          this.scrollService.scrollBy(0, -100);
+          this.scrollService.scrollBy(0, -150);
         } else {
           this.scrollService.scrollToTop();
         }

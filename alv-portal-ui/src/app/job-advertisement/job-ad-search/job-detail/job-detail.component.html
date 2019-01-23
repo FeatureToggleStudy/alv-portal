@@ -1,5 +1,6 @@
-<div class="container-fluid">
+<div class="container-fluid pt-4">
   <alv-three-column-layout *ngIf="jobDetailModel$ | async as jobDetailModel"
+                           stickyTop="1.5rem"
                            [mobileOrdering]="[2, 1, null]">
     <ng-container class="mobile-menu-bar">
       <div class="d-flex justify-content-between">
