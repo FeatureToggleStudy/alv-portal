@@ -9,7 +9,7 @@ const routes: Routes = [
     component: UserInfoComponent,
   },
   {
-    path: 'system-notifications-dashboard',
+    path: 'system-notifications',
     component: SystemNotificationsComponent,
   }
 

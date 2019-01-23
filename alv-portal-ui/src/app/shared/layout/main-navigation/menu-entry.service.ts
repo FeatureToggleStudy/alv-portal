@@ -49,6 +49,12 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     path: ['admin', 'user-info'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
+  {
+    icon: 'comment-alt',
+    labelKey: 'System notifications',
+    path: ['admin', 'system-notifications'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
+  },
 ];
 
 @Injectable()

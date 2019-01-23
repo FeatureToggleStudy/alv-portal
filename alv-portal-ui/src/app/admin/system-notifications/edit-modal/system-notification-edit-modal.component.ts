@@ -13,6 +13,10 @@ export class SystemNotificationEditModalComponent extends AbstractSubscriber imp
 
   form: FormGroup;
 
+  readonly "TITLE_MAX_LENGTH" = 50;
+
+  readonly "TEXT_MAX_LENGTH" = 150;
+
   constructor(public activeModal: NgbActiveModal, private fb: FormBuilder) {
     super();
   }
