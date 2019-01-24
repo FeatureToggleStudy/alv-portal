@@ -17,7 +17,7 @@ const routes: Routes = [
     path: 'system-notifications',
     component: SystemNotificationsComponent,
     data: {
-      titleKey: 'portal.admin.system-notifications.title-key'
+      titleKey: 'portal.admin.system-notifications.page-title'
     }
   }
 ];

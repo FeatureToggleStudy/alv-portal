@@ -1,4 +1,4 @@
-<alv-modal modalTitle="systemNotificationsManagement.create.modal.title"
+<alv-modal modalTitle="portal.admin.system-notifications.create.modal.title"
            primaryLabel="entity.action.save"
            (primaryAction)="onSubmit(form)"
            secondaryLabel="entity.action.cancel"
@@ -9,19 +9,19 @@
                      [maxLength]="TITLE_MAX_LENGTH"
                      alvFormControlName="title">
     </alv-input-field>
-    <alv-input-field label="GermanText"
+    <alv-input-field label="Text (DE)"
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_de">
     </alv-input-field>
-    <alv-input-field label="FrenchText"
+    <alv-input-field label="Text (FR)"
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_fr">
     </alv-input-field>
-    <alv-input-field label="ItalianText"
+    <alv-input-field label="Text (IT)"
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_it">
     </alv-input-field>
-    <alv-input-field label="EnglishText"
+    <alv-input-field label="Text (EN)"
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_en">
     </alv-input-field>
@@ -38,13 +38,11 @@
       <alv-input-field label="Hours"
                        class="col-2"
                        type="number"
-                       placeholder="HH"
                        alvFormControlName="startTimeHours">
       </alv-input-field>
       <alv-input-field label="Minutes"
                        class="col-2"
                        type="number"
-                       placeholder="MM"
                        alvFormControlName="startTimeMinutes">
       </alv-input-field>
     </div>
@@ -56,14 +54,12 @@
       </alv-date-input>
       <alv-input-field label="Hours"
                        class="col-2"
-                       placeholder="HH"
                        type="number"
                        alvFormControlName="endTimeHours">
       </alv-input-field>
       <alv-input-field label="Minutes"
                        class="col-2"
                        type="number"
-                       placeholder="MM"
                        alvFormControlName="endTimeMinutes">
       </alv-input-field>
     </div>

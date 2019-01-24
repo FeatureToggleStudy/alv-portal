@@ -36,7 +36,7 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
     createModalRef.result
       .then(() => {
         this.loadSystemNotifications();
-        this.notificationsService.success('Successfully added SystemNotificationDto', true);
+        this.notificationsService.success('portal.admin.system-notifications.notifications.create.success', false);
       })
       .catch(() => {
       });
@@ -46,27 +46,30 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
     const modalRef = this.modalService.openLarge(SystemNotificationEditModalComponent);
     const editModalComponent = <SystemNotificationEditModalComponent>modalRef.componentInstance;
     editModalComponent.systemNotification = systemNotification;
-    modalRef.result.then(() => {
-      this.loadSystemNotifications();
-      this.notificationsService.success('Successfully edited SystemNotificationDto', true);
-    })
-      .catch(() => {
-      });
+    modalRef.result
+      .then(() => {
+        this.loadSystemNotifications();
+        this.notificationsService.success('portal.admin.system-notifications.notifications.edit.success', false);
+      }).catch(() => {
+    });
   }
 
   openDeleteModal(id: string) {
     this.modalService.openConfirm({
-      title: 'title-key',
-      content: 'content-key',
-      confirmLabel: 'confirm-yes',
-      cancelLabel: 'confirm-no'
+      title: 'portal.admin.system-notifications.delete.modal.title',
+      content: 'portal.admin.system-notifications.delete.modal.text',
+      confirmLabel: 'portal.admin.system-notifications.delete.modal.confirm-dialog.yes',
+      cancelLabel: 'portal.admin.system-notifications.delete.modal.confirm-dialog.no'
     } as ConfirmModalConfig).result
       .then(
-        () =>
-          this.systemNotificationRepository.deleteSystemNotification(id)
-            .subscribe(() => this.loadSystemNotifications()),
         () => {
-        });
+          this.notificationsService.success('portal.admin.system-notifications.notifications.delete.success', false);
+          this.systemNotificationRepository.deleteSystemNotification(id)
+            .subscribe(() => this.loadSystemNotifications())
+        })
+      .catch(() => {
+      });
+
   }
 
   toggleStatus(systemNotification: SystemNotificationDto) {

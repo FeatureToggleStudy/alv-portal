@@ -42,10 +42,6 @@ export class SystemNotificationEditModalComponent extends AbstractSubscriber imp
     super();
   }
 
-  clear() {
-    this.activeModal.dismiss('Cancel');
-  }
-
   ngOnInit() {
     const formValue = mapToFormValue(this.systemNotification);
     this.form = this.fb.group({

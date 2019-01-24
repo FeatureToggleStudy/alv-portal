@@ -19,6 +19,8 @@ export class SystemNotificationCreateModalComponent extends AbstractSubscriber i
 
   readonly 'TEXT_MAX_LENGTH' = 150;
 
+  form: FormGroup;
+
   typeOptions$ = of([
       ...Object.keys(SystemNotificationType).map(type => {
         return {
@@ -35,8 +37,6 @@ export class SystemNotificationCreateModalComponent extends AbstractSubscriber i
               private systemNotificationRepository: SystemNotificationRepository) {
     super();
   }
-
-  form: FormGroup;
 
   ngOnInit() {
     this.form = this.fb.group({
