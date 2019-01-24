@@ -38,8 +38,7 @@
     *alvIsAuthenticated>
     <alv-user-name-and-company
       *ngIf="currentUser$| async as user"
-      [firstName]="user.firstName"
-      [lastName]="user.lastName"
+      [displayName]="user.displayName"
       [company]="(currentCompany$|async)?.companyName"
     >
 

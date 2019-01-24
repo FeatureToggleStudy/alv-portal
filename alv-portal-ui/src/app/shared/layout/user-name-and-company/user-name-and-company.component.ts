@@ -7,16 +7,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class UserNameAndCompanyComponent implements OnInit {
-
-  @Input() firstName;
-  @Input() lastName;
+export class UserNameAndCompanyComponent {
+  @Input() displayName;
   @Input() company;
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
 }
