@@ -19,8 +19,6 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
 
   systemNotifications$ = new Subject<SystemNotificationDto[]>();
 
-  alert: Notification = null;
-
   constructor(private systemNotificationRepository: SystemNotificationRepository,
               private modalService: ModalService,
               private notificationsService: NotificationsService) {
