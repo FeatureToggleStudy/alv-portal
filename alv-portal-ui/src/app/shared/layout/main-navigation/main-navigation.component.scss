@@ -58,7 +58,27 @@
   }
 }
 
-/* Nav Item */
+::ng-deep .desktop-menu .nav-item {
+  &:not(.not-hoverable):hover, &:not(.not-hoverable).active {
+    border-left: 5px solid $color-primary;
+
+    &:not(.child-nav-item) {
+      color: $color-grey-black;
+    }
+  }
+}
+
+
+::ng-deep .mobile-menu.nav-item {
+  &:not(.not-hoverable):hover, &:not(.not-hoverable).active {
+    border-left: 5px solid $color-primary;
+
+    &:not(.child-nav-item) {
+      color: $color-white;
+    }
+  }
+}
+  /* Nav Item */
 ::ng-deep .mobile-menu .nav-item,::ng-deep .desktop-menu .nav-item {
   display: flex;
   align-items: center;
@@ -100,14 +120,6 @@
   &:not(.not-hoverable):hover {
     color: $color-primary;
     background-color: $color-white;
-  }
-
-  &:not(.not-hoverable):hover, &:not(.not-hoverable).active {
-    border-left: 5px solid $color-primary;
-
-    &:not(.child-nav-item) {
-      color: $color-white;
-    }
   }
 
   &.active {
