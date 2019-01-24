@@ -6,7 +6,6 @@ import { SystemNotificationRepository } from '../../shared/backend-services/syst
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { SystemNotificationEditModalComponent } from './edit-modal/system-notification-edit-modal.component';
 import { SystemNotificationCreateModalComponent } from './create-modal/system-notification-create-modal.component';
-import { Notification } from '../../shared/layout/notifications/notification.model';
 import { NotificationsService } from '../../core/notifications.service';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { take } from 'rxjs/operators';
