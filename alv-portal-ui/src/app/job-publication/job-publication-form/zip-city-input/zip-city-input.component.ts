@@ -1,16 +1,15 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IsoCountryService } from '../iso-country.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
-import { SingleTypeaheadItem } from '../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
 import { Observable } from 'rxjs/index';
-import { ZipCityFormValue } from './zip-city-form-value.types';
+import { ZipAndCity, ZipCityFormValue } from './zip-city-form-value.types';
+import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
 
 @Component({
   selector: 'alv-zip-city-input',
   templateUrl: './zip-city-input.component.html',
-  styleUrls: ['./zip-city-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./zip-city-input.component.scss']
 })
 export class ZipCityInputComponent implements OnInit {
 
@@ -19,29 +18,21 @@ export class ZipCityInputComponent implements OnInit {
   readonly ZIP_CODE_REGEX = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
 
   @Input()
-  parent: FormGroup;
+  parentForm: FormGroup;
 
   @Input()
   set countryIsoCode(countryIsoCode: string) {
     this._countryIsoCode = countryIsoCode;
 
     if (!!this._countryIsoCode) {
-      this.parent.setControl('zipAndCity', this.buildCityAndZip(countryIsoCode));
+      this.parentForm.setControl('zipAndCity', this.buildCityAndZip(countryIsoCode));
     }
   }
 
   @Input()
-  set zipCityFormValue(value: ZipCityFormValue) {
-    this._zipCityFormValue = value;
-
-    if (this.zipAndCity) {
-      this.setFormValue(value);
-    }
-  }
+  zipCityFormValue: ZipCityFormValue;
 
   private _countryIsoCode: string;
-  private _zipCityFormValue: ZipCityFormValue;
-
 
   constructor(private fb: FormBuilder,
               private localitySuggestionService: LocalitySuggestionService) {
@@ -51,28 +42,15 @@ export class ZipCityInputComponent implements OnInit {
     return selectedCountryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND;
   }
 
-  loadLocationsFn = (query: string): Observable<SingleTypeaheadItem<ZipCityFormValue>[]> =>
+  loadLocationsFn = (query: string): Observable<TypeaheadItem<ZipAndCity>[]> =>
     this.localitySuggestionService.fetchJobPublicationLocations(query)
 
   ngOnInit(): void {
-    this.parent.addControl('zipAndCity', this.buildCityAndZip(this._countryIsoCode));
-    this.setFormValue(this._zipCityFormValue);
+    this.parentForm.addControl('zipAndCity', this.buildCityAndZip(this._countryIsoCode));
   }
 
   public isCityZipAutocomplete() {
     return ZipCityInputComponent.isCityZipAutocomplete(this._countryIsoCode);
-  }
-
-  private setFormValue(value: ZipCityFormValue) {
-    if (!value) {
-      return;
-    }
-
-    if (this.zipAndCity instanceof FormGroup) {
-      this.zipAndCity.patchValue({ ...value }, { emitEvent: false });
-    } else {
-      this.zipAndCity.patchValue(value, { emitEvent: false });
-    }
   }
 
   private buildCityAndZip(selectedCountryIsoCode: string): FormGroup | FormControl {
@@ -95,6 +73,6 @@ export class ZipCityInputComponent implements OnInit {
   }
 
   get zipAndCity(): FormGroup | FormControl {
-    return <FormGroup | FormControl>this.parent.get('zipAndCity');
+    return <FormGroup | FormControl>this.parentForm.get('zipAndCity');
   }
 }

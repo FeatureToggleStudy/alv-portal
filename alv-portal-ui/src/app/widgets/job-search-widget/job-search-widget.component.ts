@@ -4,7 +4,7 @@ import { JobQueryPanelValues } from './job-query-panel/job-query-panel-values';
 import { Router } from '@angular/router';
 import { I18nService } from '../../core/i18n.service';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
-import { OccupationMultiTypeaheadItem } from '../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationTypeaheadItem } from '../../shared/occupations/occupation-typeahead-item';
 import { OccupationSuggestionService } from '../../shared/occupations/occupation-suggestion.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class JobSearchWidgetComponent extends AbstractSubscriber implements OnIn
       filter(() => !!this.jobQueryPanelValues.occupations),
       filter(() => this.jobQueryPanelValues.occupations.length > 0),
       switchMap((lang) => {
-        const occupations: OccupationMultiTypeaheadItem[] = this.jobQueryPanelValues.occupations;
+        const occupations: OccupationTypeaheadItem[] = this.jobQueryPanelValues.occupations;
         return this.occupationSuggestionService.translateAll(occupations, lang);
       }),
       takeUntil(this.ngUnsubscribe)

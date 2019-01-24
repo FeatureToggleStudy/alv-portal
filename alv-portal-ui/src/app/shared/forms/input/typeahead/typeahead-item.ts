@@ -1,19 +1,19 @@
-export abstract class MultiTypeaheadItem<T> {
+export class TypeaheadItem<T> {
 
   private readonly _id;
 
-  protected constructor(public type: string,
+  constructor(public type: string,
                         public payload: T,
                         public label: string,
                         public order = 0) {
     this._id = `${type}_${label}`;
   }
 
-  equals(other: MultiTypeaheadItem<any>): boolean {
+  equals(other: TypeaheadItem<any>): boolean {
     return other._id === this._id;
   }
 
-  compare(other: MultiTypeaheadItem<any>): number {
+  compare(other: TypeaheadItem<any>): number {
     if (this.order === other.order) {
       return 0;
     }

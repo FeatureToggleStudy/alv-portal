@@ -27,6 +27,9 @@ textarea.form-control,
   border: 1px solid $color-medium-grey;
   border-radius: 0;
   height: 46px;
+  &:focus {
+    box-shadow: 0 0 0 0.2rem $color-blue-transparent;
+  }
   &.ng-invalid.ng-touched {
     border: 1px solid $color-red;
     &:focus, &.has-focus {
