@@ -83,10 +83,9 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
   }
 
   private loadSystemNotifications() {
-    this.systemNotificationRepository.getAllSystemNotifications().pipe(
-      take(1)
-    ).subscribe(value => {
-      this.systemNotifications$.next(value);
-    });
+    this.systemNotificationRepository.getAllSystemNotifications()
+      .subscribe(value => {
+        this.systemNotifications$.next(value);
+      });
   }
 }

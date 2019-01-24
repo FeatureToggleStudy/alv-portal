@@ -85,7 +85,7 @@ import { CandidateContactRepository } from '../backend-services/candidate/candid
     ThreeColumnLayoutComponent,
     ScrollToTopComponent,
     ListItemContentComponent,
-    ContactModalComponent,
+    ContactModalComponent
   ],
   providers: [
     CandidateContactRepository
@@ -93,8 +93,7 @@ import { CandidateContactRepository } from '../backend-services/candidate/candid
   entryComponents: [
     ConfirmModalComponent,
     LocalLoginComponent,
-    ContactModalComponent,
-
+    ContactModalComponent
   ],
   exports: [
     NavigationContainerComponent,
