@@ -65,7 +65,7 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
         () => {
           this.notificationsService.success('portal.admin.system-notifications.notifications.delete.success', false);
           this.systemNotificationRepository.deleteSystemNotification(id)
-            .subscribe(() => this.loadSystemNotifications())
+            .subscribe(() => this.loadSystemNotifications());
         })
       .catch(() => {
       });
