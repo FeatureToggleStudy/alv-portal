@@ -9,9 +9,9 @@ export interface ContactFormValue {
   email: string;
 }
 
-export function emptyContactFormValue(): ContactFormValue {
+export function emptyContactFormValue(currentLanguageIsoCode: string): ContactFormValue {
   return {
-    languageIsoCode: null,
+    languageIsoCode: currentLanguageIsoCode,
     salutation: null,
     firstName: null,
     lastName: null,

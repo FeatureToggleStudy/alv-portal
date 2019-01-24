@@ -54,9 +54,4 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
         startWith(countryIsoCode),
       );
   }
-
-  private setFormValue(value: LocationFormValue) {
-    const { countryIsoCode, remarks } = value;
-    this.location.patchValue({ countryIsoCode, remarks }, { emitEvent: false });
-  }
 }
