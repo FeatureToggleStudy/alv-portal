@@ -13,6 +13,6 @@ export const mapFormToDto = (id: string, formValue: SystemNotificationFormValue)
     type: formValue.type,
     startDate: toISOLocalDateTime(formValue.startDate, formValue.startTimeHours, formValue.startTimeMinutes),
     endDate: toISOLocalDateTime(formValue.endDate, formValue.endTimeHours, formValue.endTimeMinutes),
-    active: true
+    active: formValue.active
   };
 };
