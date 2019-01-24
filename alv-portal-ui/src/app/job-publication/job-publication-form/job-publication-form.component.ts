@@ -89,7 +89,7 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
   }
 
   ngOnInit(): void {
-    const initialJobPublicationFormValue = this.jobPublicationFormValueFactory.createJobPublicationFormValue(this.initialFormValueConfig);
+    const initialJobPublicationFormValue = this.jobPublicationFormValueFactory.createJobPublicationFormValue(this.initialFormValueConfig, this.currentLanguage);
 
     this.jobDescriptionFormValue = initialJobPublicationFormValue.jobDescription;
     this.occupationFormValue = initialJobPublicationFormValue.occupation;
@@ -127,8 +127,8 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
   }
 
   reset() {
-    alert('not yet implemented');
-    // TODO: how does the reset work if there are "prefillable" values?
+    const emptyFormValue = this.jobPublicationFormValueFactory.createEmpty(this.currentLanguage);
+    this.jobPublicationForm.reset(emptyFormValue);
   }
 }
 
