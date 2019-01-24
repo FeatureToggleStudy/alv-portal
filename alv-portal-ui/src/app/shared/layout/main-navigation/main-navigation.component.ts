@@ -42,8 +42,6 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   menuEntries$: Observable<Array<MenuEntry>>;
 
-  currentUser$: Observable<User>;
-
   currentUser: User;
 
   currentCompany$: Observable<CompanyContactTemplateModel>;
@@ -60,8 +58,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
     this.menuEntries$ = this.menuEntryService.prepareEntries();
 
-    this.currentUser$ = this.authenticationService.getCurrentUser();
-    this.currentUser$.pipe(
+    this.authenticationService.getCurrentUser().pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe(user => {
       this.isAnonymous = !isAuthenticatedUser(user);

@@ -46,7 +46,7 @@
   </div>
 
   <!--Login Button-->
-  <a class="d-flex align-self-center btn btn-primary my-3 w-80 mx-3"
+  <a class="d-flex align-self-center btn btn-primary m-3 w-80"
      *alvIsAnonymous
      (click)="login()">
     <i class="nav-icon fas fa-key mx-2"></i>
@@ -63,8 +63,8 @@
   <div class="nav-item">
     <img src="assets/img/logo_arbeit_swiss_without_text.svg"
          class="d-inline-block logo-arbeit-swiss mr-2"
-         alt="">
-    <a [attr.href]="'home.title.portal-url' | translate">
+         aria-hidden="true">
+    <a [href]="'home.title.portal-url' | translate">
       {{'home.title.cms' | translate | titlecase}}
     </a>
 
