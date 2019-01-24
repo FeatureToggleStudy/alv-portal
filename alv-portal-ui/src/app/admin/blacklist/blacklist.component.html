@@ -1,0 +1,63 @@
+<div class="container pt-md-4 pt-3 px-3">
+  <div class="alv-panel mb-3">
+
+    <h2 class="panel-title">
+      <i class="panel-icon fas fa-ban"></i>
+      Blacklist
+    </h2>
+
+    <alv-alert (dismiss)="dismissAlert()"
+               *ngIf="alert"
+               [notification]="alert">
+    </alv-alert>
+
+  </div>
+
+  <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>{{'blacklisted-agent.header.id' | translate }}</th>
+            <th>{{'blacklisted-agent.header.externalId' | translate }}</th>
+            <th>{{'blacklisted-agent.header.createdBy' | translate }}</th>
+            <th>{{'blacklisted-agent.header.counter' | translate }}</th>
+            <th>{{'blacklisted-agent.header.name' | translate }}</th>
+            <th>{{'blacklisted-agent.header.street' | translate }}</th>
+            <th>{{'blacklisted-agent.header.zipCode' | translate }}</th>
+            <th>{{'blacklisted-agent.header.city' | translate }}</th>
+            <th>{{'blacklisted-agent.header.blacklistedAt' | translate }}</th>
+            <th>{{'blacklisted-agent.header.status' | translate }}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let agent of blacklistedAgents$ | async">
+            <td>{{ agent.id }}</td>
+            <td>{{ agent.externalId }}</td>
+            <td>{{ agent.createdBy }}</td>
+            <td>{{ agent.blacklistingCounter }}</td>
+            <td>{{ agent.name }}</td>
+            <td>{{ agent.street }}</td>
+            <td>{{ agent.zipCode }}</td>
+            <td>{{ agent.city }}</td>
+            <td>{{ agent.blacklistedAt | date:'dd.MM.yyyy HH:mm' }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-block"
+                [class.btn-danger]="!isActive(agent)"
+                [class.btn-success]="isActive(agent)"
+                (click)="openChangeStatusDialog(agent)">
+                <span *ngIf="!isActive(agent)">
+                   {{ 'blacklisted-agent.status.inactive' | translate }}
+                </span>
+                <span *ngIf="isActive(agent)">
+                   {{ 'blacklisted-agent.status.active' | translate }}
+                </span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+</div>

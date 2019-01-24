@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserInfoBadgesMapperService } from './user-info/user-info-badges-mapper.service';
+import { BlacklistComponent } from './blacklist/blacklist.component';
 
 @NgModule({
   imports: [
@@ -12,10 +13,11 @@ import { UserInfoBadgesMapperService } from './user-info/user-info-badges-mapper
     AdminRoutingModule
   ],
   declarations: [
-      UserInfoComponent
+    UserInfoComponent,
+    BlacklistComponent
   ],
   providers: [
-      UserInfoBadgesMapperService
+    UserInfoBadgesMapperService
   ]
 })
 export class AdminModule {
