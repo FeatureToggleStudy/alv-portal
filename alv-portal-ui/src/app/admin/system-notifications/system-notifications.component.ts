@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractSubscriber} from '../../core/abstract-subscriber';
-import {Subject} from 'rxjs';
-import {SystemNotificationDto} from '../../shared/backend-services/system-notifications/system-notification.types';
-import {SystemNotificationRepository} from '../../shared/backend-services/system-notifications/system-notification-repository';
-import {ModalService} from '../../shared/layout/modal/modal.service';
-import {SystemNotificationEditModalComponent} from './edit-modal/system-notification-edit-modal.component';
-import {SystemNotificationCreateModalComponent} from './create-modal/system-notification-create-modal.component';
-import {Notification} from '../../shared/layout/notifications/notification.model';
-import {NotificationsService} from '../../core/notifications.service';
-import {ConfirmModalConfig} from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
-import {take} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { AbstractSubscriber } from '../../core/abstract-subscriber';
+import { Subject } from 'rxjs';
+import { SystemNotificationDto } from '../../shared/backend-services/system-notifications/system-notification.types';
+import { SystemNotificationRepository } from '../../shared/backend-services/system-notifications/system-notification-repository';
+import { ModalService } from '../../shared/layout/modal/modal.service';
+import { SystemNotificationEditModalComponent } from './edit-modal/system-notification-edit-modal.component';
+import { SystemNotificationCreateModalComponent } from './create-modal/system-notification-create-modal.component';
+import { Notification } from '../../shared/layout/notifications/notification.model';
+import { NotificationsService } from '../../core/notifications.service';
+import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-system-notifications',
@@ -78,7 +78,7 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
     this.systemNotificationRepository.updateSystemNotification(updatedNotification)
       .subscribe(() => {
         systemNotification.active = activated;
-      })
+      });
   }
 
   private loadSystemNotifications() {
@@ -86,7 +86,7 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
       take(1)
     ).subscribe(value => {
       this.systemNotifications$.next(value);
-    })
+    });
   }
 
 }

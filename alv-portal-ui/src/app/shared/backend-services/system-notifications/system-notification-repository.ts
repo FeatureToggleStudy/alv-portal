@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-import {SystemNotificationDto} from './system-notification.types';
+import { SystemNotificationDto } from './system-notification.types';
 
 @Injectable({providedIn: 'root'})
 export class SystemNotificationRepository {

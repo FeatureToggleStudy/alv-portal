@@ -1,4 +1,5 @@
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { SystemNotificationType } from '../../shared/backend-services/system-notifications/system-notification.types';
 
 export interface SystemNotificationFormValue {
   title: string;
@@ -6,7 +7,7 @@ export interface SystemNotificationFormValue {
   text_fr: string;
   text_it: string;
   text_en: string;
-  type: string;
+  type: SystemNotificationType;
   startDate: NgbDateStruct;
   startTimeHours: string;
   startTimeMinutes: string;

@@ -1,4 +1,3 @@
-<!--FIXME fago: Add Translations, add date / time components-->
 <alv-modal modalTitle="systemNotificationsManagement.edit.modal.title"
            primaryLabel="entity.action.save"
            (primaryAction)="onSubmit(form)"
@@ -26,10 +25,10 @@
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_en">
     </alv-input-field>
-    <alv-input-field label="Type"
-                     [maxLength]="TEXT_MAX_LENGTH"
-                     alvFormControlName="type">
-    </alv-input-field>
+    <alv-select label="Type"
+                alvFormControlName="type"
+                [options$]="typeOptions$">
+    </alv-select>
     <div class="form-row">
       <alv-date-input class="col-6"
                       label="Start Date"
@@ -68,5 +67,9 @@
                        alvFormControlName="endTimeMinutes">
       </alv-input-field>
     </div>
+    <alv-checkbox alvFormControlName="active"
+                  label="Active"
+                  class="d-block mb-2">
+    </alv-checkbox>
   </fieldset>
 </alv-modal>

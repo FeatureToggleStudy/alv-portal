@@ -1,4 +1,3 @@
-<!--FIXME fago: Add Translations, add date / time components-->
 <alv-modal modalTitle="systemNotificationsManagement.create.modal.title"
            primaryLabel="entity.action.save"
            (primaryAction)="onSubmit(form)"
@@ -26,23 +25,23 @@
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_en">
     </alv-input-field>
-    <alv-input-field label="Type"
-                     [maxLength]="TEXT_MAX_LENGTH"
-                     alvFormControlName="type">
-    </alv-input-field>
+    <alv-select label="Type"
+                alvFormControlName="type"
+                [options$]="typeOptions$">
+    </alv-select>
     <div class="form-row">
       <alv-date-input class="col-6"
                       label="Start Date"
                       alvFormControlName="startDate"
                       placement="bottom-left">
       </alv-date-input>
-      <alv-input-field label=""
+      <alv-input-field label="Hours"
                        class="col-2"
                        type="number"
                        placeholder="HH"
                        alvFormControlName="startTimeHours">
       </alv-input-field>
-      <alv-input-field label=""
+      <alv-input-field label="Minutes"
                        class="col-2"
                        type="number"
                        placeholder="MM"
@@ -55,18 +54,22 @@
                       alvFormControlName="endDate"
                       placement="bottom-left">
       </alv-date-input>
-      <alv-input-field label=""
+      <alv-input-field label="Hours"
                        class="col-2"
                        placeholder="HH"
                        type="number"
                        alvFormControlName="endTimeHours">
       </alv-input-field>
-      <alv-input-field label=""
+      <alv-input-field label="Minutes"
                        class="col-2"
                        type="number"
                        placeholder="MM"
                        alvFormControlName="endTimeMinutes">
       </alv-input-field>
     </div>
+    <alv-checkbox alvFormControlName="active"
+                  label="Active"
+                  class="d-block mb-2">
+    </alv-checkbox>
   </fieldset>
 </alv-modal>

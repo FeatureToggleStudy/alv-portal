@@ -1527,3 +1527,28 @@ portal,portal.admin.user-info.alert.unregister-technical,Es ist ein technischer 
 portal,portal.admin.user-info.alert.unregister-success,Registrierung zurückgesetzt.,Registration reset.,Registration reset.,Registration reset.
 portal,portal.admin.user-info.confirm-dialog.yes,Ja,Yes,Yes,Yes
 portal,portal.admin.user-info.confirm-dialog.no,Nein,No,No,No
+
+portal,portal.admin.system-notifications.title,System Mitteilungen,System notifications,notifications système,notifiche di sistema
+portal,portal.admin.system-notifications.menu-entry,System Mitteilungen,System notifications,notifications système,notifiche di sistema
+portal,portal.admin.system-notifications.title-key,System Mitteilungen,System notifications,notifications système,notifiche di sistema
+portal,portal.admin.system-notifications.actions,Aktionen,Actions,Actions,Actions
+portal,portal.admin.system-notifications.activated,Aktiv,Activated,Activated,Activated
+portal,portal.admin.system-notifications.create.modal.title,Neue Systemmitteilung erstellen,Create new System Notification,Create new System Notification,Create new System Notification
+portal,portal.admin.system-notifications.date-placeholder,TT.MM.JJJJ,DD.MM.YYYY,JJ.MM.AAAA,GG.MM.AAAA
+portal,portal.admin.system-notifications.deactivated,Deaktiviert,Deactivated,Deactivated,Deactivated
+portal,portal.admin.system-notifications.delete.modal.text,Möchten Sie die Systemmitteilung wirklich löschen?,Are you sure you want to delete this system notification?,Are you sure you want to delete this system notification?,Are you sure you want to delete this system notification?
+portal,portal.admin.system-notifications.delete.modal.title,Systemmitteilung löschen,Delete System Notification,Delete System Notification,Delete System Notification
+portal,portal.admin.system-notifications.delete.question,Möchten sie die Systemmitteilung wirklich öschen?,Do you really want to delete the system notification?,Do you really want to delete the system notification?,Do you really want to delete the system notification?
+portal,portal.admin.system-notifications.edit.modal.title,Systemmitteilung editieren,Edit System Notification,Edit System Notification,Edit System Notification
+portal,portal.admin.system-notifications.endDate,Bis,To,To,To
+portal,portal.admin.system-notifications.home.create,Neue Systemmitteilung erfassen,Create a new system notification,Créer un nouvel notification système,Crea un nuovo notifiche di sistema
+portal,portal.admin.system-notifications.home.title,System Mitteilungen,System notifications,notifications système,notifiche di sistema
+portal,portal.admin.system-notifications.messages.validate.date-format,"Datumsformat ungültig, richtiges Format: TT.MM.JJJJ","Invalid date format, correct format: DD.MM.YYYY",Le format de la date n’est pas conforme. Format correct: JJ.MM.AAAA,Il formato della data non è corretto. Formato corretto: GG.MM.AAAA
+portal,portal.admin.system-notifications.messages.validate.endDate.date-before,Datum muss in der Zukunft liegen.,Date must be in the future.,La date doit se situer dans le futur.,La data deve situarsi nel futuro.
+portal,portal.admin.system-notifications.startDate,Von,From,From,From
+portal,portal.admin.system-notifications.status,Status,Status,Status,Status
+portal,portal.admin.system-notifications.systemnotification.type.interruption,Unterbrechung,Interruption,Interruption,Interruption
+portal,portal.admin.system-notifications.systemnotification.type.maintenance,Wartung,Maintenance,Maintenance,Maintenance
+portal,portal.admin.system-notifications.systemnotification.type.systemerror,Systemfehler,System error,System error,System error
+portal,portal.admin.system-notifications.title,Titel,Title,Title,Title
+portal,portal.admin.system-notifications.type,Typ,Type,Type,Type

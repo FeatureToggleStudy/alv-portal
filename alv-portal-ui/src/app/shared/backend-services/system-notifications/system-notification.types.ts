@@ -5,8 +5,14 @@ export interface SystemNotificationDto {
   text_fr: string;
   text_it: string;
   text_en: string;
-  type: string;
+  type: SystemNotificationType;
   startDate: string;
   endDate: string;
   active: boolean;
+}
+
+export enum SystemNotificationType {
+  INTERRUPTION = 'interruption',
+  MAINTENANCE = 'maintenance',
+  SYSTEMERROR = 'systemerror'
 }

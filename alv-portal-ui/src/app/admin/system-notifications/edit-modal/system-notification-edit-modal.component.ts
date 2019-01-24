@@ -1,12 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal, NgbDate} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AbstractSubscriber} from '../../../core/abstract-subscriber';
-import {SystemNotificationDto} from '../../../shared/backend-services/system-notifications/system-notification.types';
-import {SystemNotificationRepository} from '../../../shared/backend-services/system-notifications/system-notification-repository';
-import {mapFormToDto} from '../system-notifications-request-mapper';
-import {SystemNotificationFormValue} from '../system-notification-form-value';
-import {fromISODate} from '../../../shared/forms/input/ngb-date-utils';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import {
+  SystemNotificationDto,
+  SystemNotificationType
+} from '../../../shared/backend-services/system-notifications/system-notification.types';
+import { SystemNotificationRepository } from '../../../shared/backend-services/system-notifications/system-notification-repository';
+import { mapFormToDto } from '../system-notifications-request-mapper';
+import { SystemNotificationFormValue } from '../system-notification-form-value';
+import { fromISODate } from '../../../shared/forms/input/ngb-date-utils';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'alv-system-notification-edit-modal',
@@ -21,6 +25,16 @@ export class SystemNotificationEditModalComponent extends AbstractSubscriber imp
   readonly 'TITLE_MAX_LENGTH' = 50;
 
   readonly 'TEXT_MAX_LENGTH' = 150;
+
+  typeOptions$ = of([
+      ...Object.keys(SystemNotificationType).map(type => {
+        return {
+          value: type,
+          label: 'systemNotificationsManagement.systemnotification.type.' + type.toLowerCase()
+        };
+      })
+    ]
+  );
 
   constructor(public activeModal: NgbActiveModal,
               private fb: FormBuilder,
@@ -40,14 +54,14 @@ export class SystemNotificationEditModalComponent extends AbstractSubscriber imp
       text_fr: [formValue.text_fr, Validators.required],
       text_it: [formValue.text_it, Validators.required],
       text_en: [formValue.text_en, Validators.required],
-      type: [this.systemNotification.type, Validators.required],
+      type: [formValue.type, Validators.required],
       startDate: [formValue.startDate, Validators.required],
       startTimeHours: [formValue.startTimeHours, [Validators.required, Validators.max(23), Validators.min(0)]],
       startTimeMinutes: [formValue.startTimeMinutes, [Validators.required, Validators.max(59), Validators.min(0)]],
       endDate: [formValue.endDate, Validators.required],
       endTimeHours: [formValue.endTimeHours, [Validators.required, Validators.max(23), Validators.min(0)]],
       endTimeMinutes: [formValue.endTimeMinutes, [Validators.required, Validators.max(59), Validators.min(0)]],
-      active: [this.systemNotification.active, Validators.required]
+      active: [formValue.active, Validators.required]
     });
   }
 
@@ -60,8 +74,8 @@ export class SystemNotificationEditModalComponent extends AbstractSubscriber imp
 }
 
 function mapToFormValue(systemNotification: SystemNotificationDto): SystemNotificationFormValue {
-  let startDate = new Date(systemNotification.startDate);
-  let endDate = new Date(systemNotification.endDate);
+  const startDate = new Date(systemNotification.startDate);
+  const endDate = new Date(systemNotification.endDate);
   return {
     title: systemNotification.title,
     text_de: systemNotification.text_de,
@@ -76,5 +90,5 @@ function mapToFormValue(systemNotification: SystemNotificationDto): SystemNotifi
     endTimeHours: endDate.getHours().toString(),
     endTimeMinutes: endDate.getMinutes().toString(),
     active: systemNotification.active
-  }
+  };
 }

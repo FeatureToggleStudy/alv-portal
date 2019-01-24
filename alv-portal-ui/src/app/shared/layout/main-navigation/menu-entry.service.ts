@@ -57,7 +57,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     icon: 'comment-alt',
-    labelKey: 'System notifications',
+    labelKey: 'portal.admin.system-notifications.menu-entry',
     path: ['admin', 'system-notifications'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
