@@ -58,6 +58,16 @@ function keyComparator(a, b) {
   return a.key > b.key ? 1 : -1;
 }
 
+function checkMissingTranslations(parsedCsv) {
+  return parsedCsv.filter(line => !(!!line.de && !!line.en && !!line.fr && !!line.it) )
+}
+
+function checkErroredKeys(parsedArrays) {
+
+}
+
+
+
 /**
  * creates one directory per language with one page per page in csv file
  * @param parsedCsv looks like this:
@@ -72,21 +82,21 @@ function keyComparator(a, b) {
  *     it: string,
  * }
  */
-function onCsvParsed (parsedCsv) {
+function onCsvParsed(parsedCsv) {
+  console.log(checkMissingTranslations(parsedCsv.data).map(line => line.key).filter(x=>!!x));
   const allLanguagesObj = parsedCsv.data.reduce(transformCsv2Json, {});
   for (let [language, languageFile] of Object.entries(allLanguagesObj)) {
     createDir(`${output}`);
     const fileName = `${output}/${language}.json`;
-      fs.writeFile(fileName,
-          // JSON.stringify(page, null, 2),
-          stringify(languageFile, {space: 2}),
-          (err, data) => {
-            if (err) {
-              console.error(err);
-              process.exit(-1);
-            }
-            console.log(`Successfully written to file ${fileName}`);
-          })
+    fs.writeFile(fileName,
+      stringify(languageFile, {space: 2}),
+      (err, data) => {
+        if (err) {
+          console.error(err);
+          process.exit(-1);
+        }
+        console.log(`Successfully written to file ${fileName}`);
+      })
   }
 }
 
