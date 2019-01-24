@@ -79,7 +79,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
   }
 
   onGeoSelection(locality: LocalitySuggestion) {
-    const geoLocalitySuggestion = LocalitySuggestionService.toLocality(locality);
+    const geoLocalitySuggestion = LocalitySuggestionService.toLocalityTypeaheadItem(locality);
     const ctrl = this.form.get('localities');
     if (!ctrl.value.find((i: StringTypeaheadItem) => geoLocalitySuggestion.equals(i))) {
       ctrl.setValue([...ctrl.value, geoLocalitySuggestion]);

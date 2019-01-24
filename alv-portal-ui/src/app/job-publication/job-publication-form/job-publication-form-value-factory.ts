@@ -25,24 +25,23 @@ export interface InitialFormValueConfig {
 @Injectable()
 export class JobPublicationFormValueFactory {
 
-  public createJobPublicationFormValue(initialFormValueConfig: InitialFormValueConfig): JobPublicationFormValue {
+  public createJobPublicationFormValue(initialFormValueConfig: InitialFormValueConfig, currentLanguageIsoCode: string): JobPublicationFormValue {
     if (initialFormValueConfig.jobAdvertisement) {
       return jobPublicationFormMapper.mapToJobPublicationFormValue(initialFormValueConfig.jobAdvertisement);
     }
 
-    const emptyJobPublicationFormValue = this.createEmpty();
+    const emptyJobPublicationFormValue = this.createEmpty(currentLanguageIsoCode);
     if (initialFormValueConfig.jobAdvertisementTitle) {
       emptyJobPublicationFormValue.jobDescription.title = initialFormValueConfig.jobAdvertisementTitle;
     }
     if (initialFormValueConfig.companyContactTemplateModel) {
-      const { companyName, companyStreet, companyZipCode, companyHouseNr } = initialFormValueConfig.companyContactTemplateModel;
+      const { companyName, companyStreet, companyCity, companyZipCode, companyHouseNr } = initialFormValueConfig.companyContactTemplateModel;
       emptyJobPublicationFormValue.company.name = companyName;
       emptyJobPublicationFormValue.company.postOfficeBoxNumberOrStreet.street = companyStreet;
       //todo: review zip code type
       emptyJobPublicationFormValue.company.postOfficeBoxNumberOrStreet.postOfficeBoxNumber = +companyZipCode;
       emptyJobPublicationFormValue.company.houseNumber = companyHouseNr;
-      //todo: set zipAndCity
-      //emptyJobPublicationFormValue.company.zipAndCity
+      emptyJobPublicationFormValue.company.zipAndCity = jobPublicationFormMapper.mapToZipCityFormValue(IsoCountryService.ISO_CODE_SWITZERLAND, companyZipCode, companyCity);
       emptyJobPublicationFormValue.company.countryIsoCode = IsoCountryService.ISO_CODE_SWITZERLAND;
 
       const { salutation, firstName, lastName, phone, email } = initialFormValueConfig.companyContactTemplateModel;
@@ -56,7 +55,7 @@ export class JobPublicationFormValueFactory {
     return emptyJobPublicationFormValue;
   }
 
-  createEmpty(): JobPublicationFormValue {
+  createEmpty(currentLanguageIsoCode: string): JobPublicationFormValue {
     return {
       jobDescription: emptyJobDescriptionFormValue(),
       occupation: emptyOccupationFormValue(),
@@ -64,7 +63,7 @@ export class JobPublicationFormValueFactory {
       employment: emptyEmploymentFormValue(),
       location: emptyLocationFormValue(),
       company: emptyCompanyFormValue(),
-      contact: emptyContactFormValue(),
+      contact: emptyContactFormValue(currentLanguageIsoCode),
       publicContact: emptyPublicContactFormValue(),
       application: emptyApplicationFormValue(),
       publication: emptyPublicationFormValue(),

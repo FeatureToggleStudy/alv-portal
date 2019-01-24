@@ -33,12 +33,26 @@ import { ApplicationFormValue } from './application/application-form-value.types
 import { EmployerFormValue } from './employer/employer-form-value.types';
 import { PostAddressFormValue } from './post-address-form/post-address-form-value.types';
 import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
+import { IsoCountryService } from './iso-country.service';
+import { LocalitySuggestionService } from '../../shared/localities/locality-suggestion.service';
 import { now, toISOLocalDate } from '../../shared/forms/input/ngb-date-utils';
 
 
 export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement): JobPublicationFormValue {
   //todo: DF-486 implements this
   return null;
+}
+
+export function mapToZipCityFormValue(countryIsoCode: string, zipCode: string, city: string): ZipCityFormValue {
+  const zipCity = { zipCode, city };
+
+  if (countryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND) {
+    return {
+      zipCityAutoComplete: LocalitySuggestionService.toZipAndCityTypeaheadItem(zipCity, 0)
+    };
+  }
+
+  return { zipCode, city };
 }
 
 export function mapToCreateJobAdvertisement(jobPublicationFormValue: JobPublicationFormValue, languageIsoCode: string): CreateJobAdvertisement {
@@ -199,13 +213,17 @@ function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue
 }
 
 function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCode: string, city: string } {
-  const city = ('city' in zipCityFormValue)
-    ? zipCityFormValue.city
-    : zipCityFormValue.payload.city;
+  if (zipCityFormValue.zipCityAutoComplete) {
+    const zipAndCity = zipCityFormValue.zipCityAutoComplete.payload;
 
-  const postalCode = ('zipCode' in zipCityFormValue)
-    ? zipCityFormValue.zipCode
-    : zipCityFormValue.payload.zipCode;
+    return {
+      city: zipAndCity.city,
+      postalCode: zipAndCity.zipCode
+    };
+  }
 
-  return { city, postalCode };
+  return {
+    city: zipCityFormValue.city,
+    postalCode: zipCityFormValue.zipCode
+  };
 }
