@@ -8,7 +8,6 @@ import { SystemNotificationEditModalComponent } from './edit-modal/system-notifi
 import { SystemNotificationCreateModalComponent } from './create-modal/system-notification-create-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-system-notifications',
