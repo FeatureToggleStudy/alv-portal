@@ -44,6 +44,8 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   currentUser$: Observable<User>;
 
+  currentUser: User;
+
   currentCompany$: Observable<CompanyContactTemplateModel>;
 
 
@@ -63,6 +65,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
       takeUntil(this.ngUnsubscribe)
     ).subscribe(user => {
       this.isAnonymous = !isAuthenticatedUser(user);
+      this.currentUser = user;
     });
 
     this.currentCompany$ = this.authenticationService.getCurrentCompany();

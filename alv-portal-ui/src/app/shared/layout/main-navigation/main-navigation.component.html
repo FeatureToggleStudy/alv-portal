@@ -37,8 +37,8 @@
     class="nav-item mb-4 not-hoverable"
     *alvIsAuthenticated>
     <alv-user-name-and-company
-      *ngIf="currentUser$| async as user"
-      [displayName]="user.displayName"
+      *ngIf="currentUser"
+      [displayName]="currentUser.displayName"
       [company]="(currentCompany$|async)?.companyName"
     >
 
