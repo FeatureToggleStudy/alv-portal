@@ -1,53 +1,52 @@
-<!--FIXME fago: Add Translations, cleanup layout-->
 <div class="container pt-md-4 pt-3 px-3">
   <h2 class="panel-title">
     <i class="panel-icon fas fa-comment-alt mr-2"></i>
     System Notifications
   </h2>
-  <div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>{{'portal.admin.system-notifications.title' | translate}}</th>
-        <th>{{'portal.admin.system-notifications.type' | translate}}</th>
-        <th>{{'portal.admin.system-notifications.startDate' | translate}}</th>
-        <th>{{'portal.admin.system-notifications.endDate' | translate}}</th>
-        <th>{{'portal.admin.system-notifications.status' | translate}}</th>
-        <th>{{'portal.admin.system-notifications.actions' | translate}}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let systemNotification of (systemNotifications$ | async)">
-        <td>{{systemNotification.title}}</td>
-        <td>{{'systemNotificationsManagement.systemnotification.type.' + systemNotification.type.toLowerCase() | translate}}</td>
-        <td>{{systemNotification.startDate | localeAwareDate:'medium' }}</td>
-        <td>{{systemNotification.endDate | localeAwareDate:'medium' }}</td>
-        <th>
-          <button class="btn btn-sm"
-                  [ngClass]="{'btn-success': systemNotification.active, 'btn-danger': !systemNotification.active}"
-                  (click)="toggleStatus(systemNotification)">
-            <span *ngIf="systemNotification.active">Activated</span>
-            <span *ngIf="!systemNotification.active">De-Activated</span>
-          </button>
-        </th>
-        <th>
-          <button type="submit"
-                  (click)="openEditModal(systemNotification)"
-                  class="btn btn-text">
-            <i class="fa fa-edit"></i>
-            Edit
-          </button>
-          <button type="submit"
-                  (click)="openDeleteModal(systemNotification.id)"
-                  class="btn btn-text">
-            <i class="fa fa-trash"></i>
-            Delete
-          </button>
-        </th>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>{{'portal.admin.system-notifications.title' | translate}}</th>
+      <th>{{'portal.admin.system-notifications.type' | translate}}</th>
+      <th>{{'portal.admin.system-notifications.startDate' | translate}}</th>
+      <th>{{'portal.admin.system-notifications.endDate' | translate}}</th>
+      <th>{{'portal.admin.system-notifications.status' | translate}}</th>
+      <th>{{'portal.admin.system-notifications.actions' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let systemNotification of (systemNotifications$ | async)">
+      <td>{{systemNotification.title}}</td>
+      <td>{{'systemNotificationsManagement.systemnotification.type.' + systemNotification.type.toLowerCase() |
+        translate}}
+      </td>
+      <td>{{systemNotification.startDate | localeAwareDate:'medium' }}</td>
+      <td>{{systemNotification.endDate | localeAwareDate:'medium' }}</td>
+      <th>
+        <button class="btn btn-sm"
+                [ngClass]="{'btn-success': systemNotification.active, 'btn-danger': !systemNotification.active}"
+                (click)="toggleStatus(systemNotification)">
+          <span *ngIf="systemNotification.active">Activated</span>
+          <span *ngIf="!systemNotification.active">De-Activated</span>
+        </button>
+      </th>
+      <th>
+        <button type="submit"
+                (click)="openEditModal(systemNotification)"
+                class="btn btn-text">
+          <i class="fa fa-edit"></i>
+          Edit
+        </button>
+        <button type="submit"
+                (click)="openDeleteModal(systemNotification.id)"
+                class="btn btn-text">
+          <i class="fa fa-trash"></i>
+          Delete
+        </button>
+      </th>
+    </tr>
+    </tbody>
+  </table>
   <button class="btn btn-primary"
           type="button"
           (click)="openCreateModal()">

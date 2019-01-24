@@ -22,13 +22,12 @@ export class SystemNotificationCreateModalComponent extends AbstractSubscriber i
   form: FormGroup;
 
   typeOptions$ = of([
-      ...Object.keys(SystemNotificationType).map(type => {
-        return {
-          value: type,
-          label: 'systemNotificationsManagement.systemnotification.type.' + type.toLowerCase()
-        };
-      })
-    ]
+    ...Object.keys(SystemNotificationType).map(type => {
+      return {
+        value: type,
+        label: 'systemNotificationsManagement.systemnotification.type.' + type.toLowerCase()
+      };
+    })]
   );
 
   constructor(public activeModal: NgbActiveModal,

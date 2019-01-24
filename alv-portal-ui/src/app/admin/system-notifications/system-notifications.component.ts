@@ -50,8 +50,9 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
       .then(() => {
         this.loadSystemNotifications();
         this.notificationsService.success('portal.admin.system-notifications.notifications.edit.success', false);
-      }).catch(() => {
-    });
+      })
+      .catch(() => {
+      });
   }
 
   openDeleteModal(id: string) {
@@ -91,5 +92,4 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
       this.systemNotifications$.next(value);
     });
   }
-
 }

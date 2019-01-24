@@ -27,13 +27,12 @@ export class SystemNotificationEditModalComponent extends AbstractSubscriber imp
   readonly 'TEXT_MAX_LENGTH' = 150;
 
   typeOptions$ = of([
-      ...Object.keys(SystemNotificationType).map(type => {
-        return {
-          value: type,
-          label: 'systemNotificationsManagement.systemnotification.type.' + type.toLowerCase()
-        };
-      })
-    ]
+    ...Object.keys(SystemNotificationType).map(type => {
+      return {
+        value: type,
+        label: 'systemNotificationsManagement.systemnotification.type.' + type.toLowerCase()
+      };
+    })]
   );
 
   constructor(public activeModal: NgbActiveModal,
