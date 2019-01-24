@@ -1,12 +1,12 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ShowcaseComponent} from './showcase/showcase.component';
-import {AuthenticatedGuard} from './core/auth/authenticated.guard';
-import {NotAuthenticatedGuard} from './core/auth/not-authenticated.guard';
-import {LandingPageGuard} from './shared/landing-page/landing-page.guard';
-import {DummyComponent} from './shared/dummy/dummy.component';
-import {HasAnyAuthoritiesGuard} from './core/auth/has-any-authorities-guard.service';
-import {UserRole} from './core/auth/user.model';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ShowcaseComponent } from './showcase/showcase.component';
+import { AuthenticatedGuard } from './core/auth/authenticated.guard';
+import { NotAuthenticatedGuard } from './core/auth/not-authenticated.guard';
+import { LandingPageGuard } from './shared/landing-page/landing-page.guard';
+import { DummyComponent } from './shared/dummy/dummy.component';
+import { HasAnyAuthoritiesGuard } from './core/auth/has-any-authorities-guard.service';
+import { UserRole } from './core/auth/user.model';
 
 const appRoutes: Routes = [
   {
@@ -56,7 +56,7 @@ const appRoutes: Routes = [
   {
     path: 'showcase',
     component: ShowcaseComponent,
-    data: { titleKey: 'portal.showcase.browser-title' }
+    data: {titleKey: 'portal.showcase.browser-title'}
   },
   {
     path: '**',
@@ -68,7 +68,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false }
+      {enableTracing: false}
     )
   ],
   exports: [
