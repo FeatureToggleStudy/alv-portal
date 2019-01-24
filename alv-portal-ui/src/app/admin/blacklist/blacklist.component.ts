@@ -75,11 +75,10 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
     }
     this.blacklistRepository.changeStatus(agent, status)
         .subscribe(() => {
-          this.getAllBlacklistedAgents()
+          this.getAllBlacklistedAgents();
           this.alert = this.ALERTS.changeSuccess;
-        }, error => {
+        }, () => {
           this.alert = this.ALERTS.userTechError;
-
         })
   }
 

@@ -1283,14 +1283,14 @@ job,jobroomApp.job.rav, RAV,RAV,ORP,URC
 blacklisted-agent,blacklisted-agent.title,Blacklist für PAV,Blacklisted Agent,Blacklisted Agent,Blacklisted Agent
 blacklisted-agent,blacklisted-agent.filter.placeholder,"Filtern nach Id, External Id, Status, Name, Strasse or PLZ","Filter by Id, External Id, Status, Name, Street or Zip Code","Filter by Id, External Id, Status, Name, Street or Zip Code","Filter by Id, External Id, Status, Name, Street or Zip Code"
 blacklisted-agent,blacklisted-agent.header.id,Id,Id,Id,Id
-blacklisted-agent,blacklisted-agent.header.externalId,External Id,External Id,External Id,External Id
+blacklisted-agent,blacklisted-agent.header.externalId,Ext. Id,Ext. Id,Ext. Id,Ext. Id
 blacklisted-agent,blacklisted-agent.header.status,Status,Status,Status,Status
 blacklisted-agent,blacklisted-agent.header.name,Name,Name,Name,Name
 blacklisted-agent,blacklisted-agent.header.street,Strasse,Street,Street,Street
 blacklisted-agent,blacklisted-agent.header.zipCode,PLZ,Zip Code,Zip Code,Zip Code
 blacklisted-agent,blacklisted-agent.header.city,Ort,City,City,City
 blacklisted-agent,blacklisted-agent.header.createdBy,Erstellt von,Created By,Created By,Created By
-blacklisted-agent,blacklisted-agent.header.blacklistedAt,Aktualisiert am,Blacklisted At,Blacklisted At,Blacklisted At
+blacklisted-agent,blacklisted-agent.header.blacklistedAt,"Datum erste Sperre",Blacklisted At,Blacklisted At,Blacklisted At
 blacklisted-agent,blacklisted-agent.header.counter,Anzahl Sperrungen,Counter,Counter,Counter
 blacklisted-agent,blacklisted-agent.status.active,Aktiv,Active,Active,Active
 blacklisted-agent,blacklisted-agent.status.inactive,Inaktiv,Inactive,Inactive,Inactive
