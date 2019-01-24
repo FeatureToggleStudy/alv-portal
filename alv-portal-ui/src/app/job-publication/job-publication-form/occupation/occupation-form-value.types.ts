@@ -1,9 +1,8 @@
 import { Degree, Experience } from '../../../shared/backend-services/shared.types';
-import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
-import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 
 export interface OccupationFormValue {
-  occupationSuggestion: TypeaheadItem<OccupationCode>;
+  occupationSuggestion: OccupationTypeaheadItem;
   degree: Degree;
   experience: Experience;
 }

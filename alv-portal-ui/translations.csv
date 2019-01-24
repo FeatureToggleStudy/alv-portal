@@ -1344,9 +1344,9 @@ portal,portal.forms.validation.ngbDate.format,"Datumsformat ungültig, richtiges
 portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}} liegen,Date must be before {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La date doit être antérieure au {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La data deve essere precedente all'{{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}}
 portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}} liegen,Date must be after {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La date doit être après le {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La data deve essere successiva all'{{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}
 portal,portal.forms.validation.character-counter,{{count}} Zeichen verbleibend,{{count}} characters available,{{count}} caractères disponibles,{{count}} caratteri disponibili
-portal,portal.forms.date-input.open-calendar-button,Kalender öffnen,Open calendar,???,???
 portal,portal.forms.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
 portal,portal.forms.validation.url,Diese URL ist ungültig.,This URL is not valid,Ce lien URL n'est pas valable.,Questo indirizzo URL non è valido.
+portal,portal.forms.date-input.open-calendar-button,Kalender öffnen,Open calendar,
 
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
@@ -1354,6 +1354,7 @@ portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tut
 
 portal,portal.navigation.menu-entry.job-search,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
+portal,portal.navigation.menu-entry.job-publication,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 portal,portal.navigation.menu-entry.account.profile,Profile,Profile
 portal,portal.navigation.label.main-navigation,,Main navigation
@@ -1441,13 +1442,13 @@ portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://
 portal,portal.job-publication.application.legend,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
 portal,portal.job-publication.application.validation.atLeastOneRequired,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
 portal,portal.job-publication.submit.success,"Besten Dank für Ihre Stellenmeldung. Ihr Inserat wird nun von einem Regionalen Arbeitsvermittlungszentrum (RAV) geprüft. Sie werden per E-Mail informiert, sobald die Stelle veröffentlicht wurde.","Thank you for posting this job ad, which will now be checked by a regional employment centre (RAV). You will be informed by email as soon as it is published.",Merci d'avoir annoncé le poste vacant que l'ORP va examiner. Vous recevrez un courriel dès sa publication.,Grazie di aver annunciato il posto vacante que sarà esaminato dall'URC. Riceverà un'e-mail non appena il posto vacante verrà pubblicato.
-portal,portal.job-publication.create.another,Weitere Stelle melden,???,???,???
-portal,portal.job-publication.submit.info.item1,Bei allfälligen Fragen werden Sie vom RAV kontaktiert.,???,???,???
-portal,portal.job-publication.submit.info.item2,Sie werden per E-Mail informiert, sobald die Stelle aufgeschaltet wurde.,???,???,???
-portal,portal.job-publication.submit.info.item3,Falls Sie in der Zwischenzeit Fragen haben, zögern Sie nicht, Ihr zuständiges RAV zu kontaktieren:,???,???,???
-portal,portal.job-publication.submit.info.phone,Tel.,???,???,???
-portal,portal.job-publication.submit.info.fax,Fax,???,???,???
-portal,portal.job-publication.submit.info.email,Email,???,???,???
+portal,portal.job-publication.create.another,Weitere Stelle melden,
+portal,portal.job-publication.submit.info.item1,Bei allfälligen Fragen werden Sie vom RAV kontaktiert.,
+portal,portal.job-publication.submit.info.item2,Sie werden per E-Mail informiert, sobald die Stelle aufgeschaltet wurde.,
+portal,portal.job-publication.submit.info.item3,Falls Sie in der Zwischenzeit Fragen haben, zögern Sie nicht, Ihr zuständiges RAV zu kontaktieren:,
+portal,portal.job-publication.submit.info.phone,Tel.,
+portal,portal.job-publication.submit.info.fax,Fax,
+portal,portal.job-publication.submit.info.email,Email,
 
 portal,portal.manage-job-ads.search.query,Stellen durchsuchen
 portal,portal.manage-job-ads.search.owner-name,Erfasser,Created by

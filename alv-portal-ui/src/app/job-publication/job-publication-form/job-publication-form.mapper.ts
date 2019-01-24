@@ -20,10 +20,6 @@ import {
   JobDescriptionFormValue
 } from './job-description/job-description-form-value.types';
 import {
-  emptyOccupationFormValue,
-  OccupationFormValue
-} from './occupation/occupation-form-value.types';
-import {
   Degree,
   EmploymentDuration,
   LanguageSkill,
@@ -50,13 +46,19 @@ import {
   EmployerFormValue,
   emptyEmployerFormValue
 } from './employer/employer-form-value.types';
+
 import { PostAddressFormValue } from './post-address-form/post-address-form-value.types';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { formatDate } from '@angular/common';
 import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
+
 import { LanguagesFormValue } from './languages/languages-form-value.types';
 import { LocalitySuggestionService } from '../../shared/localities/locality-suggestion.service';
 import { IsoCountryService } from './iso-country.service';
+import {
+  emptyOccupationFormValue,
+  OccupationFormValue
+} from './occupation/occupation-form-value.types';
 
 
 export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement): JobPublicationFormValue {

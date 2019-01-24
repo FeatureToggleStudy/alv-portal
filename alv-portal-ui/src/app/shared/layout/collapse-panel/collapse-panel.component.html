@@ -1,16 +1,17 @@
 <button class="collapse-button alv-bar btn d-flex align-items-center w-100"
         type="button"
         [class.collapsed]="isCollapsed"
-        (click)="isCollapsed = !isCollapsed"
+        (click)="toggle()"
         [attr.aria-expanded]="!isCollapsed"
         [attr.aria-controls]="panelId">
   {{ panelTitle | translate }}
-  <div class="flex-grow-1"></div>
+  <span class="flex-grow-1"></span>
   <i class="fas fa-chevron-up collapse-icon"></i>
   <i class="fas fa-chevron-down expand-icon"></i>
 </button>
 <div class="panel-content"
      [id]="panelId"
-     [ngbCollapse]="isCollapsed">
+     [ngbCollapse]="isCollapsed"
+     [@expandCollapse]="isCollapsed ? 'closed' : 'open'">
   <ng-content></ng-content>
 </div>

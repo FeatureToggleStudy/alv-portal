@@ -49,7 +49,128 @@ describe('PostAddressFormComponent', () => {
   });
 
   describe('validation', () => {
-    //todo implement
+
+    describe('name field', () => {
+
+      it('should be required', () => {
+        //given
+        const field = component.postAddress.get('name');
+
+        //when
+        field.setValue(null);
+
+        //then
+        expect(field.hasError('required')).toBeTrue();
+      });
+
+      it('should not be longer than NAME_MAX_LENGTH', () => {
+        //given
+        const field = component.postAddress.get('name');
+
+        //when
+        field.setValue(generateString(component.NAME_MAX_LENGTH + 1));
+
+        //then
+        expect(field.hasError('maxlength')).toBeTrue();
+      });
+    });
+    describe('houseNumber field', () => {
+
+      it('should not be required', () => {
+        //given
+        const field = component.postAddress.get('houseNumber');
+
+        //when
+        field.setValue(null);
+
+        //then
+        expect(field.value).toBeNull();
+      });
+
+      it('should match digits', () => {
+        //given
+        const field = component.postAddress.get('houseNumber');
+
+        //when
+        field.setValue(randomRepeatChar('1'));
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
+      it('should match digits followed by characters', () => {
+        //given
+        const field = component.postAddress.get('houseNumber');
+
+        //when
+        field.setValue(randomRepeatChar('1') + randomRepeatChar('a'));
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
+      it('should not match only characters', () => {
+        //given
+        const field = component.postAddress.get('houseNumber');
+
+        //when
+        field.setValue(randomRepeatChar('a'));
+
+        //then
+        expect(field.hasError('houseNumValidator')).toBeTrue();
+      });
+    });
+
+    describe('postOfficeBoxNumberOrStreet field', () => {
+
+      describe('street field', () => {
+
+        it('should not be longer than NAME_MAX_LENGTH', () => {
+          //given
+          const field = component.postAddress.get('postOfficeBoxNumberOrStreet').get('street');
+
+          //when
+          field.setValue(generateString(component.STREET_MAX_LENGTH + 1));
+
+          //then
+          expect(field.hasError('maxlength')).toBeTrue();
+        });
+      });
+
+      describe('postOfficeBoxNumber field', () => {
+
+        it('should not be longer than PO_BOX_MAX_LENGTH', () => {
+          //given
+          const field = component.postAddress.get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber');
+
+          //when
+          field.setValue(generateString(component.PO_BOX_MAX_LENGTH + 1));
+
+          //then
+          expect(field.hasError('maxlength')).toBeTrue();
+        });
+      });
+
+      it('should be required postOfficeBoxNumber or street', () => {
+        //given
+        const field = component.postAddress.get('postOfficeBoxNumberOrStreet');
+
+        //when
+        field.get('postOfficeBoxNumber').setValue(null);
+        field.get('street').setValue(null);
+
+        //then
+        expect(field.hasError('postOfficeBoxNumberOrStreetRequired')).toBeTrue();
+      });
+
+    });
   });
 
+  function generateString(length: number) {
+    return 'a'.repeat(length);
+  }
+
+  function randomRepeatChar(char = 'a', range = 256) {
+    return char.repeat(Math.random() * range);
+  }
 });

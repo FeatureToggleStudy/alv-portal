@@ -38,6 +38,12 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     userPredicate: isAnyUser
   },
   {
+    icon: 'edit',
+    labelKey: 'portal.navigation.menu-entry.job-publication',
+    path: ['job-publication'],
+    userPredicate: isAnyUser
+  },
+  {
     icon: 'table',
     labelKey: 'portal.navigation.menu-entry.manage-job-ads',
     path: ['manage-job-ads'],
@@ -48,7 +54,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     labelKey: 'portal.admin.user-info.menu-entry',
     path: ['admin', 'user-info'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
-  },
+  }
 ];
 
 @Injectable()

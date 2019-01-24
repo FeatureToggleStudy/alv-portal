@@ -45,7 +45,141 @@ describe('ContactComponent', () => {
   });
 
   describe('validation', () => {
-    //todo implement
-  });
 
+    describe('salutation field', () => {
+
+      it('should be required', () => {
+        //given
+        const field = component.contact.get('salutation');
+
+        //when
+        field.setValue(null);
+
+        //then
+        expect(field.hasError('required')).toBeTrue();
+      });
+    });
+    describe('firstName field', () => {
+
+      it('should be required', () => {
+        //given
+        const field = component.contact.get('firstName');
+
+        //when
+        field.setValue(null);
+
+        //then
+        expect(field.hasError('required')).toBeTrue();
+      });
+
+      it('should not be longer than FIELDS_MAX_LENGTH', () => {
+        //given
+        const field = component.contact.get('firstName');
+
+        //when
+        field.setValue('a'.repeat(component.FIELDS_MAX_LENGTH + 1));
+
+        //then
+        expect(field.hasError('maxlength')).toBeTrue();
+      });
+    });
+
+    describe('lastName field', () => {
+
+      it('should be required', () => {
+        //given
+        const field = component.contact.get('lastName');
+
+        //when
+        field.setValue(null);
+
+        //then
+        expect(field.hasError('required')).toBeTrue();
+      });
+
+      it('should not be longer than FIELDS_MAX_LENGTH', () => {
+        //given
+        const field = component.contact.get('lastName');
+
+        //when
+        field.setValue('a'.repeat(component.FIELDS_MAX_LENGTH + 1));
+
+        //then
+        expect(field.hasError('maxlength')).toBeTrue();
+      });
+    });
+
+    describe('phone field', () => {
+
+      it('should be required', () => {
+        //given
+        const field = component.contact.get('phone');
+
+        //when
+        field.setValue(null);
+
+        //then
+        expect(field.hasError('required')).toBeTrue();
+      });
+
+      it('should be valid phone', () => {
+        //given
+        const field = component.contact.get('phone');
+
+        //when
+        field.setValue('asfaf');
+
+        //then
+        expect(field.hasError('phoneValidator')).toBeTrue();
+      });
+
+      it('should accept valid phone', () => {
+        //given
+        const field = component.contact.get('phone');
+
+        //when
+        field.setValue('031 999 99 99');
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+    });
+
+    describe('email field', () => {
+
+      it('should be required', () => {
+        //given
+        const field = component.contact.get('email');
+
+        //when
+        field.setValue(null);
+
+        //then
+        expect(field.hasError('required')).toBeTrue();
+      });
+
+      it('should be valid email', () => {
+        //given
+        const field = component.contact.get('email');
+
+        //when
+        field.setValue('asfaf');
+
+        //then
+        expect(field.hasError('emailValidator')).toBeTrue();
+      });
+
+      it('should accept valid email', () => {
+        //given
+        const field = component.contact.get('email');
+
+        //when
+        field.setValue('test.mail@test.ch');
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
+    });
+  });
 });

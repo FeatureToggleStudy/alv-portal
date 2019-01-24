@@ -30,6 +30,7 @@ import {
   Experience
 } from '../../shared/backend-services/shared.types';
 import SpyObj = jasmine.SpyObj;
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
 
 
@@ -63,6 +64,7 @@ describe('JobPublicationFormComponent', () => {
         CommonModule,
         SharedModule,
         HttpClientTestingModule,
+        BrowserAnimationsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
