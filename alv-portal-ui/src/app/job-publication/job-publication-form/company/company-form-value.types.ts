@@ -1,5 +1,8 @@
 import { IsoCountryService } from '../iso-country.service';
-import { ZipCityFormValue } from '../zip-city-input/zip-city-form-value.types';
+import {
+  emptyZipCityFormValue,
+  ZipCityFormValue
+} from '../zip-city-input/zip-city-form-value.types';
 
 export interface CompanyFormValue {
   name: string;
@@ -21,6 +24,6 @@ export function emptyCompanyFormValue(): CompanyFormValue {
       street: null,
       postOfficeBoxNumber: null
     },
-    zipAndCity: null
+    zipAndCity: emptyZipCityFormValue()
   };
 }

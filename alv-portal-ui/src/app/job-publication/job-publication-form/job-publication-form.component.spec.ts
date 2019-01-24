@@ -55,7 +55,7 @@ describe('JobPublicationFormComponent', () => {
   let fixture: ComponentFixture<JobPublicationFormComponent>;
 
   beforeEach(async(() => {
-    emptyJobPublicationFormValue = new JobPublicationFormValueFactory().createEmpty();
+    emptyJobPublicationFormValue = new JobPublicationFormValueFactory().createEmpty(currentLanguage);
     mockJobPublicationFormValueFactory = jasmine.createSpyObj('mockJobPublicationFormValueFactory', ['createJobPublicationFormValue']);
     mockJobPublicationFormValueFactory.createJobPublicationFormValue.and.returnValue(emptyJobPublicationFormValue);
 
@@ -107,7 +107,7 @@ describe('JobPublicationFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(JobPublicationFormComponent);
     component = fixture.componentInstance;
-    component.currentLanguage = 'de';
+    component.currentLanguage = currentLanguage;
     component.initialFormValueConfig = {};
   });
 
@@ -151,7 +151,6 @@ describe('JobPublicationFormComponent', () => {
 
       //then
       const expectedJobPublicationFormValue = { ...jobPublicationFormValue };
-      emptyJobPublicationFormValue.contact.languageIsoCode = currentLanguage;
       expect(component.jobPublicationForm.value).toEqual(expectedJobPublicationFormValue);
     });
 

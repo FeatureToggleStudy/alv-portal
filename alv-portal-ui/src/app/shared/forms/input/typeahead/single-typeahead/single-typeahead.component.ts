@@ -1,11 +1,16 @@
 import {
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   Host,
-  Input, OnInit,
+  Input,
+  OnInit,
   Optional,
   Output,
-  SkipSelf
+  SkipSelf,
+  ViewChild
 } from '@angular/core';
 import { AbstractInput } from '../../abstract-input';
 import { ControlContainer } from '@angular/forms';
@@ -13,7 +18,7 @@ import { InputIdGenerationService } from '../../input-id-generation.service';
 import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { TypeaheadItem } from '../typeahead-item';
 
@@ -22,7 +27,7 @@ import { TypeaheadItem } from '../typeahead-item';
   templateUrl: './single-typeahead.component.html',
   styleUrls: ['../../abstract-input.scss', './single-typeahead.component.scss']
 })
-export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
+export class SingleTypeaheadComponent extends AbstractInput implements OnInit, AfterViewInit {
 
   readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
@@ -34,6 +39,8 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
   @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
 
+  @ViewChild('inputField') inputFieldRef: ElementRef<HTMLInputElement>;
+
   helpId = this.id + '-help';
 
   loadItemsGuardedFn = this.loadItemsGuarded.bind(this);
@@ -41,27 +48,38 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
   controlValueChange$: Observable<string>;
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
-              inputIdGenerationService: InputIdGenerationService) {
+              inputIdGenerationService: InputIdGenerationService,
+              private changeDetectorRef: ChangeDetectorRef
+  ) {
     super(controlContainer, InputType.SINGLE_TYPEAHEAD, inputIdGenerationService);
   }
 
   ngOnInit() {
     super.ngOnInit();
     this.controlValueChange$ = this.control.valueChanges.pipe(
-      filter(value => !!value),
-      map(this.formatResultItem)
+      map(this.formatResultItem),
+      distinctUntilChanged()
     );
   }
 
+  ngAfterViewInit(): void {
+    const initialValue = <TypeaheadItem<any>>this.control.value;
+    if (initialValue) {
+      this.inputFieldRef.nativeElement.value = initialValue.label;
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+
+
   formatResultItem(item: TypeaheadItem<any>): string {
-    return item.label;
+    return item ? item.label : '';
   }
 
   selectItem(event: NgbTypeaheadSelectItemEvent): void {
 
     const item = <TypeaheadItem<any>>event.item;
 
-    this.control.setValue(item, {emitEvent: false});
+    this.control.setValue(item, { emitEvent: true });
 
     this.itemSelected.emit(item);
   }
