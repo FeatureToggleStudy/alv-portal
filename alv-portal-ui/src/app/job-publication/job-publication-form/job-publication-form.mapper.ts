@@ -207,5 +207,5 @@ function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCod
     ? zipCityFormValue.zipCode
     : zipCityFormValue.payload.zipCode;
 
-  return {city, postalCode};
+  return { city, postalCode };
 }

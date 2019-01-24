@@ -56,7 +56,7 @@ const appRoutes: Routes = [
   {
     path: 'showcase',
     component: ShowcaseComponent,
-    data: {titleKey: 'portal.showcase.browser-title'}
+    data: { titleKey: 'portal.showcase.browser-title' }
   },
   {
     path: '**',
@@ -68,7 +68,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: false}
+      { enableTracing: false }
     )
   ],
   exports: [
