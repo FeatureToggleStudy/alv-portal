@@ -8,30 +8,31 @@
     <alv-date-input label="portal.admin.legal-terms-management.header.effectiveAt"
                     alvFormControlName="effectiveAt"
                     [readonly]="readonly"
+                    [minDate]="minEffectiveAt"
                     [validationMessages]="[{ error: 'pastEffectiveAt', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.pastEffectiveAt' }]"
+                    showGroupErrors="true"
                     placement="bottom-right">
     </alv-date-input>
-    <alv-input-field label="portal.admin.legal-terms-management.header.effectiveAt"
-                     [readonly]="readonly"
-                     [validationMessages]="[{ error: 'pastEffectiveAt', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.pastEffectiveAt' }]"
-                     alvFormControlName="effectiveAt">
-    </alv-input-field>
     <alv-input-field label="portal.admin.legal-terms-management.header.linkDe"
+                     class="reverse-ellipsis"
                      [readonly]="readonly"
                      [validationMessages]="[{ error: 'patter', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern' }]"
                      alvFormControlName="linkDe">
     </alv-input-field>
     <alv-input-field label="portal.admin.legal-terms-management.header.linkEn"
+                     class="reverse-ellipsis"
                      [readonly]="readonly"
                      [validationMessages]="[{ error: 'patter', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern' }]"
                      alvFormControlName="linkEn">
     </alv-input-field>
     <alv-input-field label="portal.admin.legal-terms-management.header.linkFr"
+                     class="reverse-ellipsis"
                      [readonly]="readonly"
                      [validationMessages]="[{ error: 'patter', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern' }]"
                      alvFormControlName="linkFr">
     </alv-input-field>
     <alv-input-field label="portal.admin.legal-terms-management.header.linkIt"
+                     class="reverse-ellipsis"
                      [readonly]="readonly"
                      [validationMessages]="[{ error: 'patter', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern' }]"
                      alvFormControlName="linkIt">
