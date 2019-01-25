@@ -106,13 +106,15 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
         this.publicationFormValue = initialJobPublicationFormValue.publication;
 
         surrogateFormControl.patchValue(initialJobPublicationFormValue.surrogate, { emitEvent: false });
+
+        surrogateFormControl.valueChanges.pipe(
+          distinctUntilChanged(),
+          filter((value: boolean) => value),
+          takeUntil(this.ngUnsubscribe)
+        ).subscribe((_) => this.employerFormValue = emptyEmployerFormValue());
       });
 
-    surrogateFormControl.valueChanges.pipe(
-      distinctUntilChanged(),
-      filter((value: boolean) => value),
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe((_) => this.employerFormValue = emptyEmployerFormValue());
+
   }
 
 
