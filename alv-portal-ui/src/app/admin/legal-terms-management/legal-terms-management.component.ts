@@ -43,43 +43,25 @@ export class LegalTermsManagementComponent implements OnInit {
   onAdd() {
     const modalRef = this.modalService.openLarge(LegalTermsDetailModalComponent);
     modalRef.componentInstance.actionTyp = LEGAL_ACTIONS.NEW;
-    modalRef.result.then((legalTermEntry) => this.add(legalTermEntry));
-  }
-
-  add(legalTermEntry: LegalTerms) {
-    return this.legalTermsManagementRepository.addLegalTermsEntry(legalTermEntry).subscribe(
-      () => {
-        this.notificationService.success(MESSAGE.success);
-        this.loadAll();
-      },
-      () => {
-        this.notificationService.success(MESSAGE.failure);
-      });
+    modalRef.componentInstance.legalTerm = null;
+    modalRef.componentInstance.readonly = false;
+    modalRef.result.then(() => this.refresh(), () => this.error());
   }
 
   onUpdate(legalTerm: LegalTerms) {
     const modalRef = this.modalService.openLarge(LegalTermsDetailModalComponent);
-    modalRef.componentInstance.legalTerm = legalTerm;
     modalRef.componentInstance.actionTyp = LEGAL_ACTIONS.EDIT;
-    modalRef.result.then((legalTermEntry) => this.update(legalTermEntry));
-  }
-
-  update(legalTermEntry: LegalTerms) {
-    return this.legalTermsManagementRepository.updateLegalTermsEntry(legalTermEntry).subscribe(
-      () => {
-        this.notificationService.success(MESSAGE.success);
-        this.loadAll();
-      },
-      () => {
-        this.notificationService.success(MESSAGE.failure);
-      });
+    modalRef.componentInstance.legalTerm = legalTerm;
+    modalRef.componentInstance.readonly = false;
+    // modalRef.result.then((legalTermEntry) => this.update(legalTermEntry));
+    modalRef.result.then(() => this.refresh(), () => this.error());
   }
 
   onView(legalTerm: LegalTerms) {
     const modalRef = this.modalService.openLarge(LegalTermsDetailModalComponent);
-    modalRef.componentInstance.legalTerm = legalTerm;
     modalRef.componentInstance.actionTyp = LEGAL_ACTIONS.VIEW;
-    // modalRef.componentInstance.readonly = true;
+    modalRef.componentInstance.legalTerm = legalTerm;
+    modalRef.componentInstance.readonly = true;
     modalRef.result.then(() => {}, () => {});
   }
 
@@ -90,13 +72,17 @@ export class LegalTermsManagementComponent implements OnInit {
 
   delete(id: string) {
     return this.legalTermsManagementRepository.deleteLegalTermsEntry(id).subscribe(
-      () => {
-        this.notificationService.success(MESSAGE.success);
-        this.loadAll();
-      },
-      () => {
-        this.notificationService.success(MESSAGE.failure);
-      });
+      () => this.refresh(),
+      () => this.error());
+  }
+
+  refresh() {
+    this.notificationService.success(MESSAGE.success);
+    this.loadAll();
+  }
+
+  error() {
+    this.notificationService.error(MESSAGE.failure);
   }
 
   loadAll() {

@@ -18,17 +18,14 @@ export class LegalTermsManagementRepository {
 
   addLegalTermsEntry(legalTerms: LegalTerms): Observable<void> {
     return this.http.post<void>(LegalTermsManagementRepository.LEGAL_TERMS_URL, legalTerms);
-    // add HEADERS? STRINGIFY?
   }
 
   updateLegalTermsEntry(legalTerms: LegalTerms): Observable<void> {
     return this.http.put<void>(`${LegalTermsManagementRepository.LEGAL_TERMS_URL}/${legalTerms.id}`, legalTerms);
-    // add HEADERS? STRINGIFY?
   }
 
   deleteLegalTermsEntry(id: string): Observable<any> {
     return this.http.delete(`${LegalTermsManagementRepository.LEGAL_TERMS_URL}/${id}`);
-    // observe: 'response'?
   }
 
 

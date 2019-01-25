@@ -70,7 +70,19 @@ export class LegalTermsDetailModalComponent implements OnInit {
   }
 
   onSubmit() {
-    this.activeModal.close(this.mapToLegalTerms(this.form.value));
+    switch (this.actionTyp) {
+      case LEGAL_ACTIONS.NEW:
+        this.legalTermsManagementRepository.addLegalTermsEntry(this.mapToLegalTerms(this.form.value))
+          .subscribe( () => this.activeModal.close());
+        break;
+      case LEGAL_ACTIONS.EDIT:
+        this.legalTermsManagementRepository.updateLegalTermsEntry(this.mapToLegalTerms(this.form.value))
+          .subscribe( () => this.activeModal.close());
+        break;
+      case LEGAL_ACTIONS.VIEW:
+        this.activeModal.close();
+        break;
+    }
   }
 
   onDismiss() {
