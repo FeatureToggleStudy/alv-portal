@@ -6,6 +6,9 @@ describe('NgbDateUtils tests', () => {
   const TESTING_DATE_STRING_2 = '2000-01-01';
   const TESTING_DATE_STRING_3 = '2000-1-1';
 
+  const TESTING_DATE_TIME_STRING_1 = '2008-09-15T15:53:00+05:00';
+  const TESTING_DATE_TIME_STRING_2 = '2007-12-24T18:21Z';
+
   const TESTING_DATE_1 = new Date(2000, 1, 12);
   const TESTING_DATE_2 = new Date(2000, 0, 1);
   const TESTING_DATE_3 = new Date('July 22, 2018 07:22:13');
@@ -111,6 +114,18 @@ describe('NgbDateUtils tests', () => {
     expect(convertedNgbDateStruct.year).toEqual(2000);
     expect(convertedNgbDateStruct.month).toEqual(1);
     expect(convertedNgbDateStruct.day).toEqual(1);
+  });
+
+  // ISODateTime string representation -> ISOLocalDate string Representation
+
+  it('should convert LocalDateTime string representation to ISOLocalDate string representation #1', () => {
+    const convertedLocalDateTimeString = toISOLocalDate(fromISODate(TESTING_DATE_TIME_STRING_1));
+    expect(convertedLocalDateTimeString).toContain('2008-09-15');
+  });
+
+  it('should convert LocalDateTime string representation to ISOLocalDate string representation #2', () => {
+    const convertedLocalDateTimeString = toISOLocalDate(fromISODate(TESTING_DATE_TIME_STRING_2));
+    expect(convertedLocalDateTimeString).toContain('2007-12-24');
   });
 
 });
