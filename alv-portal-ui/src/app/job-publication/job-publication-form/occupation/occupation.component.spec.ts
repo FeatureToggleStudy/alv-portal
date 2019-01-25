@@ -66,7 +66,19 @@ describe('OccupationComponent', () => {
   });
 
   describe('validation', () => {
-    //todo implement
+    describe('occupationSuggestion field', () => {
+
+      it('should be required', () => {
+        //given
+        const field = component.occupation.get('occupationSuggestion');
+
+        //when
+        field.setValue(null);
+
+        //then
+        expect(field.hasError('required')).toBeTrue();
+      });
+    });
   });
 
 });
