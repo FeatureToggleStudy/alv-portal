@@ -112,7 +112,7 @@ export class LegalTermsDetailModalComponent implements OnInit {
       linkEn: [null, [Validators.required, Validators.pattern(URL_REGEX)]],
       linkFr: [null, [Validators.required, Validators.pattern(URL_REGEX)]],
       linkIt: [null, [Validators.required, Validators.pattern(URL_REGEX)]]
-    },{
+    }, {
       validator: [effectiveAtValidator]
     });
 
