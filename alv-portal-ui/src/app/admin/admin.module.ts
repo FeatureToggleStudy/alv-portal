@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { UserInfoBadgesMapperService } from './user-info/user-info-badges-mapper.service';
+import { LegalTermsManagementComponent } from './legal-terms-management/legal-terms-management.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { UserInfoBadgesMapperService } from './user-info/user-info-badges-mapper
     AdminRoutingModule
   ],
   declarations: [
-      UserInfoComponent
+      UserInfoComponent,
+      LegalTermsManagementComponent
   ],
   providers: [
       UserInfoBadgesMapperService
