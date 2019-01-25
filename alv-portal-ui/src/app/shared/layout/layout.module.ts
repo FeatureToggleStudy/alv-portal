@@ -39,11 +39,12 @@ import { CollapsePanelComponent } from './collapse-panel/collapse-panel.componen
 import { PostAddressComponent } from './post-address/post-address.component';
 import { ResultListItemComponent } from './result-list-item/result-list-item.component';
 import { PipesModule } from '../pipes/pipes.module';
-import { ThreeColumnLayoutComponent } from './three-column-layout/three-column-layout.component';
+import { ThreeColumnLayoutComponent } from './column-layout/three-column-layout/three-column-layout.component';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ListItemContentComponent } from './list-item-content/list-item-content.component';
 import { ContactModalComponent } from '../../candidate-search/candidate-detail/contact-modal/contact-modal.component';
 import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
+import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-column-layout.component';
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import { CandidateContactRepository } from '../backend-services/candidate/candid
     ThreeColumnLayoutComponent,
     ScrollToTopComponent,
     ListItemContentComponent,
-    ContactModalComponent
+    ContactModalComponent,
+    TwoColumnLayoutComponent
   ],
   providers: [
     CandidateContactRepository
@@ -120,7 +122,8 @@ import { CandidateContactRepository } from '../backend-services/candidate/candid
     ResultListItemComponent,
     ThreeColumnLayoutComponent,
     ScrollToTopComponent,
-    ListItemContentComponent
+    ListItemContentComponent,
+    TwoColumnLayoutComponent
   ]
 })
 export class LayoutModule {

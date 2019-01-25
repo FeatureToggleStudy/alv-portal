@@ -113,8 +113,6 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
           takeUntil(this.ngUnsubscribe)
         ).subscribe((_) => this.employerFormValue = emptyEmployerFormValue());
       });
-
-
   }
 
 

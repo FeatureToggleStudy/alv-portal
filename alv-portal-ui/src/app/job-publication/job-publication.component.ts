@@ -1,20 +1,22 @@
-import { Component } from '@angular/core';
 import { NotificationType } from '../shared/layout/notifications/notification.model';
 import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Observable } from 'rxjs';
 import { JobCenter } from '../shared/backend-services/reference-service/job-center.types';
 import { JobCenterRepository } from '../shared/backend-services/reference-service/job-center.repository';
 import { I18nService } from '../core/i18n.service';
-import { flatMap, take } from 'rxjs/operators';
+import { flatMap, map, take } from 'rxjs/operators';
 import { InitialFormValueConfig } from './job-publication-form/job-publication-form-value-factory';
 import { ActivatedRoute } from '@angular/router';
+import { isNotAuthenticatedUser } from '../core/auth/user.model';
+import { AuthenticationService } from '../core/auth/authentication.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'alv-job-publication',
   templateUrl: './job-publication.component.html',
   styleUrls: ['./job-publication.component.scss']
 })
-export class JobPublicationComponent {
+export class JobPublicationComponent implements OnInit {
 
   initialFormValueConfig: InitialFormValueConfig;
 
@@ -35,11 +37,20 @@ export class JobPublicationComponent {
 
   responsibleJobCenter$: Observable<JobCenter>;
 
+  showLeftColumn$: Observable<boolean>;
+
   constructor(private jobCenterRepository: JobCenterRepository,
               private i18nService: I18nService,
+              private authenticationService: AuthenticationService,
               private route: ActivatedRoute) {
     this.initialFormValueConfig = route.snapshot.data['initialFormValueConfig'];
     this.currentLanguage$ = i18nService.currentLanguage$;
+  }
+
+  ngOnInit() {
+    this.showLeftColumn$ = this.authenticationService.getCurrentUser().pipe(
+      map(user => isNotAuthenticatedUser(user))
+    );
   }
 
   jobPublicationCreated(jobAdvertisement: JobAdvertisement) {
