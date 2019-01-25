@@ -15,7 +15,6 @@ import { CompanyContactTemplateModel } from '../../core/auth/company-contact-tem
 import * as jobPublicationFormMapper from './job-publication-form.mapper';
 import { Salutation } from '../../shared/backend-services/shared.types';
 import { IsoCountryService } from './iso-country.service';
-import { Observable, of } from 'rxjs';
 
 export interface InitialFormValueConfig {
   jobAdvertisement?: JobAdvertisement;
@@ -26,9 +25,9 @@ export interface InitialFormValueConfig {
 @Injectable()
 export class JobPublicationFormValueFactory {
 
-  public createJobPublicationFormValue(initialFormValueConfig: InitialFormValueConfig, currentLanguageIsoCode: string): Observable<JobPublicationFormValue> {
+  public createJobPublicationFormValue(initialFormValueConfig: InitialFormValueConfig, currentLanguageIsoCode: string): JobPublicationFormValue {
     if (initialFormValueConfig.jobAdvertisement) {
-      return of(jobPublicationFormMapper.mapToJobPublicationFormValue(initialFormValueConfig.jobAdvertisement, currentLanguageIsoCode));
+      return jobPublicationFormMapper.mapToJobPublicationFormValue(initialFormValueConfig.jobAdvertisement, currentLanguageIsoCode);
     }
 
     const emptyJobPublicationFormValue = this.createEmpty(currentLanguageIsoCode);
@@ -52,7 +51,7 @@ export class JobPublicationFormValueFactory {
       emptyJobPublicationFormValue.contact.email = email;
     }
 
-    return of(emptyJobPublicationFormValue);
+    return emptyJobPublicationFormValue;
   }
 
   createEmpty(currentLanguageIsoCode: string): JobPublicationFormValue {

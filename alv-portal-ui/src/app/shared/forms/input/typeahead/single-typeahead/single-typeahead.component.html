@@ -15,7 +15,7 @@
            [attr.aria-required]="!!required"
            [attr.id]="id"
            [attr.required]="required"
-           [class.placeholder-shown]="!inputField.value"
+           [class.placeholder-shown]="!inputField.value && !(controlValueChange$ | async)"
            [container]="'body'"
            [editable]="false"
            [focusFirst]="focusFirst"
@@ -40,7 +40,7 @@
     <!-- a11y help texts -->
     <div [attr.id]="helpId"
          class="sr-only">
-      {{'portal.typeahead-single.help-text.instruction' | translate : {'number' : TYPEAHEAD_QUERY_MIN_LENGTH} }}
+      {{'portal.typeahead-single.help-text.instruction' | translate : {'number': TYPEAHEAD_QUERY_MIN_LENGTH} }}
     </div>
 
     <ng-template #template
@@ -54,7 +54,7 @@
 
   </div>
   <small *ngIf="helpText && !(isTouched() && isInvalid())"
-         class="help-text" >
+         class="help-text">
     {{helpText | translate}}
   </small>
   <alv-validation-messages *ngIf="!readonly"

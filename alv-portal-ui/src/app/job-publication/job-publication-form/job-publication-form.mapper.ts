@@ -62,6 +62,11 @@ import {
   emptyOccupationFormValue,
   OccupationFormValue
 } from './occupation/occupation-form-value.types';
+import {
+  OccupationTypeaheadItem,
+  OccupationTypeaheadItemType
+} from '../../shared/occupations/occupation-typeahead-item';
+import { OccupationTypes } from '../../shared/backend-services/reference-service/occupation-label.repository';
 
 
 export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement, languageIsoCode: string): JobPublicationFormValue {
@@ -108,8 +113,10 @@ function mapToOccupationFormValue(occupations: Occupation[]): OccupationFormValu
   return {
     degree: <Degree>DegreeMapping[occupation.educationCode],
     experience: <Experience>Experience[occupation.workExperience],
-    //todo: create a SingleTypeaheadItem
-    occupationSuggestion: null
+    occupationSuggestion: new OccupationTypeaheadItem(OccupationTypeaheadItemType.OCCUPATION, {
+      type: OccupationTypes.AVAM,
+      value: occupation.avamOccupationCode
+    }, '', 0)
   };
 }
 
@@ -266,6 +273,7 @@ function mapToPublicationFormValue(publication: Publication): PublicationFormVal
   };
 }
 
+
 export function mapToZipCityFormValue(countryIsoCode: string, zipCode: string, city: string): ZipCityFormValue {
   const zipCity = { zipCode, city };
 
@@ -295,7 +303,6 @@ export function mapToCreateJobAdvertisement(jobPublicationFormValue: JobPublicat
     employer: mapToEmployer(jobPublicationFormValue.employer),
   };
 }
-
 
 function mapToJobDescriptions(jobDescriptionFormValue: JobDescriptionFormValue, languageIsoCode: string): JobDescription[] {
   const jobDescription = {

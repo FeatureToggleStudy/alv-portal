@@ -89,30 +89,28 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
   }
 
   ngOnInit(): void {
+    const initialJobPublicationFormValue = this.jobPublicationFormValueFactory.createJobPublicationFormValue(this.initialFormValueConfig, this.currentLanguage);
+
+    this.jobDescriptionFormValue = initialJobPublicationFormValue.jobDescription;
+    this.occupationFormValue = initialJobPublicationFormValue.occupation;
+    this.languagesFormValue = initialJobPublicationFormValue.languageSkills;
+    this.employmentFormValue = initialJobPublicationFormValue.employment;
+    this.locationFormValue = initialJobPublicationFormValue.location;
+    this.companyFormValue = initialJobPublicationFormValue.company;
+    this.employerFormValue = initialJobPublicationFormValue.employer;
+    this.contactFormValue = initialJobPublicationFormValue.contact;
+    this.publicContactFormValue = initialJobPublicationFormValue.publicContact;
+    this.applicationFormValue = initialJobPublicationFormValue.application;
+    this.publicationFormValue = initialJobPublicationFormValue.publication;
+
     const surrogateFormControl = this.jobPublicationForm.get(JobPublicationFormValueKeys.surrogate);
+    surrogateFormControl.patchValue(initialJobPublicationFormValue.surrogate, { emitEvent: false });
+    surrogateFormControl.valueChanges.pipe(
+      distinctUntilChanged(),
+      filter((value: boolean) => value),
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe((_) => this.employerFormValue = emptyEmployerFormValue());
 
-    this.jobPublicationFormValueFactory.createJobPublicationFormValue(this.initialFormValueConfig, this.currentLanguage)
-      .subscribe(initialJobPublicationFormValue => {
-        this.jobDescriptionFormValue = initialJobPublicationFormValue.jobDescription;
-        this.occupationFormValue = initialJobPublicationFormValue.occupation;
-        this.languagesFormValue = initialJobPublicationFormValue.languageSkills;
-        this.employmentFormValue = initialJobPublicationFormValue.employment;
-        this.locationFormValue = initialJobPublicationFormValue.location;
-        this.companyFormValue = initialJobPublicationFormValue.company;
-        this.employerFormValue = initialJobPublicationFormValue.employer;
-        this.contactFormValue = initialJobPublicationFormValue.contact;
-        this.publicContactFormValue = initialJobPublicationFormValue.publicContact;
-        this.applicationFormValue = initialJobPublicationFormValue.application;
-        this.publicationFormValue = initialJobPublicationFormValue.publication;
-
-        surrogateFormControl.patchValue(initialJobPublicationFormValue.surrogate, { emitEvent: false });
-
-        surrogateFormControl.valueChanges.pipe(
-          distinctUntilChanged(),
-          filter((value: boolean) => value),
-          takeUntil(this.ngUnsubscribe)
-        ).subscribe((_) => this.employerFormValue = emptyEmployerFormValue());
-      });
   }
 
 
