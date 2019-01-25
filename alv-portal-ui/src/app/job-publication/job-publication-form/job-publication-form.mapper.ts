@@ -20,7 +20,9 @@ import {
   JobDescriptionFormValue
 } from './job-description/job-description-form-value.types';
 import {
-  Degree, DegreeMapping,
+  CEFR_Level,
+  Degree,
+  DegreeMapping,
   EmploymentDuration,
   Experience,
   LanguageSkill,
@@ -56,15 +58,13 @@ import { IsoCountryService } from './iso-country.service';
 import { LocalitySuggestionService } from '../../shared/localities/locality-suggestion.service';
 
 import { LanguagesFormValue } from './languages/languages-form-value.types';
-import { LocalitySuggestionService } from '../../shared/localities/locality-suggestion.service';
-import { IsoCountryService } from './iso-country.service';
 import {
   emptyOccupationFormValue,
   OccupationFormValue
 } from './occupation/occupation-form-value.types';
 
 
-export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement): JobPublicationFormValue {
+export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement, languageIsoCode: string): JobPublicationFormValue {
   const jobContent = jobAdvertisement.jobContent;
 
   return {
@@ -75,7 +75,7 @@ export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement)
     location: mapToLocationFormValue(jobContent.location),
     company: mapToCompanyFormValue(jobContent.company),
     //todo: implement
-    contact: emptyContactFormValue(),
+    contact: emptyContactFormValue(languageIsoCode),
     publicContact: mapToPublicContactFormValue(jobContent.publicContact),
     surrogate: jobContent.company.surrogate,
     employer: mapToEmployerFormValue(jobContent.employer),
@@ -114,7 +114,11 @@ function mapToOccupationFormValue(occupations: Occupation[]): OccupationFormValu
 }
 
 function mapToLanguagesFormValue(languageSkills: LanguageSkill[]): LanguagesFormValue {
-  return languageSkills ? languageSkills : [];
+  return languageSkills ? languageSkills.map(languageSkill => {
+    languageSkill.spokenLevel = languageSkill.spokenLevel ? languageSkill.spokenLevel : CEFR_Level.NONE;
+    languageSkill.writtenLevel = languageSkill.writtenLevel ? languageSkill.writtenLevel : CEFR_Level.NONE;
+    return languageSkill;
+  }) : [];
 }
 
 function mapToEmploymentFormValue(employment: Employment): EmploymentFormValue {
@@ -178,15 +182,6 @@ function mapToCompanyFormValue(company: Company): CompanyFormValue {
     houseNumber: company.houseNumber,
     countryIsoCode: company.countryIsoCode
   };
-}
-
-function mapToZipCityFormValue(countryIsoCode: string, zipCode: string, city: string): ZipCityFormValue {
-  const zipAndCity = { zipCode, city };
-  if (countryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND) {
-    return LocalitySuggestionService.toZipAndCityTypeaheadItem(zipAndCity, 0);
-  }
-
-  return zipAndCity;
 }
 
 function mapToPublicContactFormValue(publicContact: PublicContact): PublicContactFormValue {
