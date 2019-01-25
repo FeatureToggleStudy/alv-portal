@@ -115,7 +115,6 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
       control.enable();
     } else {
       control.disable();
-      control.patchValue(null);
     }
   }
 }

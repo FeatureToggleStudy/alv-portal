@@ -84,13 +84,8 @@ export class ZipCityInputComponent implements OnInit {
 
       zipCodeControl.disable();
       cityControl.disable();
-
-      zipCodeControl.patchValue(null);
-      cityControl.patchValue(null);
     } else {
       zipCityAutoCompleteControl.disable();
-
-      cityControl.patchValue(null);
 
       zipCodeControl.enable();
       cityControl.enable();
