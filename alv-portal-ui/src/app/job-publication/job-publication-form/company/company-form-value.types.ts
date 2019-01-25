@@ -10,7 +10,7 @@ export interface CompanyFormValue {
   countryIsoCode: string;
   postOfficeBoxNumberOrStreet: {
     street?: string;
-    postOfficeBoxNumber?: number;
+    postOfficeBoxNumber?: string;
   };
   zipAndCity: ZipCityFormValue;
 }
