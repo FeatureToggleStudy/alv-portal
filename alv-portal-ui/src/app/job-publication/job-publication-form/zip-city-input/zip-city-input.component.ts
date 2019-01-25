@@ -17,7 +17,7 @@ export class ZipCityInputComponent implements OnInit {
 
   readonly CITY_MAX_LENGTH = 100;
 
-  readonly ZIP_CODE_REGEX = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
+  readonly ZIP_CODE_MAX_LENGTH = 12;
 
   @Input()
   parentForm: FormGroup;
@@ -58,7 +58,7 @@ export class ZipCityInputComponent implements OnInit {
       ]],
       zipCode: [zipCode, [
         Validators.required,
-        Validators.pattern(this.ZIP_CODE_REGEX)
+        Validators.maxLength(this.ZIP_CODE_MAX_LENGTH)
       ]],
       city: [city, [
         Validators.required,
