@@ -2,7 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { Observable, of } from 'rxjs/index';
-import { Degree, Experience } from '../../../shared/backend-services/shared.types';
+import {
+  Degree,
+  Experience,
+  Qualification
+} from '../../../shared/backend-services/shared.types';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationFormValue } from './occupation-form-value.types';
@@ -25,6 +29,19 @@ export class OccupationComponent extends AbstractSubscriber implements OnInit {
   occupationFormValue: OccupationFormValue;
 
   occupation: FormGroup;
+
+  qualificationOptions$: Observable<SelectableOption[]> = of([
+    {
+      value: null,
+      label: 'home.tools.job-publication.no-selection'
+    },
+    ...Object.keys(Qualification).map(qualification => {
+      return {
+        value: qualification,
+        label: 'portal.job-ad.qualification.' + qualification
+      };
+    })
+  ]);
 
   degreeOptions$: Observable<SelectableOption[]> = of([
     {
@@ -62,13 +79,14 @@ export class OccupationComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    const { occupationSuggestion, degree, experience } = this.occupationFormValue;
+    const { occupationSuggestion, qualification, degree, experience } = this.occupationFormValue;
 
     this.occupation = this.fb.group({
       occupationSuggestion: [occupationSuggestion, [
         Validators.required
       ]],
       degree: [degree],
+      qualification: [qualification],
       experience: [experience]
     });
 

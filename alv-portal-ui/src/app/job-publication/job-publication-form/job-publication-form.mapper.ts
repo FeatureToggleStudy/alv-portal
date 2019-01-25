@@ -88,6 +88,7 @@ function mapToJobDescriptions(jobDescriptionFormValue: JobDescriptionFormValue, 
 function mapToOccupation(occupationFormValue: OccupationFormValue): Occupation {
   return {
     avamOccupationCode: occupationFormValue.occupationSuggestion.payload.value,
+    qualificationCode: occupationFormValue.qualification,
     workExperience: occupationFormValue.experience
       ? WorkExperience[occupationFormValue.experience]
       : null,
