@@ -20,8 +20,9 @@ import {
   JobDescriptionFormValue
 } from './job-description/job-description-form-value.types';
 import {
-  Degree,
+  Degree, DegreeMapping,
   EmploymentDuration,
+  Experience,
   LanguageSkill,
   PostAddress,
   WorkForm
@@ -103,9 +104,8 @@ function mapToOccupationFormValue(occupations: Occupation[]): OccupationFormValu
 
   const occupation = occupations[0];
   return {
-    degree: occupation.educationCode,
-    //todo implement
-    experience: null, //occupation.workExperience,
+    degree: <Degree>DegreeMapping[occupation.educationCode],
+    experience: <Experience>Experience[occupation.workExperience], //occupation.workExperience,
     //todo: create a SingleTypeaheadItem
     occupationSuggestion: null
   };
@@ -120,11 +120,11 @@ function mapToEmploymentFormValue(employment: Employment): EmploymentFormValue {
     startDate: mapToNgbDateStruct(employment.startDate),
     endDate: mapToNgbDateStruct(employment.endDate),
     immediately: employment.immediately,
-    workloadPercentageMin: employment.workloadPercentageMin,
-    workloadPercentageMax: employment.workloadPercentageMax,
+    workloadPercentageMin: parseInt(employment.workloadPercentageMin.toString(), 10),
+    workloadPercentageMax: parseInt(employment.workloadPercentageMax.toString(), 10),
     duration: mapToDuration(employment),
-    workForms: (employment.workForms || []).reduce((acc, curr) => {
-      acc[curr] = false;
+    workForms: Object.keys(WorkForm).reduce((acc, curr) => {
+      acc[curr] = !!employment.workForms[curr];
       return acc;
     }, {})
   };
