@@ -175,7 +175,6 @@ function mapToCompanyFormValue(company: Company): CompanyFormValue {
     name: company.name,
     postOfficeBoxNumberOrStreet: {
       street: company.street,
-      //todo review type
       postOfficeBoxNumber: company.postOfficeBoxPostalCode
     },
     zipAndCity: mapToZipCityFormValue(company.countryIsoCode, company.postalCode, company.city),
