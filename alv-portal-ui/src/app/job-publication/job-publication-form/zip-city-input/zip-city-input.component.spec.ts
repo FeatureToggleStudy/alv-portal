@@ -4,6 +4,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
 import { ZipCityInputComponent } from './zip-city-input.component';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
+import { emptyZipCityFormValue } from './zip-city-form-value.types';
 import SpyObj = jasmine.SpyObj;
 
 describe('ZipCityInputComponent', () => {
@@ -35,7 +36,7 @@ describe('ZipCityInputComponent', () => {
     component = fixture.componentInstance;
     component.parentForm = new FormGroup({});
     component.countryIsoCode = 'CH';
-    component.zipCityFormValue = { city: null, zipCode: null };
+    component.zipCityFormValue = emptyZipCityFormValue();
 
     fixture.detectChanges();
   });
@@ -46,11 +47,11 @@ describe('ZipCityInputComponent', () => {
 
   describe('validation', () => {
     describe('if autocomplete enabled', () => {
-      describe('name field', () => {
+      describe('zipCityAutoComplete field', () => {
 
-        it('zipAndCity should be required', () => {
+        it('zipCityAutoComplete should be required', () => {
           //given
-          const field = component.parentForm.get('zipAndCity');
+          const field = component.zipAndCity.get('zipCityAutoComplete');
 
           //when
           field.setValue(null);
@@ -109,10 +110,10 @@ describe('ZipCityInputComponent', () => {
           const field = component.zipAndCity.get('zipCode');
 
           //when
-          field.setValue('abc123456Q@W867668');
+          field.setValue(generateString(component.ZIP_CODE_MAX_LENGTH + 1));
 
           //then
-          expect(field.hasError('pattern')).toBeTrue();
+          expect(field.hasError('maxlength')).toBeTrue();
         });
 
         it('should accept valid zipCode', () => {
