@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-12 d-md-none d-print-none pt-2">
+    <ng-content select=".mobile-menu-bar"></ng-content>
+  </div>
+  <div class="col-md-2 col-xl-2"
+       [ngClass]="getCommonColumnClasses(0)"
+       *ngIf="showLeftColumn">
+    <div class="side-panel left pt-md-4 pt-lg-5 px-3">
+      <ng-content select=".left-column"></ng-content>
+    </div>
+  </div>
+  <div class="main-col pt-lg-5 pl-lg-3 pl-xl-5"
+       [ngClass]="getMainColumnClasses(1)">
+    <ng-content select=".main-column"></ng-content>
+  </div>
+  <div class="col-md d-print-none"
+       [ngClass]="getCommonColumnClasses(2)">
+    <div class="side-panel right pt-md-4 pt-lg-5 px-3 pl-lg-3 pl-xl-5">
+      <ng-content select=".right-column"></ng-content>
+    </div>
+  </div>
+</div>
+

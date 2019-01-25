@@ -4,14 +4,10 @@ import { LocalityRepository } from '../backend-services/reference-service/locali
 import { map } from 'rxjs/operators';
 import {
   CantonSuggestion,
-  LocalitySuggestion
+  LocalitySuggestion,
 } from '../backend-services/reference-service/locality.types';
-import {
-  LocalityInputType,
-  LocalityTypeaheadItem
-} from './locality-typeahead-item';
-import { TypeaheadItem } from '../forms/input/typeahead/typeahead-item';
-import { ZipAndCity } from '../../job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
+import { LocalityInputType, LocalityTypeaheadItem } from './locality-typeahead-item';
+import { ZipAndCity, ZipAndCityTypeaheadItem } from './zip-and-city-typeahead-item';
 
 @Injectable({ providedIn: 'root' })
 export class LocalitySuggestionService {
@@ -19,18 +15,15 @@ export class LocalitySuggestionService {
   constructor(private localityRepository: LocalityRepository) {
   }
 
-  public static toCityZip(locality: LocalitySuggestion, order: number) {
-    const { zipCode, city } = locality;
+  public static toZipAndCityTypeaheadItem(zipAndCity: ZipAndCity, order: number): ZipAndCityTypeaheadItem {
+    const { zipCode, city } = zipAndCity;
+    const payload = { city, zipCode };
+    const label = (zipCode || '') + (city ? ' ' : '') + (city || '');
 
-    return new TypeaheadItem<ZipAndCity>(
-      LocalityInputType.LOCALITY,
-      { city, zipCode },
-      (zipCode || '') + (city ? ' ' : '') + (city || ''),
-      order
-    );
+    return new ZipAndCityTypeaheadItem(payload, label, order);
   }
 
-  public static toLocality(locality: LocalitySuggestion, order = 0) {
+  public static toLocalityTypeaheadItem(locality: LocalitySuggestion, order = 0) {
     return new LocalityTypeaheadItem(LocalityInputType.LOCALITY, {
         regionCode: locality.regionCode,
         cantonCode: locality.cantonCode,
@@ -43,7 +36,7 @@ export class LocalitySuggestionService {
     return this.localityRepository.suggestLocalities(query).pipe(
       map((localityAutocomplete) => {
         const localities = localityAutocomplete.localities
-          .map((o: LocalitySuggestion, index) => LocalitySuggestionService.toLocality(o, index));
+          .map((o: LocalitySuggestion, index) => LocalitySuggestionService.toLocalityTypeaheadItem(o, index));
 
         const cantons = localityAutocomplete.cantons
           .map((o: CantonSuggestion, index) =>
@@ -56,7 +49,7 @@ export class LocalitySuggestionService {
     );
   }
 
-  fetchJobPublicationLocations(query: string): Observable<TypeaheadItem<{ zipCode: string, city: string }>[]> {
+  fetchJobPublicationLocations(query: string): Observable<ZipAndCityTypeaheadItem[]> {
     const localityComparator = (a: LocalitySuggestion, b: LocalitySuggestion) =>
       a.city.localeCompare(b.city) || a.zipCode.localeCompare(b.zipCode);
 
@@ -64,7 +57,7 @@ export class LocalitySuggestionService {
       map((localityAutocomplete) => localityAutocomplete.localities
         .filter((locality) => locality.zipCode !== '----')
         .sort(localityComparator)
-        .map((o: LocalitySuggestion, index) => LocalitySuggestionService.toCityZip(o, index))
+        .map((o: LocalitySuggestion, index) => LocalitySuggestionService.toZipAndCityTypeaheadItem(o, index))
       )
     );
   }
