@@ -3,6 +3,8 @@ import { LegalTerms } from '../../../shared/backend-services/legal-terms-managem
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LegalTermsManagementRepository } from '../../../shared/backend-services/legal-terms-management/legal-terms-management-repository';
+import { LEGAL_ACTIONS } from '../legal-terms-management.component';
 
 @Component({
   selector: 'alv-legal-terms-detail-modal',
@@ -15,11 +17,15 @@ export class LegalTermsDetailModalComponent implements OnInit {
   legalTerm: LegalTerms;
 
   @Input()
+  actionTyp: LEGAL_ACTIONS;
+
+  @Input()
   readonly: boolean;
 
   form: FormGroup;
 
   constructor(private fb: FormBuilder,
+              private legalTermsManagementRepository: LegalTermsManagementRepository,
               public activeModal: NgbActiveModal) {}
 
   ngOnInit() {
@@ -27,7 +33,7 @@ export class LegalTermsDetailModalComponent implements OnInit {
   }
 
   onSubmit() {
-    this.activeModal.close();
+    this.activeModal.close(this.mapToLegalTerms(this.form.value));
   }
 
   onDismiss() {
@@ -70,10 +76,10 @@ export class LegalTermsDetailModalComponent implements OnInit {
   private patchFormValues() {
     this.form.patchValue({
       effectiveAt: this.legalTerm.effectiveAt,
-      linkDE: this.legalTerm.linkDe,
-      linkEN: this.legalTerm.linkEn,
-      linkFR: this.legalTerm.linkFr,
-      linkIT: this.legalTerm.linkIt
+      linkDe: this.legalTerm.linkDe,
+      linkEn: this.legalTerm.linkEn,
+      linkFr: this.legalTerm.linkFr,
+      linkIt: this.legalTerm.linkIt
     });
   }
 
