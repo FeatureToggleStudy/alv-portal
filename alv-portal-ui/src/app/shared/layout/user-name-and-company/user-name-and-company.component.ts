@@ -9,5 +9,5 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 })
 export class UserNameAndCompanyComponent {
   @Input() displayName;
-  @Input() company;
+  @Input() companyName;
 }

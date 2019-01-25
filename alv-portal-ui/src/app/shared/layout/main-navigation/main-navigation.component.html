@@ -39,7 +39,7 @@
     <alv-user-name-and-company
       *ngIf="currentUser"
       [displayName]="currentUser.displayName"
-      [company]="(currentCompany$|async)?.companyName"
+      [companyName]="(currentCompany$|async)?.companyName"
     >
 
     </alv-user-name-and-company>
