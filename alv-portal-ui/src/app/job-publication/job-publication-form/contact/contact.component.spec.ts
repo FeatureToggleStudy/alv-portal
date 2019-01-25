@@ -35,7 +35,6 @@ describe('ContactComponent', () => {
   });
 
   describe('validation', () => {
-
     describe('salutation field', () => {
 
       it('should be required', () => {
