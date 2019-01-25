@@ -18,6 +18,12 @@ export enum CEFR_Level {
   PROFICIENT = 'PROFICIENT'
 }
 
+export enum Qualification {
+  SKILLED = 'SKILLED',
+  SEMISKILLED = 'SEMISKILLED',
+  UNSKILLED = 'UNSKILLED'
+}
+
 /**
  * the numbers here correspond to a code of the education in the avam database
  */

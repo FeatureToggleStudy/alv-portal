@@ -4,8 +4,8 @@ import { SharedModule } from '../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
 import { ZipCityInputComponent } from './zip-city-input.component';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
-import SpyObj = jasmine.SpyObj;
 import { emptyZipCityFormValue } from './zip-city-form-value.types';
+import SpyObj = jasmine.SpyObj;
 
 describe('ZipCityInputComponent', () => {
 
@@ -110,10 +110,10 @@ describe('ZipCityInputComponent', () => {
           const field = component.zipAndCity.get('zipCode');
 
           //when
-          field.setValue('abc123456Q@W867668');
+          field.setValue(generateString(component.ZIP_CODE_MAX_LENGTH + 1));
 
           //then
-          expect(field.hasError('pattern')).toBeTrue();
+          expect(field.hasError('maxlength')).toBeTrue();
         });
 
         it('should accept valid zipCode', () => {

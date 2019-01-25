@@ -55,7 +55,20 @@
       }
     }
   }
+
+  .search-icon {
+    position: absolute;
+    right: 0.65em;
+    top: 0.65em;
+    font-size: 1.25rem;
+    pointer-events: none;
+    color: $color-dark-grey
+  }
+  &.invalid .search-icon {
+    color: $color-red;
+  }
 }
+
 
 /* Grouping styles */
 .typeahead-group-label {
