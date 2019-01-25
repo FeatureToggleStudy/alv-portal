@@ -66,7 +66,10 @@ export class JobAdManagementColumnService {
             columnName: 'dashboard.job-publication.location',
             sortingEnabled: true,
             render: job => {
-              return job.jobContent.location.city;
+              if (job.jobContent.location) {
+                return job.jobContent.location.city;
+              }
+              return '-';
             }
           },
           {
