@@ -30,28 +30,46 @@
 </div>
 
 <!-- Mobile Menu -->
-<div class="mobile-menu d-block d-lg-none d-print-none animate" [class.open]="mobileMenuExpanded">
+<div class="mobile-menu d-block d-lg-none d-print-none animate"
+     [class.open]="mobileMenuExpanded">
 
-    <a class="nav-item"
-       (click)="toggleMobileSideNav()">
-      <i class="nav-icon fas fa-caret-left"></i>
-      <span class="nav-text">{{ 'portal.global.close' | translate }}</span>
+  <div
+    class="nav-item mb-4 not-hoverable"
+    *alvIsAuthenticated>
+    <alv-user-name-and-company
+      *ngIf="currentUser"
+      [displayName]="currentUser.displayName"
+      [companyName]="(currentCompany$|async)?.companyName"
+    >
+
+    </alv-user-name-and-company>
+  </div>
+
+  <!--Login Button-->
+  <a class="d-flex align-self-center btn btn-primary m-3 w-80"
+     *alvIsAnonymous
+     (click)="login()">
+    <i class="nav-icon fas fa-key mx-2"></i>
+    <span class="nav-text">{{'global.menu.account.login' | translate}}</span>
+  </a>
+
+  <!-- Menu Entries -->
+  <ng-container *ngFor="let menuEntry of menuEntries$ | async">
+    <alv-menu-entry [menuEntry]="menuEntry"
+                    (itemClicked)="toggleMobileSideNav()">
+    </alv-menu-entry>
+  </ng-container>
+  <hr>
+  <div class="nav-item">
+    <img src="assets/img/logo_arbeit_swiss_without_text.svg"
+         class="d-inline-block logo-arbeit-swiss mr-2"
+         aria-hidden="true">
+    <a [href]="'home.title.portal-url' | translate">
+      {{'home.title.cms' | translate | titlecase}}
     </a>
 
-    <!--Login Button-->
-    <a class="nav-item"
-       *alvIsAnonymous
-       (click)="login()">
-      <i class="nav-icon fas fa-key"></i>
-      <span class="nav-text">{{'global.menu.account.login' | translate}}</span>
-    </a>
+  </div>
 
-    <!-- Menu Entries -->
-    <ng-container *ngFor="let menuEntry of menuEntries$ | async">
-      <alv-menu-entry [menuEntry]="menuEntry"
-                      (itemClicked)="toggleMobileSideNav()">
-      </alv-menu-entry>
-    </ng-container>
-    <div class="nav-fill-item flex-grow-1">
-    </div>
+  <div class="nav-fill-item flex-grow-1">
+  </div>
 </div>
