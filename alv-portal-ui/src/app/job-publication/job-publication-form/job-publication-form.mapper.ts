@@ -26,7 +26,7 @@ import {
   EmploymentDuration,
   Experience,
   LanguageSkill,
-  PostAddress,
+  PostAddress, Qualification,
   WorkForm
 } from '../../shared/backend-services/shared.types';
 import { EmploymentFormValue } from './employment/employment-form-value.types';
@@ -113,6 +113,7 @@ function mapToOccupationFormValue(occupations: Occupation[]): OccupationFormValu
   return {
     degree: <Degree>DegreeMapping[occupation.educationCode],
     experience: <Experience>Experience[occupation.workExperience],
+    qualification: <Qualification>occupation.qualificationCode,
     occupationSuggestion: new OccupationTypeaheadItem(OccupationTypeaheadItemType.OCCUPATION, {
       type: OccupationTypes.AVAM,
       value: occupation.avamOccupationCode
