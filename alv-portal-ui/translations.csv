@@ -1536,8 +1536,10 @@ portal,portal.admin.legal-terms-management.header.linkEn,EN Link,EN link,EN lien
 portal,portal.admin.legal-terms-management.header.linkFr,FR Link,FR link,FR lien,FR link
 portal,portal.admin.legal-terms-management.header.linkIt,IT Link,IT link,IT lien,IT link
 portal,portal.admin.legal-terms-management.header.actions,Aktionen,Actions,Actes,Azioni
-portal,portal.admin.legal-terms-management.legal-terms-details,AGB Details,GTC Details,Détails CG,Dettagli CG
+portal,portal.admin.legal-terms-management.legal-terms-details.title,AGB Details,GTC Details,Détails CG,Dettagli CG
 portal,portal.admin.legal-terms-management.legal-terms-details.add,Hinzufügen,Add,Ajouter,Aggiungi
 portal,portal.admin.legal-terms-management.legal-terms-details.validate.pastEffectiveAt,Effektiv-Bei-Datum  muss in der Zukunft liegen.,Effective At date must be in the future.,La Efficace À date doit se situer dans le futur.,La Efficace A data deve situarsi nel futuro.
 portal,portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern,Diese URL ist ungültig.,This URL is not valid,Ce lien URL n'est pas valable.,Questo indirizzo URL non è valido.
 
+portal,portal.admin.legal-terms-management.notification.success,Successful,Successful,Successful,Successful
+portal,portal.admin.legal-terms-management.notification.failure,Failure,Failure,Failure,Failure
