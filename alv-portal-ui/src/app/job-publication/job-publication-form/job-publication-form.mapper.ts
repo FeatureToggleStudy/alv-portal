@@ -105,7 +105,7 @@ function mapToOccupationFormValue(occupations: Occupation[]): OccupationFormValu
   const occupation = occupations[0];
   return {
     degree: <Degree>DegreeMapping[occupation.educationCode],
-    experience: <Experience>Experience[occupation.workExperience], //occupation.workExperience,
+    experience: <Experience>Experience[occupation.workExperience],
     //todo: create a SingleTypeaheadItem
     occupationSuggestion: null
   };
