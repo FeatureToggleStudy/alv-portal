@@ -16,8 +16,9 @@ import { MenuEntryService } from './menu-entry.service';
 import { Observable } from 'rxjs';
 import { MenuEntry } from './menu-entry.type';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { isAuthenticatedUser } from '../../../core/auth/user.model';
+import { isAuthenticatedUser, User } from '../../../core/auth/user.model';
 import { LoginService } from '../../auth/login.service';
+import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 
 @Component({
   selector: 'alv-main-navigation',
@@ -41,6 +42,11 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   menuEntries$: Observable<Array<MenuEntry>>;
 
+  currentUser: User;
+
+  currentCompany$: Observable<CompanyContactTemplateModel>;
+
+
   constructor(private router: Router,
               private loginService: LoginService,
               private authenticationService: AuthenticationService,
@@ -56,7 +62,10 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
       takeUntil(this.ngUnsubscribe)
     ).subscribe(user => {
       this.isAnonymous = !isAuthenticatedUser(user);
+      this.currentUser = user;
     });
+
+    this.currentCompany$ = this.authenticationService.getCurrentCompany();
 
     this.store.pipe(select(getMobileNavigationExpanded)).pipe(
       takeUntil(this.ngUnsubscribe),

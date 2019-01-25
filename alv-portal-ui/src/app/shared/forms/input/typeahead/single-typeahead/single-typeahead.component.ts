@@ -4,7 +4,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Host,
+  Host, HostBinding,
   Input,
   OnInit,
   Optional,
@@ -34,6 +34,11 @@ import { TypeaheadItem } from '../typeahead-item';
   styleUrls: ['../../abstract-input.scss', './single-typeahead.component.scss']
 })
 export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
+
+  /**
+   * CSS class providing space for the search icon on the right
+   */
+  @HostBinding('class.append-button') readonly appendButtonClass = true;
 
   readonly TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
