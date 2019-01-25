@@ -52,6 +52,8 @@ import { PostAddressFormValue } from './post-address-form/post-address-form-valu
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { formatDate } from '@angular/common';
 import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
+import { IsoCountryService } from './iso-country.service';
+import { LocalitySuggestionService } from '../../shared/localities/locality-suggestion.service';
 
 import { LanguagesFormValue } from './languages/languages-form-value.types';
 import { LocalitySuggestionService } from '../../shared/localities/locality-suggestion.service';
@@ -270,6 +272,18 @@ function mapToPublicationFormValue(publication: Publication): PublicationFormVal
   };
 }
 
+export function mapToZipCityFormValue(countryIsoCode: string, zipCode: string, city: string): ZipCityFormValue {
+  const zipCity = { zipCode, city };
+
+  if (countryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND) {
+    return {
+      zipCityAutoComplete: LocalitySuggestionService.toZipAndCityTypeaheadItem(zipCity, 0)
+    };
+  }
+
+  return { zipCode, city };
+}
+
 export function mapToCreateJobAdvertisement(jobPublicationFormValue: JobPublicationFormValue, languageIsoCode: string): CreateJobAdvertisement {
   return {
     reportToAvam: true,
@@ -428,15 +442,19 @@ function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue
 }
 
 function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCode: string, city: string } {
-  const city = ('city' in zipCityFormValue)
-    ? zipCityFormValue.city
-    : zipCityFormValue.payload.city;
+  if (zipCityFormValue.zipCityAutoComplete) {
+    const zipAndCity = zipCityFormValue.zipCityAutoComplete.payload;
 
-  const postalCode = ('zipCode' in zipCityFormValue)
-    ? zipCityFormValue.zipCode
-    : zipCityFormValue.payload.zipCode;
+    return {
+      city: zipAndCity.city,
+      postalCode: zipAndCity.zipCode
+    };
+  }
 
-  return { city, postalCode };
+  return {
+    city: zipCityFormValue.city,
+    postalCode: zipCityFormValue.zipCode
+  };
 }
 
 function mapToLocalDateString(date: NgbDateStruct | Date) {

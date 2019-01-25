@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IsoCountryService } from '../iso-country.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
-import { Observable } from 'rxjs/index';
-import { ZipCityFormValue } from './zip-city-form-value.types';
+import { Observable } from 'rxjs';
 import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
 import { ZipAndCity } from '../../../shared/localities/zip-and-city-typeahead-item';
+import { ZipCityFormValue } from './zip-city-form-value.types';
 
 @Component({
   selector: 'alv-zip-city-input',
@@ -23,15 +23,17 @@ export class ZipCityInputComponent implements OnInit {
 
   @Input()
   set countryIsoCode(countryIsoCode: string) {
-    this._countryIsoCode = countryIsoCode;
 
-    if (!!this._countryIsoCode) {
-      this.parentForm.setControl('zipAndCity', this.buildCityAndZip(countryIsoCode));
+    this._countryIsoCode = countryIsoCode;
+    if (this.zipAndCity) {
+      this.toggleAutocomplete(countryIsoCode);
     }
   }
 
   @Input()
   zipCityFormValue: ZipCityFormValue;
+
+  zipAndCity: FormGroup;
 
   private _countryIsoCode: string;
 
@@ -47,33 +49,45 @@ export class ZipCityInputComponent implements OnInit {
     this.localitySuggestionService.fetchJobPublicationLocations(query)
 
   ngOnInit(): void {
-    this.parentForm.addControl('zipAndCity', this.buildCityAndZip(this._countryIsoCode));
+    const { zipCityAutoComplete, zipCode, city } = this.zipCityFormValue;
+
+    this.zipAndCity = this.fb.group({
+      zipCityAutoComplete: [zipCityAutoComplete, [
+        Validators.required
+      ]],
+      zipCode: [zipCode, [
+        Validators.required,
+        Validators.pattern(this.ZIP_CODE_REGEX)
+      ]],
+      city: [city, [
+        Validators.required,
+        Validators.maxLength(this.CITY_MAX_LENGTH)
+      ]]
+    });
+
+    this.parentForm.addControl('zipAndCity', this.zipAndCity);
+    this.toggleAutocomplete(this._countryIsoCode);
   }
 
   public isCityZipAutocomplete() {
     return ZipCityInputComponent.isCityZipAutocomplete(this._countryIsoCode);
   }
 
-  private buildCityAndZip(selectedCountryIsoCode: string): FormGroup | FormControl {
+  private toggleAutocomplete(selectedCountryIsoCode: string) {
+    const zipCityAutoCompleteControl = this.zipAndCity.get('zipCityAutoComplete');
+    const zipCodeControl = this.zipAndCity.get('zipCode');
+    const cityControl = this.zipAndCity.get('city');
+
     if (ZipCityInputComponent.isCityZipAutocomplete(selectedCountryIsoCode)) {
-      return this.fb.control(null, [
-        Validators.required
-      ]);
+      zipCityAutoCompleteControl.enable();
+
+      zipCodeControl.disable();
+      cityControl.disable();
+    } else {
+      zipCityAutoCompleteControl.disable();
+
+      zipCodeControl.enable();
+      cityControl.enable();
     }
-
-    return this.fb.group({
-      city: [null, [
-        Validators.required,
-        Validators.maxLength(this.CITY_MAX_LENGTH)
-      ]],
-      zipCode: [null, [
-        Validators.required,
-        Validators.pattern(this.ZIP_CODE_REGEX)
-      ]]
-    });
-  }
-
-  get zipAndCity(): FormGroup | FormControl {
-    return <FormGroup | FormControl>this.parentForm.get('zipAndCity');
   }
 }

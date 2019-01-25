@@ -1,11 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ApplicationFormValue } from './application-form-value.types';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
@@ -64,6 +58,18 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
 
     this.application = this.fb.group({
       selectedApplicationTypes: this.selectedApplicationTypes,
+      formUrl: [formUrl, [
+        Validators.required,
+        patternInputValidator(URL_REGEX)
+      ]],
+      emailAddress: [emailAddress, [
+        Validators.required,
+        patternInputValidator(EMAIL_REGEX)
+      ]],
+      phoneNumber: [phoneNumber, [
+        Validators.required,
+        phoneInputValidator()
+      ]],
       additionalInfo: [additionalInfo, [
         Validators.maxLength(this.ADDITIONAL_INFO_MAX_LENGTH)
       ]]
@@ -75,7 +81,7 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
       .pipe(
         startWith(this.selectedApplicationTypes.value),
         takeUntil(this.ngUnsubscribe)
-      ).subscribe(this.toggleAll.bind(this));
+      ).subscribe((value) => this.toggleAll(value));
 
     this.postAddressFormValue = this.applicationFormValue.postAddress || emptyPostAddressFormValue();
   }
@@ -92,57 +98,24 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
 
   copyAddressFromCompany() {
     const company = this.parentForm.get('company').value;
-    this.application.get('postAddress.countryIsoCode').setValue(this.parentForm.get('company.countryIsoCode').value);
-    setTimeout(() => {
-      this.application.get('postAddress').setValue(company);
-      this.cdRef.detectChanges();
-    });
+    this.application.get('postAddress').patchValue(company);
   }
 
   private toggleAll(selectedApplicationTypes: SelectedApplicationTypes) {
-    const { form, email, phone, post } = selectedApplicationTypes;
+    const { form, email, phone } = selectedApplicationTypes;
 
-    this.toggleFormUrl(form);
-    this.toggleEmailAddress(email);
-    this.togglePhoneNumber(phone);
-    this.togglePostAddress(post);
+    this.toggleControl('formUrl', form);
+    this.toggleControl('emailAddress', email);
+    this.toggleControl('phoneNumber', phone);
   }
 
-  private toggleFormUrl(enabled: boolean) {
+  private toggleControl(controlName: string, enabled: boolean) {
+    const control = this.application.get(controlName);
     if (enabled) {
-      this.application.addControl('formUrl', new FormControl(null, [
-        Validators.required,
-        patternInputValidator(URL_REGEX)
-      ]));
+      control.enable();
     } else {
-      this.application.removeControl('formUrl');
+      control.disable();
     }
-  }
-
-  private toggleEmailAddress(enabled: boolean) {
-    if (enabled) {
-      this.application.addControl('emailAddress', new FormControl(null, [
-        Validators.required,
-        patternInputValidator(EMAIL_REGEX)
-      ]));
-    } else {
-      this.application.removeControl('emailAddress');
-    }
-  }
-
-  private togglePhoneNumber(enabled: boolean) {
-    if (enabled) {
-      this.application.addControl('phoneNumber', new FormControl(null, [
-        Validators.required,
-        phoneInputValidator()
-      ]));
-    } else {
-      this.application.removeControl('phoneNumber');
-    }
-  }
-
-  private togglePostAddress(enabled: boolean) {
-    //nothing to do
   }
 }
 

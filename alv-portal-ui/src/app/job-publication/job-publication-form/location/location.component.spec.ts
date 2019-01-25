@@ -47,7 +47,18 @@ describe('LocationComponent', () => {
   });
 
   describe('validation', () => {
-    //todo implement
-  });
+    describe('remarks field', () => {
 
+      it('should not be longer than FIELDS_MAX_LENGTH', () => {
+        //given
+        const field = component.location.get('remarks');
+
+        //when
+        field.setValue('a'.repeat(component.REMARK_MAX_LENGTH + 1));
+
+        //then
+        expect(field.hasError('maxlength')).toBeTrue();
+      });
+    });
+  });
 });

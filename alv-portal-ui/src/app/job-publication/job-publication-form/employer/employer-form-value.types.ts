@@ -1,4 +1,7 @@
-import { ZipCityFormValue } from '../zip-city-input/zip-city-form-value.types';
+import {
+  emptyZipCityFormValue,
+  ZipCityFormValue
+} from '../zip-city-input/zip-city-form-value.types';
 import { IsoCountryService } from '../iso-country.service';
 
 export interface EmployerFormValue {
@@ -11,6 +14,6 @@ export function emptyEmployerFormValue(): EmployerFormValue {
   return {
     name: null,
     countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
-    zipAndCity: null
+    zipAndCity: emptyZipCityFormValue()
   };
 }

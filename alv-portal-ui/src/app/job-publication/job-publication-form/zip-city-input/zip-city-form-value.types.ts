@@ -1,4 +1,13 @@
-import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
-import { ZipAndCity } from '../../../shared/localities/zip-and-city-typeahead-item';
+import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
 
-export type ZipCityFormValue = ZipAndCity | TypeaheadItem<ZipAndCity>;
+export interface ZipCityFormValue {
+  zipCityAutoComplete?: ZipAndCityTypeaheadItem;
+  zipCode?: string;
+  city?: string;
+}
+
+export function emptyZipCityFormValue() {
+  return {
+    zipCityAutoComplete: null,
+  };
+}
