@@ -30,7 +30,7 @@ export class ModalComponent {
   /**
    * (optional) attribute to set visibility of primary action, default true
    */
-  @Input() primaryAllow? = true;
+  @Input() primaryAllow = true;
 
   /**
    * Emitted event on primary button click.
