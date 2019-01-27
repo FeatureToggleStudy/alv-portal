@@ -32,13 +32,13 @@ export class ApiUserPasswordModalComponent implements OnInit {
   }
 
   onDismiss() {
-    this.activeModal.close();
+    this.activeModal.close(null);
   }
 
   onSubmit() {
     this.apiUserManagementRepository.updatePassword(
       ApiUserManagementRequestMapper.mapPasswordToRequest(this.apiUserId, this.form.get('password').value)
-    ).subscribe(() => this.activeModal.close());
+    ).subscribe(() => this.activeModal.close(this.apiUserId), () => {});
   }
 
 }

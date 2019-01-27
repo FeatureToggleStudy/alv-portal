@@ -6,7 +6,6 @@
       {{ 'portal.admin.api-user-management.menu-entry' | translate }}
     </h2>
 
-    <!--<div *ngIf="(apiUserFilter$ | async) as apiUserFilter">-->
     <form (submit)="onFilterChange()"
           [formGroup]="form"
           autocomplete="off"
@@ -32,12 +31,16 @@
         </div>
       </div>
     </form>
-    <!--</div>-->
 
     <hr>
 
     <alv-api-user-management-table [apiUserList]="apiUserList$ | async"
-                                   [currentSorting]="currentSorting$ | async">
+                                   [currentSorting]="currentSorting$ | async"
+                                   (sort)="onSortChange($event)"
+                                   (statusChange)="onStatusChange()"
+                                   (updateUser)="onUpdateUserChange($event)"
+                                   (updatePassword)="onUpdatePasswordChange($event)">
+      <!--(scroll)=""-->
 
     </alv-api-user-management-table>
 

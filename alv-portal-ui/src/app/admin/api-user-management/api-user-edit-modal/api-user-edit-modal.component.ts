@@ -34,14 +34,14 @@ export class ApiUserEditModalComponent implements OnInit {
   }
 
   onDismiss() {
-    this.activeModal.close();
+    this.activeModal.close(null);
   }
 
   onSubmit() {
     const user = this.mapFormValuesToApiUser(this.form.value);
     if (this.apiUser) {
-      this.apiUserManagementRepository.update(user)
-        .subscribe((updatedUser) => this.activeModal.close(updatedUser));
+      this.apiUserManagementRepository.update({...user, id: this.apiUser.id})
+        .subscribe((updatedUser) => this.activeModal.close(updatedUser), () => this.activeModal.close(null));
     } else {
       this.apiUserManagementRepository.save(user)
         .subscribe((updatedUser) => this.activeModal.close(updatedUser));
@@ -55,14 +55,13 @@ export class ApiUserEditModalComponent implements OnInit {
 
   private mapFormValuesToApiUser(formValue: any): ApiUser {
     return {
-      id: this.apiUser ? this.apiUser.id : null,
       username: formValue.username,
       companyName: formValue.companyName,
       companyEmail: formValue.companyEmail,
       technicalContactName: formValue.technicalContactName,
       technicalContactEmail: formValue.technicalContactEmail,
-      password: this.apiUser ? this.apiUser.password : formValue.password,
-      active: this.apiUser ? this.apiUser.active : formValue.active
+      password: formValue.password,
+      active: formValue.active
     };
   }
 

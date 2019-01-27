@@ -36,13 +36,13 @@ export class ApiUserManagementTableComponent implements OnInit {
   scroll = new EventEmitter<void>();
 
   @Output()
-  changeStatus = new EventEmitter<ApiUser>();
+  statusChange = new EventEmitter<void>();
 
   @Output()
   updateUser = new EventEmitter<ApiUser>();
 
   @Output()
-  updatePassword = new EventEmitter<void>();
+  updatePassword = new EventEmitter<string>();
 
   columnDefinitions: ApiUserColumnDefinition[];
 
@@ -62,11 +62,12 @@ export class ApiUserManagementTableComponent implements OnInit {
     this.sort.emit(mapApiUserColumnDefinitionToSort(this.currentSorting, column));
   }
 
-  onChangeUserStatusDialog(apiUser: ApiUser, active: boolean) {
+  onStatusChangeDialog(apiUser: ApiUser, active: boolean) {
     const changedUser = {...apiUser, active};
     this.modalService.openConfirm(this.CONFIRM_CHANGE_STATUS_MODAL).result.then(
       () => this.apiUserManagementRepository.toggleStatus(changedUser)
-        .subscribe(() => this.changeStatus.emit(changedUser), () => this.error())
+        .subscribe(() => this.statusChange.emit(), () => this.error()),
+      () => {}
     );
   }
 
@@ -85,7 +86,7 @@ export class ApiUserManagementTableComponent implements OnInit {
     const passwordComponent = <ApiUserPasswordModalComponent>passwordModalRef.componentInstance;
     passwordComponent.apiUserId = apiUserId;
     passwordModalRef.result.then(
-      () => this.updatePassword.emit(),
+      (id) => this.updatePassword.emit(id),
       () => this.error()
     );
   }

@@ -17,7 +17,6 @@
               'fa-sort-up': currentSorting.sorting === 'asc'
               }">
         </span>
-
       </th>
       <th scope="col"
           role="columnheader">
@@ -69,7 +68,7 @@
       <td>
         <button [ngClass]="apiUser.active ? 'btn btn-success btn-sm btn-icon' : 'btn btn-danger btn-sm btn-icon'"
                 [ngbTooltip]="(apiUser.active ? 'portal.admin.api-user-management.activated' : 'portal.admin.api-user-management.deactivated') | translate"
-                (click)="onChangeUserStatusDialog(apiUser, !apiUser.active)">
+                (click)="onStatusChangeDialog(apiUser, !apiUser.active)">
           <span [ngClass]="apiUser.active ? 'fa fa-user-check' : 'fa fa-user-slash'" aria-hidden="true"></span>
         </button>
       </td>

@@ -8,7 +8,7 @@ export const mapApiUserColumnDefinitionToSort = (currentSorting: ApiUserColumnDe
   const column = KEYWORD_FIELDS.indexOf(selectedColumn) >= 0
     ? `apiUser.${selectedColumn}`
     : `apiUser.${selectedColumn}.keyword`;
-  const sort = (this.currentSorting.columnName !== selectedColumn)
+  const sort = (currentSorting.columnName !== selectedColumn)
     ? 'asc' : (currentSorting.sorting === 'asc') ? 'desc' : 'asc';
 
   return `${column},${sort}`;

@@ -9,7 +9,7 @@ import { ApiUserManagementRepository } from '../../shared/backend-services/api-u
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
 import { map, take, tap } from 'rxjs/operators';
-import { FAILURE, mapSortToApiUserColumnDefinition, SUCCESS } from './api-user-management-factory';
+import { FAILURE, mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserEditModalComponent } from './api-user-edit-modal/api-user-edit-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
 
@@ -43,15 +43,35 @@ export class ApiUserManagementComponent implements OnInit {
       })
     );
 
-    this.apiUserList$ = this.apiUserManagementRepository.search(
-      ApiUserManagementRequestMapper.mapToRequest(initialFilter, 0)).pipe(
-      map((response) => {
-        return response.result;
-      }));
+    this.apiUserList$ = this.loadApiUsers(initialFilter, 0);
   }
 
   onFilterChange() {
+    this.apiUserFilter$.pipe(take(1)).subscribe((filter) => {
+      this.apiUserList$ = this.loadApiUsers({...filter, query: this.form.get('query').value}, 0);
+    });
+  }
 
+  onSortChange(sort: string) {
+    this.apiUserFilter$.pipe(take(1)).subscribe((filter) => {
+      this.apiUserList$ = this.loadApiUsers({...filter, sort}, 0);
+    });
+  }
+
+  onStatusChange() {
+    this.applyFilter();
+  }
+
+  onUpdateUserChange(apiUser: ApiUser) {
+    if (apiUser) {
+      this.applyFilter();
+    }
+  }
+
+  onUpdatePasswordChange(apiUserId: string) {
+    if (apiUserId) {
+      this.applyFilter();
+    }
   }
 
   onCreateUserDialog() {
@@ -59,25 +79,32 @@ export class ApiUserManagementComponent implements OnInit {
     const apiUserComponent = <ApiUserEditModalComponent>apiUserModalRef.componentInstance;
     apiUserComponent.apiUser = null;
     apiUserModalRef.result.then(
-      () => {
-        this.loadApiUsers();
-        this.notificationService.success(SUCCESS);
+      (user) => {
+        if (user) {
+          this.applyFilter();
+        }
       },
       () => this.error()
     );
   }
 
-  loadApiUsers() {
-    this.apiUserFilter$.pipe(
-      take(1)).subscribe(
-      (filter) => {
-        // this.apiUserList$ = this.apiUserManagementRepository.search(
-        //   ApiUserManagementRequestMapper.mapToRequest(filter, 0));
-      }
-    );
+  private applyFilter() {
+    this.apiUserFilter$.pipe(take(1)).subscribe((filter) => {
+      this.apiUserList$ = this.loadApiUsers(filter, 0);
+    });
   }
 
-  error() {
+  private loadApiUsers(filter: ApiUserManagementFilter, page: number): Observable<ApiUser[]> {
+    return this.apiUserManagementRepository.search(
+      ApiUserManagementRequestMapper.mapToRequest(filter, page)).pipe(
+      map((response) => {
+        this.apiUserFilter$ = of(filter);
+        this.currentSorting$ = of(mapSortToApiUserColumnDefinition(filter.sort));
+        return response.result;
+      }));
+  }
+
+  private error() {
     this.notificationService.error(FAILURE);
   }
 
