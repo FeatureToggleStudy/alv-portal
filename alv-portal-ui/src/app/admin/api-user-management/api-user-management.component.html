@@ -1,0 +1,45 @@
+<div class="container pt-md-4 pt-3 px-3">
+  <div class="alv-panel mb-3">
+
+    <h2 class="panel-title">
+      <i class="panel-icon fa fa-user"></i>
+      {{ 'portal.admin.api-user-management.menu-entry' | translate }}
+    </h2>
+
+    <!--<div *ngIf="(apiUserFilter$ | async) as apiUserFilter">-->
+    <form (submit)="onFilterChange()"
+          [formGroup]="form"
+          autocomplete="off"
+          novalidate>
+      <div class="form-row mb-3">
+        <div class="col-md-7">
+          <alv-input-field alvFormControlName="query"
+                           placeholder="portal.admin.api-user-management.search-placeholder"
+                           class="narrow-form">
+          </alv-input-field>
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary h-100">
+            <i class="panel-icon fas fa-search"></i>
+            {{ 'portal.admin.api-user-management.search' | translate }}
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button (click)="onCreateUserDialog()" class="btn btn-primary h-100">
+            <i class="panel-icon fas fa-plus"></i>
+            {{ 'portal.admin.api-user-management.new-user' | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+    <!--</div>-->
+
+    <hr>
+
+    <alv-api-user-management-table [apiUserList]="apiUserList$ | async"
+                                   [currentSorting]="currentSorting$ | async">
+
+    </alv-api-user-management-table>
+
+  </div>
+</div>

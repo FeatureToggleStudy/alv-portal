@@ -1,0 +1,42 @@
+<alv-modal modalTitle="portal.admin.api-user-management.dialog.title"
+           primaryLabel="portal.admin.api-user-management.confirm"
+           (primaryAction)="onSubmit()"
+           secondaryLabel="portal.admin.api-user-management.dismiss"
+           (secondaryAction)="onDismiss()"
+           [formGroup]="form">
+  <fieldset>
+    <alv-input-field label="portal.admin.api-user-management.username"
+                     alvFormControlName="username">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.api-user-management.companyName"
+                     alvFormControlName="companyName">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.api-user-management.companyEmail"
+                     alvFormControlName="companyEmail">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.api-user-management.technicalContactName"
+                     alvFormControlName="technicalContactName">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.api-user-management.technicalContactEmail"
+                     alvFormControlName="technicalContactEmail">
+    </alv-input-field>
+  </fieldset>
+  <fieldset *ngIf="!apiUser">
+    <div class="form-row mb-3">
+      <div class="col-md-8">
+        <alv-input-field label="portal.admin.api-user-management.password.title"
+                         alvFormControlName="password"
+                         class="narrow-form">
+        </alv-input-field>
+      </div>
+      <div class="col-md-4">
+        <button type="button" (click)="generatePassword()" class="btn h-100">
+          {{ 'portal.admin.api-user-management.password.generate' | translate }}
+        </button>
+      </div>
+    </div>
+    <alv-checkbox label="portal.admin.api-user-management.active"
+                  alvFormControlName="active">
+    </alv-checkbox>
+  </fieldset>
+</alv-modal>

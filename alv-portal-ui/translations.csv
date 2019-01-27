@@ -1532,3 +1532,34 @@ portal,portal.admin.user-info.alert.unregister-technical,Es ist ein technischer 
 portal,portal.admin.user-info.alert.unregister-success,Registrierung zurückgesetzt.,Registration reset.,Registration reset.,Registration reset.
 portal,portal.admin.user-info.confirm-dialog.yes,Ja,Yes,Yes,Yes
 portal,portal.admin.user-info.confirm-dialog.no,Nein,No,No,No
+
+portal,portal.admin.api-user-management.menu-entry,API-Benutzer verwalten,Manage API users,Manage API users,Manage API users
+portal,portal.admin.api-user-management.new-user,Neuen API-Benutzer erstellen,Create new API user,Créer un nouvel utilisateur API,Crea nuovo utente API
+portal,portal.admin.api-user-management.search,Suchen,Search,Search,Search
+portal,portal.admin.api-user-management.search-placeholder,"API-Benutzer nach Benutzername, Firma, E-Mail Firma, Technischer Kontakt oder E-Mail Technischer Kontakt suchen","Search API users by Username, Company, Company email, Technical contact or Technical contact email","Chercher un utilisateur API par Nom d'utilisateur, Entreprise, Courriel de l'entreprise, Contact technique ou Courriel contact technique","Cerca utente API per Nome utente, Impresa, E-mail dell'impresa, Contatto tecnico o E-mail contatto tecnico"
+
+portal,portal.admin.api-user-management.username,Benutzername,Username,Nom d'utilisateur,Nome utente
+portal,portal.admin.api-user-management.companyName,Firma,Company,Entreprise,Impresa
+portal,portal.admin.api-user-management.companyEmail,E-Mail Firma,Company email,Courriel de l'entreprise,E-mail dell'impresa
+portal,portal.admin.api-user-management.technicalContactName,Technischer Kontakt,Technical contact,Contact technique,Contatto tecnico
+portal,portal.admin.api-user-management.technicalContactEmail,E-Mail Technischer Kontakt,Technical contact email,Courriel contact technique,E-mail contatto tecnico
+portal,portal.admin.api-user-management.createDate,Erstellungsdatum,Created on,Date de création,Data di creazione
+portal,portal.admin.api-user-management.lastAccessDate,Letzter Zugriff,Last accessed on,Dernier accès,Ultimo accesso
+portal,portal.admin.api-user-management.active,Aktiv,Active,Activé,Attivo
+
+portal,portal.admin.api-user-management.activated,Aktiviert,Activated,Active,Attivato
+portal,portal.admin.api-user-management.deactivated,Deaktiviert,Deactivated,Désactivé,Disattivato
+portal,portal.admin.api-user-management.change-status-dialog.title,Change status,Change status,Change status,Change status
+portal,portal.admin.api-user-management.change-status-dialog.question,Are you sure you want to change the status of the user?,Are you sure you want to change the status of the user?,Are you sure you want to change the status of the user?,Are you sure you want to change the status of the user?
+portal,portal.admin.api-user-management.confirm,Speichern,Save,Sauvegarder,Salva
+portal,portal.admin.api-user-management.dismiss,Abbrechen,Cancel,Interrompre,Interrompere
+portal,portal.admin.api-user-management.no-results,Keine Ergebnisse gefunden,No results found,No results found,No results found
+
+portal,portal.admin.api-user-management.dialog.title,API-User erstellen oder modifizieren,Create or update API user,Créer ou modifier l'utilisateur API,Crea o modifica utente API
+portal,portal.admin.api-user-management.update-user-dialog.title,API-User modifizieren,Update API user,Modifier l'utilisateur API,Modifica utente API
+portal,portal.admin.api-user-management.active-date,Last access date,Last access date,Last access date,Last access date
+portal,portal.admin.api-user-management.contact.email,Contact email,Contact email,Contact email,Contact email
+portal,portal.admin.api-user-management.update-password-dialog.title,Change password,Change password,Change password,Change password
+portal,portal.admin.api-user-management.email,E-Mail,Email,Courriel,E-mail
+portal,portal.admin.api-user-management.password.title,Passwort,Password,Mot de passe,Password
+portal,portal.admin.api-user-management.password.generate,Password generieren,Generate password,Générer un mot de passe,Genera password
