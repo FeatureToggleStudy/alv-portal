@@ -6,7 +6,6 @@
            (secondaryAction)="onDismiss()"
            [formGroup]="form">
   <fieldset>
-    xxx: {{ form.get('effectiveAt').value | json }}
     <alv-date-input label="portal.admin.legal-terms-management.header.effectiveAt"
                     alvFormControlName="effectiveAt"
                     [readonly]="readonly"

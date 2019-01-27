@@ -5,23 +5,7 @@ import { LegalTermsManagementRepository } from '../../shared/backend-services/le
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { LegalTermsDetailModalComponent } from './legal-terms-detail-modal/legal-terms-detail-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
-import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
-
-export enum LEGAL_ACTIONS {
-  VIEW, EDIT, NEW, DELETE
-}
-
-export const CONFIRM_DELETE_MODAL: ConfirmModalConfig = {
-  title: 'entity.delete.title',
-  content: 'portal.admin.legal-terms-management.legal-terms-delete-dialog.question',
-  confirmLabel: 'entity.action.delete',
-  cancelLabel: 'entity.action.cancel'
-};
-
-export const MESSAGE = {
-  success: 'portal.admin.legal-terms-management.notification.success',
-  failure: 'portal.admin.legal-terms-management.notification.failure'
-};
+import { CONFIRM_DELETE_MODAL, LEGAL_ACTIONS, MESSAGE } from './legal-terms-management.types';
 
 @Component({
   selector: 'alv-legal-terms-management',

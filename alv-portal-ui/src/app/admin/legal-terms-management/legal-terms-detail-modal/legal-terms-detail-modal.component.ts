@@ -2,45 +2,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LegalTerms } from '../../../shared/backend-services/legal-terms-management/legal-terms-management.types';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { URL_REGEX } from '../../../shared/forms/regex-patterns';
-import { NgbActiveModal, NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LegalTermsManagementRepository } from '../../../shared/backend-services/legal-terms-management/legal-terms-management-repository';
-import { LEGAL_ACTIONS } from '../legal-terms-management.component';
-import { formatDate } from '@angular/common';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
-
-// TODO temp here -> until DF-517 (github.com/alv-ch/alv-portal/pull/199/) gets merged
-export const fromDate = (date: Date): NgbDateStruct => {
-  return NgbDate.from({year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()});
-};
-
-export const fromISODate = (isoDateString: string): NgbDateStruct => {
-  return fromDate(new Date(isoDateString));
-};
-
-export const today = (): NgbDateStruct => {
-  return fromDate(new Date());
-};
-
-export const toISOLocalDate = (date: NgbDateStruct): string => {
-  if (!date) {
-    return null;
-  }
-  const dateObj = new Date(date.year, date.month - 1, date.day, 12);
-  return formatDate(dateObj, 'yyyy-MM-dd', 'en-US');
-};
-
-export const tomorrow = (): NgbDateStruct => {
-  const date = new Date();
-  return NgbDate.from({year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() + 1});
-};
-
-export const mapToDateTime = (dateStruct: NgbDateStruct): number => {
-  return new Date(dateStruct.year, dateStruct.month - 1, dateStruct.day).getTime();
-};
-
-export const todayDateTime = (): number => {
-  return new Date().getTime();
-};
+import {
+  fromISODate,
+  LEGAL_ACTIONS,
+  mapToDateTime,
+  todayDateTime,
+  toISOLocalDate,
+  tomorrow
+} from '../legal-terms-management.types';
 
 @Component({
   selector: 'alv-legal-terms-detail-modal',
@@ -124,7 +96,7 @@ export class LegalTermsDetailModalComponent implements OnInit {
 
   private patchFormValues() {
     this.form.patchValue({
-      effectiveAt: fromISODate(this.legalTerm.effectiveAt),
+      effectiveAt: (this.readonly) ? this.legalTerm.effectiveAt : fromISODate(this.legalTerm.effectiveAt),
       linkDe: this.legalTerm.linkDe,
       linkEn: this.legalTerm.linkEn,
       linkFr: this.legalTerm.linkFr,
