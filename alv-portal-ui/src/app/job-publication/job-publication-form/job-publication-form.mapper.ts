@@ -26,7 +26,8 @@ import {
   EmploymentDuration,
   Experience,
   LanguageSkill,
-  PostAddress, Qualification,
+  PostAddress,
+  Qualification,
   WorkForm
 } from '../../shared/backend-services/shared.types';
 import { EmploymentFormValue } from './employment/employment-form-value.types';
@@ -79,7 +80,6 @@ export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement,
     employment: mapToEmploymentFormValue(jobContent.employment),
     location: mapToLocationFormValue(jobContent.location),
     company: mapToCompanyFormValue(jobContent.company),
-    //todo: implement
     contact: emptyContactFormValue(languageIsoCode),
     publicContact: mapToPublicContactFormValue(jobContent.publicContact),
     surrogate: jobContent.company.surrogate,
