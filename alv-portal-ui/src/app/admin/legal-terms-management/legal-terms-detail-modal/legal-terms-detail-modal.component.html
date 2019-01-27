@@ -1,10 +1,12 @@
 <alv-modal modalTitle="portal.admin.legal-terms-management.legal-terms-details.title"
            primaryLabel="entity.action.save"
            (primaryAction)="onSubmit()"
+           [primaryAllow]="!readonly"
            secondaryLabel="entity.action.cancel"
            (secondaryAction)="onDismiss()"
            [formGroup]="form">
   <fieldset>
+    xxx: {{ form.get('effectiveAt').value | json }}
     <alv-date-input label="portal.admin.legal-terms-management.header.effectiveAt"
                     alvFormControlName="effectiveAt"
                     [readonly]="readonly"
@@ -14,27 +16,19 @@
                     placement="bottom-right">
     </alv-date-input>
     <alv-input-field label="portal.admin.legal-terms-management.header.linkDe"
-                     class="reverse-ellipsis"
                      [readonly]="readonly"
-                     [validationMessages]="[{ error: 'patter', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern' }]"
                      alvFormControlName="linkDe">
     </alv-input-field>
     <alv-input-field label="portal.admin.legal-terms-management.header.linkEn"
-                     class="reverse-ellipsis"
                      [readonly]="readonly"
-                     [validationMessages]="[{ error: 'patter', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern' }]"
                      alvFormControlName="linkEn">
     </alv-input-field>
     <alv-input-field label="portal.admin.legal-terms-management.header.linkFr"
-                     class="reverse-ellipsis"
                      [readonly]="readonly"
-                     [validationMessages]="[{ error: 'patter', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern' }]"
                      alvFormControlName="linkFr">
     </alv-input-field>
     <alv-input-field label="portal.admin.legal-terms-management.header.linkIt"
-                     class="reverse-ellipsis"
                      [readonly]="readonly"
-                     [validationMessages]="[{ error: 'patter', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern' }]"
                      alvFormControlName="linkIt">
     </alv-input-field>
   </fieldset>

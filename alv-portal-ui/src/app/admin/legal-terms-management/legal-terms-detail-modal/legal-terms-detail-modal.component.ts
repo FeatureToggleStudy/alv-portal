@@ -6,6 +6,7 @@ import { NgbActiveModal, NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstr
 import { LegalTermsManagementRepository } from '../../../shared/backend-services/legal-terms-management/legal-terms-management-repository';
 import { LEGAL_ACTIONS } from '../legal-terms-management.component';
 import { formatDate } from '@angular/common';
+import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 
 // TODO temp here -> until DF-517 (github.com/alv-ch/alv-portal/pull/199/) gets merged
 export const fromDate = (date: Date): NgbDateStruct => {
@@ -108,10 +109,10 @@ export class LegalTermsDetailModalComponent implements OnInit {
     };
     this.form = this.fb.group({
       effectiveAt: [null, [Validators.required]],
-      linkDe: [null, [Validators.required, Validators.pattern(URL_REGEX)]],
-      linkEn: [null, [Validators.required, Validators.pattern(URL_REGEX)]],
-      linkFr: [null, [Validators.required, Validators.pattern(URL_REGEX)]],
-      linkIt: [null, [Validators.required, Validators.pattern(URL_REGEX)]]
+      linkDe: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      linkEn: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      linkFr: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      linkIt: [null, [Validators.required, patternInputValidator(URL_REGEX)]]
     }, {
       validator: [effectiveAtValidator]
     });

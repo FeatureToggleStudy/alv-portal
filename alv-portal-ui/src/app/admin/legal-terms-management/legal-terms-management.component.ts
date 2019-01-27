@@ -53,7 +53,6 @@ export class LegalTermsManagementComponent implements OnInit {
     modalRef.componentInstance.actionTyp = LEGAL_ACTIONS.EDIT;
     modalRef.componentInstance.legalTerm = legalTerm;
     modalRef.componentInstance.readonly = false;
-    // modalRef.result.then((legalTermEntry) => this.update(legalTermEntry));
     modalRef.result.then(() => this.refresh(), () => this.error());
   }
 
@@ -66,14 +65,11 @@ export class LegalTermsManagementComponent implements OnInit {
   }
 
   onDelete(legalTerm: LegalTerms) {
-    this.modalService.openConfirm(CONFIRM_DELETE_MODAL).result
-      .then(() => this.delete(legalTerm.id));
-  }
-
-  delete(id: string) {
-    return this.legalTermsManagementRepository.deleteLegalTermsEntry(id).subscribe(
-      () => this.refresh(),
-      () => this.error());
+    this.modalService.openConfirm(CONFIRM_DELETE_MODAL).result.then(
+      () =>
+        this.legalTermsManagementRepository.deleteLegalTermsEntry(legalTerm.id)
+          .subscribe(() => this.refresh(), () => this.error()),
+      () => {});
   }
 
   refresh() {
