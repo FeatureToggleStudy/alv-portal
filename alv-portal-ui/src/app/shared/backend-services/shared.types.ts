@@ -18,6 +18,12 @@ export enum CEFR_Level {
   PROFICIENT = 'PROFICIENT'
 }
 
+export enum Qualification {
+  SKILLED = 'SKILLED',
+  SEMISKILLED = 'SEMISKILLED',
+  UNSKILLED = 'UNSKILLED'
+}
+
 /**
  * the numbers here correspond to a code of the education in the avam database
  */
@@ -37,6 +43,24 @@ export enum Degree {
   TER_MASTER_UNIVERSITAET = '173',
   TER_DOKTORAT_UNIVERSITAET = '180'
 }
+
+export const DegreeMapping = {
+  '130': 'SEK_II_WEITERFUEHRENDE_SCHULE',
+  '131': 'SEK_II_GRUNDBILDUNG_EBA',
+  '132': 'SEK_II_GRUNDBILDUNG_EFZ',
+  '133': 'SEK_II_FACHMITTELSCHULE',
+  '134': 'SEK_II_BERUFSMATURITAET',
+  '135': 'SEK_II_FACHMATURITAET',
+  '136': 'SEK_II_GYMNASIALE_MATURITAET',
+  '150': 'TER_BERUFSBILDUNG_DIPL',
+  '160': 'TER_BERUFSBILDUNG_FA',
+  '170': 'TER_BACHELOR_FACHHOCHSCHULE',
+  '171': 'TER_BACHELOR_UNIVERSITAET',
+  '172': 'TER_MASTER_FACHHOCHSCHULE',
+  '173': 'TER_MASTER_UNIVERSITAET',
+  '180': 'TER_DOKTORAT_UNIVERSITAET'
+};
+
 
 export enum Experience {
   LESS_THAN_1_YEAR = 'LESS_THAN_1_YEAR',

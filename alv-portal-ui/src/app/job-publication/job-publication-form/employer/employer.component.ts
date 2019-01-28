@@ -5,6 +5,7 @@ import { IsoCountryService } from '../iso-country.service';
 import { Observable } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-employer',
@@ -19,14 +20,7 @@ export class EmployerComponent implements OnInit, OnDestroy {
   parentForm: FormGroup;
 
   @Input()
-  set employerFormValue(value: EmployerFormValue) {
-    this._employerFormValue = value;
-    this.setFormValue(value);
-  }
-
-  get employerFormValue() {
-    return this._employerFormValue;
-  }
+  employerFormValue: EmployerFormValue;
 
   employer: FormGroup;
 
@@ -34,39 +28,33 @@ export class EmployerComponent implements OnInit, OnDestroy {
 
   countryIsoCode$: Observable<String>;
 
-  private _employerFormValue: EmployerFormValue;
-
   constructor(private isoCountryService: IsoCountryService,
               private fb: FormBuilder) {
 
     this.countryOptions$ = this.isoCountryService.countryOptions$;
-
-    this.employer = this.fb.group({
-      name: [null, [
-        Validators.required,
-        Validators.maxLength(this.NAME_MAX_LENGTH)
-      ]],
-      countryIsoCode: [null, []]
-    });
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('employer', this.employer);
+    const { name, countryIsoCode } = this.employerFormValue;
 
-    const countryIsoCode = this.employer.get('countryIsoCode');
-    this.countryIsoCode$ = countryIsoCode.valueChanges
+    this.employer = this.fb.group({
+      name: [name, [
+        Validators.required,
+        Validators.maxLength(this.NAME_MAX_LENGTH)
+      ]],
+      countryIsoCode: [countryIsoCode]
+    });
+
+    this.parentForm.addControl(JobPublicationFormValueKeys.employer, this.employer);
+
+    this.countryIsoCode$ = this.employer.get('countryIsoCode').valueChanges
       .pipe(
         filter((value) => !!value),
-        startWith(countryIsoCode.value),
+        startWith(countryIsoCode),
       );
   }
 
-  private setFormValue(value: EmployerFormValue) {
-    const { name, countryIsoCode } = value;
-    this.employer.patchValue({ name, countryIsoCode }, { emitEvent: false });
-  }
-
   ngOnDestroy(): void {
-    this.parentForm.removeControl('employer');
+    this.parentForm.removeControl(JobPublicationFormValueKeys.employer);
   }
 }

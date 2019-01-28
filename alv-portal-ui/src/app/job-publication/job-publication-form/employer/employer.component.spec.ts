@@ -3,14 +3,13 @@ import { EmployerComponent } from './employer.component';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
-import { EmployerFormValue, emptyEmployerFormValue } from './employer-form-value.types';
+import { emptyEmployerFormValue } from './employer-form-value.types';
 import { IsoCountryService } from '../iso-country.service';
 
 describe('EmployerComponent', () => {
 
   let component: EmployerComponent;
   let fixture: ComponentFixture<EmployerComponent>;
-  let employerForm: FormGroup;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,10 +28,10 @@ describe('EmployerComponent', () => {
   }));
 
   beforeEach(() => {
-    employerForm = new FormGroup({});
     fixture = TestBed.createComponent(EmployerComponent);
     component = fixture.componentInstance;
-    component.parentForm = employerForm;
+    component.parentForm = new FormGroup({});
+    component.employerFormValue = emptyEmployerFormValue();
     fixture.detectChanges();
   });
 
@@ -40,42 +39,27 @@ describe('EmployerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('ngOnInit', () => {
-
-    it('should initialize with the given EmployerFormValue', () => {
-      //given
-      const formValue: EmployerFormValue = {
-        name: 'test-name',
-        countryIsoCode: 'DE',
-        zipAndCity: null
-      };
-
-      //when
-      component.employerFormValue = formValue;
-      component.ngOnInit();
-
-      //then
-      expect(employerForm.value['employer'].name).toEqual(formValue.name);
-      expect(employerForm.value['employer'].countryIsoCode).toEqual(formValue.countryIsoCode);
-      //todo: verify zipAndCity
-    });
-
-  });
-
   describe('validation', () => {
-    beforeEach(() => {
-      component.employerFormValue = emptyEmployerFormValue;
-      component.ngOnInit();
-    });
 
     describe('name field', () => {
-      it('should be required', () => {
+
+      it('should accept valid value', () => {
         //given
-        const field = employerForm.get('employer.name');
+        const field = component.employer.get('name');
 
         //when
-        const name = null;
-        component.employerFormValue = { ...emptyEmployerFormValue, name };
+        field.setValue(generateString(component.NAME_MAX_LENGTH - 1));
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
+      it('should be required', () => {
+        //given
+        const field = component.employer.get('name');
+
+        //when
+        field.setValue(null);
 
         //then
         expect(field.hasError('required')).toBeTrue();
@@ -83,11 +67,10 @@ describe('EmployerComponent', () => {
 
       it('should not be longer than NAME_MAX_LENGTH', () => {
         //given
-        const field = employerForm.get('employer.name');
+        const field = component.employer.get('name');
 
         //when
-        const name = generateString(component.NAME_MAX_LENGTH + 1);
-        component.employerFormValue = { ...emptyEmployerFormValue, name };
+        field.setValue(generateString(component.NAME_MAX_LENGTH + 1));
 
         //then
         expect(field.hasError('maxlength')).toBeTrue();

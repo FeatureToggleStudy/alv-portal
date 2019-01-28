@@ -3,7 +3,7 @@ import { CandidateProfile } from '../../../shared/backend-services/candidate/can
 
 import { FilterPanelValues } from '../../candidate-search/filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
-import { OccupationMultiTypeaheadItem } from '../../../shared/occupations/occupation-multi-typeahead-item';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { CandidateSearchFilter } from '../state';
 
 export const INIT_RESULT_LIST = 'CANDIDATES:INIT_RESULT_LIST';
@@ -82,7 +82,7 @@ export class FilterResetAction implements Action {
 export class OccupationLanguageChangedAction implements Action {
   readonly type = OCCUPATION_LANGUAGE_CHANGED_ACTION;
 
-  constructor(public payload: { occupations: OccupationMultiTypeaheadItem[] }) {
+  constructor(public payload: { occupations: OccupationTypeaheadItem[] }) {
   }
 }
 

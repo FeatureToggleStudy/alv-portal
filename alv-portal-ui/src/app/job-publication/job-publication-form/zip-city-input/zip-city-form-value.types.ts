@@ -1,4 +1,13 @@
+import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
+
 export interface ZipCityFormValue {
-  zipCode: string;
-  city: string;
+  zipCityAutoComplete?: ZipAndCityTypeaheadItem;
+  zipCode?: string;
+  city?: string;
+}
+
+export function emptyZipCityFormValue() {
+  return {
+    zipCityAutoComplete: null,
+  };
 }

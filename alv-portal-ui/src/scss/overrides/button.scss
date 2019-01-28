@@ -1,11 +1,13 @@
 @import "../common/colors";
 
 button.btn, a.btn {
-  padding: 8px 20px;
   cursor: pointer;
   user-select: none;
-  font-size: 16px;
   border-radius: 0;
+  &:not(.btn-sm) {
+    padding: 8px 20px;
+    font-size: 16px;
+  }
   &.btn-truncate {
     max-width: 100%;
     overflow: hidden;

@@ -16,7 +16,7 @@
   height: 100%;
 
   ::ng-deep .nav-item > .nav-text {
-    animation: expandMainMenu 0.25s ease-out;
+    animation: expandMainMenu 0.4s ease-out;
   }
 
   /* Collapsed desktop menu style */
@@ -41,7 +41,7 @@
   }
 
   .nav-spacer {
-    height: 12px;
+    height: 30px;
     border-top: 1px solid $color-medium-grey;
   }
 
@@ -58,7 +58,27 @@
   }
 }
 
-/* Nav Item */
+::ng-deep .desktop-menu .nav-item {
+  &:not(.not-hoverable):hover, &:not(.not-hoverable).active {
+    border-left: 5px solid $color-primary;
+
+    &:not(.child-nav-item) {
+      color: $color-primary;
+    }
+  }
+}
+
+
+::ng-deep .mobile-menu.nav-item {
+  &:not(.not-hoverable):hover, &:not(.not-hoverable).active {
+    border-left: 5px solid $color-primary;
+
+    &:not(.child-nav-item) {
+      color: $color-white;
+    }
+  }
+}
+  /* Nav Item */
 ::ng-deep .mobile-menu .nav-item,::ng-deep .desktop-menu .nav-item {
   display: flex;
   align-items: center;
@@ -97,17 +117,9 @@
     }
   }
 
-  &:hover {
+  &:not(.not-hoverable):hover {
     color: $color-primary;
     background-color: $color-white;
-  }
-
-  &:hover, &.active {
-    border-left: 5px solid $color-primary;
-
-    &:not(.child-nav-item) {
-      color: $color-primary;
-    }
   }
 
   &.active {
@@ -159,12 +171,19 @@
     border-left: 5px solid $color-grey-black;
     color: $color-white;
 
+    a {
+      color: $color-white;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
     &.child-nav-item {
       background-color: lighten($color-grey-black, 10%);
     }
 
-    &.active, &:hover {
-      color: $color-primary;
+    &.active, &:not(.not-hoverable):hover {
+      color: $color-white;
       background-color: $color-dark-grey;
       border-left: 5px solid $color-primary;
     }
@@ -203,4 +222,16 @@
     text-overflow: initial;
     white-space: initial;
   }
+}
+
+.logo-arbeit-swiss {
+  width: 1em;
+}
+
+.not-hoverable {
+  cursor: default;
+}
+
+hr {
+  background-color: $color-white;
 }

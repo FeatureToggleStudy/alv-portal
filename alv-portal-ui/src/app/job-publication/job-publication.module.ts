@@ -17,6 +17,11 @@ import { ZipCityInputComponent } from './job-publication-form/zip-city-input/zip
 import { PublicContactComponent } from './job-publication-form/public-contact/public-contact.component';
 import { PublicationComponent } from './job-publication-form/publication/publication.component';
 import { EmployerComponent } from './job-publication-form/employer/employer.component';
+import { ApplicationComponent } from './job-publication-form/application/application.component';
+import { PostAddressFormComponent } from './job-publication-form/post-address-form/post-address-form.component';
+import { JobPublicationFormValueFactory } from './job-publication-form/job-publication-form-value-factory';
+import { JobPublicationResolver } from './job-publication.resolver';
+import { JobPublicationGuard } from './job-publication.guard';
 
 @NgModule({
   imports: [
@@ -31,21 +36,22 @@ import { EmployerComponent } from './job-publication-form/employer/employer.comp
     OccupationComponent,
     JobDescriptionComponent,
     LanguagesComponent,
-    JobDescriptionComponent,
     EmploymentComponent,
     ContactComponent,
-    EmploymentComponent,
     LocationComponent,
     CompanyComponent,
     ZipCityInputComponent,
     PublicContactComponent,
-    ZipCityInputComponent,
     PublicationComponent,
-    ZipCityInputComponent,
-    EmployerComponent
+    EmployerComponent,
+    ApplicationComponent,
+    PostAddressFormComponent
   ],
   providers: [
-    IsoCountryService
+    IsoCountryService,
+    JobPublicationFormValueFactory,
+    JobPublicationResolver,
+    JobPublicationGuard
   ]
 })
 export class JobPublicationModule {

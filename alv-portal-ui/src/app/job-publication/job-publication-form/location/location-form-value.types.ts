@@ -1,5 +1,8 @@
 import { IsoCountryService } from '../iso-country.service';
-import { ZipCityFormValue } from '../zip-city-input/zip-city-form-value.types';
+import {
+  emptyZipCityFormValue,
+  ZipCityFormValue
+} from '../zip-city-input/zip-city-form-value.types';
 
 export interface LocationFormValue {
   countryIsoCode: string;
@@ -7,8 +10,10 @@ export interface LocationFormValue {
   zipAndCity: ZipCityFormValue;
 }
 
-export const emptyLocationFormValue: LocationFormValue = {
-  countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
-  remarks: null,
-  zipAndCity: null
-};
+export function emptyLocationFormValue(): LocationFormValue {
+  return {
+    countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
+    remarks: null,
+    zipAndCity: emptyZipCityFormValue()
+  };
+}

@@ -1,0 +1,23 @@
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
+
+.side-panel {
+  position: sticky;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@include media-breakpoint-down(sm) {
+  .side-panel {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media print {
+  .side-panel {
+    height: auto !important;
+  }
+}
+

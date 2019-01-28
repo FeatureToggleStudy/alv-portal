@@ -13,15 +13,15 @@ import {
 import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
 import {
-  OccupationMultiTypeaheadItem,
-  OccupationMultiTypeaheadItemType
-} from '../../../shared/occupations/occupation-multi-typeahead-item';
-import { SimpleMultiTypeaheadItem } from '../../../shared/forms/input/multi-typeahead/simple-multi-typeahead.item';
+  OccupationTypeaheadItem,
+  OccupationTypeaheadItemType
+} from '../../../shared/occupations/occupation-typeahead-item';
+import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
 import {
   LocalityInputType,
   LocalityItem,
-  LocalityMultiTypeaheadItem
-} from '../../../shared/localities/locality-multi-typeahead-item';
+  LocalityTypeaheadItem
+} from '../../../shared/localities/locality-typeahead-item';
 import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
 import { createCandidateProfile } from './candidate-search.reducers.spec-util';
 
@@ -52,13 +52,13 @@ describe('candidateSearchReducer', () => {
     cantonCode: 'ZH',
     communalCode: '261'
   };
-  const occupation = new OccupationMultiTypeaheadItem(
-    OccupationMultiTypeaheadItemType.OCCUPATION, occupationCode, 'Java-Programmierer/in', 0);
-  const keyword = new SimpleMultiTypeaheadItem('free-text', 'datenbank', 'datenbank', 0);
+  const occupation = new OccupationTypeaheadItem(
+    OccupationTypeaheadItemType.OCCUPATION, occupationCode, 'Java-Programmierer/in', 0);
+  const keyword = new StringTypeaheadItem('free-text', 'datenbank', 'datenbank', 0);
   const queryPanelValues: CandidateQueryPanelValues = {
     occupations: [occupation],
     keywords: [keyword],
-    workplace: new LocalityMultiTypeaheadItem(LocalityInputType.LOCALITY, localityItem, 'Zürich', 0)
+    workplace: new LocalityTypeaheadItem(LocalityInputType.LOCALITY, localityItem, 'Zürich', 0)
   };
 
   /* CANDIDATE PROFILE ARRAY */
@@ -196,10 +196,10 @@ describe('candidateSearchReducer', () => {
   it('OCCUPATION_LANGUAGE_CHANGED_ACTION : should update occupation CATEGORY for language and value', () => {
     // GIVEN
     const occupCode: OccupationCode = { type: 'SBN5', value: '36102' };
-    const classificationDE = new OccupationMultiTypeaheadItem(
-      OccupationMultiTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmierer/innen', 2);
-    const classificationEN = new OccupationMultiTypeaheadItem(
-      OccupationMultiTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmers', 2);
+    const classificationDE = new OccupationTypeaheadItem(
+      OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmierer/innen', 2);
+    const classificationEN = new OccupationTypeaheadItem(
+      OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmers', 2);
     const changedState: CandidateSearchState = {
       ...initialState,
       candidateSearchFilter: {

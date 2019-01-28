@@ -1,0 +1,90 @@
+@import "../../../../../../scss/common/colors";
+
+.form-label-group {
+  &.invalid .typeahead-form-control.has-focus {
+    box-shadow: 0 0 0 0.2rem $color-red-transparent;
+  }
+
+  .typeahead-form-control {
+    display: flex;
+    height: inherit !important;
+
+    &.has-focus {
+      box-shadow: 0 0 0 0.2rem $color-blue-transparent;
+    }
+
+    input {
+      &:focus {
+        border: none;
+        box-shadow: none;
+        outline: none;
+      }
+
+      background: transparent;
+      padding: 0 !important;
+      border: 0;
+    }
+
+    label {
+      max-width: 100%;
+    }
+
+    fieldset {
+      height: 21px;
+
+      .typeahead-badge {
+        font-weight: 500;
+        margin: 1px 2px 0 0;
+        border-radius: 1px;
+
+        .typeahead-badge-label {
+          max-width: 120px;
+          height: 13px;
+        }
+
+        .remove-button {
+          cursor: pointer;
+          padding: 0.1rem;
+          border: none;
+          background-color: transparent;
+
+          &:hover {
+            color: darken($color-white, 10%);
+          }
+        }
+      }
+    }
+  }
+
+  .search-icon {
+    position: absolute;
+    right: 0.65em;
+    top: 0.65em;
+    font-size: 1.25rem;
+    pointer-events: none;
+    color: $color-dark-grey
+  }
+  &.invalid .search-icon {
+    color: $color-red;
+  }
+}
+
+
+/* Grouping styles */
+.typeahead-group-label {
+  color: $color-white;
+  position: absolute;
+  top: -.25rem;
+  right: -1.5rem;
+  font-size: 80%;
+  padding: 0 .25rem;
+}
+
+.first-in-group-item {
+  padding-top: 1.25rem;
+
+  .first-in-group-border {
+    border-top: 1px solid $color-grey;
+    margin: -1.5rem -1.5rem 1rem;
+  }
+}

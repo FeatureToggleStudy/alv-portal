@@ -1,13 +1,22 @@
-import { Degree, Experience } from '../../../shared/backend-services/shared.types';
+import {
+  Degree,
+  Experience,
+  Qualification
+} from '../../../shared/backend-services/shared.types';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 
 export interface OccupationFormValue {
-  occupationSuggestion: any;
+  occupationSuggestion: OccupationTypeaheadItem;
+  qualification: Qualification;
   degree: Degree;
   experience: Experience;
 }
 
-export const emptyOccupationFormValue: OccupationFormValue = {
-  occupationSuggestion: null,
-  degree: null,
-  experience: null
-};
+export function emptyOccupationFormValue(): OccupationFormValue {
+  return {
+    occupationSuggestion: null,
+    qualification: null,
+    degree: null,
+    experience: null
+  };
+}
