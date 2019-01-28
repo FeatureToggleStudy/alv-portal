@@ -69,15 +69,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       takeUntil(this.ngUnsubscribe))
       .subscribe(([postCheckBoxEnabled, company]) => {
         if (postCheckBoxEnabled) {
-          this.form.addControl('company', this.fb.group({
-            contactPerson: [null, Validators.required],
-            companyName: [null, Validators.required],
-            companyStreet: [null, Validators.required],
-            companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
-            companyZipCode: [null, Validators.required],
-            companyCity: [null, Validators.required],
-            companyCountry: [null, Validators.required]
-          }));
+          this.form.addControl('company', this.generateCompanyFormGroup());
           this.patchCompanyValues(company);
         } else {
           this.form.removeControl('company');
@@ -130,6 +122,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     return this.fb.group({
       subject: [null, Validators.required],
+      company: this.generateCompanyFormGroup(),
       personalMessage: [null, Validators.required],
       companyName: [null, Validators.required],
       phoneCheckbox: [true],
@@ -139,6 +132,18 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       postCheckbox: [true]
     }, {
       validator: [atLeastOneRequiredValidator]
+    });
+  }
+
+  private generateCompanyFormGroup() {
+    return this.fb.group({
+      contactPerson: [null, Validators.required],
+      companyName: [null, Validators.required],
+      companyStreet: [null, Validators.required],
+      companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
+      companyZipCode: [null, Validators.required],
+      companyCity: [null, Validators.required],
+      companyCountry: [null, Validators.required]
     });
   }
 
