@@ -1,9 +1,8 @@
-<div class="table-responsive-sm" *ngIf="apiUserList?.length > 0; else noResults">
-  <table class="table table-sm d-block d-md-table"
-         role="grid">
+<div *ngIf="apiUserList?.length > 0; else noResults">
+  <table class="table table-striped"
+          role="grid">
     <thead role="presentation">
-    <tr role="row"
-        class="d-none d-md-table-row">
+    <tr role="row">
       <th scope="col"
           role="columnheader"
           *ngFor="let columnDefinition of columnDefinitions"
@@ -35,33 +34,32 @@
            infiniteScroll
            role="presentation">
     <tr *ngFor="let apiUser of apiUserList"
-        class="tr-content d-block d-md-table-row"
         role="row">
-      <td class="content-cell align-middle d-block d-md-table-cell"
+      <td class="content-cell align-middle"
           role="gridcell">
         {{ apiUser?.username }}
       </td>
-      <td class="content-cell align-middle d-block d-md-table-cell"
+      <td class="content-cell align-middle"
           role="gridcell">
         {{ apiUser.companyName }}
       </td>
-      <td class="content-cell align-middle d-block d-md-table-cell"
+      <td class="content-cell align-middle"
           role="gridcell">
         {{ apiUser.companyEmail }}
       </td>
-      <td class="content-cell align-middle d-block d-md-table-cell"
+      <td class="content-cell align-middle"
           role="gridcell">
         {{ apiUser.technicalContactName }}
       </td>
-      <td class="content-cell align-middle d-block d-md-table-cell"
+      <td class="content-cell align-middle"
           role="gridcell">
         {{ apiUser.technicalContactEmail}}
       </td>
-      <td class="content-cell align-middle d-block d-md-table-cell"
+      <td class="content-cell align-middle"
           role="gridcell">
         {{ apiUser.createDate | date:'dd.MM.yyyy' }}
       </td>
-      <td class="content-cell align-middle d-block d-md-table-cell"
+      <td class="content-cell align-middle"
           role="gridcell">
         {{ apiUser.lastAccessDate | date:'dd.MM.yyyy' }}
       </td>
