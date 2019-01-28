@@ -8,7 +8,7 @@ import {
 import { ApiUserManagementRepository } from '../../shared/backend-services/api-user-management/api-user-management-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { API_USERS_PER_PAGE, ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
-import { map, take } from 'rxjs/operators';
+import { distinctUntilChanged, map, take } from 'rxjs/operators';
 import { FAILURE, mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserEditModalComponent } from './api-user-edit-modal/api-user-edit-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
@@ -57,16 +57,16 @@ export class ApiUserManagementComponent implements OnInit {
 
   onScrollChange(currentPage: number) {
     if (!(currentPage === this.maxScrollPage)) {
+      const page = currentPage + 1;
       this.apiUserFilter$.pipe(
         take(1))
         .subscribe( (filter) => {
           this.apiUserList$ = combineLatest(this.apiUserList$, this.apiUserManagementRepository.search(
-            ApiUserManagementRequestMapper.mapToRequest(filter, currentPage + 1))).pipe(
+            ApiUserManagementRequestMapper.mapToRequest(filter, page))).pipe(
+            distinctUntilChanged(),
             map( ([list, response]) => {
-              console.log('totalCount', response.totalCount);
               this.maxScrollPage = Math.ceil(response.totalCount / API_USERS_PER_PAGE);
-              console.log('...maxScrollPage : ', this.maxScrollPage);
-              this.page$ = ((currentPage + 1) > this.maxScrollPage) ? of(this.maxScrollPage) : of(currentPage + 1);
+              this.page$ = (page > this.maxScrollPage) ? of(this.maxScrollPage) : of(page);
               this.apiUserFilter$ = of(filter);
               this.currentSorting$ = of(mapSortToApiUserColumnDefinition(filter.sort));
               return [...list, ...response.result];
