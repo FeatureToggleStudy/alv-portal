@@ -81,6 +81,10 @@
                         [panelId]="jobDetailPanelId.JOB_AD_REQUIREMENTS"
                         panelTitle="portal.job-detail.min-requirements.label">
       <ul class="alv-list">
+        <alv-list-item-content *ngIf="occupation.qualificationCode"
+          label="portal.job-publication.occupation.qualification.label">
+          {{'portal.job-ad.qualification.' + occupation.qualificationCode | translate}}
+        </alv-list-item-content>
         <alv-list-item-content label="portal.job-detail.workExperience">
           {{'global.experience.' + occupation.workExperience | translate}}
         </alv-list-item-content>

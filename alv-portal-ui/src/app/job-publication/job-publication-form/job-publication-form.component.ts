@@ -110,6 +110,7 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
       filter((value: boolean) => value),
       takeUntil(this.ngUnsubscribe)
     ).subscribe((_) => this.employerFormValue = emptyEmployerFormValue());
+
   }
 
 

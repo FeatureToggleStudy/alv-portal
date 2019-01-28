@@ -29,9 +29,9 @@ import {
   Degree,
   Experience
 } from '../../shared/backend-services/shared.types';
-import SpyObj = jasmine.SpyObj;
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
+import SpyObj = jasmine.SpyObj;
 
 
 describe('JobPublicationFormComponent', () => {

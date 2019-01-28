@@ -1421,6 +1421,10 @@ portal,portal.job-ad.search.query-panel.localities.placeholder,"Arbeitsort, Kant
 portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl möglich,Multiple selection possible,Sélection multiple possible,Selezione multipla possibile
 portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
 
+portal,portal.job-ad.qualification.SKILLED,Gelernt
+portal,portal.job-ad.qualification.SEMISKILLED,Angelernt
+portal,portal.job-ad.qualification.UNSKILLED,Ungelernt
+
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
 portal,portal.shared.localities.geo-location-selection.not-available,Standort kann nicht ermittelt werden
 
@@ -1434,6 +1438,7 @@ portal,portal.widgets.manage-job-ads.actions.cancel,Abmelden,Cancel,Retirer,Canc
 portal,portal.widgets.manage-job-ads.actions.duplicate,Duplizieren,Duplicate,Dupliquer,Duplicare
 
 portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
+portal,portal.job-publication.occupation.qualification.label,Qualifikation,Qualification,Qualification,Qualifica
 portal,portal.job-publication.language-skills.add,Neue Sprachkompetenz hinzufügen,Add new language skill,Ajouter une nouvelle compétence linguistique,Aggiungi nuova conoscenza linguistica
 portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 portal,portal.job-publication.locality.additional-text.placeholder,z. B. Aussendienst in der ganzen Schweiz,e.g. in the field throughout Switzerland,p. ex. service externe dans toute la Suisse,p. es. servizio esterno in tutta la Svizzera
