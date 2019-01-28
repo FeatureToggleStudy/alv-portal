@@ -99,7 +99,7 @@ function mapToJobDescriptionFormValue(jobDescriptions: JobDescription[], numberO
 
   return {
     title: jobDescription.title,
-    jobDescription: jobDescription.title,
+    jobDescription: jobDescription.description,
     numberOfJobs: +numberOfJobs,
   };
 }
