@@ -8,29 +8,49 @@ import {
   Employment,
   JobAdvertisement,
   JobDescription,
+  Location,
   Occupation,
   Publication,
   PublicContact,
   WorkExperience
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
-import { JobDescriptionFormValue } from './job-description/job-description-form-value.types';
-import { OccupationFormValue } from './occupation/occupation-form-value.types';
 import {
+  emptyJobDescriptionFormValue,
+  JobDescriptionFormValue
+} from './job-description/job-description-form-value.types';
+import {
+  CEFR_Level,
   Degree,
+  DegreeMapping,
   EmploymentDuration,
+  Experience,
   LanguageSkill,
   PostAddress,
+  Qualification,
   WorkForm
 } from '../../shared/backend-services/shared.types';
 import { EmploymentFormValue } from './employment/employment-form-value.types';
 import { LocationFormValue } from './location/location-form-value.types';
 import { CompanyFormValue } from './company/company-form-value.types';
 import { PublicationFormValue } from './publication/publication-form-value.types';
-import { ContactFormValue } from './contact/contact-form-value.types';
-import { PublicContactFormValue } from './public-contact/public-contact-form-value.types';
-import { ApplicationFormValue } from './application/application-form-value.types';
-import { EmployerFormValue } from './employer/employer-form-value.types';
+import {
+  ContactFormValue,
+  emptyContactFormValue
+} from './contact/contact-form-value.types';
+import {
+  emptyPublicContactFormValue,
+  PublicContactFormValue
+} from './public-contact/public-contact-form-value.types';
+import {
+  ApplicationFormValue,
+  emptyApplicationFormValue
+} from './application/application-form-value.types';
+import {
+  EmployerFormValue,
+  emptyEmployerFormValue
+} from './employer/employer-form-value.types';
+
 import { PostAddressFormValue } from './post-address-form/post-address-form-value.types';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { formatDate } from '@angular/common';
@@ -38,11 +58,222 @@ import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
 import { IsoCountryService } from './iso-country.service';
 import { LocalitySuggestionService } from '../../shared/localities/locality-suggestion.service';
 
+import { LanguagesFormValue } from './languages/languages-form-value.types';
+import {
+  emptyOccupationFormValue,
+  OccupationFormValue
+} from './occupation/occupation-form-value.types';
+import {
+  OccupationTypeaheadItem,
+  OccupationTypeaheadItemType
+} from '../../shared/occupations/occupation-typeahead-item';
+import { OccupationTypes } from '../../shared/backend-services/reference-service/occupation-label.repository';
 
-export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement): JobPublicationFormValue {
-  //todo: DF-486 implements this
-  return null;
+
+export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement, languageIsoCode: string): JobPublicationFormValue {
+  const jobContent = jobAdvertisement.jobContent;
+
+  return {
+    jobDescription: mapToJobDescriptionFormValue(jobContent.jobDescriptions, jobContent.numberOfJobs),
+    occupation: mapToOccupationFormValue(jobContent.occupations),
+    languageSkills: mapToLanguagesFormValue(jobContent.languageSkills),
+    employment: mapToEmploymentFormValue(jobContent.employment),
+    location: mapToLocationFormValue(jobContent.location),
+    company: mapToCompanyFormValue(jobContent.company),
+    contact: emptyContactFormValue(languageIsoCode),
+    publicContact: mapToPublicContactFormValue(jobContent.publicContact),
+    surrogate: jobContent.company.surrogate,
+    employer: mapToEmployerFormValue(jobContent.employer),
+    application: mapToApplicationFormValue(jobContent.applyChannel),
+    publication: mapToPublicationFormValue(jobAdvertisement.publication),
+    disclaimer: false
+  };
 }
+
+function mapToJobDescriptionFormValue(jobDescriptions: JobDescription[], numberOfJobs: string): JobDescriptionFormValue {
+  if (!jobDescriptions || jobDescriptions.length === 0) {
+    return emptyJobDescriptionFormValue();
+  }
+
+  const jobDescription = jobDescriptions[0];
+
+  return {
+    title: jobDescription.title,
+    jobDescription: jobDescription.title,
+    numberOfJobs: +numberOfJobs,
+  };
+}
+
+function mapToOccupationFormValue(occupations: Occupation[]): OccupationFormValue {
+  if (!occupations || occupations.length === 0) {
+    return emptyOccupationFormValue();
+  }
+
+  const occupation = occupations[0];
+  return {
+    degree: <Degree>DegreeMapping[occupation.educationCode],
+    experience: <Experience>Experience[occupation.workExperience],
+    qualification: <Qualification>occupation.qualificationCode,
+    occupationSuggestion: new OccupationTypeaheadItem(OccupationTypeaheadItemType.OCCUPATION, {
+      type: OccupationTypes.AVAM,
+      value: occupation.avamOccupationCode
+    }, '', 0)
+  };
+}
+
+function mapToLanguagesFormValue(languageSkills: LanguageSkill[]): LanguagesFormValue {
+  return languageSkills ? languageSkills.map(languageSkill => {
+    languageSkill.spokenLevel = languageSkill.spokenLevel ? languageSkill.spokenLevel : CEFR_Level.NONE;
+    languageSkill.writtenLevel = languageSkill.writtenLevel ? languageSkill.writtenLevel : CEFR_Level.NONE;
+    return languageSkill;
+  }) : [];
+}
+
+function mapToEmploymentFormValue(employment: Employment): EmploymentFormValue {
+  return {
+    startDate: mapToNgbDateStruct(employment.startDate),
+    endDate: mapToNgbDateStruct(employment.endDate),
+    immediately: employment.immediately,
+    workloadPercentageMin: parseInt(employment.workloadPercentageMin.toString(), 10),
+    workloadPercentageMax: parseInt(employment.workloadPercentageMax.toString(), 10),
+    duration: mapToDuration(employment),
+    workForms: Object.keys(WorkForm).reduce((acc, curr) => {
+      acc[curr] = !!employment.workForms[curr];
+      return acc;
+    }, {})
+  };
+}
+
+function mapToDuration(employment: Employment): EmploymentDuration {
+  if (employment.shortEmployment) {
+    return EmploymentDuration.SHORT_EMPLOYMENT;
+  }
+
+  if (employment.permanent) {
+    return EmploymentDuration.PERMANENT;
+  }
+
+  return EmploymentDuration.TEMPORARY;
+}
+
+function mapToNgbDateStruct(dateSting: string): NgbDateStruct {
+  if (!dateSting) {
+    return null;
+  }
+
+  const date = new Date(dateSting);
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate()
+  };
+}
+
+function mapToLocationFormValue(location: Location): LocationFormValue {
+
+  return {
+    countryIsoCode: location.countryIsoCode,
+    zipAndCity: mapToZipCityFormValue(location.countryIsoCode, location.postalCode, location.city),
+    remarks: location.remarks,
+  };
+}
+
+function mapToCompanyFormValue(company: Company): CompanyFormValue {
+  return {
+    name: company.name,
+    postOfficeBoxNumberOrStreet: {
+      street: company.street,
+      postOfficeBoxNumber: company.postOfficeBoxPostalCode
+    },
+    zipAndCity: mapToZipCityFormValue(company.countryIsoCode, company.postalCode, company.city),
+    houseNumber: company.houseNumber,
+    countryIsoCode: company.countryIsoCode
+  };
+}
+
+function mapToPublicContactFormValue(publicContact: PublicContact): PublicContactFormValue {
+  if (!publicContact) {
+    return emptyPublicContactFormValue();
+  }
+
+  return {
+    salutation: publicContact.salutation,
+    firstName: publicContact.firstName,
+    lastName: publicContact.lastName,
+    email: publicContact.email,
+    phone: publicContact.phone
+  };
+}
+
+function mapToEmployerFormValue(employer: Employer): EmployerFormValue {
+  if (!employer) {
+    return emptyEmployerFormValue();
+  }
+
+  return {
+    name: employer.name,
+    countryIsoCode: employer.countryIsoCode,
+    zipAndCity: mapToZipCityFormValue(employer.countryIsoCode, employer.postalCode, employer.city)
+  };
+}
+
+function mapToApplicationFormValue(applyChannel: ApplyChannel): ApplicationFormValue {
+  if (!applyChannel) {
+    return emptyApplicationFormValue();
+  }
+
+  const application: ApplicationFormValue = {
+    selectedApplicationTypes: {
+      form: false,
+      email: false,
+      phone: false,
+      post: false
+    },
+    additionalInfo: applyChannel.additionalInfo
+  };
+
+  if (!!applyChannel.formUrl) {
+    application.selectedApplicationTypes.form = true;
+    application.formUrl = applyChannel.formUrl;
+  }
+
+  if (!!applyChannel.emailAddress) {
+    application.selectedApplicationTypes.email = true;
+    application.emailAddress = applyChannel.emailAddress;
+  }
+
+  if (!!applyChannel.phoneNumber) {
+    application.selectedApplicationTypes.phone = true;
+    application.phoneNumber = applyChannel.phoneNumber;
+  }
+
+  if (!!application.postAddress) {
+    const postAddress = applyChannel.postAddress;
+    application.selectedApplicationTypes.post = true;
+
+    application.postAddress = {
+      name: postAddress.name,
+      countryIsoCode: postAddress.countryIsoCode,
+      houseNumber: postAddress.houseNumber,
+      postOfficeBoxNumberOrStreet: {
+        street: postAddress.street,
+        //todo review type
+        postOfficeBoxNumber: +postAddress.postOfficeBoxNumber
+      },
+      zipAndCity: mapToZipCityFormValue(postAddress.countryIsoCode, postAddress.postalCode, postAddress.city)
+    };
+  }
+
+  return application;
+}
+
+function mapToPublicationFormValue(publication: Publication): PublicationFormValue {
+  return {
+    euresDisplay: publication.euresDisplay,
+    publicDisplay: publication.publicDisplay
+  };
+}
+
 
 export function mapToZipCityFormValue(countryIsoCode: string, zipCode: string, city: string): ZipCityFormValue {
   const zipCity = { zipCode, city };
@@ -73,7 +304,6 @@ export function mapToCreateJobAdvertisement(jobPublicationFormValue: JobPublicat
     employer: mapToEmployer(jobPublicationFormValue.employer),
   };
 }
-
 
 function mapToJobDescriptions(jobDescriptionFormValue: JobDescriptionFormValue, languageIsoCode: string): JobDescription[] {
   const jobDescription = {
