@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { LegalTerms } from '../../shared/backend-services/legal-terms-management/legal-terms-management.types';
 import { LegalTermsManagementRepository } from '../../shared/backend-services/legal-terms-management/legal-terms-management-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
@@ -14,7 +14,7 @@ import { CONFIRM_DELETE_MODAL, LEGAL_ACTIONS, MESSAGE } from './legal-terms-mana
 })
 export class LegalTermsManagementComponent implements OnInit {
 
-  legalTermsEntries$: Observable<LegalTerms[]>;
+  legalTermsEntries$ = new Subject<LegalTerms[]>();
 
   constructor(private legalTermsManagementRepository: LegalTermsManagementRepository,
               private notificationService: NotificationsService,
@@ -60,17 +60,20 @@ export class LegalTermsManagementComponent implements OnInit {
     return effectiveAt != null && Date.parse(effectiveAt) > Date.now();
   }
 
-  refresh() {
+  private refresh() {
     this.notificationService.success(MESSAGE.success);
     this.loadAll();
   }
 
-  error() {
+  private error() {
     this.notificationService.error(MESSAGE.failure);
   }
 
-  loadAll() {
-    this.legalTermsEntries$ = this.legalTermsManagementRepository.getAllLegalTermsEntries();
+  private loadAll() {
+    this.legalTermsManagementRepository.getAllLegalTermsEntries()
+      .subscribe(list => {
+      this.legalTermsEntries$.next(list);
+    });
   }
 
 }
