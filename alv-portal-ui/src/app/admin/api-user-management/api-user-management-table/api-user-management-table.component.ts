@@ -29,11 +29,14 @@ export class ApiUserManagementTableComponent implements OnInit {
   @Input()
   currentSorting: ApiUserColumnDefinition;
 
+  @Input()
+  page: number;
+
   @Output()
   sort = new EventEmitter<string>();
 
   @Output()
-  scroll = new EventEmitter<void>();
+  scroll = new EventEmitter<number>();
 
   @Output()
   statusChange = new EventEmitter<void>();
@@ -55,7 +58,8 @@ export class ApiUserManagementTableComponent implements OnInit {
   }
 
   onScroll() {
-    this.scroll.emit();
+    console.log('...onScroll() : ', this.page);
+    this.scroll.emit(this.page);
   }
 
   onSort(column: string) {

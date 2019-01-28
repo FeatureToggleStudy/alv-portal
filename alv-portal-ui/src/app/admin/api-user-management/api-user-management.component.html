@@ -36,11 +36,12 @@
 
     <alv-api-user-management-table [apiUserList]="apiUserList$ | async"
                                    [currentSorting]="currentSorting$ | async"
+                                   [page]="page$ | async"
                                    (sort)="onSortChange($event)"
+                                   (scroll)="onScrollChange($event)"
                                    (statusChange)="onStatusChange()"
                                    (updateUser)="onUpdateUserChange($event)"
                                    (updatePassword)="onUpdatePasswordChange($event)">
-      <!--(scroll)=""-->
 
     </alv-api-user-management-table>
 

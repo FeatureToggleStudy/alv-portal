@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   ApiUser,
-  ApiUserSearchRequest,
-  ApiUserSearchResponse,
+  ApiUserSearchRequest, ApiUserSearchResponse,
   ApiUserUpdatePasswordRequest
 } from './api-user-management.types';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../request-util';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +17,6 @@ export class ApiUserManagementRepository {
   private static API_USER_URL = '/jobadservice/api/apiUsers';
 
   constructor(private http: HttpClient) {}
-
-  search2(request: ApiUserSearchRequest): Observable<ApiUser[]> {
-    const params = createPageableURLSearchParams(request);
-    const body = {query: request.query};
-
-    return this.http.post<ApiUser[]>(`${ApiUserManagementRepository.API_USER_URL}/_search`, body, {params});
-  }
 
   search(request: ApiUserSearchRequest): Observable<ApiUserSearchResponse> {
     const params = createPageableURLSearchParams(request);

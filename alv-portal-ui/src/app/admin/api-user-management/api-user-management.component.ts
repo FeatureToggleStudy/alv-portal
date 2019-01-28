@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import {
   ApiUser, ApiUserColumnDefinition,
   ApiUserManagementFilter, initialFilter
 } from '../../shared/backend-services/api-user-management/api-user-management.types';
 import { ApiUserManagementRepository } from '../../shared/backend-services/api-user-management/api-user-management-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
-import { ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
-import { map, take, tap } from 'rxjs/operators';
+import { API_USERS_PER_PAGE, ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
+import { map, take } from 'rxjs/operators';
 import { FAILURE, mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserEditModalComponent } from './api-user-edit-modal/api-user-edit-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
@@ -28,6 +28,10 @@ export class ApiUserManagementComponent implements OnInit {
 
   currentSorting$: Observable<ApiUserColumnDefinition>;
 
+  page$: Observable<number>;
+
+  private maxScrollPage: number;
+
   constructor(private fb: FormBuilder,
               private notificationService: NotificationsService,
               private apiUserManagementRepository: ApiUserManagementRepository,
@@ -35,13 +39,6 @@ export class ApiUserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.prepareForm();
-
-    this.apiUserFilter$ = of(initialFilter).pipe(
-      tap(filter => {
-        this.form.patchValue({query: filter.query}, {emitEvent: false});
-        this.currentSorting$ = of(mapSortToApiUserColumnDefinition(filter.sort));
-      })
-    );
 
     this.apiUserList$ = this.loadApiUsers(initialFilter, 0);
   }
@@ -56,6 +53,27 @@ export class ApiUserManagementComponent implements OnInit {
     this.apiUserFilter$.pipe(take(1)).subscribe((filter) => {
       this.apiUserList$ = this.loadApiUsers({...filter, sort}, 0);
     });
+  }
+
+  onScrollChange(currentPage: number) {
+    if (!(currentPage === this.maxScrollPage)) {
+      this.apiUserFilter$.pipe(
+        take(1))
+        .subscribe( (filter) => {
+          this.apiUserList$ = combineLatest(this.apiUserList$, this.apiUserManagementRepository.search(
+            ApiUserManagementRequestMapper.mapToRequest(filter, currentPage + 1))).pipe(
+            map( ([list, response]) => {
+              console.log('totalCount', response.totalCount);
+              this.maxScrollPage = Math.ceil(response.totalCount / API_USERS_PER_PAGE);
+              console.log('...maxScrollPage : ', this.maxScrollPage);
+              this.page$ = ((currentPage + 1) > this.maxScrollPage) ? of(this.maxScrollPage) : of(currentPage + 1);
+              this.apiUserFilter$ = of(filter);
+              this.currentSorting$ = of(mapSortToApiUserColumnDefinition(filter.sort));
+              return [...list, ...response.result];
+            })
+          );
+        });
+    }
   }
 
   onStatusChange() {
@@ -98,6 +116,8 @@ export class ApiUserManagementComponent implements OnInit {
     return this.apiUserManagementRepository.search(
       ApiUserManagementRequestMapper.mapToRequest(filter, page)).pipe(
       map((response) => {
+        this.maxScrollPage = Math.ceil(response.totalCount / API_USERS_PER_PAGE);
+        this.page$ = (page > this.maxScrollPage) ? of(this.maxScrollPage) : of(page);
         this.apiUserFilter$ = of(filter);
         this.currentSorting$ = of(mapSortToApiUserColumnDefinition(filter.sort));
         return response.result;

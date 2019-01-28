@@ -3,14 +3,14 @@ import {
   ApiUserSearchRequest, ApiUserUpdatePasswordRequest
 } from '../../shared/backend-services/api-user-management/api-user-management.types';
 
-const ITEMS_PER_PAGE = 50;
+export const API_USERS_PER_PAGE = 20;
 
 export class ApiUserManagementRequestMapper {
 
   static mapToRequest(filter: ApiUserManagementFilter, page: number): ApiUserSearchRequest {
     return {
       page: page,
-      size: ITEMS_PER_PAGE,
+      size: API_USERS_PER_PAGE,
       sort: filter.sort,
       query: filter.query
     };
