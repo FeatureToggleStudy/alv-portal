@@ -113,10 +113,10 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
   }
 
   duplicateJobAdAction() {
-    this.router.navigate(['job-publication'], {
-      queryParams: {
-        'job-ad-id': this.jobAdvertisement.id
-      }
-    });
+    const queryParams = this.token
+      ? { 'token': this.token }
+      : { 'job-ad-id': this.jobAdvertisement.id };
+
+    this.router.navigate(['job-publication'], { queryParams });
   }
 }
