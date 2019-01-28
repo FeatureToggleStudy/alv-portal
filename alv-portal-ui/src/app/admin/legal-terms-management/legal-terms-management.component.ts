@@ -56,6 +56,10 @@ export class LegalTermsManagementComponent implements OnInit {
       () => {});
   }
 
+  isEffectiveAtInFuture(effectiveAt: string): boolean {
+    return effectiveAt != null && Date.parse(effectiveAt) > Date.now();
+  }
+
   refresh() {
     this.notificationService.success(MESSAGE.success);
     this.loadAll();

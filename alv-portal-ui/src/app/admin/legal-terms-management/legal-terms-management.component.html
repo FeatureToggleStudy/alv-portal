@@ -84,7 +84,8 @@
           </td>
           <td class="content-cell align-middle d-block d-md-table-cell"
               role="gridcell">
-            <button class="btn btn-primary btn-icon"
+            <button *ngIf="isEffectiveAtInFuture(legalTerms.effectiveAt)"
+                    class="btn btn-primary btn-icon"
                     [ngbTooltip]="'entity.action.edit' | translate"
                     (click)="onUpdate(legalTerms)">
               <span class="fa fa-edit"></span>
@@ -92,7 +93,8 @@
           </td>
           <td class="content-cell align-middle d-block d-md-table-cell"
               role="gridcell">
-            <button class="btn btn-primary btn-icon"
+            <button *ngIf="isEffectiveAtInFuture(legalTerms.effectiveAt)"
+                    class="btn btn-primary btn-icon"
                     [ngbTooltip]="'entity.action.delete' | translate"
                     (click)="onDelete(legalTerms)">
               <span class="fa fa-trash"></span>
