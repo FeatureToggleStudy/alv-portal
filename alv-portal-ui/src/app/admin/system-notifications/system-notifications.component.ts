@@ -17,6 +17,15 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
 
   systemNotifications$ = new Subject<SystemNotificationDto[]>();
 
+  tableHeaders = [
+    'portal.admin.system-notifications.title',
+    'portal.admin.system-notifications.type',
+    'portal.admin.system-notifications.startDate',
+    'portal.admin.system-notifications.endDate',
+    'portal.admin.system-notifications.status',
+    'portal.admin.system-notifications.actions',
+  ];
+
   constructor(private systemNotificationRepository: SystemNotificationRepository,
               private modalService: ModalService,
               private notificationsService: NotificationsService) {
