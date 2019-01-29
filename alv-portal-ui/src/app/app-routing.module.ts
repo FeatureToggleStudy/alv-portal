@@ -5,6 +5,7 @@ import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { NotAuthenticatedGuard } from './core/auth/not-authenticated.guard';
 import { LandingPageGuard } from './shared/landing-page/landing-page.guard';
 import { DummyComponent } from './shared/dummy/dummy.component';
+import { RedirectionGuard } from '../redirection.guard';
 
 const appRoutes: Routes = [
   {
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home'
+    canActivate: [RedirectionGuard],
+    component: DummyComponent
   }
 ];
 
