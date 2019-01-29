@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { flatMap, map, withLatestFrom } from 'rxjs/operators';
+import { flatMap, map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { InitialFormValueConfig } from './job-publication-form/job-publication-form-value-factory';
 import { AuthenticationService } from '../core/auth/authentication.service';
@@ -26,20 +26,17 @@ export class JobPublicationResolver implements Resolve<Observable<InitialFormVal
 
     const companyContactTemplate$ = this.authenticationService.getCurrentUser().pipe(
       flatMap((user) => (user ? this.authenticationService.getCurrentCompany() : of(null))),
-      map((companyContactTemplateModel) => ({ companyContactTemplateModel })));
+      take(1)
+    );
 
     const jobAdvertisement$ = this.getJobAdvertisement(token, duplicationJobAdvertisementId);
 
-    return jobAdvertisement$.pipe(
-      withLatestFrom(companyContactTemplate$),
-      map(([jobAdvertisement, initialFormValueConfig]) => {
-          return <InitialFormValueConfig>{
-            ...initialFormValueConfig,
-            jobAdvertisement,
-            jobAdvertisementTitle
-          };
-        }
-      )
+    return companyContactTemplate$.pipe(
+      map((companyContactTemplateModel) => ({ companyContactTemplateModel })),
+      flatMap((initialFormValueConfig) => jobAdvertisement$.pipe(
+        map((jobAdvertisement) => ({ ...initialFormValueConfig, jobAdvertisement}))
+      )),
+      map((initialFormValueConfig) => ({...initialFormValueConfig, jobAdvertisementTitle}))
     );
   }
 
