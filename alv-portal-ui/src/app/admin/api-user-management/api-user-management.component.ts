@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { combineLatest, Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import {
-  ApiUser, ApiUserColumnDefinition,
-  ApiUserManagementFilter, initialFilter
+  ApiUser,
+  ApiUserColumnDefinition,
+  ApiUserManagementFilter,
+  initialFilter
 } from '../../shared/backend-services/api-user-management/api-user-management.types';
 import { ApiUserManagementRepository } from '../../shared/backend-services/api-user-management/api-user-management-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { API_USERS_PER_PAGE, ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
-import { distinctUntilChanged, map, take } from 'rxjs/operators';
+import { take, withLatestFrom } from 'rxjs/operators';
 import { FAILURE, mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserEditModalComponent } from './api-user-edit-modal/api-user-edit-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
@@ -22,9 +24,11 @@ export class ApiUserManagementComponent implements OnInit {
 
   form: FormGroup;
 
-  apiUserList$: Observable<ApiUser[]>;
+  apiUserList$ = new Subject<ApiUser[]>();
 
-  apiUserFilter$: Observable<ApiUserManagementFilter>;
+  array$: Observable<ApiUser[]>;
+
+  currentFilter$: Observable<ApiUserManagementFilter>;
 
   currentSorting$: Observable<ApiUserColumnDefinition>;
 
@@ -40,40 +44,32 @@ export class ApiUserManagementComponent implements OnInit {
   ngOnInit() {
     this.form = this.prepareForm();
 
-    this.apiUserList$ = this.loadApiUsers(initialFilter, 0);
+    this.loadApiUsers(initialFilter, 0, []);
   }
 
   onFilterChange() {
-    this.apiUserFilter$.pipe(take(1)).subscribe((filter) => {
-      this.apiUserList$ = this.loadApiUsers({...filter, query: this.form.get('query').value}, 0);
+    this.currentFilter$.pipe(take(1)).subscribe((filter) => {
+      this.loadApiUsers({...filter, query: this.form.get('query').value}, 0, []);
     });
   }
 
   onSortChange(sort: string) {
-    this.apiUserFilter$.pipe(take(1)).subscribe((filter) => {
-      this.apiUserList$ = this.loadApiUsers({...filter, sort}, 0);
+    this.currentFilter$.pipe(take(1)).subscribe((filter) => {
+      this.loadApiUsers({...filter, sort}, 0, []);
     });
   }
 
-  onScrollChange(currentPage: number) {
-    if (!(currentPage === this.maxScrollPage)) {
-      const page = currentPage + 1;
-      this.apiUserFilter$.pipe(
-        take(1))
-        .subscribe( (filter) => {
-          this.apiUserList$ = combineLatest(this.apiUserList$, this.apiUserManagementRepository.search(
-            ApiUserManagementRequestMapper.mapToRequest(filter, page))).pipe(
-            distinctUntilChanged(),
-            map( ([list, response]) => {
-              this.maxScrollPage = Math.ceil(response.totalCount / API_USERS_PER_PAGE);
-              this.page$ = (page > this.maxScrollPage) ? of(this.maxScrollPage) : of(page);
-              this.apiUserFilter$ = of(filter);
-              this.currentSorting$ = of(mapSortToApiUserColumnDefinition(filter.sort));
-              return [...list, ...response.result];
-            })
-          );
-        });
+  onScrollChange(nextPage: number) {
+
+    if (nextPage === this.maxScrollPage) {
+      return;
     }
+
+    this.currentFilter$.pipe(take(1),
+      withLatestFrom(this.array$))
+      .subscribe(([filter, list]) => {
+        this.loadApiUsers(filter, nextPage, list);
+      });
   }
 
   onStatusChange() {
@@ -107,21 +103,27 @@ export class ApiUserManagementComponent implements OnInit {
   }
 
   private applyFilter() {
-    this.apiUserFilter$.pipe(take(1)).subscribe((filter) => {
-      this.apiUserList$ = this.loadApiUsers(filter, 0);
-    });
+    this.currentFilter$.pipe(take(1))
+      .subscribe((filter) => {
+        this.loadApiUsers(filter, 0, []);
+      });
   }
 
-  private loadApiUsers(filter: ApiUserManagementFilter, page: number): Observable<ApiUser[]> {
-    return this.apiUserManagementRepository.search(
-      ApiUserManagementRequestMapper.mapToRequest(filter, page)).pipe(
-      map((response) => {
-        this.maxScrollPage = Math.ceil(response.totalCount / API_USERS_PER_PAGE);
-        this.page$ = (page > this.maxScrollPage) ? of(this.maxScrollPage) : of(page);
-        this.apiUserFilter$ = of(filter);
+  private loadApiUsers(filter: ApiUserManagementFilter, page: number, existingList: ApiUser[]): void {
+    this.apiUserManagementRepository.search(
+      ApiUserManagementRequestMapper.mapToRequest(filter, page))
+      .subscribe(response => {
+        this.apiUserList$.next([...existingList, ...response.result]);
+        this.array$ = of([...existingList, ...response.result]);
+        this.currentFilter$ = of(filter);
         this.currentSorting$ = of(mapSortToApiUserColumnDefinition(filter.sort));
-        return response.result;
-      }));
+        this.setMaxScrollPage(response.totalCount, page);
+      });
+  }
+
+  private setMaxScrollPage(totalCount: number, currentPage: number) {
+    this.maxScrollPage = Math.ceil(totalCount / API_USERS_PER_PAGE);
+    this.page$ = of(currentPage > this.maxScrollPage ? this.maxScrollPage : currentPage);
   }
 
   private error() {

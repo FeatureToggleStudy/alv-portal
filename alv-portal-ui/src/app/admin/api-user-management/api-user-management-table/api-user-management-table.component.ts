@@ -58,8 +58,7 @@ export class ApiUserManagementTableComponent implements OnInit {
   }
 
   onScroll() {
-    console.log('...onScroll() : ', this.page);
-    this.scroll.emit(this.page);
+    this.scroll.emit(this.page + 1);
   }
 
   onSort(column: string) {

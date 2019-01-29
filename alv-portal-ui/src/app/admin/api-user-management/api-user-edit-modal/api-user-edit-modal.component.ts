@@ -44,7 +44,7 @@ export class ApiUserEditModalComponent implements OnInit {
         .subscribe((updatedUser) => this.activeModal.close(updatedUser), () => this.activeModal.close(null));
     } else {
       this.apiUserManagementRepository.save(user)
-        .subscribe((updatedUser) => this.activeModal.close(updatedUser));
+        .subscribe((updatedUser) => this.activeModal.close(updatedUser), () => this.activeModal.close(null));
     }
   }
 
