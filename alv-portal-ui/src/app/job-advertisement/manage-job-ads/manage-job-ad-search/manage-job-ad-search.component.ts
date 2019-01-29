@@ -177,7 +177,11 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
         this.router.navigate(action.row.detailRouterLink);
         break;
       case ManagedJobAdsActionType.ON_DUPLICATE:
-        alert('Not implemented yet');
+        this.router.navigate(['job-publication'], {
+          queryParams: {
+            'job-ad-id': action.row.jobAdvertisement.id
+          }
+        });
         break;
     }
   }

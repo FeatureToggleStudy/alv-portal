@@ -21,6 +21,7 @@ import { ApplicationComponent } from './job-publication-form/application/applica
 import { PostAddressFormComponent } from './job-publication-form/post-address-form/post-address-form.component';
 import { JobPublicationFormValueFactory } from './job-publication-form/job-publication-form-value-factory';
 import { JobPublicationResolver } from './job-publication.resolver';
+import { JobPublicationGuard } from './job-publication.guard';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { JobPublicationResolver } from './job-publication.resolver';
   providers: [
     IsoCountryService,
     JobPublicationFormValueFactory,
-    JobPublicationResolver
+    JobPublicationResolver,
+    JobPublicationGuard
   ]
 })
 export class JobPublicationModule {

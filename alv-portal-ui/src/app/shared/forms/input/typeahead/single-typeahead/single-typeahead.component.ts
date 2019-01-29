@@ -18,7 +18,13 @@ import { InputIdGenerationService } from '../../input-id-generation.service';
 import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap
+} from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { TypeaheadItem } from '../typeahead-item';
 
@@ -27,7 +33,7 @@ import { TypeaheadItem } from '../typeahead-item';
   templateUrl: './single-typeahead.component.html',
   styleUrls: ['../../abstract-input.scss', './single-typeahead.component.scss']
 })
-export class SingleTypeaheadComponent extends AbstractInput implements OnInit, AfterViewInit {
+export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
   /**
    * CSS class providing space for the search icon on the right
@@ -62,19 +68,11 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit, A
   ngOnInit() {
     super.ngOnInit();
     this.controlValueChange$ = this.control.valueChanges.pipe(
+      startWith(this.control.value),
       map(this.formatResultItem),
       distinctUntilChanged()
     );
   }
-
-  ngAfterViewInit(): void {
-    const initialValue = <TypeaheadItem<any>>this.control.value;
-    if (initialValue) {
-      this.inputFieldRef.nativeElement.value = initialValue.label;
-      this.changeDetectorRef.detectChanges();
-    }
-  }
-
 
   formatResultItem(item: TypeaheadItem<any>): string {
     return item ? item.label : '';
