@@ -12,6 +12,13 @@ import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
 })
 export class ApiUserEditModalComponent implements OnInit {
 
+  readonly inputFields = [
+    'username',
+    'companyName',
+    'companyEmail',
+    'technicalContactName',
+    'technicalContactEmail'];
+
   @Input()
   apiUser: ApiUser;
 

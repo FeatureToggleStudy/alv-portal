@@ -4,21 +4,9 @@
            secondaryLabel="portal.admin.api-user-management.dismiss"
            (secondaryAction)="onDismiss()"
            [formGroup]="form">
-  <fieldset>
-    <alv-input-field label="portal.admin.api-user-management.username"
-                     alvFormControlName="username">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.api-user-management.companyName"
-                     alvFormControlName="companyName">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.api-user-management.companyEmail"
-                     alvFormControlName="companyEmail">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.api-user-management.technicalContactName"
-                     alvFormControlName="technicalContactName">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.api-user-management.technicalContactEmail"
-                     alvFormControlName="technicalContactEmail">
+  <fieldset *ngFor="let inputField of inputFields">
+    <alv-input-field label="portal.admin.api-user-management.{{ inputField }}"
+                     alvFormControlName="{{ inputField }}">
     </alv-input-field>
   </fieldset>
   <fieldset *ngIf="!apiUser">

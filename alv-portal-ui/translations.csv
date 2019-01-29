@@ -1533,6 +1533,7 @@ portal,portal.admin.user-info.alert.unregister-success,Registrierung zurückgese
 portal,portal.admin.user-info.confirm-dialog.yes,Ja,Yes,Yes,Yes
 portal,portal.admin.user-info.confirm-dialog.no,Nein,No,No,No
 
+portal,portal.admin.api-user-management.title,API-Benutzer verwalten,Manage API users,Manage API users,Manage API users
 portal,portal.admin.api-user-management.menu-entry,API-Benutzer verwalten,Manage API users,Manage API users,Manage API users
 portal,portal.admin.api-user-management.new-user,Neuen API-Benutzer erstellen,Create new API user,Créer un nouvel utilisateur API,Crea nuovo utente API
 portal,portal.admin.api-user-management.search,Suchen,Search,Search,Search

@@ -59,7 +59,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     icon: 'users',
     labelKey: 'portal.admin.api-user-management.menu-entry',
     path: ['admin', 'api-user-management'],
-    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   }
 ];
 
