@@ -3,7 +3,7 @@ import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { formatDate } from '@angular/common';
 
 export enum LEGAL_ACTIONS {
-  VIEW, EDIT, NEW, DELETE
+  VIEW, EDIT, NEW
 }
 
 export const CONFIRM_DELETE_MODAL: ConfirmModalConfig = {
@@ -11,11 +11,6 @@ export const CONFIRM_DELETE_MODAL: ConfirmModalConfig = {
   content: 'portal.admin.legal-terms-management.legal-terms-delete-dialog.question',
   confirmLabel: 'entity.action.delete',
   cancelLabel: 'entity.action.cancel'
-};
-
-export const MESSAGE = {
-  success: 'portal.admin.legal-terms-management.notification.success',
-  failure: 'portal.admin.legal-terms-management.notification.failure'
 };
 
 // TODO temp here -> until DF-517 (github.com/alv-ch/alv-portal/pull/199/) gets merged

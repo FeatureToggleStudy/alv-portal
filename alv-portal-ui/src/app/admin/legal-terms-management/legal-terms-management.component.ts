@@ -5,7 +5,7 @@ import { LegalTermsManagementRepository } from '../../shared/backend-services/le
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { LegalTermsDetailModalComponent } from './legal-terms-detail-modal/legal-terms-detail-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
-import { CONFIRM_DELETE_MODAL, LEGAL_ACTIONS, MESSAGE } from './legal-terms-management.types';
+import { CONFIRM_DELETE_MODAL, LEGAL_ACTIONS } from './legal-terms-management.types';
 
 @Component({
   selector: 'alv-legal-terms-management',
@@ -29,7 +29,7 @@ export class LegalTermsManagementComponent implements OnInit {
     modalRef.componentInstance.actionTyp = LEGAL_ACTIONS.NEW;
     modalRef.componentInstance.legalTerm = null;
     modalRef.componentInstance.readonly = false;
-    modalRef.result.then(() => this.refresh(), () => this.error());
+    modalRef.result.then(() => this.loadAll(), () => {});
   }
 
   onUpdate(legalTerm: LegalTerms) {
@@ -37,7 +37,7 @@ export class LegalTermsManagementComponent implements OnInit {
     modalRef.componentInstance.actionTyp = LEGAL_ACTIONS.EDIT;
     modalRef.componentInstance.legalTerm = legalTerm;
     modalRef.componentInstance.readonly = false;
-    modalRef.result.then(() => this.refresh(), () => this.error());
+    modalRef.result.then(() => this.loadAll(), () => {});
   }
 
   onView(legalTerm: LegalTerms) {
@@ -52,21 +52,12 @@ export class LegalTermsManagementComponent implements OnInit {
     this.modalService.openConfirm(CONFIRM_DELETE_MODAL).result.then(
       () =>
         this.legalTermsManagementRepository.deleteLegalTermsEntry(legalTerm.id)
-          .subscribe(() => this.refresh(), () => this.error()),
+          .subscribe(() => this.loadAll(), () => {}),
       () => {});
   }
 
   isEffectiveAtInFuture(effectiveAt: string): boolean {
     return effectiveAt != null && Date.parse(effectiveAt) > Date.now();
-  }
-
-  private refresh() {
-    this.notificationService.success(MESSAGE.success);
-    this.loadAll();
-  }
-
-  private error() {
-    this.notificationService.error(MESSAGE.failure);
   }
 
   private loadAll() {
