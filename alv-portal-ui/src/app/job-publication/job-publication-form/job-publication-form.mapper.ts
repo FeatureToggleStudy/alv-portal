@@ -67,6 +67,7 @@ import {
   OccupationTypeaheadItemType
 } from '../../shared/occupations/occupation-typeahead-item';
 import { OccupationTypes } from '../../shared/backend-services/reference-service/occupation-label.repository';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 
 export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement, languageIsoCode: string): JobPublicationFormValue {

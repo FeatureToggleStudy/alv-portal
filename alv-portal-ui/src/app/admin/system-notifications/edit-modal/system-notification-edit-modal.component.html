@@ -5,70 +5,66 @@
            (secondaryAction)="activeModal.dismiss()"
            [formGroup]="form">
   <fieldset>
-    <alv-input-field label="Title"
+    <alv-input-field label="{{'portal.admin.system-notifications.edit.form.title'| translate}}"
                      [maxLength]="TITLE_MAX_LENGTH"
                      alvFormControlName="title">
     </alv-input-field>
-    <alv-input-field label="Text (DE)"
+    <alv-input-field label="{{'portal.admin.system-notifications.edit.form.text.de'| translate}}"
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_de">
     </alv-input-field>
-    <alv-input-field label="Text (FR)"
+    <alv-input-field label="{{'portal.admin.system-notifications.edit.form.text.fr'| translate}}"
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_fr">
     </alv-input-field>
-    <alv-input-field label="Text (IT)"
+    <alv-input-field label="{{'portal.admin.system-notifications.edit.form.text.it'| translate}}"
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_it">
     </alv-input-field>
-    <alv-input-field label="Text (EN)"
+    <alv-input-field label="{{'portal.admin.system-notifications.edit.form.text.en'| translate}}"
                      [maxLength]="TEXT_MAX_LENGTH"
                      alvFormControlName="text_en">
     </alv-input-field>
-    <alv-select label="Type"
+    <alv-select label="{{'portal.admin.system-notifications.edit.form.type'| translate}}"
                 alvFormControlName="type"
                 [options$]="typeOptions$">
     </alv-select>
     <div class="form-row">
       <alv-date-input class="col-6"
-                      label="Start Date"
+                      label="{{'portal.admin.system-notifications.edit.form.startdate'| translate}}"
                       alvFormControlName="startDate"
                       placement="bottom-left">
       </alv-date-input>
-      <alv-input-field label="Hours"
+      <alv-input-field label="{{'portal.admin.system-notifications.edit.form.startdateHours'| translate}}"
                        class="col-2"
                        type="number"
-                       placeholder="HH"
                        alvFormControlName="startTimeHours">
       </alv-input-field>
-      <alv-input-field label="Minutes"
+      <alv-input-field label="{{'portal.admin.system-notifications.edit.form.startdateMinutes'| translate}}"
                        class="col-2"
                        type="number"
-                       placeholder="MM"
                        alvFormControlName="startTimeMinutes">
       </alv-input-field>
     </div>
     <div class="form-row">
       <alv-date-input class="col-6"
-                      label="End Date"
+                      label="{{'portal.admin.system-notifications.edit.form.enddate'| translate}}"
                       alvFormControlName="endDate"
                       placement="bottom-left">
       </alv-date-input>
-      <alv-input-field label="Hours"
+      <alv-input-field label="{{'portal.admin.system-notifications.edit.form.enddateHours'| translate}}"
                        class="col-2"
-                       placeholder="HH"
                        type="number"
                        alvFormControlName="endTimeHours">
       </alv-input-field>
-      <alv-input-field label="Minutes"
+      <alv-input-field label="{{'portal.admin.system-notifications.edit.form.enddateMinutes'| translate}}"
                        class="col-2"
                        type="number"
-                       placeholder="MM"
                        alvFormControlName="endTimeMinutes">
       </alv-input-field>
     </div>
     <alv-checkbox alvFormControlName="active"
-                  label="Active"
+                  label="{{'portal.admin.system-notifications.edit.form.active'| translate}}"
                   class="d-block mb-2">
     </alv-checkbox>
   </fieldset>

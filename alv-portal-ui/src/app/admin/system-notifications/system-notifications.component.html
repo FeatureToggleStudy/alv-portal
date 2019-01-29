@@ -5,9 +5,7 @@
   </h2>
   <table class="table table-striped">
     <thead>
-    <tr>
-      <th *ngFor="let tableHeader of tableHeaders">{{tableHeader | translate}}</th>
-    </tr>
+    <tr><th *ngFor="let tableHeader of tableHeaders">{{tableHeader | translate}}</th></tr>
     </thead>
     <tbody>
     <tr *ngFor="let systemNotification of (systemNotifications$ | async)">
