@@ -1,8 +1,6 @@
 import { ApiUserColumnDefinition } from '../../shared/backend-services/api-user-management/api-user-management.types';
 
 export const KEYWORD_FIELDS = ['createDate', 'lastAccessDate', 'active'];
-export const SUCCESS = 'portal.admin.user-info.alert.unregister-success';
-export const FAILURE = 'portal.admin.user-info.alert.unregister-technical';
 
 export const mapApiUserColumnDefinitionToSort = (currentSorting: ApiUserColumnDefinition, selectedColumn: string): string => {
   const column = KEYWORD_FIELDS.indexOf(selectedColumn) >= 0

@@ -11,7 +11,7 @@ import { ApiUserManagementRepository } from '../../shared/backend-services/api-u
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { API_USERS_PER_PAGE, ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
 import { take, withLatestFrom } from 'rxjs/operators';
-import { FAILURE, mapSortToApiUserColumnDefinition } from './api-user-management-factory';
+import { mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserEditModalComponent } from './api-user-edit-modal/api-user-edit-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
 

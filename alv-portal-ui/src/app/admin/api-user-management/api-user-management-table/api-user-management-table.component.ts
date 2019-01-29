@@ -4,7 +4,7 @@ import {
 } from '../../../shared/backend-services/api-user-management/api-user-management.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ApiUserManagementRepository } from '../../../shared/backend-services/api-user-management/api-user-management-repository';
-import { FAILURE, mapApiUserColumnDefinitionToSort, prepareApiUserColumns } from '../api-user-management-factory';
+import { mapApiUserColumnDefinitionToSort, prepareApiUserColumns } from '../api-user-management-factory';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { ApiUserEditModalComponent } from '../api-user-edit-modal/api-user-edit-modal.component';
@@ -69,7 +69,7 @@ export class ApiUserManagementTableComponent implements OnInit {
     const changedUser = {...apiUser, active};
     this.modalService.openConfirm(this.CONFIRM_CHANGE_STATUS_MODAL).result.then(
       () => this.apiUserManagementRepository.toggleStatus(changedUser)
-        .subscribe(() => this.statusChange.emit(), () => this.error()),
+        .subscribe(() => this.statusChange.emit(), () => {}),
       () => {}
     );
   }
@@ -80,7 +80,7 @@ export class ApiUserManagementTableComponent implements OnInit {
     apiUserComponent.apiUser = apiUser;
     apiUserModalRef.result.then(
       (updatedUser) => this.updateUser.emit(updatedUser),
-      () => this.error()
+      () => {}
     );
   }
 
@@ -90,12 +90,8 @@ export class ApiUserManagementTableComponent implements OnInit {
     passwordComponent.apiUserId = apiUserId;
     passwordModalRef.result.then(
       (id) => this.updatePassword.emit(id),
-      () => this.error()
+      () => {}
     );
-  }
-
-  error() {
-    this.notificationService.error(FAILURE);
   }
 
 }
