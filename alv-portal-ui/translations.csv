@@ -1295,7 +1295,7 @@ blacklisted-agent,blacklisted-agent.header.counter,Anzahl Sperrungen,Counter,Cou
 blacklisted-agent,blacklisted-agent.status.active,Aktiv,Active,Active,Active
 blacklisted-agent,blacklisted-agent.status.inactive,Inaktiv,Inactive,Inactive,Inactive
 blacklisted-agent,blacklisted-agent.create-blacklist-entry,PAV auf Blacklist setzen,Add PAV to Blacklist ,Add PAV to Blacklist ,Add PAV to Blacklist
-blacklisted-agent,blacklisted-agent.choose-organisation-desc,"Bitte wählen Sie eine Organisation aus, die sie auf die Blacklist setzen möchten." ,"Please choose an organisation that you want to add to the blacklist." ,"Please choose an organisation that you want to add to the blacklist." ,"Please choose an organisation that you want to add to the blacklist."
+blacklisted-agent,blacklisted-agent.choose-organisation-desc,"Bitte wählen Sie eine Organisation aus, die sie auf die Blacklist setzen möchten.","Please choose an organisation that you want to add to the blacklist.","Please choose an organisation that you want to add to the blacklist.","Please choose an organisation that you want to add to the blacklist."
 blacklisted-agent,blacklisted-agent.selected-organisation-desc,"Möchten Sie folgende Organisation auf die Blacklist setzen?" ,"Do you want to add the following organisation to the blacklist?" ,"Do you want to add the following organisation to the blacklist?" ,"Do you want to add the following organisation to the blacklist?"
 blacklisted-agent,blacklisted-agent.confirm-alert,"Diese Aktion wird sofort ausgeführt und kann nicht rückgängig gemacht werden!" ,"This action will be effectuated immediately and can not be undone!" ,"This action will be effectuated immediately and can not be undone!" ,"This action will be effectuated immediately and can not be undone!"
 blacklisted-agent,blacklisted-agent.change-status-dialog.title,Status des Blacklist-Eintrags ändern,Change Status of Blacklisted Agent,Change Status of Blacklisted Agent,Change Status of Blacklisted Agent,
@@ -1419,9 +1419,9 @@ portal,portal.job-ad.search.query-panel.localities.placeholder,"Arbeitsort, Kant
 portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl möglich,Multiple selection possible,Sélection multiple possible,Selezione multipla possibile
 portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
 
-portal,portal.job-ad.qualification.SKILLED,Gelernt
-portal,portal.job-ad.qualification.SEMISKILLED,Angelernt
-portal,portal.job-ad.qualification.UNSKILLED,Ungelernt
+portal,portal.job-ad.qualification.SKILLED,gelernt,skilled,qualifié,qualificato
+portal,portal.job-ad.qualification.SEMISKILLED,angelernt,semiskilled,initié,semiqualificato
+portal,portal.job-ad.qualification.UNSKILLED,ungelernt,unskilled,non qualifié,non qualificato
 
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
 portal,portal.shared.localities.geo-location-selection.not-available,Standort kann nicht ermittelt werden
