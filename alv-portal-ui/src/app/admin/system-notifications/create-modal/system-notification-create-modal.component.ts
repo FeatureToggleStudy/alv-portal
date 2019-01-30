@@ -11,13 +11,10 @@ import { SystemNotificationType } from '../../../shared/backend-services/system-
 
 @Component({
   selector: 'alv-system-notification-edit-modal',
-  templateUrl: './system-notification-create-modal.component.html',
+  templateUrl: '../edit-modal/system-notification-modal.component.html',
 })
 export class SystemNotificationCreateModalComponent extends AbstractSubscriber implements OnInit {
 
-  readonly 'TITLE_MAX_LENGTH' = 50;
-
-  readonly 'TEXT_MAX_LENGTH' = 150;
 
   form: FormGroup;
 

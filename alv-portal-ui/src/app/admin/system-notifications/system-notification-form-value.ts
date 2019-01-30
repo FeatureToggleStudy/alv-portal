@@ -1,5 +1,5 @@
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { SystemNotificationType } from '../../shared/backend-services/system-notifications/system-notification.types';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export interface SystemNotificationFormValue {
   title: string;
@@ -16,3 +16,4 @@ export interface SystemNotificationFormValue {
   endTimeMinutes: string;
   active: boolean;
 }
+

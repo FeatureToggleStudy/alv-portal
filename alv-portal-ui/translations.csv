@@ -1535,39 +1535,25 @@ portal,portal.admin.user-info.confirm-dialog.yes,Ja,Yes,Yes,Yes
 portal,portal.admin.user-info.confirm-dialog.no,Nein,No,No,No
 
 portal,portal.admin.system-notifications.page-title,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
-portal,portal.admin.system-notifications.title-key,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
 portal,portal.admin.system-notifications.create.modal.title,Neue Systemmitteilung erstellen,Create new System Notification
 portal,portal.admin.system-notifications.edit.modal.title,Systemmitteilung editieren,Edit System Notification
 portal,portal.admin.system-notifications.delete.modal.title,Systemmitteilung löschen,Delete System Notification
 portal,portal.admin.system-notifications.delete.modal.text,Möchten Sie die Systemmitteilung wirklich löschen?,Are you sure you want to delete this system notification?
 portal,portal.admin.system-notifications.delete.modal.confirm-dialog.yes,Ja,Yes
 portal,portal.admin.system-notifications.delete.modal.confirm-dialog.no,Nein,No
-portal,portal.admin.system-notifications.create.form.title,Titel,Title
-portal,portal.admin.system-notifications.create.form.text.de,Deutscher Text,German text
-portal,portal.admin.system-notifications.create.form.text.fr,Französischer Text,French text
-portal,portal.admin.system-notifications.create.form.text.it,Italienischer Text,Italian Text
-portal,portal.admin.system-notifications.create.form.text.en,Englischer Text,English Text
-portal,portal.admin.system-notifications.create.form.type,Typ,Type
-portal,portal.admin.system-notifications.create.form.startdate,Startdatum,Start Date
-portal,portal.admin.system-notifications.create.form.startdateHours,Stunden,Hours
-portal,portal.admin.system-notifications.create.form.startdateMinutes,Minuten,Minutes
-portal,portal.admin.system-notifications.create.form.enddate,Enddatum,End Date
-portal,portal.admin.system-notifications.create.form.enddateHours,Stunden,Hours
-portal,portal.admin.system-notifications.create.form.enddateMinutes,Minuten,Minutes
-portal,portal.admin.system-notifications.create.form.active,Aktiv,Active
-portal,portal.admin.system-notifications.edit.form.title,Titel,Title
-portal,portal.admin.system-notifications.edit.form.text.de,Deutscher Text,German text
-portal,portal.admin.system-notifications.edit.form.text.fr,Französischer Text,French text
-portal,portal.admin.system-notifications.edit.form.text.it,Italienischer Text,Italian Text
-portal,portal.admin.system-notifications.edit.form.text.en,Englischer Text,English Text
-portal,portal.admin.system-notifications.edit.form.type,Typ,Type
-portal,portal.admin.system-notifications.edit.form.startdate,Startdatum,Start Date
-portal,portal.admin.system-notifications.edit.form.startdateHours,Stunden,Hours
-portal,portal.admin.system-notifications.edit.form.startdateMinutes,Minuten,Minutes
-portal,portal.admin.system-notifications.edit.form.enddate,Enddatum,End Date
-portal,portal.admin.system-notifications.edit.form.enddateHours,Stunden,Hours
-portal,portal.admin.system-notifications.edit.form.enddateMinutes,Minuten,Minutes
-portal,portal.admin.system-notifications.edit.form.active,Aktiv,Active
+portal,portal.admin.system-notifications.form.title,Titel,Title
+portal,portal.admin.system-notifications.form.text.de,Deutscher Text,German text
+portal,portal.admin.system-notifications.form.text.fr,Französischer Text,French text
+portal,portal.admin.system-notifications.form.text.it,Italienischer Text,Italian Text
+portal,portal.admin.system-notifications.form.text.en,Englischer Text,English Text
+portal,portal.admin.system-notifications.form.type,Typ,Type
+portal,portal.admin.system-notifications.form.startdate,Startdatum,Start Date
+portal,portal.admin.system-notifications.form.startdateHours,Stunden,Hours
+portal,portal.admin.system-notifications.form.startdateMinutes,Minuten,Minutes
+portal,portal.admin.system-notifications.form.enddate,Enddatum,End Date
+portal,portal.admin.system-notifications.form.enddateHours,Stunden,Hours
+portal,portal.admin.system-notifications.form.enddateMinutes,Minuten,Minutes
+portal,portal.admin.system-notifications.form.active,Aktiv,Active
 portal,portal.admin.system-notifications.button.create,Neue Systemmitteilung erfassen,Create a new system notification,Créer un nouvel notification système,Crea un nuovo otifiche di sistema
 portal,portal.admin.system-notifications.button.active,Aktiv,Active
 portal,portal.admin.system-notifications.button.deactivated,Deaktiviert,Deactivated
