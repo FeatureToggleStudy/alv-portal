@@ -33,6 +33,7 @@
       <alv-date-input class="col-6"
                       label="{{'portal.admin.system-notifications.form.startdate'| translate}}"
                       alvFormControlName="startDate"
+                      [minDate]="date"
                       placement="bottom-left">
       </alv-date-input>
       <alv-input-field label="{{'portal.admin.system-notifications.form.startdateHours'| translate}}"
@@ -50,6 +51,7 @@
       <alv-date-input class="col-6"
                       label="{{'portal.admin.system-notifications.form.enddate'| translate}}"
                       alvFormControlName="endDate"
+                      [minDate]="date"
                       placement="bottom-left">
       </alv-date-input>
       <alv-input-field label="{{'portal.admin.system-notifications.form.enddateHours'| translate}}"

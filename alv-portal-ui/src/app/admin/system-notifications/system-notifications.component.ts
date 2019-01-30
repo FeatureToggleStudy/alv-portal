@@ -7,8 +7,7 @@ import {
 } from '../../shared/backend-services/system-notifications/system-notification.types';
 import { SystemNotificationRepository } from '../../shared/backend-services/system-notifications/system-notification-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
-import { SystemNotificationEditModalComponent } from './edit-modal/system-notification-edit-modal.component';
-import { SystemNotificationCreateModalComponent } from './create-modal/system-notification-create-modal.component';
+import { SystemNotificationModalComponent } from './modal/system-notification-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 
@@ -40,8 +39,8 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
   }
 
   openCreateModal() {
-    const createModalRef = this.modalService.openLarge(SystemNotificationCreateModalComponent);
-    const createModalComponent = <SystemNotificationEditModalComponent>createModalRef.componentInstance;
+    const createModalRef = this.modalService.openLarge(SystemNotificationModalComponent);
+    const createModalComponent = <SystemNotificationModalComponent>createModalRef.componentInstance;
     createModalComponent.systemNotification = empty();
     createModalComponent.title = 'portal.admin.system-notifications.create.modal.title';
     createModalRef.result
@@ -54,8 +53,8 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
   }
 
   openEditModal(systemNotification: SystemNotificationDto) {
-    const modalRef = this.modalService.openLarge(SystemNotificationEditModalComponent);
-    const editModalComponent = <SystemNotificationEditModalComponent>modalRef.componentInstance;
+    const modalRef = this.modalService.openLarge(SystemNotificationModalComponent);
+    const editModalComponent = <SystemNotificationModalComponent>modalRef.componentInstance;
     editModalComponent.systemNotification = systemNotification;
     editModalComponent.title = 'portal.admin.system-notifications.edit.modal.title';
     modalRef.result
@@ -82,7 +81,6 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
         })
       .catch(() => {
       });
-
   }
 
   toggleStatus(systemNotification: SystemNotificationDto) {

@@ -1,3 +1,5 @@
+import { now } from '../../forms/input/ngb-date-utils';
+
 export interface SystemNotificationDto {
   id: string;
   title: string;
@@ -26,8 +28,8 @@ export const empty = (): SystemNotificationDto => {
     text_it: '',
     text_en: '',
     type: null,
-    startDate: null,
-    endDate: null,
+    startDate: now.toLocaleString(),
+    endDate: now.toLocaleString(),
     active: false
   };
 };
