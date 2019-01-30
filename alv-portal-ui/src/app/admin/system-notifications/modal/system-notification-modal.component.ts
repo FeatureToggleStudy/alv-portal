@@ -49,11 +49,11 @@ export class SystemNotificationModalComponent extends AbstractSubscriber impleme
   ngOnInit() {
     const formValue = mapToFormValue(this.systemNotification);
     this.form = this.fb.group({
-      title: [formValue.title, Validators.required],
-      text_de: [formValue.text_de, Validators.required],
-      text_fr: [formValue.text_fr, Validators.required],
-      text_it: [formValue.text_it, Validators.required],
-      text_en: [formValue.text_en, Validators.required],
+      title: [formValue.title, [Validators.maxLength, Validators.required]],
+      text_de: [formValue.text_de, [Validators.maxLength, Validators.required]],
+      text_fr: [formValue.text_fr, [Validators.maxLength, Validators.required]],
+      text_it: [formValue.text_it, [Validators.maxLength, Validators.required]],
+      text_en: [formValue.text_en, [Validators.maxLength, Validators.required]],
       type: [formValue.type, Validators.required],
       startDate: [formValue.startDate, Validators.required],
       startTimeHours: [formValue.startTimeHours, [Validators.required, Validators.max(23), Validators.min(0)]],
