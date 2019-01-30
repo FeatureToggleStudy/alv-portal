@@ -1357,6 +1357,8 @@ portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find cand
 portal,portal.navigation.menu-entry.job-publication,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 portal,portal.navigation.menu-entry.account.profile,Profile,Profile
+portal,portal.navigation.menu-entry.admin.system-notifications,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
+portal,portal.navigation.menu-entry.admin.user-info,Benutzerinformationen,User Info,User Info,User Info
 portal,portal.navigation.label.main-navigation,,Main navigation
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
@@ -1492,7 +1494,6 @@ portal,portal.typeahead-multiselect.remove-item,,Remove item {{item}}
 portal,portal.typeahead-multiselect.help-text.add-free-text,,You can add free text items by hitting Tab or Enter without selection.
 portal,portal.typeahead-single.help-text.instruction,,Enter at least {{ number }} characters to query the list of selectable items. Select by using the up and down arrow keys.
 
-portal,portal.admin.user-info.menu-entry,Benutzerinformationen,User Info,User Info,User Info
 portal,portal.admin.user-info.desc,Bitte geben Sie die E-Mail-Adresse eines bestehenden Benutzers ein.,Please enter an email address of an existing user.,Please enter an email address of an existing user.,Please enter an email address of an existing user.
 portal,portal.admin.user-info.searchByEmail,Suchen,Search,Search,Search
 portal,portal.admin.user-info.email,E-Mail,E-Mail,E-Mail,E-Mail
@@ -1532,3 +1533,41 @@ portal,portal.admin.user-info.alert.unregister-technical,Es ist ein technischer 
 portal,portal.admin.user-info.alert.unregister-success,Registrierung zurückgesetzt.,Registration reset.,Registration reset.,Registration reset.
 portal,portal.admin.user-info.confirm-dialog.yes,Ja,Yes,Yes,Yes
 portal,portal.admin.user-info.confirm-dialog.no,Nein,No,No,No
+
+portal,portal.admin.system-notifications.page-title,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
+portal,portal.admin.system-notifications.create.modal.title,Neue Systemmitteilung erstellen,Create new System Notification
+portal,portal.admin.system-notifications.edit.modal.title,Systemmitteilung editieren,Edit System Notification
+portal,portal.admin.system-notifications.delete.modal.title,Systemmitteilung löschen,Delete System Notification
+portal,portal.admin.system-notifications.delete.modal.text,Möchten Sie die Systemmitteilung wirklich löschen?,Are you sure you want to delete this system notification?
+portal,portal.admin.system-notifications.delete.modal.confirm-dialog.yes,Ja,Yes
+portal,portal.admin.system-notifications.delete.modal.confirm-dialog.no,Nein,No
+portal,portal.admin.system-notifications.form.title,Titel,Title
+portal,portal.admin.system-notifications.form.text.de,Deutscher Text,German text
+portal,portal.admin.system-notifications.form.text.fr,Französischer Text,French text
+portal,portal.admin.system-notifications.form.text.it,Italienischer Text,Italian Text
+portal,portal.admin.system-notifications.form.text.en,Englischer Text,English Text
+portal,portal.admin.system-notifications.form.type,Typ,Type
+portal,portal.admin.system-notifications.form.startdate,Startdatum,Start Date
+portal,portal.admin.system-notifications.form.startdateHours,Stunden,Hours
+portal,portal.admin.system-notifications.form.startdateMinutes,Minuten,Minutes
+portal,portal.admin.system-notifications.form.enddate,Enddatum,End Date
+portal,portal.admin.system-notifications.form.enddateHours,Stunden,Hours
+portal,portal.admin.system-notifications.form.enddateMinutes,Minuten,Minutes
+portal,portal.admin.system-notifications.form.active,Aktiv,Active
+portal,portal.admin.system-notifications.button.create,Neue Systemmitteilung erfassen,Create a new system notification,Créer un nouvel notification système,Crea un nuovo otifiche di sistema
+portal,portal.admin.system-notifications.button.active,Aktiv,Active
+portal,portal.admin.system-notifications.button.deactivated,Deaktiviert,Deactivated
+portal,portal.admin.system-notifications.button.edit,Editieren,Edit
+portal,portal.admin.system-notifications.button.delete,Löschen,Delete
+portal,portal.admin.system-notifications.notifications.create.success,Die Systemmitteilung wurde erfolgreich erstellt,Successfully created SystemNotification
+portal,portal.admin.system-notifications.notifications.edit.success,Die Systemmitteilung wurde erfolgreich editiert,Successfully edited SystemNotification
+portal,portal.admin.system-notifications.notifications.delete.success,Die Systemmitteilung wurde erfolgreich gelöscht,Successfully deleted SystemNotification
+portal,portal.admin.system-notifications.title,Titel,Title
+portal,portal.admin.system-notifications.type,Typ,Type
+portal,portal.admin.system-notifications.startDate,Von,From
+portal,portal.admin.system-notifications.endDate,Bis,To
+portal,portal.admin.system-notifications.status,Status,Status
+portal,portal.admin.system-notifications.actions,Aktionen,Actions
+portal,portal.admin.system-notifications.systemnotification.type.interruption,Unterbrechung,Interruption
+portal,portal.admin.system-notifications.systemnotification.type.maintenance,Wartung,Maintenance
+portal,portal.admin.system-notifications.systemnotification.type.systemerror,Systemfehler,System error
