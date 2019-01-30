@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
@@ -13,11 +13,11 @@ import { fromISODate } from '../../../shared/forms/input/ngb-date-utils';
 import { of } from 'rxjs';
 
 @Component({
-  selector: 'alv-system-notification-edit-modal',
+  selector: 'alv-system-notification-modal',
   templateUrl: './system-notification-modal.component.html',
 
 })
-export class SystemNotificationEditModalComponent extends AbstractSubscriber implements OnInit {
+export class SystemNotificationModalComponent extends AbstractSubscriber implements OnInit {
 
   @Input() systemNotification: SystemNotificationDto;
 
@@ -28,6 +28,8 @@ export class SystemNotificationEditModalComponent extends AbstractSubscriber imp
   readonly 'TITLE_MAX_LENGTH' = 50;
 
   readonly 'TEXT_MAX_LENGTH' = 150;
+
+  date: NgbDateStruct;
 
   typeOptions$ = of([
     ...Object.keys(SystemNotificationType).map(type => {
@@ -65,6 +67,10 @@ export class SystemNotificationEditModalComponent extends AbstractSubscriber imp
 
   onSubmit(form: FormGroup) {
     const formValue = <SystemNotificationFormValue> form.value;
+    if (this.systemNotification.id == null) {
+      this.systemNotificationRepository.createSystemNotification(mapFormToDto(this.systemNotification.id, formValue))
+        .subscribe(() => this.activeModal.close());
+    }
     this.systemNotificationRepository.updateSystemNotification(mapFormToDto(this.systemNotification.id, formValue))
       .subscribe(() => this.activeModal.close());
   }
