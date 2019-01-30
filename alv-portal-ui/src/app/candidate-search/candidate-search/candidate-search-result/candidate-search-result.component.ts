@@ -10,7 +10,7 @@ import {
   OccupationService
 } from '../../../shared/occupations/occupation.service';
 import {
-  extractGenderAwareTitle,
+  extractGenderNeutralTitle,
   findRelevantJobExperience
 } from '../../candidate-rules';
 import { CandidateProfileBadgesMapperService } from '../../candidate-profile-badges-mapper.service';
@@ -58,7 +58,7 @@ export class CandidateSearchResultComponent implements OnInit {
     const candidateProfile = candidateSearchResult.candidateProfile;
     return {
       id: candidateProfile.id,
-      title: extractGenderAwareTitle(candidateProfile, occupationLabel),
+      title: extractGenderNeutralTitle(occupationLabel),
       description: jobExperience ? jobExperience.remark : '',
       header: null,
       badges: this.candidateProfileBadgesMapperService.map(candidateProfile, jobExperience),
