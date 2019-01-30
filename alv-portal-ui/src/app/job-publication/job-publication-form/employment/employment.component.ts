@@ -114,8 +114,8 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
       duration: [duration, [
         Validators.required
       ]],
-      startDate: [{ value: startDate, disabled: true }, [Validators.required]],
-      endDate: [{ value: endDate, disabled: true }, [Validators.required]],
+      startDate: [{ value: startDate, disabled: immediately }, [Validators.required]],
+      endDate: [{ value: endDate, disabled: duration !== EmploymentDuration.TEMPORARY }, [Validators.required]],
       workForms: this.fb.group(this.workFormOptions.reduce((acc, curr) => {
         acc[curr.value] = false;
         return acc;

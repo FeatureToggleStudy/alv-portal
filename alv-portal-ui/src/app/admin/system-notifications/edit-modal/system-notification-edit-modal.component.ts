@@ -14,11 +14,14 @@ import { of } from 'rxjs';
 
 @Component({
   selector: 'alv-system-notification-edit-modal',
-  templateUrl: './system-notification-edit-modal.component.html',
+  templateUrl: './system-notification-modal.component.html',
+
 })
 export class SystemNotificationEditModalComponent extends AbstractSubscriber implements OnInit {
 
   @Input() systemNotification: SystemNotificationDto;
+
+  @Input() title: string;
 
   form: FormGroup;
 

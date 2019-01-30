@@ -27,7 +27,7 @@ export class JobPublicationFormValueFactory {
 
   public createJobPublicationFormValue(initialFormValueConfig: InitialFormValueConfig, currentLanguageIsoCode: string): JobPublicationFormValue {
     if (initialFormValueConfig.jobAdvertisement) {
-      return jobPublicationFormMapper.mapToJobPublicationFormValue(initialFormValueConfig.jobAdvertisement);
+      return jobPublicationFormMapper.mapToJobPublicationFormValue(initialFormValueConfig.jobAdvertisement, currentLanguageIsoCode);
     }
 
     const emptyJobPublicationFormValue = this.createEmpty(currentLanguageIsoCode);
@@ -38,8 +38,7 @@ export class JobPublicationFormValueFactory {
       const { companyName, companyStreet, companyCity, companyZipCode, companyHouseNr } = initialFormValueConfig.companyContactTemplateModel;
       emptyJobPublicationFormValue.company.name = companyName;
       emptyJobPublicationFormValue.company.postOfficeBoxNumberOrStreet.street = companyStreet;
-      //todo: review zip code type
-      emptyJobPublicationFormValue.company.postOfficeBoxNumberOrStreet.postOfficeBoxNumber = +companyZipCode;
+      emptyJobPublicationFormValue.company.postOfficeBoxNumberOrStreet.postOfficeBoxNumber = companyZipCode;
       emptyJobPublicationFormValue.company.houseNumber = companyHouseNr;
       emptyJobPublicationFormValue.company.zipAndCity = jobPublicationFormMapper.mapToZipCityFormValue(IsoCountryService.ISO_CODE_SWITZERLAND, companyZipCode, companyCity);
       emptyJobPublicationFormValue.company.countryIsoCode = IsoCountryService.ISO_CODE_SWITZERLAND;

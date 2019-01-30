@@ -14,7 +14,7 @@ import {
 } from '../state-management/state';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { hasAnyAuthorities, UserRole } from '../../../core/auth/user.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -53,6 +53,7 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
               private jobDetailModelFactory: JobDetailModelFactory,
               private store: Store<ManageJobAdsState>,
               private route: ActivatedRoute,
+              private router: Router,
               private modalService: ModalService,
               private authenticationService: AuthenticationService) {
     super();
@@ -112,6 +113,10 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
   }
 
   duplicateJobAdAction() {
-    alert('Not implemented yet');
+    const queryParams = this.token
+      ? { 'token': this.token }
+      : { 'job-ad-id': this.jobAdvertisement.id };
+
+    this.router.navigate(['job-publication'], { queryParams });
   }
 }

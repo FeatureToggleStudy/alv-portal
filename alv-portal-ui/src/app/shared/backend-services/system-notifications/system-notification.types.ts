@@ -16,3 +16,18 @@ export enum SystemNotificationType {
   MAINTENANCE = 'maintenance',
   SYSTEMERROR = 'systemerror'
 }
+
+export const empty = (): SystemNotificationDto => {
+  return {
+    id: null,
+    title: '',
+    text_de: '',
+    text_fr: '',
+    text_it: '',
+    text_en: '',
+    type: null,
+    startDate: null,
+    endDate: null,
+    active: false
+  };
+};

@@ -1,18 +1,11 @@
 <div class="container pt-md-4 pt-3 px-3">
   <h2 class="panel-title">
     <i class="panel-icon fas fa-comment-alt mr-2"></i>
-    System Notifications
+    {{'portal.admin.system-notifications.page-title' | translate}}
   </h2>
   <table class="table table-striped">
     <thead>
-    <tr>
-      <th>{{'portal.admin.system-notifications.title' | translate}}</th>
-      <th>{{'portal.admin.system-notifications.type' | translate}}</th>
-      <th>{{'portal.admin.system-notifications.startDate' | translate}}</th>
-      <th>{{'portal.admin.system-notifications.endDate' | translate}}</th>
-      <th>{{'portal.admin.system-notifications.status' | translate}}</th>
-      <th>{{'portal.admin.system-notifications.actions' | translate}}</th>
-    </tr>
+    <tr><th *ngFor="let tableHeader of tableHeaders">{{tableHeader | translate}}</th></tr>
     </thead>
     <tbody>
     <tr *ngFor="let systemNotification of (systemNotifications$ | async)">
@@ -26,8 +19,9 @@
         <button class="btn btn-sm"
                 [ngClass]="{'btn-success': systemNotification.active, 'btn-danger': !systemNotification.active}"
                 (click)="toggleStatus(systemNotification)">
-          <span *ngIf="systemNotification.active">Activated</span>
-          <span *ngIf="!systemNotification.active">De-Activated</span>
+          <span
+            *ngIf="systemNotification.active">{{'portal.admin.system-notifications.button.active' | translate }}</span>
+          <span *ngIf="!systemNotification.active">{{'portal.admin.system-notifications.button.deactivated' | translate }}</span>
         </button>
       </th>
       <th>
@@ -35,13 +29,13 @@
                 (click)="openEditModal(systemNotification)"
                 class="btn btn-text">
           <i class="fa fa-edit"></i>
-          Edit
+          {{'portal.admin.system-notifications.button.edit' | translate }}
         </button>
         <button type="submit"
                 (click)="openDeleteModal(systemNotification.id)"
                 class="btn btn-text">
           <i class="fa fa-trash"></i>
-          Delete
+          {{'portal.admin.system-notifications.button.delete' | translate }}
         </button>
       </th>
     </tr>
@@ -51,6 +45,6 @@
           type="button"
           (click)="openCreateModal()">
     <i class="fa fa-plus"></i>
-    Create a new SystemNotification
+    {{'portal.admin.system-notifications.button.create' | translate }}
   </button>
 </div>

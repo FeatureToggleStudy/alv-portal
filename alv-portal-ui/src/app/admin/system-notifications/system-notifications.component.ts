@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { Subject } from 'rxjs';
-import { SystemNotificationDto } from '../../shared/backend-services/system-notifications/system-notification.types';
+import {
+  empty,
+  SystemNotificationDto
+} from '../../shared/backend-services/system-notifications/system-notification.types';
 import { SystemNotificationRepository } from '../../shared/backend-services/system-notifications/system-notification-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { SystemNotificationEditModalComponent } from './edit-modal/system-notification-edit-modal.component';
@@ -17,6 +20,15 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
 
   systemNotifications$ = new Subject<SystemNotificationDto[]>();
 
+  tableHeaders = [
+    'portal.admin.system-notifications.title',
+    'portal.admin.system-notifications.type',
+    'portal.admin.system-notifications.startDate',
+    'portal.admin.system-notifications.endDate',
+    'portal.admin.system-notifications.status',
+    'portal.admin.system-notifications.actions',
+  ];
+
   constructor(private systemNotificationRepository: SystemNotificationRepository,
               private modalService: ModalService,
               private notificationsService: NotificationsService) {
@@ -29,6 +41,9 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
 
   openCreateModal() {
     const createModalRef = this.modalService.openLarge(SystemNotificationCreateModalComponent);
+    const createModalComponent = <SystemNotificationEditModalComponent>createModalRef.componentInstance;
+    createModalComponent.systemNotification = empty();
+    createModalComponent.title = 'portal.admin.system-notifications.create.modal.title';
     createModalRef.result
       .then(() => {
         this.loadSystemNotifications();
@@ -42,6 +57,7 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
     const modalRef = this.modalService.openLarge(SystemNotificationEditModalComponent);
     const editModalComponent = <SystemNotificationEditModalComponent>modalRef.componentInstance;
     editModalComponent.systemNotification = systemNotification;
+    editModalComponent.title = 'portal.admin.system-notifications.edit.modal.title';
     modalRef.result
       .then(() => {
         this.loadSystemNotifications();

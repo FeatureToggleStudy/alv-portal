@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
@@ -11,9 +11,11 @@ import { SystemNotificationType } from '../../../shared/backend-services/system-
 
 @Component({
   selector: 'alv-system-notification-edit-modal',
-  templateUrl: './system-notification-create-modal.component.html',
+  templateUrl: '../edit-modal/system-notification-modal.component.html',
 })
 export class SystemNotificationCreateModalComponent extends AbstractSubscriber implements OnInit {
+
+  @Input() title: string;
 
   readonly 'TITLE_MAX_LENGTH' = 50;
 
