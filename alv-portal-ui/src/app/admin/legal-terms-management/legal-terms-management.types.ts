@@ -13,27 +13,6 @@ export const CONFIRM_DELETE_MODAL: ConfirmModalConfig = {
   cancelLabel: 'entity.action.cancel'
 };
 
-// TODO temp here -> until DF-517 (github.com/alv-ch/alv-portal/pull/199/) gets merged
-export const fromDate = (date: Date): NgbDateStruct => {
-  return NgbDate.from({year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()});
-};
-
-export const fromISODate = (isoDateString: string): NgbDateStruct => {
-  return fromDate(new Date(isoDateString));
-};
-
-export const today = (): NgbDateStruct => {
-  return fromDate(new Date());
-};
-
-export const toISOLocalDate = (date: NgbDateStruct): string => {
-  if (!date) {
-    return null;
-  }
-  const dateObj = new Date(date.year, date.month - 1, date.day, 12);
-  return formatDate(dateObj, 'yyyy-MM-dd', 'en-US');
-};
-
 export const tomorrow = (): NgbDateStruct => {
   const date = new Date();
   return NgbDate.from({year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() + 1});

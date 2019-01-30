@@ -6,13 +6,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LegalTermsManagementRepository } from '../../../shared/backend-services/legal-terms-management/legal-terms-management-repository';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import {
-  fromISODate,
   LEGAL_ACTIONS,
   mapToDateTime,
   todayDateTime,
-  toISOLocalDate,
   tomorrow
 } from '../legal-terms-management.types';
+import { fromISODate, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
 
 @Component({
   selector: 'alv-legal-terms-detail-modal',
