@@ -1,30 +1,43 @@
-@media screen and (max-width: 767px){
-    .system-notification:first-child {
-        margin-top: 0.2rem;
-    }
+.system-notification-systemerror {
+  margin-left: 295px;
+  background-color: #ffe4e0;
+  line-height: 2;
+
+  .icon {
+    color: white;
+    width: 2.6rem;
+    display: inline-block;
+    text-align: center;
+    background-color: #D90000;
+  }
 }
 
-.system-notification {
-    margin-left:295px;
-    background-color: #fde9a4;
-    line-height: 2;
+.system-notification-maintenance {
+  margin-left: 295px;
+  background-color: #fde9a4;
+  line-height: 2;
 
-  .warning-icon {
-        color: white;
-        width: 2.4rem;
-        display: inline-block;
-        text-align: center;
-        background-color: #f46401;
-    }
+  .icon {
+    color: white;
+    width: 2.6rem;
+    display: inline-block;
+    text-align: center;
+    background-color: #f46401;
+  }
+}
 
-    .system-notification-text {
-        font-weight: 300;
-        margin-left: 0.5rem;
-    }
+.system-notification-text {
+  font-weight: 300;
+  margin-left: 0.6rem;
+}
 
-    .close-icon {
-        margin-right: 0.5rem;
-        color: grey;
-        float: right;
-    }
+.close-icon {
+  margin-right: 0.5rem;
+  color: grey;
+  float: right;
+}
+
+.system-notification-type {
+  margin-left: 0.6rem;
+  font-weight: 600;
 }

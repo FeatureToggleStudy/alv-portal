@@ -1570,4 +1570,4 @@ portal,portal.admin.system-notifications.status,Status,Status
 portal,portal.admin.system-notifications.actions,Aktionen,Actions
 portal,portal.admin.system-notifications.systemnotification.type.interruption,Unterbrechung,Interruption
 portal,portal.admin.system-notifications.systemnotification.type.maintenance,Wartung,Maintenance
-portal,portal.admin.system-notifications.systemnotification.type.systemerror,Systemfehler,System error
+portal,portal.admin.system-notifications.systemnotification.type.systemerror,Systemstörung,System error
