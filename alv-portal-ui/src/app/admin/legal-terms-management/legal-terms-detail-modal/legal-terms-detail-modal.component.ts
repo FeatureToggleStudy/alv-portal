@@ -16,7 +16,8 @@ import {
 
 @Component({
   selector: 'alv-legal-terms-detail-modal',
-  templateUrl: './legal-terms-detail-modal.component.html'
+  templateUrl: './legal-terms-detail-modal.component.html',
+  styleUrls: ['./legal-terms-detail-modal.component.scss']
 })
 export class LegalTermsDetailModalComponent implements OnInit {
 
