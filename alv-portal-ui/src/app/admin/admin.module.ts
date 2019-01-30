@@ -8,6 +8,8 @@ import { LegalTermsManagementComponent } from './legal-terms-management/legal-te
 import { LegalTermsDetailModalComponent } from './legal-terms-management/legal-terms-detail-modal/legal-terms-detail-modal.component';
 import { ModalService } from '../shared/layout/modal/modal.service';
 import { NotificationsService } from '../core/notifications.service';
+import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
+import { SystemNotificationModalComponent } from './system-notifications/modal/system-notification-modal.component';
 
 @NgModule({
   imports: [
@@ -17,6 +19,8 @@ import { NotificationsService } from '../core/notifications.service';
   ],
   declarations: [
     UserInfoComponent,
+    SystemNotificationsComponent,
+    SystemNotificationModalComponent,
     LegalTermsManagementComponent,
     LegalTermsDetailModalComponent
   ],
@@ -26,6 +30,7 @@ import { NotificationsService } from '../core/notifications.service';
     ModalService
   ],
   entryComponents: [
+    SystemNotificationModalComponent,
     LegalTermsDetailModalComponent
   ]
 })
