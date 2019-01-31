@@ -92,7 +92,7 @@ describe('PostAddressFormComponent', () => {
         const field = component.postAddress.get('houseNumber');
 
         //when
-        field.setValue(randomRepeatChar('1', component.HOUSE_NUMBER_MAX_LENGTH));
+        field.setValue('111');
 
         //then
         expect(field.valid).toBeTrue();
@@ -103,7 +103,7 @@ describe('PostAddressFormComponent', () => {
         const field = component.postAddress.get('houseNumber');
 
         //when
-        field.setValue(randomRepeatChar('1', 2) + randomRepeatChar('a', component.HOUSE_NUMBER_MAX_LENGTH - 2));
+        field.setValue('1' + generateString(component.HOUSE_NUMBER_MAX_LENGTH - 1));
 
         //then
         expect(field.valid).toBeTrue();
@@ -114,7 +114,7 @@ describe('PostAddressFormComponent', () => {
         const field = component.postAddress.get('houseNumber');
 
         //when
-        field.setValue(randomRepeatChar('a'));
+        field.setValue(generateString(component.HOUSE_NUMBER_MAX_LENGTH));
 
         //then
         expect(field.hasError('houseNumValidator')).toBeTrue();
@@ -190,9 +190,5 @@ describe('PostAddressFormComponent', () => {
 
   function generateString(length: number) {
     return 'a'.repeat(length);
-  }
-
-  function randomRepeatChar(char = 'a', range = 256) {
-    return char.repeat(Math.random() * range);
   }
 });
