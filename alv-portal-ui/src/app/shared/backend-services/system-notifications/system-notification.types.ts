@@ -19,7 +19,7 @@ export enum SystemNotificationType {
   SYSTEMERROR = 'systemerror'
 }
 
-export const empty = (): SystemNotificationDto => {
+export function empty(): SystemNotificationDto {
   return {
     id: null,
     title: '',

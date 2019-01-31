@@ -9,13 +9,13 @@ import { formatDate } from '@angular/common';
  * @param timeHours
  * @param timeMinutes
  */
-export const toISOLocalDateTime = (date: NgbDateStruct, timeHours: string, timeMinutes: string): string => {
+export function toISOLocalDateTime(date: NgbDateStruct, timeHours: string, timeMinutes: string): string {
   if (!date) {
     return null;
   }
   const dateObj = new Date(date.year, date.month - 1, date.day, parseInt(timeHours, 10), parseInt(timeMinutes, 10));
   return formatDate(dateObj, 'yyyy-MM-ddTHH:mm:00', 'en-US');
-};
+}
 
 /**
  * Converts a NgbDateStruct to an (8601) ISOLocalDate string representation
@@ -23,35 +23,39 @@ export const toISOLocalDateTime = (date: NgbDateStruct, timeHours: string, timeM
  *
  * @param date
  */
-export const toISOLocalDate = (date: NgbDateStruct): string => {
+export function toISOLocalDate(date: NgbDateStruct): string {
   if (!date) {
     return null;
   }
   const dateObj = new Date(date.year, date.month - 1, date.day, 12);
   return formatDate(dateObj, 'yyyy-MM-dd', 'en-US');
-};
+}
 
 /**
  * Converts a Date to a NgbDateStruct
  * f.E fromDate(new Date(2000, 0, 1)); = <NgbDateStruct>{day: 1, month: 1, year: 2000}
  * @param date
  */
-export const fromDate = (date: Date): NgbDateStruct => {
-  return NgbDate.from({year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()});
-};
+export function fromDate(date: Date): NgbDateStruct {
+  return NgbDate.from({
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate()
+  });
+}
 
 /**
  * Converts an (8601) ISODateString to a NgbDateStruct
  * f.E  '2000-12-11' = <NgbDateStruct>{day: 11, month: 12, year: 2000}
  * @param isoDateString
  */
-export const fromISODate = (isoDateString: string): NgbDateStruct => {
+export function fromISODate(isoDateString: string): NgbDateStruct {
   return fromDate(new Date(isoDateString));
-};
+}
 
-export const now = (): NgbDateStruct => {
+export function now(): NgbDateStruct {
   return fromDate(new Date());
-};
+}
 
 
 

@@ -1,45 +1,45 @@
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
-export const isTemporary = (job: JobAdvertisement) => {
+export function isTemporary(job: JobAdvertisement) {
   return !job.jobContent.employment.permanent && !job.jobContent.employment.endDate;
-};
+}
 
-export const isPermanent = (job: JobAdvertisement) => {
+export function isPermanent(job: JobAdvertisement) {
   return job.jobContent.employment.permanent;
-};
+}
 
-export const isShortEmployment = (job: JobAdvertisement) => {
+export function isShortEmployment(job: JobAdvertisement) {
   return Boolean(job.jobContent.employment.shortEmployment) && !job.jobContent.employment.permanent;
-};
+}
 
-export const hasEndDate = (job: JobAdvertisement) => {
+export function hasEndDate(job: JobAdvertisement) {
   return !job.jobContent.employment.permanent && Boolean(job.jobContent.employment.endDate) && !job.jobContent.employment.shortEmployment;
-};
+}
 
-export const hasStartDate = (job: JobAdvertisement) => {
+export function hasStartDate(job: JobAdvertisement) {
   return job.jobContent.employment.startDate;
-};
+}
 
-export const hasImmediately = (job: JobAdvertisement) => {
+export function hasImmediately(job: JobAdvertisement) {
   return job.jobContent.employment.immediately != null && !job.jobContent.employment.startDate;
-};
+}
 
-export const isReportingObligation = (job: JobAdvertisement) => {
+export function isReportingObligation(job: JobAdvertisement) {
   return job.reportingObligation;
-};
+}
 
-export const hasLocation = (job: JobAdvertisement) => {
+export function hasLocation(job: JobAdvertisement) {
   return job.jobContent.location;
-};
+}
 
-export const isDeactivated = (job: JobAdvertisement) => {
+export function isDeactivated(job: JobAdvertisement) {
   return job.status.toString() === 'CANCELLED' || job.status.toString() === 'ARCHIVED';
-};
+}
 
-export const isExternal = (job: JobAdvertisement) => {
+export function isExternal(job: JobAdvertisement) {
   return job.sourceSystem.toString() === 'EXTERN';
-};
+}
 
-export const isUnvalidated = (job: JobAdvertisement) => {
+export function isUnvalidated(job: JobAdvertisement) {
   return job.sourceSystem.toString() === 'API' && !job.stellennummerAvam;
-};
+}
