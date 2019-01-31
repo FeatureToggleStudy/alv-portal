@@ -32,4 +32,4 @@ export function empty(): SystemNotificationDto {
     endDate: now.toLocaleString(),
     active: false
   };
-};
+}
