@@ -44,21 +44,25 @@ export class ApiUserManagementComponent implements OnInit {
   ngOnInit() {
     this.form = this.prepareForm();
 
-    this.loadApiUsers(initialFilter, 0);
+    this.loadApiUsers(initialFilter, 0).subscribe();
   }
 
   onFilterChange() {
     this.currentFilter$.pipe(
-      take(1))
-      .subscribe((filter) => {
-      this.loadApiUsers({...filter, query: this.form.get('query').value}, 0);
-    });
+      take(1),
+      flatMap( (filter) => {
+        return this.loadApiUsers({...filter, query: this.form.get('query').value}, 0)
+      }))
+      .subscribe();
   }
 
   onSortChange(sort: string) {
-    this.currentFilter$.pipe(take(1)).subscribe((filter) => {
-      this.loadApiUsers({...filter, sort}, 0);
-    });
+    this.currentFilter$.pipe(
+      take(1),
+      flatMap( (filter) => {
+        return this.loadApiUsers({...filter, sort}, 0)
+      }))
+      .subscribe();
   }
 
   onScrollChange(nextPage: number) {
@@ -110,10 +114,12 @@ export class ApiUserManagementComponent implements OnInit {
   }
 
   private applyFilter() {
-    this.currentFilter$.pipe(take(1))
-      .subscribe((filter) => {
-        this.loadApiUsers(filter, 0);
-      });
+    this.currentFilter$.pipe(
+      take(1),
+      flatMap( (filter) => {
+        return this.loadApiUsers(filter, 0)
+      }))
+      .subscribe();
   }
 
   private addApiUsers(filter: ApiUserManagementFilter, page: number): Observable<ApiUserSearchResponse> {
@@ -127,15 +133,15 @@ export class ApiUserManagementComponent implements OnInit {
       }));
   }
 
-  private loadApiUsers(filter: ApiUserManagementFilter, page: number): void {
-    this.apiUserManagementRepository.search(
-      ApiUserManagementRequestMapper.mapToRequest(filter, page))
-      .subscribe(response => {
+  private loadApiUsers(filter: ApiUserManagementFilter, page: number): Observable<ApiUserSearchResponse> {
+    return this.apiUserManagementRepository.search(
+      ApiUserManagementRequestMapper.mapToRequest(filter, page)).pipe(
+      tap(response => {
         this.apiUserList$.next(response.result);
         this.apiUserListBeforeScrolling = response.result;
         this.setFilter(filter);
         this.setMaxScrollPage(response.totalCount, page);
-      });
+      }));
   }
 
   private setFilter(filter: ApiUserManagementFilter) {

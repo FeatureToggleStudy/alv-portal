@@ -59,7 +59,7 @@ export class ApiUserManagementTableComponent implements OnInit {
       return {
         columnName: columnName,
         sorting: ''
-      } as ApiUserColumnDefinition
+      } as ApiUserColumnDefinition;
     });
   }
 
