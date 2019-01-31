@@ -1,20 +1,23 @@
 <a class="nav-item"
-   [class.child-nav-item]="isChild"
-   [routerLink]="menuEntry.path"
-   (click)="onItemClicked()"
+  [class.child-nav-item]="isChild"
+  [routerLink]="menuEntry.path"
+  (click)="onItemClicked()"
    routerLinkActive="active">
-  <i [class]="'nav-icon fas fa-' + menuEntry.icon"></i>
+  <i [class]="'nav-icon fas fa-' + menuEntry.icon"
+    ngbTooltip="{{menuEntry.labelKey | translate}}"
+    placement="right"
+  ></i>
   <span class="nav-text">{{menuEntry.labelKey | translate}}</span>
 </a>
 
 <div class="child-nav-container"
      tabindex="-1"
-     [routerLink]="menuEntry.path"
+  [routerLink]="menuEntry.path"
      routerLinkActive="expanded">
   <ng-container *ngFor="let subMenuEntry of menuEntry?.entries">
     <alv-menu-entry [isChild]="true"
-                    [menuEntry]="subMenuEntry"
-                    (itemClicked)="onItemClicked()">
+      [menuEntry]="subMenuEntry"
+      (itemClicked)="onItemClicked()">
     </alv-menu-entry>
   </ng-container>
 </div>
