@@ -34,8 +34,7 @@ const routes: Routes = [
     path: 'api-user-management',
     component: ApiUserManagementComponent,
     data: {
-      titleKey: 'portal.admin.api-user-management.title',
-      authorities: [UserRole.ROLE_SYSADMIN]
+      titleKey: 'portal.admin.api-user-management.title'
     }
   }
 ];
