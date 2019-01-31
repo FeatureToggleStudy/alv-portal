@@ -15,7 +15,11 @@ import { JobPublicationFormValueKeys } from '../job-publication-form-value.types
 })
 export class PublicContactComponent implements OnInit {
 
-  readonly FIELDS_MAX_LENGTH = 50;
+  readonly FIRST_NAME_MAX_LENGTH = 50;
+
+  readonly LAST_NAME_MAX_LENGTH = 50;
+
+  readonly EMAIL_MAX_LENGTH = 255;
 
   @Input()
   parentForm: FormGroup;
@@ -51,18 +55,18 @@ export class PublicContactComponent implements OnInit {
       ]],
       firstName: [firstName, [
         Validators.required,
-        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+        Validators.maxLength(this.FIRST_NAME_MAX_LENGTH)
       ]],
       lastName: [lastName, [
         Validators.required,
-        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+        Validators.maxLength(this.LAST_NAME_MAX_LENGTH)
       ]],
       phone: [phone, [
         phoneInputValidator()
       ]],
       email: [email, [
         patternInputValidator(EMAIL_REGEX),
-        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+        Validators.maxLength(this.EMAIL_MAX_LENGTH)
       ]]
     }, { validator: publicContactGroupValidator });
 

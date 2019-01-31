@@ -15,7 +15,11 @@ import { JobPublicationFormValueKeys } from '../job-publication-form-value.types
 })
 export class ContactComponent implements OnInit {
 
-  readonly FIELDS_MAX_LENGTH = 50;
+  readonly FIRST_NAME_MAX_LENGTH = 50;
+
+  readonly LAST_NAME_MAX_LENGTH = 50;
+
+  readonly EMAIL_MAX_LENGTH = 255;
 
   readonly CONTACT_LANGUAGES = ['de', 'fr', 'it', 'en'];
 
@@ -63,11 +67,11 @@ export class ContactComponent implements OnInit {
       ]],
       firstName: [firstName, [
         Validators.required,
-        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+        Validators.maxLength(this.FIRST_NAME_MAX_LENGTH)
       ]],
       lastName: [lastName, [
         Validators.required,
-        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+        Validators.maxLength(this.LAST_NAME_MAX_LENGTH)
       ]],
       phone: [phone, [
         Validators.required,
@@ -75,7 +79,7 @@ export class ContactComponent implements OnInit {
       ]],
       email: [email, [
         Validators.required, patternInputValidator(EMAIL_REGEX),
-        Validators.maxLength(this.FIELDS_MAX_LENGTH)
+        Validators.maxLength(this.EMAIL_MAX_LENGTH)
       ]]
     });
 

@@ -61,12 +61,12 @@ describe('ContactComponent', () => {
         expect(field.hasError('required')).toBeTrue();
       });
 
-      it('should not be longer than FIELDS_MAX_LENGTH', () => {
+      it('should not be longer than FIRST_NAME_MAX_LENGTH', () => {
         //given
         const field = component.contact.get('firstName');
 
         //when
-        field.setValue('a'.repeat(component.FIELDS_MAX_LENGTH + 1));
+        field.setValue('a'.repeat(component.FIRST_NAME_MAX_LENGTH + 1));
 
         //then
         expect(field.hasError('maxlength')).toBeTrue();
@@ -86,12 +86,12 @@ describe('ContactComponent', () => {
         expect(field.hasError('required')).toBeTrue();
       });
 
-      it('should not be longer than FIELDS_MAX_LENGTH', () => {
+      it('should not be longer than LAST_NAME_MAX_LENGTH', () => {
         //given
         const field = component.contact.get('lastName');
 
         //when
-        field.setValue('a'.repeat(component.FIELDS_MAX_LENGTH + 1));
+        field.setValue('a'.repeat(component.LAST_NAME_MAX_LENGTH + 1));
 
         //then
         expect(field.hasError('maxlength')).toBeTrue();
