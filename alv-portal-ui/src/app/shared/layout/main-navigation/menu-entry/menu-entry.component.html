@@ -4,13 +4,9 @@
   (click)="onItemClicked()"
    routerLinkActive="active">
   <i [class]="'nav-icon fas fa-' + menuEntry.icon"
-    *ngIf="showTooltip; else notShowTooltip"
-    ngbTooltip="{{menuEntry.labelKey | translate}}"
+    ngbTooltip="{{showTooltip? menuEntry.labelKey: '' | translate}}"
     placement="right"
   ></i>
-  <ng-template #notShowTooltip>
-    <i [class]="'nav-icon fas fa-' + menuEntry.icon"></i>
-  </ng-template>
   <span class="nav-text">{{menuEntry.labelKey | translate}}</span>
 </a>
 
