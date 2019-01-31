@@ -193,7 +193,7 @@ dashboard,dashboard.job-publication.publication-period.90,3 Monate,3 months,3 mo
 dashboard,dashboard.job-publication.publication-period.180,6 Monate,6 months,6 mois,6 mesi
 dashboard,dashboard.job-publication.publication-period.365,1 Jahr,1 year,1 années,1 anni
 dashboard,dashboard.job-publication.status,Status,Status,Statut,Stato
-dashboard,dashboard.job-publication.title,Stellenanzeigen bewirtschaften,Manage job ads,Gérer les annonces,Gestire gli annunci
+dashboard,dashboard.job-publication.title,Stellen bewirtschaften
 dashboard,dashboard.job-publication.user-information.title,Sie sind eingeloggt als,You are logged in as,Vous êtes connecté(e),Registrato in qualità di:
 dashboard,dashboard.title,Dashboard,Dashboard,Tableau de bord,Dashboard
 dashboard,job-publication-cancel.alert,Bitte füllen Sie die Abmeldeinformationen aus und bestätigen Sie die Abmeldung der Stellenanzeige.,Please fill in the cancellation details and confirm cancellation of the job posting.,Veuillez remplir les informations et confirmer l'annulation de l'annonce.,Compilare i dati per la cancellazione dell'annuncio e confermare
@@ -1352,7 +1352,7 @@ portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Tau
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
 
-portal,portal.navigation.menu-entry.job-search,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
+portal,portal.navigation.menu-entry.job-search,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.navigation.menu-entry.job-publication,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
@@ -1428,10 +1428,10 @@ portal,portal.job-ad.qualification.UNSKILLED,ungelernt,unskilled,non qualifié,n
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
 portal,portal.shared.localities.geo-location-selection.not-available,Standort kann nicht ermittelt werden
 
-portal,portal.widgets.job-search.title,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
+portal,portal.widgets.job-search.title,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
-portal,portal.widgets.manage-job-ads.title,Stellenanzeigen bewirtschaften
+portal,portal.widgets.manage-job-ads.title,Stellen bewirtschaften
 portal,portal.widgets.manage-job-ads.show-all,Alle anzeigen
 portal,portal.widgets.manage-job-ads.actions.open,Öffnen,Open,Ouvrir,Apri
 portal,portal.widgets.manage-job-ads.actions.cancel,Abmelden,Cancel,Retirer,Cancellare
