@@ -155,10 +155,6 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
       });
   }
 
-  test() {
-    this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: null }));
-  }
-
   onSortChange(sortChangeEvent: ManagedJobAdsSorting) {
     this.applySort(sortChangeEvent);
   }
