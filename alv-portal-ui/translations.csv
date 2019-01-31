@@ -1352,7 +1352,7 @@ portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Tau
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
 
-portal,portal.navigation.menu-entry.job-search,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
+portal,portal.navigation.menu-entry.job-search,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.navigation.menu-entry.job-publication,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
@@ -1428,7 +1428,7 @@ portal,portal.job-ad.qualification.UNSKILLED,ungelernt,unskilled,non qualifié,n
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
 portal,portal.shared.localities.geo-location-selection.not-available,Standort kann nicht ermittelt werden
 
-portal,portal.widgets.job-search.title,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
+portal,portal.widgets.job-search.title,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.widgets.manage-job-ads.title,Stellen bewirtschaften
