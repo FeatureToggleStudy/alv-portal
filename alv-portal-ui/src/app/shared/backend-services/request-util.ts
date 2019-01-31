@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 
-export const createRequestOption = (req?: any): HttpParams => {
+export function createRequestOption(req?: any): HttpParams {
   let options: HttpParams = new HttpParams();
   if (req) {
     Object.keys(req).forEach((key) => {
@@ -19,9 +19,9 @@ export const createRequestOption = (req?: any): HttpParams => {
     }
   }
   return options;
-};
+}
 
-export const createPageableURLSearchParams = (req?: PagedSearchRequest): HttpParams => {
+export function createPageableURLSearchParams(req?: PagedSearchRequest): HttpParams {
   let params = new HttpParams()
     .set('page', '' + req.page)
     .set('size', '' + req.size);
@@ -33,7 +33,7 @@ export const createPageableURLSearchParams = (req?: PagedSearchRequest): HttpPar
     }
   }
   return params;
-};
+}
 
 export interface PagedSearchRequest {
   page: number;
