@@ -92,7 +92,7 @@ describe('PostAddressFormComponent', () => {
         const field = component.postAddress.get('houseNumber');
 
         //when
-        field.setValue(randomRepeatChar('1'));
+        field.setValue(randomRepeatChar('1', component.HOUSE_NUMBER_MAX_LENGTH));
 
         //then
         expect(field.valid).toBeTrue();
@@ -103,7 +103,7 @@ describe('PostAddressFormComponent', () => {
         const field = component.postAddress.get('houseNumber');
 
         //when
-        field.setValue(randomRepeatChar('1') + randomRepeatChar('a'));
+        field.setValue(randomRepeatChar('1', 2) + randomRepeatChar('a', component.HOUSE_NUMBER_MAX_LENGTH - 2));
 
         //then
         expect(field.valid).toBeTrue();
@@ -118,6 +118,17 @@ describe('PostAddressFormComponent', () => {
 
         //then
         expect(field.hasError('houseNumValidator')).toBeTrue();
+      });
+
+      it('should not be longer than HOUSE_NUMBER_MAX_LENGTH', () => {
+        //given
+        const field = component.postAddress.get('houseNumber');
+
+        //when
+        field.setValue(generateString(component.HOUSE_NUMBER_MAX_LENGTH + 1));
+
+        //then
+        expect(field.hasError('maxlength')).toBeTrue();
       });
     });
 
@@ -148,6 +159,17 @@ describe('PostAddressFormComponent', () => {
 
           //then
           expect(field.hasError('maxlength')).toBeTrue();
+        });
+
+        it('should not be a negative value', () => {
+          //given
+          const field = component.postAddress.get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber');
+
+          //when
+          field.setValue(-54);
+
+          //then
+          expect(field.hasError('min')).toBeTrue();
         });
       });
 
