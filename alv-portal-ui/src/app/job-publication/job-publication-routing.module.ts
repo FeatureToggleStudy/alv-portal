@@ -11,6 +11,9 @@ const routes: Routes = [
     canActivate: [JobPublicationGuard],
     resolve: {
       initialFormValueConfig: JobPublicationResolver
+    },
+    data: {
+      titleKey: 'portal.job-publication.browser-title',
     }
   }
 ];

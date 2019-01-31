@@ -29,6 +29,10 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
 
   readonly ADDITIONAL_INFO_MAX_LENGTH = 240;
 
+  readonly FORM_URL_MAX_LENGTH = 255;
+
+  readonly EMAIL_MAX_LENGTH = 255;
+
   @Input()
   parentForm: FormGroup;
 
@@ -41,8 +45,7 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
 
   postAddressFormValue: PostAddressFormValue;
 
-  constructor(private fb: FormBuilder,
-              private cdRef: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder) {
     super();
   }
 
@@ -60,11 +63,13 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
       selectedApplicationTypes: this.selectedApplicationTypes,
       formUrl: [formUrl, [
         Validators.required,
-        patternInputValidator(URL_REGEX)
+        patternInputValidator(URL_REGEX),
+        Validators.maxLength(this.FORM_URL_MAX_LENGTH)
       ]],
       emailAddress: [emailAddress, [
         Validators.required,
-        patternInputValidator(EMAIL_REGEX)
+        patternInputValidator(EMAIL_REGEX),
+        Validators.maxLength(this.EMAIL_MAX_LENGTH)
       ]],
       phoneNumber: [phoneNumber, [
         Validators.required,

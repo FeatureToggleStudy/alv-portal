@@ -10,6 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 import { isNotAuthenticatedUser } from '../core/auth/user.model';
 import { AuthenticationService } from '../core/auth/authentication.service';
 import { Component, OnInit } from '@angular/core';
+import { CoreState } from '../core/state-management/state/core.state.ts';
+import { Store } from '@ngrx/store';
+import { JobAdvertisementUpdatedAction } from '../core/state-management/actions/core.actions';
 
 @Component({
   selector: 'alv-job-publication',
@@ -41,6 +44,7 @@ export class JobPublicationComponent implements OnInit {
 
   constructor(private jobCenterRepository: JobCenterRepository,
               private i18nService: I18nService,
+              private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
               private route: ActivatedRoute) {
     this.initialFormValueConfig = route.snapshot.data['initialFormValueConfig'];
@@ -60,6 +64,7 @@ export class JobPublicationComponent implements OnInit {
         flatMap(lang => this.jobCenterRepository.resolveJobCenter(jobAdvertisement.jobCenterCode, lang))
       );
     }
+    this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: jobAdvertisement }));
     this.submitted = true;
   }
 

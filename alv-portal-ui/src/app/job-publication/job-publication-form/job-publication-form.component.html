@@ -45,21 +45,20 @@
                  [parentForm]="jobPublicationForm"
                  [companyFormValue]="companyFormValue">
     </alv-company>
-  </alv-collapse-panel>
+    <div class="pb-4">
+      <div class="alv-light-panel p-2 mb-2">
+        <alv-checkbox label="home.tools.job-publication.company.surrogate"
+                      alvFormControlName="surrogate"
+                      class="narrow-form">
+        </alv-checkbox>
+      </div>
 
-  <div class="pb-4">
-    <div class="alv-light-panel p-2 mb-2">
-      <alv-checkbox label="home.tools.job-publication.company.surrogate"
-                    alvFormControlName="surrogate"
-                    class="narrow-form">
-      </alv-checkbox>
+      <alv-employer *ngIf="jobPublicationForm.get('surrogate').value"
+                    [parentForm]="jobPublicationForm"
+                    [employerFormValue]="employerFormValue">
+      </alv-employer>
     </div>
-
-    <alv-employer *ngIf="jobPublicationForm.get('surrogate').value"
-                  [parentForm]="jobPublicationForm"
-                  [employerFormValue]="employerFormValue">
-    </alv-employer>
-  </div>
+  </alv-collapse-panel>
 
   <alv-collapse-panel [panelId]="jobPublicationFormPanelId.JOB_PUBLICATION_CONTACT"
                       panelTitle="home.tools.job-publication.contact.title">
