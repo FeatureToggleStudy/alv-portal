@@ -2,7 +2,7 @@ import { SystemNotificationDto } from '../../shared/backend-services/system-noti
 import { SystemNotificationFormValue } from './system-notification-form-value';
 import { toISOLocalDateTime } from '../../shared/forms/input/ngb-date-utils';
 
-export const mapFormToDto = (id: string, formValue: SystemNotificationFormValue): SystemNotificationDto => {
+export function mapFormToDto(id: string, formValue: SystemNotificationFormValue): SystemNotificationDto {
   return {
     id: id,
     title: formValue.title,
@@ -15,4 +15,4 @@ export const mapFormToDto = (id: string, formValue: SystemNotificationFormValue)
     endDate: toISOLocalDateTime(formValue.endDate, formValue.endTimeHours, formValue.endTimeMinutes),
     active: formValue.active
   };
-};
+}

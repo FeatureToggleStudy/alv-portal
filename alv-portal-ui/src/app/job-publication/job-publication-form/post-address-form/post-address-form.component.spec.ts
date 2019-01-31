@@ -92,7 +92,7 @@ describe('PostAddressFormComponent', () => {
         const field = component.postAddress.get('houseNumber');
 
         //when
-        field.setValue(randomRepeatChar('1'));
+        field.setValue('111');
 
         //then
         expect(field.valid).toBeTrue();
@@ -103,7 +103,7 @@ describe('PostAddressFormComponent', () => {
         const field = component.postAddress.get('houseNumber');
 
         //when
-        field.setValue(randomRepeatChar('1') + randomRepeatChar('a'));
+        field.setValue('1' + generateString(component.HOUSE_NUMBER_MAX_LENGTH - 1));
 
         //then
         expect(field.valid).toBeTrue();
@@ -114,10 +114,21 @@ describe('PostAddressFormComponent', () => {
         const field = component.postAddress.get('houseNumber');
 
         //when
-        field.setValue(randomRepeatChar('a'));
+        field.setValue(generateString(component.HOUSE_NUMBER_MAX_LENGTH));
 
         //then
         expect(field.hasError('houseNumValidator')).toBeTrue();
+      });
+
+      it('should not be longer than HOUSE_NUMBER_MAX_LENGTH', () => {
+        //given
+        const field = component.postAddress.get('houseNumber');
+
+        //when
+        field.setValue(generateString(component.HOUSE_NUMBER_MAX_LENGTH + 1));
+
+        //then
+        expect(field.hasError('maxlength')).toBeTrue();
       });
     });
 
@@ -149,6 +160,17 @@ describe('PostAddressFormComponent', () => {
           //then
           expect(field.hasError('maxlength')).toBeTrue();
         });
+
+        it('should not be a negative value', () => {
+          //given
+          const field = component.postAddress.get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber');
+
+          //when
+          field.setValue(-54);
+
+          //then
+          expect(field.hasError('min')).toBeTrue();
+        });
       });
 
       it('should be required postOfficeBoxNumber or street', () => {
@@ -168,9 +190,5 @@ describe('PostAddressFormComponent', () => {
 
   function generateString(length: number) {
     return 'a'.repeat(length);
-  }
-
-  function randomRepeatChar(char = 'a', range = 256) {
-    return char.repeat(Math.random() * range);
   }
 });

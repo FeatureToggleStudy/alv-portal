@@ -3,9 +3,9 @@ import { isValidNumber } from 'libphonenumber-js';
 
 export const defaultPhoneCountry = 'CH';
 
-export const phoneInputValidator: () => ValidatorFn = () => {
-  return (control: AbstractControl) => {
+export function phoneInputValidator(): ValidatorFn {
 
+  return (control: AbstractControl) => {
     if (control.value) {
       if (!isValidNumber(control.value, defaultPhoneCountry)) {
         return {
@@ -18,4 +18,4 @@ export const phoneInputValidator: () => ValidatorFn = () => {
     }
     return null;
   };
-};
+}

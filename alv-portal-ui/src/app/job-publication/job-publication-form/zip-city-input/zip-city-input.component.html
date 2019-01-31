@@ -8,13 +8,15 @@
 <div class="form-row" *ngIf="!isCityZipAutocomplete()" [formGroup]="zipAndCity">
   <div class="col-4">
     <alv-input-field label="home.tools.job-publication.locality.zip"
-                     alvFormControlName="zipCode">
+                     alvFormControlName="zipCode"
+                     [maxLength]="ZIP_CODE_MAX_LENGTH">
     </alv-input-field>
   </div>
 
   <div class="col-8">
     <alv-input-field label="home.tools.job-publication.locality.city"
-                     alvFormControlName="city">
+                     alvFormControlName="city"
+                     [maxLength]="CITY_MAX_LENGTH">
     </alv-input-field>
   </div>
 </div>
