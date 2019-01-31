@@ -1,0 +1,50 @@
+<div class="container pt-md-4 pt-3 px-3">
+  <h2 class="panel-title">
+    <i class="panel-icon fa fas fa-sync"></i>
+    {{ 'portal.admin.elastic-search-reindex.title' | translate }}
+  </h2>
+
+  <hr>
+
+  <div>
+    <p>
+    {{ 'portal.admin.elastic-search-reindex.instructions.main' | translate }}
+    </p>
+    <p>
+      {{ 'portal.admin.elastic-search-reindex.instructions.additional' | translate }}
+    </p>
+  </div>
+
+  <hr>
+
+  <form (validSubmit)="onSubmit()"
+        [formGroup]="form"
+        alvFormSubmitValidation>
+    <small (click)="toggleFormCheckboxes(true)">Select all</small>
+    <small> / </small>
+    <small (click)="toggleFormCheckboxes(false)">Dismiss all</small>
+    <!--CHECK JOB PUBLICATION FOR SHOWING VALIDATION MESSAGE ABOVE.-->
+    <alv-validation-messages id="reindexing-at-least-one-required-msg-id"
+                             [formGroup]="form"
+                             [customValidationMessages]="[{error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation'}]">
+    </alv-validation-messages>
+    <fieldset *ngFor="let elasticsearch_checkbox of elasticsearch_checkboxes">
+      <alv-checkbox label="portal.admin.elastic-search-reindex.document.{{elasticsearch_checkbox}}"
+                    [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
+                    showGroupErrors="true"
+                    alvFormControlName="{{ elasticsearch_checkbox}}">
+      </alv-checkbox>
+    </fieldset>
+    <div class="mt-2">
+      <button type="submit" class="btn btn-primary mb-2">
+        {{ 'portal.admin.elastic-search-reindex.dialog.confirm' | translate }}
+      </button>
+    </div>
+
+  </form>
+
+  <hr>
+
+  TODO >>> SHOW RESULT PROGRESS
+
+</div>

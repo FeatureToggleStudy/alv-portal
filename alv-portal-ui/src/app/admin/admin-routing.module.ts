@@ -4,6 +4,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { LegalTermsManagementComponent } from './legal-terms-management/legal-terms-management.component';
 import { UserRole } from '../core/auth/user.model';
 import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
+import { ElasticSearchReindexComponent } from './elastic-search-reindex/elastic-search-reindex.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,13 @@ const routes: Routes = [
     data: {
       titleKey: 'portal.admin.legal-terms-management.title',
       authorities: [UserRole.ROLE_SYSADMIN, UserRole.ROLE_ADMIN]
+    }
+  },
+  {
+    path: 'elastic-search-reindex',
+    component: ElasticSearchReindexComponent,
+    data: {
+      titleKey: 'portal.admin.legal-terms-management.title'
     }
   }
 ];

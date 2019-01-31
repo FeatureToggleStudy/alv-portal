@@ -101,9 +101,16 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   {
     id: 'legal-terms-management',
     icon: 'balance-scale',
-    labelKey: 'portal.admin.legal-terms-management.title',
+    labelKey: 'portal.navigation.menu-entry.admin.legal-terms',
     path: ['admin', 'legal-terms-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
+  },
+  {
+    id: 'elastic-search-reindex',
+    icon: 'sync',
+    labelKey: 'portal.navigation.menu-entry.admin.elastic-search-reindex',
+    path: ['admin', 'elastic-search-reindex'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   }
 ];
 
