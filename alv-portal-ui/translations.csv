@@ -1362,6 +1362,7 @@ portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 portal,portal.navigation.menu-entry.account.profile,Profile,Profile
 portal,portal.navigation.menu-entry.admin.system-notifications,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
 portal,portal.navigation.menu-entry.admin.user-info,Benutzerinformationen,User Info,User Info,User Info
+portal,portal.navigation.menu-entry.admin.blacklist,Blacklist,Blacklist,Blacklist,Blacklist
 portal,portal.navigation.label.main-navigation,,Main navigation
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte

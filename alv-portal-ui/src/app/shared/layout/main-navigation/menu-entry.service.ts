@@ -66,7 +66,13 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     labelKey: 'portal.admin.legal-terms-management.title',
     path: ['admin', 'legal-terms-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
-  }
+  },
+  {
+    icon: 'ban',
+    labelKey: 'portal.navigation.menu-entry.admin.blacklist',
+    path: ['admin', 'blacklist'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
+  },
 ];
 
 @Injectable()
