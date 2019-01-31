@@ -1,0 +1,71 @@
+<alv-modal modalTitle="portal.admin.legal-terms-management.legal-terms-details.title"
+           primaryLabel="entity.action.save"
+           (primaryAction)="onSubmit()"
+           [primaryAllow]="!readonly"
+           secondaryLabel="entity.action.cancel"
+           (secondaryAction)="onDismiss()"
+           [formGroup]="form">
+  <fieldset *ngIf="!readonly; else readonlyView">
+    <alv-date-input label="portal.admin.legal-terms-management.header.effectiveAt"
+                    alvFormControlName="effectiveAt"
+                    [minDate]="minEffectiveAt"
+                    [validationMessages]="[{ error: 'pastEffectiveAt', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.pastEffectiveAt' }]"
+                    showGroupErrors="true"
+                    placement="bottom-right">
+    </alv-date-input>
+    <alv-input-field label="portal.admin.legal-terms-management.header.linkDe"
+                     alvFormControlName="linkDe">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.legal-terms-management.header.linkEn"
+                     alvFormControlName="linkEn">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.legal-terms-management.header.linkFr"
+                     alvFormControlName="linkFr">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.legal-terms-management.header.linkIt"
+                     alvFormControlName="linkIt">
+    </alv-input-field>
+  </fieldset>
+
+  <ng-template #readonlyView>
+    <small class="text-truncate">
+      {{'portal.admin.legal-terms-management.header.effectiveAt' | translate}}
+    </small>
+    <p>
+      {{ form.get('effectiveAt').value | date: 'dd.MM.yyyy' }}
+    </p>
+    <small class="text-truncate">
+      {{'portal.admin.legal-terms-management.header.linkDe' | translate}}
+    </small>
+    <p>
+      <a class="url-break" href="{{ form.get('linkDe').value }}" target="_blank">
+        {{ form.get('linkDe').value }}
+      </a>
+    </p>
+    <small class="text-truncate">
+      {{'portal.admin.legal-terms-management.header.linkEn' | translate}}
+    </small>
+    <p>
+      <a class="url-break" href="{{ form.get('linkEn').value }}" target="_blank">
+        {{ form.get('linkEn').value }}
+      </a>
+    </p>
+    <small class="text-truncate">
+      {{'portal.admin.legal-terms-management.header.linkFr' | translate}}
+    </small>
+    <p>
+      <a class="url-break" href="{{ form.get('linkFr').value }}" target="_blank">
+        {{ form.get('linkFr').value }}
+      </a>
+    </p>
+    <small class="text-truncate">
+      {{'portal.admin.legal-terms-management.header.linkIt' | translate}}
+    </small>
+    <p>
+      <a class="url-break" href="{{ form.get('linkIt').value }}" target="_blank">
+        {{ form.get('linkIt').value }}
+      </a>
+    </p>
+  </ng-template>
+</alv-modal>
+

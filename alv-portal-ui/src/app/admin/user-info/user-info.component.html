@@ -1,154 +1,152 @@
 <div class="container pt-md-4 pt-3 px-3">
 
-  <div class="alv-panel mb-3">
-    <h2 class="panel-title">
-      <i class="panel-icon fas fa-user"></i>
-      {{ 'portal.admin.user-info.user-info.title' | translate }}
-    </h2>
-    <form (validSubmit)="onSubmit()"
-          [formGroup]="form"
-          alvFormSubmitValidation>
-      <small>{{ 'portal.admin.user-info.desc' | translate }}</small>
-      <div class="form-row">
-        <div class="col-md-4">
-          <alv-input-field alvFormControlName="emailAddress"
-                           placeholder="muster@example.com"
-                           label="portal.admin.user-info.email">
-          </alv-input-field>
+  <h2 class="panel-title">
+    <i class="panel-icon fa fas fa-user"></i>
+    {{ 'portal.admin.user-info.user-info.title' | translate }}
+  </h2>
+  <form (validSubmit)="onSubmit()"
+        [formGroup]="form"
+        alvFormSubmitValidation>
+    <small>{{ 'portal.admin.user-info.desc' | translate }}</small>
+    <div class="form-row">
+      <div class="col-md-4">
+        <alv-input-field alvFormControlName="emailAddress"
+                         placeholder="muster@example.com"
+                         label="portal.admin.user-info.email">
+        </alv-input-field>
+      </div>
+      <div class="col-md-8">
+        <button type="submit" class="btn btn-primary mb-2">
+          {{ 'portal.admin.user-info.searchByEmail' | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <alv-alert (dismiss)="dismissAlert()"
+             *ngIf="alert"
+             [notification]="alert">
+  </alv-alert>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <alv-collapse-panel [panelId]="'user-info'"
+                          panelTitle="portal.admin.user-info.user-info.title">
+        <ul class="alv-list" *ngIf="user; else no_user_info">
+          <alv-list-item-content label="portal.admin.user-info.user-info.ext-id">
+            {{ user.userExternalId }}
+          </alv-list-item-content>
+          <alv-list-item-content label="portal.admin.user-info.user-info.email">
+            {{ user.email }}
+          </alv-list-item-content>
+          <alv-list-item-content label="portal.admin.user-info.user-info.firstName">
+            {{ user.firstName }}
+          </alv-list-item-content>
+          <alv-list-item-content label="portal.admin.user-info.user-info.lastName">
+            {{ user.lastName }}
+          </alv-list-item-content>
+        </ul>
+        <ng-template #no_user_info>
+          <div class="no-info-found">
+            <small class="text-muted">{{ 'portal.admin.user-info.user-info.no' | translate }}</small>
+          </div>
+        </ng-template>
+      </alv-collapse-panel>
+      <alv-collapse-panel [panelId]="'account-info'"
+                          panelTitle="portal.admin.user-info.account-info.title">
+        <ul class="alv-list" *ngIf="user; else no_account_info">
+          <alv-inline-badges [badges]="badges"></alv-inline-badges>
+          <alv-list-item-content label="portal.admin.user-info.account-info.created">
+            {{ user.createdAt | date:'dd.MM.yyyy' }}
+          </alv-list-item-content>
+          <alv-list-item-content label="portal.admin.user-info.account-info.modified">
+            {{ user.modifiedAt | date:'dd.MM.yyyy' }}
+          </alv-list-item-content>
+          <alv-list-item-content label="portal.admin.user-info.account-info.lastLogin">
+            {{ user.lastLoginAt | date:'dd.MM.yyyy' }}
+          </alv-list-item-content>
+        </ul>
+        <ng-template #no_account_info>
+          <div class="no-info-found">
+            <small class="text-muted">{{ 'portal.admin.user-info.account-info.no' | translate }}</small>
+          </div>
+        </ng-template>
+      </alv-collapse-panel>
+      <alv-collapse-panel [panelId]="'stes-info'"
+                          panelTitle="portal.admin.user-info.stes-info.title">
+        <ul class="alv-list" *ngIf="user?.stesInformation; else no_stes_info">
+          <alv-list-item-content label="portal.admin.user-info.stes-info.pn">
+            {{ user.stesInformation.personNumber }}
+          </alv-list-item-content>
+          <alv-list-item-content label="portal.admin.user-info.stes-info.verified">
+            {{ user.stesInformation.verifiedAt | date:'dd.MM.yyyy' }}
+          </alv-list-item-content>
+        </ul>
+        <ng-template #no_stes_info>
+          <div class="no-info-found">
+            <small class="text-muted">{{ 'portal.admin.user-info.stes-info.no' | translate }}</small>
+          </div>
+        </ng-template>
+      </alv-collapse-panel>
+
+    </div>
+    <div class="col-md-6">
+
+      <alv-collapse-panel [panelId]="'eIAM-roles'"
+                          panelTitle="portal.admin.user-info.eIAM-roles.title">
+        <ul class="alv-list" *ngIf="user && userRoles?.length > 0; else no_eIAM_roles">
+          <alv-list-item-content *ngFor="let userRole of userRoles"
+                                 [label]="userRole">
+          </alv-list-item-content>
+        </ul>
+        <ng-template #no_eIAM_roles>
+          <div class="no-info-found">
+            <small class="text-muted">{{ 'portal.admin.user-info.eIAM-roles.no' | translate }}</small>
+          </div>
+        </ng-template>
+      </alv-collapse-panel>
+      <alv-collapse-panel [panelId]="'accountabilities'"
+                          panelTitle="portal.admin.user-info.accountabilities.title">
+        <ul class="alv-list" *ngIf="user && user.accountabilities?.length > 0; else no_accountabilities">
+          <alv-list-item-content *ngFor="let accountability of user.accountabilities"
+                                 [label]="formatAccountability(accountability)">
+          </alv-list-item-content>
+        </ul>
+        <ng-template #no_accountabilities>
+          <div class="no-info-found">
+            <small class="text-muted">{{ 'portal.admin.user-info.accountabilities.no' | translate }}</small>
+          </div>
+        </ng-template>
+      </alv-collapse-panel>
+      <alv-collapse-panel [panelId]="'actions'"
+                          panelTitle="portal.admin.user-info.actions.title">
+        <div *ngIf="isOnlyEIAMRoles">
+          <ul class="alv-list">
+            <alv-list-item-content label="portal.admin.user-info.actions.unregistered-user.title">
+              {{ 'portal.admin.user-info.actions.unregistered-user.desc' | translate }}
+            </alv-list-item-content>
+          </ul>
         </div>
-        <div class="col-md-8">
-          <button type="submit" class="btn btn-primary mb-2">
-            {{ 'portal.admin.user-info.searchByEmail' | translate }}
-          </button>
+        <div *ngIf="isUserInfoFilled">
+          <ul class="alv-list">
+            <alv-list-item-content label="portal.admin.user-info.actions.unregister.title">
+              {{ 'portal.admin.user-info.actions.unregister.desc' | translate }}
+            </alv-list-item-content>
+          </ul>
+          <div class="button-reset">
+            <button type="button" class="btn btn-primary mb-2" (click)="onUnregister()">
+              {{ 'portal.admin.user-info.actions.unregister.title' | translate }}
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+        <div *ngIf="!isUserInfoFilled && !isOnlyEIAMRoles" class="no-info-found">
+          <small class="text-muted">{{ 'portal.admin.user-info.actions.no' | translate }}</small>
+        </div>
+      </alv-collapse-panel>
 
-    <alv-alert (dismiss)="dismissAlert()"
-               *ngIf="alert"
-               [notification]="alert">
-    </alv-alert>
-
-    <hr>
-
-    <div class="row">
-      <div class="col-md-6">
-
-        <alv-collapse-panel [panelId]="'user-info'"
-                            panelTitle="portal.admin.user-info.user-info.title">
-          <ul class="alv-list" *ngIf="user; else no_user_info">
-            <alv-list-item-content label="portal.admin.user-info.user-info.ext-id">
-              {{ user.userExternalId }}
-            </alv-list-item-content>
-            <alv-list-item-content label="portal.admin.user-info.user-info.email">
-              {{ user.email }}
-            </alv-list-item-content>
-            <alv-list-item-content label="portal.admin.user-info.user-info.firstName">
-              {{ user.firstName }}
-            </alv-list-item-content>
-            <alv-list-item-content label="portal.admin.user-info.user-info.lastName">
-              {{ user.lastName }}
-            </alv-list-item-content>
-          </ul>
-          <ng-template #no_user_info>
-            <div class="no-info-found">
-              <small class="text-muted">{{ 'portal.admin.user-info.user-info.no' | translate }}</small>
-            </div>
-          </ng-template>
-        </alv-collapse-panel>
-        <alv-collapse-panel [panelId]="'account-info'"
-                            panelTitle="portal.admin.user-info.account-info.title">
-          <ul class="alv-list" *ngIf="user; else no_account_info">
-            <alv-inline-badges [badges]="badges"></alv-inline-badges>
-            <alv-list-item-content label="portal.admin.user-info.account-info.created">
-              {{ user.createdAt | date:'dd.MM.yyyy' }}
-            </alv-list-item-content>
-            <alv-list-item-content label="portal.admin.user-info.account-info.modified">
-              {{ user.modifiedAt | date:'dd.MM.yyyy' }}
-            </alv-list-item-content>
-            <alv-list-item-content label="portal.admin.user-info.account-info.lastLogin">
-              {{ user.lastLoginAt | date:'dd.MM.yyyy' }}
-            </alv-list-item-content>
-          </ul>
-          <ng-template #no_account_info>
-            <div class="no-info-found">
-              <small class="text-muted">{{ 'portal.admin.user-info.account-info.no' | translate }}</small>
-            </div>
-          </ng-template>
-        </alv-collapse-panel>
-        <alv-collapse-panel [panelId]="'stes-info'"
-                            panelTitle="portal.admin.user-info.stes-info.title">
-          <ul class="alv-list" *ngIf="user?.stesInformation; else no_stes_info">
-            <alv-list-item-content label="portal.admin.user-info.stes-info.pn">
-              {{ user.stesInformation.personNumber }}
-            </alv-list-item-content>
-            <alv-list-item-content label="portal.admin.user-info.stes-info.verified">
-              {{ user.stesInformation.verifiedAt | date:'dd.MM.yyyy' }}
-            </alv-list-item-content>
-          </ul>
-          <ng-template #no_stes_info>
-            <div class="no-info-found">
-              <small class="text-muted">{{ 'portal.admin.user-info.stes-info.no' | translate }}</small>
-            </div>
-          </ng-template>
-        </alv-collapse-panel>
-
-      </div>
-      <div class="col-md-6">
-
-        <alv-collapse-panel [panelId]="'eIAM-roles'"
-                            panelTitle="portal.admin.user-info.eIAM-roles.title">
-          <ul class="alv-list" *ngIf="user && userRoles?.length > 0; else no_eIAM_roles">
-            <alv-list-item-content *ngFor="let userRole of userRoles"
-                                   [label]="userRole">
-            </alv-list-item-content>
-          </ul>
-          <ng-template #no_eIAM_roles>
-            <div class="no-info-found">
-              <small class="text-muted">{{ 'portal.admin.user-info.eIAM-roles.no' | translate }}</small>
-            </div>
-          </ng-template>
-        </alv-collapse-panel>
-        <alv-collapse-panel [panelId]="'accountabilities'"
-                            panelTitle="portal.admin.user-info.accountabilities.title">
-          <ul class="alv-list" *ngIf="user && user.accountabilities?.length > 0; else no_accountabilities">
-            <alv-list-item-content *ngFor="let accountability of user.accountabilities"
-                                   [label]="formatAccountability(accountability)">
-            </alv-list-item-content>
-          </ul>
-          <ng-template #no_accountabilities>
-            <div class="no-info-found">
-              <small class="text-muted">{{ 'portal.admin.user-info.accountabilities.no' | translate }}</small>
-            </div>
-          </ng-template>
-        </alv-collapse-panel>
-        <alv-collapse-panel [panelId]="'actions'"
-                            panelTitle="portal.admin.user-info.actions.title">
-          <div *ngIf="isOnlyEIAMRoles">
-            <ul class="alv-list">
-              <alv-list-item-content label="portal.admin.user-info.actions.unregistered-user.title">
-                {{ 'portal.admin.user-info.actions.unregistered-user.desc' | translate }}
-              </alv-list-item-content>
-            </ul>
-          </div>
-          <div *ngIf="isUserInfoFilled">
-            <ul class="alv-list">
-              <alv-list-item-content label="portal.admin.user-info.actions.unregister.title">
-                {{ 'portal.admin.user-info.actions.unregister.desc' | translate }}
-              </alv-list-item-content>
-            </ul>
-            <div class="button-reset">
-              <button type="button" class="btn btn-primary mb-2" (click)="onUnregister()">
-                {{ 'portal.admin.user-info.actions.unregister.title' | translate }}
-              </button>
-            </div>
-          </div>
-          <div *ngIf="!isUserInfoFilled && !isOnlyEIAMRoles" class="no-info-found">
-            <small class="text-muted">{{ 'portal.admin.user-info.actions.no' | translate }}</small>
-          </div>
-        </alv-collapse-panel>
-
-      </div>
     </div>
   </div>
 </div>
