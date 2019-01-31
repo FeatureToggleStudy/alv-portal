@@ -6,6 +6,14 @@
       Blacklist
     </h2>
 
+    <button
+      class="btn btn-sm btn-danger"
+      (click)="openAddBlacklistEntryModal()">
+        <span>
+           {{ 'blacklisted-agent.create-blacklist-entry' | translate }}
+        </span>
+    </button>
+
     <alv-alert (dismiss)="dismissAlert()"
                *ngIf="alert"
                [notification]="alert">

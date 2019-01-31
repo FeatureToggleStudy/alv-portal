@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 
@@ -15,7 +15,7 @@ import {
   Notification,
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
-
+import { AddBlacklistEntryModalComponent } from './add-blacklist-entry-modal/add-blacklist-entry-modal.component';
 
 @Component({
   selector: 'alv-user-info',
@@ -80,6 +80,10 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
         }, () => {
           this.alert = this.ALERTS.userTechError;
         })
+  }
+
+  public openAddBlacklistEntryModal(){
+    this.modalService.openMedium(AddBlacklistEntryModalComponent, true);
   }
 
   public openChangeStatusDialog(agent: BlacklistedAgent){

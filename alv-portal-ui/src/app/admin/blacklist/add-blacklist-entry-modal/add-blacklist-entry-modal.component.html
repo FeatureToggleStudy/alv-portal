@@ -1,0 +1,13 @@
+<alv-modal modalTitle="{{'blacklisted-agent.create-blacklist-entry' | translate}}"
+           primaryLabel="Login"
+           (primaryAction)="login()"
+           secondaryLabel="Cancel"
+           (secondaryAction)="modal.dismiss()"
+           [formGroup]="form">
+  <alv-single-typeahead (itemSelected)="itemSelected($event)"
+                        [autofocus]="true"
+                        [loadItems]="searchOrganizationsFn"
+                        alvFormControlName="organization"
+                        label="registrationPavDialog.placeholder">
+  </alv-single-typeahead>
+</alv-modal>
