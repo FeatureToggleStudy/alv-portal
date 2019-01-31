@@ -6,6 +6,7 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,21 +15,36 @@ import {
  * urls we use
  */
 export class LegacyUrlStrategyRedirectionGuard implements CanActivate {
+  private legacyUrlRedirections = [{
+    pattern: /\/job-publication-detail\/(.*)/,
+    action: this.jobPublicationDetailRedirect
+  }];
+
   constructor(private router: Router) {
   }
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Promise<boolean> | boolean {
-    const fragment = state.root.fragment;
-    if (!fragment) {
-      return this.goHome();
-    }
-    const regExpMatchArray = fragment.match(/\/job-publication-detail\/(.*)/);
-    if (regExpMatchArray) {
-      return this.router.navigateByUrl('manage-job-ads/' + decodeURIComponent(regExpMatchArray[1]));
+
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
+    for (const redirectionRule of this.legacyUrlRedirections) {
+      const fragment = state.root.fragment;
+      if (!fragment) {
+        return this.goHome();
+      }
+      const regExpMatchArray = fragment.match(redirectionRule.pattern);
+      if (regExpMatchArray) {
+        return redirectionRule.action.call(this, next, state, fragment);
+      }
     }
     return this.goHome();
   }
+
+  jobPublicationDetailRedirect(next, state, fragment) {
+    const regExpMatchArray = fragment.match(/\/job-publication-detail\/(.*)/);
+    if (regExpMatchArray) {
+      this.router.navigateByUrl('manage-job-ads/' + decodeURIComponent(regExpMatchArray[1]));
+      return false;
+    }
+  }
+
   goHome() {
     this.router.navigate(['home']);
     return false;
