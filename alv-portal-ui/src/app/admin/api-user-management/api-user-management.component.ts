@@ -48,7 +48,7 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
     this.loadApiUsers(initialFilter, 0)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((response) => {
-        this.apiUserList = response.result
+        this.apiUserList = response.result;
       });
   }
 
@@ -60,7 +60,7 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
       }),
       takeUntil(this.ngUnsubscribe))
       .subscribe((response) => {
-        this.apiUserList = response.result
+        this.apiUserList = response.result;
       });
   }
 
@@ -72,7 +72,7 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
       }),
       takeUntil(this.ngUnsubscribe))
       .subscribe((response) => {
-        this.apiUserList = response.result
+        this.apiUserList = response.result;
       });
   }
 
@@ -135,7 +135,7 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
       }),
       takeUntil(this.ngUnsubscribe))
       .subscribe((response) => {
-        this.apiUserList = response.result
+        this.apiUserList = response.result;
       });
   }
 
