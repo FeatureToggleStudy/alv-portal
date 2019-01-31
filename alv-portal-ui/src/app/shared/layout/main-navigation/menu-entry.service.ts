@@ -51,8 +51,20 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     icon: 'user',
-    labelKey: 'portal.admin.user-info.menu-entry',
+    labelKey: 'portal.navigation.menu-entry.admin.user-info',
     path: ['admin', 'user-info'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
+  },
+  {
+    icon: 'comment-alt',
+    labelKey: 'portal.navigation.menu-entry.admin.system-notifications',
+    path: ['admin', 'system-notifications'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
+  },
+  {
+    icon: 'balance-scale',
+    labelKey: 'portal.admin.legal-terms-management.title',
+    path: ['admin', 'legal-terms-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   }
 ];

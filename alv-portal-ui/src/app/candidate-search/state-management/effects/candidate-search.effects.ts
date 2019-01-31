@@ -13,7 +13,7 @@ import {
   takeUntil,
   tap,
   withLatestFrom
-} from 'rxjs/internal/operators';
+} from 'rxjs/operators';
 import { Action, select, Store } from '@ngrx/store';
 import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
 import { asyncScheduler, Observable, of } from 'rxjs/index';

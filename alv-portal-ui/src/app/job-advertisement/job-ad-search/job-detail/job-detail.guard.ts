@@ -9,7 +9,7 @@ import {
   JobAdvertisementDetailLoadedAction
 } from '../state-management';
 import { Store } from '@ngrx/store';
-import { catchError, map, tap } from 'rxjs/internal/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { Injectable } from '@angular/core';
 

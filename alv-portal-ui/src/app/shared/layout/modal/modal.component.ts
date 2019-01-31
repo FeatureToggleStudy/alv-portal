@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 
 /**
@@ -27,6 +26,11 @@ export class ModalComponent {
    * (optional) Label of the primary button
    */
   @Input() primaryLabel?: string;
+
+  /**
+   * (optional) attribute to set visibility of primary action, default true
+   */
+  @Input() primaryAllow = true;
 
   /**
    * Emitted event on primary button click.
