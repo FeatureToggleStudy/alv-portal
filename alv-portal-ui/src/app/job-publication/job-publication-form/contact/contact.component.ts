@@ -19,7 +19,7 @@ export class ContactComponent implements OnInit {
 
   readonly LAST_NAME_MAX_LENGTH = 50;
 
-  //This is intentionally shorter than the application email addresse. See the AVAM interface
+  //This is intentionally shorter than the application email address. See the AVAM interface
   //spec for more information.
   readonly EMAIL_MAX_LENGTH = 50;
 
