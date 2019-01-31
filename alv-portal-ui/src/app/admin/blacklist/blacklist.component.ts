@@ -29,7 +29,7 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
   public alert: Notification = null;
 
   private readonly ALERTS = {
-    userTechError: {
+    techError: {
       type: NotificationType.ERROR,
       messageKey: 'portal.admin.user-info.alert.user-info-technical',
       isSticky: true
@@ -78,13 +78,33 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
           this.getAllBlacklistedAgents();
           this.alert = this.ALERTS.changeSuccess;
         }, () => {
-          this.alert = this.ALERTS.userTechError;
+          this.alert = this.ALERTS.techError;
         })
   }
 
-  public openAddBlacklistEntryModal(){
-    this.modalService.openMedium(AddBlacklistEntryModalComponent, true);
+  private saveAddEntry(organizationExtId: string){
+    console.log("add organization to the blacklist: ", organizationExtId);
+    this.blacklistRepository.createBlacklistEntryForPav(organizationExtId).subscribe(
+      () => {
+        this.getAllBlacklistedAgents();
+        this.alert = this.ALERTS.addSuccess;
+      },
+      () => {
+        this.alert = this.ALERTS.techError;
+      }
+    )
+
   }
+
+  public openAddBlacklistEntryModal(){
+    this.modalService.openLarge(AddBlacklistEntryModalComponent, true).result.then(
+      (result) => {
+        this.saveAddEntry(result);
+      },
+      () => {}
+    )
+  }
+
 
   public openChangeStatusDialog(agent: BlacklistedAgent){
     this.modalService.openConfirm({

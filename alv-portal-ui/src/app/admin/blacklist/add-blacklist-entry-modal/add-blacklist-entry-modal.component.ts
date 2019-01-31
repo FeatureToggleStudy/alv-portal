@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { catchError, map, mergeMap, toArray } from 'rxjs/operators';
-import { EMPTY } from 'rxjs/internal/observable/empty';
-import { Router } from '@angular/router';
+
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { from, Observable } from 'rxjs';
-import { SingleTypeaheadItem } from '../../../shared/forms/input/single-typeahead/single-typeahead-item.model';
 import { PavSuggestion } from '../../../shared/backend-services/pav-search/pav-search.types';
 import { PavSearchRepository } from '../../../shared/backend-services/pav-search/pav-search.repository';
+import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
+import * as _ from 'lodash';
 
 
 @Component({
@@ -18,9 +18,11 @@ import { PavSearchRepository } from '../../../shared/backend-services/pav-search
 })
 export class AddBlacklistEntryModalComponent implements OnInit {
 
-  form: FormGroup;
+  public form: FormGroup;
 
-  searchOrganizationsFn = this.searchOrganizations.bind(this);
+  public searchOrganizationsFn = this.searchOrganizations.bind(this);
+
+  public selectedOrganisation: PavSuggestion;
 
 
   constructor(public modal: NgbActiveModal,
@@ -35,11 +37,19 @@ export class AddBlacklistEntryModalComponent implements OnInit {
     });
   }
 
-  itemSelected(item: SingleTypeaheadItem<PavSuggestion>) {
-    // this.pavSelected.emit(item.payload);
+  itemSelected(item: TypeaheadItem<PavSuggestion>) {
+    this.selectedOrganisation = item.payload;
+    //this.pavSelected.emit(item.payload);
   }
 
-  private searchOrganizations(term: string): Observable<SingleTypeaheadItem<PavSuggestion>[]> {
+  public confirmOrganizationAndCloseModal(){
+    if (!_.isEmpty(this.selectedOrganisation)){
+      this.modal.close(this.selectedOrganisation.externalId);
+    }
+  }
+
+
+  private searchOrganizations(term: string): Observable<TypeaheadItem<PavSuggestion>[]> {
     return this.pavSearchRepository.suggest(term).pipe(
       mergeMap(organizations => from(organizations)),
       map(this.mapToItem),
@@ -47,11 +57,12 @@ export class AddBlacklistEntryModalComponent implements OnInit {
     );
   }
 
-  private mapToItem(pavSuggestion: PavSuggestion): SingleTypeaheadItem<PavSuggestion> {
-    return new SingleTypeaheadItem(
-      pavSuggestion.externalId,
+  private mapToItem(pavSuggestion: PavSuggestion, index: number): TypeaheadItem<PavSuggestion> {
+    return new TypeaheadItem<PavSuggestion>(
+      'pav',
+      pavSuggestion,
       PavSearchRepository.formatOrganizationName(pavSuggestion),
-      pavSuggestion
+      index
     );
   }
 

@@ -3,7 +3,7 @@
 
     <h2 class="panel-title">
       <i class="panel-icon fas fa-ban"></i>
-      Blacklist
+      {{ 'blacklisted-agent.title' | translate }}
     </h2>
 
     <button
@@ -14,12 +14,13 @@
         </span>
     </button>
 
-    <alv-alert (dismiss)="dismissAlert()"
-               *ngIf="alert"
-               [notification]="alert">
-    </alv-alert>
-
   </div>
+
+  <alv-alert (dismiss)="dismissAlert()"
+             *ngIf="alert"
+             [notification]="alert">
+  </alv-alert>
+
 
   <div class="table-responsive">
       <table class="table table-striped">

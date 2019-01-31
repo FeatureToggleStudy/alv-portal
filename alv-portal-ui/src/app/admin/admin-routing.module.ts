@@ -19,7 +19,7 @@ const routes: Routes = [
     path: 'blacklist',
     component: BlacklistComponent,
     data: {
-      titleKey: 'portal.admin.user-info.user-info.title',
+      titleKey: 'blacklisted-agent.title',
       authorities: [UserRole.ROLE_SYSADMIN, UserRole.ROLE_ADMIN]
     }
   },

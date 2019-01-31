@@ -1,13 +1,28 @@
 <alv-modal modalTitle="{{'blacklisted-agent.create-blacklist-entry' | translate}}"
-           primaryLabel="Login"
-           (primaryAction)="login()"
-           secondaryLabel="Cancel"
+           primaryLabel="{{'blacklisted-agent.create-blacklist-entry' | translate}}"
+           (primaryAction)="confirmOrganizationAndCloseModal()"
+           secondaryLabel="{{'blacklisted-agent.change-status-dialog.cancel' | translate}}"
            (secondaryAction)="modal.dismiss()"
            [formGroup]="form">
+  <p>{{'blacklisted-agent.choose-organisation-desc' | translate}}</p>
   <alv-single-typeahead (itemSelected)="itemSelected($event)"
                         [autofocus]="true"
                         [loadItems]="searchOrganizationsFn"
                         alvFormControlName="organization"
                         label="registrationPavDialog.placeholder">
   </alv-single-typeahead>
+  <div *ngIf="selectedOrganisation">
+    <p>{{'blacklisted-agent.selected-organisation-desc' | translate}}</p>
+    <address>
+      {{selectedOrganisation.name}}<br>
+      {{selectedOrganisation.street}}<br>
+      {{selectedOrganisation.zipCode}} {{selectedOrganisation.city}}<br>
+    </address>
+
+    <p>
+      <span class="fa fa-warning" aria-hidden="true"></span>
+      <strong>{{'blacklisted-agent.confirm-alert' | translate}}</strong>
+    </p>
+
+  </div>
 </alv-modal>
