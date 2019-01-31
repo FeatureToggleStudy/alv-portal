@@ -8,7 +8,7 @@ import { MenuEntry } from '../menu-entry.type';
 export class MenuEntryComponent implements OnInit {
 
   @Input()
-  showTooltip = false;
+  showTooltip  = false;
 
   @Input()
   menuEntry: MenuEntry;
