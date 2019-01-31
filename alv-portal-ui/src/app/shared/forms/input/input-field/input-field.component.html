@@ -32,6 +32,7 @@
               [attr.aria-describedby]="validationId"
               [class.placeholder-shown]="!control.value"
               (input)="onInput($event)"
+              #textarea
               class="form-control">
     </textarea>
     <div *ngIf="readonly"
