@@ -45,8 +45,7 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
 
   postAddressFormValue: PostAddressFormValue;
 
-  constructor(private fb: FormBuilder,
-              private cdRef: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder) {
     super();
   }
 

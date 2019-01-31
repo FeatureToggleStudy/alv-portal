@@ -19,7 +19,9 @@ export class PublicContactComponent implements OnInit {
 
   readonly LAST_NAME_MAX_LENGTH = 50;
 
-  readonly EMAIL_MAX_LENGTH = 255;
+  //This is intentionally shorter than the application email addresse. See the AVAM interface
+  //spec for more information.
+  readonly EMAIL_MAX_LENGTH = 50;
 
   @Input()
   parentForm: FormGroup;
