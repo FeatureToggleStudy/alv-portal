@@ -4,7 +4,7 @@
   (click)="onItemClicked()"
    routerLinkActive="active">
   <i [class]="'nav-icon fas fa-' + menuEntry.icon"
-    ngbTooltip="{{showTooltip? menuEntry.labelKey: '' | translate}}"
+    ngbTooltip="{{(showTooltip ? menuEntry.labelKey: '') | translate}}"
     placement="right"
   ></i>
   <span class="nav-text">{{menuEntry.labelKey | translate}}</span>
