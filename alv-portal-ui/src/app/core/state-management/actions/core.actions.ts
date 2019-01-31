@@ -127,6 +127,10 @@ export class AcountabilitiesLoaded implements Action {
 
 }
 
+/**
+ * Action that indicates that the given JobAdvertisement was created or updated
+ * Needed by other modules eg. to refresh their loaded results/details
+ */
 export class JobAdvertisementUpdatedAction implements Action {
   readonly type = JOB_ADVERTISEMENT_CHANGED;
 
