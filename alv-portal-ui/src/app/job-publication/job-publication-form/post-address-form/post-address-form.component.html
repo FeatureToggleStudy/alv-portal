@@ -3,7 +3,8 @@
   <legend class="sr-only">{{legend | translate }}</legend>
 
   <alv-input-field label="home.tools.job-publication.company.name"
-                   alvFormControlName="name">
+                   alvFormControlName="name"
+                   [maxLength]="NAME_MAX_LENGTH">
   </alv-input-field>
 
   <div class="form-row">
@@ -14,12 +15,14 @@
                        [validationMessages]="[{
                                 error: 'postOfficeBoxNumberOrStreetRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
-                                ]">
+                                ]"
+                       [maxLength]="STREET_MAX_LENGTH">
       </alv-input-field>
     </div>
     <div class="col-4">
       <alv-input-field label="home.tools.job-publication.company.house-number"
-                       alvFormControlName="houseNumber">
+                       alvFormControlName="houseNumber"
+                       [maxLength]="HOUSE_NUMBER_MAX_LENGTH">
       </alv-input-field>
     </div>
   </div>
@@ -37,7 +40,9 @@
                      [validationMessages]="[{
                                 error: 'postOfficeBoxNumberOrStreetRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
-                                ]">
+                                ]"
+                     [maxLength]="PO_BOX_MAX_LENGTH"
+                     [min]="0">
     </alv-input-field>
   </ng-container>
 

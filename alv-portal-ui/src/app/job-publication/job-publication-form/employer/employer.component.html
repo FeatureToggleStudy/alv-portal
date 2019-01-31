@@ -6,7 +6,8 @@
   </div>
   <div class="panel-content">
     <alv-input-field label="home.tools.job-publication.employer.title"
-                     alvFormControlName="name">
+                     alvFormControlName="name"
+                     [maxLength]="NAME_MAX_LENGTH">
     </alv-input-field>
 
     <alv-zip-city-input [parentForm]="employer"
