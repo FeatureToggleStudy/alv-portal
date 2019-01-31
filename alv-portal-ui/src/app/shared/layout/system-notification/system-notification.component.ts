@@ -4,6 +4,8 @@ import {
   SystemNotificationType
 } from '../../backend-services/system-notifications/system-notification.types';
 import { I18nService } from '../../../core/i18n.service';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-system-notification',
@@ -23,7 +25,7 @@ export class SystemNotificationComponent implements OnInit {
   ngOnInit() {
   }
 
-  getTypeClass(type: SystemNotificationType): string {
+  getTypeStyleClass(type: SystemNotificationType): string {
     return `system-notification-${type.toString().toLowerCase()}`;
   }
 
@@ -39,8 +41,14 @@ export class SystemNotificationComponent implements OnInit {
     this.visible = !this.visible;
   }
 
-  getCurrentLanguage(type: SystemNotificationType) {
-    //todo fago translate the values
+  getCurrentLanguage(activeSystemNotification: SystemNotificationDto): Observable<string> {
+    return this.i18nService.currentLanguage$.pipe(
+      switchMap((language) => {
+        if (language === 'de') { return of(activeSystemNotification.text_de); }
+        if (language === 'fr') { return of(activeSystemNotification.text_fr); }
+        if (language === 'it') { return of(activeSystemNotification.text_it); }
+        if (language === 'en') { return of(activeSystemNotification.text_en); }
+      }));
   }
 
 }
