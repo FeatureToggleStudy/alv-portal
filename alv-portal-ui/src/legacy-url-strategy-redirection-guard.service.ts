@@ -5,27 +5,32 @@ import {
   Router,
   RouterStateSnapshot
 } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RedirectionGuard implements CanActivate {
+/**
+ * The guard need to redirect the user from the legacy urls (has-based strategy) to the
+ * urls we use
+ */
+export class LegacyUrlStrategyRedirectionGuard implements CanActivate {
   constructor(private router: Router) {
-
   }
-
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    state: RouterStateSnapshot): Promise<boolean> | boolean {
     const fragment = state.root.fragment;
     if (!fragment) {
-      return true;
+      return this.goHome();
     }
     const regExpMatchArray = fragment.match(/\/job-publication-detail\/(.*)/);
     if (regExpMatchArray) {
       return this.router.navigateByUrl('manage-job-ads/' + decodeURIComponent(regExpMatchArray[1]));
     }
-    return true;
+    return this.goHome();
+  }
+  goHome() {
+    this.router.navigate(['home']);
+    return false;
   }
 }
