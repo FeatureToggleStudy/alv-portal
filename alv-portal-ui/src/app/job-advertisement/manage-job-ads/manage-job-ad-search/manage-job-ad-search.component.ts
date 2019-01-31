@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import {
   ApplyFilterAction,
-  JobAdvertisementChangedAction,
   LoadNextPageAction
 } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
@@ -30,6 +29,7 @@ import {
 import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { Router } from '@angular/router';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { JobAdvertisementUpdatedAction } from '../../../core/state-management/actions/core.actions';
 
 interface FilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
@@ -168,7 +168,7 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
         jobAdCancellationComponent.accessToken = null;
         jobAdCancellationModalRef.result
           .then((job) => {
-            this.store.dispatch(new JobAdvertisementChangedAction({ jobAdvertisement: job }));
+            this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: job }));
           })
           .catch(() => {
           });
