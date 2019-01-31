@@ -6,8 +6,9 @@ import { MenuEntry } from '../menu-entry.type';
   templateUrl: './menu-entry.component.html'
 })
 export class MenuEntryComponent implements OnInit {
+
   @Input()
-  showTooltip: boolean;
+  showTooltip = false;
 
   @Input()
   menuEntry: MenuEntry;
