@@ -38,7 +38,8 @@
             (click)="handleSecondaryClick()">
       {{secondaryLabel | translate}}
     </button>
-    <button [attr.type]="formGroup ? 'submit' : 'button'"
+    <button *ngIf="primaryAllow"
+            [attr.type]="formGroup ? 'submit' : 'button'"
             (click)="handlePrimaryClick()"
             class="btn btn-primary">
       {{primaryLabel | translate}}

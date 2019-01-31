@@ -1,0 +1,102 @@
+<div class="container pt-md-4 pt-3 px-3">
+
+  <h2 class="panel-title">
+    <i class="panel-icon fa fa-balance-scale"></i>
+    {{ 'portal.admin.legal-terms-management.title' | translate }}
+  </h2>
+
+  <hr>
+
+  <div class="d-block mb-3">
+    <button (click)="onAdd()" class="btn btn-primary h-100">
+      <i class="panel-icon fas fa-plus"></i>
+      {{ 'portal.admin.legal-terms-management.legal-terms-details.add' | translate }}
+    </button>
+  </div>
+
+  <table class="table table-striped"
+         role="grid">
+    <thead role="presentation">
+    <tr role="row">
+      <th scope="col" role="columnheader">
+        {{ 'portal.admin.legal-terms-management.header.effectiveAt' | translate }}
+      </th>
+      <th scope="col" role="columnheader">
+        {{ 'portal.admin.legal-terms-management.header.linkDe' | translate }}
+      </th>
+      <th scope="col" role="columnheader">
+        {{ 'portal.admin.legal-terms-management.header.linkEn' | translate }}
+      </th>
+      <th scope="col" role="columnheader">
+        {{ 'portal.admin.legal-terms-management.header.linkFr' | translate }}
+      </th>
+      <th scope="col" role="columnheader">
+        {{ 'portal.admin.legal-terms-management.header.linkIt' | translate }}
+      </th>
+      <th scope="col" role="columnheader" colspan="3">
+        {{ 'portal.admin.legal-terms-management.header.actions' | translate }}
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let legalTerms of legalTermsEntries$ | async "
+        role="row">
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ legalTerms.effectiveAt | date:'dd.MM.yyyy' }}
+      </td>
+      <td class="content-cell align-middle reverse-ellipsis"
+          role="gridcell">
+        <a href="{{ legalTerms.linkDe }}" target="_blank">
+          {{ legalTerms.linkDe }}
+        </a>
+      </td>
+      <td class="content-cell align-middle reverse-ellipsis"
+          role="gridcell">
+        <a href="{{ legalTerms.linkEn }}" target="_blank">
+          {{ legalTerms.linkEn }}
+        </a>
+      </td>
+      <td class="content-cell align-middle reverse-ellipsis"
+          role="gridcell">
+        <a href="{{ legalTerms.linkFr }}" target="_blank">
+          {{ legalTerms.linkFr }}
+        </a>
+      </td>
+      <td class="content-cell align-middle reverse-ellipsis"
+          role="gridcell">
+        <a href="{{ legalTerms.linkIt }}" target="_blank">
+          {{ legalTerms.linkIt }}
+        </a>
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        <button class="btn btn-primary btn-icon"
+                [ngbTooltip]="'entity.action.view' | translate"
+                (click)="onView(legalTerms)">
+          <span class="fa fa-eye"></span>
+        </button>
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        <button *ngIf="isEffectiveAtInFuture(legalTerms.effectiveAt)"
+                class="btn btn-primary btn-icon"
+                [ngbTooltip]="'entity.action.edit' | translate"
+                (click)="onUpdate(legalTerms)">
+          <span class="fa fa-edit"></span>
+        </button>
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        <button *ngIf="isEffectiveAtInFuture(legalTerms.effectiveAt)"
+                class="btn btn-primary btn-icon"
+                [ngbTooltip]="'entity.action.delete' | translate"
+                (click)="onDelete(legalTerms)">
+          <span class="fa fa-trash"></span>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
