@@ -51,7 +51,7 @@ export class ApiUserManagementComponent implements OnInit {
     this.currentFilter$.pipe(
       take(1),
       flatMap( (filter) => {
-        return this.loadApiUsers({...filter, query: this.form.get('query').value}, 0)
+        return this.loadApiUsers({...filter, query: this.form.get('query').value}, 0);
       }))
       .subscribe();
   }
@@ -60,7 +60,7 @@ export class ApiUserManagementComponent implements OnInit {
     this.currentFilter$.pipe(
       take(1),
       flatMap( (filter) => {
-        return this.loadApiUsers({...filter, sort}, 0)
+        return this.loadApiUsers({...filter, sort}, 0);
       }))
       .subscribe();
   }
@@ -117,7 +117,7 @@ export class ApiUserManagementComponent implements OnInit {
     this.currentFilter$.pipe(
       take(1),
       flatMap( (filter) => {
-        return this.loadApiUsers(filter, 0)
+        return this.loadApiUsers(filter, 0);
       }))
       .subscribe();
   }
