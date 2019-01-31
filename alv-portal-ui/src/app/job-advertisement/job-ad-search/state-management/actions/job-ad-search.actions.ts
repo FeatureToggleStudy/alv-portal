@@ -6,7 +6,6 @@ import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-q
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
-export const RELOAD_RESULT_LIST = 'JOBS:RELOAD_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
 export const APPLY_FILTER = 'JOBS:APPLY_FILTER';
 export const RESET_FILTER = 'JOBS:RESET_FILTER';

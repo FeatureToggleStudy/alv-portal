@@ -18,7 +18,6 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
-  RELOAD_RESULT_LIST,
   RESET_FILTER
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
@@ -47,7 +46,9 @@ import { JobAdvertisementSearchResponse } from '../../../../shared/backend-servi
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
 import {
-  EffectErrorOccurredAction, JOB_ADVERTISEMENT_CHANGED, JobAdvertisementUpdatedAction,
+  EffectErrorOccurredAction,
+  JOB_ADVERTISEMENT_CHANGED,
+  JobAdvertisementUpdatedAction,
   LANGUAGE_CHANGED,
   LanguageChangedAction
 } from '../../../../core/state-management/actions/core.actions';
@@ -81,19 +82,6 @@ export class JobAdSearchEffects {
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
     takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
-  );
-
-  @Effect()
-  reloadJobSearchResults$ = this.actions$.pipe(
-    ofType(RELOAD_RESULT_LIST),
-    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
-      map((response) => new FilterAppliedAction({
-        page: response.result,
-        totalCount: response.totalCount
-      })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-    ))
   );
 
   @Effect()
