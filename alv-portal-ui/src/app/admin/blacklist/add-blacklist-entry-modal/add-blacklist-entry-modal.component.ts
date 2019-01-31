@@ -39,7 +39,6 @@ export class AddBlacklistEntryModalComponent implements OnInit {
 
   itemSelected(item: TypeaheadItem<PavSuggestion>) {
     this.selectedOrganisation = item.payload;
-    //this.pavSelected.emit(item.payload);
   }
 
   public confirmOrganizationAndCloseModal(){

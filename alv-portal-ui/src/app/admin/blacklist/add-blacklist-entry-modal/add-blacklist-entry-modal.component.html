@@ -9,20 +9,17 @@
                         [autofocus]="true"
                         [loadItems]="searchOrganizationsFn"
                         alvFormControlName="organization"
-                        label="registrationPavDialog.placeholder">
+                        label="blacklisted-agent.choose-organisation-placeholder">
   </alv-single-typeahead>
   <div *ngIf="selectedOrganisation">
-    <p>{{'blacklisted-agent.selected-organisation-desc' | translate}}</p>
+    <p><strong>{{'blacklisted-agent.selected-organisation-desc' | translate}}</strong></p>
     <address>
       {{selectedOrganisation.name}}<br>
       {{selectedOrganisation.street}}<br>
       {{selectedOrganisation.zipCode}} {{selectedOrganisation.city}}<br>
     </address>
 
-    <p>
-      <span class="fa fa-warning" aria-hidden="true"></span>
-      <strong>{{'blacklisted-agent.confirm-alert' | translate}}</strong>
-    </p>
+    <p><strong>{{'blacklisted-agent.confirm-alert' | translate}}</strong></p>
 
   </div>
 </alv-modal>
