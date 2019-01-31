@@ -113,7 +113,7 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
 
   ngAfterViewInit() {
     if (this.multiline) {
-      this.setMultilineElementHeight(this.textareaElement.nativeElement);
+      this.calculateMultilineElementHeight();
     }
   }
 
@@ -126,12 +126,13 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
     }
     if (this.multiline) {
       // Multiline auto expand feature
-      this.setMultilineElementHeight(target);
+      this.calculateMultilineElementHeight();
     }
     this.input.emit(event);
   }
 
-  private setMultilineElementHeight(element: HTMLTextAreaElement) {
+  private calculateMultilineElementHeight() {
+    const element = this.textareaElement.nativeElement;
     element.style.height = this.MULTILINE_MIN_HEIGHT + 'px';
     element.style.height = Math.max(element.scrollHeight, this.MULTILINE_MIN_HEIGHT) + 'px';
   }
