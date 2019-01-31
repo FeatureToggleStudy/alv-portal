@@ -6,6 +6,7 @@ import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-q
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
+export const RELOAD_RESULT_LIST = 'JOBS:RELOAD_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
 export const APPLY_FILTER = 'JOBS:APPLY_FILTER';
 export const RESET_FILTER = 'JOBS:RESET_FILTER';
@@ -24,6 +25,13 @@ export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHAN
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class ReloadResultListAction implements Action {
+  readonly type = RELOAD_RESULT_LIST;
 
   constructor(public payload = {}) {
   }
@@ -137,6 +145,7 @@ export class OccupationLanguageChangedAction implements Action {
 
 export type Actions =
   | InitResultListAction
+  | ReloadResultListAction
   | FilterAppliedAction
   | ApplyFilterAction
   | LoadNextPageAction
