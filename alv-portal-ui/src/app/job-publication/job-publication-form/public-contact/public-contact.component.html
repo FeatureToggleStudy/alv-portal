@@ -8,12 +8,12 @@
 
   <alv-input-field label="home.tools.job-publication.contact.first-name"
                    alvFormControlName="firstName"
-                   [maxLength]="FIELDS_MAX_LENGTH">
+                   [maxLength]="FIRST_NAME_MAX_LENGTH">
   </alv-input-field>
 
   <alv-input-field label="home.tools.job-publication.contact.last-name"
                    alvFormControlName="lastName"
-                   [maxLength]="FIELDS_MAX_LENGTH">
+                   [maxLength]="LAST_NAME_MAX_LENGTH">
   </alv-input-field>
 
   <fieldset>
@@ -30,7 +30,7 @@
                      alvFormControlName="email"
                      placeholder="home.tools.job-publication.placeholders.email"
                      [validationMessages]="[{ error: 'phoneOrEmailRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-email-or-phone'}]"
-                     [maxLength]="FIELDS_MAX_LENGTH"
+                     [maxLength]="EMAIL_MAX_LENGTH"
                      [showGroupErrors]="true">
     </alv-input-field>
   </fieldset>

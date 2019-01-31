@@ -108,6 +108,17 @@ describe('ApplicationComponent', () => {
           expect(field.hasError('required')).toBeTrue();
         });
 
+        it('should be not be longer than FORM_URL_MAX_LENGTH', () => {
+          //given
+          const field = component.application.get('formUrl');
+
+          //when
+          field.setValue('a'.repeat(component.FORM_URL_MAX_LENGTH + 1));
+
+          //then
+          expect(field.hasError('maxlength')).toBeTrue();
+        });
+
         it('should be valid URL', () => {
           //given
           const field = component.application.get('formUrl');
@@ -184,6 +195,17 @@ describe('ApplicationComponent', () => {
 
           //then
           expect(field.hasError('emailValidator')).toBeTrue();
+        });
+
+        it('should be not be longer than EMAIL_MAX_LENGTH', () => {
+          //given
+          const field = component.application.get('emailAddress');
+
+          //when
+          field.setValue('a'.repeat(component.EMAIL_MAX_LENGTH + 1));
+
+          //then
+          expect(field.hasError('maxlength')).toBeTrue();
         });
 
         it('should accept valid email', () => {
