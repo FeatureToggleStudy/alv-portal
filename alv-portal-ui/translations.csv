@@ -830,7 +830,7 @@ home,home.tools.job-publication.reset,Zurücksetzen,Reset,Rétablir,Ripristina
 home,home.tools.job-publication.shortEmployment.label,Kurzeinsatz (bis zu 14 Kalendertage),Short employment (up to 14 calendar days),Engagement de courte durée (jusqu’à 14 jours civils),Assunzione di corta durata (fino a 14 giorni civili)
 home,home.tools.job-publication.submit,Stelle melden,Post job ad,Envoyer l'annonce,Inviare l'annuncio
 home,home.tools.job-publication.submit.error,Die Stellenanzeige konnte nicht gespeichert werden.,Job ad could not be saved.,L'annonce n'a pas pu être sauvegardé.,Annuncio non salvata.
-home,home.tools.job-publication.submit.success,"Besten Dank für Ihre Stellenmeldung. Ihr Inserat wird nun von einem Regionalen Arbeitsvermittlungszentrum (RAV) geprüft. Sie werden per E-Mail informiert, sobald die Stelle veröffentlicht wurde.","Thank you for posting this job ad, which will now be checked by a regional employment centre (RAV). You will be informed by email as soon as it is published.",Merci d'avoir annoncé le poste vacant que l'ORP va examiner. Vous recevrez un courriel dès sa publication.,Grazie di aver annunciato il posto vacante que sarà esaminato dall'URC. Riceverà un'e-mail non appena il posto vacante verrà pubblicato.
+home,home.tools.job-publication.submit.success,"Besten Dank für Ihre Stellenmeldung. Ihr Inserat wird nun von einem Regionalen Arbeitsvermittlungszentrum (RAV) geprüft. Sie werden per E-Mail informiert, sobald die Stelle veröffentlicht wurde.","Thank you for posting this job ad, which will now be checked by a regional employment centre (RAV). You will be informed by email as soon as it is published.",Merci d'avoir annoncé le poste vacant que l'ORP va examiner. Vous recevrez un courriel dès sa publication.,Grazie di aver annunciato il posto vacante che sarà esaminato dall'URC. Riceverà un'e-mail non appena il posto vacante verrà pubblicato.
 home,home.tools.job-publication.workload,Arbeitspensum,Workload,Taux d'occupation,Grado di occupazione
 home,home.tools.job-search.search-badge.many,"Diesem Profil entsprechen <br><span class=""badge badge-radar"">{{count}}</span><br>Stellen","This profile matches <br><span class=""badge badge-radar"">{{count}}</span><br>jobs","<br><span class=""badge badge-radar"">{{count}}</span><br>emplois correspondent à ce profil","A questo profilo corrispondono <br><span class=""badge badge-radar"">{{count}}</span><br>posti"
 home,home.tools.job-search.search-badge.none,Diesem Profil entsprechen keine Stellen,No jobs match this profile,Aucun emploi correspond à ce profil,Non ci sono posti corrispondenti a questo profilo
@@ -1295,7 +1295,7 @@ blacklisted-agent,blacklisted-agent.header.counter,Anzahl Sperrungen,Counter,Cou
 blacklisted-agent,blacklisted-agent.status.active,Aktiv,Active,Active,Active
 blacklisted-agent,blacklisted-agent.status.inactive,Inaktiv,Inactive,Inactive,Inactive
 blacklisted-agent,blacklisted-agent.create-blacklist-entry,PAV auf Blacklist setzen,Add PAV to Blacklist ,Add PAV to Blacklist ,Add PAV to Blacklist
-blacklisted-agent,blacklisted-agent.choose-organisation-desc,"Bitte wählen Sie eine Organisation aus, die sie auf die Blacklist setzen möchten." ,"Please choose an organisation that you want to add to the blacklist." ,"Please choose an organisation that you want to add to the blacklist." ,"Please choose an organisation that you want to add to the blacklist."
+blacklisted-agent,blacklisted-agent.choose-organisation-desc,"Bitte wählen Sie eine Organisation aus, die sie auf die Blacklist setzen möchten.","Please choose an organisation that you want to add to the blacklist.","Please choose an organisation that you want to add to the blacklist.","Please choose an organisation that you want to add to the blacklist."
 blacklisted-agent,blacklisted-agent.selected-organisation-desc,"Möchten Sie folgende Organisation auf die Blacklist setzen?" ,"Do you want to add the following organisation to the blacklist?" ,"Do you want to add the following organisation to the blacklist?" ,"Do you want to add the following organisation to the blacklist?"
 blacklisted-agent,blacklisted-agent.confirm-alert,"Diese Aktion wird sofort ausgeführt und kann nicht rückgängig gemacht werden!" ,"This action will be effectuated immediately and can not be undone!" ,"This action will be effectuated immediately and can not be undone!" ,"This action will be effectuated immediately and can not be undone!"
 blacklisted-agent,blacklisted-agent.change-status-dialog.title,Status des Blacklist-Eintrags ändern,Change Status of Blacklisted Agent,Change Status of Blacklisted Agent,Change Status of Blacklisted Agent,
@@ -1346,7 +1346,9 @@ portal,portal.forms.validation.ngbDate.format,"Datumsformat ungültig, richtiges
 portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}} liegen,Date must be before {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La date doit être antérieure au {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La data deve essere precedente all'{{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}}
 portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}} liegen,Date must be after {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La date doit être après le {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La data deve essere successiva all'{{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}
 portal,portal.forms.validation.character-counter,{{count}} Zeichen verbleibend,{{count}} characters available,{{count}} caractères disponibles,{{count}} caratteri disponibili
-portal,portal.forms.date-input.open-calendar-button,
+portal,portal.forms.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
+portal,portal.forms.validation.url,Diese URL ist ungültig.,This URL is not valid,Ce lien URL n'est pas valable.,Questo indirizzo URL non è valido.
+portal,portal.forms.date-input.open-calendar-button,Kalender öffnen,Open calendar,
 
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
@@ -1354,8 +1356,11 @@ portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tut
 
 portal,portal.navigation.menu-entry.job-search,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
+portal,portal.navigation.menu-entry.job-publication,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 portal,portal.navigation.menu-entry.account.profile,Profile,Profile
+portal,portal.navigation.menu-entry.admin.system-notifications,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
+portal,portal.navigation.menu-entry.admin.user-info,Benutzerinformationen,User Info,User Info,User Info
 portal,portal.navigation.label.main-navigation,,Main navigation
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
@@ -1418,6 +1423,10 @@ portal,portal.job-ad.search.query-panel.localities.placeholder,"Arbeitsort, Kant
 portal,portal.job-ad.search.query-panel.localities.tooltip,Mehrfachauswahl möglich,Multiple selection possible,Sélection multiple possible,Selezione multipla possibile
 portal,portal.job-ad-search.action.print,Drucken,Print,Imprimer,Stampa
 
+portal,portal.job-ad.qualification.SKILLED,gelernt,skilled,qualifié,qualificato
+portal,portal.job-ad.qualification.SEMISKILLED,angelernt,semiskilled,initié,semiqualificato
+portal,portal.job-ad.qualification.UNSKILLED,ungelernt,unskilled,non qualifié,non qualificato
+
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
 portal,portal.shared.localities.geo-location-selection.not-available,Standort kann nicht ermittelt werden
 
@@ -1431,9 +1440,24 @@ portal,portal.widgets.manage-job-ads.actions.cancel,Abmelden,Cancel,Retirer,Canc
 portal,portal.widgets.manage-job-ads.actions.duplicate,Duplizieren,Duplicate,Dupliquer,Duplicare
 
 portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
+portal,portal.job-publication.occupation.qualification.label,Qualifikation,Qualification,Qualification,Qualifica
 portal,portal.job-publication.language-skills.add,Neue Sprachkompetenz hinzufügen,Add new language skill,Ajouter une nouvelle compétence linguistique,Aggiungi nuova conoscenza linguistica
 portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 portal,portal.job-publication.locality.additional-text.placeholder,z. B. Aussendienst in der ganzen Schweiz,e.g. in the field throughout Switzerland,p. ex. service externe dans toute la Suisse,p. es. servizio esterno in tutta la Svizzera
+portal,portal.job-publication.disclaimer.label,"Ich bestätige, dass der Arbeitgeber die orts- und branchenüblichen Lohn- und Arbeitsbedingungen einhält.",I certify that the employer complies with local and industry standards for wage and working conditions.,Je confirme que l'employeur respecte les conditions de travail et de salaire usuelles dans la branche et la localité en question.,Confermo che il datore di lavoro rispetta le condizioni salariali e lavorative usuali nel ramo e nel luogo in questione.
+portal,portal.job-publication.disclaimer.error,"Bitte bestätigen Sie, dass der Arbeitgeber die orts- und branchenüblichen Lohn- und Arbeitsbedingungen einhält.",Please confirm that the employer complies with local and industry standards for wage and working conditions.,Veuillez confirmer que l'employeur respecte bien les conditions de travail et de salaire en vigueur dans la branche et la localité en question.,Confermare che il datore di lavoro rispetta le condizioni salariali e lavorative del luogo e del ramo in questione.
+portal,portal.job-publication.publication.publicDisplay.label,"<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> und <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> and <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> et <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Sito Job-Room</a> e <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>"
+portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://ec.europa.eu/eures/public/de/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/en/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/fr/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/it/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>"
+portal,portal.job-publication.application.legend,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
+portal,portal.job-publication.application.validation.atLeastOneRequired,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
+portal,portal.job-publication.submit.success,"Besten Dank für Ihre Stellenmeldung. Ihr Inserat wird nun von einem Regionalen Arbeitsvermittlungszentrum (RAV) geprüft. Sie werden per E-Mail informiert, sobald die Stelle veröffentlicht wurde.","Thank you for posting this job ad, which will now be checked by a regional employment centre (RAV). You will be informed by email as soon as it is published.",Merci d'avoir annoncé le poste vacant que l'ORP va examiner. Vous recevrez un courriel dès sa publication.,Grazie di aver annunciato il posto vacante che sarà esaminato dall'URC. Riceverà un'e-mail non appena il posto vacante verrà pubblicato.
+portal,portal.job-publication.create.another,Weitere Stelle melden,
+portal,portal.job-publication.submit.info.item1,Bei allfälligen Fragen werden Sie vom RAV kontaktiert.,
+portal,portal.job-publication.submit.info.item2,Sie werden per E-Mail informiert, sobald die Stelle aufgeschaltet wurde.,
+portal,portal.job-publication.submit.info.item3,Falls Sie in der Zwischenzeit Fragen haben, zögern Sie nicht, Ihr zuständiges RAV zu kontaktieren:,
+portal,portal.job-publication.submit.info.phone,Tel.,
+portal,portal.job-publication.submit.info.fax,Fax,
+portal,portal.job-publication.submit.info.email,Email,
 
 portal,portal.manage-job-ads.search.query,Stellen durchsuchen
 portal,portal.manage-job-ads.search.owner-name,Erfasser,Created by
@@ -1457,12 +1481,8 @@ portal,portal.manage-job-ads.row-label,,Job advertisement row actions for the ro
 
 portal,portal.global.help,Hilfe,Help
 portal,portal.global.search,Suche,Search,Recherche,Cerca
+portal,portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Retour à la page d'accueil,Torna alla pagina iniziale
 portal,portal.global.close,Schliessen,Close,Fermer,Invalida
-
-portal,portal.form.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
-
-portal,portal.job-publication.publication.publicDisplay.label,"<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> und <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> and <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> et <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Sito Job-Room</a> e <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>"
-portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://ec.europa.eu/eures/public/de/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/en/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/fr/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/it/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>"
 
 portal,portal.header.menu.open-navigation
 portal,portal.header.menu.user-menu.label
@@ -1476,7 +1496,6 @@ portal,portal.typeahead-multiselect.remove-item,,Remove item {{item}}
 portal,portal.typeahead-multiselect.help-text.add-free-text,,You can add free text items by hitting Tab or Enter without selection.
 portal,portal.typeahead-single.help-text.instruction,,Enter at least {{ number }} characters to query the list of selectable items. Select by using the up and down arrow keys.
 
-portal,portal.admin.user-info.menu-entry,Benutzerinformationen,User Info,User Info,User Info
 portal,portal.admin.user-info.desc,Bitte geben Sie die E-Mail-Adresse eines bestehenden Benutzers ein.,Please enter an email address of an existing user.,Please enter an email address of an existing user.,Please enter an email address of an existing user.
 portal,portal.admin.user-info.searchByEmail,Suchen,Search,Search,Search
 portal,portal.admin.user-info.email,E-Mail,E-Mail,E-Mail,E-Mail
@@ -1516,3 +1535,59 @@ portal,portal.admin.user-info.alert.unregister-technical,Es ist ein technischer 
 portal,portal.admin.user-info.alert.unregister-success,Registrierung zurückgesetzt.,Registration reset.,Registration reset.,Registration reset.
 portal,portal.admin.user-info.confirm-dialog.yes,Ja,Yes,Yes,Yes
 portal,portal.admin.user-info.confirm-dialog.no,Nein,No,No,No
+
+portal,portal.admin.system-notifications.page-title,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
+portal,portal.admin.system-notifications.create.modal.title,Neue Systemmitteilung erstellen,Create new System Notification
+portal,portal.admin.system-notifications.edit.modal.title,Systemmitteilung editieren,Edit System Notification
+portal,portal.admin.system-notifications.delete.modal.title,Systemmitteilung löschen,Delete System Notification
+portal,portal.admin.system-notifications.delete.modal.text,Möchten Sie die Systemmitteilung wirklich löschen?,Are you sure you want to delete this system notification?
+portal,portal.admin.system-notifications.delete.modal.confirm-dialog.yes,Ja,Yes
+portal,portal.admin.system-notifications.delete.modal.confirm-dialog.no,Nein,No
+portal,portal.admin.system-notifications.form.title,Titel,Title
+portal,portal.admin.system-notifications.form.text.de,Deutscher Text,German text
+portal,portal.admin.system-notifications.form.text.fr,Französischer Text,French text
+portal,portal.admin.system-notifications.form.text.it,Italienischer Text,Italian Text
+portal,portal.admin.system-notifications.form.text.en,Englischer Text,English Text
+portal,portal.admin.system-notifications.form.type,Typ,Type
+portal,portal.admin.system-notifications.form.startdate,Startdatum,Start Date
+portal,portal.admin.system-notifications.form.startdateHours,Stunden,Hours
+portal,portal.admin.system-notifications.form.startdateMinutes,Minuten,Minutes
+portal,portal.admin.system-notifications.form.enddate,Enddatum,End Date
+portal,portal.admin.system-notifications.form.enddateHours,Stunden,Hours
+portal,portal.admin.system-notifications.form.enddateMinutes,Minuten,Minutes
+portal,portal.admin.system-notifications.form.active,Aktiv,Active
+portal,portal.admin.system-notifications.button.create,Neue Systemmitteilung erfassen,Create a new system notification,Créer un nouvel notification système,Crea un nuovo otifiche di sistema
+portal,portal.admin.system-notifications.button.active,Aktiv,Active
+portal,portal.admin.system-notifications.button.deactivated,Deaktiviert,Deactivated
+portal,portal.admin.system-notifications.button.edit,Editieren,Edit
+portal,portal.admin.system-notifications.button.delete,Löschen,Delete
+portal,portal.admin.system-notifications.notifications.create.success,Die Systemmitteilung wurde erfolgreich erstellt,Successfully created SystemNotification
+portal,portal.admin.system-notifications.notifications.edit.success,Die Systemmitteilung wurde erfolgreich editiert,Successfully edited SystemNotification
+portal,portal.admin.system-notifications.notifications.delete.success,Die Systemmitteilung wurde erfolgreich gelöscht,Successfully deleted SystemNotification
+portal,portal.admin.system-notifications.title,Titel,Title
+portal,portal.admin.system-notifications.type,Typ,Type
+portal,portal.admin.system-notifications.startDate,Von,From
+portal,portal.admin.system-notifications.endDate,Bis,To
+portal,portal.admin.system-notifications.status,Status,Status
+portal,portal.admin.system-notifications.actions,Aktionen,Actions
+portal,portal.admin.system-notifications.systemnotification.type.interruption,Unterbrechung,Interruption
+portal,portal.admin.system-notifications.systemnotification.type.maintenance,Wartung,Maintenance
+portal,portal.admin.system-notifications.systemnotification.type.systemerror,Systemfehler,System error
+
+portal,portal.admin.legal-terms-management.title,AGB verwalten,Manage GTC,Gérer CG,Gestisci CG
+portal,portal.admin.legal-terms-management.add-legal-terms,AGB Hinzufügen,Add GTC,Ajouter CG,Aggiungi CG
+portal,portal.admin.legal-terms-management.header.effectiveAt,Effektiv Bei,Effective At,Efficace À,Efficace A
+portal,portal.admin.legal-terms-management.header.linkDe,DE Link,DE link,DE lien,DE link
+portal,portal.admin.legal-terms-management.header.linkEn,EN Link,EN link,EN lien,EN link
+portal,portal.admin.legal-terms-management.header.linkFr,FR Link,FR link,FR lien,FR link
+portal,portal.admin.legal-terms-management.header.linkIt,IT Link,IT link,IT lien,IT link
+portal,portal.admin.legal-terms-management.header.actions,Aktionen,Actions,Actes,Azioni
+portal,portal.admin.legal-terms-management.legal-terms-details.title,AGB Details,GTC Details,Détails CG,Dettagli CG
+portal,portal.admin.legal-terms-management.legal-terms-details.add,Hinzufügen,Add,Ajouter,Aggiungi
+portal,portal.admin.legal-terms-management.legal-terms-details.validate.pastEffectiveAt,Effektiv-Bei-Datum  muss in der Zukunft liegen.,Effective At date must be in the future.,La Efficace À date doit se situer dans le futur.,La Efficace A data deve situarsi nel futuro.
+portal,portal.admin.legal-terms-management.legal-terms-details.validate.url.pattern,Diese URL ist ungültig.,This URL is not valid,Ce lien URL n'est pas valable.,Questo indirizzo URL non è valido.
+
+portal,portal.admin.legal-terms-management.legal-terms-delete-dialog.question,Are you sure you want to delete this Legal Term?,Are you sure you want to delete this Legal Term?,Are you sure you want to delete this Legal Term?,Are you sure you want to delete this Legal Term?
+
+portal,portal.admin.legal-terms-management.notification.success,Successful,Successful,Successful,Successful
+portal,portal.admin.legal-terms-management.notification.failure,Failure,Failure,Failure,Failure

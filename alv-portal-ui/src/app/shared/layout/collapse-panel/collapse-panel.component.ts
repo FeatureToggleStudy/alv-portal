@@ -1,11 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'alv-collapse-panel',
   templateUrl: './collapse-panel.component.html',
-  styleUrls: ['./collapse-panel.component.scss']
+  styleUrls: ['./collapse-panel.component.scss'],
+  animations: [
+    trigger('expandCollapse', [
+      state('open', style({
+        display: 'block',
+        'max-height': '100%',
+        transform: 'scaleY(1)',
+        opacity: 1
+      })),
+      state('closed', style({
+        display: 'none',
+        height: 0,
+        'max-height': 0,
+        transform: 'scaleY(0)',
+        opacity: 0
+      })),
+      transition('* <=> *', [animate('200ms')])
+    ])
+  ]
 })
-export class CollapsePanelComponent implements OnInit {
+export class CollapsePanelComponent {
 
   @Input() panelId: string;
 
@@ -13,9 +32,15 @@ export class CollapsePanelComponent implements OnInit {
 
   isCollapsed = false;
 
-  constructor() { }
-
-  ngOnInit() {
+  toggle() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
+  expand() {
+    this.isCollapsed = false;
+  }
+
+  collapse() {
+    this.isCollapsed = true;
+  }
 }

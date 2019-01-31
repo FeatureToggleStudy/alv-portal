@@ -4,8 +4,9 @@ import { Observable } from 'rxjs/index';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { IsoCountryService } from '../iso-country.service';
-import { filter, startWith } from 'rxjs/internal/operators';
+import { filter, startWith } from 'rxjs/operators';
 import { LocationFormValue } from './location-form-value.types';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
   selector: 'alv-location',
@@ -20,16 +21,7 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set locationFormValue(value: LocationFormValue) {
-    this._locationFormValue = value;
-    this.setFormValue(value);
-  }
-
-  get locationFormValue() {
-    return this._locationFormValue;
-  }
-
-  private _locationFormValue: LocationFormValue;
+  locationFormValue: LocationFormValue;
 
   location: FormGroup;
 
@@ -42,29 +34,24 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
     super();
 
     this.countryOptions$ = this.isoCountryService.countryOptions$;
-
-    //todo (birom): review validators
-    this.location = this.fb.group({
-      countryIsoCode: [],
-      remarks: [, [
-        Validators.maxLength(this.REMARK_MAX_LENGTH)
-      ]]
-    });
   }
 
   ngOnInit(): void {
-    this.parentForm.addControl('location', this.location);
+    const { countryIsoCode, remarks } = this.locationFormValue;
 
-    const countryIsoCode = this.location.get('countryIsoCode');
-    this.countryIsoCode$ = countryIsoCode.valueChanges
+    this.location = this.fb.group({
+      countryIsoCode: [countryIsoCode],
+      remarks: [remarks, [
+        Validators.maxLength(this.REMARK_MAX_LENGTH)
+      ]]
+    });
+
+    this.parentForm.addControl(JobPublicationFormValueKeys.location, this.location);
+
+    this.countryIsoCode$ = this.location.get('countryIsoCode').valueChanges
       .pipe(
         filter((value) => !!value),
-        startWith(countryIsoCode.value),
+        startWith(countryIsoCode),
       );
-  }
-
-  private setFormValue(value: LocationFormValue) {
-    const { countryIsoCode, remarks } = value;
-    this.location.patchValue({ countryIsoCode, remarks }, { emitEvent: false });
   }
 }

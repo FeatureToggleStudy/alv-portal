@@ -1,4 +1,10 @@
-import { Degree, LanguageSkill, PostAddress, Salutation } from '../shared.types';
+import {
+  Degree,
+  LanguageSkill,
+  PostAddress,
+  Qualification,
+  Salutation
+} from '../shared.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -150,6 +156,7 @@ export interface CreateLocation {
 export interface Occupation {
   avamOccupationCode: string;
   occupationLabel?: string;
+  qualificationCode?: Qualification;
   workExperience?: WorkExperience;
   educationCode?: Degree;
 }

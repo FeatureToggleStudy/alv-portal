@@ -8,6 +8,10 @@ import {
 } from '../../../shared/backend-services/shared.types';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { emptyLanguageSkill } from './languages-form-value.types';
+import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
+
+
+const EMPTY_LANGUAGE_SKILL = emptyLanguageSkill();
 
 @Component({
   selector: 'alv-languages',
@@ -20,9 +24,7 @@ export class LanguagesComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  set languagesFormValue(value: LanguageSkill[]) {
-    this.prepareLanguageSkillsFormArray(value);
-  }
+  languagesFormValue: LanguageSkill[];
 
   languageSkillFormArray: FormArray;
 
@@ -31,7 +33,7 @@ export class LanguagesComponent implements OnInit {
       value: null,
       label: 'global.reference.language.no-selection'
     },
-    ... Object.values(Language).map(language => {
+    ...Object.values(Language).map(language => {
       return {
         value: language,
         label: 'global.reference.language.' + language
@@ -51,13 +53,14 @@ export class LanguagesComponent implements OnInit {
   private readonly MAX_LANGUAGE_OPTIONS_NUM = 5;
 
   constructor(private fb: FormBuilder) {
-    this.languageSkillFormArray = this.fb.array([
-      this.createNewLanguageSkillFormGroup()
-    ]);
   }
 
   ngOnInit() {
-    this.parentForm.addControl('languageSkills', this.languageSkillFormArray);
+    const languageSkillGroups = (this.languagesFormValue.length > 0)
+      ? this.languagesFormValue.map((languageSkill) => this.createNewLanguageSkillFormGroup(languageSkill))
+      : [this.createNewLanguageSkillFormGroup()];
+    this.languageSkillFormArray = this.fb.array(languageSkillGroups);
+    this.parentForm.addControl(JobPublicationFormValueKeys.languageSkills, this.languageSkillFormArray);
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {
@@ -76,29 +79,16 @@ export class LanguagesComponent implements OnInit {
 
   onLanguageSkillCodeChanged(languageSkillFormGroup: FormGroup) {
     languageSkillFormGroup.patchValue({
-      writtenLevel: emptyLanguageSkill.writtenLevel,
-      spokenLevel: emptyLanguageSkill.spokenLevel
+      writtenLevel: EMPTY_LANGUAGE_SKILL.writtenLevel,
+      spokenLevel: EMPTY_LANGUAGE_SKILL.spokenLevel
     }, { emitEvent: false });
   }
 
-  private createNewLanguageSkillFormGroup(languageSkill = emptyLanguageSkill): FormGroup {
+  private createNewLanguageSkillFormGroup(languageSkill = EMPTY_LANGUAGE_SKILL): FormGroup {
     return this.fb.group({
       languageIsoCode: [languageSkill.languageIsoCode],
       writtenLevel: [languageSkill.writtenLevel],
       spokenLevel: [languageSkill.spokenLevel]
     });
   }
-
-  private prepareLanguageSkillsFormArray(languageSkills: LanguageSkill[]) {
-    const languageSkillFormArray = this.languageSkillFormArray;
-
-    languageSkillFormArray.controls.length = 0;
-    languageSkills.forEach((languageSkill) => {
-      languageSkillFormArray.push(this.createNewLanguageSkillFormGroup(languageSkill));
-    });
-    if (languageSkillFormArray.length === 0) {
-      languageSkillFormArray.push(this.createNewLanguageSkillFormGroup());
-    }
-  }
-
 }

@@ -1,0 +1,72 @@
+<div *ngIf="control"
+     class="w-100 form-group">
+  <div [class.invalid]="isTouched() && isInvalid()"
+       class="form-label-group position-relative">
+    <span *ngIf="required && !readonly"
+          class="required-indicator h-100">
+    </span>
+
+    <input #inputField
+           (blur)="control.markAsTouched()"
+           (selectItem)="selectItem($event)"
+           *ngIf="!readonly"
+           [alvAutofocus]="autofocus"
+           [attr.aria-describedby]="validationId + ' ' + helpId"
+           [attr.aria-required]="!!required"
+           [attr.id]="id"
+           [attr.required]="required"
+           [class.placeholder-shown]="!inputField.value && !(controlValueChange$ | async)"
+           [container]="'body'"
+           [editable]="false"
+           [focusFirst]="focusFirst"
+           [value]="controlValueChange$ | async"
+           [ngbTypeahead]="loadItemsGuardedFn"
+           [resultTemplate]="template"
+           [inputFormatter]="formatResultItem"
+           (input)="handleInput($event)"
+           class="form-control">
+
+    <label [attr.for]="id"
+           class="text-truncate">
+      {{label | translate}}
+    </label>
+
+    <div *ngIf="readonly"
+         [class.placeholder-shown]="!control.value"
+         class="readonly-input">
+      {{formatResultItem(control.value)}}
+    </div>
+
+    <!-- a11y help texts -->
+    <div [attr.id]="helpId"
+         class="sr-only">
+      {{'portal.typeahead-single.help-text.instruction' | translate : {'number': TYPEAHEAD_QUERY_MIN_LENGTH} }}
+    </div>
+
+    <i class="search-icon fas fa-search"></i>
+
+    <ng-template #template
+                 let-formatter="formatter"
+                 let-result="result"
+                 let-term="term">
+      <ngb-highlight [result]="formatResultItem(result)"
+                     [term]="term">
+      </ngb-highlight>
+    </ng-template>
+
+  </div>
+  <small *ngIf="helpText && !(isTouched() && isInvalid())"
+         class="help-text">
+    {{helpText | translate}}
+  </small>
+  <alv-validation-messages *ngIf="!readonly"
+                           [control]="control"
+                           [customValidationMessages]="validationMessages"
+                           [attr.id]="validationId">
+  </alv-validation-messages>
+  <alv-validation-messages *ngIf="!readonly && showGroupErrors"
+                           [control]="control.parent"
+                           [attr.id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
+</div>

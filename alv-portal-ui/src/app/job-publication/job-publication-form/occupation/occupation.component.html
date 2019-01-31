@@ -7,6 +7,11 @@
                         [loadItems]="loadOccupationsFn">
   </alv-single-typeahead>
 
+  <alv-select label="portal.job-publication.occupation.qualification.label"
+              alvFormControlName="qualification"
+              [options$]="qualificationOptions$">
+  </alv-select>
+
   <alv-select label="home.tools.job-publication.degree"
               alvFormControlName="degree"
               [options$]="degreeOptions$">

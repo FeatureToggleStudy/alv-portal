@@ -32,7 +32,7 @@ import {
   takeUntil,
   tap,
   withLatestFrom
-} from 'rxjs/internal/operators';
+} from 'rxjs/operators';
 import {
   getJobAdSearchState,
   getJobSearchFilter,
