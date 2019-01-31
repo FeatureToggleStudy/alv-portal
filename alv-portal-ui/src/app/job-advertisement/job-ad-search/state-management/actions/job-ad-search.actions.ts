@@ -23,15 +23,9 @@ export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
+
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
-
-  constructor(public payload = {}) {
-  }
-}
-
-export class ReloadResultListAction implements Action {
-  readonly type = RELOAD_RESULT_LIST;
 
   constructor(public payload = {}) {
   }
@@ -145,7 +139,6 @@ export class OccupationLanguageChangedAction implements Action {
 
 export type Actions =
   | InitResultListAction
-  | ReloadResultListAction
   | FilterAppliedAction
   | ApplyFilterAction
   | LoadNextPageAction
