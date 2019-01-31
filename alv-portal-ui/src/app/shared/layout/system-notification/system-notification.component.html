@@ -4,6 +4,6 @@
     <span class="icon"><i [ngClass]="getIconClass(activeSystemNotification.type)"></i></span>
     <span class="system-notification-type">{{getType(activeSystemNotification.type) | translate}}</span>
     <span class="system-notification-text">{{getCurrentLanguage(activeSystemNotification) | async}}</span>
-    <a class="close-icon" (click)="toggleVisible()"><i class="fa fa-times"></i></a>
+    <a class="close-icon" (click)="dismissNotification()"><i class="fa fa-times"></i></a>
   </div>
 </div>

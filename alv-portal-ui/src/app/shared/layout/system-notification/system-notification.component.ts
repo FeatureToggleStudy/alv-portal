@@ -17,7 +17,7 @@ export class SystemNotificationComponent implements OnInit {
 
   @Input() activeSystemNotifications: SystemNotificationDto[];
 
-  private visible = true;
+  public visible = true;
 
   constructor(private i18nService: I18nService) {
   }
@@ -37,7 +37,7 @@ export class SystemNotificationComponent implements OnInit {
     return type.toString().toLowerCase() === SystemNotificationType.SYSTEMERROR ? `fa fa-ban` : `fa fa-exclamation`;
   }
 
-  toggleVisible() {
+  dismissNotification() {
     this.visible = !this.visible;
   }
 
