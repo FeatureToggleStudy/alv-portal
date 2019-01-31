@@ -1,4 +1,4 @@
-<div *ngIf="apiUserList?.length > 0; else noResults">
+<div *ngIf="apiUserList?.length; else noResults">
   <table class="table table-striped"
           role="grid">
     <thead role="presentation">
@@ -37,7 +37,7 @@
         role="row">
       <td class="content-cell align-middle"
           role="gridcell">
-        {{ apiUser?.username }}
+        {{ apiUser.username }}
       </td>
       <td class="content-cell align-middle"
           role="gridcell">
@@ -57,11 +57,11 @@
       </td>
       <td class="content-cell align-middle"
           role="gridcell">
-        {{ apiUser.createDate | date:'dd.MM.yyyy' }}
+        {{ apiUser.createDate | localeAwareDate }}
       </td>
       <td class="content-cell align-middle"
           role="gridcell">
-        {{ apiUser.lastAccessDate | date:'dd.MM.yyyy' }}
+        {{ apiUser.lastAccessDate | localeAwareDate }}
       </td>
       <td>
         <button [ngClass]="apiUser.active ? 'btn btn-success btn-sm btn-icon' : 'btn btn-danger btn-sm btn-icon'"

@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  ApiUser, ApiUserColumnDefinition
+  ApiUser,
+  ApiUserColumnDefinition
 } from '../../../shared/backend-services/api-user-management/api-user-management.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ApiUserManagementRepository } from '../../../shared/backend-services/api-user-management/api-user-management-repository';
-import { mapApiUserColumnDefinitionToSort, prepareApiUserColumns } from '../api-user-management-factory';
+import { COLUMN_NAMES, mapApiUserColumnDefinitionToSort } from '../api-user-management-factory';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { ApiUserEditModalComponent } from '../api-user-edit-modal/api-user-edit-modal.component';
@@ -54,7 +55,12 @@ export class ApiUserManagementTableComponent implements OnInit {
               private apiUserManagementRepository: ApiUserManagementRepository) { }
 
   ngOnInit() {
-    this.columnDefinitions = prepareApiUserColumns();
+    this.columnDefinitions = COLUMN_NAMES.map((columnName) => {
+      return {
+        columnName: columnName,
+        sorting: ''
+      } as ApiUserColumnDefinition
+    });
   }
 
   onScroll() {

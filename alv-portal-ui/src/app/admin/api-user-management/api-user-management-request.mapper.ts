@@ -3,7 +3,7 @@ import {
   ApiUserSearchRequest, ApiUserUpdatePasswordRequest
 } from '../../shared/backend-services/api-user-management/api-user-management.types';
 
-export const API_USERS_PER_PAGE = 20;
+export const API_USERS_PER_PAGE = 10;
 
 export class ApiUserManagementRequestMapper {
 

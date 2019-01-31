@@ -4,13 +4,13 @@ import { Observable, of, Subject } from 'rxjs';
 import {
   ApiUser,
   ApiUserColumnDefinition,
-  ApiUserManagementFilter,
+  ApiUserManagementFilter, ApiUserSearchResponse,
   initialFilter
 } from '../../shared/backend-services/api-user-management/api-user-management.types';
 import { ApiUserManagementRepository } from '../../shared/backend-services/api-user-management/api-user-management-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { API_USERS_PER_PAGE, ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
-import { take, withLatestFrom } from 'rxjs/operators';
+import { flatMap, take, tap } from 'rxjs/operators';
 import { mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserEditModalComponent } from './api-user-edit-modal/api-user-edit-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
@@ -26,13 +26,13 @@ export class ApiUserManagementComponent implements OnInit {
 
   apiUserList$ = new Subject<ApiUser[]>();
 
-  array$: Observable<ApiUser[]>;
+  apiUserListBeforeScrolling: ApiUser[];
 
   currentFilter$: Observable<ApiUserManagementFilter>;
 
   currentSorting$: Observable<ApiUserColumnDefinition>;
 
-  page$: Observable<number>;
+  page: number;
 
   private maxScrollPage: number;
 
@@ -48,7 +48,9 @@ export class ApiUserManagementComponent implements OnInit {
   }
 
   onFilterChange() {
-    this.currentFilter$.pipe(take(1)).subscribe((filter) => {
+    this.currentFilter$.pipe(
+      take(1))
+      .subscribe((filter) => {
       this.loadApiUsers({...filter, query: this.form.get('query').value}, 0);
     });
   }
@@ -63,11 +65,12 @@ export class ApiUserManagementComponent implements OnInit {
     if (nextPage === this.maxScrollPage) {
       return;
     }
-    this.currentFilter$.pipe(take(1),
-      withLatestFrom(this.array$))
-      .subscribe(([filter, list]) => {
-        this.addApiUsers(filter, nextPage, list);
-      });
+    this.currentFilter$.pipe(
+      take(1),
+      flatMap((filter) => {
+        return this.addApiUsers(filter, nextPage);
+      }))
+      .subscribe();
   }
 
   onStatusChange() {
@@ -113,16 +116,15 @@ export class ApiUserManagementComponent implements OnInit {
       });
   }
 
-  private addApiUsers(filter: ApiUserManagementFilter, page: number, existingList: ApiUser[]): void {
-    this.apiUserManagementRepository.search(
-      ApiUserManagementRequestMapper.mapToRequest(filter, page))
-      .subscribe(response => {
-        this.apiUserList$.next([...existingList, ...response.result]);
-        this.array$ = of([...existingList, ...response.result]);
-        this.currentFilter$ = of(filter);
-        this.currentSorting$ = of(mapSortToApiUserColumnDefinition(filter.sort));
+  private addApiUsers(filter: ApiUserManagementFilter, page: number): Observable<ApiUserSearchResponse> {
+    return this.apiUserManagementRepository.search(
+      ApiUserManagementRequestMapper.mapToRequest(filter, page)).pipe(
+      tap(response => {
+        this.apiUserList$.next([...this.apiUserListBeforeScrolling, ...response.result]);
+        this.apiUserListBeforeScrolling = [...this.apiUserListBeforeScrolling, ...response.result];
+        this.setFilter(filter);
         this.setMaxScrollPage(response.totalCount, page);
-      });
+      }));
   }
 
   private loadApiUsers(filter: ApiUserManagementFilter, page: number): void {
@@ -130,7 +132,7 @@ export class ApiUserManagementComponent implements OnInit {
       ApiUserManagementRequestMapper.mapToRequest(filter, page))
       .subscribe(response => {
         this.apiUserList$.next(response.result);
-        this.array$ = of(response.result);
+        this.apiUserListBeforeScrolling = response.result;
         this.setFilter(filter);
         this.setMaxScrollPage(response.totalCount, page);
       });
@@ -143,7 +145,7 @@ export class ApiUserManagementComponent implements OnInit {
 
   private setMaxScrollPage(totalCount: number, currentPage: number) {
     this.maxScrollPage = Math.ceil(totalCount / API_USERS_PER_PAGE);
-    this.page$ = of(currentPage > this.maxScrollPage ? this.maxScrollPage : currentPage);
+    this.page = currentPage > this.maxScrollPage ? this.maxScrollPage : currentPage;
   }
 
 }
