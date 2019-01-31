@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   ApiUser,
   ApiUserColumnDefinition,
@@ -24,9 +24,7 @@ export class ApiUserManagementComponent implements OnInit {
 
   form: FormGroup;
 
-  apiUserList$ = new Subject<ApiUser[]>();
-
-  apiUserListBeforeScrolling: ApiUser[];
+  apiUserList: ApiUser[];
 
   currentFilter$: Observable<ApiUserManagementFilter>;
 
@@ -44,25 +42,32 @@ export class ApiUserManagementComponent implements OnInit {
   ngOnInit() {
     this.form = this.prepareForm();
 
-    this.loadApiUsers(initialFilter, 0).subscribe();
+    this.loadApiUsers(initialFilter, 0)
+      .subscribe((response) => {
+        this.apiUserList = response.result
+      });
   }
 
   onFilterChange() {
     this.currentFilter$.pipe(
       take(1),
-      flatMap( (filter) => {
+      flatMap((filter) => {
         return this.loadApiUsers({...filter, query: this.form.get('query').value}, 0);
       }))
-      .subscribe();
+      .subscribe((response) => {
+        this.apiUserList = response.result
+      });
   }
 
   onSortChange(sort: string) {
     this.currentFilter$.pipe(
       take(1),
-      flatMap( (filter) => {
+      flatMap((filter) => {
         return this.loadApiUsers({...filter, sort}, 0);
       }))
-      .subscribe();
+      .subscribe((response) => {
+        this.apiUserList = response.result
+      });
   }
 
   onScrollChange(nextPage: number) {
@@ -72,9 +77,11 @@ export class ApiUserManagementComponent implements OnInit {
     this.currentFilter$.pipe(
       take(1),
       flatMap((filter) => {
-        return this.addApiUsers(filter, nextPage);
+        return this.loadApiUsers(filter, nextPage);
       }))
-      .subscribe();
+      .subscribe((response) => {
+        this.apiUserList = [...this.apiUserList, ...response.result];
+      });
   }
 
   onStatusChange() {
@@ -116,29 +123,18 @@ export class ApiUserManagementComponent implements OnInit {
   private applyFilter() {
     this.currentFilter$.pipe(
       take(1),
-      flatMap( (filter) => {
+      flatMap((filter) => {
         return this.loadApiUsers(filter, 0);
       }))
-      .subscribe();
-  }
-
-  private addApiUsers(filter: ApiUserManagementFilter, page: number): Observable<ApiUserSearchResponse> {
-    return this.apiUserManagementRepository.search(
-      ApiUserManagementRequestMapper.mapToRequest(filter, page)).pipe(
-      tap(response => {
-        this.apiUserList$.next([...this.apiUserListBeforeScrolling, ...response.result]);
-        this.apiUserListBeforeScrolling = [...this.apiUserListBeforeScrolling, ...response.result];
-        this.setFilter(filter);
-        this.setMaxScrollPage(response.totalCount, page);
-      }));
+      .subscribe((response) => {
+        this.apiUserList = response.result
+      });
   }
 
   private loadApiUsers(filter: ApiUserManagementFilter, page: number): Observable<ApiUserSearchResponse> {
     return this.apiUserManagementRepository.search(
       ApiUserManagementRequestMapper.mapToRequest(filter, page)).pipe(
       tap(response => {
-        this.apiUserList$.next(response.result);
-        this.apiUserListBeforeScrolling = response.result;
         this.setFilter(filter);
         this.setMaxScrollPage(response.totalCount, page);
       }));

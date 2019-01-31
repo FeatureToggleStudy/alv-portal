@@ -33,7 +33,7 @@
     </div>
   </form>
 
-  <alv-api-user-management-table [apiUserList]="apiUserList$ | async"
+  <alv-api-user-management-table [apiUserList]="apiUserList"
                                  [currentSorting]="currentSorting$ | async"
                                  [page]="page"
                                  (sort)="onSortChange($event)"

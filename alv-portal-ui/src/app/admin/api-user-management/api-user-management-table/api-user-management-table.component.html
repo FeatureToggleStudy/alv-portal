@@ -57,11 +57,11 @@
       </td>
       <td class="content-cell align-middle"
           role="gridcell">
-        {{ apiUser.createDate | localeAwareDate }}
+        {{ apiUser.createDate | date:'dd.MM.yyyy' }}
       </td>
       <td class="content-cell align-middle"
           role="gridcell">
-        {{ apiUser.lastAccessDate | localeAwareDate }}
+        {{ apiUser.lastAccessDate | date:'dd.MM.yyyy' }}
       </td>
       <td>
         <button [ngClass]="apiUser.active ? 'btn btn-success btn-sm btn-icon' : 'btn btn-danger btn-sm btn-icon'"
