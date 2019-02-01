@@ -12,7 +12,7 @@ import { ModalService } from '../../shared/layout/modal/modal.service';
 import { API_USERS_PER_PAGE, ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
 import { flatMap, take, takeUntil, tap } from 'rxjs/operators';
 import { mapSortToApiUserColumnDefinition } from './api-user-management-factory';
-import { ApiUserEditModalComponent } from './api-user-edit-modal/api-user-edit-modal.component';
+import { ApiUserModalComponent } from './api-user-modal/api-user-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 
@@ -108,8 +108,8 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
   }
 
   onCreateUserDialog() {
-    const apiUserModalRef = this.modalService.openLarge(ApiUserEditModalComponent);
-    const apiUserComponent = <ApiUserEditModalComponent>apiUserModalRef.componentInstance;
+    const apiUserModalRef = this.modalService.openLarge(ApiUserModalComponent);
+    const apiUserComponent = <ApiUserModalComponent>apiUserModalRef.componentInstance;
     apiUserComponent.apiUser = null;
     apiUserModalRef.result.then(
       (user) => {

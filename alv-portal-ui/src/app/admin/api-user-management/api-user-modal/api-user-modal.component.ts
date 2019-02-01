@@ -9,10 +9,10 @@ import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'alv-api-user-edit-modal',
-  templateUrl: './api-user-edit-modal.component.html'
+  selector: 'alv-api-user-modal',
+  templateUrl: './api-user-modal.component.html'
 })
-export class ApiUserEditModalComponent extends AbstractSubscriber implements OnInit {
+export class ApiUserModalComponent extends AbstractSubscriber implements OnInit {
 
   readonly inputFields = [
     'username',

@@ -8,7 +8,7 @@ import { ApiUserManagementRepository } from '../../../shared/backend-services/ap
 import { COLUMN_NAMES, mapApiUserColumnDefinitionToSort } from '../api-user-management-factory';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
-import { ApiUserEditModalComponent } from '../api-user-edit-modal/api-user-edit-modal.component';
+import { ApiUserModalComponent } from '../api-user-modal/api-user-modal.component';
 import { ApiUserPasswordModalComponent } from '../api-user-password-modal/api-user-password-modal.component';
 
 @Component({
@@ -81,8 +81,8 @@ export class ApiUserManagementTableComponent implements OnInit {
   }
 
   onUpdateUserDialog(apiUser: ApiUser) {
-    const apiUserModalRef = this.modalService.openLarge(ApiUserEditModalComponent);
-    const apiUserComponent = <ApiUserEditModalComponent>apiUserModalRef.componentInstance;
+    const apiUserModalRef = this.modalService.openLarge(ApiUserModalComponent);
+    const apiUserComponent = <ApiUserModalComponent>apiUserModalRef.componentInstance;
     apiUserComponent.apiUser = apiUser;
     apiUserModalRef.result.then(
       (updatedUser) => this.updateUser.emit(updatedUser),
