@@ -1607,3 +1607,4 @@ portal,portal.admin.elastic-search-reindex.document.jobs,Jobs,Jobs,Jobs,Jobs
 portal,portal.admin.elastic-search-reindex.document.reference_data,Reference Data,Reference Data,Reference Data,Reference Data
 portal,portal.admin.elastic-search-reindex.document.users,Users,Users,Users,Users
 portal,portal.admin.elastic-search-reindex.document.accepted,"Request accepted, performing Elasticsearch reindexing.","Request accepted, performing Elasticsearch reindexing.","Request accepted, performing Elasticsearch reindexing.","Request accepted, performing Elasticsearch reindexing."
+portal,portal.admin.elastic-search-reindex.document.toggle-all,Toggle all,Toggle all,Toggle all,Toggle all

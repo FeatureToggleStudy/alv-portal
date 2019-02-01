@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ElasticSearchReindexRepository } from '../../shared/backend-services/elastic-search-reindex/elastic-search-reindex-repository';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'alv-elastic-search-reindex',
@@ -20,7 +21,11 @@ export class ElasticSearchReindexComponent implements OnInit {
     cancelLabel: 'portal.admin.elastic-search-reindex.dialog.cancel'
   };
 
+  elasticSearchResult$: Observable<any>;
+
   form: FormGroup;
+
+  toggle = true;
 
   constructor(private fb: FormBuilder,
               private elasticSearchReindexRepository: ElasticSearchReindexRepository,
@@ -33,8 +38,10 @@ export class ElasticSearchReindexComponent implements OnInit {
   onSubmit() {
     console.log('submit');
     this.modalService.openConfirm(this.CONFIRM_REINDEX_MODAL).result.then(
-      () => this.elasticSearchReindexRepository.reindex(this.form.get('jobs').value)
-        .subscribe(() => {
+      () => this.elasticSearchReindexRepository.reindex(this.resolveFormValues())
+        .subscribe((val) => {
+          this.elasticSearchResult$ = val;
+          console.log(val);
           // (STATUS REPORT)
         }, () => {
           // (ERROR REPORT)
@@ -46,6 +53,7 @@ export class ElasticSearchReindexComponent implements OnInit {
   }
 
   toggleFormCheckboxes(value: boolean) {
+    this.toggle = !value;
     this.form.patchValue({
       users: value,
       candidates: value,
@@ -54,14 +62,19 @@ export class ElasticSearchReindexComponent implements OnInit {
     });
   }
 
+  private resolveFormValues(): string {
+    console.log('resolveFormValues');
+    return 'users';
+  }
+
   private prepareForm() {
 
     const atLeastOneRequiredValidator: ValidatorFn = (formGroup: FormGroup) => {
       const users = formGroup.get('users').value;
       const candidates = formGroup.get('candidates').value;
       const jobs = formGroup.get('jobs').value;
-      const reference_data = formGroup.get('reference_data').value;
-      return users || candidates || jobs || reference_data ? null : {atLeastOneRequired: true};
+      const referenceData = formGroup.get('reference_data').value;
+      return users || candidates || jobs || referenceData ? null : {atLeastOneRequired: true};
     };
 
     return this.fb.group({

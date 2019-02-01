@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import {  map, zipAll } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class ElasticSearchReindexRepository {
 
   constructor(private http: HttpClient) {}
 
-  reindex(document: string): Observable<void> {
+  reindex(document: string): Observable<any> {
     let urls = [this.DOCUMENT_URLS[document]];
     console.log('urls before if-ology', urls);
     if (document === 'all') {
@@ -25,10 +26,10 @@ export class ElasticSearchReindexRepository {
     }
     console.log('urls after if-ology', urls);
 
-    return of();
-
-    // return from(urls).pipe(
-    //   map((url) => this.http.post(url, {})), zipAll());
+    return from(urls).pipe(
+      map((url) =>  this.http.post(url, {})),
+      zipAll()
+    );
   }
 
 }

@@ -20,14 +20,9 @@
   <form (validSubmit)="onSubmit()"
         [formGroup]="form"
         alvFormSubmitValidation>
-    <small (click)="toggleFormCheckboxes(true)">Select all</small>
-    <small> / </small>
-    <small (click)="toggleFormCheckboxes(false)">Dismiss all</small>
-    <!--CHECK JOB PUBLICATION FOR SHOWING VALIDATION MESSAGE ABOVE.-->
-    <alv-validation-messages id="reindexing-at-least-one-required-msg-id"
-                             [formGroup]="form"
-                             [customValidationMessages]="[{error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation'}]">
-    </alv-validation-messages>
+    <small (click)="toggleFormCheckboxes(toggle)">
+      {{ 'portal.admin.elastic-search-reindex.document.toggle-all' | translate }}
+    </small>
     <fieldset *ngFor="let elasticsearch_checkbox of ELASTICSEARCH_CHECKBOXES">
       <alv-checkbox label="portal.admin.elastic-search-reindex.document.{{elasticsearch_checkbox}}"
                     [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
@@ -43,8 +38,7 @@
 
   </form>
 
-  <hr>
-
   TODO >>> SHOW RESULT PROGRESS
+  xxx: {{ elasticSearchResult$ | json }}
 
 </div>
