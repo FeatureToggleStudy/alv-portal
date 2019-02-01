@@ -4,7 +4,7 @@
        [class.invalid]="isTouched() && isInvalid()"
        [class.readonly]="readonly">
     <span class="required-indicator"
-          *ngIf="required && !readonly"></span>
+          *ngIf="required && isInvalid() && !readonly"></span>
     <select class="form-control custom-select"
             *ngIf="!readonly"
             [attr.id]="id"
