@@ -3,14 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiUserManagementRepository } from '../../../shared/backend-services/api-user-management/api-user-management-repository';
 import { ApiUserManagementRequestMapper } from '../api-user-management-request.mapper';
-import { takeUntil } from 'rxjs/operators';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-api-user-password-modal',
   templateUrl: './api-user-password-modal.component.html'
 })
-export class ApiUserPasswordModalComponent extends AbstractSubscriber implements OnInit {
+export class ApiUserPasswordModalComponent implements OnInit {
 
   @Input()
   apiUserId: string;
@@ -19,9 +18,7 @@ export class ApiUserPasswordModalComponent extends AbstractSubscriber implements
 
   constructor(private fb: FormBuilder,
               public activeModal: NgbActiveModal,
-              private apiUserManagementRepository: ApiUserManagementRepository) {
-    super();
-  }
+              private apiUserManagementRepository: ApiUserManagementRepository) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -43,7 +40,7 @@ export class ApiUserPasswordModalComponent extends AbstractSubscriber implements
     this.apiUserManagementRepository.updatePassword(
       ApiUserManagementRequestMapper.mapPasswordToRequest(this.apiUserId, this.form.get('password').value))
       .pipe(
-        takeUntil(this.ngUnsubscribe))
+        take(1))
       .subscribe(() => this.activeModal.close(this.apiUserId), () => {});
   }
 

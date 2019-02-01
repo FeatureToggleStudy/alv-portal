@@ -5,14 +5,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiUserManagementRepository } from '../../../shared/backend-services/api-user-management/api-user-management-repository';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { takeUntil } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-api-user-modal',
   templateUrl: './api-user-modal.component.html'
 })
-export class ApiUserModalComponent extends AbstractSubscriber implements OnInit {
+export class ApiUserModalComponent implements OnInit {
 
   readonly inputFields = [
     'username',
@@ -28,9 +27,7 @@ export class ApiUserModalComponent extends AbstractSubscriber implements OnInit 
 
   constructor(private fb: FormBuilder,
               public activeModal: NgbActiveModal,
-              private apiUserManagementRepository: ApiUserManagementRepository) {
-    super();
-  }
+              private apiUserManagementRepository: ApiUserManagementRepository) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -53,12 +50,12 @@ export class ApiUserModalComponent extends AbstractSubscriber implements OnInit 
     if (this.apiUser) {
       this.apiUserManagementRepository.update({...user, id: this.apiUser.id})
         .pipe(
-          takeUntil(this.ngUnsubscribe))
+          take(1))
         .subscribe((updatedUser) => this.activeModal.close(updatedUser), () => this.activeModal.close(null));
     } else {
       this.apiUserManagementRepository.save(user)
         .pipe(
-          takeUntil(this.ngUnsubscribe))
+          take(1))
         .subscribe((updatedUser) => this.activeModal.close(updatedUser), () => this.activeModal.close(null));
     }
   }

@@ -10,18 +10,17 @@ import {
 import { ApiUserManagementRepository } from '../../shared/backend-services/api-user-management/api-user-management-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { API_USERS_PER_PAGE, ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
-import { flatMap, take, takeUntil, tap } from 'rxjs/operators';
+import { flatMap, take, tap } from 'rxjs/operators';
 import { mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserModalComponent } from './api-user-modal/api-user-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
-import { AbstractSubscriber } from '../../core/abstract-subscriber';
 
 @Component({
   selector: 'alv-api-user-management',
   templateUrl: './api-user-management.component.html',
   styleUrls: ['./api-user-management.component.scss']
 })
-export class ApiUserManagementComponent extends AbstractSubscriber implements OnInit {
+export class ApiUserManagementComponent implements OnInit {
 
   form: FormGroup;
 
@@ -38,15 +37,13 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
   constructor(private fb: FormBuilder,
               private notificationService: NotificationsService,
               private apiUserManagementRepository: ApiUserManagementRepository,
-              private modalService: ModalService) {
-    super();
-  }
+              private modalService: ModalService) { }
 
   ngOnInit() {
     this.form = this.prepareForm();
 
-    this.loadApiUsers(initialFilter, 0)
-      .pipe(takeUntil(this.ngUnsubscribe))
+    this.loadApiUsers(initialFilter, 0).pipe(
+      take(1))
       .subscribe((response) => {
         this.apiUserList = response.result;
       });
@@ -57,8 +54,7 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
       take(1),
       flatMap((filter) => {
         return this.loadApiUsers({...filter, query: this.form.get('query').value}, 0);
-      }),
-      takeUntil(this.ngUnsubscribe))
+      }))
       .subscribe((response) => {
         this.apiUserList = response.result;
       });
@@ -69,8 +65,7 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
       take(1),
       flatMap((filter) => {
         return this.loadApiUsers({...filter, sort}, 0);
-      }),
-      takeUntil(this.ngUnsubscribe))
+      }))
       .subscribe((response) => {
         this.apiUserList = response.result;
       });
@@ -84,8 +79,7 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
       take(1),
       flatMap((filter) => {
         return this.loadApiUsers(filter, nextPage);
-      }),
-      takeUntil(this.ngUnsubscribe))
+      }))
       .subscribe((response) => {
         this.apiUserList = [...this.apiUserList, ...response.result];
       });
@@ -132,8 +126,7 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
       take(1),
       flatMap((filter) => {
         return this.loadApiUsers(filter, 0);
-      }),
-      takeUntil(this.ngUnsubscribe))
+      }))
       .subscribe((response) => {
         this.apiUserList = response.result;
       });
