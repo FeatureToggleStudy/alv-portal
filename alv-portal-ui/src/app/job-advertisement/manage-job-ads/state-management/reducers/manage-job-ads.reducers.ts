@@ -3,11 +3,16 @@ import {
   Actions,
   APPLY_FILTER,
   FILTER_APPLIED,
-  JOB_ADVERTISEMENT_CHANGED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED
 } from '../actions';
+import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JOB_ADVERTISEMENT_CHANGED } from '../../../../core/state-management/actions/core.actions';
+
+function matchesSelectedJobAd(selectedJobAdvertisement: JobAdvertisement, updatedJobAd: JobAdvertisement) {
+  return selectedJobAdvertisement && selectedJobAdvertisement.id === updatedJobAd.id;
+}
 
 export function manageJobAdsReducer(state = initialState, action: Actions): ManageJobAdsState {
 
@@ -60,7 +65,7 @@ export function manageJobAdsReducer(state = initialState, action: Actions): Mana
 
     case JOB_ADVERTISEMENT_CHANGED:
       const updatedJobAd = action.payload.jobAdvertisement;
-      const patchedJobAd = state.selectedJobAdvertisement && state.selectedJobAdvertisement.id === updatedJobAd.id ? updatedJobAd : state.selectedJobAdvertisement;
+      const patchedJobAd = matchesSelectedJobAd(state.selectedJobAdvertisement, updatedJobAd) ? updatedJobAd : state.selectedJobAdvertisement;
       newState = {
         ...state,
         selectedJobAdvertisement: patchedJobAd

@@ -161,8 +161,8 @@ export enum Language {
 }
 
 export enum Salutation {
-  MR = 'mr',
-  MS = 'ms'
+  MS = 'ms',
+  MR = 'mr'
 }
 
 export interface PostAddress {
