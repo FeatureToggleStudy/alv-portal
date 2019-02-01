@@ -15,21 +15,24 @@ export class ElasticSearchReindexRepository {
     reference_data: 'referenceservice/api/elasticsearch/index'
   };
 
+  private readonly REINDEXING_TASK_URL = '/_tasks?detailed=true&actions=*reindex';
+
   constructor(private http: HttpClient) {}
 
-  reindex(document: string): Observable<any> {
-    let urls = [this.DOCUMENT_URLS[document]];
-    console.log('urls before if-ology', urls);
-    if (document === 'all') {
-      urls = Object.keys(this.DOCUMENT_URLS)
-        .map((key) => this.DOCUMENT_URLS[key]);
-    }
-    console.log('urls after if-ology', urls);
+  reindex(documents: string[]): Observable<any> {
+
+    const urls = documents.map( (document) => {
+      return this.DOCUMENT_URLS[document]
+    });
 
     return from(urls).pipe(
-      map((url) =>  this.http.post(url, {})),
+      map((url) => this.http.post(url, {})),
       zipAll()
     );
+  }
+
+  getReindexJobs(): Observable<any> {
+    return this.http.get(this.REINDEXING_TASK_URL);
   }
 
 }

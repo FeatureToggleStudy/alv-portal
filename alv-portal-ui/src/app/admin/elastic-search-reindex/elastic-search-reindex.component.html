@@ -27,7 +27,7 @@
       <alv-checkbox label="portal.admin.elastic-search-reindex.document.{{elasticsearch_checkbox}}"
                     [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
                     showGroupErrors="true"
-                    alvFormControlName="{{ elasticsearch_checkbox}}">
+                    alvFormControlName="{{ elasticsearch_checkbox }}">
       </alv-checkbox>
     </fieldset>
     <div class="mt-2">
@@ -38,7 +38,9 @@
 
   </form>
 
+  <hr>
+
   TODO >>> SHOW RESULT PROGRESS
-  xxx: {{ elasticSearchResult$ | json }}
+  xxx: {{ elasticSearchResult | json }}
 
 </div>

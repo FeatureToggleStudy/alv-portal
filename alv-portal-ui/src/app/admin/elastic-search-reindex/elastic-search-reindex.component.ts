@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ElasticSearchReindexRepository } from '../../shared/backend-services/elastic-search-reindex/elastic-search-reindex-repository';
-import { Observable } from 'rxjs';
+import { NotificationsService } from '../../core/notifications.service';
 
 @Component({
   selector: 'alv-elastic-search-reindex',
@@ -21,13 +21,14 @@ export class ElasticSearchReindexComponent implements OnInit {
     cancelLabel: 'portal.admin.elastic-search-reindex.dialog.cancel'
   };
 
-  elasticSearchResult$: Observable<any>;
+  elasticSearchResult;
 
   form: FormGroup;
 
   toggle = true;
 
   constructor(private fb: FormBuilder,
+              private notificationService: NotificationsService,
               private elasticSearchReindexRepository: ElasticSearchReindexRepository,
               private modalService: ModalService) { }
 
@@ -39,15 +40,23 @@ export class ElasticSearchReindexComponent implements OnInit {
     console.log('submit');
     this.modalService.openConfirm(this.CONFIRM_REINDEX_MODAL).result.then(
       () => this.elasticSearchReindexRepository.reindex(this.resolveFormValues())
-        .subscribe((val) => {
-          this.elasticSearchResult$ = val;
-          console.log(val);
+        .subscribe(() => {
           // (STATUS REPORT)
+          this.notificationService.success('portal.admin.elastic-search-reindex.notification.success');
+          this.checkStatusOfReindexingJobs();
         }, () => {
-          // (ERROR REPORT)
+          this.notificationService.error('portal.admin.elastic-search-reindex.notification.failure');
         }),
       () => {
-        // (ERROR REPORT)
+        this.notificationService.error('portal.admin.elastic-search-reindex.notification.failure');
+      }
+    );
+  }
+
+  private checkStatusOfReindexingJobs() {
+    this.elasticSearchReindexRepository.getReindexJobs().subscribe(
+      (result) => {
+        this.elasticSearchResult = result;
       }
     );
   }
@@ -62,9 +71,9 @@ export class ElasticSearchReindexComponent implements OnInit {
     });
   }
 
-  private resolveFormValues(): string {
-    console.log('resolveFormValues');
-    return 'users';
+  private resolveFormValues(): string[] {
+    // return this.ELASTICSEARCH_CHECKBOXES.filter((checkbox) => this.form.get(checkbox).value);
+    return ['candidates'];
   }
 
   private prepareForm() {

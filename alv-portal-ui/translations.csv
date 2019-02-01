@@ -1608,3 +1608,6 @@ portal,portal.admin.elastic-search-reindex.document.reference_data,Reference Dat
 portal,portal.admin.elastic-search-reindex.document.users,Users,Users,Users,Users
 portal,portal.admin.elastic-search-reindex.document.accepted,"Request accepted, performing Elasticsearch reindexing.","Request accepted, performing Elasticsearch reindexing.","Request accepted, performing Elasticsearch reindexing.","Request accepted, performing Elasticsearch reindexing."
 portal,portal.admin.elastic-search-reindex.document.toggle-all,Toggle all,Toggle all,Toggle all,Toggle all
+
+portal,portal.admin.elastic-search-reindex.notification.success,Successful,Successful,Successful,Successful
+portal,portal.admin.elastic-search-reindex.notification.failure,Failure,Failure,Failure,Failure
