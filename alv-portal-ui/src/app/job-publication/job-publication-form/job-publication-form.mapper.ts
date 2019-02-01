@@ -28,6 +28,7 @@ import {
   LanguageSkill,
   PostAddress,
   Qualification,
+  Salutation,
   WorkForm
 } from '../../shared/backend-services/shared.types';
 import { EmploymentFormValue } from './employment/employment-form-value.types';
@@ -68,6 +69,7 @@ import {
 } from '../../shared/occupations/occupation-typeahead-item';
 import { OccupationTypes } from '../../shared/backend-services/reference-service/occupation-label.repository';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
 
 
 export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement, languageIsoCode: string): JobPublicationFormValue {
@@ -79,7 +81,7 @@ export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement,
     languageSkills: mapToLanguagesFormValue(jobContent.languageSkills),
     employment: mapToEmploymentFormValue(jobContent.employment),
     location: mapToLocationFormValue(jobContent.location),
-    company: mapToCompanyFormValue(jobContent.company),
+    company: mapCompanyToCompanyFormValue(jobContent.company),
     contact: emptyContactFormValue(languageIsoCode),
     publicContact: mapToPublicContactFormValue(jobContent.publicContact),
     surrogate: jobContent.company.surrogate,
@@ -178,7 +180,7 @@ function mapToLocationFormValue(location: Location): LocationFormValue {
   };
 }
 
-function mapToCompanyFormValue(company: Company): CompanyFormValue {
+function mapCompanyToCompanyFormValue(company: Company): CompanyFormValue {
   return {
     name: company.name,
     postOfficeBoxNumberOrStreet: {
@@ -188,6 +190,18 @@ function mapToCompanyFormValue(company: Company): CompanyFormValue {
     zipAndCity: mapToZipCityFormValue(company.countryIsoCode, company.postalCode, company.city),
     houseNumber: company.houseNumber,
     countryIsoCode: company.countryIsoCode
+  };
+}
+
+export function mapToCompanyFormValue(companyContactTemplateModel: CompanyContactTemplateModel): CompanyFormValue {
+  return {
+    name: companyContactTemplateModel.companyName,
+    postOfficeBoxNumberOrStreet: {
+      street: companyContactTemplateModel.companyStreet,
+    },
+    zipAndCity: mapToZipCityFormValue(IsoCountryService.ISO_CODE_SWITZERLAND, companyContactTemplateModel.companyZipCode, companyContactTemplateModel.companyCity),
+    houseNumber: companyContactTemplateModel.companyHouseNr,
+    countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND
   };
 }
 
@@ -274,6 +288,16 @@ function mapToPublicationFormValue(publication: Publication): PublicationFormVal
   };
 }
 
+export function mapToContactFormValue(companyContactTemplateModel: CompanyContactTemplateModel, languageIsoCode: string): ContactFormValue {
+  return {
+    salutation: <Salutation>companyContactTemplateModel.salutation,
+    firstName: companyContactTemplateModel.firstName,
+    lastName: companyContactTemplateModel.lastName,
+    email: companyContactTemplateModel.email,
+    phone: companyContactTemplateModel.phone,
+    languageIsoCode: languageIsoCode
+  };
+}
 
 export function mapToZipCityFormValue(countryIsoCode: string, zipCode: string, city: string): ZipCityFormValue {
   const zipCity = { zipCode, city };
@@ -286,6 +310,7 @@ export function mapToZipCityFormValue(countryIsoCode: string, zipCode: string, c
 
   return { zipCode, city };
 }
+
 
 export function mapToCreateJobAdvertisement(jobPublicationFormValue: JobPublicationFormValue, languageIsoCode: string): CreateJobAdvertisement {
   return {
@@ -304,6 +329,7 @@ export function mapToCreateJobAdvertisement(jobPublicationFormValue: JobPublicat
     employer: mapToEmployer(jobPublicationFormValue.employer),
   };
 }
+
 
 function mapToJobDescriptions(jobDescriptionFormValue: JobDescriptionFormValue, languageIsoCode: string): JobDescription[] {
   const jobDescription = {

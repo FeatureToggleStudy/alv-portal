@@ -34,15 +34,12 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    // this causes problems
-    // when resizing is coupled with the error messages.
-    // window.addEventListener('resize', this.setSidePanelHeightFn);
+    window.addEventListener('resize', this.setSidePanelHeightFn);
     this.setSidePanelHeight();
   }
 
   ngOnDestroy() {
-    //see ngAfterViewInit
-    // window.removeEventListener('resize', this.setSidePanelHeightFn);
+    window.removeEventListener('resize', this.setSidePanelHeightFn);
   }
 
   getCommonColumnClasses(columnIndex: number): string {
