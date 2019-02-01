@@ -20,7 +20,7 @@ export const COLUMN_NAMES = ['username', 'companyName', 'companyEmail', 'technic
  * @return
  *    {@string}
  */
-export const mapApiUserColumnDefinitionToSort = (currentSorting: ApiUserColumnDefinition, selectedColumn: string): string => {
+export function mapApiUserColumnDefinitionToSort(currentSorting: ApiUserColumnDefinition, selectedColumn: string): string {
   const column = KEYWORD_FIELDS.indexOf(selectedColumn) >= 0
     ? `apiUser.${selectedColumn}`
     : `apiUser.${selectedColumn}.keyword`;
@@ -32,7 +32,7 @@ export const mapApiUserColumnDefinitionToSort = (currentSorting: ApiUserColumnDe
   }
 
   return `${column},${sort}`;
-};
+}
 
 /**
  *
@@ -47,7 +47,7 @@ export const mapApiUserColumnDefinitionToSort = (currentSorting: ApiUserColumnDe
  * @return
  *    {@ApiUserColumnDefinition}
  */
-export const mapSortToApiUserColumnDefinition = (filterSort: string): ApiUserColumnDefinition => {
+export function mapSortToApiUserColumnDefinition(filterSort: string): ApiUserColumnDefinition {
   if (filterSort && filterSort.includes(',')) {
     const array = filterSort.split(',', 2);
     const colModified = array[0].replace('apiUser.', '');
@@ -62,5 +62,5 @@ export const mapSortToApiUserColumnDefinition = (filterSort: string): ApiUserCol
       sorting: 'asc'
     };
   }
-};
+}
 
