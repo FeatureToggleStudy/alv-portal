@@ -4,13 +4,17 @@ import { Observable, of } from 'rxjs';
 import {
   ApiUser,
   ApiUserColumnDefinition,
-  ApiUserManagementFilter, ApiUserSearchResponse,
+  ApiUserManagementFilter,
+  ApiUserSearchResponse,
   initialFilter
 } from '../../shared/backend-services/api-user-management/api-user-management.types';
 import { ApiUserManagementRepository } from '../../shared/backend-services/api-user-management/api-user-management-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
-import { API_USERS_PER_PAGE, ApiUserManagementRequestMapper } from './api-user-management-request.mapper';
-import { flatMap, take, takeUntil, tap } from 'rxjs/operators';
+import {
+  API_USERS_PER_PAGE,
+  ApiUserManagementRequestMapper
+} from './api-user-management-request.mapper';
+import { takeUntil, tap } from 'rxjs/operators';
 import { mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserModalComponent } from './api-user-modal/api-user-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
@@ -27,9 +31,9 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
 
   apiUserList: ApiUser[];
 
-  currentFilter$: Observable<ApiUserManagementFilter>;
+  currentFilter: ApiUserManagementFilter;
 
-  currentSorting$: Observable<ApiUserColumnDefinition>;
+  currentSorting: ApiUserColumnDefinition;
 
   page: number;
 
@@ -53,24 +57,14 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
   }
 
   onFilterChange() {
-    this.currentFilter$.pipe(
-      take(1),
-      flatMap((filter) => {
-        return this.loadApiUsers({...filter, query: this.form.get('query').value}, 0);
-      }),
-      takeUntil(this.ngUnsubscribe))
+    this.loadApiUsers({ ...this.currentFilter, query: this.form.get('query').value }, 0)
       .subscribe((response) => {
         this.apiUserList = response.result;
       });
   }
 
   onSortChange(sort: string) {
-    this.currentFilter$.pipe(
-      take(1),
-      flatMap((filter) => {
-        return this.loadApiUsers({...filter, sort}, 0);
-      }),
-      takeUntil(this.ngUnsubscribe))
+    this.loadApiUsers({ ...this.currentFilter, sort }, 0)
       .subscribe((response) => {
         this.apiUserList = response.result;
       });
@@ -80,12 +74,8 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
     if (nextPage === this.maxScrollPage) {
       return;
     }
-    this.currentFilter$.pipe(
-      take(1),
-      flatMap((filter) => {
-        return this.loadApiUsers(filter, nextPage);
-      }),
-      takeUntil(this.ngUnsubscribe))
+
+    this.loadApiUsers(this.currentFilter, nextPage)
       .subscribe((response) => {
         this.apiUserList = [...this.apiUserList, ...response.result];
       });
@@ -117,7 +107,8 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
           this.applyFilter();
         }
       },
-      () => {}
+      () => {
+      }
     );
   }
 
@@ -128,12 +119,7 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
   }
 
   private applyFilter() {
-    this.currentFilter$.pipe(
-      take(1),
-      flatMap((filter) => {
-        return this.loadApiUsers(filter, 0);
-      }),
-      takeUntil(this.ngUnsubscribe))
+    return this.loadApiUsers(this.currentFilter, 0)
       .subscribe((response) => {
         this.apiUserList = response.result;
       });
@@ -149,8 +135,8 @@ export class ApiUserManagementComponent extends AbstractSubscriber implements On
   }
 
   private setFilter(filter: ApiUserManagementFilter) {
-    this.currentFilter$ = of(filter);
-    this.currentSorting$ = of(mapSortToApiUserColumnDefinition(filter.sort));
+    this.currentFilter = filter;
+    this.currentSorting = mapSortToApiUserColumnDefinition(filter.sort);
   }
 
   private setMaxScrollPage(totalCount: number, currentPage: number) {
