@@ -10,6 +10,7 @@ import { ModalService } from '../shared/layout/modal/modal.service';
 import { NotificationsService } from '../core/notifications.service';
 import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
 import { SystemNotificationModalComponent } from './system-notifications/modal/system-notification-modal.component';
+import { SwaggerComponent } from './swagger/swagger.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { SystemNotificationModalComponent } from './system-notifications/modal/s
     SystemNotificationsComponent,
     SystemNotificationModalComponent,
     LegalTermsManagementComponent,
-    LegalTermsDetailModalComponent
+    LegalTermsDetailModalComponent,
+    SwaggerComponent
   ],
   providers: [
     UserInfoBadgesMapperService,
@@ -31,7 +33,8 @@ import { SystemNotificationModalComponent } from './system-notifications/modal/s
   ],
   entryComponents: [
     SystemNotificationModalComponent,
-    LegalTermsDetailModalComponent
+    LegalTermsDetailModalComponent,
+    SwaggerComponent
   ]
 })
 export class AdminModule {

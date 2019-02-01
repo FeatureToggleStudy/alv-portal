@@ -1588,3 +1588,5 @@ portal,portal.admin.legal-terms-management.legal-terms-delete-dialog.question,Ar
 
 portal,portal.admin.legal-terms-management.notification.success,Successful,Successful,Successful,Successful
 portal,portal.admin.legal-terms-management.notification.failure,Failure,Failure,Failure,Failure
+
+portal,portal.admin.swagger.title,Swagger,Swagger,Swagger,Swagger,

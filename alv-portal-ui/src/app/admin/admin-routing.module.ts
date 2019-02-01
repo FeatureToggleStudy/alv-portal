@@ -4,6 +4,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { LegalTermsManagementComponent } from './legal-terms-management/legal-terms-management.component';
 import { UserRole } from '../core/auth/user.model';
 import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
+import { SwaggerComponent } from './swagger/swagger.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,14 @@ const routes: Routes = [
   {
     path: 'legal-terms-management',
     component: LegalTermsManagementComponent,
+    data: {
+      titleKey: 'portal.admin.legal-terms-management.title',
+      authorities: [UserRole.ROLE_SYSADMIN, UserRole.ROLE_ADMIN]
+    }
+  },
+  {
+    path: 'swagger',
+    component: SwaggerComponent,
     data: {
       titleKey: 'portal.admin.legal-terms-management.title',
       authorities: [UserRole.ROLE_SYSADMIN, UserRole.ROLE_ADMIN]
