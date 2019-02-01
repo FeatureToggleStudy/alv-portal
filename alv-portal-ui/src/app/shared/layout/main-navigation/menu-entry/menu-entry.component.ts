@@ -3,10 +3,12 @@ import { MenuEntry } from '../menu-entry.type';
 
 @Component({
   selector: 'alv-menu-entry',
-  templateUrl: './menu-entry.component.html',
-  styleUrls: ['./menu-entry.component.scss']
+  templateUrl: './menu-entry.component.html'
 })
 export class MenuEntryComponent implements OnInit {
+
+  @Input()
+  showTooltip  = false;
 
   @Input()
   menuEntry: MenuEntry;
