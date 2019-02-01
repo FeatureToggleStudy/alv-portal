@@ -5,6 +5,7 @@ import {
   Accountability,
   CompanyContactTemplate
 } from '../../../shared/backend-services/user-info/user-info.types';
+import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 export const LANGUAGE_CHANGED = 'CORE:LANGUAGE_CHANGED';
 export const LANGUAGE_INITIALIZED = 'CORE:LANGUAGE_INITIALIZED';
@@ -20,7 +21,7 @@ export const LOAD_ACCOUNTABILITIES = 'CORE:LOAD_ACCOUNTABILITIES';
 export const ACCOUNTABILITIES_LOADED = 'CORE:ACCOUNTABILITIES_LOADED';
 export const COMPANY_SELECTED = 'CORE:COMPANY_SELECTED';
 export const SELECT_COMPANY = 'CORE:SELECT_COMPANY';
-
+export const JOB_ADVERTISEMENT_CHANGED = 'CORE:JOB_ADVERTISEMENT_CHANGED';
 
 export class LanguageChangedAction implements Action {
   readonly type = LANGUAGE_CHANGED;
@@ -125,6 +126,18 @@ export class AcountabilitiesLoaded implements Action {
   }
 
 }
+
+/**
+ * Action that indicates that the given JobAdvertisement was created or updated
+ * Needed by other modules eg. to refresh their loaded results/details
+ */
+export class JobAdvertisementUpdatedAction implements Action {
+  readonly type = JOB_ADVERTISEMENT_CHANGED;
+
+  constructor(public payload: { jobAdvertisement: JobAdvertisement }) {
+  }
+}
+
 
 export interface CompanySelection {
   companyId: string;
