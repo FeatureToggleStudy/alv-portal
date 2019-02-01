@@ -24,11 +24,11 @@ export class LegacyUrlStrategyRedirectionGuard implements CanActivate {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
+    const fragment = state.root.fragment;
+    if (!fragment) {
+      return this.goHome();
+    }
     for (const redirectionRule of this.legacyUrlRedirections) {
-      const fragment = state.root.fragment;
-      if (!fragment) {
-        return this.goHome();
-      }
       const regExpMatchArray = fragment.match(redirectionRule.pattern);
       if (regExpMatchArray) {
         return redirectionRule.action.call(this, next, state, fragment);
