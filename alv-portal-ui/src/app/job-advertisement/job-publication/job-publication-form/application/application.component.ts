@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ApplicationFormValue } from './application-form-value.types';
-import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
-import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
-import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
+import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
+import { EMAIL_REGEX, URL_REGEX } from '../../../../shared/forms/regex-patterns';
+import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 import { startWith, takeUntil } from 'rxjs/operators';
 import {
   emptyPostAddressFormValue,

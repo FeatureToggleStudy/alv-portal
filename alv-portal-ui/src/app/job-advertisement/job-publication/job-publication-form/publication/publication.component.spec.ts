@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PublicationComponent } from './publication.component';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedModule } from '../../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
 import { emptyPublicationFormValue } from './publication-form-value.types';
 

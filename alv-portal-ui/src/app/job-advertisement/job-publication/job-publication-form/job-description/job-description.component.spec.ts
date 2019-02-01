@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { JobDescriptionComponent } from './job-description.component';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedModule } from '../../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
 import { emptyJobDescriptionFormValue } from './job-description-form-value.types';
 

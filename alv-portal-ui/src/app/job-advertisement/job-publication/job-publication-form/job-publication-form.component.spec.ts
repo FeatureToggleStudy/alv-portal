@@ -6,7 +6,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { JobPublicationFormComponent } from './job-publication-form.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 import { OccupationComponent } from './occupation/occupation.component';
 import { JobDescriptionComponent } from './job-description/job-description.component';
 import { LanguagesComponent } from './languages/languages.component';
@@ -21,14 +21,14 @@ import { EmployerComponent } from './employer/employer.component';
 import { ApplicationComponent } from './application/application.component';
 import { PostAddressFormComponent } from './post-address-form/post-address-form.component';
 import { IsoCountryService } from './iso-country.service';
-import { I18nService } from '../../core/i18n.service';
+import { I18nService } from '../../../core/i18n.service';
 import { of } from 'rxjs';
 import { JobPublicationFormValueFactory } from './job-publication-form-value-factory';
 import {
   CEFR_Level,
   Degree,
   Experience
-} from '../../shared/backend-services/shared.types';
+} from '../../../shared/backend-services/shared.types';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
 import SpyObj = jasmine.SpyObj;

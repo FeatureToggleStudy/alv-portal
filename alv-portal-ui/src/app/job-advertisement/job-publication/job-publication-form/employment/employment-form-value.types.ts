@@ -1,7 +1,7 @@
 import {
   EmploymentDuration,
   WorkForm
-} from '../../../shared/backend-services/shared.types';
+} from '../../../../shared/backend-services/shared.types';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 export interface EmploymentFormValue {

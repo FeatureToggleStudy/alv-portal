@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Salutation } from '../../../shared/backend-services/shared.types';
+import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { of } from 'rxjs';
-import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
-import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
+import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
+import { EMAIL_REGEX } from '../../../../shared/forms/regex-patterns';
 import { PublicContactFormValue } from './public-contact-form-value.types';
-import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({

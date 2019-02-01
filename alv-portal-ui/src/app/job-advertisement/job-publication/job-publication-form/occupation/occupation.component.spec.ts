@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedModule } from '../../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
 import { OccupationComponent } from './occupation.component';
 import { emptyOccupationFormValue } from './occupation-form-value.types';
-import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
-import { I18nService } from '../../../core/i18n.service';
+import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
+import { I18nService } from '../../../../core/i18n.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';

@@ -1,4 +1,4 @@
-import { CEFR_Level, LanguageSkill } from '../../../shared/backend-services/shared.types';
+import { CEFR_Level, LanguageSkill } from '../../../../shared/backend-services/shared.types';
 
 export function emptyLanguageSkill(): LanguageSkill {
   return {

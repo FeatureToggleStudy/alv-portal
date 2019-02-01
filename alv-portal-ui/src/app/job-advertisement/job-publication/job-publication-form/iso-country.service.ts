@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { I18nService } from '../../core/i18n.service';
-import { SelectableOption } from '../../shared/forms/input/selectable-option.model';
+import { I18nService } from '../../../core/i18n.service';
+import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { Observable } from 'rxjs/index';
 import * as countries from 'i18n-iso-countries';
 import { map } from 'rxjs/operators';

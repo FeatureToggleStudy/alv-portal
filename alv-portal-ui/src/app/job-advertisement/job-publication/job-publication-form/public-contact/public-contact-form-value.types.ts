@@ -1,4 +1,4 @@
-import { Salutation } from '../../../shared/backend-services/shared.types';
+import { Salutation } from '../../../../shared/backend-services/shared.types';
 
 export interface PublicContactFormValue {
   salutation: Salutation;

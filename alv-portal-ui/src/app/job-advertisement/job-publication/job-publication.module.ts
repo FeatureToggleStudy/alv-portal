@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { WidgetsModule } from '../widgets/widgets.module';
+import { WidgetsModule } from '../../widgets/widgets.module';
 import { JobPublicationRoutingModule } from './job-publication-routing.module';
 import { JobPublicationComponent } from './job-publication.component';
 import { JobPublicationFormComponent } from './job-publication-form/job-publication-form.component';

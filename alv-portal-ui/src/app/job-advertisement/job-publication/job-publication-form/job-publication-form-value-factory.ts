@@ -1,4 +1,4 @@
-import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
 import { emptyPublicContactFormValue } from './public-contact/public-contact-form-value.types';
 import { emptyPublicationFormValue } from './publication/publication-form-value.types';
@@ -11,7 +11,7 @@ import { emptyCompanyFormValue } from './company/company-form-value.types';
 import { emptyContactFormValue } from './contact/contact-form-value.types';
 import { emptyApplicationFormValue } from './application/application-form-value.types';
 import { Injectable } from '@angular/core';
-import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
+import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import * as jobPublicationFormMapper from './job-publication-form.mapper';
 import {
   mapToCompanyFormValue,

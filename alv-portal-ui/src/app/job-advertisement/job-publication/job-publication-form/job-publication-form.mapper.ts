@@ -13,7 +13,7 @@ import {
   Publication,
   PublicContact,
   WorkExperience
-} from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
 import {
   emptyJobDescriptionFormValue,
@@ -30,7 +30,7 @@ import {
   Qualification,
   Salutation,
   WorkForm
-} from '../../shared/backend-services/shared.types';
+} from '../../../shared/backend-services/shared.types';
 import { EmploymentFormValue } from './employment/employment-form-value.types';
 import { LocationFormValue } from './location/location-form-value.types';
 import { CompanyFormValue } from './company/company-form-value.types';
@@ -55,8 +55,8 @@ import {
 import { PostAddressFormValue } from './post-address-form/post-address-form-value.types';
 import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
 import { IsoCountryService } from './iso-country.service';
-import { LocalitySuggestionService } from '../../shared/localities/locality-suggestion.service';
-import { now, toISOLocalDate } from '../../shared/forms/input/ngb-date-utils';
+import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
+import { now, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
 
 import { LanguagesFormValue } from './languages/languages-form-value.types';
 import {
@@ -66,10 +66,10 @@ import {
 import {
   OccupationTypeaheadItem,
   OccupationTypeaheadItemType
-} from '../../shared/occupations/occupation-typeahead-item';
-import { OccupationTypes } from '../../shared/backend-services/reference-service/occupation-label.repository';
+} from '../../../shared/occupations/occupation-typeahead-item';
+import { OccupationTypes } from '../../../shared/backend-services/reference-service/occupation-label.repository';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
+import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 
 
 export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement, languageIsoCode: string): JobPublicationFormValue {

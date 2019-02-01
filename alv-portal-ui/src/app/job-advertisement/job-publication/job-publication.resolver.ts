@@ -3,14 +3,14 @@ import { Observable, of } from 'rxjs';
 import { flatMap, map, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { InitialFormValueConfig } from './job-publication-form/job-publication-form-value-factory';
-import { AuthenticationService } from '../core/auth/authentication.service';
-import { JobAdvertisementRepository } from '../shared/backend-services/job-advertisement/job-advertisement.repository';
+import { AuthenticationService } from '../../core/auth/authentication.service';
+import { JobAdvertisementRepository } from '../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
   JOB_ADVERTISEMENT_QUERY_PARAM_NAME,
   TITLE_QUERY_PARAM_NAME,
   TOKEN_QUERY_PARAM_NAME
 } from './job-publication-query-params';
-import { JobAdvertisement } from '../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Injectable()
 export class JobPublicationResolver implements Resolve<Observable<InitialFormValueConfig>> {

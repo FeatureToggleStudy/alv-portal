@@ -1,6 +1,6 @@
 import { JobDescriptionFormValue } from './job-description/job-description-form-value.types';
 import { OccupationFormValue } from './occupation/occupation-form-value.types';
-import { LanguageSkill } from '../../shared/backend-services/shared.types';
+import { LanguageSkill } from '../../../shared/backend-services/shared.types';
 import { EmploymentFormValue } from './employment/employment-form-value.types';
 import { LocationFormValue } from './location/location-form-value.types';
 import { CompanyFormValue } from './company/company-form-value.types';

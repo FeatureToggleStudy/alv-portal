@@ -1,18 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { Observable, of } from 'rxjs/index';
 import {
   Degree,
   Experience,
   Qualification
-} from '../../../shared/backend-services/shared.types';
-import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
-import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
+} from '../../../../shared/backend-services/shared.types';
+import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
+import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 import { OccupationFormValue } from './occupation-form-value.types';
-import { I18nService } from '../../../core/i18n.service';
+import { I18nService } from '../../../../core/i18n.service';
 import { distinctUntilChanged, filter, flatMap, takeUntil } from 'rxjs/operators';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({

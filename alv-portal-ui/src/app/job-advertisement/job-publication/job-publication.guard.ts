@@ -6,8 +6,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AuthenticationService } from '../core/auth/authentication.service';
-import { hasAnyAuthorities, UserRole } from '../core/auth/user.model';
+import { AuthenticationService } from '../../core/auth/authentication.service';
+import { hasAnyAuthorities, UserRole } from '../../core/auth/user.model';
 import { JOB_ADVERTISEMENT_QUERY_PARAM_NAME } from './job-publication-query-params';
 
 @Injectable()

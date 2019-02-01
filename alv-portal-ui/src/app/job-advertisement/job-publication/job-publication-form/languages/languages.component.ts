@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import {
   CEFR_Level,
   Language,
   LanguageSkill
-} from '../../../shared/backend-services/shared.types';
+} from '../../../../shared/backend-services/shared.types';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { emptyLanguageSkill } from './languages-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';

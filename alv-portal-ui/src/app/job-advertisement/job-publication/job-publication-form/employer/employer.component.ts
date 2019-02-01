@@ -4,7 +4,7 @@ import { EmployerFormValue } from './employer-form-value.types';
 import { IsoCountryService } from '../iso-country.service';
 import { Observable } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
-import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 @Component({
