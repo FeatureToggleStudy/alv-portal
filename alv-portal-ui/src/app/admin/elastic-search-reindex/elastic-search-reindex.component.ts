@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { ModalService } from '../../shared/layout/modal/modal.service';
+import { ElasticSearchReindexRepository } from '../../shared/backend-services/elastic-search-reindex/elastic-search-reindex-repository';
 
 @Component({
   selector: 'alv-elastic-search-reindex',
@@ -10,7 +11,7 @@ import { ModalService } from '../../shared/layout/modal/modal.service';
 })
 export class ElasticSearchReindexComponent implements OnInit {
 
-  readonly elasticsearch_checkboxes = ['users', 'candidates', 'jobs', 'reference_data'];
+  readonly ELASTICSEARCH_CHECKBOXES = ['users', 'candidates', 'jobs', 'reference_data'];
 
   readonly CONFIRM_REINDEX_MODAL: ConfirmModalConfig = {
     title: 'portal.admin.elastic-search-reindex.dialog.title',
@@ -22,6 +23,7 @@ export class ElasticSearchReindexComponent implements OnInit {
   form: FormGroup;
 
   constructor(private fb: FormBuilder,
+              private elasticSearchReindexRepository: ElasticSearchReindexRepository,
               private modalService: ModalService) { }
 
   ngOnInit() {
@@ -31,10 +33,15 @@ export class ElasticSearchReindexComponent implements OnInit {
   onSubmit() {
     console.log('submit');
     this.modalService.openConfirm(this.CONFIRM_REINDEX_MODAL).result.then(
-      () => {},
-      // this.legalTermsManagementRepository.deleteLegalTermsEntry(legalTerm.id)
-      //   .subscribe(() => this.loadAll(), () => {}),
-      () => {}
+      () => this.elasticSearchReindexRepository.reindex(this.form.get('jobs').value)
+        .subscribe(() => {
+          // (STATUS REPORT)
+        }, () => {
+          // (ERROR REPORT)
+        }),
+      () => {
+        // (ERROR REPORT)
+      }
     );
   }
 

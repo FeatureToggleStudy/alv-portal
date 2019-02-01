@@ -28,7 +28,7 @@
                              [formGroup]="form"
                              [customValidationMessages]="[{error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation'}]">
     </alv-validation-messages>
-    <fieldset *ngFor="let elasticsearch_checkbox of elasticsearch_checkboxes">
+    <fieldset *ngFor="let elasticsearch_checkbox of ELASTICSEARCH_CHECKBOXES">
       <alv-checkbox label="portal.admin.elastic-search-reindex.document.{{elasticsearch_checkbox}}"
                     [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
                     showGroupErrors="true"
