@@ -193,7 +193,7 @@ dashboard,dashboard.job-publication.publication-period.90,3 Monate,3 months,3 mo
 dashboard,dashboard.job-publication.publication-period.180,6 Monate,6 months,6 mois,6 mesi
 dashboard,dashboard.job-publication.publication-period.365,1 Jahr,1 year,1 années,1 anni
 dashboard,dashboard.job-publication.status,Status,Status,Statut,Stato
-dashboard,dashboard.job-publication.title,Stellenanzeigen bewirtschaften,Manage job ads,Gérer les annonces,Gestire gli annunci
+dashboard,dashboard.job-publication.title,Stellen bewirtschaften
 dashboard,dashboard.job-publication.user-information.title,Sie sind eingeloggt als,You are logged in as,Vous êtes connecté(e),Registrato in qualità di:
 dashboard,dashboard.title,Dashboard,Dashboard,Tableau de bord,Dashboard
 dashboard,job-publication-cancel.alert,Bitte füllen Sie die Abmeldeinformationen aus und bestätigen Sie die Abmeldung der Stellenanzeige.,Please fill in the cancellation details and confirm cancellation of the job posting.,Veuillez remplir les informations et confirmer l'annulation de l'annonce.,Compilare i dati per la cancellazione dell'annuncio e confermare
@@ -1355,7 +1355,7 @@ portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Tau
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
 
-portal,portal.navigation.menu-entry.job-search,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
+portal,portal.navigation.menu-entry.job-search,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.navigation.menu-entry.job-publication,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
@@ -1432,15 +1432,16 @@ portal,portal.job-ad.qualification.UNSKILLED,ungelernt,unskilled,non qualifié,n
 portal,portal.shared.localities.geo-location-selection.aria-label,Aktueller Standort wählen,Select my current location,Sélectionner le lieu actuel,selezione la mia posizione attuale
 portal,portal.shared.localities.geo-location-selection.not-available,Standort kann nicht ermittelt werden
 
-portal,portal.widgets.job-search.title,Stelle finden,Search job,Chercher emploi,Ricerca posto vacante
+portal,portal.widgets.job-search.title,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
-portal,portal.widgets.manage-job-ads.title,Stellenanzeigen bewirtschaften
+portal,portal.widgets.manage-job-ads.title,Stellen bewirtschaften
 portal,portal.widgets.manage-job-ads.show-all,Alle anzeigen
 portal,portal.widgets.manage-job-ads.actions.open,Öffnen,Open,Ouvrir,Apri
 portal,portal.widgets.manage-job-ads.actions.cancel,Abmelden,Cancel,Retirer,Cancellare
 portal,portal.widgets.manage-job-ads.actions.duplicate,Duplizieren,Duplicate,Dupliquer,Duplicare
 
+portal,portal.job-publication.browser-title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
 portal,portal.job-publication.query-panel.label.title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
 portal,portal.job-publication.occupation.qualification.label,Qualifikation,Qualification,Qualification,Qualifica
 portal,portal.job-publication.language-skills.add,Neue Sprachkompetenz hinzufügen,Add new language skill,Ajouter une nouvelle compétence linguistique,Aggiungi nuova conoscenza linguistica
@@ -1461,6 +1462,7 @@ portal,portal.job-publication.submit.info.phone,Tel.,
 portal,portal.job-publication.submit.info.fax,Fax,
 portal,portal.job-publication.submit.info.email,Email,
 
+portal,portal.manage-job-ads.browser-title,Stellen bewirtschaften
 portal,portal.manage-job-ads.search.query,Stellen durchsuchen
 portal,portal.manage-job-ads.search.owner-name,Erfasser,Created by
 portal,portal.manage-job-ads.search.filter.createdBy.myself,Meine
@@ -1469,13 +1471,10 @@ portal,portal.manage-job-ads.search.filter.status.all,Alle
 portal,portal.manage-job-ads.search.filter.modal.title,Stellenanzeigen filtern
 portal,portal.manage-job-ads.search.filter.modal.owner.label,Stellen
 portal,portal.manage-job-ads.search.filter.modal.action.filter,OK
-
 portal,portal.manage-job-ads.search.no-results,Keine Ergebnisse gefunden
 portal,portal.manage-job-ads.search.filter-button,Filtern
-
 portal,portal.manage-job-ads.cancel.occupied.other,Andere Gründe
 portal,portal.manage-job-ads.cancel.success,Stellenanzeige wurde erfolgreich abgemeldet
-
 portal,portal.manage-job-ads.details.actions.cancel,Stellenanzeige abmelden,Cancel job posting,Retirer l'annonce,Cancellare il posto vacante
 portal,portal.manage-job-ads.details.actions.duplicate,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio
 portal,portal.manage-job-ads.details.menu-open,Stellenanzeige duplizieren,Opten,Dupliquer l'annonce,Duplicare l'annuncio

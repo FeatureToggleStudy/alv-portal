@@ -21,7 +21,9 @@
   </button>
   <!-- Menu Entries -->
   <ng-container *ngFor="let menuEntry of menuEntries$ | async">
-    <alv-menu-entry [menuEntry]="menuEntry"></alv-menu-entry>
+    <alv-menu-entry [menuEntry]="menuEntry"
+                    [showTooltip]="mainNavigationCollapsed">
+    </alv-menu-entry>
   </ng-container>
 
   <div class="nav-fill-item flex-grow-1">

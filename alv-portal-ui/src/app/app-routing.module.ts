@@ -34,7 +34,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'job-publication',
-    loadChildren: './job-publication/job-publication.module#JobPublicationModule'
+    loadChildren: './job-advertisement/job-publication/job-publication.module#JobPublicationModule'
   },
   {
     path: 'manage-job-ads',
