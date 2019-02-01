@@ -20,6 +20,10 @@ import {
 import { JobAdCancellationComponent } from './job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { Router } from '@angular/router';
+import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../../core/state-management/state/core.state.ts';
+import { JobAdvertisementUpdatedAction } from '../../core/state-management/actions/core.actions';
 
 @Component({
   selector: 'alv-manage-job-ads-widget',
@@ -48,6 +52,7 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
   constructor(private jobAdvertisementRepository: JobAdvertisementRepository,
               private modalService: ModalService,
               private router: Router,
+              private store: Store<CoreState>,
               private jobAdManagementColumnService: JobAdManagementColumnService,
               private authenticationService: AuthenticationService
   ) {
@@ -103,8 +108,9 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
         jobAdCancellationComponent.jobAdvertisement = action.row.jobAdvertisement;
         jobAdCancellationComponent.accessToken = null;
         jobAdCancellationModalRef.result
-          .then(() => {
+          .then((jobAdvertisement: JobAdvertisement) => {
             this.currentFilter$.next(this.currentFilter$.value);
+            this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: jobAdvertisement }));
           })
           .catch(() => {
           });

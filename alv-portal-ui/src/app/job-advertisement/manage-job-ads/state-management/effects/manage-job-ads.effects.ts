@@ -15,7 +15,10 @@ import {
 } from 'rxjs/operators';
 import { Action, select, Store } from '@ngrx/store';
 import { asyncScheduler, Observable, of } from 'rxjs';
-import { EffectErrorOccurredAction } from '../../../../core/state-management/actions/core.actions';
+import {
+  EffectErrorOccurredAction,
+  JOB_ADVERTISEMENT_CHANGED, JobAdvertisementUpdatedAction
+} from '../../../../core/state-management/actions/core.actions';
 import {
   getManagedJobAdsSearchFilter,
   getManageJobAdsState,
@@ -29,8 +32,6 @@ import {
   FILTER_APPLIED,
   FilterAppliedAction,
   INIT_RESULT_LIST,
-  JOB_ADVERTISEMENT_CHANGED,
-  JobAdvertisementChangedAction,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
@@ -49,6 +50,16 @@ export const MANAGE_JOB_ADS_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike
 
 @Injectable()
 export class ManageJobAdsEffects {
+
+  @Effect()
+  jobAdvertisementChanged$: Observable<Action> = this.actions$.pipe(
+    ofType(JOB_ADVERTISEMENT_CHANGED),
+    map((action: JobAdvertisementUpdatedAction) => action.payload),
+    withLatestFrom(this.store.pipe(select(getManagedJobAdsSearchFilter))),
+    map(([action, filter]) => {
+      return new ApplyFilterAction(filter);
+    })
+  );
 
   @Effect()
   initJobSearch$ = this.actions$.pipe(
@@ -104,16 +115,6 @@ export class ManageJobAdsEffects {
     }),
     map(() => {
       return { type: 'nothing' };
-    })
-  );
-
-  @Effect()
-  jobAdvertisementChanged: Observable<Action> = this.actions$.pipe(
-    ofType(JOB_ADVERTISEMENT_CHANGED),
-    map((action: JobAdvertisementChangedAction) => action.payload),
-    withLatestFrom(this.store.pipe(select(getManagedJobAdsSearchFilter))),
-    map(([action, filter]) => {
-      return new ApplyFilterAction(filter);
     })
   );
 
