@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   ApiUser,
   ApiUserColumnDefinition,
@@ -14,7 +14,7 @@ import {
   API_USERS_PER_PAGE,
   ApiUserManagementRequestMapper
 } from './api-user-management-request.mapper';
-import { tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserModalComponent } from './api-user-modal/api-user-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
