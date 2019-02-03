@@ -6,6 +6,11 @@
 
   <hr>
 
+  <alv-alert *ngIf="alert"
+             [notification]="alert"
+             (dismiss)="alert = null">
+  </alv-alert>
+
   <div>
     <p>
     {{ 'portal.admin.elastic-search-reindex.instructions.main' | translate }}
@@ -23,9 +28,14 @@
     <small (click)="toggleFormCheckboxes(toggle)">
       {{ 'portal.admin.elastic-search-reindex.document.toggle-all' | translate }}
     </small>
+    <small class="form-text error-message"
+           *ngIf="form.dirty && form.errors?.atLeastOneRequired">
+      <i class="fas fa-exclamation-circle"
+         aria-hidden="true"></i>
+      {{ 'candidate-detail.anonymous-contact.contact-via.validation' | translate }}
+    </small>
     <fieldset *ngFor="let elasticsearch_checkbox of ELASTICSEARCH_CHECKBOXES">
       <alv-checkbox label="portal.admin.elastic-search-reindex.document.{{elasticsearch_checkbox}}"
-                    [validationMessages]="[{ error: 'atLeastOneRequired', message: 'candidate-detail.anonymous-contact.contact-via.validation' }]"
                     showGroupErrors="true"
                     alvFormControlName="{{ elasticsearch_checkbox }}">
       </alv-checkbox>
@@ -37,10 +47,4 @@
     </div>
 
   </form>
-
-  <hr>
-
-  TODO >>> SHOW RESULT PROGRESS
-  xxx: {{ elasticSearchResult | json }}
-
 </div>

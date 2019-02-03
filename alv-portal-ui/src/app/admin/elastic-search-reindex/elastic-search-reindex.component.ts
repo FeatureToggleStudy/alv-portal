@@ -3,7 +3,21 @@ import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ElasticSearchReindexRepository } from '../../shared/backend-services/elastic-search-reindex/elastic-search-reindex-repository';
-import { NotificationsService } from '../../core/notifications.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Notification, NotificationType } from '../../shared/layout/notifications/notification.model';
+
+export const MESSAGE = {
+  success: {
+    type: NotificationType.SUCCESS,
+    messageKey: 'portal.admin.elastic-search-reindex.document.accepted',
+    isSticky: true
+  } as Notification,
+  failure: {
+    type: NotificationType.ERROR,
+    messageKey: 'portal.admin.elastic-search-reindex.notification.failure',
+    isSticky: true
+  } as Notification
+};
 
 @Component({
   selector: 'alv-elastic-search-reindex',
@@ -21,14 +35,13 @@ export class ElasticSearchReindexComponent implements OnInit {
     cancelLabel: 'portal.admin.elastic-search-reindex.dialog.cancel'
   };
 
-  elasticSearchResult;
-
   form: FormGroup;
+
+  alert: Notification;
 
   toggle = true;
 
   constructor(private fb: FormBuilder,
-              private notificationService: NotificationsService,
               private elasticSearchReindexRepository: ElasticSearchReindexRepository,
               private modalService: ModalService) { }
 
@@ -37,26 +50,37 @@ export class ElasticSearchReindexComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('submit');
     this.modalService.openConfirm(this.CONFIRM_REINDEX_MODAL).result.then(
       () => this.elasticSearchReindexRepository.reindex(this.resolveFormValues())
         .subscribe(() => {
-          // (STATUS REPORT)
-          this.notificationService.success('portal.admin.elastic-search-reindex.notification.success');
+          this.alert = MESSAGE.success;
+          this.reInitForm();
           this.checkStatusOfReindexingJobs();
         }, () => {
-          this.notificationService.error('portal.admin.elastic-search-reindex.notification.failure');
+          this.alert = MESSAGE.failure;
         }),
-      () => {
-        this.notificationService.error('portal.admin.elastic-search-reindex.notification.failure');
-      }
+      () => {}
     );
+  }
+
+  private reInitForm() {
+    this.toggleFormCheckboxes(false);
+    this.form.markAsPristine();
+    this.form.markAsUntouched();
   }
 
   private checkStatusOfReindexingJobs() {
     this.elasticSearchReindexRepository.getReindexJobs().subscribe(
-      (result) => {
-        this.elasticSearchResult = result;
+      () => {
+        // TODO emst 03.02.2019 implement displaying of the elastic search reindex job actions
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          // TODO emst 03.02.2019 the lik to elastic search result is for now wrong, need
+          //  other permissions to make it visible and accessible
+        } else {
+          this.alert = MESSAGE.failure;
+        }
       }
     );
   }
@@ -72,8 +96,7 @@ export class ElasticSearchReindexComponent implements OnInit {
   }
 
   private resolveFormValues(): string[] {
-    // return this.ELASTICSEARCH_CHECKBOXES.filter((checkbox) => this.form.get(checkbox).value);
-    return ['candidates'];
+    return this.ELASTICSEARCH_CHECKBOXES.filter((checkbox) => this.form.get(checkbox).value);
   }
 
   private prepareForm() {
