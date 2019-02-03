@@ -19,13 +19,15 @@
         </alv-input-field>
       </div>
       <div class="col-md-2">
-        <button type="submit" class="btn btn-primary h-100 mr-2">
+        <button type="submit"
+                class="btn btn-primary h-100 mr-2">
           <i class="panel-icon fas fa-search mr-2"></i>
           {{ 'portal.admin.api-user-management.search' | translate }}
         </button>
       </div>
       <div class="col-md-3">
-        <button (click)="onCreateUserDialog()" class="btn btn-primary h-100">
+        <button (click)="onCreateUserDialog()"
+                class="btn btn-primary h-100">
           <i class="panel-icon fas fa-plus mr-2"></i>
           {{ 'portal.admin.api-user-management.new-user' | translate }}
         </button>
@@ -34,7 +36,7 @@
   </form>
 
   <alv-api-user-management-table [apiUserList]="apiUserList"
-                                 [currentSorting]="currentSorting$ | async"
+                                 [currentSorting]="currentSorting"
                                  [page]="page"
                                  (sort)="onSortChange($event)"
                                  (scroll)="onScrollChange($event)"
