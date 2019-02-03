@@ -22,7 +22,7 @@ export class ElasticSearchReindexRepository {
   reindex(documents: string[]): Observable<any> {
 
     const urls = documents.map( (document) => {
-      return this.DOCUMENT_URLS[document]
+      return this.DOCUMENT_URLS[document];
     });
 
     return from(urls).pipe(

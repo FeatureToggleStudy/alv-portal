@@ -76,7 +76,7 @@ export class ElasticSearchReindexComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         if (error.status === 404) {
-          // TODO emst 03.02.2019 the lik to elastic search result is for now wrong, need
+          // TODO emst 03.02.2019 the link to elastic search result is for now wrong, need
           //  other permissions to make it visible and accessible
         } else {
           this.alert = MESSAGE.failure;
