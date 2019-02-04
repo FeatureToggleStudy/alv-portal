@@ -35,7 +35,6 @@ describe('AuthGuard', () => {
       mockRouterState.root.fragment = fragment;
       urlStrategy = new LegacyUrlStrategyRedirectionGuard(mockRouter);
       expect(urlStrategy.canActivate(null, mockRouterState)).toEqual(false);
-      expect(mockRouter.navigateByUrl).not.toHaveBeenCalled();
       expect(mockRouter.navigate).toHaveBeenCalledWith(['home']);
     });
 
