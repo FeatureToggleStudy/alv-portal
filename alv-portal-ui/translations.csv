@@ -1359,6 +1359,7 @@ portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 portal,portal.navigation.menu-entry.account.profile,Profile,Profile
 portal,portal.navigation.menu-entry.admin.system-notifications,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
 portal,portal.navigation.menu-entry.admin.user-info,Benutzerinformationen,User Info,User Info,User Info
+portal,portal.navigation.menu-entry.admin.api-doc,API Doc,API Doc,API Doc,API Doc
 portal,portal.navigation.label.main-navigation,,Main navigation
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
@@ -1589,4 +1590,4 @@ portal,portal.admin.legal-terms-management.legal-terms-delete-dialog.question,Ar
 portal,portal.admin.legal-terms-management.notification.success,Successful,Successful,Successful,Successful
 portal,portal.admin.legal-terms-management.notification.failure,Failure,Failure,Failure,Failure
 
-portal,portal.admin.swagger.title,Swagger,Swagger,Swagger,Swagger,
+portal,portal.admin.api-doc.title,API Doc,API Doc,API Doc,API Doc
