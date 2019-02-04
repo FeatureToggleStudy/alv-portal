@@ -114,7 +114,7 @@
     border-bottom: none;
     color: $color-white;
 
-    i {
+    i.fas, .svg-inline--fa {
       font-size: 26px;
     }
   }
@@ -128,7 +128,7 @@
     background-color: $color-white;
   }
 
-  i.nav-icon {
+  i.nav-icon, .svg-inline--fa.nav-icon {
     margin-right: 12px;
     font-size: 16px;
   }

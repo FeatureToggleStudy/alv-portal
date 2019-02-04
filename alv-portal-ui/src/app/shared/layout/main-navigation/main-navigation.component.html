@@ -14,10 +14,12 @@
   </div>
   <button class="nav-item menu-toggle"
           (click)="toggleDesktopSideNav()">
-    <i class="fas fa-caret-left"
-       *ngIf="!mainNavigationCollapsed"></i>
-    <i class="fas fa-caret-right"
-       *ngIf="mainNavigationCollapsed"></i>
+    <span *ngIf="!mainNavigationCollapsed">
+      <i class="fas fa-caret-left"></i>
+    </span>
+    <span *ngIf="mainNavigationCollapsed">
+      <i class="fas fa-caret-right"></i>
+    </span>
   </button>
   <!-- Menu Entries -->
   <ng-container *ngFor="let menuEntry of menuEntries$ | async">
