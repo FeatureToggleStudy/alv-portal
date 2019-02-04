@@ -3,8 +3,6 @@
     <small class="form-text"
            *ngIf="control.hasError(validationMessage.error)"
            [attr.id]="id">
-      <i class="fas fa-exclamation-circle"
-         aria-hidden="true"></i>
       {{getErrorMessage(validationMessage, control.errors[validationMessage.error]) | translate:control.errors[validationMessage.error]}}
     </small>
   </ng-container>

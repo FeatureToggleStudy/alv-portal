@@ -5,8 +5,9 @@ import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { NotAuthenticatedGuard } from './core/auth/not-authenticated.guard';
 import { LandingPageGuard } from './shared/landing-page/landing-page.guard';
 import { DummyComponent } from './shared/dummy/dummy.component';
-import { HasAnyAuthoritiesGuard } from './core/auth/has-any-authorities-guard.service';
+import { LegacyUrlStrategyRedirectionGuard } from '../legacy-url-strategy-redirection-guard.service';
 import { UserRole } from './core/auth/user.model';
+import { HasAnyAuthoritiesGuard } from './core/auth/has-any-authorities-guard.service';
 
 const appRoutes: Routes = [
   {
@@ -34,7 +35,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'job-publication',
-    loadChildren: './job-publication/job-publication.module#JobPublicationModule'
+    loadChildren: './job-advertisement/job-publication/job-publication.module#JobPublicationModule'
   },
   {
     path: 'manage-job-ads',
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home'
+    canActivate: [LegacyUrlStrategyRedirectionGuard],
+    component: DummyComponent
   }
 ];
 
