@@ -11,13 +11,11 @@ import { PipesModule } from './pipes/pipes.module';
 import { GeoLocationSelectionComponent } from './localities/geo-location-selection/geo-location-selection.component';
 import { LandingPageGuard } from './landing-page/landing-page.guard';
 import { DummyComponent } from './dummy/dummy.component';
-import { LegalTermsComponent } from './legal-terms/legal-terms.component';
 
 @NgModule({
   declarations: [
     GeoLocationSelectionComponent,
     DummyComponent,
-    LegalTermsComponent
   ],
   imports: [
     TranslateModule.forChild(),
@@ -41,7 +39,6 @@ import { LegalTermsComponent } from './legal-terms/legal-terms.component';
     MarkdownModule,
     SharedAuthModule,
     GeoLocationSelectionComponent,
-    LegalTermsComponent
   ],
   providers: [
     LandingPageGuard
