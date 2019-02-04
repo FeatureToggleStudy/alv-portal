@@ -5,19 +5,19 @@
           id="userMenu"
           ngbDropdownToggle>
     <span class="text-left d-flex">
-       <i *ngIf="!hideRegistrationAction"
-          class="fas fa-exclamation-triangle mr-2"
-          aria-hidden="true">
+      <span *ngIf="!hideRegistrationAction">
+        <i class="fas fa-exclamation-triangle fa-fw mr-2"
+           aria-hidden="true">
+        </i>
+      </span>
+      <i class="fas fa-user fa-fw d-inline d-lg-none"
+         aria-hidden="true">
       </i>
-         <i class="fas fa-user d-inline d-lg-none"
-            aria-hidden="true">
-         </i>
       <alv-user-name-and-company
         class="d-none d-lg-block"
         [displayName]="user.displayName"
         [companyName]="company?.companyName">
       </alv-user-name-and-company>
-
     </span>
   </button>
   <div ngbDropdownMenu
@@ -26,25 +26,25 @@
     <button *ngIf="!hideRegistrationAction"
             class="dropdown-item highlight"
             (click)="completeRegistration()">
-      <i class="fas fa-hand-point-right mr-2"></i>{{'global.menu.account.registration.incomplete'|translate}}
+      <i class="fas fa-hand-point-right fa-fw mr-2"></i>{{'global.menu.account.registration.incomplete'|translate}}
     </button>
     <!-- eIAM profile -->
     <button *ngIf="!noEiam"
             class="dropdown-item"
             (click)="goToEiamProfile()">
-      <i class="fas fa-user-circle mr-2"></i> {{'portal.navigation.menu-entry.account.profile'|translate}}
+      <i class="fas fa-user-circle fa-fw mr-2"></i> {{'portal.navigation.menu-entry.account.profile'|translate}}
     </button>
     <!-- Contact template -->
     <a *ngIf="company && user.isRegistered()"
        class="dropdown-item"
        routerLink="dashboard/contact-template">
-      <i class="fas fa-address-card mr-2"></i>
+      <i class="fas fa-address-card fa-fw mr-2"></i>
       {{'global.menu.admin.contact-template-management' | translate}}
     </a>
     <!-- Logout -->
     <button class="dropdown-item"
             (click)="logout()">
-      <i class="fas fa-power-off mr-2"></i> {{'global.menu.account.logout'|translate}}
+      <i class="fas fa-power-off fa-fw mr-2"></i> {{'global.menu.account.logout'|translate}}
     </button>
   </div>
 </div>
