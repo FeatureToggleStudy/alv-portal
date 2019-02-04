@@ -42,11 +42,10 @@ export class AddBlacklistEntryModalComponent implements OnInit {
   }
 
   public confirmOrganizationAndCloseModal(){
-    if (!_.isEmpty(this.selectedOrganisation)){
+    if (!!this.selectedOrganisation){
       this.modal.close(this.selectedOrganisation.externalId);
     }
   }
-
 
   private searchOrganizations(term: string): Observable<TypeaheadItem<PavSuggestion>[]> {
     return this.pavSearchRepository.suggest(term).pipe(

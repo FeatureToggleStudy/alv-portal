@@ -76,21 +76,20 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
     this.blacklistRepository.changeStatus(agent, status)
         .subscribe(() => {
           this.getAllBlacklistedAgents();
-          this.alert = this.ALERTS.changeSuccess;
+          this.showAlert(this.ALERTS.changeSuccess);
         }, () => {
-          this.alert = this.ALERTS.techError;
+          this.showAlert(this.ALERTS.techError);
         })
   }
 
   private saveAddEntry(organizationExtId: string){
-    console.log("add organization to the blacklist: ", organizationExtId);
     this.blacklistRepository.createBlacklistEntryForPav(organizationExtId).subscribe(
       () => {
         this.getAllBlacklistedAgents();
-        this.alert = this.ALERTS.addSuccess;
+        this.showAlert(this.ALERTS.addSuccess);
       },
       () => {
-        this.alert = this.ALERTS.techError;
+        this.showAlert(this.ALERTS.techError);
       }
     )
 
@@ -105,7 +104,6 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
     )
   }
 
-
   public openChangeStatusDialog(agent: BlacklistedAgent){
     this.modalService.openConfirm({
       title: 'blacklisted-agent.change-status-dialog.title',
@@ -119,6 +117,10 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
           this.saveChangeStatus(agent);
         },
         () => {});
+  }
+
+  private showAlert(notification: Notification){
+    this.alert = notification;
   }
 
   dismissAlert() {
