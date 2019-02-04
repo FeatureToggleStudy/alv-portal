@@ -26,13 +26,13 @@ export class LegacyUrlStrategyRedirectionGuard implements CanActivate {
   constructor(private router: Router) {
     this.legacyUrlRedirections = [
       {
-        pattern: /\/job-fingerprint-redirect\?(.*)/,
+        pattern: /^\/job-fingerprint-redirect\?(.*)/,
         urlProvider: regExpMatchArray => {
           return 'job-search/job-fingerprint-redirect?' + decodeURIComponent(regExpMatchArray[1]);
         }
       },
       {
-        pattern: /\/job-publication-detail\/(.*)/,
+        pattern: /^\/job-publication-detail\/(.*)/,
         urlProvider: regExpMatchArray => {
           return 'manage-job-ads/' + decodeURIComponent(regExpMatchArray[1]);
         }
