@@ -14,7 +14,7 @@ export class LegalTermsService {
   }
 
   getCurrentLegalTermsUrl(): Observable<string> {
-    const languageToLinkMap = {
+    const languageToPropertyNameMap = {
       en: 'linkEn',
       de: 'linkDe',
       fr: 'linkFr',
@@ -24,7 +24,7 @@ export class LegalTermsService {
     const currentLegalTerms$ = this.legalTermsManagementRepository.getCurrentLegalTerms();
 
     return combineLatest(this.i18nService.currentLanguage$, currentLegalTerms$).pipe(
-      map(([currentLanguage, legalTerms]) => legalTerms[languageToLinkMap[currentLanguage]])
-    )
+      map(([currentLanguage, legalTerms]) => legalTerms[languageToPropertyNameMap[currentLanguage]])
+    );
   }
 }
