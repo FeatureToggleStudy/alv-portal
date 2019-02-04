@@ -43,7 +43,6 @@ const routes: Routes = [
     component: ApiDocComponent,
     data: {
       titleKey: 'portal.admin.api-doc.title',
-      authorities: [UserRole.ROLE_SYSADMIN, UserRole.ROLE_ADMIN]
     }
   }
 ];
