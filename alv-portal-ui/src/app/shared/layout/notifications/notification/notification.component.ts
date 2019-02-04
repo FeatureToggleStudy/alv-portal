@@ -4,7 +4,6 @@ import {
   EventEmitter,
   HostBinding,
   Input,
-  OnInit,
   Output
 } from '@angular/core';
 import { Notification, NotificationType } from '../notification.model';
@@ -18,19 +17,29 @@ import { Notification, NotificationType } from '../notification.model';
   styleUrls: ['./notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent {
 
   @HostBinding('class') hostClass = 'empty';
-
-  icon = '';
-
-  @Input() notification: Notification;
 
   @Input() hideDismiss?: boolean;
 
   @Output() dismiss = new EventEmitter<Notification>(true);
 
-  public decorateClass: ClassDecoration = {};
+  @Input()
+  set notification(value: Notification) {
+    this._notification = value;
+    this.setNotificationClasses();
+  }
+
+  get notification(): Notification {
+    return this._notification;
+  }
+
+  decorateClass: ClassDecoration = {};
+
+  icon = '';
+
+  private _notification: Notification;
 
   constructor() {
     this.decorateClass[NotificationType.ERROR] = {
@@ -51,13 +60,13 @@ export class NotificationComponent implements OnInit {
     };
   }
 
-  ngOnInit() {
-    this.icon = this.decorateClass[this.notification.type].icon;
-    this.hostClass = this.decorateClass[this.notification.type].background;
-  }
-
   doDismiss(notification) {
     this.dismiss.emit(notification);
+  }
+
+  private setNotificationClasses() {
+    this.icon = this.decorateClass[this._notification.type].icon;
+    this.hostClass = this.decorateClass[this._notification.type].background;
   }
 }
 
