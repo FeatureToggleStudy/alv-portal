@@ -10,19 +10,31 @@ import { ModalService } from '../shared/layout/modal/modal.service';
 import { NotificationsService } from '../core/notifications.service';
 import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
 import { SystemNotificationModalComponent } from './system-notifications/modal/system-notification-modal.component';
+import { ApiUserManagementComponent } from './api-user-management/api-user-management.component';
+import { ApiUserModalComponent } from './api-user-management/api-user-modal/api-user-modal.component';
+import { ApiUserPasswordModalComponent } from './api-user-management/api-user-password-modal/api-user-password-modal.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ApiUserManagementTableComponent } from './api-user-management/api-user-management-table/api-user-management-table.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    InfiniteScrollModule
   ],
   declarations: [
     UserInfoComponent,
     SystemNotificationsComponent,
     SystemNotificationModalComponent,
     LegalTermsManagementComponent,
-    LegalTermsDetailModalComponent
+    LegalTermsDetailModalComponent,
+    ApiUserManagementComponent,
+    ApiUserModalComponent,
+    ApiUserPasswordModalComponent,
+    ApiUserManagementTableComponent
+
   ],
   providers: [
     UserInfoBadgesMapperService,
@@ -31,7 +43,9 @@ import { SystemNotificationModalComponent } from './system-notifications/modal/s
   ],
   entryComponents: [
     SystemNotificationModalComponent,
-    LegalTermsDetailModalComponent
+    LegalTermsDetailModalComponent,
+    ApiUserModalComponent,
+    ApiUserPasswordModalComponent
   ]
 })
 export class AdminModule {
