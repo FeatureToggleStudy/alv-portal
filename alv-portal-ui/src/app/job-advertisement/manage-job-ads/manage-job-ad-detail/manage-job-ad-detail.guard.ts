@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot
 } from '@angular/router';
 import { ManageJobAdsState } from '../state-management/state';
@@ -17,6 +18,7 @@ import { hasAnyAuthorities, UserRole } from '../../../core/auth/user.model';
 export class ManageJobAdDetailGuard implements CanActivate {
 
   constructor(private store: Store<ManageJobAdsState>,
+              private router: Router,
               private jobAdvertisementRepository: JobAdvertisementRepository,
               private authenticationService: AuthenticationService) {
   }
@@ -33,6 +35,7 @@ export class ManageJobAdDetailGuard implements CanActivate {
           return true;
         }),
         catchError(() => {
+          this.router.navigate(['home']);
           return of(false);
         })
       );
@@ -51,6 +54,7 @@ export class ManageJobAdDetailGuard implements CanActivate {
             return true;
           }),
           catchError(() => {
+            this.router.navigate(['home']);
             return of(false);
           })
         );
