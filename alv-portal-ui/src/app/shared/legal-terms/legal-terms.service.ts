@@ -14,7 +14,7 @@ export class LegalTermsService {
               private legalTermsManagementRepository: LegalTermsManagementRepository) {
   }
 
-  getCurrentLegalTermsUrl(): Observable<string> {
+  getLegalTermsUrl(): Observable<string> {
     return combineLatest(
       this.i18nService.currentLanguage$,
       this.legalTermsManagementRepository.getCurrentLegalTerms()

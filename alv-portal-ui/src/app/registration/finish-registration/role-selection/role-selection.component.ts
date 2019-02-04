@@ -44,7 +44,7 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
       termsAndConditions: [false, Validators.requiredTrue]
     });
 
-    this.legalTermsUrl$ = this.currentLegalTermsService.getCurrentLegalTermsUrl();
+    this.legalTermsUrl$ = this.currentLegalTermsService.getLegalTermsUrl();
   }
 
   selectRole() {
