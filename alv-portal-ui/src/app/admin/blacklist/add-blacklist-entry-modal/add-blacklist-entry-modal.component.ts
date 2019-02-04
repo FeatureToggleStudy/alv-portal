@@ -39,19 +39,19 @@ export class AddBlacklistEntryModalComponent implements OnInit {
     this.selectedOrganisation = item.payload;
   }
 
-  public confirmOrganizationAndCloseModal(){
-    if (!!this.selectedOrganisation){
+  public confirmOrganizationAndCloseModal() {
+    if (!!this.selectedOrganisation) {
       this.modal.close(this.selectedOrganisation.externalId);
     }
   }
 
   private searchOrganizations(term: string): Observable<TypeaheadItem<PavSuggestion>[]> {
     return this.pavSearchRepository.suggest(term).pipe(
-      map((arr: PavSuggestion[]) => arr.map(AddBlacklistEntryModalComponent.mapToItem))
-    )
+      map((arr: PavSuggestion[]) => arr.map(this.mapToItem))
+    );
   }
 
-  private static mapToItem(pavSuggestion: PavSuggestion, index: number): TypeaheadItem<PavSuggestion> {
+  private mapToItem(pavSuggestion: PavSuggestion, index: number): TypeaheadItem<PavSuggestion> {
     return new TypeaheadItem<PavSuggestion>(
       'pav',
       pavSuggestion,

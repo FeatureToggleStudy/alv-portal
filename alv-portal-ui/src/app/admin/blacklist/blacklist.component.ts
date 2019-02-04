@@ -79,7 +79,7 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
         this.showAlert(this.ALERTS.changeSuccess);
       }, () => {
         this.showAlert(this.ALERTS.techError);
-      })
+      });
   }
 
   private saveAddEntry(organizationExtId: string) {
@@ -93,8 +93,7 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
         () => {
           this.showAlert(this.ALERTS.techError);
         }
-      )
-
+      );
   }
 
   public openAddBlacklistEntryModal() {
@@ -104,7 +103,7 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
       },
       () => {
       }
-    )
+    );
   }
 
   public openChangeStatusDialog(agent: BlacklistedAgent) {
