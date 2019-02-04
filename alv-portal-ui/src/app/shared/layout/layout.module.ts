@@ -46,6 +46,7 @@ import { ContactModalComponent } from '../../candidate-search/candidate-detail/c
 import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
 import { UserNameAndCompanyComponent } from './user-name-and-company/user-name-and-company.component';
 import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-column-layout.component';
+import { CustomIconComponent } from './custom-icon/custom-icon.component';
 
 @NgModule({
   imports: [
@@ -90,7 +91,8 @@ import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-
     ContactModalComponent,
     UserNameAndCompanyComponent,
     ContactModalComponent,
-    TwoColumnLayoutComponent
+    TwoColumnLayoutComponent,
+    CustomIconComponent
   ],
   providers: [
     CandidateContactRepository
@@ -126,7 +128,8 @@ import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-
     ThreeColumnLayoutComponent,
     ScrollToTopComponent,
     ListItemContentComponent,
-    TwoColumnLayoutComponent
+    TwoColumnLayoutComponent,
+    CustomIconComponent
   ]
 })
 export class LayoutModule {

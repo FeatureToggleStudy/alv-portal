@@ -39,21 +39,21 @@
         {{'portal.header.contact' | translate}}
       </a>
       <a class="btn mx-3"
+         *alvIsAnonymous
          [href]="'home.registration.url' | translate"
          target="_blank"
          rel="noopener">
         {{'global.menu.account.registration.text' | translate}}
       </a>
-
     </div>
 
-    <button *ngIf="!user"
+    <button *alvIsAnonymous
             class="btn btn-primary d-none d-lg-block"
             (click)="login()">
       {{'global.menu.account.login'|translate}}
     </button>
 
-    <div *ngIf="currentLanguage$|async as currentLanguage"
+    <div *ngIf="currentLanguage$ | async as currentLanguage"
          class="language-switchers">
       <div class="header-buttons ml-1 d-none d-lg-flex align-items-center">
         <a class="mx-3"
