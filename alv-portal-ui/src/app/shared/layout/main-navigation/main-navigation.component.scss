@@ -84,7 +84,7 @@
 ::ng-deep .mobile-menu .nav-item,::ng-deep .desktop-menu .nav-item {
   display: flex;
   align-items: center;
-  padding: 6px 15px;
+  padding: 6px 15px 6px 10px;
   min-height: 39px;
   font-size: 18px;
   color: $color-black;
@@ -128,13 +128,9 @@
     background-color: $color-white;
   }
 
-  i.nav-icon, .svg-inline--fa.nav-icon {
-    margin-right: 12px;
-    font-size: 16px;
-  }
-
-  i.fas.fa-circle {
-    font-size: 8px;
+  .nav-icon {
+    margin-right: 7px;
+    font-size: 22px;
   }
 
   .nav-spacer, .nav-fill-item {

@@ -16,8 +16,10 @@
     <!-------------Main screen-->
     <div class="main-column">
       <h2>
-        <i class="fas fa-edit mr-2 text-primary"
-           aria-hidden="true"></i>
+        <alv-custom-icon class="mr-2 text-primary"
+                         aria-hidden="true"
+                         [iconKey]="IconKey.JOB_PUBLICATION">
+        </alv-custom-icon>
         {{'home.tools.jobPublicationTab' | translate}}
       </h2>
       <hr class="mt-2 mb-3">
