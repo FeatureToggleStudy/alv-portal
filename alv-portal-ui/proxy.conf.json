@@ -19,6 +19,11 @@
     "secure": false,
     "loglevel": "debug"
   },
+  "/swagger-ui.html": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
   "/swagger-resources/*": {
     "target": "https://staging.job-room.ch",
     "secure": false,
