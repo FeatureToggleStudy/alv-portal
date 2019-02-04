@@ -7,7 +7,7 @@
         <div class="flex-grow-1"></div>
         <a class="btn btn-text btn-text-icon mb-3 d-none d-md-block d-print-none"
            routerLink="/home">
-          <i class="fa fa-caret-left pr-1"></i>
+          <i class="fas fa-caret-left mr-1"></i>
           {{'entity.action.back' | translate}}
         </a>
       </div>
@@ -16,8 +16,10 @@
     <!-------------Main screen-->
     <div class="main-column">
       <h2>
-        <i class="fa fa-edit mr-2 text-primary"
-           aria-hidden="true"></i>
+        <alv-custom-icon class="text-primary"
+                         aria-hidden="true"
+                         [iconKey]="IconKey.JOB_PUBLICATION">
+        </alv-custom-icon>
         {{'home.tools.jobPublicationTab' | translate}}
       </h2>
       <hr class="mt-2 mb-3">
