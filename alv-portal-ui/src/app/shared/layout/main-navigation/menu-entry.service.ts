@@ -115,7 +115,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     id: 'blacklist',
-    icon: 'ban',
+    iconClass: 'ban',
     labelKey: 'portal.navigation.menu-entry.admin.blacklist',
     path: ['admin', 'blacklist'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
