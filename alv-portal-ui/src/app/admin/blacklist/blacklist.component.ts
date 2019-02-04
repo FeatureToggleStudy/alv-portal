@@ -16,6 +16,7 @@ import {
   NotificationType
 } from '../../shared/layout/notifications/notification.model';
 import { AddBlacklistEntryModalComponent } from './add-blacklist-entry-modal/add-blacklist-entry-modal.component';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-user-info',
@@ -45,7 +46,6 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
     } as Notification
   };
 
-
   constructor(private fb: FormBuilder,
               private blacklistRepository: BlacklistRepository,
               private modalService: ModalService) {
@@ -66,44 +66,48 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
   }
 
   private saveChangeStatus(agent: BlacklistedAgent) {
-    let status:BlacklistedAgentStatus;
-    if (this.isActive(agent)){
+    let status: BlacklistedAgentStatus;
+    if (this.isActive(agent)) {
       status = BlacklistedAgentStatus.INACTIVE;
     } else {
       status = BlacklistedAgentStatus.ACTIVE;
     }
     this.blacklistRepository.changeStatus(agent, status)
-        .subscribe(() => {
-          this.getAllBlacklistedAgents();
-          this.showAlert(this.ALERTS.changeSuccess);
-        }, () => {
-          this.showAlert(this.ALERTS.techError);
-        })
-  }
-
-  private saveAddEntry(organizationExtId: string){
-    this.blacklistRepository.createBlacklistEntryForPav(organizationExtId).subscribe(
-      () => {
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
         this.getAllBlacklistedAgents();
-        this.showAlert(this.ALERTS.addSuccess);
-      },
-      () => {
+        this.showAlert(this.ALERTS.changeSuccess);
+      }, () => {
         this.showAlert(this.ALERTS.techError);
-      }
-    )
+      })
+  }
+
+  private saveAddEntry(organizationExtId: string) {
+    this.blacklistRepository.createBlacklistEntryForPav(organizationExtId)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(
+        () => {
+          this.getAllBlacklistedAgents();
+          this.showAlert(this.ALERTS.addSuccess);
+        },
+        () => {
+          this.showAlert(this.ALERTS.techError);
+        }
+      )
 
   }
 
-  public openAddBlacklistEntryModal(){
+  public openAddBlacklistEntryModal() {
     this.modalService.openLarge(AddBlacklistEntryModalComponent, true).result.then(
       (result) => {
         this.saveAddEntry(result);
       },
-      () => {}
+      () => {
+      }
     )
   }
 
-  public openChangeStatusDialog(agent: BlacklistedAgent){
+  public openChangeStatusDialog(agent: BlacklistedAgent) {
     this.modalService.openConfirm({
       title: 'blacklisted-agent.change-status-dialog.title',
       content: 'blacklisted-agent.change-status-dialog.message',
@@ -115,10 +119,11 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
         () => {
           this.saveChangeStatus(agent);
         },
-        () => {});
+        () => {
+        });
   }
 
-  private showAlert(notification: Notification){
+  private showAlert(notification: Notification) {
     this.alert = notification;
   }
 

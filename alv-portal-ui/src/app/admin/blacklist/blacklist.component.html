@@ -25,16 +25,9 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>{{'blacklisted-agent.header.id' | translate }}</th>
-        <th>{{'blacklisted-agent.header.externalId' | translate }}</th>
-        <th>{{'blacklisted-agent.header.createdBy' | translate }}</th>
-        <th>{{'blacklisted-agent.header.counter' | translate }}</th>
-        <th>{{'blacklisted-agent.header.name' | translate }}</th>
-        <th>{{'blacklisted-agent.header.street' | translate }}</th>
-        <th>{{'blacklisted-agent.header.zipCode' | translate }}</th>
-        <th>{{'blacklisted-agent.header.city' | translate }}</th>
-        <th>{{'blacklisted-agent.header.blacklistedAt' | translate }}</th>
-        <th>{{'blacklisted-agent.header.status' | translate }}</th>
+        <th *ngFor="let columnName of ['id', 'externalId', 'createdBy', 'counter', 'name', 'street', 'zipCode', 'city', 'blacklistedAt', 'status' ]">
+          {{('blacklisted-agent.header.'+columnName) | translate }}
+        </th>
       </tr>
       </thead>
 
