@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BlacklistedAgent, BlacklistedAgentStatus } from './blacklist.types';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class BlacklistRepository {
   createBlacklistEntryForPav(organisationId: string) {
     const requestBody = {
       organizationId: organisationId
-    }
+    };
     return this.http.post<void>(`${this.BLACKLIST_API}`, requestBody, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
