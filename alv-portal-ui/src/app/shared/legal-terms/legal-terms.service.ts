@@ -28,13 +28,11 @@ function extractUrl(currentLanguage: string, legalTerms: LegalTerms): string {
   switch (currentLanguage) {
     case 'en':
       return legalTerms.linkEn;
-    case 'de':
-      return legalTerms.linkDe;
     case 'fr':
       return legalTerms.linkFr;
     case 'it':
       return legalTerms.linkIt;
     default:
-      throw Error('Failed to load legal terms url!');
+      return legalTerms.linkDe;
   }
 }
