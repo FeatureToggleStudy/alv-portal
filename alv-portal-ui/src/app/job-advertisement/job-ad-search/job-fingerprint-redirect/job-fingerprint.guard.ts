@@ -11,22 +11,16 @@ import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class JobFingerprintGuard implements CanActivate {
+
   constructor(private jobAdvertisementRepository: JobAdvertisementRepository,
               private router: Router) {
 
   }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | boolean {
-
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.jobAdvertisementRepository.findByFingerprint(next.queryParams['externalId']).pipe(
       map((job) => {
-        if (job !== null) {
-          this.router.navigate(['/job-search/', job.id]);
-          return false;
-        }
-        this.router.navigate(['home']);
+        this.router.navigate(['/job-search/', job.id]);
         return false;
       }),
       catchError(() => {
