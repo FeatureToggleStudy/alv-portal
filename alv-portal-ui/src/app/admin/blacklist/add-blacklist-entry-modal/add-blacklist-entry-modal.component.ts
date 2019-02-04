@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { catchError, map, mergeMap, toArray } from 'rxjs/operators';
+import { map, mergeMap, toArray } from 'rxjs/operators';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { from, Observable } from 'rxjs';
 import { PavSuggestion } from '../../../shared/backend-services/pav-search/pav-search.types';
 import { PavSearchRepository } from '../../../shared/backend-services/pav-search/pav-search.repository';
 import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
-import * as _ from 'lodash';
-
 
 @Component({
   selector: 'alv-add-blacklist-entry-modal',
@@ -50,12 +48,12 @@ export class AddBlacklistEntryModalComponent implements OnInit {
   private searchOrganizations(term: string): Observable<TypeaheadItem<PavSuggestion>[]> {
     return this.pavSearchRepository.suggest(term).pipe(
       mergeMap(organizations => from(organizations)),
-      map(this.mapToItem),
+      map(AddBlacklistEntryModalComponent.mapToItem),
       toArray()
     );
   }
 
-  private mapToItem(pavSuggestion: PavSuggestion, index: number): TypeaheadItem<PavSuggestion> {
+  private static mapToItem(pavSuggestion: PavSuggestion, index: number): TypeaheadItem<PavSuggestion> {
     return new TypeaheadItem<PavSuggestion>(
       'pav',
       pavSuggestion,

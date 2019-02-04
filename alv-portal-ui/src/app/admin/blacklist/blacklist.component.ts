@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 
@@ -20,7 +20,6 @@ import { AddBlacklistEntryModalComponent } from './add-blacklist-entry-modal/add
 @Component({
   selector: 'alv-user-info',
   templateUrl: './blacklist.component.html',
-  //styleUrls: ['./user-info.component.scss']
 })
 export class BlacklistComponent extends AbstractSubscriber implements OnInit {
 
