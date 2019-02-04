@@ -77,3 +77,18 @@ Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.pr
 ### Run development server with Angular CLI
 
 Run `npm run start:dev` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+### Use local development server with User from Staging
+In order to use the local development server running under `http://localhost:4200/` with an user from staging environment that has a certain role you have to do following steps: 
+1. make sure that the ui connects to the staging-backend. Thus following config needs to be present in `alv-portal-ui/proxy.conf.json`:  
+    ```  
+    "/api/*": {
+        "target": "https://staging.job-room.ch",  
+        "secure": false,  
+        "loglevel": "debug"  
+    }
+    ```
+1. Login on staging [https://staging.job-room.ch/alv-portal-webapp/](https://staging.job-room.ch/alv-portal-webapp/) with the desired user (via eIAM).
+1. After successful login you have to copy the the _bearer token_ from the session storage. Open the dev-console (F12 in most browsers) and go to the section "application/session storage". There you should find a key-value entry with the key `authenticationToken` and value something like this: `Bearer xyzAbd-iengfi293jueoen...`. Copy this value.
+1. Open a new tab/window and navigate to [http://localhost:4200/](http://localhost:4200/). There you can open the dev-console and enter `sessionStorage.setItem('authenticationToken', '<paste value here>');` and paste the value you copied before.
+1. Hit F5 to refresh the page and check if you are logged-in as the desired user. The name of the user should appear at the right end of the menu bar at the top.

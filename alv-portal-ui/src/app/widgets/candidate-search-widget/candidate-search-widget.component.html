@@ -1,7 +1,9 @@
 <div class="alv-panel pb-4">
   <h2 class="panel-title">
-    <i class="panel-icon fa fa-search mr-2"
-       aria-hidden="true"></i>
+    <alv-custom-icon class="panel-icon"
+                     aria-hidden="true"
+                     [iconKey]="IconKey.CANDIDATE_SEARCH">
+    </alv-custom-icon>
     {{'portal.widgets.candidate-search.title' | translate}}
   </h2>
   <alv-candidate-query-panel [(candidateQueryPanelValues)]="candidateQueryPanelValues"
