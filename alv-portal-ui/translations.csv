@@ -1283,25 +1283,28 @@ job,jobroomApp.job.rav, RAV,RAV,ORP,URC
 blacklisted-agent,blacklisted-agent.title,Blacklist für PAV,Blacklisted Agent,Blacklisted Agent,Blacklisted Agent
 blacklisted-agent,blacklisted-agent.filter.placeholder,"Filtern nach Id, External Id, Status, Name, Strasse or PLZ","Filter by Id, External Id, Status, Name, Street or Zip Code","Filter by Id, External Id, Status, Name, Street or Zip Code","Filter by Id, External Id, Status, Name, Street or Zip Code"
 blacklisted-agent,blacklisted-agent.header.id,Id,Id,Id,Id
-blacklisted-agent,blacklisted-agent.header.externalId,External Id,External Id,External Id,External Id
+blacklisted-agent,blacklisted-agent.header.externalId,Ext. Id,Ext. Id,Ext. Id,Ext. Id
 blacklisted-agent,blacklisted-agent.header.status,Status,Status,Status,Status
 blacklisted-agent,blacklisted-agent.header.name,Name,Name,Name,Name
 blacklisted-agent,blacklisted-agent.header.street,Strasse,Street,Street,Street
 blacklisted-agent,blacklisted-agent.header.zipCode,PLZ,Zip Code,Zip Code,Zip Code
 blacklisted-agent,blacklisted-agent.header.city,Ort,City,City,City
 blacklisted-agent,blacklisted-agent.header.createdBy,Erstellt von,Created By,Created By,Created By
-blacklisted-agent,blacklisted-agent.header.blacklistedAt,Aktualisiert am,Blacklisted At,Blacklisted At,Blacklisted At
+blacklisted-agent,blacklisted-agent.header.blacklistedAt,"Datum erste Sperre",Blacklisted At,Blacklisted At,Blacklisted At
 blacklisted-agent,blacklisted-agent.header.counter,Anzahl Sperrungen,Counter,Counter,Counter
 blacklisted-agent,blacklisted-agent.status.active,Aktiv,Active,Active,Active
 blacklisted-agent,blacklisted-agent.status.inactive,Inaktiv,Inactive,Inactive,Inactive
 blacklisted-agent,blacklisted-agent.create-blacklist-entry,PAV auf Blacklist setzen,Add PAV to Blacklist ,Add PAV to Blacklist ,Add PAV to Blacklist
+blacklisted-agent,blacklisted-agent.choose-organisation-placeholder,"Geben Sie den Namen einer Organisation ein","Please enter the name of an organization","Please enter the name of an organization","Please enter the name of an organization"
 blacklisted-agent,blacklisted-agent.choose-organisation-desc,"Bitte wählen Sie eine Organisation aus, die sie auf die Blacklist setzen möchten.","Please choose an organisation that you want to add to the blacklist.","Please choose an organisation that you want to add to the blacklist.","Please choose an organisation that you want to add to the blacklist."
 blacklisted-agent,blacklisted-agent.selected-organisation-desc,"Möchten Sie folgende Organisation auf die Blacklist setzen?" ,"Do you want to add the following organisation to the blacklist?" ,"Do you want to add the following organisation to the blacklist?" ,"Do you want to add the following organisation to the blacklist?"
 blacklisted-agent,blacklisted-agent.confirm-alert,"Diese Aktion wird sofort ausgeführt und kann nicht rückgängig gemacht werden!" ,"This action will be effectuated immediately and can not be undone!" ,"This action will be effectuated immediately and can not be undone!" ,"This action will be effectuated immediately and can not be undone!"
 blacklisted-agent,blacklisted-agent.change-status-dialog.title,Status des Blacklist-Eintrags ändern,Change Status of Blacklisted Agent,Change Status of Blacklisted Agent,Change Status of Blacklisted Agent,
-blacklisted-agent,blacklisted-agent.change-status-dialog.message,Möchten Sie wirklich den Blacklist-Eintrag für den PAV ändern?,Do you really want to change status of the blacklisted agent?,Do you really want to change status of the blacklisted agent?,Do you really want to change status of the blacklisted agent?
+blacklisted-agent,blacklisted-agent.change-status-dialog.message,"Möchten Sie wirklich den Blacklist-Eintrag für den PAV ""{{ agentName }}"" ändern?","Do you really want to change status of the blacklisted agent ""{{ agentName }}""?","Do you really want to change status of the blacklisted agent ""{{ agentName }}""?","Do you really want to change status of the blacklisted agent ""{{ agentName }}""?"
 blacklisted-agent,blacklisted-agent.change-status-dialog.change-status,Status ändern,Change Status,Change Status,Change Status
 blacklisted-agent,blacklisted-agent.change-status-dialog.cancel,Abbrechen,Cancel,Cancel,Cancel
+blacklisted-agent,blacklisted-agent.change-status-success-message,Status des PAV wurde erfolgreich geändert.,Status of agent was successfully changed.,Status of agent was successfully changed.,Status of agent was successfully changed.
+blacklisted-agent,blacklisted-agent.add-success-message,PAV wurde erfolgreich auf die Blacklist gesetzt.,Agent was successfully added to the blacklist.,Agent was successfully added to the blacklist.,Agent was successfully added to the blacklist.
 job-publication,job-publication.validation.title.maxlength,Dieses Feld darf max. 255 Zeichen lang sein.,This field cannot be longer than 255 characters.,Ce champ doit comporter au maximum 255 caractères.,Questo campo non può essere più di 255 caratteri.
 job-publication,job-publication.validation.language.maxlength,Dieses Feld darf max. 5 Zeichen lang sein.,This field cannot be longer than 5 characters.,Ce champ doit comporter au maximum 5 caractères.,Questo campo non può essere più di 5 caratteri.
 job-publication,job-publication.validation.description.maxlength,Dieses Feld darf max. 1000 Zeichen lang sein.,This field cannot be longer than 1000 characters.,Ce champ doit comporter au maximum 1000 caractères.,Questo campo non può essere più di 1000 caratteri.
@@ -1358,6 +1361,7 @@ portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
 portal,portal.navigation.menu-entry.account.profile,Profile,Profile
 portal,portal.navigation.menu-entry.admin.system-notifications,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
 portal,portal.navigation.menu-entry.admin.user-info,Benutzerinformationen,User Info,User Info,User Info
+portal,portal.navigation.menu-entry.admin.blacklist,Blacklist,Blacklist,Blacklist,Blacklist
 portal,portal.navigation.label.main-navigation,,Main navigation
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
