@@ -9,6 +9,12 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShowcaseComponent } from './showcase/showcase.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas);
 
 
 @NgModule({
@@ -21,7 +27,8 @@ import { ShowcaseComponent } from './showcase/showcase.component';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

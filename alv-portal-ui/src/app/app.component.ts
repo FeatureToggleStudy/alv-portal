@@ -6,6 +6,12 @@ import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
 import { AbstractSubscriber } from './core/abstract-subscriber';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas);
+
+
 const FALLBACK_TITLE_KEY = 'global.title';
 
 @Component({
@@ -66,9 +72,9 @@ export class AppComponent extends AbstractSubscriber implements OnInit {
         this.zone.runOutsideAngular(() => {
           setTimeout(() => {
             setTimeout(() => {
-              this.changeSvgPaths();
-            }, 50);
-          }, 0);
+              //this.changeSvgPaths();
+            }, 100);
+          }, 50);
         });
       });
   }
@@ -81,25 +87,77 @@ export class AppComponent extends AbstractSubscriber implements OnInit {
       .replace(window.location.hash, '')
       .replace(/\/$/gi, '');
 
+
     [].slice
-      .call(document.querySelectorAll('*[mask]'))
-      /**
-       * Filter out all elements whose namespaced `mask` attributes doesn't
-       * which doesnt have cross referenced values
-       *
-       * Note: we're assuming the `url(` prefix for the cross referenced mask !
-       */
-      .filter((element: Element) => element.getAttribute('mask').indexOf('url(') !== -1)
+      .call(document.querySelectorAll('use[*|href]'))
 
       /**
-       * Insert `window.location` to the `mask` attribute value,
+       * Filter out all elements whose namespaced `href` attribute doesn't
+       * start with `#` (i.e. all non-relative IRI's)
+       *
+       * Note: we're assuming the `xlink` prefix for the XLink namespace!
+       */
+      .filter(function (element) {
+        return (
+          element
+            .getAttributeNS('http://www.w3.org/1999/xlink', 'href')
+            .indexOf('#') !== -1
+        );
+      })
+
+      /**
+       * Prepend `window.location` to the namespaced `href` attribute value,
        * in order to make it an absolute IRI
        *
+       * Note: we're assuming the `xlink` prefix for the XLink namespace!
        */
+      .forEach(function (element: HTMLElement) {
+        const oldHref = element.getAttributeNS(
+          'http://www.w3.org/1999/xlink',
+          'href'
+        ) as string;
+        const idPart = oldHref.slice(oldHref.indexOf('#'));
+        element.setAttributeNS(
+          'http://www.w3.org/1999/xlink',
+          'xlink:href',
+          baseUrl + idPart
+        );
+      });
+
+    [].slice
+      .call(document.querySelectorAll('svg'))
+      .filter(function (element: SVGElement) {
+        return (
+          'mask' in element.style && element.style.mask.indexOf('url(') !== -1
+        );
+      })
+      .forEach(function (element: SVGElement) {
+        const attrVal = element.style.mask;
+        element.style.mask = `url(${baseUrl}${attrVal.slice(
+          attrVal.indexOf('#')
+        )}`;
+      });
+
+    [].slice
+      .call(document.querySelectorAll('*[mask]'))
+      .filter((element: Element) => element.getAttribute('mask').indexOf('url(') !== -1)
       .forEach((element: Element) => {
         const attrVal = element.getAttribute('mask');
         element.setAttribute(
           'mask',
+          `url(${baseUrl}${attrVal.slice(attrVal.indexOf('#'))}`
+        );
+      });
+
+    [].slice
+      .call(document.querySelectorAll('*[clip-path]'))
+      .filter(function (element: Element) {
+        return element.getAttribute('clip-path').indexOf('url(') !== -1;
+      })
+      .forEach(function (element: Element) {
+        const attrVal = element.getAttribute('clip-path');
+        element.setAttribute(
+          'clip-path',
           `url(${baseUrl}${attrVal.slice(attrVal.indexOf('#'))}`
         );
       });

@@ -11,10 +11,6 @@ import { PipesModule } from './pipes/pipes.module';
 import { GeoLocationSelectionComponent } from './localities/geo-location-selection/geo-location-selection.component';
 import { LandingPageGuard } from './landing-page/landing-page.guard';
 import { DummyComponent } from './dummy/dummy.component';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-
-library.add(fas);
 
 @NgModule({
   declarations: [
@@ -41,8 +37,7 @@ library.add(fas);
     PipesModule,
     ClipboardModule,
     MarkdownModule,
-    SharedAuthModule,
-    GeoLocationSelectionComponent,
+    GeoLocationSelectionComponent
   ],
   providers: [
     LandingPageGuard

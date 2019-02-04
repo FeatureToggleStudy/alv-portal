@@ -47,6 +47,7 @@ import { CandidateContactRepository } from '../backend-services/candidate/candid
 import { UserNameAndCompanyComponent } from './user-name-and-company/user-name-and-company.component';
 import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-column-layout.component';
 import { CustomIconComponent } from './custom-icon/custom-icon.component';
+import { SvgFixingDirective } from './svg-fixing.directive';
 
 @NgModule({
   imports: [
@@ -92,7 +93,8 @@ import { CustomIconComponent } from './custom-icon/custom-icon.component';
     UserNameAndCompanyComponent,
     ContactModalComponent,
     TwoColumnLayoutComponent,
-    CustomIconComponent
+    CustomIconComponent,
+    SvgFixingDirective
   ],
   providers: [
     CandidateContactRepository
@@ -129,7 +131,8 @@ import { CustomIconComponent } from './custom-icon/custom-icon.component';
     ScrollToTopComponent,
     ListItemContentComponent,
     TwoColumnLayoutComponent,
-    CustomIconComponent
+    CustomIconComponent,
+    SvgFixingDirective
   ]
 })
 export class LayoutModule {
