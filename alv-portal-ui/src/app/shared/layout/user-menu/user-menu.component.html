@@ -5,10 +5,11 @@
           id="userMenu"
           ngbDropdownToggle>
     <span class="text-left d-flex">
-      <i *ngIf="!hideRegistrationAction"
-         class="fas fa-exclamation-triangle fa-fw mr-2"
-         aria-hidden="true">
-      </i>
+      <span *ngIf="!hideRegistrationAction">
+        <i class="fas fa-exclamation-triangle fa-fw mr-2"
+           aria-hidden="true">
+        </i>
+      </span>
       <i class="fas fa-user fa-fw d-inline d-lg-none"
          aria-hidden="true">
       </i>
