@@ -39,6 +39,7 @@
         {{'portal.header.contact' | translate}}
       </a>
       <a class="btn mx-3"
+         *ngIf="!user"
          [href]="'home.registration.url' | translate"
          target="_blank"
          rel="noopener">
