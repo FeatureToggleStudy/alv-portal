@@ -4,6 +4,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { LegalTermsManagementComponent } from './legal-terms-management/legal-terms-management.component';
 import { UserRole } from '../core/auth/user.model';
 import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
+import { AuditsComponent } from './audits/audits.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,15 @@ const routes: Routes = [
       titleKey: 'portal.admin.legal-terms-management.title',
       authorities: [UserRole.ROLE_SYSADMIN, UserRole.ROLE_ADMIN]
     }
+  },
+  {
+    path: 'audits',
+    component: AuditsComponent,
+    data: {
+      titleKey: 'portal.admin.audits.title'
+    }
   }
+
 ];
 
 @NgModule({

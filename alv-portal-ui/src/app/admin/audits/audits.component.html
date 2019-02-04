@@ -1,0 +1,38 @@
+<div class="container pt-md-4 pt-3 px-3">
+
+  <h2 class="panel-title">
+    <i class="panel-icon fa fa-bell"></i>
+    {{ 'portal.admin.audits.title' | translate }}
+  </h2>
+
+  <hr>
+
+  <form [formGroup]="form"
+        alvFormSubmitValidation>
+    <small>
+      <i class="fas fa-calendar-alt"></i>
+      {{ 'portal.admin.audits.filter.filter-by-dates' | translate }}
+    </small>
+    <div class="form-row">
+      <div class="col-3">
+        <alv-date-input alvFormControlName="from"
+                        label="portal.admin.audits.filter.from"
+                        [maxDate]="form.get('to')?.value">
+        </alv-date-input>
+      </div>
+      <div class="col-3">
+        <alv-date-input alvFormControlName="to"
+                        label="portal.admin.audits.filter.to"
+                        [minDate]="form.get('from')?.value"
+                        placement="bottom-right">
+        </alv-date-input>
+      </div>
+    </div>
+
+  </form>
+
+  <alv-audits-table>
+
+  </alv-audits-table>
+
+</div>

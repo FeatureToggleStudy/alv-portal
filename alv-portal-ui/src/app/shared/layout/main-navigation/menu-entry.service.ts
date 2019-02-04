@@ -104,6 +104,13 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     labelKey: 'portal.admin.legal-terms-management.title',
     path: ['admin', 'legal-terms-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
+  },
+  {
+    id: 'audits',
+    icon: 'bell',
+    labelKey: 'portal.admin.audits.title',
+    path: ['admin', 'audits'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   }
 ];
 

@@ -10,6 +10,8 @@ import { ModalService } from '../shared/layout/modal/modal.service';
 import { NotificationsService } from '../core/notifications.service';
 import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
 import { SystemNotificationModalComponent } from './system-notifications/modal/system-notification-modal.component';
+import { AuditsComponent } from './audits/audits.component';
+import { AuditsTableComponent } from './audits/audits-table/audits-table.component';
 
 @NgModule({
   imports: [
@@ -22,7 +24,9 @@ import { SystemNotificationModalComponent } from './system-notifications/modal/s
     SystemNotificationsComponent,
     SystemNotificationModalComponent,
     LegalTermsManagementComponent,
-    LegalTermsDetailModalComponent
+    LegalTermsDetailModalComponent,
+    AuditsComponent,
+    AuditsTableComponent
   ],
   providers: [
     UserInfoBadgesMapperService,
