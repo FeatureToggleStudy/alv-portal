@@ -4,14 +4,38 @@
 
   <div class="alv-light-panel p-2 mb-1">
     <alv-checkbox class="narrow-form"
-                  label="portal.job-publication.publication.publicDisplay.label"
-                  alvFormControlName="publicDisplay"></alv-checkbox>
+                  alvFormControlName="publicDisplay">
+      <a href="https://www.job-room.ch"
+         class="link"
+         target="_blank">
+        <fa-icon class="link-icon"
+                 [icon]="['fas', 'caret-right']"></fa-icon>
+        {{'portal.job-publication.publication.publicDisplay.job-room.label' | translate}}
+      </a>
+      &nbsp;
+      {{'portal.job-publication.publication.publicDisplay.and' | translate}}
+      &nbsp;
+      <a href="http://www.job-desk.ch"
+         class="link"
+         target="_blank">
+        <fa-icon class="link-icon"
+                 [icon]="['fas', 'caret-right']"></fa-icon>
+        {{'portal.job-publication.publication.publicDisplay.job-desk.label' | translate}}
+      </a>
+    </alv-checkbox>
   </div>
 
   <div class="alv-light-panel p-2 mb-1">
     <alv-checkbox class="narrow-form"
-                  label="portal.job-publication.publication.euresDisplay.label"
-                  alvFormControlName="euresDisplay"></alv-checkbox>
+                  alvFormControlName="euresDisplay">
+      <a [href]="'portal.job-publication.publication.euresDisplay.link' | translate"
+         class="link"
+         target="_blank">
+        <fa-icon class="link-icon"
+                 [icon]="['fas', 'caret-right']"></fa-icon>
+        {{'portal.job-publication.publication.euresDisplay.label' | translate}}
+      </a>
+    </alv-checkbox>
   </div>
 
 </fieldset>
