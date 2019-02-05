@@ -8,6 +8,7 @@ import { SystemNotificationDto } from './system-notification.types';
 export class SystemNotificationRepository {
 
   public static SYSTEM_NOTIFICATION_URL = '/api/system-notifications/';
+  public static SYSTEM_NOTIFICATION_ACTIVE_URL = '/api/active-system-notifications';
 
   constructor(private http: HttpClient) {
   }
@@ -29,7 +30,7 @@ export class SystemNotificationRepository {
   }
 
   getActiveSystemNotifications(): Observable<SystemNotificationDto[]> {
-    return this.http.get<SystemNotificationDto[]>(SystemNotificationRepository.SYSTEM_NOTIFICATION_URL);
+    return this.http.get<SystemNotificationDto[]>(SystemNotificationRepository.SYSTEM_NOTIFICATION_ACTIVE_URL);
   }
 
 }

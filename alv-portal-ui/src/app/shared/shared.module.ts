@@ -11,11 +11,13 @@ import { PipesModule } from './pipes/pipes.module';
 import { GeoLocationSelectionComponent } from './localities/geo-location-selection/geo-location-selection.component';
 import { LandingPageGuard } from './landing-page/landing-page.guard';
 import { DummyComponent } from './dummy/dummy.component';
+import { SystemNotificationComponent } from './layout/system-notification/system-notification.component';
 
 @NgModule({
   declarations: [
     GeoLocationSelectionComponent,
     DummyComponent,
+    SystemNotificationComponent
   ],
   imports: [
     TranslateModule.forChild(),
@@ -39,6 +41,7 @@ import { DummyComponent } from './dummy/dummy.component';
     MarkdownModule,
     SharedAuthModule,
     GeoLocationSelectionComponent,
+    SystemNotificationComponent
   ],
   providers: [
     LandingPageGuard

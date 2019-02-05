@@ -1,16 +1,19 @@
+<alv-system-notification
+  [activeSystemNotifications]="activeSystemNotifications$ | async">
+</alv-system-notification>
 
-<div><alv-alert class="alert w-100 d-block mb-0" [hideDismiss]="true"
-                [notification]="{type: 1,
+<div>
+  <alv-alert class="alert w-100 d-block mb-0"
+             [hideDismiss]="true"
+             [notification]="{type: 1,
         messageKey: 'test message',
          isSticky: true}">
-</alv-alert>
-
+  </alv-alert>
 </div>
 
 <div class="position-relative h-100">
   <alv-notifications-container></alv-notifications-container>
   <alv-header></alv-header>
-
 
   <alv-navigation-container>
     <router-outlet></router-outlet>
