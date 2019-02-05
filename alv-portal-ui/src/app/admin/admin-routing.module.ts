@@ -51,7 +51,7 @@ const routes: Routes = [
     path: 'elastic-search-reindex',
     component: ElasticSearchReindexComponent,
     data: {
-      titleKey: 'portal.admin.legal-terms-management.title'
+      titleKey: 'portal.admin.elastic-search-reindex.title'
     }
   }
 ];

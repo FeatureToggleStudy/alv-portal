@@ -54,19 +54,13 @@ export class ElasticSearchReindexComponent implements OnInit {
       () => this.elasticSearchReindexRepository.reindex(this.resolveFormValues())
         .subscribe(() => {
           this.alert = MESSAGE.success;
-          this.reInitForm();
+          this.form.reset();
           this.checkStatusOfReindexingJobs();
         }, () => {
           this.alert = MESSAGE.failure;
         }),
       () => {}
     );
-  }
-
-  private reInitForm() {
-    this.toggleFormCheckboxes(false);
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
   }
 
   private checkStatusOfReindexingJobs() {
