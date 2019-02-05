@@ -14,6 +14,16 @@
     "secure": false,
     "loglevel": "debug"
   },
+  "/euresintegrationservice/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/jobdeskintegrationservice/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
   "/candidateservice/*": {
     "target": "https://staging.job-room.ch",
     "secure": false,

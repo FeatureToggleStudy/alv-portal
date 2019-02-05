@@ -122,7 +122,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     id: 'api-doc',
-    icon: 'book',
+    iconClass: 'book',
     labelKey: 'portal.navigation.menu-entry.admin.api-doc',
     path: ['admin', 'api-doc'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
