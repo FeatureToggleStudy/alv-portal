@@ -9,13 +9,16 @@
           (click)="onSort(columnDefinition.columnName)"
           [ngClass]="{'active-sort' : currentSorting.columnName === columnDefinition.columnName}">
         {{ 'portal.admin.api-user-management.' + columnDefinition.columnName | translate }}
-        <span class="fa fa-sort ml-2 text-primary"
-              *ngIf="currentSorting.columnName === columnDefinition.columnName; else placeholder"
-              [ngClass]="{
-              'fa-sort-down': currentSorting.sorting === 'desc',
-              'fa-sort-up': currentSorting.sorting === 'asc'
-              }">
-        </span>
+        <ng-container *ngIf="currentSorting.columnName === columnDefinition.columnName; else placeholder">
+          <fa-icon class="ml-2 text-primary"
+                   *ngIf="currentSorting.sorting === 'desc'"
+                   [icon]="['fas', 'sort-down']">
+          </fa-icon>
+          <fa-icon class="ml-2 text-primary"
+                   *ngIf="currentSorting.sorting === 'asc'"
+                   [icon]="['fas', 'sort-up']">
+          </fa-icon>
+        </ng-container>
       </th>
       <th scope="col"
           role="columnheader">
