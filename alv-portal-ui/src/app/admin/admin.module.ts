@@ -34,7 +34,6 @@ import { ApiUserManagementTableComponent } from './api-user-management/api-user-
     SystemNotificationModalComponent,
     LegalTermsManagementComponent,
     LegalTermsDetailModalComponent,
-    LegalTermsDetailModalComponent,
     ApiDocComponent,
     ApiUserManagementComponent,
     ApiUserModalComponent,
@@ -49,7 +48,6 @@ import { ApiUserManagementTableComponent } from './api-user-management/api-user-
   ],
   entryComponents: [
     SystemNotificationModalComponent,
-    LegalTermsDetailModalComponent,
     LegalTermsDetailModalComponent,
     ApiDocComponent,
     ApiUserModalComponent,
