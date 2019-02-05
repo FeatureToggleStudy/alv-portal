@@ -4,6 +4,10 @@ body {
   overflow: hidden;
 }
 
+html, body, alv-root {
+  height: 100%;
+}
+
 @import "scss/common/fonts";
 @import "scss/overrides/theme";
 @import "../node_modules/bootstrap/scss/bootstrap";

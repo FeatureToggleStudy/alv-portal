@@ -15,7 +15,7 @@ const PATH_TO_PICTURE = {
 })
 export class NavigationContainerComponent implements OnInit {
 
-  @HostBinding('class') readonly class = 'd-block d-md-flex';
+  @HostBinding('class') readonly class = 'd-block d-md-flex h-100';
   public currentMainStyle: string;
 
   constructor(private router: Router) { }

@@ -1,6 +1,23 @@
-<alv-notifications-container></alv-notifications-container>
 
-<alv-header></alv-header>
+<div><alv-alert class="alert w-100 d-block mb-0" [hideDismiss]="true"
+                [notification]="{type: 1,
+        messageKey: 'test message',
+         isSticky: true}">
+</alv-alert>
+
+</div>
+
+<div class="position-relative h-100">
+  <alv-notifications-container></alv-notifications-container>
+  <alv-header></alv-header>
+
+
+  <alv-navigation-container>
+    <router-outlet></router-outlet>
+  </alv-navigation-container>
+
+  <alv-version></alv-version>
+</div>
 
 <div class="sr-only"
      role="status"
@@ -9,8 +26,4 @@
   {{a11yMessage}}
 </div>
 
-<alv-navigation-container>
-  <router-outlet></router-outlet>
-</alv-navigation-container>
 
-<alv-version></alv-version>
