@@ -1,10 +1,9 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './core/auth/authentication.service';
 import { filter, map, mergeMap, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
-import { AbstractSubscriber } from './core/abstract-subscriber';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +18,7 @@ const FALLBACK_TITLE_KEY = 'global.title';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent extends AbstractSubscriber implements OnInit {
+export class AppComponent implements OnInit {
 
   a11yMessage: string;
 
@@ -27,9 +26,7 @@ export class AppComponent extends AbstractSubscriber implements OnInit {
               private titleService: Title,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private authenticationService: AuthenticationService,
-              private zone: NgZone) {
-    super();
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
