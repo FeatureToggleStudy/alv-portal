@@ -110,7 +110,8 @@
                                label="job-detail.application.online">
           <a class="link"
              [attr.href]="formUrl | normalizeUrl">
-            <i class="fas fa-caret-right link-icon"></i>
+            <fa-icon class="link-icon"
+                     [icon]="['fas', 'caret-right']"></fa-icon>
             {{ 'job-publication-details.application.online-form' | translate}}
           </a>
         </alv-list-item-content>
@@ -119,7 +120,8 @@
                                label="job-detail.application.email">
           <a class="link"
              href="mailto:{{emailAddress}}">
-            <i class="fas fa-caret-right link-icon"></i>
+            <fa-icon class="link-icon"
+                     [icon]="['fas', 'caret-right']"></fa-icon>
             {{emailAddress}}
           </a>
         </alv-list-item-content>
@@ -128,7 +130,8 @@
                                label="job-detail.application.phone">
           <a class="link"
              href="tel:{{phoneNumber}}">
-            <i class="fas fa-caret-right link-icon"></i>
+            <fa-icon class="link-icon"
+                     [icon]="['fas', 'caret-right']"></fa-icon>
             {{(phoneNumber) | phoneNumber}}
           </a>
         </alv-list-item-content>

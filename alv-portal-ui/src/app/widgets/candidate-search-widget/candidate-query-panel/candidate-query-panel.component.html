@@ -57,10 +57,11 @@
           class="btn btn-primary ml-md-2"
           type="submit">
     <span *ngIf="showSpinner">
-      <i class="fas fa-sync-alt fa-spin" aria-hidden="true"></i>
+      <fa-icon [icon]="['fas', 'sync-alt']"
+               [spin]="true"></fa-icon>
     </span>
     <span *ngIf="!showSpinner">
-       <i class="fas fa-search" aria-hidden="true"></i>
+      <fa-icon [icon]="['fas', 'search']"></fa-icon>
     </span>
   </button>
 </form>

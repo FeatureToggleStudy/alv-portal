@@ -20,7 +20,9 @@
   <a [href]="legalTermsUrl$ | async"
      class="link terms-of-use mt-2"
      target="_blank">
-    <i class="fas fa-caret-right link-icon"></i>{{'portal.registration.termsOfUse.label' | translate}}
+    <fa-icon class="link-icon"
+             [icon]="['fas', 'caret-right']"></fa-icon>
+    {{'portal.registration.termsOfUse.label' | translate}}
   </a>
 
 

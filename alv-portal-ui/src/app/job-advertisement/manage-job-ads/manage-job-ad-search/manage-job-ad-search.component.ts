@@ -27,7 +27,7 @@ import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widg
 import { Router } from '@angular/router';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { JobAdvertisementUpdatedAction } from '../../../core/state-management/actions/core.actions';
-import { IconKey } from '../../../shared/layout/custom-icon/custom-icon.component';
+import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 
 interface FilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge

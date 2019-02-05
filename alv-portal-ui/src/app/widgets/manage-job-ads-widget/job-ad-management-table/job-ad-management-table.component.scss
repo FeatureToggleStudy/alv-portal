@@ -18,6 +18,9 @@ th {
     color: $color-dark-grey;
   }
 
+  &.clickable-column-header {
+    cursor: pointer;
+  }
 }
 
 .dropdown-toggle::after {
