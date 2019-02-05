@@ -1,20 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  CandidateProfile,
-  EmailContactModal
-} from '../../../shared/backend-services/candidate/candidate.types';
+import { CandidateProfile, EmailContactModal } from '../../../shared/backend-services/candidate/candidate.types';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, filter, startWith, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { CandidateContactRepository } from '../../../shared/backend-services/candidate/candidate-contact-repository';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { IsoCountryService } from '../../../job-advertisement/job-publication/job-publication-form/iso-country.service';
 
 @Component({
   selector: 'alv-contact-modal',
@@ -37,6 +36,10 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   @Input()
   candidate: CandidateProfile;
 
+  countryOptions$: Observable<SelectableOption[]>;
+
+  countryIsoCode$: Observable<String>;
+
   form: FormGroup;
 
   mailBodyPreamble: string;
@@ -45,10 +48,12 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
   constructor(private authenticationService: AuthenticationService,
               private i18nService: I18nService,
+              private isoCountryService: IsoCountryService,
               private fb: FormBuilder,
               private candidateContactRepository: CandidateContactRepository,
               public activeModal: NgbActiveModal) {
     super();
+    this.countryOptions$ = this.isoCountryService.countryOptionsSorted$;
   }
 
   ngOnInit() {
@@ -104,6 +109,12 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
         }
       });
 
+    this.countryIsoCode$ = this.form.controls.company.get('countryIsoCode').valueChanges
+      .pipe(
+        filter((value) => !!value),
+        startWith(IsoCountryService.ISO_CODE_SWITZERLAND),
+      );
+
   }
 
   onSubmit() {
@@ -143,7 +154,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
       companyZipCode: [null, Validators.required],
       companyCity: [null, Validators.required],
-      companyCountry: [null, Validators.required]
+      countryIsoCode: [null, Validators.required]
     });
   }
 
@@ -171,7 +182,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       companyHouseNr: company.companyHouseNr,
       companyZipCode: company.companyZipCode,
       companyCity: company.companyCity,
-      companyCountry: this.countryValue
+      countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND
     });
   }
 

@@ -17,6 +17,7 @@ import { CandidateSearchGuard } from './candidate-search/candidate-search.guard'
 import { CandidateSearchFilterParameterService } from './candidate-search/candidate-search-filter-parameter.service';
 import { CandidateProfileBadgesMapperService } from './candidate-profile-badges-mapper.service';
 import { WidgetsModule } from '../widgets/widgets.module';
+import { IsoCountryService } from '../job-advertisement/job-publication/job-publication-form/iso-country.service';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { WidgetsModule } from '../widgets/widgets.module';
     CandidateSearchGuard,
     CandidateSearchFilterParameterService,
     CandidateProfileBadgesMapperService,
+    IsoCountryService,
     CandidateDetailModelFactory
   ]
 })
