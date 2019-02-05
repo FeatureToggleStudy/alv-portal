@@ -13,7 +13,8 @@ import { ApiUserPasswordModalComponent } from '../api-user-password-modal/api-us
 
 @Component({
   selector: 'alv-api-user-management-table',
-  templateUrl: './api-user-management-table.component.html'
+  templateUrl: './api-user-management-table.component.html',
+  styleUrls: ['api-user-management-table.component.scss']
 })
 export class ApiUserManagementTableComponent implements OnInit {
 
