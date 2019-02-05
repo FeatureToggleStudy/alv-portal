@@ -11,6 +11,7 @@ import {
   UserRole
 } from '../../../core/auth/user.model';
 import { MenuEntry } from './menu-entry.type';
+import { IconKey } from '../custom-icon/custom-icon.component';
 
 interface UserMenuDefinition {
   id: string;
@@ -44,77 +45,77 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
 const MENU_ENTRIES: Array<MenuEntry> = [
   {
     id: 'home',
-    icon: 'home',
+    iconClass: 'home',
     labelKey: 'global.menu.home',
     path: ['home'],
     userPredicate: isNotAuthenticatedUser
   },
   {
     id: 'dashboard',
-    icon: 'home',
+    iconClass: 'home',
     labelKey: 'global.menu.home',
     path: ['dashboard'],
     userPredicate: isAuthenticatedUser
   },
   {
     id: 'job-search',
-    icon: 'search',
+    iconKey: IconKey.JOB_AD_SEARCH,
     labelKey: 'portal.navigation.menu-entry.job-search',
     path: ['job-search'],
     userPredicate: isAnyUser
   },
   {
     id: 'candidate-search',
-    icon: 'search',
+    iconKey: IconKey.CANDIDATE_SEARCH,
     labelKey: 'portal.navigation.menu-entry.candidate-search',
     path: ['candidate-search'],
     userPredicate: isAnyUser
   },
   {
     id: 'job-publication',
-    icon: 'edit',
+    iconKey: IconKey.JOB_PUBLICATION,
     labelKey: 'portal.navigation.menu-entry.job-publication',
     path: ['job-publication'],
     userPredicate: isAnyUser
   },
   {
     id: 'manage-job-ads',
-    icon: 'table',
+    iconKey: IconKey.MANAGE_JOB_ADS,
     labelKey: 'portal.navigation.menu-entry.manage-job-ads',
     path: ['manage-job-ads'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
   },
   {
     id: 'user-info',
-    icon: 'user',
+    iconClass: 'user',
     labelKey: 'portal.navigation.menu-entry.admin.user-info',
     path: ['admin', 'user-info'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'system-notifications',
-    icon: 'comment-alt',
+    iconClass: 'comment-alt',
     labelKey: 'portal.navigation.menu-entry.admin.system-notifications',
     path: ['admin', 'system-notifications'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'legal-terms-management',
-    icon: 'balance-scale',
+    iconClass: 'balance-scale',
     labelKey: 'portal.admin.legal-terms-management.title',
     path: ['admin', 'legal-terms-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'api-user-management',
-    icon: 'users',
+    iconClass: 'users',
     labelKey: 'portal.admin.api-user-management.menu-entry',
     path: ['admin', 'api-user-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'blacklist',
-    icon: 'ban',
+    iconClass: 'ban',
     labelKey: 'portal.navigation.menu-entry.admin.blacklist',
     path: ['admin', 'blacklist'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])

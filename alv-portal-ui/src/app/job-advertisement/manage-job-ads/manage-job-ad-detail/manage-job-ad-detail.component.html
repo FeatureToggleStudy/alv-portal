@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid pt-4">
   <alv-three-column-layout *ngIf="jobDetailModel$ | async as jobDetailModel"
                            [mobileOrdering]="[2, 1, null]">
     <ng-container class="mobile-menu-bar">
@@ -6,7 +6,7 @@
         <div *ngIf="isPavOrCompany">
           <a class="btn btn-text btn-text-icon"
              routerLink="/manage-job-ads">
-            <i class="fa fa-caret-left mr-1"></i>
+            <i class="fas fa-caret-left mr-1"></i>
             {{'job-detail.back' | translate}}
           </a>
         </div>
@@ -19,7 +19,7 @@
                   id="dropdownMenu"
                   ngbDropdownAnchor
                   aria-hidden="true">
-            <i class="fa fa-ellipsis-v"></i>
+            <i class="fas fa-ellipsis-v"></i>
           </button>
           <div aria-hidden="true"
                ngbDropdownMenu>
@@ -37,13 +37,13 @@
                     [disabled]="!isCancellable"
                     (click)="cancelJobAdAction()">
               <i aria-hidden="true"
-                 class="fa fa-trash mr-1"></i>
+                 class="fas fa-trash mr-1"></i>
               {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
             </button>
             <button class="dropdown-item"
                     (click)="duplicateJobAdAction()">
               <i aria-hidden="true"
-                 class="fa fa-copy mr-1"></i>
+                 class="fas fa-copy mr-1"></i>
               {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
             </button>
           </div>
@@ -56,7 +56,7 @@
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
          routerLink="/manage-job-ads"
          *ngIf="isPavOrCompany">
-        <i class="fa fa-caret-left pr-1"></i>
+        <i class="fas fa-caret-left mr-1"></i>
         {{'job-detail.back' | translate}}
       </a>
       <div class="d-flex d-sm-block flex-column-reverse">
@@ -87,7 +87,7 @@
         <button (click)="prev()"
                 [disabled]="!(prevEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
-          <i class="fa fa-caret-left mr-1"></i>
+          <i class="fas fa-caret-left mr-1"></i>
           {{'portal.job-detail.previous-result' | translate}}
         </button>
         <div class="flex-grow-1"></div>
@@ -95,7 +95,7 @@
                 [disabled]="!(nextEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
-          <i class="fa fa-caret-right ml-1"></i>
+          <i class="fas fa-caret-right ml-1"></i>
         </button>
       </div>
 
@@ -104,13 +104,13 @@
                 [disabled]="!isCancellable"
                 (click)="cancelJobAdAction()">
           <i aria-hidden="true"
-             class="fa fa-trash mr-1"></i>
+             class="fas fa-trash mr-1"></i>
           {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
         </button>
         <button class="btn btn-text btn-text-icon btn-truncate"
                 (click)="duplicateJobAdAction()">
           <i aria-hidden="true"
-             class="fa fa-copy mr-1"></i>
+             class="fas fa-copy mr-1"></i>
           {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
         </button>
       </div>
