@@ -1,6 +1,6 @@
 <div *ngIf="apiUserList?.length; else noResults">
   <table class="table table-striped"
-          role="grid">
+         role="grid">
     <thead role="presentation">
     <tr role="row">
       <th scope="col"
@@ -9,13 +9,15 @@
           (click)="onSort(columnDefinition.columnName)"
           [ngClass]="{'active-sort' : currentSorting.columnName === columnDefinition.columnName}">
         {{ 'portal.admin.api-user-management.' + columnDefinition.columnName | translate }}
-        <span class="fa fa-sort ml-2 text-primary"
-              *ngIf="currentSorting.columnName === columnDefinition.columnName; else placeholder"
-              [ngClass]="{
-              'fa-sort-down': currentSorting.sorting === 'desc',
-              'fa-sort-up': currentSorting.sorting === 'asc'
-              }">
-        </span>
+        <span *ngIf="currentSorting.sorting === 'desc' && currentSorting.columnName === columnDefinition.columnName">
+            <i class="fas fa-sort fa-sort-down ml-2 text-primary" aria-hidden="true"></i>
+          </span>
+        <span *ngIf="currentSorting.sorting === 'asc' && currentSorting.columnName === columnDefinition.columnName">
+            <i class="fas fa-sort fa-sort-up ml-2 text-primary" aria-hidden="true"></i>
+          </span>
+        <span *ngIf="currentSorting.columnName !== columnDefinition.columnName">
+            <i class="fas fa-sort ml-2 potential-sort" aria-hidden="true"></i>
+          </span>
       </th>
       <th scope="col"
           role="columnheader">
@@ -88,7 +90,7 @@
     </tbody>
   </table>
   <ng-template #placeholder>
-    <i class="fa fa-sort ml-2 potential-sort"></i>
+    <i class="fas fa-sort ml-2 potential-sort"></i>
   </ng-template>
 </div>
 <ng-template #noResults>

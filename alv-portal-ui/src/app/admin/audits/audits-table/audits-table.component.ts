@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Audit, AuditsColumnDefinition } from '../../../shared/backend-services/audits/audits.types';
-import { mapAuditsColumnDefinitionToSort } from '../audits-factory';
+import { AUDITS_COLUMN_NAME, isAuditsColumnSortable, mapAuditsColumnDefinitionToSort } from '../audits-factory';
 
 @Component({
   selector: 'alv-audits-table',
-  templateUrl: './audits-table.component.html'
+  templateUrl: './audits-table.component.html',
+  styleUrls: ['./audits-table.component.scss']
 })
 export class AuditsTableComponent implements OnInit {
 
@@ -23,10 +24,18 @@ export class AuditsTableComponent implements OnInit {
   @Output()
   scroll = new EventEmitter<number>();
 
+  columnDefinitions: AuditsColumnDefinition[];
+
   constructor() { }
 
   ngOnInit() {
-    // COLUMN DEFINITIONS - map
+    this.columnDefinitions = AUDITS_COLUMN_NAME.map((columnName) => {
+      return {
+        columnName: columnName,
+        sortOrder: '',
+        sortable: isAuditsColumnSortable(columnName)
+      } as AuditsColumnDefinition;
+    });
   }
 
   onScroll() {

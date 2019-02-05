@@ -3,7 +3,15 @@ import {
   AuditsFilter,
   AuditsSearchRequest
 } from '../../shared/backend-services/audits/audits.types';
-import { tomorrow, now, toISOLocalDate } from '../../shared/forms/input/ngb-date-utils';
+import { now, toISOLocalDate, tomorrow } from '../../shared/forms/input/ngb-date-utils';
+
+export const initAuditsSort = 'auditEventDate,desc';
+
+export const initAuditsFilter: AuditsFilter = {
+  fromDate: toISOLocalDate(now()),
+  toDate: toISOLocalDate(tomorrow()),
+  sort: initAuditsSort
+};
 
 export class AuditsRequestMapper {
 
@@ -14,16 +22,6 @@ export class AuditsRequestMapper {
       sort: filter.sort,
       fromDate: filter.fromDate,
       toDate: filter.toDate
-    };
-  }
-
-  static mapToInitialRequest(): AuditsSearchRequest {
-    return {
-      page: 0,
-      size: AUDITS_ITEMS_PER_PAGE,
-      sort: 'auditEventDate,desc',
-      fromDate: toISOLocalDate(now()),
-      toDate: toISOLocalDate(tomorrow())
     };
   }
 

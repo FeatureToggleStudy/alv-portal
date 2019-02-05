@@ -1,6 +1,10 @@
 import { AuditsColumnDefinition } from '../../shared/backend-services/audits/audits.types';
 
-export const AUDITS_COLUMN_NAME = ['date', 'principal', 'type', 'data'];
+export const AUDITS_COLUMN_NAME = ['timestamp', 'principal', 'type', 'data'];
+
+export function isAuditsColumnSortable(columnName: string): boolean {
+  return columnName === 'timestamp' || columnName === 'type';
+}
 
 /**
  *
@@ -8,7 +12,7 @@ export const AUDITS_COLUMN_NAME = ['date', 'principal', 'type', 'data'];
  * to string consisting of columnName and sortOder that we use in http post backend request
  * <p>
  * e.g.
- * {@AuditsColumnDefinition} columnName: 'auditEventDate', sortOrder: 'asc' ==> {@string} 'auditEventDate,asc'
+ * {@AuditsColumnDefinition} columnName: 'timestamp', sortOrder: 'asc' ==> {@string} 'auditEventDate,asc'
  *
  * @param current
  *    mapped, structure object with 'columnName' and 'sortOrder'
@@ -18,7 +22,7 @@ export const AUDITS_COLUMN_NAME = ['date', 'principal', 'type', 'data'];
  *    {@string}
  */
 export function mapAuditsColumnDefinitionToSort(current: AuditsColumnDefinition, selected: string): string {
-  const column = (selected = 'type') ? 'auditEventType' : 'auditEventDate';
+  const column = (selected === 'type') ? 'auditEventType' : 'auditEventDate';
   let sort;
   if ((current.columnName !== selected) || (current.sortOrder === 'desc')) {
     sort = 'asc';
@@ -29,17 +33,32 @@ export function mapAuditsColumnDefinitionToSort(current: AuditsColumnDefinition,
   return `${column},${sort}`;
 }
 
+/**
+ *
+ * Function for converting string from http post backend response to
+ * structured object mapping with columnName and sortOrder
+ * <p>
+ * e.g.
+ * {@string} 'auditEventDate,asc' ==> {@AuditsColumnDefinition} columnName: 'timestamp', sortOrder: 'asc'
+ * {@string} 'apiUser.username.keyword,asc' ==> {@AuditsColumnDefinition} columnName: 'username', sorting: 'asc'
+ *
+ * @param sort
+ *    sorting string from http post response
+ * @return
+ *    {@AuditsColumnDefinition}
+ */
+
 export function mapSortToAuditsColumnDefinition(sort: string): AuditsColumnDefinition {
   if (sort && sort.includes(',')) {
     const array = sort.split(',', 2);
     return {
-      columnName: (array[0] == 'auditEventType') ? 'type' : 'date',
+      columnName: (array[0] === 'auditEventType') ? 'type' : 'timestamp',
       sortOrder: array[1],
       sortable: true
     };
   } else {
     return {
-      columnName: 'date',
+      columnName: 'timestamp',
       sortOrder: 'desc',
       sortable: true
     };
