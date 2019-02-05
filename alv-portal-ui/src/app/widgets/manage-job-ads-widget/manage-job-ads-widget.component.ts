@@ -24,6 +24,7 @@ import { JobAdvertisement } from '../../shared/backend-services/job-advertisemen
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core/state-management/state/core.state.ts';
 import { JobAdvertisementUpdatedAction } from '../../core/state-management/actions/core.actions';
+import { IconKey } from '../../shared/layout/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-manage-job-ads-widget',
@@ -31,6 +32,8 @@ import { JobAdvertisementUpdatedAction } from '../../core/state-management/actio
   styleUrls: ['./manage-job-ads-widget.component.scss']
 })
 export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements OnInit {
+
+  IconKey = IconKey;
 
   currentFilter$ = new BehaviorSubject<ManagedJobAdsSearchFilter>({
     ownerUserId: null,

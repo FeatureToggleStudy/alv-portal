@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { IconKey } from '../../shared/layout/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-job-publication-widget',
@@ -8,6 +9,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./job-publication-widget.component.scss']
 })
 export class JobPublicationWidgetComponent implements OnInit {
+
+  IconKey = IconKey;
 
   form: FormGroup;
 

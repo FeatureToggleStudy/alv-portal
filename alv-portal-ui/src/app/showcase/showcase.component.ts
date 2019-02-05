@@ -6,6 +6,7 @@ import { NotificationsService } from '../core/notifications.service';
 import { ModalService } from '../shared/layout/modal/modal.service';
 import { LocalitySuggestionService } from '../shared/localities/locality-suggestion.service';
 import { LocalityTypeaheadItem } from '../shared/localities/locality-typeahead-item';
+import { IconKey } from '../shared/layout/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-showcase',
@@ -13,6 +14,8 @@ import { LocalityTypeaheadItem } from '../shared/localities/locality-typeahead-i
   styleUrls: ['./showcase.component.scss']
 })
 export class ShowcaseComponent implements OnInit {
+
+  IconKey = IconKey;
 
   typeaheadControl = new FormControl();
 
