@@ -10,15 +10,16 @@
           [ngClass]="{'active-sort' : currentSorting.columnName === columnDefinition.columnName}">
         <span>{{ 'portal.admin.audits.table.header.' + columnDefinition.columnName | translate }}</span>
         <ng-container *ngIf="columnDefinition.sortable">
-          <span *ngIf="currentSorting.sortOrder === 'desc' && currentSorting.columnName === columnDefinition.columnName">
-            <i class="fas fa-sort fa-sort-down ml-2 text-primary" aria-hidden="true"></i>
-          </span>
-          <span *ngIf="currentSorting.sortOrder === 'asc' && currentSorting.columnName === columnDefinition.columnName">
-            <i class="fas fa-sort fa-sort-up ml-2 text-primary" aria-hidden="true"></i>
-          </span>
-          <span *ngIf="currentSorting.columnName !== columnDefinition.columnName">
-            <i class="fas fa-sort ml-2 potential-sort" aria-hidden="true"></i>
-          </span>
+          <ng-container *ngIf="currentSorting.columnName === columnDefinition.columnName; else placeholder">
+            <fa-icon class="ml-2 text-primary"
+                     *ngIf="currentSorting.sortOrder === 'desc'"
+                     [icon]="['fas', 'sort-down']">
+            </fa-icon>
+            <fa-icon class="ml-2 text-primary"
+                     *ngIf="currentSorting.sortOrder === 'asc'"
+                     [icon]="['fas', 'sort-up']">
+            </fa-icon>
+          </ng-container>
         </ng-container>
       </th>
     </tr>
@@ -64,6 +65,10 @@
     </tr>
     </tbody>
   </table>
+  <ng-template #placeholder>
+    <fa-icon class="ml-2 potential-sort"
+             [icon]="['fas', 'sort']"></fa-icon>
+  </ng-template>
 </div>
 <ng-template #noResults>
   <p> {{ 'portal.admin.api-user-management.no-results' | translate }}</p>

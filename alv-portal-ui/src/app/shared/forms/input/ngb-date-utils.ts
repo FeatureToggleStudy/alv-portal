@@ -58,13 +58,10 @@ export function now(): NgbDateStruct {
 }
 
 export function tomorrow(): NgbDateStruct {
-  const date = new Date();
+  let date = new Date();
+  date.setDate(date.getDate()+1);
 
-  return NgbDate.from({
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate() + 1
-  });
+  return fromDate(date);
 }
 
 

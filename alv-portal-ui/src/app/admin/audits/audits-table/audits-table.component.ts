@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Audit, AuditsColumnDefinition } from '../../../shared/backend-services/audits/audits.types';
-import { AUDITS_COLUMN_NAME, isAuditsColumnSortable, mapAuditsColumnDefinitionToSort } from '../audits-factory';
+import { mapAuditsColumnDefinitionToSort } from '../audits-request.mapper';
+
+export const AUDITS_COLUMN_NAME = ['timestamp', 'principal', 'type', 'data'];
+
+export function isAuditsColumnSortable(columnName: string): boolean {
+  return columnName === 'timestamp' || columnName === 'type';
+}
 
 @Component({
   selector: 'alv-audits-table',

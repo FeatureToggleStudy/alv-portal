@@ -9,11 +9,10 @@ import {
   AuditsSearchResponse
 } from '../../shared/backend-services/audits/audits.types';
 import { now, toISOLocalDate, tomorrow } from '../../shared/forms/input/ngb-date-utils';
-import { AuditsRequestMapper, initAuditsFilter } from './audits-request.mapper';
+import { initAuditsFilter, mapAuditsToRequest, mapSortToAuditsColumnDefinition } from './audits-request.mapper';
 import { flatMap, map, take, takeUntil, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { mapSortToAuditsColumnDefinition } from './audits-factory';
 
 @Component({
   selector: 'alv-audits',
@@ -75,7 +74,7 @@ export class AuditsComponent extends AbstractSubscriber implements OnInit {
 
   private loadAudits(filter: AuditsFilter, page: number): Observable<AuditsSearchResponse> {
     return this.auditsRepository.query(
-      AuditsRequestMapper.mapToRequest(filter, page)).pipe(
+      mapAuditsToRequest(filter, page)).pipe(
       tap((response) => {
         this.setFilter(filter);
         this.setMaxScrollPage(response.totalCount, page);
