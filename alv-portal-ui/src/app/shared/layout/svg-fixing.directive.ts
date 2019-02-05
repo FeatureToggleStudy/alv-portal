@@ -1,28 +1,39 @@
 import { AfterViewInit, Directive, ElementRef, NgZone } from '@angular/core';
+import { AbstractSubscriber } from '../../core/abstract-subscriber';
+import { filter, startWith, takeUntil } from 'rxjs/operators';
+import { NavigationEnd, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Directive({
-  selector: '.fa-layers'
+  selector: '.fa-layers, [svgFixing]'
 })
-export class SvgFixingDirective implements AfterViewInit {
+export class SvgFixingDirective extends AbstractSubscriber implements AfterViewInit {
 
-
-  constructor(private elementRef: ElementRef, private zone: NgZone) {
+  constructor(private elementRef: ElementRef, private zone: NgZone, private router: Router, private location: Location) {
+    super();
   }
 
   ngAfterViewInit() {
-    const baseUrl = window.location.pathname
-      .replace(window.location.hash, '')
-      .replace(/\/$/gi, '');
+    this.router.events
+      .pipe(
+        filter(x => x instanceof NavigationEnd),
+        startWith(() => {
+          return new NavigationEnd(1, 'test', 'test');
+        }),
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe(() => this.applyFixes());
+  }
+
+  private applyFixes() {
+    const baseUrl = this.location.path();
     this.zone.runOutsideAngular(() => {
       setTimeout(() => {
-        setTimeout(() => {
-          const element: Element = this.elementRef.nativeElement;
-          if (element) {
-            this.update(element, 'clip-path', baseUrl);
-            this.update(element, 'mask', baseUrl);
-          }
-        }, 1000);
-      }, 1000);
+        const element: Element = this.elementRef.nativeElement;
+        if (element) {
+          this.update(element, 'clip-path', baseUrl);
+          this.update(element, 'mask', baseUrl);
+        }
+      }, 100);
     });
   }
 
@@ -40,5 +51,4 @@ export class SvgFixingDirective implements AfterViewInit {
         );
       });
   }
-
 }

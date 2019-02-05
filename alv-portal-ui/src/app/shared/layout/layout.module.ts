@@ -47,6 +47,7 @@ import { CandidateContactRepository } from '../backend-services/candidate/candid
 import { UserNameAndCompanyComponent } from './user-name-and-company/user-name-and-company.component';
 import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-column-layout.component';
 import { CustomIconComponent } from './custom-icon/custom-icon.component';
+import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
 import { SvgFixingDirective } from './svg-fixing.directive';
 
 @NgModule({
@@ -94,7 +95,8 @@ import { SvgFixingDirective } from './svg-fixing.directive';
     ContactModalComponent,
     TwoColumnLayoutComponent,
     CustomIconComponent,
-    SvgFixingDirective
+    GeoLocationSelectionComponent,
+    SvgFixingDirective,
   ],
   providers: [
     CandidateContactRepository
@@ -132,6 +134,7 @@ import { SvgFixingDirective } from './svg-fixing.directive';
     ListItemContentComponent,
     TwoColumnLayoutComponent,
     CustomIconComponent,
+    GeoLocationSelectionComponent,
     SvgFixingDirective
   ]
 })

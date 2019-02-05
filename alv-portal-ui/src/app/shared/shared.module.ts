@@ -8,14 +8,12 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { CommonModule } from '@angular/common';
 import { MarkdownModule } from 'ngx-markdown';
 import { PipesModule } from './pipes/pipes.module';
-import { GeoLocationSelectionComponent } from './localities/geo-location-selection/geo-location-selection.component';
 import { LandingPageGuard } from './landing-page/landing-page.guard';
 import { DummyComponent } from './dummy/dummy.component';
 
 @NgModule({
   declarations: [
-    GeoLocationSelectionComponent,
-    DummyComponent,
+    DummyComponent
   ],
   imports: [
     TranslateModule.forChild(),
@@ -37,7 +35,7 @@ import { DummyComponent } from './dummy/dummy.component';
     PipesModule,
     ClipboardModule,
     MarkdownModule,
-    GeoLocationSelectionComponent
+    SharedAuthModule,
   ],
   providers: [
     LandingPageGuard
