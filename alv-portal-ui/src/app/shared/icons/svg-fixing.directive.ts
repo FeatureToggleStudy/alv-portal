@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, NgZone } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
@@ -17,7 +17,7 @@ function isSafariBrowser() {
 })
 export class SvgFixingDirective extends AbstractSubscriber implements AfterViewInit {
 
-  constructor(private elementRef: ElementRef, private zone: NgZone, private router: Router, private location: Location) {
+  constructor(private elementRef: ElementRef, private router: Router, private location: Location) {
     super();
   }
 
@@ -52,7 +52,6 @@ export class SvgFixingDirective extends AbstractSubscriber implements AfterViewI
         return e.getAttribute(attribute).indexOf('url(') !== -1;
       })
       .forEach((e: Element) => {
-        console.log('Replaced URL Attribute for: ' + attribute);
         const attrVal = e.getAttribute(attribute);
         e.setAttribute(
           attribute,
