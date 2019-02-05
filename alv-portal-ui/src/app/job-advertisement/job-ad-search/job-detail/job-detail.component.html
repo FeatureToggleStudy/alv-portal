@@ -7,7 +7,7 @@
         <div>
           <a class="btn btn-text btn-text-icon"
              routerLink="/job-search">
-            <i class="fa fa-caret-left mr-1"></i>
+            <i class="fas fa-caret-left mr-1"></i>
             {{'job-detail.back' | translate}}
           </a>
         </div>
@@ -20,7 +20,7 @@
                   id="dropdownMenu"
                   ngbDropdownAnchor
                   aria-label="Open job detail menu">
-            <i class="fa fa-ellipsis-v"></i>
+            <i class="fas fa-ellipsis-v"></i>
           </button>
           <div aria-label="Job detail menu"
                ngbDropdownMenu>
@@ -62,7 +62,7 @@
     <ng-container class="left-column">
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
          routerLink="/job-search">
-        <i class="fa fa-caret-left pr-1"></i>
+        <i class="fas fa-caret-left mr-1"></i>
         {{'job-detail.back' | translate}}
       </a>
       <div class="d-flex d-sm-block flex-column-reverse">
@@ -101,7 +101,7 @@
         <button (click)="prev()"
                 [disabled]="!(prevEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
-          <i class="fa fa-caret-left mr-1"></i>
+          <i class="fas fa-caret-left mr-1"></i>
           {{'portal.job-detail.previous-result' | translate}}
         </button>
         <div class="flex-grow-1"></div>
@@ -109,7 +109,7 @@
                 [disabled]="!(nextEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
-          <i class="fa fa-caret-right ml-1"></i>
+          <i class="fas fa-caret-right ml-1"></i>
         </button>
       </div>
 
@@ -137,7 +137,7 @@
                   [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
                   triggers="manual">
             <i aria-hidden="true"
-               class="fa fa-copy mr-1"></i>
+               class="fas fa-copy mr-1"></i>
             {{'job-detail.action.copyLink' | translate}}
           </button>
         </li>
@@ -145,7 +145,7 @@
           <a class="btn btn-text btn-text-icon btn-truncate"
              [href]="'mailto:?body=' + getEncodedUrl()">
             <i aria-hidden="true"
-               class="fa fa-share mr-1"></i>
+               class="fas fa-share mr-1"></i>
             {{'job-detail.action.sendEmail' | translate}}
           </a>
         </li>
@@ -153,7 +153,7 @@
           <button class="btn btn-text btn-text-icon btn-truncate"
                   (click)="printJob()">
             <i aria-hidden="true"
-               class="fa fa-print mr-1"></i>
+               class="fas fa-print mr-1"></i>
             {{'job-detail.action.print' | translate}}
           </button>
         </li>

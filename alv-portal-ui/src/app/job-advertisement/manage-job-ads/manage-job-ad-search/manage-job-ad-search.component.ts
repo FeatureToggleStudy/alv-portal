@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import {
-  ApplyFilterAction,
-  LoadNextPageAction
-} from '../state-management/actions';
+import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, map, take, takeUntil, tap } from 'rxjs/operators';
@@ -30,6 +27,7 @@ import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widg
 import { Router } from '@angular/router';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { JobAdvertisementUpdatedAction } from '../../../core/state-management/actions/core.actions';
+import { IconKey } from '../../../shared/layout/custom-icon/custom-icon.component';
 
 interface FilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
@@ -42,6 +40,8 @@ interface FilterBadge extends InlineBadge {
   styleUrls: ['./manage-job-ad-search.component.scss']
 })
 export class ManageJobAdSearchComponent extends AbstractSubscriber implements OnInit {
+
+  IconKey = IconKey;
 
   currentFilter$: Observable<ManagedJobAdsSearchFilter>;
 

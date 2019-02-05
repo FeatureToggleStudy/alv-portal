@@ -56,12 +56,12 @@
   <button class="btn btn-primary ml-md-2"
           [attr.aria-label]="'portal.global.search'|translate"
           type="submit">
-    <i *ngIf="showSpinner"
-       class="fas fa-sync-alt fa-spin">
-    </i>
-    <i *ngIf="!showSpinner"
-       class="fas fa-search">
-    </i>
+    <span *ngIf="showSpinner">
+      <i class="fas fa-sync-alt fa-spin" aria-hidden="true"></i>
+    </span>
+    <span *ngIf="!showSpinner">
+       <i class="fas fa-search" aria-hidden="true"></i>
+    </span>
   </button>
 
 </form>

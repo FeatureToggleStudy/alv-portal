@@ -13,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreState } from '../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { JobAdvertisementUpdatedAction } from '../../core/state-management/actions/core.actions';
+import { IconKey } from '../../shared/layout/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-job-publication',
@@ -20,6 +21,8 @@ import { JobAdvertisementUpdatedAction } from '../../core/state-management/actio
   styleUrls: ['./job-publication.component.scss']
 })
 export class JobPublicationComponent implements OnInit {
+
+  IconKey = IconKey;
 
   initialFormValueConfig: InitialFormValueConfig;
 
