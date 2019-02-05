@@ -1,8 +1,8 @@
-import { AfterViewInit, Directive, ElementRef } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Inject } from '@angular/core';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { APP_BASE_HREF, Location } from '@angular/common';
 
 function isSafariBrowser() {
   return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
@@ -17,7 +17,7 @@ function isSafariBrowser() {
 })
 export class SvgFixingDirective extends AbstractSubscriber implements AfterViewInit {
 
-  constructor(private elementRef: ElementRef, private router: Router, private location: Location) {
+  constructor(@Inject(APP_BASE_HREF) private baseHref: string, private elementRef: ElementRef, private router: Router, private location: Location) {
     super();
   }
 
@@ -36,13 +36,19 @@ export class SvgFixingDirective extends AbstractSubscriber implements AfterViewI
   }
 
   private applySvgFixes() {
-    const baseUrl = this.location.path();
+    const baseUrl = this.extractBaseUrl();
     const element: Element = this.elementRef.nativeElement;
     if (element) {
       this.prefixWithBaseUrl(element, 'clip-path', baseUrl);
       this.prefixWithBaseUrl(element, 'mask', baseUrl);
       this.prefixWithBaseUrl(element, 'fill', baseUrl);
     }
+  }
+
+  private extractBaseUrl() {
+    let baseUrl = this.baseHref + this.location.path();
+    baseUrl = baseUrl.replace(/\/\//g, '/');
+    return baseUrl;
   }
 
   private prefixWithBaseUrl(element: Element, attribute: string, baseUrl: string) {
