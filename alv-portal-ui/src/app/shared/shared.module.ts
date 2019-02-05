@@ -10,6 +10,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { PipesModule } from './pipes/pipes.module';
 import { LandingPageGuard } from './landing-page/landing-page.guard';
 import { DummyComponent } from './dummy/dummy.component';
+import { IconsModule } from './icons/icons.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DummyComponent } from './dummy/dummy.component';
     LayoutModule,
     SharedAuthModule,
     ClipboardModule,
-    PipesModule
+    PipesModule,
+    IconsModule
   ],
   entryComponents: [],
   exports: [
@@ -36,6 +38,7 @@ import { DummyComponent } from './dummy/dummy.component';
     ClipboardModule,
     MarkdownModule,
     SharedAuthModule,
+    IconsModule
   ],
   providers: [
     LandingPageGuard

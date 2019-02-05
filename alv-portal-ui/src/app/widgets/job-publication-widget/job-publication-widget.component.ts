@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { IconKey } from '../../shared/layout/custom-icon/custom-icon.component';
+import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-job-publication-widget',

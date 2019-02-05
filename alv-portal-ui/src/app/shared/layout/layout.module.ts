@@ -46,22 +46,15 @@ import { ContactModalComponent } from '../../candidate-search/candidate-detail/c
 import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
 import { UserNameAndCompanyComponent } from './user-name-and-company/user-name-and-company.component';
 import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-column-layout.component';
-import { CustomIconComponent } from './custom-icon/custom-icon.component';
 import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
-import { SvgFixingDirective } from './svg-fixing.directive';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-
-library.add(fas);
+import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
   imports: [
     ReactiveFormsModule,
     CommonModule,
     RouterModule,
-    FontAwesomeModule,
+    IconsModule,
     SharedAuthModule,
     FormsModule,
     TranslateModule,
@@ -101,9 +94,7 @@ library.add(fas);
     UserNameAndCompanyComponent,
     ContactModalComponent,
     TwoColumnLayoutComponent,
-    CustomIconComponent,
     GeoLocationSelectionComponent,
-    SvgFixingDirective,
   ],
   providers: [
     CandidateContactRepository
@@ -140,10 +131,7 @@ library.add(fas);
     ScrollToTopComponent,
     ListItemContentComponent,
     TwoColumnLayoutComponent,
-    CustomIconComponent,
-    GeoLocationSelectionComponent,
-    SvgFixingDirective,
-    FontAwesomeModule
+    GeoLocationSelectionComponent
   ]
 })
 export class LayoutModule {
