@@ -25,16 +25,25 @@ export class SvgFixingDirective extends AbstractSubscriber implements AfterViewI
   }
 
   private applyFixes() {
-    const baseUrl = this.location.path();
-    this.zone.runOutsideAngular(() => {
-      setTimeout(() => {
-        const element: Element = this.elementRef.nativeElement;
-        if (element) {
-          this.update(element, 'clip-path', baseUrl);
-          this.update(element, 'mask', baseUrl);
-        }
-      }, 100);
-    });
+    const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+      navigator.userAgent &&
+      navigator.userAgent.indexOf('CriOS') === -1 &&
+      navigator.userAgent.indexOf('FxiOS') === -1;
+    if (isSafari) {
+      const baseUrl = this.location.path();
+      this.zone.runOutsideAngular(() => {
+        setTimeout(() => {
+          setTimeout(() => {
+            const element: Element = this.elementRef.nativeElement;
+            if (element) {
+              this.update(element, 'clip-path', baseUrl);
+              this.update(element, 'mask', baseUrl);
+              this.update(element, 'fill', baseUrl);
+            }
+          }, 100);
+        }, 0);
+      });
+    }
   }
 
   private update(element: Element, attr: string, baseUrl: string) {
