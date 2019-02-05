@@ -13,7 +13,7 @@
             [attr.aria-required]="!!required"
             [attr.aria-describedby]="validationId"
             [alvAutofocus]="autofocus"
-            [class.placeholder-shown]="control.value === ''">
+            [class.placeholder-shown]="!control.value && control.value !== 0">
       <option *ngFor="let option of options$ | async"
               [ngValue]="option.value">{{option.label | translate}}
       </option>
