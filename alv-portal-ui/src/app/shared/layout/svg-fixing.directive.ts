@@ -13,7 +13,7 @@ function isSafariBrowser() {
 
 @Directive({
   /* tslint:disable:directive-selector */
-  selector: '.fa-layers, [svgFixing]'
+  selector: 'fa-icon'
 })
 export class SvgFixingDirective extends AbstractSubscriber implements AfterViewInit {
 
@@ -23,7 +23,7 @@ export class SvgFixingDirective extends AbstractSubscriber implements AfterViewI
 
   ngAfterViewInit() {
     if (!isSafariBrowser()) {
-      return;
+      // return;
     }
     this.router.events
       .pipe(
@@ -37,18 +37,12 @@ export class SvgFixingDirective extends AbstractSubscriber implements AfterViewI
 
   private applySvgFixes() {
     const baseUrl = this.location.path();
-    this.zone.runOutsideAngular(() => {
-      setTimeout(() => {
-        setTimeout(() => {
-          const element: Element = this.elementRef.nativeElement;
-          if (element) {
-            this.prefixWithBaseUrl(element, 'clip-path', baseUrl);
-            this.prefixWithBaseUrl(element, 'mask', baseUrl);
-            this.prefixWithBaseUrl(element, 'fill', baseUrl);
-          }
-        }, 100);
-      }, 0);
-    });
+    const element: Element = this.elementRef.nativeElement;
+    if (element) {
+      this.prefixWithBaseUrl(element, 'clip-path', baseUrl);
+      this.prefixWithBaseUrl(element, 'mask', baseUrl);
+      this.prefixWithBaseUrl(element, 'fill', baseUrl);
+    }
   }
 
   private prefixWithBaseUrl(element: Element, attribute: string, baseUrl: string) {
@@ -58,6 +52,7 @@ export class SvgFixingDirective extends AbstractSubscriber implements AfterViewI
         return e.getAttribute(attribute).indexOf('url(') !== -1;
       })
       .forEach((e: Element) => {
+        console.log('Replaced URL Attribute for: ' + attribute);
         const attrVal = e.getAttribute(attribute);
         e.setAttribute(
           attribute,
