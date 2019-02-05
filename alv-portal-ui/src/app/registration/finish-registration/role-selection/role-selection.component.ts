@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationStep } from '../../registration-step.enum';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AbstractRegistrationStep } from '../../abstract-registration-step';
 import { Router } from '@angular/router';
+import { LegalTermsService } from '../../../shared/legal-terms/legal-terms.service';
 
 @Component({
   selector: 'alv-role-selection',
@@ -29,8 +30,11 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
     }
   ]);
 
+  legalTermsUrl$: Observable<string>;
+
   constructor(private fb: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private currentLegalTermsService: LegalTermsService) {
     super();
   }
 
@@ -39,6 +43,8 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
       role: ['', Validators.required],
       termsAndConditions: [false, Validators.requiredTrue]
     });
+
+    this.legalTermsUrl$ = this.currentLegalTermsService.getLegalTermsUrl();
   }
 
   selectRole() {

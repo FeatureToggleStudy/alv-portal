@@ -10,7 +10,8 @@ export class LegalTermsManagementRepository {
 
   public static LEGAL_TERMS_URL = '/api/legal-terms';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getAllLegalTermsEntries(): Observable<LegalTerms[]> {
     return this.http.get<LegalTerms[]>(LegalTermsManagementRepository.LEGAL_TERMS_URL);
@@ -28,5 +29,7 @@ export class LegalTermsManagementRepository {
     return this.http.delete(`${LegalTermsManagementRepository.LEGAL_TERMS_URL}/${id}`);
   }
 
-
+  getCurrentLegalTerms(): Observable<LegalTerms> {
+    return this.http.get<LegalTerms>(`${LegalTermsManagementRepository.LEGAL_TERMS_URL}/current`);
+  }
 }
