@@ -1,35 +1,45 @@
-<table class="table table-striped"
-       role="grid">
-  <thead role="presentation">
-  <tr role="row">
-    <th scope="col" role="columnheader">
-      {{ 'portal.admin.audits.table.header.date' | translate }}
-    </th>
-    <th scope="col" role="columnheader">
-      {{ 'portal.admin.audits.table.header.principal' | translate }}
-    </th>
-    <th scope="col" role="columnheader">
-      {{ 'portal.admin.audits.table.header.status' | translate }}
-    </th>
-    <th scope="col" role="columnheader">
-      {{ 'portal.admin.audits.table.header.data' | translate }}
-    </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr role="row">
-    <td class="content-cell align-middle"
-        role="gridcell">
-    </td>
-    <td class="content-cell align-middle"
-        role="gridcell">
-    </td>
-    <td class="content-cell align-middle"
-        role="gridcell">
-    </td>
-    <td class="content-cell align-middle"
-        role="gridcell">
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div *ngIf="auditList?.length; else noResults">
+  <table class="table table-striped"
+         role="grid">
+    <thead role="presentation">
+    <tr role="row">
+      <th scope="col" role="columnheader">
+        {{ 'portal.admin.audits.table.header.date' | translate }}
+      </th>
+      <th scope="col" role="columnheader">
+        {{ 'portal.admin.audits.table.header.principal' | translate }}
+      </th>
+      <th scope="col" role="columnheader">
+        {{ 'portal.admin.audits.table.header.status' | translate }}
+      </th>
+      <th scope="col" role="columnheader">
+        {{ 'portal.admin.audits.table.header.data' | translate }}
+      </th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let audit of auditList">
+    <tr role="row">
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ audit.timestamp  }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ audit.principal }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ audit.type }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ audit.data }}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noResults>
+  <p> {{ 'portal.admin.api-user-management.no-results' | translate }}</p>
+</ng-template>
+

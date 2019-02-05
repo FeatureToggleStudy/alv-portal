@@ -68,10 +68,6 @@ export class ApiUserManagementComponent implements OnInit {
   }
 
   onScrollChange(nextPage: number) {
-    if (nextPage === this.maxScrollPage) {
-      return;
-    }
-
     this.loadApiUsers(this.currentFilter, nextPage)
       .subscribe((response) => {
         this.apiUserList = [...this.apiUserList, ...response.result];

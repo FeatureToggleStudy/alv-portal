@@ -31,7 +31,11 @@
 
   </form>
 
-  <alv-audits-table>
+  <alv-audits-table [auditList]="auditList"
+                    [currentSorting]="currentSorting"
+                    [page]="page"
+                    (sort)="onSortChange($event)"
+                    (scroll)="onScrollChange($event)">
 
   </alv-audits-table>
 
