@@ -7,18 +7,22 @@
         class="d-none d-md-table-row">
       <th scope="col"
           role="columnheader"
+          class="clickable-column-header"
           *ngFor="let columnDefinition of columnDefinitions"
           (click)="changeColumnSort(columnDefinition)"
           [ngClass]="{'active-sort': currentSorting.column === columnDefinition.column}">
         <span>{{ columnDefinition.columnName | translate }}</span>
         <ng-container *ngIf="columnDefinition.sortingEnabled">
-                 <span class="fas fa-sort ml-2 text-primary"
-                       *ngIf="currentSorting.column === columnDefinition.column; else placeholder"
-                       [ngClass]="{
-              'fa-sort-down': currentSorting.direction === SortDirection.DESC,
-              'fa-sort-up': currentSorting.direction === SortDirection.ASC
-              }">
-        </span>
+          <ng-container *ngIf="currentSorting.column === columnDefinition.column; else placeholder">
+            <fa-icon class="ml-2 text-primary"
+                     *ngIf="currentSorting.direction === SortDirection.DESC"
+                     [icon]="['fas', 'sort-down']">
+            </fa-icon>
+            <fa-icon class="ml-2 text-primary"
+                     *ngIf="currentSorting.direction === SortDirection.ASC"
+                     [icon]="['fas', 'sort-up']">
+            </fa-icon>
+          </ng-container>
         </ng-container>
       </th>
       <th scope="col"
@@ -83,7 +87,8 @@
     </tbody>
   </table>
   <ng-template #placeholder>
-    <fa-icon class="potential-sort ml-2" [icon]="['fas', 'sort']"></fa-icon>
+    <fa-icon class="potential-sort ml-2"
+             [icon]="['fas', 'sort']"></fa-icon>
   </ng-template>
 </div>
 <ng-template #noResults>
