@@ -23,7 +23,7 @@ export class SvgFixingDirective extends AbstractSubscriber implements AfterViewI
 
   ngAfterViewInit() {
     if (!isSafariBrowser()) {
-      // return;
+      return;
     }
     this.router.events
       .pipe(

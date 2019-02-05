@@ -49,12 +49,19 @@ import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-
 import { CustomIconComponent } from './custom-icon/custom-icon.component';
 import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
 import { SvgFixingDirective } from './svg-fixing.directive';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas);
 
 @NgModule({
   imports: [
     ReactiveFormsModule,
     CommonModule,
     RouterModule,
+    FontAwesomeModule,
     SharedAuthModule,
     FormsModule,
     TranslateModule,
@@ -135,7 +142,8 @@ import { SvgFixingDirective } from './svg-fixing.directive';
     TwoColumnLayoutComponent,
     CustomIconComponent,
     GeoLocationSelectionComponent,
-    SvgFixingDirective
+    SvgFixingDirective,
+    FontAwesomeModule
   ]
 })
 export class LayoutModule {

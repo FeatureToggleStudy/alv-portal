@@ -1,7 +1,7 @@
-<span class="fa-layers fa-fw">
-  <i *ngFor="let iconStack of iconEntry.iconStack"
-     [attr.class]="iconStack.cssClass"
-     [attr.data-fa-transform]="iconStack.transform"
-     [attr.data-fa-mask]="iconStack.mask">
-  </i>
-</span>
+<fa-layers [fixedWidth]="true">
+  <fa-icon *ngFor="let iconStack of iconEntry.iconStack"
+           [transform]="iconStack.transform"
+           [mask]="iconStack.mask"
+           [icon]="iconStack.icon">
+  </fa-icon>
+</fa-layers>
