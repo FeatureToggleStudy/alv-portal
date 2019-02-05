@@ -34,8 +34,8 @@ import { ApiUserManagementTableComponent } from './api-user-management/api-user-
     SystemNotificationModalComponent,
     LegalTermsManagementComponent,
     LegalTermsDetailModalComponent,
-    ApiDocComponent,
     LegalTermsDetailModalComponent,
+    ApiDocComponent,
     ApiUserManagementComponent,
     ApiUserModalComponent,
     ApiUserPasswordModalComponent,
@@ -50,8 +50,8 @@ import { ApiUserManagementTableComponent } from './api-user-management/api-user-
   entryComponents: [
     SystemNotificationModalComponent,
     LegalTermsDetailModalComponent,
-    ApiDocComponent,
     LegalTermsDetailModalComponent,
+    ApiDocComponent,
     ApiUserModalComponent,
     ApiUserPasswordModalComponent,
     AddBlacklistEntryModalComponent

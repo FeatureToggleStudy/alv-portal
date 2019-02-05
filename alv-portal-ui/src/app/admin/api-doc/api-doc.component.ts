@@ -5,8 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './api-doc.component.html'
 })
 export class ApiDocComponent {
-  constructor(
-  ) {
-  }
 }
 
