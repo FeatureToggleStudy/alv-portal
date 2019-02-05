@@ -1402,9 +1402,9 @@ portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen,Possib
 portal,portal.job-detail.status,Status,Status,Statut,Stato
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
+portal,portal.candidate-detail.action.sendLink,Link versenden,Send link,Envoyer le lien,Invia link
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 portal,portal.candidate-detail.other-work-experience.label,Weitere Berufserfahrung,Other work experience
-portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 
 portal,portal.candidate-detail.anonymous-contact.send,Absenden
