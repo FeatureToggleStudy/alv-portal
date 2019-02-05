@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonModule } from '@angular/common';
+import { APP_BASE_HREF, CommonModule } from '@angular/common';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -32,6 +32,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
 import { RouterTestingModule } from '@angular/router/testing';
+import { InjectionToken } from '@angular/core';
 import SpyObj = jasmine.SpyObj;
 
 
@@ -53,6 +54,7 @@ describe('JobPublicationFormComponent', () => {
   let mockJobPublicationFormValueFactory: SpyObj<JobPublicationFormValueFactory>;
 
   let component: JobPublicationFormComponent;
+
   let fixture: ComponentFixture<JobPublicationFormComponent>;
 
   beforeEach(async(() => {
@@ -77,6 +79,7 @@ describe('JobPublicationFormComponent', () => {
       ],
       providers: [
         { provide: I18nService, useValue: mockI18nService },
+        { provide: APP_BASE_HREF, useValue: new InjectionToken<string>('/') },
         { provide: IsoCountryService, useValue: mockIsoCountryService },
         {
           provide: JobPublicationFormValueFactory,
