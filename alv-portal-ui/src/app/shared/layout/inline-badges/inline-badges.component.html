@@ -8,7 +8,7 @@
           *ngIf="canRemove"
           (click)="onRemoved(badge)"
           attr.aria-label="{{'global.button.remove.title' | translate}} {{badge.label | translate:badge.labelParams}}">
-    <i class="fas fa-times"></i>
+     <fa-icon [icon]="['fas', 'times']"></fa-icon>
   </button>
 
 </span>

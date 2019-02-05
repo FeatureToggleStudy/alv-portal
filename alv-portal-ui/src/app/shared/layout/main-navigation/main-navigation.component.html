@@ -15,10 +15,10 @@
   <button class="nav-item menu-toggle"
           (click)="toggleDesktopSideNav()">
     <span *ngIf="!mainNavigationCollapsed">
-      <i class="fas fa-caret-left"></i>
+       <fa-icon [icon]="['fas', 'caret-left']"></fa-icon>
     </span>
     <span *ngIf="mainNavigationCollapsed">
-      <i class="fas fa-caret-right"></i>
+      <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
     </span>
   </button>
   <!-- Menu Entries -->

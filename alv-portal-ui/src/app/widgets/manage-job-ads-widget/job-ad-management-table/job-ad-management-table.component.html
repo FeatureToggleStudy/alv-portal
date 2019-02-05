@@ -58,7 +58,7 @@
                     class="btn btn-text btn-icon"
                     id="dropdownMenu"
                     ngbDropdownAnchor>
-              <i class="fas fa-ellipsis-v"></i>
+              <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
             </button>
             <div [attr.aria-label]="'portal.manage-job-ads.row-label' | translate: {row: row.title}"
                  ngbDropdownMenu>
@@ -83,7 +83,7 @@
     </tbody>
   </table>
   <ng-template #placeholder>
-    <i class="fas fa-sort ml-2 potential-sort"></i>
+    <fa-icon class="potential-sort ml-2" [icon]="['fas', 'sort']"></fa-icon>
   </ng-template>
 </div>
 <ng-template #noResults>
