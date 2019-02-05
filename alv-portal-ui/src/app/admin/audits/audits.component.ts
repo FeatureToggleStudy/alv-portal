@@ -10,7 +10,7 @@ import {
 } from '../../shared/backend-services/audits/audits.types';
 import { now, toISOLocalDate, tomorrow } from '../../shared/forms/input/ngb-date-utils';
 import { initAuditsFilter, mapAuditsToRequest, mapSortToAuditsColumnDefinition } from './audits-request.mapper';
-import { flatMap, map, take, takeUntil, tap } from 'rxjs/operators';
+import { flatMap, map, take, takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 
@@ -46,22 +46,30 @@ export class AuditsComponent extends AbstractSubscriber implements OnInit {
       .pipe(take(1))
       .subscribe((response) => {
         this.auditList = response.result;
+        this.setFilter(initAuditsFilter);
+        this.setMaxScrollPage(response.totalCount, 0);
       });
 
     this.form.valueChanges
       .pipe(
-        map<any, AuditsFilter>((formValues) => this.mapFilterValues(formValues)),
+        map<any, AuditsFilter>((formValues) => {
+          this.currentFilter = this.mapFilterValues(formValues);
+          return this.currentFilter;
+        }),
         flatMap((filter) => this.loadAudits(filter, this.page)),
         takeUntil(this.ngUnsubscribe))
       .subscribe((response) => {
         this.auditList = response.result;
+        this.setMaxScrollPage(response.totalCount, this.page);
       });
   }
 
   onSortChange(sort: string) {
-    this.loadAudits({...this.currentFilter, sort}, 0)
+    this.setFilter({...this.currentFilter, sort});
+    this.loadAudits(this.currentFilter, 0)
       .subscribe((response) => {
         this.auditList = response.result;
+        this.setMaxScrollPage(response.totalCount, this.page);
       });
   }
 
@@ -69,23 +77,19 @@ export class AuditsComponent extends AbstractSubscriber implements OnInit {
     this.loadAudits(this.currentFilter, nextPage)
       .subscribe((response) => {
         this.auditList = [...this.auditList, ...response.result];
+        this.setMaxScrollPage(response.totalCount, this.page);
       });
   }
 
   private loadAudits(filter: AuditsFilter, page: number): Observable<AuditsSearchResponse> {
-    return this.auditsRepository.query(
-      mapAuditsToRequest(filter, page)).pipe(
-      tap((response) => {
-        this.setFilter(filter);
-        this.setMaxScrollPage(response.totalCount, page);
-      }));
+    return this.auditsRepository.query(mapAuditsToRequest(filter, page));
   }
 
   private mapFilterValues(formValues: any): AuditsFilter {
     return {
-      ...this.currentFilter,
       fromDate: toISOLocalDate(formValues.from),
-      toDate: toISOLocalDate(formValues.to)
+      toDate: toISOLocalDate(formValues.to),
+      sort: this.currentFilter.sort
     };
   }
 
