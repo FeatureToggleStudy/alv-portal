@@ -122,7 +122,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     id: 'elastic-search-reindex',
-    icon: 'sync',
+    iconClass: 'sync',
     labelKey: 'portal.navigation.menu-entry.admin.elastic-search-reindex',
     path: ['admin', 'elastic-search-reindex'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
