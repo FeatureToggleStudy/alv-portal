@@ -7,7 +7,8 @@
         <div>
           <a class="btn btn-text btn-text-icon"
              routerLink="/job-search">
-            <i class="fas fa-caret-left mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'caret-left']"></fa-icon>
             {{'job-detail.back' | translate}}
           </a>
         </div>
@@ -20,7 +21,7 @@
                   id="dropdownMenu"
                   ngbDropdownAnchor
                   aria-label="Open job detail menu">
-            <i class="fas fa-ellipsis-v"></i>
+            <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
           </button>
           <div aria-label="Job detail menu"
                ngbDropdownMenu>
@@ -62,7 +63,8 @@
     <ng-container class="left-column">
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
          routerLink="/job-search">
-        <i class="fas fa-caret-left mr-1"></i>
+        <fa-icon class="mr-1"
+                 [icon]="['fas', 'caret-left']"></fa-icon>
         {{'job-detail.back' | translate}}
       </a>
       <div class="d-flex d-sm-block flex-column-reverse">
@@ -101,7 +103,8 @@
         <button (click)="prev()"
                 [disabled]="!(prevEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
-          <i class="fas fa-caret-left mr-1"></i>
+          <fa-icon class="mr-1"
+                   [icon]="['fas', 'caret-left']"></fa-icon>
           {{'portal.job-detail.previous-result' | translate}}
         </button>
         <div class="flex-grow-1"></div>
@@ -109,7 +112,8 @@
                 [disabled]="!(nextEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
-          <i class="fas fa-caret-right ml-1"></i>
+          <fa-icon class="mr-1"
+                   [icon]="['fas', 'caret-right']"></fa-icon>
         </button>
       </div>
 
@@ -136,24 +140,24 @@
                   (cbOnSuccess)="onCopyLink()"
                   [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
                   triggers="manual">
-            <i aria-hidden="true"
-               class="fas fa-copy mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'copy']"></fa-icon>
             {{'job-detail.action.copyLink' | translate}}
           </button>
         </li>
         <li>
           <a class="btn btn-text btn-text-icon btn-truncate"
              [href]="'mailto:?body=' + getEncodedUrl()">
-            <i aria-hidden="true"
-               class="fas fa-share mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'share']"></fa-icon>
             {{'job-detail.action.sendEmail' | translate}}
           </a>
         </li>
         <li class="d-none d-md-block">
           <button class="btn btn-text btn-text-icon btn-truncate"
                   (click)="printJob()">
-            <i aria-hidden="true"
-               class="fas fa-print mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'print']"></fa-icon>
             {{'job-detail.action.print' | translate}}
           </button>
         </li>

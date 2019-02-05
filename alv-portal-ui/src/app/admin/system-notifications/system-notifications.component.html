@@ -5,7 +5,9 @@
   </h2>
   <table class="table table-striped">
     <thead>
-    <tr><th *ngFor="let tableHeader of tableHeaders">{{tableHeader | translate}}</th></tr>
+    <tr>
+      <th *ngFor="let tableHeader of tableHeaders">{{tableHeader | translate}}</th>
+    </tr>
     </thead>
     <tbody>
     <tr *ngFor="let systemNotification of (systemNotifications$ | async)">
@@ -28,13 +30,13 @@
         <button type="submit"
                 (click)="openEditModal(systemNotification)"
                 class="btn btn-text">
-          <i class="fas fa-edit"></i>
+          <fa-icon [icon]="['fas', 'fa-edit']"></fa-icon>
           {{'portal.admin.system-notifications.button.edit' | translate }}
         </button>
         <button type="submit"
                 (click)="openDeleteModal(systemNotification.id)"
                 class="btn btn-text">
-          <i class="fas fa-trash"></i>
+          <fa-icon [icon]="['fas', 'trash']"></fa-icon>
           {{'portal.admin.system-notifications.button.delete' | translate }}
         </button>
       </th>
@@ -44,7 +46,7 @@
   <button class="btn btn-primary"
           type="button"
           (click)="openCreateModal()">
-    <i class="fas fa-plus"></i>
+    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
     {{'portal.admin.system-notifications.button.create' | translate }}
   </button>
 </div>
