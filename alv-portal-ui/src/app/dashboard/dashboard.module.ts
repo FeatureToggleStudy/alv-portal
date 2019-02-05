@@ -7,7 +7,6 @@ import { PavDashboardComponent } from './pav-dashboard/pav-dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { GravatarModule } from 'ngx-gravatar';
 import { WidgetsModule } from '../widgets/widgets.module';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-dashboard.component';
@@ -30,7 +29,6 @@ import { ContactTemplateManagementComponent } from './contact-template-managemen
     CommonModule,
     DashboardRoutingModule,
     NgbTooltipModule,
-    GravatarModule,
     WidgetsModule
   ],
   entryComponents: [],
