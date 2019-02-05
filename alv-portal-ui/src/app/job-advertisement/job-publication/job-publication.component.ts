@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreState } from '../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { JobAdvertisementUpdatedAction } from '../../core/state-management/actions/core.actions';
-import { IconKey } from '../../shared/layout/custom-icon/custom-icon.component';
+import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-job-publication',

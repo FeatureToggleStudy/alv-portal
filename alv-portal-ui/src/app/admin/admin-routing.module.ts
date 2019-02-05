@@ -6,6 +6,7 @@ import { LegalTermsManagementComponent } from './legal-terms-management/legal-te
 import { ApiUserManagementComponent } from './api-user-management/api-user-management.component';
 import { UserRole } from '../core/auth/user.model';
 import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
+import { ApiDocComponent } from './api-doc/api-doc.component';
 import { ElasticSearchReindexComponent } from './elastic-search-reindex/elastic-search-reindex.component';
 
 const routes: Routes = [
@@ -45,6 +46,13 @@ const routes: Routes = [
     component: ApiUserManagementComponent,
     data: {
       titleKey: 'portal.admin.api-user-management.title'
+    }
+  },
+  {
+    path: 'api-doc',
+    component: ApiDocComponent,
+    data: {
+      titleKey: 'portal.admin.api-doc.title',
     }
   },
   {
