@@ -14,12 +14,12 @@
   </div>
   <button class="nav-item menu-toggle"
           (click)="toggleDesktopSideNav()">
-    <span *ngIf="!mainNavigationCollapsed">
-      <i class="fas fa-caret-left"></i>
-    </span>
-    <span *ngIf="mainNavigationCollapsed">
-      <i class="fas fa-caret-right"></i>
-    </span>
+    <fa-icon *ngIf="!mainNavigationCollapsed"
+             class="ml-2"
+             [icon]="['fas', 'caret-left']"></fa-icon>
+    <fa-icon *ngIf="mainNavigationCollapsed"
+             class="ml-2"
+             [icon]="['fas', 'caret-right']"></fa-icon>
   </button>
   <!-- Menu Entries -->
   <ng-container *ngFor="let menuEntry of menuEntries$ | async">
@@ -53,7 +53,8 @@
   <a class="d-flex align-self-center btn btn-primary m-3 w-80"
      *alvIsAnonymous
      (click)="login()">
-    <i class="nav-icon fas fa-key mx-2"></i>
+    <fa-icon class="nav-icon mx-2"
+             [icon]="['fas', 'key']"></fa-icon>
     <span class="nav-text">{{'global.menu.account.login' | translate}}</span>
   </a>
 

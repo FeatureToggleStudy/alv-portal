@@ -11,7 +11,7 @@ import {
   UserRole
 } from '../../../core/auth/user.model';
 import { MenuEntry } from './menu-entry.type';
-import { IconKey } from '../custom-icon/custom-icon.component';
+import { IconKey } from '../../icons/custom-icon/custom-icon.component';
 
 interface UserMenuDefinition {
   id: string;
@@ -121,13 +121,19 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
+    id: 'api-doc',
+    iconClass: 'book',
+    labelKey: 'portal.navigation.menu-entry.admin.api-doc',
+    path: ['admin', 'api-doc'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
+  },
+  {
     id: 'audits',
     iconClass: 'bell',
     labelKey: 'portal.admin.audits.title',
     path: ['admin', 'audits'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   }
-
 ];
 
 @Injectable()

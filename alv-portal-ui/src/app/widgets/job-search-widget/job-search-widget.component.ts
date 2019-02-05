@@ -6,7 +6,7 @@ import { I18nService } from '../../core/i18n.service';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { OccupationTypeaheadItem } from '../../shared/occupations/occupation-typeahead-item';
 import { OccupationSuggestionService } from '../../shared/occupations/occupation-suggestion.service';
-import { IconKey } from '../../shared/layout/custom-icon/custom-icon.component';
+import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-job-search-widget',

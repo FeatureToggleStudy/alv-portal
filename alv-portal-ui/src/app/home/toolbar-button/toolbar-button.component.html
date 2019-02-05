@@ -2,10 +2,9 @@
     [ngClass]="{'active': active}">
   <div class="nav-link__icon d-none d-md-flex justify-content-center align-items-center text-center position-relative">
     <div class="inner-circle">
-      <i class="fa"
-         [ngClass]="'fa-' + icon"
-         aria-hidden="true">
-      </i>
+      <fa-icon [icon]="['fas', icon]"
+               aria-hidden="true">
+      </fa-icon>
     </div>
 
   </div>

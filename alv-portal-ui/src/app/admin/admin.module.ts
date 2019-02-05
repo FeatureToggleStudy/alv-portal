@@ -12,6 +12,7 @@ import { LegalTermsDetailModalComponent } from './legal-terms-management/legal-t
 import { NotificationsService } from '../core/notifications.service';
 import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
 import { SystemNotificationModalComponent } from './system-notifications/modal/system-notification-modal.component';
+import { ApiDocComponent } from './api-doc/api-doc.component';
 import { ApiUserManagementComponent } from './api-user-management/api-user-management.component';
 import { ApiUserModalComponent } from './api-user-management/api-user-modal/api-user-modal.component';
 import { ApiUserPasswordModalComponent } from './api-user-management/api-user-password-modal/api-user-password-modal.component';
@@ -34,6 +35,7 @@ import { AuditsTableComponent } from './audits/audits-table/audits-table.compone
     SystemNotificationModalComponent,
     LegalTermsManagementComponent,
     LegalTermsDetailModalComponent,
+    ApiDocComponent,
     ApiUserManagementComponent,
     ApiUserModalComponent,
     ApiUserPasswordModalComponent,
@@ -50,6 +52,7 @@ import { AuditsTableComponent } from './audits/audits-table/audits-table.compone
   entryComponents: [
     SystemNotificationModalComponent,
     LegalTermsDetailModalComponent,
+    ApiDocComponent,
     ApiUserModalComponent,
     ApiUserPasswordModalComponent,
     AddBlacklistEntryModalComponent

@@ -14,11 +14,10 @@ interface IconEntry {
 }
 
 interface IconStackEntry {
-  cssClass: string;
+  icon: string[];
   transform: string;
-  mask: string;
+  mask: string[];
 }
-
 
 @Component({
   selector: 'alv-custom-icon',
@@ -32,12 +31,12 @@ export class CustomIconComponent implements OnInit {
       key: IconKey.JOB_PUBLICATION,
       iconStack: [
         {
-          cssClass: 'fas fa-circle',
+          icon: ['fas', 'circle'],
           transform: 'shrink-5 down-8 right-4',
-          mask: 'fas fa-file'
+          mask: ['fas', 'file']
         },
         {
-          cssClass: 'fas fa-plus',
+          icon: ['fas', 'plus'],
           transform: 'shrink-9 down-7.5 right-4',
           mask: null
         }
@@ -47,12 +46,12 @@ export class CustomIconComponent implements OnInit {
       key: IconKey.JOB_AD_SEARCH,
       iconStack: [
         {
-          cssClass: 'fas fa-circle',
+          icon: ['fas', 'circle'],
           transform: 'shrink-5 down-8 right-4',
-          mask: 'fas fa-file'
+          mask: ['fas', 'file']
         },
         {
-          cssClass: 'fas fa-search',
+          icon: ['fas', 'search'],
           transform: 'shrink-9 down-7.5 right-4',
           mask: null
         }
@@ -62,12 +61,12 @@ export class CustomIconComponent implements OnInit {
       key: IconKey.MANAGE_JOB_ADS,
       iconStack: [
         {
-          cssClass: 'fas fa-circle',
+          icon: ['fas', 'circle'],
           transform: 'shrink-5 down-8 right-4',
-          mask: 'fas fa-file'
+          mask: ['fas', 'file']
         },
         {
-          cssClass: 'fas fa-cog',
+          icon: ['fas', 'cog'],
           transform: 'shrink-9 down-7.5 right-4',
           mask: null
         }
@@ -77,12 +76,12 @@ export class CustomIconComponent implements OnInit {
       key: IconKey.CANDIDATE_SEARCH,
       iconStack: [
         {
-          cssClass: 'fas fa-circle',
+          icon: ['fas', 'circle'],
           transform: 'shrink-5 down-8 right-4',
-          mask: 'fas fa-user'
+          mask: ['fas', 'user']
         },
         {
-          cssClass: 'fas fa-search',
+          icon: ['fas', 'search'],
           transform: 'shrink-9 down-7.5 right-4',
           mask: null
         }
