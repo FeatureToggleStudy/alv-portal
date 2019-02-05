@@ -1,6 +1,6 @@
 <div *ngIf="apiUserList?.length; else noResults">
   <table class="table table-striped"
-          role="grid">
+         role="grid">
     <thead role="presentation">
     <tr role="row">
       <th scope="col"
@@ -67,28 +67,32 @@
         <button [ngClass]="apiUser.active ? 'btn btn-success btn-sm btn-icon' : 'btn btn-danger btn-sm btn-icon'"
                 [ngbTooltip]="(apiUser.active ? 'portal.admin.api-user-management.activated' : 'portal.admin.api-user-management.deactivated') | translate"
                 (click)="onStatusChangeDialog(apiUser, !apiUser.active)">
-          <span [ngClass]="apiUser.active ? 'fa fa-user-check' : 'fa fa-user-slash'" aria-hidden="true"></span>
+          <span [ngClass]="apiUser.active ? 'fa fa-user-check' : 'fa fa-user-slash'"
+                aria-hidden="true"></span>
         </button>
       </td>
       <td>
         <button class="btn btn-primary btn-sm btn-icon"
                 [ngbTooltip]="'portal.admin.api-user-management.update-user-dialog.title' | translate"
                 (click)="onUpdateUserDialog(apiUser)">
-          <span class="fa fa-edit" aria-hidden="true"></span>
+          <span class="fa fa-edit"
+                aria-hidden="true"></span>
         </button>
       </td>
       <td>
         <button class="btn btn-primary btn-sm btn-icon"
                 [ngbTooltip]="'portal.admin.api-user-management.update-password-dialog.title' | translate"
                 (click)="onUpdatePasswordDialog(apiUser.id)">
-          <span class="fa fa-key" aria-hidden="true"></span>
+          <span class="fa fa-key"
+                aria-hidden="true"></span>
         </button>
       </td>
     </tr>
     </tbody>
   </table>
   <ng-template #placeholder>
-    <i class="fa fa-sort ml-2 potential-sort"></i>
+    <fa-icon class="ml-2 potential-sort"
+             [icon]="['fas', 'sort']"></fa-icon>
   </ng-template>
 </div>
 <ng-template #noResults>

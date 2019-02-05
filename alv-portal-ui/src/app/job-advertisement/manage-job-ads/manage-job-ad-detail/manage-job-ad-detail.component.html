@@ -37,14 +37,14 @@
             <button class="dropdown-item"
                     [disabled]="!isCancellable"
                     (click)="cancelJobAdAction()">
-              <i aria-hidden="true"
-                 class="fas fa-trash mr-1"></i>
+              <fa-icon class="mr-1"
+                       [icon]="['fas', 'trash']"></fa-icon>
               {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
             </button>
             <button class="dropdown-item"
                     (click)="duplicateJobAdAction()">
-              <i aria-hidden="true"
-                 class="fas fa-copy mr-1"></i>
+              <fa-icon class="mr-1"
+                       [icon]="['fas', 'copy']"></fa-icon>
               {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
             </button>
           </div>

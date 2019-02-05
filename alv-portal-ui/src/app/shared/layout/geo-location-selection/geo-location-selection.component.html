@@ -2,14 +2,18 @@
         tabindex="-1"
         [attr.aria-label]="'portal.shared.localities.geo-location-selection.aria-label' | translate"
         (click)="getLocation()">
-  <span *ngIf="loading"
-        svgFixing>
-    <i class="loading-icon fas fa-lg mt-1 mr-1 fa-sync-alt fa-spin text-primary"></i>
+  <span *ngIf="loading">
+    <fa-icon class="loading-icon mt-1 mr-1 text-primary"
+             size="lg"
+             [icon]="['fas', 'sync-alt']"
+             [spin]="true"></fa-icon>
   </span>
-  <span *ngIf="!loading"
-        svgFixing>
-    <i class="map-icon fas fa-2x fa-map-marker-alt"
-       data-fa-transform="shrink-7.5"
-       data-fa-mask="fas fa-circle"></i>
+  <span *ngIf="!loading">
+    <fa-icon class="map-icon"
+             size="2x"
+             transform="shrink-7.5"
+             [mask]="['fas', 'circle']"
+             [icon]="['fas', 'map-marker-alt']">
+    </fa-icon>
   </span>
 </button>

@@ -282,8 +282,8 @@
           <button *ngIf="(canContactCandidatePerEmail$ | async)"
                   (click)="openContactModal(candidateDetailModel.candidateProfile)"
                   class="btn btn-text btn-text-icon btn-truncate">
-            <i aria-hidden="true"
-               class="fas fa-envelope mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'envelope']"></fa-icon>
             {{ 'candidate-detail.candidate-anonymous-contact.name' | translate }}
           </button>
         </li>

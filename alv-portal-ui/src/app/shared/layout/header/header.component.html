@@ -14,7 +14,8 @@
     <button class="header-menu d-lg-none align-self-center"
             [attr.aria-label]="'portal.header.menu.open-navigation'|translate"
             (click)="toggleMobileNavigation()">
-      <i class="navbar-toggler-icon fas fa-bars"></i>
+      <fa-icon class="navbar-toggler-icon"
+               [icon]="['fas', 'bars']"></fa-icon>
     </button>
     <div class="flex-grow-1"></div>
 

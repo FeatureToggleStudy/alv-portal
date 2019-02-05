@@ -55,8 +55,8 @@
       <a *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
          class="btn btn-text btn-text-icon btn-truncate"
          [href]="jobSearchMailToLink">
-        <i aria-hidden="true"
-           class="fas fa-share mr-1"></i>
+        <fa-icon class="mr-1"
+                 [icon]="['fas', 'share']"></fa-icon>
         {{'job-detail.action.sendEmail' | translate}}
       </a>
 
