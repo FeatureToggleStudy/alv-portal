@@ -4,7 +4,15 @@ import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
+function isSafariBrowser() {
+  return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+    navigator.userAgent &&
+    navigator.userAgent.indexOf('CriOS') === -1 &&
+    navigator.userAgent.indexOf('FxiOS') === -1;
+}
+
 @Directive({
+  /* tslint:disable:directive-selector */
   selector: '.fa-layers, [svgFixing]'
 })
 export class SvgFixingDirective extends AbstractSubscriber implements AfterViewInit {
@@ -14,48 +22,45 @@ export class SvgFixingDirective extends AbstractSubscriber implements AfterViewI
   }
 
   ngAfterViewInit() {
+    if (!isSafariBrowser()) {
+      return;
+    }
     this.router.events
       .pipe(
         filter(x => x instanceof NavigationEnd),
         startWith(() => {
-          return new NavigationEnd(1, 'test', 'test');
+          return new NavigationEnd(1, '', '');
         }),
         takeUntil(this.ngUnsubscribe)
-      ).subscribe(() => this.applyFixes());
+      ).subscribe(() => this.applySvgFixes());
   }
 
-  private applyFixes() {
-    const isSafari = navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-      navigator.userAgent &&
-      navigator.userAgent.indexOf('CriOS') === -1 &&
-      navigator.userAgent.indexOf('FxiOS') === -1;
-    if (isSafari) {
-      const baseUrl = this.location.path();
-      this.zone.runOutsideAngular(() => {
+  private applySvgFixes() {
+    const baseUrl = this.location.path();
+    this.zone.runOutsideAngular(() => {
+      setTimeout(() => {
         setTimeout(() => {
-          setTimeout(() => {
-            const element: Element = this.elementRef.nativeElement;
-            if (element) {
-              this.update(element, 'clip-path', baseUrl);
-              this.update(element, 'mask', baseUrl);
-              this.update(element, 'fill', baseUrl);
-            }
-          }, 100);
-        }, 0);
-      });
-    }
+          const element: Element = this.elementRef.nativeElement;
+          if (element) {
+            this.prefixWithBaseUrl(element, 'clip-path', baseUrl);
+            this.prefixWithBaseUrl(element, 'mask', baseUrl);
+            this.prefixWithBaseUrl(element, 'fill', baseUrl);
+          }
+        }, 100);
+      }, 0);
+    });
   }
 
-  private update(element: Element, attr: string, baseUrl: string) {
+  private prefixWithBaseUrl(element: Element, attribute: string, baseUrl: string) {
     [].slice
-      .call(element.querySelectorAll('*[' + attr + ']'))
+      .call(element.querySelectorAll('*[' + attribute + ']'))
       .filter((e: Element) => {
-        return e.getAttribute(attr).indexOf('url(') !== -1;
+        return e.getAttribute(attribute).indexOf('url(') !== -1;
       })
       .forEach((e: Element) => {
-        const attrVal = e.getAttribute(attr);
+        const attrVal = e.getAttribute(attribute);
         e.setAttribute(
-          attr,
+          attribute,
           `url(${baseUrl}${attrVal.slice(attrVal.indexOf('#'))}`
         );
       });
