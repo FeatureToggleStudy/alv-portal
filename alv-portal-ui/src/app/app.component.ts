@@ -5,6 +5,12 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas);
+
+
 const FALLBACK_TITLE_KEY = 'global.title';
 
 @Component({
@@ -21,7 +27,6 @@ export class AppComponent implements OnInit {
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService) {
-
   }
 
   ngOnInit() {
@@ -54,5 +59,4 @@ export class AppComponent implements OnInit {
       this.titleService.setTitle(title);
     });
   }
-
 }

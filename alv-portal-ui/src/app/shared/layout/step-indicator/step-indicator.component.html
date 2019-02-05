@@ -7,9 +7,7 @@
     <div class="step-indicator">
       <div class="step-container">
         <div class="step-icon">
-          <i [ngClass]="'fa-' + step.icon"
-             class="fas">
-          </i>
+          <fa-icon [icon]="['fas', step.icon]"></fa-icon>
         </div>
         <small class="step-label">
           {{step.label | translate}}

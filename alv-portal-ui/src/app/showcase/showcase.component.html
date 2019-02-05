@@ -37,14 +37,17 @@
 
   <h1 class="mt-2">Buttons</h1>
   <div class="d-flex mb-2">
-    <button class="btn btn-primary btn-icon mr-2"><i class="fas fa-wrench"></i></button>
+    <button class="btn btn-primary btn-icon mr-2">
+      <fa-icon [icon]="['fas', 'wrench']"></fa-icon>
+    </button>
     <button class="btn btn-primary mr-2">Primary</button>
     <button [disabled]="true"
             class="btn btn-primary">Primary
     </button>
   </div>
   <div class="d-flex mb-2">
-    <button class="btn btn-secondary btn-icon mr-2"><i class="fas fa-caret-left"></i>
+    <button class="btn btn-secondary btn-icon mr-2">
+      <fa-icon [icon]="['fas', 'caret-left']"></fa-icon>
     </button>
     <button class="btn btn-secondary mr-2">Sedondary</button>
     <button [disabled]="true"
@@ -52,7 +55,9 @@
     </button>
   </div>
   <div class="d-flex mb-2">
-    <button class="btn btn-text btn-icon mr-2"><i class="fas fa-info"></i></button>
+    <button class="btn btn-text btn-icon mr-2">
+      <fa-icon [icon]="['fas', 'info']"></fa-icon>
+    </button>
     <button class="btn btn-text mr-2">Text</button>
     <button [disabled]="true"
             class="btn btn-text">Text
@@ -65,125 +70,151 @@
     <ul class="list-unstyled">
       <li><strong>JobAds Version A</strong></li>
       <li>
-        <i class="fas fa-fw fa-search"
-           data-fa-transform="shrink-10 down-2"
-           data-fa-mask="fas fa-file"></i>
+        <fa-icon [fixedWidth]="true"
+                 [icon]="['fas', 'search']"
+                 transform="shrink-10 down-2"
+                 [mask]="['fas', 'file']">
+        </fa-icon>
         Stellen finden
       </li>
       <li>
-        <i class="fas fa-fw fa-star"
-           data-fa-transform="shrink-10 down-2"
-           data-fa-mask="fas fa-file"></i>
+        <fa-icon [fixedWidth]="true"
+                 [icon]="['fas', 'star']"
+                 transform="shrink-10 down-2"
+                 [mask]="['fas', 'file']">
+        </fa-icon>
         Stellen Favoriten
       </li>
       <li>
-        <i class="fas fa-fw fa-plus"
-           data-fa-transform="shrink-10 down-2"
-           data-fa-mask="fas fa-file"></i>
+        <fa-icon [fixedWidth]="true"
+                 [icon]="['fas', 'plus']"
+                 transform="shrink-10 down-2"
+                 [mask]="['fas', 'file']">
+        </fa-icon>
         Stellen melden
       </li>
       <li>
-        <i class="fas fa-fw fa-cog"
-           data-fa-transform="shrink-10 down-2"
-           data-fa-mask="fas fa-file"></i>
+        <fa-icon [fixedWidth]="true"
+                 [icon]="['fas', 'cog']"
+                 transform="shrink-10 down-2"
+                 [mask]="['fas', 'file']">
+        </fa-icon>
         Stellen bewirtchaften
       </li>
       <li>
-        <i class="fas fa-fw fa-bell"
-           data-fa-transform="shrink-10 down-2"
-           data-fa-mask="fas fa-file"></i>
+        <fa-icon [fixedWidth]="true"
+                 [icon]="['fas', 'bell']"
+                 transform="shrink-10 down-2"
+                 [mask]="['fas', 'file']">
+        </fa-icon>
         Stellen Suchprofil
       </li>
 
       <li><strong>JobAds Version B</strong></li>
       <li>
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-circle"
-             data-fa-transform="shrink-5 down-8 right-4"
-             data-fa-mask="fas fa-file"></i>
-          <i class="fas fa-search"
-             data-fa-transform="shrink-9 down-7.5 right-4"></i>
-        </span>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="['fas', 'circle']"
+                   transform="shrink-5 down-8 right-4"
+                   [mask]="['fas', 'file']">
+          </fa-icon>
+          <fa-icon [icon]="['fas', 'search']"
+                   transform="shrink-9 down-7.5 right-4">
+          </fa-icon>
+        </fa-layers>
         Stellen finden
       </li>
       <li>
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-circle"
-             data-fa-transform="shrink-5 down-8 right-4"
-             data-fa-mask="fas fa-file"></i>
-          <i class="fas fa-star"
-             data-fa-transform="shrink-9 down-7.5 right-4"></i>
-        </span>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="['fas', 'circle']"
+                   transform="shrink-5 down-8 right-4"
+                   [mask]="['fas', 'file']">
+          </fa-icon>
+          <fa-icon [icon]="['fas', 'star']"
+                   transform="shrink-9 down-7.5 right-4">
+          </fa-icon>
+        </fa-layers>
         Stellen Favoriten
       </li>
       <li>
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-circle"
-             data-fa-transform="shrink-5 down-8 right-4"
-             data-fa-mask="fas fa-file"></i>
-          <i class="fas fa-plus"
-             data-fa-transform="shrink-9 down-7.5 right-4"></i>
-        </span>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="['fas', 'circle']"
+                   transform="shrink-5 down-8 right-4"
+                   [mask]="['fas', 'file']">
+          </fa-icon>
+          <fa-icon [icon]="['fas', 'plus']"
+                   transform="shrink-9 down-7.5 right-4">
+          </fa-icon>
+        </fa-layers>
         Stellen melden
       </li>
       <li>
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-circle"
-             data-fa-transform="shrink-5 down-8 right-4"
-             data-fa-mask="fas fa-file"></i>
-          <i class="fas fa-cog"
-             data-fa-transform="shrink-9 down-7.5 right-4"></i>
-        </span>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="['fas', 'circle']"
+                   transform="shrink-5 down-8 right-4"
+                   [mask]="['fas', 'file']">
+          </fa-icon>
+          <fa-icon [icon]="['fas', 'cog']"
+                   transform="shrink-9 down-7.5 right-4">
+          </fa-icon>
+        </fa-layers>
         Stellen bewirtchaften
       </li>
       <li>
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-circle"
-             data-fa-transform="shrink-5 down-8 right-4"
-             data-fa-mask="fas fa-file"></i>
-          <i class="fas fa-bell"
-             data-fa-transform="shrink-9 down-7.5 right-4"></i>
-        </span>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="['fas', 'circle']"
+                   transform="shrink-5 down-8 right-4"
+                   [mask]="['fas', 'file']">
+          </fa-icon>
+          <fa-icon [icon]="['fas', 'bell']"
+                   transform="shrink-9 down-7.5 right-4">
+          </fa-icon>
+        </fa-layers>
         Stellen Suchprofil
       </li>
 
       <li><strong>Candidates</strong></li>
       <li>
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-circle"
-             data-fa-transform="shrink-5 down-8 right-4"
-             data-fa-mask="fas fa-user"></i>
-          <i class="fas fa-search"
-             data-fa-transform="shrink-9 down-7.5 right-4"></i>
-        </span>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="['fas', 'circle']"
+                   transform="shrink-5 down-8 right-4"
+                   [mask]="['fas', 'user']">
+          </fa-icon>
+          <fa-icon [icon]="['fas', 'search']"
+                   transform="shrink-9 down-7.5 right-4">
+          </fa-icon>
+        </fa-layers>
         Kandidaten finden
       </li>
       <li>
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-circle"
-             data-fa-transform="shrink-5 down-8 right-4"
-             data-fa-mask="fas fa-user"></i>
-          <i class="fas fa-star"
-             data-fa-transform="shrink-9 down-7.5 right-4"></i>
-        </span>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="['fas', 'circle']"
+                   transform="shrink-5 down-8 right-4"
+                   [mask]="['fas', 'user']">
+          </fa-icon>
+          <fa-icon [icon]="['fas', 'star']"
+                   transform="shrink-9 down-7.5 right-4">
+          </fa-icon>
+        </fa-layers>
         Kandidaten Favoriten
       </li>
       <li>
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-circle"
-             data-fa-transform="shrink-5 down-8 right-4"
-             data-fa-mask="fas fa-user"></i>
-          <i class="fas fa-bell"
-             data-fa-transform="shrink-9 down-7.5 right-4"></i>
-        </span>
+        <fa-layers [fixedWidth]="true">
+          <fa-icon [icon]="['fas', 'circle']"
+                   transform="shrink-5 down-8 right-4"
+                   [mask]="['fas', 'user']">
+          </fa-icon>
+          <fa-icon [icon]="['fas', 'bell']"
+                   transform="shrink-9 down-7.5 right-4">
+          </fa-icon>
+        </fa-layers>
         Kandidaten Suchprofil
       </li>
 
       <li><strong>Misc</strong></li>
       <li>
-        <i class="fas fa-fw fa-map-marker-alt"
-           data-fa-transform="shrink-8"
-           data-fa-mask="fas fa-circle"></i>
+        <fa-icon [icon]="['fas', 'map-marker-alt']"
+                 transform="shrink-8"
+                 [mask]="['fas', 'circle']"></fa-icon>
         Locality detection
       </li>
       <li><strong>Custom ALV Icons</strong></li>

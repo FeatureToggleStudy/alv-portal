@@ -22,10 +22,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MultiTypeaheadComponent } from './input/typeahead/multi-typeahead/multi-typeahead.component';
 import { SingleTypeaheadComponent } from './input/typeahead/single-typeahead/single-typeahead.component';
 import { AutofocusDirective } from './autofocus.directive';
+import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    IconsModule,
     NgFormsModule,
     ReactiveFormsModule,
     NgbDatepickerModule,

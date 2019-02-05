@@ -6,7 +6,7 @@ import { NotificationsService } from '../core/notifications.service';
 import { ModalService } from '../shared/layout/modal/modal.service';
 import { LocalitySuggestionService } from '../shared/localities/locality-suggestion.service';
 import { LocalityTypeaheadItem } from '../shared/localities/locality-typeahead-item';
-import { IconKey } from '../shared/layout/custom-icon/custom-icon.component';
+import { IconKey } from '../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-showcase',
