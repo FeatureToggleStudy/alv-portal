@@ -6,7 +6,9 @@
    placement="right"
    routerLinkActive="active">
   <ng-container *ngIf="menuEntry.iconClass; else customIcon ">
-    <i [attr.class]="'nav-icon fas fa-fw fa-' + menuEntry.iconClass"></i>
+    <fa-icon class="nav-icon"
+      [fixedWidth]="true"
+      [icon]="['fas', menuEntry.iconClass]"></fa-icon>
   </ng-container>
   <ng-template #customIcon>
     <alv-custom-icon

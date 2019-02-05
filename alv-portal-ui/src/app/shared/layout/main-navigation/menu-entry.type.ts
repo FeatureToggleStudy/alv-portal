@@ -1,5 +1,5 @@
 import { User } from '../../../core/auth/user.model';
-import { IconKey } from '../custom-icon/custom-icon.component';
+import { IconKey } from '../../icons/custom-icon/custom-icon.component';
 
 export interface MenuEntry {
   id: string;

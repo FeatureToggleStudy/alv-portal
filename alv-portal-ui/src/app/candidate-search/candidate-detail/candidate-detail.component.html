@@ -8,7 +8,8 @@
         <div>
           <a class="btn btn-text btn-text-icon"
              routerLink="/candidate-search">
-            <i class="fas fa-caret-left mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'caret-left']"></fa-icon>
             {{'candidate-detail.back' | translate}}
           </a>
         </div>
@@ -21,7 +22,7 @@
                   id="dropdownMenu"
                   ngbDropdownAnchor
                   [attr.aria-label]="'portal.candidate-detail.open-candidate-menu'|translate">
-            <i class="fas fa-ellipsis-v"></i>
+            <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
           </button>
           <div aria-label="Candidate detail menu"
                ngbDropdownMenu>
@@ -68,7 +69,7 @@
 
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
          routerLink="/candidate-search">
-        <i class="fas fa-caret-left mr-1"></i>
+        <fa-icon class="mr-1" [icon]="['fas', 'caret-left']"></fa-icon>
         {{'candidate-detail.back' | translate}}
       </a>
       <div class="alv-panel p-2 mb-3">
@@ -263,7 +264,7 @@
           (click)="prev()"
           [disabled]="!(prevEnabled$ | async)"
           class="btn btn-text btn-text-icon btn-truncate mb-2">
-          <i class="fas fa-caret-left mr-1"></i>
+          <fa-icon class="mr-1" [icon]="['fas', 'caret-left']"></fa-icon>
           {{'portal.job-detail.previous-result' | translate}}
         </button>
         <div class="flex-grow-1"></div>
@@ -272,7 +273,7 @@
           [disabled]="!(nextEnabled$ | async)"
           class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
-          <i class="fas fa-caret-right ml-1"></i>
+          <fa-icon class="mr-1" [icon]="['fas', 'caret-right']"></fa-icon>
         </button>
       </div>
 
@@ -281,8 +282,8 @@
           <button *ngIf="(canContactCandidatePerEmail$ | async)"
                   (click)="openContactModal(candidateDetailModel.candidateProfile)"
                   class="btn btn-text btn-text-icon btn-truncate">
-            <i aria-hidden="true"
-               class="fas fa-envelope mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'envelope']"></fa-icon>
             {{ 'candidate-detail.candidate-anonymous-contact.name' | translate }}
           </button>
         </li>
@@ -293,24 +294,21 @@
                   class="btn btn-text btn-text-icon btn-truncate"
                   ngxClipboard
                   triggers="manual">
-            <i aria-hidden="true"
-               class="fas fa-copy mr-1"></i>
+            <fa-icon class="mr-1" [icon]="['fas', 'copy']"></fa-icon>
             {{'candidate-detail.candidate-copy-link' | translate}}
           </button>
         </li>
         <li>
           <a [href]="'mailto:?body=' + getEncodedUrl()"
              class="btn btn-text btn-text-icon btn-truncate">
-            <i aria-hidden="true"
-               class="fas fa-share mr-1"></i>
+            <fa-icon class="mr-1" [icon]="['fas', 'share']"></fa-icon>
             {{'job-detail.action.sendEmail' | translate}}
           </a>
         </li>
         <li class="d-none d-md-block">
           <button (click)="printCandidate()"
                   class="btn btn-text btn-text-icon btn-truncate">
-            <i aria-hidden="true"
-               class="fas fa-print mr-1"></i>
+            <fa-icon class="mr-1" [icon]="['fas', 'print']"></fa-icon>
             {{'candidate-detail.candidate-print' | translate}}
           </button>
         </li>

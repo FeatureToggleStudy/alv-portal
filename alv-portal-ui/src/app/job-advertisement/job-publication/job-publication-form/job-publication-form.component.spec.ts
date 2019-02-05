@@ -31,6 +31,7 @@ import {
 } from '../../../shared/backend-services/shared.types';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
+import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 
 
@@ -65,6 +66,7 @@ describe('JobPublicationFormComponent', () => {
         SharedModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
+        RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

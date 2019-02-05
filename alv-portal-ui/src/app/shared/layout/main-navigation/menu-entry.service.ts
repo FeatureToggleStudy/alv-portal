@@ -11,7 +11,7 @@ import {
   UserRole
 } from '../../../core/auth/user.model';
 import { MenuEntry } from './menu-entry.type';
-import { IconKey } from '../custom-icon/custom-icon.component';
+import { IconKey } from '../../icons/custom-icon/custom-icon.component';
 
 interface UserMenuDefinition {
   id: string;
