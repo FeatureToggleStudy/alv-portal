@@ -26,10 +26,7 @@ const appRoutes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './dashboard/dashboard.module#DashboardModule',
-    canActivateChild: [AuthenticatedGuard],
-    data: {
-      collapseNavigation: false
-    }
+    canActivateChild: [AuthenticatedGuard]
   },
   {
     path: 'job-search',
