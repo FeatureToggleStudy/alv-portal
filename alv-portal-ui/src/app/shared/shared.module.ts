@@ -8,16 +8,13 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { CommonModule } from '@angular/common';
 import { MarkdownModule } from 'ngx-markdown';
 import { PipesModule } from './pipes/pipes.module';
-import { GeoLocationSelectionComponent } from './localities/geo-location-selection/geo-location-selection.component';
 import { LandingPageGuard } from './landing-page/landing-page.guard';
 import { DummyComponent } from './dummy/dummy.component';
-import { SystemNotificationComponent } from './layout/system-notification/system-notification.component';
+import { IconsModule } from './icons/icons.module';
 
 @NgModule({
   declarations: [
-    GeoLocationSelectionComponent,
-    DummyComponent,
-    SystemNotificationComponent
+    DummyComponent
   ],
   imports: [
     TranslateModule.forChild(),
@@ -27,7 +24,8 @@ import { SystemNotificationComponent } from './layout/system-notification/system
     LayoutModule,
     SharedAuthModule,
     ClipboardModule,
-    PipesModule
+    PipesModule,
+    IconsModule
   ],
   entryComponents: [],
   exports: [
@@ -40,8 +38,7 @@ import { SystemNotificationComponent } from './layout/system-notification/system
     ClipboardModule,
     MarkdownModule,
     SharedAuthModule,
-    GeoLocationSelectionComponent,
-    SystemNotificationComponent
+    IconsModule
   ],
   providers: [
     LandingPageGuard

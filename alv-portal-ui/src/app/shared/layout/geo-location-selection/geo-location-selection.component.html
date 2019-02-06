@@ -1,0 +1,19 @@
+<button *ngIf="visible$ | async"
+        tabindex="-1"
+        [attr.aria-label]="'portal.shared.localities.geo-location-selection.aria-label' | translate"
+        (click)="getLocation()">
+  <span *ngIf="loading">
+    <fa-icon class="loading-icon mt-1 mr-1 text-primary"
+             size="lg"
+             [icon]="['fas', 'sync-alt']"
+             [spin]="true"></fa-icon>
+  </span>
+  <span *ngIf="!loading">
+    <fa-icon class="map-icon"
+             size="2x"
+             transform="shrink-7.5"
+             [mask]="['fas', 'circle']"
+             [icon]="['fas', 'map-marker-alt']">
+    </fa-icon>
+  </span>
+</button>

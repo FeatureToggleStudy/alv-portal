@@ -43,19 +43,19 @@ export class NotificationComponent {
 
   constructor() {
     this.decorateClass[NotificationType.ERROR] = {
-      icon: 'fas fa-ban',
+      icon: 'ban',
       background: 'error'
     };
     this.decorateClass[NotificationType.INFO] = {
-      icon: 'fas fa-info',
+      icon: 'info',
       background: 'info'
     };
     this.decorateClass[NotificationType.SUCCESS] = {
-      icon: 'fas fa-check',
+      icon: 'check',
       background: 'success'
     };
     this.decorateClass[NotificationType.WARNING] = {
-      icon: 'fas fa-exclamation',
+      icon: 'exclamation',
       background: 'warning'
     };
   }

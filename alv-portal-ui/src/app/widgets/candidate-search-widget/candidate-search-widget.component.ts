@@ -6,7 +6,7 @@ import { OccupationSuggestionService } from '../../shared/occupations/occupation
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { OccupationTypeaheadItem } from '../../shared/occupations/occupation-typeahead-item';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { IconKey } from '../../shared/layout/custom-icon/custom-icon.component';
+import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-candidate-search-widget',

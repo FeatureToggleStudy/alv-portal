@@ -1,13 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { I18nService } from '../../../core/i18n.service';
+import { Observable } from 'rxjs';
+import { SystemNotificationRepository } from '../../backend-services/system-notifications/system-notification-repository';
+import { NotificationType } from '../notifications/notification.model';
 import {
   SystemNotificationDto,
   SystemNotificationType
 } from '../../backend-services/system-notifications/system-notification.types';
-import { I18nService } from '../../../core/i18n.service';
-import { Observable, of } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { SystemNotificationRepository } from '../../backend-services/system-notifications/system-notification-repository';
-import { Notification, NotificationType } from '../notifications/notification.model';
 
 @Component({
   selector: 'alv-system-notification',
@@ -17,17 +16,19 @@ import { Notification, NotificationType } from '../notifications/notification.mo
 })
 export class SystemNotificationComponent implements OnInit {
 
-  @Input() activeSystemNotifications: SystemNotificationDto[];
+  NotificationType = NotificationType;
 
-  visible = true;
+  currentLanguage$: Observable<string>;
 
-  systemNotifications: Notification[];
+  systemNotifications: SystemNotificationDto[];
 
   constructor(private i18nService: I18nService,
               private systemNotificationRepository: SystemNotificationRepository) {
   }
 
   ngOnInit() {
+    this.currentLanguage$ = this.i18nService.currentLanguage$;
+
     this.loadActiveSystemNotifications().subscribe(
       systemNotifications => {
         this.systemNotifications = systemNotifications;
@@ -35,43 +36,19 @@ export class SystemNotificationComponent implements OnInit {
     );
   }
 
-  getTypeStyleClass(type: SystemNotificationType): string {
-    return `system-notification-${type.toString().toLowerCase()}`;
+  mapNotificationType(systemNotificationType: SystemNotificationType): NotificationType {
+    return systemNotificationType.toLowerCase() === SystemNotificationType.SYSTEMERROR ? NotificationType.ERROR : NotificationType.WARNING;
   }
 
-  getType(type: SystemNotificationType): string {
-    return `portal.admin.system-notifications.systemnotification.type.${type.toString().toLowerCase()}`;
+  hideSystemNotification(index: number) {
+    this.systemNotifications.splice(index, 1);
   }
-
-  getIconClass(type: SystemNotificationType): string {
-    return type.toString().toLowerCase() === SystemNotificationType.SYSTEMERROR ? `fa fa-ban` : `fa fa-exclamation`;
+  private loadActiveSystemNotifications(): Observable<SystemNotificationDto[]> {
+    return this.systemNotificationRepository.getActiveSystemNotifications();
   }
-
-  dismissNotification() {
-    this.visible = !this.visible;
-  }
-
-  getCurrentLanguage(activeSystemNotification: SystemNotificationDto): Observable<string> {
-    return this.i18nService.currentLanguage$.pipe(
-      switchMap((language) => {
-        if (language === 'de') {
-          return of(activeSystemNotification.text_de);
-        }
-        if (language === 'fr') {
-          return of(activeSystemNotification.text_fr);
-        }
-        if (language === 'it') {
-          return of(activeSystemNotification.text_it);
-        }
-        if (language === 'en') {
-          return of(activeSystemNotification.text_en);
-        }
-      }));
-  }
-
-  private loadActiveSystemNotifications(): Observable<Notification[]> {
-    return this.systemNotificationRepository.getActiveSystemNotifications().pipe(
-      withLatestFrom(this.i18nService.currentLanguage$),
+}
+/*
+withLatestFrom(this.i18nService.currentLanguage$),
       map(([notifications, currentLanguage]) => notifications.map(notification => {
         return {
           type: notification.type === 'systemerror' ? NotificationType.ERROR : NotificationType.WARNING,
@@ -79,6 +56,4 @@ export class SystemNotificationComponent implements OnInit {
           isSticky: true
         };
       }))
-    );
-  }
-}
+ */

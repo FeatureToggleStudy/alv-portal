@@ -46,13 +46,17 @@ import { ContactModalComponent } from '../../candidate-search/candidate-detail/c
 import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
 import { UserNameAndCompanyComponent } from './user-name-and-company/user-name-and-company.component';
 import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-column-layout.component';
-import { CustomIconComponent } from './custom-icon/custom-icon.component';
+import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
+import { IconsModule } from '../icons/icons.module';
+import { SystemNotificationComponent } from './system-notification/system-notification.component';
+import { SystemNotificationModalComponent } from '../../admin/system-notifications/modal/system-notification-modal.component';
 
 @NgModule({
   imports: [
     ReactiveFormsModule,
     CommonModule,
     RouterModule,
+    IconsModule,
     SharedAuthModule,
     FormsModule,
     TranslateModule,
@@ -92,7 +96,8 @@ import { CustomIconComponent } from './custom-icon/custom-icon.component';
     UserNameAndCompanyComponent,
     ContactModalComponent,
     TwoColumnLayoutComponent,
-    CustomIconComponent
+    GeoLocationSelectionComponent,
+    SystemNotificationComponent
   ],
   providers: [
     CandidateContactRepository
@@ -129,7 +134,8 @@ import { CustomIconComponent } from './custom-icon/custom-icon.component';
     ScrollToTopComponent,
     ListItemContentComponent,
     TwoColumnLayoutComponent,
-    CustomIconComponent
+    GeoLocationSelectionComponent,
+    SystemNotificationComponent
   ]
 })
 export class LayoutModule {
