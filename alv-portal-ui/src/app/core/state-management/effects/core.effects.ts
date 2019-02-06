@@ -22,8 +22,7 @@ import {
   LogoutUserAction,
   SELECT_COMPANY,
   SelectCompanyAction,
-  SESSION_EXPIRED,
-  ToggleMainNavigationAction
+  SESSION_EXPIRED
 } from '../actions/core.actions';
 import { HttpClient } from '@angular/common/http';
 import { SessionManagerService } from '../../auth/session-manager/session-manager.service';
@@ -67,12 +66,12 @@ export class CoreEffects {
   currentUserLoaded: Observable<Action> = this.actions$.pipe(
     ofType(CURRENT_USER_LOADED),
     map(action => <CurrentUserLoadedAction>action),
-    switchMap((action) => {
-      const actions: Action[] = [new ToggleMainNavigationAction({ expanded: true })];
+    map((action) => {
       if (action.payload.currentUser) {
-        actions.push(new LoadAccountabilities({ userId: action.payload.currentUser.id }));
+        return new LoadAccountabilities({ userId: action.payload.currentUser.id });
+      } else {
+        return { type: 'nothing' };
       }
-      return actions;
     })
   );
 
