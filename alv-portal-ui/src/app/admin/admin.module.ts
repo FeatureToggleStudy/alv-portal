@@ -18,6 +18,7 @@ import { ApiUserModalComponent } from './api-user-management/api-user-modal/api-
 import { ApiUserPasswordModalComponent } from './api-user-management/api-user-password-modal/api-user-password-modal.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ApiUserManagementTableComponent } from './api-user-management/api-user-management-table/api-user-management-table.component';
+import { ElasticSearchReindexComponent } from './elastic-search-reindex/elastic-search-reindex.component';
 import { AuditsComponent } from './audits/audits.component';
 import { AuditsTableComponent } from './audits/audits-table/audits-table.component';
 
@@ -41,6 +42,7 @@ import { AuditsTableComponent } from './audits/audits-table/audits-table.compone
     ApiUserPasswordModalComponent,
     ApiUserManagementTableComponent,
     AddBlacklistEntryModalComponent,
+    ElasticSearchReindexComponent,
     AuditsComponent,
     AuditsTableComponent
   ],

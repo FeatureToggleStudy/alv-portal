@@ -2,12 +2,12 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IsoCountryService } from '../iso-country.service';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
-import { Observable } from 'rxjs/index';
+import { Observable } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
-import { ValidationErrors } from '@angular/forms/src/directives/validators';
 import { PostAddressFormValue } from './post-address-form-value.types';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { HOUSE_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
+import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
 
 
 @Component({
@@ -47,7 +47,7 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = this.postAddressFormValue;
+    const {name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet} = this.postAddressFormValue;
 
     this.postAddress = this.fb.group({
       name: [name, [
@@ -68,7 +68,9 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
             Validators.min(0)
           ]],
         },
-        { validator: postOfficeBoxNumberOrStreetRequiredValidator }
+        {
+          validator: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])]
+        }
       )
     });
 
@@ -84,17 +86,4 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.parentForm.removeControl(this.groupName);
   }
-}
-
-function postOfficeBoxNumberOrStreetRequiredValidator(postOfficeBoxNumberOrStreet: FormGroup): ValidationErrors | null {
-  const streetValue = postOfficeBoxNumberOrStreet.get('street').value;
-  const postOfficeBoxNumberValue = postOfficeBoxNumberOrStreet.get('postOfficeBoxNumber').value;
-
-  if (!!streetValue || !!postOfficeBoxNumberValue) {
-    return null;
-  }
-
-  return {
-    postOfficeBoxNumberOrStreetRequired: true
-  };
 }
