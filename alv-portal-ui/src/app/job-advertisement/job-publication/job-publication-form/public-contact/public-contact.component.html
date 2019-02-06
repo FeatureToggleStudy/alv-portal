@@ -22,14 +22,14 @@
                      alvFormControlName="phone"
                      type="tel"
                      placeholder="home.tools.job-publication.placeholders.phone"
-                     [validationMessages]="[{ error: 'phoneOrEmailRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-email-or-phone'}]"
+                     [validationMessages]="[{ error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-email-or-phone'}]"
                      [showGroupErrors]="true">
     </alv-input-field>
 
     <alv-input-field label="home.tools.job-publication.contact.email"
                      alvFormControlName="email"
                      placeholder="home.tools.job-publication.placeholders.email"
-                     [validationMessages]="[{ error: 'phoneOrEmailRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-email-or-phone'}]"
+                     [validationMessages]="[{ error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-email-or-phone'}]"
                      [maxLength]="EMAIL_MAX_LENGTH"
                      [showGroupErrors]="true">
     </alv-input-field>
