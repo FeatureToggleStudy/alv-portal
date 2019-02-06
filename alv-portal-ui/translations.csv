@@ -399,6 +399,14 @@ global,global.job-publication.status.PUBLISHED_PUBLIC,Öffentlich publiziert,Pub
 global,global.job-publication.status.PUBLISHED_RESTRICTED,Eingeschränkt publiziert,Restricted posting,Publié dans l'espace réservé,Pubblicazione ristretta
 global,global.job-publication.status.REFINING,Wird überarbeitet,In revision,En révision,Revisione in corso
 global,global.job-publication.status.REJECTED,Zurückgewiesen,Rejected,Rejeté,Respinto
+global,global.legal-terms-dialog.body.accept-label,Ich akzeptiere die neuen AGB,I accept the new GTC,J’accepte les nouvelles CG.,Accetto le nuove CG
+global,global.legal-terms-dialog.body.accept-link.error,Es ist ein Fehler aufgetreten!,An error has occurred!,Une erreur s'est produite !,Si è verificato un errore!
+global,global.legal-terms-dialog.body.accept-link.text,Neue Allgemeine Geschäftsbedingungen (AGB),New General Terms and Conditions (GTC),Nouvelles conditions générales (CG),Nuove Condizioni generali (CG)
+global,global.legal-terms-dialog.body.content1,"Unsere Allgemeinen Geschäftsbedingungen haben sich geändert. ",Our General Terms and Conditions have changed.,Nos conditions générales ont été modifiées.,Le nostre Condizioni generali sono cambiate.
+global,global.legal-terms-dialog.body.content2,"Bitte akzeptieren Sie diese, damit Sie Ihr Konto weiterhin nutzen können.",Please accept them in order to continue using your account.,Veuillez les accepter afin de poursuivre l’utilisation de votre compte.,Per continuare a usare il tuo conto accetta le Condizioni generali.
+global,global.legal-terms-dialog.footer.accept,Weiter,Next,Suivant,Seguente
+global,global.legal-terms-dialog.footer.reject,Nicht akzeptieren und ausloggen,Do not accept and log out,Ne pas accepter et se désinscrire,"Non accettare, logout"
+global,global.legal-terms-dialog.header.title,Neue Allgemeine Geschäftsbedingungen (AGB),New General Terms and Conditions (GTC),Nouvelles conditions
 global,global.menu.account.login,Login|Registrierung,Login|Registration,Login|Enregistrement,Login|Registrazione
 global,global.menu.account.logout,Abmelden,Sign out,Déconnexion,Esci
 global,global.menu.account.main,Zugang,Account,Compte,Utente
@@ -1629,8 +1637,6 @@ portal,portal.admin.api-user-management.update-password-dialog.title,Change pass
 portal,portal.admin.api-user-management.email,E-Mail,Email,Courriel,E-mail
 portal,portal.admin.api-user-management.password.title,Passwort,Password,Mot de passe,Password
 portal,portal.admin.api-user-management.password.generate,Password generieren,Generate password,Générer un mot de passe,Genera password
-
-portal,portal.admin.api-doc.title,API Doc,API Doc,API Doc,API Doc
 
 portal,portal.admin.audits.title,Audits,Audits,Audits,Cambiamenti
 portal,portal.admin.audits.filter.filter-by-dates,,Filter audits by dates,,
