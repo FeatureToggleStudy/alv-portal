@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ElasticSearchReindexRepository } from '../../shared/backend-services/elastic-search-reindex/elastic-search-reindex-repository';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Notification, NotificationType } from '../../shared/layout/notifications/notification.model';
+import { atLeastOneRequiredValidator } from '../../shared/forms/input/checkbox/at-least-one-required.validator';
 
 export const MESSAGE = {
   success: {
@@ -94,22 +95,13 @@ export class ElasticSearchReindexComponent implements OnInit {
   }
 
   private prepareForm() {
-
-    const atLeastOneRequiredValidator: ValidatorFn = (formGroup: FormGroup) => {
-      const users = formGroup.get('users').value;
-      const candidates = formGroup.get('candidates').value;
-      const jobs = formGroup.get('jobs').value;
-      const referenceData = formGroup.get('reference_data').value;
-      return users || candidates || jobs || referenceData ? null : {atLeastOneRequired: true};
-    };
-
     return this.fb.group({
       users: [false],
       candidates: [false],
       jobs: [false],
       reference_data: [false]
     }, {
-      validator: [atLeastOneRequiredValidator]
+      validator: [atLeastOneRequiredValidator(this.ELASTICSEARCH_CHECKBOXES)]
     });
   }
 

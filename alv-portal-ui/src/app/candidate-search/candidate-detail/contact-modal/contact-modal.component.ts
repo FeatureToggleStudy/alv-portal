@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  CandidateProfile,
-  EmailContactModal
-} from '../../../shared/backend-services/candidate/candidate.types';
+import { CandidateProfile, EmailContactModal } from '../../../shared/backend-services/candidate/candidate.types';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
@@ -15,6 +12,7 @@ import { phoneInputValidator } from '../../../shared/forms/input/input-field/pho
 import { combineLatest } from 'rxjs';
 import { CandidateContactRepository } from '../../../shared/backend-services/candidate/candidate-contact-repository';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { atLeastOneRequiredValidator } from '../../../shared/forms/input/checkbox/at-least-one-required.validator';
 
 @Component({
   selector: 'alv-contact-modal',
@@ -112,14 +110,6 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   }
 
   private prepareForm(): FormGroup {
-
-    const atLeastOneRequiredValidator: ValidatorFn = (formGroup: FormGroup) => {
-      const phone = formGroup.get('phoneCheckbox').value;
-      const email = formGroup.get('emailCheckbox').value;
-      const post = formGroup.get('postCheckbox').value;
-      return phone || email || post ? null : { atLeastOneRequired: true };
-    };
-
     return this.fb.group({
       subject: [null, Validators.required],
       company: this.generateCompanyFormGroup(),
@@ -131,7 +121,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       email: [null],
       postCheckbox: [true]
     }, {
-      validator: [atLeastOneRequiredValidator]
+      validator: [atLeastOneRequiredValidator(['phoneCheckbox', 'emailCheckbox', 'postCheckbox'])]
     });
   }
 
