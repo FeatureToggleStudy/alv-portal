@@ -1,16 +1,7 @@
-<alv-system-notification class="d-block">
-</alv-system-notification>
+<alv-system-notification></alv-system-notification>
+<alv-notifications-container></alv-notifications-container>
 
-<div class="position-relative h-100">
-
-  <alv-header></alv-header>
-
-  <alv-navigation-container>
-    <router-outlet></router-outlet>
-  </alv-navigation-container>
-  <alv-notifications-container></alv-notifications-container>
-  <alv-version></alv-version>
-</div>
+<alv-header></alv-header>
 
 <div class="sr-only"
      role="status"
@@ -19,4 +10,10 @@
   {{a11yMessage}}
 </div>
 
+<alv-navigation-container>
+  <router-outlet></router-outlet>
+</alv-navigation-container>
 
+<alv-version></alv-version>
+
+<alv-legal-terms></alv-legal-terms>

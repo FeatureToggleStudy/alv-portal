@@ -71,7 +71,7 @@
         <button [ngClass]="apiUser.active ? 'btn btn-success btn-sm btn-icon' : 'btn btn-danger btn-sm btn-icon'"
                 [ngbTooltip]="(apiUser.active ? 'portal.admin.api-user-management.activated' : 'portal.admin.api-user-management.deactivated') | translate"
                 (click)="onStatusChangeDialog(apiUser, !apiUser.active)">
-          <fa-icon [icon]="['fas', apiUser.active ? 'fa-user-check' : 'fa-user-slash']"></fa-icon>
+          <fa-icon [icon]="['fas', apiUser.active ? 'user-check' : 'user-slash']"></fa-icon>
         </button>
       </td>
       <td>

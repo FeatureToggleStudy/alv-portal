@@ -1,7 +1,7 @@
 <alv-modal modalTitle="portal.admin.legal-terms-management.legal-terms-details.title"
            primaryLabel="entity.action.save"
            (primaryAction)="onSubmit()"
-           [primaryAllow]="!readonly"
+           [showPrimaryButton]="!readonly"
            secondaryLabel="entity.action.cancel"
            (secondaryAction)="onDismiss()"
            [formGroup]="form">
