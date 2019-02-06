@@ -1,7 +1,7 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX, URL_REGEX } from '../../regex-patterns';
 
-export const patternInputValidator: (regex: RegExp) => ValidatorFn = (regex) => {
+export function patternInputValidator(regex: RegExp): ValidatorFn {
   return (control: AbstractControl) => {
 
     if (control.value && regex) {
@@ -36,4 +36,4 @@ export const patternInputValidator: (regex: RegExp) => ValidatorFn = (regex) => 
     }
     return null;
   };
-};
+}
