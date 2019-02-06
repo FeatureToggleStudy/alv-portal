@@ -94,6 +94,7 @@ export class UserDto {
   langKey: string;
   authorities: UserRole[];
   registrationStatus: RegistrationStatus;
+  legalTermsAccepted: boolean;
 }
 
 
