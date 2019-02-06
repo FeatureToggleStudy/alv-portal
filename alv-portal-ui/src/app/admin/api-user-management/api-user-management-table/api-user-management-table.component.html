@@ -1,21 +1,25 @@
 <div *ngIf="apiUserList?.length; else noResults">
   <table class="table table-striped"
-          role="grid">
+         role="grid">
     <thead role="presentation">
     <tr role="row">
       <th scope="col"
           role="columnheader"
+          class="clickable-column-header"
           *ngFor="let columnDefinition of columnDefinitions"
           (click)="onSort(columnDefinition.columnName)"
           [ngClass]="{'active-sort' : currentSorting.columnName === columnDefinition.columnName}">
         {{ 'portal.admin.api-user-management.' + columnDefinition.columnName | translate }}
-        <span class="fa fa-sort ml-2 text-primary"
-              *ngIf="currentSorting.columnName === columnDefinition.columnName; else placeholder"
-              [ngClass]="{
-              'fa-sort-down': currentSorting.sorting === 'desc',
-              'fa-sort-up': currentSorting.sorting === 'asc'
-              }">
-        </span>
+        <ng-container *ngIf="currentSorting.columnName === columnDefinition.columnName; else placeholder">
+          <fa-icon class="ml-2 text-primary"
+                   *ngIf="currentSorting.sorting === 'desc'"
+                   [icon]="['fas', 'sort-down']">
+          </fa-icon>
+          <fa-icon class="ml-2 text-primary"
+                   *ngIf="currentSorting.sorting === 'asc'"
+                   [icon]="['fas', 'sort-up']">
+          </fa-icon>
+        </ng-container>
       </th>
       <th scope="col"
           role="columnheader">
@@ -67,28 +71,29 @@
         <button [ngClass]="apiUser.active ? 'btn btn-success btn-sm btn-icon' : 'btn btn-danger btn-sm btn-icon'"
                 [ngbTooltip]="(apiUser.active ? 'portal.admin.api-user-management.activated' : 'portal.admin.api-user-management.deactivated') | translate"
                 (click)="onStatusChangeDialog(apiUser, !apiUser.active)">
-          <span [ngClass]="apiUser.active ? 'fa fa-user-check' : 'fa fa-user-slash'" aria-hidden="true"></span>
+          <fa-icon [icon]="['fas', apiUser.active ? 'fa-user-check' : 'fa-user-slash']"></fa-icon>
         </button>
       </td>
       <td>
         <button class="btn btn-primary btn-sm btn-icon"
                 [ngbTooltip]="'portal.admin.api-user-management.update-user-dialog.title' | translate"
                 (click)="onUpdateUserDialog(apiUser)">
-          <span class="fa fa-edit" aria-hidden="true"></span>
+          <fa-icon [icon]="['fas', 'edit']"></fa-icon>
         </button>
       </td>
       <td>
         <button class="btn btn-primary btn-sm btn-icon"
                 [ngbTooltip]="'portal.admin.api-user-management.update-password-dialog.title' | translate"
                 (click)="onUpdatePasswordDialog(apiUser.id)">
-          <span class="fa fa-key" aria-hidden="true"></span>
+          <fa-icon [icon]="['fas', 'key']"></fa-icon>
         </button>
       </td>
     </tr>
     </tbody>
   </table>
   <ng-template #placeholder>
-    <i class="fa fa-sort ml-2 potential-sort"></i>
+    <fa-icon class="ml-2 potential-sort"
+             [icon]="['fas', 'sort']"></fa-icon>
   </ng-template>
 </div>
 <ng-template #noResults>

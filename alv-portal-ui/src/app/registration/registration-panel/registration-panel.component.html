@@ -24,7 +24,9 @@
     <button *ngIf="!hideBackButton"
             class="btn btn-secondary btn-icon"
             type="button"
-            (click)="handleBackClick()"><i class="fas fa-caret-left"></i></button>
+            (click)="handleBackClick()">
+      <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
+    </button>
     <div class="flex-grow-1"></div>
     <button *ngIf="secondaryLabel"
             class="btn"

@@ -1,11 +1,5 @@
 <div class="d-flex align-items-center">
-  <div class="mr-4">
-    <img class="photo-user"
-         ngxGravatar
-         [email]="user.email"
-         size="80"
-         [fallback]="'identicon'">
-  </div>
+
   <div class="flex-grow-1">
     <div>{{timeTextKey | translate}},</div>
     <div class="greeting">{{user.firstName}} {{user.lastName}}</div>
