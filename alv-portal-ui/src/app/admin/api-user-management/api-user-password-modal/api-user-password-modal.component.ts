@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ApiUserManagementRepository } from '../../../shared/backend-services/api-user-management/api-user-management-repository';
-import { ApiUserManagementRequestMapper } from '../api-user-management-request.mapper';
+import { mapPasswordToRequest } from '../api-user-management-request.mapper';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -38,7 +38,7 @@ export class ApiUserPasswordModalComponent implements OnInit {
 
   onSubmit() {
     this.apiUserManagementRepository.updatePassword(
-      ApiUserManagementRequestMapper.mapPasswordToRequest(this.apiUserId, this.form.get('password').value))
+      mapPasswordToRequest(this.apiUserId, this.form.get('password').value))
       .pipe(
         take(1))
       .subscribe(() => this.activeModal.close(this.apiUserId), () => {});
