@@ -2,12 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Audit, AuditsColumnDefinition } from '../../../shared/backend-services/audits/audits.types';
 import { mapAuditsColumnDefinitionToSort } from '../audits-request.mapper';
 
-export const AUDITS_COLUMN_NAME = ['timestamp', 'principal', 'type', 'data'];
-
-export function isAuditsColumnSortable(columnName: string): boolean {
-  return columnName === 'timestamp' || columnName === 'type';
-}
-
 @Component({
   selector: 'alv-audits-table',
   templateUrl: './audits-table.component.html',
@@ -15,6 +9,7 @@ export function isAuditsColumnSortable(columnName: string): boolean {
 })
 export class AuditsTableComponent implements OnInit {
 
+  readonly AUDITS_COLUMN_NAME = ['timestamp', 'principal', 'type', 'data'];
   @Input()
   auditList: Audit[];
 
@@ -35,11 +30,11 @@ export class AuditsTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.columnDefinitions = AUDITS_COLUMN_NAME.map((columnName) => {
+    this.columnDefinitions = this.AUDITS_COLUMN_NAME.map((columnName) => {
       return {
         columnName: columnName,
         sortOrder: '',
-        sortable: isAuditsColumnSortable(columnName)
+        sortable: this.isAuditsColumnSortable(columnName)
       } as AuditsColumnDefinition;
     });
   }
@@ -50,6 +45,10 @@ export class AuditsTableComponent implements OnInit {
 
   onSort(column: string) {
     this.sort.emit(mapAuditsColumnDefinitionToSort(this.currentSorting, column));
+  }
+
+  private isAuditsColumnSortable(columnName: string): boolean {
+    return columnName === 'timestamp' || columnName === 'type';
   }
 
 }
