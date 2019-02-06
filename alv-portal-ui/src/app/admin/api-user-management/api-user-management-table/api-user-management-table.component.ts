@@ -5,11 +5,11 @@ import {
 } from '../../../shared/backend-services/api-user-management/api-user-management.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ApiUserManagementRepository } from '../../../shared/backend-services/api-user-management/api-user-management-repository';
-import { COLUMN_NAMES, mapApiUserColumnDefinitionToSort } from '../api-user-management-factory';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { ApiUserModalComponent } from '../api-user-modal/api-user-modal.component';
 import { ApiUserPasswordModalComponent } from '../api-user-password-modal/api-user-password-modal.component';
+import { mapApiUserColumnDefinitionToSort } from '../api-user-management-request.mapper';
 
 @Component({
   selector: 'alv-api-user-management-table',
@@ -24,6 +24,9 @@ export class ApiUserManagementTableComponent implements OnInit {
     confirmLabel: 'portal.admin.user-info.confirm-dialog.yes',
     cancelLabel: 'portal.admin.user-info.confirm-dialog.no'
   };
+
+  readonly COLUMN_NAMES = ['username', 'companyName', 'companyEmail', 'technicalContactName', 'technicalContactEmail',
+    'createDate', 'lastAccessDate', 'active'];
 
   @Input()
   apiUserList: ApiUser[];
@@ -56,7 +59,7 @@ export class ApiUserManagementTableComponent implements OnInit {
               private apiUserManagementRepository: ApiUserManagementRepository) { }
 
   ngOnInit() {
-    this.columnDefinitions = COLUMN_NAMES.map((columnName) => {
+    this.columnDefinitions = this.COLUMN_NAMES.map((columnName) => {
       return {
         columnName: columnName,
         sorting: ''
