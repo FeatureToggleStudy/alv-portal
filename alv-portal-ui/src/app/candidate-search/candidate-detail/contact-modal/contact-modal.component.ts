@@ -29,7 +29,6 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   readonly LABEL_VALUES: string[] = [
     'candidate-detail.candidate-anonymous-contact.subject',
     'candidate-detail.anonymous-contact.personal-message',
-    'global.reference.canton.CH',
     'candidate-detail.anonymous-contact.mail-body-preamble'
   ];
 
@@ -43,8 +42,6 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   form: FormGroup;
 
   mailBodyPreamble: string;
-
-  private countryValue: string;
 
   constructor(private authenticationService: AuthenticationService,
               private i18nService: I18nService,
@@ -64,8 +61,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     combineLatest(this.authenticationService.getCurrentCompany(), this.i18nService.stream(this.LABEL_VALUES)).pipe(
       takeUntil(this.ngUnsubscribe))
       .subscribe(([company, translate]) => {
-        this.countryValue = translate[this.LABEL_VALUES[2]];
-        this.mailBodyPreamble = translate[this.LABEL_VALUES[3]];
+        this.mailBodyPreamble = translate[this.LABEL_VALUES[2]];
         this.patchAllFormValues(company, translate);
       });
 
