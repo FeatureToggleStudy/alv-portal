@@ -4,6 +4,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { LegalTermsManagementRepository } from '../backend-services/legal-terms-management/legal-terms-management-repository';
 import { map } from 'rxjs/operators';
 import { LegalTerms } from '../backend-services/legal-terms-management/legal-terms-management.types';
+import { RegistrationRepository } from '../backend-services/registration/registration.repository';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ import { LegalTerms } from '../backend-services/legal-terms-management/legal-ter
 export class LegalTermsService {
 
   constructor(private i18nService: I18nService,
-              private legalTermsManagementRepository: LegalTermsManagementRepository) {
+              private legalTermsManagementRepository: LegalTermsManagementRepository,
+              private registrationRepository: RegistrationRepository) {
   }
 
   getLegalTermsUrl(): Observable<string> {
@@ -21,6 +23,10 @@ export class LegalTermsService {
     ).pipe(
       map(([currentLanguage, legalTerms]) => extractUrl(currentLanguage, legalTerms))
     );
+  }
+
+  acceptLegalTerms(): Observable<void> {
+    return this.registrationRepository.acceptLegalTerms();
   }
 }
 

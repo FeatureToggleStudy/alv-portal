@@ -88,7 +88,7 @@
         <button class="btn btn-primary btn-icon"
                 [ngbTooltip]="'entity.action.view' | translate"
                 (click)="onView(legalTerms)">
-          <span class="fas fa-eye"></span>
+          <fa-icon [icon]="['fas', 'eye']"></fa-icon>
         </button>
       </td>
       <td class="content-cell align-middle"
@@ -97,7 +97,8 @@
                 class="btn btn-primary btn-icon"
                 [ngbTooltip]="'entity.action.edit' | translate"
                 (click)="onUpdate(legalTerms)">
-          <span class="fas fa-edit"></span>
+          <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+
         </button>
       </td>
       <td class="content-cell align-middle"
@@ -106,7 +107,7 @@
                 class="btn btn-primary btn-icon"
                 [ngbTooltip]="'entity.action.delete' | translate"
                 (click)="onDelete(legalTerms)">
-          <span class="fas fa-trash"></span>
+          <fa-icon [icon]="['fas', 'trash']"></fa-icon>
         </button>
       </td>
     </tr>

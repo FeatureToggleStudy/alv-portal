@@ -34,7 +34,7 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private currentLegalTermsService: LegalTermsService) {
+              private legalTermsService: LegalTermsService) {
     super();
   }
 
@@ -44,7 +44,7 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
       termsAndConditions: [false, Validators.requiredTrue]
     });
 
-    this.legalTermsUrl$ = this.currentLegalTermsService.getLegalTermsUrl();
+    this.legalTermsUrl$ = this.legalTermsService.getLegalTermsUrl();
   }
 
   selectRole() {

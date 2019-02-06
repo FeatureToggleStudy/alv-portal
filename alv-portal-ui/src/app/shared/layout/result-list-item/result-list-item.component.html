@@ -18,6 +18,7 @@
   <alv-inline-badges [badges]="result.badges"></alv-inline-badges>
 
   <div class="line-clamp-2"
+       *ngIf="result.description"
        [style.-webkit-box-orient]="'vertical'"
        [innerHtml]="result.description | markdownEscape | safeHtml">
   </div>
