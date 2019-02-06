@@ -48,13 +48,16 @@ export class AppComponent implements OnInit {
 
     currentRoute$.pipe(
       mergeMap((route) => {
-        return route.data.pipe(map(data => [data.collapseNavigation, route.component]));
+        return route.data.pipe(map(data => ({
+          collapseState: data.collapseNavigation,
+          component: route.component
+        })));
       }),
       pairwise()
     ).subscribe(([prevValues, currentValues]) => {
-      const prevComponent = prevValues[1];
-      const currentComponent = currentValues[1];
-      const currentCollapseState = currentValues[0];
+      const prevComponent = prevValues.component;
+      const currentComponent = currentValues.component;
+      const currentCollapseState = currentValues.collapseState;
       if (currentCollapseState !== undefined && prevComponent !== currentComponent) {
         this.store.dispatch(new ToggleMainNavigationAction({ expanded: !currentCollapseState }));
       }
