@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CandidateProfile, EmailContactModal } from '../../../shared/backend-services/candidate/candidate.types';
+import {
+  CandidateProfile,
+  EmailContactModal
+} from '../../../shared/backend-services/candidate/candidate.types';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
@@ -56,7 +59,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     this.form = this.prepareForm();
 
-    this.countryOptions$ = this.isoCountryService.countryOptionsSortedWithMainCountriesFirst$;
+    this.countryOptions$ = this.isoCountryService.countryOptions$;
 
     combineLatest(this.authenticationService.getCurrentCompany(), this.i18nService.stream(this.LABEL_VALUES)).pipe(
       takeUntil(this.ngUnsubscribe))
