@@ -112,7 +112,7 @@ candidate-search,candidate-search.candidate-search-list.title.one.with-query,1 '
 candidate-search,candidate-search.candidate-search-list.title.one.with-query.with-locality,1 '{{query}}' Kandidat in {{locality}},1 '{{query}}' candidate in {{locality}},1 candidat pour '{{query}}' à {{locality}},1 candidato per '{{query}}' in {{locality}}
 candidate-search,candidate-search.degree.label,Ausbildung,Training,Formation,Formazione
 candidate-search,candidate-search.experience.label,Berufserfahrung,Professional experience,Expérience professionnelle,Esperienza professionale
-candidate-search,candidate-search.filter.candidate-search-link,Suche als Link versenden,Send search as link,Envoyer la recherche comme lien,Invia ricerca come link
+candidate-search,candidate-search.filter.candidate-search-link,Link versenden,Send link,Envoyer le lien,Invia link
 candidate-search,candidate-search.filter.title,Suchergebnisse filtern,Filter search result,Filtrer les résultats,Filtra risultati della ricerca
 candidate-search,candidate-search.graduation.ACCEPTED,Schweizer Abschluss oder anerkannt,Swiss degree or accepted in Switzerland,Diplôme suisse ou reconnu en Suisse,Diploma svizzero o riconosciuto in Svizzera
 candidate-search,candidate-search.graduation.CH,Schweizer Abschluss,Swiss degree,Diplôme suisse,Diploma svizzero
@@ -1353,6 +1353,7 @@ portal,portal.forms.date-input.open-calendar-button,Kalender öffnen,Open calend
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
+portal,portal.job-search.sendLink,Link versenden,Send link,Envoyer le lien,Invia link
 
 portal,portal.navigation.menu-entry.job-search,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
@@ -1390,6 +1391,7 @@ portal,portal.candidate-search.browser-title,Kandidaten finden,Find candidates,T
 portal,portal.candidate-search.results-count.label,Kandidaten,Candidates,candidats,candidati
 
 portal,portal.job-detail.next-result,Nächstes,Next,Prochain,Prossimo
+portal,portal.job-detail.sendLink,Link versenden,Send link,Envoyer le lien,Invia link
 portal,portal.job-detail.previous-result,Vorheriges,Previous,Précédent,Precedente
 portal,portal.job-detail.occupation,Beruf,Occupation,Profession,Lavoro
 portal,portal.job-detail.qualification,Qualifikation,Qualification,Qualification,Qualifica
@@ -1406,9 +1408,9 @@ portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen,Possib
 portal,portal.job-detail.status,Status,Status,Statut,Stato
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
+portal,portal.candidate-detail.action.sendLink,Link versenden,Send link,Envoyer le lien,Invia link
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 portal,portal.candidate-detail.other-work-experience.label,Weitere Berufserfahrung,Other work experience
-portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 
 portal,portal.candidate-detail.anonymous-contact.send,Absenden
@@ -1452,8 +1454,11 @@ portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,C
 portal,portal.job-publication.locality.additional-text.placeholder,z. B. Aussendienst in der ganzen Schweiz,e.g. in the field throughout Switzerland,p. ex. service externe dans toute la Suisse,p. es. servizio esterno in tutta la Svizzera
 portal,portal.job-publication.disclaimer.label,"Ich bestätige, dass der Arbeitgeber die orts- und branchenüblichen Lohn- und Arbeitsbedingungen einhält.",I certify that the employer complies with local and industry standards for wage and working conditions.,Je confirme que l'employeur respecte les conditions de travail et de salaire usuelles dans la branche et la localité en question.,Confermo che il datore di lavoro rispetta le condizioni salariali e lavorative usuali nel ramo e nel luogo in questione.
 portal,portal.job-publication.disclaimer.error,"Bitte bestätigen Sie, dass der Arbeitgeber die orts- und branchenüblichen Lohn- und Arbeitsbedingungen einhält.",Please confirm that the employer complies with local and industry standards for wage and working conditions.,Veuillez confirmer que l'employeur respecte bien les conditions de travail et de salaire en vigueur dans la branche et la localité en question.,Confermare che il datore di lavoro rispetta le condizioni salariali e lavorative del luogo e del ramo in questione.
-portal,portal.job-publication.publication.publicDisplay.label,"<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> und <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> and <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> et <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Sito Job-Room</a> e <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>"
-portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://ec.europa.eu/eures/public/de/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/en/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/fr/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/it/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>"
+portal,portal.job-publication.publication.publicDisplay.and,und,and,et,e
+portal,portal.job-publication.publication.publicDisplay.job-room.label,Job-Room,Job-Room,Job-Room,Sito Job-Room
+portal,portal.job-publication.publication.publicDisplay.job-desk.label,Job-Desk,Job-Desk,Job-Desk,Job-Desk
+portal,portal.job-publication.publication.euresDisplay.link,https://ec.europa.eu/eures/public/de/,https://ec.europa.eu/eures/public/en/,https://ec.europa.eu/eures/public/fr/,https://ec.europa.eu/eures/public/it/
+portal,portal.job-publication.publication.euresDisplay.label,EURES,EURES,EURES,EURES
 portal,portal.job-publication.application.legend,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
 portal,portal.job-publication.application.validation.atLeastOneRequired,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
 portal,portal.job-publication.submit.success,"Besten Dank für Ihre Stellenmeldung. Ihr Inserat wird nun von einem Regionalen Arbeitsvermittlungszentrum (RAV) geprüft. Sie werden per E-Mail informiert, sobald die Stelle veröffentlicht wurde.","Thank you for posting this job ad, which will now be checked by a regional employment centre (RAV). You will be informed by email as soon as it is published.",Merci d'avoir annoncé le poste vacant que l'ORP va examiner. Vous recevrez un courriel dès sa publication.,Grazie di aver annunciato il posto vacante che sarà esaminato dall'URC. Riceverà un'e-mail non appena il posto vacante verrà pubblicato.

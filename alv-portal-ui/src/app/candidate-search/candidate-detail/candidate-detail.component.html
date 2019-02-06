@@ -53,7 +53,7 @@
             </button>
             <a [href]="'mailto:?body=' + getEncodedUrl()"
                class="dropdown-item">
-              {{'job-detail.action.sendEmail' | translate}}
+              {{'portal.candidate-detail.action.sendLink' | translate}}
             </a>
             <button (click)="printCandidate()"
                     class="dropdown-item">
@@ -302,7 +302,7 @@
           <a [href]="'mailto:?body=' + getEncodedUrl()"
              class="btn btn-text btn-text-icon btn-truncate">
             <fa-icon class="mr-1" [icon]="['fas', 'share']"></fa-icon>
-            {{'job-detail.action.sendEmail' | translate}}
+            {{'portal.candidate-detail.action.sendLink' | translate}}
           </a>
         </li>
         <li class="d-none d-md-block">
