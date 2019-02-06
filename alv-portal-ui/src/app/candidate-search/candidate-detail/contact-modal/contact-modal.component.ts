@@ -7,7 +7,14 @@ import {
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { distinctUntilChanged, map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+  takeUntil,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
@@ -69,6 +76,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       });
 
     this.form.get('postCheckbox').valueChanges.pipe(
+      startWith(this.form.get('postCheckbox').value),
       distinctUntilChanged(),
       withLatestFrom(this.authenticationService.getCurrentCompany()),
       takeUntil(this.ngUnsubscribe))
@@ -82,6 +90,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       });
 
     this.form.get('phoneCheckbox').valueChanges.pipe(
+      startWith(this.form.get('phoneCheckbox').value),
       distinctUntilChanged(),
       withLatestFrom(this.authenticationService.getCurrentCompany()),
       takeUntil(this.ngUnsubscribe))
@@ -96,6 +105,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       });
 
     this.form.get('emailCheckbox').valueChanges.pipe(
+      startWith(this.form.get('emailCheckbox').value),
       distinctUntilChanged(),
       withLatestFrom(this.authenticationService.getCurrentCompany()),
       takeUntil(this.ngUnsubscribe))
@@ -123,7 +133,6 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   private prepareForm(): FormGroup {
     return this.fb.group({
       subject: [null, Validators.required],
-      company: this.generateCompanyFormGroup(),
       personalMessage: [null, Validators.required],
       companyName: [null, Validators.required],
       phoneCheckbox: [true],
