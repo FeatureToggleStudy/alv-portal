@@ -60,6 +60,8 @@ export class User {
 
   displayName: string;
 
+  legalTermsAccepted: boolean;
+
   public static toUser(userDto: UserDto) {
     const user = new User();
     user.id = userDto.id;
@@ -71,6 +73,7 @@ export class User {
     user.login = userDto.login;
     user.langKey = userDto.langKey;
     user.email = userDto.email;
+    user.legalTermsAccepted = userDto.legalTermsAccepted;
     return user;
   }
 
@@ -94,5 +97,9 @@ export class User {
 
   isAdmin() {
     return this.hasAnyAuthorities([UserRole.ROLE_ADMIN]);
+  }
+
+  isLegalTermAcceptanceRequired() {
+    return !this.legalTermsAccepted && this.isRegistered();
   }
 }

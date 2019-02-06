@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class RegistrationRepository {
   private readonly REQUEST_AGENT_ACCESS_CODE_URL = '/api/requestAgentAccessCode';
 
   private readonly REGISTER_BY_ACCESS_CODE = '/api/registerEmployerOrAgent';
+
+  private readonly ACCEPT_LEGAL_TERMS = '/api/acceptLegalTerms';
 
   constructor(private http: HttpClient) {
   }
@@ -34,6 +37,9 @@ export class RegistrationRepository {
     return this.http.post<AccessCodeRegistrationResult>(this.REGISTER_BY_ACCESS_CODE, accessCode);
   }
 
+  acceptLegalTerms(): Observable<void> {
+    return this.http.post<void>(this.ACCEPT_LEGAL_TERMS, null);
+  }
 }
 
 export interface AccessCodeRegistrationResult {

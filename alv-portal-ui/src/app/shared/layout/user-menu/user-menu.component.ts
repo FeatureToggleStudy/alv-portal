@@ -1,11 +1,11 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { User } from '../../../core/auth/user.model';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { LandingNavigationService } from '../../../core/landing-navigation.service';
 import { DOCUMENT, Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
+import { LoginService } from '../../auth/login.service';
 
 @Component({
   selector: 'alv-user-menu',
@@ -15,11 +15,12 @@ import { CompanyContactTemplate } from '../../backend-services/user-info/user-in
 export class UserMenuComponent implements OnInit {
 
   hideRegistrationAction: boolean;
+
   private readonly FINISH_REGISTRATION_URL = '/registration/finish';
 
   private readonly ACCESS_CODE_URL = '/registration/access-code';
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(private loginSerivce: LoginService,
               private router: Router,
               private location: Location,
               private activatedRoute: ActivatedRoute,
@@ -47,12 +48,7 @@ export class UserMenuComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout();
-    if (!this.noEiam) {
-      this.document.location.href = '/authentication/logout';
-    } else {
-      this.router.navigate(['']);
-    }
+    this.loginSerivce.logout();
   }
 
   goToEiamProfile() {
