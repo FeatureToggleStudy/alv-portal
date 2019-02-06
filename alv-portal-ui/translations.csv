@@ -1366,7 +1366,7 @@ portal,portal.job-search.sendLink,Link versenden,Send link,Envoyer le lien,Invia
 portal,portal.navigation.menu-entry.job-search,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.navigation.menu-entry.job-publication,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
-portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
+portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften,Manage job ads,Gérer les annonces,Gestire gli annunci
 portal,portal.navigation.menu-entry.account.profile,Profile,Profile
 portal,portal.navigation.menu-entry.admin.system-notifications,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
 portal,portal.navigation.menu-entry.admin.user-info,Benutzerinformationen,User Info,User Info,User Info
@@ -1502,6 +1502,7 @@ portal,portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Reto
 portal,portal.global.close,Schliessen,Close,Fermer,Invalida
 
 portal,portal.header.menu.open-navigation
+portal,portal.header.header-label,,Header
 portal,portal.header.menu.user-menu.label
 portal,portal.header.contact,Kontakt,Contact,Contact,Contatto
 portal,portal.typeahead-multiselect.legend.selected-items,,Selected Items
@@ -1640,6 +1641,8 @@ portal,portal.admin.api-user-management.update-password-dialog.title,Change pass
 portal,portal.admin.api-user-management.email,E-Mail,Email,Courriel,E-mail
 portal,portal.admin.api-user-management.password.title,Passwort,Password,Mot de passe,Password
 portal,portal.admin.api-user-management.password.generate,Password generieren,Generate password,Générer un mot de passe,Genera password
+portal,portal.home.logo-filename,logo_job_room_de.svg,logo_job_room_en.svg,logo_job_room_fr.svg,logo_job_room_it.svg
+portal,portal.home.logo-alttext,,Logo of work.swiss
 
 portal,portal.admin.elastic-search-reindex.title,,Reindex Elasticsearch,,
 portal,portal.admin.elastic-search-reindex.dialog.title,Neuindizierung Elasticsearch bestätigen,Confirm Elasticsearch Reindex,Confirmer la réindexation Elasticsearch ,Conferma di voler reindicizzare Elasticsearch.
