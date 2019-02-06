@@ -1,9 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CandidateProfile, EmailContactModal } from '../../../shared/backend-services/candidate/candidate.types';
+import {
+  CandidateProfile,
+  Company,
+  EmailContactModal
+} from '../../../shared/backend-services/candidate/candidate.types';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
@@ -108,8 +112,12 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   }
 
   onSubmit() {
-    this.candidateContactRepository.sendContactModalEmail(this.mapEmailContent(this.form.value))
-      .subscribe(() => this.activeModal.close());
+    this.mapEmailContent(this.form.value).pipe(
+      tap(emailContact => {
+        console.log(emailContact);
+        this.candidateContactRepository.sendContactModalEmail(emailContact)
+      })
+    ).subscribe(() => this.activeModal.close());
   }
 
   private prepareForm(): FormGroup {
@@ -180,16 +188,38 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     });
   }
 
-  private mapEmailContent(formValue: any): EmailContactModal {
+  private mapCountry(company: any): Company {
     return {
-      candidateId: this.candidate.id,
-      company: formValue.company,
-      companyName: formValue.companyName,
-      email: formValue.email,
-      phone: formValue.phone,
-      personalMessage: formValue.personalMessage,
-      subject: formValue.subject
+      name: company.companyName,
+      contactPerson: company.contactPerson,
+      street: company.companyStreet,
+      houseNumber: company.companyHouseNr,
+      zipCode: company.companyZipCode,
+      city: company.companyCity,
+      country: company.country
     };
+  }
+
+  private mapEmailContent(formValue: any): Observable<EmailContactModal> {
+
+    return this.countryOptions$.pipe(
+      map((countryOptions) => {
+        const countryIsoCode = this.form.get('company').get('countryIsoCode').value;
+        const country = countryOptions.find(country => country.value === countryIsoCode);
+        const company = Object.assign({}, formValue.company);
+        company.country = country.label;
+        return {
+          candidateId: this.candidate.id,
+          company: this.mapCountry(company),
+          companyName: formValue.companyName,
+          email: formValue.email,
+          phone: formValue.phone,
+          personalMessage: formValue.personalMessage,
+          subject: formValue.subject
+        } as EmailContactModal;
+      })
+    );
+
   }
 
 }
