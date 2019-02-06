@@ -1353,6 +1353,7 @@ portal,portal.forms.date-input.open-calendar-button,Kalender öffnen,Open calend
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
+portal,portal.job-search.sendLink,Link versenden,Send link,Envoyer le lien,Invia link
 
 portal,portal.navigation.menu-entry.job-search,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
@@ -1387,6 +1388,7 @@ portal,portal.candidate-search.browser-title,Kandidaten finden,Find candidates,T
 portal,portal.candidate-search.results-count.label,Kandidaten,Candidates,candidats,candidati
 
 portal,portal.job-detail.next-result,Nächstes,Next,Prochain,Prossimo
+portal,portal.job-detail.sendLink,Link versenden,Send link,Envoyer le lien,Invia link
 portal,portal.job-detail.previous-result,Vorheriges,Previous,Précédent,Precedente
 portal,portal.job-detail.occupation,Beruf,Occupation,Profession,Lavoro
 portal,portal.job-detail.qualification,Qualifikation,Qualification,Qualification,Qualifica
