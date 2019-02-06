@@ -1638,7 +1638,5 @@ portal,portal.admin.api-user-management.update-password-dialog.title,Change pass
 portal,portal.admin.api-user-management.email,E-Mail,Email,Courriel,E-mail
 portal,portal.admin.api-user-management.password.title,Passwort,Password,Mot de passe,Password
 portal,portal.admin.api-user-management.password.generate,Password generieren,Generate password,Générer un mot de passe,Genera password
-
-portal,portal.admin.api-doc.title,API Doc,API Doc,API Doc,API Doc
 portal,portal.home.logo-filename,logo_job_room_de.svg,logo_job_room_en.svg,logo_job_room_fr.svg,logo_job_room_it.svg
 portal,portal.home.logo-alttext,,Logo of work.swiss
