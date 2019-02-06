@@ -1491,6 +1491,7 @@ portal,portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Reto
 portal,portal.global.close,Schliessen,Close,Fermer,Invalida
 
 portal,portal.header.menu.open-navigation
+portal,portal.header.header-label,,Header
 portal,portal.header.menu.user-menu.label
 portal,portal.header.contact,Kontakt,Contact,Contact,Contatto
 portal,portal.typeahead-multiselect.legend.selected-items,,Selected Items
@@ -1632,3 +1633,4 @@ portal,portal.admin.api-user-management.password.generate,Password generieren,Ge
 
 portal,portal.admin.api-doc.title,API Doc,API Doc,API Doc,API Doc
 portal,portal.home.logo-filename,logo_job_room_de.svg,logo_job_room_en.svg,logo_job_room_fr.svg,logo_job_room_it.svg
+portal,portal.home.logo-alttext,,Logo of work.swiss
