@@ -8,7 +8,7 @@ import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 import { startWith, takeUntil } from 'rxjs/operators';
 import { emptyPostAddressFormValue, PostAddressFormValue } from '../post-address-form/post-address-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
-import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/checkbox/at-least-one-required.validator';
+import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
 
 
 interface SelectedApplicationTypes {

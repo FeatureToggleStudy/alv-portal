@@ -13,7 +13,7 @@
                        alvFormControlName="street"
                        [showGroupErrors]="true"
                        [validationMessages]="[{
-                                error: 'postOfficeBoxNumberOrStreetRequired',
+                                error: 'atLeastOneRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
                                 ]"
                        [maxLength]="STREET_MAX_LENGTH">
@@ -38,7 +38,7 @@
                      alvFormControlName="postOfficeBoxNumber"
                      [showGroupErrors]="true"
                      [validationMessages]="[{
-                                error: 'postOfficeBoxNumberOrStreetRequired',
+                                error: 'atLeastOneRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
                                 ]"
                      [maxLength]="PO_BOX_MAX_LENGTH"

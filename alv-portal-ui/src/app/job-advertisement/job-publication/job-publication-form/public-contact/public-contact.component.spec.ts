@@ -162,7 +162,7 @@ describe('PublicContactComponent', () => {
         component.publicContact.get('email').setValue(null);
 
         //then
-        expect(component.publicContact.hasError('phoneOrEmailRequired')).toBeTrue();
+        expect(component.publicContact.hasError('atLeastOneRequired')).toBeTrue();
       });
     });
   });

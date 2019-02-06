@@ -5,7 +5,7 @@ import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ElasticSearchReindexRepository } from '../../shared/backend-services/elastic-search-reindex/elastic-search-reindex-repository';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Notification, NotificationType } from '../../shared/layout/notifications/notification.model';
-import { atLeastOneRequiredValidator } from '../../shared/forms/input/checkbox/at-least-one-required.validator';
+import { atLeastOneRequiredValidator } from '../../shared/forms/input/validators/at-least-one-required.validator';
 
 export const MESSAGE = {
   success: {

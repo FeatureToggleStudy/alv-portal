@@ -12,7 +12,7 @@ import { phoneInputValidator } from '../../../shared/forms/input/input-field/pho
 import { combineLatest } from 'rxjs';
 import { CandidateContactRepository } from '../../../shared/backend-services/candidate/candidate-contact-repository';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
-import { atLeastOneRequiredValidator } from '../../../shared/forms/input/checkbox/at-least-one-required.validator';
+import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
 
 @Component({
   selector: 'alv-contact-modal',
