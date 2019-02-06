@@ -2,9 +2,9 @@
 
   <!-----------------Title-->
   <h2 class="mt-1 mb-4">
-    <strong [innerHTML]="jobDescription.title | safeHtml"></strong>
+    <span class="job-detail-title" [innerHTML]="jobDescription.title | safeHtml"></span>
     <small class="text-muted" *ngIf="showStatusInformation">
-      ({{'portal.job-detail.status' | translate}}: {{'global.job-publication.status.' + jobDetailModel.jobAdvertisement.status | translate}})
+      {{'portal.job-detail.status' | translate}}: {{'global.job-publication.status.' + jobDetailModel.jobAdvertisement.status | translate}}
     </small>
   </h2>
 
