@@ -7,8 +7,9 @@
          [attr.aria-describedby]="validationId"
          (click)="!readonly">
   <label class="form-check-label"
-         [attr.for]="id"
-         [innerHTML]="label | translate">
+         [attr.for]="id">
+    <span [innerHTML]="label | translate"></span>
+    <ng-content></ng-content>
   </label>
 </div>
 <alv-validation-messages *ngIf="!readonly && control"
