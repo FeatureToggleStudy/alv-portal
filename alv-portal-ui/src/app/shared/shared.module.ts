@@ -11,10 +11,14 @@ import { PipesModule } from './pipes/pipes.module';
 import { LandingPageGuard } from './landing-page/landing-page.guard';
 import { DummyComponent } from './dummy/dummy.component';
 import { IconsModule } from './icons/icons.module';
+import { LegalTermsDirective } from './legal-terms/legal-terms.directive';
+import { LegalTermsModalComponent } from './legal-terms/legal-terms-modal/legal-terms-modal.component';
 
 @NgModule({
   declarations: [
-    DummyComponent
+    DummyComponent,
+    LegalTermsDirective,
+    LegalTermsModalComponent
   ],
   imports: [
     TranslateModule.forChild(),
@@ -27,7 +31,9 @@ import { IconsModule } from './icons/icons.module';
     PipesModule,
     IconsModule
   ],
-  entryComponents: [],
+  entryComponents: [
+    LegalTermsModalComponent
+  ],
   exports: [
     CommonModule,
     TranslateModule,
@@ -38,7 +44,8 @@ import { IconsModule } from './icons/icons.module';
     ClipboardModule,
     MarkdownModule,
     SharedAuthModule,
-    IconsModule
+    IconsModule,
+    LegalTermsDirective
   ],
   providers: [
     LandingPageGuard

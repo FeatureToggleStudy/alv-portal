@@ -1,0 +1,36 @@
+<alv-modal modalTitle="global.legal-terms-dialog.header.title"
+           primaryLabel="global.legal-terms-dialog.footer.accept"
+           (primaryAction)="acceptLegalTerms()"
+           secondaryLabel="global.legal-terms-dialog.footer.reject"
+           (secondaryAction)="rejectLegalTerms()"
+           [formGroup]="form"
+           [showCloseButton]="false">
+
+  <alv-alert [hideDismiss]="true"
+             [notification]="infoNotification">
+    <ul class="pl-3">
+      <li class="mb-1">
+        {{'global.legal-terms-dialog.body.content1' | translate}}
+      </li>
+      <li class="mb-1">
+        {{'global.legal-terms-dialog.body.content2' | translate}}
+      </li>
+    </ul>
+  </alv-alert>
+
+  <div class="panel-divider border-top mb-2"></div>
+
+  <alv-checkbox alvFormControlName="termsAndConditions"
+                label="global.legal-terms-dialog.body.accept-label"
+                class="d-block mb-2">
+  </alv-checkbox>
+
+  <a [href]="legalTermsUrl$ | async"
+     class="link legal-terms mt-2"
+     target="_blank">
+    <fa-icon class="link-icon"
+             [icon]="['fas', 'caret-right']"></fa-icon>
+    {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
+  </a>
+
+</alv-modal>

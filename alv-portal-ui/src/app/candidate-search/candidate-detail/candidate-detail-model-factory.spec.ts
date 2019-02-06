@@ -63,6 +63,7 @@ describe('CandidateDetailModelFactory', () => {
     displayName: 'Name lasname',
     authorities: [UserRole.ROLE_PAV],
     registrationStatus: RegistrationStatus.REGISTERED,
+    legalTermsAccepted: true,
     hasAnyAuthorities(authorities: Array<UserRole>): boolean {
       return true;
     },
@@ -70,6 +71,9 @@ describe('CandidateDetailModelFactory', () => {
       return true;
     },
     isAdmin(): boolean {
+      return false;
+    },
+    isLegalTermAcceptanceRequired(): boolean {
       return false;
     }
   };
