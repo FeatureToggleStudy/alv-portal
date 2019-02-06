@@ -11,11 +11,9 @@ import {
 import { ApiUserManagementRepository } from '../../shared/backend-services/api-user-management/api-user-management-repository';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import {
-  API_USERS_PER_PAGE,
-  ApiUserManagementRequestMapper
+  API_USERS_PER_PAGE, mapSortToApiUserColumnDefinition, mapToRequest,
 } from './api-user-management-request.mapper';
 import { take, tap } from 'rxjs/operators';
-import { mapSortToApiUserColumnDefinition } from './api-user-management-factory';
 import { ApiUserModalComponent } from './api-user-modal/api-user-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
 
@@ -123,7 +121,7 @@ export class ApiUserManagementComponent implements OnInit {
 
   private loadApiUsers(filter: ApiUserManagementFilter, page: number): Observable<ApiUserSearchResponse> {
     return this.apiUserManagementRepository.search(
-      ApiUserManagementRequestMapper.mapToRequest(filter, page)).pipe(
+      mapToRequest(filter, page)).pipe(
       tap(response => {
         this.setFilter(filter);
         this.setMaxScrollPage(response.totalCount, page);

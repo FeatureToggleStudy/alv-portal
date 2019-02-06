@@ -182,7 +182,7 @@ describe('PostAddressFormComponent', () => {
         field.get('street').setValue(null);
 
         //then
-        expect(field.hasError('postOfficeBoxNumberOrStreetRequired')).toBeTrue();
+        expect(field.hasError('atLeastOneRequired')).toBeTrue();
       });
 
     });

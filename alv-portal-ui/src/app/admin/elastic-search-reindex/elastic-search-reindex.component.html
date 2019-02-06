@@ -1,0 +1,51 @@
+<div class="container pt-md-4 pt-3 px-3">
+  <h2 class="panel-title">
+    <fa-icon class="panel-icon"
+             [icon]="['fas', 'sync']"></fa-icon>
+    {{ 'portal.admin.elastic-search-reindex.title' | translate }}
+  </h2>
+
+  <hr>
+
+  <alv-alert *ngIf="alert"
+             [notification]="alert"
+             (dismiss)="alert = null">
+  </alv-alert>
+
+  <div>
+    <p>
+    {{ 'portal.admin.elastic-search-reindex.instructions.main' | translate }}
+    </p>
+    <p>
+      {{ 'portal.admin.elastic-search-reindex.instructions.additional' | translate }}
+    </p>
+  </div>
+
+  <hr>
+
+  <form (validSubmit)="onSubmit()"
+        [formGroup]="form"
+        alvFormSubmitValidation>
+    <small (click)="toggleFormCheckboxes(toggle)">
+      {{ 'portal.admin.elastic-search-reindex.document.toggle-all' | translate }}
+    </small>
+    <small class="form-text error-message"
+           *ngIf="form.dirty && form.errors?.atLeastOneRequired">
+      <i class="fas fa-exclamation-circle"
+         aria-hidden="true"></i>
+      {{ 'candidate-detail.anonymous-contact.contact-via.validation' | translate }}
+    </small>
+    <fieldset *ngFor="let elasticsearch_checkbox of ELASTICSEARCH_CHECKBOXES">
+      <alv-checkbox label="portal.admin.elastic-search-reindex.document.{{elasticsearch_checkbox}}"
+                    showGroupErrors="true"
+                    alvFormControlName="{{ elasticsearch_checkbox }}">
+      </alv-checkbox>
+    </fieldset>
+    <div class="mt-2">
+      <button type="submit" class="btn btn-primary mb-2">
+        {{ 'portal.admin.elastic-search-reindex.dialog.confirm' | translate }}
+      </button>
+    </div>
+
+  </form>
+</div>
