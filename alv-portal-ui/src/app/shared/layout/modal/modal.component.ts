@@ -30,7 +30,7 @@ export class ModalComponent {
   /**
    * (optional) attribute to set visibility of primary action, default true
    */
-  @Input() primaryAllow = true;
+  @Input() showPrimaryButton = true;
 
   /**
    * Emitted event on primary button click.
@@ -52,6 +52,11 @@ export class ModalComponent {
    * content in a form element to enable the form submit behaviour for the primary button.
    */
   @Input() formGroup?: FormGroup;
+
+  /**
+   * (optional) attribute to set visibility of close button, default true
+   */
+  @Input() showCloseButton = true;
 
   constructor() {
   }

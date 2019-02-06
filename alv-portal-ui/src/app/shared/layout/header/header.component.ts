@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { Router } from '@angular/router';
 import { I18nService } from '../../../core/i18n.service';
@@ -32,7 +32,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   constructor(private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
-              private loginService: LoginService,
+              private loginSerivce: LoginService,
               private router: Router,
               private i18nService: I18nService) {
     super();
@@ -52,11 +52,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
         this.company = company;
       });
 
-    this.loginService.isEiamDisabled()
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(noEiam => {
-        this.noEiam = noEiam;
-      });
+    this.noEiam = this.loginSerivce.noEiam;
   }
 
   toggleMobileNavigation() {
@@ -64,9 +60,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   }
 
   login() {
-    this.loginService.login().pipe(
-      take(1))
-      .subscribe();
+    this.loginSerivce.login();
   }
 
   changeLanguage(lang: string) {
