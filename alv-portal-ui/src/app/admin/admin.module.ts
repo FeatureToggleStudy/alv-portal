@@ -19,6 +19,8 @@ import { ApiUserPasswordModalComponent } from './api-user-management/api-user-pa
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ApiUserManagementTableComponent } from './api-user-management/api-user-management-table/api-user-management-table.component';
 import { ElasticSearchReindexComponent } from './elastic-search-reindex/elastic-search-reindex.component';
+import { AuditsComponent } from './audits/audits.component';
+import { AuditsTableComponent } from './audits/audits-table/audits-table.component';
 
 @NgModule({
   imports: [
@@ -40,7 +42,9 @@ import { ElasticSearchReindexComponent } from './elastic-search-reindex/elastic-
     ApiUserPasswordModalComponent,
     ApiUserManagementTableComponent,
     AddBlacklistEntryModalComponent,
-    ElasticSearchReindexComponent
+    ElasticSearchReindexComponent,
+    AuditsComponent,
+    AuditsTableComponent
   ],
   providers: [
     UserInfoBadgesMapperService,

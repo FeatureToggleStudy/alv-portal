@@ -8,10 +8,9 @@ import { patternInputValidator } from '../../../shared/forms/input/input-field/p
 import {
   LEGAL_ACTIONS,
   mapToDateTime,
-  todayDateTime,
-  tomorrow
+  todayDateTime
 } from '../legal-terms-management.types';
-import { fromISODate, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
+import { fromISODate, toISOLocalDate, tomorrow } from '../../../shared/forms/input/ngb-date-utils';
 
 @Component({
   selector: 'alv-legal-terms-detail-modal',
