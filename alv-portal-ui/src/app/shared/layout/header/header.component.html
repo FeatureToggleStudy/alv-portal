@@ -19,11 +19,22 @@
     </button>
     <div class="flex-grow-1"></div>
 
-    <alv-user-menu *ngIf="user"
+    <div class="d-block d-md-none flex-grow-1 text-center">
+      <img class="mr-1"
+           src="assets/img/logo_arbeit_swiss_without_text.svg"
+           height="22">
+      Job-Room
+    </div>
+
+    <alv-user-menu *ngIf="user; else userMenuPlaceholder"
                    [user]="user"
                    [company]="company"
                    [noEiam]="noEiam">
     </alv-user-menu>
+
+    <ng-template #userMenuPlaceholder>
+      <div class="flex-grow-1"></div>
+    </ng-template>
 
     <div class="header-buttons ml-1 d-none d-lg-flex align-items-center">
       <a class="btn mx-3"
