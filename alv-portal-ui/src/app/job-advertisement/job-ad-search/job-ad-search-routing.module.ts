@@ -11,8 +11,7 @@ const routes: Routes = [
   {
     path: '',
     component: JobSearchComponent,
-    canActivate: [JobSearchGuard],
-    data: { titleKey: 'portal.job-ad-search.browser-title' }
+    canActivate: [JobSearchGuard]
   },
   {
     path: 'job-fingerprint-redirect',
@@ -22,8 +21,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: JobDetailComponent,
-    canActivate: [JobDetailGuard],
-    data: { titleKey: 'portal.job-ad-search.browser-title' }
+    canActivate: [JobDetailGuard]
   },
   {
     path: '**',

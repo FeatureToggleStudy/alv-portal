@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './core/auth/authentication.service';
-import { filter, map, mergeMap, switchMap } from 'rxjs/operators';
+import { filter, map, mergeMap, pairwise, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
-
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-
-library.add(fas);
-
+import { CoreState } from './core/state-management/state/core.state.ts';
+import { Store } from '@ngrx/store';
+import { ToggleMainNavigationAction } from './core/state-management/actions/core.actions';
 
 const FALLBACK_TITLE_KEY = 'global.title';
 
@@ -25,6 +22,7 @@ export class AppComponent implements OnInit {
   constructor(private i18nService: I18nService,
               private titleService: Title,
               private router: Router,
+              private store: Store<CoreState>,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService) {
   }
@@ -36,7 +34,7 @@ export class AppComponent implements OnInit {
     this.authenticationService.init();
 
     // Based on the idea: https://toddmotto.com/dynamic-page-titles-angular-2-router-events
-    this.router.events.pipe(
+    const currentRoute$ = this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map(() => this.activatedRoute),
       map((route) => {
@@ -45,7 +43,24 @@ export class AppComponent implements OnInit {
         }
         return route;
       }),
-      filter((route) => route.outlet === 'primary'),
+      filter((route) => route.outlet === 'primary')
+    );
+
+    currentRoute$.pipe(
+      mergeMap((route) => {
+        return route.data.pipe(map(data => [data.collapseNavigation, route.component]));
+      }),
+      pairwise()
+    ).subscribe(([prevValues, currentValues]) => {
+      const prevComponent = prevValues[1];
+      const currentComponent = currentValues[1];
+      const currentCollapseState = currentValues[0];
+      if (currentCollapseState !== undefined && prevComponent !== currentComponent) {
+        this.store.dispatch(new ToggleMainNavigationAction({ expanded: !currentCollapseState }));
+      }
+    });
+
+    currentRoute$.pipe(
       mergeMap((route) => route.data),
       map((data) => data.titleKey),
       switchMap((titleKey) => {

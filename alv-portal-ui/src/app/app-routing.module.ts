@@ -16,30 +16,50 @@ const appRoutes: Routes = [
     canActivateChild: [NotAuthenticatedGuard],
   },
   {
-    path: 'dashboard',
-    loadChildren: './dashboard/dashboard.module#DashboardModule',
-    canActivateChild: [AuthenticatedGuard],
-  },
-  {
     path: 'registration',
     loadChildren: './registration/registration.module#RegistrationModule',
     canActivateChild: [NotAuthenticatedGuard],
+    data: {
+      titleKey: 'portal.registration.browser-title'
+    }
+  },
+  {
+    path: 'dashboard',
+    loadChildren: './dashboard/dashboard.module#DashboardModule',
+    canActivateChild: [AuthenticatedGuard],
+    data: {
+      collapseNavigation: false
+    }
   },
   {
     path: 'job-search',
-    loadChildren: './job-advertisement/job-ad-search/job-ad-search.module#JobAdSearchModule'
+    loadChildren: './job-advertisement/job-ad-search/job-ad-search.module#JobAdSearchModule',
+    data: {
+      collapseNavigation: true,
+      titleKey: 'portal.job-ad-search.browser-title'
+    }
   },
   {
     path: 'candidate-search',
-    loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule'
+    loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule',
+    data: {
+      collapseNavigation: true,
+      titleKey: 'portal.candidate-search.browser-title'
+    }
   },
   {
     path: 'job-publication',
-    loadChildren: './job-advertisement/job-publication/job-publication.module#JobPublicationModule'
+    loadChildren: './job-advertisement/job-publication/job-publication.module#JobPublicationModule',
+    data: {
+      titleKey: 'portal.job-publication.browser-title'
+    }
   },
   {
     path: 'manage-job-ads',
     loadChildren: './job-advertisement/manage-job-ads/manage-job-ads.module#ManageJobAdsModule',
+    data: {
+      titleKey: 'portal.manage-job-ads.browser-title'
+    }
   },
   {
     path: 'admin',
