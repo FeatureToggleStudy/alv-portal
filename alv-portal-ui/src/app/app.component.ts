@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './core/auth/authentication.service';
-import { filter, map, mergeMap, pairwise, switchMap } from 'rxjs/operators';
+import { filter, map, mergeMap, pairwise, startWith, switchMap } from 'rxjs/operators';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
@@ -52,6 +52,10 @@ export class AppComponent implements OnInit {
           collapseNavigation: data.collapseNavigation,
           component: route.component
         })));
+      }),
+      startWith({
+        collapseNavigation: undefined,
+        component: undefined
       }),
       pairwise()
     ).subscribe(([prevValues, currentValues]) => {
