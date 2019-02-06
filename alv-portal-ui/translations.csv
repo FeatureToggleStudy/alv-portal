@@ -399,6 +399,14 @@ global,global.job-publication.status.PUBLISHED_PUBLIC,Öffentlich publiziert,Pub
 global,global.job-publication.status.PUBLISHED_RESTRICTED,Eingeschränkt publiziert,Restricted posting,Publié dans l'espace réservé,Pubblicazione ristretta
 global,global.job-publication.status.REFINING,Wird überarbeitet,In revision,En révision,Revisione in corso
 global,global.job-publication.status.REJECTED,Zurückgewiesen,Rejected,Rejeté,Respinto
+global,global.legal-terms-dialog.body.accept-label,Ich akzeptiere die neuen AGB,I accept the new GTC,J’accepte les nouvelles CG.,Accetto le nuove CG
+global,global.legal-terms-dialog.body.accept-link.error,Es ist ein Fehler aufgetreten!,An error has occurred!,Une erreur s'est produite !,Si è verificato un errore!
+global,global.legal-terms-dialog.body.accept-link.text,Neue Allgemeine Geschäftsbedingungen (AGB),New General Terms and Conditions (GTC),Nouvelles conditions générales (CG),Nuove Condizioni generali (CG)
+global,global.legal-terms-dialog.body.content1,"Unsere Allgemeinen Geschäftsbedingungen haben sich geändert. ",Our General Terms and Conditions have changed.,Nos conditions générales ont été modifiées.,Le nostre Condizioni generali sono cambiate.
+global,global.legal-terms-dialog.body.content2,"Bitte akzeptieren Sie diese, damit Sie Ihr Konto weiterhin nutzen können.",Please accept them in order to continue using your account.,Veuillez les accepter afin de poursuivre l’utilisation de votre compte.,Per continuare a usare il tuo conto accetta le Condizioni generali.
+global,global.legal-terms-dialog.footer.accept,Weiter,Next,Suivant,Seguente
+global,global.legal-terms-dialog.footer.reject,Nicht akzeptieren und ausloggen,Do not accept and log out,Ne pas accepter et se désinscrire,"Non accettare, logout"
+global,global.legal-terms-dialog.header.title,Neue Allgemeine Geschäftsbedingungen (AGB),New General Terms and Conditions (GTC),Nouvelles conditions
 global,global.menu.account.login,Login|Registrierung,Login|Registration,Login|Enregistrement,Login|Registrazione
 global,global.menu.account.logout,Abmelden,Sign out,Déconnexion,Esci
 global,global.menu.account.main,Zugang,Account,Compte,Utente
@@ -1364,6 +1372,9 @@ portal,portal.navigation.menu-entry.admin.system-notifications,System Mitteilung
 portal,portal.navigation.menu-entry.admin.user-info,Benutzerinformationen,User Info,User Info,User Info
 portal,portal.navigation.menu-entry.admin.blacklist,Blacklist,Blacklist,Blacklist,Blacklist
 portal,portal.navigation.menu-entry.admin.api-doc,API Doc,API Doc,API Doc,API Doc
+portal,portal.navigation.menu-entry.admin.legal-terms,AGB verwalten,Manage GTC,Gérer CG,Gestisci CG
+portal,portal.navigation.menu-entry.admin.elastic-search-reindex,Reindex Elasticsearch,Reindex Elasticsearch,Reindex Elasticsearch,Reindex Elasticsearch
+portal,portal.navigation.menu-entry.admin.api-user-management,API-Benutzer verwalten,Manage API users,Gérer les utilisateurs API,Gestisci utente API
 portal,portal.navigation.label.main-navigation,,Main navigation
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
@@ -1630,4 +1641,18 @@ portal,portal.admin.api-user-management.email,E-Mail,Email,Courriel,E-mail
 portal,portal.admin.api-user-management.password.title,Passwort,Password,Mot de passe,Password
 portal,portal.admin.api-user-management.password.generate,Password generieren,Generate password,Générer un mot de passe,Genera password
 
-portal,portal.admin.api-doc.title,API Doc,API Doc,API Doc,API Doc
+portal,portal.admin.elastic-search-reindex.title,,Reindex Elasticsearch,,
+portal,portal.admin.elastic-search-reindex.dialog.title,Neuindizierung Elasticsearch bestätigen,Confirm Elasticsearch Reindex,Confirmer la réindexation Elasticsearch ,Conferma di voler reindicizzare Elasticsearch.
+portal,portal.admin.elastic-search-reindex.dialog.question,"Sind Sie sicher, dass Sie Elasticsearch neu indizieren wollen? Das kann eine Weile dauern!",Are you sure you want to reindex Elasticsearch? This could take a while!,Êtes-vous sûr de vouloir réindexer Elasticsearch? Cela peut prendre du temps!,Vuoi davvero reindicizzare Elasticsearch? L'operazione può durare a lungo!
+portal,portal.admin.elastic-search-reindex.dialog.cancel,,Cancel,,
+portal,portal.admin.elastic-search-reindex.dialog.confirm,,Reindex,,
+portal,portal.admin.elastic-search-reindex.instructions.main,,"This will send a request to reindex all data from your primary datasource into Elasticsearch. This will fix missing data and mapping issues, however you will lose any ES data and mapping that was defined outside of your application. This request will return immediately and the reindexing will run in the background. You will see ""Elasticsearch: Successfully performed reindexing"" in your logs when this is complete.",,
+portal,portal.admin.elastic-search-reindex.instructions.additional,,This can take a long time and is susceptible to concurrency issues so it should be performed when the number of users is low.,,
+portal,portal.admin.elastic-search-reindex.document.all,,All,,
+portal,portal.admin.elastic-search-reindex.document.candidates,,Candidates,,
+portal,portal.admin.elastic-search-reindex.document.jobs,,Jobs,,
+portal,portal.admin.elastic-search-reindex.document.reference_data,,Reference Data,,
+portal,portal.admin.elastic-search-reindex.document.users,,Users,,
+portal,portal.admin.elastic-search-reindex.document.accepted,,"Request accepted, performing Elasticsearch reindexing.",,
+portal,portal.admin.elastic-search-reindex.notification.failure,,Failure,,
+portal,portal.admin.elastic-search-reindex.document.toggle-all,,Toggle all,,
