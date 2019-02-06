@@ -3,7 +3,7 @@ import { CandidateProfile, EmailContactModal } from '../../../shared/backend-ser
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { distinctUntilChanged, filter, startWith, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
@@ -105,12 +105,6 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
           this.patchEmailValue(null);
         }
       });
-
-    this.countryIsoCode$ = this.form.controls.company.get('countryIsoCode').valueChanges
-      .pipe(
-        filter((value) => !!value),
-        startWith(IsoCountryService.ISO_CODE_SWITZERLAND),
-      );
 
   }
 
