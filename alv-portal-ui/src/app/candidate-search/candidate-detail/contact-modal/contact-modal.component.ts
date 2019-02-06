@@ -53,12 +53,13 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
               private candidateContactRepository: CandidateContactRepository,
               public activeModal: NgbActiveModal) {
     super();
-    this.countryOptions$ = this.isoCountryService.countryOptionsSorted$;
   }
 
   ngOnInit() {
 
     this.form = this.prepareForm();
+
+    this.countryOptions$ = this.isoCountryService.countryOptionsSortedWithMainCountriesFirst$;
 
     combineLatest(this.authenticationService.getCurrentCompany(), this.i18nService.stream(this.LABEL_VALUES)).pipe(
       takeUntil(this.ngUnsubscribe))
@@ -137,9 +138,9 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       personalMessage: [null, Validators.required],
       companyName: [null, Validators.required],
       phoneCheckbox: [true],
-      phone: [null],
+      phone: [null, [Validators.required, phoneInputValidator()]],
       emailCheckbox: [true],
-      email: [null],
+      email: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
       postCheckbox: [true]
     }, {
       validator: [atLeastOneRequiredValidator]

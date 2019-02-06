@@ -14,12 +14,12 @@ export class IsoCountryService {
   public static readonly ISO_CODE_FRANCE = 'FR';
   public static readonly ISO_CODE_ITALY = 'IT';
 
-  public static readonly MAIN_COUNTRIES_ISO_CODES = [
-    IsoCountryService.ISO_CODE_SWITZERLAND,
-    IsoCountryService.ISO_CODE_LIECHTENSTEIN,
-    IsoCountryService.ISO_CODE_GERMANY,
+  public static readonly MAIN_COUNTRIES_ISO_CODES_REVERSED_ORDER = [
+    IsoCountryService.ISO_CODE_ITALY,
     IsoCountryService.ISO_CODE_FRANCE,
-    IsoCountryService.ISO_CODE_ITALY
+    IsoCountryService.ISO_CODE_GERMANY,
+    IsoCountryService.ISO_CODE_LIECHTENSTEIN,
+    IsoCountryService.ISO_CODE_SWITZERLAND
   ];
 
   private readonly _countryOptions$: Observable<SelectableOption[]>;
@@ -40,30 +40,23 @@ export class IsoCountryService {
   }
 
   get countryOptions$(): Observable<SelectableOption[]> {
-    return this._countryOptions$.pipe(
-      tap(country => {
-        country.sort()
-      })
-    );
+    return this._countryOptions$;
   }
 
-  get countryOptionsSorted$(): Observable<SelectableOption[]> {
+  get countryOptionsSortedWithMainCountriesFirst$(): Observable<SelectableOption[]> {
     return this._countryOptions$.pipe(
-
-      tap(countries => {
-        countries.sort(function (a, b) {
-          return IsoCountryService.MAIN_COUNTRIES_ISO_CODES.includes(a.value)
-            ? -1 // if a is true, it should come first in the list
-            : !IsoCountryService.MAIN_COUNTRIES_ISO_CODES.includes(a.value) && IsoCountryService.MAIN_COUNTRIES_ISO_CODES.includes(b.value)
-              ? 1 // if a is true and b is false a should come later on
-              : IsoCountryService.MAIN_COUNTRIES_ISO_CODES.includes(a.value) && !IsoCountryService.MAIN_COUNTRIES_ISO_CODES.includes(a.value)
-                ? -1 // if a is false and b is true a should come earlier
-                : a.label > b.label
-                  ? 1 // if a.other > b.other, a must come later on
-                  : a.label < b.label
-                    ? -1 // if a.other < b.other, a must come earlier
-                    : 0; // otherwise they are equal, so they hav
-        });
+      tap(countryList => {
+        IsoCountryService.MAIN_COUNTRIES_ISO_CODES_REVERSED_ORDER
+          .forEach(isoCode => {
+            countryList
+              .find(country => {
+                if (country.value === isoCode) {
+                  countryList.splice(countryList.indexOf(country), 1);
+                  countryList.unshift(country);
+                  return true;
+                }
+              });
+          });
       })
     );
   }
