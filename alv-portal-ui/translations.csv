@@ -1633,7 +1633,7 @@ portal,portal.admin.api-user-management.password.generate,Password generieren,Ge
 portal,portal.admin.api-doc.title,API Doc,API Doc,API Doc,API Doc
 
 portal,portal.admin.audits.title,Audits,Audits,Audits,Cambiamenti
-portal,portal.admin.audits.filter.filter-by-dates,Filter audits by dates,Filter audits by dates,Filter audits by dates,Filter audits by dates
+portal,portal.admin.audits.filter.filter-by-dates,,Filter audits by dates,,
 portal,portal.admin.audits.filter.from,Von,From,De,Da
 portal,portal.admin.audits.filter.to,Bis,To,À,A
 portal,portal.admin.audits.table.data.remoteAddress,Remote Address:,Remote Address:,Adresse Distante :,Remote Address:

@@ -5,6 +5,7 @@
     <tr role="row">
       <th scope="col"
           role="columnheader"
+          class="clickable-column-header"
           *ngFor="let columnDefinition of columnDefinitions"
           (click)="onSort(columnDefinition.columnName)"
           [ngClass]="{'active-sort' : currentSorting.columnName === columnDefinition.columnName}">

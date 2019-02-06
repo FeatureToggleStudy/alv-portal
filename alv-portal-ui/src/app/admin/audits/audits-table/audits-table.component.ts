@@ -9,7 +9,7 @@ import { mapAuditsColumnDefinitionToSort } from '../audits-request.mapper';
 })
 export class AuditsTableComponent implements OnInit {
 
-  readonly AUDITS_COLUMN_NAME = ['timestamp', 'principal', 'type', 'data'];
+  readonly AUDITS_COLUMN_NAMES = ['timestamp', 'principal', 'type', 'data'];
   @Input()
   auditList: Audit[];
 
@@ -30,7 +30,7 @@ export class AuditsTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.columnDefinitions = this.AUDITS_COLUMN_NAME.map((columnName) => {
+    this.columnDefinitions = this.AUDITS_COLUMN_NAMES.map((columnName) => {
       return {
         columnName: columnName,
         sortOrder: '',
