@@ -1,5 +1,14 @@
 @import "../../../../scss/common/colors";
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
 
 .company {
-  color: $color-medium-grey;
+  color: $color-dark-grey;
+}
+
+@include media-breakpoint-down(md) {
+  .company {
+    color: $color-medium-grey;
+  }
 }
