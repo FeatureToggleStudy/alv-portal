@@ -119,6 +119,13 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     labelKey: 'portal.navigation.menu-entry.admin.blacklist',
     path: ['admin', 'blacklist'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
+  },
+  {
+    id: 'api-doc',
+    iconClass: 'book',
+    labelKey: 'portal.navigation.menu-entry.admin.api-doc',
+    path: ['admin', 'api-doc'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   }
 ];
 
