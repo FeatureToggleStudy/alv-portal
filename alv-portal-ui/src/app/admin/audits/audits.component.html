@@ -8,7 +8,7 @@
 
   <hr>
 
-  <form [formGroup]="form"
+  <form [formGroup]="filterForm"
         alvFormSubmitValidation>
     <small>
       <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
@@ -18,13 +18,13 @@
       <div class="col-3">
         <alv-date-input alvFormControlName="from"
                         label="portal.admin.audits.filter.from"
-                        [maxDate]="form.get('to')?.value">
+                        [maxDate]="filterForm.get('to')?.value">
         </alv-date-input>
       </div>
       <div class="col-3">
         <alv-date-input alvFormControlName="to"
                         label="portal.admin.audits.filter.to"
-                        [minDate]="form.get('from')?.value"
+                        [minDate]="filterForm.get('from')?.value"
                         placement="bottom-right">
         </alv-date-input>
       </div>

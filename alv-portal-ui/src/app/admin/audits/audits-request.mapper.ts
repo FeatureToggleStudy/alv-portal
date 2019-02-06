@@ -25,6 +25,19 @@ export function mapAuditsToRequest(filter: AuditsFilter, page: number): AuditsSe
 }
 
 /**
+ * The column of {@Audit} object is different then in backend, so
+ * we need to map it separately
+ *
+ * @param selected
+ *    columnName from {@Audit}
+ * @return string
+ *    columnName to send to backend for sorting
+ */
+export function setColumnForSorting(selected: string): string {
+  return (selected === 'type') ? 'auditEventType' : 'auditEventDate';
+}
+
+/**
  *
  * Function for converting structured object mapping with columnName and sortOrder
  * to string consisting of columnName and sortOder that we use in http post backend request
@@ -40,7 +53,7 @@ export function mapAuditsToRequest(filter: AuditsFilter, page: number): AuditsSe
  *    {@string}
  */
 export function mapAuditsColumnDefinitionToSort(current: AuditsColumnDefinition, selected: string): string {
-  const column = (selected === 'type') ? 'auditEventType' : 'auditEventDate';
+  const column = setColumnForSorting(selected);
   let sort;
   if ((current.columnName !== selected) || (current.sortOrder === 'desc')) {
     sort = 'asc';

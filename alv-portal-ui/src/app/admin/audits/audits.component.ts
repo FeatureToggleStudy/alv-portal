@@ -9,7 +9,13 @@ import {
   AuditsSearchResponse
 } from '../../shared/backend-services/audits/audits.types';
 import { now, toISOLocalDate, tomorrow } from '../../shared/forms/input/ngb-date-utils';
-import { initAuditsFilter, mapAuditsToRequest, mapSortToAuditsColumnDefinition } from './audits-request.mapper';
+import {
+  initAuditsFilter,
+  initAuditsSort,
+  mapAuditsToRequest,
+  mapSortToAuditsColumnDefinition,
+  setColumnForSorting
+} from './audits-request.mapper';
 import { flatMap, map, take, takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
@@ -21,11 +27,9 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
 })
 export class AuditsComponent extends AbstractSubscriber implements OnInit {
 
-  form: FormGroup;
+  filterForm: FormGroup;
 
   auditList: Audit[];
-
-  currentFilter: AuditsFilter;
 
   currentSorting: AuditsColumnDefinition;
 
@@ -40,21 +44,20 @@ export class AuditsComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.prepareForm();
+    this.filterForm = this.prepareForm();
 
     this.loadAudits(initAuditsFilter, 0)
       .pipe(take(1))
       .subscribe((response) => {
         this.auditList = response.result;
-        this.setFilter(initAuditsFilter);
+        this.currentSorting = mapSortToAuditsColumnDefinition(initAuditsSort);
         this.setMaxScrollPage(response.totalCount, 0);
       });
 
-    this.form.valueChanges
+    this.filterForm.valueChanges
       .pipe(
         map<any, AuditsFilter>((formValues) => {
-          this.currentFilter = this.mapFilterValues(formValues);
-          return this.currentFilter;
+          return this.mapFilterValues(formValues);
         }),
         flatMap((filter) => this.loadAudits(filter, this.page)),
         takeUntil(this.ngUnsubscribe))
@@ -65,8 +68,8 @@ export class AuditsComponent extends AbstractSubscriber implements OnInit {
   }
 
   onSortChange(sort: string) {
-    this.setFilter({...this.currentFilter, sort});
-    this.loadAudits(this.currentFilter, 0)
+    this.currentSorting = mapSortToAuditsColumnDefinition(sort);
+    this.loadAudits(this.mapFilterValues(this.filterForm.value), 0)
       .subscribe((response) => {
         this.auditList = response.result;
         this.setMaxScrollPage(response.totalCount, this.page);
@@ -74,7 +77,7 @@ export class AuditsComponent extends AbstractSubscriber implements OnInit {
   }
 
   onScrollChange(nextPage: number) {
-    this.loadAudits(this.currentFilter, nextPage)
+    this.loadAudits(this.mapFilterValues(this.filterForm.value), nextPage)
       .subscribe((response) => {
         this.auditList = [...this.auditList, ...response.result];
         this.setMaxScrollPage(response.totalCount, this.page);
@@ -89,13 +92,8 @@ export class AuditsComponent extends AbstractSubscriber implements OnInit {
     return {
       fromDate: toISOLocalDate(formValues.from),
       toDate: toISOLocalDate(formValues.to),
-      sort: this.currentFilter.sort
+      sort: `${setColumnForSorting(this.currentSorting.columnName)},${this.currentSorting.sortOrder}`
     };
-  }
-
-  private setFilter(filter: AuditsFilter) {
-    this.currentFilter = filter;
-    this.currentSorting = mapSortToAuditsColumnDefinition(filter.sort);
   }
 
   private setMaxScrollPage(totalCount: number, currentPage: number) {
