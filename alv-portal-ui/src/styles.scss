@@ -4,8 +4,8 @@ body {
   overflow: hidden;
 }
 
-html, body, alv-root {
-  height: 100%;
+html, body {
+  height: 100vh;
 }
 
 @import "scss/common/fonts";
