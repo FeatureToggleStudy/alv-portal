@@ -8,6 +8,7 @@ import { UserRole } from '../core/auth/user.model';
 import { SystemNotificationsComponent } from './system-notifications/system-notifications.component';
 import { ApiDocComponent } from './api-doc/api-doc.component';
 import { ElasticSearchReindexComponent } from './elastic-search-reindex/elastic-search-reindex.component';
+import { AuditsComponent } from './audits/audits.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,13 @@ const routes: Routes = [
     component: ElasticSearchReindexComponent,
     data: {
       titleKey: 'portal.admin.elastic-search-reindex.title'
+    }
+  },
+  {
+    path: 'audits',
+    component: AuditsComponent,
+    data: {
+      titleKey: 'portal.admin.audits.title'
     }
   }
 ];

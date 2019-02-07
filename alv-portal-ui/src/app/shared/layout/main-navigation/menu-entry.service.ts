@@ -133,6 +133,13 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     labelKey: 'portal.navigation.menu-entry.admin.elastic-search-reindex',
     path: ['admin', 'elastic-search-reindex'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
+  },
+  {
+    id: 'audits',
+    iconClass: 'bell',
+    labelKey: 'portal.admin.audits.title',
+    path: ['admin', 'audits'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   }
 ];
 

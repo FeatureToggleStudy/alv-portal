@@ -10,13 +10,11 @@ const routes: Routes = [
     path: '',
     component: CandidateSearchComponent,
     canActivate: [CandidateSearchGuard],
-    data: { titleKey: 'portal.candidate-search.browser-title' }
   },
   {
     path: ':id',
     component: CandidateDetailComponent,
     canActivate: [CandidateDetailGuard],
-    data: { titleKey: 'portal.candidate-search.browser-title' }
   },
   {
     path: '**',

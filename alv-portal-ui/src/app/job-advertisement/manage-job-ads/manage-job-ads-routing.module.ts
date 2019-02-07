@@ -14,7 +14,6 @@ const routes: Routes = [
     component: ManageJobAdSearchComponent,
     canActivate: [HasAnyAuthoritiesGuard, ManagedJobAdSearchGuard],
     data: {
-      titleKey: 'portal.manage-job-ads.browser-title',
       authorities: [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]
     }
   },
@@ -22,7 +21,9 @@ const routes: Routes = [
     path: ':id',
     component: ManageJobAdDetailComponent,
     canActivate: [ManageJobAdDetailGuard],
-    data: { titleKey: 'portal.manage-job-ads.browser-title' }
+    data: {
+      collapseNavigation: true
+    }
   },
   {
     path: '**',

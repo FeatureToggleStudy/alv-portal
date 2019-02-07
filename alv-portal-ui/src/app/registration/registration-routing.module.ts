@@ -6,13 +6,11 @@ import { NgModule } from '@angular/core';
 const registrationRoutes: Routes = [
   {
     path: 'finish',
-    component: FinishRegistrationComponent,
-    data: { titleKey: 'portal.registration.browser-title' }
+    component: FinishRegistrationComponent
   },
   {
     path: 'access-code',
-    component: AccessCodeComponent,
-    data: { titleKey: 'portal.registration.browser-title' }
+    component: AccessCodeComponent
   },
   {
     path: '**',

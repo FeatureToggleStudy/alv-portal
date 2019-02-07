@@ -1,6 +1,6 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { isValidNumber } from 'libphonenumber-js';
-import { IsoCountryService } from '../../../../job-advertisement/job-publication/job-publication-form/iso-country.service';
+import { IsoCountryService } from '../../../localities/iso-country.service';
 
 export function phoneInputValidator(): ValidatorFn {
 

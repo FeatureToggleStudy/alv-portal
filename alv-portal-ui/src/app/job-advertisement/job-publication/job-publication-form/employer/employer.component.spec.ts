@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
 import { emptyEmployerFormValue } from './employer-form-value.types';
-import { IsoCountryService } from '../iso-country.service';
+import { IsoCountryService } from '../../../../shared/localities/iso-country.service';
 
 describe('EmployerComponent', () => {
 
