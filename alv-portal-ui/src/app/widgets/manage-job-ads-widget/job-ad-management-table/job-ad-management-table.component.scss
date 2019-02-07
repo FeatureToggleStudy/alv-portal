@@ -4,7 +4,6 @@
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
 .table {
-
   thead {
     background-color: $color-light-grey;
 
@@ -22,8 +21,6 @@
 
       &.clickable-column-header {
         cursor: pointer;
-        word-break: break-word;
-
       }
     }
   }
@@ -47,10 +44,10 @@
       //box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
     }
   }
-}
 
-.btn.btn-icon.dropdown-toggle::after {
-  display: none;
+  .actions-cell .dropdown-toggle::after {
+    display: none;
+  }
 }
 
 @include media-breakpoint-down(sm) {
