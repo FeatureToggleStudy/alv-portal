@@ -27,6 +27,28 @@ import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validat
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 
+interface ContactCandidateFormValues {
+  subject: string;
+  personalMessage: string;
+  companyName: string;
+  company?: ContactCandidateCompanyFormValues;
+  phoneCheckbox: boolean;
+  phone: string;
+  emailCheckbox: boolean;
+  email: string;
+  postCheckbox: boolean;
+}
+
+interface ContactCandidateCompanyFormValues {
+  contactPerson: string;
+  companyName: string;
+  companyStreet: string;
+  companyHouseNr: string;
+  companyZipCode: string;
+  companyCity: string;
+  countryIsoCode: string;
+}
+
 @Component({
   selector: 'alv-contact-modal',
   templateUrl: './contact-modal.component.html',
@@ -82,7 +104,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       takeUntil(this.ngUnsubscribe))
       .subscribe(([postCheckBoxEnabled, company]) => {
         if (postCheckBoxEnabled) {
-          this.form.addControl('company', this.generateCompanyFormGroup());
+          this.form.addControl('company', this.prepareCompanyFormGroup());
           this.patchCompanyValues(company);
         } else {
           this.form.removeControl('company');
@@ -122,7 +144,8 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   }
 
   onSubmit() {
-    this.mapEmailContent(this.form.value).pipe(
+    const formValue = <ContactCandidateFormValues>this.form.value;
+    this.mapEmailContent(formValue).pipe(
       tap(emailContact =>
         this.candidateContactRepository.sendContactModalEmail(emailContact)
       )
@@ -144,7 +167,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     });
   }
 
-  private generateCompanyFormGroup() {
+  private prepareCompanyFormGroup() {
     return this.fb.group({
       contactPerson: [null, Validators.required],
       companyName: [null, Validators.required],
@@ -196,7 +219,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     });
   }
 
-  private mapCompany(company: any, countryOptions: SelectableOption[]): Company {
+  private mapCompany(company: ContactCandidateCompanyFormValues, countryOptions: SelectableOption[]): Company {
     const country = countryOptions.find(countryOption => countryOption.value === company.countryIsoCode);
     return {
       name: company.companyName,
@@ -209,8 +232,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     };
   }
 
-  private mapEmailContent(formValue: any): Observable<EmailContactModal> {
-
+  private mapEmailContent(formValue: ContactCandidateFormValues): Observable<EmailContactModal> {
     return this.countryOptions$.pipe(
       map((countryOptions) => {
         let emailContact: EmailContactModal = {
@@ -222,13 +244,13 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
           subject: formValue.subject
         };
         if (formValue.company) {
-          const emailContactCompany = this.mapCompany(formValue.company, countryOptions);
+          const companyFormValue = <ContactCandidateCompanyFormValues>formValue.company;
+          const emailContactCompany = this.mapCompany(companyFormValue, countryOptions);
           emailContact = {...emailContact, company: emailContactCompany};
         }
         return emailContact;
       })
     );
-
   }
 
 }
