@@ -123,10 +123,9 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
   onSubmit() {
     this.mapEmailContent(this.form.value).pipe(
-      tap(emailContact => {
-        console.log(emailContact);
+      tap(emailContact =>
         this.candidateContactRepository.sendContactModalEmail(emailContact)
-      })
+      )
     ).subscribe(() => this.activeModal.close());
   }
 
@@ -136,9 +135,9 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       personalMessage: [null, Validators.required],
       companyName: [null, Validators.required],
       phoneCheckbox: [true],
-      phone: [null, [Validators.required, phoneInputValidator()]],
+      phone: [null],
       emailCheckbox: [true],
-      email: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
+      email: [null],
       postCheckbox: [true]
     }, {
       validator: [atLeastOneRequiredValidator(['phoneCheckbox', 'emailCheckbox', 'postCheckbox'])]
@@ -197,7 +196,8 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     });
   }
 
-  private mapCountry(company: any): Company {
+  private mapCompany(company: any, countryOptions: SelectableOption[]): Company {
+    const country = countryOptions.find(country => country.value === company.countryIsoCode);
     return {
       name: company.companyName,
       contactPerson: company.contactPerson,
@@ -205,7 +205,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       houseNumber: company.companyHouseNr,
       zipCode: company.companyZipCode,
       city: company.companyCity,
-      country: company.country
+      country: country.label
     };
   }
 
@@ -213,19 +213,19 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     return this.countryOptions$.pipe(
       map((countryOptions) => {
-        const countryIsoCode = this.form.get('company').get('countryIsoCode').value;
-        const country = countryOptions.find(country => country.value === countryIsoCode);
-        const company = Object.assign({}, formValue.company);
-        company.country = country.label;
-        return {
+        let emailContact: EmailContactModal = {
           candidateId: this.candidate.id,
-          company: this.mapCountry(company),
           companyName: formValue.companyName,
           email: formValue.email,
           phone: formValue.phone,
           personalMessage: formValue.personalMessage,
           subject: formValue.subject
-        } as EmailContactModal;
+        };
+        if (formValue.company) {
+          const emailContactCompany = this.mapCompany(formValue.company, countryOptions);
+          emailContact = {...emailContact, company: emailContactCompany};
+        }
+        return emailContact;
       })
     );
 
