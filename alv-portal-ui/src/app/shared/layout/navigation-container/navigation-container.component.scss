@@ -19,15 +19,15 @@
     transition: background-image 0.5s ease-out;
 
     &.jobseeker-home {
-      background-image: url("/assets/img/backgrounds/helmet-bg.jpeg");
+      background-image: url("../../../../assets/img/backgrounds/helmet-bg.jpeg");
     }
 
     &.company-home {
-      background-image: url("/assets/img/backgrounds/handshake.jpeg");
+      background-image: url("../../../../assets/img/backgrounds/handshake.jpeg");
     }
 
     &.pav-home {
-      background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
+      background-image: url("../../../../assets/img/backgrounds/woman-phone.jpeg");
     }
   }
 }

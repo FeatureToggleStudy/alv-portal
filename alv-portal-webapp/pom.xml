@@ -130,7 +130,8 @@
                         </goals>
                         <configuration>
                             <descriptors>
-                                <descriptor>src/assembly/docker-development-dist.xml</descriptor>
+                                <descriptor>src/assembly/docker-development-dist.xml
+                                </descriptor>
                             </descriptors>
                             <finalName>docker-development-dist</finalName>
                         </configuration>
