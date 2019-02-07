@@ -3,8 +3,8 @@ import 'jasmine-expect';
 
 import { IsoCountryService } from './iso-country.service';
 import { of } from 'rxjs';
-import { I18nService } from '../../../core/i18n.service';
-import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { I18nService } from '../../core/i18n.service';
+import { SelectableOption } from '../forms/input/selectable-option.model';
 
 
 describe('IsoCountryService', () => {

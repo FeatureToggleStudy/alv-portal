@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IsoCountryService } from '../iso-country.service';
+import { IsoCountryService } from '../../../../shared/localities/iso-country.service';
 import { LocalitySuggestionService } from '../../../../shared/localities/locality-suggestion.service';
 import { Observable } from 'rxjs';
 import { TypeaheadItem } from '../../../../shared/forms/input/typeahead/typeahead-item';
@@ -46,7 +46,7 @@ export class ZipCityInputComponent implements OnInit {
   }
 
   loadLocationsFn = (query: string): Observable<TypeaheadItem<ZipAndCity>[]> =>
-    this.localitySuggestionService.fetchJobPublicationLocations(query)
+    this.localitySuggestionService.fetchJobPublicationLocations(query);
 
   ngOnInit(): void {
     const { zipCityAutoComplete, zipCode, city } = this.zipCityFormValue;

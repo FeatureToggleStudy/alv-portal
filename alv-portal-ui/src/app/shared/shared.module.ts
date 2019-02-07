@@ -13,7 +13,7 @@ import { DummyComponent } from './dummy/dummy.component';
 import { IconsModule } from './icons/icons.module';
 import { LegalTermsDirective } from './legal-terms/legal-terms.directive';
 import { LegalTermsModalComponent } from './legal-terms/legal-terms-modal/legal-terms-modal.component';
-import { IsoCountryService } from '../job-advertisement/job-publication/job-publication-form/iso-country.service';
+import { IsoCountryService } from './localities/iso-country.service';
 
 @NgModule({
   declarations: [

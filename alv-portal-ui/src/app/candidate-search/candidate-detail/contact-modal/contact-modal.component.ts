@@ -25,7 +25,7 @@ import { CandidateContactRepository } from '../../../shared/backend-services/can
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import { IsoCountryService } from '../../../job-advertisement/job-publication/job-publication-form/iso-country.service';
+import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 
 @Component({
   selector: 'alv-contact-modal',
