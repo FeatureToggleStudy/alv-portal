@@ -16,7 +16,7 @@ import { InputType } from '../input-type.enum';
 import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
 import { AsYouType, format, isValidNumber, parse } from 'libphonenumber-js';
-import { IsoCountryService } from '../../../../job-advertisement/job-publication/job-publication-form/iso-country.service';
+import { IsoCountryService } from '../../../localities/iso-country.service';
 
 
 /**
