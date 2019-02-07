@@ -24,3 +24,9 @@ button.btn-header {
     padding: 2px 5px;
   }
 }
+
+@include media-breakpoint-down(sm) {
+  .dropdown-toggle::after {
+    display: none;
+  }
+}
