@@ -20,7 +20,7 @@ import { PublicationComponent } from './publication/publication.component';
 import { EmployerComponent } from './employer/employer.component';
 import { ApplicationComponent } from './application/application.component';
 import { PostAddressFormComponent } from './post-address-form/post-address-form.component';
-import { IsoCountryService } from './iso-country.service';
+import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { I18nService } from '../../../core/i18n.service';
 import { of } from 'rxjs';
 import { JobPublicationFormValueFactory } from './job-publication-form-value-factory';

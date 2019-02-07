@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { LocationComponent } from './location.component';
 import { emptyLocationFormValue } from './location-form-value.types';
 import { of } from 'rxjs';
-import { IsoCountryService } from '../iso-country.service';
+import { IsoCountryService } from '../../../../shared/localities/iso-country.service';
 
 describe('LocationComponent', () => {
 

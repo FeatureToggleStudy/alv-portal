@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IsoCountryService } from '../iso-country.service';
+import { IsoCountryService } from '../../../../shared/localities/iso-country.service';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { Observable } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
