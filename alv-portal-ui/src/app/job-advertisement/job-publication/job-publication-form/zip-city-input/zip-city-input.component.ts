@@ -46,7 +46,7 @@ export class ZipCityInputComponent implements OnInit {
   }
 
   loadLocationsFn = (query: string): Observable<TypeaheadItem<ZipAndCity>[]> =>
-    this.localitySuggestionService.fetchJobPublicationLocations(query);
+    this.localitySuggestionService.fetchJobPublicationLocations(query)
 
   ngOnInit(): void {
     const { zipCityAutoComplete, zipCode, city } = this.zipCityFormValue;
