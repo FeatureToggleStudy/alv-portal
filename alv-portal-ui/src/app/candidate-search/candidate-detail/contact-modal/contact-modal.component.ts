@@ -197,7 +197,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   }
 
   private mapCompany(company: any, countryOptions: SelectableOption[]): Company {
-    const country = countryOptions.find(country => country.value === company.countryIsoCode);
+    const country = countryOptions.find(countryOption => countryOption.value === company.countryIsoCode);
     return {
       name: company.companyName,
       contactPerson: company.contactPerson,
