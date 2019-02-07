@@ -17,8 +17,7 @@
              ngbDropdown
              placement="bottom-right">
           <button (click)="mobileActionsMenu.toggle()"
-                  class="btn btn-text btn-icon"
-                  id="dropdownMenu"
+                  class="btn btn-text btn-icon no-dropdown-indicator"
                   [ngbTooltip]="'portal.global.actions' | translate"
                   placement="left"
                   ngbDropdownAnchor
@@ -70,14 +69,14 @@
         {{'job-detail.back' | translate}}
       </a>
       <div class="d-flex d-sm-block flex-column-reverse">
-        <div class="alv-panel p-2 mb-3">
+        <div class="alv-panel contact-panel p-2 mb-3">
           <alv-job-company-context [jobDetailModel]="jobDetailModel">
           </alv-job-company-context>
         </div>
       </div>
 
       <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter"
-           class="alv-panel p-2 mb-3">
+           class="alv-panel contact-panel p-2 mb-3">
         <div class="order-sm-2">
           <alv-job-center-context [jobDetailModel]="jobDetailModel">
           </alv-job-center-context>

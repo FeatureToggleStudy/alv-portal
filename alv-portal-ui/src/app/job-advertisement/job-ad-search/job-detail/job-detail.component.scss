@@ -1,8 +1,5 @@
-@import '../../../../../node_modules/bootstrap/scss/functions';
-@import '../../../../../node_modules/bootstrap/scss/variables';
-@import '../../../../../node_modules/bootstrap/scss/mixins';
-@import "../../../../scss/common/colors";
 
-.dropdown-toggle::after {
-  display: none;
+.contact-panel {
+  word-break: break-word;
+  line-height: 1.75em;
 }
