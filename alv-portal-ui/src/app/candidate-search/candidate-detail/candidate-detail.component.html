@@ -72,12 +72,12 @@
         <fa-icon class="mr-1" [icon]="['fas', 'caret-left']"></fa-icon>
         {{'candidate-detail.back' | translate}}
       </a>
-      <div class="alv-panel p-2 mb-3">
+      <div class="alv-panel p-2 mb-3" *ngIf="candidateDetailModel.jobCenter">
         <div class="d-flex d-sm-block flex-column-reverse">
 
           <div class="contact-panel">
 
-            <div class="panel-title">
+            <div class="panel-title" >
               {{ 'candidate-detail.job-center.title' | translate }}
             </div>
 
