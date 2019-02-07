@@ -1,0 +1,77 @@
+<div *ngIf="auditList?.length; else noResults">
+  <table class="table table-striped"
+         role="grid">
+    <thead role="presentation">
+    <tr role="row">
+      <th scope="col"
+          role="columnheader"
+          class="clickable-column-header"
+          *ngFor="let columnDefinition of columnDefinitions"
+          (click)="onSort(columnDefinition.columnName)"
+          [ngClass]="{'active-sort' : currentSorting.columnName === columnDefinition.columnName}">
+        <span>{{ 'portal.admin.audits.table.header.' + columnDefinition.columnName | translate }}</span>
+        <ng-container *ngIf="columnDefinition.sortable">
+          <ng-container *ngIf="currentSorting.columnName === columnDefinition.columnName; else placeholder">
+            <fa-icon class="ml-2 text-primary"
+                     *ngIf="currentSorting.sortOrder === 'desc'"
+                     [icon]="['fas', 'sort-down']">
+            </fa-icon>
+            <fa-icon class="ml-2 text-primary"
+                     *ngIf="currentSorting.sortOrder === 'asc'"
+                     [icon]="['fas', 'sort-up']">
+            </fa-icon>
+          </ng-container>
+        </ng-container>
+      </th>
+    </tr>
+    </thead>
+    <tbody (scrolled)="onScroll()"
+           [fromRoot]="true"
+           [infiniteScrollThrottle]="50"
+           [immediateCheck]="true"
+           [infiniteScrollContainer]="'main'"
+           infiniteScroll
+           role="presentation">
+    <tr role="row" *ngFor="let audit of auditList">
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ audit.timestamp | date: 'dd.MM.yyyy, hh:mm:ss' }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ audit.principal }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ audit.type }}
+      </td>
+      <td class="content-cell align-middle font-data"
+          role="gridcell">
+        <p *ngIf="audit.data?.type">
+          <code>{{ audit.data.type }}</code>
+        </p>
+        <p *ngIf="audit.data?.message">
+          <code>{{ audit.data.message }}</code>
+        </p>
+        <p *ngIf="audit.data?.details">
+          <code>{{ audit.data.details }}</code>
+        </p>
+        <p *ngIf="audit.data?.remoteAddress">
+          <code>
+            <span>{{ 'portal.admin.audits.table.data.remoteAddress' | translate }}</span>
+            {{ audit.data.remoteAddress }}
+          </code>
+        </p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <ng-template #placeholder>
+    <fa-icon class="ml-2 potential-sort"
+             [icon]="['fas', 'sort']"></fa-icon>
+  </ng-template>
+</div>
+<ng-template #noResults>
+  <p> {{ 'portal.admin.api-user-management.no-results' | translate }}</p>
+</ng-template>
+

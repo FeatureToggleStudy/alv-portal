@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { PostAddressFormComponent } from './post-address-form.component';
 import { emptyPostAddressFormValue } from './post-address-form-value.types';
 import { of } from 'rxjs';
-import { IsoCountryService } from '../iso-country.service';
+import { IsoCountryService } from '../../../../shared/localities/iso-country.service';
 
 describe('PostAddressFormComponent', () => {
 
@@ -182,7 +182,7 @@ describe('PostAddressFormComponent', () => {
         field.get('street').setValue(null);
 
         //then
-        expect(field.hasError('postOfficeBoxNumberOrStreetRequired')).toBeTrue();
+        expect(field.hasError('atLeastOneRequired')).toBeTrue();
       });
 
     });

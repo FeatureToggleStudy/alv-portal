@@ -102,14 +102,14 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   {
     id: 'legal-terms-management',
     iconClass: 'balance-scale',
-    labelKey: 'portal.admin.legal-terms-management.title',
+    labelKey: 'portal.navigation.menu-entry.admin.legal-terms',
     path: ['admin', 'legal-terms-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'api-user-management',
     iconClass: 'users',
-    labelKey: 'portal.admin.api-user-management.menu-entry',
+    labelKey: 'portal.navigation.menu-entry.admin.api-user-management',
     path: ['admin', 'api-user-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   },
@@ -125,6 +125,20 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     iconClass: 'book',
     labelKey: 'portal.navigation.menu-entry.admin.api-doc',
     path: ['admin', 'api-doc'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
+  },
+  {
+    id: 'elastic-search-reindex',
+    iconClass: 'sync',
+    labelKey: 'portal.navigation.menu-entry.admin.elastic-search-reindex',
+    path: ['admin', 'elastic-search-reindex'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
+  },
+  {
+    id: 'audits',
+    iconClass: 'bell',
+    labelKey: 'portal.admin.audits.title',
+    path: ['admin', 'audits'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   }
 ];
