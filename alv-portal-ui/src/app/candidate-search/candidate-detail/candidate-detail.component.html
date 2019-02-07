@@ -1,4 +1,4 @@
-<div class="container-fluid pt-4">
+<div class="container-fluid pt-2 pt-md-4">
   <alv-three-column-layout *ngIf="candidateDetailModel$ | async as candidateDetailModel"
                            [stickyTop]="layoutConstants.STICKY_TOP_DETAIL"
                            [mobileOrdering]="[2, 1, null]">
@@ -20,8 +20,10 @@
           <button (click)="mobileActionsMenu.toggle()"
                   class="btn btn-text btn-icon"
                   id="dropdownMenu"
+                  [ngbTooltip]="'portal.global.actions' | translate"
+                  placement="left"
                   ngbDropdownAnchor
-                  [attr.aria-label]="'portal.candidate-detail.open-candidate-menu'|translate">
+                  [attr.aria-label]="'portal.global.actions' | translate">
             <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
           </button>
           <div aria-label="Candidate detail menu"

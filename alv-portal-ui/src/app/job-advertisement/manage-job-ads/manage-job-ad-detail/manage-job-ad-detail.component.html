@@ -1,4 +1,4 @@
-<div class="container-fluid pt-4">
+<div class="container-fluid pt-2 pt-md-4">
   <alv-three-column-layout *ngIf="jobDetailModel$ | async as jobDetailModel"
                            [mobileOrdering]="[2, 1, null]">
     <ng-container class="mobile-menu-bar">
@@ -17,9 +17,10 @@
              placement="bottom-right">
           <button (click)="mobileActionsMenu.toggle()"
                   class="btn btn-text btn-icon"
-                  id="dropdownMenu"
+                  [ngbTooltip]="'portal.global.actions' | translate"
+                  placement="left"
                   ngbDropdownAnchor
-                  aria-hidden="true">
+                  [attr.aria-label]="'portal.global.actions' | translate">
             <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
           </button>
           <div aria-hidden="true"
