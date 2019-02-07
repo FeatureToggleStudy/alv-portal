@@ -3,38 +3,36 @@
   <h1 class="sr-only">Header</h1>
 
   <div class="header p-0 d-flex align-items-center">
+    <div class="mobile-logo d-block d-md-none text-center position-absolute w-100">
+      <img class="mr-1"
+           alt="Logo arbeit.swiss"
+           src="assets/img/logo_arbeit_swiss_without_text.svg"
+           height="22">
+      Job-Room
+    </div>
+
     <a routerLink="/">
       <div class="logo pl-2 d-none d-lg-flex">
-
         <img src="assets/img/logo_arbeit_swiss.svg"
              alt="Logo Arbeitslosenversicherung">
         <span class="logo-text">eServices</span>
       </div>
     </a>
+
     <button class="header-menu d-lg-none align-self-center"
             [attr.aria-label]="'portal.header.menu.open-navigation'|translate"
             (click)="toggleMobileNavigation()">
       <fa-icon class="navbar-toggler-icon"
                [icon]="['fas', 'bars']"></fa-icon>
     </button>
+
     <div class="flex-grow-1"></div>
 
-    <div class="d-block d-md-none flex-grow-1 text-center">
-      <img class="mr-1"
-           src="assets/img/logo_arbeit_swiss_without_text.svg"
-           height="22">
-      Job-Room
-    </div>
-
-    <alv-user-menu *ngIf="user; else userMenuPlaceholder"
+    <alv-user-menu *ngIf="user"
                    [user]="user"
                    [company]="company"
                    [noEiam]="noEiam">
     </alv-user-menu>
-
-    <ng-template #userMenuPlaceholder>
-      <div class="flex-grow-1"></div>
-    </ng-template>
 
     <div class="header-buttons ml-1 d-none d-lg-flex align-items-center">
       <a class="btn mx-3"
