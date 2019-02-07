@@ -1,4 +1,17 @@
 <div class="container mt-4">
+  <h1>Notifications</h1>
+  <alv-alert *ngFor="let notificiation of notifications"
+             [notification]="notificiation">
+  </alv-alert>
+
+  <alv-alert [notification]="customNotification">
+    <p>Custom <strong>HTML</strong> Content</p>
+    <a class="link" href="#">
+      <fa-icon class="link-icon" [icon]="['fas', 'caret-right']"></fa-icon>
+      Demo Link
+    </a>
+  </alv-alert>
+
   <h1>Typeahead</h1>
 
   <p>A typeahead that accepts free text, enables searching for items and limits the
