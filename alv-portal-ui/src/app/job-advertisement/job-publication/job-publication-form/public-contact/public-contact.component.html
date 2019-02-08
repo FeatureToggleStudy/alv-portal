@@ -22,6 +22,7 @@
                      alvFormControlName="phone"
                      type="tel"
                      placeholder="home.tools.job-publication.placeholders.phone"
+                     [validationMessages]="[{ error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-email-or-phone'}]"
                      [showGroupErrors]="true">
     </alv-input-field>
 
