@@ -1,15 +1,15 @@
-<div class="icon"
-     aria-hidden="true">
-  <fa-icon [icon]="['fas', icon]"></fa-icon>
+<div class="notification" [ngClass]="notificationClass">
+  <div class="icon">
+    <fa-icon [icon]="['fas', icon]"></fa-icon>
+  </div>
+  <div class="text w-100">
+    <div class="line-1"> {{notification.messageKey | translate}}</div>
+    <ng-content></ng-content>
+  </div>
+  <button *ngIf="!hideDismiss"
+          type="button"
+          [attr.aria-label]="'portal.global.close' | translate"
+          class="close close-button"
+          (click)="doDismiss(notification)">&times;
+  </button>
 </div>
-
-<div class="text w-100">
-  <div class="line-1"> {{notification.messageKey | translate}}</div>
-  <ng-content></ng-content>
-</div>
-<button *ngIf="!hideDismiss"
-        type="button"
-        [attr.aria-label]="'portal.global.close' | translate"
-        class="close close-button"
-        (click)="doDismiss(notification)">&times;
-</button>
