@@ -155,7 +155,7 @@ export function candidateContact(candidateProfile: CandidateProfile, jobCenter: 
     return { phone: jobCenter.phone, email: jobCenter.email };
   } else {
     const jobAdvisorContact = candidateProfile.jobAdvisor;
-    if (!(jobCenter.showContactDetailsToPublic || isAuthenticatedUser(user))) {
+    if (!(jobCenter && jobCenter.showContactDetailsToPublic || isAuthenticatedUser(user))) {
       jobAdvisorContact.firstName = null;
       jobAdvisorContact.lastName = null;
       jobAdvisorContact.email = null;
