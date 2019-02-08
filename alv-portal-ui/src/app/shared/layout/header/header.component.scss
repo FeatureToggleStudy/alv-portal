@@ -95,7 +95,7 @@ header {
   }
 }
 
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
   .dropdown-toggle::after {
     display: none;
   }
