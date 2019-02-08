@@ -8,8 +8,8 @@ SECOND_COLUMN=`awk -F "," '{print $2}' ../translations.csv`
 for TRANSLATION in ${SECOND_COLUMN} ; do
     if ! grep --recursive --quiet '../src' -e ${TRANSLATION}; then
         # do we match at least partial translations?
-        SUFFIX=${TRANSLATION//*./}
-        TRANSLATION_WITHOUT_SUFFIX=${TRANSLATION/${SUFFIX}./}
+        SUFFIX=.${TRANSLATION//*./}
+        TRANSLATION_WITHOUT_SUFFIX=${TRANSLATION/${SUFFIX}/}
         if ! grep --recursive --quiet '../src' -e ${TRANSLATION_WITHOUT_SUFFIX}; then
             echo ${TRANSLATION}
         fi
