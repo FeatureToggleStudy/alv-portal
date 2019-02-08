@@ -1,4 +1,4 @@
-<div class="alv-panel pb-4">
+<div class="alv-panel pb-3 pb-md-4">
   <h2 class="panel-title">
     <alv-custom-icon class="panel-icon"
                      aria-hidden="true"
@@ -11,7 +11,8 @@
         class="justify-content-between d-flex flex-column flex-md-row">
     <alv-input-field label="portal.job-publication.query-panel.label.title"
                      alvFormControlName="jobPublicationTitle"
-                     class="narrow-form flex-grow-1">
+                     class="narrow-form flex-grow-1"
+                     [maxLength]="TITLE_MAX_LENGTH">
     </alv-input-field>
     <button type="submit"
             class="btn btn-primary mt-1 mt-md-0 ml-0 ml-md-2">

@@ -2,10 +2,10 @@
         (click)="toggleExpanded()">
   {{'candidate-search.filter.title' | translate}}
   <span *ngIf="!expanded">
-     <i class="fas fa-chevron-down" aria-hidden="true"></i>
+     <fa-icon [icon]="['fas', 'chevron-down']"></fa-icon>
   </span>
   <span *ngIf="expanded">
-    <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    <fa-icon [icon]="['fas', 'chevron-up']"></fa-icon>
   </span>
 </button>
 <div class="title-bar alv-bar text-truncate mb-3">

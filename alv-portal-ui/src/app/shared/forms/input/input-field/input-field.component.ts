@@ -16,7 +16,7 @@ import { InputType } from '../input-type.enum';
 import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
 import { AsYouType, format, isValidNumber, parse } from 'libphonenumber-js';
-import { defaultPhoneCountry } from './phone-input.validator';
+import { IsoCountryService } from '../../../localities/iso-country.service';
 
 
 /**
@@ -138,10 +138,10 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
   }
 
   private formatPhoneNumber(phoneNumber: string) {
-    if (isValidNumber(phoneNumber, defaultPhoneCountry)) {
-      const formatter = new AsYouType(defaultPhoneCountry);
+    if (isValidNumber(phoneNumber, IsoCountryService.ISO_CODE_SWITZERLAND)) {
+      const formatter = new AsYouType(IsoCountryService.ISO_CODE_SWITZERLAND);
       const value = formatter.input(phoneNumber);
-      this.control.patchValue(format(parse(value, defaultPhoneCountry), 'International'), { emitEvent: false });
+      this.control.patchValue(format(parse(value, IsoCountryService.ISO_CODE_SWITZERLAND), 'International'), { emitEvent: false });
     }
   }
 }

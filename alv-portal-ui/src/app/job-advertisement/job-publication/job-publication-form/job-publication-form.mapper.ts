@@ -54,7 +54,7 @@ import {
 
 import { PostAddressFormValue } from './post-address-form/post-address-form-value.types';
 import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
-import { IsoCountryService } from './iso-country.service';
+import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { now, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
 

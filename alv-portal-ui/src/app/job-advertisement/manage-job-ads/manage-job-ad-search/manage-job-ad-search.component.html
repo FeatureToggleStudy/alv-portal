@@ -11,7 +11,8 @@
             class="btn btn-text"
             data-toggle="popover"
             (click)="onFilterClick()">
-      <i class="fas fa-filter mr-2"></i>
+      <fa-icon class="mr-2"
+               [icon]="['fas', 'filter']"></fa-icon>
       {{'portal.manage-job-ads.search.filter-button' | translate}}
     </button>
   </div>

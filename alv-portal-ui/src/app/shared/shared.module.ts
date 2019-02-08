@@ -8,14 +8,18 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { CommonModule } from '@angular/common';
 import { MarkdownModule } from 'ngx-markdown';
 import { PipesModule } from './pipes/pipes.module';
-import { GeoLocationSelectionComponent } from './localities/geo-location-selection/geo-location-selection.component';
 import { LandingPageGuard } from './landing-page/landing-page.guard';
 import { DummyComponent } from './dummy/dummy.component';
+import { IconsModule } from './icons/icons.module';
+import { LegalTermsDirective } from './legal-terms/legal-terms.directive';
+import { LegalTermsModalComponent } from './legal-terms/legal-terms-modal/legal-terms-modal.component';
+import { IsoCountryService } from './localities/iso-country.service';
 
 @NgModule({
   declarations: [
-    GeoLocationSelectionComponent,
     DummyComponent,
+    LegalTermsDirective,
+    LegalTermsModalComponent
   ],
   imports: [
     TranslateModule.forChild(),
@@ -25,9 +29,12 @@ import { DummyComponent } from './dummy/dummy.component';
     LayoutModule,
     SharedAuthModule,
     ClipboardModule,
-    PipesModule
+    PipesModule,
+    IconsModule
   ],
-  entryComponents: [],
+  entryComponents: [
+    LegalTermsModalComponent
+  ],
   exports: [
     CommonModule,
     TranslateModule,
@@ -38,10 +45,12 @@ import { DummyComponent } from './dummy/dummy.component';
     ClipboardModule,
     MarkdownModule,
     SharedAuthModule,
-    GeoLocationSelectionComponent,
+    IconsModule,
+    LegalTermsDirective
   ],
   providers: [
-    LandingPageGuard
+    LandingPageGuard,
+    IsoCountryService
   ]
 })
 export class SharedModule {

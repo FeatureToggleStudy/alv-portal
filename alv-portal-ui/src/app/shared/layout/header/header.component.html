@@ -1,20 +1,19 @@
 <header id="header">
   <!-- a11y -->
-  <h1 class="sr-only">Header</h1>
+  <h1 class="sr-only">{{'portal.header.header-label' | translate}}</h1>
 
   <div class="header p-0 d-flex align-items-center">
     <a routerLink="/">
-      <div class="logo pl-2 d-none d-lg-flex">
-
-        <img src="assets/img/logo_arbeit_swiss.svg"
-             alt="Logo Arbeitslosenversicherung">
-        <span class="logo-text">eServices</span>
+      <div class="logo d-none d-lg-flex">
+        <img src="assets/img/logo/{{'portal.home.logo-filename' | translate}}"
+             [attr.alt]="'portal.home.logo-alttext' | translate ">
       </div>
     </a>
     <button class="header-menu d-lg-none align-self-center"
             [attr.aria-label]="'portal.header.menu.open-navigation'|translate"
             (click)="toggleMobileNavigation()">
-      <i class="navbar-toggler-icon fas fa-bars"></i>
+      <fa-icon class="navbar-toggler-icon"
+               [icon]="['fas', 'bars']"></fa-icon>
     </button>
     <div class="flex-grow-1"></div>
 
@@ -30,7 +29,7 @@
          [attr.aria-label]="'global.menu.home' | translate"
          placement="bottom"
          [ngbTooltip]="'global.menu.home' | translate">
-        <i class="fas fa-home"></i>
+        <fa-icon [icon]="['fas', 'home']"></fa-icon>
       </a>
       <a class="btn mx-3"
          [href]="'home.contactform.url' | translate"

@@ -112,7 +112,7 @@ candidate-search,candidate-search.candidate-search-list.title.one.with-query,1 '
 candidate-search,candidate-search.candidate-search-list.title.one.with-query.with-locality,1 '{{query}}' Kandidat in {{locality}},1 '{{query}}' candidate in {{locality}},1 candidat pour '{{query}}' à {{locality}},1 candidato per '{{query}}' in {{locality}}
 candidate-search,candidate-search.degree.label,Ausbildung,Training,Formation,Formazione
 candidate-search,candidate-search.experience.label,Berufserfahrung,Professional experience,Expérience professionnelle,Esperienza professionale
-candidate-search,candidate-search.filter.candidate-search-link,Suche als Link versenden,Send search as link,Envoyer la recherche comme lien,Invia ricerca come link
+candidate-search,candidate-search.filter.candidate-search-link,Link versenden,Send link,Envoyer le lien,Invia link
 candidate-search,candidate-search.filter.title,Suchergebnisse filtern,Filter search result,Filtrer les résultats,Filtra risultati della ricerca
 candidate-search,candidate-search.graduation.ACCEPTED,Schweizer Abschluss oder anerkannt,Swiss degree or accepted in Switzerland,Diplôme suisse ou reconnu en Suisse,Diploma svizzero o riconosciuto in Svizzera
 candidate-search,candidate-search.graduation.CH,Schweizer Abschluss,Swiss degree,Diplôme suisse,Diploma svizzero
@@ -399,6 +399,14 @@ global,global.job-publication.status.PUBLISHED_PUBLIC,Öffentlich publiziert,Pub
 global,global.job-publication.status.PUBLISHED_RESTRICTED,Eingeschränkt publiziert,Restricted posting,Publié dans l'espace réservé,Pubblicazione ristretta
 global,global.job-publication.status.REFINING,Wird überarbeitet,In revision,En révision,Revisione in corso
 global,global.job-publication.status.REJECTED,Zurückgewiesen,Rejected,Rejeté,Respinto
+global,global.legal-terms-dialog.body.accept-label,Ich akzeptiere die neuen AGB,I accept the new GTC,J’accepte les nouvelles CG.,Accetto le nuove CG
+global,global.legal-terms-dialog.body.accept-link.error,Es ist ein Fehler aufgetreten!,An error has occurred!,Une erreur s'est produite !,Si è verificato un errore!
+global,global.legal-terms-dialog.body.accept-link.text,Neue Allgemeine Geschäftsbedingungen (AGB),New General Terms and Conditions (GTC),Nouvelles conditions générales (CG),Nuove Condizioni generali (CG)
+global,global.legal-terms-dialog.body.content1,"Unsere Allgemeinen Geschäftsbedingungen haben sich geändert. ",Our General Terms and Conditions have changed.,Nos conditions générales ont été modifiées.,Le nostre Condizioni generali sono cambiate.
+global,global.legal-terms-dialog.body.content2,"Bitte akzeptieren Sie diese, damit Sie Ihr Konto weiterhin nutzen können.",Please accept them in order to continue using your account.,Veuillez les accepter afin de poursuivre l’utilisation de votre compte.,Per continuare a usare il tuo conto accetta le Condizioni generali.
+global,global.legal-terms-dialog.footer.accept,Weiter,Next,Suivant,Seguente
+global,global.legal-terms-dialog.footer.reject,Nicht akzeptieren und ausloggen,Do not accept and log out,Ne pas accepter et se désinscrire,"Non accettare, logout"
+global,global.legal-terms-dialog.header.title,Neue Allgemeine Geschäftsbedingungen (AGB),New General Terms and Conditions (GTC),Nouvelles conditions
 global,global.menu.account.login,Login|Registrierung,Login|Registration,Login|Enregistrement,Login|Registrazione
 global,global.menu.account.logout,Abmelden,Sign out,Déconnexion,Esci
 global,global.menu.account.main,Zugang,Account,Compte,Utente
@@ -1353,15 +1361,20 @@ portal,portal.forms.date-input.open-calendar-button,Kalender öffnen,Open calend
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da
 portal,portal.job-search.filter.workload.to.label,Pensum bis,Workload to,Taux à,Grado a
 portal,portal.job-search.filter.reporting-obligation.all.label,Alle,All,Tous,Tutti
+portal,portal.job-search.sendLink,Link versenden,Send link,Envoyer le lien,Invia link
 
 portal,portal.navigation.menu-entry.job-search,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante
 portal,portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati
 portal,portal.navigation.menu-entry.job-publication,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante
-portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften
+portal,portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften,Manage job ads,Gérer les annonces,Gestire gli annunci
 portal,portal.navigation.menu-entry.account.profile,Profile,Profile
 portal,portal.navigation.menu-entry.admin.system-notifications,System Mitteilungen,System notifications,Notifications système,Notifiche di sistema
 portal,portal.navigation.menu-entry.admin.user-info,Benutzerinformationen,User Info,User Info,User Info
 portal,portal.navigation.menu-entry.admin.blacklist,Blacklist,Blacklist,Blacklist,Blacklist
+portal,portal.navigation.menu-entry.admin.api-doc,API Doc,API Doc,API Doc,API Doc
+portal,portal.navigation.menu-entry.admin.legal-terms,AGB verwalten,Manage GTC,Gérer CG,Gestisci CG
+portal,portal.navigation.menu-entry.admin.elastic-search-reindex,Reindex Elasticsearch,Reindex Elasticsearch,Reindex Elasticsearch,Reindex Elasticsearch
+portal,portal.navigation.menu-entry.admin.api-user-management,API-Benutzer verwalten,Manage API users,Gérer les utilisateurs API,Gestisci utente API
 portal,portal.navigation.label.main-navigation,,Main navigation
 
 portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
@@ -1386,6 +1399,7 @@ portal,portal.candidate-search.browser-title,Kandidaten finden,Find candidates,T
 portal,portal.candidate-search.results-count.label,Kandidaten,Candidates,candidats,candidati
 
 portal,portal.job-detail.next-result,Nächstes,Next,Prochain,Prossimo
+portal,portal.job-detail.sendLink,Link versenden,Send link,Envoyer le lien,Invia link
 portal,portal.job-detail.previous-result,Vorheriges,Previous,Précédent,Precedente
 portal,portal.job-detail.occupation,Beruf,Occupation,Profession,Lavoro
 portal,portal.job-detail.qualification,Qualifikation,Qualification,Qualification,Qualifica
@@ -1402,9 +1416,9 @@ portal,portal.job-detail.contact-details.label,Mögliche Bewerbungsformen,Possib
 portal,portal.job-detail.status,Status,Status,Statut,Stato
 
 portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
+portal,portal.candidate-detail.action.sendLink,Link versenden,Send link,Envoyer le lien,Invia link
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 portal,portal.candidate-detail.other-work-experience.label,Weitere Berufserfahrung,Other work experience
-portal,portal.candidate-detail.action.print,Drucken,Print,Imprimer,Stampa
 portal,portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche
 
 portal,portal.candidate-detail.anonymous-contact.send,Absenden
@@ -1448,8 +1462,11 @@ portal,portal.job-publication.language-skills.label,Sprachkenntnisse,Languages,C
 portal,portal.job-publication.locality.additional-text.placeholder,z. B. Aussendienst in der ganzen Schweiz,e.g. in the field throughout Switzerland,p. ex. service externe dans toute la Suisse,p. es. servizio esterno in tutta la Svizzera
 portal,portal.job-publication.disclaimer.label,"Ich bestätige, dass der Arbeitgeber die orts- und branchenüblichen Lohn- und Arbeitsbedingungen einhält.",I certify that the employer complies with local and industry standards for wage and working conditions.,Je confirme que l'employeur respecte les conditions de travail et de salaire usuelles dans la branche et la localité en question.,Confermo che il datore di lavoro rispetta le condizioni salariali e lavorative usuali nel ramo e nel luogo in questione.
 portal,portal.job-publication.disclaimer.error,"Bitte bestätigen Sie, dass der Arbeitgeber die orts- und branchenüblichen Lohn- und Arbeitsbedingungen einhält.",Please confirm that the employer complies with local and industry standards for wage and working conditions.,Veuillez confirmer que l'employeur respecte bien les conditions de travail et de salaire en vigueur dans la branche et la localité en question.,Confermare che il datore di lavoro rispetta le condizioni salariali e lavorative del luogo e del ramo in questione.
-portal,portal.job-publication.publication.publicDisplay.label,"<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> und <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> and <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Room</a> et <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>","<a href=""https://www.job-room.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Sito Job-Room</a> e <a href=""http://www.job-desk.ch"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>Job-Desk</a>"
-portal,portal.job-publication.publication.euresDisplay.label,"<a href=""https://ec.europa.eu/eures/public/de/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/en/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/fr/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>","<a href=""https://ec.europa.eu/eures/public/it/"" class=""link"" target=""_blank""><i class=""fas fa-caret-right link-icon""></i>EURES</a>"
+portal,portal.job-publication.publication.publicDisplay.and,und,and,et,e
+portal,portal.job-publication.publication.publicDisplay.job-room.label,Job-Room,Job-Room,Job-Room,Sito Job-Room
+portal,portal.job-publication.publication.publicDisplay.job-desk.label,Job-Desk,Job-Desk,Job-Desk,Job-Desk
+portal,portal.job-publication.publication.euresDisplay.link,https://ec.europa.eu/eures/public/de/,https://ec.europa.eu/eures/public/en/,https://ec.europa.eu/eures/public/fr/,https://ec.europa.eu/eures/public/it/
+portal,portal.job-publication.publication.euresDisplay.label,EURES,EURES,EURES,EURES
 portal,portal.job-publication.application.legend,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
 portal,portal.job-publication.application.validation.atLeastOneRequired,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.
 portal,portal.job-publication.submit.success,"Besten Dank für Ihre Stellenmeldung. Ihr Inserat wird nun von einem Regionalen Arbeitsvermittlungszentrum (RAV) geprüft. Sie werden per E-Mail informiert, sobald die Stelle veröffentlicht wurde.","Thank you for posting this job ad, which will now be checked by a regional employment centre (RAV). You will be informed by email as soon as it is published.",Merci d'avoir annoncé le poste vacant que l'ORP va examiner. Vous recevrez un courriel dès sa publication.,Grazie di aver annunciato il posto vacante che sarà esaminato dall'URC. Riceverà un'e-mail non appena il posto vacante verrà pubblicato.
@@ -1485,6 +1502,7 @@ portal,portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Reto
 portal,portal.global.close,Schliessen,Close,Fermer,Invalida
 
 portal,portal.header.menu.open-navigation
+portal,portal.header.header-label,,Header
 portal,portal.header.menu.user-menu.label
 portal,portal.header.contact,Kontakt,Contact,Contact,Contatto
 portal,portal.typeahead-multiselect.legend.selected-items,,Selected Items
@@ -1623,3 +1641,31 @@ portal,portal.admin.api-user-management.update-password-dialog.title,Change pass
 portal,portal.admin.api-user-management.email,E-Mail,Email,Courriel,E-mail
 portal,portal.admin.api-user-management.password.title,Passwort,Password,Mot de passe,Password
 portal,portal.admin.api-user-management.password.generate,Password generieren,Generate password,Générer un mot de passe,Genera password
+portal,portal.home.logo-filename,logo_job_room_de.svg,logo_job_room_en.svg,logo_job_room_fr.svg,logo_job_room_it.svg
+portal,portal.home.logo-alttext,,Logo of work.swiss
+
+portal,portal.admin.elastic-search-reindex.title,,Reindex Elasticsearch,,
+portal,portal.admin.elastic-search-reindex.dialog.title,Neuindizierung Elasticsearch bestätigen,Confirm Elasticsearch Reindex,Confirmer la réindexation Elasticsearch ,Conferma di voler reindicizzare Elasticsearch.
+portal,portal.admin.elastic-search-reindex.dialog.question,"Sind Sie sicher, dass Sie Elasticsearch neu indizieren wollen? Das kann eine Weile dauern!",Are you sure you want to reindex Elasticsearch? This could take a while!,Êtes-vous sûr de vouloir réindexer Elasticsearch? Cela peut prendre du temps!,Vuoi davvero reindicizzare Elasticsearch? L'operazione può durare a lungo!
+portal,portal.admin.elastic-search-reindex.dialog.cancel,,Cancel,,
+portal,portal.admin.elastic-search-reindex.dialog.confirm,,Reindex,,
+portal,portal.admin.elastic-search-reindex.instructions.main,,"This will send a request to reindex all data from your primary datasource into Elasticsearch. This will fix missing data and mapping issues, however you will lose any ES data and mapping that was defined outside of your application. This request will return immediately and the reindexing will run in the background. You will see ""Elasticsearch: Successfully performed reindexing"" in your logs when this is complete.",,
+portal,portal.admin.elastic-search-reindex.instructions.additional,,This can take a long time and is susceptible to concurrency issues so it should be performed when the number of users is low.,,
+portal,portal.admin.elastic-search-reindex.document.all,,All,,
+portal,portal.admin.elastic-search-reindex.document.candidates,,Candidates,,
+portal,portal.admin.elastic-search-reindex.document.jobs,,Jobs,,
+portal,portal.admin.elastic-search-reindex.document.reference_data,,Reference Data,,
+portal,portal.admin.elastic-search-reindex.document.users,,Users,,
+portal,portal.admin.elastic-search-reindex.document.accepted,,"Request accepted, performing Elasticsearch reindexing.",,
+portal,portal.admin.elastic-search-reindex.notification.failure,,Failure,,
+portal,portal.admin.elastic-search-reindex.document.toggle-all,,Toggle all,,
+
+portal,portal.admin.audits.title,Audits,Audits,Audits,Cambiamenti
+portal,portal.admin.audits.filter.filter-by-dates,,Filter audits by dates,,
+portal,portal.admin.audits.filter.from,Von,From,De,Da
+portal,portal.admin.audits.filter.to,Bis,To,À,A
+portal,portal.admin.audits.table.data.remoteAddress,Remote Address:,Remote Address:,Adresse Distante :,Remote Address:
+portal,portal.admin.audits.table.header.timestamp,Datum,Date,Date,Data
+portal,portal.admin.audits.table.header.principal,Principal,Principal,Utilisateur,Principal
+portal,portal.admin.audits.table.header.type,Status,Status,Status,Status
+portal,portal.admin.audits.table.header.data,Other data,Other data,Autres données,Other data

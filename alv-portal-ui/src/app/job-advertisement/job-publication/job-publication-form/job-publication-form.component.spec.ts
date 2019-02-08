@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonModule } from '@angular/common';
+import { APP_BASE_HREF, CommonModule } from '@angular/common';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -20,7 +20,7 @@ import { PublicationComponent } from './publication/publication.component';
 import { EmployerComponent } from './employer/employer.component';
 import { ApplicationComponent } from './application/application.component';
 import { PostAddressFormComponent } from './post-address-form/post-address-form.component';
-import { IsoCountryService } from './iso-country.service';
+import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { I18nService } from '../../../core/i18n.service';
 import { of } from 'rxjs';
 import { JobPublicationFormValueFactory } from './job-publication-form-value-factory';
@@ -31,6 +31,8 @@ import {
 } from '../../../shared/backend-services/shared.types';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
+import { RouterTestingModule } from '@angular/router/testing';
+import { InjectionToken } from '@angular/core';
 import SpyObj = jasmine.SpyObj;
 
 
@@ -52,6 +54,7 @@ describe('JobPublicationFormComponent', () => {
   let mockJobPublicationFormValueFactory: SpyObj<JobPublicationFormValueFactory>;
 
   let component: JobPublicationFormComponent;
+
   let fixture: ComponentFixture<JobPublicationFormComponent>;
 
   beforeEach(async(() => {
@@ -65,6 +68,7 @@ describe('JobPublicationFormComponent', () => {
         SharedModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
+        RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -75,6 +79,7 @@ describe('JobPublicationFormComponent', () => {
       ],
       providers: [
         { provide: I18nService, useValue: mockI18nService },
+        { provide: APP_BASE_HREF, useValue: new InjectionToken<string>('/') },
         { provide: IsoCountryService, useValue: mockIsoCountryService },
         {
           provide: JobPublicationFormValueFactory,

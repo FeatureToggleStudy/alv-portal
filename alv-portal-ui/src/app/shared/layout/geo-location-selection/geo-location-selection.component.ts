@@ -4,8 +4,8 @@ import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { LocalityRepository } from '../../backend-services/reference-service/locality.repository';
 import { switchMap } from 'rxjs/operators';
 import { NotificationsService } from '../../../core/notifications.service';
-import { GeolocationService } from './geolocation.service';
 import { Observable } from 'rxjs';
+import { GeolocationService } from './geolocation.service';
 
 @Component({
   selector: 'alv-geo-location-selection',

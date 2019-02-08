@@ -25,7 +25,8 @@ const routes: Routes = [
         component: JobSeekerDashboardComponent,
         data: {
           titleKey: 'portal.home.job-seeker.browser-title',
-          authorities: [UserRole.ROLE_JOB_SEEKER]
+          authorities: [UserRole.ROLE_JOB_SEEKER],
+          collapseNavigation: false
         }
       },
       {
@@ -33,7 +34,8 @@ const routes: Routes = [
         component: PavDashboardComponent,
         data: {
           titleKey: 'portal.home.company.browser-title',
-          authorities: [UserRole.ROLE_PAV]
+          authorities: [UserRole.ROLE_PAV],
+          collapseNavigation: false
         }
       },
       {
@@ -41,7 +43,8 @@ const routes: Routes = [
         component: CompanyDashboardComponent,
         data: {
           titleKey: 'portal.home.pav.browser-title',
-          authorities: [UserRole.ROLE_COMPANY]
+          authorities: [UserRole.ROLE_COMPANY],
+          collapseNavigation: false
         }
       },
       {
@@ -49,7 +52,8 @@ const routes: Routes = [
         component: AdminDashboardComponent,
         data: {
           titleKey: 'portal.home.admin.browser-title',
-          authorities: [UserRole.ROLE_ADMIN]
+          authorities: [UserRole.ROLE_ADMIN],
+          collapseNavigation: false
         }
       }
     ]
