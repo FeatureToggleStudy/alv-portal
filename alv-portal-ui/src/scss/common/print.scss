@@ -1,6 +1,6 @@
-@media print {
+@media all {
   /* hidden elements */
-  alv-main-navigation, alv-header, alv-version {
+  alv-main-navigation, alv-header, alv-version, alv-scroll-to-top {
     display: none;
   }
 
@@ -12,59 +12,65 @@
   alv-navigation-container {
     overflow: visible;
     flex: unset;
+    display: block !important;
     position: relative !important;
     top: unset;
     bottom: unset;
     left: unset;
     right: unset;
     margin-top: 0 !important;
-    height: auto;
+    height: auto !important;
   }
 
   main {
     margin-top: 0 !important;
     overflow: visible !important;
-    display: block;
+    display: block !important;
     flex: unset !important;
-    height: 100%;
-    position: static;
-    width: auto;
-    float: none;
-
-    &.jobseeker-home {
-      background-image: none;
-    }
-
-    &.company-home {
-      background-image: none;
-    }
-
-    &.pav-home {
-      background-image: none;
-    }
+    height: auto !important;
+    //position: unset;
+    width: auto !important;
   }
+  /*
   ul {
-    //ßpage-break-inside: avoid;
+    page-break-before: auto;
+    page-break-inside: avoid;
+    display: block;
   }
-  @page {
-    margin: 1cm;
-  }
+//  @page {
+//    margin: 2cm;
+//  }
   alv-collapse-panel {
     page-break-before: auto;
     page-break-inside: avoid;
     display: block;
   }
-
-
+*/
+  alv-collapse-panel {
+    page-break-before: auto;
+    page-break-inside: avoid;
+    display: block;
+  }
   .container-fluid {
     padding: 0 !important;
     margin: 0 !important;
   }
 
+  .side-panel {
+    height: auto !important;
+    top: 0 !important;
+  }
+
   /* Use this class to force columns (e.g. ".col-6") to have full width on print */
   .alv-print-container {
-    width: 100%;
-    max-width: 100%;
-    flex: 0 0 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    height: auto !important;
+    //height: 100% !important;
+    //position: unset !important;
+    //order: unset !important;
+    display: block !important;
+    //flex: 1 0 100% !important;
   }
 }
