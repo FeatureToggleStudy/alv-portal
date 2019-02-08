@@ -86,6 +86,18 @@ describe('PostAddressFormComponent', () => {
       expect(field.hasError('trimWhiteSpaceValidator')).toBeFalsy();
     });
 
+    it('should accept valid whitespace #2', () => {
+      //given
+      const field = component.postAddress.get('name');
+
+      //when
+      field.setValue('test ag co kg gmbh');
+
+      //then
+      expect(field.valid).toBeTrue();
+      expect(field.hasError('trimWhiteSpaceValidator')).toBeFalsy();
+    });
+
     it('should not accept invalid whitespace', () => {
       //given
       const field = component.postAddress.get('name');
