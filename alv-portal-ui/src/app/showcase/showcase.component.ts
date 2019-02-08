@@ -7,6 +7,10 @@ import { ModalService } from '../shared/layout/modal/modal.service';
 import { LocalitySuggestionService } from '../shared/localities/locality-suggestion.service';
 import { LocalityTypeaheadItem } from '../shared/localities/locality-typeahead-item';
 import { IconKey } from '../shared/icons/custom-icon/custom-icon.component';
+import {
+  Notification,
+  NotificationType
+} from '../shared/layout/notifications/notification.model';
 
 @Component({
   selector: 'alv-showcase',
@@ -37,7 +41,36 @@ export class ShowcaseComponent implements OnInit {
       value: 'value1'
     }
   ]);
+
   confirmModalDemoText: string;
+
+  notifications = [
+    {
+      type: NotificationType.INFO,
+      messageKey: 'Info Message',
+      isSticky: true
+    },
+    {
+      type: NotificationType.WARNING,
+      messageKey: 'Warning Message',
+      isSticky: true
+    },
+    {
+      type: NotificationType.SUCCESS,
+      messageKey: 'Success Message',
+      isSticky: true
+    },
+    {
+      type: NotificationType.ERROR,
+      messageKey: 'Error Message',
+      isSticky: true
+    }
+  ];
+
+  customNotification = {
+    type: NotificationType.INFO,
+    isSticky: true
+  };
 
   constructor(private localitySuggestionService: LocalitySuggestionService,
               private notificationService: NotificationsService,
