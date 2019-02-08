@@ -15,7 +15,6 @@ import org.springframework.web.filter.ForwardedHeaderFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.CssLinkResourceTransformer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 @Configuration
@@ -47,7 +46,7 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .setCacheControl(cacheControl)
                 .resourceChain(this.resourceProperties.getChain().isCache())
                 .addTransformer(new BaseHrefResourceTransformer())
-                .addTransformer(new CssLinkResourceTransformer())
+                .addTransformer(new AngularAssetsResourceTransformer("/assets", "/fonts"))
                 .addResolver(new SinglePageAppResourceResolver());
     }
 

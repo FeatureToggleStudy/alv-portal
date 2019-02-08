@@ -1,0 +1,5 @@
+.test {
+    background-image: url(\"/assets/img/backgrounds/helmet-bg.jpeg\");
+    background-image: url(/assets/img/backgrounds/xxxx-bg.jpeg);
+    background-image: url('/fonts/open-sans/Light/OpenSans-Light.woff2')
+}
