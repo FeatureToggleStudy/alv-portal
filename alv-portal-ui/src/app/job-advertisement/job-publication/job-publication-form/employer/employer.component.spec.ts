@@ -54,6 +54,42 @@ describe('EmployerComponent', () => {
         expect(field.valid).toBeTrue();
       });
 
+      it('should accept valid whitespace', () => {
+        //given
+        const field = component.employer.get('name');
+
+        //when
+        field.setValue('test ag');
+
+        //then
+        expect(field.valid).toBeTrue();
+        expect(field.hasError('trimWhiteSpaceValidator')).toBeFalsy();
+      });
+
+      it('should not accept invalid whitespace', () => {
+        //given
+        const field = component.employer.get('name');
+
+        //when
+        field.setValue('   test ag    ');
+
+        //then
+        expect(field.valid).toBeFalsy();
+        expect(field.hasError('trimWhiteSpaceValidator')).toBeTrue();
+      });
+
+      it('should not accept only whitespace', () => {
+        //given
+        const field = component.employer.get('name');
+
+        //when
+        field.setValue('       ');
+
+        //then
+        expect(field.valid).toBeFalsy();
+        expect(field.hasError('trimWhiteSpaceValidator')).toBeTrue();
+      });
+
       it('should be required', () => {
         //given
         const field = component.employer.get('name');

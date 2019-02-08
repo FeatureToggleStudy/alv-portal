@@ -52,6 +52,14 @@ export class ValidationService {
     {
       error: 'urlValidator',
       message: 'portal.forms.validation.url'
+    },
+    {
+      error: 'trimWhiteSpaceValidator',
+      message: 'portal.forms.validation.whitespace'
+    },
+    {
+      error: 'noWhiteSpaceValidator',
+      message: 'portal.forms.validation.whitespace'
     }
   ];
 

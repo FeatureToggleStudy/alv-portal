@@ -61,6 +61,53 @@ describe('ContactComponent', () => {
         expect(field.hasError('required')).toBeTrue();
       });
 
+      it('should accept valid value', () => {
+        //given
+        const field = component.contact.get('firstName');
+
+        //when
+        field.setValue(generateString(component.FIRST_NAME_MAX_LENGTH - 1));
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
+      it('should not accept whitespace in between', () => {
+        //given
+        const field = component.contact.get('firstName');
+
+        //when
+        field.setValue('test contact');
+
+        //then
+        expect(field.valid).toBeFalsy();
+        expect(field.hasError('noWhiteSpaceValidator')).toBeTruthy();
+      });
+
+      it('should not accept invalid whitespace', () => {
+        //given
+        const field = component.contact.get('firstName');
+
+        //when
+        field.setValue('   test   ');
+
+        //then
+        expect(field.valid).toBeFalsy();
+        expect(field.hasError('noWhiteSpaceValidator')).toBeTrue();
+      });
+
+      it('should not accept only whitespace', () => {
+        //given
+        const field = component.contact.get('firstName');
+
+        //when
+        field.setValue('       ');
+
+        //then
+        expect(field.valid).toBeFalsy();
+        expect(field.hasError('noWhiteSpaceValidator')).toBeTrue();
+      });
+
       it('should not be longer than FIRST_NAME_MAX_LENGTH', () => {
         //given
         const field = component.contact.get('firstName');
@@ -84,6 +131,53 @@ describe('ContactComponent', () => {
 
         //then
         expect(field.hasError('required')).toBeTrue();
+      });
+
+      it('should accept valid value', () => {
+        //given
+        const field = component.contact.get('lastName');
+
+        //when
+        field.setValue(generateString(component.LAST_NAME_MAX_LENGTH - 1));
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
+      it('should not accept whitespace in between', () => {
+        //given
+        const field = component.contact.get('lastName');
+
+        //when
+        field.setValue('test contact');
+
+        //then
+        expect(field.valid).toBeFalsy();
+        expect(field.hasError('noWhiteSpaceValidator')).toBeTruthy();
+      });
+
+      it('should not accept invalid whitespace', () => {
+        //given
+        const field = component.contact.get('lastName');
+
+        //when
+        field.setValue('   test   ');
+
+        //then
+        expect(field.valid).toBeFalsy();
+        expect(field.hasError('noWhiteSpaceValidator')).toBeTrue();
+      });
+
+      it('should not accept only whitespace', () => {
+        //given
+        const field = component.contact.get('lastName');
+
+        //when
+        field.setValue('       ');
+
+        //then
+        expect(field.valid).toBeFalsy();
+        expect(field.hasError('noWhiteSpaceValidator')).toBeTrue();
       });
 
       it('should not be longer than LAST_NAME_MAX_LENGTH', () => {
@@ -171,4 +265,8 @@ describe('ContactComponent', () => {
 
     });
   });
+
+  function generateString(length: number) {
+    return 'a'.repeat(length);
+  }
 });

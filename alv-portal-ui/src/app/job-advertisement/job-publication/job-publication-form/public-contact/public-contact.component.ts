@@ -3,14 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { of } from 'rxjs';
 import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
-import { EMAIL_REGEX } from '../../../../shared/forms/regex-patterns';
+import {
+  EMAIL_REGEX,
+  NO_WHITESPACE_REGEX
+} from '../../../../shared/forms/regex-patterns';
 import { PublicContactFormValue } from './public-contact-form-value.types';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
-import {
-  noWhitespaceValidator,
-} from '../../../../shared/forms/input/validators/no-whitespace.validator';
 
 @Component({
   selector: 'alv-public-contact',
@@ -62,12 +62,12 @@ export class PublicContactComponent implements OnInit {
       firstName: [firstName, [
         Validators.required,
         Validators.maxLength(this.FIRST_NAME_MAX_LENGTH),
-        noWhitespaceValidator()
+        patternInputValidator(NO_WHITESPACE_REGEX)
       ]],
       lastName: [lastName, [
         Validators.required,
         Validators.maxLength(this.LAST_NAME_MAX_LENGTH),
-        noWhitespaceValidator()
+        patternInputValidator(NO_WHITESPACE_REGEX)
       ]],
       phone: [phone, [
         phoneInputValidator()
