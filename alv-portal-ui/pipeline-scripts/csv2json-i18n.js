@@ -75,7 +75,7 @@ function checkErroredKeys(parsedArrays) {
  * where ParsedLine is
  * interface ParsedLine {
  *     page: string,
- *     key: string, //dot-delimited key e.g. "activate.messages.error"
+ *     key: string, //dot-delimited key e.g. 'activate.messages.error'
  *     de: string,
  *     en: string,
  *     fr: string,
@@ -83,7 +83,7 @@ function checkErroredKeys(parsedArrays) {
  * }
  */
 function onCsvParsed(parsedCsv) {
-  console.log("the following translations are missing");
+  console.log('the following translations are missing');
   console.log(csvParser.unparse(checkMissingTranslations(parsedCsv.data)));
   const allLanguagesObj = parsedCsv.data.reduce(transformCsv2Json, {});
   for (let [language, languageFile] of Object.entries(allLanguagesObj)) {
