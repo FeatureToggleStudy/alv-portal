@@ -21,12 +21,12 @@ import org.springframework.web.servlet.resource.ResourceTransformerChain;
 import org.springframework.web.servlet.resource.TransformedResource;
 
 /**
- * Find all occurrences of url functions that refer to an asset in .js and .css files and
+ * Find all occurrences of url functions that refer to an absolute defined asset path in .js and .css files and
  * prefix the url with the context-path from the request.
  *
  * Hint: Only replace assets that start with / such as '/assets' or '/fonts'. This is considered as a absolute path.
  * Relative paths such as 'assets/my-file.png' must not get replaced here since the browser
- * is going respect the <base href> and prefix the url for relative paths
+ * is going to take the <base href> tag into account for relative-urls.
  */
 public class AngularAssetsResourceTransformer implements ResourceTransformer {
 
