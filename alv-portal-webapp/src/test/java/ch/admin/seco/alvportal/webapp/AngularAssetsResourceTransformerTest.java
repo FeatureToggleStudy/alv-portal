@@ -34,9 +34,16 @@ public class AngularAssetsResourceTransformerTest {
         // then
         String result = extractString(transform);
         assertThat(result).contains(".test {\n" +
-                "    background-image: url(\\\"/xxx/assets/img/backgrounds/helmet-bg.jpeg\\\");\n" +
+                "    /*unquoted url*/\n" +
                 "    background-image: url(/xxx/assets/img/backgrounds/xxxx-bg.jpeg);\n" +
-                "    background-image: url('/xxx/fonts/open-sans/Light/OpenSans-Light.woff2')\n" +
+                "    /*single.quoted url*/\n" +
+                "    background-image: url('/xxx/fonts/open-sans/Light/OpenSans-Light.woff2');\n" +
+                "    /*double-quoted url*/\n" +
+                "    background-image: url(\"/xxx/fonts/img/backgrounds/helmet-bg.jpeg\");\n" +
+                "    /*escaped double-quoted url*/\n" +
+                "    background-image: url(\\\"/xxx/assets/img/backgrounds/helmet-bg.jpeg\\\");\n" +
+                "    /*escaped single-quoted*/\n" +
+                "    background-image: url(\\'/xxx/assets/img/backgrounds/helmet-bg.jpeg\\');\n" +
                 "}\n");
     }
 

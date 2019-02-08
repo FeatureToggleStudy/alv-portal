@@ -1,5 +1,12 @@
 .test {
-    background-image: url(\"/assets/img/backgrounds/helmet-bg.jpeg\");
+    /*unquoted url*/
     background-image: url(/assets/img/backgrounds/xxxx-bg.jpeg);
-    background-image: url('/fonts/open-sans/Light/OpenSans-Light.woff2')
+    /*single.quoted url*/
+    background-image: url('/fonts/open-sans/Light/OpenSans-Light.woff2');
+    /*double-quoted url*/
+    background-image: url("/fonts/img/backgrounds/helmet-bg.jpeg");
+    /*escaped double-quoted url*/
+    background-image: url(\"/assets/img/backgrounds/helmet-bg.jpeg\");
+    /*escaped single-quoted*/
+    background-image: url(\'/assets/img/backgrounds/helmet-bg.jpeg\');
 }
