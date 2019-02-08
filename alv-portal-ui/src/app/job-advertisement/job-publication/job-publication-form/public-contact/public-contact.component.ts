@@ -8,6 +8,9 @@ import { PublicContactFormValue } from './public-contact-form-value.types';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
+import {
+  noWhitespaceValidator,
+} from '../../../../shared/forms/input/validators/no-whitespace.validator';
 
 @Component({
   selector: 'alv-public-contact',
@@ -58,11 +61,13 @@ export class PublicContactComponent implements OnInit {
       ]],
       firstName: [firstName, [
         Validators.required,
-        Validators.maxLength(this.FIRST_NAME_MAX_LENGTH)
+        Validators.maxLength(this.FIRST_NAME_MAX_LENGTH),
+        noWhitespaceValidator()
       ]],
       lastName: [lastName, [
         Validators.required,
-        Validators.maxLength(this.LAST_NAME_MAX_LENGTH)
+        Validators.maxLength(this.LAST_NAME_MAX_LENGTH),
+        noWhitespaceValidator()
       ]],
       phone: [phone, [
         phoneInputValidator()

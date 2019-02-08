@@ -8,6 +8,7 @@
 
   <alv-input-field label="home.tools.job-publication.contact.first-name"
                    alvFormControlName="firstName"
+                   [validationMessages]="[{ error: 'whitespace', message: 'portal.job-publication.application.validation.noWhiteSpace'}]"
                    [maxLength]="FIRST_NAME_MAX_LENGTH">
   </alv-input-field>
 
