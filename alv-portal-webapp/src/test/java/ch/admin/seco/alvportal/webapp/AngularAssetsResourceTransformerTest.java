@@ -35,15 +35,15 @@ public class AngularAssetsResourceTransformerTest {
         String result = extractString(transform);
         assertThat(result).contains(".test {\n" +
                 "    /*unquoted url*/\n" +
-                "    background-image: url(/xxx/assets/img/backgrounds/xxxx-bg.jpeg);\n" +
+                "    background-image: url(/xxx/assets/nested/directory/my-picture.jpeg);\n" +
                 "    /*single.quoted url*/\n" +
-                "    background-image: url('/xxx/fonts/open-sans/Light/OpenSans-Light.woff2');\n" +
+                "    background-image: url('/xxx/assets/my-font.woff2');\n" +
                 "    /*double-quoted url*/\n" +
-                "    background-image: url(\"/xxx/fonts/img/backgrounds/helmet-bg.jpeg\");\n" +
+                "    background-image: url(\"/xxx/assets/my-picture.jpeg\");\n" +
                 "    /*escaped double-quoted url*/\n" +
-                "    background-image: url(\\\"/xxx/assets/img/backgrounds/helmet-bg.jpeg\\\");\n" +
+                "    background-image: url(\\\"/xxx/assets/my-picture.jpeg\\\");\n" +
                 "    /*escaped single-quoted*/\n" +
-                "    background-image: url(\\'/xxx/assets/img/backgrounds/helmet-bg.jpeg\\');\n" +
+                "    background-image: url(\\'/xxx/assets/my-picture.jpeg\\');\n" +
                 "}\n");
     }
 
