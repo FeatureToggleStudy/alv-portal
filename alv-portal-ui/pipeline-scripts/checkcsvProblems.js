@@ -3,15 +3,12 @@ const minimist = require('minimist');
 const fs = require('fs');
 const path = require('path');
 
-process.on('uncaughtException', (err) => {
-  fs.writeSync(1, `Caught exception: ${err}\n`);
-});
 
 function checkColumnNumbers(csvFileName) {
   console.log('Check if there are problems with the commas in the file...');
+
   const parserConfig = {
     complete: function (parsedCsv) {
-      console.log('yoyoyoyo');
       const headerLength = parsedCsv.data[0].length;
       // if the amount of columns in a given row is biggern than in the header, most likely
       // there's a problems with a comma in one of the cells.
@@ -21,6 +18,10 @@ function checkColumnNumbers(csvFileName) {
       } else {
         console.log(csvParser.unparse(errRows));
       }
+    },
+    error: function(err, file, inputElem, reason){
+      console.error(err, file, inputElem, reason);
+      process.exit(-1);
     }
   };
 

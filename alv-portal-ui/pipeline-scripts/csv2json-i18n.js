@@ -26,7 +26,11 @@ if (!csvFileName) {
 
 const parserConfig = {
   header: true,
-  complete: onCsvParsed
+  complete: onCsvParsed,
+  error: function (err, file, inputElem, reason) {
+    console.error(err, file, inputElem, reason);
+    process.exit(-1);
+  }
 };
 
 csvParser.parse(fs.createReadStream(csvFileName), parserConfig);
@@ -59,13 +63,12 @@ function keyComparator(a, b) {
 }
 
 function checkMissingTranslations(parsedCsv) {
-  return parsedCsv.filter(line => !(!!line.de && !!line.en && !!line.fr && !!line.it) )
+  return parsedCsv.filter(line => !(!!line.de && !!line.en && !!line.fr && !!line.it))
 }
 
 function checkErroredKeys(parsedArrays) {
 
 }
-
 
 
 /**
