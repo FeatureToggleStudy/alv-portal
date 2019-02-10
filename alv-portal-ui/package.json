@@ -23,6 +23,7 @@
     "i18n": "node pipeline-scripts/csv2json-i18n.js translations.csv --output src/assets/i18n",
     "i18n:duplicate-problems": "node pipeline-scripts/checkCsvDuplicateTranslations.js ../translations.csv",
     "i18n:csv-problems": "node pipeline-scripts/checkcsvProblems.js ../translations.csv",
+    "i18n:csv-header-format": "node pipeline-scripts/formatColumnsForTranslations.js ../translations.csv --output src/assets",
     "bundle-report": "webpack-bundle-analyzer target/classes/ch/admin/seco/alvportal/ui/stats.json"
   },
   "private": true,

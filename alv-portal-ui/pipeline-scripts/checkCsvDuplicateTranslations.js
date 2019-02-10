@@ -10,7 +10,7 @@ if (argv.help) {
   console.info(`
     This script checks the duplicate translations in the translations.csv file
     
-    Usage: node checkCsvDuplicateTranslations myTranslationFile.csv    
+    Usage: node pipeline-scripts/checkCsvDuplicateTranslations.js ../translations.csv    
     `);
   process.exit(0);
 }
@@ -35,11 +35,15 @@ csvParser.parse(file, parserConfig);
 //==========================================================================
 
 function checkExactDuplicateTranslations(parsedCsv) {
-  return parsedCsv.filter(line => line.key && exactMatch(line))
+  return parsedCsv.filter(line => line.key && notEmpty(line) && exactMatch(line))
 }
 
 function checkPartialDuplicateTranslations(parsedCsv) {
-  return parsedCsv.filter(line => line.key && !exactMatch(line) && partialMatch(line))
+  return parsedCsv.filter(line => line.key && notEmpty(line) && !exactMatch(line) && partialMatch(line))
+}
+
+function notEmpty(line) {
+  return !!line.de && !!line.en && !!line.fr && !!line.it
 }
 
 function exactMatch(line) {
