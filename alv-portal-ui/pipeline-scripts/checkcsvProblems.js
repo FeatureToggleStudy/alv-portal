@@ -5,8 +5,6 @@ const path = require('path');
 
 
 function checkColumnNumbers(csvFileName) {
-  console.log('Check if there are problems with the commas in the file...');
-
   const parserConfig = {
     complete: function (parsedCsv) {
       const headerLength = parsedCsv.data[0].length;
@@ -19,7 +17,7 @@ function checkColumnNumbers(csvFileName) {
         console.log(csvParser.unparse(errRows));
       }
     },
-    error: function(err, file, inputElem, reason){
+    error: function (err, file, inputElem, reason) {
       console.error(err, file, inputElem, reason);
       process.exit(-1);
     }
@@ -27,6 +25,23 @@ function checkColumnNumbers(csvFileName) {
 
   const file = fs.createReadStream(path.join(__dirname, csvFileName));
   csvParser.parse(file, parserConfig);
+}
+
+/**
+ * a clash is when we have both the key 'a.b.c' and the key 'a.b.c.d'
+ * @param csvFileName
+ */
+function checkClashes(csvFileName) {
+  const parserConfig = {
+    complete: function (parsedCsv) {
+      const keys = parsedCsv.data.map(line => line.key).sort(); //dot-delimited key e.g. 'activate.messages.error'
+      keys.filter(function callback(el, index, arr) {
+        if (arr[index + 1]) {
+          return arr[index + 1].includes(el);
+        }
+      });
+    }
+  }
 }
 
 const argv = minimist(process.argv.slice(2));
