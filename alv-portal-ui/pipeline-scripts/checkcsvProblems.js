@@ -27,24 +27,6 @@ function checkColumnNumbers(csvFileName) {
   csvParser.parse(file, parserConfig);
 }
 
-/**
- * a clash is when we have both the key 'a.b.c' and the key 'a.b.c.d'
- * @param csvFileName
- */
-function checkClashes(csvFileName) {
-  const parserConfig = {
-    complete: function (parsedCsv) {
-      const keys = parsedCsv.data.map(line => line.key).sort(); //dot-delimited key e.g. 'activate.messages.error'
-      keys.filter(function callback(el, index, arr) {
-        if (arr[index + 1]) {
-          return arr[index + 1].includes(el);
-        }
-      });
-    }
-  };
-  const file = fs.createReadStream(path.join(__dirname, csvFileName));
-  csvParser.parse(file, parserConfig);
-}
 
 const argv = minimist(process.argv.slice(2));
 let csvFileName = argv._[0];
