@@ -1,4 +1,4 @@
-<div class="container-fluid query-search-area py-5">
+<div class="container-fluid query-search-area pt-4 pt-lg-5 pb-4">
   <div class="form-row">
     <h2 class="sr-only">
       {{'portal.candidate-search.browser-title' | translate}}
@@ -57,8 +57,8 @@
         <a *ngIf="searchMailToLink$ | async as searchMailToLink"
            class="btn btn-text btn-text-icon btn-truncate"
            [href]="searchMailToLink">
-          <i aria-hidden="true"
-             class="fa fa-share mr-1"></i>
+          <fa-icon class="mr-1"
+                   [icon]="['fas', 'share']"></fa-icon>
           {{'candidate-search.filter.candidate-search-link' | translate}}
         </a>
       </div>

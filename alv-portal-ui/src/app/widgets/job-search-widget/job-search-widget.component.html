@@ -1,7 +1,9 @@
-<div class="alv-panel pb-4">
+<div class="alv-panel pb-3 pb-md-4">
   <h2 class="panel-title">
-    <i class="panel-icon fa fa-search mr-2"
-       aria-hidden="true"></i>
+    <alv-custom-icon class="panel-icon"
+                     aria-hidden="true"
+                     [iconKey]="IconKey.JOB_AD_SEARCH">
+    </alv-custom-icon>
     {{'portal.widgets.job-search.title' | translate}}
   </h2>
   <alv-job-query-panel

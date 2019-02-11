@@ -22,6 +22,7 @@ export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
+
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
 

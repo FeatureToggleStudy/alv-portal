@@ -1,0 +1,53 @@
+<div class="container pt-md-4 pt-3 px-3">
+  <h2 class="panel-title">
+    <fa-icon class="panel-icon mr-2"
+             [icon]="['fas', 'comment-alt']"></fa-icon>
+    {{'portal.admin.system-notifications.page-title' | translate}}
+  </h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th *ngFor="let tableHeader of tableHeaders">{{tableHeader | translate}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let systemNotification of (systemNotifications$ | async)">
+      <td>{{systemNotification.title}}</td>
+      <td>{{'systemNotificationsManagement.systemnotification.type.' + systemNotification.type.toLowerCase() |
+        translate}}
+      </td>
+      <td>{{systemNotification.startDate | localeAwareDate:'medium' }}</td>
+      <td>{{systemNotification.endDate | localeAwareDate:'medium' }}</td>
+      <th>
+        <button class="btn btn-sm"
+                [ngClass]="{'btn-success': systemNotification.active, 'btn-danger': !systemNotification.active}"
+                (click)="toggleStatus(systemNotification)">
+          <span
+            *ngIf="systemNotification.active">{{'portal.admin.system-notifications.button.active' | translate }}</span>
+          <span *ngIf="!systemNotification.active">{{'portal.admin.system-notifications.button.deactivated' | translate }}</span>
+        </button>
+      </th>
+      <th>
+        <button type="submit"
+                (click)="openEditModal(systemNotification)"
+                class="btn btn-text">
+          <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+          {{'portal.admin.system-notifications.button.edit' | translate }}
+        </button>
+        <button type="submit"
+                (click)="openDeleteModal(systemNotification.id)"
+                class="btn btn-text">
+          <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+          {{'portal.admin.system-notifications.button.delete' | translate }}
+        </button>
+      </th>
+    </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-primary"
+          type="button"
+          (click)="openCreateModal()">
+    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+    {{'portal.admin.system-notifications.button.create' | translate }}
+  </button>
+</div>

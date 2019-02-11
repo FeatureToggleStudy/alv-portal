@@ -1,0 +1,18 @@
+@import "../../../../scss/common/colors";
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    .map-icon {
+      color: darken($color-primary, 10%);
+    }
+  }
+
+  .loading-icon, .map-icon {
+    color: $color-primary;
+  }
+}

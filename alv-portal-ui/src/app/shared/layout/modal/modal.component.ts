@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 
 /**
@@ -29,6 +28,11 @@ export class ModalComponent {
   @Input() primaryLabel?: string;
 
   /**
+   * (optional) attribute to set visibility of primary action, default true
+   */
+  @Input() showPrimaryButton = true;
+
+  /**
    * Emitted event on primary button click.
    */
   @Output() primaryAction = new EventEmitter<void>();
@@ -48,6 +52,11 @@ export class ModalComponent {
    * content in a form element to enable the form submit behaviour for the primary button.
    */
   @Input() formGroup?: FormGroup;
+
+  /**
+   * (optional) attribute to set visibility of close button, default true
+   */
+  @Input() showCloseButton = true;
 
   constructor() {
   }

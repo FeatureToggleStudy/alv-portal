@@ -1,0 +1,24 @@
+<fieldset [formGroup]="jobDescription">
+
+  <legend class="sr-only">{{'home.tools.job-publication.occupation.label' | translate }}</legend>
+
+  <alv-input-field label="home.tools.job-publication.job-title"
+                   alvFormControlName="title"
+                   [maxLength]="TITLE_MAX_LENGTH">
+  </alv-input-field>
+
+  <alv-input-field label="home.tools.job-publication.number-of-jobs"
+                   alvFormControlName="numberOfJobs"
+                   type="number"
+                   [min]="NUMBER_OF_JOBS_MIN"
+                   [max]="NUMBER_OF_JOBS_MAX">
+  </alv-input-field>
+
+  <alv-input-field label="home.tools.job-publication.description.label"
+                   alvFormControlName="jobDescription"
+                   [maxLength]="DESCRIPTION_MAX_LENGTH"
+                   [showCharacterCounter]="true"
+                   [multiline]="true">
+  </alv-input-field>
+
+</fieldset>

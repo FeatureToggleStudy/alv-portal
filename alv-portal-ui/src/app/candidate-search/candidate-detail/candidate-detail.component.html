@@ -1,4 +1,4 @@
-<div class="container-fluid pt-4">
+<div class="container-fluid pt-2 pt-md-4">
   <alv-three-column-layout *ngIf="candidateDetailModel$ | async as candidateDetailModel"
                            [stickyTop]="layoutConstants.STICKY_TOP_DETAIL"
                            [mobileOrdering]="[2, 1, null]">
@@ -8,7 +8,8 @@
         <div>
           <a class="btn btn-text btn-text-icon"
              routerLink="/candidate-search">
-            <i class="fa fa-caret-left mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'caret-left']"></fa-icon>
             {{'candidate-detail.back' | translate}}
           </a>
         </div>
@@ -17,11 +18,13 @@
              ngbDropdown
              placement="bottom-right">
           <button (click)="mobileActionsMenu.toggle()"
-                  class="btn btn-text btn-icon"
+                  class="btn btn-text btn-icon no-dropdown-indicator"
                   id="dropdownMenu"
+                  [ngbTooltip]="'portal.global.actions' | translate"
+                  placement="left"
                   ngbDropdownAnchor
-                  [attr.aria-label]="'portal.candidate-detail.open-candidate-menu'|translate">
-            <i class="fa fa-ellipsis-v"></i>
+                  [attr.aria-label]="'portal.global.actions' | translate">
+            <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
           </button>
           <div aria-label="Candidate detail menu"
                ngbDropdownMenu>
@@ -52,7 +55,7 @@
             </button>
             <a [href]="'mailto:?body=' + getEncodedUrl()"
                class="dropdown-item">
-              {{'job-detail.action.sendEmail' | translate}}
+              {{'portal.candidate-detail.action.sendLink' | translate}}
             </a>
             <button (click)="printCandidate()"
                     class="dropdown-item">
@@ -68,10 +71,10 @@
 
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
          routerLink="/candidate-search">
-        <i class="fa fa-caret-left pr-1"></i>
+        <fa-icon class="mr-1" [icon]="['fas', 'caret-left']"></fa-icon>
         {{'candidate-detail.back' | translate}}
       </a>
-      <div class="alv-panel p-2 mb-3">
+      <div class="alv-panel p-2 mb-3" *ngIf="candidateDetailModel.jobCenter">
         <div class="d-flex d-sm-block flex-column-reverse">
 
           <div class="contact-panel">
@@ -127,7 +130,7 @@
       </alv-alert>
 
       <!-----------------Title-->
-      <h2 class="mt-1 mb-4 text-capitalize">{{candidateDetailModel.lastJobExperience?.occupationLabel}}</h2>
+      <h2 class="mt-1 mb-4 text-capitalize"><strong>{{candidateDetailModel.lastJobExperience?.occupationLabel}}</strong></h2>
 
       <!--Badges-->
       <div class="mb-4">
@@ -263,7 +266,7 @@
           (click)="prev()"
           [disabled]="!(prevEnabled$ | async)"
           class="btn btn-text btn-text-icon btn-truncate mb-2">
-          <i class="fa fa-caret-left mr-1"></i>
+          <fa-icon class="mr-1" [icon]="['fas', 'caret-left']"></fa-icon>
           {{'portal.job-detail.previous-result' | translate}}
         </button>
         <div class="flex-grow-1"></div>
@@ -272,7 +275,7 @@
           [disabled]="!(nextEnabled$ | async)"
           class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
-          <i class="fa fa-caret-right ml-1"></i>
+          <fa-icon class="mr-1" [icon]="['fas', 'caret-right']"></fa-icon>
         </button>
       </div>
 
@@ -281,8 +284,8 @@
           <button *ngIf="(canContactCandidatePerEmail$ | async)"
                   (click)="openContactModal(candidateDetailModel.candidateProfile)"
                   class="btn btn-text btn-text-icon btn-truncate">
-            <i aria-hidden="true"
-               class="fa fa-envelope mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'envelope']"></fa-icon>
             {{ 'candidate-detail.candidate-anonymous-contact.name' | translate }}
           </button>
         </li>
@@ -293,24 +296,21 @@
                   class="btn btn-text btn-text-icon btn-truncate"
                   ngxClipboard
                   triggers="manual">
-            <i aria-hidden="true"
-               class="fa fa-copy mr-1"></i>
+            <fa-icon class="mr-1" [icon]="['fas', 'copy']"></fa-icon>
             {{'candidate-detail.candidate-copy-link' | translate}}
           </button>
         </li>
         <li>
           <a [href]="'mailto:?body=' + getEncodedUrl()"
              class="btn btn-text btn-text-icon btn-truncate">
-            <i aria-hidden="true"
-               class="fa fa-share mr-1"></i>
-            {{'job-detail.action.sendEmail' | translate}}
+            <fa-icon class="mr-1" [icon]="['fas', 'share']"></fa-icon>
+            {{'portal.candidate-detail.action.sendLink' | translate}}
           </a>
         </li>
         <li class="d-none d-md-block">
           <button (click)="printCandidate()"
                   class="btn btn-text btn-text-icon btn-truncate">
-            <i aria-hidden="true"
-               class="fa fa-print mr-1"></i>
+            <fa-icon class="mr-1" [icon]="['fas', 'print']"></fa-icon>
             {{'candidate-detail.candidate-print' | translate}}
           </button>
         </li>

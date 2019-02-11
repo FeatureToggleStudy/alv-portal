@@ -1,21 +1,20 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { isValidNumber } from 'libphonenumber-js';
+import { IsoCountryService } from '../../../localities/iso-country.service';
 
-export const defaultPhoneCountry = 'CH';
+export function phoneInputValidator(): ValidatorFn {
 
-export const phoneInputValidator: () => ValidatorFn = () => {
   return (control: AbstractControl) => {
-
     if (control.value) {
-      if (!isValidNumber(control.value, defaultPhoneCountry)) {
+      if (!isValidNumber(control.value, IsoCountryService.ISO_CODE_SWITZERLAND)) {
         return {
           'phoneValidator': {
             value: control.value,
-            country: defaultPhoneCountry
+            country: IsoCountryService.ISO_CODE_SWITZERLAND
           }
         };
       }
     }
     return null;
   };
-};
+}

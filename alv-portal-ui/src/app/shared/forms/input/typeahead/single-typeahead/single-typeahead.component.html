@@ -2,7 +2,7 @@
      class="w-100 form-group">
   <div [class.invalid]="isTouched() && isInvalid()"
        class="form-label-group position-relative">
-    <span *ngIf="required && !readonly"
+    <span *ngIf="showRequiredIndicator()"
           class="required-indicator h-100">
     </span>
 
@@ -43,7 +43,8 @@
       {{'portal.typeahead-single.help-text.instruction' | translate : {'number': TYPEAHEAD_QUERY_MIN_LENGTH} }}
     </div>
 
-    <i class="search-icon fas fa-search"></i>
+    <fa-icon class="search-icon"
+             [icon]="['fas', 'search']"></fa-icon>
 
     <ng-template #template
                  let-formatter="formatter"

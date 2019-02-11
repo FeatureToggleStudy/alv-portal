@@ -46,12 +46,15 @@ import { ContactModalComponent } from '../../candidate-search/candidate-detail/c
 import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
 import { UserNameAndCompanyComponent } from './user-name-and-company/user-name-and-company.component';
 import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-column-layout.component';
+import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
+import { IconsModule } from '../icons/icons.module';
 
 @NgModule({
   imports: [
     ReactiveFormsModule,
     CommonModule,
     RouterModule,
+    IconsModule,
     SharedAuthModule,
     FormsModule,
     TranslateModule,
@@ -90,7 +93,8 @@ import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-
     ContactModalComponent,
     UserNameAndCompanyComponent,
     ContactModalComponent,
-    TwoColumnLayoutComponent
+    TwoColumnLayoutComponent,
+    GeoLocationSelectionComponent,
   ],
   providers: [
     CandidateContactRepository
@@ -126,7 +130,8 @@ import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-
     ThreeColumnLayoutComponent,
     ScrollToTopComponent,
     ListItemContentComponent,
-    TwoColumnLayoutComponent
+    TwoColumnLayoutComponent,
+    GeoLocationSelectionComponent
   ]
 })
 export class LayoutModule {

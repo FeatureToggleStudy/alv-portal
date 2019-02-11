@@ -31,7 +31,7 @@ import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-
 export class MainNavigationComponent extends AbstractSubscriber implements OnInit {
 
   @HostBinding('class')
-  readonly class = 'side-nav expanded navbar navbar-expand-lg p-0';
+  readonly class = 'side-nav expanded navbar navbar-expand-lg p-0 d-block';
 
   mainNavigationCollapsed = true;
 
@@ -48,7 +48,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
 
   constructor(private router: Router,
-              private loginService: LoginService,
+              private loginSerivce: LoginService,
               private authenticationService: AuthenticationService,
               private store: Store<CoreState>,
               private menuEntryService: MenuEntryService) {
@@ -81,8 +81,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   }
 
   login() {
-    this.loginService.login().pipe(take(1))
-      .subscribe();
+    this.loginSerivce.login();
   }
 
   toggleMobileSideNav() {

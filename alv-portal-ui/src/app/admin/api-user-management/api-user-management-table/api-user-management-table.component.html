@@ -1,0 +1,101 @@
+<div *ngIf="apiUserList?.length; else noResults">
+  <table class="table table-striped"
+         role="grid">
+    <thead role="presentation">
+    <tr role="row">
+      <th scope="col"
+          role="columnheader"
+          class="clickable-column-header"
+          *ngFor="let columnDefinition of columnDefinitions"
+          (click)="onSort(columnDefinition.columnName)"
+          [ngClass]="{'active-sort' : currentSorting.columnName === columnDefinition.columnName}">
+        {{ 'portal.admin.api-user-management.' + columnDefinition.columnName | translate }}
+        <ng-container *ngIf="currentSorting.columnName === columnDefinition.columnName; else placeholder">
+          <fa-icon class="ml-2 text-primary"
+                   *ngIf="currentSorting.sorting === 'desc'"
+                   [icon]="['fas', 'sort-down']">
+          </fa-icon>
+          <fa-icon class="ml-2 text-primary"
+                   *ngIf="currentSorting.sorting === 'asc'"
+                   [icon]="['fas', 'sort-up']">
+          </fa-icon>
+        </ng-container>
+      </th>
+      <th scope="col"
+          role="columnheader">
+      </th>
+      <th scope="col"
+          role="columnheader">
+      </th>
+    </tr>
+    </thead>
+
+    <tbody (scrolled)="onScroll()"
+           [fromRoot]="true"
+           [infiniteScrollThrottle]="50"
+           [immediateCheck]="true"
+           [infiniteScrollContainer]="'main'"
+           infiniteScroll
+           role="presentation">
+    <tr *ngFor="let apiUser of apiUserList"
+        role="row">
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ apiUser.username }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ apiUser.companyName }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ apiUser.companyEmail }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ apiUser.technicalContactName }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ apiUser.technicalContactEmail}}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ apiUser.createDate | date:'dd.MM.yyyy' }}
+      </td>
+      <td class="content-cell align-middle"
+          role="gridcell">
+        {{ apiUser.lastAccessDate | date:'dd.MM.yyyy' }}
+      </td>
+      <td>
+        <button [ngClass]="apiUser.active ? 'btn btn-success btn-sm btn-icon' : 'btn btn-danger btn-sm btn-icon'"
+                [ngbTooltip]="(apiUser.active ? 'portal.admin.api-user-management.activated' : 'portal.admin.api-user-management.deactivated') | translate"
+                (click)="onStatusChangeDialog(apiUser, !apiUser.active)">
+          <fa-icon [icon]="['fas', apiUser.active ? 'user-check' : 'user-slash']"></fa-icon>
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-primary btn-sm btn-icon"
+                [ngbTooltip]="'portal.admin.api-user-management.update-user-dialog.title' | translate"
+                (click)="onUpdateUserDialog(apiUser)">
+          <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-primary btn-sm btn-icon"
+                [ngbTooltip]="'portal.admin.api-user-management.update-password-dialog.title' | translate"
+                (click)="onUpdatePasswordDialog(apiUser.id)">
+          <fa-icon [icon]="['fas', 'key']"></fa-icon>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <ng-template #placeholder>
+    <fa-icon class="ml-2 potential-sort"
+             [icon]="['fas', 'sort']"></fa-icon>
+  </ng-template>
+</div>
+<ng-template #noResults>
+  <p> {{ 'portal.admin.api-user-management.no-results' | translate }}</p>
+</ng-template>

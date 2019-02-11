@@ -20,23 +20,23 @@ const ABROAD_CODE = '99';
 
 const SWISS_CODE = 'CH';
 
-const matches = (jobExperience: JobExperience, occupationCode: { value: string; type: string }) => {
+function matches(jobExperience: JobExperience, occupationCode: { value: string; type: string }) {
   const { avamCode, bfsCode, sbn3Code, sbn5Code } = jobExperience.occupation;
   return (String(avamCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'avam')
     || (String(bfsCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'bfs')
     || (String(sbn3Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn3')
     || (String(sbn5Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn5');
-};
+}
 
-const hasOccupationCode = (jobExperience: JobExperience, occupationCode: OccupationCode) => {
+function hasOccupationCode(jobExperience: JobExperience, occupationCode: OccupationCode) {
   if (!occupationCode.mapping) {
     return matches(jobExperience, occupationCode);
   } else {
     return matches(jobExperience, occupationCode) || matches(jobExperience, occupationCode.mapping);
   }
-};
+}
 
-const getBestMatchingJobExperience = (selectedOccupationCodes: OccupationCode[], jobExperiences: JobExperience[]) => {
+function getBestMatchingJobExperience(selectedOccupationCodes: OccupationCode[], jobExperiences: JobExperience[]) {
 
   const matchingExperiences = selectedOccupationCodes
     .map((occupationCode) => jobExperiences.find((jobExperience) => hasOccupationCode(jobExperience, occupationCode)))
@@ -63,13 +63,13 @@ const getBestMatchingJobExperience = (selectedOccupationCodes: OccupationCode[],
   } else {
     return null;
   }
-};
+}
 
-export const findWantedJobExperiences = (candidateProfile: CandidateProfile) => {
+export function findWantedJobExperiences(candidateProfile: CandidateProfile) {
   return candidateProfile.jobExperiences.filter((jobExperience) => jobExperience.wanted);
-};
+}
 
-export const findRelevantJobExperience = (candidateProfile: CandidateProfile, selectedOccupationCodes?: OccupationCode[]): JobExperience => {
+export function findRelevantJobExperience(candidateProfile: CandidateProfile, selectedOccupationCodes?: OccupationCode[]): JobExperience {
   const jobExperiences = candidateProfile.jobExperiences;
   const wantedJobExperiences = findWantedJobExperiences(candidateProfile);
   if (!wantedJobExperiences) {
@@ -102,27 +102,31 @@ export const findRelevantJobExperience = (candidateProfile: CandidateProfile, se
   }
 
   return jobExperiences[0];
-};
+}
 
-export const extractGenderAwareTitle = (candidateProfile, occupationLabel: GenderAwareOccupationLabel): string => {
+export function extractGenderNeutralTitle(occupationLabel: GenderAwareOccupationLabel): string {
+  return occupationLabel.default;
+}
+
+export function extractGenderAwareTitle(candidateProfile: CandidateProfile, occupationLabel: GenderAwareOccupationLabel): string {
   if (candidateProfile.gender === Gender.MALE && occupationLabel.male) {
     return occupationLabel.male;
   } else if (candidateProfile.gender === Gender.FEMALE && occupationLabel.female) {
     return occupationLabel.female;
   }
   return occupationLabel.default;
-};
+}
 
-export const isGraduationDisplayed = (graduation: Graduation): boolean => {
+export function isGraduationDisplayed(graduation: Graduation): boolean {
   return graduation && graduation !== Graduation[Graduation.NONE];
-};
+}
 
-export const isDegreeDisplayed = (degree: Degree): boolean => {
+export function isDegreeDisplayed(degree: Degree): boolean {
   return degree && Degree[degree] >= Degree.SEK_II_WEITERFUEHRENDE_SCHULE
     && Degree[degree] <= Degree.TER_DOKTORAT_UNIVERSITAET;
-};
+}
 
-export const preferredWorkLocations = (candidateProfile: CandidateProfile): string[] => {
+export function preferredWorkLocations(candidateProfile: CandidateProfile): string[] {
   let result = [];
   if (candidateProfile.preferredWorkRegions) {
     result = result.concat(candidateProfile.preferredWorkRegions
@@ -144,26 +148,26 @@ export const preferredWorkLocations = (candidateProfile: CandidateProfile): stri
     }
   }
   return result;
-};
+}
 
-export const candidateContact = (candidateProfile: CandidateProfile, jobCenter: JobCenter, user: User): Contact => {
+export function candidateContact(candidateProfile: CandidateProfile, jobCenter: JobCenter, user: User): Contact {
   if (jobCenter && (jobCenter.code.startsWith('BEA') || jobCenter.code.startsWith('BSA'))) {
     return { phone: jobCenter.phone, email: jobCenter.email };
   } else {
     const jobAdvisorContact = candidateProfile.jobAdvisor;
-    if (!(jobCenter.showContactDetailsToPublic || isAuthenticatedUser(user))) {
+    if (!(jobCenter && jobCenter.showContactDetailsToPublic || isAuthenticatedUser(user))) {
       jobAdvisorContact.firstName = null;
       jobAdvisorContact.lastName = null;
       jobAdvisorContact.email = null;
     }
     return jobAdvisorContact;
   }
-};
+}
 
-export const canViewCandidateProtectedData = (candidateProfile: CandidateProfile, currentUser: User): boolean => {
+export function canViewCandidateProtectedData(candidateProfile: CandidateProfile, currentUser: User): boolean {
   return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_ADMIN]) && candidateProfile.showProtectedData);
-};
+}
 
-export const hasEmailContactType = (candidateProfile: CandidateProfile): boolean => {
+export function hasEmailContactType(candidateProfile: CandidateProfile): boolean {
   return candidateProfile && candidateProfile.contactTypes && candidateProfile.contactTypes.includes('EMAIL');
-};
+}

@@ -11,7 +11,8 @@
     </div>
   </div>
 
-  <button type="button"
+  <button *ngIf="showCloseButton"
+          type="button"
           class="close"
           [attr.aria-label]="'portal.modal.close' | translate"
           (click)="handleSecondaryClick()">
@@ -38,7 +39,8 @@
             (click)="handleSecondaryClick()">
       {{secondaryLabel | translate}}
     </button>
-    <button [attr.type]="formGroup ? 'submit' : 'button'"
+    <button *ngIf="showPrimaryButton"
+            [attr.type]="formGroup ? 'submit' : 'button'"
             (click)="handlePrimaryClick()"
             class="btn btn-primary">
       {{primaryLabel | translate}}

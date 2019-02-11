@@ -18,6 +18,7 @@ export class JobAdvertisementUtils {
     const statusEnum = typeof status === 'string' ? JobAdvertisementStatus[status] : status;
     return statusEnum !== JobAdvertisementStatus.INSPECTING
       && statusEnum !== JobAdvertisementStatus.REJECTED
+      && statusEnum !== JobAdvertisementStatus.PUBLISHED_RESTRICTED
       && statusEnum !== JobAdvertisementStatus.CANCELLED;
   }
 

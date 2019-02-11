@@ -4,7 +4,7 @@
        [class.invalid]="isTouched() && isInvalid()"
        [class.readonly]="readonly">
     <span class="required-indicator"
-          *ngIf="required && !readonly"></span>
+          *ngIf="showRequiredIndicator()"></span>
     <select class="form-control custom-select"
             *ngIf="!readonly"
             [attr.id]="id"
@@ -29,8 +29,9 @@
     </div>
     <label [attr.for]="id"
            class="text-truncate">{{label | translate}}</label>
-    <i class="fas fa-caret-down dropdown-icon"
-       *ngIf="!readonly"></i>
+    <fa-icon *ngIf="!readonly"
+             class="dropdown-icon"
+             [icon]="['fas', 'caret-down']"></fa-icon>
   </div>
   <small *ngIf="helpText && !(isTouched() && isInvalid())"
          class="help-text" >

@@ -1,10 +1,12 @@
 <button class="title-bar alv-bar text-truncate mb-3 w-100"
         (click)="toggleExpanded()">
   {{'candidate-search.filter.title' | translate}}
-  <i *ngIf="!expanded"
-     class="fas fa-chevron-down"></i>
-  <i *ngIf="expanded"
-     class="fas fa-chevron-up"></i>
+  <span *ngIf="!expanded">
+     <fa-icon [icon]="['fas', 'chevron-down']"></fa-icon>
+  </span>
+  <span *ngIf="expanded">
+    <fa-icon [icon]="['fas', 'chevron-up']"></fa-icon>
+  </span>
 </button>
 <div class="title-bar alv-bar text-truncate mb-3">
   {{'candidate-search.filter.title' | translate}}
@@ -104,7 +106,7 @@
         <button class="btn btn-text btn-icon"
                 [attr.aria-label]="'global.button.remove.title'| translate"
                 (click)="removeLanguageSkill(languageSkill)">
-            <span class="fa fa-trash-alt"
+            <span class="fas fa-trash-alt"
                   aria-hidden="true"></span>
         </button>
       </div>
@@ -130,7 +132,7 @@
   <button class="btn btn-primary btn-sm"
           (click)="addNewLanguageSkill()"
           *ngIf="isAddLanguageSkillEnabled()">
-    <span class="fa fa-plus"
+    <span class="fas fa-plus"
           aria-hidden="true"></span>
     {{'global.button.add.title'| translate}}
   </button>

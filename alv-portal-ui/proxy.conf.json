@@ -4,17 +4,52 @@
     "secure": false,
     "loglevel": "debug"
   },
-  "/referenceservice/api/*": {
+  "/referenceservice/*": {
     "target": "https://staging.job-room.ch",
     "secure": false,
     "loglevel": "debug"
   },
-  "/jobadservice/api/*": {
+  "/jobadservice/*": {
     "target": "https://staging.job-room.ch",
     "secure": false,
     "loglevel": "debug"
   },
-  "/candidateservice/api/*": {
+  "/euresintegrationservice/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/jobdeskintegrationservice/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/candidateservice/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/swagger-ui.html": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/swagger-resources/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/v2/api-docs/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/webjars/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/management/audits/*": {
     "target": "https://staging.job-room.ch",
     "secure": false,
     "loglevel": "debug"

@@ -6,8 +6,10 @@
         [attr.aria-controls]="panelId">
   {{ panelTitle | translate }}
   <span class="flex-grow-1"></span>
-  <i class="fas fa-chevron-up collapse-icon"></i>
-  <i class="fas fa-chevron-down expand-icon"></i>
+  <fa-icon class="collapse-icon"
+           [icon]="['fas', 'chevron-up']"></fa-icon>
+  <fa-icon class="expand-icon"
+           [icon]="['fas', 'chevron-down']"></fa-icon>
 </button>
 <div class="panel-content"
      [id]="panelId"

@@ -5,6 +5,9 @@ import { AuthenticatedGuard } from './core/auth/authenticated.guard';
 import { NotAuthenticatedGuard } from './core/auth/not-authenticated.guard';
 import { LandingPageGuard } from './shared/landing-page/landing-page.guard';
 import { DummyComponent } from './shared/dummy/dummy.component';
+import { LegacyUrlStrategyRedirectionGuard } from '../legacy-url-strategy-redirection-guard.service';
+import { UserRole } from './core/auth/user.model';
+import { HasAnyAuthoritiesGuard } from './core/auth/has-any-authorities-guard.service';
 
 const appRoutes: Routes = [
   {
@@ -13,34 +16,55 @@ const appRoutes: Routes = [
     canActivateChild: [NotAuthenticatedGuard],
   },
   {
-    path: 'dashboard',
-    loadChildren: './dashboard/dashboard.module#DashboardModule',
-    canActivateChild: [AuthenticatedGuard],
-  },
-  {
     path: 'registration',
     loadChildren: './registration/registration.module#RegistrationModule',
     canActivateChild: [NotAuthenticatedGuard],
+    data: {
+      titleKey: 'portal.registration.browser-title'
+    }
+  },
+  {
+    path: 'dashboard',
+    loadChildren: './dashboard/dashboard.module#DashboardModule',
+    canActivateChild: [AuthenticatedGuard]
   },
   {
     path: 'job-search',
-    loadChildren: './job-advertisement/job-ad-search/job-ad-search.module#JobAdSearchModule'
+    loadChildren: './job-advertisement/job-ad-search/job-ad-search.module#JobAdSearchModule',
+    data: {
+      collapseNavigation: true,
+      titleKey: 'portal.job-ad-search.browser-title'
+    }
   },
   {
     path: 'candidate-search',
-    loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule'
+    loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule',
+    data: {
+      collapseNavigation: true,
+      titleKey: 'portal.candidate-search.browser-title'
+    }
   },
   {
     path: 'job-publication',
-    loadChildren: './job-publication/job-publication.module#JobPublicationModule'
+    loadChildren: './job-advertisement/job-publication/job-publication.module#JobPublicationModule',
+    data: {
+      titleKey: 'portal.job-publication.browser-title'
+    }
   },
   {
     path: 'manage-job-ads',
     loadChildren: './job-advertisement/manage-job-ads/manage-job-ads.module#ManageJobAdsModule',
+    data: {
+      titleKey: 'portal.manage-job-ads.browser-title'
+    }
   },
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
+    canActivateChild: [HasAnyAuthoritiesGuard],
+    data: {
+      authorities: [UserRole.ROLE_SYSADMIN]
+    }
   },
   {
     path: 'landing',
@@ -54,7 +78,8 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home'
+    canActivate: [LegacyUrlStrategyRedirectionGuard],
+    component: DummyComponent
   }
 ];
 

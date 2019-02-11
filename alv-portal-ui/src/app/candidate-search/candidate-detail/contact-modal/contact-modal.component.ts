@@ -1,20 +1,53 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
   CandidateProfile,
+  Company,
   EmailContactModal
 } from '../../../shared/backend-services/candidate/candidate.types';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { distinctUntilChanged, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+  takeUntil,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { CandidateContactRepository } from '../../../shared/backend-services/candidate/candidate-contact-repository';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
+import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
+import { IsoCountryService } from '../../../shared/localities/iso-country.service';
+
+interface ContactCandidateFormValues {
+  subject: string;
+  personalMessage: string;
+  companyName: string;
+  company?: ContactCandidateCompanyFormValues;
+  phoneCheckbox: boolean;
+  phone: string;
+  emailCheckbox: boolean;
+  email: string;
+  postCheckbox: boolean;
+}
+
+interface ContactCandidateCompanyFormValues {
+  contactPerson: string;
+  companyName: string;
+  companyStreet: string;
+  companyHouseNr: string;
+  companyZipCode: string;
+  companyCity: string;
+  countryIsoCode: string;
+}
 
 @Component({
   selector: 'alv-contact-modal',
@@ -30,21 +63,21 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   readonly LABEL_VALUES: string[] = [
     'candidate-detail.candidate-anonymous-contact.subject',
     'candidate-detail.anonymous-contact.personal-message',
-    'global.reference.canton.CH',
     'candidate-detail.anonymous-contact.mail-body-preamble'
   ];
 
   @Input()
   candidate: CandidateProfile;
 
+  countryOptions$: Observable<SelectableOption[]>;
+
   form: FormGroup;
 
   mailBodyPreamble: string;
 
-  private countryValue: string;
-
   constructor(private authenticationService: AuthenticationService,
               private i18nService: I18nService,
+              private isoCountryService: IsoCountryService,
               private fb: FormBuilder,
               private candidateContactRepository: CandidateContactRepository,
               public activeModal: NgbActiveModal) {
@@ -55,21 +88,23 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     this.form = this.prepareForm();
 
+    this.countryOptions$ = this.isoCountryService.countryOptions$;
+
     combineLatest(this.authenticationService.getCurrentCompany(), this.i18nService.stream(this.LABEL_VALUES)).pipe(
       takeUntil(this.ngUnsubscribe))
       .subscribe(([company, translate]) => {
-        this.countryValue = translate[this.LABEL_VALUES[2]];
-        this.mailBodyPreamble = translate[this.LABEL_VALUES[3]];
+        this.mailBodyPreamble = translate[this.LABEL_VALUES[2]];
         this.patchAllFormValues(company, translate);
       });
 
     this.form.get('postCheckbox').valueChanges.pipe(
+      startWith(this.form.get('postCheckbox').value),
       distinctUntilChanged(),
       withLatestFrom(this.authenticationService.getCurrentCompany()),
       takeUntil(this.ngUnsubscribe))
       .subscribe(([postCheckBoxEnabled, company]) => {
         if (postCheckBoxEnabled) {
-          this.form.addControl('company', this.generateCompanyFormGroup());
+          this.form.addControl('company', this.prepareCompanyFormGroup());
           this.patchCompanyValues(company);
         } else {
           this.form.removeControl('company');
@@ -77,6 +112,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       });
 
     this.form.get('phoneCheckbox').valueChanges.pipe(
+      startWith(this.form.get('phoneCheckbox').value),
       distinctUntilChanged(),
       withLatestFrom(this.authenticationService.getCurrentCompany()),
       takeUntil(this.ngUnsubscribe))
@@ -91,6 +127,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       });
 
     this.form.get('emailCheckbox').valueChanges.pipe(
+      startWith(this.form.get('emailCheckbox').value),
       distinctUntilChanged(),
       withLatestFrom(this.authenticationService.getCurrentCompany()),
       takeUntil(this.ngUnsubscribe))
@@ -107,22 +144,17 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   }
 
   onSubmit() {
-    this.candidateContactRepository.sendContactModalEmail(this.mapEmailContent(this.form.value))
-      .subscribe(() => this.activeModal.close());
+    const formValue = <ContactCandidateFormValues>this.form.value;
+    this.mapEmailContent(formValue).pipe(
+      tap(emailContact =>
+        this.candidateContactRepository.sendContactModalEmail(emailContact)
+      )
+    ).subscribe(() => this.activeModal.close());
   }
 
   private prepareForm(): FormGroup {
-
-    const atLeastOneRequiredValidator: ValidatorFn = (formGroup: FormGroup) => {
-      const phone = formGroup.get('phoneCheckbox').value;
-      const email = formGroup.get('emailCheckbox').value;
-      const post = formGroup.get('postCheckbox').value;
-      return phone || email || post ? null : { atLeastOneRequired: true };
-    };
-
     return this.fb.group({
       subject: [null, Validators.required],
-      company: this.generateCompanyFormGroup(),
       personalMessage: [null, Validators.required],
       companyName: [null, Validators.required],
       phoneCheckbox: [true],
@@ -131,11 +163,11 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       email: [null],
       postCheckbox: [true]
     }, {
-      validator: [atLeastOneRequiredValidator]
+      validator: [atLeastOneRequiredValidator(['phoneCheckbox', 'emailCheckbox', 'postCheckbox'])]
     });
   }
 
-  private generateCompanyFormGroup() {
+  private prepareCompanyFormGroup() {
     return this.fb.group({
       contactPerson: [null, Validators.required],
       companyName: [null, Validators.required],
@@ -143,7 +175,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
       companyZipCode: [null, Validators.required],
       companyCity: [null, Validators.required],
-      companyCountry: [null, Validators.required]
+      countryIsoCode: [null, Validators.required]
     });
   }
 
@@ -171,7 +203,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       companyHouseNr: company.companyHouseNr,
       companyZipCode: company.companyZipCode,
       companyCity: company.companyCity,
-      companyCountry: this.countryValue
+      countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND
     });
   }
 
@@ -187,16 +219,38 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     });
   }
 
-  private mapEmailContent(formValue: any): EmailContactModal {
+  private mapCompany(company: ContactCandidateCompanyFormValues, countryOptions: SelectableOption[]): Company {
+    const country = countryOptions.find(countryOption => countryOption.value === company.countryIsoCode);
     return {
-      candidateId: this.candidate.id,
-      company: formValue.company,
-      companyName: formValue.companyName,
-      email: formValue.email,
-      phone: formValue.phone,
-      personalMessage: formValue.personalMessage,
-      subject: formValue.subject
+      name: company.companyName,
+      contactPerson: company.contactPerson,
+      street: company.companyStreet,
+      houseNumber: company.companyHouseNr,
+      zipCode: company.companyZipCode,
+      city: company.companyCity,
+      country: country.label
     };
+  }
+
+  private mapEmailContent(formValue: ContactCandidateFormValues): Observable<EmailContactModal> {
+    return this.countryOptions$.pipe(
+      map((countryOptions) => {
+        let emailContact: EmailContactModal = {
+          candidateId: this.candidate.id,
+          companyName: formValue.companyName,
+          email: formValue.email,
+          phone: formValue.phone,
+          personalMessage: formValue.personalMessage,
+          subject: formValue.subject
+        };
+        if (formValue.company) {
+          const companyFormValue = <ContactCandidateCompanyFormValues>formValue.company;
+          const emailContactCompany = this.mapCompany(companyFormValue, countryOptions);
+          emailContact = {...emailContact, company: emailContactCompany};
+        }
+        return emailContact;
+      })
+    );
   }
 
 }

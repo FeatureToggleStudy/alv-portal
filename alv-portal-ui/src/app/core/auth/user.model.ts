@@ -11,34 +11,34 @@ export enum UserRole {
   ROLE_JOB_SEEKER = <any>'ROLE_JOBSEEKER_CLIENT',
   ROLE_PAV = <any>'ROLE_PRIVATE_EMPLOYMENT_AGENT',
   ROLE_COMPANY = <any>'ROLE_COMPANY',
-  ROLE_ADMIN = <any>'ROLE_ADMIN',
-  ROLE_SYSADMIN = <any>'ROLE_SYSADMIN' // aka. Supporter
+  ROLE_ADMIN = <any>'ROLE_ADMIN', // aka. Supporter
+  ROLE_SYSADMIN = <any>'ROLE_SYSADMIN'
 }
 
-export const isAnyUser = () => {
+export function isAnyUser() {
   return true;
-};
+}
 
-export const isAnonymous = (user: User) => {
+export function isAnonymous(user: User) {
   return !user;
-};
+}
 
 /**
  * User is authenticated if he is logged in AND finished the registration OR is Admin
  *
  * @param user
  */
-export const isAuthenticatedUser = (user: User) => {
+export function isAuthenticatedUser(user: User) {
   return !!user && user.isRegistered();
-};
+}
 
-export const isNotAuthenticatedUser = (user: User) => {
+export function isNotAuthenticatedUser(user: User) {
   return !isAuthenticatedUser(user);
-};
+}
 
-export const hasAnyAuthorities = (user: User, authorities: Array<UserRole>) => {
+export function hasAnyAuthorities(user: User, authorities: Array<UserRole>) {
   return !!user && user.hasAnyAuthorities(authorities);
-};
+}
 
 export class User {
 
@@ -60,6 +60,8 @@ export class User {
 
   displayName: string;
 
+  legalTermsAccepted: boolean;
+
   public static toUser(userDto: UserDto) {
     const user = new User();
     user.id = userDto.id;
@@ -71,6 +73,7 @@ export class User {
     user.login = userDto.login;
     user.langKey = userDto.langKey;
     user.email = userDto.email;
+    user.legalTermsAccepted = userDto.legalTermsAccepted;
     return user;
   }
 
@@ -94,5 +97,9 @@ export class User {
 
   isAdmin() {
     return this.hasAnyAuthorities([UserRole.ROLE_ADMIN]);
+  }
+
+  isLegalTermAcceptanceRequired() {
+    return !this.legalTermsAccepted && this.isRegistered();
   }
 }

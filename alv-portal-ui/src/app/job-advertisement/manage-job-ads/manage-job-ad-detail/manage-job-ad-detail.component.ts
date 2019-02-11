@@ -20,11 +20,11 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import {
-  JobAdvertisementChangedAction,
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management/actions';
-
+import { JobAdvertisementUpdatedAction } from '../../../core/state-management/actions/core.actions';
+import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 
 @Component({
   selector: 'alv-manage-job-ad-detail',
@@ -32,6 +32,8 @@ import {
   styleUrls: ['./manage-job-ad-detail.component.scss']
 })
 export class ManageJobAdDetailComponent extends AbstractSubscriber implements OnInit {
+
+  layoutConstants = LayoutConstants;
 
   jobDetailModel$: Observable<JobDetailModel>;
 
@@ -106,7 +108,7 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
     jobAdCancellationComponent.accessToken = this.token;
     jobAdCancellationModalRef.result
       .then(value => {
-        this.store.dispatch(new JobAdvertisementChangedAction({ jobAdvertisement: value }));
+        this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: value }));
       })
       .catch(() => {
       });

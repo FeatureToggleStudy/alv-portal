@@ -1,12 +1,14 @@
-<div class="container-fluid">
+<div class="container-fluid pt-2 pt-md-4">
   <alv-three-column-layout *ngIf="jobDetailModel$ | async as jobDetailModel"
+                           [stickyTop]="layoutConstants.STICKY_TOP_DETAIL"
                            [mobileOrdering]="[2, 1, null]">
     <ng-container class="mobile-menu-bar">
       <div class="d-flex justify-content-between">
         <div *ngIf="isPavOrCompany">
           <a class="btn btn-text btn-text-icon"
              routerLink="/manage-job-ads">
-            <i class="fa fa-caret-left mr-1"></i>
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'caret-left']"></fa-icon>
             {{'job-detail.back' | translate}}
           </a>
         </div>
@@ -15,11 +17,12 @@
              ngbDropdown
              placement="bottom-right">
           <button (click)="mobileActionsMenu.toggle()"
-                  class="btn btn-text btn-icon"
-                  id="dropdownMenu"
+                  class="btn btn-text btn-icon no-dropdown-indicator"
+                  [ngbTooltip]="'portal.global.actions' | translate"
+                  placement="left"
                   ngbDropdownAnchor
-                  aria-hidden="true">
-            <i class="fa fa-ellipsis-v"></i>
+                  [attr.aria-label]="'portal.global.actions' | translate">
+            <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
           </button>
           <div aria-hidden="true"
                ngbDropdownMenu>
@@ -36,14 +39,14 @@
             <button class="dropdown-item"
                     [disabled]="!isCancellable"
                     (click)="cancelJobAdAction()">
-              <i aria-hidden="true"
-                 class="fa fa-trash mr-1"></i>
+              <fa-icon class="mr-1"
+                       [icon]="['fas', 'trash']"></fa-icon>
               {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
             </button>
             <button class="dropdown-item"
                     (click)="duplicateJobAdAction()">
-              <i aria-hidden="true"
-                 class="fa fa-copy mr-1"></i>
+              <fa-icon class="mr-1"
+                       [icon]="['fas', 'copy']"></fa-icon>
               {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
             </button>
           </div>
@@ -56,7 +59,8 @@
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
          routerLink="/manage-job-ads"
          *ngIf="isPavOrCompany">
-        <i class="fa fa-caret-left pr-1"></i>
+        <fa-icon class="mr-1"
+                 [icon]="['fas', 'caret-left']"></fa-icon>
         {{'job-detail.back' | translate}}
       </a>
       <div class="d-flex d-sm-block flex-column-reverse">
@@ -87,7 +91,8 @@
         <button (click)="prev()"
                 [disabled]="!(prevEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
-          <i class="fa fa-caret-left mr-1"></i>
+          <fa-icon class="mr-1"
+                   [icon]="['fas', 'caret-left']"></fa-icon>
           {{'portal.job-detail.previous-result' | translate}}
         </button>
         <div class="flex-grow-1"></div>
@@ -95,7 +100,8 @@
                 [disabled]="!(nextEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
-          <i class="fa fa-caret-right ml-1"></i>
+          <fa-icon class="ml-1"
+                   [icon]="['fas', 'caret-right']"></fa-icon>
         </button>
       </div>
 
@@ -103,14 +109,14 @@
         <button class="btn btn-text btn-text-icon btn-truncate"
                 [disabled]="!isCancellable"
                 (click)="cancelJobAdAction()">
-          <i aria-hidden="true"
-             class="fa fa-trash mr-1"></i>
+          <fa-icon class="mr-1"
+                   [icon]="['fas', 'trash']"></fa-icon>
           {{ 'portal.manage-job-ads.details.actions.cancel' |translate }}
         </button>
         <button class="btn btn-text btn-text-icon btn-truncate"
                 (click)="duplicateJobAdAction()">
-          <i aria-hidden="true"
-             class="fa fa-copy mr-1"></i>
+          <fa-icon class="mr-1"
+                   [icon]="['fas', 'copy']"></fa-icon>
           {{ 'portal.manage-job-ads.details.actions.duplicate' |translate }}
         </button>
       </div>

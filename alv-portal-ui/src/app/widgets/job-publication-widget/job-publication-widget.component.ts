@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-job-publication-widget',
@@ -9,6 +10,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class JobPublicationWidgetComponent implements OnInit {
 
+  readonly TITLE_MAX_LENGTH = 255;
+
+  IconKey = IconKey;
+
   form: FormGroup;
 
   constructor(private router: Router,
@@ -16,7 +21,7 @@ export class JobPublicationWidgetComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      jobPublicationTitle: ['']
+      jobPublicationTitle: ['', Validators.maxLength(this.TITLE_MAX_LENGTH)]
     });
   }
 

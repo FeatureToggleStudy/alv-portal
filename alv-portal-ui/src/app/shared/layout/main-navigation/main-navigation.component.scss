@@ -16,6 +16,8 @@
   height: 100%;
 
   ::ng-deep .nav-item > .nav-text {
+    font-weight: 300;
+    color: $color-grey-black;
     animation: expandMainMenu 0.4s ease-out;
   }
 
@@ -41,8 +43,7 @@
   }
 
   .nav-spacer {
-    height: 30px;
-    border-top: 1px solid $color-medium-grey;
+    height: 32px;
   }
 
   .nav-fill-item, .nav-spacer {
@@ -82,10 +83,10 @@
 ::ng-deep .mobile-menu .nav-item,::ng-deep .desktop-menu .nav-item {
   display: flex;
   align-items: center;
-  padding: 6px 15px;
+  padding: 6px 15px 6px 10px;
   min-height: 39px;
   font-size: 18px;
-  color: $color-black;
+  color: $color-grey-black;
   background-color: $color-light-grey;
   border-left: 5px solid $color-light-grey;
   cursor: pointer;
@@ -112,7 +113,7 @@
     border-bottom: none;
     color: $color-white;
 
-    i {
+    i.fas, .svg-inline--fa {
       font-size: 26px;
     }
   }
@@ -126,13 +127,9 @@
     background-color: $color-white;
   }
 
-  i.nav-icon {
-    margin-right: 12px;
-    font-size: 16px;
-  }
-
-  i.fas.fa-circle {
-    font-size: 8px;
+  .nav-icon {
+    margin-right: 7px;
+    font-size: 22px;
   }
 
   .nav-spacer, .nav-fill-item {
@@ -226,6 +223,7 @@
 
 .logo-arbeit-swiss {
   width: 1em;
+  margin: 0 .7rem 0 .4rem;
 }
 
 .not-hoverable {

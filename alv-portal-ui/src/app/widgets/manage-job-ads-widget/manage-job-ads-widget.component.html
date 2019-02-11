@@ -1,8 +1,10 @@
-<div class="alv-panel pb-4">
+<div class="alv-panel pb-3 pb-md-4">
 
   <h2 class="panel-title">
-    <i class="panel-icon fa fa-table mr-2"
-       aria-hidden="true"></i>
+    <alv-custom-icon class="panel-icon"
+                     aria-hidden="true"
+                     [iconKey]="IconKey.MANAGE_JOB_ADS">
+    </alv-custom-icon>
     {{'portal.widgets.manage-job-ads.title' | translate}}
   </h2>
 

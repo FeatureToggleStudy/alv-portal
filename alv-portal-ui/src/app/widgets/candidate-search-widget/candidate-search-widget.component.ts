@@ -6,6 +6,7 @@ import { OccupationSuggestionService } from '../../shared/occupations/occupation
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { OccupationTypeaheadItem } from '../../shared/occupations/occupation-typeahead-item';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
+import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-candidate-search-widget',
@@ -14,6 +15,8 @@ import { AbstractSubscriber } from '../../core/abstract-subscriber';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CandidateSearchWidgetComponent extends AbstractSubscriber implements OnInit {
+
+  IconKey = IconKey;
 
   candidateQueryPanelValues: CandidateQueryPanelValues = {
     occupations: [],
