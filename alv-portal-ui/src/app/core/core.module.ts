@@ -18,10 +18,12 @@ import localeDeCH from '@angular/common/locales/de-CH';
 import localeFrCH from '@angular/common/locales/fr-CH';
 import localeItCH from '@angular/common/locales/it-CH';
 import localeEnCH from '@angular/common/locales/en-CH';
+import { VERSION } from '../../environments/version';
+
 import { LanguageCacheKeyInterceptor } from './language-cache-key.interceptor';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, environment.translationBaseUrl, '.json');
+  return new TranslateHttpLoader(http, environment.translationBaseUrl, `.json?hash=${VERSION.hash}`);
 }
 
 export function LocaleIdFactory(translateService: TranslateService) {
