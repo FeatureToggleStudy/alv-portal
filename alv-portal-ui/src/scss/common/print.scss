@@ -1,61 +1,34 @@
-@media all {
+@media print {
   /* hidden elements */
   alv-main-navigation, alv-header, alv-version, alv-scroll-to-top {
     display: none;
   }
 
+  /* Remove empty pages */
   body {
     height: auto;
-    overflow: visible;
   }
 
-  alv-navigation-container {
-    overflow: visible;
+  /* Main container style resets */
+  alv-navigation-container, main {
+    margin-top: 0 !important; // Remove header margin
+    overflow: visible !important; // Remove scroll bar
+    display: block !important; // Remove display flex (causes problems with large content)
+    position: relative !important; // Remove absolute positioning
     flex: unset;
-    display: block !important;
-    position: relative !important;
     top: unset;
     bottom: unset;
     left: unset;
     right: unset;
-    margin-top: 0 !important;
-    height: auto !important;
   }
 
-  main {
-    margin-top: 0 !important;
-    overflow: visible !important;
-    display: block !important;
-    flex: unset !important;
-    height: auto !important;
-    //position: unset;
-    width: auto !important;
-  }
-  /*
-  ul {
-    page-break-before: auto;
-    page-break-inside: avoid;
-    display: block;
-  }
-//  @page {
-//    margin: 2cm;
-//  }
-  alv-collapse-panel {
-    page-break-before: auto;
-    page-break-inside: avoid;
-    display: block;
-  }
-*/
-  alv-collapse-panel {
-    page-break-before: auto;
-    page-break-inside: avoid;
-    display: block;
-  }
-  .container-fluid {
+  /* Reset margins and paddings of default bootstrap container classes */
+  .container-fluid, .container {
     padding: 0 !important;
     margin: 0 !important;
   }
 
+  /* Reset the side panel height of the column-layout */
   .side-panel {
     height: auto !important;
     top: 0 !important;
@@ -64,13 +37,16 @@
   /* Use this class to force columns (e.g. ".col-6") to have full width on print */
   .alv-print-container {
     width: 100% !important;
+    height: auto;
     max-width: 100% !important;
     min-width: 100% !important;
-    height: auto !important;
-    //height: 100% !important;
-    //position: unset !important;
-    //order: unset !important;
     display: block !important;
-    //flex: 1 0 100% !important;
+  }
+
+  /* Avoids page breaks inside of collapse panel content */
+  alv-collapse-panel {
+    page-break-before: auto;
+    page-break-inside: avoid;
+    display: block;
   }
 }
