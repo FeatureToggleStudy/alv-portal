@@ -30,4 +30,7 @@
 
   }
 }
+.no-dropdown-indicator.dropdown-toggle::after {
+  display: none;
+}
 

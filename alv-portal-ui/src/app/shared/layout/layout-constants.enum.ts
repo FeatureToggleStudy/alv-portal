@@ -10,7 +10,7 @@ export enum LayoutConstants {
    *              3rem        + 3rem           + 46px                = 142px
    *              48px        + 48px           + 46px                = 142px
    */
-  STICKY_TOP_SEARCH = '142px',
+  STICKY_TOP_SEARCH = '118px',
 
   /**
    * Used to position the sticky side panels on the detail pages (candidate, job ad)
@@ -26,5 +26,5 @@ export enum LayoutConstants {
    * scrolled naturally (not exactly) into the view.
    * Scrolling always happens in pixels, so no unit is needed.
    */
-  SCROLL_Y_SEARCH = -150
+  SCROLL_Y_SEARCH = -125
 }

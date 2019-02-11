@@ -1,56 +1,64 @@
 @import "../../../../../scss/common/colors";
 
-:host {
-  width: 100%;
+.notification {
   display: flex;
-  justify-content: space-between;
   margin-bottom: 0.5rem;
+
   .icon {
+    padding: 10px 8px;
+    min-width: 40px;
     color: $color-white;
     display: flex;
-    text-align: center;
-    i {
-      flex-grow: 1;
-      align-self: center;
-    }
+    justify-content: center;
   }
 
   .text {
     align-self: center;
+    padding: 10px;
   }
 
   .close-button {
-    align-self: center;
-    margin-right:7px;
+    align-self: flex-start;
+    margin-right: 16px;
+    margin-top: 10px
   }
 
   &.info {
     background-color: $color-light-blue;
+
     .icon {
       background-color: $color-blue;
     }
   }
+
   &.warning {
     background-color: $color-yellow;
+
     .icon {
       background-color: $color-orange;
     }
   }
+
   &.error {
     background-color: $color-light-red;
+
     .icon {
       background-color: $color-red;
     }
   }
+
   &.success {
     background-color: $color-light-green;
+
     .icon {
       background-color: $color-green;
     }
   }
+
   &.empty {
     background-color: $color-super-light-grey;
     border: 1px solid $color-medium-grey;
+
     .text {
       text-align: center;
       color: $color-dark-grey;
@@ -59,54 +67,8 @@
   }
 }
 
-.icon {
-  padding: 5px;
-  width: 26px;
-  min-width: 26px;
-  i {
-    width: 16px;
-    color: $color-white;
-  }
-}
-.text {
-  padding: 10px;
-}
-
-/*
- TODO: The following animation classes will be set by the parent component (something like notification-queue.component.ts)
- see: https://alv-ch.atlassian.net/browse/OS-172
-*/
-
-/* Appear animation */
-:host.open {
-  animation: appear 0.5s ease-out;
-  opacity: 1;
-}
-
-/* Vanish animation */
-:host.closed {
-  animation: vanish 0.5s ease-out;
-  opacity: 0;
-}
-
-@keyframes appear {
-  0% {
-    transform: translate(0, 50px);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-}
-
-@keyframes vanish {
-  0% {
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(0, -50px);
-    opacity: 0;
+:host-context(.global-notification) {
+  .notification {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
   }
 }

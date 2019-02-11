@@ -12,7 +12,7 @@ import { EmploymentComponent } from './job-publication-form/employment/employmen
 import { ContactComponent } from './job-publication-form/contact/contact.component';
 import { LocationComponent } from './job-publication-form/location/location.component';
 import { CompanyComponent } from './job-publication-form/company/company.component';
-import { IsoCountryService } from './job-publication-form/iso-country.service';
+import { IsoCountryService } from '../../shared/localities/iso-country.service';
 import { ZipCityInputComponent } from './job-publication-form/zip-city-input/zip-city-input.component';
 import { PublicContactComponent } from './job-publication-form/public-contact/public-contact.component';
 import { PublicationComponent } from './job-publication-form/publication/publication.component';

@@ -1,16 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApplicationFormValue } from './application-form-value.types';
 import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, URL_REGEX } from '../../../../shared/forms/regex-patterns';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 import { startWith, takeUntil } from 'rxjs/operators';
-import {
-  emptyPostAddressFormValue,
-  PostAddressFormValue
-} from '../post-address-form/post-address-form-value.types';
+import { emptyPostAddressFormValue, PostAddressFormValue } from '../post-address-form/post-address-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
+import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
 
 
 interface SelectedApplicationTypes {
@@ -57,7 +55,9 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
       email: [!!emailAddress],
       phone: [!!phoneNumber],
       post: [!!postAddress]
-    }, { validator: atLeastOneRequiredValidator });
+    }, {
+      validator: [atLeastOneRequiredValidator(['form', 'email', 'phone', 'post'])]
+    });
 
     this.application = this.fb.group({
       selectedApplicationTypes: this.selectedApplicationTypes,
@@ -122,15 +122,4 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
       control.disable();
     }
   }
-}
-
-function atLeastOneRequiredValidator(formGroup: FormGroup): ValidationErrors | null {
-  const formUrl = formGroup.get('form').value;
-  const emailAddress = formGroup.get('email').value;
-  const phoneNumber = formGroup.get('phone').value;
-  const postAddress = formGroup.get('post').value;
-
-  const valid = formUrl || emailAddress || phoneNumber || postAddress;
-
-  return valid ? null : { atLeastOneRequired: true };
 }

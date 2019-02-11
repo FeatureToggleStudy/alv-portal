@@ -24,6 +24,7 @@ import {
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management/actions';
 import { JobAdvertisementUpdatedAction } from '../../../core/state-management/actions/core.actions';
+import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 
 @Component({
   selector: 'alv-manage-job-ad-detail',
@@ -31,6 +32,8 @@ import { JobAdvertisementUpdatedAction } from '../../../core/state-management/ac
   styleUrls: ['./manage-job-ad-detail.component.scss']
 })
 export class ManageJobAdDetailComponent extends AbstractSubscriber implements OnInit {
+
+  layoutConstants = LayoutConstants;
 
   jobDetailModel$: Observable<JobDetailModel>;
 

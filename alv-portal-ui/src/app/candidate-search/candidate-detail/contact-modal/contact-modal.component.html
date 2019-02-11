@@ -83,9 +83,10 @@
             </alv-input-field>
           </div>
         </div>
-        <alv-input-field label="candidate-detail.anonymous-contact.country"
-                         alvFormControlName="companyCountry">
-        </alv-input-field>
+        <alv-select label="candidate-detail.anonymous-contact.country"
+                    alvFormControlName="countryIsoCode"
+                    [options$]="countryOptions$">
+        </alv-select>
       </div>
     </div>
   </fieldset>

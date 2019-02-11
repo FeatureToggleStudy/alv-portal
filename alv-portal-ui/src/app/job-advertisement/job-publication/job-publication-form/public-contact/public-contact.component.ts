@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { of } from 'rxjs';
 import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
@@ -7,6 +7,7 @@ import { EMAIL_REGEX } from '../../../../shared/forms/regex-patterns';
 import { PublicContactFormValue } from './public-contact-form-value.types';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
+import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
 
 @Component({
   selector: 'alv-public-contact',
@@ -49,7 +50,7 @@ export class PublicContactComponent implements OnInit {
   }
 
   ngOnInit() {
-    const { salutation, firstName, lastName, phone, email } = this.publicContactFormValue;
+    const {salutation, firstName, lastName, phone, email} = this.publicContactFormValue;
 
     this.publicContact = this.fb.group({
       salutation: [salutation, [
@@ -70,21 +71,10 @@ export class PublicContactComponent implements OnInit {
         patternInputValidator(EMAIL_REGEX),
         Validators.maxLength(this.EMAIL_MAX_LENGTH)
       ]]
-    }, { validator: publicContactGroupValidator });
+    }, {
+      validator: [atLeastOneRequiredValidator(['phone', 'email'])]
+    });
 
     this.parentForm.addControl(JobPublicationFormValueKeys.publicContact, this.publicContact);
   }
-}
-
-function publicContactGroupValidator(companyGroup: FormGroup): ValidationErrors | null {
-  const phone = companyGroup.get('phone').value;
-  const email = companyGroup.get('email').value;
-
-  if (!!phone || !!email) {
-    return null;
-  }
-
-  return {
-    'phoneOrEmailRequired': true
-  };
 }
