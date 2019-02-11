@@ -47,17 +47,16 @@ function checkDuplicateKeys(parsedCsv) {
 }
 
 function checkDuplicateTranslationsInMultipleKeys(parsedCsv) {
-  const germanTranslations = _.countBy(parsedCsv.filter(line => line.key && line.de).map(line => line.de));
-  let resultForGerman = {};
-  _.transform(germanTranslations, function(result, count /*value*/, label/*key*/) {
+  const translations = _.countBy(parsedCsv.filter(line => line.key && line.de).map(line => line.de));
+  let resultForDuplicateTranslations = {};
+  _.transform(translations, function(result, count /*value*/, label/*key*/) {
     if (count > 1) {
-      resultForGerman[label] = parsedCsv.filter(line => line.de === label).map(line => line.key);
+      resultForDuplicateTranslations[label] = parsedCsv.filter(line => line.de === label).map(line => line.key);
     }
   }, []);
 
-  return resultForGerman;
-
-  // TODO final result should look something like {key: line.de, value: [line.key...]}
+  // final result should look something like {key: line.de, value: [line.key...]}
+  return resultForDuplicateTranslations;
 }
 
 function checkExactDuplicateTranslations(parsedCsv) {
