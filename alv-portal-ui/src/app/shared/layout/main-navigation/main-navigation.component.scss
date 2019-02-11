@@ -43,8 +43,7 @@
   }
 
   .nav-spacer {
-    height: 30px;
-    border-top: 1px solid $color-medium-grey;
+    height: 32px;
   }
 
   .nav-fill-item, .nav-spacer {
@@ -87,7 +86,7 @@
   padding: 6px 15px 6px 10px;
   min-height: 39px;
   font-size: 18px;
-  color: $color-black;
+  color: $color-grey-black;
   background-color: $color-light-grey;
   border-left: 5px solid $color-light-grey;
   cursor: pointer;

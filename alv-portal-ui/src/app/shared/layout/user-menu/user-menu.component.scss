@@ -23,4 +23,7 @@ button.btn-header {
   button.btn-header {
     padding: 2px 5px;
   }
+  .dropdown-toggle::after {
+    display: none;
+  }
 }
