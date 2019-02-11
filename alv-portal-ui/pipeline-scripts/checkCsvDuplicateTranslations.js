@@ -40,23 +40,23 @@ function checkDuplicateKeys(parsedCsv) {
   let duplicateKeys = [];
   for (let key of keys) {
     if (key && keys.indexOf(key) !== keys.lastIndexOf(key)) {
-      console.log(key);
       duplicateKeys.push(key);
     }
   }
-  return duplicateKeys
+  return _.uniq(duplicateKeys)
 }
 
 function checkDuplicateTranslationsInMultipleKeys(parsedCsv) {
-  let germanTranslation = {};
-  parsedCsv.map(line => germanTranslation[line.key] = line.de);
   const germanTranslations = _.countBy(parsedCsv.filter(line => line.key && line.de).map(line => line.de));
-  return _.transform(germanTranslations, function(result, value, key) {
-    if (value > 1) {
-      console.log(key);
-      result.push(key);
+  let resultForGerman = {};
+  _.transform(germanTranslations, function(result, count /*value*/, label/*key*/) {
+    if (count > 1) {
+      resultForGerman[label] = parsedCsv.filter(line => line.de === label).map(line => line.key);
     }
   }, []);
+
+  return resultForGerman;
+
   // TODO final result should look something like {key: line.de, value: [line.key...]}
 }
 
@@ -95,10 +95,10 @@ function checkDuplicates(parsedCsv) {
   console.log(csvParser.unparse(checkPartialDuplicateTranslations(parsedCsv.data)));
   console.log('..........');
   console.log('.......... The following translation have exactly the same KEY.');
-  checkDuplicateKeys(parsedCsv.data);
+  console.log(checkDuplicateKeys(parsedCsv.data));
   console.log('..........');
   console.log('.......... The following translation have multiple occurrences for different keys.');
-  checkDuplicateTranslationsInMultipleKeys(parsedCsv.data);
+  console.log(checkDuplicateTranslationsInMultipleKeys(parsedCsv.data));
   console.log('..........');
 
 }
