@@ -1356,7 +1356,6 @@ portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{requiredAfter
 portal,portal.forms.validation.character-counter,{{count}} Zeichen verbleibend,{{count}} characters available,{{count}} caractères disponibles,{{count}} caratteri disponibili
 portal,portal.forms.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
 portal,portal.forms.validation.url,Diese URL ist ungültig.,This URL is not valid,Ce lien URL n'est pas valable.,Questo indirizzo URL non è valido.
-portal,portal.forms.validation.whitespace,Die Eingabe enthält invalide Leerzeichen,The Input contains invalid whitespace
 portal,portal.forms.date-input.open-calendar-button,Kalender öffnen,Open calendar,
 
 portal,portal.job-search.filter.workload.from.label,Pensum von,Workload from,Taux de,Grado da

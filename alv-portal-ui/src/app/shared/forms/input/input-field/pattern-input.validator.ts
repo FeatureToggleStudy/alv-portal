@@ -3,8 +3,6 @@ import {
   EMAIL_REGEX,
   HOUSE_NUMBER_REGEX,
   URL_REGEX,
-  NO_WHITESPACE_REGEX,
-  TRIM_WHITESPACE_REGEX
 } from '../../regex-patterns';
 
 export function patternInputValidator(regex: RegExp): ValidatorFn {
@@ -28,18 +26,6 @@ export function patternInputValidator(regex: RegExp): ValidatorFn {
           case String(URL_REGEX):
             return {
               'urlValidator': {
-                value: control.value
-              }
-            };
-          case String(NO_WHITESPACE_REGEX):
-            return {
-              'noWhiteSpaceValidator': {
-                value: control.value
-              }
-            };
-          case String(TRIM_WHITESPACE_REGEX):
-            return {
-              'trimWhiteSpaceValidator': {
                 value: control.value
               }
             };

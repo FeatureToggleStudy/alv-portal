@@ -72,28 +72,28 @@ describe('ContactComponent', () => {
         expect(field.valid).toBeTrue();
       });
 
-      it('should not accept whitespace in between', () => {
+      it('should accept whitespace in between', () => {
         //given
         const field = component.contact.get('firstName');
 
         //when
         field.setValue('test contact');
+        dispatchEvent(new Event('blur'));
 
         //then
-        expect(field.valid).toBeFalsy();
-        expect(field.hasError('noWhiteSpaceValidator')).toBeTruthy();
+        expect(field.value).toEqual('test contact');
       });
 
-      it('should not accept invalid whitespace', () => {
+      it('should trim whitespace', () => {
         //given
         const field = component.contact.get('firstName');
 
         //when
         field.setValue('   test   ');
+        dispatchEvent(new Event('blur'));
 
         //then
-        expect(field.valid).toBeFalsy();
-        expect(field.hasError('noWhiteSpaceValidator')).toBeTrue();
+        expect(field.value).toEqual('test');
       });
 
       it('should not accept only whitespace', () => {
@@ -102,10 +102,10 @@ describe('ContactComponent', () => {
 
         //when
         field.setValue('       ');
+        dispatchEvent(new Event('blur'));
 
         //then
-        expect(field.valid).toBeFalsy();
-        expect(field.hasError('noWhiteSpaceValidator')).toBeTrue();
+        expect(field.value).toEqual('');
       });
 
       it('should not be longer than FIRST_NAME_MAX_LENGTH', () => {
@@ -144,7 +144,7 @@ describe('ContactComponent', () => {
         expect(field.valid).toBeTrue();
       });
 
-      it('should not accept whitespace in between', () => {
+      it('should  accept whitespace in between', () => {
         //given
         const field = component.contact.get('lastName');
 
@@ -152,8 +152,7 @@ describe('ContactComponent', () => {
         field.setValue('test contact');
 
         //then
-        expect(field.valid).toBeFalsy();
-        expect(field.hasError('noWhiteSpaceValidator')).toBeTruthy();
+        expect(field.value).toEqual('test contact');
       });
 
       it('should not accept invalid whitespace', () => {
@@ -164,8 +163,7 @@ describe('ContactComponent', () => {
         field.setValue('   test   ');
 
         //then
-        expect(field.valid).toBeFalsy();
-        expect(field.hasError('noWhiteSpaceValidator')).toBeTrue();
+        expect(field.value).toEqual('test');
       });
 
       it('should not accept only whitespace', () => {
@@ -177,7 +175,6 @@ describe('ContactComponent', () => {
 
         //then
         expect(field.valid).toBeFalsy();
-        expect(field.hasError('noWhiteSpaceValidator')).toBeTrue();
       });
 
       it('should not be longer than LAST_NAME_MAX_LENGTH', () => {

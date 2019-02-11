@@ -6,9 +6,7 @@ import { Observable } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
 import { PostAddressFormValue } from './post-address-form-value.types';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
-import {
-  HOUSE_NUMBER_REGEX, TRIM_WHITESPACE_REGEX,
-} from '../../../../shared/forms/regex-patterns';
+import { HOUSE_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
 import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
 
 
@@ -49,13 +47,12 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const {name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet} = this.postAddressFormValue;
+    const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = this.postAddressFormValue;
 
     this.postAddress = this.fb.group({
       name: [name, [
         Validators.required,
         Validators.maxLength(this.NAME_MAX_LENGTH),
-        patternInputValidator(TRIM_WHITESPACE_REGEX)
       ]],
       houseNumber: [houseNumber, [
         Validators.maxLength(this.HOUSE_NUMBER_MAX_LENGTH),

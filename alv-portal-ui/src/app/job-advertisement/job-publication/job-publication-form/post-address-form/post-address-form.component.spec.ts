@@ -82,8 +82,7 @@ describe('PostAddressFormComponent', () => {
       field.setValue('test ag');
 
       //then
-      expect(field.valid).toBeTrue();
-      expect(field.hasError('trimWhiteSpaceValidator')).toBeFalsy();
+      expect(field.value).toEqual('test ag');
     });
 
     it('should accept valid whitespace #2', () => {
@@ -92,10 +91,8 @@ describe('PostAddressFormComponent', () => {
 
       //when
       field.setValue('test ag co kg gmbh');
-
       //then
-      expect(field.valid).toBeTrue();
-      expect(field.hasError('trimWhiteSpaceValidator')).toBeFalsy();
+      expect(field.value).toEqual('test ag co kg gmbh');
     });
 
     it('should not accept invalid whitespace', () => {
@@ -106,8 +103,7 @@ describe('PostAddressFormComponent', () => {
       field.setValue('   test ag    ');
 
       //then
-      expect(field.valid).toBeFalsy();
-      expect(field.hasError('trimWhiteSpaceValidator')).toBeTrue();
+      expect(field.value).toEqual('test ag');
     });
 
     it('should not accept only whitespace', () => {
@@ -119,7 +115,6 @@ describe('PostAddressFormComponent', () => {
 
       //then
       expect(field.valid).toBeFalsy();
-      expect(field.hasError('trimWhiteSpaceValidator')).toBeTrue();
     });
     describe('houseNumber field', () => {
 

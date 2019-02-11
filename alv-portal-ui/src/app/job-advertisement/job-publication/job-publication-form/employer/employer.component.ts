@@ -7,9 +7,6 @@ import { filter, startWith } from 'rxjs/operators';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
-import {
-  TRIM_WHITESPACE_REGEX
-} from '../../../../shared/forms/regex-patterns';
 
 @Component({
   selector: 'alv-employer',
@@ -45,7 +42,6 @@ export class EmployerComponent implements OnInit, OnDestroy {
       name: [name, [
         Validators.required,
         Validators.maxLength(this.NAME_MAX_LENGTH),
-        patternInputValidator(TRIM_WHITESPACE_REGEX)
       ]],
       countryIsoCode: [countryIsoCode]
     });

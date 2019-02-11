@@ -63,7 +63,6 @@ describe('EmployerComponent', () => {
 
         //then
         expect(field.valid).toBeTrue();
-        expect(field.hasError('trimWhiteSpaceValidator')).toBeFalsy();
       });
 
       it('should accept valid whitespace #2', () => {
@@ -72,10 +71,10 @@ describe('EmployerComponent', () => {
 
         //when
         field.setValue('test ag co kg gmbh');
+        dispatchEvent(new Event('blur'));
 
         //then
         expect(field.valid).toBeTrue();
-        expect(field.hasError('trimWhiteSpaceValidator')).toBeFalsy();
       });
 
       it('should not accept invalid whitespace', () => {
@@ -84,13 +83,14 @@ describe('EmployerComponent', () => {
 
         //when
         field.setValue('   test ag    ');
+        dispatchEvent(new Event('blur'));
 
         //then
-        expect(field.valid).toBeFalsy();
-        expect(field.hasError('trimWhiteSpaceValidator')).toBeTrue();
+        expect(field.valid).toBeTruthy();
+        expect(field.value).toEqual('test ag');
       });
 
-      it('should not accept only whitespace', () => {
+      it('should trim only whitespace', () => {
         //given
         const field = component.employer.get('name');
 
@@ -98,8 +98,7 @@ describe('EmployerComponent', () => {
         field.setValue('       ');
 
         //then
-        expect(field.valid).toBeFalsy();
-        expect(field.hasError('trimWhiteSpaceValidator')).toBeTrue();
+        expect(field.value).toEqual('');
       });
 
       it('should be required', () => {
