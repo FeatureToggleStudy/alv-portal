@@ -3,14 +3,13 @@ const minimist = require('minimist');
 const fs = require('fs');
 const path = require('path');
 
-
 function checkColumnNumbers(csvFileName) {
   const parserConfig = {
     complete: function (parsedCsv) {
       const headerLength = parsedCsv.data[0].length;
-      // if the amount of columns in a given row is biggern than in the header, most likely
+      // if the amount of columns in a given row is bigger or smaller than in the header, most likely
       // there's a problems with a comma in one of the cells.
-      const errRows = parsedCsv.data.filter(line => (line.length > headerLength));
+      const errRows = parsedCsv.data.filter(line => line.length !== headerLength);
       if (!errRows.length) {
         console.log('no problems found')
       } else {
