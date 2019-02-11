@@ -4,8 +4,8 @@
 # and then will try to find just one.two
 # This way we will not have false positives
 
-SECOND_COLUMN=`awk -F "," '{print $2}' ../translations.csv`
-for TRANSLATION in ${SECOND_COLUMN} ; do
+FIRST_COLUMN=`awk -F "," '{print $1}' ../translations.csv`
+for TRANSLATION in ${FIRST_COLUMN} ; do
     if ! grep --recursive --quiet '../src' -e ${TRANSLATION}; then
         # do we match at least partial translations?
         SUFFIX=.${TRANSLATION//*./}
