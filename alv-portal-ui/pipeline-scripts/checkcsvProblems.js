@@ -41,7 +41,9 @@ function checkClashes(csvFileName) {
         }
       });
     }
-  }
+  };
+  const file = fs.createReadStream(path.join(__dirname, csvFileName));
+  csvParser.parse(file, parserConfig);
 }
 
 const argv = minimist(process.argv.slice(2));
