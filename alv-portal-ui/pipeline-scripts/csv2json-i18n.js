@@ -47,7 +47,10 @@ function getLanguages(line) {
 
 function transformCsv2Json(acc, line) {
   for (let lang of getLanguages(line)) {
-    _.setWith(acc, lang + '.' + line.key, line[lang], Object)
+    _.setWith(acc,
+      lang + '.' + line.key,
+      line[lang] ? line[lang] : 'TNF:' + line.key,
+      Object)
   }
   return acc;
 }

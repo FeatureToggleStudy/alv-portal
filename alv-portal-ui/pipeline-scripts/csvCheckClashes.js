@@ -31,7 +31,7 @@ const parserConfig = {
         return arr[index + 1].includes(el);
       }
     });
-    errored.length ? console.log(errored): 0;
+    errored.length ? console.log(errored) : 0;
   }
 };
 
