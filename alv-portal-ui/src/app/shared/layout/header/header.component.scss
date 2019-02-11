@@ -33,6 +33,10 @@ header {
       }
     }
 
+    .mobile-logo {
+      pointer-events: none;
+    }
+
     .header-menu {
       margin: 0 4px;
       padding: 2px 5px;
@@ -59,7 +63,7 @@ header {
         cursor: pointer;
         padding: 2px 5px;
         background-color: $color-light-grey;
-        color: $color-black;
+        color: $color-grey-black;
         &:hover {
           background-color: $color-white;
           text-decoration: none;
@@ -88,5 +92,11 @@ header {
 @include media-breakpoint-down(md) {
   header .header {
     height: 42px;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .dropdown-toggle::after {
+    display: none;
   }
 }

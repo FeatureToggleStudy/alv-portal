@@ -60,8 +60,10 @@
             <button (click)="mobileActionsMenu.toggle()"
                     aria-label="Open candidate detail menu"
                     class="btn btn-text btn-icon"
-                    id="dropdownMenu"
-                    ngbDropdownAnchor>
+                    [ngbTooltip]="'portal.global.actions' | translate"
+                    placement="left"
+                    ngbDropdownAnchor
+                    [attr.aria-label]="'portal.global.actions' | translate">
               <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
             </button>
             <div [attr.aria-label]="'portal.manage-job-ads.row-label' | translate: {row: row.title}"

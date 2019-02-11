@@ -1,7 +1,7 @@
 @import "../common/colors";
 
 .custom-popover {
-  background-color: $color-black;
+  background-color: $color-grey-black;
   width: 276px;
   .popover-body {
     color: $color-white;
@@ -9,7 +9,7 @@
   }
 
   .arrow:after {
-    border-bottom-color: $color-black;
+    border-bottom-color: $color-grey-black;
   }
 
   /* Help popover global styling: arrow positioning */

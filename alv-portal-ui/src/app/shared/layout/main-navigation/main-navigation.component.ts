@@ -31,7 +31,7 @@ import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-
 export class MainNavigationComponent extends AbstractSubscriber implements OnInit {
 
   @HostBinding('class')
-  readonly class = 'side-nav expanded navbar navbar-expand-lg p-0';
+  readonly class = 'side-nav expanded navbar navbar-expand-lg p-0 d-block';
 
   mainNavigationCollapsed = true;
 

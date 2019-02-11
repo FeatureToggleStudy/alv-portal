@@ -1500,6 +1500,7 @@ portal,portal.global.help,Hilfe,Help
 portal,portal.global.search,Suche,Search,Recherche,Cerca
 portal,portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Retour à la page d'accueil,Torna alla pagina iniziale
 portal,portal.global.close,Schliessen,Close,Fermer,Invalida
+portal,portal.global.actions,Aktionen,Actions,Actes,Azioni
 
 portal,portal.header.menu.open-navigation
 portal,portal.header.header-label,,Header
