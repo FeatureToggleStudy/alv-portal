@@ -1,6 +1,6 @@
-<div class="container-fluid pt-5">
-  <div class="d-flex justify-content-between p-2">
-    <h2 class="dashboard__title text--light">
+<div class="container-fluid pt-4 pt-lg-5">
+  <div class="d-flex justify-content-between align-items-end position-relative">
+    <h2 class="pr-5">
       <alv-custom-icon class="text-primary"
                        aria-hidden="true"
                        [iconKey]="IconKey.MANAGE_JOB_ADS">
@@ -8,16 +8,17 @@
       {{ 'dashboard.job-publication.title' | translate }}
     </h2>
     <button type="button"
-            class="btn btn-text"
-            data-toggle="popover"
+            class="btn btn-text filter-button"
             (click)="onFilterClick()">
-      <fa-icon class="mr-2"
+      <fa-icon class="mr-0 mr-md-2"
                [icon]="['fas', 'filter']"></fa-icon>
-      {{'portal.manage-job-ads.search.filter-button' | translate}}
+      <span class="d-none d-md-inline">
+        {{'portal.manage-job-ads.search.filter-button' | translate}}
+      </span>
     </button>
   </div>
 
-  <hr class="my-1">
+  <hr class="mt-0 mb-3">
 
   <!--Badges panel-->
   <div class="d-flex justify-content-end mb-3"
@@ -38,8 +39,7 @@
     [rows]="rows$ | async"
     (action)="onAction($event)"
     (scroll)="onScroll()"
-    (sort)="onSortChange($event)"
-  >
+    (sort)="onSortChange($event)">
   </alv-job-ad-management-table>
 
 </div>

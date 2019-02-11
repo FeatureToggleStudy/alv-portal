@@ -43,8 +43,7 @@
     <alv-user-name-and-company
       *ngIf="currentUser"
       [displayName]="currentUser.displayName"
-      [companyName]="(currentCompany$|async)?.companyName"
-    >
+      [companyName]="(currentCompany$|async)?.companyName">
 
     </alv-user-name-and-company>
   </div>
@@ -69,7 +68,9 @@
     <img src="assets/img/logo_arbeit_swiss_without_text.svg"
          class="d-inline-block logo-arbeit-swiss"
          aria-hidden="true">
-    <a [href]="'home.title.portal-url' | translate">
+    <a target="_blank"
+       rel="noopener"
+       [href]="'home.title.portal-url' | translate">
       {{'home.title.cms' | translate | titlecase}}
     </a>
 
