@@ -1,4 +1,5 @@
 const csvParser = require('papaparse');
+const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const minimist = require('minimist');
@@ -34,6 +35,31 @@ csvParser.parse(file, parserConfig);
 
 //==========================================================================
 
+function checkDuplicateKeys(parsedCsv) {
+  const keys = parsedCsv.map(line => line.key);
+  let duplicateKeys = [];
+  for (let key of keys) {
+    if (key && keys.indexOf(key) !== keys.lastIndexOf(key)) {
+      console.log(key);
+      duplicateKeys.push(key);
+    }
+  }
+  return duplicateKeys
+}
+
+function checkDuplicateTranslationsInMultipleKeys(parsedCsv) {
+  let germanTranslation = {};
+  parsedCsv.map(line => germanTranslation[line.key] = line.de);
+  const germanTranslations = _.countBy(parsedCsv.filter(line => line.key && line.de).map(line => line.de));
+  return _.transform(germanTranslations, function(result, value, key) {
+    if (value > 1) {
+      console.log(key);
+      result.push(key);
+    }
+  }, []);
+  // TODO final result should look something like {key: line.de, value: [line.key...]}
+}
+
 function checkExactDuplicateTranslations(parsedCsv) {
   return parsedCsv.filter(line => line.key && notEmpty(line) && exactMatch(line))
 }
@@ -64,10 +90,16 @@ function partialMatch(line) {
 function checkDuplicates(parsedCsv) {
   console.log('.......... The following translation are EXACT duplicate.');
   console.log(csvParser.unparse(checkExactDuplicateTranslations(parsedCsv.data)));
-  console.log('.......... End of EXACT duplicate translation check.');
+  console.log('..........');
   console.log('.......... The following translation are PARTIAL duplicate.');
   console.log(csvParser.unparse(checkPartialDuplicateTranslations(parsedCsv.data)));
-  console.log('.......... End of PARTIAL duplicate translation check.');
+  console.log('..........');
+  console.log('.......... The following translation have exactly the same KEY.');
+  checkDuplicateKeys(parsedCsv.data);
+  console.log('..........');
+  console.log('.......... The following translation have multiple occurrences for different keys.');
+  checkDuplicateTranslationsInMultipleKeys(parsedCsv.data);
+  console.log('..........');
 
 }
 

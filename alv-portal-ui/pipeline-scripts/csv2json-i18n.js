@@ -88,7 +88,7 @@ function checkErroredKeys(parsedArrays) {
 function onCsvParsed(parsedCsv) {
   console.log('.......... The following translations are missing.');
   console.log(csvParser.unparse(checkMissingTranslations(parsedCsv.data)));
-  console.log('.................... End of missing translation check.');
+  console.log('..........');
 
   const allLanguagesObj = parsedCsv.data.reduce(transformCsv2Json, {});
   for (let [language, languageFile] of Object.entries(allLanguagesObj)) {
