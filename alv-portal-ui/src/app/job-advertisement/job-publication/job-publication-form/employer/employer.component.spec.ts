@@ -54,6 +54,17 @@ describe('EmployerComponent', () => {
         expect(field.valid).toBeTrue();
       });
 
+      it('should be required', () => {
+        //given
+        const field = component.employer.get('name');
+
+        //when
+        field.setValue(null);
+
+        //then
+        expect(field.hasError('required')).toBeTrue();
+      });
+
       it('should not be longer than NAME_MAX_LENGTH', () => {
         //given
         const field = component.employer.get('name');
