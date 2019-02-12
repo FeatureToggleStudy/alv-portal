@@ -43,15 +43,15 @@ describe('EmployerComponent', () => {
 
     describe('name field', () => {
 
-      it('should be required', () => {
+      it('should accept valid value', () => {
         //given
         const field = component.employer.get('name');
 
         //when
-        field.setValue(null);
+        field.setValue(generateString(component.NAME_MAX_LENGTH - 1));
 
         //then
-        expect(field.hasError('required')).toBeTrue();
+        expect(field.valid).toBeTrue();
       });
 
       it('should not be longer than NAME_MAX_LENGTH', () => {

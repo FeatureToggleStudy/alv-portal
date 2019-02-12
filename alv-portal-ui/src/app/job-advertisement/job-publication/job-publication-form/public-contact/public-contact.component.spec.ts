@@ -4,7 +4,6 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
 import { PublicContactComponent } from './public-contact.component';
 import { emptyPublicContactFormValue } from './public-contact-form-value.types';
-import { By } from '@angular/platform-browser';
 
 describe('PublicContactComponent', () => {
 

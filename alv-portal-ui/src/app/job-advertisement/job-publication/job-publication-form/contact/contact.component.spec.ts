@@ -109,17 +109,6 @@ describe('ContactComponent', () => {
         expect(field.valid).toBeTrue();
       });
 
-      it('should  accept whitespace in between', () => {
-        //given
-        const field = component.contact.get('lastName');
-
-        //when
-        field.setValue('test contact');
-
-        //then
-        expect(field.value).toEqual('test contact');
-      });
-
       it('should not be longer than LAST_NAME_MAX_LENGTH', () => {
         //given
         const field = component.contact.get('lastName');
