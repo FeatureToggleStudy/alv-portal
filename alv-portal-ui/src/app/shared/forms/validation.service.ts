@@ -52,7 +52,7 @@ export class ValidationService {
     {
       error: 'urlValidator',
       message: 'portal.forms.validation.url'
-    },
+    }
   ];
 
   constructor() {

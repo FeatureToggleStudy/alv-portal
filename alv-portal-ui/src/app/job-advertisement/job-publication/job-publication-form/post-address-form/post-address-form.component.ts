@@ -52,7 +52,7 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
     this.postAddress = this.fb.group({
       name: [name, [
         Validators.required,
-        Validators.maxLength(this.NAME_MAX_LENGTH),
+        Validators.maxLength(this.NAME_MAX_LENGTH)
       ]],
       houseNumber: [houseNumber, [
         Validators.maxLength(this.HOUSE_NUMBER_MAX_LENGTH),

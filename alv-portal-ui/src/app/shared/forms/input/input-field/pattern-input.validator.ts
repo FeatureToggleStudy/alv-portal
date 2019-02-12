@@ -1,9 +1,5 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import {
-  EMAIL_REGEX,
-  HOUSE_NUMBER_REGEX,
-  URL_REGEX,
-} from '../../regex-patterns';
+import { EMAIL_REGEX, HOUSE_NUMBER_REGEX, URL_REGEX } from '../../regex-patterns';
 
 export function patternInputValidator(regex: RegExp): ValidatorFn {
   return (control: AbstractControl) => {
