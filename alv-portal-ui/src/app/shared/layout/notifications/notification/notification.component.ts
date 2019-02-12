@@ -19,7 +19,7 @@ import { Notification, NotificationType } from '../notification.model';
 })
 export class NotificationComponent {
 
-  @HostBinding('class') hostClass = 'empty';
+  notificationClass = 'empty';
 
   @Input() hideDismiss?: boolean;
 
@@ -66,7 +66,7 @@ export class NotificationComponent {
 
   private setNotificationClasses() {
     this.icon = this.decorateClass[this._notification.type].icon;
-    this.hostClass = this.decorateClass[this._notification.type].background;
+    this.notificationClass = this.decorateClass[this._notification.type].background;
   }
 }
 

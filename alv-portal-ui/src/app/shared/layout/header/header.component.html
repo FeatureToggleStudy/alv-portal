@@ -3,18 +3,29 @@
   <h1 class="sr-only">{{'portal.header.header-label' | translate}}</h1>
 
   <div class="header p-0 d-flex align-items-center">
+    <div class="mobile-logo d-block d-lg-none text-center position-absolute w-100">
+      <img class="mr-1"
+           src="assets/img/logo_arbeit_swiss_without_text.svg"
+           [attr.alt]="'portal.home.logo-alttext' | translate"
+           height="22">
+      Job-Room
+    </div>
+
     <a routerLink="/">
       <div class="logo d-none d-lg-flex">
-        <img src="assets/img/logo/{{'portal.home.logo-filename' | translate}}"
+        <img *ngIf="logoUrl$ | async as logoUrl"
+             [src]="logoUrl"
              [attr.alt]="'portal.home.logo-alttext' | translate ">
       </div>
     </a>
+
     <button class="header-menu d-lg-none align-self-center"
             [attr.aria-label]="'portal.header.menu.open-navigation'|translate"
             (click)="toggleMobileNavigation()">
       <fa-icon class="navbar-toggler-icon"
                [icon]="['fas', 'bars']"></fa-icon>
     </button>
+
     <div class="flex-grow-1"></div>
 
     <alv-user-menu *ngIf="user"

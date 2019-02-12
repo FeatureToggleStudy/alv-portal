@@ -44,7 +44,9 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .addResourceLocations(WEB_APP_LOCATION)
                 .setCachePeriod(getSeconds(cachePeriod))
                 .setCacheControl(cacheControl)
-                .resourceChain(true)
+                .resourceChain(this.resourceProperties.getChain().isCache())
+                .addTransformer(new BaseHrefResourceTransformer())
+                .addTransformer(new AngularAssetsResourceTransformer("/assets", "/fonts"))
                 .addResolver(new SinglePageAppResourceResolver());
     }
 

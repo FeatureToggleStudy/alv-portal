@@ -1351,8 +1351,8 @@ portal,portal.forms.validation.maxlength,Dieses Feld darf max. {{ requiredLength
 portal,portal.forms.validation.minlength,Dieses Feld muss mind. {{ requiredLength }} Zeichen lang sein.,This field must be at least {{ requiredLength }} characters.,Ce champ doit avoir au minimum {{ requiredLength }} caractères.,Questo campo deve essere di almeno {{ requiredLength }} caratteri.
 portal,portal.forms.validation.pattern,Dieses Feld muss das Muster {{ requiredPattern }} erfüllen.,This field must follow the pattern {{ requiredPattern }}.,Ce champ doit respecter le modèle {{ requiredPattern }}.,Questo campo dovrebbe corrispondere al modello {{ requiredPattern }}.
 portal,portal.forms.validation.ngbDate.format,"Datumsformat ungültig, richtiges Format: TT.MM.JJJJ","Invalid date format, correct format: DD.MM.YYYY",Le format de la date n’est pas conforme. Format correct: JJ.MM.AAAA,Il formato della data non è corretto. Formato corretto: GG.MM.AAAA
-portal,portal.forms.validation.ngbDate.before,Datum muss vor dem {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}} liegen,Date must be before {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La date doit être antérieure au {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La data deve essere precedente all'{{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}}
-portal,portal.forms.validation.ngbDate.after,Datum muss nach dem {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}} liegen,Date must be after {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La date doit être après le {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La data deve essere successiva all'{{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}
+portal,portal.forms.validation.ngbDate.before,Datum muss nach dem {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}} liegen,Date must be after {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La date doit être après le {{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}},La data deve essere successiva all'{{requiredBefore.day}}.{{requiredBefore.month}}.{{requiredBefore.year}}
+portal,portal.forms.validation.ngbDate.after,Datum muss vor dem {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}} liegen,Date must be before {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La date doit être antérieure au {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}},La data deve essere precedente all'{{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}
 portal,portal.forms.validation.character-counter,{{count}} Zeichen verbleibend,{{count}} characters available,{{count}} caractères disponibles,{{count}} caratteri disponibili
 portal,portal.forms.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer,please check that your house number is valid,please check that your house number is valid,please check that your house number is valid
 portal,portal.forms.validation.url,Diese URL ist ungültig.,This URL is not valid,Ce lien URL n'est pas valable.,Questo indirizzo URL non è valido.
@@ -1500,6 +1500,7 @@ portal,portal.global.help,Hilfe,Help
 portal,portal.global.search,Suche,Search,Recherche,Cerca
 portal,portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Retour à la page d'accueil,Torna alla pagina iniziale
 portal,portal.global.close,Schliessen,Close,Fermer,Invalida
+portal,portal.global.actions,Aktionen,Actions,Actes,Azioni
 
 portal,portal.header.menu.open-navigation
 portal,portal.header.header-label,,Header
@@ -1644,23 +1645,23 @@ portal,portal.admin.api-user-management.password.generate,Password generieren,Ge
 portal,portal.home.logo-filename,logo_job_room_de.svg,logo_job_room_en.svg,logo_job_room_fr.svg,logo_job_room_it.svg
 portal,portal.home.logo-alttext,,Logo of work.swiss
 
-portal,portal.admin.elastic-search-reindex.title,,Reindex Elasticsearch,,
+portal,portal.admin.elastic-search-reindex.title,Reindex Elasticsearch,Reindex Elasticsearch,Reindex Elasticsearch,Reindex Elasticsearch
 portal,portal.admin.elastic-search-reindex.dialog.title,Neuindizierung Elasticsearch bestätigen,Confirm Elasticsearch Reindex,Confirmer la réindexation Elasticsearch ,Conferma di voler reindicizzare Elasticsearch.
 portal,portal.admin.elastic-search-reindex.dialog.question,"Sind Sie sicher, dass Sie Elasticsearch neu indizieren wollen? Das kann eine Weile dauern!",Are you sure you want to reindex Elasticsearch? This could take a while!,Êtes-vous sûr de vouloir réindexer Elasticsearch? Cela peut prendre du temps!,Vuoi davvero reindicizzare Elasticsearch? L'operazione può durare a lungo!
-portal,portal.admin.elastic-search-reindex.dialog.cancel,,Cancel,,
-portal,portal.admin.elastic-search-reindex.dialog.confirm,,Reindex,,
+portal,portal.admin.elastic-search-reindex.dialog.cancel,Abbrechen,Cancel,Interrompre,Interrompere
+portal,portal.admin.elastic-search-reindex.dialog.confirm,Reindex,Reindex,Reindex,Reindex
 portal,portal.admin.elastic-search-reindex.instructions.main,,"This will send a request to reindex all data from your primary datasource into Elasticsearch. This will fix missing data and mapping issues, however you will lose any ES data and mapping that was defined outside of your application. This request will return immediately and the reindexing will run in the background. You will see ""Elasticsearch: Successfully performed reindexing"" in your logs when this is complete.",,
 portal,portal.admin.elastic-search-reindex.instructions.additional,,This can take a long time and is susceptible to concurrency issues so it should be performed when the number of users is low.,,
-portal,portal.admin.elastic-search-reindex.document.all,,All,,
-portal,portal.admin.elastic-search-reindex.document.candidates,,Candidates,,
-portal,portal.admin.elastic-search-reindex.document.jobs,,Jobs,,
-portal,portal.admin.elastic-search-reindex.document.reference_data,,Reference Data,,
-portal,portal.admin.elastic-search-reindex.document.users,,Users,,
-portal,portal.admin.elastic-search-reindex.document.accepted,,"Request accepted, performing Elasticsearch reindexing.",,
-portal,portal.admin.elastic-search-reindex.notification.failure,,Failure,,
+portal,portal.admin.elastic-search-reindex.document.all,Alle,All,Tous,Tutti
+portal,portal.admin.elastic-search-reindex.document.candidates,Kandidaten,Candidates,Candidats,Candidati
+portal,portal.admin.elastic-search-reindex.document.jobs,Stellen,Jobs,Emplois,Posti
+portal,portal.admin.elastic-search-reindex.document.reference_data,Reference Data,Reference Data,Reference Data,Reference Data
+portal,portal.admin.elastic-search-reindex.document.users,Benutzer,Users,Utilisateurs,Utenti
+portal,portal.admin.elastic-search-reindex.document.accepted,"Request accepted, performing Elasticsearch reindexing.","Request accepted, performing Elasticsearch reindexing.",,
+portal,portal.admin.elastic-search-reindex.notification.failure,Failure,Failure,Failure,Failure
 portal,portal.admin.elastic-search-reindex.document.toggle-all,,Toggle all,,
 
-portal,portal.admin.audits.title,Audits,Audits,Audits,Cambiamenti
+portal,portal.admin.audits.title,Audits,Audits,Audits,Audits
 portal,portal.admin.audits.filter.filter-by-dates,,Filter audits by dates,,
 portal,portal.admin.audits.filter.from,Von,From,De,Da
 portal,portal.admin.audits.filter.to,Bis,To,À,A

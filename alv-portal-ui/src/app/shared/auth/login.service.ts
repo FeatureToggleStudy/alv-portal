@@ -39,11 +39,10 @@ export class LoginService {
 
   logout(): void {
     this.authenticationService.logout();
-
     if (this.noEiam) {
-      this.document.location.href = '/authentication/logout';
-    } else {
       this.router.navigate(['']);
+    } else {
+      this.document.location.href = '/authentication/logout';
     }
   }
 }

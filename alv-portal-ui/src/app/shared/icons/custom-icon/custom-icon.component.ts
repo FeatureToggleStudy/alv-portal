@@ -66,7 +66,7 @@ export class CustomIconComponent implements OnInit {
           mask: ['fas', 'file']
         },
         {
-          icon: ['fas', 'cog'],
+          icon: ['fas', 'pen'],
           transform: 'shrink-9 down-7.5 right-4',
           mask: null
         }

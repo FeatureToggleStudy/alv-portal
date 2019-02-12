@@ -14,23 +14,21 @@ header {
       left: 0;
       top: 0;
       height: 83px;
+      width: 212px;
       box-sizing: border-box;
       box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 5px;
       border: 1px solid $color-medium-grey;
       border-radius: 0 0 24px;
       background-color: $color-white;
       z-index: 10;
+      padding: 3px 15px;
       img {
-        height: 80px;
+        height: 72px;
       }
-      .logo-text {
-        font-size: 18px;
-        margin-top: 13px;
-        margin-left: 5px;
-        color: $color-grey;
-        user-focus: none;
-        user-select: none;
-      }
+    }
+
+    .mobile-logo {
+      pointer-events: none;
     }
 
     .header-menu {
@@ -59,7 +57,7 @@ header {
         cursor: pointer;
         padding: 2px 5px;
         background-color: $color-light-grey;
-        color: $color-black;
+        color: $color-grey-black;
         &:hover {
           background-color: $color-white;
           text-decoration: none;
@@ -88,5 +86,11 @@ header {
 @include media-breakpoint-down(md) {
   header .header {
     height: 42px;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .dropdown-toggle::after {
+    display: none;
   }
 }
