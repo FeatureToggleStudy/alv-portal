@@ -2,11 +2,35 @@ const minimist = require('minimist');
 const fs = require('fs');
 const _ = require('lodash');
 
+function isPrimitive(test) {
+  return (test !== Object(test));
+}
+
+
+function serializeAllKeys(obj) {
+  const res = [];
+
+  function f(obj, arrPath) {
+    if (!arrPath) {
+      arrPath = [];
+    }
+    if (isPrimitive(obj)) {
+      res.push(arrPath.join('.'));
+    } else {
+      for (key in obj) {
+        const value = obj[key];
+        f(value, arrPath.concat(key))
+      }
+    }
+  }
+
+  f(obj);
+  return res;
+}
 
 let compare = function (leftObject, rightObject) {
 
   let result = {
-    missingFromFirst: [],
     missingFromSecond: []
   };
 
@@ -15,15 +39,11 @@ let compare = function (leftObject, rightObject) {
       if (_.isEqual(value, rightObject[key])) {
         return result;
       } else {
-        if (typeof (leftObject[key]) != typeof ({}) || typeof (rightObject[key]) != typeof ({})) {
-          return result;
+        if (isPrimitive(leftObject[key]) || isPrimitive(rightObject[key])) {
+          return result; // primitive type
         } else {
           let deeper = compare(leftObject[key], rightObject[key]);
           result.missingFromSecond = result.missingFromSecond.concat(_.map(deeper.missingFromSecond, (sub_path) => {
-            return key + "." + sub_path;
-          }));
-
-          result.missingFromFirst = result.missingFromFirst.concat(_.map(deeper.missingFromFirst, (sub_path) => {
             return key + "." + sub_path;
           }));
           return result;
@@ -31,15 +51,8 @@ let compare = function (leftObject, rightObject) {
       }
     } else {
       result.missingFromSecond.push(key);
-      return result;
-    }
-  }, result);
-
-  _.reduce(rightObject, function (result, value, key) {
-    if (leftObject.hasOwnProperty(key)) {
-      return result;
-    } else {
-      result.missingFromFirst.push(key);
+      //need to list all its children
+      // result.missingFromSecond = result.missingFromSecond.concat(serializeAllKeys(leftObject[key]));
       return result;
     }
   }, result);
@@ -71,12 +84,4 @@ if (argv.help) {
 
 const obj1 = JSON.parse(fs.readFileSync(firstFileName, 'utf8'));
 const obj2 = JSON.parse(fs.readFileSync(secondFileName, 'utf8'));
-
-if (argv.first) {
-  console.log(compare(obj1, obj2).missingFromFirst.join('\n'));
-} else if (argv.second) {
-  console.log(compare(obj1, obj2).missingFromSecond.join('\n'));
-
-} else {
-  console.log(JSON.stringify(compare(obj1, obj2), null, 2));
-}
+console.log(compare(obj1, obj2).missingFromSecond.join('\n'));
