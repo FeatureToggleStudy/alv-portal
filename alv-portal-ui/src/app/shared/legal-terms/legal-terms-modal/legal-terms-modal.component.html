@@ -19,11 +19,12 @@
   </alv-alert>
 
   <div class="panel-divider border-top mb-2"></div>
-
-  <alv-checkbox alvFormControlName="termsAndConditions"
-                label="global.legal-terms-dialog.body.accept-label"
-                class="d-block mb-2">
-  </alv-checkbox>
+  <div style="height: 60px;">
+    <alv-checkbox alvFormControlName="termsAndConditions"
+                  label="global.legal-terms-dialog.body.accept-label"
+                  class="d-block mb-2">
+    </alv-checkbox>
+  </div>
 
   <a [href]="legalTermsUrl$ | async"
      class="link legal-terms mt-2"
