@@ -179,9 +179,9 @@ dashboard,dashboard.job-publication.action,Aktion,Action,Action,Azione
 dashboard,dashboard.job-publication.action.copy,Stellenanzeige duplizieren,Duplicate the job ad,Dupliquer l'annonce,Duplicare l'annuncio
 dashboard,dashboard.job-publication.action.delete,Stellenanzeige abmelden,Cancel job posting,Retirer l'annonce,Cancellare il posto vacante
 dashboard,dashboard.job-publication.action.view,Stellenanzeige sichten,View job ad,Consulter l'annonce,Vedere il posto vacante
-dashboard,dashboard.job-publication.avam,Stellennummer AVAM,Job number AVAM,Numéro de poste PLASTA,N. del posto vacante COLSTA
+dashboard,dashboard.job-publication.avam,Stellennr. AVAM,Job No. AVAM,n° de poste PLASTA,N. del posto vacante COLSTA
 dashboard,dashboard.job-publication.job-name.placeholder,In Stellen suchen,Search jobs,Recherche dans les postes,Ricercare nei posti vacanti
-dashboard,dashboard.job-publication.job-room-id,Stellennummer Job-Room,Job number Job-Room,Numéro de poste Job-Room,N. del posto vacante Job-Room
+dashboard,dashboard.job-publication.job-room-id,Stellennr. Job-Room,Job No. Job-Room,n° de poste Job-Room,N. del posto vacante Job-Room
 dashboard,dashboard.job-publication.job-title,Stellenbezeichnung,Job description,Désignation du poste,Descrizione del posto
 dashboard,dashboard.job-publication.location,Arbeitsort,Place of work,Lieu de travail,Luogo di lavoro
 dashboard,dashboard.job-publication.publication-date,Meldedatum,Registration date,Date de l'annonce,Data dell'annuncio
