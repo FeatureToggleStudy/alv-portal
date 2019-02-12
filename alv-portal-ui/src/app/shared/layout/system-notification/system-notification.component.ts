@@ -47,13 +47,3 @@ export class SystemNotificationComponent implements OnInit {
     return this.systemNotificationRepository.getActiveSystemNotifications();
   }
 }
-/*
-withLatestFrom(this.i18nService.currentLanguage$),
-      map(([notifications, currentLanguage]) => notifications.map(notification => {
-        return {
-          type: notification.type === 'systemerror' ? NotificationType.ERROR : NotificationType.WARNING,
-          messageKey: notification['text_' + currentLanguage],
-          isSticky: true
-        };
-      }))
- */
