@@ -15,11 +15,6 @@ public class PortalWebProperties {
     @NotEmpty
     private String gaTrackingId = "UA-XXXXXXXX-X";
 
-    public PortalWebProperties(String gaTrackingIdToReplace, String gaTrackingId) {
-        this.gaTrackingIdToReplace = gaTrackingIdToReplace;
-        this.gaTrackingId = gaTrackingId;
-    }
-
     public String getGaTrackingIdToReplace() {
         return gaTrackingIdToReplace;
     }
