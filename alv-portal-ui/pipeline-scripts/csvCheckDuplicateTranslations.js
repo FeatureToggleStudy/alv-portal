@@ -43,7 +43,10 @@ function checkDuplicateKeys(parsedCsv) {
       duplicateKeys.push(key);
     }
   }
-  return _.uniq(duplicateKeys)
+
+  console.log(duplicateKeys.length
+    ? _.uniq(duplicateKeys)
+    : 'no duplicate keys found');
 }
 
 function checkDuplicateTranslationsInMultipleKeys(parsedCsv) {
@@ -56,15 +59,23 @@ function checkDuplicateTranslationsInMultipleKeys(parsedCsv) {
   }, []);
 
   // final result should look something like {key: line.de, value: [line.key...]}
-  return resultForDuplicateTranslations;
+  console.log(_.isEmpty(resultForDuplicateTranslations)
+    ? 'no duplicate translations in multiple keys found.'
+    : resultForDuplicateTranslations);
 }
 
 function checkExactDuplicateTranslations(parsedCsv) {
-  return parsedCsv.filter(line => line.key && notEmpty(line) && exactMatch(line))
+  const result = parsedCsv.filter(line => line.key && notEmpty(line) && exactMatch(line));
+  console.log(result.length
+    ? csvParser.unparse(result)
+    : 'no exact duplicates found');
 }
 
 function checkPartialDuplicateTranslations(parsedCsv) {
-  return parsedCsv.filter(line => line.key && notEmpty(line) && !exactMatch(line) && partialMatch(line))
+  const result = parsedCsv.filter(line => line.key && notEmpty(line) && !exactMatch(line) && partialMatch(line));
+  console.log(result.length
+    ? csvParser.unparse(result)
+    : 'no partial duplicates found');
 }
 
 function notEmpty(line) {
@@ -80,26 +91,20 @@ function partialMatch(line) {
 }
 
 /**
- * Check duplicate translation in translations.csv file
- * Possible that all language translations are the same
- * or there is a partial duplicate translations, meaning for example,
- * english and italian translations are the same (italian is wrong)
+ *
+ * 1. Check duplicate translation in translations.csv file
+ *    Possible that all language translations are the same
+ *    or there is a partial duplicate translations, meaning for example,
+ *    english and italian translations are the same (italian is wrong)
+ * 2. Check duplicate keys in translations.csv file
+ * 3. Check multiple occurrences of same German translation for multiple keys
  *
  */
 function checkDuplicates(parsedCsv) {
-  console.log('.......... The following translation are EXACT duplicate.');
-  console.log(csvParser.unparse(checkExactDuplicateTranslations(parsedCsv.data)));
-  console.log('..........');
-  console.log('.......... The following translation are PARTIAL duplicate.');
-  console.log(csvParser.unparse(checkPartialDuplicateTranslations(parsedCsv.data)));
-  console.log('..........');
-  console.log('.......... The following translation have exactly the same KEY.');
-  console.log(checkDuplicateKeys(parsedCsv.data));
-  console.log('..........');
-  console.log('.......... The following translation have multiple occurrences for different keys.');
-  console.log(checkDuplicateTranslationsInMultipleKeys(parsedCsv.data));
-  console.log('..........');
-
+  checkExactDuplicateTranslations(parsedCsv.data);
+  checkPartialDuplicateTranslations(parsedCsv.data);
+  checkDuplicateKeys(parsedCsv.data);
+  checkDuplicateTranslationsInMultipleKeys(parsedCsv.data);
 }
 
 

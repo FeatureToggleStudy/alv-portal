@@ -2,15 +2,13 @@ const csvParser = require('papaparse');
 const minimist = require('minimist');
 const fs = require('fs');
 
-
 function checkMissingTranslations(parsedCsv) {
     const errored = parsedCsv.data.filter(line => line.key && !(!!line.de && !!line.en && !!line.fr && !!line.it));
-    console.log(console.log(csvParser.unparse(errored)));
+    console.log(csvParser.unparse(errored));
 }
 
 const argv = minimist(process.argv.slice(2));
 let csvFileName = argv._[0];
-
 
 if (argv.help) {
     console.info(`
@@ -22,7 +20,6 @@ if (argv.help) {
     `);
     process.exit(0);
 }
-
 
 if (!csvFileName) {
     console.error('Please provide the csv file with translation as the first argument');

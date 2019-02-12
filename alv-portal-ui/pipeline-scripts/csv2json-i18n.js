@@ -12,7 +12,7 @@ if (argv.help) {
   console.info(`
     This script converts csv files with translations to json format of ngx-translate and splits them to language directories, one file per page. 
     The input csv file must have the following header and format: 
-    key,de,en,fr,it,...,< other languages >
+    key,de,en,fr,it,....,< other languages >,description
     
     Usage: node csv2jsoni18n mytranlationfile.csv --output ./translations
     `);
@@ -37,17 +37,20 @@ csvParser.parse(fs.createReadStream(csvFileName), parserConfig);
 
 //==========================================================================
 /**
- * everything after the first column are languages
+ * 4 columns after the first column are languages, after it's description
  * @param line ParsedLine
  * @returns {string[]} list of language codes
  */
 function getLanguages(line) {
-  return Object.keys(line).slice(1);
+  return Object.keys(line).slice(1,5);
 }
 
 function transformCsv2Json(acc, line) {
   for (let lang of getLanguages(line)) {
-    _.setWith(acc, lang + '.' + line.key, line[lang], Object)
+    _.setWith(acc,
+      lang + '.' + line.key,
+      line[lang] ? line[lang] : 'TNF:' + line.key,
+      Object)
   }
   return acc;
 }

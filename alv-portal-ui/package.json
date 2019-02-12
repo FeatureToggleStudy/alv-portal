@@ -21,8 +21,10 @@
     "postinstall": "node version.js",
     "extract": "ngx-translate-extract --input ./src/app --output ./src/assets/i18n/{en,fr,de,it}.json --clean --sort --format namespaced-json --format-indentation ' ' ",
     "i18n": "node pipeline-scripts/csv2json-i18n.js translations.csv --output src/assets/i18n",
-    "i18n:duplicate-problems": "node pipeline-scripts/checkCsvDuplicateTranslations.js ../translations.csv",
-    "i18n:csv-problems": "node pipeline-scripts/checkcsvProblems.js ../translations.csv",
+    "i18n:duplicate-problems": "node pipeline-scripts/csvCheckDuplicateTranslations.js ../translations.csv",
+    "i18n:column-numbers": "node pipeline-scripts/csvCheckColumnNumbers.js ../translations.csv",
+    "i18n:missing-translations": "node pipeline-scripts/csvCheckMissingTranslations.js ../translations.csv",
+    "i18n:clashes": "node pipeline-scripts/csvCheckClashes.js ../translations.csv",
     "bundle-report": "webpack-bundle-analyzer target/classes/ch/admin/seco/alvportal/ui/stats.json"
   },
   "private": true,
