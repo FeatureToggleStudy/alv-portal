@@ -41,7 +41,7 @@ export class EmployerComponent implements OnInit, OnDestroy {
     this.employer = this.fb.group({
       name: [name, [
         Validators.required,
-        Validators.maxLength(this.NAME_MAX_LENGTH),
+        Validators.maxLength(this.NAME_MAX_LENGTH)
       ]],
       countryIsoCode: [countryIsoCode]
     });

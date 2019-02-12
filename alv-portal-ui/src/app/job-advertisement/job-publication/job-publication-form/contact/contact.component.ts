@@ -69,11 +69,11 @@ export class ContactComponent implements OnInit {
       ]],
       firstName: [firstName, [
         Validators.required,
-        Validators.maxLength(this.FIRST_NAME_MAX_LENGTH),
+        Validators.maxLength(this.FIRST_NAME_MAX_LENGTH)
       ]],
       lastName: [lastName, [
         Validators.required,
-        Validators.maxLength(this.LAST_NAME_MAX_LENGTH),
+        Validators.maxLength(this.LAST_NAME_MAX_LENGTH)
       ]],
       phone: [phone, [
         Validators.required,
