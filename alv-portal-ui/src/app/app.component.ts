@@ -4,8 +4,6 @@ import { filter, map, mergeMap, pairwise, startWith, switchMap } from 'rxjs/oper
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
-import { Subject } from 'rxjs';
-import { SystemNotificationDto } from './shared/backend-services/system-notifications/system-notification.types';
 
 import { CoreState } from './core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
@@ -21,8 +19,6 @@ const FALLBACK_TITLE_KEY = 'global.title';
 export class AppComponent implements OnInit {
 
   a11yMessage: string;
-
-  activeSystemNotifications$ = new Subject<SystemNotificationDto[]>();
 
   constructor(private i18nService: I18nService,
               private titleService: Title,
