@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 
 declare var gtag: Function;
 
+export const GLOBAL_PARAMS = {
+  anonymize_ip: true
+};
+
 export function initScript(gaTrackingId: string) {
   const head = document.getElementsByTagName('head')[0];
 
@@ -12,16 +16,16 @@ export function initScript(gaTrackingId: string) {
   googleAnalyticsFirstScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaTrackingId;
 
   const googleAnalyticsSecondScript = document.createElement('script');
-  googleAnalyticsSecondScript.innerHTML = 'window.dataLayer = window.dataLayer || [];\n' +
-    ' function gtag(){dataLayer.push(arguments);}\n' +
-    ' gtag(\'js\', new Date());\n' +
-    '';
+  googleAnalyticsSecondScript.innerHTML = `window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${gaTrackingId}', ${JSON.stringify(GLOBAL_PARAMS)})`;
   head.insertBefore(googleAnalyticsSecondScript, head.firstChild);
   head.insertBefore(googleAnalyticsFirstScript, head.firstChild);
 }
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
-export interface GtagEventParams {
+export interface TrackingEventParams {
   event_category?: string;
   event_label?: string;
   value?: any;
@@ -44,7 +48,9 @@ export class TrackingService {
   }
 
   public init() {
-    initScript(this.gaTrackingId);
+    if (this.trackingEnabled) {
+      initScript(this.gaTrackingId);
+    }
   }
 
   public trackPage(title: string) {
@@ -54,12 +60,14 @@ export class TrackingService {
     const params = {
       page_path: this.router.url,
       page_location: window.location.href,
-      page_title: title
+      page_title: title,
+      ...GLOBAL_PARAMS
     };
+    console.log(params);
     gtag('config', environment.gaTrackingId, params);
   }
 
-  public trackEvent(name: string, params: GtagEventParams = {}) {
+  public trackEvent(name: string, params: TrackingEventParams = {}) {
     if (!this.trackingEnabled && !gtag) {
       return;
     }
