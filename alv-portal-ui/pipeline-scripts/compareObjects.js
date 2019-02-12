@@ -69,8 +69,8 @@ if (argv.help) {
   process.exit(-1);
 }
 
-var obj1 = JSON.parse(fs.readFileSync(firstFileName, 'utf8'));
-var obj2 = JSON.parse(fs.readFileSync(secondFileName, 'utf8'));
+const obj1 = JSON.parse(fs.readFileSync(firstFileName, 'utf8'));
+const obj2 = JSON.parse(fs.readFileSync(secondFileName, 'utf8'));
 
 if (argv.first) {
   console.log(compare(obj1, obj2).missingFromFirst.join('\n'));
