@@ -134,9 +134,7 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
   onBlur() {
     if (this.type === 'text' && this.control.value) {
       const trimmedValue = this.control.value.trim();
-      if (trimmedValue.length === 0) {
-        this.control.patchValue(trimmedValue, { emitEvent: false });
-      }
+      this.control.patchValue(trimmedValue, { emitEvent: false });
     }
   }
 
