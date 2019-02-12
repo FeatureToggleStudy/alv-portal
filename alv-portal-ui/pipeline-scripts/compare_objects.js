@@ -7,28 +7,30 @@ function isPrimitive(test) {
 }
 
 
-function serializeAllKeys(obj) {
+function serialize(obj, prefix) {
   const res = [];
 
-  function f(obj, arrPath) {
+  function serializeAllKeys(obj, arrPath) {
     if (!arrPath) {
       arrPath = [];
     }
     if (isPrimitive(obj)) {
       res.push(arrPath.join('.'));
     } else {
-      for (key in obj) {
+      for (let key in obj) {
         const value = obj[key];
-        f(value, arrPath.concat(key))
+        serializeAllKeys(value, arrPath.concat(key));
       }
     }
   }
 
-  f(obj);
-  return res;
+  serializeAllKeys(obj);
+  const res2 = res.map(x => prefix + '.' + x);
+  // console.log(res2);
+  return res2;
 }
 
-let compare = function (leftObject, rightObject) {
+function compare(leftObject, rightObject) {
 
   let result = {
     missingFromSecond: []
@@ -49,23 +51,24 @@ let compare = function (leftObject, rightObject) {
           return result;
         }
       }
-    } else {
-      result.missingFromSecond.push(key);
+    } else if (!isPrimitive(leftObject[key])) {
       //need to list all its children
-      // result.missingFromSecond = result.missingFromSecond.concat(serializeAllKeys(leftObject[key]));
+      result.missingFromSecond.push(...serialize(leftObject[key], key));
       return result;
     }
+    result.missingFromSecond.push(key);
+    return result;
   }, result);
 
   return result;
-};
+}
 
 const argv = minimist(process.argv.slice(2));
 let firstFileName = argv._[0];
 let secondFileName = argv._[1];
 
 if (!firstFileName || !secondFileName) {
-  console.error("You need to provide two files for comparing?");
+  console.error("You need to provide two files for comparison");
   process.exit(-1);
 }
 
@@ -84,4 +87,6 @@ if (argv.help) {
 
 const obj1 = JSON.parse(fs.readFileSync(firstFileName, 'utf8'));
 const obj2 = JSON.parse(fs.readFileSync(secondFileName, 'utf8'));
-console.log(compare(obj1, obj2).missingFromSecond.join('\n'));
+console.log(
+compare(obj1, obj2).missingFromSecond.join('\n')
+);
