@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
-import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 
 @Component({
   selector: 'alv-employer',

@@ -4,6 +4,7 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
 import { PublicContactComponent } from './public-contact.component';
 import { emptyPublicContactFormValue } from './public-contact-form-value.types';
+import { By } from '@angular/platform-browser';
 
 describe('PublicContactComponent', () => {
 
@@ -73,39 +74,6 @@ describe('PublicContactComponent', () => {
         expect(field.valid).toBeTrue();
       });
 
-      it('should accept whitespace in between', () => {
-        //given
-        const field = component.publicContact.get('firstName');
-
-        //when
-        field.setValue('test contact');
-
-        //then
-        expect(field.value).toEqual('test contact');
-      });
-
-      it('should trim whitespace', () => {
-        //given
-        const field = component.publicContact.get('firstName');
-
-        //when
-        field.setValue('   test   ');
-
-        //then
-        expect(field.value).toEqual('test');
-      });
-
-      it('should not accept only whitespace', () => {
-        //given
-        const field = component.publicContact.get('firstName');
-
-        //when
-        field.setValue('       ');
-
-        //then
-        expect(field.valid).toBeFalsy();
-      });
-
       it('should not be longer than FIRST_NAME_MAX_LENGTH', () => {
         //given
         const field = component.publicContact.get('firstName');
@@ -139,42 +107,6 @@ describe('PublicContactComponent', () => {
 
         //then
         expect(field.valid).toBeTrue();
-      });
-
-      it('should accept whitespace in between', () => {
-        //given
-        const field = component.publicContact.get('lastName');
-
-        //when
-        field.setValue('test contact');
-        dispatchEvent(new Event('blur'));
-
-        //then
-        expect(field.valid).toBeTruthy();
-      });
-
-      it('should not accept invalid whitespace', () => {
-        //given
-        const field = component.publicContact.get('lastName');
-
-        //when
-        field.setValue('   test   ');
-        dispatchEvent(new Event('blur'));
-
-        //then
-        expect(field.value).toEqual('test');
-      });
-
-      it('should not accept only whitespace', () => {
-        //given
-        const field = component.publicContact.get('lastName');
-
-        //when
-        field.setValue('       ');
-        dispatchEvent(new Event('blur'));
-
-        //then
-        expect(field.value).toEqual('');
       });
 
       it('should not be longer than LAST_NAME_MAX_LENGTH', () => {

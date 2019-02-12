@@ -74,48 +74,7 @@ describe('PostAddressFormComponent', () => {
         expect(field.hasError('maxlength')).toBeTrue();
       });
     });
-    it('should accept valid whitespace', () => {
-      //given
-      const field = component.postAddress.get('name');
 
-      //when
-      field.setValue('test ag');
-
-      //then
-      expect(field.value).toEqual('test ag');
-    });
-
-    it('should accept valid whitespace #2', () => {
-      //given
-      const field = component.postAddress.get('name');
-
-      //when
-      field.setValue('test ag co kg gmbh');
-      //then
-      expect(field.value).toEqual('test ag co kg gmbh');
-    });
-
-    it('should not accept invalid whitespace', () => {
-      //given
-      const field = component.postAddress.get('name');
-
-      //when
-      field.setValue('   test ag    ');
-
-      //then
-      expect(field.value).toEqual('test ag');
-    });
-
-    it('should not accept only whitespace', () => {
-      //given
-      const field = component.postAddress.get('name');
-
-      //when
-      field.setValue('       ');
-
-      //then
-      expect(field.valid).toBeFalsy();
-    });
     describe('houseNumber field', () => {
 
       it('should not be required', () => {
