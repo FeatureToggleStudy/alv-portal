@@ -4,7 +4,6 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { FormGroup } from '@angular/forms';
 import { ContactComponent } from './contact.component';
 import { emptyContactFormValue } from './contact-form-value.types';
-import { By } from 'protractor';
 
 describe('ContactComponent', () => {
 
