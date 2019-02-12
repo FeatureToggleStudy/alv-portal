@@ -16,22 +16,16 @@ header {
       left: 0;
       top: 0;
       height: 83px;
+      width: 212px;
       box-sizing: border-box;
       box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 5px;
       border: 1px solid $color-medium-grey;
       border-radius: 0 0 24px;
       background-color: $color-white;
       z-index: 10;
+      padding: 3px 15px;
       img {
-        height: 80px;
-      }
-      .logo-text {
-        font-size: 18px;
-        margin-top: 13px;
-        margin-left: 5px;
-        color: $color-grey;
-        user-focus: none;
-        user-select: none;
+        height: 72px;
       }
     }
 

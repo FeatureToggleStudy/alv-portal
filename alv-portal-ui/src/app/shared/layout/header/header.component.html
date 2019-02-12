@@ -13,7 +13,8 @@
 
     <a routerLink="/">
       <div class="logo d-none d-lg-flex">
-        <img src="assets/img/logo/{{'portal.home.logo-filename' | translate}}"
+        <img *ngIf="logoUrl$ | async as logoUrl"
+             [src]="logoUrl"
              [attr.alt]="'portal.home.logo-alttext' | translate ">
       </div>
     </a>
