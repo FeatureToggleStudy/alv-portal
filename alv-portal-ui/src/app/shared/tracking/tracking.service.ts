@@ -11,17 +11,19 @@ export const GLOBAL_PARAMS = {
 export function initScript(gaTrackingId: string) {
   const head = document.getElementsByTagName('head')[0];
 
-  const googleAnalyticsFirstScript = document.createElement('script');
-  googleAnalyticsFirstScript.async = false;
-  googleAnalyticsFirstScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaTrackingId;
+  const gtagScriptElement = document.createElement('script');
+  gtagScriptElement.async = false;
+  gtagScriptElement.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaTrackingId;
 
-  const googleAnalyticsSecondScript = document.createElement('script');
-  googleAnalyticsSecondScript.innerHTML = `window.dataLayer = window.dataLayer || [];
+  const gtagInlineScriptElement = document.createElement('script');
+  gtagInlineScriptElement.innerHTML = `
+  window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', '${gaTrackingId}', ${JSON.stringify(GLOBAL_PARAMS)})`;
-  head.insertBefore(googleAnalyticsSecondScript, head.firstChild);
-  head.insertBefore(googleAnalyticsFirstScript, head.firstChild);
+  gtag('config', '${gaTrackingId}', ${JSON.stringify(GLOBAL_PARAMS)})
+  `;
+  head.insertBefore(gtagInlineScriptElement, head.firstChild);
+  head.insertBefore(gtagScriptElement, head.firstChild);
 }
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
