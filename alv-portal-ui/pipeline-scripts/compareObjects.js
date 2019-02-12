@@ -72,7 +72,11 @@ if (argv.help) {
 var obj1 = JSON.parse(fs.readFileSync(firstFileName, 'utf8'));
 var obj2 = JSON.parse(fs.readFileSync(secondFileName, 'utf8'));
 
-console.log(JSON.stringify(compare(obj1, obj2), null, 2));
+if (argv.first) {
+  console.log(compare(obj1, obj2).missingFromFirst.join('\n'));
+} else if (argv.second) {
+  console.log(compare(obj1, obj2).missingFromSecond.join('\n'));
 
-
-
+} else {
+  console.log(JSON.stringify(compare(obj1, obj2), null, 2));
+}
