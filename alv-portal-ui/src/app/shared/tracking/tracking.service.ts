@@ -63,7 +63,6 @@ export class TrackingService {
       page_title: title,
       ...GLOBAL_PARAMS
     };
-    console.log(params);
     gtag('config', environment.gaTrackingId, params);
   }
 
