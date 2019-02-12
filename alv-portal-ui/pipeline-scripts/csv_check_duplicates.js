@@ -11,7 +11,7 @@ if (argv.help) {
   console.info(`
     This script checks the duplicate translations in the translations.csv file
     
-    Usage: node pipeline-scripts/checkCsvDuplicateTranslations.js ../translations.csv    
+    Usage: node csv_check_duplicates.js ../translations.csv    
     `);
   process.exit(0);
 }

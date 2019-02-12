@@ -16,7 +16,8 @@ if (argv.help) {
     for example if you have a line like this, it will report about it because italian and 
     french translations are missing:
     global.notifications.darger,Achtung,Danger,,,
-    Usage: node csv2jsoni18n mytranlationfile.csv --output ./translations
+    
+    Usage: node csv_check_missing.js mytranlationfile.csv --output ./translations
     `);
     process.exit(0);
 }
