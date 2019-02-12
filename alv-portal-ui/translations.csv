@@ -1377,10 +1377,7 @@ portal,portal.navigation.menu-entry.admin.elastic-search-reindex,Reindex Elastic
 portal,portal.navigation.menu-entry.admin.api-user-management,API-Benutzer verwalten,Manage API users,Gérer les utilisateurs API,Gestisci utente API
 portal,portal.navigation.label.main-navigation,,Main navigation
 
-portal,portal.dashboard.header.welcome.time.night,Gute Nacht,Good night,Bonne nuit,Buonanotte
-portal,portal.dashboard.header.welcome.time.morning,Guten Morgen,Good morning,Bonjour,Buongiorno
-portal,portal.dashboard.header.welcome.time.afternoon,Guten Nachmittag,Good afternoon,Bonjour,Buongiorno
-portal,portal.dashboard.header.welcome.time.evening,Guten Abend,Good evening,Bonsoir,Buonasera
+portal,portal.dashboard.header.welcome.text,Willkommen,Welcome,Bienvenue,Benvenuto
 
 portal,portal.global.exception.client.unknown,Es ist ein unerwarteter Fehler aufgetreten,An unexpected error has occurred,Une erreur inattendue s'est produite,Si è verificato un errore imprevisto
 portal,portal.global.exception.server.unknown,Auf dem Server ist ein unerwarteter Fehler aufgetreten,An unexpected error has occurred on the server,Une erreur inattendue s'est produite sur le serveur,Si è verificato un errore imprevisto sul server
