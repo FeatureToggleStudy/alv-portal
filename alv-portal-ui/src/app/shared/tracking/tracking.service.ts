@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
+import { ReplaySubject } from 'rxjs';
+import { map, skipWhile } from 'rxjs/operators';
 
 declare var gtag: Function;
 
@@ -26,13 +28,31 @@ export function initScript(gaTrackingId: string) {
   head.insertBefore(gtagScriptElement, head.firstChild);
 }
 
+function isGtagDefined() {
+  return typeof gtag === 'function';
+}
+
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export interface TrackingEventParams {
   event_category?: string;
   event_label?: string;
   value?: any;
+}
 
-  [key: string]: any;
+interface EventTrack {
+  name: string;
+  params: TrackingEventParams;
+}
+
+interface PageTrack {
+  page_path: string;
+  page_location: string;
+  page_title?: string;
+}
+
+interface ExceptionTrack {
+  description: string;
+  fatal: boolean;
 }
 
 @Injectable({
@@ -42,37 +62,70 @@ export class TrackingService {
 
   private readonly gaTrackingId: string;
 
-  private readonly trackingEnabled;
+  private eventTrack = new ReplaySubject<Partial<EventTrack>>(10);
+
+  private pageTrack = new ReplaySubject<Partial<PageTrack>>(10);
+
+  private exceptionTrack = new ReplaySubject<Partial<ExceptionTrack>>(10);
 
   constructor(private router: Router) {
     this.gaTrackingId = environment.gaTrackingId;
-    this.trackingEnabled = !!this.gaTrackingId;
   }
 
   public init() {
-    if (this.trackingEnabled) {
-      initScript(this.gaTrackingId);
-    }
-  }
-
-  public trackPage(title: string) {
-    if (!this.trackingEnabled && typeof gtag !== 'function') {
+    if (!this.gaTrackingId) {
       return;
     }
-    const params = {
+
+    initScript(this.gaTrackingId);
+
+    this.eventTrack.pipe(
+      skipWhile(() => !gtag)
+    ).subscribe(data => {
+      gtag('event', data.name, data.params);
+    });
+
+    this.pageTrack.pipe(
+      skipWhile(() => !isGtagDefined()),
+      map(pageTrack => ({ ...pageTrack, ...GLOBAL_PARAMS })))
+      .subscribe(data => {
+        gtag('config', environment.gaTrackingId, data);
+      });
+
+    this.exceptionTrack.pipe(
+      skipWhile(() => !isGtagDefined()))
+      .subscribe(data => {
+        gtag('event', 'exception', data);
+      });
+  }
+
+  public trackCurrentPage(title?: string) {
+    const pageTrack: PageTrack = {
       page_path: this.router.url,
       page_location: window.location.href,
       page_title: title,
-      ...GLOBAL_PARAMS
     };
-    gtag('config', environment.gaTrackingId, params);
+    this.pageTrack.next(pageTrack);
   }
 
   public trackEvent(name: string, params: TrackingEventParams = {}) {
-    if (!this.trackingEnabled && typeof gtag !== 'function') {
-      return;
-    }
-    gtag('event', name, params);
+    const eventTrack = {
+      name: name,
+      params: params
+    };
+    this.eventTrack.next(eventTrack);
+  }
+
+  public trackExceptionMessage(errorMessage: string, fatal = false) {
+    const exceptionTrack = {
+      description: errorMessage,
+      fatal: fatal
+    };
+    this.exceptionTrack.next(exceptionTrack);
+  }
+
+  public trackException(err: Error, fatal = false) {
+    this.trackExceptionMessage(err.message, fatal);
   }
 
 }
