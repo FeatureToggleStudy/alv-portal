@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
     ).subscribe((title) => {
       this.a11yMessage = title;
       this.titleService.setTitle(title);
-      this.trackingService.trackPage(title);
+      this.trackingService.trackCurrentPage(title);
     });
   }
 }
