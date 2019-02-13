@@ -101,10 +101,18 @@ function partialMatch(line) {
  *
  */
 function checkDuplicates(parsedCsv) {
+  console.log('==> EXACT DUPLICATES FOR ALL LANGUAGES <==');
   checkExactDuplicateTranslations(parsedCsv.data);
+  console.log('========================');
+  console.log('==> PARTIAL DUPLICATES FOR ALL LANGUAGES <==');
   checkPartialDuplicateTranslations(parsedCsv.data);
+  console.log('========================');
+  console.log('==> DUPLICATE KEYS <==');
   checkDuplicateKeys(parsedCsv.data);
+  console.log('==> EXACT TRANSLATIONS IN MULTIPLE KEYS <==');
+  console.log('========================');
   checkDuplicateTranslationsInMultipleKeys(parsedCsv.data);
+  console.log('========================');
 }
 
 
