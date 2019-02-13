@@ -116,3 +116,12 @@ Good reading: [Making your UI tests resilient to change
 
 See [Accessibility Guidelines](GUIDELINES-ACCESSIBILITY.md). 
 
+## i18n guidelines
+
+We use ngx-translate library for all translations.
+
+The translation keys should mimic the directory structure of the components. If you move the component somewhere, be sure to change the translations keys as well  CV 
+Commonly used keys should be in the portal.global namespace including: 
+* Common UI words like OK, Cancel, Next, Search
+* Common problem domain words like Canton, Stellen, arbeit.swiss, City, Country, cantons and city names
+
