@@ -14,7 +14,7 @@ if (argv.help) {
     The input csv file must have the following header and format: 
     key,de,en,fr,it,....,< other languages >,description
     
-    Usage: node csv2jsoni18n mytranlationfile.csv --output ./translations
+    Usage: node csv2json-i18n.js mytranlationfile.csv --output ./translations
     `);
   process.exit(0);
 }
