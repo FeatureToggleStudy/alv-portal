@@ -28,6 +28,10 @@ export function initScript(gaTrackingId: string) {
   head.insertBefore(gtagScriptElement, head.firstChild);
 }
 
+function isGtagDefined() {
+  return typeof gtag === 'function';
+}
+
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export interface TrackingEventParams {
   event_category?: string;
@@ -82,14 +86,14 @@ export class TrackingService {
     });
 
     this.pageTrack.pipe(
-      skipWhile(() => !gtag),
+      skipWhile(() => !isGtagDefined()),
       map(pageTrack => ({ ...pageTrack, ...GLOBAL_PARAMS })))
       .subscribe(data => {
         gtag('config', environment.gaTrackingId, data);
       });
 
     this.exceptionTrack.pipe(
-      skipWhile(() => !gtag))
+      skipWhile(() => !isGtagDefined()))
       .subscribe(data => {
         gtag('event', 'exception', data);
       });
