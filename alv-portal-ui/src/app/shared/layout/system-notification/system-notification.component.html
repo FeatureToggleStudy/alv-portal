@@ -1,12 +1,8 @@
 <div class="mb-4"
-     *ngIf="systemNotifications?.length">
-  <alv-alert *ngFor="let systemNotification of systemNotifications; let index = index"
+     *ngIf="systemNotifications$ | async as notifications">
+  <alv-alert *ngFor="let notification of notifications; let index = index"
              class="global-notification"
              (dismiss)="hideSystemNotification(index)"
-             [notification]="{
-           type: mapNotificationType(systemNotification.type),
-           isSticky: true
-           }">
-    {{systemNotification['text_' + (currentLanguage$ | async)]}}
+             [notification]="notification">
   </alv-alert>
 </div>

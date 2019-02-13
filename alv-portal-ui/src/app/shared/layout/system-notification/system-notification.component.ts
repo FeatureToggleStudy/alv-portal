@@ -1,12 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { I18nService } from '../../../core/i18n.service';
-import { Observable } from 'rxjs';
-import { SystemNotificationRepository } from '../../backend-services/system-notifications/system-notification-repository';
-import { NotificationType } from '../notifications/notification.model';
+import {Component, OnInit} from '@angular/core';
+import {I18nService} from '../../../core/i18n.service';
+import {combineLatest, Observable} from 'rxjs';
+import {SystemNotificationRepository} from '../../backend-services/system-notifications/system-notification-repository';
+import {Notification, NotificationType} from '../notifications/notification.model';
 import {
   SystemNotificationDto,
   SystemNotificationType
 } from '../../backend-services/system-notifications/system-notification.types';
+import {map} from 'rxjs/operators';
+
+function extractMessageKey(systemNotificationDto: SystemNotificationDto, currentLang: string) {
+  switch (currentLang) {
+    case 'fr':
+      return systemNotificationDto.text_fr;
+    case 'it':
+      return systemNotificationDto.text_it;
+    case 'en':
+      return systemNotificationDto.text_en;
+    default:
+      return systemNotificationDto.text_de;
+  }
+}
+
+function extractType(systemNotificationDto: SystemNotificationDto) {
+  return systemNotificationDto.type.toLowerCase() === SystemNotificationType.SYSTEMERROR ? NotificationType.ERROR : NotificationType.WARNING;
+}
 
 @Component({
   selector: 'alv-system-notification',
@@ -20,7 +38,7 @@ export class SystemNotificationComponent implements OnInit {
 
   currentLanguage$: Observable<string>;
 
-  systemNotifications: SystemNotificationDto[];
+  systemNotifications$: Observable<Notification[]>;
 
   constructor(private i18nService: I18nService,
               private systemNotificationRepository: SystemNotificationRepository) {
@@ -29,21 +47,22 @@ export class SystemNotificationComponent implements OnInit {
   ngOnInit() {
     this.currentLanguage$ = this.i18nService.currentLanguage$;
 
-    this.loadActiveSystemNotifications().subscribe(
-      systemNotifications => {
-        this.systemNotifications = systemNotifications;
-      }
-    );
+    this.systemNotifications$ = combineLatest(this.i18nService.currentLanguage$, this.systemNotificationRepository.getActiveSystemNotifications())
+      .pipe(
+        map(([currentLang, systemNotifications]) => {
+          return systemNotifications.map(systemNotificationDto => {
+            return {
+              type: extractType(systemNotificationDto),
+              isSticky: true,
+              messageKey: extractMessageKey(systemNotificationDto, currentLang)
+            };
+          });
+        }));
   }
 
-  mapNotificationType(systemNotificationType: SystemNotificationType): NotificationType {
-    return systemNotificationType.toLowerCase() === SystemNotificationType.SYSTEMERROR ? NotificationType.ERROR : NotificationType.WARNING;
-  }
 
   hideSystemNotification(index: number) {
-    this.systemNotifications.splice(index, 1);
+    //FIXME pado this.systemNotifications$.
   }
-  private loadActiveSystemNotifications(): Observable<SystemNotificationDto[]> {
-    return this.systemNotificationRepository.getActiveSystemNotifications();
-  }
+
 }
