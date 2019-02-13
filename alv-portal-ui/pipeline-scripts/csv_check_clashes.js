@@ -10,7 +10,8 @@ if (argv.help) {
   console.info(`
     a clash is when we have both the key 'a.b.c' and the key 'a.b.c.d'.
     A script shows all clashes in stdout
-    Usage: node csvCheckClashes.js mytranlationfile.csv 
+    
+    Usage: node csv_check_clashes.js.js mytranlationfile.csv 
     `);
   process.exit(0);
 }

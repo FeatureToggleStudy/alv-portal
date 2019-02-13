@@ -39,7 +39,7 @@ if (argv.help) {
   console.info(`
     This script checks the problems in the translations.csv file
     
-    Usage: node checkCsvProblems mytranlationfile.csv
+    Usage: node csv_check_column_numbers.js mytranlationfile.csv
     `);
   process.exit(-1);
 }
