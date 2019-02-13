@@ -131,6 +131,13 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
     this.input.emit(event);
   }
 
+  onBlur() {
+    if (this.type === 'text' && this.control.value) {
+      const trimmedValue = this.control.value.trim();
+      this.control.patchValue(trimmedValue, { emitEvent: false });
+    }
+  }
+
   private calculateMultilineElementHeight() {
     const element = this.textareaElement.nativeElement;
     element.style.height = this.MULTILINE_MIN_HEIGHT + 'px';

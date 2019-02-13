@@ -74,6 +74,7 @@ describe('PostAddressFormComponent', () => {
         expect(field.hasError('maxlength')).toBeTrue();
       });
     });
+
     describe('houseNumber field', () => {
 
       it('should not be required', () => {
