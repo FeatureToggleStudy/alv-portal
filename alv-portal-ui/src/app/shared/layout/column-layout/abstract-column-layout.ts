@@ -18,7 +18,7 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
    * These CSS classes are common to all column layouts
    */
   protected commonColumnClasses = [
-    'col-xs-12 px-0', // left column
+    'col-xs-12 alv-print-container px-0', // left column
     'col-xs-12 alv-print-container pt-3 pt-md-4', // main column
     'col-xs-12 px-0' // right column
   ];

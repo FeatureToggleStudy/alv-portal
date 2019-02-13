@@ -14,12 +14,14 @@ import { IconsModule } from './icons/icons.module';
 import { LegalTermsDirective } from './legal-terms/legal-terms.directive';
 import { LegalTermsModalComponent } from './legal-terms/legal-terms-modal/legal-terms-modal.component';
 import { IsoCountryService } from './localities/iso-country.service';
+import { TrackingEventDirective } from './tracking/tracking-event.directive';
 
 @NgModule({
   declarations: [
     DummyComponent,
     LegalTermsDirective,
-    LegalTermsModalComponent
+    LegalTermsModalComponent,
+    TrackingEventDirective,
   ],
   imports: [
     TranslateModule.forChild(),
@@ -46,7 +48,8 @@ import { IsoCountryService } from './localities/iso-country.service';
     MarkdownModule,
     SharedAuthModule,
     IconsModule,
-    LegalTermsDirective
+    LegalTermsDirective,
+    TrackingEventDirective
   ],
   providers: [
     LandingPageGuard,
