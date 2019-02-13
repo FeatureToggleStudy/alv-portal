@@ -61,6 +61,17 @@ describe('ContactComponent', () => {
         expect(field.hasError('required')).toBeTrue();
       });
 
+      it('should accept valid value', () => {
+        //given
+        const field = component.contact.get('firstName');
+
+        //when
+        field.setValue(generateString(component.FIRST_NAME_MAX_LENGTH - 1));
+
+        //then
+        expect(field.valid).toBeTrue();
+      });
+
       it('should not be longer than FIRST_NAME_MAX_LENGTH', () => {
         //given
         const field = component.contact.get('firstName');
@@ -84,6 +95,17 @@ describe('ContactComponent', () => {
 
         //then
         expect(field.hasError('required')).toBeTrue();
+      });
+
+      it('should accept valid value', () => {
+        //given
+        const field = component.contact.get('lastName');
+
+        //when
+        field.setValue(generateString(component.LAST_NAME_MAX_LENGTH - 1));
+
+        //then
+        expect(field.valid).toBeTrue();
       });
 
       it('should not be longer than LAST_NAME_MAX_LENGTH', () => {
@@ -171,4 +193,8 @@ describe('ContactComponent', () => {
 
     });
   });
+
+  function generateString(length: number) {
+    return 'a'.repeat(length);
+  }
 });

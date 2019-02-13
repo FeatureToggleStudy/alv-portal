@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { Router } from '@angular/router';
 import { I18nService } from '../../../core/i18n.service';
@@ -30,6 +30,12 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   currentLanguage$: Observable<string>;
 
+  logoUrl$: Observable<string>;
+
+  private readonly FILENAME_TRANSLATION_KEY = 'portal.home.logo-filename';
+
+  private readonly LOGO_BASE_PATH = 'assets/img/logo/';
+
   constructor(private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
               private loginSerivce: LoginService,
@@ -51,6 +57,12 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
       .subscribe(company => {
         this.company = company;
       });
+
+    this.logoUrl$ = this.i18nService.stream(this.FILENAME_TRANSLATION_KEY)
+      .pipe(
+        map((filename) => this.LOGO_BASE_PATH + filename),
+        takeUntil(this.ngUnsubscribe)
+      );
 
     this.noEiam = this.loginSerivce.noEiam;
   }

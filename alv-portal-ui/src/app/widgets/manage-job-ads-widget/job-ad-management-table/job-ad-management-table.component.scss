@@ -3,67 +3,71 @@
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
-thead {
-  background-color: $color-light-grey
-}
+.table {
+  thead {
+    background-color: $color-light-grey;
 
-th {
-  font-weight: normal;
+    th {
+      font-weight: normal;
+      vertical-align: top;
 
-  &.active-sort {
-    font-weight: bold;
+      &.active-sort {
+        font-weight: bold;
+      }
+
+      .potential-sort {
+        color: $color-dark-grey;
+      }
+
+      &.clickable-column-header {
+        cursor: pointer;
+      }
+    }
   }
 
-  .potential-sort {
-    color: $color-dark-grey;
+  td {
+    em {
+      padding: 0 0.125rem;
+      background-color: $color-light-yellow;
+    }
   }
 
-  &.clickable-column-header {
-    cursor: pointer;
+  .tr-content {
+    border-left: 5px solid transparent;
+    padding: .5rem 1rem;
+    background-color: $color-white;
+
+    &:hover {
+      border-left: 5px solid $color-primary;
+      color: $color-primary;
+      cursor: pointer;
+      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.35);
+    }
   }
-}
 
-.dropdown-toggle::after {
-  display: none;
-}
-
-td {
-  em {
-    padding: 0 0.125rem;
-    background-color: $color-light-yellow;
-  }
-}
-
-.tr-content {
-  border-left: 5px solid transparent;
-  padding: .5rem 1rem;
-  background-color: $color-white;
-
-  &:hover {
-    border-left: 5px solid $color-primary;
-    color: $color-primary;
-    cursor: pointer;
-    /* box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);*/
+  .actions-cell .dropdown-toggle::after {
+    display: none;
   }
 }
 
 @include media-breakpoint-down(sm) {
-  .actions-cell {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-  }
-  .tr-content {
-    position: relative;
-    border: 1px $color-light-grey solid;
-  }
-
-  tbody {
-    width: 100%;
-    display: block;
-  }
-
   .table {
+    .actions-cell {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+
+    .tr-content {
+      position: relative;
+      border: 1px $color-light-grey solid;
+    }
+
+    tbody {
+      width: 100%;
+      display: block;
+    }
+
     td {
       border: 0;
 

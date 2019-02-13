@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.Duration;
 
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,14 +19,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 @Configuration
+@EnableConfigurationProperties(PortalWebProperties.class)
 public class WebConfiguration implements WebMvcConfigurer {
 
     private static final String WEB_APP_LOCATION = "classpath:/ch/admin/seco/alvportal/ui/";
 
     private final ResourceProperties resourceProperties;
 
-    public WebConfiguration(ResourceProperties resourceProperties) {
+    private final PortalWebProperties portalWebProperties;
+
+    public WebConfiguration(ResourceProperties resourceProperties, PortalWebProperties portalWebProperties) {
         this.resourceProperties = resourceProperties;
+        this.portalWebProperties = portalWebProperties;
     }
 
     @Bean
@@ -44,7 +49,13 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .addResourceLocations(WEB_APP_LOCATION)
                 .setCachePeriod(getSeconds(cachePeriod))
                 .setCacheControl(cacheControl)
-                .resourceChain(true)
+                .resourceChain(this.resourceProperties.getChain().isCache())
+                .addTransformer(new BaseHrefResourceTransformer())
+                .addTransformer(new AngularAssetsResourceTransformer("/assets", "/fonts"))
+                .addTransformer(new GoogleTrackingIdResourceTransformer(
+                        this.portalWebProperties.getGaTrackingIdToReplace(),
+                        this.portalWebProperties.getGaTrackingId())
+                )
                 .addResolver(new SinglePageAppResourceResolver());
     }
 

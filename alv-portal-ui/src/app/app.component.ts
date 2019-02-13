@@ -4,9 +4,11 @@ import { filter, map, mergeMap, pairwise, startWith, switchMap } from 'rxjs/oper
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
+
 import { CoreState } from './core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { ToggleMainNavigationAction } from './core/state-management/actions/core.actions';
+import { TrackingService } from './shared/tracking/tracking.service';
 
 const FALLBACK_TITLE_KEY = 'global.title';
 
@@ -23,11 +25,14 @@ export class AppComponent implements OnInit {
               private titleService: Title,
               private router: Router,
               private store: Store<CoreState>,
+              private trackingService: TrackingService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
+
+    this.trackingService.init();
 
     this.i18nService.init();
 
@@ -79,6 +84,7 @@ export class AppComponent implements OnInit {
     ).subscribe((title) => {
       this.a11yMessage = title;
       this.titleService.setTitle(title);
+      this.trackingService.trackPage(title);
     });
   }
 }
