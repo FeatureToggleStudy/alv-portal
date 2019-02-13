@@ -14,6 +14,8 @@ blacklisted-agent.choose-organisation-desc,"Bitte wählen Sie eine Organisation 
 blacklisted-agent.choose-organisation-placeholder,Geben Sie den Namen einer Organisation ein,Please enter the name of an organization,Please enter the name of an organization,Please enter the name of an organization,
 blacklisted-agent.confirm-alert,Diese Aktion wird sofort ausgeführt und kann nicht rückgängig gemacht werden! ,This action will be effectuated immediately and can not be undone! ,This action will be effectuated immediately and can not be undone! ,This action will be effectuated immediately and can not be undone!,
 blacklisted-agent.create-blacklist-entry,PAV auf Blacklist setzen,Add PAV to Blacklist ,Add PAV to Blacklist ,Add PAV to Blacklist,
+blacklisted-agent.header.externalId,Ext. Id,Ext. Id,Ext. Id,Ext. Id,
+blacklisted-agent.header.id,Id,Id,Id,Id,
 blacklisted-agent.header.blacklistedAt,Datum erste Sperre,Blacklisted At,Blacklisted At,Blacklisted At,
 blacklisted-agent.header.city,Ort,City,Lieu,Luogo,
 blacklisted-agent.header.counter,Anzahl Sperrungen,Counter,Counter,Counter,
