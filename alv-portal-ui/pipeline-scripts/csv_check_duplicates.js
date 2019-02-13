@@ -50,7 +50,7 @@ function checkDuplicateKeys(parsedCsv) {
 }
 
 function checkDuplicateTranslationsInMultipleKeys(parsedCsv) {
-  const translations = _.countBy(parsedCsv.filter(line => line.key && line.de).map(line => line.de));
+  const translations = _.countBy(parsedCsv.filter(line => line.key && line.de && !notEmptyWithoutGerman(line)).map(line => line.de));
   let resultForDuplicateTranslations = {};
   _.transform(translations, function(result, count /*value*/, label/*key*/) {
     if (count > 1) {
@@ -82,6 +82,10 @@ function notEmpty(line) {
   return !!line.de && !!line.en && !!line.fr && !!line.it
 }
 
+function notEmptyWithoutGerman(line) {
+  return !!line.en && !!line.fr && !!line.it
+}
+
 function exactMatch(line) {
   return line.de === line.en && line.de === line.fr && line.de === line.it
 }
@@ -101,10 +105,18 @@ function partialMatch(line) {
  *
  */
 function checkDuplicates(parsedCsv) {
+  console.log('==> EXACT DUPLICATES FOR ALL LANGUAGES <==');
   checkExactDuplicateTranslations(parsedCsv.data);
+  console.log('========================');
+  console.log('==> PARTIAL DUPLICATES FOR ALL LANGUAGES <==');
   checkPartialDuplicateTranslations(parsedCsv.data);
+  console.log('========================');
+  console.log('==> DUPLICATE KEYS <==');
   checkDuplicateKeys(parsedCsv.data);
+  console.log('==> EXACT TRANSLATIONS IN MULTIPLE KEYS <==');
+  console.log('========================');
   checkDuplicateTranslationsInMultipleKeys(parsedCsv.data);
+  console.log('========================');
 }
 
 
