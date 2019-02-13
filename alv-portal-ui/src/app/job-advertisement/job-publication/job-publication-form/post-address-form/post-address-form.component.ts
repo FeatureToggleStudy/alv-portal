@@ -47,7 +47,7 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const {name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet} = this.postAddressFormValue;
+    const { name, houseNumber, countryIsoCode, postOfficeBoxNumberOrStreet } = this.postAddressFormValue;
 
     this.postAddress = this.fb.group({
       name: [name, [
