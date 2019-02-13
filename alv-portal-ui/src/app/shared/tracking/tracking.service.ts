@@ -56,7 +56,7 @@ export class TrackingService {
   }
 
   public trackPage(title: string) {
-    if (!this.trackingEnabled && !gtag) {
+    if (!this.trackingEnabled && typeof gtag !== 'function') {
       return;
     }
     const params = {
@@ -69,7 +69,7 @@ export class TrackingService {
   }
 
   public trackEvent(name: string, params: TrackingEventParams = {}) {
-    if (!this.trackingEnabled && !gtag) {
+    if (!this.trackingEnabled && typeof gtag !== 'function') {
       return;
     }
     gtag('event', name, params);

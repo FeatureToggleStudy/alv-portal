@@ -50,7 +50,7 @@ export class PublicContactComponent implements OnInit {
   }
 
   ngOnInit() {
-    const {salutation, firstName, lastName, phone, email} = this.publicContactFormValue;
+    const { salutation, firstName, lastName, phone, email } = this.publicContactFormValue;
 
     this.publicContact = this.fb.group({
       salutation: [salutation, [
