@@ -1,0 +1,8 @@
+<div class="mb-4"
+     *ngIf="systemNotifications$ | async as notifications">
+  <alv-alert *ngFor="let notification of notifications; let index = index"
+             class="global-notification"
+             (dismiss)="hideSystemNotification(index)"
+             [notification]="notification">
+  </alv-alert>
+</div>

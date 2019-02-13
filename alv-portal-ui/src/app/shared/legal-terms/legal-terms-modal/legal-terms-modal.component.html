@@ -20,17 +20,18 @@
 
   <div class="panel-divider border-top mb-2"></div>
 
-  <alv-checkbox alvFormControlName="termsAndConditions"
-                label="global.legal-terms-dialog.body.accept-label"
-                class="d-block mb-2">
-  </alv-checkbox>
-
   <a [href]="legalTermsUrl$ | async"
-     class="link legal-terms mt-2"
+     class="link legal-terms mt-3 mb-3"
      target="_blank">
     <fa-icon class="link-icon"
              [icon]="['fas', 'caret-right']"></fa-icon>
     {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
   </a>
+    <alv-checkbox alvFormControlName="termsAndConditions"
+                  label="global.legal-terms-dialog.body.accept-label"
+                  class="d-block mb-2">
+    </alv-checkbox>
+
+
 
 </alv-modal>

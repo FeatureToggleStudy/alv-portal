@@ -48,6 +48,8 @@ import { UserNameAndCompanyComponent } from './user-name-and-company/user-name-a
 import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-column-layout.component';
 import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
 import { IconsModule } from '../icons/icons.module';
+import { SystemNotificationComponent } from './system-notification/system-notification.component';
+import { SystemNotificationModalComponent } from '../../admin/system-notifications/modal/system-notification-modal.component';
 
 @NgModule({
   imports: [
@@ -95,6 +97,7 @@ import { IconsModule } from '../icons/icons.module';
     ContactModalComponent,
     TwoColumnLayoutComponent,
     GeoLocationSelectionComponent,
+    SystemNotificationComponent
   ],
   providers: [
     CandidateContactRepository
@@ -131,7 +134,8 @@ import { IconsModule } from '../icons/icons.module';
     ScrollToTopComponent,
     ListItemContentComponent,
     TwoColumnLayoutComponent,
-    GeoLocationSelectionComponent
+    GeoLocationSelectionComponent,
+    SystemNotificationComponent
   ]
 })
 export class LayoutModule {

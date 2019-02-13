@@ -4,6 +4,7 @@ import { filter, map, mergeMap, pairwise, startWith, switchMap } from 'rxjs/oper
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
+
 import { CoreState } from './core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { ToggleMainNavigationAction } from './core/state-management/actions/core.actions';

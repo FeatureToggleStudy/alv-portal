@@ -3,8 +3,8 @@
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
-.legal-terms {
-  margin-left: 2rem;
+a.legal-terms {
+  display: block;
 }
 
 @include  media-breakpoint-down(lg) {

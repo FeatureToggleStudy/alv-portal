@@ -4,11 +4,13 @@
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
 header {
+  position: relative;
   background-color: $color-light-grey;
   border-bottom: 1px solid $color-medium-grey;
 
   .header {
     height: 52px;
+
     .logo {
       position: absolute;
       left: 0;
