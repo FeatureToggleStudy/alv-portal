@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-# prints the translations for which there's no match anywhere in the code
-# for the translation key such as one.two.three it will first try to find one.two.three
-# and then will try to find just one.two
-# This way we will not have false positives
+# searches for prefixes and colorfully shows where those prefixes were found
 
 FIRST_COLUMN=`awk -F "," '{print $1}' $1`
 for TRANSLATION in ${FIRST_COLUMN} ; do
