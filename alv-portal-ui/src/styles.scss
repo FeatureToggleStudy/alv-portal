@@ -4,6 +4,10 @@ body {
   overflow: hidden;
 }
 
+html, body {
+  height: 100vh;
+}
+
 @import "scss/common/fonts";
 @import "scss/overrides/theme";
 @import "../node_modules/bootstrap/scss/bootstrap";
