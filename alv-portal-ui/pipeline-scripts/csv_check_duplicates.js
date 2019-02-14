@@ -109,8 +109,8 @@ function checkDuplicates(parsedCsv) {
   console.log('========================');
   console.log('==> DUPLICATE KEYS <==');
   checkDuplicateKeys(parsedCsv.data);
-  console.log('==> EXACT TRANSLATIONS IN MULTIPLE KEYS <==');
   console.log('========================');
+  console.log('==> EXACT TRANSLATIONS IN MULTIPLE KEYS <==');
   checkDuplicateTranslationsInMultipleKeys(parsedCsv.data);
   console.log('========================');
 }
