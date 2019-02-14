@@ -1,0 +1,45 @@
+<alv-alert (dismiss)="alert = null"
+           *ngIf="alert"
+           [notification]="alert">
+</alv-alert>
+<p>{{ 'Diese Daten dienen zum automatischen Abfüllen von Kontakt- und Formularfeldern und haben ' +
+'keinen Einfluss auf die Login-Daten Ihres eIAM Kontos.' }}</p>
+<form (validSubmit)="onSubmit()"
+      [formGroup]="userInfoForm"
+      alvFormSubmitValidation>
+  <fieldset>
+    <alv-select
+      [options$]="salutationOptions$"
+      alvFormControlName="salutation"
+      label="contact-template-management.salutation">
+    </alv-select>
+
+    <alv-input-field alvFormControlName="firstName"
+                     label="contact-template-management.firstName">
+    </alv-input-field>
+
+    <alv-input-field alvFormControlName="lastName"
+                     label="contact-template-management.lastName">
+    </alv-input-field>
+
+    <alv-input-field alvFormControlName="phone"
+                     label="contact-template-management.phone"
+                     type="tel">
+    </alv-input-field>
+
+    <alv-input-field alvFormControlName="email"
+                     label="contact-template-management.email">
+    </alv-input-field>
+  </fieldset>
+  <div class="d-flex">
+    <div class="flex-grow-1">
+    </div>
+    <button (click)="onReset()"
+            class="btn btn-text"
+            type="button">{{'entity.action.cancel' | translate }}
+    </button>
+    <button class="btn btn-primary ml-1"
+            type="submit">{{'entity.action.save' | translate }}
+    </button>
+  </div>
+</form>

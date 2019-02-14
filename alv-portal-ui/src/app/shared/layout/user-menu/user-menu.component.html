@@ -31,24 +31,33 @@
                [icon]="['fas', 'hand-point-right']"></fa-icon>
       {{'global.menu.account.registration.incomplete'|translate}}
     </button>
-    <!-- eIAM profile -->
-    <button *ngIf="!noEiam"
-            class="dropdown-item"
-            (click)="goToEiamProfile()">
+    <button *ngIf="!noEiam || (company && user.isRegistered())"
+    class="dropdown-item"
+    routerLink="dashboard/user-settings">
       <fa-icon class="mr-2"
                [fixedWidth]="true"
-               [icon]="['fas', 'user-circle']"></fa-icon>
-      {{'portal.navigation.menu-entry.account.profile'|translate}}
+               [icon]="['fas', 'address-card']">
+      </fa-icon>
+      {{ 'global.menu.admin.user-settings' | translate }}
     </button>
+    <!-- eIAM profile -->
+    <!--<button *ngIf="!noEiam"-->
+            <!--class="dropdown-item"-->
+            <!--(click)="goToEiamProfile()">-->
+      <!--<fa-icon class="mr-2"-->
+               <!--[fixedWidth]="true"-->
+               <!--[icon]="['fas', 'user-circle']"></fa-icon>-->
+      <!--{{'portal.navigation.menu-entry.account.profile'|translate}}-->
+    <!--</button>-->
     <!-- Contact template -->
-    <a *ngIf="company && user.isRegistered()"
-       class="dropdown-item"
-       routerLink="dashboard/contact-template">
-      <fa-icon class="mr-2"
-               [fixedWidth]="true"
-               [icon]="['fas', 'address-card']"></fa-icon>
-      {{'global.menu.admin.contact-template-management' | translate}}
-    </a>
+    <!--<a *ngIf="company && user.isRegistered()"-->
+       <!--class="dropdown-item"-->
+       <!--routerLink="dashboard/contact-template">-->
+      <!--<fa-icon class="mr-2"-->
+               <!--[fixedWidth]="true"-->
+               <!--[icon]="['fas', 'address-card']"></fa-icon>-->
+      <!--{{'global.menu.admin.contact-template-management' | translate}}-->
+    <!--</a>-->
     <!-- Logout -->
     <button class="dropdown-item"
             (click)="logout()">

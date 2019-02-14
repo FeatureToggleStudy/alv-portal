@@ -1,0 +1,45 @@
+<div class="container pt-md-4 pt-3 px-3">
+  <h2 class="panel-title">
+    <fa-icon class="panel-icon"
+             [icon]="['fas', 'address-card']"></fa-icon>
+    {{ 'portal.dashboard.user-settings.user-info.title' | translate }}
+    {{ currentUser?.displayName }}, {{ currentCompany?.companyName }}
+  </h2>
+  <div class="row">
+    <div class="col-md-6">
+      <alv-collapse-panel [panelId]="'eIAM-account'"
+                          panelTitle="portal.dashboard.user-settings.panel.eiam-account">
+        <div class="panel-content">
+          <p>{{ 'Über Ihr eIAM Konto können Sie folgende Login-Daten bearbeiten:' }}</p>
+          <ul class="alv-list">
+            <alv-list-item-content *ngFor="let loginData of ['Vor- und Nachname', 'Passwort', 'Sicherheitsfragen',
+          'E-Mail Adresse', 'Telefonnummer', 'Sprache']"
+                                   [label]="loginData">
+            </alv-list-item-content>
+          </ul>
+          <button type="button"
+                  (click)="goToEIAMProfile()"
+                  class="btn btn-secondary">
+            <fa-icon class="link-icon"
+                     [icon]="['fas', 'caret-right']"></fa-icon>
+            {{ 'eIAM Konto öffnen' }}
+          </button>
+        </div>
+      </alv-collapse-panel>
+      <alv-collapse-panel [panelId]="'user-information'"
+                          panelTitle="portal.dashboard.user-settings.panel.user-info">
+        <div class="panel-content">
+          <alv-user-information [user]="currentUser"
+                                [company]="currentCompany"></alv-user-information>
+        </div>
+      </alv-collapse-panel>
+      <alv-collapse-panel [panelId]="'company-information'"
+                          panelTitle="portal.dashboard.user-settings.panel.company-info">
+        <div class="panel-content">
+          <alv-company-information [user]="currentUser"
+                                   [company]="currentCompany"></alv-company-information>
+        </div>
+      </alv-collapse-panel>
+    </div>
+  </div>
+</div>

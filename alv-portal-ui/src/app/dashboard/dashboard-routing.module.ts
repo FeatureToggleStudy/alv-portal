@@ -9,6 +9,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { ContactTemplateManagementComponent } from './contact-template-management/contact-template-management.component';
 import { UserRole } from '../core/auth/user.model';
 import { HasAnyAuthoritiesGuard } from '../core/auth/has-any-authorities-guard.service';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,15 @@ const routes: Routes = [
         }
       }
     ]
+  },
+  {
+    path: 'user-settings',
+    component: UserSettingsComponent,
+    canActivate: [HasAnyAuthoritiesGuard],
+    data: {
+      titleKey: 'portal.dashboard.user-settings.title',
+      authorities: [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]
+    }
   },
   {
     path: 'contact-template',

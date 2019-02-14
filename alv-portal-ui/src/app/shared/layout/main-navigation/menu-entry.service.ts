@@ -86,6 +86,13 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
   },
   {
+    id: 'user-settings',
+    iconClass: 'address-card',
+    labelKey: 'portal.navigation.menu-entry.user-settings',
+    path: ['dashboard', 'user-settings'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
+  },
+  {
     id: 'user-info',
     iconClass: 'user',
     labelKey: 'portal.navigation.menu-entry.admin.user-info',
