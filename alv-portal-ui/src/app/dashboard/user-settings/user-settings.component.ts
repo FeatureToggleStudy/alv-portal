@@ -1,14 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
-import { User } from '../../core/auth/user.model';
+import { hasAnyAuthorities, User, UserRole } from '../../core/auth/user.model';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { takeUntil, tap } from 'rxjs/operators';
 import { UserInfoRepository } from '../../shared/backend-services/user-info/user-info-repository';
 import {
   CompanyFormValue,
-  ContactFormValue, mapToCompanyContactTemplate,
+  ContactFormValue,
+  mapToCompanyContactTemplate,
   mapToCompanyFormValue,
   mapToContactFormValue
 } from './user-settings-mapper';
@@ -45,6 +46,8 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
 
   alert: Notification;
 
+  companyOrPav: boolean;
+
   salutationOptions$: Observable<SelectableOption[]> = of([
     {
       value: null,
@@ -75,6 +78,7 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
       takeUntil(this.ngUnsubscribe)
     ).subscribe(([user, company]) => {
       this.currentUser = user;
+      this.companyOrPav = hasAnyAuthorities(user, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV]);
       this.currentCompany = company;
       this.patchContactFormValue(mapToContactFormValue(this.currentCompany));
       this.patchCompanyFormValue(mapToCompanyFormValue(this.currentCompany));

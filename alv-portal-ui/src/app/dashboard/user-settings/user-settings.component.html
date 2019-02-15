@@ -27,7 +27,8 @@
         </div>
       </alv-collapse-panel>
       <alv-collapse-panel [panelId]="'user-information'"
-                          panelTitle="portal.dashboard.user-settings.panel.user-info">
+                          panelTitle="portal.dashboard.user-settings.panel.user-info"
+                          *ngIf="companyOrPav">
         <div class="panel-content">
           <alv-alert (dismiss)="alert = null"
                      *ngIf="alert"
@@ -77,7 +78,8 @@
         </div>
       </alv-collapse-panel>
       <alv-collapse-panel [panelId]="'company-information'"
-                          panelTitle="portal.dashboard.user-settings.panel.company-info">
+                          panelTitle="portal.dashboard.user-settings.panel.company-info"
+                          *ngIf="companyOrPav">
         <div class="panel-content">
           <alv-alert (dismiss)="alert = null"
                      *ngIf="alert"
