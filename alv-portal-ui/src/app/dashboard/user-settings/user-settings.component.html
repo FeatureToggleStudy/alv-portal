@@ -2,19 +2,18 @@
   <h2 class="panel-title">
     <fa-icon class="panel-icon"
              [icon]="['fas', 'address-card']"></fa-icon>
-    {{ 'portal.dashboard.user-settings.user-info.title' | translate }}
+    {{ 'portal.dashboard.user-settings.main.title' | translate }}
     {{ currentUser?.displayName }}, {{ currentCompany?.companyName }}
   </h2>
   <div class="row">
     <div class="col-md-6">
       <alv-collapse-panel [panelId]="'eIAM-account'"
-                          panelTitle="portal.dashboard.user-settings.panel.eiam-account">
+                          panelTitle="portal.dashboard.user-settings.eiam-account.title">
         <div class="panel-content">
-          <p>{{ 'Über Ihr eIAM Konto können Sie folgende Login-Daten bearbeiten:' }}</p>
+          <p>{{ 'portal.dashboard.user-settings.eiam-account.description' | translate }}</p>
           <ul class="alv-list">
-            <alv-list-item-content *ngFor="let loginData of ['Vor- und Nachname', 'Passwort', 'Sicherheitsfragen',
-          'E-Mail Adresse', 'Telefonnummer', 'Sprache']"
-                                   [label]="loginData">
+            <alv-list-item-content *ngFor="let loginData of EIAM_ACCOUNT_LIST">
+              {{ loginData | translate }}
             </alv-list-item-content>
           </ul>
           <button type="button"
@@ -22,20 +21,19 @@
                   class="btn btn-secondary">
             <fa-icon class="link-icon"
                      [icon]="['fas', 'caret-right']"></fa-icon>
-            {{ 'eIAM Konto öffnen' }}
+            {{ 'portal.dashboard.user-settings.eiam-account.button' | translate }}
           </button>
         </div>
       </alv-collapse-panel>
       <alv-collapse-panel [panelId]="'user-information'"
-                          panelTitle="portal.dashboard.user-settings.panel.user-info"
+                          panelTitle="portal.dashboard.user-settings.user-info.title"
                           *ngIf="companyOrPav">
         <div class="panel-content">
           <alv-alert (dismiss)="alert = null"
                      *ngIf="alert"
                      [notification]="alert">
           </alv-alert>
-          <p>{{ 'Diese Daten dienen zum automatischen Abfüllen von Kontakt- und Formularfeldern und haben ' +
-          'keinen Einfluss auf die Login-Daten Ihres eIAM Kontos.' }}</p>
+          <p>{{ 'portal.dashboard.user-settings.main.help' | translate }}</p>
           <form (validSubmit)="onSubmit()"
                 [formGroup]="contactForm"
                 alvFormSubmitValidation>
@@ -43,24 +41,24 @@
               <alv-select
                 [options$]="salutationOptions$"
                 alvFormControlName="salutation"
-                label="contact-template-management.salutation">
+                label="portal.dashboard.user-settings.user-info.salutation">
               </alv-select>
 
               <alv-input-field alvFormControlName="firstName"
-                               label="contact-template-management.firstName">
+                               label="portal.dashboard.user-settings.user-info.first-name">
               </alv-input-field>
 
               <alv-input-field alvFormControlName="lastName"
-                               label="contact-template-management.lastName">
+                               label="portal.dashboard.user-settings.user-info.last-name">
               </alv-input-field>
 
               <alv-input-field alvFormControlName="phone"
-                               label="contact-template-management.phone"
+                               label="portal.dashboard.user-settings.user-info.phone"
                                type="tel">
               </alv-input-field>
 
               <alv-input-field alvFormControlName="email"
-                               label="contact-template-management.email">
+                               label="portal.dashboard.user-settings.user-info.email">
               </alv-input-field>
             </fieldset>
             <div class="d-flex">
@@ -77,34 +75,33 @@
           </form>
         </div>
       </alv-collapse-panel>
-      <alv-collapse-panel [panelId]="'company-information'"
-                          panelTitle="portal.dashboard.user-settings.panel.company-info"
-                          *ngIf="companyOrPav">
-        <div class="panel-content">
-          <alv-alert (dismiss)="alert = null"
-                     *ngIf="alert"
-                     [notification]="alert">
-          </alv-alert>
-          <p>{{ 'Diese Daten dienen zum automatischen Abfüllen von Kontakt- und Formularfeldern und haben ' +
-          'keinen Einfluss auf die Login-Daten Ihres eIAM Kontos.' }}</p>
-          <form (validSubmit)="onSubmit()"
-                [formGroup]="companyForm"
-                alvFormSubmitValidation>
+      <form (validSubmit)="onSubmit()"
+            [formGroup]="companyForm"
+            alvFormSubmitValidation>
+        <alv-collapse-panel [panelId]="'company-information'"
+                            panelTitle="portal.dashboard.user-settings.company-info.title"
+                            *ngIf="companyOrPav">
+          <div class="panel-content">
+            <alv-alert (dismiss)="alert = null"
+                       *ngIf="alert"
+                       [notification]="alert">
+            </alv-alert>
+            <p>{{ 'portal.dashboard.user-settings.main.help' | translate }}</p>
 
             <fieldset>
               <alv-input-field alvFormControlName="companyName"
-                               label="contact-template-management.companyName">
+                               label="portal.dashboard.user-settings.company-info.company-name">
               </alv-input-field>
 
               <div class="form-row">
                 <div class="col-md-9">
                   <alv-input-field alvFormControlName="companyStreet"
-                                   label="contact-template-management.companyStreet">
+                                   label="portal.dashboard.user-settings.company-info.company-street">
                   </alv-input-field>
                 </div>
                 <div class="col-md-3">
                   <alv-input-field alvFormControlName="companyHouseNr"
-                                   label="contact-template-management.companyHouseNr">
+                                   label="portal.dashboard.user-settings.company-info.company-house-nr">
                   </alv-input-field>
                 </div>
               </div>
@@ -112,12 +109,12 @@
               <div class="form-row">
                 <div class="col-md-9">
                   <alv-input-field alvFormControlName="companyZipCode"
-                                   label="contact-template-management.companyZipCode">
+                                   label="portal.dashboard.user-settings.company-info.company-zip-code">
                   </alv-input-field>
                 </div>
                 <div class="col-md-3">
                   <alv-input-field alvFormControlName="companyCity"
-                                   label="contact-template-management.companyCity">
+                                   label="portal.dashboard.user-settings.company-info.company-city">
                   </alv-input-field>
                 </div>
               </div>
@@ -133,9 +130,10 @@
                       type="submit">{{'entity.action.save' | translate }}
               </button>
             </div>
-          </form>
-        </div>
-      </alv-collapse-panel>
+
+          </div>
+        </alv-collapse-panel>
+      </form>
     </div>
   </div>
 </div>

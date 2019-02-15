@@ -30,7 +30,13 @@ import { phoneInputValidator } from '../../shared/forms/input/input-field/phone-
 })
 export class UserSettingsComponent extends AbstractSubscriber implements OnInit {
 
-  currentUser: User;
+  readonly EIAM_ACCOUNT_LIST = [
+    'portal.dashboard.user-settings.eiam-account.name',
+    'portal.dashboard.user-settings.eiam-account.password',
+    'portal.dashboard.user-settings.eiam-account.seq-question',
+    'portal.dashboard.user-settings.eiam-account.e-mail',
+    'portal.dashboard.user-settings.eiam-account.telefon',
+    'portal.dashboard.user-settings.eiam-account.language'];
 
   currentCompany: CompanyContactTemplateModel;
 
@@ -62,6 +68,8 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
     })
   ));
 
+  private currentUser: User;
+
   constructor(private fb: FormBuilder,
               private userInfoRepository: UserInfoRepository,
               private authenticationService: AuthenticationService,
@@ -80,8 +88,12 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
       this.currentUser = user;
       this.companyOrPav = hasAnyAuthorities(user, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV]);
       this.currentCompany = company;
-      this.patchContactFormValue(mapToContactFormValue(this.currentCompany));
-      this.patchCompanyFormValue(mapToCompanyFormValue(this.currentCompany));
+      if (this.companyOrPav) {
+        this.patchContactFormValue(mapToContactFormValue(this.currentCompany));
+        this.patchCompanyFormValue(mapToCompanyFormValue(this.currentCompany));
+      } else {
+        this.form = null;
+      }
     });
   }
 
@@ -124,8 +136,8 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
   private prepareContactForm() {
     this.contactForm = this.fb.group({
       salutation: [null, [Validators.required]],
-      firstName: [{ value: null, disabled: true }, [Validators.required]],
-      lastName: [{ value: null, disabled: true }, [Validators.required]],
+      firstName: [{value: null, disabled: true}, [Validators.required]],
+      lastName: [{value: null, disabled: true}, [Validators.required]],
       phone: [null, [Validators.required, phoneInputValidator()]],
       email: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]]
     });
