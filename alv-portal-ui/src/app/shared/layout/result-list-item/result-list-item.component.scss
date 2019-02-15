@@ -1,19 +1,23 @@
 @import "../../../../scss/common/colors";
 
+
 .result-list-item {
   padding: 1em;
   cursor: pointer;
   border-bottom: 1px solid $color-medium-grey;
   border-right: 1px solid transparent;
   border-left: 1px solid transparent;
+  color: $color-black;
 
   .title:first-letter {
     text-transform: capitalize;
   }
 
   &:hover {
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+    text-decoration: none;
+    color: $color-black;
 
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
     border-right: 1px solid $color-medium-grey;
     border-left: 1px solid $color-medium-grey;
 
