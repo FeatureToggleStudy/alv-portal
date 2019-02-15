@@ -5,7 +5,7 @@
 <p>{{ 'Diese Daten dienen zum automatischen Abfüllen von Kontakt- und Formularfeldern und haben ' +
 'keinen Einfluss auf die Login-Daten Ihres eIAM Kontos.' }}</p>
 <form (validSubmit)="onSubmit()"
-      [formGroup]="userInfoForm"
+      [formGroup]="contactForm"
       alvFormSubmitValidation>
   <fieldset>
     <alv-select

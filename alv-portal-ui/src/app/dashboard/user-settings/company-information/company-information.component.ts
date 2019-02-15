@@ -7,6 +7,7 @@ import { User } from '../../../core/auth/user.model';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplate } from '../../../shared/backend-services/user-info/user-info.types';
+import { CompanyFormValue } from '../user-settings-mapper';
 
 @Component({
   selector: 'alv-company-information',
@@ -15,10 +16,10 @@ import { CompanyContactTemplate } from '../../../shared/backend-services/user-in
 export class CompanyInformationComponent implements OnInit {
 
   @Input()
-  user: User;
+  userId: string;
 
   @Input()
-  company: CompanyContactTemplateModel;
+  companyFormValue: CompanyFormValue;
 
   alert: Notification;
 
@@ -47,13 +48,9 @@ export class CompanyInformationComponent implements OnInit {
       companyZipCode: [null, Validators.required],
       companyCity: [null, Validators.required]
     });
-
-    if (this.company) {
-      this.patchFormValues(this.company);
-    }
   }
 
-  private patchFormValues(company: CompanyContactTemplateModel) {
+  private patchFormValues(company: CompanyFormValue) {
     this.companyInfoForm.patchValue({
       companyName: company.companyName,
       companyStreet: company.companyStreet,
@@ -61,10 +58,6 @@ export class CompanyInformationComponent implements OnInit {
       companyZipCode: company.companyZipCode,
       companyCity: company.companyCity
     });
-  }
-
-  private mapFormValues(): CompanyContactTemplate {
-    return null;
   }
 
 }
