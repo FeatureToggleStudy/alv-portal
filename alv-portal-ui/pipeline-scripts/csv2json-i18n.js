@@ -12,9 +12,9 @@ if (argv.help) {
   console.info(`
     This script converts csv files with translations to json format of ngx-translate and splits them to language directories, one file per page. 
     The input csv file must have the following header and format: 
-    page,key,de,en,fr,it,...,< other languages >
+    key,de,en,fr,it,....,< other languages >,description
     
-    Usage: node csv2jsoni18n mytranlationfile.csv --output ./translations
+    Usage: node csv2json-i18n.js mytranlationfile.csv --output ./translations
     `);
   process.exit(0);
 }
@@ -26,24 +26,31 @@ if (!csvFileName) {
 
 const parserConfig = {
   header: true,
-  complete: onCsvParsed
+  complete: onCsvParsed,
+  error: function (err, file, inputElem, reason) {
+    console.error(err, file, inputElem, reason);
+    process.exit(-1);
+  }
 };
 
 csvParser.parse(fs.createReadStream(csvFileName), parserConfig);
 
 //==========================================================================
 /**
- * everything after the first two columns are languages
+ * 4 columns after the first column are languages, after it's description
  * @param line ParsedLine
  * @returns {string[]} list of language codes
  */
 function getLanguages(line) {
-  return Object.keys(line).slice(2);
+  return Object.keys(line).slice(1,5);
 }
 
 function transformCsv2Json(acc, line) {
   for (let lang of getLanguages(line)) {
-    _.setWith(acc, lang + '.' + line.key, line[lang], Object)
+    _.setWith(acc,
+      lang + '.' + line.key,
+      line[lang] ? line[lang] : 'TNF:' + line.key,
+      Object)
   }
   return acc;
 }
@@ -54,20 +61,6 @@ function createDir(dir) {
   }
 }
 
-function keyComparator(a, b) {
-  return a.key > b.key ? 1 : -1;
-}
-
-function checkMissingTranslations(parsedCsv) {
-  return parsedCsv.filter(line => !(!!line.de && !!line.en && !!line.fr && !!line.it) )
-}
-
-function checkErroredKeys(parsedArrays) {
-
-}
-
-
-
 /**
  * creates one directory per language with one page per page in csv file
  * @param parsedCsv looks like this:
@@ -75,7 +68,7 @@ function checkErroredKeys(parsedArrays) {
  * where ParsedLine is
  * interface ParsedLine {
  *     page: string,
- *     key: string, //dot-delimited key e.g. "activate.messages.error"
+ *     key: string, //dot-delimited key e.g. 'activate.messages.error'
  *     de: string,
  *     en: string,
  *     fr: string,
@@ -83,8 +76,7 @@ function checkErroredKeys(parsedArrays) {
  * }
  */
 function onCsvParsed(parsedCsv) {
-  console.log("the following translations are missing");
-  console.log(csvParser.unparse(checkMissingTranslations(parsedCsv.data)));
+
   const allLanguagesObj = parsedCsv.data.reduce(transformCsv2Json, {});
   for (let [language, languageFile] of Object.entries(allLanguagesObj)) {
     createDir(`${output}`);
@@ -93,10 +85,9 @@ function onCsvParsed(parsedCsv) {
       stringify(languageFile, {space: 2}),
       (err, data) => {
         if (err) {
-          console.error(err);
+          console.error(err, data);
           process.exit(-1);
         }
-        console.log(`Successfully written to file ${fileName}`);
       })
   }
 }
