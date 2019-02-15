@@ -92,7 +92,8 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
         this.patchContactFormValue(mapToContactFormValue(this.currentCompany));
         this.patchCompanyFormValue(mapToCompanyFormValue(this.currentCompany));
       } else {
-        this.form = null;
+        this.contactForm = this.fb.group({});
+        this.companyForm = this.fb.group({});
       }
     });
   }

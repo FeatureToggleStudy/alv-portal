@@ -65,7 +65,7 @@ const routes: Routes = [
     canActivate: [HasAnyAuthoritiesGuard],
     data: {
       titleKey: 'portal.dashboard.user-settings.title',
-      authorities: [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]
+      authorities: [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY, UserRole.ROLE_JOB_SEEKER]
     }
   },
   {

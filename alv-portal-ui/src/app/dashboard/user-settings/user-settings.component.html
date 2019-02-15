@@ -25,6 +25,8 @@
           </button>
         </div>
       </alv-collapse-panel>
+      contact: {{ contactForm?.value | json }}
+      company: {{ companyForm?.value | json }}
       <alv-collapse-panel [panelId]="'user-information'"
                           panelTitle="portal.dashboard.user-settings.user-info.title"
                           *ngIf="companyOrPav">
