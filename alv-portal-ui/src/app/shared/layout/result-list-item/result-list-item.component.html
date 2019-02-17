@@ -1,6 +1,6 @@
-<div class="result-list-item flex-height position-relative"
-     [routerLink]="result.routerLink"
-     [ngClass]="{'visited' : result.visited}">
+<a [routerLink]="result.routerLink"
+   class="d-block result-list-item flex-height position-relative"
+   [ngClass]="{'visited' : result.visited}">
   <div class="selected-indicator h-100"></div>
   <div class="d-flex flex-column flex-sm-row justify-content-between mb-1">
     <h3 class="title order-2 order-sm-1 mb-0 w-100"
@@ -22,4 +22,4 @@
        [style.-webkit-box-orient]="'vertical'"
        [innerHtml]="result.description | markdownEscape | safeHtml">
   </div>
-</div>
+</a>
