@@ -3,13 +3,20 @@
     <fa-icon class="panel-icon"
              [icon]="['fas', 'address-card']"></fa-icon>
     {{ 'portal.dashboard.user-settings.main.title' | translate }}
-    {{ currentUser?.displayName }}, {{ currentCompany?.companyName }}
+    {{ titleName }}
   </h2>
+
+  <alv-alert (dismiss)="alert = null"
+             *ngIf="alert"
+             [notification]="alert">
+  </alv-alert>
+
   <div class="row">
     <div class="col-md-6">
+
       <alv-collapse-panel [panelId]="'eIAM-account'"
                           panelTitle="portal.dashboard.user-settings.eiam-account.title">
-        <div class="panel-content">
+        <div class="d-block pb-4">
           <p>{{ 'portal.dashboard.user-settings.eiam-account.description' | translate }}</p>
           <ul class="alv-list">
             <alv-list-item-content *ngFor="let loginData of EIAM_ACCOUNT_LIST">
@@ -25,117 +32,55 @@
           </button>
         </div>
       </alv-collapse-panel>
-      contact: {{ contactForm?.value | json }}
-      company: {{ companyForm?.value | json }}
-      <alv-collapse-panel [panelId]="'user-information'"
-                          panelTitle="portal.dashboard.user-settings.user-info.title"
-                          *ngIf="companyOrPav">
-        <div class="panel-content">
-          <alv-alert (dismiss)="alert = null"
-                     *ngIf="alert"
-                     [notification]="alert">
-          </alv-alert>
-          <p>{{ 'portal.dashboard.user-settings.main.help' | translate }}</p>
-          <form (validSubmit)="onSubmit()"
-                [formGroup]="contactForm"
-                alvFormSubmitValidation>
-            <fieldset>
-              <alv-select
-                [options$]="salutationOptions$"
-                alvFormControlName="salutation"
-                label="portal.dashboard.user-settings.user-info.salutation">
-              </alv-select>
 
-              <alv-input-field alvFormControlName="firstName"
-                               label="portal.dashboard.user-settings.user-info.first-name">
-              </alv-input-field>
-
-              <alv-input-field alvFormControlName="lastName"
-                               label="portal.dashboard.user-settings.user-info.last-name">
-              </alv-input-field>
-
-              <alv-input-field alvFormControlName="phone"
-                               label="portal.dashboard.user-settings.user-info.phone"
-                               type="tel">
-              </alv-input-field>
-
-              <alv-input-field alvFormControlName="email"
-                               label="portal.dashboard.user-settings.user-info.email">
-              </alv-input-field>
-            </fieldset>
-            <div class="d-flex">
-              <div class="flex-grow-1">
-              </div>
-              <button (click)="onResetContact()"
-                      class="btn btn-text"
-                      type="button">{{'entity.action.cancel' | translate }}
-              </button>
-              <button class="btn btn-primary ml-1"
-                      type="submit">{{'entity.action.save' | translate }}
-              </button>
-            </div>
-          </form>
-        </div>
-      </alv-collapse-panel>
       <form (validSubmit)="onSubmit()"
-            [formGroup]="companyForm"
+            [formGroup]="form"
             alvFormSubmitValidation>
+
+        <alv-collapse-panel [panelId]="'user-information'"
+                            panelTitle="portal.dashboard.user-settings.user-info.title"
+                            *ngIf="companyOrPav">
+          <alv-user-information
+                       [parentForm]="form"
+                       [contactFormValue]="initialContactValue">
+          </alv-user-information>
+          <div class="d-flex">
+            <div class="flex-grow-1">
+            </div>
+            <button (click)="onResetContact()"
+                    class="btn btn-text"
+                    type="button">{{'entity.action.cancel' | translate }}
+            </button>
+            <button class="btn btn-primary ml-1"
+                    type="submit">{{'entity.action.save' | translate }}
+            </button>
+          </div>
+
+        </alv-collapse-panel>
+
         <alv-collapse-panel [panelId]="'company-information'"
                             panelTitle="portal.dashboard.user-settings.company-info.title"
                             *ngIf="companyOrPav">
-          <div class="panel-content">
-            <alv-alert (dismiss)="alert = null"
-                       *ngIf="alert"
-                       [notification]="alert">
-            </alv-alert>
-            <p>{{ 'portal.dashboard.user-settings.main.help' | translate }}</p>
-
-            <fieldset>
-              <alv-input-field alvFormControlName="companyName"
-                               label="portal.dashboard.user-settings.company-info.company-name">
-              </alv-input-field>
-
-              <div class="form-row">
-                <div class="col-md-9">
-                  <alv-input-field alvFormControlName="companyStreet"
-                                   label="portal.dashboard.user-settings.company-info.company-street">
-                  </alv-input-field>
-                </div>
-                <div class="col-md-3">
-                  <alv-input-field alvFormControlName="companyHouseNr"
-                                   label="portal.dashboard.user-settings.company-info.company-house-nr">
-                  </alv-input-field>
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="col-md-9">
-                  <alv-input-field alvFormControlName="companyZipCode"
-                                   label="portal.dashboard.user-settings.company-info.company-zip-code">
-                  </alv-input-field>
-                </div>
-                <div class="col-md-3">
-                  <alv-input-field alvFormControlName="companyCity"
-                                   label="portal.dashboard.user-settings.company-info.company-city">
-                  </alv-input-field>
-                </div>
-              </div>
-            </fieldset>
-            <div class="d-flex">
-              <div class="flex-grow-1">
-              </div>
-              <button (click)="onResetCompany()"
-                      class="btn btn-text"
-                      type="button">{{'entity.action.cancel' | translate }}
-              </button>
-              <button class="btn btn-primary ml-1"
-                      type="submit">{{'entity.action.save' | translate }}
-              </button>
+          <alv-company-information
+                       [parentForm]="form"
+                       [companyFormValue]="initialCompanyValue">
+          </alv-company-information>
+          <div class="d-flex">
+            <div class="flex-grow-1">
             </div>
-
+            <button (click)="onResetCompany()"
+                    class="btn btn-text"
+                    type="button">{{'entity.action.cancel' | translate }}
+            </button>
+            <button class="btn btn-primary ml-1"
+                    type="submit">{{'entity.action.save' | translate }}
+            </button>
           </div>
+
         </alv-collapse-panel>
+
       </form>
+
     </div>
   </div>
 </div>

@@ -1,53 +1,33 @@
-<alv-alert (dismiss)="alert = null"
-           *ngIf="alert"
-           [notification]="alert">
-</alv-alert>
-<p>{{ 'Diese Daten dienen zum automatischen Abfüllen von Kontakt- und Formularfeldern und haben ' +
-'keinen Einfluss auf die Login-Daten Ihres eIAM Kontos.' }}</p>
-<form (validSubmit)="onSubmit()"
-      [formGroup]="companyInfoForm"
-      alvFormSubmitValidation>
+<p>{{ 'portal.dashboard.user-settings.main.help' | translate }}</p>
 
-  <fieldset>
-    <alv-input-field alvFormControlName="companyName"
-                     label="contact-template-management.companyName">
-    </alv-input-field>
+<fieldset [formGroup]="companyForm">
+  <alv-input-field alvFormControlName="companyName"
+                   label="portal.dashboard.user-settings.company-info.company-name">
+  </alv-input-field>
 
-    <div class="form-row">
-      <div class="col-md-9">
-        <alv-input-field alvFormControlName="companyStreet"
-                         label="contact-template-management.companyStreet">
-        </alv-input-field>
-      </div>
-      <div class="col-md-3">
-        <alv-input-field alvFormControlName="companyHouseNr"
-                         label="contact-template-management.companyHouseNr">
-        </alv-input-field>
-      </div>
+  <div class="form-row">
+    <div class="col-md-9">
+      <alv-input-field alvFormControlName="companyStreet"
+                       label="portal.dashboard.user-settings.company-info.company-street">
+      </alv-input-field>
     </div>
-
-    <div class="form-row">
-      <div class="col-md-9">
-        <alv-input-field alvFormControlName="companyZipCode"
-                         label="contact-template-management.companyZipCode">
-        </alv-input-field>
-      </div>
-      <div class="col-md-3">
-        <alv-input-field alvFormControlName="companyCity"
-                         label="contact-template-management.companyCity">
-        </alv-input-field>
-      </div>
+    <div class="col-md-3">
+      <alv-input-field alvFormControlName="companyHouseNr"
+                       label="portal.dashboard.user-settings.company-info.company-house-nr">
+      </alv-input-field>
     </div>
-  </fieldset>
-  <div class="d-flex">
-    <div class="flex-grow-1">
-    </div>
-    <button (click)="onReset()"
-            class="btn btn-text"
-            type="button">{{'entity.action.cancel' | translate }}
-    </button>
-    <button class="btn btn-primary ml-1"
-            type="submit">{{'entity.action.save' | translate }}
-    </button>
   </div>
-</form>
+
+  <div class="form-row">
+    <div class="col-md-9">
+      <alv-input-field alvFormControlName="companyZipCode"
+                       label="portal.dashboard.user-settings.company-info.company-zip-code">
+      </alv-input-field>
+    </div>
+    <div class="col-md-3">
+      <alv-input-field alvFormControlName="companyCity"
+                       label="portal.dashboard.user-settings.company-info.company-city">
+      </alv-input-field>
+    </div>
+  </div>
+</fieldset>

@@ -1,12 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Notification } from '../../../shared/layout/notifications/notification.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserInfoRepository } from '../../../shared/backend-services/user-info/user-info-repository';
-import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
-import { User } from '../../../core/auth/user.model';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
-import { CompanyContactTemplate } from '../../../shared/backend-services/user-info/user-info.types';
 import { CompanyFormValue } from '../user-settings-mapper';
 
 @Component({
@@ -16,48 +11,28 @@ import { CompanyFormValue } from '../user-settings-mapper';
 export class CompanyInformationComponent implements OnInit {
 
   @Input()
-  userId: string;
+  parentForm: FormGroup;
 
   @Input()
   companyFormValue: CompanyFormValue;
 
-  alert: Notification;
+  companyForm: FormGroup;
 
-  companyInfoForm: FormGroup;
-
-  constructor(private fb: FormBuilder,
-              private userInfoRepository: UserInfoRepository) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.prepareForm();
-  }
+    const { companyName, companyStreet, companyHouseNr, companyZipCode, companyCity } = this.companyFormValue;
 
-  onSubmit() {
-
-  }
-
-  onReset() {
-
-  }
-
-  private prepareForm() {
-    this.companyInfoForm = this.fb.group({
-      companyName: [null, Validators.required],
-      companyStreet: [null, Validators.required],
-      companyHouseNr: [null, patternInputValidator(HOUSE_NUMBER_REGEX)],
-      companyZipCode: [null, Validators.required],
-      companyCity: [null, Validators.required]
+    this.companyForm = this.fb.group({
+      companyName: [companyName, [Validators.required]],
+      companyStreet: [companyStreet, [Validators.required]],
+      companyHouseNr: [companyHouseNr, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
+      companyZipCode: [companyZipCode, [Validators.required]],
+      companyCity: [companyCity, [Validators.required]]
     });
-  }
 
-  private patchFormValues(company: CompanyFormValue) {
-    this.companyInfoForm.patchValue({
-      companyName: company.companyName,
-      companyStreet: company.companyStreet,
-      companyHouseNr: company.companyHouseNr,
-      companyZipCode: company.companyZipCode,
-      companyCity: company.companyCity
-    });
+    this.parentForm.addControl('companyForm', this.companyForm);
+
   }
 
 }

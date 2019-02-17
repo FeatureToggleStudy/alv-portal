@@ -18,6 +18,22 @@ export interface CompanyFormValue {
   companyCity: string;
 }
 
+export const emptyContactFormValue: ContactFormValue = {
+  salutation: null,
+  firstName: null,
+  lastName: null,
+  phone: null,
+  email: null
+};
+
+export const emptyCompanyFormValue: CompanyFormValue = {
+  companyName: null,
+  companyStreet: null,
+  companyHouseNr: null,
+  companyZipCode: null,
+  companyCity: null
+};
+
 export function mapToContactFormValue(company: CompanyContactTemplateModel): ContactFormValue {
   return {
     salutation: <Salutation>company.salutation,

@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Notification } from '../../../shared/layout/notifications/notification.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { Salutation } from '../../../shared/backend-services/shared.types';
-import { UserInfoRepository } from '../../../shared/backend-services/user-info/user-info-repository';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
 import { ContactFormValue } from '../user-settings-mapper';
+import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 
 @Component({
   selector: 'alv-user-information',
@@ -16,14 +15,12 @@ import { ContactFormValue } from '../user-settings-mapper';
 export class UserInformationComponent implements OnInit {
 
   @Input()
-  userId: string;
+  parentForm: FormGroup;
 
   @Input()
   contactFormValue: ContactFormValue;
 
   contactForm: FormGroup;
-
-  alert: Notification;
 
   salutationOptions$: Observable<SelectableOption[]> = of([
     {
@@ -39,8 +36,7 @@ export class UserInformationComponent implements OnInit {
     })
   ));
 
-  constructor(private fb: FormBuilder,
-              private userInfoRepository: UserInfoRepository) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     const { salutation, firstName, lastName, email, phone } = this.contactFormValue;
@@ -49,18 +45,11 @@ export class UserInformationComponent implements OnInit {
       salutation: [salutation, [Validators.required]],
       firstName: [firstName, [Validators.required]],
       lastName: [lastName, [Validators.required]],
-      phone: [phone, [Validators.required]],
+      phone: [phone, [Validators.required, phoneInputValidator()]],
       email: [email, [Validators.required, patternInputValidator(EMAIL_REGEX)]]
     });
 
-  }
-
-  onSubmit() {
-
-  }
-
-  onReset() {
-
+    this.parentForm.addControl('contactForm', this.contactForm);
   }
 
 }

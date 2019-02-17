@@ -11,7 +11,6 @@ import { WidgetsModule } from '../widgets/widgets.module';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { ContactTemplateManagementComponent } from './contact-template-management/contact-template-management.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserInformationComponent } from './user-settings/user-information/user-information.component';
 import { CompanyInformationComponent } from './user-settings/company-information/company-information.component';
@@ -24,7 +23,6 @@ import { CompanyInformationComponent } from './user-settings/company-information
     PavDashboardComponent,
     DashboardComponent,
     AdminDashboardComponent,
-    ContactTemplateManagementComponent,
     UserSettingsComponent,
     UserInformationComponent,
     CompanyInformationComponent
