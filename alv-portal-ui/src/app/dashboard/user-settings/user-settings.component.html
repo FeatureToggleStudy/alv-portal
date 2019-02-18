@@ -26,7 +26,8 @@
       <hr class="mt-2 mb-3">
 
       <alv-collapse-panel [panelId]="'eIAM-account'"
-                          panelTitle="portal.dashboard.user-settings.eiam-account.title">
+                          panelTitle="portal.dashboard.user-settings.eiam-account.title"
+                          *ngIf="eIAMActive">
         <div class="d-block pb-4">
           <p>{{ 'portal.dashboard.user-settings.eiam-account.description' | translate }}</p>
           <ul class="alv-list">

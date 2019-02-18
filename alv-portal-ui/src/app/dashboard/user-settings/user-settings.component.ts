@@ -15,6 +15,7 @@ import {
   mapToCompanyContactTemplate
 } from './user-settings-mapper';
 import { NotificationsService } from '../../core/notifications.service';
+import { LoginService } from '../../shared/auth/login.service';
 
 @Component({
   selector: 'alv-user-settings',
@@ -33,6 +34,8 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
 
   companyOrPav: boolean;
 
+  eIAMActive: boolean;
+
   currentUser: User;
 
   currentCompany: CompanyContactTemplateModel;
@@ -45,6 +48,7 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
               private userInfoRepository: UserInfoRepository,
               private authenticationService: AuthenticationService,
               private notificationsService: NotificationsService,
+              private loginService: LoginService,
               @Inject(DOCUMENT) private document: any) {
     super();
   }
@@ -59,6 +63,7 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
       this.currentUser = user;
       this.currentCompany = company;
       this.companyOrPav = hasAnyAuthorities(user, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV]);
+      this.eIAMActive = !this.loginService.noEiam;
       if (this.companyOrPav) {
         this.initialCompanyContactValue = mapToCompanyContactFormValue(company);
       }
