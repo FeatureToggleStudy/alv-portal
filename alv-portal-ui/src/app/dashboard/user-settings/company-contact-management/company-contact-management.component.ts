@@ -1,29 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { Salutation } from '../../../shared/backend-services/shared.types';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
-import { CompanyContactFormValue } from '../user-settings-mapper';
+
+import { UserInfoRepository } from '../../../shared/backend-services/user-info/user-info-repository';
+import { NotificationsService } from '../../../core/notifications.service';
+import { takeUntil, tap } from 'rxjs/operators';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
+import { CompanyContactTemplate } from '../../../shared/backend-services/user-info/user-info.types';
+
+interface CompanyContactFormValue {
+  salutation: Salutation;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  companyName: string;
+  companyStreet: string;
+  companyHouseNr: string;
+  companyZipCode: string;
+  companyCity: string;
+}
 
 @Component({
   selector: 'alv-company-contact-management',
   templateUrl: './company-contact-management.component.html',
   styleUrls: ['./company-contact-management.component.scss']
 })
-export class CompanyContactManagementComponent implements OnInit {
+export class CompanyContactManagementComponent extends AbstractSubscriber implements OnInit {
 
-  @Input()
-  parentForm: FormGroup;
+  form: FormGroup;
 
-  @Input()
-  companyContactFormValue: CompanyContactFormValue;
-
-  userForm: FormGroup;
-
-  companyForm: FormGroup;
+  currentCompany: CompanyContactTemplateModel;
 
   salutationOptions$: Observable<SelectableOption[]> = of([
     {
@@ -39,31 +53,86 @@ export class CompanyContactManagementComponent implements OnInit {
     })
   ));
 
-  constructor(private fb: FormBuilder) { }
+  private userId: string;
+
+  constructor(private fb: FormBuilder,
+              private userInfoRepository: UserInfoRepository,
+              private authenticationService: AuthenticationService,
+              private notificationsService: NotificationsService) {
+    super();
+  }
 
   ngOnInit() {
-    const { salutation, firstName, lastName, email, phone,
-      companyName, companyStreet, companyHouseNr, companyZipCode, companyCity } = this.companyContactFormValue;
+    this.form = this.prepareForm();
 
-    this.userForm = this.fb.group({
-      salutation: [salutation, [Validators.required]],
-      firstName: [{value: firstName, disabled: true}, [Validators.required]],
-      lastName: [{value: lastName, disabled: true}, [Validators.required]],
-      phone: [phone, [Validators.required, phoneInputValidator()]],
-      email: [email, [Validators.required, patternInputValidator(EMAIL_REGEX)]]
+    combineLatest(this.authenticationService.getCurrentUser(), this.authenticationService.getCurrentCompany()).pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe(([user, company]) => {
+      this.userId = user.id;
+      this.currentCompany = company;
+      this.patchFormValues(company);
     });
+  }
 
-    this.companyForm = this.fb.group({
-      companyName: [companyName, [Validators.required]],
-      companyStreet: [companyStreet, [Validators.required]],
-      companyHouseNr: [companyHouseNr, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
-      companyZipCode: [companyZipCode, [Validators.required]],
-      companyCity: [companyCity, [Validators.required]]
+  onSubmit() {
+    const formValue = <CompanyContactFormValue>(this.form.value);
+    const companyContactTemplate = this.mapToCompanyContactTemplate(this.currentCompany.companyId, formValue);
+    this.userInfoRepository.createCompanyContactTemplate(this.userId, companyContactTemplate).pipe(
+      tap(() => this.authenticationService.updateCompanyContactTemplate(companyContactTemplate))
+    ).subscribe(() => {
+      this.notificationsService.success('portal.dashboard.user-settings.message.success', false);
+    }, () => {
+      this.notificationsService.error('portal.dashboard.user-settings.message.failure', false);
     });
+  }
 
-    this.parentForm.addControl('userForm', this.userForm);
+  onReset() {
+    this.form.reset();
+    this.patchFormValues(this.currentCompany);
+  }
 
-    this.parentForm.addControl('companyForm', this.companyForm);
+  private prepareForm() {
+    return this.fb.group({
+      salutation: [null, [Validators.required]],
+      firstName: [{value: null, disabled: true}, [Validators.required]],
+      lastName: [{value: null, disabled: true}, [Validators.required]],
+      phone: [null, [Validators.required, phoneInputValidator()]],
+      email: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
+      companyName: [null, [Validators.required]],
+      companyStreet: [null, [Validators.required]],
+      companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
+      companyZipCode: [null, [Validators.required]],
+      companyCity: [null, [Validators.required]]
+    });
+  }
+
+  private patchFormValues(company: CompanyContactTemplateModel) {
+    this.form.patchValue({
+      salutation: <Salutation>company.salutation,
+      firstName: company.firstName,
+      lastName: company.lastName,
+      phone: company.phone,
+      email: company.email,
+      companyName: company.companyName,
+      companyStreet: company.companyStreet,
+      companyHouseNr: company.companyHouseNr,
+      companyZipCode: company.companyZipCode,
+      companyCity: company.companyCity
+    });
+  }
+
+  private mapToCompanyContactTemplate(companyId: string, companyContactFormValue: CompanyContactFormValue): CompanyContactTemplate {
+    return {
+      companyId: companyId,
+      companyName: companyContactFormValue.companyName,
+      companyStreet: companyContactFormValue.companyStreet,
+      companyHouseNr: companyContactFormValue.companyHouseNr,
+      companyZipCode: companyContactFormValue.companyZipCode,
+      companyCity: companyContactFormValue.companyCity,
+      phone: companyContactFormValue.phone,
+      email: companyContactFormValue.email,
+      salutation: <Salutation>companyContactFormValue.salutation
+    };
   }
 
 }

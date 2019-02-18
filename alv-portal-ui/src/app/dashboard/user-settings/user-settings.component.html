@@ -49,25 +49,7 @@
                           [isCollapsed]="true"
                           panelTitle="portal.dashboard.user-settings.main.panel"
                           *ngIf="companyOrPav">
-
-        <form (validSubmit)="onSubmit()"
-              [formGroup]="form"
-              alvFormSubmitValidation>
-
-          <alv-company-contact-management [parentForm]="form"
-                                          [companyContactFormValue]="initialCompanyContactValue">
-          </alv-company-contact-management>
-          <div class="d-flex">
-            <button class="btn btn-primary"
-                    type="submit">{{'entity.action.save' | translate }}
-            </button>
-            <button (click)="onReset()"
-                    class="btn btn-text"
-                    type="button">{{'entity.action.cancel' | translate }}
-            </button>
-          </div>
-        </form>
-
+          <alv-company-contact-management></alv-company-contact-management>
       </alv-collapse-panel>
     </div>
 
