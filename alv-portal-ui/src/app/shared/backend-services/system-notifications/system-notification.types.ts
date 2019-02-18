@@ -1,4 +1,4 @@
-import { now } from '../../forms/input/ngb-date-utils';
+import { now, toISOLocalDateTime } from '../../forms/input/ngb-date-utils';
 
 export interface SystemNotificationDto {
   id: string;
@@ -28,8 +28,8 @@ export function empty(): SystemNotificationDto {
     text_it: '',
     text_en: '',
     type: null,
-    startDate: now.toLocaleString(),
-    endDate: now.toLocaleString(),
+    startDate: toISOLocalDateTime(now(), '0', '0'),
+    endDate: toISOLocalDateTime(now(), '0', '0'),
     active: false
   };
 }
