@@ -48,6 +48,7 @@
             alvFormSubmitValidation>
 
         <alv-collapse-panel [panelId]="'user-information'"
+                            [isCollapsed]="true"
                             panelTitle="portal.dashboard.user-settings.user-info.title"
                             *ngIf="companyOrPav">
           <alv-user-information
@@ -70,6 +71,7 @@
         </alv-collapse-panel>
 
         <alv-collapse-panel [panelId]="'company-information'"
+                            [isCollapsed]="true"
                             panelTitle="portal.dashboard.user-settings.company-info.title"
                             *ngIf="companyOrPav">
           <alv-company-information
