@@ -17,6 +17,7 @@ import {
 } from '../../shared/layout/notifications/notification.model';
 import { AddBlacklistEntryModalComponent } from './add-blacklist-entry-modal/add-blacklist-entry-modal.component';
 import { takeUntil } from 'rxjs/operators';
+import { SHORT_DATE_TIME_FORMAT } from '../../shared/pipes/locale-aware-date.pipe';
 
 @Component({
   selector: 'alv-user-info',
@@ -24,9 +25,11 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class BlacklistComponent extends AbstractSubscriber implements OnInit {
 
-  public blacklistedAgents$: Observable<BlacklistedAgent[]>;
+  blacklistedAgents$: Observable<BlacklistedAgent[]>;
 
-  public alert: Notification = null;
+  alert: Notification = null;
+
+  SHORT_DATE_TIME_FORMAT = SHORT_DATE_TIME_FORMAT;
 
   private readonly ALERTS = {
     techError: {

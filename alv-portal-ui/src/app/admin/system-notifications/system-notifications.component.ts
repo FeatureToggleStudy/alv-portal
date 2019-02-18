@@ -10,6 +10,7 @@ import { ModalService } from '../../shared/layout/modal/modal.service';
 import { SystemNotificationModalComponent } from './modal/system-notification-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
+import { SHORT_DATE_TIME_FORMAT } from '../../shared/pipes/locale-aware-date.pipe';
 
 @Component({
   selector: 'alv-system-notifications',
@@ -18,7 +19,7 @@ import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/conf
 export class SystemNotificationsComponent extends AbstractSubscriber implements OnInit {
 
   systemNotifications$ = new Subject<SystemNotificationDto[]>();
-
+  SHORT_DATE_TIME_FORMAT = SHORT_DATE_TIME_FORMAT;
   tableHeaders = [
     'portal.admin.system-notifications.title',
     'portal.admin.system-notifications.type',
