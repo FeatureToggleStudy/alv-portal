@@ -2,15 +2,12 @@ import { Salutation } from '../../shared/backend-services/shared.types';
 import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
 import { CompanyContactTemplate } from '../../shared/backend-services/user-info/user-info.types';
 
-export interface UserInfoFormValue {
+export interface CompanyContactFormValue {
   salutation: Salutation;
   firstName: string;
   lastName: string;
   phone: string;
   email: string;
-}
-
-export interface CompanyInfoFormValue {
   companyName: string;
   companyStreet: string;
   companyHouseNr: string;
@@ -18,15 +15,12 @@ export interface CompanyInfoFormValue {
   companyCity: string;
 }
 
-export const emptyUserFormValue: UserInfoFormValue = {
+export const emptyCompanyContactFormValue: CompanyContactFormValue = {
   salutation: null,
   firstName: null,
   lastName: null,
   phone: null,
-  email: null
-};
-
-export const emptyCompanyFormValue: CompanyInfoFormValue = {
+  email: null,
   companyName: null,
   companyStreet: null,
   companyHouseNr: null,
@@ -34,18 +28,13 @@ export const emptyCompanyFormValue: CompanyInfoFormValue = {
   companyCity: null
 };
 
-export function mapToUserInfoFormValue(company: CompanyContactTemplateModel): UserInfoFormValue {
+export function mapToCompanyContactFormValue(company: CompanyContactTemplateModel): CompanyContactFormValue {
   return {
     salutation: <Salutation>company.salutation,
     firstName: company.firstName,
     lastName: company.lastName,
     phone: company.phone,
-    email: company.email
-  };
-}
-
-export function mapToCompanyInfoFormValue(company: CompanyContactTemplateModel): CompanyInfoFormValue {
-  return {
+    email: company.email,
     companyName: company.companyName,
     companyStreet: company.companyStreet,
     companyHouseNr: company.companyHouseNr,
@@ -54,16 +43,16 @@ export function mapToCompanyInfoFormValue(company: CompanyContactTemplateModel):
   };
 }
 
-export function mapToCompanyContactTemplate(companyId: string, user: UserInfoFormValue, company: CompanyInfoFormValue): CompanyContactTemplate {
+export function mapToCompanyContactTemplate(companyId: string, companyContactFormValue: CompanyContactFormValue): CompanyContactTemplate {
   return {
     companyId: companyId,
-    companyName: company.companyName,
-    companyStreet: company.companyStreet,
-    companyHouseNr: company.companyHouseNr,
-    companyZipCode: company.companyZipCode,
-    companyCity: company.companyCity,
-    phone: user.phone,
-    email: user.email,
-    salutation: <Salutation>user.salutation
+    companyName: companyContactFormValue.companyName,
+    companyStreet: companyContactFormValue.companyStreet,
+    companyHouseNr: companyContactFormValue.companyHouseNr,
+    companyZipCode: companyContactFormValue.companyZipCode,
+    companyCity: companyContactFormValue.companyCity,
+    phone: companyContactFormValue.phone,
+    email: companyContactFormValue.email,
+    salutation: <Salutation>companyContactFormValue.salutation
   };
 }

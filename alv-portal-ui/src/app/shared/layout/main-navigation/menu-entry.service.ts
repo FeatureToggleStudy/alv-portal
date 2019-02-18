@@ -90,7 +90,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     iconClass: 'address-card',
     labelKey: 'portal.navigation.menu-entry.user-settings',
     path: ['dashboard', 'user-settings'],
-    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_JOB_SEEKER])
+    userPredicate: isAuthenticatedUser
   },
   {
     id: 'user-info',

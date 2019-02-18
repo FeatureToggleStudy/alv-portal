@@ -44,57 +44,30 @@
         </div>
       </alv-collapse-panel>
 
-      <form [formGroup]="form"
-            alvFormSubmitValidation>
+      <alv-collapse-panel [panelId]="'formular-something'"
+                          [isCollapsed]="true"
+                          panelTitle="portal.dashboard.user-settings.user-info.title"
+                          *ngIf="companyOrPav">
 
-        <alv-collapse-panel [panelId]="'user-information'"
-                            [isCollapsed]="true"
-                            panelTitle="portal.dashboard.user-settings.user-info.title"
-                            *ngIf="companyOrPav">
-          <alv-user-information
-            [parentForm]="form"
-            [userFormValue]="initialUserValue">
-          </alv-user-information>
+        <form (validSubmit)="onSubmit()"
+              [formGroup]="form"
+              alvFormSubmitValidation>
+
+          <alv-company-contact-management [parentForm]="form"
+                                          [companyContactFormValue]="initialCompanyContactValue">
+          </alv-company-contact-management>
           <div class="d-flex">
-            <div class="flex-grow-1">
-            </div>
-            <button (click)="onResetUser()"
+            <button class="btn btn-primary"
+                    type="submit">{{'entity.action.save' | translate }}
+            </button>
+            <button (click)="onReset()"
                     class="btn btn-text"
                     type="button">{{'entity.action.cancel' | translate }}
             </button>
-            <button (click)="onSubmitUser()"
-                    class="btn btn-primary ml-1"
-                    type="submit">{{'entity.action.save' | translate }}
-            </button>
           </div>
+        </form>
 
-        </alv-collapse-panel>
-
-        <alv-collapse-panel [panelId]="'company-information'"
-                            [isCollapsed]="true"
-                            panelTitle="portal.dashboard.user-settings.company-info.title"
-                            *ngIf="companyOrPav">
-          <alv-company-information
-            [parentForm]="form"
-            [companyFormValue]="initialCompanyValue">
-          </alv-company-information>
-          <div class="d-flex">
-            <div class="flex-grow-1">
-            </div>
-            <button (click)="onResetCompany()"
-                    class="btn btn-text"
-                    type="button">{{'entity.action.cancel' | translate }}
-            </button>
-            <button (click)="onSubmitCompany()"
-                    class="btn btn-primary ml-1"
-                    type="submit">{{'entity.action.save' | translate }}
-            </button>
-          </div>
-
-        </alv-collapse-panel>
-
-      </form>
-
+      </alv-collapse-panel>
     </div>
 
     <!-------------Right panel-->

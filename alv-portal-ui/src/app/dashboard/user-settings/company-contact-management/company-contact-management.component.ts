@@ -3,24 +3,26 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { Salutation } from '../../../shared/backend-services/shared.types';
-import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
-import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
-import { UserInfoFormValue } from '../user-settings-mapper';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
+import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
+import { CompanyContactFormValue } from '../user-settings-mapper';
 
 @Component({
-  selector: 'alv-user-information',
-  templateUrl: './user-information.component.html'
+  selector: 'alv-company-contact-management',
+  templateUrl: './company-contact-management.component.html'
 })
-export class UserInformationComponent implements OnInit {
+export class CompanyContactManagementComponent implements OnInit {
 
   @Input()
   parentForm: FormGroup;
 
   @Input()
-  userFormValue: UserInfoFormValue;
+  companyContactFormValue: CompanyContactFormValue;
 
   userForm: FormGroup;
+
+  companyForm: FormGroup;
 
   salutationOptions$: Observable<SelectableOption[]> = of([
     {
@@ -39,7 +41,8 @@ export class UserInformationComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    const { salutation, firstName, lastName, email, phone } = this.userFormValue;
+    const { salutation, firstName, lastName, email, phone,
+      companyName, companyStreet, companyHouseNr, companyZipCode, companyCity } = this.companyContactFormValue;
 
     this.userForm = this.fb.group({
       salutation: [salutation, [Validators.required]],
@@ -49,7 +52,17 @@ export class UserInformationComponent implements OnInit {
       email: [email, [Validators.required, patternInputValidator(EMAIL_REGEX)]]
     });
 
+    this.companyForm = this.fb.group({
+      companyName: [companyName, [Validators.required]],
+      companyStreet: [companyStreet, [Validators.required]],
+      companyHouseNr: [companyHouseNr, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
+      companyZipCode: [companyZipCode, [Validators.required]],
+      companyCity: [companyCity, [Validators.required]]
+    });
+
     this.parentForm.addControl('userForm', this.userForm);
+
+    this.parentForm.addControl('companyForm', this.companyForm);
   }
 
 }

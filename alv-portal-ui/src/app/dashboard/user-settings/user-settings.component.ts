@@ -9,15 +9,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserInfoRepository } from '../../shared/backend-services/user-info/user-info-repository';
 import { combineLatest } from 'rxjs';
 import {
-  CompanyInfoFormValue,
-  UserInfoFormValue,
-  emptyCompanyFormValue,
-  emptyUserFormValue,
-  mapToCompanyContactTemplate,
-  mapToCompanyInfoFormValue,
-  mapToUserInfoFormValue
+  CompanyContactFormValue,
+  emptyCompanyContactFormValue,
+  mapToCompanyContactFormValue,
+  mapToCompanyContactTemplate
 } from './user-settings-mapper';
-import { CompanyContactTemplate } from '../../shared/backend-services/user-info/user-info.types';
 import { NotificationsService } from '../../core/notifications.service';
 
 @Component({
@@ -43,9 +39,7 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
 
   form: FormGroup;
 
-  initialUserValue: UserInfoFormValue = emptyUserFormValue;
-
-  initialCompanyValue: CompanyInfoFormValue = emptyCompanyFormValue;
+  initialCompanyContactValue: CompanyContactFormValue = emptyCompanyContactFormValue;
 
   constructor(private fb: FormBuilder,
               private userInfoRepository: UserInfoRepository,
@@ -65,7 +59,9 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
       this.currentUser = user;
       this.currentCompany = company;
       this.companyOrPav = hasAnyAuthorities(user, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV]);
-      this.setInitialValues(company);
+      if (this.companyOrPav) {
+        this.initialCompanyContactValue = mapToCompanyContactFormValue(company);
+      }
     });
   }
 
@@ -73,49 +69,21 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
     this.document.location.href = '/authentication/profile';
   }
 
-  onSubmitUser() {
-    const userFormValue = <UserInfoFormValue>this.form.controls.userForm.value;
-    this.form.controls.companyForm.patchValue(this.initialCompanyValue);
-    const companyContactTemplate = mapToCompanyContactTemplate(
-      this.currentCompany.companyId, userFormValue, this.initialCompanyValue);
-    this.submit(companyContactTemplate);
-  }
-
-  onSubmitCompany() {
-    const companyFormValue = <CompanyInfoFormValue>this.form.controls.companyForm.value;
-    this.form.controls.userForm.patchValue(this.initialUserValue);
-    const companyContactTemplate = mapToCompanyContactTemplate(
-      this.currentCompany.companyId, this.initialUserValue, companyFormValue);
-    this.submit(companyContactTemplate);
-  }
-
-  onResetUser() {
-    if (this.form.controls.userForm) {
-      this.form.controls.userForm.reset(this.initialUserValue);
-    }
-  }
-
-  onResetCompany() {
-    if (this.form.controls.companyForm) {
-      this.form.controls.companyForm.reset(this.initialCompanyValue);
-    }
-  }
-
-  private setInitialValues(company: CompanyContactTemplateModel) {
-    if (this.companyOrPav) {
-      this.initialUserValue = mapToUserInfoFormValue(company);
-      this.initialCompanyValue = mapToCompanyInfoFormValue(company);
-    }
-  }
-
-  private submit(company: CompanyContactTemplate) {
-    this.userInfoRepository.createCompanyContactTemplate(this.currentUser.id, company).pipe(
-      tap(() => this.authenticationService.updateCompanyContactTemplate(company))
+  onSubmit() {
+    const formValue = <CompanyContactFormValue>{...this.form.controls.userForm.value, ...this.form.controls.companyForm.value};
+    const companyContactTemplate = mapToCompanyContactTemplate(this.currentCompany.companyId, formValue);
+    this.userInfoRepository.createCompanyContactTemplate(this.currentUser.id, companyContactTemplate).pipe(
+      tap(() => this.authenticationService.updateCompanyContactTemplate(companyContactTemplate))
     ).subscribe(() => {
       this.notificationsService.success('portal.dashboard.user-settings.message.success', false);
     }, () => {
       this.notificationsService.error('portal.dashboard.user-settings.message.failure', false);
     });
+  }
+
+  onReset() {
+    this.form.controls.userForm.reset(this.initialCompanyContactValue);
+    this.form.controls.companyForm.reset(this.initialCompanyContactValue);
   }
 
 }

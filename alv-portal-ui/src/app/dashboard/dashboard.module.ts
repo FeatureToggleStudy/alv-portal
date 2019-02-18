@@ -12,8 +12,7 @@ import { CompanyDashboardComponent } from './company-dashboard/company-dashboard
 import { JobSeekerDashboardComponent } from './job-seeker-dashboard/job-seeker-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
-import { UserInformationComponent } from './user-settings/user-information/user-information.component';
-import { CompanyInformationComponent } from './user-settings/company-information/company-information.component';
+import { CompanyContactManagementComponent } from './user-settings/company-contact-management/company-contact-management.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +23,7 @@ import { CompanyInformationComponent } from './user-settings/company-information
     DashboardComponent,
     AdminDashboardComponent,
     UserSettingsComponent,
-    UserInformationComponent,
-    CompanyInformationComponent
+    CompanyContactManagementComponent
   ],
   imports: [
     ReactiveFormsModule,
