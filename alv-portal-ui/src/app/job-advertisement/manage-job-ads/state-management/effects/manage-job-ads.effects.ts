@@ -7,6 +7,7 @@ import {
   concatMap,
   debounceTime,
   map,
+  skipUntil,
   switchMap,
   take,
   takeUntil,
@@ -17,7 +18,8 @@ import { Action, select, Store } from '@ngrx/store';
 import { asyncScheduler, Observable, of } from 'rxjs';
 import {
   EffectErrorOccurredAction,
-  JOB_ADVERTISEMENT_CHANGED, JobAdvertisementUpdatedAction
+  JOB_ADVERTISEMENT_CHANGED,
+  JobAdvertisementUpdatedAction
 } from '../../../../core/state-management/actions/core.actions';
 import {
   getManagedJobAdsSearchFilter,
@@ -54,6 +56,8 @@ export class ManageJobAdsEffects {
   @Effect()
   jobAdvertisementChanged$: Observable<Action> = this.actions$.pipe(
     ofType(JOB_ADVERTISEMENT_CHANGED),
+    // only apply the filter action if it has been applied before
+    skipUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
     map((action: JobAdvertisementUpdatedAction) => action.payload),
     withLatestFrom(this.store.pipe(select(getManagedJobAdsSearchFilter))),
     map(([action, filter]) => {
@@ -74,6 +78,7 @@ export class ManageJobAdsEffects {
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       );
     }),
+    // unsubscribe the initJobSearch$ once we have applied a filter
     takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
   );
 
