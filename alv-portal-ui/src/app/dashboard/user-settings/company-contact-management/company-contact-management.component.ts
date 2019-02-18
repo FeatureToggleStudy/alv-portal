@@ -10,7 +10,8 @@ import { CompanyContactFormValue } from '../user-settings-mapper';
 
 @Component({
   selector: 'alv-company-contact-management',
-  templateUrl: './company-contact-management.component.html'
+  templateUrl: './company-contact-management.component.html',
+  styleUrls: ['./company-contact-management.component.scss']
 })
 export class CompanyContactManagementComponent implements OnInit {
 

@@ -1,6 +1,6 @@
 <p>{{ 'portal.dashboard.user-settings.main.help' | translate }}</p>
 
-<h4>{{ 'portal.dashboard.user-settings.user-info.title' | translate }}</h4>
+<legend class="label-size">{{ 'portal.dashboard.user-settings.user-info.title' | translate }}</legend>
 <fieldset [formGroup]="userForm">
   <alv-select
     [options$]="salutationOptions$"
@@ -26,7 +26,7 @@
   </alv-input-field>
 </fieldset>
 
-<h4>{{ 'portal.dashboard.user-settings.company-info.title' | translate }}</h4>
+<legend class="label-size">{{ 'portal.dashboard.user-settings.company-info.title' | translate }}</legend>
 <fieldset [formGroup]="companyForm">
   <alv-input-field alvFormControlName="companyName"
                    label="portal.dashboard.user-settings.company-info.company-name">
