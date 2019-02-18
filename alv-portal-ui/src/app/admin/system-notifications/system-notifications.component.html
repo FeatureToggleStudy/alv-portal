@@ -16,8 +16,8 @@
       <td>{{'systemNotificationsManagement.systemnotification.type.' + systemNotification.type.toLowerCase() |
         translate}}
       </td>
-      <td>{{systemNotification.startDate | localeAwareDate:'medium' }}</td>
-      <td>{{systemNotification.endDate | localeAwareDate:'medium' }}</td>
+      <td>{{systemNotification.startDate | localeAwareDate:SHORT_DATE_TIME_FORMAT }}</td>
+      <td>{{systemNotification.endDate | localeAwareDate:SHORT_DATE_TIME_FORMAT }}</td>
       <th>
         <button class="btn btn-sm"
                 [ngClass]="{'btn-success': systemNotification.active, 'btn-danger': !systemNotification.active}"
