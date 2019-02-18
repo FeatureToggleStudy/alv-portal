@@ -36,7 +36,6 @@
                              [focusFirst]="true"
                              [loadItems]="loadLocalitiesFn"
                              label="portal.job-ad.search.query-panel.localities.placeholder"
-                             [ngbTooltip]="localitiesTP"
                              placement="bottom"
                              class="append-button narrow-form">
         </alv-multi-typeahead>
@@ -45,9 +44,6 @@
                                     (localitySelect)="onGeoSelection($event)">
         </alv-geo-location-selection>
 
-        <ng-template #localitiesTP>
-          {{ 'portal.job-ad.search.query-panel.localities.tooltip' | translate}}
-        </ng-template>
       </div>
     </div>
   </div>
