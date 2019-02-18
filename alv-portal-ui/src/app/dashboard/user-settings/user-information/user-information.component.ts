@@ -5,7 +5,7 @@ import { SelectableOption } from '../../../shared/forms/input/selectable-option.
 import { Salutation } from '../../../shared/backend-services/shared.types';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
-import { ContactFormValue } from '../user-settings-mapper';
+import { UserInfoFormValue } from '../user-settings-mapper';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 
 @Component({
@@ -18,9 +18,9 @@ export class UserInformationComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  contactFormValue: ContactFormValue;
+  userFormValue: UserInfoFormValue;
 
-  contactForm: FormGroup;
+  userForm: FormGroup;
 
   salutationOptions$: Observable<SelectableOption[]> = of([
     {
@@ -39,17 +39,17 @@ export class UserInformationComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    const { salutation, firstName, lastName, email, phone } = this.contactFormValue;
+    const { salutation, firstName, lastName, email, phone } = this.userFormValue;
 
-    this.contactForm = this.fb.group({
+    this.userForm = this.fb.group({
       salutation: [salutation, [Validators.required]],
-      firstName: [firstName, [Validators.required]],
-      lastName: [lastName, [Validators.required]],
+      firstName: [{value: firstName, disabled: true}, [Validators.required]],
+      lastName: [{value: lastName, disabled: true}, [Validators.required]],
       phone: [phone, [Validators.required, phoneInputValidator()]],
       email: [email, [Validators.required, patternInputValidator(EMAIL_REGEX)]]
     });
 
-    this.parentForm.addControl('contactForm', this.contactForm);
+    this.parentForm.addControl('userForm', this.userForm);
   }
 
 }

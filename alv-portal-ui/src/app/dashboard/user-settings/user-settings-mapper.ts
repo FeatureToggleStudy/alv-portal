@@ -2,7 +2,7 @@ import { Salutation } from '../../shared/backend-services/shared.types';
 import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
 import { CompanyContactTemplate } from '../../shared/backend-services/user-info/user-info.types';
 
-export interface ContactFormValue {
+export interface UserInfoFormValue {
   salutation: Salutation;
   firstName: string;
   lastName: string;
@@ -10,7 +10,7 @@ export interface ContactFormValue {
   email: string;
 }
 
-export interface CompanyFormValue {
+export interface CompanyInfoFormValue {
   companyName: string;
   companyStreet: string;
   companyHouseNr: string;
@@ -18,7 +18,7 @@ export interface CompanyFormValue {
   companyCity: string;
 }
 
-export const emptyContactFormValue: ContactFormValue = {
+export const emptyUserFormValue: UserInfoFormValue = {
   salutation: null,
   firstName: null,
   lastName: null,
@@ -26,7 +26,7 @@ export const emptyContactFormValue: ContactFormValue = {
   email: null
 };
 
-export const emptyCompanyFormValue: CompanyFormValue = {
+export const emptyCompanyFormValue: CompanyInfoFormValue = {
   companyName: null,
   companyStreet: null,
   companyHouseNr: null,
@@ -34,7 +34,7 @@ export const emptyCompanyFormValue: CompanyFormValue = {
   companyCity: null
 };
 
-export function mapToContactFormValue(company: CompanyContactTemplateModel): ContactFormValue {
+export function mapToUserInfoFormValue(company: CompanyContactTemplateModel): UserInfoFormValue {
   return {
     salutation: <Salutation>company.salutation,
     firstName: company.firstName,
@@ -44,7 +44,7 @@ export function mapToContactFormValue(company: CompanyContactTemplateModel): Con
   };
 }
 
-export function mapToCompanyFormValue(company: CompanyContactTemplateModel): CompanyFormValue {
+export function mapToCompanyInfoFormValue(company: CompanyContactTemplateModel): CompanyInfoFormValue {
   return {
     companyName: company.companyName,
     companyStreet: company.companyStreet,
@@ -54,7 +54,7 @@ export function mapToCompanyFormValue(company: CompanyContactTemplateModel): Com
   };
 }
 
-export function mapToCompanyContactTemplate(companyId: string, contact: ContactFormValue, company: CompanyFormValue): CompanyContactTemplate {
+export function mapToCompanyContactTemplate(companyId: string, user: UserInfoFormValue, company: CompanyInfoFormValue): CompanyContactTemplate {
   return {
     companyId: companyId,
     companyName: company.companyName,
@@ -62,8 +62,8 @@ export function mapToCompanyContactTemplate(companyId: string, contact: ContactF
     companyHouseNr: company.companyHouseNr,
     companyZipCode: company.companyZipCode,
     companyCity: company.companyCity,
-    phone: contact.phone,
-    email: contact.email,
-    salutation: <Salutation>contact.salutation
-  }
+    phone: user.phone,
+    email: user.email,
+    salutation: <Salutation>user.salutation
+  };
 }

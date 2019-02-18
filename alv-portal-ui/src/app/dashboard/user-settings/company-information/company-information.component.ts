@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
-import { CompanyFormValue } from '../user-settings-mapper';
+import { CompanyInfoFormValue } from '../user-settings-mapper';
 
 @Component({
   selector: 'alv-company-information',
@@ -14,7 +14,7 @@ export class CompanyInformationComponent implements OnInit {
   parentForm: FormGroup;
 
   @Input()
-  companyFormValue: CompanyFormValue;
+  companyFormValue: CompanyInfoFormValue;
 
   companyForm: FormGroup;
 

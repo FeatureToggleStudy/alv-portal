@@ -9,13 +9,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserInfoRepository } from '../../shared/backend-services/user-info/user-info-repository';
 import { combineLatest } from 'rxjs';
 import {
-  CompanyFormValue,
-  ContactFormValue, emptyCompanyFormValue, emptyContactFormValue, mapToCompanyContactTemplate,
-  mapToCompanyFormValue,
-  mapToContactFormValue
+  CompanyInfoFormValue,
+  UserInfoFormValue,
+  emptyCompanyFormValue,
+  emptyUserFormValue,
+  mapToCompanyContactTemplate,
+  mapToCompanyInfoFormValue,
+  mapToUserInfoFormValue
 } from './user-settings-mapper';
 import { CompanyContactTemplate } from '../../shared/backend-services/user-info/user-info.types';
-import { Notification, NotificationType } from '../../shared/layout/notifications/notification.model';
+import { NotificationsService } from '../../core/notifications.service';
 
 @Component({
   selector: 'alv-user-settings',
@@ -34,23 +37,20 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
 
   companyOrPav: boolean;
 
-  titleName: string;
-
   currentUser: User;
 
   currentCompany: CompanyContactTemplateModel;
 
   form: FormGroup;
 
-  initialContactValue: ContactFormValue = emptyContactFormValue;
+  initialUserValue: UserInfoFormValue = emptyUserFormValue;
 
-  initialCompanyValue: CompanyFormValue = emptyCompanyFormValue;
-
-  alert: Notification;
+  initialCompanyValue: CompanyInfoFormValue = emptyCompanyFormValue;
 
   constructor(private fb: FormBuilder,
               private userInfoRepository: UserInfoRepository,
               private authenticationService: AuthenticationService,
+              private notificationsService: NotificationsService,
               @Inject(DOCUMENT) private document: any) {
     super();
   }
@@ -64,13 +64,8 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
     ).subscribe(([user, company]) => {
       this.currentUser = user;
       this.currentCompany = company;
-      this.titleName = user.displayName;
       this.companyOrPav = hasAnyAuthorities(user, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV]);
-      if(this.companyOrPav) {
-        this.initialContactValue = mapToContactFormValue(this.currentCompany);
-        this.initialCompanyValue = mapToCompanyFormValue(this.currentCompany);
-        this.addCompanyToTitle();
-      }
+      this.setInitialValues(company);
     });
   }
 
@@ -78,44 +73,49 @@ export class UserSettingsComponent extends AbstractSubscriber implements OnInit 
     this.document.location.href = '/authentication/profile';
   }
 
-  onSubmit() {
-    this.alert = null;
-    const contactFormValue = <ContactFormValue>this.form.controls.contactForm.value;
-    const companyFormValue = <CompanyFormValue>this.form.controls.companyForm.value;
-    const companyContactTemplate: CompanyContactTemplate = mapToCompanyContactTemplate(this.currentCompany.companyId, contactFormValue, companyFormValue);
-    this.userInfoRepository.createCompanyContactTemplate(this.currentUser.id, companyContactTemplate).pipe(
-      tap(() => this.authenticationService.updateCompanyContactTemplate(companyContactTemplate))
-    ).subscribe(() => {
-      this.alert = {
-        type: NotificationType.SUCCESS,
-        messageKey: 'portal.dashboard.user-settings.message.success',
-        isSticky: true
-      };
-    }, () => {
-      this.alert = {
-        type: NotificationType.ERROR,
-        messageKey: 'portal.dashboard.user-settings.message.failure',
-        isSticky: true
-      };
-    });
+  onSubmitUser() {
+    const userFormValue = <UserInfoFormValue>this.form.controls.userForm.value;
+    this.form.controls.companyForm.patchValue(this.initialCompanyValue);
+    const companyContactTemplate = mapToCompanyContactTemplate(
+      this.currentCompany.companyId, userFormValue, this.initialCompanyValue);
+    this.submit(companyContactTemplate);
   }
 
-  onResetContact() {
-    if(this.form.controls.contactForm) {
-      this.form.controls.contactForm.reset();
-      this.form.controls.contactForm.patchValue(this.initialContactValue);
+  onSubmitCompany() {
+    const companyFormValue = <CompanyInfoFormValue>this.form.controls.companyForm.value;
+    this.form.controls.userForm.patchValue(this.initialUserValue);
+    const companyContactTemplate = mapToCompanyContactTemplate(
+      this.currentCompany.companyId, this.initialUserValue, companyFormValue);
+    this.submit(companyContactTemplate);
+  }
+
+  onResetUser() {
+    if (this.form.controls.userForm) {
+      this.form.controls.userForm.reset(this.initialUserValue);
     }
   }
 
   onResetCompany() {
-    if(this.form.controls.companyForm) {
-      this.form.controls.companyForm.reset();
-      this.form.controls.companyForm.patchValue(this.initialCompanyValue);
+    if (this.form.controls.companyForm) {
+      this.form.controls.companyForm.reset(this.initialCompanyValue);
     }
   }
 
-  private addCompanyToTitle() {
-    this.titleName = `${this.titleName}, ${this.currentCompany.companyName}`;
+  private setInitialValues(company: CompanyContactTemplateModel) {
+    if (this.companyOrPav) {
+      this.initialUserValue = mapToUserInfoFormValue(company);
+      this.initialCompanyValue = mapToCompanyInfoFormValue(company);
+    }
+  }
+
+  private submit(company: CompanyContactTemplate) {
+    this.userInfoRepository.createCompanyContactTemplate(this.currentUser.id, company).pipe(
+      tap(() => this.authenticationService.updateCompanyContactTemplate(company))
+    ).subscribe(() => {
+      this.notificationsService.success('portal.dashboard.user-settings.message.success', false);
+    }, () => {
+      this.notificationsService.error('portal.dashboard.user-settings.message.failure', false);
+    });
   }
 
 }

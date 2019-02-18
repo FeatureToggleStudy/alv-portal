@@ -1,18 +1,29 @@
-<div class="container pt-md-4 pt-3 px-3">
-  <h2 class="panel-title">
-    <fa-icon class="panel-icon"
-             [icon]="['fas', 'address-card']"></fa-icon>
-    {{ 'portal.dashboard.user-settings.main.title' | translate }}
-    {{ titleName }}
-  </h2>
+<div class="container-fluid">
 
-  <alv-alert (dismiss)="alert = null"
-             *ngIf="alert"
-             [notification]="alert">
-  </alv-alert>
+  <alv-two-column-layout>
 
-  <div class="row">
-    <div class="col-md-6">
+    <!-------------Left panel-->
+    <div class="left-column">
+      <div class="d-flex">
+        <div class="flex-grow-1"></div>
+        <a class="btn btn-text btn-text-icon mb-3 d-none d-md-block d-print-none"
+           routerLink="/home">
+          <fa-icon class="mr-1"
+                   [icon]="['fas', 'caret-left']"></fa-icon>
+          {{'entity.action.back' | translate}}
+        </a>
+      </div>
+    </div>
+
+    <!-------------Main screen-->
+    <div class="main-column">
+      <h2>
+        <fa-icon class="text-primary"
+                 [icon]="['fas', 'address-card']"></fa-icon>
+        {{ 'portal.dashboard.user-settings.main.title' | translate }}
+        {{ companyOrPav ? currentUser.displayName + ', ' + currentCompany.companyName : currentUser?.displayName }}
+      </h2>
+      <hr class="mt-2 mb-3">
 
       <alv-collapse-panel [panelId]="'eIAM-account'"
                           panelTitle="portal.dashboard.user-settings.eiam-account.title">
@@ -33,25 +44,25 @@
         </div>
       </alv-collapse-panel>
 
-      <form (validSubmit)="onSubmit()"
-            [formGroup]="form"
+      <form [formGroup]="form"
             alvFormSubmitValidation>
 
         <alv-collapse-panel [panelId]="'user-information'"
                             panelTitle="portal.dashboard.user-settings.user-info.title"
                             *ngIf="companyOrPav">
           <alv-user-information
-                       [parentForm]="form"
-                       [contactFormValue]="initialContactValue">
+            [parentForm]="form"
+            [userFormValue]="initialUserValue">
           </alv-user-information>
           <div class="d-flex">
             <div class="flex-grow-1">
             </div>
-            <button (click)="onResetContact()"
+            <button (click)="onResetUser()"
                     class="btn btn-text"
                     type="button">{{'entity.action.cancel' | translate }}
             </button>
-            <button class="btn btn-primary ml-1"
+            <button (click)="onSubmitUser()"
+                    class="btn btn-primary ml-1"
                     type="submit">{{'entity.action.save' | translate }}
             </button>
           </div>
@@ -62,8 +73,8 @@
                             panelTitle="portal.dashboard.user-settings.company-info.title"
                             *ngIf="companyOrPav">
           <alv-company-information
-                       [parentForm]="form"
-                       [companyFormValue]="initialCompanyValue">
+            [parentForm]="form"
+            [companyFormValue]="initialCompanyValue">
           </alv-company-information>
           <div class="d-flex">
             <div class="flex-grow-1">
@@ -72,7 +83,8 @@
                     class="btn btn-text"
                     type="button">{{'entity.action.cancel' | translate }}
             </button>
-            <button class="btn btn-primary ml-1"
+            <button (click)="onSubmitCompany()"
+                    class="btn btn-primary ml-1"
                     type="submit">{{'entity.action.save' | translate }}
             </button>
           </div>
@@ -82,5 +94,11 @@
       </form>
 
     </div>
-  </div>
+
+    <!-------------Right panel-->
+    <div class="right-column">
+    </div>
+
+  </alv-two-column-layout>
+
 </div>
