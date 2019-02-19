@@ -3,14 +3,20 @@
 @import '../../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../../node_modules/bootstrap/scss/mixins';
 
-div.slider-wrapper {
-  position: absolute;
-  width: 100%;
+@include  media-breakpoint-up(md) {
+  div.slider-wrapper {
+    height: 0;
+    width: 100%;
+  }
+}
+
+.slider-input {
+  vertical-align: middle;
 }
 
 ::ng-deep .slider-input {
   margin: 0 !important;
-  width: 100%;
+  width: calc(100% - (80px));
   padding-right: 5px;
   display: inline-block !important;
 
@@ -21,13 +27,13 @@ div.slider-wrapper {
     box-shadow: none;
 
     & .noUi-handle {
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       left: -10px;
-      border-radius: 10px;
+      border-radius: 8px;
       background: $color-primary;
       box-shadow: none;
-      top: -9px;
+      top: -8px;
 
       &:before {
         display: none;
