@@ -9,6 +9,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { UserRole } from '../core/auth/user.model';
 import { HasAnyAuthoritiesGuard } from '../core/auth/has-any-authorities-guard.service';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 
 const routes: Routes = [
   {
@@ -61,10 +62,9 @@ const routes: Routes = [
   {
     path: 'user-settings',
     component: UserSettingsComponent,
-    canActivate: [HasAnyAuthoritiesGuard],
+    canActivate: [AuthenticatedGuard],
     data: {
-      titleKey: 'portal.dashboard.user-settings.title',
-      authorities: [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY, UserRole.ROLE_JOB_SEEKER]
+      titleKey: 'portal.dashboard.user-settings.title'
     }
   }
 ];
