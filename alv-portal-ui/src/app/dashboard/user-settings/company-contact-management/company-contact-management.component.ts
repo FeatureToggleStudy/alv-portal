@@ -87,8 +87,7 @@ export class CompanyContactManagementComponent extends AbstractSubscriber implem
   }
 
   onReset() {
-    this.form.reset();
-    this.patchFormValues(this.currentCompany);
+    this.form.reset(this.currentCompany);
   }
 
   private prepareForm() {
