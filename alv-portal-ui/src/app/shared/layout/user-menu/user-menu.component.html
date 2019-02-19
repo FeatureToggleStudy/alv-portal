@@ -21,7 +21,7 @@
     </span>
   </button>
   <div ngbDropdownMenu
-       [attr.aria-label]="'portal.header.menu.user-menu.label'|translate">
+       [attr.aria-label]="'portal.header.menu.user-menu.label' | translate">
     <!-- Finish registration -->
     <button *ngIf="!hideRegistrationAction"
             class="dropdown-item highlight"
@@ -29,33 +29,25 @@
       <fa-icon class="mr-2"
                [fixedWidth]="true"
                [icon]="['fas', 'hand-point-right']"></fa-icon>
-      {{'global.menu.account.registration.incomplete'|translate}}
+      {{'global.menu.account.registration.incomplete' | translate}}
     </button>
-    <!-- eIAM profile -->
-    <button *ngIf="!noEiam"
+    <!-- User settings (eIAM profile, Contact information -->
+    <button *ngIf="isAuthenticated"
             class="dropdown-item"
-            (click)="goToEiamProfile()">
+            routerLink="user-settings">
       <fa-icon class="mr-2"
                [fixedWidth]="true"
-               [icon]="['fas', 'user-circle']"></fa-icon>
-      {{'portal.navigation.menu-entry.account.profile'|translate}}
+               [icon]="['fas', 'cog']">
+      </fa-icon>
+      {{ 'portal.navigation.menu-entry.user-settings' | translate }}
     </button>
-    <!-- Contact template -->
-    <a *ngIf="company && user.isRegistered()"
-       class="dropdown-item"
-       routerLink="dashboard/contact-template">
-      <fa-icon class="mr-2"
-               [fixedWidth]="true"
-               [icon]="['fas', 'address-card']"></fa-icon>
-      {{'global.menu.admin.contact-template-management' | translate}}
-    </a>
     <!-- Logout -->
     <button class="dropdown-item"
             (click)="logout()">
       <fa-icon class="mr-2"
                [fixedWidth]="true"
                [icon]="['fas', 'power-off']"></fa-icon>
-      {{'global.menu.account.logout'|translate}}
+      {{'global.menu.account.logout' | translate}}
     </button>
   </div>
 </div>

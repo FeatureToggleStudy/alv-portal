@@ -1,8 +1,8 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { User } from '../../../core/auth/user.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { isAuthenticatedUser, User } from '../../../core/auth/user.model';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { LandingNavigationService } from '../../../core/landing-navigation.service';
-import { DOCUMENT, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 import { LoginService } from '../../auth/login.service';
@@ -16,21 +16,20 @@ export class UserMenuComponent implements OnInit {
 
   hideRegistrationAction: boolean;
 
+  isAuthenticated: boolean;
+
   private readonly FINISH_REGISTRATION_URL = '/registration/finish';
 
   private readonly ACCESS_CODE_URL = '/registration/access-code';
 
-  constructor(private loginSerivce: LoginService,
+  constructor(private loginService: LoginService,
               private router: Router,
               private location: Location,
               private activatedRoute: ActivatedRoute,
-              private landingNavigationService: LandingNavigationService,
-              @Inject(DOCUMENT) private document: any) {
+              private landingNavigationService: LandingNavigationService) {
   }
 
   private _user: User;
-
-  @Input() noEiam: boolean;
 
   get user() {
     return this._user;
@@ -39,6 +38,7 @@ export class UserMenuComponent implements OnInit {
   @Input() set user(user: User) {
     this._user = user;
     this.hideRegistrationAction = this.user.isRegistered();
+    this.isAuthenticated = isAuthenticatedUser(user);
   }
 
   @Input() company: CompanyContactTemplate;
@@ -48,11 +48,7 @@ export class UserMenuComponent implements OnInit {
   }
 
   logout() {
-    this.loginSerivce.logout();
-  }
-
-  goToEiamProfile() {
-    this.document.location.href = '/authentication/profile';
+    this.loginService.logout();
   }
 
   completeRegistration() {

@@ -6,7 +6,6 @@ import { NavigationGuard } from '../core/auth/navigation-guard.service';
 import { DashboardComponent } from './dashboard.component';
 import { CompanyDashboardComponent } from './company-dashboard/company-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { ContactTemplateManagementComponent } from './contact-template-management/contact-template-management.component';
 import { UserRole } from '../core/auth/user.model';
 import { HasAnyAuthoritiesGuard } from '../core/auth/has-any-authorities-guard.service';
 
@@ -57,16 +56,7 @@ const routes: Routes = [
         }
       }
     ]
-  },
-  {
-    path: 'contact-template',
-    component: ContactTemplateManagementComponent,
-    canActivate: [HasAnyAuthoritiesGuard],
-    data: {
-      titleKey: 'portal.dashboard.contact-template-management.browser-title',
-      authorities: [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]
-    }
-  },
+  }
 ];
 
 @NgModule({

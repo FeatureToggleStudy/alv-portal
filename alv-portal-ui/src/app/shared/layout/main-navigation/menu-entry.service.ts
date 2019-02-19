@@ -27,17 +27,17 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
   },
   {
     id: 'STES',
-    menuEntryKeys: ['dashboard', 'job-search'],
+    menuEntryKeys: ['dashboard', 'job-search', 'user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_JOB_SEEKER])
   },
   {
     id: 'PAV',
-    menuEntryKeys: ['dashboard', 'candidate-search', 'job-search', 'job-publication', 'manage-job-ads'],
+    menuEntryKeys: ['dashboard', 'candidate-search', 'job-search', 'job-publication', 'manage-job-ads', 'user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_PAV])
   },
   {
     id: 'COMPANY',
-    menuEntryKeys: ['dashboard', 'job-publication', 'candidate-search', 'job-search', 'manage-job-ads'],
+    menuEntryKeys: ['dashboard', 'job-publication', 'candidate-search', 'job-search', 'manage-job-ads', 'user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY])
   }
 ];
@@ -84,6 +84,13 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     labelKey: 'portal.navigation.menu-entry.manage-job-ads',
     path: ['manage-job-ads'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
+  },
+  {
+    id: 'user-settings',
+    iconClass: 'cog',
+    labelKey: 'portal.navigation.menu-entry.user-settings',
+    path: ['user-settings'],
+    userPredicate: isAuthenticatedUser
   },
   {
     id: 'user-info',
