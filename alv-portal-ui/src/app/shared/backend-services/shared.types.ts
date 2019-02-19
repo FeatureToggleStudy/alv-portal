@@ -119,8 +119,7 @@ export enum Language {
   FR = 'fr',
   IT = 'it',
   EN = 'en',
-  // DE_CH = 'de-ch' <- is not working for filtering of candidates
-  CH = 'ch',
+  DE_CH = 'de-ch',
   BG = 'bg',
   BS = 'bs',
   CS = 'cs',
