@@ -8,8 +8,6 @@ import { CompanyDashboardComponent } from './company-dashboard/company-dashboard
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { UserRole } from '../core/auth/user.model';
 import { HasAnyAuthoritiesGuard } from '../core/auth/has-any-authorities-guard.service';
-import { UserSettingsComponent } from './user-settings/user-settings.component';
-import { AuthenticatedGuard } from '../core/auth/authenticated.guard';
 
 const routes: Routes = [
   {
@@ -58,14 +56,6 @@ const routes: Routes = [
         }
       }
     ]
-  },
-  {
-    path: 'user-settings',
-    component: UserSettingsComponent,
-    canActivate: [AuthenticatedGuard],
-    data: {
-      titleKey: 'portal.dashboard.user-settings.title'
-    }
   }
 ];
 

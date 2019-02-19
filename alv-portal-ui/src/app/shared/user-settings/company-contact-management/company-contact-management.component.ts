@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, Observable, of } from 'rxjs';
-import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
-import { Salutation } from '../../../shared/backend-services/shared.types';
-import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
-import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
-import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
+import { SelectableOption } from '../../forms/input/selectable-option.model';
+import { Salutation } from '../../backend-services/shared.types';
+import { phoneInputValidator } from '../../forms/input/input-field/phone-input.validator';
+import { patternInputValidator } from '../../forms/input/input-field/pattern-input.validator';
+import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../forms/regex-patterns';
 
-import { UserInfoRepository } from '../../../shared/backend-services/user-info/user-info-repository';
+import { UserInfoRepository } from '../../backend-services/user-info/user-info-repository';
 import { NotificationsService } from '../../../core/notifications.service';
 import { takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
-import { CompanyContactTemplate } from '../../../shared/backend-services/user-info/user-info.types';
+import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 
 interface CompanyContactFormValue {
   salutation: Salutation;

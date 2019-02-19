@@ -87,9 +87,9 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     id: 'user-settings',
-    iconClass: 'address-card',
+    iconClass: 'cog',
     labelKey: 'portal.navigation.menu-entry.user-settings',
-    path: ['dashboard', 'user-settings'],
+    path: ['user-settings'],
     userPredicate: isAuthenticatedUser
   },
   {

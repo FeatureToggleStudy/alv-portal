@@ -33,11 +33,11 @@
     </button>
     <!-- User settings (eIAM profile, Contact information -->
     <button *ngIf="isAuthenticated"
-    class="dropdown-item"
-    routerLink="dashboard/user-settings">
+            class="dropdown-item"
+            routerLink="user-settings">
       <fa-icon class="mr-2"
                [fixedWidth]="true"
-               [icon]="['fas', 'address-card']">
+               [icon]="['fas', 'cog']">
       </fa-icon>
       {{ 'portal.navigation.menu-entry.user-settings' | translate }}
     </button>

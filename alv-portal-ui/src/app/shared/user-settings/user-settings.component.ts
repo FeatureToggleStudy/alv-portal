@@ -6,7 +6,7 @@ import { AuthenticationService } from '../../core/auth/authentication.service';
 import { takeUntil } from 'rxjs/operators';
 import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
 import { combineLatest } from 'rxjs';
-import { LoginService } from '../../shared/auth/login.service';
+import { LoginService } from '../auth/login.service';
 
 @Component({
   selector: 'alv-user-settings',

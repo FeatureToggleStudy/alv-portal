@@ -15,6 +15,8 @@ import { LegalTermsDirective } from './legal-terms/legal-terms.directive';
 import { LegalTermsModalComponent } from './legal-terms/legal-terms-modal/legal-terms-modal.component';
 import { IsoCountryService } from './localities/iso-country.service';
 import { TrackingEventDirective } from './tracking/tracking-event.directive';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { CompanyContactManagementComponent } from './user-settings/company-contact-management/company-contact-management.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { TrackingEventDirective } from './tracking/tracking-event.directive';
     LegalTermsDirective,
     LegalTermsModalComponent,
     TrackingEventDirective,
+    UserSettingsComponent,
+    CompanyContactManagementComponent
   ],
   imports: [
     TranslateModule.forChild(),
@@ -49,7 +53,9 @@ import { TrackingEventDirective } from './tracking/tracking-event.directive';
     SharedAuthModule,
     IconsModule,
     LegalTermsDirective,
-    TrackingEventDirective
+    TrackingEventDirective,
+    UserSettingsComponent,
+    CompanyContactManagementComponent
   ],
   providers: [
     LandingPageGuard,

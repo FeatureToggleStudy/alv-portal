@@ -8,6 +8,7 @@ import { DummyComponent } from './shared/dummy/dummy.component';
 import { LegacyUrlStrategyRedirectionGuard } from '../legacy-url-strategy-redirection-guard.service';
 import { UserRole } from './core/auth/user.model';
 import { HasAnyAuthoritiesGuard } from './core/auth/has-any-authorities-guard.service';
+import { UserSettingsComponent } from './shared/user-settings/user-settings.component';
 
 const appRoutes: Routes = [
   {
@@ -75,6 +76,14 @@ const appRoutes: Routes = [
     path: 'showcase',
     component: ShowcaseComponent,
     data: { titleKey: 'portal.showcase.browser-title' }
+  },
+  {
+    path: 'user-settings',
+    component: UserSettingsComponent,
+    canActivate: [AuthenticatedGuard],
+    data: {
+      titleKey: 'portal.dashboard.user-settings.title'
+    }
   },
   {
     path: '**',
