@@ -845,7 +845,7 @@ portal.typeahead-single.help-text.instruction,Geben Sie mindestens {{number}} Ze
 portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati,
 portal.widgets.job-publication.title,Stelle melden,Post job,Publier un poste vacant,Pubblica un posto vacante,
 portal.widgets.job-search.title,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante,
-portal.widgets.manage-job-ads.actions.cancel,Abbrechen,Cancel,Annuler,Annulla,
+portal.widgets.manage-job-ads.actions.cancel,Abmelden,Cancel,Retirer,Cancellare,
 portal.widgets.manage-job-ads.actions.duplicate,Duplizieren,Duplicate,Dupliquer,Duplicare,
 portal.widgets.manage-job-ads.actions.open,Öffnen,Open,Ouvrir,Apri,
 portal.widgets.manage-job-ads.show-all,Alle anzeigen,,,,
