@@ -13,10 +13,13 @@ import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
+import {
+  LocalityInputType,
+  LocalityTypeaheadItem
+} from '../../../shared/localities/locality-typeahead-item';
 
 @Component({
   selector: 'alv-job-query-panel',
@@ -49,6 +52,8 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
 
   form: FormGroup;
 
+  isRadiusSliderShow$: Observable<boolean>;
+
   constructor(private fb: FormBuilder,
               private occupationSuggestionService: OccupationSuggestionService,
               private localitySuggestionService: LocalitySuggestionService) {
@@ -60,6 +65,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
       occupations: [],
       keywords: [],
       localities: [],
+      radius: []
     });
 
     this.setFormValues(this._jobQueryPanelValues);
@@ -68,6 +74,11 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
       map<any, JobQueryPanelValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
       .subscribe(queryPanelValues => this.jobQueryPanelValuesChange.next(queryPanelValues));
+
+    this.isRadiusSliderShow$ = this.form.valueChanges.pipe(
+      startWith(this.form.value),
+      map(isRadiusSliderVisible)
+    )
   }
 
   loadOccupations(query: string): Observable<OccupationTypeaheadItem[]> {
@@ -96,6 +107,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
         occupations: jobQueryPanelValues.occupations,
         keywords: jobQueryPanelValues.keywords,
         localities: jobQueryPanelValues.localities,
+        radius: jobQueryPanelValues.radius || 30
       }, { emitEvent: false });
     }
   }
@@ -104,8 +116,19 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     return {
       occupations: valueChanges.occupations,
       keywords: valueChanges.keywords,
-      localities: valueChanges.localities
+      localities: valueChanges.localities,
+      radius: valueChanges.radius
     };
   }
 
+}
+
+function isRadiusSliderVisible(value: JobQueryPanelValues) {
+  if (value.localities || value.localities.length !== 1) {
+    return false;
+  }
+
+  const selectedLocality = value.localities[0];
+
+  return selectedLocality.type === LocalityInputType.LOCALITY && !!selectedLocality.payload.geoPoint;
 }

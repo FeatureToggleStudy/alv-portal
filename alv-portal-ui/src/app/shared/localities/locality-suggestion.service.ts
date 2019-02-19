@@ -27,7 +27,7 @@ export class LocalitySuggestionService {
     return new LocalityTypeaheadItem(LocalityInputType.LOCALITY, {
         regionCode: locality.regionCode,
         cantonCode: locality.cantonCode,
-        communalCode: String(locality.communalCode),
+        communalCode: locality.communalCode,
       }, locality.city,
       order);
   }

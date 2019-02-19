@@ -50,7 +50,7 @@ describe('candidateSearchReducer', () => {
   const localityItem: LocalityItem = {
     regionCode: 'ZH12',
     cantonCode: 'ZH',
-    communalCode: '261'
+    communalCode: 261
   };
   const occupation = new OccupationTypeaheadItem(
     OccupationTypeaheadItemType.OCCUPATION, occupationCode, 'Java-Programmierer/in', 0);

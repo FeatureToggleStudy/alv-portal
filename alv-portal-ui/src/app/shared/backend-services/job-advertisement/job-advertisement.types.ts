@@ -247,6 +247,17 @@ export interface JobAdvertisementSearchRequestBody {
   companyName?: string;
   onlineSince: number;
   displayRestricted: boolean;
+  radiusSearchDto?: RadiusSearchDto;
+}
+
+export interface RadiusSearchDto {
+  geoPoint: GeoPointDto;
+  distance: number;
+}
+
+export interface GeoPointDto {
+  lot: number;
+  lat: number;
 }
 
 export interface JobAdvertisementSearchRequest {

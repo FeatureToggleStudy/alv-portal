@@ -1,0 +1,45 @@
+@import "../../../../../scss/common/colors";
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../../node_modules/bootstrap/scss/mixins';
+
+div.slider-wrapper {
+  position: absolute;
+  width: 100%;
+}
+
+::ng-deep .slider-input {
+  margin: 0 !important;
+  width: 100%;
+  padding-right: 5px;
+  display: inline-block !important;
+
+  & .noUi-target {
+    height: 0.1rem;
+    border-radius: 5px;
+    background: $color-medium-grey;
+    box-shadow: none;
+
+    & .noUi-handle {
+      width: 20px;
+      height: 20px;
+      left: -10px;
+      border-radius: 10px;
+      background: $color-primary;
+      box-shadow: none;
+      top: -9px;
+
+      &:before {
+        display: none;
+      }
+
+      &:after {
+        display: none;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

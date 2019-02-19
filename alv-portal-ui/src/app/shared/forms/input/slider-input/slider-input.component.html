@@ -1,0 +1,12 @@
+<div class="slider-wrapper">
+  <nouislider [min]="min"
+              [max]="max"
+              [keyboard]="true"
+              [step]="step"
+              [formControl]="control"
+              class="slider-input">
+  </nouislider>
+  <span class="slider-input-value text-nowrap ml-2">
+        {{ effectiveLabel | translate: {value: control.value} }}
+  </span>
+</div>
