@@ -43,7 +43,7 @@
         <td>{{ agent.street }}</td>
         <td>{{ agent.zipCode }}</td>
         <td>{{ agent.city }}</td>
-        <td>{{ agent.blacklistedAt | date:'dd.MM.yyyy HH:mm' }}</td>
+        <td>{{ agent.blacklistedAt | localeAwareDate:SHORT_DATE_TIME_FORMAT }}</td>
         <td>
           <button
             class="btn btn-sm btn-block"
