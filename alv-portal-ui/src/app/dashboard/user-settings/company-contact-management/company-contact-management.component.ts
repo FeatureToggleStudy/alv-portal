@@ -63,12 +63,14 @@ export class CompanyContactManagementComponent extends AbstractSubscriber implem
   }
 
   ngOnInit() {
+    this.form = this.prepareForm();
+
     combineLatest(this.authenticationService.getCurrentUser(), this.authenticationService.getCurrentCompany()).pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe(([user, company]) => {
       this.userId = user.id;
       this.currentCompany = company;
-      this.prepareForm(company);
+      this.patchFormValues(company);
     });
   }
 
@@ -85,21 +87,37 @@ export class CompanyContactManagementComponent extends AbstractSubscriber implem
   }
 
   onReset() {
-    this.form.reset(this.currentCompany);
+    this.form.reset();
+    this.patchFormValues(this.currentCompany);
   }
 
-  private prepareForm(company: CompanyContactTemplateModel) {
-    this.form = this.fb.group({
-      salutation: [<Salutation>company.salutation, [Validators.required]],
-      firstName: [{value: company.firstName, disabled: true}, [Validators.required]],
-      lastName: [{value: company.lastName, disabled: true}, [Validators.required]],
-      phone: [company.phone, [Validators.required, phoneInputValidator()]],
-      email: [company.email, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
-      companyName: [company.companyName, [Validators.required]],
-      companyStreet: [company.companyStreet, [Validators.required]],
-      companyHouseNr: [company.companyHouseNr, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
-      companyZipCode: [company.companyZipCode, [Validators.required]],
-      companyCity: [company.companyCity, [Validators.required]]
+  private prepareForm() {
+    return this.fb.group({
+      salutation: [null, [Validators.required]],
+      firstName: [{value: null, disabled: true}, [Validators.required]],
+      lastName: [{value: null, disabled: true}, [Validators.required]],
+      phone: [null, [Validators.required, phoneInputValidator()]],
+      email: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
+      companyName: [null, [Validators.required]],
+      companyStreet: [null, [Validators.required]],
+      companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
+      companyZipCode: [null, [Validators.required]],
+      companyCity: [null, [Validators.required]]
+    });
+  }
+
+  private patchFormValues(company: CompanyContactTemplateModel) {
+    this.form.patchValue({
+      salutation: <Salutation>company.salutation,
+      firstName: company.firstName,
+      lastName: company.lastName,
+      phone: company.phone,
+      email: company.email,
+      companyName: company.companyName,
+      companyStreet: company.companyStreet,
+      companyHouseNr: company.companyHouseNr,
+      companyZipCode: company.companyZipCode,
+      companyCity: company.companyCity
     });
   }
 
