@@ -31,8 +31,8 @@ export class GeoLocationSelectionComponent extends AbstractSubscriber {
     }
     this.loading = true;
     this.geolocationService.navigatorGeolocation().pipe(
-      switchMap((geoPoint) => {
-        return this.localityRepository.suggestNearestLocality(geoPoint);
+      switchMap((coordinates: Coordinates) => {
+        return this.localityRepository.suggestNearestLocality(coordinates);
       })
     ).subscribe((locality: LocalitySuggestion) => {
       this.localitySelect.emit(locality);

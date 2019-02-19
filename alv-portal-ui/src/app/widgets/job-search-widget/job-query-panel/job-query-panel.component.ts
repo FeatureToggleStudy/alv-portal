@@ -78,7 +78,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     this.isRadiusSliderShow$ = this.form.valueChanges.pipe(
       startWith(this.form.value),
       map(isRadiusSliderVisible)
-    )
+    );
   }
 
   loadOccupations(query: string): Observable<OccupationTypeaheadItem[]> {
@@ -124,7 +124,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
 }
 
 function isRadiusSliderVisible(value: JobQueryPanelValues) {
-  if (value.localities || value.localities.length !== 1) {
+  if (!value.localities || value.localities.length !== 1) {
     return false;
   }
 

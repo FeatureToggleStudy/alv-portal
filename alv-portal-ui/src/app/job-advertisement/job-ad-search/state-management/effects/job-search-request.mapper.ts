@@ -92,27 +92,27 @@ export class JobSearchRequestMapper {
   }
 
   private static mapRadiusSearchDto(localities: LocalityTypeaheadItem[], distance): RadiusSearchDto {
-    if (localities || localities.length !== null) {
-      return null;
+    if (!localities || localities.length !== 1) {
+      return undefined;
     }
 
     const locality = localities[0];
     if (locality.type !== LocalityInputType.LOCALITY) {
-      return null;
+      return undefined;
     }
 
     const payload = locality.payload;
-    if (!!payload.geoPoint || !!distance) {
-      return null;
+    if (!payload.geoPoint || !distance) {
+      return undefined;
     }
 
     return {
       geoPoint: {
-        lat: payload.geoPoint.latitude,
-        lot: payload.geoPoint.longitude
+        lat: payload.geoPoint.lat,
+        lon: payload.geoPoint.lon
       },
       distance
-    }
+    };
   }
 
 }

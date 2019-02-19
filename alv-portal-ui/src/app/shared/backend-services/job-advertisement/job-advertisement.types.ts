@@ -256,7 +256,7 @@ export interface RadiusSearchDto {
 }
 
 export interface GeoPointDto {
-  lot: number;
+  lon: number;
   lat: number;
 }
 

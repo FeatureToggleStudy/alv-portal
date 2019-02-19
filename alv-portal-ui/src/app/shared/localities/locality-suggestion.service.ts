@@ -24,12 +24,7 @@ export class LocalitySuggestionService {
   }
 
   public static toLocalityTypeaheadItem(locality: LocalitySuggestion, order = 0) {
-    return new LocalityTypeaheadItem(LocalityInputType.LOCALITY, {
-        regionCode: locality.regionCode,
-        cantonCode: locality.cantonCode,
-        communalCode: locality.communalCode,
-      }, locality.city,
-      order);
+    return new LocalityTypeaheadItem(LocalityInputType.LOCALITY, locality, locality.city, order);
   }
 
   fetch(query: string): Observable<LocalityTypeaheadItem[]> {
