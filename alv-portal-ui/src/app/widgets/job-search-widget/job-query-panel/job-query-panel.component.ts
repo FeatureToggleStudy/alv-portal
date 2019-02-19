@@ -13,7 +13,7 @@ import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
-import { map, startWith, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, startWith, takeUntil } from 'rxjs/operators';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
@@ -71,6 +71,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     this.setFormValues(this._jobQueryPanelValues);
 
     this.form.valueChanges.pipe(
+      debounceTime(400),
       map<any, JobQueryPanelValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
       .subscribe(queryPanelValues => this.jobQueryPanelValuesChange.next(queryPanelValues));

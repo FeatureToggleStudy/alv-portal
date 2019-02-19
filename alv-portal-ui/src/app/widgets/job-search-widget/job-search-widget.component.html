@@ -6,9 +6,9 @@
     </alv-custom-icon>
     {{'portal.widgets.job-search.title' | translate}}
   </h2>
-  <alv-job-query-panel [jobQueryPanelValues]="jobQueryPanelValues$ | async "
-                       (jobQueryPanelValuesChange)="jobQueryChanged($event)"
-                       (searchSubmit)="onSearchSubmit($event)">
+  <alv-job-query-panel
+    [(jobQueryPanelValues)]="jobQueryPanelValues"
+    (searchSubmit)="onSearchSubmit($event)">
   </alv-job-query-panel>
 </div>
 
