@@ -3,20 +3,24 @@
 @import '../../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../../node_modules/bootstrap/scss/mixins';
 
-@include  media-breakpoint-up(md) {
-  div.slider-wrapper {
-    height: 0;
-    width: 100%;
-  }
-}
 
-.slider-input {
-  vertical-align: middle;
+.slider-input-wrapper {
+  width: 100%;
+
+  .slider-input {
+    vertical-align: middle;
+  }
+
+  .slider-input-value {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+  }
 }
 
 ::ng-deep .slider-input {
   margin: 0 !important;
-  width: calc(100% - (80px));
+  width: 100%;
   padding-right: 5px;
   display: inline-block !important;
 
