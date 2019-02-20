@@ -112,7 +112,8 @@
       </div>
     </div>
 
-    <div *ngIf="languageSkill.get('code').value">
+    <div class="language-selection"
+         *ngIf="languageSkill.get('code').value">
       <alv-select
         class="narrow-form mb-1 d-block"
         label="global.reference.language.spoken"
