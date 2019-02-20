@@ -107,10 +107,7 @@ export class JobSearchRequestMapper {
     }
 
     return {
-      geoPoint: {
-        lat: payload.geoPoint.lat,
-        lon: payload.geoPoint.lon
-      },
+      geoPoint: payload.geoPoint,
       distance
     };
   }
