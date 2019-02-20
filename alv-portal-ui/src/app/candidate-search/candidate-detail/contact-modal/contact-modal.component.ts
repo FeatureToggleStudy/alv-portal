@@ -7,14 +7,7 @@ import {
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { I18nService } from '../../../core/i18n.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  distinctUntilChanged,
-  map,
-  startWith,
-  takeUntil,
-  tap,
-  withLatestFrom
-} from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { EMAIL_REGEX, HOUSE_NUMBER_REGEX } from '../../../shared/forms/regex-patterns';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
@@ -146,7 +139,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   onSubmit() {
     const formValue = <ContactCandidateFormValues>this.form.value;
     this.mapEmailContent(formValue).pipe(
-      tap(emailContact =>
+      switchMap(emailContact =>
         this.candidateContactRepository.sendContactModalEmail(emailContact)
       )
     ).subscribe(() => this.activeModal.close());
