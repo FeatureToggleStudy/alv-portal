@@ -20,7 +20,7 @@
     </a>
 
     <button class="header-menu d-lg-none align-self-center"
-            [attr.aria-label]="'portal.header.menu.open-navigation'|translate"
+            [attr.aria-label]="'portal.header.menu.open-navigation' | translate"
             (click)="toggleMobileNavigation()">
       <fa-icon class="navbar-toggler-icon"
                [icon]="['fas', 'bars']"></fa-icon>
@@ -30,8 +30,7 @@
 
     <alv-user-menu *ngIf="user"
                    [user]="user"
-                   [company]="company"
-                   [noEiam]="noEiam">
+                   [company]="company">
     </alv-user-menu>
 
     <div class="header-buttons ml-1 d-none d-lg-flex align-items-center">

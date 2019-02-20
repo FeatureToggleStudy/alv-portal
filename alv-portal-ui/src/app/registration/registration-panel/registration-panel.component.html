@@ -25,7 +25,7 @@
             class="btn btn-secondary btn-icon"
             type="button"
             (click)="handleBackClick()">
-      <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
+      <fa-icon [icon]="['fas', 'caret-left']"></fa-icon>
     </button>
     <div class="flex-grow-1"></div>
     <button *ngIf="secondaryLabel"
@@ -35,7 +35,7 @@
             (click)="handleSecondaryClick()">{{secondaryLabel| translate}}</button>
     <button *ngIf="primaryLabel"
             class="btn btn-primary ml-2"
-            [type]="submit"
+            type="submit"
             [disabled]="formGroup?.invalid">{{primaryLabel | translate}}</button>
   </div>
 </ng-template>

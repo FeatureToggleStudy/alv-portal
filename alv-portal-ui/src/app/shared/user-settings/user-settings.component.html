@@ -1,0 +1,37 @@
+<div class="container-fluid pt-4 pt-lg-5">
+
+  <h2>
+    <fa-icon class="text-primary"
+             [icon]="['fas', 'cog']"></fa-icon>
+    {{ 'portal.dashboard.user-settings.main.title' | translate }}
+    {{ companyOrPav ? currentUser.displayName + ', ' + currentCompany.companyName : currentUser?.displayName }}
+  </h2>
+  <hr class="mt-2 mb-3">
+
+  <alv-collapse-panel [panelId]="'eIAM-account'"
+                      panelTitle="portal.dashboard.user-settings.eiam-account.title"
+                      *ngIf="eIAMActive">
+    <div class="d-block pb-4">
+      <p>{{ 'portal.dashboard.user-settings.eiam-account.description' | translate }}</p>
+      <ul class="alv-list">
+        <alv-list-item-content *ngFor="let loginData of EIAM_ACCOUNT_LIST">
+          {{ loginData | translate }}
+        </alv-list-item-content>
+      </ul>
+      <button type="button"
+              (click)="goToEIAMProfile()"
+              class="btn btn-secondary">
+        <fa-icon class="link-icon"
+                 [icon]="['fas', 'caret-right']"></fa-icon>
+        {{ 'portal.dashboard.user-settings.eiam-account.button' | translate }}
+      </button>
+    </div>
+  </alv-collapse-panel>
+
+  <alv-collapse-panel [panelId]="'form-contact-info'"
+                      [isCollapsed]="true"
+                      panelTitle="portal.dashboard.user-settings.main.panel"
+                      *ngIf="companyOrPav">
+    <alv-company-contact-management></alv-company-contact-management>
+  </alv-collapse-panel>
+</div>

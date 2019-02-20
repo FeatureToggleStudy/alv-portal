@@ -38,7 +38,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   constructor(private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
-              private loginSerivce: LoginService,
+              private loginService: LoginService,
               private router: Router,
               private i18nService: I18nService) {
     super();
@@ -64,7 +64,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
         takeUntil(this.ngUnsubscribe)
       );
 
-    this.noEiam = this.loginSerivce.noEiam;
+    this.noEiam = this.loginService.noEiam;
   }
 
   toggleMobileNavigation() {
@@ -72,7 +72,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
   }
 
   login() {
-    this.loginSerivce.login();
+    this.loginService.login();
   }
 
   changeLanguage(lang: string) {

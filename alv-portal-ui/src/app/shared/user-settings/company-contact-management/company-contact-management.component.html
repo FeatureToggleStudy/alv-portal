@@ -1,0 +1,74 @@
+<form (validSubmit)="onSubmit()"
+      [formGroup]="form"
+      alvFormSubmitValidation>
+  <p>{{ 'portal.dashboard.user-settings.main.help' | translate }}</p>
+
+  <legend class="label-size">{{ 'portal.dashboard.user-settings.user-info.title' | translate }}</legend>
+  <fieldset>
+    <alv-select
+      [options$]="salutationOptions$"
+      alvFormControlName="salutation"
+      label="portal.dashboard.user-settings.user-info.salutation">
+    </alv-select>
+
+    <alv-input-field alvFormControlName="firstName"
+                     label="portal.dashboard.user-settings.user-info.first-name">
+    </alv-input-field>
+
+    <alv-input-field alvFormControlName="lastName"
+                     label="portal.dashboard.user-settings.user-info.last-name">
+    </alv-input-field>
+
+    <alv-input-field alvFormControlName="phone"
+                     label="portal.dashboard.user-settings.user-info.phone"
+                     type="tel">
+    </alv-input-field>
+
+    <alv-input-field alvFormControlName="email"
+                     label="portal.dashboard.user-settings.user-info.email">
+    </alv-input-field>
+  </fieldset>
+
+  <legend class="label-size">{{ 'portal.dashboard.user-settings.company-info.title' | translate }}</legend>
+  <fieldset>
+    <alv-input-field alvFormControlName="companyName"
+                     label="portal.dashboard.user-settings.company-info.company-name">
+    </alv-input-field>
+
+    <div class="form-row">
+      <div class="col-md-9">
+        <alv-input-field alvFormControlName="companyStreet"
+                         label="portal.dashboard.user-settings.company-info.company-street">
+        </alv-input-field>
+      </div>
+      <div class="col-md-3">
+        <alv-input-field alvFormControlName="companyHouseNr"
+                         label="portal.dashboard.user-settings.company-info.company-house-nr">
+        </alv-input-field>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-3">
+        <alv-input-field alvFormControlName="companyZipCode"
+                         label="portal.dashboard.user-settings.company-info.company-zip-code">
+        </alv-input-field>
+      </div>
+      <div class="col-md-9">
+        <alv-input-field alvFormControlName="companyCity"
+                         label="portal.dashboard.user-settings.company-info.company-city">
+        </alv-input-field>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="d-flex">
+    <button class="btn btn-primary"
+            type="submit">{{'entity.action.save' | translate }}
+    </button>
+    <button (click)="onReset()"
+            class="btn btn-text"
+            type="button">{{'entity.action.cancel' | translate }}
+    </button>
+  </div>
+</form>

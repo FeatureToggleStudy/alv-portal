@@ -30,6 +30,7 @@ export class CollapsePanelComponent {
 
   @Input() panelTitle: string;
 
+  @Input()
   isCollapsed = false;
 
   toggle() {
