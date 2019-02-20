@@ -4,6 +4,7 @@ import {
   Component,
   Host,
   Input,
+  OnInit,
   Optional,
   SkipSelf
 } from '@angular/core';
@@ -34,7 +35,7 @@ export interface Labels {
   styleUrls: ['../abstract-input.scss', './slider-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SliderInputComponent extends AbstractInput {
+export class SliderInputComponent extends AbstractInput implements OnInit {
 
   /**
    * minimal selectable value

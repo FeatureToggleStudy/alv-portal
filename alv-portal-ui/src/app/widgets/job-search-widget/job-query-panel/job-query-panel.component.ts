@@ -122,7 +122,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
       occupations: valueChanges.occupations,
       keywords: valueChanges.keywords,
       localities: valueChanges.localities,
-      radius: valueChanges.radius
+      radius: this.jobAdRadiusSearchEnabled ? valueChanges.radius : undefined
     };
   }
 
