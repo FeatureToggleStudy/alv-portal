@@ -51,6 +51,12 @@ div.title-bar {
   display: block;
 }
 
+.language-selection {
+  margin-top: -0.5rem;
+  padding-top: 0.5rem;
+  background-color: $color-light-grey;
+}
+
 @include media-breakpoint-down(sm) {
   .filter-form {
     display: none;
