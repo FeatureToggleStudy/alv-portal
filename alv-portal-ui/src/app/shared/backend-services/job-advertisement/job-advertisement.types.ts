@@ -247,10 +247,10 @@ export interface JobAdvertisementSearchRequestBody {
   companyName?: string;
   onlineSince: number;
   displayRestricted: boolean;
-  radiusSearchDto?: RadiusSearchDto;
+  radiusSearch?: RadiusSearch;
 }
 
-export interface RadiusSearchDto {
+export interface RadiusSearch {
   geoPoint: GeoPointDto;
   distance: number;
 }

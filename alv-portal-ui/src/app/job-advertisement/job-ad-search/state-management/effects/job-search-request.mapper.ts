@@ -1,7 +1,7 @@
 import {
   JobAdvertisementSearchRequest,
   ProfessionCode,
-  RadiusSearchDto
+  RadiusSearch
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
@@ -31,7 +31,7 @@ export class JobSearchRequestMapper {
         keywords: JobSearchRequestMapper.mapKeywords(jobSearchFilter.keywords),
         communalCodes: JobSearchRequestMapper.mapCommunalCodes(jobSearchFilter.localities),
         cantonCodes: JobSearchRequestMapper.mapCantonCodes(jobSearchFilter.localities),
-        radiusSearchDto: JobSearchRequestMapper.mapRadiusSearchDto(jobSearchFilter.localities, jobSearchFilter.radius)
+        radiusSearch: JobSearchRequestMapper.mapRadiusSearchDto(jobSearchFilter.localities, jobSearchFilter.radius)
       }
     };
   }
@@ -91,7 +91,7 @@ export class JobSearchRequestMapper {
       .map((i) => i.payload.cantonCode);
   }
 
-  private static mapRadiusSearchDto(localities: LocalityTypeaheadItem[], distance): RadiusSearchDto {
+  private static mapRadiusSearchDto(localities: LocalityTypeaheadItem[], distance): RadiusSearch {
     if (!localities || localities.length !== 1) {
       return undefined;
     }
