@@ -106,8 +106,7 @@
         <button class="btn btn-text btn-icon"
                 [attr.aria-label]="'global.button.remove.title'| translate"
                 (click)="removeLanguageSkill(languageSkill)">
-            <span class="fas fa-trash-alt"
-                  aria-hidden="true"></span>
+          <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
         </button>
       </div>
     </div>
@@ -132,8 +131,7 @@
   <button class="btn btn-primary btn-sm"
           (click)="addNewLanguageSkill()"
           *ngIf="isAddLanguageSkillEnabled()">
-    <span class="fas fa-plus"
-          aria-hidden="true"></span>
+    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
     {{'global.button.add.title'| translate}}
   </button>
 
