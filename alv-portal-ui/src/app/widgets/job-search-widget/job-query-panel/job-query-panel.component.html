@@ -46,13 +46,16 @@
                                     (localitySelect)="onGeoSelection($event)">
         </alv-geo-location-selection>
 
-        <alv-slider-input *ngIf="isRadiusSliderShow$ | async"
-                          [min]="10"
-                          [max]="130"
-                          [step]="1"
-                          label="portal.job-ad.search.query-panel.radius-slider.label"
-                          alvFormControlName="radius">
-        </alv-slider-input>
+        <ng-container *ngIf="jobAdRadiusSearchEnabled">
+          <alv-slider-input *ngIf="isRadiusSliderShow$ | async"
+                            [min]="10"
+                            [max]="130"
+                            [step]="1"
+                            label="portal.job-ad.search.query-panel.radius-slider.label"
+                            alvFormControlName="radius">
+          </alv-slider-input>
+        </ng-container>
+
         <ng-template #localitiesTP>
           {{ 'portal.job-ad.search.query-panel.localities.tooltip' | translate}}
         </ng-template>

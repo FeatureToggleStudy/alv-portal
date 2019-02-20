@@ -20,6 +20,7 @@ import {
   LocalityInputType,
   LocalityTypeaheadItem
 } from '../../../shared/localities/locality-typeahead-item';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'alv-job-query-panel',
@@ -28,6 +29,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit {
+
+  //Feature toggle. Must be removed after the feature released to production.
+  jobAdRadiusSearchEnabled = environment.jobAdRadiusSearchEnabled;
 
   loadOccupationsFn = this.loadOccupations.bind(this);
 
