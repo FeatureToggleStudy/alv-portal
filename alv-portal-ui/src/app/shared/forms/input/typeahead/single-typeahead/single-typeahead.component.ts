@@ -1,10 +1,10 @@
 import {
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
-  Host, HostBinding,
+  Host,
+  HostBinding,
   Input,
   OnInit,
   Optional,
@@ -88,10 +88,8 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   handleInput(event: KeyboardEvent): void {
-    if (event.code === 'Backspace') {
-      if (this.control.value) {
-        this.control.setValue(null);
-      }
+    if (this.control.value) {
+      this.control.setValue(null, { emitEvent: false });
     }
   }
 
