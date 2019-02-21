@@ -75,6 +75,15 @@
     </a>
 
   </div>
+  <hr>
+  <!--Logout Button-->
+  <a class="d-flex align-self-center btn btn-primary m-3 w-80"
+     *ngIf="!isAnonymous"
+     (click)="logout()">
+    <fa-icon class="nav-icon mx-2"
+             [icon]="['fas', 'power-off']"></fa-icon>
+    <span class="nav-text">{{'global.menu.account.logout' | translate}}</span>
+  </a>
 
   <div class="nav-fill-item flex-grow-1">
   </div>

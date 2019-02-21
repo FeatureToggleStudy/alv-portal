@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { take, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   CoreState,
@@ -82,6 +82,10 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   login() {
     this.loginSerivce.login();
+  }
+
+  logout() {
+    this.loginSerivce.logout();
   }
 
   toggleMobileSideNav() {
