@@ -48,7 +48,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
 
   constructor(private router: Router,
-              private loginSerivce: LoginService,
+              private loginService: LoginService,
               private authenticationService: AuthenticationService,
               private store: Store<CoreState>,
               private menuEntryService: MenuEntryService) {
@@ -81,11 +81,11 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   }
 
   login() {
-    this.loginSerivce.login();
+    this.loginService.login();
   }
 
   logout() {
-    this.loginSerivce.logout();
+    this.loginService.logout();
   }
 
   toggleMobileSideNav() {

@@ -78,7 +78,7 @@
   <hr>
   <!--Logout Button-->
   <a class="d-flex align-self-center btn btn-primary m-3 w-80"
-     *ngIf="!isAnonymous"
+     *alvIsAuthenticated
      (click)="logout()">
     <fa-icon class="nav-icon mx-2"
              [icon]="['fas', 'power-off']"></fa-icon>
