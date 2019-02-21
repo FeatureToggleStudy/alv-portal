@@ -87,7 +87,7 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
     this.itemSelected.emit(item);
   }
 
-  handleInput(event: KeyboardEvent): void {
+  handleInput(): void {
     if (this.control.value) {
       this.control.setValue(null, { emitEvent: false });
     }
