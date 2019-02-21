@@ -49,9 +49,13 @@ interface ContactCandidateCompanyFormValues {
 })
 export class ContactModalComponent extends AbstractSubscriber implements OnInit {
 
-  readonly TITLE_MAX_LENGTH = 150;
-
-  readonly MESSAGE_MAX_LENGTH = 1000;
+  readonly MAX_LENGTH_10 = 10;
+  readonly MAX_LENGTH_12 = 12;
+  readonly MAX_LENGTH_60 = 60;
+  readonly MAX_LENGTH_100 = 100;
+  readonly MAX_LENGTH_150 = 150;
+  readonly MAX_LENGTH_255 = 255;
+  readonly MAX_LENGTH_1000 = 1000;
 
   readonly LABEL_VALUES: string[] = [
     'candidate-detail.candidate-anonymous-contact.subject',
@@ -147,9 +151,9 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
   private prepareForm(): FormGroup {
     return this.fb.group({
-      subject: [null, Validators.required],
-      personalMessage: [null, Validators.required],
-      companyName: [null, Validators.required],
+      subject: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_150)]],
+      personalMessage: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]],
+      companyName: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
       phoneCheckbox: [true],
       phone: [null],
       emailCheckbox: [true],
@@ -162,12 +166,12 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
   private prepareCompanyFormGroup() {
     return this.fb.group({
-      contactPerson: [null, Validators.required],
-      companyName: [null, Validators.required],
-      companyStreet: [null, Validators.required],
-      companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],
-      companyZipCode: [null, Validators.required],
-      companyCity: [null, Validators.required],
+      contactPerson: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_100)]],
+      companyName: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
+      companyStreet: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_60)]],
+      companyHouseNr: [null, [patternInputValidator(HOUSE_NUMBER_REGEX), Validators.maxLength(this.MAX_LENGTH_10)]],
+      companyZipCode: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_12)]],
+      companyCity: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_100)]],
       countryIsoCode: [null, Validators.required]
     });
   }
