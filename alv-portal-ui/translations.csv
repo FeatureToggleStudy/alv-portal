@@ -89,7 +89,6 @@ candidate-search.graduation.NONE,Kein Abschluss,No degree,Aucun diplôme,Nessun 
 candidate-search.graduation.NOT_ACCEPTED,Schweiz oder ausländisch,Swiss or foreign degree,Diplôme suisse ou étranger,Diploma svizzero o estero,
 candidate-search.languageSkills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche,
 candidate-search.no-selection,Keine Auswahl,No selection,Aucune sélection,Nessuna scelta,
-candidate-search.title,Kandidatensuche,Candidate search,Recherche de candidats,Cerca candidati,
 candidate-search.toolbar.graduation.default,Abschluss auswählen,Select degree,Sélectionner un diplôme,Seleziona titolo...,
 candidate-search.toolbar.graduation.label,Abschluss,Degree,Diplôme,Titolo,
 candidate-search.toolbar.residence.placeholder,Wohnkanton,Canton of residence,Canton de domicile,Luogo di domicilio: Cantone,
@@ -713,6 +712,7 @@ portal.forms.validation.ngbDate.before,Datum muss vor dem {{requiredBefore.day}}
 portal.forms.validation.ngbDate.format,"Datumsformat ungültig, richtiges Format: TT.MM.JJJJ","Invalid date format, correct format: DD.MM.YYYY","Le format de la date n’est pas conforme. Format correct: JJ.MM.AAAA","Il formato della data non è corretto. Formato corretto: GG.MM.AAAA",
 portal.forms.validation.pattern,Dieses Feld muss das Muster {{ requiredPattern }} erfüllen.,This field must follow the pattern {{ requiredPattern }}.,Ce champ doit respecter le modèle {{ requiredPattern }}.,Questo campo dovrebbe corrispondere al modello {{ requiredPattern }}.,
 portal.forms.validation.url,Diese URL ist ungültig.,This URL is not valid,Ce lien URL n'est pas valable.,Questo indirizzo URL non è valido.,
+portal.global.actions,Aktionen,Actions,Actes,Azioni
 portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Retour à la page d'accueil,Torna alla pagina iniziale,
 portal.global.close,Schliessen,Close,Fermer,Invalida,
 portal.global.exception.client.unknown,Es ist ein unerwarteter Fehler aufgetreten,An unexpected error has occurred,Une erreur inattendue s'est produite,Si è verificato un errore imprevisto,
