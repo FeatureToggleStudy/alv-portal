@@ -81,22 +81,6 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     this.allyHelpId = `${this.id}-ally-help`;
   }
 
-
-  /**
-   * Listens for an outside click and selects free text if applicable
-   */
-  @HostListener('document:click', ['$event.target'])
-  onClick(targetElement: HTMLElement): void {
-    if (!targetElement) {
-      return;
-    }
-    if (!this.elRef.nativeElement.contains(targetElement)) {
-      if (!this.selectFreeText()) {
-        this.clearInput();
-      }
-    }
-  }
-
   showPlaceholder(): boolean {
     return !this.inputValue && (!this.control.value || this.control.value && this.control.value.length === 0);
   }
@@ -124,11 +108,21 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     return '100%';
   }
 
+  onBlur(control) {
+
+    control.markAsTouched();
+    this.selectFreeText();
+  }
+
   handleKeyDown(event: KeyboardEvent): void {
     if (event.code === 'Enter' || event.code === 'Tab') {
+      console.log('Tab or Enter event triggered!');
       if (this.selectFreeText()) {
+        console.log('Freetext selected');
         event.preventDefault();
         event.stopPropagation();
+      } else {
+        this.clearInput();
       }
       return;
     }
@@ -183,6 +177,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   removeItem(item: TypeaheadItem<any>): void {
+    console.log('item removed');
     this.control.setValue(this.control.value.filter((i) => !item.equals(i)));
     this.clearInput();
     this.getTypeaheadNativeElement().focus();
@@ -223,6 +218,8 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   private clearInput(): void {
     // This hack removes the invalid value from the input field on blur.
+    console.log('clearInput');
+    console.trace();
     this.ngbTypeahead._inputValueBackup = '';
 
     this.inputValue = '';
