@@ -3,7 +3,6 @@ import {
   ElementRef,
   EventEmitter,
   Host,
-  HostListener,
   Inject,
   Input,
   OnInit,
@@ -119,10 +118,13 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       console.log('Tab or Enter event triggered!');
       if (this.selectFreeText()) {
         console.log('Freetext selected');
-        event.preventDefault();
-        event.stopPropagation();
+        this.preventAndStopPropagation(event);
       } else {
         this.clearInput();
+        if (event.code === 'Enter' && this.inputValue) {
+          console.log(this.inputValue);
+          this.preventAndStopPropagation(event);
+        }
       }
       return;
     }
@@ -135,9 +137,15 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       return;
     }
     if (this.itemLimitReached()) {
+      // when the limit is reached you can't type anymore
       event.preventDefault();
       return;
     }
+  }
+
+  private preventAndStopPropagation(event: KeyboardEvent) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   selectItem(event: NgbTypeaheadSelectItemEvent): void {
@@ -161,6 +169,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       || !this.editable
       || !this.inputValue
       || this.inputValue.length < this.queryMinLength) {
+      this.clearInput();
       return null;
     }
     const freeTextItem = new StringTypeaheadItem(
@@ -219,7 +228,6 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   private clearInput(): void {
     // This hack removes the invalid value from the input field on blur.
     console.log('clearInput');
-    console.trace();
     this.ngbTypeahead._inputValueBackup = '';
 
     this.inputValue = '';
