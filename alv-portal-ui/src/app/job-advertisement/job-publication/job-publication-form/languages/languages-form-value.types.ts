@@ -3,8 +3,8 @@ import { CEFR_Level, LanguageSkill } from '../../../../shared/backend-services/s
 export function emptyLanguageSkill(): LanguageSkill {
   return {
     languageIsoCode: null,
-    writtenLevel: CEFR_Level.NONE,
-    spokenLevel: CEFR_Level.NONE
+    writtenLevel: CEFR_Level.BASIC,
+    spokenLevel: CEFR_Level.BASIC
   };
 }
 
