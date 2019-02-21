@@ -24,7 +24,7 @@ import { FilterLanguageSkill } from '../../../shared/backend-services/candidate/
 
 const DEFAULT_LANGUAGE_SKILL: FilterLanguageSkill = {
   code: null,
-  written: CEFR_Level.BASIC,
+  written: CEFR_Level.NONE,
   spoken: CEFR_Level.BASIC
 };
 
