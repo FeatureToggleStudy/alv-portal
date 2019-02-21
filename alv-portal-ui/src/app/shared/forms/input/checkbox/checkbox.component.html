@@ -8,7 +8,7 @@
          (click)="!readonly">
   <label class="form-check-label"
          [attr.for]="id">
-    <span [innerHTML]="label | translate"></span>
+    <span *ngIf="label" [innerHTML]="label | translate"></span>
     <ng-content></ng-content>
   </label>
 </div>
