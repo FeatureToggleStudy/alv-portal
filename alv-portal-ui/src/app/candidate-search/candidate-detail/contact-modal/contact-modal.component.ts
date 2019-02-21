@@ -169,7 +169,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       contactPerson: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_100)]],
       companyName: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
       companyStreet: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_60)]],
-      companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX), Validators.maxLength(this.MAX_LENGTH_10)]],
+      companyHouseNr: [null, [patternInputValidator(HOUSE_NUMBER_REGEX), Validators.maxLength(this.MAX_LENGTH_10)]],
       companyZipCode: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_12)]],
       companyCity: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_100)]],
       countryIsoCode: [null, Validators.required]
