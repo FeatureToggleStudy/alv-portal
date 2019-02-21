@@ -6,18 +6,18 @@
            [formGroup]="form">
   <fieldset>
     <alv-input-field label="home.tools.job-publication.contact.salutation"
-                     [maxLength]="TITLE_MAX_LENGTH"
+                     [maxLength]="MAX_LENGTH_150"
                      alvFormControlName="subject">
     </alv-input-field>
     <p>{{ mailBodyPreamble }}</p>
     <alv-input-field label="portal.candidate-detail.anonymous-contact.your-message"
-                     [maxLength]="MESSAGE_MAX_LENGTH"
+                     [maxLength]="MAX_LENGTH_1000"
                      [showCharacterCounter]="true"
                      [multiline]="true"
                      alvFormControlName="personalMessage">
     </alv-input-field>
     <alv-input-field label="candidate-detail.anonymous-contact.company"
-                     [maxLength]="TITLE_MAX_LENGTH"
+                     [maxLength]="MAX_LENGTH_255"
                      alvFormControlName="companyName">
     </alv-input-field>
     <p>{{ 'candidate-detail.anonymous-contact.contact-via.text' | translate }}</p>
@@ -31,6 +31,7 @@
       <alv-input-field label="candidate-detail.anonymous-contact.phone"
                        type="tel"
                        alvFormControlName="phone"
+                       placeholder="home.tools.job-publication.placeholders.phone"
                        *ngIf="form.get('phoneCheckbox').value">
       </alv-input-field>
     </div>
@@ -42,6 +43,7 @@
       </alv-checkbox>
       <alv-input-field label="candidate-detail.anonymous-contact.email"
                        alvFormControlName="email"
+                       placeholder="home.tools.job-publication.placeholders.email"
                        *ngIf="form.get('emailCheckbox').value">
       </alv-input-field>
     </div>
@@ -54,19 +56,23 @@
       <div *ngIf="form.get('postCheckbox').value"
            formGroupName="company">
         <alv-input-field label="candidate-detail.anonymous-contact.company"
+                         [maxLength]="MAX_LENGTH_255"
                          alvFormControlName="companyName">
         </alv-input-field>
         <alv-input-field label="portal.candidate-detail.anonymous-contact.name-lastName"
+                         [maxLength]="MAX_LENGTH_100"
                          alvFormControlName="contactPerson">
         </alv-input-field>
         <div class="form-row">
           <div class="col-md-10">
             <alv-input-field label="candidate-detail.anonymous-contact.street"
+                             [maxLength]="MAX_LENGTH_60"
                              alvFormControlName="companyStreet">
             </alv-input-field>
           </div>
           <div class="col-md-2">
             <alv-input-field label="candidate-detail.anonymous-contact.house"
+                             [maxLength]="MAX_LENGTH_10"
                              alvFormControlName="companyHouseNr">
             </alv-input-field>
           </div>
@@ -74,11 +80,13 @@
         <div class="form-row">
           <div class="col-md-2">
             <alv-input-field label="candidate-detail.anonymous-contact.zip-code"
+                             [maxLength]="MAX_LENGTH_12"
                              alvFormControlName="companyZipCode">
             </alv-input-field>
           </div>
           <div class="col-md-10">
             <alv-input-field label="candidate-detail.anonymous-contact.city"
+                             [maxLength]="MAX_LENGTH_100"
                              alvFormControlName="companyCity">
             </alv-input-field>
           </div>
