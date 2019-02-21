@@ -34,6 +34,7 @@ import { JobPublicationFormValue } from './job-publication-form-value.types';
 import { RouterTestingModule } from '@angular/router/testing';
 import { InjectionToken } from '@angular/core';
 import SpyObj = jasmine.SpyObj;
+import { ErrorHandlerService } from '../../../core/error-handler/error-handler.service';
 
 
 describe('JobPublicationFormComponent', () => {
@@ -53,6 +54,8 @@ describe('JobPublicationFormComponent', () => {
 
   let mockJobPublicationFormValueFactory: SpyObj<JobPublicationFormValueFactory>;
 
+  let mockErrorHandlerService;
+
   let component: JobPublicationFormComponent;
 
   let fixture: ComponentFixture<JobPublicationFormComponent>;
@@ -61,6 +64,7 @@ describe('JobPublicationFormComponent', () => {
     emptyJobPublicationFormValue = new JobPublicationFormValueFactory().createEmpty(currentLanguage);
     mockJobPublicationFormValueFactory = jasmine.createSpyObj('mockJobPublicationFormValueFactory', ['createJobPublicationFormValue']);
     mockJobPublicationFormValueFactory.createJobPublicationFormValue.and.returnValue(emptyJobPublicationFormValue);
+    mockErrorHandlerService = jasmine.createSpyObj('mockErrorHandlerService', ['handleHttpError', 'handleError']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -84,7 +88,8 @@ describe('JobPublicationFormComponent', () => {
         {
           provide: JobPublicationFormValueFactory,
           useValue: mockJobPublicationFormValueFactory
-        }
+        },
+        { provide: ErrorHandlerService, useValue: mockErrorHandlerService },
       ],
       declarations: [
         JobPublicationFormComponent,

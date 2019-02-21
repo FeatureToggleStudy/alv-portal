@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -19,6 +18,7 @@ import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import {
+  catchError,
   debounceTime,
   distinctUntilChanged,
   map,
@@ -27,6 +27,8 @@ import {
 } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { TypeaheadItem } from '../typeahead-item';
+import { ErrorHandlerService } from '../../../../../core/error-handler/error-handler.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'alv-single-typeahead',
@@ -60,7 +62,7 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService,
-              private changeDetectorRef: ChangeDetectorRef
+              private errorHandlerService: ErrorHandlerService
   ) {
     super(controlContainer, InputType.SINGLE_TYPEAHEAD, inputIdGenerationService);
   }
@@ -99,7 +101,16 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
       switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
         ? this.loadItems(query)
         : of([])),
-      map(this.toModelArray.bind(this))
+      map(this.toModelArray.bind(this)),
+      catchError<any, TypeaheadItem<any>[]>((error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.errorHandlerService.handleHttpError(error);
+        } else {
+          this.errorHandlerService.handleError(error);
+        }
+
+        return of([]);
+      })
     );
   }
 
