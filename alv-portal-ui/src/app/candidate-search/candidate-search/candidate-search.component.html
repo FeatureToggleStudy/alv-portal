@@ -46,10 +46,16 @@
     </ng-container>
 
     <ng-container class="main-column">
-      <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults$ | async"
-                                   [selectedOccupationCodes]="selectedOccupationCodes | async"
-                                   [candidateSearchResult]="candidateSearchResult">
-      </alv-candidate-search-result>
+      <ng-container *ngIf="candidateSearchResults$ | async as candidateSearchResults">
+        <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults"
+                                     [selectedOccupationCodes]="selectedOccupationCodes | async"
+                                     [candidateSearchResult]="candidateSearchResult">
+        </alv-candidate-search-result>
+        <div *ngIf="!candidateSearchResults || !candidateSearchResults.length">
+          {{'global.common-phrases.no-results-found' | translate}}
+        </div>
+      </ng-container>
+
     </ng-container>
 
     <ng-container class="right-column">
