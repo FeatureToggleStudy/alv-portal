@@ -22,10 +22,10 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { FilterLanguageSkill } from '../../../shared/backend-services/candidate/candidate.types';
 
-const EMPTY_LANGUAGE_SKILL: FilterLanguageSkill = {
+const DEFAULT_LANGUAGE_SKILL: FilterLanguageSkill = {
   code: null,
   written: CEFR_Level.NONE,
-  spoken: CEFR_Level.NONE
+  spoken: CEFR_Level.BASIC
 };
 
 export interface FilterPanelValues {
@@ -268,12 +268,12 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   onLanguageSkillCodeChanged(languageSkillFormGroup: FormGroup) {
     languageSkillFormGroup.patchValue({
-      written: EMPTY_LANGUAGE_SKILL.written,
-      spoken: EMPTY_LANGUAGE_SKILL.spoken
+      written: DEFAULT_LANGUAGE_SKILL.written,
+      spoken: DEFAULT_LANGUAGE_SKILL.spoken
     }, { emitEvent: false });
   }
 
-  private createNewLanguageSkillFormGroup(languageSkill = EMPTY_LANGUAGE_SKILL): FormGroup {
+  private createNewLanguageSkillFormGroup(languageSkill = DEFAULT_LANGUAGE_SKILL): FormGroup {
     return this.fb.group({
       code: [languageSkill.code],
       written: [languageSkill.written],
