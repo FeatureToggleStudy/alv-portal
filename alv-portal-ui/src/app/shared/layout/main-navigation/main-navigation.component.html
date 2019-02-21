@@ -77,10 +77,10 @@
   </div>
   <hr>
   <!--Logout Button-->
-  <a class="d-flex align-self-center btn btn-primary m-3 w-80"
+  <a class="nav-item"
      *alvIsAuthenticated
      (click)="logout()">
-    <fa-icon class="nav-icon mx-2"
+    <fa-icon class="nav-icon"
              [icon]="['fas', 'power-off']"></fa-icon>
     <span class="nav-text">{{'global.menu.account.logout' | translate}}</span>
   </a>
