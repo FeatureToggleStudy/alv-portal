@@ -81,7 +81,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   graduationOptions$: Observable<SelectableOption[]> = of([
     {
       value: null,
-      label: 'candidate-search.toolbar.graduation.default'
+      label: 'candidate-search.no-selection'
     }
   ].concat(
     Object.keys(Graduation).map(graduation => {
