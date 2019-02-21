@@ -81,6 +81,7 @@
      *alvIsAuthenticated
      (click)="logout()">
     <fa-icon class="nav-icon"
+             [fixedWidth]="true"
              [icon]="['fas', 'power-off']"></fa-icon>
     <span class="nav-text">{{'global.menu.account.logout' | translate}}</span>
   </a>
