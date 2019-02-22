@@ -114,21 +114,21 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   handleKeyDown(event: KeyboardEvent): void {
-    if (event.code === 'Enter' || event.code === 'Tab') {
+    if (event.key === 'Enter' || event.key === 'Tab') {
       console.log('Tab or Enter event triggered!');
       if (this.selectFreeText()) {
         console.log('Freetext selected');
         this.preventAndStopPropagation(event);
       } else {
         this.clearInput();
-        if (event.code === 'Enter' && this.inputValue) {
+        if (event.key === 'Enter' && this.inputValue) {
           console.log(this.inputValue);
           this.preventAndStopPropagation(event);
         }
       }
       return;
     }
-    if (event.code === 'Backspace') {
+    if (event.key === 'Backspace') {
       if (!this.inputValue && this.control.value && this.control.value.length) {
         const result = [...this.control.value];
         result.splice(-1, 1);
