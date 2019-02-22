@@ -18,12 +18,14 @@ import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { TypeaheadItem } from '../typeahead-item';
 import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
 import { StringTypeaheadItem } from '../string-typeahead-item';
 import { EMPTY } from 'rxjs';
 import { TypeaheadDisplayItem } from '../typeahead-display-item';
+import { ErrorHandlerService } from '../../../../../core/error-handler/error-handler.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
@@ -65,7 +67,8 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService,
               @Inject(DOCUMENT) private document: any,
-              private elRef: ElementRef) {
+              private elRef: ElementRef,
+              private errorHandlerService: ErrorHandlerService) {
     super(controlContainer, InputType.MULTI_TYPEAHEAD, inputIdGenerationService);
   }
 
@@ -194,7 +197,16 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       switchMap((query: string) => query.length >= this.queryMinLength
         ? this.loadItems(query)
         : of([])),
-      map(this.toDisplayModelArray.bind(this))
+      map(this.toDisplayModelArray.bind(this)),
+      catchError<any, TypeaheadDisplayItem[]>((error) => {
+        if (error instanceof HttpErrorResponse) {
+          this.errorHandlerService.handleHttpError(error);
+        } else {
+          this.errorHandlerService.handleError(error);
+        }
+
+        return of([]);
+      })
     );
   }
 

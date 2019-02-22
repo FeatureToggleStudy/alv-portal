@@ -23,7 +23,7 @@
            [ngbTypeahead]="loadItemsGuardedFn"
            [resultTemplate]="template"
            [inputFormatter]="formatResultItem"
-           (input)="handleInput($event)"
+           (input)="handleInput()"
            class="form-control">
 
     <label [attr.for]="id"

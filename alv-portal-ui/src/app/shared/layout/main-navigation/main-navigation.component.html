@@ -75,6 +75,16 @@
     </a>
 
   </div>
+  <hr>
+  <!--Logout Button-->
+  <a class="nav-item"
+     *alvIsAuthenticated
+     (click)="logout()">
+    <fa-icon class="nav-icon"
+             [fixedWidth]="true"
+             [icon]="['fas', 'power-off']"></fa-icon>
+    <span class="nav-text">{{'global.menu.account.logout' | translate}}</span>
+  </a>
 
   <div class="nav-fill-item flex-grow-1">
   </div>

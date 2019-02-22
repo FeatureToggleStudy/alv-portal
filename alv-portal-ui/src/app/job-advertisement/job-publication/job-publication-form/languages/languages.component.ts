@@ -7,11 +7,11 @@ import {
   LanguageSkill
 } from '../../../../shared/backend-services/shared.types';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { emptyLanguageSkill } from './languages-form-value.types';
+import { defaultLanguageSkill } from './languages-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 
 
-const EMPTY_LANGUAGE_SKILL = emptyLanguageSkill();
+const DEFAULT_LANGUAGE_SKILL = defaultLanguageSkill();
 
 @Component({
   selector: 'alv-languages',
@@ -79,12 +79,12 @@ export class LanguagesComponent implements OnInit {
 
   onLanguageSkillCodeChanged(languageSkillFormGroup: FormGroup) {
     languageSkillFormGroup.patchValue({
-      writtenLevel: EMPTY_LANGUAGE_SKILL.writtenLevel,
-      spokenLevel: EMPTY_LANGUAGE_SKILL.spokenLevel
+      writtenLevel: DEFAULT_LANGUAGE_SKILL.writtenLevel,
+      spokenLevel: DEFAULT_LANGUAGE_SKILL.spokenLevel
     }, { emitEvent: false });
   }
 
-  private createNewLanguageSkillFormGroup(languageSkill = EMPTY_LANGUAGE_SKILL): FormGroup {
+  private createNewLanguageSkillFormGroup(languageSkill = DEFAULT_LANGUAGE_SKILL): FormGroup {
     return this.fb.group({
       languageIsoCode: [languageSkill.languageIsoCode],
       writtenLevel: [languageSkill.writtenLevel],

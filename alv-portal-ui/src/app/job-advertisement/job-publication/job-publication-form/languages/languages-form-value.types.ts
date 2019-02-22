@@ -1,16 +1,16 @@
 import { CEFR_Level, LanguageSkill } from '../../../../shared/backend-services/shared.types';
 
-export function emptyLanguageSkill(): LanguageSkill {
+export function defaultLanguageSkill(): LanguageSkill {
   return {
     languageIsoCode: null,
     writtenLevel: CEFR_Level.NONE,
-    spokenLevel: CEFR_Level.NONE
+    spokenLevel: CEFR_Level.BASIC
   };
 }
 
 export function emptyLanguagesFormValue(): LanguageSkill[] {
   return [
-    emptyLanguageSkill()
+    defaultLanguageSkill()
   ];
 }
 

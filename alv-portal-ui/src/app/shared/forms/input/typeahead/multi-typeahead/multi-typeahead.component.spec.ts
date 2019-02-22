@@ -11,16 +11,26 @@ import { FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { StringTypeaheadItem } from '../string-typeahead-item';
 import { TypeaheadDisplayItem } from '../typeahead-display-item';
+import { SessionManagerService } from '../../../../../core/auth/session-manager/session-manager.service';
+import { Store } from '@ngrx/store';
+import { ErrorHandlerService } from '../../../../../core/error-handler/error-handler.service';
 
 describe('MultiTypeaheadComponent', () => {
 
   let component: MultiTypeaheadComponent;
   let fixture: ComponentFixture<MultiTypeaheadComponent>;
 
+  let mockErrorHandlerService;
+
   beforeEach(async(() => {
+    mockErrorHandlerService = jasmine.createSpyObj('mockErrorHandlerService', ['handleHttpError', 'handleError']);
+
     TestBed.configureTestingModule({
       imports: [NgbTypeaheadModule, TranslateModule],
       declarations: [MultiTypeaheadComponent, ValidationMessagesComponent],
+      providers: [
+        { provide: ErrorHandlerService, useValue: mockErrorHandlerService },
+      ]
     })
       .overrideTemplate(MultiTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
         .compileComponents();
