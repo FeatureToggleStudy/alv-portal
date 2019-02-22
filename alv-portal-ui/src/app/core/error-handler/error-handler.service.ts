@@ -44,6 +44,10 @@ export class ErrorHandlerService {
         handle: () => this.showMessage('portal.global.exception.server.404')
       },
       {
+        matches: (e) => matchesStatus(e, 414),
+        handle: () => this.showMessage('portal.global.exception.server.unknown')
+      },
+      {
         matches: (e) => matchesStatus(e, 429),
         handle: () =>
           this.showMessage(

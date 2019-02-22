@@ -6,16 +6,24 @@ import { ValidationMessagesComponent } from '../../validation-messages/validatio
 import { FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { TypeaheadItem } from '../typeahead-item';
+import { ErrorHandlerService } from '../../../../../core/error-handler/error-handler.service';
 
 describe('SingleTypeaheadComponent', () => {
 
   let component: SingleTypeaheadComponent;
   let fixture: ComponentFixture<SingleTypeaheadComponent>;
 
+  let mockErrorHandlerService;
+
   beforeEach(async(() => {
+    mockErrorHandlerService = jasmine.createSpyObj('mockErrorHandlerService', ['handleHttpError', 'handleError']);
+
     TestBed.configureTestingModule({
       imports: [NgbTypeaheadModule, TranslateModule],
       declarations: [SingleTypeaheadComponent, ValidationMessagesComponent],
+      providers: [
+        { provide: ErrorHandlerService, useValue: mockErrorHandlerService },
+      ]
     })
       .overrideTemplate(SingleTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
       .compileComponents();
