@@ -29,17 +29,10 @@ import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ContactModalComponent } from './contact-modal/contact-modal.component';
 import { hasAnyAuthorities, UserRole } from '../../core/auth/user.model';
 import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
+import { NotificationsService } from '../../core/notifications.service';
 
 
 const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
-
-const ALERT = {
-  contactModalNotification: {
-    type: NotificationType.SUCCESS,
-    messageKey: 'candidate-detail.candidate-anonymous-contact.success',
-    isSticky: true
-  } as Notification
-};
 
 @Component({
   selector: 'alv-candidate-detail',
@@ -73,7 +66,8 @@ export class CandidateDetailComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private candidateDetailModelFactory: CandidateDetailModelFactory,
               private candidateProfileBadgesMapperService: CandidateProfileBadgesMapperService,
-              private modalService: ModalService) {
+              private modalService: ModalService,
+              private notificationsService: NotificationsService) {
   }
 
   ngOnInit() {
@@ -113,12 +107,8 @@ export class CandidateDetailComponent implements OnInit {
 
   openContactModal(candidateProfile: CandidateProfile): void {
     this.appendCandidateToModalRef(candidateProfile)
-      .then(() => this.contactModalSuccess = ALERT.contactModalNotification, () => {
+      .then(() => this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success', true), () => {
       });
-  }
-
-  dismissAlert() {
-    this.contactModalSuccess = null;
   }
 
   appendCandidateToModalRef(candidateProfile: CandidateProfile) {
