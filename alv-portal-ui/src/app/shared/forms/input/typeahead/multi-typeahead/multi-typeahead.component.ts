@@ -111,24 +111,24 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   onBlur(control) {
-
     control.markAsTouched();
     this.selectFreeText();
   }
 
   handleKeyDown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' || event.key === 'Tab') {
+    const key = event.code || event.key;
+    if (key === 'Enter' || key === 'Tab') {
       if (this.selectFreeText()) {
         this.preventAndStopPropagation(event);
       } else {
         this.clearInput();
-        if (event.key === 'Enter' && this.inputValue) {
+        if (key === 'Enter' && this.inputValue) {
           this.preventAndStopPropagation(event);
         }
       }
       return;
     }
-    if (event.key === 'Backspace') {
+    if (key === 'Backspace') {
       if (!this.inputValue && this.control.value && this.control.value.length) {
         const result = [...this.control.value];
         result.splice(-1, 1);
@@ -141,11 +141,6 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       event.preventDefault();
       return;
     }
-  }
-
-  private preventAndStopPropagation(event: KeyboardEvent) {
-    event.preventDefault();
-    event.stopPropagation();
   }
 
   selectItem(event: NgbTypeaheadSelectItemEvent): void {
@@ -189,6 +184,11 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     this.control.setValue(this.control.value.filter((i) => !item.equals(i)));
     this.clearInput();
     this.getTypeaheadNativeElement().focus();
+  }
+
+  private preventAndStopPropagation(event: KeyboardEvent) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   private loadItemsGuarded(text$: Observable<string>): Observable<TypeaheadDisplayItem[]> {
