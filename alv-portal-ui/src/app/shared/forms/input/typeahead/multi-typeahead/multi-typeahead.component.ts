@@ -197,18 +197,9 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     return text$.pipe(
       debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
       switchMap((query: string) => query.length >= this.queryMinLength
-        ? this.loadItems(query)
+        ? this.loadItems(query).pipe(catchError(this.handleError.bind(this)))
         : of([])),
-      map(this.toDisplayModelArray.bind(this)),
-      catchError<any, TypeaheadDisplayItem[]>((error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.errorHandlerService.handleHttpError(error);
-        } else {
-          this.errorHandlerService.handleError(error);
-        }
-
-        return of([]);
-      })
+      map(this.toDisplayModelArray.bind(this))
     );
   }
 
@@ -246,4 +237,13 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     return this.ngbTypeahead && this.ngbTypeahead._elementRef.nativeElement || {};
   }
 
+  private handleError(error: any) {
+    if (error instanceof HttpErrorResponse) {
+      this.errorHandlerService.handleHttpError(error);
+    } else {
+      this.errorHandlerService.handleError(error);
+    }
+
+    return of([]);
+  }
 }
