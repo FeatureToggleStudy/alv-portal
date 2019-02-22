@@ -46,7 +46,7 @@
              [(ngModel)]="inputValue"
              (selectItem)="selectItem($event)"
              (keydown)="handleKeyDown($event)"
-             (blur)="control.markAsTouched()">
+             (blur)="onBlur(control)">
     </div>
     <label class="d-flex"
            [attr.for]="id">

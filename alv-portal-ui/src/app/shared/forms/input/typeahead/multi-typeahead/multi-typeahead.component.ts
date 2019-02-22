@@ -3,7 +3,6 @@ import {
   ElementRef,
   EventEmitter,
   Host,
-  HostListener,
   Inject,
   Input,
   OnInit,
@@ -84,22 +83,6 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     this.allyHelpId = `${this.id}-ally-help`;
   }
 
-
-  /**
-   * Listens for an outside click and selects free text if applicable
-   */
-  @HostListener('document:click', ['$event.target'])
-  onClick(targetElement: HTMLElement): void {
-    if (!targetElement) {
-      return;
-    }
-    if (!this.elRef.nativeElement.contains(targetElement)) {
-      if (!this.selectFreeText()) {
-        this.clearInput();
-      }
-    }
-  }
-
   showPlaceholder(): boolean {
     return !this.inputValue && (!this.control.value || this.control.value && this.control.value.length === 0);
   }
@@ -127,15 +110,27 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     return '100%';
   }
 
+  onBlur(control) {
+    control.markAsTouched();
+    this.selectFreeText();
+  }
+
   handleKeyDown(event: KeyboardEvent): void {
-    if (event.code === 'Enter' || event.code === 'Tab') {
-      if (this.selectFreeText()) {
-        event.preventDefault();
-        event.stopPropagation();
+    const key = event.code || event.key;
+    if (key === 'Enter' || key === 'Tab') {
+      const hasEnteredValue = !!this.inputValue;
+      const validFreeTextEntry = !!this.selectFreeText();
+      if (validFreeTextEntry) {
+        this.preventAndStopPropagation(event);
+      } else {
+        this.clearInput();
+        if (key === 'Enter' && hasEnteredValue) {
+          this.preventAndStopPropagation(event);
+        }
       }
       return;
     }
-    if (event.code === 'Backspace') {
+    if (key === 'Backspace') {
       if (!this.inputValue && this.control.value && this.control.value.length) {
         const result = [...this.control.value];
         result.splice(-1, 1);
@@ -144,6 +139,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       return;
     }
     if (this.itemLimitReached()) {
+      // when the limit is reached you can't type anymore
       event.preventDefault();
       return;
     }
@@ -170,6 +166,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       || !this.editable
       || !this.inputValue
       || this.inputValue.length < this.queryMinLength) {
+      this.clearInput();
       return null;
     }
     const freeTextItem = new StringTypeaheadItem(
@@ -189,6 +186,11 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     this.control.setValue(this.control.value.filter((i) => !item.equals(i)));
     this.clearInput();
     this.getTypeaheadNativeElement().focus();
+  }
+
+  private preventAndStopPropagation(event: KeyboardEvent) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   private loadItemsGuarded(text$: Observable<string>): Observable<TypeaheadDisplayItem[]> {
