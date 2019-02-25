@@ -24,7 +24,7 @@ export class VersionComponent implements OnInit {
   }
 
   private getBackendVersion(): Observable<BackendVersion> {
-    return this.httpClient.get<BackendVersion>('/manage/info').pipe(
+    return this.httpClient.get<BackendVersion>('/management/info').pipe(
         catchError(err => {
           return EMPTY;
         })

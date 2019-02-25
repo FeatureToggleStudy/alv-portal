@@ -53,5 +53,10 @@
     "target": "https://staging.job-room.ch",
     "secure": false,
     "loglevel": "debug"
+  },
+  "/management/info/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
   }
 }
