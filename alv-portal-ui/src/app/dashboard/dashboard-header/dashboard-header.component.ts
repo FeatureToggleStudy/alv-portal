@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { User } from '../../core/auth/user.model';
 import { CompanyContactTemplateModel } from '../../core/auth/company-contact-template-model';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'alv-dashboard-header',
@@ -13,7 +14,10 @@ export class DashboardHeaderComponent {
 
   @Input() company: CompanyContactTemplateModel;
 
-  constructor() {
+  companyFormControl: FormControl;
+
+  constructor(private fb: FormBuilder) {
+    this.companyFormControl = null;
   }
 
 }

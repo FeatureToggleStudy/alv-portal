@@ -2,10 +2,17 @@
 
   <div class="flex-grow-1">
     <div>{{'portal.dashboard.header.welcome.text' | translate}},</div>
-    <div class="greeting">{{user.firstName}} {{user.lastName}}</div>
   </div>
 
   <div *ngIf="company">
     {{company.companyName}}
   </div>
+
+  <alv-select [alvControl]="companyFormControl"
+              [options$]="userCompanies$"
+              label="'change company'"
+
+  >
+
+  </alv-select>
 </div>
