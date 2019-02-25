@@ -429,7 +429,7 @@ global.workForm.SUNDAY_AND_HOLIDAYS,Sonn- und Feiertagsarbeit,Sunday and holiday
 header.title,Arbeitslosenversicherung ALV,Unemployment insurance,Assurance-chômage AC,Assicurazione contro la disoccupazione AD,
 home.contactform.url,https://www.arbeit.swiss/secoalv/de/home/service/kontakt.html,https://www.arbeit.swiss/secoalv/en/home/service/kontakt.html,https://www.arbeit.swiss/secoalv/fr/home/service/kontakt.html,https://www.arbeit.swiss/secoalv/it/home/service/kontakt.html,
 home.registration.url,https://www.arbeit.swiss/secoalv/de/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,https://www.arbeit.swiss/secoalv/en/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,https://www.arbeit.swiss/secoalv/fr/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,https://www.arbeit.swiss/secoalv/it/home/menue/unternehmen/stellenmeldepflicht/Registrierung.html,
-home.title.cms,<strong>arbeit</strong>.swiss,work.swiss,travail.swiss,lavoro.swiss,
+home.title.cms,<strong>arbeit</strong>.swiss,<strong>work</strong>.swiss,<strong>travail</strong>.swiss,<strong>lavoro</strong>.swiss,
 home.title.portal,arbeit,work,travail,lavoro,
 home.title.portal-url,https://www.arbeit.swiss,https://www.arbeit.swiss/secoalv/en/home.html,https://www.arbeit.swiss/secoalv/fr/home.html,https://www.arbeit.swiss/secoalv/it/home.html,
 home.toolbar.companies,Arbeitgeber,Employers,Employeurs,Datori di lavoro,
