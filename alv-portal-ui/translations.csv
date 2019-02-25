@@ -696,7 +696,6 @@ portal.admin.user-info.user-info.title,Benutzerinformationen,User information,In
 portal.candidate-detail.action.sendLink,Link versenden,Send link,Envoyer le lien,Invia link,
 portal.candidate-detail.anonymous-contact.name-lastName,Vorname / Name,First name / Last name,Prénom / Nom,Nome / Cognome,
 portal.candidate-detail.anonymous-contact.send,Absenden,,,,
-portal.candidate-detail.anonymous-contact.your-message,Ihre Mitteilung,,,,
 portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche,
 portal.candidate-detail.other-work-experience.label,Weitere Berufserfahrung,Other work experience,,,
 portal.candidate-search.browser-title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati,
