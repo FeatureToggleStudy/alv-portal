@@ -57,8 +57,6 @@ export class CandidateDetailComponent implements OnInit {
 
   candidateDetailPanelId = CandidateDetailPanelId;
 
-  contactModalSuccess: Notification;
-
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
 
