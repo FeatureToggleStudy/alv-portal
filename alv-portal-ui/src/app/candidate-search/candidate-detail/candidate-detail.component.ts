@@ -80,7 +80,7 @@ export class CandidateDetailComponent implements OnInit {
     this.canContactCandidatePerEmail$ = candidateProfile$.pipe(
       withLatestFrom(this.authenticationService.getCurrentUser()),
       map(([candidate, user]) => {
-        const rolePavOrCompany = hasAnyAuthorities(user, [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY, UserRole.ROLE_SYSADMIN]);
+        const rolePavOrCompany = hasAnyAuthorities(user, [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]);
         const emailContactType = hasEmailContactType(candidate);
         return rolePavOrCompany && emailContactType;
       })
