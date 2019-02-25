@@ -32,12 +32,12 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
   },
   {
     id: 'PAV',
-    menuEntryKeys: ['dashboard', 'candidate-search', 'job-search', 'job-publication', 'manage-job-ads', 'user-settings'],
+    menuEntryKeys: ['dashboard', 'candidate-search', 'job-publication', 'manage-job-ads', 'job-search', 'user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_PAV])
   },
   {
     id: 'COMPANY',
-    menuEntryKeys: ['dashboard', 'job-publication', 'candidate-search', 'job-search', 'manage-job-ads', 'user-settings'],
+    menuEntryKeys: ['dashboard', 'candidate-search', 'job-publication', 'manage-job-ads', 'job-search', 'user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY])
   }
 ];

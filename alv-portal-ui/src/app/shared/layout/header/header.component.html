@@ -68,8 +68,8 @@
         <a class="mx-3"
            [href]="'home.title.portal-url' | translate"
            target="_blank"
+           [innerHTML]="'home.title.cms'| translate "
            rel="noopener">
-          {{ 'home.title.cms'| translate }}
         </a>
         <ng-container *ngFor="let language of LANGUAGES">
           <button (click)="changeLanguage(language)"
