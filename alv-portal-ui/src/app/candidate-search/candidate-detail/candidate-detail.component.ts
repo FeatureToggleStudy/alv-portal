@@ -1,8 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  Notification,
-  NotificationType
-} from '../../shared/layout/notifications/notification.model';
 import { CandidateDetailPanelId } from './candidate-detail-panel-id.enum';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -84,7 +80,7 @@ export class CandidateDetailComponent implements OnInit {
     this.canContactCandidatePerEmail$ = candidateProfile$.pipe(
       withLatestFrom(this.authenticationService.getCurrentUser()),
       map(([candidate, user]) => {
-        const rolePavOrCompany = hasAnyAuthorities(user, [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY]);
+        const rolePavOrCompany = hasAnyAuthorities(user, [UserRole.ROLE_PAV, UserRole.ROLE_COMPANY, UserRole.ROLE_SYSADMIN]);
         const emailContactType = hasEmailContactType(candidate);
         return rolePavOrCompany && emailContactType;
       })
