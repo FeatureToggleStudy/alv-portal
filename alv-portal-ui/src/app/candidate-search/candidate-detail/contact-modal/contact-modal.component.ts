@@ -59,7 +59,6 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
   readonly LABEL_VALUES: string[] = [
     'candidate-detail.candidate-anonymous-contact.subject',
-    'candidate-detail.anonymous-contact.personal-message',
     'candidate-detail.anonymous-contact.mail-body-preamble'
   ];
 
@@ -90,7 +89,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
     combineLatest(this.authenticationService.getCurrentCompany(), this.i18nService.stream(this.LABEL_VALUES)).pipe(
       takeUntil(this.ngUnsubscribe))
       .subscribe(([company, translate]) => {
-        this.mailBodyPreamble = translate[this.LABEL_VALUES[2]];
+        this.mailBodyPreamble = translate[this.LABEL_VALUES[1]];
         this.patchAllFormValues(company, translate);
       });
 
@@ -180,7 +179,6 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     this.form.patchValue({
       subject: translate[this.LABEL_VALUES[0]],
-      personalMessage: translate[this.LABEL_VALUES[1]],
       companyName: company.companyName,
       phone: company.phone,
       email: company.email
