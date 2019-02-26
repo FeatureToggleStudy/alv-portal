@@ -4,15 +4,6 @@
     <div>{{'portal.dashboard.header.welcome.text' | translate}},</div>
   </div>
 
-  <div *ngIf="company">
-    {{company .companyName}}
-  </div>
-
-  <alv-select [alvControl]="companyFormControl"
-              [label]="'job-search.filter.company-name.label'"
-              [options$]="accountabilities$"
-
-  >
-  </alv-select>
+  <alv-accountability-switcher></alv-accountability-switcher>
 
 </div>
