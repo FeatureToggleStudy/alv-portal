@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserInfoRepository } from '../../shared/backend-services/user-info/user-info-repository';
-import { patternInputValidator } from '../../shared/forms/input/input-field/pattern-input.validator';
-import { EMAIL_REGEX } from '../../shared/forms/regex-patterns';
-import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { UserInfoDTO } from '../../shared/backend-services/user-info/user-info.types';
-import { HttpErrorResponse } from '@angular/common/http';
-import { EMPTY } from 'rxjs';
-import { catchError, switchMap, takeUntil } from 'rxjs/operators';
-import { UserRole } from '../../core/auth/user.model';
-import { Notification, NotificationType } from '../../shared/layout/notifications/notification.model';
-import { UserInfoBadge, UserInfoBadgesMapperService } from './user-info-badges-mapper.service';
-import { ModalService } from '../../shared/layout/modal/modal.service';
-import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserInfoRepository} from '../../shared/backend-services/user-info/user-info-repository';
+import {patternInputValidator} from '../../shared/forms/input/input-field/pattern-input.validator';
+import {EMAIL_REGEX, PERSON_NUMBER_REGEX} from '../../shared/forms/regex-patterns';
+import {AbstractSubscriber} from '../../core/abstract-subscriber';
+import {UserInfoDTO} from '../../shared/backend-services/user-info/user-info.types';
+import {HttpErrorResponse} from '@angular/common/http';
+import {EMPTY, of} from 'rxjs';
+import {catchError, distinctUntilChanged, startWith, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
+import {UserRole} from '../../core/auth/user.model';
+import {Notification, NotificationType} from '../../shared/layout/notifications/notification.model';
+import {UserInfoBadge, UserInfoBadgesMapperService} from './user-info-badges-mapper.service';
+import {ModalService} from '../../shared/layout/modal/modal.service';
+import {ConfirmModalConfig} from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
+import {UserSearchParameterTypes} from "./user-info.types";
 
 const ALERTS = {
   userNotFound: {
@@ -70,17 +71,34 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
   isOnlyEIAMRoles: boolean;
 
+  formPlaceholder: string;
+
+  formLabel: string;
+
   constructor(private fb: FormBuilder,
               private userInfoRepository: UserInfoRepository,
               private modalService: ModalService,
               private userInfoBadgesMapperService: UserInfoBadgesMapperService) {
     super();
   }
+  usedSearchParameterOptions = of([
+    {
+      label: 'portal.admin.user-info.use.search.parameter.option.email',
+      value: UserSearchParameterTypes.EMAIL
+    },
+    {
+      label: 'portal.admin.user-info.use.search.parameter.option.stesnr',
+      value: UserSearchParameterTypes.STES_NR
+    }
+  ]);
 
   ngOnInit() {
     this.form = this.fb.group({
-      emailAddress: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]]
+      searchParam: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
+      usedSearchParameterRadio: [UserSearchParameterTypes.EMAIL]
     });
+    this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.email';
+    this.formLabel='portal.admin.user-info.user-info.email';
   }
 
   private setToInit() {
@@ -125,12 +143,12 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     this.modalService.openConfirm({
       title: 'portal.admin.user-info.actions.unregister.title',
       content: 'portal.admin.user-info.confirmMessage',
-      contentParams: { email: this.form.get('emailAddress').value },
+      contentParams: {email: this.form.get('searchParam').value},
       confirmLabel: 'portal.admin.user-info.confirm-dialog.yes',
       cancelLabel: 'portal.admin.user-info.confirm-dialog.no'
     } as ConfirmModalConfig).result
       .then(
-        () => this.userInfoRepository.unregisterUser(this.form.get('emailAddress').value, this.determineRoleToBeRemoved())
+        () => this.userInfoRepository.unregisterUser(this.form.get('searchParam').value, this.determineRoleToBeRemoved())
           .subscribe(() => {
             this.alert = ALERTS.unregisterSuccess;
             this.onSubmit();
@@ -141,7 +159,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
   }
 
   onSubmit() {
-    this.userInfoRepository.loadUserByEmail(this.form.get('emailAddress').value).pipe(
+    this.userInfoRepository.loadUserByEmailOrStesNr(this.form.get('searchParam').value, this.form.value.usedSearchParameterRadio).pipe(
       switchMap((userInfo: UserInfoDTO) => {
         this.user = userInfo;
         this.setActions();
@@ -169,6 +187,24 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
         }
         return EMPTY;
       });
+  }
+
+  usedSearchParameterRadioChange() {
+    if (this.form.value.usedSearchParameterRadio===UserSearchParameterTypes.EMAIL){
+      this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.email';
+      this.formLabel='portal.admin.user-info.user-info.email';
+      this.form = this.fb.group({
+        searchParam: [this.form.value.searchParam, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
+        usedSearchParameterRadio: [this.form.value.usedSearchParameterRadio]
+      });
+    } else {
+      this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.stesnr';
+      this.formLabel = 'portal.admin.user-info.stes-info.pn';
+      this.form = this.fb.group({
+        searchParam: [this.form.value.searchParam, [Validators.required,Validators.pattern(PERSON_NUMBER_REGEX)]],
+        usedSearchParameterRadio: [this.form.value.usedSearchParameterRadio]
+      });
+    }
   }
 
 }

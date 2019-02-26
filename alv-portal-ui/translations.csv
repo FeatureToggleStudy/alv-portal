@@ -701,6 +701,8 @@ portal.admin.user-info.desc,Bitte geben Sie die E-Mail-Adresse eines bestehenden
 portal.admin.user-info.eIAM-roles.no,Es konnte keine Rollen in eIAM für diesen Benutzer gefunden werden,No roles for this user found in eIAM,No roles for this user found in eIAM,No roles for this user found in eIAM,
 portal.admin.user-info.eIAM-roles.title,eIAM Rollen,eIAM Roles,eIAM Roles,eIAM Roles,
 portal.admin.user-info.email,E-Mail,Email,Courriel,E-mail,
+portal.admin.user-info.email,E-Mail,Email,Courriel,E-mail,
+portal.admin.user-info.emailOrPersonalNumber,E-Mail/Personennummer,Email/Personal ID,Courriel/Numéro personnel,E-mail/Numero personale,
 portal.admin.user-info.searchByEmail,Suchen,Search,Search,Search,
 portal.admin.user-info.stes-info.no,Keine STES-Informationen gefunden,No STES Information found,No STES Information found,No STES Information found,
 portal.admin.user-info.stes-info.pn,Personennummer,Personal ID,Numéro personnel,Numero personale,
@@ -712,6 +714,10 @@ portal.admin.user-info.user-info.firstName,Vorname,First name,Prénom,Nome,
 portal.admin.user-info.user-info.lastName,Nachname,Last name,Nom,Cognome,
 portal.admin.user-info.user-info.no,Keine Benutzer-Informationen gefunden,No user information found,No user information found,No user information found,
 portal.admin.user-info.user-info.title,Benutzerinformationen,User information,Information utilisateur,Informazioni utente,
+portal.admin.user-info.use.search.parameter.option.email,[DE]Search by e-mail, Search by e-mail,[FR] Search by e-mail,[IT] Search by e-mail
+portal.admin.user-info.use.search.parameter.option.stesnr,[DE]Search by personal number,Search by personal number,[FR] Search by personal number,[IT] Search by personal number
+portal.admin.user-info.use.search.placeholders.email,muster@email.ch,example@email.ch,exemple@email.ch,esempio@email.ch
+portal.admin.user-info.use.search.placeholders.stesnr,[DE] stesNr placeholder,stesNr placeholder,[FR] stesNr placeholder,[IT] stesNr placeholder
 portal.candidate-detail.action.sendLink,Link versenden,Send link,Envoyer le lien,Invia link,
 portal.candidate-detail.anonymous-contact.name-lastName,Vorname / Name,First name / Last name,Prénom / Nom,Nome / Cognome,
 portal.candidate-detail.anonymous-contact.send,Absenden,,,,

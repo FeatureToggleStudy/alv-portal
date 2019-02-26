@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Accountability, CompanyContactTemplate, UserInfoDTO } from './user-info.types';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import {UserSearchParameterTypes} from "../../../admin/user-info/user-info.types";
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +26,14 @@ export class UserInfoRepository {
     return this.http.post<void>(`${UserInfoRepository.USER_INFO_URL}${userId}/company-contact-templates`, companyContactTemplate);
   }
 
-  public loadUserByEmail(email: string): Observable<UserInfoDTO> {
-    const params = new HttpParams().set('eMail', email);
-    return this.http.get<UserInfoDTO>(UserInfoRepository.USER_INFO_URL, { params: params });
+  public loadUserByEmailOrStesNr(searchparam: string, searchparamType: UserSearchParameterTypes): Observable<UserInfoDTO> {
+    if (searchparamType==UserSearchParameterTypes.EMAIL){
+      const params = new HttpParams().set('eMail', searchparam);
+      return this.http.get<UserInfoDTO>(UserInfoRepository.USER_INFO_URL, { params: params });
+    } else{
+      const params = new HttpParams().set('stesNr', searchparam);
+      return this.http.get<UserInfoDTO>(`${UserInfoRepository.USER_INFO_URL}_search/by-stes-nr`, { params: params });
+    }
   }
 
   public loadUserRoles(userId: string): Observable<string[]> {
