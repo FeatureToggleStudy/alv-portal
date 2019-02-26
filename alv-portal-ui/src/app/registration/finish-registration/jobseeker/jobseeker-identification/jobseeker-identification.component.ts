@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractRegistrationStep } from '../../../abstract-registration-step';
-import { RegistrationStep } from '../../../registration-step.enum';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PERSON_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
-import { Router } from '@angular/router';
-import { NgbDate, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { NotificationsService } from '../../../../core/notifications.service';
-import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { catchError, switchMap, tap } from 'rxjs/operators';
-import { EMPTY, throwError } from 'rxjs';
-import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
+import {Component, OnInit} from '@angular/core';
+import {AbstractRegistrationStep} from '../../../abstract-registration-step';
+import {RegistrationStep} from '../../../registration-step.enum';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PERSON_NUMBER_REGEX} from '../../../../shared/forms/regex-patterns';
+import {Router} from '@angular/router';
+import {NgbDate, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
+import {NotificationsService} from '../../../../core/notifications.service';
+import {AuthenticationService} from '../../../../core/auth/authentication.service';
+import {catchError, switchMap, tap} from 'rxjs/operators';
+import {EMPTY, throwError} from 'rxjs';
+import {RegistrationRepository} from '../../../../shared/backend-services/registration/registration.repository';
+import {patternInputValidator} from "../../../../shared/forms/input/input-field/pattern-input.validator";
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -18,7 +19,7 @@ import { RegistrationRepository } from '../../../../shared/backend-services/regi
 })
 export class JobseekerIdentificationComponent extends AbstractRegistrationStep implements OnInit {
 
-  readonly BIRTHDAY_MIN_DATE = NgbDate.from({ year: 1900, month: 1, day: 1 });
+  readonly BIRTHDAY_MIN_DATE = NgbDate.from({year: 1900, month: 1, day: 1});
 
   readonly BIRTHDAY_MAX_DATE = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
 
@@ -43,7 +44,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
 
   ngOnInit() {
     this.jobseekerIdentificationForm = this.fb.group({
-      personNr: ['', [Validators.required, Validators.pattern(PERSON_NUMBER_REGEX)]],
+      personNr: ['', [Validators.required, patternInputValidator(PERSON_NUMBER_REGEX)]],
       birthDate: ['', Validators.required]
     });
   }

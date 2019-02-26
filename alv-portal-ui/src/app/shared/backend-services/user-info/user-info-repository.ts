@@ -25,13 +25,13 @@ export class UserInfoRepository {
     return this.http.post<void>(`${UserInfoRepository.USER_INFO_URL}${userId}/company-contact-templates`, companyContactTemplate);
   }
 
-  public loadUserByEmail(searchparam: string): Observable<UserInfoDTO> {
-      const params = new HttpParams().set('eMail', searchparam);
+  public loadUserByEmail(email: string): Observable<UserInfoDTO> {
+      const params = new HttpParams().set('eMail', email);
       return this.http.get<UserInfoDTO>(UserInfoRepository.USER_INFO_URL, { params: params });
   }
 
-  loadUserByStesNr(searchparam: string): Observable<UserInfoDTO> {
-    const params = new HttpParams().set('stesNr', searchparam);
+  public loadUserByStesNr(stesNumber: string): Observable<UserInfoDTO> {
+    const params = new HttpParams().set('stesNr', stesNumber);
     return this.http.get<UserInfoDTO>(`${UserInfoRepository.USER_INFO_URL}_search/by-stes-nr`, { params: params });
   }
 

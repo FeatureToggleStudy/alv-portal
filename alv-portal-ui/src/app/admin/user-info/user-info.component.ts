@@ -7,13 +7,17 @@ import {AbstractSubscriber} from '../../core/abstract-subscriber';
 import {UserInfoDTO} from '../../shared/backend-services/user-info/user-info.types';
 import {HttpErrorResponse} from '@angular/common/http';
 import {EMPTY, of} from 'rxjs';
-import {catchError, distinctUntilChanged, startWith, switchMap, takeUntil, withLatestFrom} from 'rxjs/operators';
+import {catchError, distinctUntilChanged, startWith, switchMap, takeUntil} from 'rxjs/operators';
 import {UserRole} from '../../core/auth/user.model';
 import {Notification, NotificationType} from '../../shared/layout/notifications/notification.model';
 import {UserInfoBadge, UserInfoBadgesMapperService} from './user-info-badges-mapper.service';
 import {ModalService} from '../../shared/layout/modal/modal.service';
 import {ConfirmModalConfig} from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
-import {UserSearchParameterTypes} from "./user-info.types";
+
+enum UserSearchParameterTypes {
+  EMAIL = 'EMAIL',
+  STES_NR = 'STES_NR'
+}
 
 const ALERTS = {
   userNotFound: {
@@ -81,7 +85,8 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
               private userInfoBadgesMapperService: UserInfoBadgesMapperService) {
     super();
   }
-  usedSearchParameterOptions = of([
+
+  searchParameterTypeOptions = of([
     {
       label: 'portal.admin.user-info.use.search.parameter.option.email',
       value: UserSearchParameterTypes.EMAIL
@@ -94,11 +99,16 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      searchParam: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
-      usedSearchParameterRadio: [UserSearchParameterTypes.EMAIL]
+      searchParam: [null],
+      searchParameterType: [UserSearchParameterTypes.EMAIL]
     });
-    this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.email';
-    this.formLabel='portal.admin.user-info.user-info.email';
+
+    this.form.get('searchParameterType').valueChanges.pipe(
+      startWith(this.form.get('searchParameterType').value),
+      distinctUntilChanged()
+    ).subscribe(searchParameterType => {
+      this.searchParameterTypeChanged(searchParameterType);
+    });
   }
 
   private setToInit() {
@@ -155,17 +165,12 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
           }, () => {
             this.alert = ALERTS.unregisterTechError;
           }),
-        () => {});
+        () => {
+        });
   }
 
   onSubmit() {
-    let searchparam;
-    if (this.form.value.usedSearchParameterRadio === UserSearchParameterTypes.EMAIL) {
-      searchparam = this.userInfoRepository.loadUserByEmail(this.form.get('searchParam').value);
-    } else {
-      searchparam = this.userInfoRepository.loadUserByStesNr(this.form.get('searchParam').value);
-    }
-    searchparam .pipe(
+    this.determineUserInfoObservable().pipe(
       switchMap((userInfo: UserInfoDTO) => {
         this.user = userInfo;
         this.setActions();
@@ -195,21 +200,26 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       });
   }
 
-  usedSearchParameterRadioChange() {
-    if (this.form.value.usedSearchParameterRadio===UserSearchParameterTypes.EMAIL){
+  private searchParameterTypeChanged(newValue: UserSearchParameterTypes) {
+    let validator = null;
+    if (newValue === UserSearchParameterTypes.EMAIL) {
       this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.email';
-      this.formLabel='portal.admin.user-info.user-info.email';
-      this.form = this.fb.group({
-        searchParam: [this.form.value.searchParam, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
-        usedSearchParameterRadio: [this.form.value.usedSearchParameterRadio]
-      });
+      this.formLabel = 'portal.admin.user-info.user-info.email';
+      validator = patternInputValidator(EMAIL_REGEX);
     } else {
       this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.stesnr';
       this.formLabel = 'portal.admin.user-info.stes-info.pn';
-      this.form = this.fb.group({
-        searchParam: [this.form.value.searchParam, [Validators.required,Validators.pattern(PERSON_NUMBER_REGEX)]],
-        usedSearchParameterRadio: [this.form.value.usedSearchParameterRadio]
-      });
+      validator = patternInputValidator(PERSON_NUMBER_REGEX)
+    }
+
+    this.form.get('searchParam').setValidators([Validators.required, validator]);
+  }
+
+  private determineUserInfoObservable() {
+    if (this.form.value.searchParameterType === UserSearchParameterTypes.EMAIL) {
+      return this.userInfoRepository.loadUserByEmail(this.form.get('searchParam').value);
+    } else {
+      return this.userInfoRepository.loadUserByStesNr(this.form.get('searchParam').value);
     }
   }
 
