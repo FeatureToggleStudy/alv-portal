@@ -189,6 +189,9 @@ global.experience.LESS_THAN_1_YEAR,Weniger als 1 Jahr,Less than 1 year,Moins d'u
 global.experience.MORE_THAN_1_YEAR,Mehr als 1 Jahr,More than 1 year,Plus d'un an,Più di 1 anno,
 global.experience.MORE_THAN_3_YEARS,Mehr als 3 Jahre,More than 3 years,Plus de trois ans,Più di 3 anni,
 global.experience.NONE,Keine Erfahrung,No experience,Aucune expérience,Nessuna esperienza,
+global.footer.link.legal.text,Rechtliche Hinweise,Legal information,Droits d'usage,Avvertenze giuridiche
+global.footer.link.legal.url,https://www.arbeit.swiss/secoalv/de/home/service/rechtliche-hinweise.html,https://www.arbeit.swiss/secoalv/en/home/service/rechtliche-hinweise.html,https://www.arbeit.swiss/secoalv/fr/home/service/rechtliche-hinweise.html,https://www.arbeit.swiss/secoalv/it/home/service/rechtliche-hinweise.html
+global.footer.link.seco.text,Arbeitslosenversicherung / Arbeitsmarkt ALV,Unemployment insurance / Labour market,Assurance-chômage / marché du travail AC,Assicurazione contro la disoccupazione / Mercato del lavoro AD
 global.gender.FEMALE,weiblich,Female,féminin,femmina,
 global.gender.MALE,männlich,Male,masculin,maschio,
 global.job-publication.status.APPROVED,Genehmigt,Approved,Approuvé,Approvato,
@@ -696,7 +699,6 @@ portal.admin.user-info.user-info.title,Benutzerinformationen,User information,In
 portal.candidate-detail.action.sendLink,Link versenden,Send link,Envoyer le lien,Invia link,
 portal.candidate-detail.anonymous-contact.name-lastName,Vorname / Name,First name / Last name,Prénom / Nom,Nome / Cognome,
 portal.candidate-detail.anonymous-contact.send,Absenden,,,,
-portal.candidate-detail.anonymous-contact.your-message,Ihre Mitteilung,,,,
 portal.candidate-detail.language-skills.label,Sprachkenntnisse,Languages,Connaissances linguistiques,Conoscenze linguistiche,
 portal.candidate-detail.other-work-experience.label,Weitere Berufserfahrung,Other work experience,,,
 portal.candidate-search.browser-title,Kandidaten finden,Find candidates,Trouver des candidats,Trova candidati,
