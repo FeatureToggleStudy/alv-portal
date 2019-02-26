@@ -1,8 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  Notification,
-  NotificationType
-} from '../../shared/layout/notifications/notification.model';
 import { CandidateDetailPanelId } from './candidate-detail-panel-id.enum';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
