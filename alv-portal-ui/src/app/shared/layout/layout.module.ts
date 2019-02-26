@@ -49,7 +49,7 @@ import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-
 import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
 import { IconsModule } from '../icons/icons.module';
 import { SystemNotificationComponent } from './system-notification/system-notification.component';
-import { SystemNotificationModalComponent } from '../../admin/system-notifications/modal/system-notification-modal.component';
+import {FooterComponent} from './footer/footer.component';
 import { AccountabilitySwitcherComponent } from './accountability-switcher/accountability-switcher.component';
 
 @NgModule({
@@ -76,6 +76,7 @@ import { AccountabilitySwitcherComponent } from './accountability-switcher/accou
     NavigationContainerComponent,
     VersionComponent,
     HeaderComponent,
+    FooterComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
@@ -112,6 +113,7 @@ import { AccountabilitySwitcherComponent } from './accountability-switcher/accou
   exports: [
     NavigationContainerComponent,
     HeaderComponent,
+    FooterComponent,
     VersionComponent,
     NotificationComponent,
     HelpButtonComponent,
