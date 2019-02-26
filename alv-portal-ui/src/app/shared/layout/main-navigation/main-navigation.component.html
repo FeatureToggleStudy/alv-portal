@@ -55,7 +55,7 @@
      [class.open]="mobileMenuExpanded">
 
   <div
-    class="nav-item mb-4 not-hoverable"
+    class="nav-item not-hoverable"
     *alvIsAuthenticated>
     <alv-user-name-and-company
       *ngIf="currentUser"
@@ -63,6 +63,12 @@
       [companyName]="(currentCompany$|async)?.companyName">
 
     </alv-user-name-and-company>
+
+  </div>
+  <div
+    class="nav-item mb-4 not-hoverable">
+    <alv-accountability-switcher class="w-100"></alv-accountability-switcher>
+
   </div>
 
   <!--Login Button-->
