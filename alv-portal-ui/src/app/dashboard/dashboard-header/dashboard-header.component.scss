@@ -12,3 +12,7 @@
     font-size: 1.5em;
   }
 }
+
+::ng-deep alv-select > .form-group > .form-label-group > select  {
+   padding-right: 2em;
+}

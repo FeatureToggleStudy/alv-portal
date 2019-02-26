@@ -31,6 +31,15 @@
                [icon]="['fas', 'hand-point-right']"></fa-icon>
       {{'global.menu.account.registration.incomplete' | translate}}
     </button>
+    <ng-container *ngIf="currentAccountability$ | async as currentAccountability">
+      <small class="ml-2">Companies</small>
+      <button *ngFor="let accountability of accountabilities$ | async "
+              class="dropdown-item"
+              [ngClass]="{ active: accountability.companyId === currentAccountability.companyId }">
+        {{accountability.companyName}}
+      </button>
+      <hr>
+    </ng-container>
     <!-- User settings (eIAM profile, Contact information -->
     <button *ngIf="isAuthenticated"
             class="dropdown-item"

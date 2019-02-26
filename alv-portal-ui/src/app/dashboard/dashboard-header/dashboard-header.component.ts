@@ -29,8 +29,6 @@ export class DashboardHeaderComponent {
 
   @Input() user: User;
 
-  currentAccountability: Observable<SelectableOption>;
-
   accountabilities$: Observable<SelectableOption[]>;
 
   companyFormControl: FormControl;
@@ -43,7 +41,7 @@ export class DashboardHeaderComponent {
       filter(Boolean),
       map((accountabilities: Accountability[]) => accountabilities.map(mapAccountabilityToSelectOption))
     );
-    this.currentAccountability = store.pipe(
+    store.pipe(
       select(getCurrentAccountability),
       filter(Boolean),
       map(mapAccountabilityToSelectOption)
