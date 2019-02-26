@@ -99,18 +99,9 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
     return text$.pipe(
       debounceTime(this.TYPEAHEAD_DEBOUNCE_TIME),
       switchMap((query: string) => query.length >= this.TYPEAHEAD_QUERY_MIN_LENGTH
-        ? this.loadItems(query)
+        ? this.loadItems(query).pipe(catchError(this.handleError.bind(this)))
         : of([])),
-      map(this.toModelArray.bind(this)),
-      catchError<any, TypeaheadItem<any>[]>((error) => {
-        if (error instanceof HttpErrorResponse) {
-          this.errorHandlerService.handleHttpError(error);
-        } else {
-          this.errorHandlerService.handleError(error);
-        }
-
-        return of([]);
-      })
+      map(this.toModelArray.bind(this))
     );
   }
 
@@ -122,5 +113,15 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
   private exists(model: TypeaheadItem<any>): boolean {
     return this.control.value && this.control.value === model;
+  }
+
+  private handleError(error: any) {
+    if (error instanceof HttpErrorResponse) {
+      this.errorHandlerService.handleHttpError(error);
+    } else {
+      this.errorHandlerService.handleError(error);
+    }
+
+    return of([]);
   }
 }
