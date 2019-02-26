@@ -9,23 +9,23 @@
                         postalCode: address.zipCode,
                         city: address.city}">
   </alv-post-address>
-  <br>
+  <p>
   {{'portal.job-detail.reference.phone' | translate}}
   <a class="link"
      href="tel:{{jobCenter.phone}}">{{jobCenter.phone | phoneNumber}}</a>
+  </p>
 </div>
 
 <ng-container *ngIf="jobDetailModel.stellennummerAvam || jobDetailModel.stellennummerEgov">
-  <strong>{{'portal.job-detail.reference.job-id' | translate}}:</strong>
+  <strong>{{'portal.job-detail.reference.job-id' | translate}}</strong>
   <br>
 
   <ng-container *ngIf="jobDetailModel.stellennummerAvam">
-    {{'job-detail.avam.label' | translate}}
-    : {{jobDetailModel.stellennummerAvam}}
+    {{'job-detail.avam.label' | translate}}: {{jobDetailModel.stellennummerAvam}}
     <br>
   </ng-container>
 
   <ng-container *ngIf="jobDetailModel.stellennummerEgov">
-    {{'job-detail.job-room-id' | translate}} {{jobDetailModel.stellennummerEgov}}
+    {{'job-detail.job-room-id' | translate}}: {{jobDetailModel.stellennummerEgov}}
   </ng-container>
 </ng-container>
