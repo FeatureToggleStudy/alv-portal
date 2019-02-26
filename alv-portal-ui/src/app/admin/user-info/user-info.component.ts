@@ -159,7 +159,13 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
   }
 
   onSubmit() {
-    this.userInfoRepository.loadUserByEmailOrStesNr(this.form.get('searchParam').value, this.form.value.usedSearchParameterRadio).pipe(
+    let searchparam;
+    if (this.form.value.usedSearchParameterRadio === UserSearchParameterTypes.EMAIL) {
+      searchparam = this.userInfoRepository.loadUserByEmail(this.form.get('searchParam').value);
+    } else {
+      searchparam = this.userInfoRepository.loadUserByStesNr(this.form.get('searchParam').value);
+    }
+    searchparam .pipe(
       switchMap((userInfo: UserInfoDTO) => {
         this.user = userInfo;
         this.setActions();
