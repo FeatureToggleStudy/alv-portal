@@ -151,7 +151,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   private prepareForm(): FormGroup {
     return this.fb.group({
       subject: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_150)]],
-      personalMessage: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]],
+      personalMessage: [null, [Validators.maxLength(this.MAX_LENGTH_1000)]],
       companyName: [null, [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
       phoneCheckbox: [true],
       phone: [null],
