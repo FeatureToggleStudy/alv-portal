@@ -701,7 +701,6 @@ portal.admin.user-info.desc,Bitte geben Sie die E-Mail-Adresse eines bestehenden
 portal.admin.user-info.eIAM-roles.no,Es konnte keine Rollen in eIAM für diesen Benutzer gefunden werden,No roles for this user found in eIAM,No roles for this user found in eIAM,No roles for this user found in eIAM,
 portal.admin.user-info.eIAM-roles.title,eIAM Rollen,eIAM Roles,eIAM Roles,eIAM Roles,
 portal.admin.user-info.email,E-Mail,Email,Courriel,E-mail,
-portal.admin.user-info.email,E-Mail,Email,Courriel,E-mail,
 portal.admin.user-info.emailOrPersonalNumber,E-Mail/Personennummer,Email/Personal ID,Courriel/Numéro personnel,E-mail/Numero personale,
 portal.admin.user-info.searchByEmail,Suchen,Search,Search,Search,
 portal.admin.user-info.stes-info.no,Keine STES-Informationen gefunden,No STES Information found,No STES Information found,No STES Information found,
