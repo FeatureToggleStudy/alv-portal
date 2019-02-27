@@ -4,16 +4,32 @@
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
 :host {
-  z-index: 1000;
+  padding: 2px 10px;
   position: fixed;
-  bottom: 2rem;
-  right: 1rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20px;
+  font-size: x-small;
+  z-index: 100000;
+  background-color: $color-dark-grey;
+  color: $color-white;
+
+  alv-version {
+    margin: 0 1em;
+  }
+
+  a {
+    float: right;
+    color: $color-white;
+  }
 }
 
 @include media-breakpoint-down(sm) {
   :host {
-    bottom: 2rem;
-    right: 0.5rem;
+    alv-version {
+      display: none;
+    }
   }
 }
 

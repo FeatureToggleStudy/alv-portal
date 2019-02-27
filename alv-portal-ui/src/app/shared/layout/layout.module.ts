@@ -49,7 +49,7 @@ import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-
 import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
 import { IconsModule } from '../icons/icons.module';
 import { SystemNotificationComponent } from './system-notification/system-notification.component';
-import { SystemNotificationModalComponent } from '../../admin/system-notifications/modal/system-notification-modal.component';
+import {FooterComponent} from './footer/footer.component';
 
 @NgModule({
   imports: [
@@ -75,6 +75,7 @@ import { SystemNotificationModalComponent } from '../../admin/system-notificatio
     NavigationContainerComponent,
     VersionComponent,
     HeaderComponent,
+    FooterComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
@@ -110,6 +111,7 @@ import { SystemNotificationModalComponent } from '../../admin/system-notificatio
   exports: [
     NavigationContainerComponent,
     HeaderComponent,
+    FooterComponent,
     VersionComponent,
     NotificationComponent,
     HelpButtonComponent,
