@@ -105,9 +105,10 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
 
     this.form.get('searchParameterType').valueChanges.pipe(
       startWith(this.form.get('searchParameterType').value),
-      distinctUntilChanged()
+      distinctUntilChanged(),
+      takeUntil(this.ngUnsubscribe)
     ).subscribe(searchParameterType => {
-      this.searchParameterTypeChanged(searchParameterType);
+      this.searchParamValidator(searchParameterType);
     });
   }
 
@@ -200,7 +201,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       });
   }
 
-  private searchParameterTypeChanged(newValue: UserSearchParameterTypes) {
+  private searchParamValidator(newValue: UserSearchParameterTypes) {
     let validator = null;
     if (newValue === UserSearchParameterTypes.EMAIL) {
       this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.email';

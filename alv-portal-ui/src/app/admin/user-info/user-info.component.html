@@ -8,7 +8,12 @@
   <form (validSubmit)="onSubmit()"
         [formGroup]="form"
         alvFormSubmitValidation>
-    <small>{{ 'portal.admin.user-info.desc' | translate }}</small>
+    <small class="narrow-form"> {{ 'portal.admin.user-info.desc' | translate }}</small>
+    <alv-radio-button
+      alvFormControlName="searchParameterType"
+      class="form-row"
+      [options$]="searchParameterTypeOptions">
+    </alv-radio-button>
     <div class="form-row">
       <div class="col-md-4">
         <alv-input-field alvFormControlName="searchParam"
@@ -22,11 +27,6 @@
         </button>
       </div>
     </div>
-    <alv-radio-button
-      alvFormControlName="searchParameterType"
-      class="narrow-form"
-      [options$]="searchParameterTypeOptions">
-    </alv-radio-button>
   </form>
 
   <alv-alert (dismiss)="dismissAlert()"

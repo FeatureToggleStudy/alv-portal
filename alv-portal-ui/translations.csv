@@ -697,7 +697,7 @@ portal.admin.user-info.alert.user-info-technical,Es ist ein technischer Fehler a
 portal.admin.user-info.confirm-dialog.no,Nein,No,Non,,
 portal.admin.user-info.confirm-dialog.yes,Ja,Yes,Oui,Sì,
 portal.admin.user-info.confirmMessage,Are you sure you want to unregister <br/> {{ email }} ?,Are you sure you want to unregister <br/> {{ email }} ?,Are you sure you want to unregister <br/> {{ email }} ?,Are you sure you want to unregister <br/> {{ email }} ?,
-portal.admin.user-info.desc,Bitte geben Sie die E-Mail-Adresse eines bestehenden Benutzers ein.,Please enter an email address of an existing user.,Please enter an email address of an existing user.,Please enter an email address of an existing user.,
+portal.admin.user-info.desc,Bitte geben Sie die E-Mail-Adresse oder die Personennummer eines bestehenden Benutzers ein.,Please enter an email address or a personal ID of an existing user.,Please enter an email address or a personal ID of an existing user.,Please enter an email address or a personal ID of an existing user.,
 portal.admin.user-info.eIAM-roles.no,Es konnte keine Rollen in eIAM für diesen Benutzer gefunden werden,No roles for this user found in eIAM,No roles for this user found in eIAM,No roles for this user found in eIAM,
 portal.admin.user-info.eIAM-roles.title,eIAM Rollen,eIAM Roles,eIAM Roles,eIAM Roles,
 portal.admin.user-info.email,E-Mail,Email,Courriel,E-mail,
