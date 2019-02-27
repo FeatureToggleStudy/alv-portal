@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {ValidationMessage} from './input/validation-messages/validation-message.model';
+import { Injectable } from '@angular/core';
+import { ValidationMessage } from './input/validation-messages/validation-message.model';
 
 @Injectable({
   providedIn: 'root'

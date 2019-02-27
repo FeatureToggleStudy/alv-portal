@@ -26,8 +26,8 @@ export class UserInfoRepository {
   }
 
   public loadUserByEmail(email: string): Observable<UserInfoDTO> {
-      const params = new HttpParams().set('eMail', email);
-      return this.http.get<UserInfoDTO>(UserInfoRepository.USER_INFO_URL, { params: params });
+    const params = new HttpParams().set('eMail', email);
+    return this.http.get<UserInfoDTO>(UserInfoRepository.USER_INFO_URL, { params: params });
   }
 
   public loadUserByStesNr(stesNumber: string): Observable<UserInfoDTO> {
