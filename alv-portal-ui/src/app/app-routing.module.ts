@@ -82,7 +82,7 @@ const appRoutes: Routes = [
     component: UserSettingsComponent,
     canActivate: [AuthenticatedGuard],
     data: {
-      titleKey: 'portal.dashboard.user-settings.main.title'
+      titleKey: 'portal.dashboard.user-settings.browser-title'
     }
   },
   {
