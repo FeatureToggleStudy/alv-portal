@@ -210,7 +210,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     } else {
       this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.stesnr';
       this.formLabel = 'portal.admin.user-info.stes-info.pn';
-      validator = patternInputValidator(PERSON_NUMBER_REGEX)
+      validator = patternInputValidator(PERSON_NUMBER_REGEX);
     }
 
     this.form.get('searchParam').setValidators([Validators.required, validator]);

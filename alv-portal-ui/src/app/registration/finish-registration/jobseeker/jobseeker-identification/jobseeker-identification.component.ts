@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../../../core/auth/authentication.serv
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { EMPTY, throwError } from 'rxjs';
 import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
-import { patternInputValidator } from "../../../../shared/forms/input/input-field/pattern-input.validator";
+import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 
 @Component({
   selector: 'alv-jobseeker-identification',
