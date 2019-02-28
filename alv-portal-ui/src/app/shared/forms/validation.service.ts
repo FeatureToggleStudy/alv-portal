@@ -54,6 +54,10 @@ export class ValidationService {
     {
       error: 'urlValidator',
       message: 'portal.forms.validation.url'
+    },
+    {
+      error: 'personNumber',
+      message: 'registration.customer.messages.validate.pn'
     }
   ];
 
@@ -66,7 +70,7 @@ export class ValidationService {
     } else {
       const customErrors = customValidationMessages.map(custom => custom.error);
       return [...this.defaultValidationMessages.filter(
-          validationMessage => !customErrors.includes(validationMessage.error)), ...customValidationMessages];
+        validationMessage => !customErrors.includes(validationMessage.error)), ...customValidationMessages];
     }
   }
 
