@@ -30,6 +30,11 @@ export class UserInfoRepository {
     return this.http.get<UserInfoDTO>(UserInfoRepository.USER_INFO_URL, { params: params });
   }
 
+  public loadUserByStesNr(stesNumber: string): Observable<UserInfoDTO> {
+    const params = new HttpParams().set('stesNr', stesNumber);
+    return this.http.get<UserInfoDTO>(`${UserInfoRepository.USER_INFO_URL}_search/by-stes-nr`, { params: params });
+  }
+
   public loadUserRoles(userId: string): Observable<string[]> {
     return this.http.get<string[]>(`${UserInfoRepository.USER_INFO_URL}${userId}/roles`);
   }

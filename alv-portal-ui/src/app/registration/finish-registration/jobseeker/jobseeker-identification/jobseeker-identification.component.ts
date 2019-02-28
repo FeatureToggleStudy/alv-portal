@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../../../core/auth/authentication.serv
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { EMPTY, throwError } from 'rxjs';
 import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
+import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -43,7 +44,7 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
 
   ngOnInit() {
     this.jobseekerIdentificationForm = this.fb.group({
-      personNr: ['', [Validators.required, Validators.pattern(PERSON_NUMBER_REGEX)]],
+      personNr: ['', [Validators.required, patternInputValidator(PERSON_NUMBER_REGEX)]],
       birthDate: ['', Validators.required]
     });
   }
