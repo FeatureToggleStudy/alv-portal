@@ -55,10 +55,9 @@ export class AccountabilitySwitcherComponent extends AbstractSubscriber implemen
       return this.accontabilityFormControl.setValue(currentOption.value);
     });
 
-
   }
 
-  onChange(accountability: Accountability) {
+  switchAccountability(accountability: Accountability) {
     this.store.dispatch(new AccountabilitySelectedAction({
       accountability: accountability
     }));

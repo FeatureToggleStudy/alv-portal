@@ -15,6 +15,7 @@ import {
   CoreState, getAccountabilities,
   getCurrentAccountability
 } from '../../../core/state-management/state/core.state.ts';
+import { AccountabilitySelectedAction } from '../../../core/state-management/actions/core.actions';
 
 @Component({
   selector: 'alv-user-menu',
@@ -81,5 +82,11 @@ export class UserMenuComponent implements OnInit {
           this.location.isCurrentPathEqualTo(this.ACCESS_CODE_URL);
       }
     });
+  }
+
+  switchAccountability(accountability: Accountability) {
+    this.store.dispatch(new AccountabilitySelectedAction({
+      accountability: accountability
+    }));
   }
 }

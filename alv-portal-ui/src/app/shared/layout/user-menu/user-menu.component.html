@@ -35,6 +35,7 @@
       <small class="ml-2">{{'job-search.filter.company-name.label' | translate}}</small>
       <button *ngFor="let accountability of accountabilities$ | async "
               class="dropdown-item"
+              (click)="switchAccountability(accountability)"
               [ngClass]="{ active: accountability.companyId === currentAccountability.companyId }">
         {{accountability.companyName}}
       </button>
