@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { User } from '../../core/auth/user.model';
 
 
 @Component({
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard-header.component.scss']
 })
 export class DashboardHeaderComponent {
+  @Input() user: User;
 
 }

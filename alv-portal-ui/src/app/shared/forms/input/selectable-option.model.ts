@@ -1,5 +1,4 @@
-export interface SelectableOption<T = any> {
+export interface SelectableOption {
   label: string;
   value: any;
-  payload?: T;
 }

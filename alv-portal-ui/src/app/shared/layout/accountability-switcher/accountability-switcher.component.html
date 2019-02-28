@@ -1,4 +1,6 @@
 <alv-select [alvControl]="accontabilityFormControl"
             [label]="'job-search.filter.company-name.label'"
-            [options$]="accountabilityOptions$">
+            [options$]="accountabilityOptions$"
+            (change)="onChange($event)"
+>
 </alv-select>
