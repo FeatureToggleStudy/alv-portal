@@ -8,12 +8,17 @@
   <form (validSubmit)="onSubmit()"
         [formGroup]="form"
         alvFormSubmitValidation>
-    <small>{{ 'portal.admin.user-info.desc' | translate }}</small>
+    <small class="narrow-form"> {{ 'portal.admin.user-info.desc' | translate }}</small>
+    <alv-radio-button
+      alvFormControlName="searchParameterType"
+      class="form-row"
+      [options$]="searchParameterTypeOptions">
+    </alv-radio-button>
     <div class="form-row">
       <div class="col-md-4">
-        <alv-input-field alvFormControlName="emailAddress"
-                         placeholder="muster@example.com"
-                         label="portal.admin.user-info.email">
+        <alv-input-field alvFormControlName="searchParam"
+                         [placeholder]="formPlaceholder"
+                         [label]="formLabel">
         </alv-input-field>
       </div>
       <div class="col-md-8">

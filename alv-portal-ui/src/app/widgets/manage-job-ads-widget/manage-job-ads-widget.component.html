@@ -1,31 +1,30 @@
-<div class="alv-panel pb-3 pb-md-4">
+<ng-container *ngIf="(rows$ | async) as rows">
+  <div class="alv-panel pb-3 pb-md-4"
+       *ngIf="rows?.length">
 
-  <h2 class="panel-title">
-    <alv-custom-icon class="panel-icon"
-                     aria-hidden="true"
-                     [iconKey]="IconKey.MANAGE_JOB_ADS">
-    </alv-custom-icon>
-    {{'portal.widgets.manage-job-ads.title' | translate}}
-  </h2>
+    <h2 class="panel-title">
+      <alv-custom-icon class="panel-icon"
+                       aria-hidden="true"
+                       [iconKey]="IconKey.MANAGE_JOB_ADS">
+      </alv-custom-icon>
+      {{'portal.widgets.manage-job-ads.title' | translate}}
+    </h2>
 
-  <alv-job-ad-management-table
-    [columnDefinitions]="columns$ | async"
-    [currentSorting]="(currentFilter$ | async).sort"
-    [rows]="rows$ | async"
-    (action)="onAction($event)"
-    (sort)="onSortChange($event)">
-  </alv-job-ad-management-table>
+    <alv-job-ad-management-table
+      [columnDefinitions]="columns$ | async"
+      [currentSorting]="(currentFilter$ | async).sort"
+      [rows]="rows"
+      (action)="onAction($event)"
+      (sort)="onSortChange($event)">
+    </alv-job-ad-management-table>
 
-  <div class="d-flex">
-    <div class="flex-grow-1"></div>
-    <button class="btn btn-secondary"
-            (click)="showAll()">
-      {{ 'portal.widgets.manage-job-ads.show-all' | translate }}
-    </button>
+    <div class="d-flex">
+      <div class="flex-grow-1"></div>
+      <button class="btn btn-secondary"
+              (click)="showAll()">
+        {{ 'portal.widgets.manage-job-ads.show-all' | translate }}
+      </button>
+    </div>
+
   </div>
-
-</div>
-
-
-
-
+</ng-container>
