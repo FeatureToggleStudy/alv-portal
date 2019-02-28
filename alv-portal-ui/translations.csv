@@ -621,6 +621,7 @@ portal.admin.legal-terms-management.header.linkFr,FR Link,FR link,FR lien,FR lin
 portal.admin.legal-terms-management.header.linkIt,IT Link,IT link,IT lien,IT link,
 portal.admin.legal-terms-management.legal-terms-delete-dialog.question,"Sind Sie sicher, dass Sie AGB löschen möchten?",Are you sure you want to delete Terms And Conditions?,Etes-vous certain de vouloir supprimer CG?,Sei sicuro di volere eliminare Condizioni Generali?,
 portal.admin.legal-terms-management.legal-terms-details.add,Hinzufügen,Add,Ajouter,Aggiungere,
+portal.admin.legal-terms-management.legal-terms-details.title,AGB verwalten,Manage GTC,Gérer CG,Gestire CG,
 portal.admin.legal-terms-management.title,AGB verwalten,Manage GTC,Gérer CG,Gestire CG,
 portal.admin.legal-terms-management.legal-terms-details.validate.pastEffectiveAt,Effektiv-Bei-Datum  muss in der Zukunft liegen.,Effective At date must be in the future.,La Efficace À date doit se situer dans le futur.,La Efficace A data deve situarsi nel futuro.,
 portal.admin.legal-terms-management.title,AGB verwalten,Manage GTC,Gérer CG,Gestisci CG,
