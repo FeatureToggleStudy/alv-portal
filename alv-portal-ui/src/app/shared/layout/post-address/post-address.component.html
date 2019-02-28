@@ -1,6 +1,6 @@
 <address *ngIf="address">
   <span *ngIf="address.name">
-      <b>{{address.name}}</b>
+      <strong class="address-name">{{address.name}}</strong>
       <br>
   </span>
   <span *ngIf="address.postOfficeBoxNumber; else noPostOfficeBoxNumber">

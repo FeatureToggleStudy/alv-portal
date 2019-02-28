@@ -101,7 +101,7 @@ export class CandidateDetailComponent implements OnInit {
 
   openContactModal(candidateProfile: CandidateProfile): void {
     this.appendCandidateToModalRef(candidateProfile)
-      .then(() => this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success', true), () => {
+      .then(() => this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success'), () => {
       });
   }
 

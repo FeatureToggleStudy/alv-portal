@@ -1,4 +1,8 @@
 .company-panel {
   word-wrap: break-word;
   line-height: 1.75em;
+
+  ::ng-deep .address-name {
+    font-weight: normal;
+  }
 }
