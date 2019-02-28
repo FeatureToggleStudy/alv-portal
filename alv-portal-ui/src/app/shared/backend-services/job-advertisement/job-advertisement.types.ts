@@ -247,7 +247,7 @@ export interface JobAdvertisementSearchRequestBody {
   companyName?: string;
   onlineSince: number;
   displayRestricted: boolean;
-  radiusSearch?: RadiusSearchRequest;
+  radiusSearchRequest?: RadiusSearchRequest;
 }
 
 export interface RadiusSearchRequest {

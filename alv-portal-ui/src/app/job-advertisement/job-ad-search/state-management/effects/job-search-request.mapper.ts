@@ -31,7 +31,7 @@ export class JobSearchRequestMapper {
         keywords: JobSearchRequestMapper.mapKeywords(jobSearchFilter.keywords),
         communalCodes: JobSearchRequestMapper.mapCommunalCodes(jobSearchFilter.localities),
         cantonCodes: JobSearchRequestMapper.mapCantonCodes(jobSearchFilter.localities),
-        radiusSearch: JobSearchRequestMapper.mapRadiusSearchDto(jobSearchFilter.localities, jobSearchFilter.radius)
+        radiusSearchRequest: JobSearchRequestMapper.mapRadiusSearchDto(jobSearchFilter.localities, jobSearchFilter.radius)
       }
     };
   }
