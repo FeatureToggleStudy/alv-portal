@@ -8,23 +8,23 @@ import {
   getAccountabilities,
   getCurrentAccountability
 } from '../../../core/state-management/state/core.state.ts';
-import {
-  distinctUntilChanged,
-  filter,
-  map, share,
-  takeUntil,
-  withLatestFrom
-} from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { Accountability } from '../../backend-services/user-info/user-info.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { AccountabilitySelectedAction } from '../../../core/state-management/actions/core.actions';
 
 
-function mapAccountabilityToSelectOption(accountability: Accountability) {
+function mapAccountabilityToSelectOption(accountability: Accountability): SelectableOption<Accountability> {
+  console.log({
+    label: accountability.companyName,
+    value: accountability.companyId,
+    payload: accountability.companyId
+  });
   return {
     label: accountability.companyName,
-    value: accountability.companyId
-  } as SelectableOption;
+    value: accountability.companyId,
+    payload: accountability
+  };
 }
 
 @Component({
@@ -37,9 +37,6 @@ export class AccountabilitySwitcherComponent extends AbstractSubscriber implemen
   accountabilityOptions$: Observable<SelectableOption[]>;
   accontabilityFormControl: FormControl;
 
-  accountabilities$: Observable<Accountability[]>;
-
-
   constructor(private fb: FormBuilder,
               private store: Store<CoreState>) {
     super();
@@ -49,34 +46,27 @@ export class AccountabilitySwitcherComponent extends AbstractSubscriber implemen
   ngOnInit() {
     this.accontabilityFormControl = this.fb.control(null);
 
-    this.accountabilities$ = this.store.pipe(
+    this.accountabilityOptions$ = this.store.pipe(
       select(getAccountabilities),
       filter(Boolean),
-      share());
-
-    this.accountabilityOptions$ = this.accountabilities$.pipe(
       map((accountabilities: Accountability[]) => accountabilities.map(mapAccountabilityToSelectOption))
     );
 
     this.store.pipe(
-      takeUntil(this.ngUnsubscribe),
       select(getCurrentAccountability),
       filter(Boolean),
       map(mapAccountabilityToSelectOption)
     ).subscribe(currentOption => {
-      this.accontabilityFormControl.patchValue(currentOption.value);
+      console.log('patching with', currentOption);
+      return this.accontabilityFormControl.setValue(currentOption.value);
     });
 
-    // this clumsiness indicated the need to refactor alv-select
-    this.accontabilityFormControl.valueChanges.pipe(
-      distinctUntilChanged(),
-      withLatestFrom(this.accountabilities$),
-      map(([selectedOption, accountabilities]: [SelectableOption, Accountability[]]) => {
-        this.store.dispatch(new AccountabilitySelectedAction({
-          accountability: accountabilities.find(a => a.companyId === selectedOption.value)
-        }));
-      })
-    );
+    this.accontabilityFormControl.valueChanges.subscribe((selectedOption: SelectableOption) => {
+      console.log(selectedOption);
+      this.store.dispatch(new AccountabilitySelectedAction({
+        accountability: selectedOption.payload
+      }));
+    });
   }
 
 }
