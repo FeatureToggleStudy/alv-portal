@@ -8,7 +8,7 @@ import {
   getAccountabilities,
   getCurrentAccountability
 } from '../../../core/state-management/state/core.state.ts';
-import { filter, map, takeUntil, tap } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import { Accountability } from '../../backend-services/user-info/user-info.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { AccountabilitySelectedAction } from '../../../core/state-management/actions/core.actions';
@@ -32,28 +32,18 @@ export class AccountabilitySwitcherComponent extends AbstractSubscriber implemen
 
   accontabilityFormControl: FormControl;
 
-  isShown = false;
-
   constructor(private fb: FormBuilder,
               private store: Store<CoreState>) {
     super();
   }
-
 
   ngOnInit() {
     this.accontabilityFormControl = this.fb.control(null);
 
     this.accountabilityOptions$ = this.store.pipe(
       select(getAccountabilities),
-      tap(accountabilities => {
-        if (!accountabilities || !accountabilities.length) {
-          this.isShown = false;
-        } else {
-          this.isShown = true;
-        }
-      }),
       filter(Boolean),
-      map((accountabilities: Accountability[]) => accountabilities.map(mapAccountabilityToSelectOption)),
+      map((accountabilities: Accountability[]) => accountabilities.map(mapAccountabilityToSelectOption))
     );
 
     this.store.pipe(

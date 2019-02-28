@@ -1,6 +1,8 @@
-<alv-select *ngIf="isShown"
-            [alvControl]="accontabilityFormControl"
-            [label]="'job-search.filter.company-name.label'"
-            [options$]="accountabilityOptions$"
-            (change)="switchAccountability($event)">
-</alv-select>
+<ng-container *ngIf="(accountabilityOptions$ | async ) as accountabilityOptions">
+  <alv-select *ngIf="accountabilityOptions.length"
+              [alvControl]="accontabilityFormControl"
+              [label]="'job-search.filter.company-name.label'"
+              [options$]="accountabilityOptions$"
+              (change)="switchAccountability($event)">
+  </alv-select>
+</ng-container>
