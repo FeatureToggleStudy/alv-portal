@@ -25,6 +25,8 @@ import {
 import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
 import { createCandidateProfile } from './candidate-search.reducers.spec-util';
 
+const COMMUNAL_CODE_ZURICH = 261;
+
 describe('candidateSearchReducer', () => {
 
   /* FILTER PANEL VALUES CHANGED */
@@ -50,7 +52,7 @@ describe('candidateSearchReducer', () => {
   const localityItem: LocalityItem = {
     regionCode: 'ZH12',
     cantonCode: 'ZH',
-    communalCode: 261
+    communalCode: COMMUNAL_CODE_ZURICH
   };
   const occupation = new OccupationTypeaheadItem(
     OccupationTypeaheadItemType.OCCUPATION, occupationCode, 'Java-Programmierer/in', 0);

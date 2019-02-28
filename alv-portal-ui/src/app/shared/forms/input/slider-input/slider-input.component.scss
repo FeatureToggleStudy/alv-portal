@@ -21,7 +21,7 @@
 ::ng-deep .slider-input {
   margin: 0 !important;
   width: 100%;
-  padding-right: 5px;
+  padding: 0 5px 0 5px;
   display: inline-block !important;
 
   & .noUi-target {
@@ -30,14 +30,14 @@
     background: $color-medium-grey;
     box-shadow: none;
 
-    & .noUi-handle {
+    & div.noUi-handle {
       width: 16px;
       height: 16px;
-      left: -10px;
       border-radius: 8px;
       background: $color-primary;
       box-shadow: none;
       top: -8px;
+      right: -10px;
 
       &:before {
         display: none;

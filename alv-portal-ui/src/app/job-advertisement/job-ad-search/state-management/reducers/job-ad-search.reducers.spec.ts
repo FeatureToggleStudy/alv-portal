@@ -23,11 +23,13 @@ import {
   LocalityTypeaheadItem
 } from '../../../../shared/localities/locality-typeahead-item';
 
+const COMMUNAL_CODE_BERN = 351;
+
 describe('jobAdSearchReducers', () => {
 
   /* QUERY PANEL VALUES CHANGED */
   const occupationCode: OccupationCode = { type: 'X28', value: '11000976' };
-  const localityItem: LocalityItem = { communalCode: 351 };
+  const localityItem: LocalityItem = { communalCode: COMMUNAL_CODE_BERN };
   const occupation = new OccupationTypeaheadItem(
     OccupationTypeaheadItemType.OCCUPATION, occupationCode, 'Java Applikationsentwickler', 7);
   const keyword = new StringTypeaheadItem('free-text', 'angular', 'angular', 0);

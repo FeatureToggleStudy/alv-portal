@@ -545,7 +545,6 @@ job-search.filter.contract-type.option.PERMANENT,Unbefristet,Permanent,Indéterm
 job-search.filter.contract-type.option.TEMPORARY,Befristet,Temporary,Durée limitée,A tempo determinato,
 job-search.filter.online-since.day.many,"{{value}} Tagen","{{value}} days","{{value}} jours","{{value}} giorni",
 job-search.filter.online-since.day.one,"{{value}} Tag","{{value}} day","{{value}} jour","{{value}} giorno",
-job-search.filter.online-since.day.one,Tag,day,jour,giorno,
 job-search.filter.online-since.label,Online seit,Online since,En ligne depuis,Online dal,
 job-search.filter.restricted-jobs.label,Stellen innerhalb Informationsvorsprung,Advance-notice job vacancies,Postes consultables avec un temps d'avance,Posti consultabili con anticipo (vantaggio informativo),
 job-search.filter.sort.label,Sortierung,Sort,Tri,Classificazione,
