@@ -1,6 +1,6 @@
-<alv-select [alvControl]="accontabilityFormControl"
+<alv-select *ngIf="isShown"
+            [alvControl]="accontabilityFormControl"
             [label]="'job-search.filter.company-name.label'"
             [options$]="accountabilityOptions$"
-            (change)="switchAccountability($event)"
->
+            (change)="switchAccountability($event)">
 </alv-select>

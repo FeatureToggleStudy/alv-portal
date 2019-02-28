@@ -29,7 +29,9 @@ function mapAccountabilityToSelectOption(accountability: Accountability): Select
 export class AccountabilitySwitcherComponent extends AbstractSubscriber implements OnInit {
 
   accountabilityOptions$: Observable<SelectableOption[]>;
+
   accontabilityFormControl: FormControl;
+
   isShown = false;
 
   constructor(private fb: FormBuilder,
@@ -46,8 +48,9 @@ export class AccountabilitySwitcherComponent extends AbstractSubscriber implemen
       tap(accountabilities => {
         if (!accountabilities || !accountabilities.length) {
           this.isShown = false;
+        } else {
+          this.isShown = true;
         }
-        this.isShown = true;
       }),
       filter(Boolean),
       map((accountabilities: Accountability[]) => accountabilities.map(mapAccountabilityToSelectOption)),
