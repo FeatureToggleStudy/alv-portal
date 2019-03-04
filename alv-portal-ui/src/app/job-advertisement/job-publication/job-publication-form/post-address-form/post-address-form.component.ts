@@ -66,7 +66,7 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
           postOfficeBoxNumber: [postOfficeBoxNumberOrStreet.postOfficeBoxNumber, [
             Validators.maxLength(this.PO_BOX_MAX_LENGTH),
             Validators.min(0),
-            Validators.pattern(POSITIVE_INTEGER_REGEX)
+            patternInputValidator(POSITIVE_INTEGER_REGEX)
           ]],
         },
         {
