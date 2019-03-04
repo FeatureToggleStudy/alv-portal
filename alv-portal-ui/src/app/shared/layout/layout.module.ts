@@ -50,6 +50,7 @@ import { GeoLocationSelectionComponent } from './geo-location-selection/geo-loca
 import { IconsModule } from '../icons/icons.module';
 import { SystemNotificationComponent } from './system-notification/system-notification.component';
 import {FooterComponent} from './footer/footer.component';
+import { AccountabilitySwitcherComponent } from './accountability-switcher/accountability-switcher.component';
 
 @NgModule({
   imports: [
@@ -98,7 +99,8 @@ import {FooterComponent} from './footer/footer.component';
     ContactModalComponent,
     TwoColumnLayoutComponent,
     GeoLocationSelectionComponent,
-    SystemNotificationComponent
+    SystemNotificationComponent,
+    AccountabilitySwitcherComponent
   ],
   providers: [
     CandidateContactRepository
@@ -137,7 +139,8 @@ import {FooterComponent} from './footer/footer.component';
     ListItemContentComponent,
     TwoColumnLayoutComponent,
     GeoLocationSelectionComponent,
-    SystemNotificationComponent
+    SystemNotificationComponent,
+    AccountabilitySwitcherComponent
   ]
 })
 export class LayoutModule {

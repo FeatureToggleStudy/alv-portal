@@ -34,6 +34,7 @@ export const getCurrentCompany = createSelector(getCoreState, (state: CoreState)
 export const getMainNavigationExpanded = createSelector(getCoreState, (state: CoreState) => state.mainNavigationExpanded);
 export const getMobileNavigationExpanded = createSelector(getCoreState, (state: CoreState) => state.mobileNavigationExpanded);
 export const getCurrentAccountability = createSelector(getCoreState, (state: CoreState) => state.currentAccountability);
+export const getAccountabilities = createSelector(getCoreState, (state: CoreState) => state.accountabilities);
 export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUser, getCurrentCompany, getCurrentAccountability, (user, companyContactTemplate, accountability) => {
   if (user === undefined || accountability === undefined || companyContactTemplate === undefined) {
     return undefined;

@@ -55,15 +55,20 @@
      [class.open]="mobileMenuExpanded">
 
   <div
-    class="nav-item mb-4 not-hoverable"
+    class="nav-item not-hoverable"
     *alvIsAuthenticated>
     <alv-user-name-and-company
       *ngIf="currentUser"
       [displayName]="currentUser.displayName"
       [companyName]="(currentCompany$|async)?.companyName">
-
     </alv-user-name-and-company>
   </div>
+  <div *alvHasAnyAuthority="[userRole.ROLE_PAV, userRole.ROLE_COMPANY]"
+       class="nav-item not-hoverable">
+    <alv-accountability-switcher class="w-100"></alv-accountability-switcher>
+  </div>
+
+  <div class="mb-3"></div>
 
   <!--Login Button-->
   <a class="d-flex align-self-center btn btn-primary m-3 w-80"

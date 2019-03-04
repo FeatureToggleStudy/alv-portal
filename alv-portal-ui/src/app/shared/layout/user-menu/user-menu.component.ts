@@ -4,8 +4,18 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { LandingNavigationService } from '../../../core/landing-navigation.service';
 import { Location } from '@angular/common';
 import { filter } from 'rxjs/operators';
-import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
+import {
+  Accountability,
+  CompanyContactTemplate
+} from '../../backend-services/user-info/user-info.types';
 import { LoginService } from '../../auth/login.service';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import {
+  CoreState, getAccountabilities,
+  getCurrentAccountability
+} from '../../../core/state-management/state/core.state.ts';
+import { AccountabilitySelectedAction } from '../../../core/state-management/actions/core.actions';
 
 @Component({
   selector: 'alv-user-menu',
@@ -15,6 +25,10 @@ import { LoginService } from '../../auth/login.service';
 export class UserMenuComponent implements OnInit {
 
   hideRegistrationAction: boolean;
+
+  accountabilities$: Observable<Accountability[]>;
+
+  currentAccountability$: Observable<Accountability>;
 
   isAuthenticated: boolean;
 
@@ -26,7 +40,11 @@ export class UserMenuComponent implements OnInit {
               private router: Router,
               private location: Location,
               private activatedRoute: ActivatedRoute,
-              private landingNavigationService: LandingNavigationService) {
+              private landingNavigationService: LandingNavigationService,
+              private store: Store<CoreState>
+  ) {
+    this.currentAccountability$ = store.pipe(select(getCurrentAccountability));
+    this.accountabilities$ = store.pipe(select(getAccountabilities));
   }
 
   private _user: User;
@@ -64,5 +82,11 @@ export class UserMenuComponent implements OnInit {
           this.location.isCurrentPathEqualTo(this.ACCESS_CODE_URL);
       }
     });
+  }
+
+  switchAccountability(accountability: Accountability) {
+    this.store.dispatch(new AccountabilitySelectedAction({
+      accountability: accountability
+    }));
   }
 }
