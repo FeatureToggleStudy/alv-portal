@@ -28,10 +28,6 @@
 
     <div class="flex-grow-1"></div>
 
-    <alv-user-menu *ngIf="user"
-                   [user]="user"
-                   [company]="company">
-    </alv-user-menu>
 
     <div class="header-buttons ml-1 d-none d-lg-flex align-items-center">
       <a class="btn mx-3"
@@ -47,6 +43,11 @@
          rel="noopener">
         {{'portal.header.contact' | translate}}
       </a>
+
+      <alv-user-menu *ngIf="user"
+                     [user]="user"
+                     [company]="company">
+      </alv-user-menu>
       <a class="btn mx-3"
          *alvIsAnonymous
          [href]="'home.registration.url' | translate"

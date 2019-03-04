@@ -20,9 +20,14 @@ enum UserSearchParameterTypes {
 }
 
 const ALERTS = {
-  userNotFound: {
+  userNotFoundByEmail: {
     type: NotificationType.ERROR,
-    messageKey: 'portal.admin.user-info.alert.user-info-not-found',
+    messageKey: 'portal.admin.user-info.alert.user-info-not-found-by-email',
+    isSticky: true
+  } as Notification,
+  userNotFoundByStesNr: {
+    type: NotificationType.ERROR,
+    messageKey: 'portal.admin.user-info.alert.user-info-not-found-by-stes-nr',
     isSticky: true
   } as Notification,
   userTechError: {
@@ -171,6 +176,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
   }
 
   onSubmit() {
+    this.dismissAlert();
     this.determineUserInfoObservable().pipe(
       switchMap((userInfo: UserInfoDTO) => {
         this.user = userInfo;
@@ -181,7 +187,11 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       catchError((err: HttpErrorResponse) => {
         this.setToInit();
         if (err.status === 404) {
-          this.alert = ALERTS.userNotFound;
+          if (this.form.value.searchParameterType === UserSearchParameterTypes.EMAIL) {
+            this.alert = ALERTS.userNotFoundByEmail;
+          } else {
+            this.alert = ALERTS.userNotFoundByStesNr;
+          }
         } else {
           this.alert = ALERTS.userTechError;
         }
