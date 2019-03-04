@@ -75,6 +75,6 @@ export class PublicContactComponent implements OnInit {
       validator: [atLeastOneRequiredValidator(['phone', 'email'])]
     });
 
-    this.parentForm.addControl(JobPublicationFormValueKeys.publicContact, this.publicContact);
+    this.parentForm.addControl(JobPublicationFormValueKeys.PUBLIC_CONTACT, this.publicContact);
   }
 }

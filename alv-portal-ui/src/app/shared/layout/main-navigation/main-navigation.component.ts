@@ -16,7 +16,7 @@ import { MenuEntryService } from './menu-entry.service';
 import { Observable } from 'rxjs';
 import { MenuEntry } from './menu-entry.type';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { isAuthenticatedUser, User } from '../../../core/auth/user.model';
+import { isAuthenticatedUser, User, UserRole } from '../../../core/auth/user.model';
 import { LoginService } from '../../auth/login.service';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 
@@ -46,6 +46,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   currentCompany$: Observable<CompanyContactTemplateModel>;
 
+  userRole = UserRole;
 
   constructor(private router: Router,
               private loginService: LoginService,

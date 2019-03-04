@@ -58,6 +58,10 @@ export class ValidationService {
     {
       error: 'personNumber',
       message: 'registration.customer.messages.validate.pn'
+    },
+    {
+      error: 'positiveIntegerValidator',
+      message: 'portal.forms.validation.message.integerError'
     }
   ];
 

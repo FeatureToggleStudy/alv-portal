@@ -99,7 +99,7 @@ export class OccupationComponent extends AbstractSubscriber implements OnInit {
     ).subscribe(translatedOccupation => {
       this.occupation.get('occupationSuggestion').setValue(translatedOccupation);
     });
-    this.parentForm.addControl(JobPublicationFormValueKeys.occupation, this.occupation);
+    this.parentForm.addControl(JobPublicationFormValueKeys.OCCUPATION, this.occupation);
   }
 
   private loadOccupations(query: string): Observable<OccupationTypeaheadItem[]> {

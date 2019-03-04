@@ -27,6 +27,7 @@
         [id]="'employment-start'"
         alvFormControlName="immediately"
         [options$]="employmentStartImmediate$"
+        (change)="resetStartDate()"
         class="narrow-form">
       </alv-radio-button>
     </div>
@@ -42,7 +43,7 @@
       <alv-date-input #startDate
                       label="audits.table.header.date"
                       alvFormControlName="startDate"
-                      [minDate]="minDateEmploymentStart"
+                      [minDate]="todayDate"
                       [maxDate]="getEmploymentStartMaxDate()"
                       class="ml-5 narrow-form">
       </alv-date-input>
@@ -58,6 +59,7 @@
         [id]="'employment-duration'"
         alvFormControlName="duration"
         [options$]="employmentDurationPermanent$"
+        (change)="resetEndDate()"
         class="narrow-form">
       </alv-radio-button>
     </div>
@@ -83,6 +85,7 @@
         [id]="'employment-duration'"
         alvFormControlName="duration"
         [options$]="employmentDurationShortEmployment$"
+        (change)="resetEndDate()"
         class="narrow-form">
       </alv-radio-button>
     </div>

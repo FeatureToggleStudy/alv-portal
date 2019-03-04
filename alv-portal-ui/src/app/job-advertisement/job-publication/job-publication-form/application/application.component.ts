@@ -80,7 +80,7 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
       ]]
     });
 
-    this.parentForm.addControl(JobPublicationFormValueKeys.application, this.application);
+    this.parentForm.addControl(JobPublicationFormValueKeys.APPLICATION, this.application);
 
     this.selectedApplicationTypes.valueChanges
       .pipe(

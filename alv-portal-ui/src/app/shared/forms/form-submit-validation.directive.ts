@@ -20,6 +20,8 @@ export class FormSubmitValidationDirective {
 
   @Input() public formGroup: FormGroup;
 
+  @Input() public preSubmit?: () => void;
+
   @Output() public validSubmit = new EventEmitter<any>();
 
   private readonly INVALID_INPUT_SELECTOR = '.invalid input, input.ng-invalid, select.ng-invalid, textarea.ng-invalid';
@@ -30,6 +32,11 @@ export class FormSubmitValidationDirective {
   @HostListener('submit')
   public onSubmit() {
     this.markAsTouchedAndDirty(this.formGroup);
+
+    if (this.preSubmit) {
+      this.preSubmit();
+    }
+
     if (this.formGroup.valid) {
       this.validSubmit.emit(this.formGroup.value);
     } else {

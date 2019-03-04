@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobDescriptionFormValue } from './job-description-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
-import { integerValidator } from '../../../../shared/forms/input/input-field/integer-input.validator';
+import { ONE_TWO_DIGIT_INTEGER_REGEX } from '../../../../shared/forms/regex-patterns';
 
 
 @Component({
@@ -43,7 +43,7 @@ export class JobDescriptionComponent implements OnInit {
         Validators.required,
         Validators.min(this.NUMBER_OF_JOBS_MIN),
         Validators.max(this.NUMBER_OF_JOBS_MAX),
-        integerValidator()
+        Validators.pattern(ONE_TWO_DIGIT_INTEGER_REGEX)
       ]],
       jobDescription: [jobDescription, [
         Validators.required,
@@ -51,6 +51,6 @@ export class JobDescriptionComponent implements OnInit {
       ]]
     });
 
-    this.parentForm.addControl(JobPublicationFormValueKeys.jobDescription, this.jobDescription);
+    this.parentForm.addControl(JobPublicationFormValueKeys.JOB_DESCRIPTION, this.jobDescription);
   }
 }

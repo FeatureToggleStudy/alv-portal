@@ -15,4 +15,9 @@ export const PERSON_NUMBER_REGEX = /^\d{8}$/;
 
 export const ONE_TWO_DIGIT_INTEGER_REGEX = /^[1-9][0-9]?$/;
 
+/*
+ * Checks if the input contains only numbers and the value is greater then 0
+ */
+export const POSITIVE_INTEGER_REGEX = /^[1-9][0-9]*$/;
+
 export const COMPANY_UID_REGEX = /^CHE\-[0-9]{3}\.[0-9]{3}\.[0-9]{3}$/;
