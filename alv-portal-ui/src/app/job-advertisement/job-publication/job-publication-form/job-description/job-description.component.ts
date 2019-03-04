@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobDescriptionFormValue } from './job-description-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
+import { ONE_TWO_DIGIT_INTEGER_REGEX } from '../../../../shared/forms/regex-patterns';
 
-export const ONE_TWO_DIGIT_INTEGER_REGEX = /^[1-9][0-9]?$/;
 
 
 @Component({
