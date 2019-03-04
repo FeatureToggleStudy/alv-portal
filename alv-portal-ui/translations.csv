@@ -108,7 +108,7 @@ dashboard.job-publication.publication-period.365,1 Jahr,1 year,1 an,1 anno,
 dashboard.job-publication.publication-period.7,1 Woche,1 week,1 semaine,1 settimana,
 dashboard.job-publication.publication-period.90,3 Monate,3 months,3 mois,3 mesi,
 dashboard.job-publication.publication-period.all,Alle,All,Tous,Tutti,
-dashboard.job-publication.publication-period.label,Zeitraum,Age of posts,Ancienneté des postes,Pubblicato dal
+dashboard.job-publication.publication-period.label,Zeitraum,Age of posts,Ancienneté des postes,Pubblicato dal,
 dashboard.job-publication.status,Status,Status,Statut,Stato,
 dashboard.job-publication.title,Stellen bewirtschaften,Manage job ads,Gérer les annonces,Gestire gli annunci,
 entity.action.back,Zurück,Back,Retour,Indietro,
@@ -188,9 +188,9 @@ global.experience.LESS_THAN_1_YEAR,Weniger als 1 Jahr,Less than 1 year,Moins d'u
 global.experience.MORE_THAN_1_YEAR,Mehr als 1 Jahr,More than 1 year,Plus d'un an,Più di 1 anno,
 global.experience.MORE_THAN_3_YEARS,Mehr als 3 Jahre,More than 3 years,Plus de trois ans,Più di 3 anni,
 global.experience.NO_EXPERIENCE,Keine Erfahrung,No experience,Aucune expérience,Nessuna esperienza,
-global.footer.link.legal.text,Rechtliche Hinweise,Legal information,Droits d'usage,Avvertenze giuridiche
-global.footer.link.legal.url,https://www.arbeit.swiss/secoalv/de/home/service/rechtliche-hinweise.html,https://www.arbeit.swiss/secoalv/en/home/service/rechtliche-hinweise.html,https://www.arbeit.swiss/secoalv/fr/home/service/rechtliche-hinweise.html,https://www.arbeit.swiss/secoalv/it/home/service/rechtliche-hinweise.html
-global.footer.link.seco.text,Arbeitslosenversicherung / Arbeitsmarkt ALV,Unemployment insurance / Labour market,Assurance-chômage / marché du travail AC,Assicurazione contro la disoccupazione / Mercato del lavoro AD
+global.footer.link.legal.text,Rechtliche Hinweise,Legal information,Droits d'usage,Avvertenze giuridiche,
+global.footer.link.legal.url,https://www.arbeit.swiss/secoalv/de/home/service/rechtliche-hinweise.html,https://www.arbeit.swiss/secoalv/en/home/service/rechtliche-hinweise.html,https://www.arbeit.swiss/secoalv/fr/home/service/rechtliche-hinweise.html,https://www.arbeit.swiss/secoalv/it/home/service/rechtliche-hinweise.html,
+global.footer.link.seco.text,Arbeitslosenversicherung / Arbeitsmarkt ALV,Unemployment insurance / Labour market,Assurance-chômage / marché du travail AC,Assicurazione contro la disoccupazione / Mercato del lavoro AD,
 global.gender.FEMALE,Weiblich,Female,Féminin,Femminile,
 global.gender.MALE,Männlich,Male,Masculin,Maschile,
 global.job-publication.status.APPROVED,Genehmigt,Approved,Approuvé,Approvato,
@@ -322,7 +322,7 @@ global.reference.region.BE04,"Obersimmental, Saanen","Obersimmental, Saanen","Ob
 global.reference.region.BE05,"Interlaken, Oberhasli","Interlaken, Oberhasli","Interlaken, Oberhasli","Interlaken, Oberhasli",
 global.reference.region.BE06,"Burgdorf, Signau, Trachselwald","Burgdorf, Signau, Trachselwald","Berthoud, Signau, Trachselwald","Burgdorf, Signau, Trachselwald",
 global.reference.region.BE07,"Aarwangen, Wangen","Aarwangen, Wangen","Aarwangen, Wangen","Aarwangen, Wangen",
-global.reference.region.BE08,"Aarberg, Biel, Büren, Erlach, Nidau","Aarberg, Biel, Büren, Erlach, Nidau","Aarberg, Bienne, Büren, Erlach, Nidau","Aarberg, Bienne, Büren, Erlach, Nidau"
+global.reference.region.BE08,"Aarberg, Biel, Büren, Erlach, Nidau","Aarberg, Biel, Büren, Erlach, Nidau","Aarberg, Bienne, Büren, Erlach, Nidau","Aarberg, Bienne, Büren, Erlach, Nidau",
 global.reference.region.BE09,"Courtelary, Neuenstadt, Münster","Courtelary, Neuenstadt, Münster","Courtelary, La Neuveville, Moutier","Courtelary, La Neuveville, Moutier",
 global.reference.region.BE10,Laufental,Laufental,Laufental,Laufental,
 global.reference.region.BL01,"Basel-Landschaft, Suchregion 01","Basle-Country, region 01","Bâle-Campagne, région de recherche 01","Basilea-Campagna, regione di ricerca 01",
@@ -621,6 +621,7 @@ portal.admin.legal-terms-management.header.linkFr,FR Link,FR link,FR lien,FR lin
 portal.admin.legal-terms-management.header.linkIt,IT Link,IT link,IT lien,IT link,
 portal.admin.legal-terms-management.legal-terms-delete-dialog.question,"Sind Sie sicher, dass Sie AGB löschen möchten?",Are you sure you want to delete Terms And Conditions?,Etes-vous certain de vouloir supprimer CG?,Sei sicuro di volere eliminare Condizioni Generali?,
 portal.admin.legal-terms-management.legal-terms-details.add,Hinzufügen,Add,Ajouter,Aggiungere,
+portal.admin.legal-terms-management.legal-terms-details.title,AGB verwalten,Manage GTC,Gérer CG,Gestire CG,
 portal.admin.legal-terms-management.title,AGB verwalten,Manage GTC,Gérer CG,Gestire CG,
 portal.admin.legal-terms-management.legal-terms-details.validate.pastEffectiveAt,Effektiv-Bei-Datum  muss in der Zukunft liegen.,Effective At date must be in the future.,La Efficace À date doit se situer dans le futur.,La Efficace A data deve situarsi nel futuro.,
 portal.admin.legal-terms-management.title,AGB verwalten,Manage GTC,Gérer CG,Gestisci CG,
@@ -737,7 +738,7 @@ portal.dashboard.user-settings.user-info.title,Benutzerinformationen,User inform
 portal.forms.date-input.open-calendar-button,Kalender öffnen,Open calendar,Ouvrir le calendrier,Aprire il calendario,
 portal.forms.validation.character-counter,{{count}} Zeichen verbleibend,{{count}} characters available,{{count}} caractères disponibles,{{count}} caratteri disponibili,
 portal.forms.validation.maxlength,Dieses Feld darf max. {{ requiredLength }} Zeichen lang sein.,This field cannot be longer than {{ requiredLength }} characters.,Ce champ doit comporter au maximum {{ requiredLength }} caractères.,Questo campo può contenere al massimo {{ requiredLength }} caratteri.,
-portal.forms.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer.,Please check that your house number is valid,Veuillez vérifier que votre numéro de rue est valide,Vogliate verificare il corretto inserimento del numero civico
+portal.forms.validation.message.houseNr,Bitte überprüfen Sie die korrekte Eingabe der Hausnummer.,Please check that your house number is valid,Veuillez vérifier que votre numéro de rue est valide,Vogliate verificare il corretto inserimento del numero civico,
 portal.forms.validation.message.integerError,Der Wert muss eine ganze Zahl sein,The value must be an integer,La valeur doit correspondre à un chiffre entier,Il valore deve essere una cifra intera,
 portal.forms.validation.minlength,Dieses Feld muss mind. {{ requiredLength }} Zeichen lang sein.,This field must be at least {{ requiredLength }} characters.,Ce champ doit avoir au minimum {{ requiredLength }} caractères.,Questo campo deve contenere almeno {{ requiredLength }} caratteri.,
 portal.forms.validation.ngbDate.after,Datum muss nach dem {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}} liegen.,Date must be after {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}.,La date doit être après le {{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}.,La data deve essere successiva all'{{requiredAfter.day}}.{{requiredAfter.month}}.{{requiredAfter.year}}.,
@@ -745,7 +746,7 @@ portal.forms.validation.ngbDate.before,Datum muss vor dem {{requiredBefore.day}}
 portal.forms.validation.ngbDate.format,"Datumsformat ungültig, richtiges Format: TT.MM.JJJJ","Invalid date format, correct format: DD.MM.YYYY","Le format de la date n’est pas conforme. Format correct: JJ.MM.AAAA","Il formato della data non è corretto. Formato corretto: GG.MM.AAAA",
 portal.forms.validation.pattern,Dieses Feld muss das Muster {{ requiredPattern }} erfüllen.,This field must follow the pattern {{ requiredPattern }}.,Ce champ doit respecter le modèle {{ requiredPattern }}.,Questo campo dovrebbe corrispondere al modello {{ requiredPattern }}.,
 portal.forms.validation.url,Diese URL ist ungültig.,This URL is not valid,Ce lien URL n'est pas valable.,Questo indirizzo URL non è valido.,
-portal.global.actions,Aktionen,Actions,Actes,Azioni
+portal.global.actions,Aktionen,Actions,Actes,Azioni,
 portal.global.back-to-home,Zurück zur Startseite,Return to homepage,Retour à la page d'accueil,Tornare alla pagina iniziale,
 portal.global.close,Schliessen,Close,Fermer,Chiudere,
 portal.global.exception.client.unknown,Es ist ein unerwarteter Fehler aufgetreten.,An unexpected error has occurred.,Une erreur inattendue s'est produite.,Si è verificato un errore imprevisto.,
@@ -842,9 +843,9 @@ portal.navigation.menu-entry.admin.api-user-management,API-Benutzer verwalten,Ma
 portal.navigation.menu-entry.admin.blacklist,Blacklist,Blacklist,Liste noire,Lista nera,
 portal.navigation.menu-entry.admin.elastic-search-reindex,Reindex Elasticsearch,Reindex Elasticsearch,Reindex Elasticsearch,Reindex Elasticsearch,
 portal.navigation.menu-entry.admin.legal-terms,AGB verwalten,Manage GTC,Gérer CG,Gestire CG,
-portal.navigation.menu-entry.admin.system-notifications,System Mitteilungen,System notifications,Notifications système,Messaggi di sistema
+portal.navigation.menu-entry.admin.system-notifications,System Mitteilungen,System notifications,Notifications système,Messaggi di sistema,
 portal.navigation.menu-entry.admin.user-info,Benutzerinformationen,User information,Information utilisateur,Informazioni utente,
-portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trovare candidati
+portal.navigation.menu-entry.candidate-search,Kandidaten finden,Find candidates,Trouver des candidats,Trovare candidati,
 portal.navigation.menu-entry.job-publication,Stellen melden,Post job,Publier un poste vacant,Annunciare posti vacanti,
 portal.navigation.menu-entry.job-search,Stellen finden,Search job,Chercher emploi,Trovare un impiego,
 portal.navigation.menu-entry.manage-job-ads,Stellen bewirtschaften,Manage job ads,Gérer les annonces,Gestire gli annunci,
@@ -873,8 +874,8 @@ portal.typeahead-multiselect.help-text.select-up-to-limit,Sie können maximal {{
 portal.typeahead-multiselect.legend.selected-items,Ausgewählte Werte,Selected Items,Eléments sélectionnés,Valori selezionati,
 portal.typeahead-multiselect.remove-item,Wert {{item}} entfernen,Remove item {{item}},Supprimer l'élément {{item}},Eliminare il valore {{item}},
 portal.typeahead-single.help-text.instruction,"Geben Sie mindestens {{number}} Zeichen ein, um die Auswahlliste anzuzeigen. Treffen Sie eine Auswahl mit den Pfeiltasten.",Enter at least {{number}} characters to query the list of selectable items. Select by using the up and down arrow keys.,Entrez au moins {{number}} caractères pour interroger la liste des éléments sélectionnables. Sélectionner à l'aide des touches fléchées haut et bas.,Inserite almeno {{number}} caratteri per visualizzare l'elenco ristretto. Effettuate la selezione utilizzando i tasti freccia.,
-portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trovare candidati
-portal.widgets.job-publication.title,Stellen melden,Post job,Publier un poste vacant,Annunciare posti vacanti.
+portal.widgets.candidate-search.title,Kandidaten finden,Find candidates,Trouver des candidats,Trovare candidati,
+portal.widgets.job-publication.title,Stellen melden,Post job,Publier un poste vacant,Annunciare posti vacanti.,
 portal.widgets.job-search.title,Stellen finden,Search job,Chercher emploi,Trovare un impiego,
 portal.widgets.manage-job-ads.actions.cancel,Abbrechen,Cancel,Annuler,Annullare,
 portal.widgets.manage-job-ads.actions.duplicate,Duplizieren,Duplicate,Dupliquer,Duplicare,
