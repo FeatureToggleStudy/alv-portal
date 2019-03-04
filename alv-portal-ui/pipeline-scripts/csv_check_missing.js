@@ -17,7 +17,7 @@ if (argv.help) {
     french translations are missing:
     global.notifications.darger,Achtung,Danger,,,
     
-    Usage: node csv_check_missing.js mytranlationfile.csv --output ./translations
+    Usage: node csv_check_missing.js mytranlationfile.csv 
     `);
     process.exit(0);
 }
