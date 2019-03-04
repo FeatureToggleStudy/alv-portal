@@ -15,8 +15,6 @@ export class ElasticSearchReindexRepository {
     reference_data: 'referenceservice/api/elasticsearch/index'
   };
 
-  private readonly REINDEXING_TASK_URL = '/_tasks?detailed=true&actions=*reindex';
-
   constructor(private http: HttpClient) {}
 
   reindex(documents: string[]): Observable<any> {
