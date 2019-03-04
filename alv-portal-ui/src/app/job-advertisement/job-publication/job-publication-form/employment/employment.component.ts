@@ -129,7 +129,7 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   }
 
   getEmploymentEndMinDate(): NgbDateStruct {
-    let selectedStartDate = this.employment.get('startDate').value;
+    const selectedStartDate = this.employment.get('startDate').value;
     if (!!selectedStartDate && this.todayDate.before(selectedStartDate)) {
       return selectedStartDate;
     }
@@ -137,7 +137,7 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   }
 
   getEmploymentStartMaxDate(): NgbDateStruct {
-    let selectedEndDate = this.employment.get('endDate').value;
+    const selectedEndDate = this.employment.get('endDate').value;
     if (!selectedEndDate) {
       // no max date
       return;
