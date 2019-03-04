@@ -56,27 +56,10 @@ export class ElasticSearchReindexComponent implements OnInit {
         .subscribe(() => {
           this.alert = MESSAGE.success;
           this.form.reset();
-          this.checkStatusOfReindexingJobs();
         }, () => {
           this.alert = MESSAGE.failure;
         }),
       () => {}
-    );
-  }
-
-  private checkStatusOfReindexingJobs() {
-    this.elasticSearchReindexRepository.getReindexJobs().subscribe(
-      () => {
-        // TODO emst 03.02.2019 implement displaying of the elastic search reindex job actions
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          // TODO emst 03.02.2019 the link to elastic search result is for now wrong, need
-          //  other permissions to make it visible and accessible
-        } else {
-          this.alert = MESSAGE.failure;
-        }
-      }
     );
   }
 
