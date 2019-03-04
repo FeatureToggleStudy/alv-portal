@@ -20,7 +20,7 @@ import { JobPublicationFormValueKeys } from '../job-publication-form-value.types
 })
 export class EmploymentComponent extends AbstractSubscriber implements OnInit {
 
-  minDateEmploymentStart = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
+  todayDate = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
 
   @Input() parentForm: FormGroup;
 
@@ -129,19 +129,31 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   }
 
   getEmploymentEndMinDate(): NgbDateStruct {
-    if (this.minDateEmploymentStart.after(this.employment.get('startDate').value)) {
-      return this.minDateEmploymentStart;
-    } else {
-      return this.employment.get('startDate').value;
+    let selectedStartDate = this.employment.get('startDate').value;
+    if (!!selectedStartDate && this.todayDate.before(selectedStartDate)) {
+      return selectedStartDate;
     }
+    return this.todayDate;
   }
 
   getEmploymentStartMaxDate(): NgbDateStruct {
-    if (this.minDateEmploymentStart.after(this.employment.get('endDate').value)) {
-      return this.minDateEmploymentStart;
-    } else {
-      return this.employment.get('endDate').value;
+    let selectedEndDate = this.employment.get('endDate').value;
+    if (!selectedEndDate) {
+      // no max date
+      return;
     }
+    if (this.todayDate.before(selectedEndDate)) {
+      return selectedEndDate;
+    }
+    return this.todayDate;
+  }
+
+  resetEndDate() {
+    this.employment.get('endDate').patchValue(null);
+  }
+
+  resetStartDate() {
+    this.employment.get('startDate').patchValue(null);
   }
 
   private setupWorkload() {
@@ -195,5 +207,6 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
         }
       });
   }
+
 }
 
