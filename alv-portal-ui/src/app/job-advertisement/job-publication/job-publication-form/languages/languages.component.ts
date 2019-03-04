@@ -60,7 +60,7 @@ export class LanguagesComponent implements OnInit {
       ? this.languagesFormValue.map((languageSkill) => this.createNewLanguageSkillFormGroup(languageSkill))
       : [this.createNewLanguageSkillFormGroup()];
     this.languageSkillFormArray = this.fb.array(languageSkillGroups);
-    this.parentForm.addControl(JobPublicationFormValueKeys.languageSkills, this.languageSkillFormArray);
+    this.parentForm.addControl(JobPublicationFormValueKeys.LANGUAGE_SKILLS, this.languageSkillFormArray);
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {

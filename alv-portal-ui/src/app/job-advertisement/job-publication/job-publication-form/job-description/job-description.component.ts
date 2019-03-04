@@ -5,7 +5,6 @@ import { JobPublicationFormValueKeys } from '../job-publication-form-value.types
 import { ONE_TWO_DIGIT_INTEGER_REGEX } from '../../../../shared/forms/regex-patterns';
 
 
-
 @Component({
   selector: 'alv-job-description',
   templateUrl: './job-description.component.html',
@@ -52,6 +51,6 @@ export class JobDescriptionComponent implements OnInit {
       ]]
     });
 
-    this.parentForm.addControl(JobPublicationFormValueKeys.jobDescription, this.jobDescription);
+    this.parentForm.addControl(JobPublicationFormValueKeys.JOB_DESCRIPTION, this.jobDescription);
   }
 }

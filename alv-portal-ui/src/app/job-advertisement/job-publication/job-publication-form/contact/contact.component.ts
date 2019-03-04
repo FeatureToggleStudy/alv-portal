@@ -85,6 +85,6 @@ export class ContactComponent implements OnInit {
       ]]
     });
 
-    this.parentForm.addControl(JobPublicationFormValueKeys.contact, this.contact);
+    this.parentForm.addControl(JobPublicationFormValueKeys.CONTACT, this.contact);
   }
 }
