@@ -34,15 +34,13 @@
 
   <ng-container [formGroup]="postAddress.get('postOfficeBoxNumberOrStreet')">
     <alv-input-field label="home.tools.job-publication.company.postbox-number"
-                     type="number"
                      alvFormControlName="postOfficeBoxNumber"
                      [showGroupErrors]="true"
-                     [validationMessages]="[{
-                                error: 'atLeastOneRequired',
-                                message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
-                                ]"
-                     [maxLength]="PO_BOX_MAX_LENGTH"
-                     [min]="0">
+                     [validationMessages]="[
+                        {error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'},
+                        {error: 'pattern', message: 'portal.forms.validation.message.integerError'}
+                     ]"
+                     [maxLength]="PO_BOX_MAX_LENGTH">
     </alv-input-field>
   </ng-container>
 
