@@ -15,8 +15,6 @@ export class ElasticSearchReindexRepository {
     reference_data: 'referenceservice/api/elasticsearch/index'
   };
 
-  private readonly REINDEXING_TASK_URL = '/_tasks?detailed=true&actions=*reindex';
-
   constructor(private http: HttpClient) {}
 
   reindex(documents: string[]): Observable<any> {
@@ -30,31 +28,4 @@ export class ElasticSearchReindexRepository {
       zipAll()
     );
   }
-
-  /**
-   * return JSON Response of tasks with detailed attributes of status
-   * Form should look something like this :
-   *  "tasks" : {
-   *    "task_id" : {
-   *      ...
-   *      "action" : "indices:data/write/reindex",
-   *      "status" : {
-   *        "total" : 258819,
-   *        "updated" : 557,
-   *        "created" : 16000,
-   *        "deleted" : 98,
-   *        ...
-   *      },
-   *      "description" : "",
-   *      "start_time_in_millis" : 1549031354091,
-   *      "running_time_in_nanos" : 2851853709,
-   *      ...
-   *    }
-   *  }
-   *
-   */
-  getReindexJobs(): Observable<any> {
-    return this.http.get(this.REINDEXING_TASK_URL);
-  }
-
 }
