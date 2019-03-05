@@ -36,7 +36,7 @@ export const initialState: CandidateSearchState = {
     experience: null,
     residence: [],
     availability: null,
-    workloadPercentageMin: 0,
+    workloadPercentageMin: 10,
     workloadPercentageMax: 100,
     workForm: null,
     degree: null,

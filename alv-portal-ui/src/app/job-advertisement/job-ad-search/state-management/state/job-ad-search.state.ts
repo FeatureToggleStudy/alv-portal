@@ -19,7 +19,7 @@ export const initialState: JobAdSearchState = {
     sort: Sort.RELEVANCE_DESC,
     displayRestricted: false,
     contractType: ContractType.ALL,
-    workloadPercentageMin: 0,
+    workloadPercentageMin: 10,
     workloadPercentageMax: 100,
     company: null,
     onlineSince: 30,
