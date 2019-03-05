@@ -60,17 +60,17 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     }));
 
   defaultPercentages = [
-    {label: '0%', value: 0},
-    {label: '10%', value: 10},
-    {label: '20%', value: 20},
-    {label: '30%', value: 30},
-    {label: '40%', value: 40},
-    {label: '50%', value: 50},
-    {label: '60%', value: 60},
-    {label: '70%', value: 70},
-    {label: '80%', value: 80},
-    {label: '90%', value: 90},
-    {label: '100%', value: 100}
+    { label: '0%', value: 0 },
+    { label: '10%', value: 10 },
+    { label: '20%', value: 20 },
+    { label: '30%', value: 30 },
+    { label: '40%', value: 40 },
+    { label: '50%', value: 50 },
+    { label: '60%', value: 60 },
+    { label: '70%', value: 70 },
+    { label: '80%', value: 80 },
+    { label: '90%', value: 90 },
+    { label: '100%', value: 100 }
   ];
 
   percentagesMin$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
@@ -163,7 +163,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       workloadPercentageMin: filter.workloadPercentageMin,
       workloadPercentageMax: filter.workloadPercentageMax,
       onlineSince: filter.onlineSince
-    }, {emitEvent: false});
+    }, { emitEvent: false });
   }
 
   private map(valueChanges: any): FilterPanelValues {
