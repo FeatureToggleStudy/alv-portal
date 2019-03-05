@@ -9,5 +9,6 @@ describe('workspace-project App', () => {
 
   it('should display browser title', () => {
     page.navigateTo();
+    expect(page.getBrowserTitle()).toEqual('Job seekers');
   });
 });
