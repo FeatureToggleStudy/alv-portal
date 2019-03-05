@@ -18,7 +18,7 @@
 
     <properties>
         <skipTests>false</skipTests>
-        <skipITs>false</skipITs>
+        <skipITs>true</skipITs>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <spring-cloud-dependencies.version>Finchley.SR1
         </spring-cloud-dependencies.version>
