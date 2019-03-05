@@ -57,7 +57,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
         value: sort,
         label: 'job-search.filter.sort.option.' + sort
       };
-    }));
+    })
+  );
 
   defaultPercentages = [
     { label: '0%', value: 0 },
