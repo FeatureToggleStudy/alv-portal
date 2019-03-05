@@ -220,8 +220,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       experience: [],
       residence: [],
       availability: [],
-      workloadPercentageMin: [''],
-      workloadPercentageMax: [''],
+      workloadPercentageMin: [],
+      workloadPercentageMax: [],
       drivingLicenceCategory: [],
       workForm: [],
       languageSkills: this.fb.array([this.createNewLanguageSkillFormGroup()])

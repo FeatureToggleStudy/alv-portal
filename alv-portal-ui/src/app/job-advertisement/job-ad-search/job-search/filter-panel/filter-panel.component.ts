@@ -111,12 +111,21 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       sort: [],
       company: [],
       contractType: [],
-      workloadPercentageMin: [''],
-      workloadPercentageMax: [''],
+      workloadPercentageMin: [],
+      workloadPercentageMax: [],
       onlineSince: []
     });
 
     this.setFormValues(this._filterPanelValues);
+
+    this.form.valueChanges
+      .pipe(
+        debounceTime(400),
+        map<any, FilterPanelValues>((valueChanges) => this.map(valueChanges)),
+        takeUntil(this.ngUnsubscribe))
+      .subscribe(filterPanelData => {
+        return this.filterPanelValueChange.next(filterPanelData);
+      });
 
     this.form.get('workloadPercentageMin').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -129,16 +138,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       .subscribe(percentageMax => {
         this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
       });
-
-    this.form.valueChanges
-      .pipe(
-        debounceTime(400),
-        map<any, FilterPanelValues>((valueChanges) => this.map(valueChanges)),
-        takeUntil(this.ngUnsubscribe))
-      .subscribe(filterPanelData => {
-        return this.filterPanelValueChange.next(filterPanelData);
-      });
-
 
   }
 
