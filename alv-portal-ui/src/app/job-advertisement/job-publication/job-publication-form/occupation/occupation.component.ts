@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
-import { Observable, of } from 'rxjs/index';
+import { Observable, of } from 'rxjs';
 import {
   Degree,
-  Experience,
   Qualification
 } from '../../../../shared/backend-services/shared.types';
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
@@ -14,6 +13,7 @@ import { I18nService } from '../../../../core/i18n.service';
 import { distinctUntilChanged, filter, flatMap, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
+import { WorkExperience } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-occupation',
@@ -56,16 +56,15 @@ export class OccupationComponent extends AbstractSubscriber implements OnInit {
     })
   ]);
 
-  //todo: Do we need the "no experience" option?
   experienceOptions$: Observable<SelectableOption[]> = of([
     {
       value: null,
       label: 'home.tools.job-publication.no-selection'
     },
-    ...Object.keys(Experience).map(experience => {
+    ...Object.keys(WorkExperience).map(experience => {
       return {
         value: experience,
-        label: 'global.experience.' + experience
+        label: 'home.tools.job-publication.experience.' + experience
       };
     })
   ]);

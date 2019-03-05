@@ -24,7 +24,6 @@ import {
   Degree,
   DegreeMapping,
   EmploymentDuration,
-  Experience,
   LanguageSkill,
   PostAddress,
   Qualification,
@@ -114,7 +113,7 @@ function mapToOccupationFormValue(occupations: Occupation[]): OccupationFormValu
   const occupation = occupations[0];
   return {
     degree: <Degree>DegreeMapping[occupation.educationCode],
-    experience: <Experience>Experience[occupation.workExperience],
+    experience: <WorkExperience>occupation.workExperience,
     qualification: <Qualification>occupation.qualificationCode,
     occupationSuggestion: new OccupationTypeaheadItem(OccupationTypeaheadItemType.OCCUPATION, {
       type: OccupationTypes.AVAM,
@@ -345,9 +344,7 @@ function mapToOccupation(occupationFormValue: OccupationFormValue): Occupation {
   return {
     avamOccupationCode: occupationFormValue.occupationSuggestion.payload.value,
     qualificationCode: occupationFormValue.qualification,
-    workExperience: occupationFormValue.experience
-      ? WorkExperience[occupationFormValue.experience]
-      : null,
+    workExperience: occupationFormValue.experience,
     educationCode: occupationFormValue.degree
       ? Degree[occupationFormValue.degree]
       : null,
