@@ -24,17 +24,14 @@ import { IsoCountryService } from '../../../shared/localities/iso-country.servic
 import { I18nService } from '../../../core/i18n.service';
 import { of } from 'rxjs';
 import { JobPublicationFormValueFactory } from './job-publication-form-value-factory';
-import {
-  CEFR_Level,
-  Degree,
-  Experience
-} from '../../../shared/backend-services/shared.types';
+import { CEFR_Level, Degree } from '../../../shared/backend-services/shared.types';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
 import { RouterTestingModule } from '@angular/router/testing';
 import { InjectionToken } from '@angular/core';
-import SpyObj = jasmine.SpyObj;
 import { ErrorHandlerService } from '../../../core/error-handler/error-handler.service';
+import { WorkExperience } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import SpyObj = jasmine.SpyObj;
 
 
 describe('JobPublicationFormComponent', () => {
@@ -138,7 +135,7 @@ describe('JobPublicationFormComponent', () => {
 
       //todo add occupation suggestion
       jobPublicationFormValue.occupation.degree = Degree.SEK_II_FACHMATURITAET;
-      jobPublicationFormValue.occupation.experience = Experience.MORE_THAN_3_YEARS;
+      jobPublicationFormValue.occupation.experience = WorkExperience.MORE_THAN_3_YEARS;
 
       jobPublicationFormValue.languageSkills = [
         {

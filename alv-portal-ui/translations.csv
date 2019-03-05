@@ -468,7 +468,7 @@ home.tools.job-publication.employmentEndDate.title,Anstellungsdauer,Employment d
 home.tools.job-publication.employmentStartDate.by-arrangement,ab,from,du,dal,
 home.tools.job-publication.employmentStartDate.immediately,ab Sofort,immediately,dès maintenant,da subito,
 home.tools.job-publication.employmentStartDate.title,Stellenantritt,Employment start,Entrée en fonction  ,Inizio dell'attività,
-home.tools.job-publication.experience,Berufserfahrung,Work experience,Expérience professionnelle,Esperienza professionale,
+home.tools.job-publication.experience.title,Berufserfahrung,Work experience,Expérience professionnelle,Esperienza professionale,
 home.tools.job-publication.experience.LESS_THAN_1_YEAR,Weniger als 1 Jahr,Less than 1 year,Moins d'un an,Meno di 1 anno,
 home.tools.job-publication.experience.MORE_THAN_1_YEAR,1 - 3 Jahre,1 - 3 years,1 - 3 années,1 - 3 anni,
 home.tools.job-publication.experience.MORE_THAN_3_YEARS,Mehr als 3 Jahre,More than 3 years,Plus de 3 ans,Più di 3 anni,

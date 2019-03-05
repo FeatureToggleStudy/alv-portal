@@ -35,10 +35,10 @@ export enum SourceSystem {
 }
 
 export enum WorkExperience {
-  NO_EXPERIENCE,
-  LESS_THAN_1_YEAR,
-  MORE_THAN_1_YEAR,
-  MORE_THAN_3_YEARS
+  NO_EXPERIENCE = 'NO_EXPERIENCE',
+  LESS_THAN_1_YEAR = 'LESS_THAN_1_YEAR',
+  MORE_THAN_1_YEAR = 'MORE_THAN_1_YEAR',
+  MORE_THAN_3_YEARS = 'MORE_THAN_3_YEARS'
 }
 
 export interface JobContent {
