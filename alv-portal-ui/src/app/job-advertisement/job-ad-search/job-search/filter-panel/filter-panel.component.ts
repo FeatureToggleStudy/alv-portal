@@ -66,7 +66,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     }]);
 
   defaultPercentages = [
-    { label: '0%', value: 0 },
     { label: '10%', value: 10 },
     { label: '20%', value: 20 },
     { label: '30%', value: 30 },
@@ -112,21 +111,12 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       sort: [],
       company: [],
       contractType: [],
-      workloadPercentageMin: [],
-      workloadPercentageMax: [],
+      workloadPercentageMin: [''],
+      workloadPercentageMax: [''],
       onlineSince: []
     });
 
     this.setFormValues(this._filterPanelValues);
-
-    this.form.valueChanges
-      .pipe(
-        debounceTime(400),
-        map<any, FilterPanelValues>((valueChanges) => this.map(valueChanges)),
-        takeUntil(this.ngUnsubscribe))
-      .subscribe(filterPanelData => {
-        return this.filterPanelValueChange.next(filterPanelData);
-      });
 
     this.form.get('workloadPercentageMin').valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -139,6 +129,17 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       .subscribe(percentageMax => {
         this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
       });
+
+    this.form.valueChanges
+      .pipe(
+        debounceTime(400),
+        map<any, FilterPanelValues>((valueChanges) => this.map(valueChanges)),
+        takeUntil(this.ngUnsubscribe))
+      .subscribe(filterPanelData => {
+        return this.filterPanelValueChange.next(filterPanelData);
+      });
+
+
   }
 
   updateSliderLabel(value: number) {
