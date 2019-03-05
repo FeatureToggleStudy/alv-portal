@@ -82,20 +82,14 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   percentagesMax$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
 
-  contractTypeOptions$: Observable<SelectableOption[]> = of([
-    {
-      value: ContractType.PERMANENT,
-      label: 'job-search.filter.contract-type.option.PERMANENT'
-    },
-    {
-      value: ContractType.TEMPORARY,
-      label: 'job-search.filter.contract-type.option.TEMPORARY'
-    },
-    {
-      value: ContractType.ALL,
-      label: 'job-search.filter.contract-type.option.ALL'
-    }
-  ]);
+  contractTypeOptions$: Observable<SelectableOption[]> = of(
+    Object.keys(ContractType).map(contractType => {
+      return {
+        value: contractType,
+        label: 'job-search.filter.contract-type.option.' + contractType
+      };
+    })
+  );
 
   onlineSinceSliderLabel: number;
 
