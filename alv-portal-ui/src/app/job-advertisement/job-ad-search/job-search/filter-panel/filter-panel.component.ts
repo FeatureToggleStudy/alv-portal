@@ -51,19 +51,14 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     }
   ]);
 
-  sortOptions$: Observable<SelectableOption[]> = of([
-    {
-      value: Sort.RELEVANCE_DESC,
-      label: 'job-search.filter.sort.option.RELEVANCE_DESC'
-    },
-    {
-      value: Sort.DATE_ASC,
-      label: 'job-search.filter.sort.option.DATE_ASC'
-    },
-    {
-      value: Sort.DATE_DESC,
-      label: 'job-search.filter.sort.option.DATE_DESC'
-    }]);
+  sortOptions$: Observable<SelectableOption[]> = of(
+    Object.keys(Sort).map(sort => {
+      return {
+        value: sort,
+        label: 'job-search.filter.sort.option.' + sort
+      };
+    })
+  );
 
   defaultPercentages = [
     { label: '10%', value: 10 },
