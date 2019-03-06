@@ -24,7 +24,7 @@
       </h2>
       <hr class="mt-2 mb-3">
       <alv-job-publication-form *ngIf="!submitted, else confirmationMessage"
-                                [initialFormValueConfig]="initialFormValueConfig"
+                                [initialFormValueConfig]="initialFormValueConfig$ | async"
                                 [currentLanguage]="currentLanguage$ | async"
                                 (jobPublicationCreated)="jobPublicationCreated($event)">
       </alv-job-publication-form>

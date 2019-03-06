@@ -6,7 +6,7 @@ import { JobCenterRepository } from '../../shared/backend-services/reference-ser
 import { I18nService } from '../../core/i18n.service';
 import { flatMap, map, take } from 'rxjs/operators';
 import { InitialFormValueConfig } from './job-publication-form/job-publication-form-value-factory';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { isNotAuthenticatedUser } from '../../core/auth/user.model';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +24,7 @@ export class JobPublicationComponent implements OnInit {
 
   IconKey = IconKey;
 
-  initialFormValueConfig: InitialFormValueConfig;
+  initialFormValueConfig$: Observable<InitialFormValueConfig>;
 
   currentLanguage$: Observable<string>;
 
@@ -49,8 +49,11 @@ export class JobPublicationComponent implements OnInit {
               private i18nService: I18nService,
               private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
-              private route: ActivatedRoute) {
-    this.initialFormValueConfig = route.snapshot.data['initialFormValueConfig'];
+              private route: ActivatedRoute,
+              private router: Router) {
+    this.initialFormValueConfig$ = route.data.pipe(
+      map((data) => data['initialFormValueConfig'])
+    );
     this.currentLanguage$ = i18nService.currentLanguage$;
   }
 
@@ -73,5 +76,6 @@ export class JobPublicationComponent implements OnInit {
 
   createNewJobPublication() {
     this.submitted = false;
+    this.router.navigate(['job-publication']);
   }
 }

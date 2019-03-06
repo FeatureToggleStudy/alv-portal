@@ -11,7 +11,8 @@ const routes: Routes = [
     canActivate: [JobPublicationGuard],
     resolve: {
       initialFormValueConfig: JobPublicationResolver
-    }
+    },
+    runGuardsAndResolvers: 'pathParamsOrQueryParamsChange'
   }
 ];
 
