@@ -48,14 +48,20 @@
                target="_blank}">
               {{'job-detail.action.showExternalPage' | translate}}
             </a>
-            <button (click)="printJob()"
-                    class="dropdown-item">
-              <span>{{'job-detail.action.print' | translate}}</span>
+            <button (cbOnSuccess)="onCopyLink()"
+                    [cbContent]="getJobUrl()"
+                    class="dropdown-item"
+                    ngxClipboard>
+              {{'candidate-detail.candidate-copy-link' | translate}}
             </button>
             <a class="dropdown-item"
                [href]="'mailto:?body=' + getEncodedUrl()">
               <span>{{'portal.job-detail.sendLink' | translate}}</span>
             </a>
+            <button (click)="printJob()"
+                    class="dropdown-item">
+              <span>{{'job-detail.action.print' | translate}}</span>
+            </button>
           </div>
         </div>
       </div>

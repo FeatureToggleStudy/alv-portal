@@ -55,7 +55,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       messageKey: 'job-detail.unvalidated',
       isSticky: true
     },
-    jobLinkCopiedToClipboard: {
+    copiedLinkToClipboard: {
       type: NotificationType.SUCCESS,
       messageKey: 'global.messages.tooltip.link-copy.success',
       isSticky: false
@@ -135,7 +135,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   onCopyLink(): void {
-    this.notificationsService.add(JobDetailComponent.ALERTS.jobLinkCopiedToClipboard);
+    this.notificationsService.add(JobDetailComponent.ALERTS.copiedLinkToClipboard);
   }
 
   dismissAlert(alert: Notification, alerts: Notification[]) {

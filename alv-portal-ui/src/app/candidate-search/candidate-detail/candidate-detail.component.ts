@@ -26,9 +26,8 @@ import { ContactModalComponent } from './contact-modal/contact-modal.component';
 import { hasAnyAuthorities, UserRole } from '../../core/auth/user.model';
 import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
 import { NotificationsService } from '../../core/notifications.service';
+import { NotificationType } from '../../shared/layout/notifications/notification.model';
 
-
-const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 
 @Component({
   selector: 'alv-candidate-detail',
@@ -38,6 +37,14 @@ const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
 export class CandidateDetailComponent implements OnInit {
 
   readonly NUMBER_OF_JOBS_TO_SHOW = 3;
+
+  private static readonly ALERTS = {
+    copiedLinkToClipboard: {
+      type: NotificationType.SUCCESS,
+      messageKey: 'global.messages.tooltip.link-copy.success',
+      isSticky: false
+    }
+  };
 
   layoutConstants = LayoutConstants;
 
@@ -112,8 +119,7 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   onCopyLink(): void {
-    this.clipboardTooltip.open();
-    setTimeout(() => this.clipboardTooltip.close(), TOOLTIP_AUTO_HIDE_TIMEOUT);
+    this.notificationsService.add(CandidateDetailComponent.ALERTS.copiedLinkToClipboard);
   }
 
   getEncodedUrl() {

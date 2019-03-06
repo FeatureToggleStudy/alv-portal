@@ -47,10 +47,8 @@
             </button>
             <button (cbOnSuccess)="onCopyLink()"
                     [cbContent]="getCandidateUrl()"
-                    [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
                     class="dropdown-item"
-                    ngxClipboard
-                    triggers="manual">
+                    ngxClipboard>
               {{'candidate-detail.candidate-copy-link' | translate}}
             </button>
             <a [href]="'mailto:?body=' + getEncodedUrl()"
@@ -288,10 +286,8 @@
         <li>
           <button (cbOnSuccess)="onCopyLink()"
                   [cbContent]="getCandidateUrl()"
-                  [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
                   class="btn btn-text btn-text-icon btn-truncate"
-                  ngxClipboard
-                  triggers="manual">
+                  ngxClipboard>
             <fa-icon class="mr-1" [icon]="['fas', 'copy']"></fa-icon>
             {{'candidate-detail.candidate-copy-link' | translate}}
           </button>
