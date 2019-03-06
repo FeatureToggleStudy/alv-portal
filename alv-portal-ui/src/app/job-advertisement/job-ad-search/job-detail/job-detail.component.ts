@@ -29,8 +29,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { isDeactivated, isExternal, isUnvalidated } from '../../shared/job-ad-rules';
 import { ScrollService } from '../../../core/scroll.service';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
-
-const TOOLTIP_AUTO_HIDE_TIMEOUT = 2500;
+import { NotificationsService } from '../../../core/notifications.service';
 
 @Component({
   selector: 'alv-job-detail',
@@ -55,6 +54,11 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
       type: NotificationType.INFO,
       messageKey: 'job-detail.unvalidated',
       isSticky: true
+    },
+    copiedLinkToClipboard: {
+      type: NotificationType.SUCCESS,
+      messageKey: 'global.messages.tooltip.link-copy.success',
+      isSticky: false
     }
   };
 
@@ -91,7 +95,8 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     private jobBadgesMapperService: JobBadgesMapperService,
     private jobDetailModelFactory: JobDetailModelFactory,
     private store: Store<JobAdSearchState>,
-    private scrollService: ScrollService) {
+    private scrollService: ScrollService,
+    private notificationsService: NotificationsService) {
     super();
   }
 
@@ -130,8 +135,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   onCopyLink(): void {
-    this.clipboardTooltip.open();
-    setTimeout(() => this.clipboardTooltip.close(), TOOLTIP_AUTO_HIDE_TIMEOUT);
+    this.notificationsService.add(JobDetailComponent.ALERTS.copiedLinkToClipboard);
   }
 
   dismissAlert(alert: Notification, alerts: Notification[]) {
