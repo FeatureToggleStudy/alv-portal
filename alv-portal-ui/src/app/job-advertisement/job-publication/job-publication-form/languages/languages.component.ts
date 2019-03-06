@@ -69,6 +69,11 @@ export class LanguagesComponent implements OnInit {
 
   addNewLanguageSkill() {
     this.languageSkillFormArray.push(this.createNewLanguageSkillFormGroup());
+    // focusing on added language for nice tabbing experience
+    setTimeout(() => {
+      const s: HTMLElement = document.querySelector('.language-skill:last-child [alvformcontrolname=languageIsoCode] select');
+      s.focus();
+    });
   }
 
   isAddLanguageSkillEnabled(): boolean {
