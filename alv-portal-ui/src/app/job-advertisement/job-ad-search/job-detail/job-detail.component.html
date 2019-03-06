@@ -138,9 +138,7 @@
           <button class="btn btn-text btn-text-icon btn-truncate"
                   ngxClipboard
                   [cbContent]="getJobUrl()"
-                  (cbOnSuccess)="onCopyLink()"
-                  [ngbTooltip]="'global.messages.tooltip.link-copy.success' | translate"
-                  triggers="manual">
+                  (cbOnSuccess)="onCopyLink()">
             <fa-icon class="mr-1"
                      [icon]="['fas', 'copy']"></fa-icon>
             {{'job-detail.action.copyLink' | translate}}
