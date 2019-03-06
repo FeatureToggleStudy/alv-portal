@@ -2,13 +2,13 @@
   <div class="col-12 d-md-none d-print-none pt-2">
     <ng-content select=".mobile-menu-bar"></ng-content>
   </div>
-  <div class="col-md-3 col-xl-2"
+  <div class="col-md-3 col-xl-3"
        [ngClass]="getCommonColumnClasses(0)">
     <div class="side-panel pt-3 pt-md-4 px-3">
       <ng-content select=".left-column"></ng-content>
     </div>
   </div>
-  <div class="col-md-6 col-xl-8"
+  <div class="col-md-6 col-xl-7"
        [ngClass]="getCommonColumnClasses(1)">
     <ng-content select=".main-column"></ng-content>
   </div>
