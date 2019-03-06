@@ -488,7 +488,7 @@ home.tools.job-publication.messages.validate.required,Pflichtfeld,This field is 
 home.tools.job-publication.no-selection,Keine Auswahl,No selection,Aucune sélection,Nessuna scelta,
 home.tools.job-publication.number-of-jobs,Anzahl gleiche Stellen,No. of equivalent positions,Nombre de postes similaires,Totale posti uguali,
 home.tools.job-publication.occupation.label,Beruf,Occupation,Profession,Professione,
-home.tools.job-publication.placeholders.email,muster@example.ch,example@example.org,exemple@example.org,esempio@example.org,,muster@example.org,example@example.org,exemple@example.org,esempio@example.org,
+home.tools.job-publication.placeholders.email,muster@example.ch,example@example.org,exemple@example.org,esempio@example.org,
 home.tools.job-publication.placeholders.phone,031 999 99 99 oder +41 31 999 99 99,031 999 99 99 or +41 31 999 99 99,031 999 99 99 ou +41 31 999 99 99,031 999 99 99 o +41 31 999 99 99,
 home.tools.job-publication.placeholders.url,http://www.muster.ch,http://www.example.ch,http://www.exemple.ch,http://www.esempio.ch,
 home.tools.job-publication.public-contact.copy,Wie bei Kontakt,Same as contact,Comme Contact,Come Contatto,
