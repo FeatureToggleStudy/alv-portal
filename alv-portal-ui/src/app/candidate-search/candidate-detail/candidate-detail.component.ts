@@ -36,8 +36,6 @@ import { NotificationType } from '../../shared/layout/notifications/notification
 })
 export class CandidateDetailComponent implements OnInit {
 
-  readonly NUMBER_OF_JOBS_TO_SHOW = 3;
-
   private static readonly ALERTS = {
     copiedLinkToClipboard: {
       type: NotificationType.SUCCESS,
@@ -45,6 +43,8 @@ export class CandidateDetailComponent implements OnInit {
       isSticky: false
     }
   };
+
+  readonly NUMBER_OF_JOBS_TO_SHOW = 3;
 
   layoutConstants = LayoutConstants;
 
