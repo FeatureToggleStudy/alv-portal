@@ -28,11 +28,6 @@
     </div>
   </div>
 
-  <alv-zip-city-input [parentForm]="postAddress"
-                      [zipCityFormValue]="postAddressFormValue.zipAndCity"
-                      [countryIsoCode]="countryIsoCode$ | async">
-  </alv-zip-city-input>
-
   <ng-container [formGroup]="postAddress.get('postOfficeBoxNumberOrStreet')">
     <alv-input-field label="home.tools.job-publication.company.postbox-number"
                      alvFormControlName="postOfficeBoxNumber"
@@ -43,6 +38,11 @@
                      [maxLength]="PO_BOX_MAX_LENGTH">
     </alv-input-field>
   </ng-container>
+
+  <alv-zip-city-input [parentForm]="postAddress"
+                      [zipCityFormValue]="postAddressFormValue.zipAndCity"
+                      [countryIsoCode]="countryIsoCode$ | async">
+  </alv-zip-city-input>
 
   <alv-select label="home.tools.job-publication.company.country"
               alvFormControlName="countryIsoCode"

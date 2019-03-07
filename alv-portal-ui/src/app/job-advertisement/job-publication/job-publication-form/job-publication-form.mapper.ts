@@ -260,7 +260,7 @@ function mapToApplicationFormValue(applyChannel: ApplyChannel): ApplicationFormV
     application.phoneNumber = applyChannel.phoneNumber;
   }
 
-  if (!!application.postAddress) {
+  if (!!applyChannel.postAddress) {
     const postAddress = applyChannel.postAddress;
     application.selectedApplicationTypes.post = true;
 
@@ -383,6 +383,10 @@ function mapToLocation(locationFormValue: LocationFormValue): CreateLocation {
 }
 
 function mapToCompany(companyFormValue: CompanyFormValue, surrogate: boolean): Company {
+  const postOfficeBoxNumber = !!companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
+    ? companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber.toString()
+    : null;
+
   return {
     surrogate,
     name: companyFormValue.name,
@@ -390,10 +394,8 @@ function mapToCompany(companyFormValue: CompanyFormValue, surrogate: boolean): C
     houseNumber: companyFormValue.houseNumber,
     ...mapToPostalCodeAndCity(companyFormValue.zipAndCity),
     countryIsoCode: companyFormValue.countryIsoCode,
-    postOfficeBoxNumber: !!companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
-      ? companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber.toString()
-      : null,
-    //todo postOfficeBoxCity, postOfficeBoxPostalCode?
+    postOfficeBoxNumber,
+    ...mapToPostOfficeBoxPostalCodeAndPostOfficeBoxCity(postOfficeBoxNumber, companyFormValue.zipAndCity)
   };
 }
 
@@ -454,16 +456,18 @@ function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue
     return null;
   }
 
+  const postOfficeBoxNumber = !!postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
+    ? postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber.toString()
+    : null;
+
   return {
     name: postAddressFormValue.name,
     street: postAddressFormValue.postOfficeBoxNumberOrStreet.street,
     houseNumber: postAddressFormValue.houseNumber,
     ...mapToPostalCodeAndCity(postAddressFormValue.zipAndCity),
     countryIsoCode: postAddressFormValue.countryIsoCode,
-    postOfficeBoxNumber: !!postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
-      ? postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber.toString()
-      : null,
-    //todo postOfficeBoxCity, postOfficeBoxPostalCode?
+    postOfficeBoxNumber,
+    ...mapToPostOfficeBoxPostalCodeAndPostOfficeBoxCity(postOfficeBoxNumber, postAddressFormValue.zipAndCity)
   };
 }
 
@@ -480,5 +484,14 @@ function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCod
   return {
     city: zipCityFormValue.city,
     postalCode: zipCityFormValue.zipCode
+  };
+}
+
+function mapToPostOfficeBoxPostalCodeAndPostOfficeBoxCity(postOfficeBoxNumber: string, zipAndCity: ZipCityFormValue): { postOfficeBoxPostalCode, postOfficeBoxCity } {
+  const { postalCode, city } = mapToPostalCodeAndCity(zipAndCity);
+
+  return {
+    postOfficeBoxPostalCode: postOfficeBoxNumber ? postalCode : null,
+    postOfficeBoxCity: postOfficeBoxNumber ? city : null,
   };
 }
