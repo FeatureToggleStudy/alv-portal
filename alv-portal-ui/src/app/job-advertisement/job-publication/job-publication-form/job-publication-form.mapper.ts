@@ -264,6 +264,13 @@ function mapToApplicationFormValue(applyChannel: ApplyChannel): ApplicationFormV
     const postAddress = applyChannel.postAddress;
     application.selectedApplicationTypes.post = true;
 
+    let zipAndCityFormValue: ZipCityFormValue;
+    if (postAddress.postOfficeBoxNumber && postAddress.postOfficeBoxPostalCode && postAddress.postOfficeBoxCity) {
+      zipAndCityFormValue = mapToZipCityFormValue(postAddress.countryIsoCode, postAddress.postOfficeBoxPostalCode, postAddress.postOfficeBoxCity);
+    } else {
+      zipAndCityFormValue = mapToZipCityFormValue(postAddress.countryIsoCode, postAddress.postalCode, postAddress.city);
+    }
+
     application.postAddress = {
       name: postAddress.name,
       countryIsoCode: postAddress.countryIsoCode,
@@ -271,10 +278,8 @@ function mapToApplicationFormValue(applyChannel: ApplyChannel): ApplicationFormV
       postOfficeBoxNumberOrStreet: {
         street: postAddress.street,
         postOfficeBoxNumber: postAddress.postOfficeBoxNumber
-          ? (+postAddress.postOfficeBoxNumber)
-          : null
       },
-      zipAndCity: mapToZipCityFormValue(postAddress.countryIsoCode, postAddress.postalCode, postAddress.city)
+      zipAndCity: zipAndCityFormValue
     };
   }
 
@@ -461,14 +466,21 @@ function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue
     ? postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber.toString()
     : null;
 
+  if (postOfficeBoxNumber) {
+    return {
+      name: postAddressFormValue.name,
+      countryIsoCode: postAddressFormValue.countryIsoCode,
+      postOfficeBoxNumber,
+      ...mapToPostOfficeBoxPostalCodeAndPostOfficeBoxCity(postOfficeBoxNumber, postAddressFormValue.zipAndCity)
+    };
+  }
+
   return {
     name: postAddressFormValue.name,
+    countryIsoCode: postAddressFormValue.countryIsoCode,
     street: postAddressFormValue.postOfficeBoxNumberOrStreet.street,
     houseNumber: postAddressFormValue.houseNumber,
-    ...mapToPostalCodeAndCity(postAddressFormValue.zipAndCity),
-    countryIsoCode: postAddressFormValue.countryIsoCode,
-    postOfficeBoxNumber,
-    ...mapToPostOfficeBoxPostalCodeAndPostOfficeBoxCity(postOfficeBoxNumber, postAddressFormValue.zipAndCity)
+    ...mapToPostalCodeAndCity(postAddressFormValue.zipAndCity)
   };
 }
 
