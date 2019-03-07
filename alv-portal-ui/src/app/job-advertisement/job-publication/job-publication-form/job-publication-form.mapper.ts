@@ -270,8 +270,9 @@ function mapToApplicationFormValue(applyChannel: ApplyChannel): ApplicationFormV
       houseNumber: postAddress.houseNumber,
       postOfficeBoxNumberOrStreet: {
         street: postAddress.street,
-        //todo review type
-        postOfficeBoxNumber: +postAddress.postOfficeBoxNumber
+        postOfficeBoxNumber: postAddress.postOfficeBoxNumber
+          ? (+postAddress.postOfficeBoxNumber)
+          : null
       },
       zipAndCity: mapToZipCityFormValue(postAddress.countryIsoCode, postAddress.postalCode, postAddress.city)
     };
