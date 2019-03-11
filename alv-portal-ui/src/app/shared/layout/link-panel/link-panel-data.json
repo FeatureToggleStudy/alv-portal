@@ -1,0 +1,32 @@
+{
+  "home": {
+    "stes": {
+      "title": {
+        "de": "Informationen für Stellensuchende",
+        "en": "Information for job seekers",
+        "fr": "Informations pour les demandeurs d'emploi",
+        "it": "Informazioni per le persone in cerca d'impiego"
+      },
+      "links": {
+        "de": [
+          {
+            "url": "https://www.arbeit.swiss/secoalv/de/home/menue/stellensuchende/arbeitslos-was-tun-/erste-schritte.html",
+            "text": "Erste Schritte bei einer Kündigung"
+          }
+        ],
+        "en": [
+          {
+          }
+        ],
+        "fr": [
+          {
+          }
+        ],
+        "it": [
+          {
+          }
+        ]
+      }
+    }
+  }
+}
