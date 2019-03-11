@@ -17,7 +17,7 @@ import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/vali
 })
 export class PostAddressFormComponent implements OnInit, OnDestroy {
 
-  readonly PO_BOX_MAX_LENGTH = 9;
+  readonly PO_BOX_MAX_LENGTH = 6;
   readonly HOUSE_NUMBER_MAX_LENGTH = 10;
   readonly STREET_MAX_LENGTH = 60;
   readonly NAME_MAX_LENGTH = 255;
