@@ -1,0 +1,53 @@
+{
+  "title": "Informazioni per le persone in cerca d'impiego",
+  "links": [
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/stellensuchende/arbeitslos-was-tun-/erste-schritte.html",
+      "title": "Primi passi in caso di disdetta"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/stellensuchende/arbeitslos-was-tun-/anmeldung.html",
+      "title": "Iscrizione alla disoccupazione"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/stellensuchende/fuer-die-stellensuche/standortbestimmung.html",
+      "title": "Punto della situazione"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/stellensuchende/fuer-die-stellensuche/bewerbungstipps.html",
+      "title": "Consigli per la candidatura"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/stellensuchende/arbeitslos-was-tun-/beratung-und-vermittlung.html",
+      "title": "Consulenza e collocamento"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/stellensuchende/arbeitslos-was-tun-/finanzielles.html",
+      "title": "Aspetti finanziari: Indennità di disoccupazione"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/stellensuchende/stellensuche-im-ausland/stellensuche-in-der-eu-efta.html",
+      "title": "Ricerca di un impiego all’estero"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/unternehmen/stellenmeldepflicht.html",
+      "title": "Obbligo di annunciare i posti di lavoro vacanti (vantaggio informativo)"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/institutionen---medien/faq.html",
+      "title": "FAQ"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/service/formulare/formulare-fuer-arbeitslose.html",
+      "title": "Moduli"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/institutionen---medien/adressen---kontakte.html#!/",
+      "title": "Indirizzi / contatti"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home.html",
+      "title": "Vai a lavoro.swiss"
+    }
+  ]
+}
