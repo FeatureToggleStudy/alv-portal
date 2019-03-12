@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-export interface Link {
-  text: string;
-  url: string;
-}
-
+import { Link } from './links-repository';
 
 @Component({
   selector: 'alv-link-panel',
