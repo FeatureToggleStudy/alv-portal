@@ -15,9 +15,9 @@ import { JobPublicationFormValueKeys } from '../job-publication-form-value.types
 })
 export class ContactComponent implements OnInit {
 
-  readonly FIRST_NAME_MAX_LENGTH = 255;
+  readonly FIRST_NAME_MAX_LENGTH = 50;
 
-  readonly LAST_NAME_MAX_LENGTH = 255;
+  readonly LAST_NAME_MAX_LENGTH = 50;
 
   //This is intentionally shorter than the application email address. See the AVAM interface
   //spec for more information.
