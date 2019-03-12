@@ -9,7 +9,7 @@
                              [loadItems]="loadOccupationsFn"
                              label="portal.job-ad.search.query-panel.occupations.placeholder"
                              [ngbTooltip]="occupationsTP"
-                             placement="bottom"
+                             placement="top"
                              [focusFirst]="true"
                              class="narrow-form">
         </alv-multi-typeahead>
@@ -22,7 +22,7 @@
                              label="portal.job-ad.search.query-panel.keywords.placeholder"
                              [ngbTooltip]="keywordsTP"
                              class="narrow-form"
-                             placement="bottom">
+                             placement="top">
         </alv-multi-typeahead>
         <ng-template #keywordsTP>
           {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
@@ -36,7 +36,7 @@
                              [focusFirst]="true"
                              [loadItems]="loadLocalitiesFn"
                              label="portal.job-ad.search.query-panel.localities.placeholder"
-                             placement="bottom"
+                             placement="top"
                              class="append-button narrow-form">
         </alv-multi-typeahead>
 
