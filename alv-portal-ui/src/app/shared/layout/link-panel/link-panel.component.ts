@@ -16,12 +16,17 @@ export class LinkPanelComponent implements OnInit {
   @Input()
   numberOfColumns: GoodColumnNumber = 2;
 
+  /**
+   * font-awesome icon class to be used in the title of the link panel
+   */
+  @Input()
+  icon = 'book';
+
   constructor() {
   }
 
   ngOnInit() {
   }
-
 
   range(lowEnd, highEnd): number[] {
     const arr = [];

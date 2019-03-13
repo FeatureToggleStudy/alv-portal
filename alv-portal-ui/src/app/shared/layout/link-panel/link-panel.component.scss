@@ -1,0 +1,5 @@
+@import "../../../../scss/common/colors";
+
+fa-icon ::ng-deep {
+  color: $color-primary;
+}
