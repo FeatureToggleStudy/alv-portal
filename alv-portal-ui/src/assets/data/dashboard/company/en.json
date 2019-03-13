@@ -19,7 +19,8 @@
     },
     {
       "url": "https://www.arbeit.swiss/secoalv/en/home/menue/unternehmen.html",
-      "title": "To work.swiss"
+      "title": "To work.swiss",
+      "flag": "PRIMARY"
     }
   ]
 }

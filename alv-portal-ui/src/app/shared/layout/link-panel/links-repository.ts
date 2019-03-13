@@ -8,6 +8,7 @@ import { flatMap } from 'rxjs/operators';
 export interface Link {
   title: string;
   url: string;
+  flag?: 'PRIMARY';
 }
 
 export interface LinkPanelData {

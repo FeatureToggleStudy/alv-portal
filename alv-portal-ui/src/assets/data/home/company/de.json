@@ -19,7 +19,8 @@
     },
     {
       "url": "https://www.arbeit.swiss/secoalv/de/home/menue/unternehmen.html",
-      "title": "Zu arbeit.swiss"
+      "title": "Zu arbeit.swiss",
+      "flag": "PRIMARY"
     }
   ]
 }
