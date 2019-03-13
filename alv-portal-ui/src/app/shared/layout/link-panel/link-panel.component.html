@@ -1,5 +1,13 @@
 <h2>{{linkPanelData?.title}}</h2>
-<div *ngFor="let item of linkPanelData?.links"
-     class="result-list-item">
-  <a href="{{item.url}}">{{item.title}}</a>
+
+<div class="row">
+
+  <div class="col-{{12/numberOfColumns}}"
+       *ngFor="let columnNumber of range(1, numberOfColumns) ">
+    <div *ngFor="let item of linkPanelData?.links.slice((columnNumber-1)*linkPanelData?.links.length/numberOfColumns, columnNumber * linkPanelData?.links.length/numberOfColumns)"
+         class="result-list-item">
+      <a href="{{item.url}}">{{item.title}}</a>
+    </div>
+  </div>
 </div>
+
