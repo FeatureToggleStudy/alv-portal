@@ -62,10 +62,6 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     },
     CookieService,
     {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler
-    },
-    {
       provide: HTTP_INTERCEPTORS,
       useClass: XhrMarkerInterceptor,
       multi: true

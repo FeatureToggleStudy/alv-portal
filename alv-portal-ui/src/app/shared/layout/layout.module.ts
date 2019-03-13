@@ -142,7 +142,8 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     TwoColumnLayoutComponent,
     GeoLocationSelectionComponent,
     SystemNotificationComponent,
-    AccountabilitySwitcherComponent
+    AccountabilitySwitcherComponent,
+    LinkPanelComponent
   ]
 })
 export class LayoutModule {
