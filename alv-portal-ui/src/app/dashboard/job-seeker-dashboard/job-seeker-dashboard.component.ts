@@ -19,7 +19,7 @@ export class JobSeekerDashboardComponent implements OnInit {
   constructor(private linksRepository: LinksRepository,
               private i18nService: I18nService) {
     this.linksData$ = this.i18nService.currentLanguage$.pipe(
-      flatMap((language) => this.linksRepository.getLinks(language, 'home/pav/')));
+      flatMap((language) => this.linksRepository.getLinks(language, 'dashboard/job-seeker/')));
   }
 
   ngOnInit() {
