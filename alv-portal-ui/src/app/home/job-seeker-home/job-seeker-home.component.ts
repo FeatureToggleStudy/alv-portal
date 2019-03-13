@@ -23,6 +23,6 @@ export class JobSeekerHomeComponent implements OnInit {
 
   ngOnInit() {
     this.linksData$ = this.i18nService.currentLanguage$.pipe(
-      flatMap((language) => this.linksRepository.getLinks(language, 'home/stes/anon/')));
+      flatMap((language) => this.linksRepository.getLinks(language, 'home/job-seeker/')));
   }
 }

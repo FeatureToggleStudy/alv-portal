@@ -31,6 +31,6 @@ export class PavHomeComponent implements OnInit {
       location: this.fb.control('')
     });
     this.linksData$ = this.i18nService.currentLanguage$.pipe(
-      flatMap((language) => this.linksRepository.getLinks(language, 'home/pav/anon/')));
+      flatMap((language) => this.linksRepository.getLinks(language, 'home/pav/')));
   }
 }
