@@ -1,17 +1,22 @@
-<ng-container *ngIf="linkPanelData?.links?.length as numberOfLinks">
-  <h2>
+<div
+  class="alv-panel pb-md-4 pb-3"
+  *ngIf="linkPanelData?.links?.length as numberOfLinks">
+  <h2 class="panel-title">
     <fa-icon [icon]="['fas', icon]"
+             class="panel-icon"
              *ngIf="icon"></fa-icon>
     {{linkPanelData?.title}}</h2>
 
-  <div class="row">
-
+  <div class="row mt-2">
     <div class="col-{{12/numberOfColumns}}"
          *ngFor="let columnNumber of range(1, numberOfColumns) ">
       <div *ngFor="let item of linkPanelData?.links.slice((columnNumber-1)*numberOfLinks/numberOfColumns, columnNumber * numberOfLinks/numberOfColumns)"
-           class="result-list-item">
-        <a href="{{item.url}}">{{item.title}}</a>
+           class="link-panel-item mb-2 p-2">
+        <fa-icon [icon]="['fas', 'caret-right']"
+                 class="mr-2 text-primary"></fa-icon>
+        <a href="{{item.url}}"
+           class="link">{{item.title}}</a>
       </div>
     </div>
   </div>
-</ng-container>
+</div>

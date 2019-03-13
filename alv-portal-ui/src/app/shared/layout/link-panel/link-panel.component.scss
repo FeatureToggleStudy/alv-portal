@@ -1,5 +1,16 @@
 @import "../../../../scss/common/colors";
 
-fa-icon ::ng-deep {
-  color: $color-primary;
+
+.link-panel-item {
+  background-color: $color-white;
+  border-left: 5px solid transparent;
+  padding: .5rem 1rem;
+}
+
+.link-panel-item:hover {
+  padding-left: 0;
+  border-left: 5px solid #af1007;
+  color: #af1007;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px $color-grey;
 }
