@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { I18nService } from '../../core/i18n.service';
-import { flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {
   LinkPanelData,
@@ -20,8 +18,7 @@ export class PavHomeComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder,
-              private linksRepository: LinksRepository,
-              private i18nService: I18nService) {
+              private linksRepository: LinksRepository) {
   }
 
   ngOnInit() {
