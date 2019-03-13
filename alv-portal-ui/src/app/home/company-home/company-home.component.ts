@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {
   LinkPanelData,
   LinksRepository
 } from '../../shared/layout/link-panel/links-repository';
-import { I18nService } from '../../core/i18n.service';
 
 @Component({
   selector: 'alv-company-home',
@@ -21,8 +19,7 @@ export class CompanyHomeComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder,
-              private linksRepository: LinksRepository,
-              private i18nService: I18nService) {
+              private linksRepository: LinksRepository) {
   }
 
   ngOnInit() {
@@ -31,7 +28,6 @@ export class CompanyHomeComponent implements OnInit {
       duties: this.fb.control('')
     });
 
-    this.linksData$ = this.i18nService.currentLanguage$.pipe(
-      flatMap((language) => this.linksRepository.getLinks(language, 'home/company/')));
+    this.linksData$ = this.linksRepository.getLinks('home/company/');
   }
 }

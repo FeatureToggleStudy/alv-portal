@@ -4,8 +4,6 @@ import {
   LinksRepository
 } from '../../shared/layout/link-panel/links-repository';
 import { Observable } from 'rxjs';
-import { I18nService } from '../../core/i18n.service';
-import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-job-seeker-home',
@@ -16,13 +14,11 @@ export class JobSeekerHomeComponent implements OnInit {
 
   linksData$: Observable<LinkPanelData>;
 
-  constructor(private linksRepository: LinksRepository,
-              private i18nService: I18nService) {
+  constructor(private linksRepository: LinksRepository) {
 
   }
 
   ngOnInit() {
-    this.linksData$ = this.i18nService.currentLanguage$.pipe(
-      flatMap((language) => this.linksRepository.getLinks(language, 'home/job-seeker/')));
+    this.linksData$ = this.linksRepository.getLinks('home/job-seeker/');
   }
 }
