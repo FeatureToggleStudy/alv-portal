@@ -9,6 +9,7 @@
                              [loadItems]="loadOccupationsFn"
                              label="portal.job-ad.search.query-panel.occupations.placeholder"
                              [ngbTooltip]="occupationsTP"
+                             container="body"
                              placement="top"
                              [focusFirst]="true"
                              class="narrow-form">
@@ -21,6 +22,7 @@
         <alv-multi-typeahead alvFormControlName="keywords"
                              label="portal.job-ad.search.query-panel.keywords.placeholder"
                              [ngbTooltip]="keywordsTP"
+                             container="body"
                              placement="top"
                              class="narrow-form">
         </alv-multi-typeahead>
@@ -35,6 +37,7 @@
                              [loadItems]="loadLocalitiesFn"
                              label="portal.job-ad.search.query-panel.localities.placeholder"
                              [ngbTooltip]="localitiesTP"
+                             container="body"
                              placement="top"
                              class="append-button narrow-form">
         </alv-multi-typeahead>
