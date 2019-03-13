@@ -30,6 +30,9 @@ import { isDeactivated, isExternal, isUnvalidated } from '../../shared/job-ad-ru
 import { ScrollService } from '../../../core/scroll.service';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { NotificationsService } from '../../../core/notifications.service';
+import { AddBlacklistEntryModalComponent } from '../../../admin/blacklist/add-blacklist-entry-modal/add-blacklist-entry-modal.component';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { ComplainModalComponent } from '../complain-modal/complain-modal.component';
 
 @Component({
   selector: 'alv-job-detail',
@@ -96,7 +99,8 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     private jobDetailModelFactory: JobDetailModelFactory,
     private store: Store<JobAdSearchState>,
     private scrollService: ScrollService,
-    private notificationsService: NotificationsService) {
+    private notificationsService: NotificationsService,
+    private modalService: ModalService) {
     super();
   }
 
@@ -140,6 +144,15 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
 
   dismissAlert(alert: Notification, alerts: Notification[]) {
     alerts.splice(alerts.indexOf(alert), 1);
+  }
+
+  public openComplainJobAdModal() {
+    this.modalService.openLarge(ComplainModalComponent, true).result.then(
+      (result) => {
+      },
+      () => {
+      }
+    );
   }
 
   private getJobUrl() {

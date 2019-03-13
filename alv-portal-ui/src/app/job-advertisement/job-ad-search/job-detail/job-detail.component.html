@@ -160,6 +160,14 @@
         </li>
         <li class="d-none d-md-block">
           <button class="btn btn-text btn-text-icon btn-truncate"
+                  (click)="openComplainJobAdModal()">
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'ban']"></fa-icon>
+            {{'job-detail.action.complain' | translate}}
+          </button>
+        </li>
+        <li class="d-none d-md-block">
+          <button class="btn btn-text btn-text-icon btn-truncate"
                   (click)="printJob()">
             <fa-icon class="mr-1"
                      [icon]="['fas', 'print']"></fa-icon>

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {
   CreateJobAdvertisement,
   JobAdvertisement,
-  JobAdvertisementCancelRequest,
+  JobAdvertisementCancelRequest, JobAdvertisementComplaintRequest,
   JobAdvertisementSearchRequest,
   JobAdvertisementSearchResponse,
   ManagedJobAdsSearchRequest,
@@ -17,7 +17,9 @@ import { createPageableURLSearchParams } from '../request-util';
 @Injectable({ providedIn: 'root' })
 export class JobAdvertisementRepository {
 
-  private readonly resourceUrl = '/jobadservice/api/jobAdvertisements';
+  private readonly baseUrl = '/jobadservice/api';
+
+  private readonly resourceUrl = `${this.baseUrl}/jobAdvertisements`;
 
   private readonly searchUrl = `${this.resourceUrl}/_search`;
 
@@ -77,6 +79,10 @@ export class JobAdvertisementRepository {
       params = params.set('token', jobAdCancelRequest.token);
     }
     return this.http.patch<void>(`${this.resourceUrl}/${jobAdCancelRequest.id}/cancel`, { code }, { params });
+  }
+
+  sendComplaint(jobAdComplaintRequest: JobAdvertisementComplaintRequest): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/complaint`, { jobAdComplaintRequest });
   }
 
 }

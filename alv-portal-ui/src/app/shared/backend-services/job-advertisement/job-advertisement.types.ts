@@ -261,3 +261,16 @@ export interface JobAdvertisementCancelRequest {
   token?: string;
   code: CancellationReason;
 }
+
+export interface JobAdvertisementComplaintRequest {
+  jobAdvertisementId: string;
+  complaintMessage: string;
+  contactInformation: ComplaintReporterContact;
+}
+
+export interface ComplaintReporterContact {
+  salutation: Salutation;
+  name: string;
+  phone: string;
+  email: string;
+}
