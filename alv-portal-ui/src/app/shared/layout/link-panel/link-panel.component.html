@@ -1,4 +1,5 @@
-<div *ngFor="let item of items"
+<h2>{{linkPanelData?.title}}</h2>
+<div *ngFor="let item of linkPanelData?.links"
      class="result-list-item">
   <a href="{{item.url}}">{{item.title}}</a>
 </div>

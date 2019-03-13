@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Link } from './links-repository';
+import { LinkPanelData } from './links-repository';
 
 @Component({
   selector: 'alv-link-panel',
@@ -9,7 +9,7 @@ import { Link } from './links-repository';
 export class LinkPanelComponent implements OnInit {
 
   @Input()
-  items: Link[];
+  linkPanelData: LinkPanelData;
 
   constructor() {
   }
