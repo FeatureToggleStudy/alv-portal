@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  LinkPanelData,
-  LinksRepository
-} from '../../shared/layout/link-panel/links-repository';
-import { I18nService } from '../../core/i18n.service';
-import { flatMap } from 'rxjs/operators';
+import { LinkPanelData, LinksRepository } from '../../shared/layout/link-panel/links-repository';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import {
-  LinkPanelData,
-  LinksRepository
-} from '../../shared/layout/link-panel/links-repository';
+import { LinkPanelData, LinksRepository } from '../../shared/layout/link-panel/links-repository';
 
 @Component({
   selector: 'alv-pav-home',

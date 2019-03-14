@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  LinkPanelData,
-  LinksRepository
-} from '../../shared/layout/link-panel/links-repository';
+import { LinkPanelData, LinksRepository } from '../../shared/layout/link-panel/links-repository';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  LinkPanelData,
-  LinksRepository
-} from '../../shared/layout/link-panel/links-repository';
+import { LinkPanelData, LinksRepository } from '../../shared/layout/link-panel/links-repository';
 
 @Component({
   selector: 'alv-pav-dashboard',
