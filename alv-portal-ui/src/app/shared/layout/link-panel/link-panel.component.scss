@@ -1,5 +1,11 @@
 @import "../../../../scss/common/colors";
 
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .link-panel-item {
   background-color: $color-white;
   color: $color-grey-black;
@@ -9,6 +15,16 @@
   &.primary-link {
     background-color: $color-primary;
     color: $color-white;
+
+    fa-icon {
+      color: $color-white;
+      margin-right: 0.25rem;
+    }
+  }
+
+  fa-icon {
+    color: $color-primary;
+    margin-right: 0.25rem;
   }
 }
 
@@ -26,22 +42,3 @@
     background-color: darken($color-primary, 10%);
   }
 }
-
-.link-icon {
-  color: $color-primary;
-  margin-right: 0.25rem;
-
-  &.primary-link {
-    color: $color-white;
-  }
-}
-
-a {
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-
-
-
