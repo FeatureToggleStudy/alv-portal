@@ -2,13 +2,14 @@
 @import '../../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
+@import "../../../../scss/common/_variables";
 
 header {
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
-  z-index: 995;
+  z-index: $z-index-header;
   background-color: $color-light-grey;
   border-bottom: 1px solid $color-medium-grey;
 
@@ -26,7 +27,7 @@ header {
       border: 1px solid $color-medium-grey;
       border-radius: 0 0 24px;
       background-color: $color-white;
-      z-index: 10;
+      z-index: 1;
       padding: 3px 15px;
       img {
         height: 72px;
