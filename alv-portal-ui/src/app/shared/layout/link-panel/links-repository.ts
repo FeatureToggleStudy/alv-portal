@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 export interface Link {
   title: string;
   url: string;
-  flag?: 'PRIMARY'; // the flag means that we will draw the link red
+  type?: 'PRIMARY';
 }
 
 export interface LinkPanelData {

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { flatMap, tap } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
 
-type GoodColumnNumber = 1 | 2;
+type NumberOfColumns = 1 | 2;
 
 export enum LinkPanelId {
   DASHBOARD_COMPANY = 'dashboard/company',
@@ -26,7 +26,7 @@ export class LinkPanelComponent implements OnInit {
   linkPanelId: LinkPanelId;
 
   @Input()
-  numberOfColumns: GoodColumnNumber = 2;
+  numberOfColumns: NumberOfColumns = 2;
 
   linkPanelData$: Observable<LinkPanelData>;
 
