@@ -13,10 +13,12 @@
 
   <div class="row mt-2">
 
-    <div class="col-{{12/numberOfColumns}}" *ngFor="let columnNumber of range(1, numberOfColumns)">
+    <div class="col-{{12/numberOfColumns}}"
+         *ngFor="let columnNumber of range(1, numberOfColumns)">
       <div *ngFor="let item of linkPanelData?.links.slice((columnNumber-1)*numberOfLinks/numberOfColumns, columnNumber * numberOfLinks/numberOfColumns)">
 
-        <a href="{{item.url}}" target="_blank">
+        <a [href]="item.url"
+           target="_blank">
           <div class="link-panel-item mb-2 p-2"
                [ngClass]="{'primary-link': item.flag}">
             <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
