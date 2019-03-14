@@ -8,7 +8,7 @@ import { flatMap } from 'rxjs/operators';
 export interface Link {
   title: string;
   url: string;
-  flag?: 'PRIMARY';
+  flag?: 'PRIMARY'; // the flag means that we will draw the link red
 }
 
 export interface LinkPanelData {
