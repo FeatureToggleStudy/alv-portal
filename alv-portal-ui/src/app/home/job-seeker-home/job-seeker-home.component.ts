@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LinkPanelId } from '../../shared/layout/link-panel/link-panel.component';
 
 @Component({
   selector: 'alv-job-seeker-home',
@@ -6,4 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./job-seeker-home.component.scss']
 })
 export class JobSeekerHomeComponent {
+  LinkPanelId = LinkPanelId;
 }

@@ -6,6 +6,14 @@ import { I18nService } from '../../../core/i18n.service';
 
 type GoodColumnNumber = 1 | 2;
 
+export enum LinkPanelId {
+  DASHBOARD_COMPANY = 'dashboard/company',
+  DASHBOARD_JOBSEEKER = 'dashboard/job-seeker',
+  HOME_COMPANY = 'home/company',
+  HOME_JOBSEEKER = 'home/job-seeker',
+  HOME_PAV = 'home/pav'
+}
+
 @Component({
   selector: 'alv-link-panel',
   templateUrl: './link-panel.component.html',
@@ -14,7 +22,7 @@ type GoodColumnNumber = 1 | 2;
 export class LinkPanelComponent implements OnInit {
 
   @Input()
-  linkPanelId: string;
+  linkPanelId: LinkPanelId;
 
   @Input()
   numberOfColumns: GoodColumnNumber = 2;
@@ -33,7 +41,7 @@ export class LinkPanelComponent implements OnInit {
 
   ngOnInit() {
     this.linkPanelData$ = this.i18nService.currentLanguage$.pipe(
-      flatMap((language) => this.linksRepository.getLinks('dashboard/company/', language)));
+      flatMap((language) => this.linksRepository.getLinks(this.linkPanelId, language)));
   }
 
   range(lowEnd, highEnd): number[] {

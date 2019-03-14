@@ -14,7 +14,7 @@
 
     <div class="row mt-2">
 
-      <div class="col-{{12/numberOfColumns}}"
+      <div ngClass="col-{{12/numberOfColumns}}"
            *ngFor="let columnNumber of range(1, numberOfColumns)">
         <div *ngFor="let item of linkPanelData?.links.slice((columnNumber-1)*numberOfLinks/numberOfColumns, columnNumber * numberOfLinks/numberOfColumns)">
 
