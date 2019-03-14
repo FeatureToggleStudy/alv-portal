@@ -1,11 +1,11 @@
 
 body {
   margin: 0;
-  overflow: hidden;
+  min-height: 100vh;
 }
 
-html, body {
-  height: 100vh;
+alv-root {
+  min-height: 100%;
 }
 
 @import "scss/common/fonts";

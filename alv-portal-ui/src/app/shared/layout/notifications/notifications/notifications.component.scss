@@ -3,7 +3,7 @@
 @import '../../../../../../node_modules/bootstrap/scss/mixins';
 
 :host {
-  position: absolute;
+  position: fixed;
   z-index: 999;
   right: 10px;
   top: 70px;
