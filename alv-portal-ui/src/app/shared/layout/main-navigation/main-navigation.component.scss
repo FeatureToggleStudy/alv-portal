@@ -4,16 +4,17 @@
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
 .desktop-menu {
+  position: sticky;
+  top: 53px;
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
-  z-index: 1050;
+  z-index: 900;
   background-color: $color-white;
   overflow-y: auto;
   overflow-x: visible;
   width: 295px;
   transition: width 0.15s ease-out;
-  height: 100%;
 
   ::ng-deep .nav-item > .nav-text {
     font-weight: 300;
@@ -43,7 +44,7 @@
   }
 
   .nav-spacer {
-    height: 32px;
+    min-height: 32px;
   }
 
   .nav-fill-item, .nav-spacer {
