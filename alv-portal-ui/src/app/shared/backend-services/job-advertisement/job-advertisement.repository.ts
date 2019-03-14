@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {
   CreateJobAdvertisement,
   JobAdvertisement,
-  JobAdvertisementCancelRequest, JobAdvertisementComplaintRequest,
+  JobAdvertisementCancelRequest,
   JobAdvertisementSearchRequest,
   JobAdvertisementSearchResponse,
   ManagedJobAdsSearchRequest,
@@ -81,8 +81,5 @@ export class JobAdvertisementRepository {
     return this.http.patch<void>(`${this.resourceUrl}/${jobAdCancelRequest.id}/cancel`, { code }, { params });
   }
 
-  sendComplaint(jobAdComplaintRequest: JobAdvertisementComplaintRequest): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/complaint`, { jobAdComplaintRequest });
-  }
 
 }

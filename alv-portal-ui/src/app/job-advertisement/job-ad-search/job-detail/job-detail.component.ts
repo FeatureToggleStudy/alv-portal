@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   getSelectedJobAdvertisement,
+  getSelectedJobAdvertisementId,
   isNextVisible,
   isPrevVisible,
   JobAdSearchState,
@@ -30,9 +31,9 @@ import { isDeactivated, isExternal, isUnvalidated } from '../../shared/job-ad-ru
 import { ScrollService } from '../../../core/scroll.service';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { NotificationsService } from '../../../core/notifications.service';
-import { AddBlacklistEntryModalComponent } from '../../../admin/blacklist/add-blacklist-entry-modal/add-blacklist-entry-modal.component';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { ComplainModalComponent } from '../complain-modal/complain-modal.component';
+import { emptyComplaint } from '../../../shared/backend-services/complaint/complaint.types';
+import { ComplaintModalComponent } from './complaint-modal/complaint-modal.component';
 
 @Component({
   selector: 'alv-job-detail',
@@ -146,13 +147,17 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     alerts.splice(alerts.indexOf(alert), 1);
   }
 
-  public openComplainJobAdModal() {
-    this.modalService.openLarge(ComplainModalComponent, true).result.then(
-      (result) => {
-      },
-      () => {
-      }
-    );
+  openComplaintModal() {
+    const complaintModalRef = this.modalService.openLarge(ComplaintModalComponent);
+    const complaintModalComponent = <ComplaintModalComponent>complaintModalRef.componentInstance;
+    complaintModalComponent.complaint = emptyComplaint();
+    complaintModalComponent.jobAdvertisementId = this.store.pipe(select(getSelectedJobAdvertisementId));
+    complaintModalRef.result
+      .then(() => {
+        this.notificationsService.success('success', false);
+      })
+      .catch(() => {
+      });
   }
 
   private getJobUrl() {

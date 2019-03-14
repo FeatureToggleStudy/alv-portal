@@ -1,0 +1,41 @@
+<alv-modal modalTitle="complain-modal.header"
+           primaryLabel="complain-modal.send"
+           (primaryAction)="onSubmit(form)"
+           secondaryLabel="complain-modal.dismiss"
+           (secondaryAction)="activeModal.dismiss()"
+           [formGroup]="form">
+  <p [innerHTML]="'complain-modal.description' | translate"></p>
+  <fieldset>
+    <p><strong>{{'complain-modal.contact.description' | translate}}</strong></p>
+    <alv-select label="home.tools.job-publication.contact.salutation"
+                alvFormControlName="salutation"
+                [options$]="salutationOptions$">
+    </alv-select>
+
+    <alv-input-field label="complain-modal.name-lastName.label"
+                     alvFormControlName="name"
+                     [maxLength]="MAX_LENGTH_255">
+    </alv-input-field>
+
+    <alv-input-field label="home.tools.job-publication.contact.phone"
+                     alvFormControlName="phone"
+                     type="tel"
+                     placeholder="home.tools.job-publication.placeholders.phone">
+    </alv-input-field>
+
+    <alv-input-field label="home.tools.job-publication.contact.email"
+                     alvFormControlName="email"
+                     placeholder="home.tools.job-publication.placeholders.email"
+                     [maxLength]="MAX_LENGTH_255">
+    </alv-input-field>
+  </fieldset>
+  <fieldset>
+    <p><strong>{{'complain-modal.message.label' | translate}}</strong></p>
+    <alv-input-field label="complain-modal.message.placeholder"
+                     alvFormControlName="complaintMessage"
+                     [maxLength]="MAX_LENGTH_1000"
+                     [showCharacterCounter]="true"
+                     [multiline]="true">
+    </alv-input-field>
+  </fieldset>
+</alv-modal>
