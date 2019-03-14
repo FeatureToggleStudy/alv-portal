@@ -10,7 +10,7 @@
                              label="portal.job-ad.search.query-panel.occupations.placeholder"
                              [ngbTooltip]="occupationsTP"
                              container="body"
-                             placement="top"
+                             placement="bottom"
                              [focusFirst]="true"
                              class="narrow-form">
         </alv-multi-typeahead>
@@ -24,7 +24,7 @@
                              [ngbTooltip]="keywordsTP"
                              container="body"
                              class="narrow-form"
-                             placement="top">
+                             placement="bottom">
         </alv-multi-typeahead>
         <ng-template #keywordsTP>
           {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
