@@ -1,19 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { LinkPanelData, LinksRepository } from '../../shared/layout/link-panel/links-repository';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'alv-company-dashboard',
   templateUrl: './company-dashboard.component.html',
   styleUrls: ['./company-dashboard.component.scss']
 })
-export class CompanyDashboardComponent implements OnInit {
-  linksData$: Observable<LinkPanelData>;
+export class CompanyDashboardComponent {
 
-  constructor(private linksRepository: LinksRepository) {
+  constructor() {
   }
 
-  ngOnInit() {
-    this.linksData$ = this.linksRepository.getLinks('dashboard/company/');
-  }
 }

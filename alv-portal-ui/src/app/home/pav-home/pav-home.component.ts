@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { LinkPanelData, LinksRepository } from '../../shared/layout/link-panel/links-repository';
 
 @Component({
   selector: 'alv-pav-home',
@@ -11,11 +9,9 @@ import { LinkPanelData, LinksRepository } from '../../shared/layout/link-panel/l
 export class PavHomeComponent implements OnInit {
 
   form: FormGroup;
-  linksData$: Observable<LinkPanelData>;
 
 
-  constructor(private fb: FormBuilder,
-              private linksRepository: LinksRepository) {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -24,7 +20,6 @@ export class PavHomeComponent implements OnInit {
       skills: this.fb.control(''),
       location: this.fb.control('')
     });
-    this.linksData$ = this.linksRepository.getLinks('home/pav/');
 
   }
 }

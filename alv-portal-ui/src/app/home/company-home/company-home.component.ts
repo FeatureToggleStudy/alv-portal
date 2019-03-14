@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { LinkPanelData, LinksRepository } from '../../shared/layout/link-panel/links-repository';
 
 @Component({
   selector: 'alv-company-home',
@@ -12,11 +10,7 @@ export class CompanyHomeComponent implements OnInit {
 
   form: FormGroup;
 
-  linksData$: Observable<LinkPanelData>;
-
-
-  constructor(private fb: FormBuilder,
-              private linksRepository: LinksRepository) {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -25,6 +19,5 @@ export class CompanyHomeComponent implements OnInit {
       duties: this.fb.control('')
     });
 
-    this.linksData$ = this.linksRepository.getLinks('home/company/');
   }
 }
