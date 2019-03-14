@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LinkPanelData, LinksRepository } from './links-repository';
 import { Observable } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
+import { I18nService } from '../../../core/i18n.service';
 
 type GoodColumnNumber = 1 | 2;
 
@@ -25,11 +27,13 @@ export class LinkPanelComponent implements OnInit {
   @Input()
   icon = 'book';
 
-  constructor(private linksRepository: LinksRepository) {
+  constructor(private linksRepository: LinksRepository,
+              private i18nService: I18nService) {
   }
 
   ngOnInit() {
-    this.linkPanelData$ = this.linksRepository.getLinks('dashboard/company/');
+    this.linkPanelData$ = this.i18nService.currentLanguage$.pipe(
+      flatMap((language) => this.linksRepository.getLinks('dashboard/company/', language)));
   }
 
   range(lowEnd, highEnd): number[] {
