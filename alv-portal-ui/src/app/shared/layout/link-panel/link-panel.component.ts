@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { LinkPanelData, LinksRepository } from './links-repository';
+import { Link, LinkPanelData, LinksRepository } from './links-repository';
 import { Observable } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
+import { flatMap, tap } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
 
 type GoodColumnNumber = 1 | 2;
@@ -13,6 +13,7 @@ export enum LinkPanelId {
   HOME_JOBSEEKER = 'home/job-seeker',
   HOME_PAV = 'home/pav'
 }
+
 
 @Component({
   selector: 'alv-link-panel',
@@ -29,6 +30,8 @@ export class LinkPanelComponent implements OnInit {
 
   linkPanelData$: Observable<LinkPanelData>;
 
+  columns: Link[][];
+
   /**
    * font-awesome icon class to be used in the title of the link panel
    */
@@ -41,16 +44,20 @@ export class LinkPanelComponent implements OnInit {
 
   ngOnInit() {
     this.linkPanelData$ = this.i18nService.currentLanguage$.pipe(
-      flatMap((language) => this.linksRepository.getLinks(this.linkPanelId, language)));
+      flatMap((language) => this.linksRepository.getLinks(this.linkPanelId, language)),
+      tap(linkPanelData => this.columns = this.splitLinksByColumns(linkPanelData)));
   }
 
-  range(lowEnd, highEnd): number[] {
-    const arr = [];
-    let c = highEnd - lowEnd + 1;
-    while (c--) {
-      arr[c] = highEnd--;
+  splitLinksByColumns(linkPanelData: LinkPanelData): Link[][] {
+    const result = [];
+    const numberOfLinks = linkPanelData.links.length;
+
+    for (let columnNumber = 0; columnNumber < this.numberOfColumns; columnNumber++) {
+      const sliceBegin = (columnNumber) * numberOfLinks / this.numberOfColumns;
+      const sliceEnd = (columnNumber + 1) * numberOfLinks / this.numberOfColumns;
+      result[columnNumber] = linkPanelData.links.slice(sliceBegin, sliceEnd);
     }
-    return arr;
+    return result;
   }
 
 }
