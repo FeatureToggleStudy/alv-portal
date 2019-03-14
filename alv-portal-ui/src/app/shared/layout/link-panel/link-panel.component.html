@@ -4,18 +4,26 @@
   <h2 class="panel-title">
     <fa-icon [icon]="['fas', icon]"
              class="panel-icon"
-             *ngIf="icon"></fa-icon>
-    {{linkPanelData?.title}}</h2>
+             *ngIf="icon">
+    </fa-icon>
+    {{linkPanelData?.title}}
+  </h2>
 
   <div class="row mt-2">
     <div class="col-{{12/numberOfColumns}}"
-         *ngFor="let columnNumber of range(1, numberOfColumns) ">
+         *ngFor="let columnNumber of range(1, numberOfColumns)">
       <div *ngFor="let item of linkPanelData?.links.slice((columnNumber-1)*numberOfLinks/numberOfColumns, columnNumber * numberOfLinks/numberOfColumns)"
-           class="link-panel-item mb-2 p-2">
-        <fa-icon [icon]="['fas', 'caret-right']"
-                 class="mr-2 text-primary"></fa-icon>
+           class="link-panel-item mb-2 p-2"
+           [ngClass]="{'primary-link': item.flag}">
         <a href="{{item.url}}"
-           class="link">{{item.title}}</a>
+           [ngClass]="{'primary-link': item.flag}"
+           class="link">
+          <fa-icon [icon]="['fas', 'caret-right']"
+                   [ngClass]="{'primary-link': item.flag}"
+                   class="mr-2 link-icon">
+          </fa-icon>
+          {{item.title}}
+        </a>
       </div>
     </div>
   </div>
