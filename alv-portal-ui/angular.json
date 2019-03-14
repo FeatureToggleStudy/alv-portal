@@ -57,7 +57,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "alv-portal-ui:build"
+            "browserTarget": "alv-portal-ui:build",
+            "proxyConfig": "proxy.conf.dev.json"
           },
           "configurations": {
             "production": {
