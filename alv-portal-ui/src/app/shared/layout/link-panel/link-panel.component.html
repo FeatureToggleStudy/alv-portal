@@ -1,6 +1,7 @@
 <div
   class="alv-panel pb-md-4 pb-3"
   *ngIf="linkPanelData?.links?.length as numberOfLinks">
+
   <h2 class="panel-title">
     <fa-icon [icon]="['fas', icon]"
              class="panel-icon"
@@ -10,21 +11,24 @@
   </h2>
 
   <div class="row mt-2">
-    <div class="col-{{12/numberOfColumns}}"
-         *ngFor="let columnNumber of range(1, numberOfColumns)">
-      <div *ngFor="let item of linkPanelData?.links.slice((columnNumber-1)*numberOfLinks/numberOfColumns, columnNumber * numberOfLinks/numberOfColumns)"
-           class="link-panel-item mb-2 p-2"
-           [ngClass]="{'primary-link': item.flag}">
-        <a href="{{item.url}}"
-           [ngClass]="{'primary-link': item.flag}"
-           class="link">
-          <fa-icon [icon]="['fas', 'caret-right']"
-                   [ngClass]="{'primary-link': item.flag}"
-                   class="mr-2 link-icon">
-          </fa-icon>
-          {{item.title}}
+
+    <div class="col-{{12/numberOfColumns}}" *ngFor="let columnNumber of range(1, numberOfColumns)">
+      <div *ngFor="let item of linkPanelData?.links.slice((columnNumber-1)*numberOfLinks/numberOfColumns, columnNumber * numberOfLinks/numberOfColumns)">
+
+        <a href="{{item.url}}" target="_blank">
+          <div class="link-panel-item mb-2 p-2"
+               [ngClass]="{'primary-link': item.flag}">
+            <fa-icon [icon]="['fas', 'caret-right']"
+                     [ngClass]="{'primary-link': item.flag}"
+                     class="mr-2 link-icon">
+            </fa-icon>
+            {{item.title}}
+          </div>
         </a>
+
       </div>
     </div>
+
   </div>
+
 </div>

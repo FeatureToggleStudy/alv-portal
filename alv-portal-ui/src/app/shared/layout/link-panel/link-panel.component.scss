@@ -2,55 +2,43 @@
 
 .link-panel-item {
   background-color: $color-white;
+  color: $color-grey-black;
   border-left: 5px solid transparent;
   padding: .5rem 1rem;
 
   &.primary-link {
     background-color: $color-primary;
+    color: $color-white;
   }
 }
 
 .link-panel-item:hover {
   padding-left: 0;
-  border-left: 5px solid #af1007;
-  color: $color-grey;
+  border-left: 5px solid $color-primary;
+  color: $color-primary;
   cursor: pointer;
   box-shadow: 1px 1px 5px $color-grey;
 
   &.primary-link {
     box-shadow: none;
-    color: darken($color-primary, 10%);
+    border-left: 5px solid darken($color-primary, 10%);
+    color: $color-white;
+    background-color: darken($color-primary, 10%);
+  }
+}
+
+.link-icon {
+  color: $color-primary;
+  margin-right: 0.25rem;
+
+  &.primary-link {
+    color: $color-white;
   }
 }
 
 a {
-  &.link {
-    color: $color-grey-black;
-
-    &.primary-link {
-      color: $color-white;
-    }
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  .link-icon {
-    color: $color-primary;
-    margin-right: 0.25rem;
-
-    &.primary-link {
-      color: $color-white;
-    }
-  }
-
   &:hover {
-    color: $color-primary;
-
-    &.primary-link {
-      color: $color-white;
-    }
+    text-decoration: none;
   }
 }
 
