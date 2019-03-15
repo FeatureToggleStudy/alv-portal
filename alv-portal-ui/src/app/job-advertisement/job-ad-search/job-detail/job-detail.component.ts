@@ -154,7 +154,7 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     complaintModalComponent.jobAdvertisementId = this.store.pipe(select(getSelectedJobAdvertisementId));
     complaintModalRef.result
       .then(() => {
-        this.notificationsService.success('success', false);
+        this.notificationsService.success('job-detail.complaint-modal.message.success', false);
       })
       .catch(() => {
       });

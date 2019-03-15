@@ -1,18 +1,18 @@
-<alv-modal modalTitle="complaint-modal.header"
-           primaryLabel="complaint-modal.send"
+<alv-modal modalTitle="job-detail.complaint-modal.header"
+           primaryLabel="job-detail.complaint-modal.send"
            (primaryAction)="onSubmit(form)"
-           secondaryLabel="complaint-modal.dismiss"
-           (secondaryAction)="activeModal.dismiss()"
+           secondaryLabel="job-detail.complaint-modal.dismiss"
+           (secondaryAction)="onCancel()"
            [formGroup]="form">
-  <p [innerHTML]="'complaint-modal.description' | translate"></p>
+  <p [innerHTML]="'job-detail.complaint-modal.description' | translate"></p>
   <fieldset>
-    <p><strong>{{'complaint-modal.contact.description' | translate}}</strong></p>
+    <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong></p>
     <alv-select label="home.tools.job-publication.contact.salutation"
                 alvFormControlName="salutation"
                 [options$]="salutationOptions$">
     </alv-select>
 
-    <alv-input-field label="complaint-modal.name-lastName.label"
+    <alv-input-field label="job-detail.complaint-modal.name-lastName.label"
                      alvFormControlName="name"
                      [maxLength]="MAX_LENGTH_255">
     </alv-input-field>
@@ -30,8 +30,8 @@
     </alv-input-field>
   </fieldset>
   <fieldset>
-    <p><strong>{{'complaint-modal.message.label' | translate}}</strong></p>
-    <alv-input-field label="complaint-modal.message.placeholder"
+    <p><strong>{{'job-detail.complaint-modal.message.label' | translate}}</strong></p>
+    <alv-input-field label="job-detail.complaint-modal.message.placeholder"
                      alvFormControlName="complaintMessage"
                      [maxLength]="MAX_LENGTH_1000"
                      [showCharacterCounter]="true"

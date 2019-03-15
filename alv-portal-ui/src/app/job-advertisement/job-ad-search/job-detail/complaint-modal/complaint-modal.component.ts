@@ -10,6 +10,8 @@ import { AuthenticationService } from '../../../../core/auth/authentication.serv
 import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 import { mapFormToDto, mapToFormValue } from './complaint-request-mapper';
+import { ModalService } from '../../../../shared/layout/modal/modal.service';
+import { ConfirmModalConfig } from '../../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 
 export interface ComplaintFormValue {
   salutation: Salutation;
@@ -40,10 +42,10 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
         value: null,
         label: 'home.tools.job-publication.no-selection'
       },
-      ...Object.keys(Salutation).map(language => {
+      ...Object.keys(Salutation).map(gender => {
         return {
-          value: language,
-          label: 'global.contactPerson.salutation.' + language
+          value: gender,
+          label: 'global.contactPerson.salutation.' + gender
         };
       })
     ]
@@ -51,6 +53,7 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
 
   constructor(public activeModal: NgbActiveModal,
               private authenticationService: AuthenticationService,
+              private modalService: ModalService,
               private fb: FormBuilder,
               private complaintRepository: ComplaintRepository) {
     super();
@@ -81,6 +84,22 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
     this.jobAdvertisementId.pipe(
       switchMap((id) => this.complaintRepository.sendComplaint(mapFormToDto(id, formValue)))
     ).subscribe(() => this.activeModal.close());
+  }
+
+  onCancel() {
+    this.modalService.openConfirm({
+      title: 'job-detail.confirm-cancel-modal.title',
+      content: 'job-detail.confirm-cancel-modal.content',
+      confirmLabel: 'job-detail.confirm-cancel-modal.button.confirm',
+      cancelLabel: 'job-detail.confirm-cancel-modal.button.cancel'
+    } as ConfirmModalConfig).result
+      .then(
+        () => {
+
+        },
+        () => {
+          this.activeModal.dismiss();
+        });
   }
 
   private patchTemplateValues(templateInfo: CompanyContactTemplateModel): void {
