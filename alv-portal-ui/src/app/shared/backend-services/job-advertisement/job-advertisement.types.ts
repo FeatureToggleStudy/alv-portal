@@ -261,5 +261,3 @@ export interface JobAdvertisementCancelRequest {
   token?: string;
   code: CancellationReason;
 }
-
-

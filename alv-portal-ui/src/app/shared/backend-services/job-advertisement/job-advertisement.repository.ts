@@ -17,9 +17,7 @@ import { createPageableURLSearchParams } from '../request-util';
 @Injectable({ providedIn: 'root' })
 export class JobAdvertisementRepository {
 
-  private readonly baseUrl = '/jobadservice/api';
-
-  private readonly resourceUrl = `${this.baseUrl}/jobAdvertisements`;
+  private readonly resourceUrl = '/jobadservice/api/jobAdvertisements';
 
   private readonly searchUrl = `${this.resourceUrl}/_search`;
 
@@ -80,6 +78,5 @@ export class JobAdvertisementRepository {
     }
     return this.http.patch<void>(`${this.resourceUrl}/${jobAdCancelRequest.id}/cancel`, { code }, { params });
   }
-
 
 }
