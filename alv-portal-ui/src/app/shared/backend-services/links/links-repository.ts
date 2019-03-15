@@ -1,18 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LinkPanelData } from './links.types';
 
-
-export interface Link {
-  title: string;
-  url: string;
-  type?: 'PRIMARY';
-}
-
-export interface LinkPanelData {
-  title: string;
-  links: Link[];
-}
 
 const PREFIX = 'assets/data/';
 
@@ -22,7 +12,6 @@ const PREFIX = 'assets/data/';
 export class LinksRepository {
 
   constructor(private http: HttpClient) {
-
   }
 
   getLinks(id: string, language: string): Observable<LinkPanelData> {

@@ -1,4 +1,4 @@
-<ng-container *ngIf="linkPanelData$ | async as linkPanelData">
+<ng-container *ngIf="linkPanelColumned$ | async as linkPanelColumned">
   <div class="alv-panel pb-md-4 pb-3">
 
     <h2 class="panel-title">
@@ -7,12 +7,12 @@
                class="panel-icon"
                *ngIf="icon">
       </fa-icon>
-      {{linkPanelData.title}}
+      {{linkPanelColumned.title}}
     </h2>
 
     <div class="row mt-2">
-      <div ngClass="col-sm-12 col-md-{{12/numberOfColumns}}"
-           *ngFor="let column of columns">
+      <div [ngClass]="'col-12 col-md-' + (12 / numberOfColumns)"
+           *ngFor="let column of linkPanelColumned.columns">
         <div *ngFor="let linkItem of column">
           <a [href]="linkItem.url"
              target="_blank">

@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Link, LinkPanelData, LinksRepository } from './links-repository';
+import { LinksRepository } from '../../backend-services/links/links-repository';
 import { Observable } from 'rxjs';
-import { flatMap, tap } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
+import { Link, LinkPanelData } from '../../backend-services/links/links.types';
 
 type NumberOfColumns = 1 | 2;
 
@@ -17,6 +18,10 @@ export enum LinkPanelId {
   JOB_PUBLICATION_PAV = 'job-publication/pav'
 }
 
+interface LinkPanelColumned {
+  title: string;
+  columns: Link[][];
+}
 
 @Component({
   selector: 'alv-link-panel',
@@ -31,9 +36,8 @@ export class LinkPanelComponent implements OnInit {
   @Input()
   numberOfColumns: NumberOfColumns = 2;
 
-  linkPanelData$: Observable<LinkPanelData>;
+  linkPanelColumned$: Observable<LinkPanelColumned>;
 
-  columns: Link[][];
 
   /**
    * font-awesome icon class to be used in the title of the link panel
@@ -46,19 +50,24 @@ export class LinkPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.linkPanelData$ = this.i18nService.currentLanguage$.pipe(
+    this.linkPanelColumned$ = this.i18nService.currentLanguage$.pipe(
       flatMap((language) => this.linksRepository.getLinks(this.linkPanelId, language)),
-      tap(linkPanelData => this.columns = this.splitLinksByColumns(linkPanelData)));
+      map(this.splitLinksByColumns.bind(this))
+    );
   }
 
-  splitLinksByColumns(linkPanelData: LinkPanelData): Link[][] {
-    const result = [];
+  splitLinksByColumns(linkPanelData: LinkPanelData): LinkPanelColumned {
+    const result: LinkPanelColumned = {
+      title: linkPanelData.title,
+      columns: []
+    };
+
     const numberOfLinks = linkPanelData.links.length;
 
     for (let columnNumber = 0; columnNumber < this.numberOfColumns; columnNumber++) {
       const sliceBegin = (columnNumber) * numberOfLinks / this.numberOfColumns;
       const sliceEnd = (columnNumber + 1) * numberOfLinks / this.numberOfColumns;
-      result[columnNumber] = linkPanelData.links.slice(sliceBegin, sliceEnd);
+      result.columns[columnNumber] = linkPanelData.links.slice(sliceBegin, sliceEnd);
     }
     return result;
   }
