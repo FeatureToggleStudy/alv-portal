@@ -1,6 +1,7 @@
 @import "../common/colors";
 @import "../common/_variables";
 .dropdown-menu {
+  margin-bottom: 3em;
   border-radius: 0;
   padding: .1rem 0;
   z-index: $z-index-dropdown-menu;
