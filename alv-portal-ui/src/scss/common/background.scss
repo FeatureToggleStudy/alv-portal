@@ -14,3 +14,14 @@ body {
     background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
   }
 }
+
+@include media-breakpoint-down(sm) {
+  body {
+    &.jobseeker-home,
+    &.company-home,
+    &.pav-home {
+      background-image: none;
+    }
+  }
+}
+

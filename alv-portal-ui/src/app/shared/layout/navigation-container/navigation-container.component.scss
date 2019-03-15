@@ -10,20 +10,6 @@
   main {
     margin-top: $height-header-desktop;
     margin-bottom: $height-footer;
-    background-size: cover;
-    transition: background-image 0.5s ease-out;
-
-    &.jobseeker-home {
-      background-image: url("/assets/img/backgrounds/helmet-bg.jpeg");
-    }
-
-    &.company-home {
-      background-image: url("/assets/img/backgrounds/handshake.jpeg");
-    }
-
-    &.pav-home {
-      background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
-    }
   }
 }
 
@@ -33,12 +19,3 @@
   }
 }
 
-@include media-breakpoint-down(sm) {
-  :host main {
-    &.jobseeker-home,
-    &.company-home,
-    &.pav-home {
-      background-image: none;
-    }
-  }
-}
