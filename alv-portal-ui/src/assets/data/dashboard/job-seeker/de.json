@@ -32,7 +32,7 @@
     {
       "url": "https://www.arbeit.swiss/secoalv/de/home.html",
       "title": "Zu arbeit.swiss",
-      "flag": "PRIMARY"
+      "type": "PRIMARY"
     }
   ]
 }

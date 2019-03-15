@@ -11,7 +11,7 @@
     </h2>
 
     <div class="row mt-2">
-      <div ngClass="col-{{12/numberOfColumns}}"
+      <div ngClass="col-sm-12 col-md-{{12/numberOfColumns}}"
            *ngFor="let column of columns">
         <div *ngFor="let linkItem of column">
           <a [href]="linkItem.url"

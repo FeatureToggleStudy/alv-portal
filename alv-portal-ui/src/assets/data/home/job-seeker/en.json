@@ -48,7 +48,7 @@
     {
       "url": "https://www.arbeit.swiss/secoalv/en/home.html",
       "title": "To work.swiss",
-      "flag": "PRIMARY"
+      "type": "PRIMARY"
     }
   ]
 }

@@ -28,7 +28,7 @@
     {
       "url": "https://www.arbeit.swiss/secoalv/de/home/menue/arbeitsvermittler.html",
       "title": "Zu arbeit.swiss",
-      "flag": "PRIMARY"
+      "type": "PRIMARY"
     }
   ]
 }
