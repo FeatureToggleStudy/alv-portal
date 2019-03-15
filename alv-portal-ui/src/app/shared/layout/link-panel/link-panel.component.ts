@@ -8,10 +8,13 @@ type NumberOfColumns = 1 | 2;
 
 export enum LinkPanelId {
   DASHBOARD_COMPANY = 'dashboard/company',
+  DASHBOARD_PAV = 'dashboard/pav',
   DASHBOARD_JOBSEEKER = 'dashboard/job-seeker',
   HOME_COMPANY = 'home/company',
   HOME_JOBSEEKER = 'home/job-seeker',
-  HOME_PAV = 'home/pav'
+  HOME_PAV = 'home/pav',
+  JOB_PUBLICATION_COMPANY = 'job-publication/company',
+  JOB_PUBLICATION_PAV = 'job-publication/pav'
 }
 
 

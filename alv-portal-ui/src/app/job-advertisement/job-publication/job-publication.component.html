@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <alv-two-column-layout [showLeftColumn]="showLeftColumn$ | async">
+  <alv-three-column-layout>
 
     <!-------------Left panel-->
     <div class="left-column">
@@ -7,7 +7,8 @@
         <div class="flex-grow-1"></div>
         <a class="btn btn-text btn-text-icon mb-3 d-none d-md-block d-print-none"
            routerLink="/home">
-          <fa-icon class="mr-1" [icon]="['fas', 'caret-left']"></fa-icon>
+          <fa-icon [icon]="['fas', 'caret-left']"
+                   class="mr-1"></fa-icon>
           {{'entity.action.back' | translate}}
         </a>
       </div>
@@ -32,8 +33,16 @@
 
     <!-------------Right panel-->
     <div class="right-column">
+      <alv-link-panel *alvHasAnyAuthority="UserRole.ROLE_COMPANY"
+                      [linkPanelId]="LinkPanelId.JOB_PUBLICATION_COMPANY"
+                      [numberOfColumns]="1">
+      </alv-link-panel>
+      <alv-link-panel *alvHasAnyAuthority="UserRole.ROLE_PAV"
+                      [linkPanelId]="LinkPanelId.JOB_PUBLICATION_PAV"
+                      [numberOfColumns]="1">
+      </alv-link-panel>
     </div>
-  </alv-two-column-layout>
+  </alv-three-column-layout>
 </div>
 
 <ng-template #confirmationMessage>
