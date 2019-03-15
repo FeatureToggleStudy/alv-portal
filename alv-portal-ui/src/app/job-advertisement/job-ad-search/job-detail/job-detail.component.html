@@ -63,7 +63,7 @@
               <span>{{'job-detail.action.print' | translate}}</span>
             </button>
               <button class="dropdown-item"
-                      (click)="openComplaintModal()">
+                      (click)="openComplaintModal(jobDetailModel.id)">
                 {{'job-detail.action.complain' | translate}}
               </button>
           </div>

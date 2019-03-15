@@ -50,8 +50,6 @@ export const getJobSearchFilter = createSelector(getJobAdSearchState, (state: Jo
 
 export const getSelectedJobAdvertisement = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.selectedJobAdvertisement);
 
-export const getSelectedJobAdvertisementId = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.selectedJobAdvertisement.id);
-
 export const getResultsAreLoading = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultsAreLoading);
 
 export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {

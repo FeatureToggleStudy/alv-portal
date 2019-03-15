@@ -1,15 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, Observable, of } from 'rxjs';
+import { combineLatest, of } from 'rxjs';
 import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { ComplaintRepository } from '../../../../shared/backend-services/complaint/complaint.repository';
-import { ComplaintDto } from '../../../../shared/backend-services/complaint/complaint.types';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
-import { mapFormToDto, mapToFormValue } from './complaint-request-mapper';
+import { mapFormToDto } from './complaint-request-mapper';
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
 import { ConfirmModalConfig } from '../../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 
@@ -29,9 +28,7 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
 
   public form: FormGroup;
 
-  @Input() complaint: ComplaintDto;
-
-  @Input() jobAdvertisementId: Observable<string>;
+  @Input() jobAdvertisementId: string;
 
   readonly MAX_LENGTH_255 = 255;
 
@@ -60,14 +57,12 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnInit() {
-    const formValue = mapToFormValue(this.complaint);
-
     this.form = this.fb.group({
-      salutation: [formValue.salutation, Validators.required],
-      name: [formValue.name, [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
-      phone: [formValue.phone],
-      email: [formValue.email, Validators.required],
-      complaintMessage: [formValue.complaintMessage, [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]]
+      salutation: [null, Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
+      phone: [''],
+      email: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
+      complaintMessage: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]]
     });
 
     combineLatest(this.authenticationService.getCurrentCompany()).pipe(
@@ -81,12 +76,16 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
 
   onSubmit(form: FormGroup) {
     const formValue = <ComplaintFormValue>form.value;
-    this.jobAdvertisementId.pipe(
-      switchMap((id) => this.complaintRepository.sendComplaint(mapFormToDto(id, formValue)))
-    ).subscribe(() => this.activeModal.close());
+    this.complaintRepository.sendComplaint(mapFormToDto(this.jobAdvertisementId, formValue))
+      .pipe()
+      .subscribe(() => this.activeModal.close());
   }
 
   onCancel() {
+    if (!this.form.dirty) {
+      this.activeModal.dismiss();
+      return;
+    }
     this.modalService.openConfirm({
       title: 'job-detail.confirm-cancel-modal.title',
       content: 'job-detail.confirm-cancel-modal.content',
@@ -105,7 +104,7 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
   private patchTemplateValues(templateInfo: CompanyContactTemplateModel): void {
     this.form.patchValue({
       salutation: templateInfo.salutation,
-      name: templateInfo.companyName,
+      name: templateInfo.displayName,
       phone: templateInfo.phone,
       email: templateInfo.email
     });

@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import {
   getSelectedJobAdvertisement,
-  getSelectedJobAdvertisementId,
   isNextVisible,
   isPrevVisible,
   JobAdSearchState,
@@ -32,7 +31,6 @@ import { ScrollService } from '../../../core/scroll.service';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { emptyComplaint } from '../../../shared/backend-services/complaint/complaint.types';
 import { ComplaintModalComponent } from './complaint-modal/complaint-modal.component';
 
 @Component({
@@ -147,11 +145,10 @@ export class JobDetailComponent extends AbstractSubscriber implements OnInit, Af
     alerts.splice(alerts.indexOf(alert), 1);
   }
 
-  openComplaintModal() {
+  openComplaintModal(jobAdvertisementId: string) {
     const complaintModalRef = this.modalService.openLarge(ComplaintModalComponent);
     const complaintModalComponent = <ComplaintModalComponent>complaintModalRef.componentInstance;
-    complaintModalComponent.complaint = emptyComplaint();
-    complaintModalComponent.jobAdvertisementId = this.store.pipe(select(getSelectedJobAdvertisementId));
+    complaintModalComponent.jobAdvertisementId = jobAdvertisementId;
     complaintModalRef.result
       .then(() => {
         this.notificationsService.success('job-detail.complaint-modal.message.success', false);
