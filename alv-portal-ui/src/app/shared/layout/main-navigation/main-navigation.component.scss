@@ -5,8 +5,8 @@
 @import "../../../../scss/common/_variables";
 .desktop-menu {
   position: sticky;
+  top: $height-header-desktop;
   margin-top: $height-header-desktop;
-  top: 53px;
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
