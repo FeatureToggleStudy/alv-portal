@@ -7,6 +7,13 @@ import {
 } from '@angular/core';
 
 /**
+ * Because we don’t want to reference the global Window object directly in our Angular
+ * component since our application may be used in Angular Universal, and it’s considered
+ * best practice to avoid directly referencing the global objects.
+ * Inspired by this post: https://brianflove.com/2018/01/11/angular-window-provider/
+ */
+
+/**
  *  Create a new injection token for injecting the window into a component.
  */
 export const WINDOW = new InjectionToken('WindowToken');
