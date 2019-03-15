@@ -7,16 +7,20 @@
   <p [innerHTML]="'job-detail.complaint-modal.description' | translate"></p>
   <fieldset>
     <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong></p>
-    <alv-select label="home.tools.job-publication.contact.salutation"
-                alvFormControlName="salutation"
-                [options$]="salutationOptions$">
-    </alv-select>
-
-    <alv-input-field label="job-detail.complaint-modal.name-lastName.label"
-                     alvFormControlName="name"
-                     [maxLength]="MAX_LENGTH_255">
-    </alv-input-field>
-
+    <div class="form-row">
+      <div class="col-2">
+        <alv-select label="home.tools.job-publication.contact.salutation"
+                    alvFormControlName="salutation"
+                    [options$]="salutationOptions$">
+        </alv-select>
+      </div>
+      <div class="col-10">
+        <alv-input-field label="job-detail.complaint-modal.name-lastName.label"
+                         alvFormControlName="name"
+                         [maxLength]="MAX_LENGTH_255">
+        </alv-input-field>
+      </div>
+    </div>
     <alv-input-field label="home.tools.job-publication.contact.phone"
                      alvFormControlName="phone"
                      type="tel"
