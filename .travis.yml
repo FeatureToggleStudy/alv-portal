@@ -53,3 +53,9 @@ deploy:
       && .ci-travis/push-version-bump.sh ${BUILD_VERSION} ${GIT_USER} ${GIT_PWD}
     on:
       branch: master
+  - provider: script
+    skip_cleanup: true
+    script: ".ci-travis/maven-e2e.sh"
+    on:
+      all_branches: true
+      condition: "$TRAVIS_EVENT_TYPE == cron"

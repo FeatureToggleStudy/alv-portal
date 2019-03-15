@@ -8,7 +8,7 @@ describe('Job publication page', () => {
     page = new JobPublicationPo();
   });
 
-  it('should navigage to the job-publication page', () => {
+  it('should navigate to the job-publication page', () => {
     page.navigateTo();
     expect(page.browserTitle).toEqual('Post job');
   });

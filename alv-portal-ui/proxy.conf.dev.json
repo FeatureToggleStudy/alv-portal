@@ -1,0 +1,57 @@
+{
+  "/api/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/swagger-ui.html": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/swagger-resources/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/v2/api-docs/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/webjars/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/management/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/referenceservice/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/jobadservice/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/euresintegrationservice/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/jobdeskintegrationservice/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/candidateservice/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  }
+}
