@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LinkPanelId } from '../../shared/layout/link-panel/link-panel.component';
 
 @Component({
   selector: 'alv-company-dashboard',
@@ -7,7 +8,6 @@ import { Component } from '@angular/core';
 })
 export class CompanyDashboardComponent {
 
-  constructor() {
-  }
+  LinkPanelId = LinkPanelId;
 
 }

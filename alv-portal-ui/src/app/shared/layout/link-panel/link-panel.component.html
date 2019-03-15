@@ -13,13 +13,13 @@
     <div class="row mt-2">
       <div ngClass="col-{{12/numberOfColumns}}"
            *ngFor="let column of columns">
-        <div *ngFor="let item of column">
-          <a [href]="item.url"
+        <div *ngFor="let linkItem of column">
+          <a [href]="linkItem.url"
              target="_blank">
             <div class="link-panel-item mb-2 p-2"
-                 [ngClass]="{'primary-link': item.type}">
+                 [ngClass]="{'primary-link': linkItem.type}">
               <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
-              {{item.title}}
+              {{linkItem.title}}
             </div>
           </a>
         </div>
