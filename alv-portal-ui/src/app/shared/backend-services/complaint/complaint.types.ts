@@ -13,21 +13,3 @@ export interface ContactInformationDto {
   email: string;
 }
 
-export function emptyComplaint(): ComplaintDto {
-  return {
-    jobAdvertisementId: '',
-    contactInformation: emptyContactInformation(),
-    complaintMessage: '',
-  };
-}
-
-export function emptyContactInformation(): ContactInformationDto {
-  return {
-    salutation: null,
-    name: '',
-    phone: '',
-    email: '',
-  };
-}
-
-
