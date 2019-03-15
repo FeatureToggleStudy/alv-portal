@@ -56,6 +56,8 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   userRole = UserRole;
 
+  desktopMenuHeight: String;
+
   constructor(private router: Router,
               private loginService: LoginService,
               private authenticationService: AuthenticationService,
@@ -88,6 +90,8 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
     ).subscribe(mainNavigationExpanded => {
       this.mainNavigationCollapsed = !mainNavigationExpanded;
     });
+
+    this.setDesktopMenuHeight();
   }
 
   ngAfterViewInit() {
@@ -116,10 +120,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   }
 
   private setDesktopMenuHeight() {
-    const desktopMenuElement = document.querySelector('alv-main-navigation .desktop-menu');
-    desktopMenuElement.setAttribute('style',
-      `height: calc(${window.innerHeight}px - 53px - 20px);
-                 top: 53px`);
+    this.desktopMenuHeight = `calc(${this.window.innerHeight}px - 53px - 20px)`;
   }
 
 }
