@@ -1,7 +1,8 @@
-import { LOCALE_ID, NgModule, Optional, SkipSelf } from '@angular/core';
+import { ErrorHandler, LOCALE_ID, NgModule, Optional, SkipSelf } from '@angular/core';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { AuthModule } from './auth/auth.module';
 import { CookieService } from 'ngx-cookie-service';
+import { GlobalErrorHandler } from './error-handler/global-error-handler';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -60,6 +61,10 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
       deps: [TranslateService]
     },
     CookieService,
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: XhrMarkerInterceptor,
