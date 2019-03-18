@@ -118,6 +118,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   onResetFilter() {
     this.store.dispatch(new ResetFilterAction({}));
+    this.detectSearchPanelHeight();
   }
 
   onQueryChange(queryValues: CandidateQueryPanelValues) {

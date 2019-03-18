@@ -7,7 +7,7 @@ import {
   Output
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { merge, Observable, Subject } from 'rxjs';
 import { JobQueryPanelValues } from './job-query-panel-values';
 import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
@@ -56,7 +56,9 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
 
   form: FormGroup;
 
-  isRadiusSliderShow$: Observable<boolean>;
+  isRadiusSliderShown$: Observable<boolean>;
+
+  resetFormValues$ = new Subject<JobQueryPanelValues>();
 
   constructor(private fb: FormBuilder,
               private occupationSuggestionService: OccupationSuggestionService,
@@ -80,9 +82,13 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
       takeUntil(this.ngUnsubscribe))
       .subscribe(queryPanelValues => this.jobQueryPanelValuesChange.next(queryPanelValues));
 
-    this.isRadiusSliderShow$ = this.form.valueChanges.pipe(
-      startWith(this.form.value),
-      map(isRadiusSliderVisible)
+    this.isRadiusSliderShown$ = merge(
+      this.form.valueChanges.pipe(
+        startWith(this.form.value)
+      ),
+      this.resetFormValues$
+    ).pipe(
+      map(this.isRadiusSliderVisible)
     );
   }
 
@@ -114,6 +120,10 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
         localities: jobQueryPanelValues.localities,
         radius: jobQueryPanelValues.radius || 30
       }, { emitEvent: false });
+      // Because the above "setValue()" method is called with {emitEvent: false} to avoid
+      // an infinite loop, we have to emit our own event if the form value is set from
+      // outside.
+      this.resetFormValues$.next(jobQueryPanelValues);
     }
   }
 
@@ -126,14 +136,13 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     };
   }
 
-}
+  private isRadiusSliderVisible(value: JobQueryPanelValues) {
+    if (!value.localities || value.localities.length !== 1) {
+      return false;
+    }
 
-function isRadiusSliderVisible(value: JobQueryPanelValues) {
-  if (!value.localities || value.localities.length !== 1) {
-    return false;
+    const selectedLocality = value.localities[0];
+
+    return selectedLocality.type === LocalityInputType.LOCALITY && !!selectedLocality.payload.geoPoint;
   }
-
-  const selectedLocality = value.localities[0];
-
-  return selectedLocality.type === LocalityInputType.LOCALITY && !!selectedLocality.payload.geoPoint;
 }

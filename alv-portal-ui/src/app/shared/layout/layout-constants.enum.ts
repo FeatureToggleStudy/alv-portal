@@ -26,5 +26,5 @@ export enum LayoutConstants {
    * scrolled naturally (not exactly) into the view.
    * Scrolling always happens in pixels, so no unit is needed.
    */
-  SCROLL_Y_SEARCH = -125
+  SCROLL_Y_SEARCH = -140
 }
