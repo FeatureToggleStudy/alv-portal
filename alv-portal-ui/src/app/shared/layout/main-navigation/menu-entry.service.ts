@@ -58,13 +58,6 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     userPredicate: isAuthenticatedUser
   },
   {
-    id: 'job-search',
-    iconKey: IconKey.JOB_AD_SEARCH,
-    labelKey: 'portal.navigation.menu-entry.job-search',
-    path: ['job-search'],
-    userPredicate: isAnyUser
-  },
-  {
     id: 'candidate-search',
     iconKey: IconKey.CANDIDATE_SEARCH,
     labelKey: 'portal.navigation.menu-entry.candidate-search',
@@ -76,6 +69,13 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     iconKey: IconKey.JOB_PUBLICATION,
     labelKey: 'portal.navigation.menu-entry.job-publication',
     path: ['job-publication'],
+    userPredicate: isAnyUser
+  },
+  {
+    id: 'job-search',
+    iconKey: IconKey.JOB_AD_SEARCH,
+    labelKey: 'portal.navigation.menu-entry.job-search',
+    path: ['job-search'],
     userPredicate: isAnyUser
   },
   {
