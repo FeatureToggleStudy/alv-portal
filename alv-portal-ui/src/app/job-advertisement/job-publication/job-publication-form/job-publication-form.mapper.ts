@@ -389,9 +389,7 @@ function mapToLocation(locationFormValue: LocationFormValue): CreateLocation {
 }
 
 function mapToCompany(companyFormValue: CompanyFormValue, surrogate: boolean): Company {
-  const postOfficeBoxNumber = !!companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
-    ? companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
-    : null;
+  const postOfficeBoxNumber = companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber;
 
   return {
     surrogate,
@@ -462,9 +460,7 @@ function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue
     return null;
   }
 
-  const postOfficeBoxNumber = !!postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
-    ? postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
-    : null;
+  const postOfficeBoxNumber = postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber;
 
   if (postOfficeBoxNumber) {
     return {
