@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { combineLatest, of } from 'rxjs';
+import { of } from 'rxjs';
 import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { ComplaintRepository } from '../../../../shared/backend-services/complaint/complaint.repository';
 import { takeUntil } from 'rxjs/operators';
@@ -65,9 +65,9 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
       complaintMessage: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]]
     });
 
-    combineLatest(this.authenticationService.getCurrentCompany()).pipe(
+    this.authenticationService.getCurrentCompany().pipe(
       takeUntil(this.ngUnsubscribe))
-      .subscribe(([templateInfo]) => {
+      .subscribe((templateInfo) => {
         if (!!templateInfo) {
           this.patchTemplateValues(templateInfo);
         }
