@@ -10,7 +10,7 @@ export enum LayoutConstants {
    *              3rem        + 3rem           + 46px                = 142px
    *              48px        + 48px           + 46px                = 142px
    */
-  STICKY_TOP_SEARCH = '118px',
+  STICKY_TOP_SEARCH = 0,
 
   /**
    * Used to position the sticky side panels on the detail pages (candidate, job ad)
@@ -18,7 +18,7 @@ export enum LayoutConstants {
    * Calculation: padding-top = 24px
    *              1.5rem      = 24px
    */
-  STICKY_TOP_DETAIL = '24px',
+  STICKY_TOP_DETAIL = 24,
 
   /**
    * Used to scroll the last visited element into the view. This value has to be negative
