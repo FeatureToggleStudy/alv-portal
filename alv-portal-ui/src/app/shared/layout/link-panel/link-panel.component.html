@@ -7,6 +7,9 @@
                class="panel-icon"
                *ngIf="icon">
       </fa-icon>
+      <img *ngIf="image"
+           [src]="image"
+           class="link-panel-image d-inline-block">
       {{linkPanelColumned.title}}
     </h2>
 

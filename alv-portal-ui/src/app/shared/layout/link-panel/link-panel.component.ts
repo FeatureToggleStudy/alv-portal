@@ -36,6 +36,9 @@ export class LinkPanelComponent implements OnInit {
   @Input()
   numberOfColumns: NumberOfColumns = 2;
 
+  @Input()
+  image: string;
+
   linkPanelColumned$: Observable<LinkPanelColumned>;
 
 
