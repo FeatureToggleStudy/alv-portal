@@ -1,6 +1,6 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ElementRef,
   OnInit, ViewChild
@@ -59,7 +59,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   constructor(private store: Store<JobAdSearchState>,
               private actionsSubject: ActionsSubject,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
-              private scrollService: ScrollService) {
+              private scrollService: ScrollService,
+              private cdRef: ChangeDetectorRef) {
     super();
   }
 
@@ -119,7 +120,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   detectSearchPanelHeight() {
     setTimeout(() => {
-      this.searchPanelHeight = this.searchPanelElement.nativeElement.clientHeight;
+      const newSearchPanelHeight = this.searchPanelElement.nativeElement.clientHeight;
+      if (newSearchPanelHeight !== this.searchPanelHeight) {
+        this.searchPanelHeight = newSearchPanelHeight;
+        this.cdRef.detectChanges();
+      }
     });
   }
 

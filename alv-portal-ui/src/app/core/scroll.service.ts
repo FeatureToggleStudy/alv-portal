@@ -1,12 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { WINDOW } from './window.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScrollService {
 
-  constructor(@Inject(DOCUMENT) private document: any) {
+  constructor(@Inject(DOCUMENT) private document: any,
+              @Inject(WINDOW) private window: Window) {
   }
 
   /**
@@ -15,9 +17,8 @@ export class ScrollService {
    * @param y
    */
   scrollBy(x: number, y: number) {
-    const mainElement = this.getMainElement();
-    if (mainElement.scrollBy) {
-      mainElement.scrollBy(x, y);
+    if (this.window.scrollBy) {
+      this.window.scrollBy(x, y);
     }
   }
 
@@ -25,9 +26,8 @@ export class ScrollService {
    * Scroll to top, works in all browsers
    */
   scrollToTop() {
-    const mainElement = this.getMainElement();
-    if (mainElement.scrollTo) {
-      mainElement.scrollTo(0, 0);
+    if (this.window.scrollTo) {
+      this.window.scrollTo(0, 0);
     } else {
       this.document.getElementById('scroll-top-hook').scrollIntoView();
     }
@@ -45,17 +45,5 @@ export class ScrollService {
       return true;
     }
     return false;
-  }
-
-  startListenOnScroll(listener: (event) => void) {
-    this.getMainElement().addEventListener('scroll', listener);
-  }
-
-  stopListenOnScroll(listener: (event) => void) {
-    this.getMainElement().removeAllListeners('scroll', listener);
-  }
-
-  private getMainElement() {
-    return this.document.querySelector('main');
   }
 }

@@ -1,6 +1,6 @@
 @media print {
   /* hidden elements */
-  alv-main-navigation, alv-header, alv-version, alv-scroll-to-top {
+  alv-main-navigation, alv-header, alv-footer, alv-scroll-to-top {
     display: none;
   }
 
@@ -12,14 +12,9 @@
   /* Main container style resets */
   alv-navigation-container, main {
     margin-top: 0 !important; // Remove header margin
+    margin-bottom: 0;
     overflow: visible !important; // Remove scroll bar
     display: block !important; // Remove display flex (causes problems with large content)
-    position: relative !important; // Remove absolute positioning
-    flex: unset;
-    top: unset;
-    bottom: unset;
-    left: unset;
-    right: unset;
   }
 
   /* Reset margins and paddings of default bootstrap container classes */

@@ -2,6 +2,7 @@
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 @import "../../../../scss/common/colors";
+@import "../../../../scss/common/_variables";
 
 .query-search-area {
   background-color: $color-super-light-grey;
@@ -11,8 +12,13 @@
 @include media-breakpoint-up(md) {
   .query-search-area {
     position: sticky;
-    top: 0;
+    top: $height-header-mobile;
     z-index: 1;
+  }
+}
+@include media-breakpoint-up(lg) {
+  .query-search-area {
+    top: $height-header-desktop;
   }
 }
 
