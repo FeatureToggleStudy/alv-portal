@@ -1,5 +1,6 @@
 import { JobPublicationPo } from './job-publication.po';
 import { browser, Key } from 'protractor';
+import { getSelectOptions } from './selector-utils';
 
 describe('Job publication page', () => {
   let page: JobPublicationPo;
@@ -27,15 +28,14 @@ describe('Job publication page', () => {
       page.occupationSection.occupation.sendKeys('Met');
       browser.sleep(100);
       page.occupationSection.occupation.sendKeys(Key.TAB);
-      page.occupationSection.qualification.sendKeys(Key.ARROW_DOWN);
-      page.occupationSection.degree.sendKeys(Key.ARROW_DOWN);
-      page.occupationSection.experience.sendKeys(Key.ARROW_DOWN);
-
+      getSelectOptions(page.occupationSection.qualification).last().click();
+      getSelectOptions(page.occupationSection.degree).last().click();
+      getSelectOptions(page.occupationSection.experience).last().click();
 
       page.languages.languageIsoCodes.then(languageIsoCodes => expect(languageIsoCodes.length).toEqual(1));
       page.languages.spokenLevels.then(spokenLevels => expect(spokenLevels.length).toEqual(0));
       page.languages.writtenLevels.then(writtenLevels => expect(writtenLevels.length).toEqual(0));
-      page.languages.languageIsoCodes.first().sendKeys(Key.ARROW_DOWN);
+      getSelectOptions(page.languages.languageIsoCodes.first()).last().click();
       page.languages.spokenLevels.then(spokenLevels => expect(spokenLevels.length).toEqual(1));
       page.languages.writtenLevels.then(writtenLevels => expect(writtenLevels.length).toEqual(1));
 
@@ -59,7 +59,7 @@ describe('Job publication page', () => {
 
 
       expect(page.contact.languageIsoCode.getAttribute('value')).toMatch(/\d:\sen/);
-      page.contact.salutation.sendKeys(Key.ARROW_DOWN);
+      getSelectOptions(page.contact.salutation).last().click();
       page.contact.firstName.sendKeys(testTextPrefix + ' contact first name');
       page.contact.lastName.sendKeys(testTextPrefix + ' contact last name');
       page.contact.phone.sendKeys('555555555');
