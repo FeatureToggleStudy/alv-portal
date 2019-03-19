@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { LinkPanelId } from '../../shared/layout/link-panel/link-panel.component';
 
 @Component({
   selector: 'alv-company-home',
@@ -7,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./company-home.component.scss']
 })
 export class CompanyHomeComponent implements OnInit {
+  LinkPanelId = LinkPanelId;
 
   form: FormGroup;
 

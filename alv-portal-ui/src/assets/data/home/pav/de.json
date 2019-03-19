@@ -1,0 +1,34 @@
+{
+  "title": "Informationen für Arbeitsvermittler",
+  "links": [
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/unternehmen/personalsuche/personalsuche-in-der-schweiz.html",
+      "title": "Personalsuche"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/unternehmen/stellenmeldepflicht.html",
+      "title": "Stellenmeldepflicht"
+    },
+    {
+      "url": "https://www.arbeit.swiss/dam/secoalv/de/dokumente/publikationen/arbeitsvermittlung-personalverleih/faq/FAQ_AVG_d_TA_Stand09052012.pdf.download.pdf/FAQ_AVG_d_TA_Stand09052012.pdf",
+      "title": "FAQ zum Arbeitsvermittlungsgesetz"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/arbeitsvermittler/dienstleistungen-der-rav.html",
+      "title": "Dienstleistungen der RAV"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/arbeitsvermittler/private-arbeitsvermittlung-und-personalverleih.html",
+      "title": "Private Arbeitsvermittlung und Personalverleih"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/institutionen---medien/adressen---kontakte.html#!/",
+      "title": "Adressen / Kontakte"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/arbeitsvermittler.html",
+      "title": "Zu arbeit.swiss",
+      "type": "PRIMARY"
+    }
+  ]
+}
