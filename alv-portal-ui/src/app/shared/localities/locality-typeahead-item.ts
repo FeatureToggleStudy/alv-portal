@@ -1,12 +1,7 @@
 import { TypeaheadItem } from '../forms/input/typeahead/typeahead-item';
+import { LocalitySuggestion } from '../backend-services/reference-service/locality.types';
 
-export interface LocalityItem {
-  communalCode?: string;
-  cantonCode?: string;
-  regionCode?: string;
-  city?: string;
-  zipCode?: string;
-}
+export type LocalityItem = Partial<LocalitySuggestion>;
 
 export enum LocalityInputType {
   LOCALITY = 'locality',

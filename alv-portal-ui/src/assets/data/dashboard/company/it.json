@@ -1,0 +1,26 @@
+{
+  "title": "Informazioni per i datori di lavoro",
+  "links": [
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/unternehmen/stellenmeldepflicht.html",
+      "title": "Obbligo di annunciare i posti di lavoro vacanti"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/service/formulare/fuer-arbeitgeber/kurzarbeitsentschaedigung.html",
+      "title": "Moduli"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/unternehmen/dienstleistungen-der-rav/praktikumsplatz-anbieten.html",
+      "title": "Offerta periodo pratica professionale"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/institutionen---medien/adressen---kontakte.html#!/",
+      "title": "Indirizzi / contatti"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/unternehmen.html",
+      "title": "Vai a lavoro.swiss",
+      "type": "PRIMARY"
+    }
+  ]
+}

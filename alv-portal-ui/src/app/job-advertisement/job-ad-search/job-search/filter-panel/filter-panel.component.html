@@ -69,17 +69,12 @@
   <div class="range-slider">
     <label class="mb-1">{{ 'job-search.filter.online-since.label' | translate}}</label>
     <div>
-      <nouislider [min]="1"
-                  [max]="60"
-                  [keyboard]="true"
-                  [config]="{step: 1}"
-                  (update)="updateSliderLabel($event)"
-                  class="range-input"
-                  [formControl]="form.get('onlineSince')">
-      </nouislider>
-      <span class="range-input-value text-nowrap ml-2">
-        {{ onlineSinceSliderLabel }} {{ getOnlineSinceLabel(onlineSinceSliderLabel) | translate }}
-      </span>
+      <alv-slider-input [min]="1"
+                        [max]="60"
+                        [step]="1"
+                        [labels]="{labelOne: 'job-search.filter.online-since.day.one', labelMany: 'job-search.filter.online-since.day.many'}"
+                        alvFormControlName="onlineSince">
+      </alv-slider-input>
     </div>
   </div>
 

@@ -7,13 +7,15 @@ import { I18nService } from '../../core/i18n.service';
 import { flatMap, map, take } from 'rxjs/operators';
 import { InitialFormValueConfig } from './job-publication-form/job-publication-form-value-factory';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isNotAuthenticatedUser } from '../../core/auth/user.model';
+import { isNotAuthenticatedUser, UserRole } from '../../core/auth/user.model';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreState } from '../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { JobAdvertisementUpdatedAction } from '../../core/state-management/actions/core.actions';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
+import { LinkPanelId } from '../../shared/layout/link-panel/link-panel.component';
+import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
 
 @Component({
   selector: 'alv-job-publication',
@@ -22,7 +24,13 @@ import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 })
 export class JobPublicationComponent implements OnInit {
 
+  UserRole = UserRole;
+
+  LinkPanelId = LinkPanelId;
+
   IconKey = IconKey;
+
+  LayoutConstants = LayoutConstants;
 
   initialFormValueConfig$: Observable<InitialFormValueConfig>;
 

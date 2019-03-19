@@ -1,0 +1,34 @@
+{
+  "title": "Information for recruitment agencies",
+  "links": [
+    {
+      "url": "https://www.arbeit.swiss/secoalv/en/home/menue/unternehmen/personalsuche/personalsuche-in-der-schweiz.html",
+      "title": "Personnel recruitment"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/en/home/menue/unternehmen/stellenmeldepflicht.html",
+      "title": "Job registration requirement"
+    },
+    {
+      "url": "https://www.arbeit.swiss/dam/secoalv/en/dokumente/publikationen/arbeitsvermittlung-personalverleih/faq/FAQ_AVG_d_TA_Stand09052012.pdf.download.pdf/FAQ_AVG_d_TA_Stand09052012.pdf",
+      "title": "FAQ on the recruitment and hiring of services act"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/en/home/menue/arbeitsvermittler/dienstleistungen-der-rav.html",
+      "title": "Services provided by the RAV"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/en/home/menue/arbeitsvermittler/private-arbeitsvermittlung-und-personalverleih.html",
+      "title": "Private employment agencies and temporary recruitment services"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/en/home/menue/institutionen---medien/adressen---kontakte.html",
+      "title": "Addresses / contact"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/en/home/menue/arbeitsvermittler.html",
+      "title": "To work.swiss",
+      "type": "PRIMARY"
+    }
+  ]
+}

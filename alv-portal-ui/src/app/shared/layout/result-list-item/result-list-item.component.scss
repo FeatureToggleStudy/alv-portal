@@ -13,6 +13,10 @@
     text-transform: capitalize;
   }
 
+  .title {
+    word-wrap: break-word;
+  }
+
   &:hover {
     text-decoration: none;
     color: $color-black;

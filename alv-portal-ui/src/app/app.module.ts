@@ -9,7 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShowcaseComponent } from './showcase/showcase.component';
-
+import { WINDOW_PROVIDERS } from './core/window.service';
 
 @NgModule({
   declarations: [AppComponent, ShowcaseComponent],
@@ -23,7 +23,7 @@ import { ShowcaseComponent } from './showcase/showcase.component';
     ReactiveFormsModule,
     CoreModule
   ],
-  providers: [],
+  providers: [WINDOW_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule {

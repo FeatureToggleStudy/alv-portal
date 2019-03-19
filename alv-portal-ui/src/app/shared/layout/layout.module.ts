@@ -49,8 +49,9 @@ import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-
 import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
 import { IconsModule } from '../icons/icons.module';
 import { SystemNotificationComponent } from './system-notification/system-notification.component';
-import {FooterComponent} from './footer/footer.component';
+import { FooterComponent } from './footer/footer.component';
 import { AccountabilitySwitcherComponent } from './accountability-switcher/accountability-switcher.component';
+import { LinkPanelComponent } from './link-panel/link-panel.component';
 
 @NgModule({
   imports: [
@@ -100,7 +101,8 @@ import { AccountabilitySwitcherComponent } from './accountability-switcher/accou
     TwoColumnLayoutComponent,
     GeoLocationSelectionComponent,
     SystemNotificationComponent,
-    AccountabilitySwitcherComponent
+    AccountabilitySwitcherComponent,
+    LinkPanelComponent
   ],
   providers: [
     CandidateContactRepository
@@ -140,7 +142,8 @@ import { AccountabilitySwitcherComponent } from './accountability-switcher/accou
     TwoColumnLayoutComponent,
     GeoLocationSelectionComponent,
     SystemNotificationComponent,
-    AccountabilitySwitcherComponent
+    AccountabilitySwitcherComponent,
+    LinkPanelComponent
   ]
 })
 export class LayoutModule {

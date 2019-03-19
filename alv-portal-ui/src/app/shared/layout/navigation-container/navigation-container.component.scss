@@ -1,49 +1,21 @@
 @import "../../../../scss/common/colors";
+@import "../../../../scss/common/_variables";
 @import '../../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
 :host {
-  flex: 1 1 auto;
-  position: absolute;
-  top: 0;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  margin-top: 53px;
-  z-index: 0;
+  height: 100%;
 
   main {
-    overflow-y: auto;
-    background-size: cover;
-    transition: background-image 0.5s ease-out;
-
-    &.jobseeker-home {
-      background-image: url("/assets/img/backgrounds/helmet-bg.jpeg");
-    }
-
-    &.company-home {
-      background-image: url("/assets/img/backgrounds/handshake.jpeg");
-    }
-
-    &.pav-home {
-      background-image: url("/assets/img/backgrounds/woman-phone.jpeg");
-    }
+    margin-top: $height-header-desktop;
+    margin-bottom: $height-footer;
   }
 }
 
 @include media-breakpoint-down(md) {
-  :host {
-    margin-top: 43px;
+  :host main {
+    margin-top: $height-header-mobile;
   }
 }
 
-@include media-breakpoint-down(sm) {
-  :host main {
-    &.jobseeker-home,
-    &.company-home,
-    &.pav-home {
-      background-image: none;
-    }
-  }
-}

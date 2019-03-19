@@ -1,0 +1,38 @@
+{
+  "title": "Informations pour les demandeurs d'emploi",
+  "links": [
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/stellensuchende/fuer-die-stellensuche/bewerbungstipps.html",
+      "title": "Conseils pour réussir sa candidature"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/stellensuchende/arbeitslos-was-tun-/finanzielles.html",
+      "title": "Côté finances : L'indemnité de chômage"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/stellensuchende/stellensuche-im-ausland/stellensuche-in-der-eu-efta.html",
+      "title": "Recherche d’emploi à l’étranger"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/unternehmen/stellenmeldepflicht.html",
+      "title": "L’obligation d'annoncer les postes vacants (avance en terme d’information)"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/institutionen---medien/faq.html",
+      "title": "FAQ"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/service/formulare/formulare-fuer-arbeitslose.html",
+      "title": "Formulaires"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/institutionen---medien/adressen---kontakte.html#!/",
+      "title": "Addresses / contact"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home.html",
+      "title": "Accéder à travail.swiss",
+      "type": "PRIMARY"
+    }
+  ]
+}

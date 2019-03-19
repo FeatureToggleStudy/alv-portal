@@ -1,10 +1,11 @@
 @import "../../../../scss/common/colors";
+@import "../../../../scss/common/_variables";
 @import '../../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
 :host {
-  z-index: 1000;
+  z-index: $z-index-scroll-to-top;
   position: fixed;
   bottom: 2rem;
   right: 1rem;

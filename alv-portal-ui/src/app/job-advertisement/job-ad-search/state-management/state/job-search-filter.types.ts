@@ -25,4 +25,5 @@ export interface JobSearchFilter {
   occupations: OccupationTypeaheadItem[];
   keywords: StringTypeaheadItem[];
   localities: LocalityTypeaheadItem[];
+  radius?: number;
 }
