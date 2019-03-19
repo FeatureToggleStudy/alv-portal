@@ -9,7 +9,7 @@ import { ComplaintDto } from './complaint.types';
 })
 export class ComplaintRepository {
 
-  private readonly resourceUrl = '/api/complaint';
+  private readonly resourceUrl = '/jobadservice/api/complaint';
 
   constructor(private http: HttpClient) {
   }

@@ -77,7 +77,6 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
   onSubmit(form: FormGroup) {
     const formValue = <ComplaintFormValue>form.value;
     this.complaintRepository.sendComplaint(mapFormToDto(this.jobAdvertisementId, formValue))
-      .pipe()
       .subscribe(() => this.activeModal.close());
   }
 
