@@ -1,7 +1,9 @@
 <div class="container-fluid">
-  <alv-three-column-layout>
+  <alv-two-column-layout [showLeftColumn]="showLeftColumn$ | async">
 
     <!-------------Left panel-->
+    <!-- The left panel is only shown for anonymous user showing the Back button so that they can go back. -->
+    <!-- The authorized users have the left menu for that, that' why we will hide the left panel-->
     <div class="left-column">
       <div class="d-flex">
         <div class="flex-grow-1"></div>
@@ -42,7 +44,7 @@
                       [numberOfColumns]="1">
       </alv-link-panel>
     </div>
-  </alv-three-column-layout>
+  </alv-two-column-layout>
 </div>
 
 <ng-template #confirmationMessage>

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input } from '@angular/core';
 import { AbstractColumnLayout } from '../abstract-column-layout';
 
+
 @Component({
   selector: 'alv-two-column-layout',
   templateUrl: './two-column-layout.component.html',
