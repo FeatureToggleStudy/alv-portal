@@ -1,0 +1,26 @@
+{
+  "title": "Informationen für Arbeitgeber",
+  "links": [
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/unternehmen/stellenmeldepflicht.html",
+      "title": "Stellenmeldepflicht"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/service/formulare/fuer-arbeitgeber/kurzarbeitsentschaedigung.html",
+      "title": "Formulare"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/unternehmen/dienstleistungen-der-rav/praktikumsplatz-anbieten.html",
+      "title": "Praktikumsplatz anbieten"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/institutionen---medien/adressen---kontakte.html#!/",
+      "title": "Adressen / Kontakte"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/unternehmen.html",
+      "title": "Zu arbeit.swiss",
+      "type": "PRIMARY"
+    }
+  ]
+}
