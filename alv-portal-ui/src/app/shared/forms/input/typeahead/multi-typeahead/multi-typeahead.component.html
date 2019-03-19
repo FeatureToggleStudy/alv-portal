@@ -1,4 +1,7 @@
 <div class="w-100 form-group"
+     [container]="tooltipContainer"
+     [ngbTooltip]="tooltip ? tooltipText : false"
+     [placement]="tooltipPlacement"
      *ngIf="control">
   <div class="form-label-group position-relative"
        [class.invalid]="isTouched() && isInvalid()">
@@ -41,9 +44,6 @@
              [resultTemplate]="template"
              [focusFirst]="focusFirst"
              [editable]="true"
-             [container]="tooltipContainer"
-             [ngbTooltip]="tooltip ? tooltipText : false"
-             [placement]="tooltipPlacement"
              [readonly]="limit && control.value?.length >= limit"
              [(ngModel)]="inputValue"
              (selectItem)="selectItem($event)"
