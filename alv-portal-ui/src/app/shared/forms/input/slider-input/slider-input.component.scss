@@ -1,0 +1,55 @@
+@import "../../../../../scss/common/colors";
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../../node_modules/bootstrap/scss/mixins';
+
+
+.slider-input-wrapper {
+  width: 100%;
+
+  .slider-input {
+    vertical-align: middle;
+  }
+
+  .slider-input-value {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+  }
+}
+
+::ng-deep .slider-input {
+  margin: 0 !important;
+  width: 100%;
+  padding: 0 5px 0 5px;
+  display: inline-block !important;
+
+  & .noUi-target {
+    height: 0.1rem;
+    border-radius: 5px;
+    background: $color-medium-grey;
+    box-shadow: none;
+
+    & div.noUi-handle {
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      background: $color-primary;
+      box-shadow: none;
+      top: -8px;
+      right: -10px;
+
+      &:before {
+        display: none;
+      }
+
+      &:after {
+        display: none;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

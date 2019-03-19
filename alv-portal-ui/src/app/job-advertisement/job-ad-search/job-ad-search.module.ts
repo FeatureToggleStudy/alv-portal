@@ -5,7 +5,6 @@ import { FilterPanelComponent } from './job-search/filter-panel/filter-panel.com
 import { SharedModule } from '../../shared/shared.module';
 import { JobSearchResultComponent } from './job-search/job-search-result/job-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NouisliderModule } from 'ng2-nouislider';
 import { JobAdSearchRoutingModule } from './job-ad-search-routing.module';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import { StoreModule } from '@ngrx/store';
@@ -28,7 +27,6 @@ import { ComplaintModalComponent } from './job-detail/complaint-modal/complaint-
     SharedModule,
     JobAdSearchRoutingModule,
     InfiniteScrollModule,
-    NouisliderModule,
     WidgetsModule,
     SharedJobAdvertisementModule
   ],
