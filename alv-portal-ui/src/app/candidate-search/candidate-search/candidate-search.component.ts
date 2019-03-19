@@ -1,4 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   ApplyFilterValuesAction,
@@ -50,6 +57,10 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   selectedOccupationCodes: Observable<OccupationCode[]>;
 
+  searchPanelHeight = 0;
+
+  @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
+
   constructor(private store: Store<CandidateSearchState>,
               private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
               private actionsSubject: ActionsSubject,
@@ -94,6 +105,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
           this.scrollService.scrollToTop();
         }
       });
+    this.detectSearchPanelHeight();
   }
 
   onScroll() {
@@ -106,9 +118,18 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   onResetFilter() {
     this.store.dispatch(new ResetFilterAction({}));
+    this.detectSearchPanelHeight();
   }
 
   onQueryChange(queryValues: CandidateQueryPanelValues) {
     this.store.dispatch(new ApplyQueryValuesAction(queryValues));
+    this.detectSearchPanelHeight();
+  }
+
+  detectSearchPanelHeight() {
+    setTimeout(() => {
+      this.searchPanelHeight = this.searchPanelElement.nativeElement.clientHeight;
+    });
+
   }
 }

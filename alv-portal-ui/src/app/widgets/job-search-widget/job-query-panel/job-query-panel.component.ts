@@ -7,16 +7,20 @@ import {
   Output
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { merge, Observable, Subject } from 'rxjs';
 import { JobQueryPanelValues } from './job-query-panel-values';
 import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
 import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
-import { map, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, startWith, takeUntil } from 'rxjs/operators';
 import { LocalitySuggestion } from '../../../shared/backend-services/reference-service/locality.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
+import {
+  LocalityInputType,
+  LocalityTypeaheadItem
+} from '../../../shared/localities/locality-typeahead-item';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'alv-job-query-panel',
@@ -25,6 +29,9 @@ import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typea
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit {
+
+  //Feature toggle. Must be removed after the feature released to production.
+  jobAdRadiusSearchEnabled = environment.jobAdRadiusSearchEnabled;
 
   loadOccupationsFn = this.loadOccupations.bind(this);
 
@@ -49,6 +56,10 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
 
   form: FormGroup;
 
+  isRadiusSliderShown$: Observable<boolean>;
+
+  resetFormValues$ = new Subject<JobQueryPanelValues>();
+
   constructor(private fb: FormBuilder,
               private occupationSuggestionService: OccupationSuggestionService,
               private localitySuggestionService: LocalitySuggestionService) {
@@ -60,14 +71,25 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
       occupations: [],
       keywords: [],
       localities: [],
+      radius: []
     });
 
     this.setFormValues(this._jobQueryPanelValues);
 
     this.form.valueChanges.pipe(
+      debounceTime(400),
       map<any, JobQueryPanelValues>((valueChanges) => this.map(valueChanges)),
       takeUntil(this.ngUnsubscribe))
       .subscribe(queryPanelValues => this.jobQueryPanelValuesChange.next(queryPanelValues));
+
+    this.isRadiusSliderShown$ = merge(
+      this.form.valueChanges.pipe(
+        startWith(this.form.value)
+      ),
+      this.resetFormValues$
+    ).pipe(
+      map(this.isRadiusSliderVisible)
+    );
   }
 
   loadOccupations(query: string): Observable<OccupationTypeaheadItem[]> {
@@ -96,7 +118,12 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
         occupations: jobQueryPanelValues.occupations,
         keywords: jobQueryPanelValues.keywords,
         localities: jobQueryPanelValues.localities,
+        radius: jobQueryPanelValues.radius || 30
       }, { emitEvent: false });
+      // Because the above "setValue()" method is called with {emitEvent: false} to avoid
+      // an infinite loop, we have to emit our own event if the form value is set from
+      // outside.
+      this.resetFormValues$.next(jobQueryPanelValues);
     }
   }
 
@@ -104,8 +131,18 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
     return {
       occupations: valueChanges.occupations,
       keywords: valueChanges.keywords,
-      localities: valueChanges.localities
+      localities: valueChanges.localities,
+      radius: this.jobAdRadiusSearchEnabled ? valueChanges.radius : undefined
     };
   }
 
+  private isRadiusSliderVisible(value: JobQueryPanelValues) {
+    if (!value.localities || value.localities.length !== 1) {
+      return false;
+    }
+
+    const selectedLocality = value.localities[0];
+
+    return selectedLocality.type === LocalityInputType.LOCALITY && !!selectedLocality.payload.geoPoint;
+  }
 }
