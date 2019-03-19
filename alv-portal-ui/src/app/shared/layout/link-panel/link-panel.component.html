@@ -1,0 +1,33 @@
+<ng-container *ngIf="linkPanelColumned$ | async as linkPanelColumned">
+  <div class="alv-panel pb-md-4 pb-3">
+
+    <h2 class="panel-title">
+      <fa-icon [icon]="['fas', icon]"
+               [fixedWidth]="true"
+               class="panel-icon"
+               *ngIf="icon">
+      </fa-icon>
+      <img *ngIf="image"
+           [src]="image"
+           class="link-panel-image d-inline-block">
+      {{linkPanelColumned.title}}
+    </h2>
+
+    <div class="row mt-2">
+      <div [ngClass]="'col-12 col-md-' + (12 / numberOfColumns)"
+           *ngFor="let column of linkPanelColumned.columns">
+        <div *ngFor="let linkItem of column">
+          <a [href]="linkItem.url"
+             target="_blank">
+            <div class="link-panel-item mb-2 p-2"
+                 [ngClass]="{'primary-link': linkItem.type}">
+              <fa-icon [icon]="['fas', 'caret-right']"></fa-icon>
+              {{linkItem.title}}
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-container>

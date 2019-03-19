@@ -1,0 +1,26 @@
+{
+  "title": "Informations pour les employeurs",
+  "links": [
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/unternehmen/stellenmeldepflicht.html",
+      "title": "L’obligation d'annoncer les postes vacants"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/service/formulare/fuer-arbeitgeber/kurzarbeitsentschaedigung.html",
+      "title": "Formulaires"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/unternehmen/dienstleistungen-der-rav/praktikumsplatz-anbieten.html",
+      "title": "Offrir une place de stage"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/institutionen---medien/adressen---kontakte.html#!/",
+      "title": "Adresses / contact"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/fr/home/menue/unternehmen.html",
+      "title": "Accéder à travail.swiss",
+      "type": "PRIMARY"
+    }
+  ]
+}
