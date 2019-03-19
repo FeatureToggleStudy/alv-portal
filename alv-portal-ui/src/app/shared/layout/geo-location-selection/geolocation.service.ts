@@ -13,8 +13,8 @@ export class GeolocationService {
   constructor() {
   }
 
-  public navigatorGeolocation(): Observable<GeoPoint> {
-    return Observable.create((observer: Subscriber<GeoPoint>) => {
+  public navigatorGeolocation(): Observable<Coordinates> {
+    return Observable.create((observer: Subscriber<Coordinates>) => {
       if (!('geolocation' in navigator)) {
         observer.error({
           code: 99,
