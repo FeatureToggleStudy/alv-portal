@@ -13,19 +13,13 @@
                              tooltip="portal.job-ad.search.query-panel.occupations.tooltip"
         >
         </alv-multi-typeahead>
-
       </div>
       <div class="col-12 col-md-4 mb-1 mb-md-0">
         <alv-multi-typeahead alvFormControlName="keywords"
                              label="portal.job-ad.search.query-panel.keywords.placeholder"
-                             [ngbTooltip]="keywordsTP"
-                             container="body"
-                             placement="bottom"
-                             class="narrow-form">
+                             class="narrow-form"
+                             tooltip="portal.job-ad.search.query-panel.keywords.tooltip">
         </alv-multi-typeahead>
-        <ng-template #keywordsTP>
-          {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
-        </ng-template>
       </div>
       <div class="position-relative col-12 col-md-4 mb-1 mb-md-0">
         <alv-multi-typeahead alvFormControlName="localities"
@@ -33,19 +27,14 @@
                              [focusFirst]="true"
                              [loadItems]="loadLocalitiesFn"
                              label="portal.job-ad.search.query-panel.localities.placeholder"
-                             [ngbTooltip]="localitiesTP"
-                             container="body"
-                             placement="bottom"
-                             class="append-button narrow-form">
+                             class="append-button narrow-form"
+                             tooltip="portal.job-ad.search.query-panel.localities.tooltip">
         </alv-multi-typeahead>
 
         <alv-geo-location-selection class="geo-location-selector"
                                     (localitySelect)="onGeoSelection($event)">
         </alv-geo-location-selection>
 
-        <ng-template #localitiesTP>
-          {{ 'portal.job-ad.search.query-panel.localities.tooltip' | translate}}
-        </ng-template>
       </div>
     </div>
   </div>
