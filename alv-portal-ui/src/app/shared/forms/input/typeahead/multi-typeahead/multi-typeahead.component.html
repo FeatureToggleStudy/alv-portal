@@ -2,6 +2,7 @@
      [container]="tooltipContainer"
      [ngbTooltip]="tooltip ? tooltipText : false"
      [placement]="tooltipPlacement"
+     [autoClose]="'outside'"
      *ngIf="control">
   <div class="form-label-group position-relative"
        [class.invalid]="isTouched() && isInvalid()">
