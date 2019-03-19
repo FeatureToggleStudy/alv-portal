@@ -9,7 +9,7 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
   @Input() mobileOrdering = [1, 2, 3];
 
   /**
-   * This value indicates the top margin of the component within the <main>
+   * This value indicates the top margin of the component within the <body>
    * element in pixels. It's needed for proper sticky positioning.
    */
   private _stickyTop = 0;
@@ -65,7 +65,6 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
   }
 
   private setSidePanelHeight() {
-    const mainContainer = document.querySelector('main');
     const isMobileViewPort = window.matchMedia(this.BOOTSTRAP_BREAKPOINT_SM);
 
     document.querySelectorAll(this.hostElement.nativeElement.tagName.toLowerCase() + ' .side-panel').forEach(sidePanel => {
@@ -73,8 +72,8 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
         sidePanel.setAttribute('style', '');
       } else {
         sidePanel.setAttribute('style',
-          `height: ${mainContainer.clientHeight - this._stickyTop}px;
-                 top: ${this._stickyTop}px`);
+          `height: calc(${window.innerHeight - this.stickyTop}px - 1.5rem);
+                 top: ${this.stickyTop}px`);
       }
     });
   }
