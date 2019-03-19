@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { LinkPanelId } from '../../shared/layout/link-panel/link-panel.component';
 
 @Component({
   selector: 'alv-pav-home',
@@ -9,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class PavHomeComponent implements OnInit {
 
   form: FormGroup;
+  LinkPanelId = LinkPanelId;
 
   constructor(private fb: FormBuilder) {
   }
@@ -21,5 +23,4 @@ export class PavHomeComponent implements OnInit {
     });
 
   }
-
 }

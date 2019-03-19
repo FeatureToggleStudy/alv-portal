@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { LinkPanelId } from '../../shared/layout/link-panel/link-panel.component';
 
 @Component({
   selector: 'alv-pav-dashboard',
   templateUrl: './pav-dashboard.component.html',
   styleUrls: ['./pav-dashboard.component.scss']
 })
-export class PavDashboardComponent implements OnInit {
-
-  ngOnInit() {
-
-  }
-
+export class PavDashboardComponent {
+  LinkPanelId = LinkPanelId;
 }
