@@ -54,10 +54,19 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   @Input() queryMinLength = TYPEAHEAD_QUERY_MIN_LENGTH;
 
+  /**
+   * The text of the tooltip. Other tooltip options won't have any effect without this one
+   */
   @Input() tooltip: string;
 
+  /**
+   * See the documentation for ng-bootstrap tooltip
+   */
   @Input() tooltipContainer = 'body';
 
+  /**
+   * See the documentation for ng-bootstrap tooltip
+   */
   @Input() tooltipPlacement = 'bottom';
 
   @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
