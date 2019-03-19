@@ -15,6 +15,7 @@ import { Store } from '@ngrx/store';
 import { JobAdvertisementUpdatedAction } from '../../core/state-management/actions/core.actions';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 import { LinkPanelId } from '../../shared/layout/link-panel/link-panel.component';
+import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
 
 @Component({
   selector: 'alv-job-publication',
@@ -25,10 +26,11 @@ export class JobPublicationComponent implements OnInit {
 
   UserRole = UserRole;
 
-
   LinkPanelId = LinkPanelId;
 
   IconKey = IconKey;
+
+  LayoutConstants = LayoutConstants;
 
   initialFormValueConfig$: Observable<InitialFormValueConfig>;
 
