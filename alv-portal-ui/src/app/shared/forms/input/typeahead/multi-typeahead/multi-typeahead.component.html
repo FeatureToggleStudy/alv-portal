@@ -41,12 +41,18 @@
              [resultTemplate]="template"
              [focusFirst]="focusFirst"
              [editable]="true"
+             [container]="tooltipContainer"
+             [ngbTooltip]="tooltip ? tooltipText : false"
+             [placement]="tooltipPlacement"
              [readonly]="limit && control.value?.length >= limit"
              [(ngModel)]="inputValue"
              (selectItem)="selectItem($event)"
              (keydown)="handleKeyDown($event)"
              (blur)="onBlur(control)">
     </div>
+    <ng-template #tooltipText>
+      {{ tooltip | translate}}
+    </ng-template>
     <label class="d-flex"
            [attr.for]="id">
       <span class="label text-truncate">{{label | translate}}</span>

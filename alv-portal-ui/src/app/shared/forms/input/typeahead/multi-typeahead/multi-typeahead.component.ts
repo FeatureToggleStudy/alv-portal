@@ -54,7 +54,14 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   @Input() queryMinLength = TYPEAHEAD_QUERY_MIN_LENGTH;
 
+  @Input() tooltip: string;
+
+  @Input() tooltipContainer = 'body';
+
+  @Input() tooltipPlacement = 'bottom';
+
   @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
+
 
   @ViewChild(NgbTypeahead) ngbTypeahead;
 

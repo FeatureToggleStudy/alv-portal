@@ -7,16 +7,13 @@
         <alv-multi-typeahead alvFormControlName="occupations"
                              [editable]="false"
                              [loadItems]="loadOccupationsFn"
+                             class="narrow-form"
                              label="portal.job-ad.search.query-panel.occupations.placeholder"
-                             [ngbTooltip]="occupationsTP"
-                             container="body"
-                             placement="bottom"
                              [focusFirst]="true"
-                             class="narrow-form">
+                             tooltip="portal.job-ad.search.query-panel.occupations.tooltip"
+        >
         </alv-multi-typeahead>
-        <ng-template #occupationsTP>
-          {{ 'portal.job-ad.search.query-panel.occupations.tooltip' | translate}}
-        </ng-template>
+
       </div>
       <div class="col-12 col-md-4 mb-1 mb-md-0">
         <alv-multi-typeahead alvFormControlName="keywords"
