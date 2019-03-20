@@ -1,4 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit, ViewChild
+} from '@angular/core';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   ApplyFilterValuesAction,
@@ -17,7 +23,7 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, take, takeUntil } from 'rxjs/operators';
+import { map, take, takeUntil, tap } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { ScrollService } from '../../../core/scroll.service';
@@ -46,10 +52,15 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   jobSearchMailToLink$: Observable<string>;
 
+  searchPanelHeight = 0;
+
+  @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
+
   constructor(private store: Store<JobAdSearchState>,
               private actionsSubject: ActionsSubject,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
-              private scrollService: ScrollService) {
+              private scrollService: ScrollService,
+              private cdRef: ChangeDetectorRef) {
     super();
   }
 
@@ -81,15 +92,17 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       .pipe(take(1))
       .subscribe(job => {
         if (job && this.scrollService.scrollIntoView(composeResultListItemId(job.id))) {
-          this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH);
+          this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH - this.searchPanelHeight);
         } else {
           this.scrollService.scrollToTop();
         }
       });
+    this.detectSearchPanelHeight();
   }
 
   onQueryChange(queryPanelValues: JobQueryPanelValues) {
     this.store.dispatch(new ApplyQueryValuesAction(queryPanelValues));
+    this.detectSearchPanelHeight();
   }
 
   onFiltersChange(filterPanelData: FilterPanelValues) {
@@ -98,10 +111,21 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   onResetFilter() {
     this.store.dispatch(new ResetFilterAction({}));
+    this.detectSearchPanelHeight();
   }
 
   onScroll() {
     this.store.dispatch(new LoadNextPageAction());
+  }
+
+  detectSearchPanelHeight() {
+    setTimeout(() => {
+      const newSearchPanelHeight = this.searchPanelElement.nativeElement.clientHeight;
+      if (newSearchPanelHeight !== this.searchPanelHeight) {
+        this.searchPanelHeight = newSearchPanelHeight;
+        this.cdRef.detectChanges();
+      }
+    });
   }
 
 }

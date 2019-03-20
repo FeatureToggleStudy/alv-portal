@@ -1,5 +1,6 @@
 <div class="container-fluid">
-  <alv-two-column-layout [showLeftColumn]="showLeftColumn$ | async">
+  <alv-two-column-layout [showLeftColumn]="showLeftColumn$ | async"
+                         [stickyTop]="LayoutConstants.STICKY_TOP_SEARCH">
 
     <!-------------Left panel-->
     <!-- The left panel is only shown for anonymous user showing the Back button so that they can go back. -->

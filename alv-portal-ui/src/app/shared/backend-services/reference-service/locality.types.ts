@@ -9,6 +9,7 @@ export interface LocalitySuggestion {
   cantonCode: string;
   regionCode: string;
   zipCode: string;
+  geoPoint?: GeoPoint;
 }
 
 export interface CantonSuggestion {
@@ -17,6 +18,6 @@ export interface CantonSuggestion {
 }
 
 export interface GeoPoint {
-  latitude: number;
-  longitude: number;
+  lat: number;
+  lon: number;
 }

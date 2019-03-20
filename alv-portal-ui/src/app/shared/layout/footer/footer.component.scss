@@ -1,4 +1,5 @@
 @import "../../../../scss/common/colors";
+@import "../../../../scss/common/_variables";
 @import '../../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
@@ -11,9 +12,10 @@
   bottom: 0;
   height: 20px;
   font-size: x-small;
-  z-index: 100000;
+  z-index: $z-index-footer;
   background-color: $color-dark-grey;
   color: $color-white;
+  pointer-events: none;
 
   alv-version {
     margin: 0 1em;
@@ -22,6 +24,7 @@
   a {
     float: right;
     color: $color-white;
+    pointer-events: all;
   }
 }
 
