@@ -139,7 +139,6 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   handleKeyDown(event: KeyboardEvent): void {
-    this.preventTooltipFlickering();
 
     const key = event.code || event.key;
     if (key === 'Enter' || key === 'Tab') {
@@ -275,16 +274,4 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     return of([]);
   }
 
-  private preventTooltipFlickering() {
-    setTimeout(() => {
-      console.log(this.ngbTypeahead.isPopupOpen());
-      if (this.ngbTypeahead.isPopupOpen()) {
-        this.ngbTooltip.disableTooltip = true;
-        this.ngbTooltip.close();
-      } else {
-        this.ngbTooltip.disableTooltip = false;
-      }
-    }, 1000);
-
-  }
 }
