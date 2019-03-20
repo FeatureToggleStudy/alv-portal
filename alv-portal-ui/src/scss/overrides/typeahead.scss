@@ -1,0 +1,5 @@
+@import "../common/_variables.scss";
+
+ngb-typeahead-window.dropdown-menu {
+  z-index: $z-index-typeahead-menu;
+}

@@ -14,3 +14,7 @@ $z-index-mobile-menu: 1050;
 $z-index-dropdown-menu: 1051;
 $z-index-footer: 100000;
 
+$z-index-typeahead-menu: $z-index-dropdown-menu;
+$z-index-tooltip: $z-index-typeahead-menu - 1;
+
+

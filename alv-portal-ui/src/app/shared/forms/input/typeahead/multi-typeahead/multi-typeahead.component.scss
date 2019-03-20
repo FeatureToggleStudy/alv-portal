@@ -1,18 +1,6 @@
 @import "../../../../../../scss/common/colors";
 @import "../../../../../../scss/common/_variables";
 
-
-$z-index-typeahead-menu: $z-index-dropdown-menu;
-$z-index-tooltip: $z-index-typeahead-menu - 1;
-
-::ng-deep .ngb-typeahead-window {
-  z-index: $z-index-typeahead-menu;
-}
-
-::ng-deep .typeahead-tooltip ::ng-deep {
-  z-index: $z-index-tooltip;
-}
-
 .form-label-group {
   &.invalid .typeahead-form-control.has-focus {
     box-shadow: 0 0 0 0.2rem $color-red-transparent;
