@@ -1,5 +1,4 @@
 @import "../common/_variables.scss";
 
-ngb-tooltip-window.tooltip {
-  z-index: $z-index-tooltip;
-}
+$zindex-tooltip: $z-index-tooltip
+
