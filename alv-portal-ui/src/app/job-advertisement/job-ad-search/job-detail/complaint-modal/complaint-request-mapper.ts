@@ -9,6 +9,7 @@ export function mapFormToDto(id: string, formValue: ComplaintFormValue): Complai
       name: formValue.name,
       phone: formValue.phone,
       email: formValue.email,
+      contactLanguage: formValue.contactLanguage,
     },
     complaintMessage: formValue.complaintMessage
   };

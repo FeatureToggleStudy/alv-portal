@@ -11,5 +11,6 @@ export interface ContactInformationDto {
   name: string;
   phone: string;
   email: string;
+  contactLanguage: string;
 }
 

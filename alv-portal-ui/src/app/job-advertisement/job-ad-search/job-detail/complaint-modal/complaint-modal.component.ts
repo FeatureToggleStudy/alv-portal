@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { ComplaintRepository } from '../../../../shared/backend-services/complaint/complaint.repository';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
@@ -14,12 +14,14 @@ import { ConfirmModalConfig } from '../../../../shared/layout/modal/confirm-moda
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX } from '../../../../shared/forms/regex-patterns';
 import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
+import { I18nService } from '../../../../core/i18n.service';
 
 export interface ComplaintFormValue {
   salutation: Salutation;
   name: string;
   phone: string;
   email: string;
+  contactLanguage: string;
   complaintMessage: string;
 }
 
@@ -55,7 +57,8 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
               private authenticationService: AuthenticationService,
               private modalService: ModalService,
               private fb: FormBuilder,
-              private complaintRepository: ComplaintRepository) {
+              private complaintRepository: ComplaintRepository,
+              private i18nService: I18nService) {
     super();
   }
 
@@ -63,7 +66,7 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
     this.form = this.fb.group({
       salutation: [null, Validators.required],
       name: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
-      phone: ['',  phoneInputValidator()],
+      phone: ['', phoneInputValidator()],
       email: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255), patternInputValidator(EMAIL_REGEX)]],
       complaintMessage: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]]
     });
@@ -79,6 +82,9 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
 
   onSubmit(form: FormGroup) {
     const formValue = <ComplaintFormValue>form.value;
+    this.i18nService.currentLanguage$.pipe(
+      map((lang) => formValue.contactLanguage = lang)
+    ).subscribe();
     this.complaintRepository.sendComplaint(mapFormToDto(this.jobAdvertisementId, formValue))
       .subscribe(() => this.activeModal.close());
   }
