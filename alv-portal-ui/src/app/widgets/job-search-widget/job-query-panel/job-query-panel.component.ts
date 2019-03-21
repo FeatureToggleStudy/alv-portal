@@ -30,9 +30,6 @@ import { environment } from '../../../../environments/environment';
 })
 export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit {
 
-  //Feature toggle. Must be removed after the feature released to production.
-  jobAdRadiusSearchEnabled = environment.jobAdRadiusSearchEnabled;
-
   loadOccupationsFn = this.loadOccupations.bind(this);
 
   loadLocalitiesFn = this.loadLocalities.bind(this);
@@ -132,7 +129,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
       occupations: valueChanges.occupations,
       keywords: valueChanges.keywords,
       localities: valueChanges.localities,
-      radius: this.jobAdRadiusSearchEnabled ? valueChanges.radius : undefined
+      radius: valueChanges.radius
     };
   }
 
