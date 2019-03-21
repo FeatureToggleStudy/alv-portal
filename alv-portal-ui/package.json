@@ -8,7 +8,7 @@
     "start:staging": "npm run i18n && ng serve --base-href / --watch --proxy-config proxy.conf.staging.json",
     "start:mobile": "npm run i18n && ng serve --host 0.0.0.0 --base-href / --watch --proxy-config proxy.conf.staging.json",
     "start:prod": "npm run i18n && ng serve --base-href / --watch --prod --aot --proxy-config proxy.conf.staging.json",
-    "build": "npm run i18n && npm run build:dev",
+    "build": "npm run build:dev",
     "build:dev": "npm run i18n && ng build --base-href /",
     "build:prod": "npm run i18n && ng build --base-href / --aot --prod --stats-json",
     "test": "ng test --source-map=false",

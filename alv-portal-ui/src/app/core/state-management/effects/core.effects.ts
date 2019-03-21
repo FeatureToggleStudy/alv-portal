@@ -51,7 +51,7 @@ export class CoreEffects {
           this.sessionManagerService.setToken(response.headers.get('Authorization'));
           return new CurrentUserLoadedAction({ currentUser: User.toUser(response.body) });
         }),
-        catchError<any, Action>((err) => {
+        catchError<any, Observable<Action>>((err) => {
           if (err.status === 401) {
             return of(new CurrentUserLoadedAction({ currentUser: null }));
           } else {
@@ -133,7 +133,7 @@ export class CoreEffects {
         map(companyContactTemplate => new CompanySelectedAction({ company: companyContactTemplate })),
       );
     }),
-    catchError<any, Action>((err) => of(new EffectErrorOccurredAction({ httpError: err })))
+    catchError<any, Observable<Action>>((err) => of(new EffectErrorOccurredAction({ httpError: err })))
   );
 
   @Effect({ dispatch: false })
