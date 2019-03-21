@@ -14,10 +14,7 @@ import {
   NgbModalModule,
   NgbPopoverModule,
   NgbTooltip,
-  NgbTooltipModule,
-  ɵp,
-  ɵq,
-  ɵr
+  NgbTooltipModule
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NotificationComponent } from './notifications/notification/notification.component';
@@ -49,7 +46,7 @@ import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-
 import { GeoLocationSelectionComponent } from './geo-location-selection/geo-location-selection.component';
 import { IconsModule } from '../icons/icons.module';
 import { SystemNotificationComponent } from './system-notification/system-notification.component';
-import {FooterComponent} from './footer/footer.component';
+import { FooterComponent } from './footer/footer.component';
 import { AccountabilitySwitcherComponent } from './accountability-switcher/accountability-switcher.component';
 import { LinkPanelComponent } from './link-panel/link-panel.component';
 
@@ -68,7 +65,6 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     NgbModalModule,
     NgbAlertModule,
     NgbTooltipModule,
-    NgbDropdownModule,
     PipesModule
   ],
   declarations: [
@@ -102,7 +98,7 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     GeoLocationSelectionComponent,
     SystemNotificationComponent,
     AccountabilitySwitcherComponent,
-    LinkPanelComponent
+    LinkPanelComponent,
   ],
   providers: [
     CandidateContactRepository
@@ -125,9 +121,6 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     NgbAlert,
     NgbTooltip,
     NgbDropdown,
-    ɵq, // needed for the Dropdown menu to work
-    ɵp,
-    ɵr,
     LanguageSkillsComponent,
     ModalComponent,
     StepIndicatorComponent,
