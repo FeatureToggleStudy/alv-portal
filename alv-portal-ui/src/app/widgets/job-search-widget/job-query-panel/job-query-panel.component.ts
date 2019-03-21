@@ -44,6 +44,9 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
   @Input()
   showSpinner: boolean;
 
+  @Input()
+  jobAdRadiusSearchEnabled: boolean;
+
   @Output()
   jobQueryPanelValuesChange = new EventEmitter<JobQueryPanelValues>();
 
