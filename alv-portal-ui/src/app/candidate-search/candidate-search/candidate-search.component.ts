@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   OnInit,
@@ -64,7 +65,8 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   constructor(private store: Store<CandidateSearchState>,
               private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
               private actionsSubject: ActionsSubject,
-              private scrollService: ScrollService) {
+              private scrollService: ScrollService,
+              private cdRef: ChangeDetectorRef) {
     super();
   }
 
@@ -96,16 +98,16 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   }
 
   ngAfterViewInit() {
+    this.detectSearchPanelHeight();
     this.store.pipe(select(getSelectedCandidateProfile))
       .pipe(take(1))
       .subscribe(candidateProfile => {
         if (candidateProfile && this.scrollService.scrollIntoView(composeResultListItemId(candidateProfile.id))) {
-          this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH);
+          this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH - this.searchPanelHeight);
         } else {
           this.scrollService.scrollToTop();
         }
       });
-    this.detectSearchPanelHeight();
   }
 
   onScroll() {
@@ -118,7 +120,9 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   onResetFilter() {
     this.store.dispatch(new ResetFilterAction({}));
-    this.detectSearchPanelHeight();
+    setTimeout(() => {
+      this.detectSearchPanelHeight();
+    });
   }
 
   onQueryChange(queryValues: CandidateQueryPanelValues) {
@@ -127,9 +131,10 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   }
 
   detectSearchPanelHeight() {
-    setTimeout(() => {
-      this.searchPanelHeight = this.searchPanelElement.nativeElement.clientHeight;
-    });
-
+    const newSearchPanelHeight = this.searchPanelElement.nativeElement.clientHeight;
+    if (newSearchPanelHeight !== this.searchPanelHeight) {
+      this.searchPanelHeight = newSearchPanelHeight;
+      this.cdRef.detectChanges();
+    }
   }
 }
