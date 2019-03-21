@@ -23,6 +23,8 @@ import { MultiTypeaheadComponent } from './input/typeahead/multi-typeahead/multi
 import { SingleTypeaheadComponent } from './input/typeahead/single-typeahead/single-typeahead.component';
 import { AutofocusDirective } from './autofocus.directive';
 import { IconsModule } from '../icons/icons.module';
+import { SliderInputComponent } from './input/slider-input/slider-input.component';
+import { NouisliderModule } from 'ng2-nouislider';
 
 @NgModule({
   imports: [
@@ -33,7 +35,8 @@ import { IconsModule } from '../icons/icons.module';
     NgbDatepickerModule,
     NgbTypeaheadModule,
     NgbTooltipModule,
-    TranslateModule
+    TranslateModule,
+    NouisliderModule
   ],
   declarations: [
     DateIntervalInputComponent,
@@ -46,7 +49,8 @@ import { IconsModule } from '../icons/icons.module';
     FormSubmitValidationDirective,
     MultiTypeaheadComponent,
     SingleTypeaheadComponent,
-    AutofocusDirective
+    AutofocusDirective,
+    SliderInputComponent
   ],
   exports: [
     DateIntervalInputComponent,
@@ -58,6 +62,7 @@ import { IconsModule } from '../icons/icons.module';
     CheckboxComponent,
     FormSubmitValidationDirective,
     MultiTypeaheadComponent,
+    SliderInputComponent,
     SingleTypeaheadComponent,
     ReactiveFormsModule,
     NgbTooltipModule

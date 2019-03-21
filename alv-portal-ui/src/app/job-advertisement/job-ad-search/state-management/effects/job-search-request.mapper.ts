@@ -1,6 +1,7 @@
 import {
   JobAdvertisementSearchRequest,
-  ProfessionCode
+  ProfessionCode,
+  RadiusSearchRequest
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
@@ -29,7 +30,8 @@ export class JobSearchRequestMapper {
         professionCodes: JobSearchRequestMapper.mapProfessionCodes(jobSearchFilter.occupations),
         keywords: JobSearchRequestMapper.mapKeywords(jobSearchFilter.keywords),
         communalCodes: JobSearchRequestMapper.mapCommunalCodes(jobSearchFilter.localities),
-        cantonCodes: JobSearchRequestMapper.mapCantonCodes(jobSearchFilter.localities)
+        cantonCodes: JobSearchRequestMapper.mapCantonCodes(jobSearchFilter.localities),
+        radiusSearchRequest: JobSearchRequestMapper.mapRadiusSearchDto(jobSearchFilter.localities, jobSearchFilter.radius)
       }
     };
   }
@@ -80,13 +82,34 @@ export class JobSearchRequestMapper {
   private static mapCommunalCodes(localities: LocalityTypeaheadItem[]): string[] {
     return localities
       .filter((i) => i.type === LocalityInputType.LOCALITY)
-      .map((i) => i.payload.communalCode);
+      .map((i) => i.payload.communalCode.toString());
   }
 
   private static mapCantonCodes(localities: LocalityTypeaheadItem[]): string[] {
     return localities
       .filter((i) => i.type === LocalityInputType.CANTON)
       .map((i) => i.payload.cantonCode);
+  }
+
+  private static mapRadiusSearchDto(localities: LocalityTypeaheadItem[], distance: number): RadiusSearchRequest {
+    if (!localities || localities.length !== 1) {
+      return undefined;
+    }
+
+    const locality = localities[0];
+    if (locality.type !== LocalityInputType.LOCALITY) {
+      return undefined;
+    }
+
+    const payload = locality.payload;
+    if (!payload.geoPoint || !distance) {
+      return undefined;
+    }
+
+    return {
+      geoPoint: payload.geoPoint,
+      distance
+    };
   }
 
 }

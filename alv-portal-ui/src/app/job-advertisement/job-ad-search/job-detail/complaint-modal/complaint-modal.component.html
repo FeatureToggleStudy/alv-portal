@@ -1,0 +1,46 @@
+<alv-modal modalTitle="job-detail.complaint-modal.header"
+           primaryLabel="job-detail.complaint-modal.send"
+           (primaryAction)="onSubmit(form)"
+           secondaryLabel="job-detail.complaint-modal.dismiss"
+           (secondaryAction)="onCancel()"
+           [formGroup]="form">
+  <p [innerHTML]="'job-detail.complaint-modal.description' | translate"></p>
+  <fieldset>
+    <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong></p>
+    <div class="form-row">
+      <div class="col-3">
+        <alv-select label="home.tools.job-publication.contact.salutation"
+                    alvFormControlName="salutation"
+                    [options$]="salutationOptions$">
+        </alv-select>
+      </div>
+      <div class="col-9">
+        <alv-input-field label="job-detail.complaint-modal.name-lastName.label"
+                         alvFormControlName="name"
+                         [maxLength]="MAX_LENGTH_255">
+        </alv-input-field>
+      </div>
+    </div>
+    <alv-input-field label="home.tools.job-publication.contact.phone"
+                     alvFormControlName="phone"
+                     type="tel"
+                     placeholder="home.tools.job-publication.placeholders.phone">
+    </alv-input-field>
+
+    <alv-input-field label="home.tools.job-publication.contact.email"
+                     alvFormControlName="email"
+                     placeholder="home.tools.job-publication.placeholders.email"
+                     [maxLength]="MAX_LENGTH_255">
+    </alv-input-field>
+  </fieldset>
+  <fieldset>
+    <p><strong>{{'job-detail.complaint-modal.message.label' | translate}}</strong></p>
+    <alv-input-field label="job-detail.complaint-modal.message.placeholder"
+                     alvFormControlName="complaintMessage"
+                     [maxLength]="MAX_LENGTH_1000"
+                     [showCharacterCounter]="true"
+                     [autofocus]="true"
+                     [multiline]="true">
+    </alv-input-field>
+  </fieldset>
+</alv-modal>

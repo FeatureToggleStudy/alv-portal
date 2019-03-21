@@ -1,10 +1,10 @@
 @import "../common/colors";
-
+@import "../common/_variables";
 .dropdown-menu {
   margin-bottom: 3em;
   border-radius: 0;
   padding: .1rem 0;
-  z-index: 1051;
+  z-index: $z-index-dropdown-menu;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
 
   .dropdown-item {

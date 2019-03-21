@@ -1,10 +1,11 @@
 @import '../../../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../../node_modules/bootstrap/scss/mixins';
+@import "../../../../../scss/common/_variables";
 
 :host {
-  position: absolute;
-  z-index: 999;
+  position: fixed;
+  z-index: $z-index-notifications;
   right: 10px;
   top: 70px;
   width: 25%;

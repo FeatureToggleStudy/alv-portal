@@ -58,24 +58,24 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     userPredicate: isAuthenticatedUser
   },
   {
-    id: 'job-search',
-    iconKey: IconKey.JOB_AD_SEARCH,
-    labelKey: 'portal.navigation.menu-entry.job-search',
-    path: ['job-search'],
-    userPredicate: isAnyUser
-  },
-  {
     id: 'candidate-search',
     iconKey: IconKey.CANDIDATE_SEARCH,
     labelKey: 'portal.navigation.menu-entry.candidate-search',
     path: ['candidate-search'],
-    userPredicate: isAnyUser
+    userPredicate: (u) => isNotAuthenticatedUser(u) || hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
   },
   {
     id: 'job-publication',
     iconKey: IconKey.JOB_PUBLICATION,
     labelKey: 'portal.navigation.menu-entry.job-publication',
     path: ['job-publication'],
+    userPredicate: (u) => isNotAuthenticatedUser(u) || hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
+  },
+  {
+    id: 'job-search',
+    iconKey: IconKey.JOB_AD_SEARCH,
+    labelKey: 'portal.navigation.menu-entry.job-search',
+    path: ['job-search'],
     userPredicate: isAnyUser
   },
   {

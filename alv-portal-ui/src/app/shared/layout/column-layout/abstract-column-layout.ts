@@ -9,10 +9,21 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
   @Input() mobileOrdering = [1, 2, 3];
 
   /**
-   * This value indicates the top margin of the component within the <main>
-   * element. It's needed for proper sticky positioning.
+   * This value indicates the top margin of the component within the <body>
+   * element in pixels. It's needed for proper sticky positioning.
    */
-  @Input() stickyTop = '0px';
+  private _stickyTop = 0;
+
+  @Input() get stickyTop(): number {
+    return this._stickyTop;
+  }
+
+  set stickyTop(value: number) {
+    if (this._stickyTop !== value) {
+      this._stickyTop = value;
+      this.setSidePanelHeight();
+    }
+  }
 
   /**
    * These CSS classes are common to all column layouts
@@ -54,7 +65,6 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
   }
 
   private setSidePanelHeight() {
-    const mainContainer = document.querySelector('main');
     const isMobileViewPort = window.matchMedia(this.BOOTSTRAP_BREAKPOINT_SM);
 
     document.querySelectorAll(this.hostElement.nativeElement.tagName.toLowerCase() + ' .side-panel').forEach(sidePanel => {
@@ -62,8 +72,8 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
         sidePanel.setAttribute('style', '');
       } else {
         sidePanel.setAttribute('style',
-          `height: calc(${mainContainer.clientHeight}px - ${this.stickyTop});
-                 top: ${this.stickyTop}`);
+          `height: calc(${window.innerHeight - this.stickyTop}px - 1.5rem);
+                 top: ${this.stickyTop}px`);
       }
     });
   }

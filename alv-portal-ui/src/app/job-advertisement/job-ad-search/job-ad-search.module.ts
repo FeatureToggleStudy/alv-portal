@@ -5,7 +5,6 @@ import { FilterPanelComponent } from './job-search/filter-panel/filter-panel.com
 import { SharedModule } from '../../shared/shared.module';
 import { JobSearchResultComponent } from './job-search/job-search-result/job-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { NouisliderModule } from 'ng2-nouislider';
 import { JobAdSearchRoutingModule } from './job-ad-search-routing.module';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import { StoreModule } from '@ngrx/store';
@@ -17,6 +16,8 @@ import { JobSearchGuard } from './job-search/job-search.guard';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement.module';
 import { JobFingerprintGuard } from './job-fingerprint-redirect/job-fingerprint.guard';
+import { ModalService } from '../../shared/layout/modal/modal.service';
+import { ComplaintModalComponent } from './job-detail/complaint-modal/complaint-modal.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,6 @@ import { JobFingerprintGuard } from './job-fingerprint-redirect/job-fingerprint.
     SharedModule,
     JobAdSearchRoutingModule,
     InfiniteScrollModule,
-    NouisliderModule,
     WidgetsModule,
     SharedJobAdvertisementModule
   ],
@@ -34,13 +34,17 @@ import { JobFingerprintGuard } from './job-fingerprint-redirect/job-fingerprint.
     JobSearchComponent,
     FilterPanelComponent,
     JobSearchResultComponent,
-    JobDetailComponent
+    JobDetailComponent,
+    ComplaintModalComponent
+  ], entryComponents: [
+    ComplaintModalComponent
   ],
   providers: [
     JobSearchFilterParameterService,
     JobDetailGuard,
     JobSearchGuard,
-    JobFingerprintGuard
+    JobFingerprintGuard,
+    ModalService
   ]
 })
 export class JobAdSearchModule {

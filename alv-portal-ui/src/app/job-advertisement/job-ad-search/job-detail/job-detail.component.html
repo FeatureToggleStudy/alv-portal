@@ -62,6 +62,10 @@
                     class="dropdown-item">
               <span>{{'job-detail.action.print' | translate}}</span>
             </button>
+              <button class="dropdown-item"
+                      (click)="openComplaintModal(jobDetailModel.id)">
+                {{'job-detail.action.complain' | translate}}
+              </button>
           </div>
         </div>
       </div>
@@ -157,6 +161,14 @@
                      [icon]="['fas', 'share']"></fa-icon>
             {{'portal.job-detail.sendLink' | translate}}
           </a>
+        </li>
+        <li class="d-none d-md-block">
+          <button class="btn btn-text btn-text-icon btn-truncate"
+                  (click)="openComplaintModal(jobDetailModel.id)">
+            <fa-icon class="mr-1"
+                     [icon]="['fas', 'ban']"></fa-icon>
+            {{'job-detail.action.complain' | translate}}
+          </button>
         </li>
         <li class="d-none d-md-block">
           <button class="btn btn-text btn-text-icon btn-truncate"
