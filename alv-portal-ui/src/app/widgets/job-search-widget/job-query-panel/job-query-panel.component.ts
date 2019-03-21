@@ -20,7 +20,6 @@ import {
   LocalityInputType,
   LocalityTypeaheadItem
 } from '../../../shared/localities/locality-typeahead-item';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'alv-job-query-panel',
@@ -29,9 +28,6 @@ import { environment } from '../../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit {
-
-  //Feature toggle. Must be removed after the feature released to production.
-  jobAdRadiusSearchEnabled = environment.jobAdRadiusSearchEnabled;
 
   loadOccupationsFn = this.loadOccupations.bind(this);
 
@@ -132,7 +128,7 @@ export class JobQueryPanelComponent extends AbstractSubscriber implements OnInit
       occupations: valueChanges.occupations,
       keywords: valueChanges.keywords,
       localities: valueChanges.localities,
-      radius: this.jobAdRadiusSearchEnabled ? valueChanges.radius : undefined
+      radius: valueChanges.radius
     };
   }
 

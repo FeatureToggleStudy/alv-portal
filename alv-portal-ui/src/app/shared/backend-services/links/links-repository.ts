@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { LinkPanelData } from './links.types';
 
 
-const PREFIX = 'assets/data/';
+const PREFIX = 'assets/data';
 
 @Injectable({
   providedIn: 'root'
