@@ -1,5 +1,9 @@
 @import "../common/colors";
 @import "../common/_variables";
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+
 .dropdown-menu {
   margin-bottom: 3em;
   border-radius: 0;
@@ -35,3 +39,14 @@
   display: none;
 }
 
+@include media-breakpoint-down(sm) {
+
+  .dropdown-menu {
+    max-width: 100%;
+
+    .dropdown-item {
+      white-space: normal;
+    }
+  }
+
+}
