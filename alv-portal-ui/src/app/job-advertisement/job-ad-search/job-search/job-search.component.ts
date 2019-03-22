@@ -90,6 +90,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   ngAfterViewInit() {
+    this.detectSearchPanelHeight();
     this.store.pipe(select(getSelectedJobAdvertisement))
       .pipe(take(1))
       .subscribe(job => {
@@ -99,7 +100,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
           this.scrollService.scrollToTop();
         }
       });
-    this.detectSearchPanelHeight();
   }
 
   onQueryChange(queryPanelValues: JobQueryPanelValues) {
@@ -113,7 +113,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   onResetFilter() {
     this.store.dispatch(new ResetFilterAction({}));
-    this.detectSearchPanelHeight();
+    // Give the search panel some time to adjust
+    setTimeout(() => {
+      this.detectSearchPanelHeight();
+    });
   }
 
   onScroll() {
@@ -121,13 +124,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   detectSearchPanelHeight() {
-    setTimeout(() => {
-      const newSearchPanelHeight = this.searchPanelElement.nativeElement.clientHeight;
-      if (newSearchPanelHeight !== this.searchPanelHeight) {
-        this.searchPanelHeight = newSearchPanelHeight;
-        this.cdRef.detectChanges();
-      }
-    });
+    const newSearchPanelHeight = this.searchPanelElement.nativeElement.clientHeight;
+    if (newSearchPanelHeight !== this.searchPanelHeight) {
+      this.searchPanelHeight = newSearchPanelHeight;
+      this.cdRef.detectChanges();
+    }
   }
 
 }
