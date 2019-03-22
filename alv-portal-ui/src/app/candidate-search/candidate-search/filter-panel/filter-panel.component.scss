@@ -3,45 +3,6 @@
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
-.range-input-value {
-  vertical-align: middle;
-}
-
-/deep/ .range-input {
-  width: calc(100% - (80px));
-  margin: 0 !important;
-  padding-right: 5px;
-  display: inline-block !important;
-
-  & .noUi-target {
-    height: 0.5rem;
-    border-radius: 5px;
-    background: $color-medium-grey;
-    box-shadow: none;
-
-    & .noUi-handle {
-      width: 20px;
-      height: 20px;
-      left: -10px;
-      border-radius: 10px;
-      background: $color-primary;
-      box-shadow: none;
-
-      &:before {
-        display: none;
-      }
-
-      &:after {
-        display: none;
-      }
-
-      &:focus {
-        outline: none;
-      }
-    }
-  }
-}
-
 // Collapsible filter panel
 button.title-bar {
   display: none;
