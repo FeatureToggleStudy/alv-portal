@@ -35,7 +35,7 @@
                                     (localitySelect)="onGeoSelection($event)">
         </alv-geo-location-selection>
 
-        <ng-container *ngIf="jobAdRadiusSearchEnabled">
+        <ng-container>
           <alv-slider-input *ngIf="isRadiusSliderShown$ | async"
                             [max]="130"
                             [min]="10"
