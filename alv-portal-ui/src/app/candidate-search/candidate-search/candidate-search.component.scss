@@ -16,6 +16,7 @@
     z-index: 1;
   }
 }
+
 @include media-breakpoint-up(lg) {
   .query-search-area {
     top: $height-header-desktop;

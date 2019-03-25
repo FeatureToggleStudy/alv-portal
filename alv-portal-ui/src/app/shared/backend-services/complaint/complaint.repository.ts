@@ -15,6 +15,6 @@ export class ComplaintRepository {
   }
 
   sendComplaint(complaint: ComplaintDto): Observable<void> {
-    return this.http.post<void>(`${this.resourceUrl}`, complaint );
+    return this.http.post<void>(`${this.resourceUrl}`, complaint);
   }
 }
