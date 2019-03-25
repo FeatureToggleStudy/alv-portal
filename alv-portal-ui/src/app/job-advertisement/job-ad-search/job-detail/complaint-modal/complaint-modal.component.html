@@ -1,46 +1,47 @@
-<alv-modal modalTitle="job-detail.complaint-modal.header"
-           primaryLabel="job-detail.complaint-modal.send"
-           (primaryAction)="onSubmit(form)"
-           secondaryLabel="job-detail.complaint-modal.dismiss"
+<alv-modal (primaryAction)="onSubmit(form)"
            (secondaryAction)="onCancel()"
-           [formGroup]="form">
+           [formGroup]="form"
+           modalTitle="job-detail.complaint-modal.header"
+           primaryLabel="job-detail.complaint-modal.send"
+           secondaryLabel="job-detail.complaint-modal.dismiss">
   <p [innerHTML]="'job-detail.complaint-modal.description' | translate"></p>
   <fieldset>
-    <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong></p>
+    <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong>
+    </p>
     <div class="form-row">
       <div class="col-3">
-        <alv-select label="home.tools.job-publication.contact.salutation"
+        <alv-select [options$]="salutationOptions$"
                     alvFormControlName="salutation"
-                    [options$]="salutationOptions$">
+                    label="home.tools.job-publication.contact.salutation">
         </alv-select>
       </div>
       <div class="col-9">
-        <alv-input-field label="job-detail.complaint-modal.name-lastName.label"
+        <alv-input-field [maxLength]="MAX_LENGTH_255"
                          alvFormControlName="name"
-                         [maxLength]="MAX_LENGTH_255">
+                         label="job-detail.complaint-modal.name-lastName.label">
         </alv-input-field>
       </div>
     </div>
-    <alv-input-field label="home.tools.job-publication.contact.phone"
-                     alvFormControlName="phone"
-                     type="tel"
-                     placeholder="home.tools.job-publication.placeholders.phone">
+    <alv-input-field alvFormControlName="phone"
+                     label="home.tools.job-publication.contact.phone"
+                     placeholder="home.tools.job-publication.placeholders.phone"
+                     type="tel">
     </alv-input-field>
 
-    <alv-input-field label="home.tools.job-publication.contact.email"
+    <alv-input-field [maxLength]="MAX_LENGTH_255"
                      alvFormControlName="email"
-                     placeholder="home.tools.job-publication.placeholders.email"
-                     [maxLength]="MAX_LENGTH_255">
+                     label="home.tools.job-publication.contact.email"
+                     placeholder="home.tools.job-publication.placeholders.email">
     </alv-input-field>
   </fieldset>
   <fieldset>
     <p><strong>{{'job-detail.complaint-modal.message.label' | translate}}</strong></p>
-    <alv-input-field label="job-detail.complaint-modal.message.placeholder"
-                     alvFormControlName="complaintMessage"
+    <alv-input-field [autofocus]="true"
                      [maxLength]="MAX_LENGTH_1000"
+                     [multiline]="true"
                      [showCharacterCounter]="true"
-                     [autofocus]="true"
-                     [multiline]="true">
+                     alvFormControlName="complaintMessage"
+                     label="job-detail.complaint-modal.message.placeholder">
     </alv-input-field>
   </fieldset>
 </alv-modal>

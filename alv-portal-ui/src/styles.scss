@@ -10,6 +10,8 @@ alv-root {
 
 @import "scss/common/fonts";
 @import "scss/overrides/theme";
+@import "scss/overrides/typeahead";
+@import "scss/overrides/tooltip";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "scss/overrides/button";
 @import "scss/overrides/badges";
@@ -18,6 +20,7 @@ alv-root {
 @import "scss/overrides/modal";
 @import "scss/overrides/typography";
 @import "scss/overrides/container";
+
 @import "scss/common/panel";
 @import "scss/common/bar";
 @import "scss/common/badges";

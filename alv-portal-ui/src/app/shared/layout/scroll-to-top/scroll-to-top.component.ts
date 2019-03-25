@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  HostListener, Inject,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Inject } from '@angular/core';
 import { ScrollService } from '../../../core/scroll.service';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { WINDOW } from '../../../core/window.service';
