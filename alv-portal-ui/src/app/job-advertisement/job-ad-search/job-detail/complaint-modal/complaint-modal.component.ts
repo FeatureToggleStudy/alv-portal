@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { ComplaintRepository } from '../../../../shared/backend-services/complaint/complaint.repository';
-import { takeUntil } from 'rxjs/operators';
+import { flatMap, map, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
@@ -14,6 +14,7 @@ import { ConfirmModalConfig } from '../../../../shared/layout/modal/confirm-moda
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX } from '../../../../shared/forms/regex-patterns';
 import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
+import { I18nService } from '../../../../core/i18n.service';
 
 export interface ComplaintFormValue {
   salutation: Salutation;
@@ -29,9 +30,11 @@ export interface ComplaintFormValue {
 })
 export class ComplaintModalComponent extends AbstractSubscriber implements OnInit {
 
-  public form: FormGroup;
+  form: FormGroup;
 
   @Input() jobAdvertisementId: string;
+
+  reasonExamples$: Observable<any>;
 
   readonly MAX_LENGTH_255 = 255;
 
@@ -55,7 +58,8 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
               private authenticationService: AuthenticationService,
               private modalService: ModalService,
               private fb: FormBuilder,
-              private complaintRepository: ComplaintRepository) {
+              private complaintRepository: ComplaintRepository,
+              private i18nService: I18nService) {
     super();
   }
 
@@ -75,6 +79,12 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
           this.patchTemplateValues(templateInfo);
         }
       });
+
+    this.reasonExamples$ = this.i18nService.currentLanguage$.pipe(
+      flatMap(language => this.i18nService.getTranslation(language)),
+      tap(console.log),
+      map(translationObject => Object.keys(translationObject['job-detail']['complaint-modal']['reasons-examples']))
+    );
   }
 
   onSubmit(form: FormGroup) {

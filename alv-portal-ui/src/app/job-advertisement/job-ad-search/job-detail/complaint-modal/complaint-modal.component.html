@@ -4,7 +4,12 @@
            modalTitle="job-detail.complaint-modal.header"
            primaryLabel="job-detail.complaint-modal.send"
            secondaryLabel="job-detail.complaint-modal.dismiss">
-  <p [innerHTML]="'job-detail.complaint-modal.description' | translate"></p>
+  <ng-container *ngIf="reasonExamples$ | async as reasonExamples">
+    <p>{{'job-detail.complaint-modal.description' | translate}}</p>
+    <ul *ngFor="let reason of reasonExamples">
+      <li>{{'job-detail.complaint-modal.reasons-examples.' + reason | translate}}</li>
+    </ul>
+  </ng-container>
   <fieldset>
     <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong>
     </p>
