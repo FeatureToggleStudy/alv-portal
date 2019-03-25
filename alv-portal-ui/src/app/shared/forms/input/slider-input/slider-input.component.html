@@ -1,9 +1,9 @@
 <div class="slider-input-wrapper">
-  <nouislider [min]="min"
-              [max]="max"
+  <nouislider [formControl]="control"
               [keyboard]="true"
+              [max]="max"
+              [min]="min"
               [step]="step"
-              [formControl]="control"
               class="slider-input">
   </nouislider>
   <span class="slider-input-value text-nowrap ml-2">

@@ -63,7 +63,7 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
     this.form = this.fb.group({
       salutation: [null, Validators.required],
       name: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
-      phone: ['',  phoneInputValidator()],
+      phone: ['', phoneInputValidator()],
       email: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255), patternInputValidator(EMAIL_REGEX)]],
       complaintMessage: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]]
     });
