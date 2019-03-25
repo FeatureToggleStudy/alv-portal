@@ -10,7 +10,11 @@ import {
   NgbAlertModule,
   NgbCollapseModule,
   NgbDropdown,
+  NgbDropdownAnchor,
+  NgbDropdownItem,
+  NgbDropdownMenu,
   NgbDropdownModule,
+  NgbDropdownToggle,
   NgbModalModule,
   NgbPopoverModule,
   NgbTooltip,
@@ -107,6 +111,7 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     ConfirmModalComponent,
     LocalLoginComponent,
     ContactModalComponent
+
   ],
   exports: [
     NavigationContainerComponent,
@@ -121,6 +126,10 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     NgbAlert,
     NgbTooltip,
     NgbDropdown,
+    NgbDropdownMenu,
+    NgbDropdownToggle,
+    NgbDropdownAnchor,
+    NgbDropdownItem,
     LanguageSkillsComponent,
     ModalComponent,
     StepIndicatorComponent,
