@@ -17,7 +17,12 @@ import { InputIdGenerationService } from '../../input-id-generation.service';
 import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { TypeaheadItem } from '../typeahead-item';
-import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbTooltip,
+  NgbTypeahead,
+  NgbTypeaheadSelectItemEvent,
+  Placement
+} from '@ng-bootstrap/ng-bootstrap';
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
@@ -54,9 +59,27 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
   @Input() queryMinLength = TYPEAHEAD_QUERY_MIN_LENGTH;
 
+  /**
+   * The text of the tooltip. Other tooltip options won't have any effect without this one
+   */
+  @Input() tooltip: string;
+
+  /**
+   * See the documentation for ng-bootstrap tooltip
+   */
+  @Input() tooltipContainer = 'body';
+
+  /**
+   * See the documentation for ng-bootstrap tooltip
+   */
+  @Input() tooltipPlacement: Placement = 'bottom';
+
   @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
 
-  @ViewChild(NgbTypeahead) ngbTypeahead;
+
+  @ViewChild(NgbTypeahead) ngbTypeahead: NgbTypeahead;
+
+  @ViewChild(NgbTooltip) ngbTooltip: NgbTooltip;
 
   inputValue: string;
 
@@ -116,6 +139,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   handleKeyDown(event: KeyboardEvent): void {
+
     const key = event.code || event.key;
     if (key === 'Enter' || key === 'Tab') {
       const hasEnteredValue = !!this.inputValue;
@@ -227,14 +251,17 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   }
 
   private clearInput(): void {
-    // This hack removes the invalid value from the input field on blur.
-    this.ngbTypeahead._inputValueBackup = '';
-
+    /* tslint:disable */
+    // FIXME This hack removes the invalid value from the input field on blur.
+    this.ngbTypeahead['_inputValueBackup'] = '';
     this.inputValue = '';
+    /* tslint:enable */
   }
 
   private getTypeaheadNativeElement(): any {
-    return this.ngbTypeahead && this.ngbTypeahead._elementRef.nativeElement || {};
+    /* tslint:disable */
+    return this.ngbTypeahead && this.ngbTypeahead['_elementRef'].nativeElement || {};
+    /* tslint:enable */
   }
 
   private handleError(error: any) {
@@ -246,4 +273,5 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
 
     return of([]);
   }
+
 }

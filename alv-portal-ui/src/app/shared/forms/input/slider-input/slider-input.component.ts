@@ -64,11 +64,6 @@ export class SliderInputComponent extends AbstractInput implements OnInit {
     super(controlContainer, InputType.SLIDER_INPUT, inputIdGenerationService);
   }
 
-  ngOnInit() {
-    super.ngOnInit();
-    this.currentValue$ = this.control.valueChanges.pipe(startWith(this.control.value));
-  }
-
   get effectiveLabel() {
     if (this.labels) {
       return this.control.value === 1
@@ -77,5 +72,10 @@ export class SliderInputComponent extends AbstractInput implements OnInit {
     }
 
     return this.label;
+  }
+
+  ngOnInit() {
+    super.ngOnInit();
+    this.currentValue$ = this.control.valueChanges.pipe(startWith(this.control.value));
   }
 }

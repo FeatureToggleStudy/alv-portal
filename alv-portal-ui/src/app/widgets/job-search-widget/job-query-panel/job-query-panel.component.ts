@@ -20,7 +20,6 @@ import {
   LocalityInputType,
   LocalityTypeaheadItem
 } from '../../../shared/localities/locality-typeahead-item';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'alv-job-query-panel',

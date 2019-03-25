@@ -8,27 +8,18 @@
                              [editable]="false"
                              [loadItems]="loadOccupationsFn"
                              label="portal.job-ad.search.query-panel.occupations.placeholder"
-                             [ngbTooltip]="occupationsTP"
-                             container="body"
-                             placement="bottom"
                              [focusFirst]="true"
+                             tooltip="portal.job-ad.search.query-panel.occupations.tooltip"
                              class="narrow-form">
         </alv-multi-typeahead>
-        <ng-template #occupationsTP>
-          {{ 'portal.job-ad.search.query-panel.occupations.tooltip' | translate}}
-        </ng-template>
       </div>
       <div class="col-12 col-md-4 mb-1 mb-md-0">
         <alv-multi-typeahead alvFormControlName="keywords"
                              label="portal.job-ad.search.query-panel.keywords.placeholder"
-                             [ngbTooltip]="keywordsTP"
                              container="body"
                              class="narrow-form"
-                             placement="bottom">
+                             tooltip="portal.job-ad.search.query-panel.keywords.tooltip">
         </alv-multi-typeahead>
-        <ng-template #keywordsTP>
-          {{ 'portal.job-ad.search.query-panel.keywords.tooltip' | translate}}
-        </ng-template>
       </div>
       <div class="position-relative col-12 col-md-4 mb-1 mb-md-0">
 

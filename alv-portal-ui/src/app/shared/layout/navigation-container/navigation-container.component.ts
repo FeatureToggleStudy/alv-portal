@@ -19,7 +19,8 @@ export class NavigationContainerComponent implements OnInit {
   @HostBinding('class') readonly class = 'd-block d-md-flex d-print-block';
 
   constructor(private router: Router,
-              @Inject(DOCUMENT) private document: Document) { }
+              @Inject(DOCUMENT) private document: Document) {
+  }
 
   ngOnInit() {
     // the component is watching for the changes of the router path and applies respective
@@ -27,7 +28,7 @@ export class NavigationContainerComponent implements OnInit {
     this.router.events
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
-            this.document.body.classList.value =  PATH_TO_PICTURE[event.urlAfterRedirects];
+            this.document.body.classList.value = PATH_TO_PICTURE[event.urlAfterRedirects];
           }
         });
   }
