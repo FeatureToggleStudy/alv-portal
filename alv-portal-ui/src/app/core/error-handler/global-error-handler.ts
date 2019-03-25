@@ -19,7 +19,9 @@ export class GlobalErrorHandler implements ErrorHandler {
         if (rejection instanceof HttpErrorResponse) {
           this.errorHandlerService.handleHttpError(rejection);
         } else {
+          console.error(error);
           this.errorHandlerService.handleError(error);
+
         }
       }
     });
