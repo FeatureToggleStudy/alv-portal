@@ -86,8 +86,6 @@
     "@types/jasminewd2": "2.0.6",
     "@types/node": "11.11.4",
     "codelyzer": "5.0.0-beta.1",
-    "cross-var": "1.1.0",
-    "crossenv": "0.0.2-security",
     "fs-extra": "7.0.1",
     "git-describe": "4.0.4",
     "jasmine-core": "3.3.0",
