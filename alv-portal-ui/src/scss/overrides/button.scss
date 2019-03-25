@@ -5,7 +5,7 @@ button.btn, a.btn {
   user-select: none;
   border-radius: 0;
 
-  &:not(.btn-sm) &:not(.ngb-dp-arrow-btn) {
+  &:not(.btn-sm):not(.ngb-dp-arrow-btn) {
     padding: 8px 20px;
     font-size: 16px;
   }
