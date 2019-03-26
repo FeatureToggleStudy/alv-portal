@@ -89,7 +89,7 @@
     [options$]="workFormOptions$">
   </alv-select>
 
-  <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first; let last = last"
+  <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first"
        class="language-skill"
        [ngClass]="{'mt-3': languageSkillFormArray.controls.length>1}"
        [formGroup]="languageSkill">
