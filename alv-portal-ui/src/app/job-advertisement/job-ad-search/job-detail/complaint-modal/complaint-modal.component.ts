@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
 import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { ComplaintRepository } from '../../../../shared/backend-services/complaint/complaint.repository';
-import { flatMap, map, takeUntil, tap } from 'rxjs/operators';
+import { flatMap, map, takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
@@ -82,7 +82,6 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
 
     this.reasonExamples$ = this.i18nService.currentLanguage$.pipe(
       flatMap(language => this.i18nService.getTranslation(language)),
-      tap(console.log),
       map(translationObject => Object.keys(translationObject['job-detail']['complaint-modal']['reasons-examples']))
     );
   }
