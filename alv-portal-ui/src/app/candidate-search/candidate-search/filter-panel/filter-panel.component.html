@@ -104,11 +104,12 @@
         </alv-select>
       </div>
       <div *ngIf="!first"
-           class="col-auto">
-        <button class="btn btn-text btn-icon"
+           class="col-auto delete-col pl-0">
+        <button class="btn btn-text btn-icon text-primary w-100 h-100"
                 [attr.aria-label]="'global.button.remove.title'| translate"
                 (click)="removeLanguageSkill(languageSkill)">
-          <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+          <fa-icon [icon]="['fas', 'trash-alt']"
+                   size="xs"></fa-icon>
         </button>
       </div>
     </div>
