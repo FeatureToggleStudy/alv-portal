@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GeoPoint } from '../../backend-services/reference-service/locality.types';
 import { Subscriber } from 'rxjs/src/internal/Subscriber';
 
 @Injectable({
@@ -13,8 +12,8 @@ export class GeolocationService {
   constructor() {
   }
 
-  public navigatorGeolocation(): Observable<GeoPoint> {
-    return Observable.create((observer: Subscriber<GeoPoint>) => {
+  public navigatorGeolocation(): Observable<Coordinates> {
+    return Observable.create((observer: Subscriber<Coordinates>) => {
       if (!('geolocation' in navigator)) {
         observer.error({
           code: 99,

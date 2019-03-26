@@ -168,8 +168,8 @@ export interface PostAddress {
   name: string;
   street?: string;
   houseNumber?: string;
-  postalCode: string;
-  city: string;
+  postalCode?: string;
+  city?: string;
   postOfficeBoxNumber?: string;
   postOfficeBoxPostalCode?: string;
   postOfficeBoxCity?: string;

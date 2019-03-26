@@ -20,7 +20,7 @@ import { JobPublicationFormValueKeys } from '../job-publication-form-value.types
 })
 export class EmploymentComponent extends AbstractSubscriber implements OnInit {
 
-  minDateEmploymentStart = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
+  todayDate = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
 
   @Input() parentForm: FormGroup;
 
@@ -34,7 +34,6 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   employment: FormGroup;
 
   defaultPercentages = [
-    { label: '0%', value: 0 },
     { label: '10%', value: 10 },
     { label: '20%', value: 20 },
     { label: '30%', value: 30 },
@@ -115,33 +114,48 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
         Validators.required
       ]],
       startDate: [{ value: startDate, disabled: immediately }, [Validators.required]],
-      endDate: [{ value: endDate, disabled: duration !== EmploymentDuration.TEMPORARY }, [Validators.required]],
+      endDate: [{
+        value: endDate,
+        disabled: duration !== EmploymentDuration.TEMPORARY
+      }, [Validators.required]],
       workForms: this.fb.group(this.workFormOptions.reduce((acc, curr) => {
         acc[curr.value] = false;
         return acc;
       }, {}))
     });
 
-    this.parentForm.addControl(JobPublicationFormValueKeys.employment, this.employment);
+    this.parentForm.addControl(JobPublicationFormValueKeys.EMPLOYMENT, this.employment);
     this.setupWorkload();
     this.setupWorkStart();
     this.setupWorkDuration();
   }
 
   getEmploymentEndMinDate(): NgbDateStruct {
-    if (this.minDateEmploymentStart.after(this.employment.get('startDate').value)) {
-      return this.minDateEmploymentStart;
-    } else {
-      return this.employment.get('startDate').value;
+    const selectedStartDate = this.employment.get('startDate').value;
+    if (!!selectedStartDate && this.todayDate.before(selectedStartDate)) {
+      return selectedStartDate;
     }
+    return this.todayDate;
   }
 
   getEmploymentStartMaxDate(): NgbDateStruct {
-    if (this.minDateEmploymentStart.after(this.employment.get('endDate').value)) {
-      return this.minDateEmploymentStart;
-    } else {
-      return this.employment.get('endDate').value;
+    const selectedEndDate = this.employment.get('endDate').value;
+    if (!selectedEndDate) {
+      // no max date
+      return;
     }
+    if (this.todayDate.before(selectedEndDate)) {
+      return selectedEndDate;
+    }
+    return this.todayDate;
+  }
+
+  resetEndDate() {
+    this.employment.get('endDate').patchValue(null);
+  }
+
+  resetStartDate() {
+    this.employment.get('startDate').patchValue(null);
   }
 
   private setupWorkload() {
@@ -195,5 +209,6 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
         }
       });
   }
+
 }
 

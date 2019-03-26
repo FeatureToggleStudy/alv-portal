@@ -107,7 +107,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   ));
 
   defaultPercentages = [
-    { label: '0%', value: 0 },
     { label: '10%', value: 10 },
     { label: '20%', value: 20 },
     { label: '30%', value: 30 },
@@ -257,6 +256,12 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   addNewLanguageSkill() {
     const languageSkills = this.languageSkillFormArray;
     languageSkills.push(this.createNewLanguageSkillFormGroup());
+    // focusing on added language for nice tabbing experience
+    setTimeout(() => {
+      const s: HTMLElement = document.querySelector('.language-skill:last-child [alvformcontrolname=code] select');
+      s.focus();
+    });
+
   }
 
   isAddLanguageSkillEnabled(): boolean {

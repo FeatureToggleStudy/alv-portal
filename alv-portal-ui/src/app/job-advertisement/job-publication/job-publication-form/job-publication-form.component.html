@@ -1,5 +1,6 @@
 <form [formGroup]="jobPublicationForm"
       (validSubmit)="submit()"
+      [preSubmit]="expandCollapsePanels()"
       alvFormSubmitValidation>
 
   <alv-job-description class="d-block pb-4"

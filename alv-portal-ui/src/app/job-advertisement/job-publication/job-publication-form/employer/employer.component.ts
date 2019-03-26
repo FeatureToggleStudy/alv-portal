@@ -45,7 +45,7 @@ export class EmployerComponent implements OnInit, OnDestroy {
       countryIsoCode: [countryIsoCode]
     });
 
-    this.parentForm.addControl(JobPublicationFormValueKeys.employer, this.employer);
+    this.parentForm.addControl(JobPublicationFormValueKeys.EMPLOYER, this.employer);
 
     this.countryIsoCode$ = this.employer.get('countryIsoCode').valueChanges
       .pipe(
@@ -55,6 +55,6 @@ export class EmployerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.parentForm.removeControl(JobPublicationFormValueKeys.employer);
+    this.parentForm.removeControl(JobPublicationFormValueKeys.EMPLOYER);
   }
 }

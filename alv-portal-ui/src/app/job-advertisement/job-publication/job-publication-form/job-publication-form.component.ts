@@ -4,7 +4,9 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
+  Output,
+  QueryList,
+  ViewChildren
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -33,6 +35,20 @@ import {
 } from './job-publication-form-value-factory';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { CollapsePanelComponent } from '../../../shared/layout/collapse-panel/collapse-panel.component';
+
+const PANEL_ID_TO_FORM_GROUP_KEY_MAP = new Map<JobPublicationFormPanelId, JobPublicationFormValueKeys>([
+  [JobPublicationFormPanelId.JOB_PUBLICATION_OCCUPATION, JobPublicationFormValueKeys.OCCUPATION],
+  [JobPublicationFormPanelId.JOB_PUBLICATION_LANGUAGES, JobPublicationFormValueKeys.LANGUAGE_SKILLS],
+  [JobPublicationFormPanelId.JOB_PUBLICATION_EMPLOYMENT, JobPublicationFormValueKeys.EMPLOYMENT],
+  [JobPublicationFormPanelId.JOB_PUBLICATION_EMPLOYER, JobPublicationFormValueKeys.EMPLOYER],
+  [JobPublicationFormPanelId.JOB_PUBLICATION_LOCATION, JobPublicationFormValueKeys.LOCATION],
+  [JobPublicationFormPanelId.JOB_PUBLICATION_COMPANY, JobPublicationFormValueKeys.COMPANY],
+  [JobPublicationFormPanelId.JOB_PUBLICATION_CONTACT, JobPublicationFormValueKeys.CONTACT],
+  [JobPublicationFormPanelId.JOB_PUBLICATION_PUBLIC_CONTACT, JobPublicationFormValueKeys.PUBLIC_CONTACT],
+  [JobPublicationFormPanelId.JOB_PUBLICATION_APPLICATION, JobPublicationFormValueKeys.APPLICATION],
+  [JobPublicationFormPanelId.JOB_PUBLICATION_PUBLICATION, JobPublicationFormValueKeys.PUBLICATION]
+]);
 
 @Component({
   selector: 'alv-job-publication-form',
@@ -41,6 +57,9 @@ import { JobAdvertisement } from '../../../shared/backend-services/job-advertise
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobPublicationFormComponent extends AbstractSubscriber implements OnInit {
+
+  @ViewChildren(CollapsePanelComponent)
+  collapsePanels: QueryList<CollapsePanelComponent>;
 
   @Output()
   jobPublicationCreated = new EventEmitter<JobAdvertisement>();
@@ -103,7 +122,7 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
     this.applicationFormValue = initialJobPublicationFormValue.application;
     this.publicationFormValue = initialJobPublicationFormValue.publication;
 
-    const surrogateFormControl = this.jobPublicationForm.get(JobPublicationFormValueKeys.surrogate);
+    const surrogateFormControl = this.jobPublicationForm.get(JobPublicationFormValueKeys.SURROGATE);
     surrogateFormControl.patchValue(initialJobPublicationFormValue.surrogate, { emitEvent: false });
     surrogateFormControl.valueChanges.pipe(
       distinctUntilChanged(),
@@ -115,8 +134,8 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
 
 
   copyFromContact() {
-    const contactValue = this.jobPublicationForm.get(JobPublicationFormValueKeys.contact).value;
-    this.jobPublicationForm.get(JobPublicationFormValueKeys.publicContact).patchValue(contactValue, { emitEvent: false });
+    const contactValue = this.jobPublicationForm.get(JobPublicationFormValueKeys.CONTACT).value;
+    this.jobPublicationForm.get(JobPublicationFormValueKeys.PUBLIC_CONTACT).patchValue(contactValue, { emitEvent: false });
   }
 
   submit() {
@@ -130,6 +149,22 @@ export class JobPublicationFormComponent extends AbstractSubscriber implements O
   reset() {
     const emptyFormValue = this.jobPublicationFormValueFactory.createEmpty(this.currentLanguage);
     this.jobPublicationForm.reset(emptyFormValue);
+  }
+
+
+  expandCollapsePanels() {
+    return () => {
+      const isInValid = (panel: CollapsePanelComponent) => {
+        const groupName = PANEL_ID_TO_FORM_GROUP_KEY_MAP.get(<JobPublicationFormPanelId>panel.panelId);
+        const group = this.jobPublicationForm.get(groupName);
+
+        return (!!group) ? (!group.valid) : false;
+      };
+
+      this.collapsePanels
+        .filter(isInValid)
+        .forEach(panel => panel.expand());
+    };
   }
 }
 

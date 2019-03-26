@@ -10,19 +10,19 @@ import { PublicContactFormValue } from './public-contact/public-contact-form-val
 import { ApplicationFormValue } from './application/application-form-value.types';
 import { PublicationFormValue } from './publication/publication-form-value.types';
 
-export class JobPublicationFormValueKeys {
-  public static jobDescription = 'jobDescription';
-  public static occupation = 'occupation';
-  public static languageSkills = 'languageSkills';
-  public static employment = 'employment';
-  public static location = 'location';
-  public static company = 'company';
-  public static employer = 'employer';
-  public static contact = 'contact';
-  public static publicContact = 'publicContact';
-  public static application = 'application';
-  public static publication = 'publication';
-  public static surrogate = 'surrogate';
+export enum JobPublicationFormValueKeys {
+  JOB_DESCRIPTION = 'jobDescription',
+  OCCUPATION = 'occupation',
+  LANGUAGE_SKILLS = 'languageSkills',
+  EMPLOYMENT = 'employment',
+  LOCATION = 'location',
+  COMPANY = 'company',
+  EMPLOYER = 'employer',
+  CONTACT = 'contact',
+  PUBLIC_CONTACT = 'publicContact',
+  APPLICATION = 'application',
+  PUBLICATION = 'publication',
+  SURROGATE = 'surrogate',
 }
 
 export interface JobPublicationFormValue {

@@ -51,22 +51,16 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     }
   ]);
 
-  sortOptions$: Observable<SelectableOption[]> = of([
-    {
-      value: Sort.RELEVANCE_DESC,
-      label: 'job-search.filter.sort.option.RELEVANCE_DESC'
-    },
-    {
-      value: Sort.DATE_ASC,
-      label: 'job-search.filter.sort.option.DATE_ASC'
-    },
-    {
-      value: Sort.DATE_DESC,
-      label: 'job-search.filter.sort.option.DATE_DESC'
-    }]);
+  sortOptions$: Observable<SelectableOption[]> = of(
+    Object.keys(Sort).map(sort => {
+      return {
+        value: sort,
+        label: 'job-search.filter.sort.option.' + sort
+      };
+    })
+  );
 
   defaultPercentages = [
-    { label: '0%', value: 0 },
     { label: '10%', value: 10 },
     { label: '20%', value: 20 },
     { label: '30%', value: 30 },
@@ -83,22 +77,14 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   percentagesMax$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
 
-  contractTypeOptions$: Observable<SelectableOption[]> = of([
-    {
-      value: ContractType.PERMANENT,
-      label: 'job-search.filter.contract-type.option.PERMANENT'
-    },
-    {
-      value: ContractType.TEMPORARY,
-      label: 'job-search.filter.contract-type.option.TEMPORARY'
-    },
-    {
-      value: ContractType.ALL,
-      label: 'job-search.filter.contract-type.option.ALL'
-    }
-  ]);
-
-  onlineSinceSliderLabel: number;
+  contractTypeOptions$: Observable<SelectableOption[]> = of(
+    Object.keys(ContractType).map(contractType => {
+      return {
+        value: contractType,
+        label: 'job-search.filter.contract-type.option.' + contractType
+      };
+    })
+  );
 
   private _filterPanelValues: FilterPanelValues;
 
@@ -139,18 +125,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
       .subscribe(percentageMax => {
         this.percentagesMin$.next(this.defaultPercentages.filter(item => item.value <= percentageMax));
       });
-  }
 
-  updateSliderLabel(value: number) {
-    this.onlineSinceSliderLabel = value;
-  }
-
-  getOnlineSinceLabel(value: number): string {
-    if (value === 1) {
-      return 'job-search.filter.online-since.day.one';
-    } else {
-      return 'job-search.filter.online-since.day.many';
-    }
   }
 
   toggleExpanded() {

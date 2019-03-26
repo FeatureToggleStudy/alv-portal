@@ -8,7 +8,8 @@
   </alv-input-field>
 
   <div class="form-row">
-    <div class="col-8" [formGroup]="postAddress.get('postOfficeBoxNumberOrStreet')">
+    <div class="col-8"
+         [formGroup]="postAddress.get('postOfficeBoxNumberOrStreet')">
       <alv-input-field label="home.tools.job-publication.company.street"
                        alvFormControlName="street"
                        [showGroupErrors]="true"
@@ -27,24 +28,21 @@
     </div>
   </div>
 
+  <ng-container [formGroup]="postAddress.get('postOfficeBoxNumberOrStreet')">
+    <alv-input-field label="home.tools.job-publication.company.postbox-number"
+                     alvFormControlName="postOfficeBoxNumber"
+                     [showGroupErrors]="true"
+                     [validationMessages]="[{
+                        error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
+                     }]"
+                     [maxLength]="PO_BOX_MAX_LENGTH">
+    </alv-input-field>
+  </ng-container>
+
   <alv-zip-city-input [parentForm]="postAddress"
                       [zipCityFormValue]="postAddressFormValue.zipAndCity"
                       [countryIsoCode]="countryIsoCode$ | async">
   </alv-zip-city-input>
-
-  <ng-container [formGroup]="postAddress.get('postOfficeBoxNumberOrStreet')">
-    <alv-input-field label="home.tools.job-publication.company.postbox-number"
-                     type="number"
-                     alvFormControlName="postOfficeBoxNumber"
-                     [showGroupErrors]="true"
-                     [validationMessages]="[{
-                                error: 'atLeastOneRequired',
-                                message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
-                                ]"
-                     [maxLength]="PO_BOX_MAX_LENGTH"
-                     [min]="0">
-    </alv-input-field>
-  </ng-container>
 
   <alv-select label="home.tools.job-publication.company.country"
               alvFormControlName="countryIsoCode"

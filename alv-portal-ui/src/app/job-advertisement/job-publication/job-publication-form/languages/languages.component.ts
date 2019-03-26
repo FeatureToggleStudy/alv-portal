@@ -60,7 +60,7 @@ export class LanguagesComponent implements OnInit {
       ? this.languagesFormValue.map((languageSkill) => this.createNewLanguageSkillFormGroup(languageSkill))
       : [this.createNewLanguageSkillFormGroup()];
     this.languageSkillFormArray = this.fb.array(languageSkillGroups);
-    this.parentForm.addControl(JobPublicationFormValueKeys.languageSkills, this.languageSkillFormArray);
+    this.parentForm.addControl(JobPublicationFormValueKeys.LANGUAGE_SKILLS, this.languageSkillFormArray);
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {
@@ -69,6 +69,11 @@ export class LanguagesComponent implements OnInit {
 
   addNewLanguageSkill() {
     this.languageSkillFormArray.push(this.createNewLanguageSkillFormGroup());
+    // focusing on added language for nice tabbing experience
+    setTimeout(() => {
+      const s: HTMLElement = document.querySelector('.language-skill:last-child [alvformcontrolname=languageIsoCode] select');
+      s.focus();
+    });
   }
 
   isAddLanguageSkillEnabled(): boolean {

@@ -1,15 +1,17 @@
 
 body {
   margin: 0;
-  overflow: hidden;
+  min-height: 100vh;
 }
 
-html, body {
-  height: 100vh;
+alv-root {
+  min-height: 100%;
 }
 
 @import "scss/common/fonts";
 @import "scss/overrides/theme";
+@import "scss/overrides/typeahead";
+@import "scss/overrides/tooltip";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "scss/overrides/button";
 @import "scss/overrides/badges";
@@ -18,6 +20,7 @@ html, body {
 @import "scss/overrides/modal";
 @import "scss/overrides/typography";
 @import "scss/overrides/container";
+
 @import "scss/common/panel";
 @import "scss/common/bar";
 @import "scss/common/badges";
@@ -27,6 +30,7 @@ html, body {
 @import "scss/common/list";
 @import "scss/common/print";
 @import "scss/common/browser-specific";
+@import "scss/common/background";
 @import "~nouislider/distribute/nouislider.min.css";
 
 

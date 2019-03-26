@@ -46,7 +46,7 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
       ]]
     });
 
-    this.parentForm.addControl(JobPublicationFormValueKeys.location, this.location);
+    this.parentForm.addControl(JobPublicationFormValueKeys.LOCATION, this.location);
 
     this.countryIsoCode$ = this.location.get('countryIsoCode').valueChanges
       .pipe(

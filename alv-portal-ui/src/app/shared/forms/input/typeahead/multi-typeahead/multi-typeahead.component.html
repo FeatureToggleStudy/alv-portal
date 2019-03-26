@@ -1,4 +1,9 @@
 <div class="w-100 form-group"
+     [container]="tooltipContainer"
+     [ngbTooltip]="tooltip ? tooltipText : false"
+     [placement]="tooltipPlacement"
+     tooltipClass="typeahead-tooltip"
+     [autoClose]="'outside'"
      *ngIf="control">
   <div class="form-label-group position-relative"
        [class.invalid]="isTouched() && isInvalid()">
@@ -38,7 +43,6 @@
              [alvAutofocus]="autofocus"
              [style.width]="getInputWidth()"
              [ngbTypeahead]="loadItemsGuardedFn"
-             [container]="'body'"
              [resultTemplate]="template"
              [focusFirst]="focusFirst"
              [editable]="true"
@@ -48,6 +52,9 @@
              (keydown)="handleKeyDown($event)"
              (blur)="onBlur(control)">
     </div>
+    <ng-template #tooltipText>
+      {{ tooltip | translate}}
+    </ng-template>
     <label class="d-flex"
            [attr.for]="id">
       <span class="label text-truncate">{{label | translate}}</span>

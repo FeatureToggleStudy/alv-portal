@@ -6,4 +6,5 @@ export interface JobQueryPanelValues {
   occupations: OccupationTypeaheadItem[];
   keywords: StringTypeaheadItem[];
   localities: LocalityTypeaheadItem[];
+  radius?: number;
 }

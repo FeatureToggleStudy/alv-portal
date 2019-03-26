@@ -32,6 +32,7 @@
               [attr.maxlength]="maxLength"
               [attr.aria-describedby]="validationId"
               [class.placeholder-shown]="!control.value"
+              [alvAutofocus]="autofocus"
               (input)="onInput($event)"
               (blur)="onBlur($event)"
               #textarea

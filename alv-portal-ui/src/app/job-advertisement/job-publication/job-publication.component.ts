@@ -6,14 +6,16 @@ import { JobCenterRepository } from '../../shared/backend-services/reference-ser
 import { I18nService } from '../../core/i18n.service';
 import { flatMap, map, take } from 'rxjs/operators';
 import { InitialFormValueConfig } from './job-publication-form/job-publication-form-value-factory';
-import { ActivatedRoute } from '@angular/router';
-import { isNotAuthenticatedUser } from '../../core/auth/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { isNotAuthenticatedUser, UserRole } from '../../core/auth/user.model';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreState } from '../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { JobAdvertisementUpdatedAction } from '../../core/state-management/actions/core.actions';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
+import { LinkPanelId } from '../../shared/layout/link-panel/link-panel.component';
+import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
 
 @Component({
   selector: 'alv-job-publication',
@@ -22,9 +24,15 @@ import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 })
 export class JobPublicationComponent implements OnInit {
 
+  UserRole = UserRole;
+
+  LinkPanelId = LinkPanelId;
+
   IconKey = IconKey;
 
-  initialFormValueConfig: InitialFormValueConfig;
+  LayoutConstants = LayoutConstants;
+
+  initialFormValueConfig$: Observable<InitialFormValueConfig>;
 
   currentLanguage$: Observable<string>;
 
@@ -49,8 +57,11 @@ export class JobPublicationComponent implements OnInit {
               private i18nService: I18nService,
               private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
-              private route: ActivatedRoute) {
-    this.initialFormValueConfig = route.snapshot.data['initialFormValueConfig'];
+              private route: ActivatedRoute,
+              private router: Router) {
+    this.initialFormValueConfig$ = route.data.pipe(
+      map((data) => data['initialFormValueConfig'])
+    );
     this.currentLanguage$ = i18nService.currentLanguage$;
   }
 
@@ -73,5 +84,6 @@ export class JobPublicationComponent implements OnInit {
 
   createNewJobPublication() {
     this.submitted = false;
+    this.router.navigate(['job-publication']);
   }
 }

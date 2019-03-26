@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { GeoPoint, LocalityAutocomplete, LocalitySuggestion } from './locality.types';
+import { LocalityAutocomplete, LocalitySuggestion } from './locality.types';
 import { Observable } from 'rxjs';
 
 
@@ -26,10 +26,10 @@ export class LocalityRepository {
     return this.http.get<LocalityAutocomplete>(this.LOCALITIES_SUGGESTION, { params });
   }
 
-  public suggestNearestLocality(geoPoint: GeoPoint): Observable<LocalitySuggestion> {
+  public suggestNearestLocality(coordinates: Coordinates): Observable<LocalitySuggestion> {
     const params = new HttpParams()
-      .set('latitude', geoPoint.latitude.toString())
-      .set('longitude', geoPoint.longitude.toString());
+      .set('latitude', coordinates.latitude.toString())
+      .set('longitude', coordinates.longitude.toString());
     return this.http.get<LocalitySuggestion>(this.LOCALITIES_URL, { params });
   }
 

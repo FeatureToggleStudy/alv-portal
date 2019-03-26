@@ -7,3 +7,7 @@
 .job-ad-status {
   white-space: nowrap;
 }
+
+.job-title, .job-description {
+  word-wrap: break-word;
+}

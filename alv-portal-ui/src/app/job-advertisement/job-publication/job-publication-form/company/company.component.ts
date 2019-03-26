@@ -17,5 +17,5 @@ export class CompanyComponent {
   @Input()
   companyFormValue: CompanyFormValue;
 
-  groupName = JobPublicationFormValueKeys.company;
+  groupName = JobPublicationFormValueKeys.COMPANY;
 }

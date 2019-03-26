@@ -29,6 +29,6 @@ export class PublicationComponent implements OnInit {
       euresDisplay: [euresDisplay],
     });
 
-    this.parentForm.addControl(JobPublicationFormValueKeys.publication, this.publication);
+    this.parentForm.addControl(JobPublicationFormValueKeys.PUBLICATION, this.publication);
   }
 }

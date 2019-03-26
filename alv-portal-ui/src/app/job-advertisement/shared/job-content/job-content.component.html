@@ -1,7 +1,7 @@
 <ng-container *ngIf="jobDetailModel.jobDescription as jobDescription">
 
   <!-----------------Title-->
-  <h2 class="mt-1 mb-4">
+  <h2 class="job-title mt-1 mb-4">
     <strong class="mr-3" [innerHTML]="jobDescription.title | safeHtml"></strong>
     <small class="text-muted job-ad-status" *ngIf="showStatusInformation">
       {{'portal.job-detail.status' | translate}}: {{'global.job-publication.status.' + jobDetailModel.jobAdvertisement.status | translate}}
@@ -30,7 +30,8 @@
 
   <!-----------------Description-->
 
-  <div *ngIf="jobDescription.description">
+  <div *ngIf="jobDescription.description"
+       class="job-description">
     <markdown [data]="jobDescription.description"
               ngPreserveWhitespaces>
     </markdown>

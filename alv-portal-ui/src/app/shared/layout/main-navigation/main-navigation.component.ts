@@ -1,4 +1,11 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostBinding,
+  Inject,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
@@ -16,9 +23,10 @@ import { MenuEntryService } from './menu-entry.service';
 import { Observable } from 'rxjs';
 import { MenuEntry } from './menu-entry.type';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { isAuthenticatedUser, User } from '../../../core/auth/user.model';
+import { isAuthenticatedUser, User, UserRole } from '../../../core/auth/user.model';
 import { LoginService } from '../../auth/login.service';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
+import { WINDOW } from '../../../core/window.service';
 
 @Component({
   selector: 'alv-main-navigation',
@@ -28,7 +36,7 @@ import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-
     MenuEntryService,
   ]
 })
-export class MainNavigationComponent extends AbstractSubscriber implements OnInit {
+export class MainNavigationComponent extends AbstractSubscriber implements OnInit, AfterViewInit, OnDestroy {
 
   @HostBinding('class')
   readonly class = 'side-nav expanded navbar navbar-expand-lg p-0 d-block';
@@ -46,12 +54,16 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   currentCompany$: Observable<CompanyContactTemplateModel>;
 
+  userRole = UserRole;
+
+  desktopMenuHeight: String;
 
   constructor(private router: Router,
               private loginService: LoginService,
               private authenticationService: AuthenticationService,
               private store: Store<CoreState>,
-              private menuEntryService: MenuEntryService) {
+              private menuEntryService: MenuEntryService,
+              @Inject(WINDOW) private window: Window) {
     super();
   }
 
@@ -78,6 +90,17 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
     ).subscribe(mainNavigationExpanded => {
       this.mainNavigationCollapsed = !mainNavigationExpanded;
     });
+
+    this.setDesktopMenuHeight();
+  }
+
+  ngAfterViewInit() {
+    this.window.addEventListener('resize', this.setDesktopMenuHeight);
+    this.setDesktopMenuHeight();
+  }
+
+  ngOnDestroy() {
+    this.window.removeEventListener('resize', this.setDesktopMenuHeight);
   }
 
   login() {
@@ -94,6 +117,10 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   toggleDesktopSideNav() {
     this.store.dispatch(new ToggleMainNavigationAction({}));
+  }
+
+  private setDesktopMenuHeight() {
+    this.desktopMenuHeight = `calc(${this.window.innerHeight}px - 53px - 20px)`;
   }
 
 }

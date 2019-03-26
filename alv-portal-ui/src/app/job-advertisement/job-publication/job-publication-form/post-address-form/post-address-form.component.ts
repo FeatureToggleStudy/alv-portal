@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
 import { PostAddressFormValue } from './post-address-form-value.types';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
-import { HOUSE_NUMBER_REGEX } from '../../../../shared/forms/regex-patterns';
+import { HOUSE_NUMBER_REGEX, POSITIVE_INTEGER_REGEX } from '../../../../shared/forms/regex-patterns';
 import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
 
 
@@ -17,7 +17,7 @@ import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/vali
 })
 export class PostAddressFormComponent implements OnInit, OnDestroy {
 
-  readonly PO_BOX_MAX_LENGTH = 9;
+  readonly PO_BOX_MAX_LENGTH = 6;
   readonly HOUSE_NUMBER_MAX_LENGTH = 10;
   readonly STREET_MAX_LENGTH = 60;
   readonly NAME_MAX_LENGTH = 255;
@@ -65,7 +65,8 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
           ]],
           postOfficeBoxNumber: [postOfficeBoxNumberOrStreet.postOfficeBoxNumber, [
             Validators.maxLength(this.PO_BOX_MAX_LENGTH),
-            Validators.min(0)
+            Validators.min(0),
+            patternInputValidator(POSITIVE_INTEGER_REGEX)
           ]],
         },
         {

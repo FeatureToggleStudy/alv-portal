@@ -78,7 +78,7 @@ export class JobAdCancellationComponent extends AbstractSubscriber implements On
     }).pipe(
       switchMap(() => this.jobAdvertisementRepository.findById(this.jobAdvertisement.id))
     ).subscribe((jobAdvertisement) => {
-      this.notificationsService.info('portal.manage-job-ads.cancel.success');
+      this.notificationsService.success('portal.manage-job-ads.cancel.success');
       this.activeModal.close(jobAdvertisement);
     });
   }

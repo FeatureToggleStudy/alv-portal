@@ -90,7 +90,9 @@
   </alv-select>
 
   <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first"
+       class="language-skill"
        [formGroup]="languageSkill">
+    <!--the html structure here is fragile, check the ts code before changing it -->
     <div class="form-row">
       <div class="col">
         <alv-select

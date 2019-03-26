@@ -21,6 +21,9 @@
     "paths": {
       "lodash/*": [
         "node_modules/@types/lodash-es/*"
+      ],
+      "core-js/es7/reflect": [
+        "node_modules/core-js/proposals/reflect-metadata"
       ]
     }
   }
