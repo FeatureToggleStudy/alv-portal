@@ -89,8 +89,9 @@
     [options$]="workFormOptions$">
   </alv-select>
 
-  <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first"
+  <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first; let last = last"
        class="language-skill"
+       [ngClass]="{'mt-3': languageSkillFormArray.controls.length>1}"
        [formGroup]="languageSkill">
     <!--the html structure here is fragile, check the ts code before changing it -->
     <div class="form-row">
@@ -105,7 +106,7 @@
       </div>
       <div *ngIf="!first"
            class="col-auto delete-col pl-0">
-        <button class="btn btn-text btn-icon text-primary w-100 h-100"
+        <button class="btn btn-secondary btn-icon w-100 h-100"
                 [attr.aria-label]="'global.button.remove.title'| translate"
                 (click)="removeLanguageSkill(languageSkill)">
           <fa-icon [icon]="['fas', 'trash-alt']"
@@ -114,7 +115,7 @@
       </div>
     </div>
 
-    <div class="language-selection"
+    <div class="language-selection "
          *ngIf="languageSkill.get('code').value">
       <alv-select
         class="narrow-form mb-1 d-block"
