@@ -4,12 +4,13 @@
            modalTitle="job-detail.complaint-modal.header"
            primaryLabel="job-detail.complaint-modal.send"
            secondaryLabel="job-detail.complaint-modal.dismiss">
-  <ng-container *ngIf="reasonExamples$ | async as reasonExamples">
-    <p>{{'job-detail.complaint-modal.description' | translate}}</p>
-    <ul *ngFor="let reason of reasonExamples">
-      <li>{{'job-detail.complaint-modal.reasons-examples.' + reason | translate}}</li>
-    </ul>
-  </ng-container>
+  <p>{{'job-detail.complaint-modal.description' | translate}}</p>
+  <ul>
+    <li>{{ 'job-detail.complaint-modal.reasons-examples.bribe'| translate }}</li>
+    <li>{{ 'job-detail.complaint-modal.reasons-examples.illicit'| translate }}</li>
+    <li>{{ 'job-detail.complaint-modal.reasons-examples.discrimination'| translate }}</li>
+    <li>{{ 'job-detail.complaint-modal.reasons-examples.sexist'| translate }}</li>
+  </ul>
   <fieldset>
     <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong>
     </p>

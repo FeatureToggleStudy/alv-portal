@@ -60,10 +60,6 @@ export class I18nService {
     return this.translateService.instant(key, interpolateParams);
   }
 
-  getTranslation(lang: string) {
-    return this.translateService.getTranslation(lang);
-  }
-
   private isLanguagePersisted(): boolean {
     return (this.cookieService.check(LANGUAGE_KEY));
   }
