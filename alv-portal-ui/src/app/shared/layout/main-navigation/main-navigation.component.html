@@ -73,13 +73,13 @@
   <div class="mb-3"></div>
 
   <!--Login Button-->
-  <a class="d-flex align-self-center btn btn-primary m-3 w-80"
-     *alvIsAnonymous
-     (click)="login()">
+  <button class="d-flex align-self-center btn btn-primary m-3 w-80"
+          *alvIsAnonymous
+          (click)="login()">
     <fa-icon class="nav-icon mx-2"
              [icon]="['fas', 'key']"></fa-icon>
     <span class="nav-text">{{'global.menu.account.login' | translate}}</span>
-  </a>
+  </button>
 
   <!-- Menu Entries -->
   <ng-container *ngFor="let menuEntry of menuEntries$ | async">
