@@ -1,4 +1,4 @@
-<div class="container-fluid pt-2 pt-md-4">
+<div class="container-fluid pt-2 pt-lg-4">
   <alv-three-column-layout *ngIf="candidateDetailModel$ | async as candidateDetailModel"
                            [stickyTop]="layoutConstants.STICKY_TOP_DETAIL"
                            [mobileOrdering]="[2, 1, null]">
@@ -67,7 +67,7 @@
     <!-------------Left panel-->
     <div class="left-column">
 
-      <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
+      <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-lg-block d-print-none"
          routerLink="/candidate-search">
         <fa-icon class="mr-1" [icon]="['fas', 'caret-left']"></fa-icon>
         {{'candidate-detail.back' | translate}}
@@ -299,7 +299,7 @@
             {{'portal.candidate-detail.action.sendLink' | translate}}
           </a>
         </li>
-        <li class="d-none d-md-block">
+        <li class="d-none d-lg-block">
           <button (click)="printCandidate()"
                   class="btn btn-text btn-text-icon btn-truncate">
             <fa-icon class="mr-1" [icon]="['fas', 'print']"></fa-icon>

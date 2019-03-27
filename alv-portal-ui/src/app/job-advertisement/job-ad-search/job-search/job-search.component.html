@@ -4,14 +4,14 @@
     <h2 class="sr-only">
       {{'portal.job-ad-search.browser-title' | translate}}
     </h2>
-    <alv-job-query-panel class="col-md-10 col-lg-9"
+    <alv-job-query-panel class="col-lg-9"
                          (jobQueryPanelValuesChange)="onQueryChange($event)"
                          [showSpinner]="resultsAreLoading$ | async"
                          [jobQueryPanelValues]="jobSearchFilter$ | async">
     </alv-job-query-panel>
 
-    <div class="col-md-2 col-lg-3 d-flex">
-      <button class="reset-button btn btn-text mt-1 mt-md-0 flex-grow-1 flex-md-grow-0"
+    <div class="col-lg-3 d-flex">
+      <button class="reset-button btn btn-text mt-1 mt-lg-0 flex-grow-1 flex-lg-grow-0"
               (click)="onResetFilter()">
         {{ 'job-search.toolbar.reset' | translate }}
       </button>
@@ -48,8 +48,8 @@
         Stellen Suchresultate
       </h2>
       <ng-container *ngIf="jobSearchResults$ | async as jobSearchResults">
-      <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults"
-                             [jobSearchResult]="jobSearchResult"></alv-job-search-result>
+        <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults"
+                               [jobSearchResult]="jobSearchResult"></alv-job-search-result>
         <div *ngIf="!jobSearchResults || !jobSearchResults.length">
           {{'global.common-phrases.no-results-found' | translate}}
         </div>
@@ -58,14 +58,15 @@
     </ng-container>
 
     <ng-container class="right-column">
-      <a *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
-         class="btn btn-text btn-text-icon btn-truncate"
-         [href]="jobSearchMailToLink">
-        <fa-icon class="mr-1"
-                 [icon]="['fas', 'share']"></fa-icon>
-        {{'portal.job-search.sendLink' | translate}}
-      </a>
-
+      <div class="w-100 mb-3 text-right text-md-left">
+        <a *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
+           class="btn btn-text btn-text-icon btn-truncate"
+           [href]="jobSearchMailToLink">
+          <fa-icon class="mr-1"
+                   [icon]="['fas', 'share']"></fa-icon>
+          {{'portal.job-search.sendLink' | translate}}
+        </a>
+      </div>
     </ng-container>
   </alv-three-column-layout>
 </div>

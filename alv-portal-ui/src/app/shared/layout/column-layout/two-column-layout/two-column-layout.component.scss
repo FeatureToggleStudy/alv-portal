@@ -1,6 +1,7 @@
 @import '../../../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../../node_modules/bootstrap/scss/mixins';
+@import "../../../../../scss/common/_variables.scss";
 
 @include media-breakpoint-up(lg) {
   .main-col {
@@ -10,5 +11,20 @@
 
   .side-panel.right {
     max-width: 400px;
+  }
+}
+
+// Keep the stickiness of the side-panel for medium (md) size
+@include media-breakpoint-down(md) {
+  .side-panel {
+    top: $height-header-mobile;
+  }
+}
+
+// Remove the stickiness of the side-panel for small (sm) size
+@include media-breakpoint-down(sm) {
+  .side-panel {
+    position: relative;
+    top: 0;
   }
 }

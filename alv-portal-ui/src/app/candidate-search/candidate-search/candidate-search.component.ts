@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
+  ElementRef, Inject, OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -35,6 +35,7 @@ import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import { OccupationCode } from '../../shared/backend-services/reference-service/occupation-label.types';
 import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
+import { WINDOW } from '../../core/window.service';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -42,7 +43,7 @@ import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
   styleUrls: ['./candidate-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CandidateSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
+export class CandidateSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit, OnDestroy {
 
   layoutConstants = LayoutConstants;
 
@@ -58,6 +59,8 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   selectedOccupationCodes: Observable<OccupationCode[]>;
 
+  detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
+
   searchPanelHeight = 0;
 
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
@@ -66,7 +69,8 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
               private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
               private actionsSubject: ActionsSubject,
               private scrollService: ScrollService,
-              private cdRef: ChangeDetectorRef) {
+              private cdRef: ChangeDetectorRef,
+              @Inject(WINDOW) private window: Window) {
     super();
   }
 
@@ -99,6 +103,8 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   ngAfterViewInit() {
     this.detectSearchPanelHeight();
+    // Add resize listener to recalculate UI on window resize
+    this.window.addEventListener('resize', this.detectSearchPanelHeightFn);
     this.store.pipe(select(getSelectedCandidateProfile))
       .pipe(take(1))
       .subscribe(candidateProfile => {
@@ -108,6 +114,10 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
           this.scrollService.scrollToTop();
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
   }
 
   onScroll() {

@@ -14,12 +14,14 @@
           [options$]="languageOptions$">
         </alv-select>
       </div>
-      <div class="col-auto delete-col">
+      <div class="col-auto delete-col p-0">
         <button *ngIf="!first"
-                class="btn btn-text btn-icon"
+                class="btn btn-text btn-icon text-primary w-100 h-100"
                 [attr.aria-label]="'global.button.remove.title'| translate"
                 (click)="removeLanguageSkill(languageSkill.value)">
-          <fa-icon  [icon]="['fas', 'trash-alt']"></fa-icon>
+          <fa-icon [icon]="['fas', 'trash-alt']"
+                   size="xs">
+          </fa-icon>
         </button>
       </div>
     </div>
