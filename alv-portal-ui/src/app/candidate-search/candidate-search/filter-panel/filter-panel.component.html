@@ -91,6 +91,7 @@
 
   <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first"
        class="language-skill"
+       [ngClass]="{'mt-3': languageSkillFormArray.controls.length > 1}"
        [formGroup]="languageSkill">
     <!--the html structure here is fragile, check the ts code before changing it -->
     <div class="form-row">
@@ -104,11 +105,12 @@
         </alv-select>
       </div>
       <div *ngIf="!first"
-           class="col-auto">
-        <button class="btn btn-text btn-icon"
+           class="col-auto delete-col pl-0">
+        <button class="btn btn-secondary btn-icon w-100 h-100"
                 [attr.aria-label]="'global.button.remove.title'| translate"
                 (click)="removeLanguageSkill(languageSkill)">
-          <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+          <fa-icon [icon]="['fas', 'trash-alt']"
+                   size="xs"></fa-icon>
         </button>
       </div>
     </div>

@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
+  ElementRef, Inject, OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -33,6 +33,7 @@ import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { ofType } from '@ngrx/effects';
 import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
+import { WINDOW } from '../../../core/window.service';
 
 @Component({
   selector: 'alv-job-search',
@@ -40,7 +41,7 @@ import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
   styleUrls: ['./job-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JobSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
+export class JobSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit, OnDestroy {
 
   layoutConstants = LayoutConstants;
 
@@ -56,13 +57,16 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   searchPanelHeight = 0;
 
+  detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
+
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
 
   constructor(private store: Store<JobAdSearchState>,
               private actionsSubject: ActionsSubject,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               private scrollService: ScrollService,
-              private cdRef: ChangeDetectorRef) {
+              private cdRef: ChangeDetectorRef,
+              @Inject(WINDOW) private window: Window) {
     super();
   }
 
@@ -91,6 +95,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   ngAfterViewInit() {
     this.detectSearchPanelHeight();
+    // Add resize listener to recalculate UI on window resize
+    this.window.addEventListener('resize', this.detectSearchPanelHeightFn);
     this.store.pipe(select(getSelectedJobAdvertisement))
       .pipe(take(1))
       .subscribe(job => {
@@ -100,6 +106,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
           this.scrollService.scrollToTop();
         }
       });
+  }
+
+  ngOnDestroy() {
+      this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
   }
 
   onQueryChange(queryPanelValues: JobQueryPanelValues) {
