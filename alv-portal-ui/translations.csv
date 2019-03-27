@@ -780,6 +780,7 @@ portal.home.job-seeker.browser-title,Stellensuchende,Job seekers,Demandeur d'emp
 portal.home.logo-alttext,arbeit.swiss,work.swiss,travail.swiss,lavoro.swiss,
 portal.home.logo-filename,logo_job_room_de.svg,logo_job_room_en.svg,logo_job_room_fr.svg,logo_job_room_it.svg,
 portal.home.pav.browser-title,Arbeitsvermittler,Recruitment agencies,Agence de placement,Collocatori,
+portal.home.admin.browser-title,Admin,Admin,Admin,Admin,
 portal.job-ad-search.browser-title,Stellen finden,Search job,Chercher emploi,Ricerca posto vacante,
 portal.job-ad-search.results-count.label,Stellen,Positions,Offres,Posti,
 portal.job-ad.qualification.SEMISKILLED,angelernt,semiskilled,initié,semiqualificato,
