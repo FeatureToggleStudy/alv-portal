@@ -36,12 +36,7 @@
 
     <!-------------Right panel-->
     <div class="right-column">
-      <alv-link-panel *alvHasAnyAuthority="UserRole.ROLE_COMPANY"
-                      [linkPanelId]="LinkPanelId.JOB_PUBLICATION_COMPANY"
-                      [numberOfColumns]="1">
-      </alv-link-panel>
-      <alv-link-panel *alvHasAnyAuthority="UserRole.ROLE_PAV"
-                      [linkPanelId]="LinkPanelId.JOB_PUBLICATION_PAV"
+      <alv-link-panel [linkPanelId]="LinkPanelId.JOB_PUBLICATION_COMPANY"
                       [numberOfColumns]="1">
       </alv-link-panel>
     </div>
