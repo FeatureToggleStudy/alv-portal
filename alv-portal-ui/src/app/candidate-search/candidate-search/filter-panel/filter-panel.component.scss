@@ -15,7 +15,6 @@ div.title-bar {
 .language-selection {
   margin-top: -0.5rem;
   padding-top: 0.5rem;
-  background-color: $color-light-grey;
 }
 
 @include media-breakpoint-down(sm) {
@@ -31,4 +30,9 @@ div.title-bar {
   div.title-bar {
     display: none;
   }
+}
+
+.delete-col {
+  min-width: 50px;
+  height: 46px;
 }
