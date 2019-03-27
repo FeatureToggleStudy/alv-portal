@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { ComplaintRepository } from '../../../../shared/backend-services/complaint/complaint.repository';
-import { map, takeUntil } from 'rxjs/operators';
+import { flatMap, take, takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
@@ -84,10 +84,9 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
   onSubmit(form: FormGroup) {
     const formValue = <ComplaintFormValue>form.value;
     this.i18nService.currentLanguage$.pipe(
-      map((lang) => formValue.contactLanguage = lang)
-    ).subscribe();
-    this.complaintRepository.sendComplaint(mapFormToDto(this.jobAdvertisementId, formValue))
-      .subscribe(() => this.activeModal.close());
+      take(1),
+      flatMap(lang => this.complaintRepository.sendComplaint(mapFormToDto(this.jobAdvertisementId, lang, formValue)))
+    ).subscribe(() => this.activeModal.close());
   }
 
   onCancel() {

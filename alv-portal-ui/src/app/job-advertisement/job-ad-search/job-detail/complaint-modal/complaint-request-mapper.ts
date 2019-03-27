@@ -1,7 +1,7 @@
 import { ComplaintDto } from '../../../../shared/backend-services/complaint/complaint.types';
 import { ComplaintFormValue } from './complaint-modal.component';
 
-export function mapFormToDto(id: string, formValue: ComplaintFormValue): ComplaintDto {
+export function mapFormToDto(id: string, currentLanguage: string, formValue: ComplaintFormValue): ComplaintDto {
   return {
     jobAdvertisementId: id,
     contactInformation: {
@@ -9,7 +9,7 @@ export function mapFormToDto(id: string, formValue: ComplaintFormValue): Complai
       name: formValue.name,
       phone: formValue.phone,
       email: formValue.email,
-      contactLanguage: formValue.contactLanguage,
+      contactLanguage: currentLanguage,
     },
     complaintMessage: formValue.complaintMessage
   };
