@@ -62,14 +62,14 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     iconKey: IconKey.CANDIDATE_SEARCH,
     labelKey: 'portal.navigation.menu-entry.candidate-search',
     path: ['candidate-search'],
-    userPredicate: (u) => isNotAuthenticatedUser(u) || hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
+    userPredicate: (u) => isNotAuthenticatedUser(u) || hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'job-publication',
     iconKey: IconKey.JOB_PUBLICATION,
     labelKey: 'portal.navigation.menu-entry.job-publication',
     path: ['job-publication'],
-    userPredicate: (u) => isNotAuthenticatedUser(u) || hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
+    userPredicate: (u) => isNotAuthenticatedUser(u) || hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'job-search',
