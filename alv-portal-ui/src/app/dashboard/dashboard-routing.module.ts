@@ -51,7 +51,7 @@ const routes: Routes = [
         component: AdminDashboardComponent,
         data: {
           titleKey: 'portal.home.admin.browser-title',
-          authorities: [UserRole.ROLE_ADMIN],
+          authorities: [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN],
           collapseNavigation: false
         }
       }
