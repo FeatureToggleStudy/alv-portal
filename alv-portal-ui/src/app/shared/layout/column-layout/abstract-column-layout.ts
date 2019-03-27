@@ -30,14 +30,14 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
    */
   protected commonColumnClasses = [
     'col-xs-12 alv-print-container px-0', // left column
-    'col-xs-12 alv-print-container pt-3 pt-md-4', // main column
+    'col-xs-12 alv-print-container pt-3 pt-lg-4', // main column
     'col-xs-12 px-0' // right column
   ];
 
   /**
-   * This is the small (sm) breakpoint copied from the bootstrap 4 library
+   * This is the small (md) breakpoint copied from the bootstrap 4 library
    */
-  private readonly BOOTSTRAP_BREAKPOINT_SM = '(max-width: 767.98px)';
+  private readonly BOOTSTRAP_BREAKPOINT_MD = '(max-width: 991.98px)';
 
   private setSidePanelHeightFn = this.setSidePanelHeight.bind(this);
 
@@ -54,18 +54,18 @@ export class AbstractColumnLayout implements AfterViewInit, OnDestroy {
   }
 
   getCommonColumnClasses(columnIndex: number): string {
-    return `${this.commonColumnClasses[columnIndex]} ${this.getMobileColumnOrderingClass(columnIndex)} order-md-${columnIndex + 1}`;
+    return `${this.commonColumnClasses[columnIndex]} ${this.getMobileColumnOrderingClass(columnIndex)} order-lg-${columnIndex + 1}`;
   }
 
   private getMobileColumnOrderingClass(columnIndex: number): string {
     if (this.mobileOrdering[columnIndex] == null) {
-      return 'd-none d-md-block';
+      return 'd-none d-lg-block';
     }
     return `order-${this.mobileOrdering[columnIndex]}`;
   }
 
   private setSidePanelHeight() {
-    const isMobileViewPort = window.matchMedia(this.BOOTSTRAP_BREAKPOINT_SM);
+    const isMobileViewPort = window.matchMedia(this.BOOTSTRAP_BREAKPOINT_MD);
 
     document.querySelectorAll(this.hostElement.nativeElement.tagName.toLowerCase() + ' .side-panel').forEach(sidePanel => {
       if (isMobileViewPort.matches) {

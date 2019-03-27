@@ -1,9 +1,9 @@
 <form [formGroup]="form"
       (ngSubmit)="onSearchSubmit()"
-      class="justify-content-between d-flex flex-column flex-md-row">
+      class="justify-content-between d-flex flex-column flex-lg-row">
   <div class="flex-grow-1">
     <div class="form-row">
-      <div class="col-12 col-md-4 mb-1 mb-md-0">
+      <div class="col-12 col-lg-4 mb-1 mb-lg-0">
         <alv-multi-typeahead alvFormControlName="occupations"
                              [editable]="false"
                              [loadItems]="loadOccupationsFn"
@@ -14,14 +14,14 @@
         >
         </alv-multi-typeahead>
       </div>
-      <div class="col-12 col-md-4 mb-1 mb-md-0">
+      <div class="col-12 col-lg-4 mb-1 mb-lg-0">
         <alv-multi-typeahead alvFormControlName="keywords"
                              label="portal.job-ad.search.query-panel.keywords.placeholder"
                              class="narrow-form"
                              tooltip="portal.job-ad.search.query-panel.keywords.tooltip">
         </alv-multi-typeahead>
       </div>
-      <div class="position-relative col-12 col-md-4 mb-1 mb-md-0">
+      <div class="position-relative col-12 col-lg-4 mb-1 mb-lg-0">
         <alv-multi-typeahead alvFormControlName="localities"
                              [editable]="false"
                              [focusFirst]="true"
@@ -47,7 +47,7 @@
       </div>
     </div>
   </div>
-  <button class="search-button btn btn-primary ml-md-2"
+  <button class="search-button btn btn-primary ml-lg-2"
           [attr.aria-label]="'portal.global.search'|translate"
           type="submit">
     <span *ngIf="showSpinner">
