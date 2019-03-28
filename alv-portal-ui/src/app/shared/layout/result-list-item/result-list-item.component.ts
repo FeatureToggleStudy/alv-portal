@@ -1,9 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   HostBinding,
   Input,
   OnInit,
+  Output,
   ViewEncapsulation
 } from '@angular/core';
 import { ResultListItem } from './result-list-item.model';
@@ -32,6 +34,12 @@ export class ResultListItemComponent implements OnInit {
 
   @HostBinding('attr.id')
   resultListItemId;
+
+  @Output()
+  favouritesClick = new EventEmitter<void>();
+
+  @Output()
+  noteClick = new EventEmitter<void>();
 
   constructor() {
   }
