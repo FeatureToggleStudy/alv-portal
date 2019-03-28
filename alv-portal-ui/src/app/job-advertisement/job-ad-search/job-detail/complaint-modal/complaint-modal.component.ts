@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 import { Salutation } from '../../../../shared/backend-services/shared.types';
 import { ComplaintRepository } from '../../../../shared/backend-services/complaint/complaint.repository';
-import { takeUntil } from 'rxjs/operators';
+import { flatMap, take, takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
@@ -14,12 +14,14 @@ import { ConfirmModalConfig } from '../../../../shared/layout/modal/confirm-moda
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX } from '../../../../shared/forms/regex-patterns';
 import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
+import { I18nService } from '../../../../core/i18n.service';
 
 export interface ComplaintFormValue {
   salutation: Salutation;
   name: string;
   phone: string;
   email: string;
+  contactLanguage: string;
   complaintMessage: string;
 }
 
@@ -29,7 +31,7 @@ export interface ComplaintFormValue {
 })
 export class ComplaintModalComponent extends AbstractSubscriber implements OnInit {
 
-  public form: FormGroup;
+  form: FormGroup;
 
   @Input() jobAdvertisementId: string;
 
@@ -55,7 +57,8 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
               private authenticationService: AuthenticationService,
               private modalService: ModalService,
               private fb: FormBuilder,
-              private complaintRepository: ComplaintRepository) {
+              private complaintRepository: ComplaintRepository,
+              private i18nService: I18nService) {
     super();
   }
 
@@ -75,12 +78,15 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
           this.patchTemplateValues(templateInfo);
         }
       });
+
   }
 
   onSubmit(form: FormGroup) {
     const formValue = <ComplaintFormValue>form.value;
-    this.complaintRepository.sendComplaint(mapFormToDto(this.jobAdvertisementId, formValue))
-      .subscribe(() => this.activeModal.close());
+    this.i18nService.currentLanguage$.pipe(
+      take(1),
+      flatMap(lang => this.complaintRepository.sendComplaint(mapFormToDto(this.jobAdvertisementId, lang, formValue)))
+    ).subscribe(() => this.activeModal.close());
   }
 
   onCancel() {
