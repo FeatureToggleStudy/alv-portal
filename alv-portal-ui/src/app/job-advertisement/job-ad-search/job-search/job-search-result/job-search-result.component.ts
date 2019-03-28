@@ -18,6 +18,7 @@ export class JobSearchResultComponent implements OnInit {
   @Input()
   jobSearchResult: JobSearchResult;
 
+
   resultListItem$: Observable<ResultListItem>;
 
   constructor(private i18nService: I18nService, private jobBadgesMapperService: JobBadgesMapperService) {
@@ -44,6 +45,14 @@ export class JobSearchResultComponent implements OnInit {
         };
       })
     );
+  }
+
+  public toggleFavourites() {
+    console.log('favourites toggled!');
+  }
+
+  public showNoteDialog() {
+    console.log('show note dialog!');
   }
 
 }
