@@ -9,6 +9,7 @@ import { CoreState } from './core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { ToggleMainNavigationAction } from './core/state-management/actions/core.actions';
 import { TrackingService } from './shared/tracking/tracking.service';
+import { ScrollService } from './core/scroll.service';
 
 const FALLBACK_TITLE_KEY = 'global.title';
 
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit {
               private store: Store<CoreState>,
               private trackingService: TrackingService,
               private activatedRoute: ActivatedRoute,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private scrollService: ScrollService) {
   }
 
   ngOnInit() {
@@ -69,6 +71,15 @@ export class AppComponent implements OnInit {
       const currentCollapseState = currentValues.collapseNavigation;
       if (currentCollapseState !== undefined && prevComponent !== currentComponent) {
         this.store.dispatch(new ToggleMainNavigationAction({ expanded: !currentCollapseState }));
+      }
+    });
+
+    currentRoute$.pipe(
+      mergeMap((route) => route.data),
+      map((data) => data.scrollToTop)
+    ).subscribe((scrollToTop) => {
+      if (scrollToTop) {
+        this.scrollService.scrollToTop();
       }
     });
 

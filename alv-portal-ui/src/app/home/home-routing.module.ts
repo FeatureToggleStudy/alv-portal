@@ -18,17 +18,26 @@ const routes: Routes = [
       {
         path: 'job-seeker',
         component: JobSeekerHomeComponent,
-        data: { titleKey: 'portal.home.job-seeker.browser-title' }
+        data: {
+          titleKey: 'portal.home.job-seeker.browser-title',
+          scrollToTop: true
+        }
       },
       {
         path: 'company',
         component: CompanyHomeComponent,
-        data: { titleKey: 'portal.home.company.browser-title' }
+        data: {
+          titleKey: 'portal.home.company.browser-title',
+          scrollToTop: true
+        }
       },
       {
         path: 'pav',
         component: PavHomeComponent,
-        data: { titleKey: 'portal.home.pav.browser-title' }
+        data: {
+          titleKey: 'portal.home.pav.browser-title',
+          scrollToTop: true
+        }
       }
     ]
   }
