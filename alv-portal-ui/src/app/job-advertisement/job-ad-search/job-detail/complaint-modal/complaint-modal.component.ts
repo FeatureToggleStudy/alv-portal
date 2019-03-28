@@ -29,7 +29,7 @@ export interface ComplaintFormValue {
 })
 export class ComplaintModalComponent extends AbstractSubscriber implements OnInit {
 
-  public form: FormGroup;
+  form: FormGroup;
 
   @Input() jobAdvertisementId: string;
 
@@ -75,6 +75,7 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
           this.patchTemplateValues(templateInfo);
         }
       });
+
   }
 
   onSubmit(form: FormGroup) {
