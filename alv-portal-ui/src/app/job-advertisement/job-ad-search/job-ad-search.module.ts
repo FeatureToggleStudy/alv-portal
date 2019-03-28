@@ -36,7 +36,8 @@ import { ComplaintModalComponent } from './job-detail/complaint-modal/complaint-
     JobSearchResultComponent,
     JobDetailComponent,
     ComplaintModalComponent
-  ], entryComponents: [
+  ],
+  entryComponents: [
     ComplaintModalComponent
   ],
   providers: [

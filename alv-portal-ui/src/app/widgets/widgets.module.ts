@@ -12,7 +12,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { JobAdManagementColumnService } from './manage-job-ads-widget/job-ad-management-column.service';
 import { JobAdCancellationComponent } from './manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../shared/layout/modal/modal.service';
-import { FavouritesWidgetComponent } from './favourites-widget/favourites-widget.component';
+import { FavouriteJobsWidgetComponent } from './favourite-jobs-widget/favourite-jobs-widget.component';
 
 @NgModule({
   imports: [
@@ -29,7 +29,7 @@ import { FavouritesWidgetComponent } from './favourites-widget/favourites-widget
     ManageJobAdsWidgetComponent,
     JobAdManagementTableComponent,
     JobAdCancellationComponent,
-    FavouritesWidgetComponent
+    FavouriteJobsWidgetComponent
   ],
   providers: [
     ModalService,
@@ -48,7 +48,7 @@ import { FavouritesWidgetComponent } from './favourites-widget/favourites-widget
       ManageJobAdsWidgetComponent,
       JobAdManagementTableComponent,
       JobAdCancellationComponent,
-      FavouritesWidgetComponent
+      FavouriteJobsWidgetComponent
     ]
 })
 

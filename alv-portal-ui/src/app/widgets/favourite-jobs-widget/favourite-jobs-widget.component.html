@@ -1,0 +1,8 @@
+<ng-container *ngIf="jobs$|async as jobs; else noJobsPlaceholder">
+  <alv-job-search-result *ngFor="let job of jobs"
+                         [jobSearchResult]="job">
+  </alv-job-search-result>
+</ng-container>
+<ng-template #noJobsPlaceholder>
+  no jobs found for the current user
+</ng-template>
