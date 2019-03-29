@@ -1,10 +1,9 @@
 <div *ngIf="currentUser$ | async as currentUser"
-     class="container-fluid mt-2 mt-sm-5 pt-0 px-lg-5">
-  <div class="mb-4">
-    <alv-system-notification class="d-block mt-2 mt-md-0"></alv-system-notification>
+     class="container-fluid pt-3 pt-lg-5 pb-4 px-lg-5">
+
+    <alv-system-notification></alv-system-notification>
     <alv-dashboard-header [user]="currentUser">
     </alv-dashboard-header>
     <router-outlet></router-outlet>
-  </div>
 
 </div>
