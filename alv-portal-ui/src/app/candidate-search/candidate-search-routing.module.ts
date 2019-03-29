@@ -15,6 +15,9 @@ const routes: Routes = [
     path: ':id',
     component: CandidateDetailComponent,
     canActivate: [CandidateDetailGuard],
+    data: {
+      scrollToTop: true
+    }
   },
   {
     path: '**',

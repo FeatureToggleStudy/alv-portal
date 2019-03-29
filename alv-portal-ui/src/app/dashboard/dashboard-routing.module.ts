@@ -25,7 +25,8 @@ const routes: Routes = [
         data: {
           titleKey: 'portal.home.job-seeker.browser-title',
           authorities: [UserRole.ROLE_JOB_SEEKER],
-          collapseNavigation: false
+          collapseNavigation: false,
+          scrollToTop: true
         }
       },
       {
@@ -34,7 +35,8 @@ const routes: Routes = [
         data: {
           titleKey: 'portal.home.company.browser-title',
           authorities: [UserRole.ROLE_PAV],
-          collapseNavigation: false
+          collapseNavigation: false,
+          scrollToTop: true
         }
       },
       {
@@ -43,7 +45,8 @@ const routes: Routes = [
         data: {
           titleKey: 'portal.home.pav.browser-title',
           authorities: [UserRole.ROLE_COMPANY],
-          collapseNavigation: false
+          collapseNavigation: false,
+          scrollToTop: true
         }
       },
       {
@@ -52,7 +55,8 @@ const routes: Routes = [
         data: {
           titleKey: 'portal.home.admin.browser-title',
           authorities: [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN],
-          collapseNavigation: false
+          collapseNavigation: false,
+          scrollToTop: true
         }
       }
     ]
