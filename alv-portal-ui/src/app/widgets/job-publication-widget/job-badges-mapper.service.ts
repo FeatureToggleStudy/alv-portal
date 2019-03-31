@@ -13,7 +13,7 @@ import {
   isShortEmployment,
   isTemporary
 } from '../../job-advertisement/shared/job-ad-rules';
-import { transform } from './job-location.pipe';
+import { JobLocationPipe } from '../../shared/pipes/job-location.pipe';
 
 export enum JobBadgeType {
   WORKLOAD,
@@ -43,7 +43,8 @@ export const ALL_JOB_BADGES = [
 export class JobBadgesMapperService {
 
   constructor(private localeAwareDatePipe: LocaleAwareDatePipe,
-              private workingTimeRangePipe: WorkingTimeRangePipe) {
+              private workingTimeRangePipe: WorkingTimeRangePipe,
+              private jobLocationPipe: JobLocationPipe) {
   }
 
   public map(job: JobAdvertisement, badgeTypes: JobBadgeType[] = ALL_JOB_BADGES): JobBadge[] {
@@ -52,7 +53,7 @@ export class JobBadgesMapperService {
     if (hasLocation(job)) {
       badges.push({
         badgeType: JobBadgeType.WORKPLACE,
-        label: transform(job.jobContent.location),
+        label: this.jobLocationPipe.transform(job.jobContent.location),
         cssClass: 'badge-job-workplace',
       });
     }
