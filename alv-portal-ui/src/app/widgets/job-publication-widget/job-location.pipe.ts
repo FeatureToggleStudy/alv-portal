@@ -1,0 +1,31 @@
+import { Pipe, PipeTransform } from '@angular/core';
+import { Location } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+
+export function transform(location: Location, args?: any): any {
+  let result = '';
+  if (!location) {
+    return result;
+  }
+  if (location.postalCode) {
+    result += location.postalCode;
+  }
+  if (location.city) {
+    result += ` ${location.city}`;
+  }
+  if (location.cantonCode || location.countryIsoCode) {
+    result += ` (${location.cantonCode || location.countryIsoCode})`;
+  }
+  return result;
+}
+
+@Pipe({
+  name: 'jobLocation'
+})
+export class JobLocationPipe implements PipeTransform {
+
+  constructor() {
+  }
+
+  transform = transform;
+
+}

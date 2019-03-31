@@ -18,7 +18,10 @@ import {
 } from '../state-management';
 import { select, Store } from '@ngrx/store';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { JobBadge, JobBadgesMapperService } from '../../shared/job-badges-mapper.service';
+import {
+  JobBadge,
+  JobBadgesMapperService
+} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
 import {
   Notification,
   NotificationType

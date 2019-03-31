@@ -14,6 +14,7 @@ import { JobAdCancellationComponent } from './manage-job-ads-widget/job-ad-cance
 import { ModalService } from '../shared/layout/modal/modal.service';
 import { FavouriteJobsWidgetComponent } from './favourite-jobs-widget/favourite-jobs-widget.component';
 import { JobSearchResultComponent } from './job-search-widget/job-search-result/job-search-result.component';
+import { JobLocationPipe } from './job-publication-widget/job-location.pipe';
 
 @NgModule({
   imports: [
@@ -31,11 +32,12 @@ import { JobSearchResultComponent } from './job-search-widget/job-search-result/
     JobAdManagementTableComponent,
     JobAdCancellationComponent,
     FavouriteJobsWidgetComponent,
-    JobSearchResultComponent
+    JobSearchResultComponent,
+    JobLocationPipe
   ],
   providers: [
     ModalService,
-    JobAdManagementColumnService
+    JobAdManagementColumnService,
   ],
   entryComponents: [
     JobAdCancellationComponent
@@ -51,7 +53,8 @@ import { JobSearchResultComponent } from './job-search-widget/job-search-result/
       JobAdManagementTableComponent,
       JobAdCancellationComponent,
       FavouriteJobsWidgetComponent,
-      JobSearchResultComponent
+      JobSearchResultComponent,
+      JobLocationPipe
     ]
 })
 

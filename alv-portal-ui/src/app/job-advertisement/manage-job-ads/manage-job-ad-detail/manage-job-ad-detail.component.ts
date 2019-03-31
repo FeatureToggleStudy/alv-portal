@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { JobBadge, JobBadgesMapperService } from '../../shared/job-badges-mapper.service';
+import {
+  JobBadge,
+  JobBadgesMapperService
+} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
 import { JobDetailModelFactory } from '../../shared/job-detail-model-factory';
 import { select, Store } from '@ngrx/store';
 import { map, switchMap, takeUntil } from 'rxjs/operators';

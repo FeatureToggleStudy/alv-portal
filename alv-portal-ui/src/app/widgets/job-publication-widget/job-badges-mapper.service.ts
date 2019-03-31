@@ -12,8 +12,8 @@ import {
   isReportingObligation,
   isShortEmployment,
   isTemporary
-} from './job-ad-rules';
-import { JobLocationPipe } from './job-location.pipe';
+} from '../../job-advertisement/shared/job-ad-rules';
+import { transform } from './job-location.pipe';
 
 export enum JobBadgeType {
   WORKLOAD,
@@ -35,12 +35,15 @@ export const ALL_JOB_BADGES = [
   JobBadgeType.REPORTING_OBLIGATION
 ];
 
-@Injectable()
+@Injectable(
+  // {
+  // providedIn: 'root',
+// }
+)
 export class JobBadgesMapperService {
 
   constructor(private localeAwareDatePipe: LocaleAwareDatePipe,
-              private workingTimeRangePipe: WorkingTimeRangePipe,
-              private jobLocationPipe: JobLocationPipe) {
+              private workingTimeRangePipe: WorkingTimeRangePipe) {
   }
 
   public map(job: JobAdvertisement, badgeTypes: JobBadgeType[] = ALL_JOB_BADGES): JobBadge[] {
@@ -49,7 +52,7 @@ export class JobBadgesMapperService {
     if (hasLocation(job)) {
       badges.push({
         badgeType: JobBadgeType.WORKPLACE,
-        label: this.jobLocationPipe.transform(job.jobContent.location),
+        label: transform(job.jobContent.location),
         cssClass: 'badge-job-workplace',
       });
     }
