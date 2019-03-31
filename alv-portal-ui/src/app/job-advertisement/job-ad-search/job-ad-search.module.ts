@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { JobSearchComponent } from './job-search/job-search.component';
 import { FilterPanelComponent } from './job-search/filter-panel/filter-panel.component';
 import { SharedModule } from '../../shared/shared.module';
-import { JobSearchResultComponent } from './job-search/job-search-result/job-search-result.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { JobAdSearchRoutingModule } from './job-ad-search-routing.module';
 import { JobDetailComponent } from './job-detail/job-detail.component';
@@ -33,7 +32,6 @@ import { ComplaintModalComponent } from './job-detail/complaint-modal/complaint-
   declarations: [
     JobSearchComponent,
     FilterPanelComponent,
-    JobSearchResultComponent,
     JobDetailComponent,
     ComplaintModalComponent
   ],

@@ -3,7 +3,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef, Inject, OnDestroy,
+  ElementRef,
+  Inject,
+  OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -19,7 +21,6 @@ import {
   getTotalCount,
   JobAdSearchState,
   JobSearchFilter,
-  JobSearchResult,
   LoadNextPageAction,
   ResetFilterAction
 } from '../state-management';
@@ -34,6 +35,7 @@ import { ofType } from '@ngrx/effects';
 import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { WINDOW } from '../../../core/window.service';
+import { JobSearchResult } from '../../../widgets/job-search-widget/job-search-result/job-search-result.component';
 
 @Component({
   selector: 'alv-job-search',

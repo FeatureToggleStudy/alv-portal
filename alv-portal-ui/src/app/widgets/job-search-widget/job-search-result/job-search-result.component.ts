@@ -1,12 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { ResultListItem } from '../../../../shared/layout/result-list-item/result-list-item.model';
-import { JobAdvertisementUtils } from '../../../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import { JobSearchResult } from '../../state-management';
+import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
+import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { I18nService } from '../../../../core/i18n.service';
-import { JobBadgesMapperService } from '../../../shared/job-badges-mapper.service';
+import { I18nService } from '../../../core/i18n.service';
+import { JobBadgesMapperService } from '../../../job-advertisement/shared/job-badges-mapper.service';
+import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
+export interface JobSearchResult {
+  jobAdvertisement: JobAdvertisement;
+  visited: boolean;
+}
 @Component({
   selector: 'alv-job-search-result',
   templateUrl: './job-search-result.component.html',

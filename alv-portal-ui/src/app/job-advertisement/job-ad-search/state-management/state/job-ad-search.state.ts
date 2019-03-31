@@ -33,10 +33,6 @@ export const initialState: JobAdSearchState = {
   visitedJobAds: {}
 };
 
-export interface JobSearchResult {
-  jobAdvertisement: JobAdvertisement;
-  visited: boolean;
-}
 
 export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobAdSearch');
 
