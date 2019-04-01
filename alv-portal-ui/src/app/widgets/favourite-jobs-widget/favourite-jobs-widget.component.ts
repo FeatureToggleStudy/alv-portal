@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Observable, of } from 'rxjs';
-import { mockJobs } from './favourite-jobs-widget.mock';
+import { mockJobSearchResults } from './favourite-jobs-widget.mock';
+import { JobSearchResult } from '../job-search-widget/job-search-result/job-search-result.component';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',
@@ -11,7 +11,7 @@ import { mockJobs } from './favourite-jobs-widget.mock';
 })
 export class FavouriteJobsWidgetComponent implements OnInit {
 
-  jobs$: Observable<JobAdvertisement[]>; //will be JobAd+Fav[]
+  jobs$: Observable<JobSearchResult[]>; //will be JobAd+Fav[]
 
   constructor(private authenticationServer: AuthenticationService) {
   }
@@ -21,7 +21,7 @@ export class FavouriteJobsWidgetComponent implements OnInit {
     //   map(currentUser => this.getFavouriteJobs(currentUser))
     // );
 
-    this.jobs$ = of(mockJobs as JobAdvertisement[]);
+    this.jobs$ = of(mockJobSearchResults);
   }
 
   private getFavouriteJobs(user) {
