@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { mockJobs } from './favourite-jobs-widget.mock';
 
 @Component({
@@ -18,9 +17,9 @@ export class FavouriteJobsWidgetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.jobs$ = this.authenticationServer.getCurrentUser().pipe(
-      map(currentUser => this.getFavouriteJobs(currentUser))
-    );
+    // this.jobs$ = this.authenticationServer.getCurrentUser().pipe(
+    //   map(currentUser => this.getFavouriteJobs(currentUser))
+    // );
 
     this.jobs$ = of(mockJobs as JobAdvertisement[]);
   }
