@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { Observable, of } from 'rxjs';
 import { mockJobSearchResults } from './favourite-jobs-widget.mock';
-import { JobSearchResult } from '../job-search-widget/job-search-result/job-search-result.component';
+import { JobSearchResult } from './job-search-result/job-search-result.component';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',

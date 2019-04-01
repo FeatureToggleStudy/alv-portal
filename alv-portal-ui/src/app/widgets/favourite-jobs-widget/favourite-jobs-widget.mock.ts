@@ -10,7 +10,7 @@ import {
   Qualification,
   Salutation
 } from '../../shared/backend-services/shared.types';
-import { JobSearchResult } from '../job-search-widget/job-search-result/job-search-result.component';
+import { JobSearchResult } from './job-search-result/job-search-result.component';
 
 export const mockJobs: JobAdvertisement[] = [
   {

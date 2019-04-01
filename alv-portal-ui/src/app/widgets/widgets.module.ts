@@ -13,7 +13,7 @@ import { JobAdManagementColumnService } from './manage-job-ads-widget/job-ad-man
 import { JobAdCancellationComponent } from './manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../shared/layout/modal/modal.service';
 import { FavouriteJobsWidgetComponent } from './favourite-jobs-widget/favourite-jobs-widget.component';
-import { JobSearchResultComponent } from './job-search-widget/job-search-result/job-search-result.component';
+import { JobSearchResultComponent } from './favourite-jobs-widget/job-search-result/job-search-result.component';
 import { JobBadgesMapperService } from './job-publication-widget/job-badges-mapper.service';
 
 @NgModule({
