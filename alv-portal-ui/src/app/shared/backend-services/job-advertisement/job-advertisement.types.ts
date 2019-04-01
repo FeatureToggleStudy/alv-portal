@@ -5,6 +5,7 @@ import {
   Qualification,
   Salutation
 } from '../shared.types';
+import { GeoPoint } from '../reference-service/locality.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -143,7 +144,7 @@ export interface Location {
   communalCode?: string;
   regionCode?: string;
   cantonCode?: string;
-  // coordinates?: GeoPoint;
+  coordinates?: GeoPoint;
 }
 
 export interface CreateLocation {
