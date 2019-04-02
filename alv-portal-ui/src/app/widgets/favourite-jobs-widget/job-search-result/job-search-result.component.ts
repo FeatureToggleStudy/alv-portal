@@ -10,7 +10,6 @@ import { JobAdvertisement } from '../../../shared/backend-services/job-advertise
 export interface JobSearchResult {
   jobAdvertisement: JobAdvertisement;
   visited: boolean;
-  favourites: string[];
 }
 @Component({
   selector: 'alv-job-search-result',
@@ -22,7 +21,6 @@ export class JobSearchResultComponent implements OnInit {
 
   @Input()
   jobSearchResult: JobSearchResult;
-
 
   resultListItem$: Observable<ResultListItem>;
 
