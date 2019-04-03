@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   {
     path: 'home',
     loadChildren: './home/home.module#HomeModule',
-    canActivateChild: [NotAuthenticatedGuard],
+    canActivateChild: [NotAuthenticatedGuard]
   },
   {
     path: 'registration',
@@ -49,14 +49,16 @@ const appRoutes: Routes = [
     path: 'job-publication',
     loadChildren: './job-advertisement/job-publication/job-publication.module#JobPublicationModule',
     data: {
-      titleKey: 'portal.job-publication.browser-title'
+      titleKey: 'portal.job-publication.browser-title',
+      scrollToTop: true
     }
   },
   {
     path: 'manage-job-ads',
     loadChildren: './job-advertisement/manage-job-ads/manage-job-ads.module#ManageJobAdsModule',
     data: {
-      titleKey: 'portal.manage-job-ads.browser-title'
+      titleKey: 'portal.manage-job-ads.browser-title',
+      scrollToTop: true
     }
   },
   {
@@ -82,7 +84,8 @@ const appRoutes: Routes = [
     component: UserSettingsComponent,
     canActivate: [AuthenticatedGuard],
     data: {
-      titleKey: 'portal.dashboard.user-settings.browser-title'
+      titleKey: 'portal.dashboard.user-settings.browser-title',
+      scrollToTop: true
     }
   },
   {

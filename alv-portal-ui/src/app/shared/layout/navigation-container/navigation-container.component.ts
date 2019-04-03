@@ -28,7 +28,7 @@ export class NavigationContainerComponent implements OnInit {
     this.router.events
         .subscribe((event) => {
           if (event instanceof NavigationEnd) {
-            this.document.body.classList.value = PATH_TO_PICTURE[event.urlAfterRedirects];
+            this.document.body.setAttribute('class', PATH_TO_PICTURE[event.urlAfterRedirects]);
           }
         });
   }
