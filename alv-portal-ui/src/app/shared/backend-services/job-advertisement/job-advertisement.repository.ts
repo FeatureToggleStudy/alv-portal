@@ -7,6 +7,7 @@ import {
   JobAdvertisementCancelRequest,
   JobAdvertisementSearchRequest,
   JobAdvertisementSearchResponse,
+  JobAdvertisementWithFavourites,
   ManagedJobAdsSearchRequest,
   ManagedJobAdsSearchResponse
 } from './job-advertisement.types';
@@ -44,16 +45,19 @@ export class JobAdvertisementRepository {
       }));
   }
 
+  //FIXME we ignore the favourites part for now
   search(request: JobAdvertisementSearchRequest): Observable<JobAdvertisementSearchResponse> {
     const params = createPageableURLSearchParams(request);
-    return this.http.post<JobAdvertisement[]>(this.searchUrl, request.body, {
+    return this.http.post<JobAdvertisementWithFavourites[]>(this.searchUrl, request.body, {
       params,
       observe: 'response'
     }).pipe(
       map((resp) => {
         return {
           totalCount: parseInt(resp.headers.get('X-Total-Count'), 10),
-          result: resp.body
+          result: resp.body.map((jobAdWithFavourites: JobAdvertisementWithFavourites) => {
+            return jobAdWithFavourites.jobAdvertisement;
+          })
         };
       }));
   }
