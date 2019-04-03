@@ -29,7 +29,11 @@ import {
 import { JobDetailModelFactory } from '../../shared/job-detail-model-factory';
 import { JobDetailModel } from '../../shared/job-detail-model';
 import { map, switchMap } from 'rxjs/operators';
-import { isDeactivated, isExternal, isUnvalidated } from '../../shared/job-ad-rules';
+import {
+  isDeactivated,
+  isExternal,
+  isUnvalidated
+} from '../../../widgets/job-search-widget/job-ad-rules';
 import { ScrollService } from '../../../core/scroll.service';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { NotificationsService } from '../../../core/notifications.service';

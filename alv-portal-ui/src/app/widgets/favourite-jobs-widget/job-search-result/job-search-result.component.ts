@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
 import { JobBadgesMapperService } from '../../job-publication-widget/job-badges-mapper.service';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { NotificationsService } from '../../../core/notifications.service';
 
 export interface JobSearchResult {
   jobAdvertisement: JobAdvertisement;
@@ -24,7 +25,9 @@ export class JobSearchResultComponent implements OnInit {
 
   resultListItem$: Observable<ResultListItem>;
 
-  constructor(private i18nService: I18nService, private jobBadgesMapperService: JobBadgesMapperService) {
+  constructor(private i18nService: I18nService,
+              private jobBadgesMapperService: JobBadgesMapperService,
+              private notificationService: NotificationsService) {
   }
 
   ngOnInit() {
@@ -51,6 +54,8 @@ export class JobSearchResultComponent implements OnInit {
   }
 
   public toggleFavourites() {
+
+
     console.log('favourites toggled!');
   }
 
