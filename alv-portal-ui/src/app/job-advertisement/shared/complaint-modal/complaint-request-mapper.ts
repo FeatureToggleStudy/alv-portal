@@ -1,4 +1,4 @@
-import { ComplaintDto } from '../../../../shared/backend-services/complaint/complaint.types';
+import { ComplaintDto } from '../../../shared/backend-services/complaint/complaint.types';
 import { ComplaintFormValue } from './complaint-modal.component';
 
 export function mapFormToDto(id: string, formValue: ComplaintFormValue): ComplaintDto {

@@ -11,6 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { jobAdFavouritesReducer } from './state-management/reducers';
 import { JobAdFavouritesEffects } from './state-management/effects';
+import { JobAdFavouriteDetailComponent } from './job-ad-favourite-detail/job-ad-favourite-detail.component';
 
 @NgModule({
   imports: [
@@ -24,9 +25,10 @@ import { JobAdFavouritesEffects } from './state-management/effects';
     SharedJobAdvertisementModule
   ],
   declarations: [
-  JobAdFavouritesComponent],
-  entryComponents: [
+    JobAdFavouritesComponent,
+    JobAdFavouriteDetailComponent
   ],
+  entryComponents: [],
   providers: [
     ModalService
   ]

@@ -2,18 +2,18 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
-import { Salutation } from '../../../../shared/backend-services/shared.types';
-import { ComplaintRepository } from '../../../../shared/backend-services/complaint/complaint.repository';
+import { Salutation } from '../../../shared/backend-services/shared.types';
+import { ComplaintRepository } from '../../../shared/backend-services/complaint/complaint.repository';
 import { takeUntil } from 'rxjs/operators';
-import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
-import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { mapFormToDto } from './complaint-request-mapper';
-import { ModalService } from '../../../../shared/layout/modal/modal.service';
-import { ConfirmModalConfig } from '../../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
-import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
-import { EMAIL_REGEX } from '../../../../shared/forms/regex-patterns';
-import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
+import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
+import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 
 export interface ComplaintFormValue {
   salutation: Salutation;

@@ -8,7 +8,8 @@
   </h2>
   <ng-container *ngIf="jobs$|async as jobs; else noJobsPlaceholder">
     <alv-job-search-result *ngFor="let job of jobs"
-                           [jobSearchResult]="job">
+                           [jobSearchResult]="job"
+                           routerLinkBase="/job-favourites">
     </alv-job-search-result>
   </ng-container>
   <ng-template #noJobsPlaceholder>

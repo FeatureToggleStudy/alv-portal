@@ -7,6 +7,8 @@ import { I18nService } from '../../../core/i18n.service';
 import { JobBadgesMapperService } from '../../../widgets/job-publication-widget/job-badges-mapper.service';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { NotificationsService } from '../../../core/notifications.service';
+import { ActivatedRoute } from '@angular/router';
+import { JobSearchComponent } from '../../job-ad-search/job-search/job-search.component';
 
 export interface JobSearchResult {
   jobAdvertisement: JobAdvertisement;
@@ -23,9 +25,13 @@ export class JobSearchResultComponent implements OnInit {
   @Input()
   jobSearchResult: JobSearchResult;
 
+  @Input()
+  routerLinkBase: string;
+
   resultListItem$: Observable<ResultListItem>;
 
   constructor(private i18nService: I18nService,
+              private route: ActivatedRoute,
               private jobBadgesMapperService: JobBadgesMapperService,
               private notificationService: NotificationsService) {
   }
@@ -45,7 +51,7 @@ export class JobSearchResultComponent implements OnInit {
           description: jobDescription.description,
           header: jobAdvertisement.publication.startDate,
           badges: this.jobBadgesMapperService.map(jobAdvertisement),
-          routerLink: ['/job-search', jobAdvertisement.id],
+          routerLink: [this.routerLinkBase, jobAdvertisement.id],
           subtitle: jobAdvertisement.jobContent.company.name,
           visited: jobSearchResult.visited
         };

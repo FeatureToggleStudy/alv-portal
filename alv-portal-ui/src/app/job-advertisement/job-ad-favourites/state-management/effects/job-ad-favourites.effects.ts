@@ -63,6 +63,7 @@ export class JobAdFavouritesEffects {
       return new ApplyFilterAction(filter);
     })
   );
+  /*
 
   @Effect()
   initJobSearch$ = this.actions$.pipe(
@@ -147,7 +148,7 @@ export class JobAdFavouritesEffects {
       return { type: 'nothing' };
     })
   );
-
+*/
   constructor(private actions$: Actions,
               private store: Store<JobAdFavouritesState>,
               private jobAdvertisementRepository: JobAdvertisementRepository,
