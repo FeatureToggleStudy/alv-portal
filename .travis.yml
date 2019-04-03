@@ -52,6 +52,14 @@ deploy:
       .ci-travis/maven-deploy.sh ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}
       && .ci-travis/push-version-bump.sh ${BUILD_VERSION} ${GIT_USER} ${GIT_PWD}
     on:
+      all_branches: true
+      condition: "$TRAVIS_BRANCH =~ ^release.*$"
+  - provider: script
+    skip_cleanup: true
+    script: >-
+      .ci-travis/maven-deploy.sh ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}
+      && .ci-travis/push-version-bump.sh ${BUILD_VERSION} ${GIT_USER} ${GIT_PWD}
+    on:
       branch: master
   - provider: script
     skip_cleanup: true
