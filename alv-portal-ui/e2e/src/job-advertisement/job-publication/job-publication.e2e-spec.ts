@@ -86,7 +86,7 @@ describe('Job publication page', () => {
 
 
       page.btnSubmit.sendKeys(Key.ENTER);
-      browser.sleep(100);
+      browser.sleep(1000);
       expect(page.jobPublicationForm.isPresent()).toBe(false);
       expect(page.successMessage.isPresent()).toBe(true);
     });
