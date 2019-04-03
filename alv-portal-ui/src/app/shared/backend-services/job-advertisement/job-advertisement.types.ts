@@ -231,8 +231,8 @@ export interface JobAdvertisementSearchResponse {
 
 export interface FavouriteItem {
   id: string;
-  createdTime?: string; //date string
-  updatedTime?: string; //date string
+  createdTime: string; //date string
+  updatedTime: string; //date string
   note: string | null;
   jobAdvertismentId: string;
   ownerId: string;
