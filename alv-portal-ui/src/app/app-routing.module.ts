@@ -62,6 +62,14 @@ const appRoutes: Routes = [
     }
   },
   {
+    path: 'job-favourites',
+    loadChildren: './job-advertisement/job-ad-favourites/job-ad-favourites.module#JobAdFavouritesModule',
+    data: {
+      titleKey: 'portal.job-ad-favourites.browser-title',
+      scrollToTop: true
+    }
+  },
+  {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
     canActivateChild: [HasAnyAuthoritiesGuard],

@@ -814,6 +814,12 @@ portal.job-detail.workExperience,Berufserfahrung,Work experience,Expérience pro
 portal.job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,Tipologia lavorativa,
 portal.job-detail.workload.label,Arbeitspensum,Workload,Taux d'occupation,Grado di occupazione,
 portal.job-detail.workplace.label,Arbeitsort,Work location,Lieu de travail,Luogo di lavoro,
+portal.job-ad-favourites.browser-title,Stellen Merkliste,,,,
+portal.job-ad-favourites.search.query,Merkliste durchsuchen,,,,
+portal.job-ad-favourites.title,Stellen Merkliste,,,,
+portal.job-ad-favourites.empty.title,Ihre Merkliste ist noch leer.,You currently have no saved jobs.,Votre liste de favoris est vide.,La lista dei favoriti è ancora vuota.
+portal.job-ad-favourites.empty.text1,Markieren Sie interessante Stellen mit dem Stern,Click on the star icon,Ajoutez les offres d'emploi intéressantes à vos favoris en cliquant sur l'étoile,Contrassegnare i posti interessanti con un asterisco
+portal.job-ad-favourites.empty.text2,um diese in Ihrer persönlichen Merkliste aufzunehmen.,to save jobs you are interested in.,.,per aggiungerli ai favoriti personale.
 portal.job-publication.application.legend,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.,
 portal.job-publication.application.validation.atLeastOneRequired,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.,
 portal.job-publication.browser-title,Stellen melden,Post job,Publier un poste vacant,Annunciare un posto vacante,

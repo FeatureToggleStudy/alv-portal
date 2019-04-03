@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { jobAdFavouritesReducer } from './state-management/reducers';
 import { JobAdFavouritesEffects } from './state-management/effects';
 import { JobAdFavouriteDetailComponent } from './job-ad-favourite-detail/job-ad-favourite-detail.component';
+import { JobAdFavouritesGuard } from './job-ad-favourites/job-ad-favourites.guard';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { JobAdFavouriteDetailComponent } from './job-ad-favourite-detail/job-ad-
   ],
   entryComponents: [],
   providers: [
-    ModalService
+    ModalService,
+    JobAdFavouritesGuard
   ]
 })
 export class JobAdFavouritesModule {
