@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { Observable, of } from 'rxjs';
 import { mockJobSearchResults } from './favourite-jobs-widget.mock';
-import { JobSearchResult } from './job-search-result/job-search-result.component';
+import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
+import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',
@@ -10,6 +11,8 @@ import { JobSearchResult } from './job-search-result/job-search-result.component
   styleUrls: ['./favourite-jobs-widget.component.scss']
 })
 export class FavouriteJobsWidgetComponent implements OnInit {
+
+  IconKey = IconKey;
 
   jobs$: Observable<JobSearchResult[]>; //will be JobAd+Fav[]
 

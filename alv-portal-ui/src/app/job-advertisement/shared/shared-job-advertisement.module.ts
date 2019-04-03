@@ -6,18 +6,18 @@ import { JobDetailModelFactory } from './job-detail-model-factory';
 import { JobCompanyContextComponent } from './job-company-context/job-company-context.component';
 import { JobCenterContextComponent } from './job-center-context/job-center-context.component';
 import { JobBadgesMapperService } from '../../widgets/job-publication-widget/job-badges-mapper.service';
-import { WidgetsModule } from '../../widgets/widgets.module';
+import { JobSearchResultComponent } from './job-search-result/job-search-result.component';
 
 @NgModule({
   imports: [
     SharedModule,
-    CommonModule,
-    WidgetsModule
+    CommonModule
   ],
   declarations: [
     JobContentComponent,
     JobCompanyContextComponent,
     JobCenterContextComponent,
+    JobSearchResultComponent
   ],
   providers: [
     JobBadgesMapperService,
@@ -26,7 +26,8 @@ import { WidgetsModule } from '../../widgets/widgets.module';
   exports: [
     JobContentComponent,
     JobCompanyContextComponent,
-    JobCenterContextComponent
+    JobCenterContextComponent,
+    JobSearchResultComponent
   ]
 })
 export class SharedJobAdvertisementModule {

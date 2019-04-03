@@ -3,12 +3,10 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { JobAdFavouritesRoutingModule } from './job-ad-favourites-routing.module';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement.module';
 import { ModalService } from '../../shared/layout/modal/modal.service';
-import { jobAdSearchReducer } from '../job-ad-search/state-management/reducers';
+import { JobAdFavouritesComponent } from './job-ad-favourites/job-ad-favourites.component';
 
 @NgModule({
   imports: [
@@ -20,19 +18,10 @@ import { jobAdSearchReducer } from '../job-ad-search/state-management/reducers';
     SharedJobAdvertisementModule
   ],
   declarations: [
-    JobSearchComponent,
-    FilterPanelComponent,
-    JobDetailComponent,
-    ComplaintModalComponent
-  ],
+  JobAdFavouritesComponent],
   entryComponents: [
-    ComplaintModalComponent
   ],
   providers: [
-    JobSearchFilterParameterService,
-    JobDetailGuard,
-    JobSearchGuard,
-    JobFingerprintGuard,
     ModalService
   ]
 })

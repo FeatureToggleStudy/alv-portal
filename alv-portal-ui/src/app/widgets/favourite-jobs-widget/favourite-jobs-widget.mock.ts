@@ -10,11 +10,11 @@ import {
   Qualification,
   Salutation
 } from '../../shared/backend-services/shared.types';
-import { JobSearchResult } from './job-search-result/job-search-result.component';
+import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
 
 export const mockJobs: JobAdvertisement[] = [
   {
-    id: '91f32a49-2529-11e9-9137-005056ac086d',
+    id: 'a1b7250e-46e5-11e9-b646-005056ac3479',
     createdTime: '2019-01-31T08:26:48.406',
     updatedTime: '2019-04-01T08:00:54.153',
     status: JobAdvertisementStatus.PUBLISHED_PUBLIC,

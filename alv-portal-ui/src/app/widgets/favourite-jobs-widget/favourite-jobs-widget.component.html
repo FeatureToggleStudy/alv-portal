@@ -1,9 +1,26 @@
-favourite jobs widgets
-<ng-container *ngIf="jobs$|async as jobs; else noJobsPlaceholder">
-  <alv-job-search-result *ngFor="let job of jobs"
-                         [jobSearchResult]="job">
-  </alv-job-search-result>
-</ng-container>
-<ng-template #noJobsPlaceholder>
-  no jobs found for the current user
-</ng-template>
+<div class="alv-panel pb-3 pb-md-4">
+  <h2 class="panel-title">
+    <alv-custom-icon class="panel-icon"
+                     aria-hidden="true"
+                     [iconKey]="IconKey.JOB_AD_FAVOURITES">
+    </alv-custom-icon>
+    {{'Stellen Merkliste' | translate}}
+  </h2>
+  <ng-container *ngIf="jobs$|async as jobs; else noJobsPlaceholder">
+    <alv-job-search-result *ngFor="let job of jobs"
+                           [jobSearchResult]="job">
+    </alv-job-search-result>
+  </ng-container>
+  <ng-template #noJobsPlaceholder>
+    no jobs found for the current user
+  </ng-template>
+
+  <div class="d-flex">
+    <div class="flex-grow-1"></div>
+    <button class="btn btn-secondary"
+            (click)="showAll()">
+      {{ 'portal.widgets.job-ad-favourites.show-all' | translate }}
+    </button>
+  </div>
+
+</div>

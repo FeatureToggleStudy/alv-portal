@@ -4,7 +4,7 @@ import { JobAdvertisementUtils } from '../../../shared/backend-services/job-adve
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
-import { JobBadgesMapperService } from '../../job-publication-widget/job-badges-mapper.service';
+import { JobBadgesMapperService } from '../../../widgets/job-publication-widget/job-badges-mapper.service';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { NotificationsService } from '../../../core/notifications.service';
 
