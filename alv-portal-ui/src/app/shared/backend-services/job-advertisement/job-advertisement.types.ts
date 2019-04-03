@@ -229,6 +229,20 @@ export interface JobAdvertisementSearchResponse {
   result: JobAdvertisement[];
 }
 
+export interface FavouriteItem {
+  id: string;
+  createdTime?: string; //date string
+  updatedTime?: string; //date string
+  note: string | null;
+  jobAdvertismentId: string;
+  ownerId: string;
+}
+
+export interface JobAdvertisementWithFavourites {
+  jobAdvertisement: JobAdvertisement;
+  favouriteItem: FavouriteItem | null;
+}
+
 export interface ProfessionCode {
   type: string;
   value: string;
