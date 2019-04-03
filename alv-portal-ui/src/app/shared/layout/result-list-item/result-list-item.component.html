@@ -1,16 +1,28 @@
-<div class="result-list-item-container row">
+<div class="result-list-item-container">
   <a [routerLink]="result.routerLink"
-     class="d-block result-list-item flex-height position-relative col-10"
+     class="d-block result-list-item flex-height position-relative"
      [ngClass]="{'visited' : result.visited}">
     <div class="selected-indicator h-100"></div>
     <div class="d-flex flex-column flex-sm-row justify-content-between mb-1">
+
       <h3 class="title order-2 order-sm-1 mb-0 w-100"
-          [innerHtml]="result.title | safeHtml">
+          [innerHTML]="result.title | safeHtml">
       </h3>
-      <div class="order-1 order-sm-2">
+      <div class="order-1 order-sm-2 d-flex">
         <small class="date text-truncate">
           {{ result.header | localeAwareDate }}
         </small>
+        <div class="actions-area d-flex" (click)="$event.stopPropagation()">
+          <button class="btn btn-icon text-primary mr-1"
+                  (click)="$event.preventDefault();favouritesClick.emit()">
+            <fa-icon [icon]="['far', 'star']"></fa-icon>
+          </button>
+          <button class="btn btn-secondary btn-icon"
+                  (click)="$event.preventDefault();noteClick.emit()">
+            <fa-icon [icon]="['far', 'sticky-note']"></fa-icon>
+          </button>
+          <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
+        </div>
       </div>
     </div>
 
@@ -21,18 +33,8 @@
     <div class="line-clamp-2"
          *ngIf="result.description"
          [style.-webkit-box-orient]="'vertical'"
-         [innerHtml]="result.description | markdownEscape | safeHtml">
+         [innerHTML]="result.description | markdownEscape | safeHtml">
     </div>
   </a>
-  <div class="actions-area col-2">
-    <button class="btn btn-text-icon"
-            (click)="favouritesClick.emit()">
-      <fa-icon [icon]="['fas', 'star']"></fa-icon>
-    </button>
-    <button class="btn btn-text-icon"
-            (click)="noteClick.emit()">
-      <fa-icon [icon]="['fas', 'sticky-note']"></fa-icon>
-    </button>
-    <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
-  </div>
+
 </div>
