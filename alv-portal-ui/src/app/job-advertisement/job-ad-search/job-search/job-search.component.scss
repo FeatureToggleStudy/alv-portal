@@ -13,7 +13,7 @@
   .query-search-area {
     position: sticky;
     top: $height-header-desktop;
-    z-index: 11;
+    z-index: $z-index-query-search-area;
   }
 }
 
