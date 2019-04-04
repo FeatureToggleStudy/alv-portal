@@ -35,7 +35,6 @@ import { ComplaintModalComponent } from '../shared/complaint-modal/complaint-mod
     JobDetailComponent
   ],
   entryComponents: [
-    ComplaintModalComponent
   ],
   providers: [
     JobSearchFilterParameterService,

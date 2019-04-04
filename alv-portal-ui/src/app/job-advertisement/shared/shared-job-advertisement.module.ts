@@ -25,6 +25,9 @@ import { ComplaintModalComponent } from './complaint-modal/complaint-modal.compo
     JobBadgesMapperService,
     JobDetailModelFactory,
   ],
+  entryComponents: [
+    ComplaintModalComponent
+  ],
   exports: [
     JobContentComponent,
     JobCompanyContextComponent,
