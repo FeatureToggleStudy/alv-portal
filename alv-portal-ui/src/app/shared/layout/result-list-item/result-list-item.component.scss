@@ -61,6 +61,15 @@
 }
 
 .actions-area {
+  margin: -0.5rem -0.5rem 0 0.5rem;
 
+  .btn.btn-icon {
+    color: $color-primary;
+    width: 30px;
+    height: 32px;
+    &:hover {
+      color: darken($color-primary, 10%);
+    }
+  }
 }
 

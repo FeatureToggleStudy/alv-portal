@@ -12,16 +12,16 @@
         <small class="date text-truncate">
           {{ result.header | localeAwareDate }}
         </small>
+        <div class="flex-grow-1 flex-md-grow-0"></div>
         <div class="actions-area d-flex" (click)="$event.stopPropagation()">
-          <button class="btn btn-icon text-primary mr-1"
+          <button class="btn btn-icon mr-1 p-0"
                   (click)="$event.preventDefault();favouritesClick.emit()">
             <fa-icon [icon]="['far', 'star']"></fa-icon>
           </button>
-          <button class="btn btn-secondary btn-icon"
+          <button class="btn btn-icon p-0"
                   (click)="$event.preventDefault();noteClick.emit()">
             <fa-icon [icon]="['far', 'sticky-note']"></fa-icon>
           </button>
-          <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
         </div>
       </div>
     </div>
