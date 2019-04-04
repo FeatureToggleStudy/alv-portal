@@ -24,7 +24,7 @@ export class FavouriteJobsWidgetComponent implements OnInit {
     //   map(currentUser => this.getFavouriteJobs(currentUser))
     // );
 
-    this.jobs$ = of(mockJobSearchResults);
+    this.jobs$ = of([]);
   }
 
   private getFavouriteJobs(user) {
