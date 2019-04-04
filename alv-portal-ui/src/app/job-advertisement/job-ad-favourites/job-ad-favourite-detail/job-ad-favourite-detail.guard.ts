@@ -16,7 +16,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class JobAdFavouriteDetailGuard implements CanActivate {
 
-  constructor(private store: Store<JobAdFavouritesState>, private jobAdvertisementService: JobAdvertisementRepository) {
+  constructor(private store: Store<JobAdFavouritesState>,
+              private jobAdvertisementService: JobAdvertisementRepository) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
