@@ -73,7 +73,7 @@
 
     <ng-container class="left-column">
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-lg-block d-print-none"
-         routerLink="/job-search">
+         [routerLink]="backButtonPath">
         <fa-icon class="mr-1"
                  [icon]="['fas', 'caret-left']"></fa-icon>
         {{'job-detail.back' | translate}}
