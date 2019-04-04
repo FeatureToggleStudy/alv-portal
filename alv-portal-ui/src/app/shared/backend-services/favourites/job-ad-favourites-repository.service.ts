@@ -9,7 +9,7 @@ import {
   JobAdvertisementWithFavourites
 } from '../job-advertisement/job-advertisement.types';
 
-const FAVOURITES_PREFIX = '/api/favourite-items';
+const FAVOURITES_PREFIX = '/jobadservice/api/favourite-items';
 const SEARCH_PREFIX = FAVOURITES_PREFIX + '/_search';
 
 @Injectable({
@@ -28,6 +28,7 @@ export class JobAdFavouritesRepositoryService {
   /**
    * make the given jobAdvertisement favourite without a note
    * @param jobAdvertisementId
+   * @param note
    * @return the newly created id of the favourite item
    */
   makeFavourite(jobAdvertisementId, note = ''): Observable<string> {
@@ -51,8 +52,6 @@ export class JobAdFavouritesRepositoryService {
     } else {
       return this.editNote(jobAdvertisement, note);
     }
-
-
   }
 
   editNote(jobAdvertisement: JobAdvertisementWithFavourites, note: string): Observable<void> {

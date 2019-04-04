@@ -38,12 +38,14 @@ export class FavouriteJobsWidgetComponent implements OnInit {
 
 
   makeFavourite() {
-
-    this.jobAdFavouritesRepositoryService.makeFavourite('50517254-55e4-11e9-80c7-0242ac12000b');
+    this.jobAdFavouritesRepositoryService.makeFavourite('50517254-55e4-11e9-80c7-0242ac12000b')
+      .subscribe(x => console.log('success', x));
 
   }
 
   removeFavourite() {
+    this.jobAdFavouritesRepositoryService.removeFavourite('50517254-55e4-11e9-80c7-0242ac12000b')
+      .subscribe(() => console.log('removed!!'));
 
   }
 
