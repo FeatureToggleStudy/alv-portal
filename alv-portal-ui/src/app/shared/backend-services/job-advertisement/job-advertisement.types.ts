@@ -239,6 +239,12 @@ export interface FavouriteItem {
   ownerId: string;
 }
 
+export interface CreateFavouriteItem {
+  note: string;
+  userId: string; //the id of the person who adds the job to his favourites
+  jobAdvertisementId: string;
+}
+
 export interface JobAdvertisementWithFavourites {
   jobAdvertisement: JobAdvertisement;
   favouriteItem: FavouriteItem | null;
