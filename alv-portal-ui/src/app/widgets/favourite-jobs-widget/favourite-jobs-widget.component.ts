@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../core/auth/authentication.service';
 import { Observable, of } from 'rxjs';
 import { mockJobSearchResults } from './favourite-jobs-widget.mock';
 import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
+import { JobAdFavouritesRepositoryService } from '../../shared/backend-services/favourites/job-ad-favourites-repository.service';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',
@@ -16,7 +16,7 @@ export class FavouriteJobsWidgetComponent implements OnInit {
 
   jobs$: Observable<JobSearchResult[]>; //will be JobAd+Fav[]
 
-  constructor(private authenticationServer: AuthenticationService) {
+  constructor(private jobAdFavouritesRepositoryService: JobAdFavouritesRepositoryService) {
   }
 
   ngOnInit() {
@@ -27,9 +27,29 @@ export class FavouriteJobsWidgetComponent implements OnInit {
     this.jobs$ = of(mockJobSearchResults);
   }
 
+  showAll() {
+    console.log('lets go to the page with all favourites!');
+  }
+
   private getFavouriteJobs(user) {
     // a call to the api here
     return [];
   }
 
+
+  makeFavourite() {
+    this.jobAdFavouritesRepositoryService.makeFavourite('50517254-55e4-11e9-80c7-0242ac12000b')
+      .subscribe(x => console.log('success', x));
+
+  }
+
+  removeFavourite() {
+    this.jobAdFavouritesRepositoryService.removeFavourite('50517254-55e4-11e9-80c7-0242ac12000b')
+      .subscribe(() => console.log('removed!!'));
+
+  }
+
+  addNote() {
+
+  }
 }
