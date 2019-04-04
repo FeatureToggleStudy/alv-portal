@@ -45,14 +45,13 @@
 
     <ng-container class="main-column">
 
-      <alv-favourite-jobs-widget></alv-favourite-jobs-widget>
-
       <h2 class="sr-only">
         Stellen Suchresultate
       </h2>
       <ng-container *ngIf="jobSearchResults$ | async as jobSearchResults">
         <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults"
                                [jobSearchResult]="jobSearchResult"
+                               (update)="onSearchResultUpdate($event)"
                                routerLinkBase="/job-search"></alv-job-search-result>
         <div *ngIf="!jobSearchResults || !jobSearchResults.length">
           {{'global.common-phrases.no-results-found' | translate}}

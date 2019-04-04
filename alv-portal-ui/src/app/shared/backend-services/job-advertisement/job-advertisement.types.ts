@@ -227,7 +227,22 @@ export interface ManagedJobAdsSearchResponse {
 
 export interface JobAdvertisementSearchResponse {
   totalCount: number;
-  result: JobAdvertisement[];
+  result: JobAdvertisementWithFavourites[];
+}
+
+export interface JobAdFavouritesSearchResponse {
+  totalCount: number;
+  result: JobAdvertisementWithFavourites[];
+}
+
+export interface JobAdFavouritesSearchRequest {
+  page: number;
+  size: number;
+  body: JobAdFavouritesSearchBody;
+}
+
+export interface JobAdFavouritesSearchBody {
+  query: string;
 }
 
 export interface FavouriteItem {
@@ -235,7 +250,7 @@ export interface FavouriteItem {
   createdTime: string; //date string
   updatedTime: string; //date string
   note: string | null;
-  jobAdvertismentId: string;
+  jobAdvertisementId: string;
   ownerId: string;
 }
 

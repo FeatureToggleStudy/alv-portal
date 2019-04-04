@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { mockJobSearchResults } from './favourite-jobs-widget.mock';
 import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 import { JobAdFavouritesRepositoryService } from '../../shared/backend-services/favourites/job-ad-favourites-repository.service';
+import { map } from 'rxjs/operators';
+import { JobAdvertisementWithFavourites } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',
@@ -14,40 +16,33 @@ export class FavouriteJobsWidgetComponent implements OnInit {
 
   IconKey = IconKey;
 
-  jobs$: Observable<JobSearchResult[]>; //will be JobAd+Fav[]
+  jobFavourites: JobAdvertisementWithFavourites[];
 
   constructor(private jobAdFavouritesRepositoryService: JobAdFavouritesRepositoryService) {
   }
 
   ngOnInit() {
-    // this.jobs$ = this.authenticationServer.getCurrentUser().pipe(
-    //   map(currentUser => this.getFavouriteJobs(currentUser))
-    // );
-
-    this.jobs$ = of(mockJobSearchResults);
+    this.getJobAdFavourites();
   }
 
-  showAll() {
-    console.log('lets go to the page with all favourites!');
+  onJobAdFavouriteResultUpdate() {
+    this.getJobAdFavourites();
   }
 
-  private getFavouriteJobs(user) {
-    // a call to the api here
-    return [];
+  private getJobAdFavourites() {
+    return this.jobAdFavouritesRepositoryService.getFavouritesForUser({
+      body: {
+        query: ''
+      },
+    page: 0,
+    size: 4 // We have to grab 4 items because the API returns non-favourite items sometimes.
+    }).pipe(
+      map(favouriteJob => favouriteJob.result)
+    ).subscribe(jobFavourites => {
+      this.jobFavourites = jobFavourites.filter(jobFavourite => jobFavourite.favouriteItem).slice(0, 3);
+    });
   }
 
-
-  makeFavourite() {
-    this.jobAdFavouritesRepositoryService.makeFavourite('50517254-55e4-11e9-80c7-0242ac12000b')
-      .subscribe(x => console.log('success', x));
-
-  }
-
-  removeFavourite() {
-    this.jobAdFavouritesRepositoryService.removeFavourite('50517254-55e4-11e9-80c7-0242ac12000b')
-      .subscribe(() => console.log('removed!!'));
-
-  }
 
   addNote() {
 

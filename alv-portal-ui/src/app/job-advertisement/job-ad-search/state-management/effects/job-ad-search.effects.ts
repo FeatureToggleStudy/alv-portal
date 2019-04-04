@@ -177,7 +177,7 @@ export class JobAdSearchEffects {
           ofType(NEXT_PAGE_LOADED),
           take(1),
           map((nextPageLoadedAction: NextPageLoadedAction) => {
-            return nextPageLoadedAction.payload.page[0].id;
+            return nextPageLoadedAction.payload.page[0].jobAdvertisement.id;
           })
         );
       }

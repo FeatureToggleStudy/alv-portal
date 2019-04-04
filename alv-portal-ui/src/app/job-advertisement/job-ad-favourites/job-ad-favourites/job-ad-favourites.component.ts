@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, map, startWith, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
+  getJobAdFavouritesResults,
   getJobAdFavouritesSearchFilter,
   JobAdFavouritesState
 } from '../state-management/state';
 import { JobAdFavouritesSearchFilter } from './job-ad-favourites.types';
-import { ApplyFilterAction } from '../state-management/actions';
+import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
 import { JobSearchResult } from '../../shared/job-search-result/job-search-result.component';
+import {
+  getJobSearchFilter,
+  getJobSearchResults,
+  getTotalCount
+} from '../../job-ad-search/state-management/state';
 
 @Component({
   selector: 'alv-job-ad-favourites',
@@ -22,11 +28,11 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   IconKey = IconKey;
 
-  currentFilter$: Observable<JobAdFavouritesSearchFilter>;
+  jobAdFavouriteSearchFilter$: Observable<JobAdFavouritesSearchFilter>;
 
   form: FormGroup;
 
-  jobs$: Observable<JobSearchResult[]>;
+  jobAdFavouriteSearchResults$: Observable<JobSearchResult[]>;
 
   constructor(private fb: FormBuilder,
               private store: Store<JobAdFavouritesState>) {
@@ -34,25 +40,35 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      query: [null]
-    });
+    this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults));
 
-    this.currentFilter$ = this.store.pipe(select(getJobAdFavouritesSearchFilter)).pipe(
+    this.jobAdFavouriteSearchFilter$ = this.store.pipe(select(getJobAdFavouritesSearchFilter)).pipe(
       tap(currentFilter => {
         this.form.patchValue({ query: currentFilter.query }, { emitEvent: false });
       })
     );
 
+    this.form = this.fb.group({
+      query: ['']
+    });
+
     this.form.get('query').valueChanges.pipe(
       debounceTime(300),
       takeUntil(this.ngUnsubscribe))
       .subscribe(value => this.applyQuery(value));
+
+    this.jobAdFavouriteSearchFilter$.pipe(
+      take(1))
+      .subscribe(filter => this.applyQuery(filter.query));
+
   }
 
+  onScroll() {
+    this.store.dispatch(new LoadNextPageAction());
+  }
 
   private applyQuery(newQuery: string) {
-    this.currentFilter$.pipe(
+    this.jobAdFavouriteSearchFilter$.pipe(
       take(1))
       .subscribe(value => {
         this.store.dispatch(new ApplyFilterAction({
