@@ -1,3 +1,37 @@
-<p>
-  job-ad-favourites works!
-</p>
+<div class="container-fluid pt-4 pt-lg-5 px-lg-5">
+  <div class="d-flex justify-content-between align-items-end position-relative">
+    <h2 class="pr-5">
+      <alv-custom-icon class="text-primary"
+                       aria-hidden="true"
+                       [iconKey]="IconKey.JOB_AD_FAVOURITES">
+      </alv-custom-icon>
+      {{ 'portal.job-ad-favourites.title' | translate }}
+    </h2>
+  </div>
+
+  <hr class="mt-0 mb-3">
+
+  <alv-input-field [alvControl]="form.get('query')"
+                   label="portal.job-ad-favourites.search.query">
+  </alv-input-field>
+
+  <ng-container *ngIf="jobs$|async as jobs">
+    <ng-container *ngIf="jobs?.length; else noFavouritesPlaceholder">
+      <alv-job-search-result *ngFor="let job of jobs"
+                             [jobSearchResult]="job"
+                             routerLinkBase="/job-favourites">
+      </alv-job-search-result>
+    </ng-container>
+  </ng-container>
+  <ng-template #noFavouritesPlaceholder>
+    <div class="no-favourites p-3 mb-3">
+      <h3>{{'portal.job-ad-favourites.empty.title' | translate}}</h3>
+      <p>{{'portal.job-ad-favourites.empty.text1' | translate}}
+        <fa-icon class="text-primary"
+                 [icon]="['fas', 'star']"></fa-icon>
+        {{'portal.job-ad-favourites.empty.text2' | translate}}
+      </p>
+    </div>
+  </ng-template>
+
+</div>

@@ -2,19 +2,20 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
-import { Salutation } from '../../../../shared/backend-services/shared.types';
-import { ComplaintRepository } from '../../../../shared/backend-services/complaint/complaint.repository';
+import { Salutation } from '../../../shared/backend-services/shared.types';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { ComplaintRepository } from '../../../shared/backend-services/complaint/complaint.repository';
+import { I18nService } from '../../../core/i18n.service';
+import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
+import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
 import { flatMap, take, takeUntil } from 'rxjs/operators';
-import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
-import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
+import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { mapFormToDto } from './complaint-request-mapper';
-import { ModalService } from '../../../../shared/layout/modal/modal.service';
-import { ConfirmModalConfig } from '../../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
-import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
-import { EMAIL_REGEX } from '../../../../shared/forms/regex-patterns';
-import { phoneInputValidator } from '../../../../shared/forms/input/input-field/phone-input.validator';
-import { I18nService } from '../../../../core/i18n.service';
+import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
+
 
 export interface ComplaintFormValue {
   salutation: Salutation;

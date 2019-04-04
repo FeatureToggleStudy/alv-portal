@@ -7,6 +7,7 @@ import { JobCompanyContextComponent } from './job-company-context/job-company-co
 import { JobCenterContextComponent } from './job-center-context/job-center-context.component';
 import { JobBadgesMapperService } from '../../widgets/job-publication-widget/job-badges-mapper.service';
 import { JobSearchResultComponent } from './job-search-result/job-search-result.component';
+import { ComplaintModalComponent } from './complaint-modal/complaint-modal.component';
 
 @NgModule({
   imports: [
@@ -17,17 +18,22 @@ import { JobSearchResultComponent } from './job-search-result/job-search-result.
     JobContentComponent,
     JobCompanyContextComponent,
     JobCenterContextComponent,
-    JobSearchResultComponent
+    JobSearchResultComponent,
+    ComplaintModalComponent
   ],
   providers: [
     JobBadgesMapperService,
     JobDetailModelFactory,
   ],
+  entryComponents: [
+    ComplaintModalComponent
+  ],
   exports: [
     JobContentComponent,
     JobCompanyContextComponent,
     JobCenterContextComponent,
-    JobSearchResultComponent
+    JobSearchResultComponent,
+    ComplaintModalComponent
   ]
 })
 export class SharedJobAdvertisementModule {

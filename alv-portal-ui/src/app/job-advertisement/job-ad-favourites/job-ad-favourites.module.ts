@@ -7,10 +7,19 @@ import { WidgetsModule } from '../../widgets/widgets.module';
 import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement.module';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { JobAdFavouritesComponent } from './job-ad-favourites/job-ad-favourites.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { jobAdFavouritesReducer } from './state-management/reducers';
+import { JobAdFavouritesEffects } from './state-management/effects';
+import { JobAdFavouriteDetailComponent } from './job-ad-favourite-detail/job-ad-favourite-detail.component';
+import { JobAdFavouritesGuard } from './job-ad-favourites/job-ad-favourites.guard';
+import { JobAdFavouriteDetailGuard } from './job-ad-favourite-detail/job-ad-favourite-detail.guard';
 
 @NgModule({
   imports: [
     CommonModule,
+    StoreModule.forFeature('jobAdFavourites', jobAdFavouritesReducer),
+    EffectsModule.forFeature([JobAdFavouritesEffects]),
     SharedModule,
     JobAdFavouritesRoutingModule,
     InfiniteScrollModule,
@@ -18,11 +27,14 @@ import { JobAdFavouritesComponent } from './job-ad-favourites/job-ad-favourites.
     SharedJobAdvertisementModule
   ],
   declarations: [
-  JobAdFavouritesComponent],
-  entryComponents: [
+    JobAdFavouritesComponent,
+    JobAdFavouriteDetailComponent
   ],
+  entryComponents: [],
   providers: [
-    ModalService
+    ModalService,
+    JobAdFavouritesGuard,
+    JobAdFavouriteDetailGuard
   ]
 })
 export class JobAdFavouritesModule {

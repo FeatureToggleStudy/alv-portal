@@ -1,16 +1,9 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   getSelectedJobAdvertisement,
   isNextVisible,
   isPrevVisible,
-  JobAdSearchState,
+  JobAdFavouritesState,
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management';
@@ -24,14 +17,14 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { AbstractJobAdDetail } from '../../shared/abstract-job-ad-detail/abstract-job-ad-detail';
 
 @Component({
-  selector: 'alv-job-detail',
+  selector: 'alv-job-ad-favourite-detail',
   templateUrl: '../../shared/abstract-job-ad-detail/abstract-job-ad-detail.html',
   styleUrls: ['../../shared/abstract-job-ad-detail/abstract-job-ad-detail.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JobDetailComponent extends AbstractJobAdDetail implements OnInit {
+export class JobAdFavouriteDetailComponent extends AbstractJobAdDetail implements OnInit {
 
-  backButtonPath = '/job-search';
+  backButtonPath = '/job-favourites';
 
   constructor(
     jobBadgesMapperService: JobBadgesMapperService,
@@ -39,9 +32,8 @@ export class JobDetailComponent extends AbstractJobAdDetail implements OnInit {
     scrollService: ScrollService,
     notificationsService: NotificationsService,
     modalService: ModalService,
-    private store: Store<JobAdSearchState>) {
-    super(
-      jobBadgesMapperService,
+    private store: Store<JobAdFavouritesState>) {
+    super(jobBadgesMapperService,
       jobDetailModelFactory,
       scrollService,
       notificationsService,
@@ -56,7 +48,7 @@ export class JobDetailComponent extends AbstractJobAdDetail implements OnInit {
       switchMap((job) => this.jobDetailModelFactory.create(job))
     );
 
-    this.alerts$ = job$.pipe(map(JobDetailComponent.mapJobAdAlerts));
+    this.alerts$ = job$.pipe(map(JobAdFavouriteDetailComponent.mapJobAdAlerts));
     this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
 
     this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
@@ -70,5 +62,4 @@ export class JobDetailComponent extends AbstractJobAdDetail implements OnInit {
   next() {
     this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
   }
-
 }

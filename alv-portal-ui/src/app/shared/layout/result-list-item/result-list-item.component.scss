@@ -1,4 +1,5 @@
 @import "../../../../scss/common/colors";
+@import "../../../../scss/common/variables";
 
 
 .result-list-item {
@@ -8,6 +9,7 @@
   border-right: 1px solid transparent;
   border-left: 1px solid transparent;
   color: $color-black;
+  background-color: $color-white;
 
   .title:first-letter {
     text-transform: capitalize;
@@ -24,7 +26,7 @@
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
     border-right: 1px solid $color-medium-grey;
     border-left: 1px solid $color-medium-grey;
-    z-index: 10;
+    z-index: $z-index-result-list-item;
     .title {
       color: $color-primary;
     }
@@ -61,6 +63,15 @@
 }
 
 .actions-area {
+  margin: -0.5rem -0.5rem 0 0.5rem;
 
+  .btn.btn-icon {
+    color: $color-primary;
+    width: 30px;
+    height: 32px;
+    &:hover {
+      color: darken($color-primary, 10%);
+    }
+  }
 }
 

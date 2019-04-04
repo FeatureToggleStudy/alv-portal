@@ -14,7 +14,7 @@ import { JobSearchResult } from '../../job-advertisement/shared/job-search-resul
 
 export const mockJobs: JobAdvertisement[] = [
   {
-    id: 'a1b7250e-46e5-11e9-b646-005056ac3479',
+    id: '50517254-55e4-11e9-80c7-0242ac12000b',
     createdTime: '2019-01-31T08:26:48.406',
     updatedTime: '2019-04-01T08:00:54.153',
     status: JobAdvertisementStatus.PUBLISHED_PUBLIC,
@@ -335,7 +335,7 @@ export const mockJobs: JobAdvertisement[] = [
 
 export const mockJobSearchResults: JobSearchResult[] = mockJobs.map(x => ({
   jobAdvertisement: x,
-  visited: true
+  visited: false
 }));
 
 export const mockJobsWithFavourites = mockJobs.map(x => ({

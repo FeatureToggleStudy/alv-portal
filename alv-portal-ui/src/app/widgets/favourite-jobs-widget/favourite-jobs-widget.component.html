@@ -6,21 +6,32 @@
     </alv-custom-icon>
     {{'Stellen Merkliste' | translate}}
   </h2>
-  <ng-container *ngIf="jobs$|async as jobs; else noJobsPlaceholder">
-    <alv-job-search-result *ngFor="let job of jobs"
-                           [jobSearchResult]="job">
-    </alv-job-search-result>
+  <ng-container *ngIf="jobs$|async as jobs">
+    <ng-container *ngIf="jobs?.length; else noFavouritesPlaceholder">
+      <alv-job-search-result *ngFor="let job of jobs"
+                             [jobSearchResult]="job"
+                             routerLinkBase="/job-favourites">
+      </alv-job-search-result>
+    </ng-container>
   </ng-container>
-  <ng-template #noJobsPlaceholder>
-    no jobs found for the current user
+  <ng-template #noFavouritesPlaceholder>
+    <div class="no-favourites p-3 mb-3">
+      <h3>{{'portal.job-ad-favourites.empty.title' | translate}}</h3>
+      <p>{{'portal.job-ad-favourites.empty.text1' | translate}}
+        <fa-icon class="text-primary"
+                 [icon]="['fas', 'star']"></fa-icon>
+        {{'portal.job-ad-favourites.empty.text2' | translate}}
+      </p>
+    </div>
+
   </ng-template>
 
   <div class="d-flex">
     <div class="flex-grow-1"></div>
-    <button class="btn btn-secondary"
-            (click)="showAll()">
+    <a class="btn btn-secondary"
+       routerLink="/job-favourites">
       {{ 'portal.widgets.job-ad-favourites.show-all' | translate }}
-    </button>
+    </a>
   </div>
 
 </div>

@@ -2,7 +2,7 @@
 @import '../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../node_modules/bootstrap/scss/mixins';
 @import "../../../scss/common/colors";
-@import "../../../scss/common/_variables";
+@import "../../../scss/common/variables";
 
 .query-search-area {
   background-color: $color-super-light-grey;
@@ -13,7 +13,7 @@
   .query-search-area {
     position: sticky;
     top: $height-header-desktop;
-    z-index: 1;
+    z-index: $z-index-query-search-area;
   }
 }
 
