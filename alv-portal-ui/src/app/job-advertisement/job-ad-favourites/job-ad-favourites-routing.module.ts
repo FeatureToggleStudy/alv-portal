@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { JobAdFavouritesGuard } from './job-ad-favourites/job-ad-favourites.guard';
 import { JobAdFavouritesComponent } from './job-ad-favourites/job-ad-favourites.component';
 import { JobAdFavouriteDetailComponent } from './job-ad-favourite-detail/job-ad-favourite-detail.component';
+import { JobAdFavouriteDetailGuard } from './job-ad-favourite-detail/job-ad-favourite-detail.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: JobAdFavouriteDetailComponent,
-    canActivate: [JobAdFavouritesGuard]
+    canActivate: [JobAdFavouriteDetailGuard]
   },
   {
     path: '**',
