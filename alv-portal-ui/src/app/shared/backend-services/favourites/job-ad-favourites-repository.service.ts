@@ -30,10 +30,10 @@ export class JobAdFavouritesRepositoryService {
    * @param jobAdvertisementId
    * @return the newly created id of the favourite item
    */
-  makeFavourite(jobAdvertisementId, note): Observable<string> {
+  makeFavourite(jobAdvertisementId, note = ''): Observable<string> {
     return this.currentUserId$.pipe(
       map(currentUserId => ({
-        note: note || '',
+        note: note,
         userId: currentUserId,
         jobAdvertisementId: jobAdvertisementId
       } as CreateFavouriteItem)),
