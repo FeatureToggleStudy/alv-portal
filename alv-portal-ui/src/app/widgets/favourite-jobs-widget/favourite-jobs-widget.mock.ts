@@ -335,7 +335,7 @@ export const mockJobs: JobAdvertisement[] = [
 
 export const mockJobSearchResults: JobSearchResult[] = mockJobs.map(x => ({
   jobAdvertisement: x,
-  visited: true
+  visited: false
 }));
 
 export const mockJobsWithFavourites = mockJobs.map(x => ({
