@@ -63,12 +63,4 @@ export class JobDetailComponent extends AbstractJobAdDetail implements OnInit {
   next() {
     this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
   }
-
-  makeFavourite() {
-    console.log('now favourite');
-  }
-
-  removeFavourite() {
-    console.log('now not favourite');
-  }
 }

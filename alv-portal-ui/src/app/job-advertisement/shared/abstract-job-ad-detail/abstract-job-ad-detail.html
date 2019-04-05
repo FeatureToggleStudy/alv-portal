@@ -166,6 +166,30 @@
 
           </ng-template>
         </li>
+
+        <li>
+          <ng-container *ngIf="jobDetailModel.hasNote; else hasNoNote">
+
+            <button class="btn btn-text btn-text-icon btn-truncate"
+                    (click)="editNote()">
+              <fa-icon class="mr-1"
+                       [icon]="['fas', 'sticky-note']"></fa-icon>
+              Edit note
+            </button>
+          </ng-container>
+
+          <ng-template #hasNoNote>
+
+            <button class="btn btn-text btn-text-icon btn-truncate"
+                    (click)="editNote()">
+              <fa-icon class="mr-1"
+                       [icon]="['far', 'sticky-note']"></fa-icon>
+              Add note
+            </button>
+
+          </ng-template>
+        </li>
+
         <li>
           <button class="btn btn-text btn-text-icon btn-truncate"
                   ngxClipboard
