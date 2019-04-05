@@ -147,7 +147,8 @@
         <li>
           <ng-container *ngIf="jobDetailModel.isFavourite; else isNotFavourite">
 
-            <button class="btn btn-text btn-text-icon btn-truncate">
+            <button class="btn btn-text btn-text-icon btn-truncate"
+                    (click)="makeFavourite()">
               <fa-icon class="mr-1"
                        [icon]="['fas', 'star']"></fa-icon>
               Add to favourites
@@ -156,7 +157,8 @@
 
           <ng-template #isNotFavourite>
 
-            <button class="btn btn-text btn-text-icon btn-truncate">
+            <button class="btn btn-text btn-text-icon btn-truncate"
+                    (click)="removeFavourite()">
               <fa-icon class="mr-1"
                        [icon]="['far', 'star']"></fa-icon>
               Remove from favourites

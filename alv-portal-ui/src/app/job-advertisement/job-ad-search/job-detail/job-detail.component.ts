@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   getSelectedJobAdvertisement,
   isNextVisible,
@@ -71,4 +64,11 @@ export class JobDetailComponent extends AbstractJobAdDetail implements OnInit {
     this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
   }
 
+  makeFavourite() {
+    console.log('now favourite');
+  }
+
+  removeFavourite() {
+    console.log('now not favourite');
+  }
 }
