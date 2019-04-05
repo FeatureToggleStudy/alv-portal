@@ -14,7 +14,7 @@ import { I18nService } from '../../../core/i18n.service';
 import { JobBadgesMapperService } from '../../../widgets/job-publication-widget/job-badges-mapper.service';
 import {
   FavouriteItem,
-  JobAdvertisement
+  JobAdvertisement, JobAdvertisementWithFavourites
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ActivatedRoute } from '@angular/router';
@@ -23,9 +23,7 @@ import { FilterManagedJobAdsComponent } from '../../manage-job-ads/manage-job-ad
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 
-export interface JobSearchResult {
-  jobAdvertisement: JobAdvertisement;
-  favouriteItem: FavouriteItem;
+export interface JobSearchResult extends JobAdvertisementWithFavourites {
   visited: boolean;
 }
 @Component({
@@ -43,7 +41,7 @@ export class JobSearchResultComponent implements OnInit {
   routerLinkBase: string;
 
   @Output()
-  update = new EventEmitter<JobSearchResult>();
+  searchResultUpdate = new EventEmitter<JobSearchResult>();
 
   resultListItem$: Observable<ResultListItem>;
 
@@ -63,7 +61,7 @@ export class JobSearchResultComponent implements OnInit {
   }
 
   private jobSearchResultToResultListItemMapper(initialJobSearchResult: JobSearchResult): Observable<ResultListItem> {
-    return this.update.pipe(
+    return this.searchResultUpdate.pipe(
       startWith(initialJobSearchResult),
       withLatestFrom(this.i18nService.currentLanguage$),
       map(([jobSearchResult, lang]) => {
@@ -102,7 +100,7 @@ export class JobSearchResultComponent implements OnInit {
     favouriteNoteModalRef.result
       .then(favouriteItem => {
         this.jobSearchResult.favouriteItem = favouriteItem;
-        this.update.emit(this.jobSearchResult);
+        this.searchResultUpdate.emit(this.jobSearchResult);
       })
       .catch(() => {
       });
@@ -112,7 +110,8 @@ export class JobSearchResultComponent implements OnInit {
     this.jobAdFavouritesRepository.addFavourite(this.jobSearchResult.jobAdvertisement.id)
       .subscribe(favouriteItem => {
         this.jobSearchResult.favouriteItem = favouriteItem;
-        this.update.emit(this.jobSearchResult);
+        this.searchResultUpdate.emit(this.jobSearchResult);
+        this.notificationService.success('portal.job-ad-favourites.notification.favourite-added');
       });
   }
 
@@ -120,7 +119,8 @@ export class JobSearchResultComponent implements OnInit {
     this.jobAdFavouritesRepository.removeFavourite(this.jobSearchResult.favouriteItem)
       .subscribe(() => {
         this.jobSearchResult.favouriteItem = null;
-        this.update.emit(this.jobSearchResult);
+        this.searchResultUpdate.emit(this.jobSearchResult);
+        this.notificationService.success('portal.job-ad-favourites.notification.favourite-removed');
       });
   }
 

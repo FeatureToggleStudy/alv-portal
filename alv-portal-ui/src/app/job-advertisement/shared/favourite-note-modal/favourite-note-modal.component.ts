@@ -5,6 +5,7 @@ import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { NotificationsService } from '../../../core/notifications.service';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
   constructor(public activeModal: NgbActiveModal,
               private jobAdFavouritesRepository: JobAdFavouritesRepository,
               private modalService: ModalService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private notificationsService: NotificationsService) {
     super();
   }
 
@@ -45,11 +47,13 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
         .subscribe(() => {
           this.favouriteItem.note = this.form.value.note;
           this.activeModal.close(this.favouriteItem);
+          this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-saved');
         });
     } else {
       this.jobAdFavouritesRepository.createNote(this.jobAdvertisementId, this.form.value.note)
         .subscribe(favouriteItem => {
           this.activeModal.close(favouriteItem);
+          this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-added');
         });
     }
   }
@@ -62,9 +66,14 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
         .subscribe(() => {
           this.favouriteItem.note = '';
           this.activeModal.close(this.favouriteItem);
+          this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-removed');
         });
     }
+  }
 
+  getSecondaryLabel(): string {
+    return this.isCreateNote ? 'portal.job-ad-favourites.note-modal.action.cancel' :
+      'portal.job-ad-favourites.note-modal.action.delete';
   }
 
 }
