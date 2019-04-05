@@ -6,13 +6,15 @@ import { flatMap, map, switchMap } from 'rxjs/operators';
 import {
   CreateFavouriteItem,
   FavouriteItem,
-  JobAdFavouritesSearchRequest, JobAdFavouritesSearchResponse,
+  JobAdFavouritesSearchRequest,
+  JobAdFavouritesSearchResponse,
   JobAdvertisementWithFavourites
 } from '../job-advertisement/job-advertisement.types';
 import { createPageableURLSearchParams } from '../request-util';
 
 const FAVOURITES_PREFIX = '/jobadservice/api/favourite-items';
 const SEARCH_PREFIX = FAVOURITES_PREFIX + '/_search';
+const UPDATE_NOTE_SUFFIX = '/note';
 
 @Injectable({
   providedIn: 'root'
@@ -24,16 +26,15 @@ export class JobAdFavouritesRepository {
   constructor(private http: HttpClient,
               private authenticationService: AuthenticationService) {
     this.currentUserId$ = this.authenticationService.getCurrentUser().pipe(map(user => user.id));
-
   }
 
   /**
-   * make the given jobAdvertisement favourite without a note
+   * add the given jobAdvertisement favourites without a note
    * @param jobAdvertisementId
    * @param note
    * @return the newly created id of the favourite item
    */
-  makeFavourite(jobAdvertisementId, note = ''): Observable<FavouriteItem> {
+  addFavourite(jobAdvertisementId, note = ''): Observable<FavouriteItem> {
     return this.currentUserId$.pipe(
       map(currentUserId => ({
         note: note,
@@ -45,25 +46,16 @@ export class JobAdFavouritesRepository {
     );
   }
 
-  removeFavourite(jobAdvertisement: JobAdvertisementWithFavourites): Observable<void> {
-    return this.http.delete<void>(`${FAVOURITES_PREFIX}/${jobAdvertisement.favouriteItem.id}`);
+  removeFavourite(favouriteItem: FavouriteItem): Observable<void> {
+    return this.http.delete<void>(`${FAVOURITES_PREFIX}/${favouriteItem.id}`);
   }
 
-  createNote(jobAdvertisement: JobAdvertisementWithFavourites, note): Observable<FavouriteItem | void> {
-    if (!jobAdvertisement.favouriteItem) {
-      return this.makeFavourite(jobAdvertisement.jobAdvertisement.id, note);
-    } else {
-      return this.editNote(jobAdvertisement, note);
-    }
+  createNote(jobAdvertisementId: string, note: string): Observable<FavouriteItem> {
+    return this.addFavourite(jobAdvertisementId, note);
   }
 
-  editNote(jobAdvertisement: JobAdvertisementWithFavourites, note: string): Observable<void> {
-    const updatedFavouriteItem: FavouriteItem = {
-      ...jobAdvertisement.favouriteItem,
-      note
-    };
-    return this.http.put<void>(FAVOURITES_PREFIX, updatedFavouriteItem);
-
+  editNote(favouriteItem: FavouriteItem, note: string): Observable<void> {
+    return this.http.put<void>(`${FAVOURITES_PREFIX}/${favouriteItem.id}${UPDATE_NOTE_SUFFIX}`, { note });
   }
 
   getFavouritesForUser(jobAdFavouritesSearchRequest: JobAdFavouritesSearchRequest): Observable<JobAdFavouritesSearchResponse> {
@@ -86,12 +78,12 @@ export class JobAdFavouritesRepository {
     );
   }
 
-  getFavouritesForJobAd(jobAdvertimentId): Observable<FavouriteItem> {
+  getFavouritesForJobAd(jobAdvertisementId): Observable<FavouriteItem> {
     return this.currentUserId$.pipe(
       switchMap((currentUserId) => {
         const params = new HttpParams()
           .set('userId', currentUserId)
-          .set('jobAdvertisementId', jobAdvertimentId);
+          .set('jobAdvertisementId', jobAdvertisementId);
         return this.http.get<FavouriteItem>(`${SEARCH_PREFIX}/byJobAdvertisementIdAndUserId`, { params });
       }));
   }

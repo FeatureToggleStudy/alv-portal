@@ -19,6 +19,9 @@ import {
 import { NotificationsService } from '../../../core/notifications.service';
 import { ActivatedRoute } from '@angular/router';
 import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { FilterManagedJobAdsComponent } from '../../manage-job-ads/manage-job-ad-search/filter-managed-job-ads/filter-managed-job-ads.component';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 
 export interface JobSearchResult {
   jobAdvertisement: JobAdvertisement;
@@ -50,6 +53,7 @@ export class JobSearchResultComponent implements OnInit {
               private route: ActivatedRoute,
               private jobBadgesMapperService: JobBadgesMapperService,
               private jobAdFavouritesRepository: JobAdFavouritesRepository,
+              private modalService: ModalService,
               private notificationService: NotificationsService) {
   }
 
@@ -91,11 +95,21 @@ export class JobSearchResultComponent implements OnInit {
   }
 
   showNoteDialog() {
-    console.log('show note dialog!');
+    const favouriteNoteModalRef = this.modalService.openLarge(FavouriteNoteModalComponent, true);
+    const favouriteNoteComponent = <FavouriteNoteModalComponent>favouriteNoteModalRef.componentInstance;
+    favouriteNoteComponent.jobAdvertisementId = this.jobSearchResult.jobAdvertisement.id;
+    favouriteNoteComponent.favouriteItem = this.jobSearchResult.favouriteItem;
+    favouriteNoteModalRef.result
+      .then(favouriteItem => {
+        this.jobSearchResult.favouriteItem = favouriteItem;
+        this.update.emit(this.jobSearchResult);
+      })
+      .catch(() => {
+      });
   }
 
   private addToFavourites() {
-    this.jobAdFavouritesRepository.makeFavourite(this.jobSearchResult.jobAdvertisement.id)
+    this.jobAdFavouritesRepository.addFavourite(this.jobSearchResult.jobAdvertisement.id)
       .subscribe(favouriteItem => {
         this.jobSearchResult.favouriteItem = favouriteItem;
         this.update.emit(this.jobSearchResult);
@@ -103,7 +117,7 @@ export class JobSearchResultComponent implements OnInit {
   }
 
   private removeFromFavorites() {
-    this.jobAdFavouritesRepository.removeFavourite(this.jobSearchResult)
+    this.jobAdFavouritesRepository.removeFavourite(this.jobSearchResult.favouriteItem)
       .subscribe(() => {
         this.jobSearchResult.favouriteItem = null;
         this.update.emit(this.jobSearchResult);

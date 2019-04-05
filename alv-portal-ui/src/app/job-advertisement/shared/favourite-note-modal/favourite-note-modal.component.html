@@ -1,0 +1,16 @@
+<alv-modal (primaryAction)="onSubmit(form)"
+           (secondaryAction)="onCancel()"
+           [formGroup]="form"
+           modalTitle="job-detail.complaint-modal.header"
+           primaryLabel="job-detail.complaint-modal.send"
+           secondaryLabel="job-detail.complaint-modal.dismiss">
+
+  <alv-input-field [autofocus]="true"
+                   [maxLength]="MAX_LENGTH_1000"
+                   [multiline]="true"
+                   [showCharacterCounter]="true"
+                   alvFormControlName="note"
+                   label="job-detail.complaint-modal.message.placeholder"
+                   class="favourite-note-textarea narrow-form">
+  </alv-input-field>
+</alv-modal>
