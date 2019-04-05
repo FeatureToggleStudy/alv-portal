@@ -132,12 +132,13 @@ export abstract class AbstractJobAdDetail extends AbstractSubscriber implements 
     return window.location.href;
   }
 
-  makeFavourite() {
-    console.log('now favourite');
+  addToFavourites() {
+    console.log('add');
   }
 
-  removeFavourite() {
-    console.log('now not favourite');
+
+  removeFromFavourites() {
+    console.log('add');
   }
 
   editNote() {
