@@ -45,7 +45,7 @@ import { getCurrentCompanyContactTemplateModel } from '../../../../core/state-ma
 import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { Router } from '@angular/router';
-import { JobAdFavouritesRepositoryService } from '../../../../shared/backend-services/favourites/job-ad-favourites-repository.service';
+import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { JobAdFavouritesSearchRequestMapper } from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
 
 export const JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE');
@@ -143,7 +143,7 @@ export class JobAdFavouritesEffects {
   constructor(private actions$: Actions,
               private store: Store<JobAdFavouritesState>,
               private jobAdvertisementRepository: JobAdvertisementRepository,
-              private jobAdFavouritesRepository: JobAdFavouritesRepositoryService,
+              private jobAdFavouritesRepository: JobAdFavouritesRepository,
               private router: Router,
               @Optional()
               @Inject(JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE)

@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { mockJobSearchResults } from './favourite-jobs-widget.mock';
 import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
-import { JobAdFavouritesRepositoryService } from '../../shared/backend-services/favourites/job-ad-favourites-repository.service';
+import { JobAdFavouritesRepository } from '../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { map } from 'rxjs/operators';
 import { JobAdvertisementWithFavourites } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
@@ -18,7 +18,7 @@ export class FavouriteJobsWidgetComponent implements OnInit {
 
   jobFavourites: JobAdvertisementWithFavourites[];
 
-  constructor(private jobAdFavouritesRepositoryService: JobAdFavouritesRepositoryService) {
+  constructor(private jobAdFavouritesRepositoryService: JobAdFavouritesRepository) {
   }
 
   ngOnInit() {

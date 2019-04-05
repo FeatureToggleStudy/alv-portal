@@ -815,6 +815,11 @@ portal.job-detail.workForm.label,Arbeitsform,Work form,Forme de travail,Tipologi
 portal.job-detail.workload.label,Arbeitspensum,Workload,Taux d'occupation,Grado di occupazione,
 portal.job-detail.workplace.label,Arbeitsort,Work location,Lieu de travail,Luogo di lavoro,
 portal.job-ad-favourites.browser-title,Stellen Merkliste,,,,
+portal.job-ad-favourites.notification.favourite-added,Diese Stelle wurde in Ihrer Stellen-Merkliste gespeichert.,This posting has been added to your saved jobs.,Cette offre d'emploi a été ajoutée à vos favoris.,Questo posto è stato salvato nei favoriti.
+portal.job-ad-favourites.tooltip.remove-favourite,Aus Merkliste entfernen,Remove from saved jobs,Supprimer des favoris,Rimuovere dai favoriti,
+portal.job-ad-favourites.tooltip.add-favourite,Zur Merkliste hinzufügen,Add to saved jobs,Ajouter aux favoris,Aggiungere ai favoriti,
+portal.job-ad-favourites.tooltip.add-note,Notiz hinzufügen,Add note,Ajouter un commentaire,Aggiungere nota,
+portal.job-ad-favourites.tooltip.edit-note,Notiz bearbeiten,Edit note,Modifier commentaire,Modificare nota,
 portal.job-ad-favourites.search.query,Merkliste durchsuchen,,,,
 portal.job-ad-favourites.title,Stellen Merkliste,,,,
 portal.job-ad-favourites.empty.title,Ihre Merkliste ist noch leer.,You currently have no saved jobs.,Votre liste de favoris est vide.,La lista dei favoriti è ancora vuota.

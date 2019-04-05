@@ -15,11 +15,15 @@
         <div class="flex-grow-1 flex-md-grow-0"></div>
         <div *ngIf="result.hasActions" class="actions-area d-flex" (click)="$event.stopPropagation()">
           <button class="btn btn-icon mr-1 p-0"
+                  [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (result.isFavourite ? 'remove-favourite' : 'add-favourite') | translate"
+                  placement="bottom"
                   (click)="$event.preventDefault();favouritesClick.emit()">
             <fa-icon *ngIf="result.isFavourite" [icon]="['fas', 'star']"></fa-icon>
             <fa-icon *ngIf="!result.isFavourite" [icon]="['far', 'star']"></fa-icon>
           </button>
           <button class="btn btn-icon p-0"
+                  [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (result.hasNote ? 'edit-note' : 'add-note') | translate"
+                  placement="bottom"
                   (click)="$event.preventDefault();noteClick.emit()">
             <fa-icon *ngIf="result.hasNote" [icon]="['fas', 'sticky-note']"></fa-icon>
             <fa-icon *ngIf="!result.hasNote" [icon]="['far', 'sticky-note']"></fa-icon>

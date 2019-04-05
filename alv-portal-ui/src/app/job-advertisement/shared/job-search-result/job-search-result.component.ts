@@ -18,7 +18,7 @@ import {
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ActivatedRoute } from '@angular/router';
-import { JobAdFavouritesRepositoryService } from '../../../shared/backend-services/favourites/job-ad-favourites-repository.service';
+import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
 
 export interface JobSearchResult {
   jobAdvertisement: JobAdvertisement;
@@ -49,7 +49,7 @@ export class JobSearchResultComponent implements OnInit {
   constructor(private i18nService: I18nService,
               private route: ActivatedRoute,
               private jobBadgesMapperService: JobBadgesMapperService,
-              private jobAdFavouritesRepository: JobAdFavouritesRepositoryService,
+              private jobAdFavouritesRepository: JobAdFavouritesRepository,
               private notificationService: NotificationsService) {
   }
 

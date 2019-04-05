@@ -17,7 +17,7 @@ const SEARCH_PREFIX = FAVOURITES_PREFIX + '/_search';
 @Injectable({
   providedIn: 'root'
 })
-export class JobAdFavouritesRepositoryService {
+export class JobAdFavouritesRepository {
 
   private currentUserId$: Observable<string>;
 
