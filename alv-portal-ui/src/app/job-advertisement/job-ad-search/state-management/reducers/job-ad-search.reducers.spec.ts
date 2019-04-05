@@ -9,8 +9,10 @@ import * as jobActions from '../actions/job-ad-search.actions';
 import { jobAdSearchReducer } from './job-ad-search.reducers';
 import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
-import { createJobAdvertisement } from './job-ad-search.reducers.spec-util';
-import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { createJobAdvertisementWithFavourites } from './job-ad-search.reducers.spec-util';
+import {
+  JobAdvertisementWithFavourites
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   OccupationTypeaheadItem,
   OccupationTypeaheadItemType
@@ -52,12 +54,12 @@ describe('jobAdSearchReducers', () => {
   };
 
   /* JOB ADVERTISEMENT ARRAY */
-  const jobAdPageOne: JobAdvertisement[] = [
-    createJobAdvertisement('01'),
-    createJobAdvertisement('02'),
-    createJobAdvertisement('03'),
-    createJobAdvertisement('04'),
-    createJobAdvertisement('05')
+  const jobAdPageOne: JobAdvertisementWithFavourites[] = [
+    createJobAdvertisementWithFavourites('01'),
+    createJobAdvertisementWithFavourites('02'),
+    createJobAdvertisementWithFavourites('03'),
+    createJobAdvertisementWithFavourites('04'),
+    createJobAdvertisementWithFavourites('05')
   ];
 
   /* JOB AD SEARCH STATE */
@@ -244,12 +246,12 @@ describe('jobAdSearchReducers', () => {
 
   it('NEXT_PAGE_LOADED : should update resultList, page and results are loading flagged false', () => {
     // GIVEN
-    const jobAdPageTwo: JobAdvertisement[] = [
-      createJobAdvertisement('06'),
-      createJobAdvertisement('07'),
-      createJobAdvertisement('08'),
-      createJobAdvertisement('09'),
-      createJobAdvertisement('10')
+    const jobAdPageTwo: JobAdvertisementWithFavourites[] = [
+      createJobAdvertisementWithFavourites('06'),
+      createJobAdvertisementWithFavourites('07'),
+      createJobAdvertisementWithFavourites('08'),
+      createJobAdvertisementWithFavourites('09'),
+      createJobAdvertisementWithFavourites('10')
     ];
 
     const action = new jobActions.NextPageLoadedAction({ page: jobAdPageTwo });
@@ -269,30 +271,30 @@ describe('jobAdSearchReducers', () => {
   it('JOB_ADVERTISEMENT_DETAIL_LOADED : should update selectedJobAdvertisement and visitedJobAds', () => {
     // GIVEN
     const selectedJobAdOne = jobAdPageOne[0];
-    const visitedJobAdOne = { [selectedJobAdOne.id]: true };
+    const visitedJobAdOne = { [selectedJobAdOne.jobAdvertisement.id]: true };
 
-    let action = new jobActions.JobAdvertisementDetailLoadedAction({ jobAdvertisement: selectedJobAdOne });
+    let action = new jobActions.JobAdvertisementDetailLoadedAction({ jobAdvertisement: selectedJobAdOne.jobAdvertisement });
 
     // WHEN
     const newStateOne = jobAdSearchReducer(jobAdStateChanged, action);
 
     // THEN
-    expect(newStateOne.selectedJobAdvertisement).toEqual(selectedJobAdOne);
+    expect(newStateOne.selectedJobAdvertisement).toEqual(selectedJobAdOne.jobAdvertisement);
     expect(newStateOne.visitedJobAds).toEqual(visitedJobAdOne);
 
     verifyUnchanged(newStateOne, jobAdStateChanged, ['selectedJobAdvertisement', 'visitedJobAds']);
 
     // GIVEN
     const selectedJobAdTwo = jobAdPageOne[4];
-    const visitedJobAdTwo = { [selectedJobAdOne.id]: true, [selectedJobAdTwo.id]: true };
+    const visitedJobAdTwo = { [selectedJobAdOne.jobAdvertisement.id]: true, [selectedJobAdTwo.jobAdvertisement.id]: true };
 
-    action = new jobActions.JobAdvertisementDetailLoadedAction({ jobAdvertisement: selectedJobAdTwo });
+    action = new jobActions.JobAdvertisementDetailLoadedAction({ jobAdvertisement: selectedJobAdTwo.jobAdvertisement });
 
     // WHEN
     const newStateTwo = jobAdSearchReducer(newStateOne, action);
 
     // THEN
-    expect(newStateTwo.selectedJobAdvertisement).toEqual(selectedJobAdTwo);
+    expect(newStateTwo.selectedJobAdvertisement).toEqual(selectedJobAdTwo.jobAdvertisement);
     expect(newStateTwo.visitedJobAds).toEqual(visitedJobAdTwo);
 
     verifyUnchanged(newStateTwo, newStateOne, ['selectedJobAdvertisement', 'visitedJobAds']);
