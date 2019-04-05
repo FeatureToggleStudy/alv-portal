@@ -9,7 +9,7 @@ import {
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
-  RESET_FILTER
+  RESET_FILTER, UPDATE_JOB_ADVERTISEMENT
 } from '../actions';
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
@@ -103,6 +103,14 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       };
       break;
 
+    case UPDATE_JOB_ADVERTISEMENT:
+      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.jobAdvertisementWithFavourites.jobAdvertisement.id);
+      state.resultList[indexToUpdate] = action.payload.jobAdvertisementWithFavourites;
+      newState = {
+        ...state,
+        resultList: state.resultList
+      };
+      break;
     default:
       newState = state;
   }

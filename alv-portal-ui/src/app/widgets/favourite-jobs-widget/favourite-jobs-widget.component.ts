@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../core/auth/authentication.service';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { mockJobSearchResults } from './favourite-jobs-widget.mock';
 import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
+import { JobAdFavouritesRepository } from '../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { map } from 'rxjs/operators';
+import { JobAdvertisementWithFavourites } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',
@@ -14,22 +16,35 @@ export class FavouriteJobsWidgetComponent implements OnInit {
 
   IconKey = IconKey;
 
-  jobs$: Observable<JobSearchResult[]>; //will be JobAd+Fav[]
+  jobFavourites: JobAdvertisementWithFavourites[];
 
-  constructor(private authenticationServer: AuthenticationService) {
+  constructor(private jobAdFavouritesRepositoryService: JobAdFavouritesRepository) {
   }
 
   ngOnInit() {
-    // this.jobs$ = this.authenticationServer.getCurrentUser().pipe(
-    //   map(currentUser => this.getFavouriteJobs(currentUser))
-    // );
-
-    this.jobs$ = of(mockJobSearchResults);
+    this.getJobAdFavourites();
   }
 
-  private getFavouriteJobs(user) {
-    // a call to the api here
-    return [];
+  onJobAdFavouriteResultUpdate() {
+    this.getJobAdFavourites();
   }
 
+  private getJobAdFavourites() {
+    return this.jobAdFavouritesRepositoryService.getFavouritesForUser({
+      body: {
+        query: ''
+      },
+    page: 0,
+    size: 4 // We have to grab 4 items because the API returns non-favourite items sometimes.
+    }).pipe(
+      map(favouriteJob => favouriteJob.result)
+    ).subscribe(jobFavourites => {
+      this.jobFavourites = jobFavourites.filter(jobFavourite => jobFavourite.favouriteItem).slice(0, 3);
+    });
+  }
+
+
+  addNote() {
+
+  }
 }

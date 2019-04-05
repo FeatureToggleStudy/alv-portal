@@ -12,7 +12,11 @@ export class AutofocusDirective implements AfterViewInit {
 
   ngAfterViewInit() {
     if (this.autofocus) {
-      this.el.nativeElement.focus();
+      // The setTimeout is needed in order to make the window not scroll down when
+      // a modal window with autofocus is opened.
+      setTimeout(() => {
+        this.el.nativeElement.focus();
+      });
     }
   }
 

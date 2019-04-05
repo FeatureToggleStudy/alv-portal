@@ -2,6 +2,10 @@
 
   <div class="d-flex flex-column">
     <h2 class="modal-title">
+      <fa-icon *ngIf="icon"
+               class="mr-2 text-primary"
+               [icon]="icon">
+      </fa-icon>
       {{modalTitle | translate}}
     </h2>
 

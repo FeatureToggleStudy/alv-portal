@@ -29,9 +29,6 @@ export function composeResultListItemId(id: string) {
 })
 export class ResultListItemComponent implements OnInit {
 
-  @Input()
-  result: ResultListItem;
-
   @HostBinding('attr.id')
   resultListItemId;
 
@@ -42,6 +39,16 @@ export class ResultListItemComponent implements OnInit {
   noteClick = new EventEmitter<void>();
 
   constructor() {
+  }
+
+  private _result: ResultListItem;
+
+  @Input() get result(): ResultListItem {
+    return this._result;
+  }
+
+  set result(value: ResultListItem) {
+    this._result = value;
   }
 
   ngOnInit() {

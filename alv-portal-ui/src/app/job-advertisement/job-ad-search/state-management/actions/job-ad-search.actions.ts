@@ -1,5 +1,8 @@
 import { Action } from '@ngrx/store';
-import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  JobAdvertisement,
+  JobAdvertisementWithFavourites
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobSearchFilter } from '../state';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
@@ -19,6 +22,7 @@ export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEM
 
 export const APPLY_QUERY_VALUES = 'JOBS:APPLY_QUERY_VALUES';
 export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
+export const UPDATE_JOB_ADVERTISEMENT = 'JOBS:UPDATE_JOB_ADVERTISEMENT';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
@@ -86,7 +90,7 @@ export class ApplyFilterAction implements Action {
 export class FilterAppliedAction implements Action {
   readonly type = FILTER_APPLIED;
 
-  constructor(public payload: { page: Array<JobAdvertisement>, totalCount: number }) {
+  constructor(public payload: { page: Array<JobAdvertisementWithFavourites>, totalCount: number }) {
   }
 }
 
@@ -100,7 +104,7 @@ export class LoadNextPageAction implements Action {
 export class NextPageLoadedAction implements Action {
   readonly type = NEXT_PAGE_LOADED;
 
-  constructor(public payload: { page: Array<JobAdvertisement> }) {
+  constructor(public payload: { page: Array<JobAdvertisementWithFavourites> }) {
   }
 }
 
@@ -122,6 +126,13 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
   readonly type = LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL;
 
   constructor(public payload = {}) {
+  }
+}
+
+export class UpdateJobAdvertisementAction implements Action {
+  readonly type = UPDATE_JOB_ADVERTISEMENT;
+
+  constructor(public payload: { jobAdvertisementWithFavourites: JobAdvertisementWithFavourites }) {
   }
 }
 
@@ -148,4 +159,5 @@ export type Actions =
   | ResetFilterAction
   | ApplyFilterValuesAction
   | ApplyQueryValuesAction
+  | UpdateJobAdvertisementAction
   | OccupationLanguageChangedAction;

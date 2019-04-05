@@ -22,7 +22,7 @@ import {
   JobAdSearchState,
   JobSearchFilter,
   LoadNextPageAction,
-  ResetFilterAction
+  ResetFilterAction, UpdateJobAdvertisementAction
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -141,6 +141,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       this.searchPanelHeight = newSearchPanelHeight;
       this.cdRef.detectChanges();
     }
+  }
+
+  onSearchResultUpdate(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new UpdateJobAdvertisementAction({jobAdvertisementWithFavourites: jobSearchResult}));
   }
 
 }

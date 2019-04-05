@@ -5,7 +5,7 @@ import {
   FILTER_APPLIED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
-  NEXT_PAGE_LOADED
+  NEXT_PAGE_LOADED, UPDATE_JOB_ADVERTISEMENT
 } from '../actions';
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JOB_ADVERTISEMENT_CHANGED } from '../../../../core/state-management/actions/core.actions';
@@ -63,12 +63,12 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       };
       break;
 
-    case JOB_ADVERTISEMENT_CHANGED:
-      const updatedJobAd = action.payload.jobAdvertisement;
-      const patchedJobAd = matchesSelectedJobAd(state.selectedJobAdvertisement, updatedJobAd) ? updatedJobAd : state.selectedJobAdvertisement;
+    case UPDATE_JOB_ADVERTISEMENT:
+      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.jobAdvertisementWithFavourites.jobAdvertisement.id);
+      state.resultList[indexToUpdate] = action.payload.jobAdvertisementWithFavourites;
       newState = {
         ...state,
-        selectedJobAdvertisement: patchedJobAd
+        resultList: state.resultList
       };
       break;
 

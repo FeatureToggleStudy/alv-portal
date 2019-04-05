@@ -1,5 +1,8 @@
 import { Action } from '@ngrx/store';
-import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  JobAdvertisement,
+  JobAdvertisementWithFavourites
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdvertisementUpdatedAction } from '../../../../core/state-management/actions/core.actions';
 import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
 
@@ -11,6 +14,7 @@ export const NEXT_PAGE_LOADED = 'JOBADFAVOURITES:NEXT_PAGE_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBADFAVOURITES:JOB_ADVERTISEMENT_DETAIL_LOADED';
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
+export const UPDATE_JOB_ADVERTISEMENT = 'JOBADFAVOURITES:UPDATE_JOB_ADVERTISEMENT';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -29,7 +33,7 @@ export class ApplyFilterAction implements Action {
 export class FilterAppliedAction implements Action {
   readonly type = FILTER_APPLIED;
 
-  constructor(public payload: { page: Array<JobAdvertisement>, totalCount: number }) {
+  constructor(public payload: { page: Array<JobAdvertisementWithFavourites>, totalCount: number }) {
   }
 }
 
@@ -43,7 +47,7 @@ export class LoadNextPageAction implements Action {
 export class NextPageLoadedAction implements Action {
   readonly type = NEXT_PAGE_LOADED;
 
-  constructor(public payload: { page: Array<JobAdvertisement> }) {
+  constructor(public payload: { page: Array<JobAdvertisementWithFavourites> }) {
   }
 }
 
@@ -68,6 +72,13 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
   }
 }
 
+export class UpdateJobAdvertisementAction implements Action {
+  readonly type = UPDATE_JOB_ADVERTISEMENT;
+
+  constructor(public payload: { jobAdvertisementWithFavourites: JobAdvertisementWithFavourites }) {
+  }
+}
+
 export type Actions =
   | InitResultListAction
   | FilterAppliedAction
@@ -75,4 +86,5 @@ export type Actions =
   | LoadNextPageAction
   | NextPageLoadedAction
   | JobAdvertisementDetailLoadedAction
-  | JobAdvertisementUpdatedAction;
+  | JobAdvertisementUpdatedAction
+  | UpdateJobAdvertisementAction;

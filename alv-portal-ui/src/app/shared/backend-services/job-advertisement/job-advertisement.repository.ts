@@ -45,7 +45,6 @@ export class JobAdvertisementRepository {
       }));
   }
 
-  //FIXME we ignore the favourites part for now
   search(request: JobAdvertisementSearchRequest): Observable<JobAdvertisementSearchResponse> {
     const params = createPageableURLSearchParams(request);
     return this.http.post<JobAdvertisementWithFavourites[]>(this.searchUrl, request.body, {
@@ -55,9 +54,7 @@ export class JobAdvertisementRepository {
       map((resp) => {
         return {
           totalCount: parseInt(resp.headers.get('X-Total-Count'), 10),
-          result: resp.body.map((jobAdWithFavourites: JobAdvertisementWithFavourites) => {
-            return jobAdWithFavourites.jobAdvertisement;
-          })
+          result: resp.body
         };
       }));
   }

@@ -1,6 +1,16 @@
 @import "../../../../scss/common/colors";
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
 
 .no-favourites {
   border-top: 1px solid $color-medium-grey;
   background-color: $color-white;
+}
+
+@include media-breakpoint-up(lg) {
+  .container-fluid {
+    max-width: 1000px;
+    margin-left: 0;
+  }
 }

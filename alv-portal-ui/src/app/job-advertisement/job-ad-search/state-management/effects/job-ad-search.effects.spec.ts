@@ -19,7 +19,10 @@ import {
   NextPageLoadedAction
 } from '../actions';
 import { Observable } from 'rxjs';
-import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  JobAdvertisement,
+  JobAdvertisementWithFavourites
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { jobAdSearchReducer } from '../reducers';
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -67,7 +70,7 @@ describe('JobAdSearchEffects', () => {
     const initResultListAction = new InitResultListAction();
 
     const jobAd: any = { id: 1 };
-    const result = [jobAd as JobAdvertisement];
+    const result = [{jobAdvertisement: jobAd, favouriteItem: null} as JobAdvertisementWithFavourites];
     const jobAdSearchResult = {
       totalCount: 10,
       result
@@ -161,7 +164,7 @@ describe('JobAdSearchEffects', () => {
     const applyFilterAction = new ApplyFilterAction(jobSearchFilter);
 
     const jobAd: any = { id: 1 };
-    const result = [jobAd as JobAdvertisement];
+    const result = [{jobAdvertisement: jobAd, favouriteItem: null} as JobAdvertisementWithFavourites];
     const jobAdSearchResult = {
       totalCount: 10,
       result
@@ -326,7 +329,7 @@ describe('JobAdSearchEffects', () => {
     it('should load next job ad', () => {
 
       const jobAd: any = { id: 'job-ad-001' };
-      const result = [jobAd as JobAdvertisement];
+      const result = [{jobAdvertisement: jobAd, favouriteItem: null} as JobAdvertisementWithFavourites];
 
       const loadNextJobAdvertisementDetailAction = new LoadNextJobAdvertisementDetailAction();
       const nextPageLoadedAction = new NextPageLoadedAction({ page: result });

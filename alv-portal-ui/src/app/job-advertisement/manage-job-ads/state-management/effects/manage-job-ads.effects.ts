@@ -42,7 +42,10 @@ import {
   NextPageLoadedAction
 } from '../actions';
 import { getCurrentCompanyContactTemplateModel } from '../../../../core/state-management/state/core.state.ts';
-import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  JobAdvertisementSearchResponse,
+  ManagedJobAdsSearchResponse
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { ManagedJobAdsSearchRequestMapper } from '../../../../widgets/manage-job-ads-widget/managed-job-ads-search-request.mapper';
 import { Router } from '@angular/router';
@@ -105,7 +108,7 @@ export class ManageJobAdsEffects {
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
     concatMap(([action, state, company]) => this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page + 1, company.companyExternalId)).pipe(
-      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
+      map((response: ManagedJobAdsSearchResponse) => new NextPageLoadedAction({ page: response.result })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
   );
