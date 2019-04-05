@@ -89,9 +89,9 @@ export class JobSearchResultComponent implements OnInit {
 
   toggleFavourites() {
     if (this.jobSearchResult.favouriteItem) {
-      this.removeFromFavorites();
+      this.removeFromFavourites.emit(this.jobSearchResult);
     } else {
-      this.addToFav();
+      this.addToFavourites.emit(this.jobSearchResult);
     }
   }
 
@@ -109,23 +109,24 @@ export class JobSearchResultComponent implements OnInit {
       });
   }
 
-  private addToFav() {
-    this.jobAdFavouritesRepository.addFavourite(this.jobSearchResult.jobAdvertisement.id)
-      .subscribe(favouriteItem => {
-        this.jobSearchResult.favouriteItem = favouriteItem;
-        this.searchResultUpdate.emit(this.jobSearchResult);
-        this.notificationService.success('portal.job-ad-favourites.notification.favourite-added');
-      });
-  }
-
-  private removeFromFavorites() {
-    this.jobAdFavouritesRepository.removeFavourite(this.jobSearchResult.favouriteItem)
-      .subscribe(() => {
-        this.jobSearchResult.favouriteItem = null;
-        this.searchResultUpdate.emit(this.jobSearchResult);
-        this.notificationService.success('portal.job-ad-favourites.notification.favourite-removed');
-      });
-  }
+  //
+  // private addToFav() {
+  //   this.jobAdFavouritesRepository.addFavourite(this.jobSearchResult.jobAdvertisement.id)
+  //     .subscribe(favouriteItem => {
+  //       this.jobSearchResult.favouriteItem = favouriteItem;
+  //       this.searchResultUpdate.emit(this.jobSearchResult);
+  //       this.notificationService.success('portal.job-ad-favourites.notification.favourite-added');
+  //     });
+  // }
+  //
+  // private removeFromFavorites() {
+  //   this.jobAdFavouritesRepository.removeFavourite(this.jobSearchResult.favouriteItem)
+  //     .subscribe(() => {
+  //       this.jobSearchResult.favouriteItem = null;
+  //       this.searchResultUpdate.emit(this.jobSearchResult);
+  //       this.notificationService.success('portal.job-ad-favourites.notification.favourite-removed');
+  //     });
+  // }
 
 }
 

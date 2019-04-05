@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 import { JobAdFavouritesRepository } from '../../shared/backend-services/favourites/job-ad-favourites.repository';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { JobAdvertisementWithFavourites } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
+import { NotificationsService } from '../../core/notifications.service';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',
@@ -13,21 +15,18 @@ export class FavouriteJobsWidgetComponent implements OnInit {
 
   IconKey = IconKey;
 
-  jobFavourites: JobAdvertisementWithFavourites[];
+  jobFavourites: JobAdvertisementWithFavourites[]; //todo replace with observable and async
 
-  constructor(private jobAdFavouritesRepositoryService: JobAdFavouritesRepository) {
+  constructor(private jobAdFavouritesRepository: JobAdFavouritesRepository,
+              private notificationService: NotificationsService) {
   }
 
   ngOnInit() {
     this.getJobAdFavourites();
   }
 
-  onJobAdFavouriteResultUpdate() {
-    this.getJobAdFavourites();
-  }
-
   private getJobAdFavourites() {
-    return this.jobAdFavouritesRepositoryService.getFavouritesForUser({
+    return this.jobAdFavouritesRepository.getFavouritesForUser({
       body: {
         query: ''
       },
@@ -45,11 +44,12 @@ export class FavouriteJobsWidgetComponent implements OnInit {
 
   }
 
-  addToFavourites() {
-
-  }
-
-  removeFromFavourites() {
-
+  removeFromFavourites(jobSearchResult: JobSearchResult) {
+    this.jobAdFavouritesRepository.removeFavourite(jobSearchResult.favouriteItem).pipe(
+      tap(() => this.notificationService.success('portal.job-ad-favourites.notification.favourite-removed')),
+    )
+      .subscribe(() => {
+        this.getJobAdFavourites(); //todo double subscription here, not good
+      });
   }
 }
