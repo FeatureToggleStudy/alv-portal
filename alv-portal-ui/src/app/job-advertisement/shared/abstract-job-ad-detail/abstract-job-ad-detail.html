@@ -146,6 +146,21 @@
       <ul class="nav flex-column">
         <li>
           <button class="btn btn-text btn-text-icon btn-truncate"
+          >
+            <ng-container *ngIf="jobDetailModel.isFavourite; else isNotFavourite">
+              <fa-icon class="mr-1"
+                       [icon]="['fas', 'star']"></fa-icon>
+              Add to favourites
+            </ng-container>
+            <ng-template #isNotFavourite>
+              <fa-icon class="mr-1"
+                       [icon]="['far', 'star']"></fa-icon>
+              Remove from favourites
+            </ng-template>
+          </button>
+        </li>
+        <li>
+          <button class="btn btn-text btn-text-icon btn-truncate"
                   ngxClipboard
                   [cbContent]="getJobUrl()"
                   (cbOnSuccess)="onCopyLink()">

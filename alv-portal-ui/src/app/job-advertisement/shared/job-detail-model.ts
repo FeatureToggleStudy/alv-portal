@@ -7,6 +7,7 @@ import {
 } from '../../widgets/job-search-widget/job-ad-rules';
 import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 import {
+  FavouriteItem,
   JobAdvertisement,
   JobDescription
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -17,7 +18,10 @@ import {
  */
 export class JobDetailModel {
 
-  constructor(public jobDescription: JobDescription, public jobCenter: JobCenter, public jobAdvertisement: JobAdvertisement) {
+  constructor(public jobDescription: JobDescription,
+              public jobCenter: JobCenter,
+              public jobAdvertisement: JobAdvertisement,
+              public favouriteDescriptor: FavouriteItem) {
   }
 
   hasStartDate() {
@@ -78,4 +82,17 @@ export class JobDetailModel {
     return this.jobAdvertisement.stellennummerEgov;
   }
 
+  get isFavourite(): boolean {
+    return Boolean(this.favouriteDescriptor);
+  }
+
+  get hasNote(): boolean {
+    return Boolean(this.isFavourite && this.favouriteDescriptor.note);
+  }
+
+  get note(): string | undefined {
+    if (this.hasNote) {
+      return this.favouriteDescriptor.note;
+    }
+  }
 }
