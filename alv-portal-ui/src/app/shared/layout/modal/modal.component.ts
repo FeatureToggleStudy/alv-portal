@@ -18,6 +18,11 @@ export class ModalComponent {
   @Input() modalTitle: string;
 
   /**
+   * (optional) Icon of the modal
+   */
+  @Input() icon?: string;
+
+  /**
    * (optional) Subtitle of the modal
    */
   @Input() subtitle?: string;

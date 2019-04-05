@@ -20,7 +20,7 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
 
   @Input() favouriteItem: FavouriteItem;
 
-  isCreateNote = !this.favouriteItem || !this.favouriteItem.note;
+  isCreateNote: boolean;
 
   readonly MAX_LENGTH_1000 = 1000;
 
@@ -35,6 +35,8 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
     this.form = this.fb.group({
       note: [this.favouriteItem ? this.favouriteItem.note : '', [Validators.maxLength(this.MAX_LENGTH_1000)]]
     });
+
+    this.isCreateNote = !this.favouriteItem || !this.favouriteItem.note;
   }
 
   onSubmit() {
@@ -53,7 +55,16 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
   }
 
   onCancel() {
-    this.activeModal.dismiss();
+    if (this.isCreateNote) {
+      this.activeModal.dismiss();
+    } else {
+      this.jobAdFavouritesRepository.editNote(this.favouriteItem, '')
+        .subscribe(() => {
+          this.favouriteItem.note = '';
+          this.activeModal.close(this.favouriteItem);
+        });
+    }
+
   }
 
 }

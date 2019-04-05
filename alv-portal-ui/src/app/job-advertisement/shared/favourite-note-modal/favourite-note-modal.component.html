@@ -1,16 +1,17 @@
 <alv-modal (primaryAction)="onSubmit(form)"
            (secondaryAction)="onCancel()"
            [formGroup]="form"
-           modalTitle="job-detail.complaint-modal.header"
+           modalTitle="portal.job-ad-favourites.note-modal.title"
+           [icon]="['fas', 'sticky-note']"
            primaryLabel="job-detail.complaint-modal.send"
-           secondaryLabel="job-detail.complaint-modal.dismiss">
+           [secondaryLabel]="isCreateNote ? 'portal.job-ad-favourites.note-modal.action.cancel' : 'portal.job-ad-favourites.note-modal.action.delete'">
 
   <alv-input-field [autofocus]="true"
                    [maxLength]="MAX_LENGTH_1000"
                    [multiline]="true"
                    [showCharacterCounter]="true"
                    alvFormControlName="note"
-                   label="job-detail.complaint-modal.message.placeholder"
+                   label="portal.job-ad-favourites.note-modal.note.label"
                    class="favourite-note-textarea narrow-form">
   </alv-input-field>
 </alv-modal>
