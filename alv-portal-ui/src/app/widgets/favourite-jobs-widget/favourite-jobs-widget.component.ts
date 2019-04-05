@@ -1,7 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { mockJobSearchResults } from './favourite-jobs-widget.mock';
-import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
+import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 import { JobAdFavouritesRepository } from '../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { map } from 'rxjs/operators';
@@ -34,8 +31,8 @@ export class FavouriteJobsWidgetComponent implements OnInit {
       body: {
         query: ''
       },
-    page: 0,
-    size: 4 // We have to grab 4 items because the API returns non-favourite items sometimes.
+      page: 0,
+      size: 4 // We have to grab 4 items because the API returns non-favourite items sometimes.
     }).pipe(
       map(favouriteJob => favouriteJob.result)
     ).subscribe(jobFavourites => {
@@ -45,6 +42,14 @@ export class FavouriteJobsWidgetComponent implements OnInit {
 
 
   addNote() {
+
+  }
+
+  addToFavourites() {
+
+  }
+
+  removeFromFavourites() {
 
   }
 }

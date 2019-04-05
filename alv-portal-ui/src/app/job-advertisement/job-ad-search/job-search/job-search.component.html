@@ -52,6 +52,8 @@
         <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults"
                                [jobSearchResult]="jobSearchResult"
                                (searchResultUpdate)="onSearchResultUpdate($event)"
+                               (addToFavourites)="addToFavourites($event)"
+                               (removeFromFavourites)="removeFromFavourites($event)"
                                routerLinkBase="/job-search"></alv-job-search-result>
         <div *ngIf="!jobSearchResults || !jobSearchResults.length">
           {{'global.common-phrases.no-results-found' | translate}}

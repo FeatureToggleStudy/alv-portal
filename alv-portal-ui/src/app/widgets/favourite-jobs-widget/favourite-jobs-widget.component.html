@@ -10,6 +10,8 @@
     <alv-job-search-result *ngFor="let jobFavourite of jobFavourites"
                            [jobSearchResult]="jobFavourite"
                            (searchResultUpdate)="onJobAdFavouriteResultUpdate()"
+                           (addToFavourites)="addToFavourites()"
+                           (removeFromFavourites)="removeFromFavourites()"
                            routerLinkBase="/job-favourites">
     </alv-job-search-result>
   </ng-container>

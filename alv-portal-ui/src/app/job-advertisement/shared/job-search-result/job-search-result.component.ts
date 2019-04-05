@@ -8,24 +8,21 @@ import {
 } from '@angular/core';
 import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, startWith, withLatestFrom } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
 import { JobBadgesMapperService } from '../../../widgets/job-publication-widget/job-badges-mapper.service';
-import {
-  FavouriteItem,
-  JobAdvertisement, JobAdvertisementWithFavourites
-} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisementWithFavourites } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ActivatedRoute } from '@angular/router';
 import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
-import { FilterManagedJobAdsComponent } from '../../manage-job-ads/manage-job-ad-search/filter-managed-job-ads/filter-managed-job-ads.component';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 
 export interface JobSearchResult extends JobAdvertisementWithFavourites {
   visited: boolean;
 }
+
 @Component({
   selector: 'alv-job-search-result',
   templateUrl: './job-search-result.component.html',
@@ -42,6 +39,12 @@ export class JobSearchResultComponent implements OnInit {
 
   @Output()
   searchResultUpdate = new EventEmitter<JobSearchResult>();
+
+  @Output()
+  removeFromFavourites = new EventEmitter<JobSearchResult>();
+
+  @Output()
+  addToFavourites = new EventEmitter<JobSearchResult>();
 
   resultListItem$: Observable<ResultListItem>;
 
@@ -88,7 +91,7 @@ export class JobSearchResultComponent implements OnInit {
     if (this.jobSearchResult.favouriteItem) {
       this.removeFromFavorites();
     } else {
-      this.addToFavourites();
+      this.addToFav();
     }
   }
 
@@ -106,7 +109,7 @@ export class JobSearchResultComponent implements OnInit {
       });
   }
 
-  private addToFavourites() {
+  private addToFav() {
     this.jobAdFavouritesRepository.addFavourite(this.jobSearchResult.jobAdvertisement.id)
       .subscribe(favouriteItem => {
         this.jobSearchResult.favouriteItem = favouriteItem;
