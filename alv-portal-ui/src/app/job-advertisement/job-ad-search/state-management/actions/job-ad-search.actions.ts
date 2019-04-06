@@ -23,6 +23,8 @@ export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEM
 export const APPLY_QUERY_VALUES = 'JOBS:APPLY_QUERY_VALUES';
 export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 export const UPDATE_JOB_ADVERTISEMENT = 'JOBS:UPDATE_JOB_ADVERTISEMENT';
+export const REMOVE_JOB_AD_FROM_FAVOURITES = 'JOBS:REMOVE_JOB_AD_FROM_FAVOURITES';
+export const REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS = 'JOBS:REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
@@ -132,7 +134,22 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
 export class UpdateJobAdvertisementAction implements Action {
   readonly type = UPDATE_JOB_ADVERTISEMENT;
 
-  constructor(public payload: { jobAdvertisementWithFavourites: JobAdvertisementWithFavourites }) {
+  constructor(public payload: { jobSearchResultWithFavourites: JobAdvertisementWithFavourites }) {
+  }
+}
+
+export class RemoveJobAdFromFavouritesAction implements Action {
+  readonly type = REMOVE_JOB_AD_FROM_FAVOURITES;
+
+  constructor(public payload: { jobSearchResultWithFavourites: JobAdvertisementWithFavourites }) {
+  }
+}
+
+export class RemoveJobAdFromFavouritesSuccessAction implements Action {
+
+  readonly type = REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS;
+
+  constructor(public payload: { jobSearchResultWithFavourites: JobAdvertisementWithFavourites }) {
   }
 }
 
@@ -160,4 +177,6 @@ export type Actions =
   | ApplyFilterValuesAction
   | ApplyQueryValuesAction
   | UpdateJobAdvertisementAction
+  | RemoveJobAdFromFavouritesAction
+  | RemoveJobAdFromFavouritesSuccessAction
   | OccupationLanguageChangedAction;

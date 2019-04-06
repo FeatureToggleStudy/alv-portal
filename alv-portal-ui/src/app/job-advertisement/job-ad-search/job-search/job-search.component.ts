@@ -22,6 +22,7 @@ import {
   JobAdSearchState,
   JobSearchFilter,
   LoadNextPageAction,
+  RemoveJobAdFromFavouritesAction,
   ResetFilterAction,
   UpdateJobAdvertisementAction
 } from '../state-management';
@@ -112,7 +113,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   ngOnDestroy() {
-      this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
+    this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
   }
 
   onQueryChange(queryPanelValues: JobQueryPanelValues) {
@@ -145,14 +146,15 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   onSearchResultUpdate(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new UpdateJobAdvertisementAction({jobAdvertisementWithFavourites: jobSearchResult}));
+    this.store.dispatch(new UpdateJobAdvertisementAction({ jobSearchResultWithFavourites: jobSearchResult }));
   }
 
   addToFavourites($event) {
 
   }
 
-  removeFromFavourites($event) {
+  removeFromFavourites(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new RemoveJobAdFromFavouritesAction({ jobSearchResultWithFavourites: jobSearchResult }));
 
   }
 }

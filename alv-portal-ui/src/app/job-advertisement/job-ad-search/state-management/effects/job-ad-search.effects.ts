@@ -18,6 +18,9 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
+  REMOVE_JOB_AD_FROM_FAVOURITES,
+  RemoveJobAdFromFavouritesAction,
+  RemoveJobAdFromFavouritesSuccessAction,
   RESET_FILTER
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
@@ -53,12 +56,24 @@ import {
   LanguageChangedAction
 } from '../../../../core/state-management/actions/core.actions';
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
+import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
 
 @Injectable()
 export class JobAdSearchEffects {
+
+  @Effect()
+  jobAdvertisementRemoveFromFavourites$: Observable<Action> = this.actions$.pipe(
+    ofType(REMOVE_JOB_AD_FROM_FAVOURITES),
+    map((action: RemoveJobAdFromFavouritesAction) => action.payload),
+    switchMap(j =>
+      this.jobAdFavouritesRepository.removeFavourite(j.jobSearchResultWithFavourites.favouriteItem).pipe(
+        map(() => new RemoveJobAdFromFavouritesSuccessAction(j))
+      )
+    )
+  );
 
   @Effect()
   jobAdvertisementChanged$: Observable<Action> = this.actions$.pipe(
@@ -200,7 +215,8 @@ export class JobAdSearchEffects {
               private debounce,
               @Optional()
               @Inject(JOB_AD_SEARCH_EFFECTS_SCHEDULER)
-              private scheduler: AsyncScheduler) {
+              private scheduler: AsyncScheduler,
+              private jobAdFavouritesRepository: JobAdFavouritesRepository) {
   }
 
 }
