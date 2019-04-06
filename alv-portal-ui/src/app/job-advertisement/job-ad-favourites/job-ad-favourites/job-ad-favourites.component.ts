@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, map, startWith, take, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -13,11 +13,6 @@ import {
 import { JobAdFavouritesSearchFilter } from './job-ad-favourites.types';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
 import { JobSearchResult } from '../../shared/job-search-result/job-search-result.component';
-import {
-  getJobSearchFilter,
-  getJobSearchResults,
-  getTotalCount
-} from '../../job-ad-search/state-management/state';
 
 @Component({
   selector: 'alv-job-ad-favourites',

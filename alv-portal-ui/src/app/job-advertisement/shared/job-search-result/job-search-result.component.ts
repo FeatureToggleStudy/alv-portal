@@ -9,7 +9,7 @@ import {
 import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { Observable, Subject } from 'rxjs';
-import { map, startWith, withLatestFrom } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
 import { JobBadgesMapperService } from '../../../widgets/job-publication-widget/job-badges-mapper.service';
 import { JobAdvertisementWithFavourites } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -38,7 +38,7 @@ export class JobSearchResultComponent implements OnInit {
   routerLinkBase: string;
 
   @Output()
-  searchResultUpdate = new EventEmitter<JobSearchResult>();
+  searchResultUpdate = new EventEmitter<JobSearchResult>(); // todo here jobsearchresult itself is responsible for repainting itself. Also we have two sources of truth here: `this.searchResultUpdate` and `this.jobSearchResult`. I think that it's unnessesary and can be simplified. I think the component can repaint itself when the `this.searchResult` input is changed. This input will be changed by the parent component.
 
   @Output()
   removeFromFavourites = new EventEmitter<JobSearchResult>();
@@ -60,15 +60,13 @@ export class JobSearchResultComponent implements OnInit {
 
   ngOnInit() {
     this.jobSearchResult$ = new Subject<JobSearchResult>();
-    this.resultListItem$ = this.jobSearchResultToResultListItemMapper(this.jobSearchResult);
+    this.resultListItem$ = this.jobSearchResultToResultListItemMapper(this.jobSearchResult); //todo maybe move that to ngOnChanges
   }
 
-  private jobSearchResultToResultListItemMapper(initialJobSearchResult: JobSearchResult): Observable<ResultListItem> {
-    return this.searchResultUpdate.pipe(
-      startWith(initialJobSearchResult),
-      withLatestFrom(this.i18nService.currentLanguage$),
-      map(([jobSearchResult, lang]) => {
-        const jobAdvertisement = jobSearchResult.jobAdvertisement;
+  private jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): Observable<ResultListItem> {
+    const jobAdvertisement = jobSearchResult.jobAdvertisement;
+    return this.i18nService.currentLanguage$.pipe(
+      map(lang => {
         const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, lang);
         return <ResultListItem>{
           id: jobAdvertisement.id,
