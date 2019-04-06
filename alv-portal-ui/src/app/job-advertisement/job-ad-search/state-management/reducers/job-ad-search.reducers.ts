@@ -1,6 +1,7 @@
 import { initialState, JobAdSearchState } from '../state';
 import {
   Actions,
+  ADD_JOB_AD_TO_FAVOURITES_SUCCESS,
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
@@ -10,8 +11,7 @@ import {
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
   REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS,
-  RESET_FILTER,
-  UPDATE_JOB_ADVERTISEMENT
+  RESET_FILTER
 } from '../actions';
 import { JobAdvertisementWithFavourites } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
@@ -106,7 +106,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       };
       break;
 
-    case UPDATE_JOB_ADVERTISEMENT:
+    case ADD_JOB_AD_TO_FAVOURITES_SUCCESS:
       const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.jobSearchResultWithFavourites.jobAdvertisement.id);
       state.resultList[indexToUpdate] = action.payload.jobSearchResultWithFavourites; // todo modifying state. Bad. Must be pure function in reducers
       newState = {

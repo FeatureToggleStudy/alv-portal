@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
+  AddJobAdToFavouritesAction,
   ApplyFilterValuesAction,
   ApplyQueryValuesAction,
   FILTER_APPLIED,
@@ -149,8 +150,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     this.store.dispatch(new UpdateJobAdvertisementAction({ jobSearchResultWithFavourites: jobSearchResult }));
   }
 
-  addToFavourites($event) {
-
+  addToFavourites(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new AddJobAdToFavouritesAction({ jobSearchResultWithFavourites: jobSearchResult }))
   }
 
   removeFromFavourites(jobSearchResult: JobSearchResult) {

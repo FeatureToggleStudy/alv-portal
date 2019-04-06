@@ -3,6 +3,9 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { asyncScheduler, Observable, of } from 'rxjs/index';
 import { Action, select, Store } from '@ngrx/store';
 import {
+  ADD_JOB_AD_TO_FAVOURITES,
+  AddJobAdToFavouritesAction,
+  AddJobAdToFavouritesSuccessAction,
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
@@ -45,7 +48,10 @@ import {
 } from '../state';
 import { JobSearchRequestMapper } from './job-search-request.mapper';
 import { Router } from '@angular/router';
-import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  FavouriteItem,
+  JobAdvertisementSearchResponse
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
 import {
@@ -63,6 +69,20 @@ export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>
 
 @Injectable()
 export class JobAdSearchEffects {
+
+  @Effect()
+  jobAdvertisementAddToFavourites$: Observable<Action> = this.actions$.pipe(
+    ofType(ADD_JOB_AD_TO_FAVOURITES),
+    map((action: AddJobAdToFavouritesAction) => action.payload),
+    switchMap(j =>
+      this.jobAdFavouritesRepository.addFavourite(j.jobSearchResultWithFavourites.jobAdvertisement.id).pipe(
+        map((fav: FavouriteItem) => {
+          j.jobSearchResultWithFavourites.favouriteItem = fav; // todo modification here, not sure if it's good.
+          return new AddJobAdToFavouritesSuccessAction(j);
+        })
+      )
+    )
+  );
 
   @Effect()
   jobAdvertisementRemoveFromFavourites$: Observable<Action> = this.actions$.pipe(
