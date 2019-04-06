@@ -24,8 +24,7 @@ import {
   JobSearchFilter,
   LoadNextPageAction,
   RemoveJobAdFromFavouritesAction,
-  ResetFilterAction,
-  UpdateJobAdvertisementAction
+  ResetFilterAction
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -146,9 +145,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     }
   }
 
-  onSearchResultUpdate(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new UpdateJobAdvertisementAction({ jobSearchResultWithFavourites: jobSearchResult }));
-  }
 
   addToFavourites(jobSearchResult: JobSearchResult) {
     this.store.dispatch(new AddJobAdToFavouritesAction({ jobSearchResultWithFavourites: jobSearchResult }))

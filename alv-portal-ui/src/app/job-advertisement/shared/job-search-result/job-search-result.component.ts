@@ -37,8 +37,8 @@ export class JobSearchResultComponent implements OnInit {
   @Input()
   routerLinkBase: string;
 
-  @Output()
-  searchResultUpdate = new EventEmitter<JobSearchResult>(); // todo here jobsearchresult itself is responsible for repainting itself. Also we have two sources of truth here: `this.searchResultUpdate` and `this.jobSearchResult`. I think that it's unnessesary and can be simplified. I think the component can repaint itself when the `this.searchResult` input is changed. This input will be changed by the parent component.
+  // @Output()
+  // searchResultUpdate = new EventEmitter<JobSearchResult>(); // todo here jobsearchresult itself is responsible for repainting itself. Also we have two sources of truth here: `this.searchResultUpdate` and `this.jobSearchResult`. I think that it's unnessesary and can be simplified. I think the component can repaint itself when the `this.searchResult` input is changed. This input will be changed by the parent component.
 
   @Output()
   removeFromFavourites = new EventEmitter<JobSearchResult>();
@@ -101,7 +101,7 @@ export class JobSearchResultComponent implements OnInit {
     favouriteNoteModalRef.result
       .then(favouriteItem => {
         this.jobSearchResult.favouriteItem = favouriteItem;
-        this.searchResultUpdate.emit(this.jobSearchResult);
+        // this.searchResultUpdate.emit(this.jobSearchResult);
       })
       .catch(() => {
       });
