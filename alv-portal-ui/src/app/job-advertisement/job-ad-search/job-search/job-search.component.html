@@ -43,7 +43,9 @@
       </alv-filter-panel>
     </ng-container>
 
-    <ng-container class="main-column">
+    <ng-container class="main-column"
+                  *ngIf="i18nService.currentLanguage$ as currentLanguage"
+    >
 
       <h2 class="sr-only">
         Stellen Suchresultate
@@ -53,7 +55,9 @@
                                [jobSearchResult]="jobSearchResult"
                                (addToFavourites)="addToFavourites($event)"
                                (removeFromFavourites)="removeFromFavourites($event)"
-                               routerLinkBase="/job-search"></alv-job-search-result>
+                               routerLinkBase="/job-search"
+                               [language]="currentLanguage"
+        ></alv-job-search-result>
         <div *ngIf="!jobSearchResults || !jobSearchResults.length">
           {{'global.common-phrases.no-results-found' | translate}}
         </div>

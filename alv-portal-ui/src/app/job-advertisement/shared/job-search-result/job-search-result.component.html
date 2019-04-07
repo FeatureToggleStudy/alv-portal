@@ -1,5 +1,5 @@
-<alv-result-list-item *ngIf="resultListItem$ | async as result"
-                      [result]="result"
+<alv-result-list-item *ngIf="jobSearchResult"
+                      [result]="jobSearchResultToResultListItemMapper(jobSearchResult)"
                       (favouritesClick)="toggleFavourites()"
                       (noteClick)="showNoteDialog()"
 ></alv-result-list-item>

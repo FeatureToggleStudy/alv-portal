@@ -9,8 +9,6 @@ import {
 import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { I18nService } from '../../../core/i18n.service';
 import { JobBadgesMapperService } from '../../../widgets/job-publication-widget/job-badges-mapper.service';
 import { JobAdvertisementWithFavourites } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
@@ -34,6 +32,9 @@ export class JobSearchResultComponent implements OnInit {
   @Input()
   routerLinkBase: string;
 
+  @Input()
+  language: string;
+
   // @Output()
   // searchResultUpdate = new EventEmitter<JobSearchResult>(); // todo here jobsearchresult itself is responsible for repainting itself. Also we have two sources of truth here: `this.searchResultUpdate` and `this.jobSearchResult`. I think that it's unnessesary and can be simplified. I think the component can repaint itself when the `this.searchResult` input is changed. This input will be changed by the parent component.
 
@@ -47,36 +48,30 @@ export class JobSearchResultComponent implements OnInit {
 
   jobSearchResult$: Subject<JobSearchResult>;
 
-  constructor(private i18nService: I18nService,
-              private jobBadgesMapperService: JobBadgesMapperService,
+  constructor(private jobBadgesMapperService: JobBadgesMapperService,
               private modalService: ModalService) {
   }
 
   ngOnInit() {
     this.jobSearchResult$ = new Subject<JobSearchResult>();
-    this.resultListItem$ = this.jobSearchResultToResultListItemMapper(this.jobSearchResult); //todo maybe move that to ngOnChanges
   }
 
-  private jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): Observable<ResultListItem> {
+  public jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): ResultListItem {
     const jobAdvertisement = jobSearchResult.jobAdvertisement;
-    return this.i18nService.currentLanguage$.pipe( // if we remove this i18n service from the component and move it upstream, the component will become dumb, and will have no problem rerendering itself based on inputs.
-      map(lang => {
-        const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, lang);
-        return <ResultListItem>{
-          id: jobAdvertisement.id,
-          title: jobDescription.title,
-          description: jobDescription.description,
-          header: jobAdvertisement.publication.startDate,
-          badges: this.jobBadgesMapperService.map(jobAdvertisement),
-          routerLink: [this.routerLinkBase, jobAdvertisement.id],
-          subtitle: jobAdvertisement.jobContent.company.name,
-          visited: jobSearchResult.visited,
-          hasActions: true,
-          isFavourite: !!jobSearchResult.favouriteItem,
-          hasNote: !!jobSearchResult.favouriteItem && !!jobSearchResult.favouriteItem.note
-        };
-      })
-    );
+    const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, this.language);
+    return <ResultListItem>{
+      id: jobAdvertisement.id,
+      title: jobDescription.title,
+      description: jobDescription.description,
+      header: jobAdvertisement.publication.startDate,
+      badges: this.jobBadgesMapperService.map(jobAdvertisement),
+      routerLink: [this.routerLinkBase, jobAdvertisement.id],
+      subtitle: jobAdvertisement.jobContent.company.name,
+      visited: jobSearchResult.visited,
+      hasActions: true,
+      isFavourite: !!jobSearchResult.favouriteItem,
+      hasNote: !!jobSearchResult.favouriteItem && !!jobSearchResult.favouriteItem.note
+    };
   }
 
   toggleFavourites() {

@@ -38,6 +38,7 @@ import { composeResultListItemId } from '../../../shared/layout/result-list-item
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { WINDOW } from '../../../core/window.service';
 import { JobSearchResult } from '../../shared/job-search-result/job-search-result.component';
+import { I18nService } from '../../../core/i18n.service';
 
 @Component({
   selector: 'alv-job-search',
@@ -70,6 +71,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               private scrollService: ScrollService,
               private cdRef: ChangeDetectorRef,
+              public i18nService: I18nService,
               @Inject(WINDOW) private window: Window) {
     super();
   }
