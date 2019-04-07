@@ -13,9 +13,6 @@ import { map } from 'rxjs/operators';
 import { I18nService } from '../../../core/i18n.service';
 import { JobBadgesMapperService } from '../../../widgets/job-publication-widget/job-badges-mapper.service';
 import { JobAdvertisementWithFavourites } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { NotificationsService } from '../../../core/notifications.service';
-import { ActivatedRoute } from '@angular/router';
-import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 
@@ -51,11 +48,8 @@ export class JobSearchResultComponent implements OnInit {
   jobSearchResult$: Subject<JobSearchResult>;
 
   constructor(private i18nService: I18nService,
-              private route: ActivatedRoute,
               private jobBadgesMapperService: JobBadgesMapperService,
-              private jobAdFavouritesRepository: JobAdFavouritesRepository,
-              private modalService: ModalService,
-              private notificationService: NotificationsService) {
+              private modalService: ModalService) {
   }
 
   ngOnInit() {
@@ -65,7 +59,7 @@ export class JobSearchResultComponent implements OnInit {
 
   private jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): Observable<ResultListItem> {
     const jobAdvertisement = jobSearchResult.jobAdvertisement;
-    return this.i18nService.currentLanguage$.pipe(
+    return this.i18nService.currentLanguage$.pipe( // if we remove this i18n service from the component and move it upstream, the component will become dumb, and will have no problem rerendering itself based on inputs.
       map(lang => {
         const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, lang);
         return <ResultListItem>{
