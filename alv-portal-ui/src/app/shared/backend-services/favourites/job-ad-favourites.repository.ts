@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { flatMap, map, switchMap } from 'rxjs/operators';
 import {
   CreateFavouriteItem,
@@ -35,19 +35,28 @@ export class JobAdFavouritesRepository {
    * @return the newly created id of the favourite item
    */
   addFavourite(jobAdvertisementId, note = ''): Observable<FavouriteItem> {
-    return this.currentUserId$.pipe(
-      map(currentUserId => ({
-        note: note,
-        userId: currentUserId,
-        jobAdvertisementId: jobAdvertisementId
-      } as CreateFavouriteItem)),
-      switchMap(emptyCreateFavouriteItem => this.http.post<FavouriteItem>(FAVOURITES_PREFIX, emptyCreateFavouriteItem)),
-      flatMap(response => this.getFavouritesForJobAd(jobAdvertisementId))
-    );
+    return of({
+      id: 'someid',
+      note: 'some note',
+      ownerId: '20303239293-dsfdsf-deeee',
+      jobAdvertisementId: '',
+      createdTime: '2019-04-01',
+      updatedTime: '2019-04-01'
+    });
+    // return this.currentUserId$.pipe(
+    //   map(currentUserId => ({
+    //     note: note,
+    //     userId: currentUserId,
+    //     jobAdvertisementId: jobAdvertisementId
+    //   } as CreateFavouriteItem)),
+    //   switchMap(emptyCreateFavouriteItem => this.http.post<FavouriteItem>(FAVOURITES_PREFIX, emptyCreateFavouriteItem)),
+    //   flatMap(response => this.getFavouritesForJobAd(jobAdvertisementId))
+    // );
   }
 
   removeFavourite(favouriteItem: FavouriteItem): Observable<void> {
-    return this.http.delete<void>(`${FAVOURITES_PREFIX}/${favouriteItem.id}`);
+    // return this.http.delete<void>(`${FAVOURITES_PREFIX}/${favouriteItem.id}`);
+    return of(undefined);
   }
 
   createNote(jobAdvertisementId: string, note: string): Observable<FavouriteItem> {

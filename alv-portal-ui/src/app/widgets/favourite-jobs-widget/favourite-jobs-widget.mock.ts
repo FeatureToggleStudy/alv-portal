@@ -346,5 +346,6 @@ export const mockJobsWithFavourites = mockJobs.map(x => ({
     ownerId: '20303239293-dsfdsf-deeee',
     jobAdvertisementId: '',
     createdTime: '2019-04-01',
+    updatedTime: '2019-04-01'
   }
 }));
