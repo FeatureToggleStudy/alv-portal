@@ -13,7 +13,6 @@ import {
   REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS,
   RESET_FILTER
 } from '../actions';
-import { JobAdvertisementWithFavourites } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
 
@@ -106,25 +105,31 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       };
       break;
 
-    case ADD_JOB_AD_TO_FAVOURITES_SUCCESS:
+    case ADD_JOB_AD_TO_FAVOURITES_SUCCESS: {
       const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.jobSearchResultWithFavourites.jobAdvertisement.id);
-      state.resultList[indexToUpdate] = action.payload.jobSearchResultWithFavourites; // todo modifying state. Bad. Must be pure function in reducers
+      const updatedResultList = state.resultList.slice();
+      updatedResultList[indexToUpdate] = action.payload.jobSearchResultWithFavourites;
+
       newState = {
         ...state,
-        resultList: state.resultList
+        resultList: updatedResultList
       };
       break;
+    }
 
-    case REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS:
-      const unstarredJobId = action.payload.jobSearchResultWithFavourites.jobAdvertisement.id;
-      const unstarredJob: JobAdvertisementWithFavourites = state.resultList.find(result => result.jobAdvertisement.id === unstarredJobId);
-      unstarredJob.favouriteItem = null; //todo modifying state. Bad. Must be pure function in reducers
+    case REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS: {
+      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.jobSearchResultWithFavourites.jobAdvertisement.id);
+      const updatedResultList = state.resultList.slice();
+      const unstarredJobCopy = Object.assign({}, updatedResultList[indexToUpdate]);
+      unstarredJobCopy.favouriteItem = null;
+      updatedResultList[indexToUpdate] = unstarredJobCopy;
+
       newState = {
         ...state,
-        resultList: state.resultList
+        resultList: updatedResultList
       };
       break;
-
+    }
     default:
       newState = state;
   }
