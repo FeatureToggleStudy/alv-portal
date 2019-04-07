@@ -149,7 +149,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
 
   addToFavourites(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new AddJobAdToFavouritesAction({ jobSearchResultWithFavourites: jobSearchResult }))
+    this.store.dispatch(new AddJobAdToFavouritesAction({ jobSearchResultWithFavourites: jobSearchResult }));
   }
 
   removeFromFavourites(jobSearchResult: JobSearchResult) {

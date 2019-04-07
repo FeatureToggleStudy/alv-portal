@@ -50,7 +50,7 @@ import { JobSearchRequestMapper } from './job-search-request.mapper';
 import { Router } from '@angular/router';
 import {
   FavouriteItem,
-  JobAdvertisementSearchResponse
+  JobAdvertisementSearchResponse, JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
@@ -74,13 +74,16 @@ export class JobAdSearchEffects {
   jobAdvertisementAddToFavourites$: Observable<Action> = this.actions$.pipe(
     ofType(ADD_JOB_AD_TO_FAVOURITES),
     map((action: AddJobAdToFavouritesAction) => action.payload),
-    switchMap(j =>
-      this.jobAdFavouritesRepository.addFavourite(j.jobSearchResultWithFavourites.jobAdvertisement.id).pipe(
-        map((fav: FavouriteItem) => {
-          j.jobSearchResultWithFavourites.favouriteItem = fav; // todo modification here, not sure if it's good.
-          return new AddJobAdToFavouritesSuccessAction(j);
-        })
-      )
+    switchMap(j => {
+      const copyJob: JobAdvertisementWithFavourites = Object.assign({}, j.jobSearchResultWithFavourites);
+
+      return this.jobAdFavouritesRepository.addFavourite(copyJob.jobAdvertisement.id).pipe(
+          map((fav: FavouriteItem) => {
+            copyJob.favouriteItem = fav; // todo modification here, not sure if it's good.
+            return new AddJobAdToFavouritesSuccessAction({jobSearchResultWithFavourites: copyJob});
+          })
+        );
+      }
     )
   );
 
