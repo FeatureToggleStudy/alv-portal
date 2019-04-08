@@ -35,17 +35,15 @@ export class JobAdFavouritesRepository {
       userId: userId,
       jobAdvertisementId: jobAdvertisementId
     };
-    return this.http.post<FavouriteItem>(FAVOURITES_PREFIX, emptyCreateFavouriteItem).pipe(
-      flatMap(response => this.getFavouritesForJobAd(jobAdvertisementId, userId))
-    );
+    return this.http.post<FavouriteItem>(FAVOURITES_PREFIX, emptyCreateFavouriteItem);
   }
 
   removeFavourite(favouriteItemId: string): Observable<void> {
     return this.http.delete<void>(`${FAVOURITES_PREFIX}/${favouriteItemId}`);
   }
 
-  editNote(favouriteItem: FavouriteItem, note: string): Observable<void> {
-    return this.http.put<void>(`${FAVOURITES_PREFIX}/${favouriteItem.id}${UPDATE_NOTE_SUFFIX}`, {note});
+  editNote(favouriteItem: FavouriteItem, note: string): Observable<FavouriteItem> {
+    return this.http.put<FavouriteItem>(`${FAVOURITES_PREFIX}/${favouriteItem.id}${UPDATE_NOTE_SUFFIX}`, {note});
   }
 
   getFavouritesForUser(jobAdFavouritesSearchRequest: JobAdFavouritesSearchRequest, userId: string): Observable<JobAdFavouritesSearchResponse> {
