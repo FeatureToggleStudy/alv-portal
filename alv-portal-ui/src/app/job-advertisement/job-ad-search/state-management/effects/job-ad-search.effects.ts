@@ -95,10 +95,11 @@ export class JobAdSearchEffects {
   jobAdvertisementRemoveFromFavourites$: Observable<Action> = this.actions$.pipe(
     ofType(REMOVE_JOB_AD_FROM_FAVOURITES),
     map((action: RemoveJobAdFromFavouritesAction) => action.payload),
-    switchMap(j =>
-      this.jobAdFavouritesRepository.removeFavourite(j.jobSearchResultWithFavourites.favouriteItem).pipe(
-        map(() => new RemoveJobAdFromFavouritesSuccessAction(j))
-      )
+    switchMap(j => {
+        return this.jobAdFavouritesRepository.removeFavourite(j.jobSearchResultWithFavourites.favouriteItem).pipe(
+          map(() => new RemoveJobAdFromFavouritesSuccessAction(j))
+        );
+      }
     )
   );
 
