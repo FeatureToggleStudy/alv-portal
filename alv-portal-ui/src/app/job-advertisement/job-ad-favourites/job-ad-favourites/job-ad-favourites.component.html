@@ -24,6 +24,9 @@
     <ng-container *ngIf="jobs?.length; else noFavouritesPlaceholder">
       <alv-job-search-result *ngFor="let job of jobs"
                              [jobSearchResult]="job"
+                             (updatedFavourite)="updatedFavourite($event)"
+                             (addFavourite)="addToFavourites($event)"
+                             (removeFavourite)="removeFromFavourites($event)"
                              routerLinkBase="/job-favourites">
       </alv-job-search-result>
     </ng-container>

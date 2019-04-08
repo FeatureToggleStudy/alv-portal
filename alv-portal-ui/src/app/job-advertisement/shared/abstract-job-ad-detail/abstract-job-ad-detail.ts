@@ -138,4 +138,16 @@ export abstract class AbstractJobAdDetail extends AbstractSubscriber implements 
     return alerts;
   }
 
+  addToFavourites() {
+    console.log('add');
+  }
+
+
+  removeFromFavourites() {
+    console.log('add');
+  }
+
+  editNote() {
+    console.log('note added');
+  }
 }

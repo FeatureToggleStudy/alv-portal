@@ -5,7 +5,10 @@ import {
   Accountability,
   CompanyContactTemplate
 } from '../../../shared/backend-services/user-info/user-info.types';
-import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  FavouriteItem,
+  JobAdvertisement
+} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 export const LANGUAGE_CHANGED = 'CORE:LANGUAGE_CHANGED';
 export const LANGUAGE_INITIALIZED = 'CORE:LANGUAGE_INITIALIZED';
@@ -22,6 +25,13 @@ export const ACCOUNTABILITIES_LOADED = 'CORE:ACCOUNTABILITIES_LOADED';
 export const COMPANY_SELECTED = 'CORE:COMPANY_SELECTED';
 export const SELECT_COMPANY = 'CORE:SELECT_COMPANY';
 export const JOB_ADVERTISEMENT_CHANGED = 'CORE:JOB_ADVERTISEMENT_CHANGED';
+
+export const ADDED_JOB_AD_FAVOURITE = 'CORE:ADDED_JOB_AD_FAVOURITE';
+export const REMOVED_JOB_AD_FAVOURITE = 'CORE:REMOVED_JOB_AD_FAVOURITE';
+export const ADD_JOB_AD_FAVOURITE = 'CORE:ADD_JOB_AD_FAVOURITE';
+export const REMOVE_JOB_AD_FAVOURITE = 'CORE:REMOVE_JOB_AD_FAVOURITE';
+
+export const UPDATED_JOB_AD_FAVOURITE = 'CORE:UPDATED_JOB_AD_FAVOURITE';
 
 export class LanguageChangedAction implements Action {
   readonly type = LANGUAGE_CHANGED;
@@ -135,6 +145,43 @@ export class JobAdvertisementUpdatedAction implements Action {
   readonly type = JOB_ADVERTISEMENT_CHANGED;
 
   constructor(public payload: { jobAdvertisement: JobAdvertisement }) {
+  }
+}
+
+export class AddJobAdFavouriteAction implements Action {
+  readonly type = ADD_JOB_AD_FAVOURITE;
+
+  constructor(public payload: { jobAdvertisementId: string }) {
+  }
+}
+
+
+export class AddedJobAdFavouriteAction implements Action {
+  readonly type = ADDED_JOB_AD_FAVOURITE;
+
+  constructor(public payload: { favouriteItem: FavouriteItem }) {
+  }
+}
+
+export class UpdatedJobAdFavouriteAction implements Action {
+  readonly type = UPDATED_JOB_AD_FAVOURITE;
+
+  constructor(public payload: { favouriteItem: FavouriteItem }) {
+  }
+}
+
+export class RemoveJobAdFavouriteAction implements Action {
+  readonly type = REMOVE_JOB_AD_FAVOURITE;
+
+  constructor(public payload: { favouriteItem: FavouriteItem }) {
+  }
+}
+
+export class RemovedJobAdFavouriteAction implements Action {
+
+  readonly type = REMOVED_JOB_AD_FAVOURITE;
+
+  constructor(public payload: { removedFavouriteItem: FavouriteItem }) {
   }
 }
 

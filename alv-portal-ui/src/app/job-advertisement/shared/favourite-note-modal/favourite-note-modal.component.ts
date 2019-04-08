@@ -6,6 +6,8 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { NotificationsService } from '../../../core/notifications.service';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -29,6 +31,7 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
               private jobAdFavouritesRepository: JobAdFavouritesRepository,
               private modalService: ModalService,
               private fb: FormBuilder,
+              private authenticationService: AuthenticationService,
               private notificationsService: NotificationsService) {
     super();
   }
@@ -50,11 +53,15 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
           this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-saved');
         });
     } else {
-      this.jobAdFavouritesRepository.createNote(this.jobAdvertisementId, this.form.value.note)
-        .subscribe(favouriteItem => {
-          this.activeModal.close(favouriteItem);
-          this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-added');
-        });
+      this.authenticationService.getCurrentUser().pipe(
+        switchMap(currentUser => {
+          return this.jobAdFavouritesRepository.addFavourite(this.jobAdvertisementId, currentUser.id, this.form.value.note);
+        }),
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe(favouriteItem => {
+        this.activeModal.close(favouriteItem);
+        this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-added');
+      });
     }
   }
 

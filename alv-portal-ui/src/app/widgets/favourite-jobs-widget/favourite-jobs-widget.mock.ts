@@ -339,12 +339,14 @@ export const mockJobSearchResults: JobSearchResult[] = mockJobs.map(x => ({
   visited: false
 }));
 
+export const mockFavouriteDescriptor = {
+  id: 'someid',
+  note: 'some note',
+  ownerId: '20303239293-dsfdsf-deeee',
+  jobAdvertisementId: '',
+  createdTime: '2019-04-01',
+  updatedTime: '2019-04-01'
+};
 export const mockJobsWithFavourites = mockJobs.map(x => ({
-  jobAdvertisement: x, favouriteItem: {
-    id: 'someid',
-    note: 'some note',
-    ownerId: '20303239293-dsfdsf-deeee',
-    jobAdvertisementId: '',
-    createdTime: '2019-04-01',
-  }
+  jobAdvertisement: x, favouriteItem: mockFavouriteDescriptor
 }));

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   CreateJobAdvertisement,
   JobAdvertisement,
@@ -14,6 +14,7 @@ import {
 
 import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../request-util';
+import { mockJobsWithFavourites } from '../../../widgets/favourite-jobs-widget/favourite-jobs-widget.mock';
 
 @Injectable({ providedIn: 'root' })
 export class JobAdvertisementRepository {
@@ -57,6 +58,10 @@ export class JobAdvertisementRepository {
           result: resp.body
         };
       }));
+    // return of({
+    //   totalCount: 203,
+    //   result: mockJobsWithFavourites
+    // });
   }
 
   findById(id: string): Observable<JobAdvertisement> {

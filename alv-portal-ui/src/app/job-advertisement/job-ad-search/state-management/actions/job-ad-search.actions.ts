@@ -1,12 +1,19 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 import {
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { JobSearchFilter } from '../state';
-import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
-import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
-import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
+import {JobSearchFilter} from '../state';
+import {FilterPanelValues} from '../../job-search/filter-panel/filter-panel.component';
+import {JobQueryPanelValues} from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
+import {OccupationTypeaheadItem} from '../../../../shared/occupations/occupation-typeahead-item';
+import {
+  AddedJobAdFavouriteAction,
+  AddJobAdFavouriteAction,
+  RemovedJobAdFavouriteAction,
+  RemoveJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
+} from '../../../../core/state-management/actions/core.actions';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
@@ -22,10 +29,8 @@ export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEM
 
 export const APPLY_QUERY_VALUES = 'JOBS:APPLY_QUERY_VALUES';
 export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
-export const UPDATE_JOB_ADVERTISEMENT = 'JOBS:UPDATE_JOB_ADVERTISEMENT';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
-
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -128,14 +133,6 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
   constructor(public payload = {}) {
   }
 }
-
-export class UpdateJobAdvertisementAction implements Action {
-  readonly type = UPDATE_JOB_ADVERTISEMENT;
-
-  constructor(public payload: { jobAdvertisementWithFavourites: JobAdvertisementWithFavourites }) {
-  }
-}
-
 /**
  * Action that is fired if the language changed and the selected occupations have been translated again
  */
@@ -145,7 +142,6 @@ export class OccupationLanguageChangedAction implements Action {
   constructor(public payload: { occupations: OccupationTypeaheadItem[] }) {
   }
 }
-
 
 export type Actions =
   | InitResultListAction
@@ -159,5 +155,9 @@ export type Actions =
   | ResetFilterAction
   | ApplyFilterValuesAction
   | ApplyQueryValuesAction
-  | UpdateJobAdvertisementAction
-  | OccupationLanguageChangedAction;
+  | AddJobAdFavouriteAction
+  | AddedJobAdFavouriteAction
+  | RemoveJobAdFavouriteAction
+  | RemovedJobAdFavouriteAction
+  | OccupationLanguageChangedAction
+  | UpdatedJobAdFavouriteAction;
