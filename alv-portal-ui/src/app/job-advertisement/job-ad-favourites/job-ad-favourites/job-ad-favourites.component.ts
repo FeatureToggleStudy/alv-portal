@@ -13,6 +13,11 @@ import {
 import {JobAdFavouritesSearchFilter} from './job-ad-favourites.types';
 import {ApplyFilterAction, LoadNextPageAction} from '../state-management/actions';
 import {JobSearchResult} from '../../shared/job-search-result/job-search-result.component';
+import {
+  AddJobAdFavouriteAction,
+  RemoveJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
+} from '../../../core/state-management/actions/core.actions';
 
 @Component({
   selector: 'alv-job-ad-favourites',
@@ -59,6 +64,18 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   onScroll() {
     this.store.dispatch(new LoadNextPageAction());
+  }
+
+  addToFavourites(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new AddJobAdFavouriteAction({jobAdvertisementId: jobSearchResult.jobAdvertisement.id}));
+  }
+
+  removeFromFavourites(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new RemoveJobAdFavouriteAction({favouriteItem: jobSearchResult.favouriteItem}));
+  }
+
+  updatedFavourite(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new UpdatedJobAdFavouriteAction({favouriteItem: jobSearchResult.favouriteItem}));
   }
 
 }

@@ -6,8 +6,12 @@ import {
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
-  UPDATE_JOB_ADVERTISEMENT
 } from '../actions';
+import {
+  ADDED_JOB_AD_FAVOURITE,
+  REMOVED_JOB_AD_FAVOURITE,
+  UPDATED_JOB_AD_FAVOURITE
+} from '../../../../core/state-management/actions/core.actions';
 
 export function jobAdFavouritesReducer(state = initialState, action: Actions): JobAdFavouritesState {
 
@@ -58,15 +62,37 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       };
       break;
 
-    // TODO what is this for?
-    case UPDATE_JOB_ADVERTISEMENT:
-      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.jobAdvertisementWithFavourites.jobAdvertisement.id);
-      state.resultList[indexToUpdate] = action.payload.jobAdvertisementWithFavourites;
+    case UPDATED_JOB_AD_FAVOURITE:
+    case ADDED_JOB_AD_FAVOURITE: {
+      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.favouriteItem.jobAdvertisementId);
+      // TODO for the favourite state redurects if a job-ad is added let's just reset the search
+      if (indexToUpdate === -1) {
+        return state;
+      }
+      const updatedResultList = state.resultList.slice();
+      updatedResultList[indexToUpdate].favouriteItem = action.payload.favouriteItem;
       newState = {
         ...state,
-        resultList: state.resultList
+        resultList: updatedResultList
       };
       break;
+    }
+
+    case REMOVED_JOB_AD_FAVOURITE: {
+      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.removedFavouriteItem.jobAdvertisementId);
+      if (indexToUpdate === -1) {
+        return state;
+      }
+      const updatedResultList = state.resultList.slice();
+      const unstarredJobCopy = Object.assign({}, updatedResultList[indexToUpdate]);
+      unstarredJobCopy.favouriteItem = null;
+      updatedResultList[indexToUpdate] = unstarredJobCopy;
+      newState = {
+        ...state,
+        resultList: updatedResultList
+      };
+      break;
+    }
 
     default:
       newState = state;

@@ -9,7 +9,7 @@
   <ng-container *ngIf="jobFavourites?.length; else noFavouritesPlaceholder">
     <alv-job-search-result *ngFor="let jobFavourite of jobFavourites"
                            [jobSearchResult]="jobFavourite"
-                           (removeFromFavourites)="removeFromFavourites($event)"
+                           (removeFavourite)="removeFromFavourites($event)"
                            routerLinkBase="/job-favourites">
     </alv-job-search-result>
   </ng-container>

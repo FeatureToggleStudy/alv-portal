@@ -1,7 +1,6 @@
 import {initialState, JobAdSearchState} from '../state';
 import {
   Actions,
-  ADDED_JOB_AD_FAVOURITE,
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
@@ -10,9 +9,13 @@ import {
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
-  REMOVED_JOB_AD_FAVOURITE,
   RESET_FILTER
 } from '../actions';
+import {
+  ADDED_JOB_AD_FAVOURITE,
+  REMOVED_JOB_AD_FAVOURITE,
+  UPDATED_JOB_AD_FAVOURITE
+} from '../../../../core/state-management/actions/core.actions';
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
 
@@ -105,8 +108,8 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       };
       break;
 
-    case ADDED_JOB_AD_FAVOURITE: {
-      console.log('reducer: ADDED_JOB_AD_FAVOURITE is processing');
+    case ADDED_JOB_AD_FAVOURITE:
+    case UPDATED_JOB_AD_FAVOURITE: {
       const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.favouriteItem.jobAdvertisementId);
       const updatedResultList = state.resultList.slice();
       updatedResultList[indexToUpdate].favouriteItem = action.payload.favouriteItem;
@@ -129,6 +132,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       };
       break;
     }
+
     default:
       newState = state;
   }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable } from 'rxjs';
-import { flatMap, map } from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {flatMap, map} from 'rxjs/operators';
 import {
   FavouriteItem,
   JobAdFavouritesSearchRequest,
@@ -30,15 +30,6 @@ export class JobAdFavouritesRepository {
    * @return the newly created id of the favourite item
    */
   addFavourite(jobAdvertisementId: string, userId: string, note = ''): Observable<FavouriteItem> {
-    // return of({
-    //   id: 'someid',
-    //   note: 'some note',
-    //   ownerId: '20303239293-dsfdsf-deeee',
-    //   jobAdvertisementId: '',
-    //   createdTime: '2019-04-01',
-    //   updatedTime: '2019-04-01'
-    // });
-
     const emptyCreateFavouriteItem = {
       note: note,
       userId: userId,
@@ -51,10 +42,6 @@ export class JobAdFavouritesRepository {
 
   removeFavourite(favouriteItemId: string): Observable<void> {
     return this.http.delete<void>(`${FAVOURITES_PREFIX}/${favouriteItemId}`);
-  }
-
-  createNote(jobAdvertisementId: string, note: string): Observable<FavouriteItem> {
-    return this.addFavourite(jobAdvertisementId, note);
   }
 
   editNote(favouriteItem: FavouriteItem, note: string): Observable<void> {

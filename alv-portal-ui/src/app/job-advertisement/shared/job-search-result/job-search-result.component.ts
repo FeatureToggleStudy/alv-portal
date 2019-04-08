@@ -1,18 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output
-} from '@angular/core';
-import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
-import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import { Observable, Subject } from 'rxjs';
-import { JobBadgesMapperService } from '../../../widgets/job-publication-widget/job-badges-mapper.service';
-import { JobAdvertisementWithFavourites } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ResultListItem} from '../../../shared/layout/result-list-item/result-list-item.model';
+import {JobAdvertisementUtils} from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
+import {Observable, Subject} from 'rxjs';
+import {JobBadgesMapperService} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
+import {JobAdvertisementWithFavourites} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {ModalService} from '../../../shared/layout/modal/modal.service';
+import {FavouriteNoteModalComponent} from '../favourite-note-modal/favourite-note-modal.component';
 
 export interface JobSearchResult extends JobAdvertisementWithFavourites {
   visited: boolean;
@@ -35,14 +28,14 @@ export class JobSearchResultComponent implements OnInit {
   @Input()
   language: string;
 
-  // @Output()
-  // searchResultUpdate = new EventEmitter<JobSearchResult>(); // todo here jobsearchresult itself is responsible for repainting itself. Also we have two sources of truth here: `this.searchResultUpdate` and `this.jobSearchResult`. I think that it's unnessesary and can be simplified. I think the component can repaint itself when the `this.searchResult` input is changed. This input will be changed by the parent component.
+  @Output()
+  removeFavourite = new EventEmitter<JobSearchResult>();
 
   @Output()
-  removeFromFavourites = new EventEmitter<JobSearchResult>();
+  addFavourite = new EventEmitter<JobSearchResult>();
 
   @Output()
-  addToFavourites = new EventEmitter<JobSearchResult>();
+  updatedFavourite = new EventEmitter<JobSearchResult>();
 
   resultListItem$: Observable<ResultListItem>;
 
@@ -76,9 +69,9 @@ export class JobSearchResultComponent implements OnInit {
 
   toggleFavourites() {
     if (this.jobSearchResult.favouriteItem) {
-      this.removeFromFavourites.emit(this.jobSearchResult);
+      this.removeFavourite.emit(this.jobSearchResult);
     } else {
-      this.addToFavourites.emit(this.jobSearchResult);
+      this.addFavourite.emit(this.jobSearchResult);
     }
   }
 
@@ -89,31 +82,14 @@ export class JobSearchResultComponent implements OnInit {
     favouriteNoteComponent.favouriteItem = this.jobSearchResult.favouriteItem;
     favouriteNoteModalRef.result
       .then(favouriteItem => {
-        this.jobSearchResult.favouriteItem = favouriteItem;
-        // this.searchResultUpdate.emit(this.jobSearchResult);
+        this.updatedFavourite.emit({
+          ...this.jobSearchResult,
+          favouriteItem: favouriteItem
+        });
       })
       .catch(() => {
       });
   }
-
-  //
-  // private addToFav() {
-  //   this.jobAdFavouritesRepository.addFavourite(this.jobSearchResult.jobAdvertisement.id)
-  //     .subscribe(favouriteItem => {
-  //       this.jobSearchResult.favouriteItem = favouriteItem;
-  //       this.searchResultUpdate.emit(this.jobSearchResult);
-  //       this.notificationService.success('portal.job-ad-favourites.notification.favourite-added');
-  //     });
-  // }
-  //
-  // private removeFromFavorites() {
-  //   this.jobAdFavouritesRepository.removeFavourite(this.jobSearchResult.favouriteItem)
-  //     .subscribe(() => {
-  //       this.jobSearchResult.favouriteItem = null;
-  //       this.searchResultUpdate.emit(this.jobSearchResult);
-  //       this.notificationService.success('portal.job-ad-favourites.notification.favourite-removed');
-  //     });
-  // }
 
 }
 

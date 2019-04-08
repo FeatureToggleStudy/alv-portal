@@ -1,6 +1,5 @@
 import {Action} from '@ngrx/store';
 import {
-  FavouriteItem,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -8,6 +7,12 @@ import {JobSearchFilter} from '../state';
 import {FilterPanelValues} from '../../job-search/filter-panel/filter-panel.component';
 import {JobQueryPanelValues} from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import {OccupationTypeaheadItem} from '../../../../shared/occupations/occupation-typeahead-item';
+import {
+  AddedJobAdFavouriteAction,
+  AddJobAdFavouriteAction,
+  RemovedJobAdFavouriteAction,
+  RemoveJobAdFavouriteAction, UPDATED_JOB_AD_FAVOURITE, UpdatedJobAdFavouriteAction
+} from "../../../../core/state-management/actions/core.actions";
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
@@ -25,14 +30,7 @@ export const APPLY_QUERY_VALUES = 'JOBS:APPLY_QUERY_VALUES';
 export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 export const UPDATE_JOB_ADVERTISEMENT = 'JOBS:UPDATE_JOB_ADVERTISEMENT';
 
-export const ADD_JOB_AD_FAVOURITE = 'JOBS:ADD_JOB_AD_FAVOURITE';
-export const ADDED_JOB_AD_FAVOURITE = 'JOBS:ADDED_JOB_AD_FAVOURITE';
-
-export const REMOVE_JOB_AD_FAVOURITE = 'JOBS:REMOVE_JOB_AD_FAVOURITE';
-export const REMOVED_JOB_AD_FAVOURITE = 'JOBS:REMOVED_JOB_AD_FAVOURITE';
-
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
-
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -143,35 +141,6 @@ export class UpdateJobAdvertisementAction implements Action {
   }
 }
 
-export class AddJobAdFavouriteAction implements Action {
-  readonly type = ADD_JOB_AD_FAVOURITE;
-
-  constructor(public payload: { jobAdvertisementId: string }) {
-  }
-}
-
-export class AddedJobAdFavouriteAction implements Action {
-  readonly type = ADDED_JOB_AD_FAVOURITE;
-
-  constructor(public payload: { favouriteItem: FavouriteItem }) {
-  }
-}
-
-export class RemoveJobAdFavouriteAction implements Action {
-  readonly type = REMOVE_JOB_AD_FAVOURITE;
-
-  constructor(public payload: { favouriteItem: FavouriteItem }) {
-  }
-}
-
-export class RemovedJobAdFavouriteAction implements Action {
-
-  readonly type = REMOVED_JOB_AD_FAVOURITE;
-
-  constructor(public payload: { removedFavouriteItem: FavouriteItem }) {
-  }
-}
-
 /**
  * Action that is fired if the language changed and the selected occupations have been translated again
  */
@@ -181,7 +150,6 @@ export class OccupationLanguageChangedAction implements Action {
   constructor(public payload: { occupations: OccupationTypeaheadItem[] }) {
   }
 }
-
 
 export type Actions =
   | InitResultListAction
@@ -200,4 +168,5 @@ export type Actions =
   | AddedJobAdFavouriteAction
   | RemoveJobAdFavouriteAction
   | RemovedJobAdFavouriteAction
-  | OccupationLanguageChangedAction;
+  | OccupationLanguageChangedAction
+  | UpdatedJobAdFavouriteAction;

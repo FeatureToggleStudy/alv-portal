@@ -1,11 +1,8 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { asyncScheduler, Observable, of } from 'rxjs/index';
-import { Action, select, Store } from '@ngrx/store';
+import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {asyncScheduler, Observable, of} from 'rxjs/index';
+import {Action, select, Store} from '@ngrx/store';
 import {
-  ADD_JOB_AD_FAVOURITE,
-  AddedJobAdFavouriteAction,
-  AddJobAdFavouriteAction,
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
@@ -21,12 +18,9 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
-  REMOVE_JOB_AD_FAVOURITE,
-  RemovedJobAdFavouriteAction,
-  RemoveJobAdFavouriteAction,
   RESET_FILTER
 } from '../actions';
-import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
+import {JobAdvertisementRepository} from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
   catchError,
   concatMap,
@@ -39,21 +33,12 @@ import {
   tap,
   withLatestFrom
 } from 'rxjs/operators';
-import {
-  getJobAdSearchState,
-  getJobSearchFilter,
-  getNextId,
-  getPrevId,
-  JobAdSearchState
-} from '../state';
-import { JobSearchRequestMapper } from './job-search-request.mapper';
-import { Router } from '@angular/router';
-import {
-  FavouriteItem,
-  JobAdvertisementSearchResponse
-} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { SchedulerLike } from 'rxjs/src/internal/types';
-import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
+import {getJobAdSearchState, getJobSearchFilter, getNextId, getPrevId, JobAdSearchState} from '../state';
+import {JobSearchRequestMapper} from './job-search-request.mapper';
+import {Router} from '@angular/router';
+import {JobAdvertisementSearchResponse} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {SchedulerLike} from 'rxjs/src/internal/types';
+import {AsyncScheduler} from 'rxjs/internal/scheduler/AsyncScheduler';
 import {
   EffectErrorOccurredAction,
   JOB_ADVERTISEMENT_CHANGED,
@@ -61,42 +46,15 @@ import {
   LANGUAGE_CHANGED,
   LanguageChangedAction
 } from '../../../../core/state-management/actions/core.actions';
-import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
-import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
-import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import {OccupationSuggestionService} from '../../../../shared/occupations/occupation-suggestion.service';
+import {JobAdFavouritesRepository} from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import {AuthenticationService} from '../../../../core/auth/authentication.service';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
 
 @Injectable()
 export class JobAdSearchEffects {
-
-  @Effect()
-  jobAdvertisementAddToFavourites$: Observable<Action> = this.actions$.pipe(
-    ofType(ADD_JOB_AD_FAVOURITE),
-    map((action: AddJobAdFavouriteAction) => action.payload),
-    withLatestFrom(this.authenticationService.getCurrentUser()),
-    switchMap(([action, currentUser]) => {
-        return this.jobAdFavouritesRepository.addFavourite(action.jobAdvertisementId, currentUser.id).pipe(
-          map((favouriteItem: FavouriteItem) => {
-            return new AddedJobAdFavouriteAction({ favouriteItem: favouriteItem });
-          })
-        );
-      }
-    )
-  );
-
-  @Effect()
-  removeJobAdFavourite$: Observable<Action> = this.actions$.pipe(
-    ofType(REMOVE_JOB_AD_FAVOURITE),
-    map((action: RemoveJobAdFavouriteAction) => action.payload),
-    switchMap(action => {
-        return this.jobAdFavouritesRepository.removeFavourite(action.favouriteItem.id).pipe(
-          map(() => new RemovedJobAdFavouriteAction({ removedFavouriteItem: action.favouriteItem }))
-        );
-      }
-    )
-  );
 
   @Effect()
   jobAdvertisementChanged$: Observable<Action> = this.actions$.pipe(
@@ -117,7 +75,7 @@ export class JobAdSearchEffects {
         page: response.result,
         totalCount: response.totalCount
       })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
     )),
     takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
   );
@@ -133,7 +91,7 @@ export class JobAdSearchEffects {
         page: response.result,
         totalCount: response.totalCount
       })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
     ))
   );
 
@@ -169,8 +127,8 @@ export class JobAdSearchEffects {
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     concatMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1)).pipe(
-      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({page: response.result})),
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
     )),
   );
 
@@ -183,7 +141,7 @@ export class JobAdSearchEffects {
       this.router.navigate(['/job-search', id]);
     }),
     map(() => {
-      return { type: 'nothing' };
+      return {type: 'nothing'};
     })
   );
 
@@ -198,7 +156,7 @@ export class JobAdSearchEffects {
       return this.occupationSuggestionService.translateAll(jobSearchFilter.occupations, action.payload.language);
     }),
     map((updatedOccupations) => {
-      return new OccupationLanguageChangedAction({ occupations: updatedOccupations });
+      return new OccupationLanguageChangedAction({occupations: updatedOccupations});
     })
   );
 
@@ -224,7 +182,7 @@ export class JobAdSearchEffects {
       this.router.navigate(['/job-search', id]);
     }),
     map(() => {
-      return { type: 'nothing' };
+      return {type: 'nothing'};
     })
   );
 

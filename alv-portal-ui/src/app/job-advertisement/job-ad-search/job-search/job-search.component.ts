@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import {AbstractSubscriber} from '../../../core/abstract-subscriber';
 import {
-  AddJobAdFavouriteAction,
   ApplyFilterValuesAction,
   ApplyQueryValuesAction,
   FILTER_APPLIED,
@@ -23,7 +22,6 @@ import {
   JobAdSearchState,
   JobSearchFilter,
   LoadNextPageAction,
-  RemoveJobAdFavouriteAction,
   ResetFilterAction
 } from '../state-management';
 import {ActionsSubject, select, Store} from '@ngrx/store';
@@ -39,6 +37,11 @@ import {LayoutConstants} from '../../../shared/layout/layout-constants.enum';
 import {WINDOW} from '../../../core/window.service';
 import {JobSearchResult} from '../../shared/job-search-result/job-search-result.component';
 import {I18nService} from '../../../core/i18n.service';
+import {
+  AddedJobAdFavouriteAction,
+  AddJobAdFavouriteAction,
+  RemoveJobAdFavouriteAction, UpdatedJobAdFavouriteAction
+} from '../../../core/state-management/actions/core.actions';
 
 @Component({
   selector: 'alv-job-search',
@@ -147,14 +150,18 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     }
   }
 
-
-  addToFavourites(jobSearchResult: JobSearchResult) {
+  addFavourite(jobSearchResult: JobSearchResult) {
     this.store.dispatch(new AddJobAdFavouriteAction({jobAdvertisementId: jobSearchResult.jobAdvertisement.id}));
   }
 
-  removeFromFavourites(jobSearchResult: JobSearchResult) {
+  removeFavourite(jobSearchResult: JobSearchResult) {
     this.store.dispatch(new RemoveJobAdFavouriteAction({favouriteItem: jobSearchResult.favouriteItem}));
   }
+
+  updatedFavourite(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new UpdatedJobAdFavouriteAction({favouriteItem: jobSearchResult.favouriteItem}));
+  }
+
 }
 
 

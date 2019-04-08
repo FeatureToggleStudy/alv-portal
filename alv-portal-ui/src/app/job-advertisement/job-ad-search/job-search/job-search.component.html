@@ -53,8 +53,9 @@
       <ng-container *ngIf="jobSearchResults$ | async as jobSearchResults">
         <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults"
                                [jobSearchResult]="jobSearchResult"
-                               (addToFavourites)="addToFavourites($event)"
-                               (removeFromFavourites)="removeFromFavourites($event)"
+                               (addFavourite)="addFavourite($event)"
+                               (updatedFavourite)="updatedFavourite($event)"
+                               (removeFavourite)="removeFavourite($event)"
                                routerLinkBase="/job-search"
                                [language]="currentLanguage"
         ></alv-job-search-result>

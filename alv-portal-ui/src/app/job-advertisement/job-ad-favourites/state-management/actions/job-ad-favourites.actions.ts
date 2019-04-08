@@ -1,10 +1,14 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 import {
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { JobAdvertisementUpdatedAction } from '../../../../core/state-management/actions/core.actions';
-import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
+import {
+  AddedJobAdFavouriteAction,
+  JobAdvertisementUpdatedAction,
+  RemovedJobAdFavouriteAction, UpdatedJobAdFavouriteAction
+} from '../../../../core/state-management/actions/core.actions';
+import {JobAdFavouritesSearchFilter} from '../../job-ad-favourites/job-ad-favourites.types';
 
 export const INIT_RESULT_LIST = 'JOBADFAVOURITES:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBADFAVOURITES:FILTER_APPLIED';
@@ -87,4 +91,7 @@ export type Actions =
   | NextPageLoadedAction
   | JobAdvertisementDetailLoadedAction
   | JobAdvertisementUpdatedAction
-  | UpdateJobAdvertisementAction;
+  | UpdateJobAdvertisementAction
+  | RemovedJobAdFavouriteAction
+  | UpdatedJobAdFavouriteAction
+  | AddedJobAdFavouriteAction;
