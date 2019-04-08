@@ -1,28 +1,19 @@
-import { AfterViewInit, OnInit, ViewChild } from '@angular/core';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import {
-  Notification,
-  NotificationType
-} from '../../../shared/layout/notifications/notification.model';
-import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
-import { Observable } from 'rxjs';
-import { JobDetailModel } from '../job-detail-model';
-import {
-  JobBadge,
-  JobBadgesMapperService
-} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {
-  isDeactivated,
-  isExternal,
-  isUnvalidated
-} from '../../../widgets/job-search-widget/job-ad-rules';
-import { JobDetailModelFactory } from '../job-detail-model-factory';
-import { ScrollService } from '../../../core/scroll.service';
-import { NotificationsService } from '../../../core/notifications.service';
-import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { ComplaintModalComponent } from '../complaint-modal/complaint-modal.component';
+import {AfterViewInit, OnInit, ViewChild} from '@angular/core';
+import {AbstractSubscriber} from '../../../core/abstract-subscriber';
+import {Notification, NotificationType} from '../../../shared/layout/notifications/notification.model';
+import {LayoutConstants} from '../../../shared/layout/layout-constants.enum';
+import {Observable} from 'rxjs';
+import {JobDetailModel} from '../job-detail-model';
+import {JobBadge, JobBadgesMapperService} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
+import {NgbTooltip} from '@ng-bootstrap/ng-bootstrap';
+import {JobAdvertisement} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {isDeactivated, isExternal, isUnvalidated} from '../../../widgets/job-search-widget/job-ad-rules';
+import {JobDetailModelFactory} from '../job-detail-model-factory';
+import {ScrollService} from '../../../core/scroll.service';
+import {NotificationsService} from '../../../core/notifications.service';
+import {ModalService} from '../../../shared/layout/modal/modal.service';
+import {ComplaintModalComponent} from '../complaint-modal/complaint-modal.component';
+import {map, switchMap} from 'rxjs/operators';
 
 
 export abstract class AbstractJobAdDetail extends AbstractSubscriber implements OnInit, AfterViewInit {
@@ -62,24 +53,8 @@ export abstract class AbstractJobAdDetail extends AbstractSubscriber implements 
 
   alerts$: Observable<Notification[]>;
 
-  abstract backButtonPath: string;
-
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
-
-  protected static mapJobAdAlerts(job: JobAdvertisement): Notification[] {
-    const alerts = [];
-    if (isExternal(job)) {
-      alerts.push(AbstractJobAdDetail.ALERTS.jobAdExternal);
-    }
-    if (isDeactivated(job)) {
-      alerts.push(AbstractJobAdDetail.ALERTS.jobAdDeactivated);
-    }
-    if (isUnvalidated(job)) {
-      alerts.push(AbstractJobAdDetail.ALERTS.jobAdUnvalidated);
-    }
-    return alerts;
-  }
 
   protected constructor(
     protected jobBadgesMapperService: JobBadgesMapperService,
@@ -94,11 +69,28 @@ export abstract class AbstractJobAdDetail extends AbstractSubscriber implements 
     this.scrollService.scrollToTop();
   }
 
-  abstract ngOnInit();
+  ngOnInit() {
+    const job$ = this.loadJob$();
+    this.jobDetailModel$ = job$.pipe(
+      switchMap((job) => this.jobDetailModelFactory.create(job))
+    );
+    this.alerts$ = job$.pipe(map(this.mapJobAdAlerts));
+    this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
+    this.prevEnabled$ = this.isPrevVisible();
+    this.nextEnabled$ = this.isNextVisible();
+  }
 
-  abstract prev();
+  abstract loadJob$(): Observable<JobAdvertisement>;
 
-  abstract next();
+  abstract loadPrev();
+
+  abstract loadNext();
+
+  abstract isPrevVisible(): Observable<boolean>;
+
+  abstract isNextVisible(): Observable<boolean>;
+
+  abstract get backButtonPath();
 
   getEncodedUrl() {
     return encodeURIComponent(this.getJobUrl());
@@ -130,6 +122,20 @@ export abstract class AbstractJobAdDetail extends AbstractSubscriber implements 
 
   protected getJobUrl() {
     return window.location.href;
+  }
+
+  private mapJobAdAlerts(job: JobAdvertisement): Notification[] {
+    const alerts = [];
+    if (isExternal(job)) {
+      alerts.push(AbstractJobAdDetail.ALERTS.jobAdExternal);
+    }
+    if (isDeactivated(job)) {
+      alerts.push(AbstractJobAdDetail.ALERTS.jobAdDeactivated);
+    }
+    if (isUnvalidated(job)) {
+      alerts.push(AbstractJobAdDetail.ALERTS.jobAdUnvalidated);
+    }
+    return alerts;
   }
 
 }

@@ -1,7 +1,7 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
+import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {JobAdvertisementRepository} from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
+import {AsyncScheduler} from 'rxjs/internal/scheduler/AsyncScheduler';
 import {
   catchError,
   concatMap,
@@ -14,8 +14,8 @@ import {
   tap,
   withLatestFrom
 } from 'rxjs/operators';
-import { Action, select, Store } from '@ngrx/store';
-import { asyncScheduler, Observable, of } from 'rxjs';
+import {Action, select, Store} from '@ngrx/store';
+import {asyncScheduler, Observable, of} from 'rxjs';
 import {
   EffectErrorOccurredAction,
   JOB_ADVERTISEMENT_CHANGED,
@@ -41,12 +41,12 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction
 } from '../actions';
-import { getCurrentCompanyContactTemplateModel } from '../../../../core/state-management/state/core.state.ts';
-import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { SchedulerLike } from 'rxjs/src/internal/types';
-import { Router } from '@angular/router';
-import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
-import { JobAdFavouritesSearchRequestMapper } from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
+import {getCurrentCompanyContactTemplateModel} from '../../../../core/state-management/state/core.state.ts';
+import {JobAdvertisementSearchResponse} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {SchedulerLike} from 'rxjs/src/internal/types';
+import {Router} from '@angular/router';
+import {JobAdFavouritesRepository} from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import {JobAdFavouritesSearchRequestMapper} from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
 
 export const JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE');
 export const JOB_AD_FAVOURITES_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_FAVOURITES_EFFECTS_SCHEDULER');
@@ -54,19 +54,17 @@ export const JOB_AD_FAVOURITES_EFFECTS_SCHEDULER = new InjectionToken<SchedulerL
 @Injectable()
 export class JobAdFavouritesEffects {
 
-
-
   @Effect()
   initJobSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
-    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
-    switchMap(([action, state, company]) => {
+    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState))),
+    switchMap(([action, state]) => {
       return this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page)).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount
         })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
       );
     }),
     // unsubscribe the initJobSearch$ once we have applied a filter
@@ -78,14 +76,14 @@ export class JobAdFavouritesEffects {
     ofType(APPLY_FILTER),
     map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
-    switchMap(([JobAdFavouritesSearchFilter, state, company]) => {
+    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState))),
+    switchMap(([JobAdFavouritesSearchFilter, state]) => {
       return this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(JobAdFavouritesSearchFilter, state.page)).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount
         })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
       );
     })
   );
@@ -94,10 +92,10 @@ export class JobAdFavouritesEffects {
   loadNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
-    concatMap(([action, state, company]) => this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page + 1)).pipe(
-      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState))),
+    concatMap(([action, state]) => this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page + 1)).pipe(
+      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({page: response.result})),
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
     )),
   );
 
@@ -110,7 +108,7 @@ export class JobAdFavouritesEffects {
       this.router.navigate(['/job-favourites', id]);
     }),
     map(() => {
-      return { type: 'nothing' };
+      return {type: 'nothing'};
     })
   );
 
@@ -136,7 +134,7 @@ export class JobAdFavouritesEffects {
       this.router.navigate(['/job-favourites', id]);
     }),
     map(() => {
-      return { type: 'nothing' };
+      return {type: 'nothing'};
     })
   );
 
