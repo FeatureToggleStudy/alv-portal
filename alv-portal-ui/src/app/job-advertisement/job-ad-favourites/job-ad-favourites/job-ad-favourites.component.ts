@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {IconKey} from '../../../shared/icons/custom-icon/custom-icon.component';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {debounceTime, take, takeUntil, tap} from 'rxjs/operators';
+import {AbstractSubscriber} from '../../../core/abstract-subscriber';
+import {select, Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 import {
   getJobAdFavouritesResults,
   getJobAdFavouritesSearchFilter,
   JobAdFavouritesState
 } from '../state-management/state';
-import { JobAdFavouritesSearchFilter } from './job-ad-favourites.types';
-import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
-import { JobSearchResult } from '../../shared/job-search-result/job-search-result.component';
+import {JobAdFavouritesSearchFilter} from './job-ad-favourites.types';
+import {ApplyFilterAction, LoadNextPageAction} from '../state-management/actions';
+import {JobSearchResult} from '../../shared/job-search-result/job-search-result.component';
 
 @Component({
   selector: 'alv-job-ad-favourites',
@@ -35,42 +35,30 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
   }
 
   ngOnInit() {
-    this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults));
-
-    this.jobAdFavouriteSearchFilter$ = this.store.pipe(select(getJobAdFavouritesSearchFilter)).pipe(
-      tap(currentFilter => {
-        this.form.patchValue({ query: currentFilter.query }, { emitEvent: false });
-      })
-    );
-
     this.form = this.fb.group({
       query: ['']
     });
 
+    this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults));
+
+    this.jobAdFavouriteSearchFilter$ = this.store.pipe(select(getJobAdFavouritesSearchFilter)).pipe(
+      tap(currentFilter => {
+        this.form.patchValue({query: currentFilter.query}, {emitEvent: false});
+      })
+    );
+
     this.form.get('query').valueChanges.pipe(
       debounceTime(300),
       takeUntil(this.ngUnsubscribe))
-      .subscribe(value => this.applyQuery(value));
-
-    this.jobAdFavouriteSearchFilter$.pipe(
-      take(1))
-      .subscribe(filter => this.applyQuery(filter.query));
-
+      .subscribe(value => {
+        this.store.dispatch(new ApplyFilterAction({
+          query: value
+        }));
+      });
   }
 
   onScroll() {
     this.store.dispatch(new LoadNextPageAction());
-  }
-
-  private applyQuery(newQuery: string) {
-    this.jobAdFavouriteSearchFilter$.pipe(
-      take(1))
-      .subscribe(value => {
-        this.store.dispatch(new ApplyFilterAction({
-          ...value,
-          query: newQuery
-        }));
-      });
   }
 
 }

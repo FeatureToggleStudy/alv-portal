@@ -24,14 +24,14 @@
                   [attr.aria-label]="'portal.global.actions' | translate">
             <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
           </button>
-          <div aria-label="Job detail menu"
+          <div aria-label="Job detail menu"prev
                ngbDropdownMenu>
-            <button (click)="prev()"
+            <button (click)="loadPrev()"
                     [disabled]="!(prevEnabled$ | async)"
                     class="dropdown-item">
               {{'portal.job-detail.previous-result' | translate}}
             </button>
-            <button (click)="next()"
+            <button (click)="loadNext()"
                     [disabled]="!(nextEnabled$ | async)"
                     class="dropdown-item">
               {{'portal.job-detail.next-result' | translate}}
@@ -111,7 +111,7 @@
 
     <ng-container class="right-column">
       <div class="d-flex">
-        <button (click)="prev()"
+        <button (click)="loadPrev()"
                 [disabled]="!(prevEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           <fa-icon class="mr-1"
@@ -119,7 +119,7 @@
           {{'portal.job-detail.previous-result' | translate}}
         </button>
         <div class="flex-grow-1"></div>
-        <button (click)="next()"
+        <button (click)="loadNext()"
                 [disabled]="!(nextEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}

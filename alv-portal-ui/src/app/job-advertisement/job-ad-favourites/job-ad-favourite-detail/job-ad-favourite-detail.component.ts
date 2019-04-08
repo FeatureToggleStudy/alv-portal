@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {
   getSelectedJobAdvertisement,
   isNextVisible,
@@ -7,14 +7,15 @@ import {
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management';
-import { select, Store } from '@ngrx/store';
-import { JobBadgesMapperService } from '../../../widgets/job-publication-widget/job-badges-mapper.service';
-import { JobDetailModelFactory } from '../../shared/job-detail-model-factory';
-import { map, switchMap } from 'rxjs/operators';
-import { ScrollService } from '../../../core/scroll.service';
-import { NotificationsService } from '../../../core/notifications.service';
-import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { AbstractJobAdDetail } from '../../shared/abstract-job-ad-detail/abstract-job-ad-detail';
+import {select, Store} from '@ngrx/store';
+import {JobBadgesMapperService} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
+import {JobDetailModelFactory} from '../../shared/job-detail-model-factory';
+import {ScrollService} from '../../../core/scroll.service';
+import {NotificationsService} from '../../../core/notifications.service';
+import {ModalService} from '../../../shared/layout/modal/modal.service';
+import {AbstractJobAdDetail} from '../../shared/abstract-job-ad-detail/abstract-job-ad-detail';
+import {Observable} from 'rxjs';
+import {JobAdvertisement} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-job-ad-favourite-detail',
@@ -24,7 +25,7 @@ import { AbstractJobAdDetail } from '../../shared/abstract-job-ad-detail/abstrac
 })
 export class JobAdFavouriteDetailComponent extends AbstractJobAdDetail implements OnInit {
 
-  backButtonPath = '/job-favourites';
+  public backButtonPath = '/job-favourites';
 
   constructor(
     jobBadgesMapperService: JobBadgesMapperService,
@@ -41,25 +42,24 @@ export class JobAdFavouriteDetailComponent extends AbstractJobAdDetail implement
     );
   }
 
-  ngOnInit() {
-    const job$ = this.store.pipe(select(getSelectedJobAdvertisement));
-
-    this.jobDetailModel$ = job$.pipe(
-      switchMap((job) => this.jobDetailModelFactory.create(job))
-    );
-
-    this.alerts$ = job$.pipe(map(JobAdFavouriteDetailComponent.mapJobAdAlerts));
-    this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
-
-    this.prevEnabled$ = this.store.pipe(select(isPrevVisible));
-    this.nextEnabled$ = this.store.pipe(select(isNextVisible));
+  isNextVisible(): Observable<boolean> {
+    return this.store.pipe(select(isNextVisible));
   }
 
-  prev() {
+  isPrevVisible(): Observable<boolean> {
+    return this.store.pipe(select(isPrevVisible));
+  }
+
+  loadJob$(): Observable<JobAdvertisement> {
+    return this.store.pipe(select(getSelectedJobAdvertisement));
+  }
+
+  loadNext() {
+    this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
+  }
+
+  loadPrev() {
     this.store.dispatch(new LoadPreviousJobAdvertisementDetailAction());
   }
 
-  next() {
-    this.store.dispatch(new LoadNextJobAdvertisementDetailAction());
-  }
 }

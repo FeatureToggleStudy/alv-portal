@@ -1,26 +1,18 @@
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot
-} from '@angular/router';
-import { Injectable } from '@angular/core';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { map } from 'rxjs/operators';
-import { isAuthenticatedUser } from '../../../core/auth/user.model';
-import { Observable } from 'rxjs';
-
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {JobAdFavouritesState} from '../state-management/state';
+import {InitResultListAction} from '../state-management/actions';
 
 @Injectable()
 export class JobAdFavouritesGuard implements CanActivate {
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private store: Store<JobAdFavouritesState>) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): Observable<boolean> {
-    return this.authenticationService.getCurrentUser().pipe(
-      map(user => isAuthenticatedUser(user))
-    );
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    this.store.dispatch(new InitResultListAction());
+    return true;
   }
 
 }
