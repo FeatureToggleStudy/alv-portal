@@ -28,8 +28,6 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   IconKey = IconKey;
 
-  jobAdFavouriteSearchFilter$: Observable<JobAdFavouritesSearchFilter>;
-
   form: FormGroup;
 
   jobAdFavouriteSearchResults$: Observable<JobSearchResult[]>;
@@ -46,11 +44,12 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
     this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults));
 
-    this.jobAdFavouriteSearchFilter$ = this.store.pipe(select(getJobAdFavouritesSearchFilter)).pipe(
+    this.store.pipe(select(getJobAdFavouritesSearchFilter)).pipe(
       tap(currentFilter => {
         this.form.patchValue({query: currentFilter.query}, {emitEvent: false});
-      })
-    );
+      }),
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe();
 
     this.form.get('query').valueChanges.pipe(
       debounceTime(300),
