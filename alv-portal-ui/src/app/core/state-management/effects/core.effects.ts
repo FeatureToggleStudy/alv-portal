@@ -179,10 +179,9 @@ export class CoreEffects {
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
     switchMap(([action, currentUser]) => {
         return this.jobAdFavouritesRepository.addFavourite(action.jobAdvertisementId, currentUser.id).pipe(
-          map((favouriteItem: FavouriteItem) => {
-            return new AddedJobAdFavouriteAction({favouriteItem: favouriteItem});
-          }),
-          tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-added'))
+          map((favouriteItem: FavouriteItem) => new AddedJobAdFavouriteAction({favouriteItem: favouriteItem})),
+          tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-added')),
+          catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
         );
       }
     )
@@ -195,7 +194,8 @@ export class CoreEffects {
     switchMap(action =>
       this.jobAdFavouritesRepository.removeFavourite(action.favouriteItem.id).pipe(
         map(() => new RemovedJobAdFavouriteAction({removedFavouriteItem: action.favouriteItem})),
-        tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-removed'))
+        tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-removed')),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
       )
     )
   );
