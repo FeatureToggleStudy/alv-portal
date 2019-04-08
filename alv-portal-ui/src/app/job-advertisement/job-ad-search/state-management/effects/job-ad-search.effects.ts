@@ -196,9 +196,7 @@ export class JobAdSearchEffects {
               private debounce,
               @Optional()
               @Inject(JOB_AD_SEARCH_EFFECTS_SCHEDULER)
-              private scheduler: AsyncScheduler,
-              private jobAdFavouritesRepository: JobAdFavouritesRepository,
-              private authenticationService: AuthenticationService) {
+              private scheduler: AsyncScheduler) {
 
   }
 
