@@ -19,6 +19,10 @@ import {
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
 
+  function findJobAdIdIndex(jobAdId: string) {
+    return state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
+  }
+
   let newState: JobAdSearchState;
 
   switch (action.type) {
@@ -110,7 +114,10 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
 
     case ADDED_JOB_AD_FAVOURITE:
     case UPDATED_JOB_AD_FAVOURITE: {
-      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.favouriteItem.jobAdvertisementId);
+      const indexToUpdate = findJobAdIdIndex(action.payload.favouriteItem.jobAdvertisementId);
+      if (indexToUpdate === -1) {
+        return state;
+      }
       const updatedResultList = state.resultList.slice();
       updatedResultList[indexToUpdate].favouriteItem = action.payload.favouriteItem;
       newState = {
@@ -121,7 +128,10 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
     }
 
     case REMOVED_JOB_AD_FAVOURITE: {
-      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.removedFavouriteItem.jobAdvertisementId);
+      const indexToUpdate = findJobAdIdIndex(action.payload.removedFavouriteItem.jobAdvertisementId);
+      if (indexToUpdate === -1) {
+        return state;
+      }
       const updatedResultList = state.resultList.slice();
       const unstarredJobCopy = Object.assign({}, updatedResultList[indexToUpdate]);
       unstarredJobCopy.favouriteItem = null;

@@ -7,13 +7,13 @@ import {
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
 } from '../actions';
-import {
-  ADDED_JOB_AD_FAVOURITE,
-  REMOVED_JOB_AD_FAVOURITE,
-  UPDATED_JOB_AD_FAVOURITE
-} from '../../../../core/state-management/actions/core.actions';
+import {REMOVED_JOB_AD_FAVOURITE} from '../../../../core/state-management/actions/core.actions';
 
 export function jobAdFavouritesReducer(state = initialState, action: Actions): JobAdFavouritesState {
+
+  function findJobAdIdIndex(jobAdId: string) {
+    return state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
+  }
 
   let newState: JobAdFavouritesState;
 
@@ -66,17 +66,16 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       break;
 
     case REMOVED_JOB_AD_FAVOURITE: {
-      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.removedFavouriteItem.jobAdvertisementId);
+      const indexToUpdate = findJobAdIdIndex(action.payload.removedFavouriteItem.jobAdvertisementId);
       if (indexToUpdate === -1) {
         return state;
       }
-      const updatedResultList = state.resultList.slice();
-      const unstarredJobCopy = Object.assign({}, updatedResultList[indexToUpdate]);
-      unstarredJobCopy.favouriteItem = null;
-      updatedResultList[indexToUpdate] = unstarredJobCopy;
+      // TODO we need a better approach
+      const resultList = state.resultList.slice();
+      resultList.splice(indexToUpdate, 1);
       newState = {
         ...state,
-        resultList: updatedResultList
+        resultList: resultList
       };
       break;
     }
