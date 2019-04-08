@@ -7,7 +7,6 @@ import {
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
   ApplyFilterAction,
-  FILTER_APPLIED,
   FilterAppliedAction,
   FilterResetAction,
   INIT_RESULT_LIST,
@@ -18,21 +17,11 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
-  RESET_FILTER
+  RESET_FILTER,
+  ResetAction
 } from '../actions';
 import {JobAdvertisementRepository} from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import {
-  catchError,
-  concatMap,
-  debounceTime,
-  filter,
-  map,
-  switchMap,
-  take,
-  takeUntil,
-  tap,
-  withLatestFrom
-} from 'rxjs/operators';
+import {catchError, concatMap, debounceTime, filter, map, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
 import {getJobAdSearchState, getJobSearchFilter, getNextId, getPrevId, JobAdSearchState} from '../state';
 import {JobSearchRequestMapper} from './job-search-request.mapper';
 import {Router} from '@angular/router';
@@ -41,14 +30,13 @@ import {SchedulerLike} from 'rxjs/src/internal/types';
 import {AsyncScheduler} from 'rxjs/internal/scheduler/AsyncScheduler';
 import {
   EffectErrorOccurredAction,
-  JOB_ADVERTISEMENT_CHANGED,
-  JobAdvertisementUpdatedAction,
   LANGUAGE_CHANGED,
-  LanguageChangedAction
+  LanguageChangedAction,
+  LAZY_LOADED_MODULE_DESTROYED,
+  LazyLoadedModuleDestroyedAction,
+  ModuleName
 } from '../../../../core/state-management/actions/core.actions';
 import {OccupationSuggestionService} from '../../../../shared/occupations/occupation-suggestion.service';
-import {JobAdFavouritesRepository} from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
-import {AuthenticationService} from '../../../../core/auth/authentication.service';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
@@ -57,12 +45,12 @@ export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>
 export class JobAdSearchEffects {
 
   @Effect()
-  jobAdvertisementChanged$: Observable<Action> = this.actions$.pipe(
-    ofType(JOB_ADVERTISEMENT_CHANGED),
-    map((action: JobAdvertisementUpdatedAction) => action.payload),
-    withLatestFrom(this.store.pipe(select(getJobSearchFilter))),
-    map(([action, searchFilter]) => {
-      return new ApplyFilterAction(searchFilter);
+  reset$ = this.actions$.pipe(
+    ofType(LAZY_LOADED_MODULE_DESTROYED),
+    map((action: LazyLoadedModuleDestroyedAction) => action.payload),
+    filter(action => action.moduleName === ModuleName.JOB_SEARCH),
+    map(() => {
+      return new ResetAction();
     })
   );
 
@@ -70,14 +58,16 @@ export class JobAdSearchEffects {
   initJobSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
-      map((response) => new FilterAppliedAction({
-        page: response.result,
-        totalCount: response.totalCount
-      })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
-    )),
-    takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
+    filter(([a, state]) => state.isDirtyResultList),
+    switchMap(([action, state]) => {
+      return this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
+        map((response) => new FilterAppliedAction({
+          page: response.result,
+          totalCount: response.totalCount
+        })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+      );
+    })
   );
 
   @Effect()

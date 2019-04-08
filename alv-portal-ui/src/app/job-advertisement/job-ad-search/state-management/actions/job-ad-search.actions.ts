@@ -32,6 +32,8 @@ export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
+export const RESET = 'JOBS:RESET';
+
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
 
@@ -133,6 +135,7 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
   constructor(public payload = {}) {
   }
 }
+
 /**
  * Action that is fired if the language changed and the selected occupations have been translated again
  */
@@ -140,6 +143,13 @@ export class OccupationLanguageChangedAction implements Action {
   readonly type = OCCUPATION_LANGUAGE_CHANGED_ACTION;
 
   constructor(public payload: { occupations: OccupationTypeaheadItem[] }) {
+  }
+}
+
+export class ResetAction implements Action {
+  readonly type = RESET;
+
+  constructor(public payload = {}) {
   }
 }
 
@@ -160,4 +170,5 @@ export type Actions =
   | RemoveJobAdFavouriteAction
   | RemovedJobAdFavouriteAction
   | OccupationLanguageChangedAction
-  | UpdatedJobAdFavouriteAction;
+  | UpdatedJobAdFavouriteAction
+  | ResetAction;

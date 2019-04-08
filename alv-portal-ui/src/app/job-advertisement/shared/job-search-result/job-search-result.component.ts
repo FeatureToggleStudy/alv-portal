@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ResultListItem} from '../../../shared/layout/result-list-item/result-list-item.model';
 import {JobAdvertisementUtils} from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import {Observable, Subject} from 'rxjs';
-import {JobBadgesMapperService} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
+import {JobBadgesMapperService} from '../job-badges-mapper.service';
 import {JobAdvertisementWithFavourites} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {ModalService} from '../../../shared/layout/modal/modal.service';
 import {FavouriteNoteModalComponent} from '../favourite-note-modal/favourite-note-modal.component';

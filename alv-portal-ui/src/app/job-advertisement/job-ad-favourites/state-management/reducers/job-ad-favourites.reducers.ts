@@ -6,6 +6,7 @@ import {
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
+  RESET,
 } from '../actions';
 import {REMOVED_JOB_AD_FAVOURITE} from '../../../../core/state-management/actions/core.actions';
 
@@ -18,6 +19,12 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
   let newState: JobAdFavouritesState;
 
   switch (action.type) {
+
+    case RESET:
+      newState = {
+        ...initialState
+      };
+      break;
 
     case APPLY_FILTER:
       newState = {
@@ -35,7 +42,8 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
         ...state,
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
-        resultsAreLoading: false
+        resultsAreLoading: false,
+        isDirtyResultList: false
       };
       break;
 

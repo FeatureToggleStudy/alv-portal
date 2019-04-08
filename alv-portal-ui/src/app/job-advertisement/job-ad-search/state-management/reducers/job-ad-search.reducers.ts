@@ -9,6 +9,7 @@ import {
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
+  RESET,
   RESET_FILTER
 } from '../actions';
 import {
@@ -16,6 +17,7 @@ import {
   REMOVED_JOB_AD_FAVOURITE,
   UPDATED_JOB_AD_FAVOURITE
 } from '../../../../core/state-management/actions/core.actions';
+
 
 export function jobAdSearchReducer(state = initialState, action: Actions): JobAdSearchState {
 
@@ -26,6 +28,12 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
   let newState: JobAdSearchState;
 
   switch (action.type) {
+
+    case RESET:
+      newState = {
+        ...initialState
+      };
+      break;
 
     case APPLY_QUERY_VALUES:
       newState = {
@@ -63,7 +71,8 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         ...state,
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
-        resultsAreLoading: false
+        resultsAreLoading: false,
+        isDirtyResultList: false
       };
       break;
 

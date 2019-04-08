@@ -2,36 +2,19 @@ import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {JobAdvertisementRepository} from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {AsyncScheduler} from 'rxjs/internal/scheduler/AsyncScheduler';
-import {
-  catchError,
-  concatMap,
-  debounceTime,
-  map,
-  switchMap,
-  take,
-  takeUntil,
-  tap,
-  withLatestFrom
-} from 'rxjs/operators';
+import {catchError, concatMap, debounceTime, filter, map, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
 import {Action, select, Store} from '@ngrx/store';
 import {asyncScheduler, Observable, of} from 'rxjs';
 import {
-  ADDED_JOB_AD_FAVOURITE,
   EffectErrorOccurredAction,
-  JobAdvertisementUpdatedAction,
-  UPDATED_JOB_AD_FAVOURITE
+  LAZY_LOADED_MODULE_DESTROYED,
+  LazyLoadedModuleDestroyedAction,
+  ModuleName
 } from '../../../../core/state-management/actions/core.actions';
-import {
-  getJobAdFavouritesSearchFilter,
-  getJobAdFavouritesState,
-  getNextId,
-  getPrevId,
-  JobAdFavouritesState
-} from '../state';
+import {getJobAdFavouritesState, getNextId, getPrevId, JobAdFavouritesState} from '../state';
 import {
   APPLY_FILTER,
   ApplyFilterAction,
-  FILTER_APPLIED,
   FilterAppliedAction,
   INIT_RESULT_LIST,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
@@ -39,7 +22,8 @@ import {
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
-  NextPageLoadedAction
+  NextPageLoadedAction,
+  ResetAction
 } from '../actions';
 import {JobAdvertisementSearchResponse} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {SchedulerLike} from 'rxjs/src/internal/types';
@@ -55,12 +39,12 @@ export const JOB_AD_FAVOURITES_EFFECTS_SCHEDULER = new InjectionToken<SchedulerL
 export class JobAdFavouritesEffects {
 
   @Effect()
-  reloadJobSearch$: Observable<Action> = this.actions$.pipe(
-    ofType(ADDED_JOB_AD_FAVOURITE, UPDATED_JOB_AD_FAVOURITE),
-    map((action: JobAdvertisementUpdatedAction) => action.payload),
-    withLatestFrom(this.store.pipe(select(getJobAdFavouritesSearchFilter))),
-    map(([action, searchFilter]) => {
-      return new ApplyFilterAction(searchFilter);
+  reset$ = this.actions$.pipe(
+    ofType(LAZY_LOADED_MODULE_DESTROYED),
+    map((action: LazyLoadedModuleDestroyedAction) => action.payload),
+    filter(action => action.moduleName === ModuleName.JOB_AD_FAVOURITE),
+    map(() => {
+      return new ResetAction();
     })
   );
 
@@ -68,6 +52,7 @@ export class JobAdFavouritesEffects {
   initJobSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
+    filter(([a, state]) => state.isDirtyResultList),
     switchMap(([action, state, user]) => {
       return this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
         map((response) => new FilterAppliedAction({
@@ -76,9 +61,7 @@ export class JobAdFavouritesEffects {
         })),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
       );
-    }),
-    // unsubscribe the initJobSearch$ once we have applied a filter
-    takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
+    })
   );
 
   @Effect()

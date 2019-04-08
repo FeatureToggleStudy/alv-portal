@@ -4,7 +4,7 @@ import {Notification, NotificationType} from '../../../shared/layout/notificatio
 import {LayoutConstants} from '../../../shared/layout/layout-constants.enum';
 import {Observable} from 'rxjs';
 import {JobDetailModel} from '../job-detail-model';
-import {JobBadge, JobBadgesMapperService} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
+import {JobBadge, JobBadgesMapperService} from '../job-badges-mapper.service';
 import {NgbTooltip} from '@ng-bootstrap/ng-bootstrap';
 import {JobAdvertisement} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {isDeactivated, isExternal, isUnvalidated} from '../../../widgets/job-search-widget/job-ad-rules';
@@ -13,10 +13,9 @@ import {ScrollService} from '../../../core/scroll.service';
 import {NotificationsService} from '../../../core/notifications.service';
 import {ModalService} from '../../../shared/layout/modal/modal.service';
 import {ComplaintModalComponent} from '../complaint-modal/complaint-modal.component';
-import {map, switchMap} from 'rxjs/operators';
+import {filter, map, switchMap} from 'rxjs/operators';
 
-
-export abstract class AbstractJobAdDetail extends AbstractSubscriber implements OnInit, AfterViewInit {
+export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
   protected static readonly ALERTS = {
     jobAdExternal: {
@@ -70,7 +69,9 @@ export abstract class AbstractJobAdDetail extends AbstractSubscriber implements 
   }
 
   ngOnInit() {
-    const job$ = this.loadJob$();
+    const job$ = this.loadJob$().pipe(
+      filter(job => !!job)
+    );
     this.jobDetailModel$ = job$.pipe(
       switchMap((job) => this.jobDetailModelFactory.create(job))
     );
@@ -101,7 +102,7 @@ export abstract class AbstractJobAdDetail extends AbstractSubscriber implements 
   }
 
   onCopyLink(): void {
-    this.notificationsService.add(AbstractJobAdDetail.ALERTS.copiedLinkToClipboard);
+    this.notificationsService.add(AbstractJobAdDetailComponent.ALERTS.copiedLinkToClipboard);
   }
 
   dismissAlert(alert: Notification, alerts: Notification[]) {
@@ -127,13 +128,13 @@ export abstract class AbstractJobAdDetail extends AbstractSubscriber implements 
   private mapJobAdAlerts(job: JobAdvertisement): Notification[] {
     const alerts = [];
     if (isExternal(job)) {
-      alerts.push(AbstractJobAdDetail.ALERTS.jobAdExternal);
+      alerts.push(AbstractJobAdDetailComponent.ALERTS.jobAdExternal);
     }
     if (isDeactivated(job)) {
-      alerts.push(AbstractJobAdDetail.ALERTS.jobAdDeactivated);
+      alerts.push(AbstractJobAdDetailComponent.ALERTS.jobAdDeactivated);
     }
     if (isUnvalidated(job)) {
-      alerts.push(AbstractJobAdDetail.ALERTS.jobAdUnvalidated);
+      alerts.push(AbstractJobAdDetailComponent.ALERTS.jobAdUnvalidated);
     }
     return alerts;
   }

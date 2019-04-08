@@ -1,27 +1,29 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {
-  getSelectedJobAdvertisement, isNextVisible, isPrevVisible,
+  getSelectedJobAdvertisement,
+  isNextVisible,
+  isPrevVisible,
   JobAdSearchState,
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management';
 import {select, Store} from '@ngrx/store';
-import {JobBadgesMapperService} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
+import {JobBadgesMapperService} from '../../shared/job-badges-mapper.service';
 import {JobDetailModelFactory} from '../../shared/job-detail-model-factory';
 import {ScrollService} from '../../../core/scroll.service';
 import {NotificationsService} from '../../../core/notifications.service';
 import {ModalService} from '../../../shared/layout/modal/modal.service';
-import {AbstractJobAdDetail} from '../../shared/abstract-job-ad-detail/abstract-job-ad-detail';
+import {AbstractJobAdDetailComponent} from '../../shared/abstract-job-ad-detail/abstract-job-ad-detail.component';
 import {Observable} from 'rxjs';
 import {JobAdvertisement} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-job-detail',
-  templateUrl: '../../shared/abstract-job-ad-detail/abstract-job-ad-detail.html',
-  styleUrls: ['../../shared/abstract-job-ad-detail/abstract-job-ad-detail.scss'],
+  templateUrl: '../../shared/abstract-job-ad-detail/abstract-job-ad-detail.component.html',
+  styleUrls: ['../../shared/abstract-job-ad-detail/abstract-job-ad-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JobDetailComponent extends AbstractJobAdDetail implements OnInit {
+export class JobDetailComponent extends AbstractJobAdDetailComponent implements OnInit {
 
   backButtonPath = '/job-search';
 
