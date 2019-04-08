@@ -11,7 +11,8 @@ import {
   AddedJobAdFavouriteAction,
   AddJobAdFavouriteAction,
   RemovedJobAdFavouriteAction,
-  RemoveJobAdFavouriteAction, UPDATED_JOB_AD_FAVOURITE, UpdatedJobAdFavouriteAction
+  RemoveJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
 } from '../../../../core/state-management/actions/core.actions';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
@@ -28,7 +29,6 @@ export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEM
 
 export const APPLY_QUERY_VALUES = 'JOBS:APPLY_QUERY_VALUES';
 export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
-export const UPDATE_JOB_ADVERTISEMENT = 'JOBS:UPDATE_JOB_ADVERTISEMENT';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
@@ -133,14 +133,6 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
   constructor(public payload = {}) {
   }
 }
-
-export class UpdateJobAdvertisementAction implements Action {
-  readonly type = UPDATE_JOB_ADVERTISEMENT;
-
-  constructor(public payload: { jobSearchResultWithFavourites: JobAdvertisementWithFavourites }) {
-  }
-}
-
 /**
  * Action that is fired if the language changed and the selected occupations have been translated again
  */
@@ -163,7 +155,6 @@ export type Actions =
   | ResetFilterAction
   | ApplyFilterValuesAction
   | ApplyQueryValuesAction
-  | UpdateJobAdvertisementAction
   | AddJobAdFavouriteAction
   | AddedJobAdFavouriteAction
   | RemoveJobAdFavouriteAction

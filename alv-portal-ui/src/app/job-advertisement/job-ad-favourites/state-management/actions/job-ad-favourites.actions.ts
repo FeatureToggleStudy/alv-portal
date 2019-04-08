@@ -18,7 +18,6 @@ export const NEXT_PAGE_LOADED = 'JOBADFAVOURITES:NEXT_PAGE_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBADFAVOURITES:JOB_ADVERTISEMENT_DETAIL_LOADED';
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
-export const UPDATE_JOB_ADVERTISEMENT = 'JOBADFAVOURITES:UPDATE_JOB_ADVERTISEMENT';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -76,13 +75,6 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
   }
 }
 
-export class UpdateJobAdvertisementAction implements Action {
-  readonly type = UPDATE_JOB_ADVERTISEMENT;
-
-  constructor(public payload: { jobAdvertisementWithFavourites: JobAdvertisementWithFavourites }) {
-  }
-}
-
 export type Actions =
   | InitResultListAction
   | FilterAppliedAction
@@ -91,7 +83,6 @@ export type Actions =
   | NextPageLoadedAction
   | JobAdvertisementDetailLoadedAction
   | JobAdvertisementUpdatedAction
-  | UpdateJobAdvertisementAction
   | RemovedJobAdFavouriteAction
   | UpdatedJobAdFavouriteAction
   | AddedJobAdFavouriteAction;

@@ -65,7 +65,7 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
     case UPDATED_JOB_AD_FAVOURITE:
     case ADDED_JOB_AD_FAVOURITE: {
       const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.favouriteItem.jobAdvertisementId);
-      // TODO for the favourite state redurects if a job-ad is added let's just reset the search
+      // TODO for the favourite-state-reducer if a job-ad is added/updated let's just reset/refresh the current search (page=0) using an Effect
       if (indexToUpdate === -1) {
         return state;
       }
