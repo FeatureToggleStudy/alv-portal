@@ -9,9 +9,9 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import {AbstractSubscriber} from '../../../core/abstract-subscriber';
 import {
-  AddJobAdToFavouritesAction,
+  AddJobAdFavouriteAction,
   ApplyFilterValuesAction,
   ApplyQueryValuesAction,
   FILTER_APPLIED,
@@ -23,22 +23,22 @@ import {
   JobAdSearchState,
   JobSearchFilter,
   LoadNextPageAction,
-  RemoveJobAdFromFavouritesAction,
+  RemoveJobAdFavouriteAction,
   ResetFilterAction
 } from '../state-management';
-import { ActionsSubject, select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map, take, takeUntil } from 'rxjs/operators';
-import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
-import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
-import { ScrollService } from '../../../core/scroll.service';
-import { FilterPanelValues } from './filter-panel/filter-panel.component';
-import { ofType } from '@ngrx/effects';
-import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
-import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
-import { WINDOW } from '../../../core/window.service';
-import { JobSearchResult } from '../../shared/job-search-result/job-search-result.component';
-import { I18nService } from '../../../core/i18n.service';
+import {ActionsSubject, select, Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {map, take, takeUntil} from 'rxjs/operators';
+import {JobSearchFilterParameterService} from './job-search-filter-parameter.service';
+import {JobQueryPanelValues} from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
+import {ScrollService} from '../../../core/scroll.service';
+import {FilterPanelValues} from './filter-panel/filter-panel.component';
+import {ofType} from '@ngrx/effects';
+import {composeResultListItemId} from '../../../shared/layout/result-list-item/result-list-item.component';
+import {LayoutConstants} from '../../../shared/layout/layout-constants.enum';
+import {WINDOW} from '../../../core/window.service';
+import {JobSearchResult} from '../../shared/job-search-result/job-search-result.component';
+import {I18nService} from '../../../core/i18n.service';
 
 @Component({
   selector: 'alv-job-search',
@@ -149,12 +149,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
 
   addToFavourites(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new AddJobAdToFavouritesAction({ jobSearchResultWithFavourites: jobSearchResult }));
+    this.store.dispatch(new AddJobAdFavouriteAction({jobAdvertisementId: jobSearchResult.jobAdvertisement.id}));
   }
 
   removeFromFavourites(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new RemoveJobAdFromFavouritesAction({ jobSearchResultWithFavourites: jobSearchResult }));
-
+    this.store.dispatch(new RemoveJobAdFavouriteAction({favouriteItem: jobSearchResult.favouriteItem}));
   }
 }
 
