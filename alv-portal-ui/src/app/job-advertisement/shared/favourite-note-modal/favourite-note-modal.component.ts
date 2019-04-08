@@ -1,13 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {AbstractSubscriber} from '../../../core/abstract-subscriber';
-import {ModalService} from '../../../shared/layout/modal/modal.service';
-import {FavouriteItem} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {JobAdFavouritesRepository} from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
-import {NotificationsService} from '../../../core/notifications.service';
-import {AuthenticationService} from "../../../core/auth/authentication.service";
-import {switchMap, takeUntil} from "rxjs/operators";
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { NotificationsService } from '../../../core/notifications.service';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -54,10 +54,10 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
         });
     } else {
       this.authenticationService.getCurrentUser().pipe(
-        takeUntil(this.ngUnsubscribe),
         switchMap(currentUser => {
           return this.jobAdFavouritesRepository.addFavourite(this.jobAdvertisementId, currentUser.id, this.form.value.note);
-        })
+        }),
+        takeUntil(this.ngUnsubscribe)
       ).subscribe(favouriteItem => {
         this.activeModal.close(favouriteItem);
         this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-added');
