@@ -7,7 +7,7 @@ import {JobDetailModel} from '../job-detail-model';
 import {JobBadge, JobBadgesMapperService} from '../job-badges-mapper.service';
 import {NgbTooltip} from '@ng-bootstrap/ng-bootstrap';
 import {JobAdvertisement} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {isDeactivated, isExternal, isUnvalidated} from '../../../widgets/job-search-widget/job-ad-rules';
+import {isDeactivated, isExternal, isUnvalidated} from '../job-ad-rules';
 import {JobDetailModelFactory} from '../job-detail-model-factory';
 import {ScrollService} from '../../../core/scroll.service';
 import {NotificationsService} from '../../../core/notifications.service';

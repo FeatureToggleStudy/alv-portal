@@ -12,7 +12,7 @@ import {
   isReportingObligation,
   isShortEmployment,
   isTemporary
-} from '../../widgets/job-search-widget/job-ad-rules';
+} from './job-ad-rules';
 import {JobLocationPipe} from '../../shared/pipes/job-location.pipe';
 
 export enum JobBadgeType {
