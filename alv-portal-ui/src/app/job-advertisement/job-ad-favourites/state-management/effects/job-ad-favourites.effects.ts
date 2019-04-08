@@ -47,6 +47,7 @@ import {SchedulerLike} from 'rxjs/src/internal/types';
 import {Router} from '@angular/router';
 import {JobAdFavouritesRepository} from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import {JobAdFavouritesSearchRequestMapper} from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
+import { AuthenticationService } from '../../../../core/auth/authentication.service';
 
 export const JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE');
 export const JOB_AD_FAVOURITES_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_FAVOURITES_EFFECTS_SCHEDULER');
@@ -57,9 +58,9 @@ export class JobAdFavouritesEffects {
   @Effect()
   initJobSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
-    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState))),
-    switchMap(([action, state]) => {
-      return this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page)).pipe(
+    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
+    switchMap(([action, state, user]) => {
+      return this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount
@@ -148,6 +149,7 @@ export class JobAdFavouritesEffects {
               private debounce,
               @Optional()
               @Inject(JOB_AD_FAVOURITES_EFFECTS_SCHEDULER)
-              private scheduler: AsyncScheduler) {
+              private scheduler: AsyncScheduler,
+              private authenticationService: AuthenticationService) {
   }
 }

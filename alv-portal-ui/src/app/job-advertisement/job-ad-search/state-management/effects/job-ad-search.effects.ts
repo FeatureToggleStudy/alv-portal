@@ -64,6 +64,7 @@ import {
 } from '../../../../core/state-management/actions/core.actions';
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
 import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { AuthenticationService } from '../../../../core/auth/authentication.service';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
@@ -75,10 +76,11 @@ export class JobAdSearchEffects {
   jobAdvertisementAddToFavourites$: Observable<Action> = this.actions$.pipe(
     ofType(ADD_JOB_AD_TO_FAVOURITES),
     map((action: AddJobAdToFavouritesAction) => action.payload),
-    switchMap(j => {
+    withLatestFrom(this.authenticationService.getCurrentUser()),
+    switchMap(([j, currentUser]) => {
         const copyJob: JobAdvertisementWithFavourites = Object.assign({}, j.jobSearchResultWithFavourites);
 
-        return this.jobAdFavouritesRepository.addFavourite(copyJob.jobAdvertisement.id).pipe(
+        return this.jobAdFavouritesRepository.addFavourite(copyJob.jobAdvertisement.id, currentUser.id).pipe(
           map((fav: FavouriteItem) => {
             console.log('okay, the server answered!');
             copyJob.favouriteItem = fav; // todo modification here, not sure if it's good.
@@ -241,7 +243,9 @@ export class JobAdSearchEffects {
               @Optional()
               @Inject(JOB_AD_SEARCH_EFFECTS_SCHEDULER)
               private scheduler: AsyncScheduler,
-              private jobAdFavouritesRepository: JobAdFavouritesRepository) {
+              private jobAdFavouritesRepository: JobAdFavouritesRepository,
+              private authenticationService: AuthenticationService) {
+
   }
 
 }
