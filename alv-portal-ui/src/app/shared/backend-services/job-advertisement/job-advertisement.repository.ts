@@ -48,20 +48,20 @@ export class JobAdvertisementRepository {
 
   search(request: JobAdvertisementSearchRequest): Observable<JobAdvertisementSearchResponse> {
     const params = createPageableURLSearchParams(request);
-    // return this.http.post<JobAdvertisementWithFavourites[]>(this.searchUrl, request.body, {
-    //   params,
-    //   observe: 'response'
-    // }).pipe(
-    //   map((resp) => {
-    //     return {
-    //       totalCount: parseInt(resp.headers.get('X-Total-Count'), 10),
-    //       result: resp.body
-    //     };
-    //   }));
-    return of({
-      totalCount: 203,
-      result: mockJobsWithFavourites
-    });
+    return this.http.post<JobAdvertisementWithFavourites[]>(this.searchUrl, request.body, {
+      params,
+      observe: 'response'
+    }).pipe(
+      map((resp) => {
+        return {
+          totalCount: parseInt(resp.headers.get('X-Total-Count'), 10),
+          result: resp.body
+        };
+      }));
+    // return of({
+    //   totalCount: 203,
+    //   result: mockJobsWithFavourites
+    // });
   }
 
   findById(id: string): Observable<JobAdvertisement> {

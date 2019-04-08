@@ -106,6 +106,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       break;
 
     case ADD_JOB_AD_TO_FAVOURITES_SUCCESS: {
+      console.log('reducer: ADD_JOB_AD_TO_FAVOURITES_SUCCESS is processing');
       const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.jobSearchResultWithFavourites.jobAdvertisement.id);
       const updatedResultList = state.resultList.slice();
       updatedResultList[indexToUpdate] = action.payload.jobSearchResultWithFavourites;

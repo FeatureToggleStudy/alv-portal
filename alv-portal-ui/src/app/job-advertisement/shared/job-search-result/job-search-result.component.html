@@ -3,5 +3,8 @@
                       (favouritesClick)="toggleFavourites()"
                       (noteClick)="showNoteDialog()"
 ></alv-result-list-item>
-
+<alv-collapse-panel [isCollapsed]="true"
+                    [panelTitle]="'show'"
+>
 <pre>{{jobSearchResult|json}}</pre>
+</alv-collapse-panel>

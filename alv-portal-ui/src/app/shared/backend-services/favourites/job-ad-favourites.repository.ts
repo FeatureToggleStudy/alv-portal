@@ -35,23 +35,23 @@ export class JobAdFavouritesRepository {
    * @return the newly created id of the favourite item
    */
   addFavourite(jobAdvertisementId, note = ''): Observable<FavouriteItem> {
-    return of({
-      id: 'someid',
-      note: 'some note',
-      ownerId: '20303239293-dsfdsf-deeee',
-      jobAdvertisementId: '',
-      createdTime: '2019-04-01',
-      updatedTime: '2019-04-01'
-    });
-    // return this.currentUserId$.pipe(
-    //   map(currentUserId => ({
-    //     note: note,
-    //     userId: currentUserId,
-    //     jobAdvertisementId: jobAdvertisementId
-    //   } as CreateFavouriteItem)),
-    //   switchMap(emptyCreateFavouriteItem => this.http.post<FavouriteItem>(FAVOURITES_PREFIX, emptyCreateFavouriteItem)),
-    //   flatMap(response => this.getFavouritesForJobAd(jobAdvertisementId))
-    // );
+    // return of({
+    //   id: 'someid',
+    //   note: 'some note',
+    //   ownerId: '20303239293-dsfdsf-deeee',
+    //   jobAdvertisementId: '',
+    //   createdTime: '2019-04-01',
+    //   updatedTime: '2019-04-01'
+    // });
+    return this.currentUserId$.pipe(
+      map(currentUserId => ({
+        note: note,
+        userId: currentUserId,
+        jobAdvertisementId: jobAdvertisementId
+      } as CreateFavouriteItem)),
+      switchMap(emptyCreateFavouriteItem => this.http.post<FavouriteItem>(FAVOURITES_PREFIX, emptyCreateFavouriteItem)),
+      flatMap(response => this.getFavouritesForJobAd(jobAdvertisementId))
+    );
   }
 
   removeFavourite(favouriteItem: FavouriteItem): Observable<void> {
