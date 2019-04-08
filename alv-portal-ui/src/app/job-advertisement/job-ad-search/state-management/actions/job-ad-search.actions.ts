@@ -11,8 +11,7 @@ import {
   AddedJobAdFavouriteAction,
   AddJobAdFavouriteAction,
   RemovedJobAdFavouriteAction,
-  RemoveJobAdFavouriteAction,
-  UpdatedJobAdFavouriteAction
+  RemoveJobAdFavouriteAction, UPDATED_JOB_AD_FAVOURITE, UpdatedJobAdFavouriteAction
 } from '../../../../core/state-management/actions/core.actions';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
