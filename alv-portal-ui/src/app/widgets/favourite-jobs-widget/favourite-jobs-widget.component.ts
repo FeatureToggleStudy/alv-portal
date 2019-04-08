@@ -50,7 +50,7 @@ export class FavouriteJobsWidgetComponent implements OnInit {
   }
 
   removeFromFavourites(jobSearchResult: JobSearchResult) {
-    this.jobAdFavouritesRepository.removeFavourite(jobSearchResult.favouriteItem).pipe(
+    this.jobAdFavouritesRepository.removeFavourite(jobSearchResult.favouriteItem.id).pipe(
       tap(() => this.notificationService.success('portal.job-ad-favourites.notification.favourite-removed')),
     )
       .subscribe(() => {

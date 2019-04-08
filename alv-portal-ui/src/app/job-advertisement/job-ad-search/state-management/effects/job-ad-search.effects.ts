@@ -3,9 +3,9 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { asyncScheduler, Observable, of } from 'rxjs/index';
 import { Action, select, Store } from '@ngrx/store';
 import {
-  ADD_JOB_AD_TO_FAVOURITES,
-  AddJobAdToFavouritesAction,
-  AddJobAdToFavouritesSuccessAction,
+  ADD_JOB_AD_FAVOURITE,
+  AddedJobAdFavouriteAction,
+  AddJobAdFavouriteAction,
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
@@ -21,9 +21,9 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
-  REMOVE_JOB_AD_FROM_FAVOURITES,
-  RemoveJobAdFromFavouritesAction,
-  RemoveJobAdFromFavouritesSuccessAction,
+  REMOVE_JOB_AD_FAVOURITE,
+  RemovedJobAdFavouriteAction,
+  RemoveJobAdFavouriteAction,
   RESET_FILTER
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
@@ -50,8 +50,7 @@ import { JobSearchRequestMapper } from './job-search-request.mapper';
 import { Router } from '@angular/router';
 import {
   FavouriteItem,
-  JobAdvertisementSearchResponse,
-  JobAdvertisementWithFavourites
+  JobAdvertisementSearchResponse
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
@@ -74,17 +73,13 @@ export class JobAdSearchEffects {
 
   @Effect()
   jobAdvertisementAddToFavourites$: Observable<Action> = this.actions$.pipe(
-    ofType(ADD_JOB_AD_TO_FAVOURITES),
-    map((action: AddJobAdToFavouritesAction) => action.payload),
+    ofType(ADD_JOB_AD_FAVOURITE),
+    map((action: AddJobAdFavouriteAction) => action.payload),
     withLatestFrom(this.authenticationService.getCurrentUser()),
-    switchMap(([j, currentUser]) => {
-        const copyJob: JobAdvertisementWithFavourites = Object.assign({}, j.jobSearchResultWithFavourites);
-
-        return this.jobAdFavouritesRepository.addFavourite(copyJob.jobAdvertisement.id, currentUser.id).pipe(
-          map((fav: FavouriteItem) => {
-            console.log('okay, the server answered!');
-            copyJob.favouriteItem = fav; // todo modification here, not sure if it's good.
-            return new AddJobAdToFavouritesSuccessAction({ jobSearchResultWithFavourites: copyJob });
+    switchMap(([action, currentUser]) => {
+        return this.jobAdFavouritesRepository.addFavourite(action.jobAdvertisementId, currentUser.id).pipe(
+          map((favouriteItem: FavouriteItem) => {
+            return new AddedJobAdFavouriteAction({ favouriteItem: favouriteItem });
           })
         );
       }
@@ -92,12 +87,12 @@ export class JobAdSearchEffects {
   );
 
   @Effect()
-  jobAdvertisementRemoveFromFavourites$: Observable<Action> = this.actions$.pipe(
-    ofType(REMOVE_JOB_AD_FROM_FAVOURITES),
-    map((action: RemoveJobAdFromFavouritesAction) => action.payload),
-    switchMap(j => {
-        return this.jobAdFavouritesRepository.removeFavourite(j.jobSearchResultWithFavourites.favouriteItem).pipe(
-          map(() => new RemoveJobAdFromFavouritesSuccessAction(j))
+  removeJobAdFavourite$: Observable<Action> = this.actions$.pipe(
+    ofType(REMOVE_JOB_AD_FAVOURITE),
+    map((action: RemoveJobAdFavouriteAction) => action.payload),
+    switchMap(action => {
+        return this.jobAdFavouritesRepository.removeFavourite(action.favouriteItem.id).pipe(
+          map(() => new RemovedJobAdFavouriteAction({ removedFavouriteItem: action.favouriteItem }))
         );
       }
     )

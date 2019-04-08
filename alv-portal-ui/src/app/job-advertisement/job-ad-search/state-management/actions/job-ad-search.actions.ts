@@ -1,12 +1,13 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 import {
+  FavouriteItem,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { JobSearchFilter } from '../state';
-import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
-import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
-import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
+import {JobSearchFilter} from '../state';
+import {FilterPanelValues} from '../../job-search/filter-panel/filter-panel.component';
+import {JobQueryPanelValues} from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
+import {OccupationTypeaheadItem} from '../../../../shared/occupations/occupation-typeahead-item';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
@@ -24,11 +25,11 @@ export const APPLY_QUERY_VALUES = 'JOBS:APPLY_QUERY_VALUES';
 export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 export const UPDATE_JOB_ADVERTISEMENT = 'JOBS:UPDATE_JOB_ADVERTISEMENT';
 
-export const ADD_JOB_AD_TO_FAVOURITES = 'JOBS:ADD_JOB_AD_TO_FAVOURITES';
-export const ADD_JOB_AD_TO_FAVOURITES_SUCCESS = 'JOBS:ADD_JOB_AD_TO_FAVOURITES_SUCCESS';
+export const ADD_JOB_AD_FAVOURITE = 'JOBS:ADD_JOB_AD_FAVOURITE';
+export const ADDED_JOB_AD_FAVOURITE = 'JOBS:ADDED_JOB_AD_FAVOURITE';
 
-export const REMOVE_JOB_AD_FROM_FAVOURITES = 'JOBS:REMOVE_JOB_AD_FROM_FAVOURITES';
-export const REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS = 'JOBS:REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS';
+export const REMOVE_JOB_AD_FAVOURITE = 'JOBS:REMOVE_JOB_AD_FAVOURITE';
+export const REMOVED_JOB_AD_FAVOURITE = 'JOBS:REMOVED_JOB_AD_FAVOURITE';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
@@ -142,33 +143,32 @@ export class UpdateJobAdvertisementAction implements Action {
   }
 }
 
-export class AddJobAdToFavouritesAction implements Action {
-  readonly type = ADD_JOB_AD_TO_FAVOURITES;
+export class AddJobAdFavouriteAction implements Action {
+  readonly type = ADD_JOB_AD_FAVOURITE;
 
-  constructor(public payload: { jobSearchResultWithFavourites: JobAdvertisementWithFavourites }) {
+  constructor(public payload: { jobAdvertisementId: string }) {
   }
 }
 
-export class AddJobAdToFavouritesSuccessAction implements Action {
-  readonly type = ADD_JOB_AD_TO_FAVOURITES_SUCCESS;
+export class AddedJobAdFavouriteAction implements Action {
+  readonly type = ADDED_JOB_AD_FAVOURITE;
 
-  constructor(public payload: { jobSearchResultWithFavourites: JobAdvertisementWithFavourites }) {
+  constructor(public payload: { favouriteItem: FavouriteItem }) {
   }
 }
 
+export class RemoveJobAdFavouriteAction implements Action {
+  readonly type = REMOVE_JOB_AD_FAVOURITE;
 
-export class RemoveJobAdFromFavouritesAction implements Action {
-  readonly type = REMOVE_JOB_AD_FROM_FAVOURITES;
-
-  constructor(public payload: { jobSearchResultWithFavourites: JobAdvertisementWithFavourites }) {
+  constructor(public payload: { favouriteItem: FavouriteItem }) {
   }
 }
 
-export class RemoveJobAdFromFavouritesSuccessAction implements Action {
+export class RemovedJobAdFavouriteAction implements Action {
 
-  readonly type = REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS;
+  readonly type = REMOVED_JOB_AD_FAVOURITE;
 
-  constructor(public payload: { jobSearchResultWithFavourites: JobAdvertisementWithFavourites }) {
+  constructor(public payload: { removedFavouriteItem: FavouriteItem }) {
   }
 }
 
@@ -196,8 +196,8 @@ export type Actions =
   | ApplyFilterValuesAction
   | ApplyQueryValuesAction
   | UpdateJobAdvertisementAction
-  | AddJobAdToFavouritesAction
-  | AddJobAdToFavouritesSuccessAction
-  | RemoveJobAdFromFavouritesAction
-  | RemoveJobAdFromFavouritesSuccessAction
+  | AddJobAdFavouriteAction
+  | AddedJobAdFavouriteAction
+  | RemoveJobAdFavouriteAction
+  | RemovedJobAdFavouriteAction
   | OccupationLanguageChangedAction;

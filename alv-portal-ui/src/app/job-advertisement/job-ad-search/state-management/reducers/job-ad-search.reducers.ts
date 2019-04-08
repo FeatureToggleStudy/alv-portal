@@ -1,7 +1,7 @@
-import { initialState, JobAdSearchState } from '../state';
+import {initialState, JobAdSearchState} from '../state';
 import {
   Actions,
-  ADD_JOB_AD_TO_FAVOURITES_SUCCESS,
+  ADDED_JOB_AD_FAVOURITE,
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
@@ -10,7 +10,7 @@ import {
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
-  REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS,
+  REMOVED_JOB_AD_FAVOURITE,
   RESET_FILTER
 } from '../actions';
 
@@ -101,16 +101,15 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       newState = {
         ...state,
         selectedJobAdvertisement: action.payload.jobAdvertisement,
-        visitedJobAds: { ...currentVisited }
+        visitedJobAds: {...currentVisited}
       };
       break;
 
-    case ADD_JOB_AD_TO_FAVOURITES_SUCCESS: {
-      console.log('reducer: ADD_JOB_AD_TO_FAVOURITES_SUCCESS is processing');
-      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.jobSearchResultWithFavourites.jobAdvertisement.id);
+    case ADDED_JOB_AD_FAVOURITE: {
+      console.log('reducer: ADDED_JOB_AD_FAVOURITE is processing');
+      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.favouriteItem.jobAdvertisementId);
       const updatedResultList = state.resultList.slice();
-      updatedResultList[indexToUpdate] = action.payload.jobSearchResultWithFavourites;
-
+      updatedResultList[indexToUpdate].favouriteItem = action.payload.favouriteItem;
       newState = {
         ...state,
         resultList: updatedResultList
@@ -118,13 +117,12 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       break;
     }
 
-    case REMOVE_JOB_AD_FROM_FAVOURITES_SUCCESS: {
-      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.jobSearchResultWithFavourites.jobAdvertisement.id);
+    case REMOVED_JOB_AD_FAVOURITE: {
+      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.removedFavouriteItem.jobAdvertisementId);
       const updatedResultList = state.resultList.slice();
       const unstarredJobCopy = Object.assign({}, updatedResultList[indexToUpdate]);
       unstarredJobCopy.favouriteItem = null;
       updatedResultList[indexToUpdate] = unstarredJobCopy;
-
       newState = {
         ...state,
         resultList: updatedResultList
