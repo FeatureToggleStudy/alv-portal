@@ -56,27 +56,14 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       break;
 
     case JOB_ADVERTISEMENT_DETAIL_LOADED:
+      const currentVisited = state.visitedJobAds;
+      currentVisited[action.payload.jobAdvertisement.id] = true;
       newState = {
         ...state,
-        selectedJobAdvertisement: action.payload.jobAdvertisement
+        selectedJobAdvertisement: action.payload.jobAdvertisement,
+        visitedJobAds: {...currentVisited}
       };
       break;
-
-    case UPDATED_JOB_AD_FAVOURITE:
-    case ADDED_JOB_AD_FAVOURITE: {
-      const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.favouriteItem.jobAdvertisementId);
-      // TODO for the favourite state redurects if a job-ad is added let's just reset the search
-      if (indexToUpdate === -1) {
-        return state;
-      }
-      const updatedResultList = state.resultList.slice();
-      updatedResultList[indexToUpdate].favouriteItem = action.payload.favouriteItem;
-      newState = {
-        ...state,
-        resultList: updatedResultList
-      };
-      break;
-    }
 
     case REMOVED_JOB_AD_FAVOURITE: {
       const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === action.payload.removedFavouriteItem.jobAdvertisementId);

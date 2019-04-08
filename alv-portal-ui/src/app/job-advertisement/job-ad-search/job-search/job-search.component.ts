@@ -38,9 +38,9 @@ import {WINDOW} from '../../../core/window.service';
 import {JobSearchResult} from '../../shared/job-search-result/job-search-result.component';
 import {I18nService} from '../../../core/i18n.service';
 import {
-  AddedJobAdFavouriteAction,
   AddJobAdFavouriteAction,
-  RemoveJobAdFavouriteAction, UpdatedJobAdFavouriteAction
+  RemoveJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
 } from '../../../core/state-management/actions/core.actions';
 
 @Component({

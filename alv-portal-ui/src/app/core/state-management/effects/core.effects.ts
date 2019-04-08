@@ -181,7 +181,8 @@ export class CoreEffects {
         return this.jobAdFavouritesRepository.addFavourite(action.jobAdvertisementId, currentUser.id).pipe(
           map((favouriteItem: FavouriteItem) => {
             return new AddedJobAdFavouriteAction({favouriteItem: favouriteItem});
-          })
+          }),
+          tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-added'))
         );
       }
     )
@@ -193,7 +194,8 @@ export class CoreEffects {
     map((action: RemoveJobAdFavouriteAction) => action.payload),
     switchMap(action =>
       this.jobAdFavouritesRepository.removeFavourite(action.favouriteItem.id).pipe(
-        map(() => new RemovedJobAdFavouriteAction({removedFavouriteItem: action.favouriteItem}))
+        map(() => new RemovedJobAdFavouriteAction({removedFavouriteItem: action.favouriteItem})),
+        tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-removed'))
       )
     )
   );

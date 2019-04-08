@@ -7,7 +7,6 @@ import {
   concatMap,
   debounceTime,
   map,
-  skipUntil,
   switchMap,
   take,
   takeUntil,
@@ -17,9 +16,10 @@ import {
 import {Action, select, Store} from '@ngrx/store';
 import {asyncScheduler, Observable, of} from 'rxjs';
 import {
+  ADDED_JOB_AD_FAVOURITE,
   EffectErrorOccurredAction,
-  JOB_ADVERTISEMENT_CHANGED,
-  JobAdvertisementUpdatedAction
+  JobAdvertisementUpdatedAction,
+  UPDATED_JOB_AD_FAVOURITE
 } from '../../../../core/state-management/actions/core.actions';
 import {
   getJobAdFavouritesSearchFilter,
@@ -41,19 +41,28 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction
 } from '../actions';
-import {getCurrentCompanyContactTemplateModel} from '../../../../core/state-management/state/core.state.ts';
 import {JobAdvertisementSearchResponse} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {SchedulerLike} from 'rxjs/src/internal/types';
 import {Router} from '@angular/router';
 import {JobAdFavouritesRepository} from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import {JobAdFavouritesSearchRequestMapper} from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
-import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import {AuthenticationService} from '../../../../core/auth/authentication.service';
 
 export const JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE');
 export const JOB_AD_FAVOURITES_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_FAVOURITES_EFFECTS_SCHEDULER');
 
 @Injectable()
 export class JobAdFavouritesEffects {
+
+  @Effect()
+  reloadJobSearch$: Observable<Action> = this.actions$.pipe(
+    ofType(ADDED_JOB_AD_FAVOURITE, UPDATED_JOB_AD_FAVOURITE),
+    map((action: JobAdvertisementUpdatedAction) => action.payload),
+    withLatestFrom(this.store.pipe(select(getJobAdFavouritesSearchFilter))),
+    map(([action, searchFilter]) => {
+      return new ApplyFilterAction(searchFilter);
+    })
+  );
 
   @Effect()
   initJobSearch$ = this.actions$.pipe(
