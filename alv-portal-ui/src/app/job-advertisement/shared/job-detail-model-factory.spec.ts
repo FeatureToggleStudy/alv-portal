@@ -10,7 +10,10 @@ import {
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobDetailModel } from './job-detail-model';
 import { mockJobCenter } from '../../shared/backend-services/reference-service/job-center.mock';
+import { JobAdFavouritesRepository } from '../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { AuthenticationService } from '../../core/auth/authentication.service';
 
+const mockUser = { id: 'userid' };
 
 const mockJobAd: JobAdvertisement = {
   'id': '865850f6-0002-11e9-977c-005056ac086d',
@@ -105,6 +108,8 @@ const mockJobAd: JobAdvertisement = {
 
 describe('JobDetailModelFactory', () => {
   let jobDetailModelFactory: JobDetailModelFactory;
+  let jobAdFavouritesRepositoryMock: JobAdFavouritesRepository;
+  let authenticationServiceMock: AuthenticationService;
   let i18nServiceMock;
 
   let referenceServiceRepositoryMock: JobCenterRepository;
@@ -117,20 +122,29 @@ describe('JobDetailModelFactory', () => {
   };
 
   beforeEach(() => {
+    jobAdFavouritesRepositoryMock = jasmine.createSpyObj('JobAdFavouritesRepository', {
+      'getFavouritesForJobAd': cold('-x|', { x: null })
+    });
+
     i18nServiceMock = {
       currentLanguage$: cold('--e--', LANGUAGE_VALUES)
     };
 
     referenceServiceRepositoryMock = jasmine.createSpyObj('ReferenceServiceRepository', {
-      'resolveJobCenter': cold('-x|', { x: mockJobCenter })
+      resolveJobCenter: cold('-x|', { x: mockJobCenter })
     });
 
+    authenticationServiceMock = jasmine.createSpyObj('AuthenticationService', {
+      getCurrentUser: cold('-x|', { x: mockUser })
+    });
     TestBed.configureTestingModule({
       imports: [],
       providers: [
         JobDetailModelFactory,
         { provide: I18nService, useValue: i18nServiceMock },
         { provide: JobCenterRepository, useValue: referenceServiceRepositoryMock },
+        { provide: JobAdFavouritesRepository, useValue: jobAdFavouritesRepositoryMock },
+        { provide: AuthenticationService, useValue: authenticationServiceMock }
       ]
     });
     jobDetailModelFactory = TestBed.get(JobDetailModelFactory);
@@ -146,7 +160,8 @@ describe('JobDetailModelFactory', () => {
     const expectedJobDetailModel = new JobDetailModel(
       mockJobAd.jobContent.jobDescriptions[0],
       mockJobCenter,
-      mockJobAd
+      mockJobAd,
+      null
     );
     const expected = cold('---r--', { r: expectedJobDetailModel });
     expect(jobDetailModel).toBeObservable(expected);
