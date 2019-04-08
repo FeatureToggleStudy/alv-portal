@@ -56,9 +56,12 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       break;
 
     case JOB_ADVERTISEMENT_DETAIL_LOADED:
+      const currentVisited = state.visitedJobAds;
+      currentVisited[action.payload.jobAdvertisement.id] = true;
       newState = {
         ...state,
-        selectedJobAdvertisement: action.payload.jobAdvertisement
+        selectedJobAdvertisement: action.payload.jobAdvertisement,
+        visitedJobAds: {...currentVisited}
       };
       break;
 
