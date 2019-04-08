@@ -37,35 +37,16 @@ export class JobSearchResultComponent implements OnInit {
   @Output()
   updatedFavourite = new EventEmitter<JobSearchResult>();
 
-  resultListItem$: Observable<ResultListItem>;
-
-  jobSearchResult$: Subject<JobSearchResult>;
+  resultListItem: ResultListItem;
 
   constructor(private jobBadgesMapperService: JobBadgesMapperService,
               private modalService: ModalService) {
   }
 
   ngOnInit() {
-    this.jobSearchResult$ = new Subject<JobSearchResult>();
+    this.resultListItem = this.jobSearchResultToResultListItemMapper(this.jobSearchResult);
   }
 
-  public jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): ResultListItem {
-    const jobAdvertisement = jobSearchResult.jobAdvertisement;
-    const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, this.language);
-    return <ResultListItem>{
-      id: jobAdvertisement.id,
-      title: jobDescription.title,
-      description: jobDescription.description,
-      header: jobAdvertisement.publication.startDate,
-      badges: this.jobBadgesMapperService.map(jobAdvertisement),
-      routerLink: [this.routerLinkBase, jobAdvertisement.id],
-      subtitle: jobAdvertisement.jobContent.company.name,
-      visited: jobSearchResult.visited,
-      hasActions: true,
-      isFavourite: !!jobSearchResult.favouriteItem,
-      hasNote: !!jobSearchResult.favouriteItem && !!jobSearchResult.favouriteItem.note
-    };
-  }
 
   toggleFavourites() {
     if (this.jobSearchResult.favouriteItem) {
@@ -89,6 +70,24 @@ export class JobSearchResultComponent implements OnInit {
       })
       .catch(() => {
       });
+  }
+
+  private jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): ResultListItem {
+    const jobAdvertisement = jobSearchResult.jobAdvertisement;
+    const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, this.language);
+    return <ResultListItem>{
+      id: jobAdvertisement.id,
+      title: jobDescription.title,
+      description: jobDescription.description,
+      header: jobAdvertisement.publication.startDate,
+      badges: this.jobBadgesMapperService.map(jobAdvertisement),
+      routerLink: [this.routerLinkBase, jobAdvertisement.id],
+      subtitle: jobAdvertisement.jobContent.company.name,
+      visited: jobSearchResult.visited,
+      hasActions: true,
+      isFavourite: !!jobSearchResult.favouriteItem,
+      hasNote: !!jobSearchResult.favouriteItem && !!jobSearchResult.favouriteItem.note
+    };
   }
 
 }
