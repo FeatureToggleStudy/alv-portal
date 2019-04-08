@@ -20,7 +20,7 @@
                    label="portal.job-ad-favourites.search.query">
   </alv-input-field>
 
-  <ng-container *ngIf="jobAdFavouriteSearchResults$|async as jobs">
+  <ng-container *ngIf="jobAdFavouriteSearchResults$ | async as jobs">
     <ng-container *ngIf="jobs?.length; else noFavouritesPlaceholder">
       <alv-job-search-result *ngFor="let job of jobs"
                              [jobSearchResult]="job"
