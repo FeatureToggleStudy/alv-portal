@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 import { JobAdFavouritesRepository } from '../../shared/backend-services/favourites/job-ad-favourites.repository';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { JobAdvertisementWithFavourites } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
 import { NotificationsService } from '../../core/notifications.service';
+import { AuthenticationService } from '../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',
@@ -18,7 +19,8 @@ export class FavouriteJobsWidgetComponent implements OnInit {
   jobFavourites: JobAdvertisementWithFavourites[]; //todo replace with observable and async
 
   constructor(private jobAdFavouritesRepository: JobAdFavouritesRepository,
-              private notificationService: NotificationsService) {
+              private notificationService: NotificationsService,
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -26,13 +28,16 @@ export class FavouriteJobsWidgetComponent implements OnInit {
   }
 
   private getJobAdFavourites() {
-    return this.jobAdFavouritesRepository.getFavouritesForUser({
-      body: {
-        query: ''
-      },
-      page: 0,
-      size: 4 // We have to grab 4 items because the API returns non-favourite items sometimes.
-    }).pipe(
+    this.authenticationService.getCurrentUser().pipe(
+      switchMap(currentUser => {
+        return this.jobAdFavouritesRepository.getFavouritesForUser({
+          body: {
+            query: ''
+          },
+          page: 0,
+          size: 4 // We have to grab 4 items because the API returns non-favourite items sometimes.
+        }, currentUser.id);
+      }),
       map(favouriteJob => favouriteJob.result)
     ).subscribe(jobFavourites => {
       this.jobFavourites = jobFavourites.filter(jobFavourite => jobFavourite.favouriteItem).slice(0, 3);
