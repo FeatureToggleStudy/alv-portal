@@ -6,6 +6,7 @@ import {JobAdvertisementWithFavourites} from '../../../shared/backend-services/j
 import {ModalService} from '../../../shared/layout/modal/modal.service';
 import {FavouriteNoteModalComponent} from '../favourite-note-modal/favourite-note-modal.component';
 import {User} from '../../../core/auth/user.model';
+import { isDeactivated } from '../job-ad-rules';
 
 export interface JobSearchResult extends JobAdvertisementWithFavourites {
   visited: boolean;
@@ -98,7 +99,8 @@ export class JobSearchResultComponent implements OnInit {
       visited: this.jobSearchResult.visited,
       hasActions: !!this._currentUser,
       isFavourite: !!this.jobSearchResult.favouriteItem,
-      hasNote: !!this.jobSearchResult.favouriteItem && !!this.jobSearchResult.favouriteItem.note
+      hasNote: !!this.jobSearchResult.favouriteItem && !!this.jobSearchResult.favouriteItem.note,
+      isDeactivated: isDeactivated(jobAdvertisement)
     };
   }
 
