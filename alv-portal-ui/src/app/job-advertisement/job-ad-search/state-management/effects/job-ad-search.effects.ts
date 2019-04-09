@@ -59,6 +59,7 @@ import {
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
 import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import { isAuthenticatedUser } from '../../../../core/auth/user.model';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
@@ -131,7 +132,7 @@ export class JobAdSearchEffects {
     ofType(JOB_ADVERTISEMENT_DETAIL_LOADED),
     map((action: JobAdvertisementDetailLoadedAction) => action.payload.jobAdvertisement),
     withLatestFrom(this.authenticationService.getCurrentUser()),
-    filter(([jobAdvertisement, currentUser]) => !!currentUser),
+    filter(([jobAdvertisement, currentUser]) => isAuthenticatedUser(currentUser)),
     map(([jobAdvertisement, currentUser]) => {
       return new LoadFavouriteItemAction({
         jobAdId: jobAdvertisement.id,
