@@ -100,7 +100,8 @@ describe('CandidateSearchEffects', () => {
      * response: returned empty response and end subscription
      * expected: to emit end subscription after 10 F delay
      */
-    it('should unsubscribe after FilterAppliedAction is triggered', () => {
+    // TODO FIX TEST SINCE WE DO NOT UNSUBSCRIBE ANYMORE
+    xit('should unsubscribe after FilterAppliedAction is triggered', () => {
 
       // action
       actions$ = hot('-a-b-b--b-', { a: filterAppliedAction, b: initResultListAction });
@@ -118,7 +119,7 @@ describe('CandidateSearchEffects', () => {
      * expected : 3 emitted action, error after 10 F + 10 F = 20 F delay, value after 30 F + 10 F = 40 F delay, and end subscription after 50 F delay
      */
     it('should throw an EffectErrorOccurredAction on error, then proceed to another InitResultListAction, ' +
-        'and finish with and FilterAppliedAction and terminate subscription to iniJobSearch', () => {
+        'and finish with and FilterAppliedAction', () => {
 
       const httpError = new HttpErrorResponse({});
       // action
@@ -126,11 +127,10 @@ describe('CandidateSearchEffects', () => {
       // response
       candidateRepository.searchCandidateProfiles.and.returnValues(
           cold('-#', {}, httpError),
-          cold('-c', { c: candidateSearchResult}),
-          cold('|', {}) // this is redundant, but helps to understand end subscription result for 'b'
+          cold('-c', { c: candidateSearchResult})
       );
       // expected
-      const expected = cold('--e-d|-', {
+      const expected = cold('--e-d', {
         e: new EffectErrorOccurredAction({ httpError }),
         d: filterAppliedAction
       });

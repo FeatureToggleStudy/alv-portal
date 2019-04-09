@@ -187,7 +187,7 @@ describe('jobAdSearchReducers', () => {
     expect(newState.totalCount).toEqual(50);
     expect(newState.resultsAreLoading).toBeFalsy();
 
-    verifyUnchanged(newState, initialState, ['resultList', 'totalCount', 'resultsAreLoading']);
+    verifyUnchanged(newState, initialState, ['resultList', 'totalCount', 'resultsAreLoading', 'isDirtyResultList']);
   });
 
   it('OCCUPATION_LANGUAGE_CHANGED_ACTION : should update occupation category for language and value', () => {

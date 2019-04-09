@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ResultListItem} from '../../../shared/layout/result-list-item/result-list-item.model';
 import {JobAdvertisementUtils} from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import {Observable, Subject} from 'rxjs';
-import {JobBadgesMapperService} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
+import {JobBadgesMapperService} from '../job-badges-mapper.service';
 import {JobAdvertisementWithFavourites} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {ModalService} from '../../../shared/layout/modal/modal.service';
 import {FavouriteNoteModalComponent} from '../favourite-note-modal/favourite-note-modal.component';
+import {User} from '../../../core/auth/user.model';
 
 export interface JobSearchResult extends JobAdvertisementWithFavourites {
   visited: boolean;
@@ -25,8 +25,9 @@ export class JobSearchResultComponent implements OnInit {
   @Input()
   routerLinkBase: string;
 
-  @Input()
-  language: string;
+  private _language: string;
+
+  private _currentUser: User;
 
   @Output()
   removeFavourite = new EventEmitter<JobSearchResult>();
@@ -44,9 +45,8 @@ export class JobSearchResultComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resultListItem = this.jobSearchResultToResultListItemMapper(this.jobSearchResult);
+    this.resultListItem = this.mapToResultListItem();
   }
-
 
   toggleFavourites() {
     if (this.jobSearchResult.favouriteItem) {
@@ -72,9 +72,21 @@ export class JobSearchResultComponent implements OnInit {
       });
   }
 
-  private jobSearchResultToResultListItemMapper(jobSearchResult: JobSearchResult): ResultListItem {
-    const jobAdvertisement = jobSearchResult.jobAdvertisement;
-    const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, this.language);
+  @Input()
+  set language(value: string) {
+    this._language = value;
+    this.resultListItem = this.mapToResultListItem();
+  }
+
+  @Input()
+  set currentUser(value: User) {
+    this._currentUser = value;
+    this.resultListItem = this.mapToResultListItem();
+  }
+
+  private mapToResultListItem(): ResultListItem {
+    const jobAdvertisement = this.jobSearchResult.jobAdvertisement;
+    const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, this._language);
     return <ResultListItem>{
       id: jobAdvertisement.id,
       title: jobDescription.title,
@@ -83,10 +95,10 @@ export class JobSearchResultComponent implements OnInit {
       badges: this.jobBadgesMapperService.map(jobAdvertisement),
       routerLink: [this.routerLinkBase, jobAdvertisement.id],
       subtitle: jobAdvertisement.jobContent.company.name,
-      visited: jobSearchResult.visited,
-      hasActions: true,
-      isFavourite: !!jobSearchResult.favouriteItem,
-      hasNote: !!jobSearchResult.favouriteItem && !!jobSearchResult.favouriteItem.note
+      visited: this.jobSearchResult.visited,
+      hasActions: !!this._currentUser,
+      isFavourite: !!this.jobSearchResult.favouriteItem,
+      hasNote: !!this.jobSearchResult.favouriteItem && !!this.jobSearchResult.favouriteItem.note
     };
   }
 

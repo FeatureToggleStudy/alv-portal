@@ -1,10 +1,10 @@
-import { Action } from '@ngrx/store';
-import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
+import {Action} from '@ngrx/store';
+import {CandidateProfile} from '../../../shared/backend-services/candidate/candidate.types';
 
-import { FilterPanelValues } from '../../candidate-search/filter-panel/filter-panel.component';
-import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
-import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
-import { CandidateSearchFilter } from '../state';
+import {FilterPanelValues} from '../../candidate-search/filter-panel/filter-panel.component';
+import {CandidateQueryPanelValues} from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
+import {OccupationTypeaheadItem} from '../../../shared/occupations/occupation-typeahead-item';
+import {CandidateSearchFilter} from '../state';
 
 export const INIT_RESULT_LIST = 'CANDIDATES:INIT_RESULT_LIST';
 export const APPLY_FILTER = 'CANDIDATES:APPLY_FILTER';
@@ -19,6 +19,7 @@ export const APPLY_QUERY_VALUES = 'CANDIDATES:APPLY_QUERY_VALUES';
 export const RESET_FILTER = 'CANDIDATES:RESET_FILTER';
 export const FILTER_RESET = 'CANDIDATES:FILTER_RESET';
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'CANDIDATES:OCCUPATION_LANGUAGE_CHANGED_ACTION';
+export const RESET = 'CANDIDATES:RESET';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -122,6 +123,13 @@ export class LoadNextCandidateProfileDetailAction implements Action {
   }
 }
 
+export class ResetAction implements Action {
+  readonly type = RESET;
+
+  constructor(public payload = {}) {
+  }
+}
+
 export type Actions = InitResultListAction
   | ApplyFilterAction
   | FilterAppliedAction
@@ -135,4 +143,5 @@ export type Actions = InitResultListAction
   | FilterResetAction
   | ResetFilterAction
   | OccupationLanguageChangedAction
+  | ResetAction
   ;

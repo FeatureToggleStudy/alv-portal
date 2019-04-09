@@ -1,33 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {JobBadge, JobBadgesMapperService} from '../../shared/job-badges-mapper.service';
+import {JobDetailModelFactory} from '../../shared/job-detail-model-factory';
+import {select, Store} from '@ngrx/store';
+import {map, switchMap, takeUntil} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {JobDetailModel} from '../../shared/job-detail-model';
+import {AbstractSubscriber} from '../../../core/abstract-subscriber';
+import {getSelectedJobAdvertisement, isNextVisible, isPrevVisible, ManageJobAdsState} from '../state-management/state';
+import {AuthenticationService} from '../../../core/auth/authentication.service';
+import {hasAnyAuthorities, UserRole} from '../../../core/auth/user.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {JobAdCancellationComponent} from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
+import {ModalService} from '../../../shared/layout/modal/modal.service';
+import {JobAdvertisement} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {JobAdvertisementUtils} from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import {
-  JobBadge,
-  JobBadgesMapperService
-} from '../../../widgets/job-publication-widget/job-badges-mapper.service';
-import { JobDetailModelFactory } from '../../shared/job-detail-model-factory';
-import { select, Store } from '@ngrx/store';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { JobDetailModel } from '../../shared/job-detail-model';
-import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import {
-  getSelectedJobAdvertisement,
-  isNextVisible,
-  isPrevVisible,
-  ManageJobAdsState
-} from '../state-management/state';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { hasAnyAuthorities, UserRole } from '../../../core/auth/user.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
-import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import {
+  JobAdvertisementCancelledAction,
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management/actions';
-import { JobAdvertisementUpdatedAction } from '../../../core/state-management/actions/core.actions';
-import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
+import {LayoutConstants} from '../../../shared/layout/layout-constants.enum';
 
 @Component({
   selector: 'alv-manage-job-ad-detail',
@@ -111,7 +103,7 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
     jobAdCancellationComponent.accessToken = this.token;
     jobAdCancellationModalRef.result
       .then(value => {
-        this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: value }));
+        this.store.dispatch(new JobAdvertisementCancelledAction({jobAdvertisement: value}));
       })
       .catch(() => {
       });
@@ -119,9 +111,9 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
 
   duplicateJobAdAction() {
     const queryParams = this.token
-      ? { 'token': this.token }
-      : { 'job-ad-id': this.jobAdvertisement.id };
+      ? {'token': this.token}
+      : {'job-ad-id': this.jobAdvertisement.id};
 
-    this.router.navigate(['job-publication'], { queryParams });
+    this.router.navigate(['job-publication'], {queryParams});
   }
 }

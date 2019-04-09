@@ -1,14 +1,8 @@
-import { Action } from '@ngrx/store';
-import { User } from '../../auth/user.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import {
-  Accountability,
-  CompanyContactTemplate
-} from '../../../shared/backend-services/user-info/user-info.types';
-import {
-  FavouriteItem,
-  JobAdvertisement
-} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {Action} from '@ngrx/store';
+import {User} from '../../auth/user.model';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Accountability, CompanyContactTemplate} from '../../../shared/backend-services/user-info/user-info.types';
+import {FavouriteItem} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 export const LANGUAGE_CHANGED = 'CORE:LANGUAGE_CHANGED';
 export const LANGUAGE_INITIALIZED = 'CORE:LANGUAGE_INITIALIZED';
@@ -24,7 +18,6 @@ export const LOAD_ACCOUNTABILITIES = 'CORE:LOAD_ACCOUNTABILITIES';
 export const ACCOUNTABILITIES_LOADED = 'CORE:ACCOUNTABILITIES_LOADED';
 export const COMPANY_SELECTED = 'CORE:COMPANY_SELECTED';
 export const SELECT_COMPANY = 'CORE:SELECT_COMPANY';
-export const JOB_ADVERTISEMENT_CHANGED = 'CORE:JOB_ADVERTISEMENT_CHANGED';
 
 export const ADDED_JOB_AD_FAVOURITE = 'CORE:ADDED_JOB_AD_FAVOURITE';
 export const REMOVED_JOB_AD_FAVOURITE = 'CORE:REMOVED_JOB_AD_FAVOURITE';
@@ -32,6 +25,8 @@ export const ADD_JOB_AD_FAVOURITE = 'CORE:ADD_JOB_AD_FAVOURITE';
 export const REMOVE_JOB_AD_FAVOURITE = 'CORE:REMOVE_JOB_AD_FAVOURITE';
 
 export const UPDATED_JOB_AD_FAVOURITE = 'CORE:UPDATED_JOB_AD_FAVOURITE';
+
+export const LAZY_LOADED_MODULE_DESTROYED = 'CORE:LAZY_LOADED_MODULE_DESTROYED';
 
 export class LanguageChangedAction implements Action {
   readonly type = LANGUAGE_CHANGED;
@@ -137,17 +132,6 @@ export class AcountabilitiesLoaded implements Action {
 
 }
 
-/**
- * Action that indicates that the given JobAdvertisement was created or updated
- * Needed by other modules eg. to refresh their loaded results/details
- */
-export class JobAdvertisementUpdatedAction implements Action {
-  readonly type = JOB_ADVERTISEMENT_CHANGED;
-
-  constructor(public payload: { jobAdvertisement: JobAdvertisement }) {
-  }
-}
-
 export class AddJobAdFavouriteAction implements Action {
   readonly type = ADD_JOB_AD_FAVOURITE;
 
@@ -185,6 +169,24 @@ export class RemovedJobAdFavouriteAction implements Action {
   }
 }
 
+/**
+ * Action that is used to reset a Lazy-Loaded Module state
+ */
+export class LazyLoadedModuleDestroyedAction implements Action {
+  readonly type = LAZY_LOADED_MODULE_DESTROYED;
+
+  constructor(public payload: { moduleName: ModuleName }) {
+  }
+
+}
+
+export enum ModuleName {
+  JOB_AD_FAVOURITE = <any>'JOB_AD_FAVOURITE',
+  JOB_SEARCH = <any>'JOB_SEARCH',
+  MANAGE_JOB_AD = <any>'MANAGE_JOB_AD',
+  CANDIDATE_SEARCH = <any>'CANDIDATE_SEARCH',
+  JOB_PUBLICATION = <any>'JOB-PUBLICATION',
+}
 
 export interface CompanySelection {
   companyId: string;

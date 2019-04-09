@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {IconKey} from '../../shared/icons/custom-icon/custom-icon.component';
 import {JobAdFavouritesRepository} from '../../shared/backend-services/favourites/job-ad-favourites.repository';
 import {map, switchMap, takeUntil} from 'rxjs/operators';
-import {JobAdvertisementWithFavourites} from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {JobSearchResult} from '../../job-advertisement/shared/job-search-result/job-search-result.component';
 import {NotificationsService} from '../../core/notifications.service';
 import {AuthenticationService} from '../../core/auth/authentication.service';
@@ -10,11 +9,14 @@ import {CoreState} from '../../core/state-management/state/core.state.ts';
 import {ActionsSubject, Store} from '@ngrx/store';
 import {
   REMOVED_JOB_AD_FAVOURITE,
-  RemoveJobAdFavouriteAction, UPDATED_JOB_AD_FAVOURITE,
+  RemoveJobAdFavouriteAction,
+  UPDATED_JOB_AD_FAVOURITE,
   UpdatedJobAdFavouriteAction
 } from '../../core/state-management/actions/core.actions';
 import {ofType} from '@ngrx/effects';
 import {AbstractSubscriber} from '../../core/abstract-subscriber';
+import {Observable} from 'rxjs';
+import {User} from '../../core/auth/user.model';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',
@@ -25,7 +27,9 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
 
   IconKey = IconKey;
 
-  jobFavourites: JobAdvertisementWithFavourites[]; //todo replace with observable and async
+  jobFavourites: JobSearchResult[]; //todo replace with observable and async
+
+  currentUser$: Observable<User>;
 
   constructor(private jobAdFavouritesRepository: JobAdFavouritesRepository,
               private notificationService: NotificationsService,
@@ -44,6 +48,8 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
       .subscribe(() => {
         this.getJobAdFavourites();
       });
+
+    this.currentUser$ = this.authenticationService.getCurrentUser();
   }
 
   private getJobAdFavourites() {
@@ -58,9 +64,10 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
         }, currentUser.id);
       }),
       map(favouriteJob => favouriteJob.result),
+      map((result) => result.map(value => ({...value, visited: false}))),
       takeUntil(this.ngUnsubscribe))
-      .subscribe(jobFavourites => {
-        this.jobFavourites = jobFavourites.filter(jobFavourite => jobFavourite.favouriteItem).slice(0, 3);
+      .subscribe((jobSearchResults: JobSearchResult[]) => {
+        this.jobFavourites = jobSearchResults.filter(jobFavourite => jobFavourite.favouriteItem).slice(0, 3);
       });
   }
 

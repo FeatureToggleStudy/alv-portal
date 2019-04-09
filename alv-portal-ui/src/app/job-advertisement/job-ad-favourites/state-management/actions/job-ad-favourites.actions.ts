@@ -5,8 +5,9 @@ import {
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   AddedJobAdFavouriteAction,
-  JobAdvertisementUpdatedAction,
-  RemovedJobAdFavouriteAction, UpdatedJobAdFavouriteAction
+  LazyLoadedModuleDestroyedAction,
+  RemovedJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
 } from '../../../../core/state-management/actions/core.actions';
 import {JobAdFavouritesSearchFilter} from '../../job-ad-favourites/job-ad-favourites.types';
 
@@ -18,6 +19,8 @@ export const NEXT_PAGE_LOADED = 'JOBADFAVOURITES:NEXT_PAGE_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBADFAVOURITES:JOB_ADVERTISEMENT_DETAIL_LOADED';
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
+
+export const RESET = 'JOBADFAVOURITES:RESET';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -75,6 +78,13 @@ export class LoadNextJobAdvertisementDetailAction implements Action {
   }
 }
 
+export class ResetAction implements Action {
+  readonly type = RESET;
+
+  constructor(public payload = {}) {
+  }
+}
+
 export type Actions =
   | InitResultListAction
   | FilterAppliedAction
@@ -82,7 +92,8 @@ export type Actions =
   | LoadNextPageAction
   | NextPageLoadedAction
   | JobAdvertisementDetailLoadedAction
-  | JobAdvertisementUpdatedAction
   | RemovedJobAdFavouriteAction
   | UpdatedJobAdFavouriteAction
-  | AddedJobAdFavouriteAction;
+  | AddedJobAdFavouriteAction
+  | ResetAction
+  | LazyLoadedModuleDestroyedAction;

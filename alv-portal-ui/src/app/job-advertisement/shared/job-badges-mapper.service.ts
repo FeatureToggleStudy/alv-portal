@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { LocaleAwareDatePipe } from '../../shared/pipes/locale-aware-date.pipe';
-import { InlineBadge } from '../../shared/layout/inline-badges/inline-badge.types';
-import { WorkingTimeRangePipe } from '../../shared/pipes/working-time-range.pipe';
+import {Injectable} from '@angular/core';
+import {JobAdvertisement} from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {LocaleAwareDatePipe} from '../../shared/pipes/locale-aware-date.pipe';
+import {InlineBadge} from '../../shared/layout/inline-badges/inline-badge.types';
+import {WorkingTimeRangePipe} from '../../shared/pipes/working-time-range.pipe';
 import {
   hasEndDate,
   hasImmediately,
@@ -12,8 +12,8 @@ import {
   isReportingObligation,
   isShortEmployment,
   isTemporary
-} from '../job-search-widget/job-ad-rules';
-import { JobLocationPipe } from '../../shared/pipes/job-location.pipe';
+} from './job-ad-rules';
+import {JobLocationPipe} from '../../shared/pipes/job-location.pipe';
 
 export enum JobBadgeType {
   WORKLOAD,
@@ -35,11 +35,7 @@ export const ALL_JOB_BADGES = [
   JobBadgeType.REPORTING_OBLIGATION
 ];
 
-@Injectable(
-  // {
-  // providedIn: 'root',
-// }
-)
+@Injectable()
 export class JobBadgesMapperService {
 
   constructor(private localeAwareDatePipe: LocaleAwareDatePipe,
@@ -68,7 +64,7 @@ export class JobBadgesMapperService {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: 'job-detail.startDate',
-        labelParams: { date: this.startDateLabel(job) },
+        labelParams: {date: this.startDateLabel(job)},
         cssClass: 'badge-availability',
       });
     }
@@ -83,7 +79,7 @@ export class JobBadgesMapperService {
       badges.push({
         badgeType: JobBadgeType.AVAILABILITY,
         label: 'job-detail.endDate',
-        labelParams: { date: this.endDateLabel(job) },
+        labelParams: {date: this.endDateLabel(job)},
         cssClass: 'badge-availability',
       });
     }
