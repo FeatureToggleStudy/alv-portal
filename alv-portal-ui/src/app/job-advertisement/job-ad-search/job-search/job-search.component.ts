@@ -9,7 +9,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import {AbstractSubscriber} from '../../../core/abstract-subscriber';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   ApplyFilterValuesAction,
   ApplyQueryValuesAction,
@@ -24,24 +24,26 @@ import {
   LoadNextPageAction,
   ResetFilterAction
 } from '../state-management';
-import {ActionsSubject, select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
-import {map, take, takeUntil} from 'rxjs/operators';
-import {JobSearchFilterParameterService} from './job-search-filter-parameter.service';
-import {JobQueryPanelValues} from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
-import {ScrollService} from '../../../core/scroll.service';
-import {FilterPanelValues} from './filter-panel/filter-panel.component';
-import {ofType} from '@ngrx/effects';
-import {composeResultListItemId} from '../../../shared/layout/result-list-item/result-list-item.component';
-import {LayoutConstants} from '../../../shared/layout/layout-constants.enum';
-import {WINDOW} from '../../../core/window.service';
-import {JobSearchResult} from '../../shared/job-search-result/job-search-result.component';
-import {I18nService} from '../../../core/i18n.service';
+import { ActionsSubject, select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map, take, takeUntil } from 'rxjs/operators';
+import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
+import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
+import { ScrollService } from '../../../core/scroll.service';
+import { FilterPanelValues } from './filter-panel/filter-panel.component';
+import { ofType } from '@ngrx/effects';
+import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
+import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
+import { WINDOW } from '../../../core/window.service';
+import { JobSearchResult } from '../../shared/job-search-result/job-search-result.component';
+import { I18nService } from '../../../core/i18n.service';
 import {
   AddJobAdFavouriteAction,
   RemoveJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../core/state-management/actions/core.actions';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { User } from '../../../core/auth/user.model';
 
 @Component({
   selector: 'alv-job-search',
@@ -67,6 +69,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
 
+  currentUser$: Observable<User>;
+
+  currentLanguage$: Observable<string>;
+
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
 
   constructor(private store: Store<JobAdSearchState>,
@@ -74,7 +80,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               private scrollService: ScrollService,
               private cdRef: ChangeDetectorRef,
-              public i18nService: I18nService,
+              private i18nService: I18nService,
+              private authenticationService: AuthenticationService,
               @Inject(WINDOW) private window: Window) {
     super();
   }
@@ -93,6 +100,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
+
+    this.currentUser$ = this.authenticationService.getCurrentUser();
+
+    this.currentLanguage$ = this.i18nService.currentLanguage$;
 
     this.actionsSubject.pipe(
       ofType(FILTER_APPLIED),
@@ -151,15 +162,15 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   addFavourite(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new AddJobAdFavouriteAction({jobAdvertisementId: jobSearchResult.jobAdvertisement.id}));
+    this.store.dispatch(new AddJobAdFavouriteAction({ jobAdvertisementId: jobSearchResult.jobAdvertisement.id }));
   }
 
   removeFavourite(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new RemoveJobAdFavouriteAction({favouriteItem: jobSearchResult.favouriteItem}));
+    this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
   }
 
   updatedFavourite(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new UpdatedJobAdFavouriteAction({favouriteItem: jobSearchResult.favouriteItem}));
+    this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
   }
 
 }

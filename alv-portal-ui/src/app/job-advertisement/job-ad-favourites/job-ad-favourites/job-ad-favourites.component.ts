@@ -17,6 +17,9 @@ import {
   RemoveJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../core/state-management/actions/core.actions';
+import {I18nService} from '../../../core/i18n.service';
+import {AuthenticationService} from '../../../core/auth/authentication.service';
+import {User} from '../../../core/auth/user.model';
 
 @Component({
   selector: 'alv-job-ad-favourites',
@@ -31,7 +34,13 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   jobAdFavouriteSearchResults$: Observable<JobSearchResult[]>;
 
+  currentUser$: Observable<User>;
+
+  currentLanguage$: Observable<string>;
+
   constructor(private fb: FormBuilder,
+              private i18nService: I18nService,
+              private authenticationService: AuthenticationService,
               private store: Store<JobAdFavouritesState>) {
     super();
   }
@@ -58,6 +67,10 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
           query: value
         }));
       });
+
+    this.currentUser$ = this.authenticationService.getCurrentUser();
+
+    this.currentLanguage$ = this.i18nService.currentLanguage$;
   }
 
   onScroll() {

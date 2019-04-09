@@ -24,6 +24,8 @@
     <ng-container *ngIf="jobs?.length; else noFavouritesPlaceholder">
       <alv-job-search-result *ngFor="let job of jobs"
                              [jobSearchResult]="job"
+                             [language]="currentLanguage$ | async"
+                             [currentUser]="currentUser$ | async"
                              (updatedFavourite)="updatedFavourite($event)"
                              (addFavourite)="addFavourite($event)"
                              (removeFavourite)="removeFavourite($event)"
