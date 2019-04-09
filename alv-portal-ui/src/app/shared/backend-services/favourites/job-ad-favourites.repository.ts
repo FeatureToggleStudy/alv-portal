@@ -62,7 +62,7 @@ export class JobAdFavouritesRepository {
     );
   }
 
-  getFavouritesForJobAd(jobAdvertisementId: string, userId: string): Observable<FavouriteItem> {
+  getFavouriteForJobAd(jobAdvertisementId: string, userId: string): Observable<FavouriteItem> {
     const params = new HttpParams()
       .set('userId', userId)
       .set('jobAdvertisementId', jobAdvertisementId);

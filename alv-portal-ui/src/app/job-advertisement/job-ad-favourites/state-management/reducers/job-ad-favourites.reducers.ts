@@ -1,14 +1,18 @@
 import {initialState, JobAdFavouritesState} from '../state';
 import {
   Actions,
-  APPLY_FILTER,
+  APPLY_FILTER, FAVOURITE_ITEM_LOADED,
   FILTER_APPLIED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   RESET,
 } from '../actions';
-import {REMOVED_JOB_AD_FAVOURITE} from '../../../../core/state-management/actions/core.actions';
+import {
+  ADDED_JOB_AD_FAVOURITE,
+  REMOVED_JOB_AD_FAVOURITE, UPDATED_JOB_AD_FAVOURITE
+} from '../../../../core/state-management/actions/core.actions';
+
 
 export function jobAdFavouritesReducer(state = initialState, action: Actions): JobAdFavouritesState {
 
@@ -73,17 +77,41 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       };
       break;
 
-    case REMOVED_JOB_AD_FAVOURITE: {
-      const indexToUpdate = findJobAdIdIndex(action.payload.removedFavouriteItem.jobAdvertisementId);
-      if (indexToUpdate === -1) {
-        return state;
+    case ADDED_JOB_AD_FAVOURITE:
+    case UPDATED_JOB_AD_FAVOURITE: {
+      const updatedResultList = state.resultList.slice();
+      const indexToUpdate = findJobAdIdIndex(action.payload.favouriteItem.jobAdvertisementId);
+      if (indexToUpdate >= 0) {
+        updatedResultList[indexToUpdate].favouriteItem = action.payload.favouriteItem;
       }
-      // TODO we need a better approach
-      const resultList = state.resultList.slice();
-      resultList.splice(indexToUpdate, 1);
       newState = {
         ...state,
-        resultList: resultList
+        resultList: updatedResultList,
+        favouriteItem: action.payload.favouriteItem
+      };
+      break;
+    }
+
+    case REMOVED_JOB_AD_FAVOURITE: {
+      const updatedResultList = state.resultList.slice();
+      const indexToUpdate = findJobAdIdIndex(action.payload.removedFavouriteItem.jobAdvertisementId);
+      if (indexToUpdate >= 0) {
+        const unstarredJobCopy = Object.assign({}, updatedResultList[indexToUpdate]);
+        unstarredJobCopy.favouriteItem = null;
+        updatedResultList[indexToUpdate] = unstarredJobCopy;
+      }
+      newState = {
+        ...state,
+        resultList: updatedResultList,
+        favouriteItem: null
+      };
+      break;
+    }
+
+    case FAVOURITE_ITEM_LOADED: {
+      newState = {
+        ...state,
+        favouriteItem: action.payload.favouriteItem
       };
       break;
     }

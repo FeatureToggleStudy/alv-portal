@@ -1,18 +1,22 @@
-import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {asyncScheduler, Observable, of} from 'rxjs/index';
-import {Action, select, Store} from '@ngrx/store';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { asyncScheduler, Observable, of } from 'rxjs/index';
+import { Action, select, Store } from '@ngrx/store';
 import {
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
-  ApplyFilterAction,
+  ApplyFilterAction, FavouriteItemLoadedAction,
   FilterAppliedAction,
   FilterResetAction,
   INIT_RESULT_LIST,
+  JOB_ADVERTISEMENT_DETAIL_LOADED,
+  JobAdvertisementDetailLoadedAction,
+  LOAD_FAVOURITE_ITEM,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
+  LoadFavouriteItemAction,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
@@ -20,14 +24,30 @@ import {
   RESET_FILTER,
   ResetAction
 } from '../actions';
-import {JobAdvertisementRepository} from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import {catchError, concatMap, debounceTime, filter, map, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
-import {getJobAdSearchState, getJobSearchFilter, getNextId, getPrevId, JobAdSearchState} from '../state';
-import {JobSearchRequestMapper} from './job-search-request.mapper';
-import {Router} from '@angular/router';
-import {JobAdvertisementSearchResponse} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {SchedulerLike} from 'rxjs/src/internal/types';
-import {AsyncScheduler} from 'rxjs/internal/scheduler/AsyncScheduler';
+import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
+import {
+  catchError,
+  concatMap,
+  debounceTime,
+  filter,
+  map,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
+import {
+  getJobAdSearchState,
+  getJobSearchFilter,
+  getNextId,
+  getPrevId,
+  JobAdSearchState
+} from '../state';
+import { JobSearchRequestMapper } from './job-search-request.mapper';
+import { Router } from '@angular/router';
+import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { SchedulerLike } from 'rxjs/src/internal/types';
+import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
 import {
   EffectErrorOccurredAction,
   LANGUAGE_CHANGED,
@@ -36,7 +56,9 @@ import {
   LazyLoadedModuleDestroyedAction,
   ModuleName
 } from '../../../../core/state-management/actions/core.actions';
-import {OccupationSuggestionService} from '../../../../shared/occupations/occupation-suggestion.service';
+import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
+import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { AuthenticationService } from '../../../../core/auth/authentication.service';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
@@ -65,7 +87,7 @@ export class JobAdSearchEffects {
           page: response.result,
           totalCount: response.totalCount
         })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       );
     })
   );
@@ -81,7 +103,7 @@ export class JobAdSearchEffects {
         page: response.result,
         totalCount: response.totalCount
       })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     ))
   );
 
@@ -105,6 +127,34 @@ export class JobAdSearchEffects {
   );
 
   @Effect()
+  jobAdvertisementDetailLoaded$: Observable<Action> = this.actions$.pipe(
+    ofType(JOB_ADVERTISEMENT_DETAIL_LOADED),
+    map((action: JobAdvertisementDetailLoadedAction) => action.payload.jobAdvertisement),
+    withLatestFrom(this.authenticationService.getCurrentUser()),
+    filter(([jobAdvertisement, currentUser]) => !!currentUser),
+    map(([jobAdvertisement, currentUser]) => {
+      return new LoadFavouriteItemAction({
+        jobAdId: jobAdvertisement.id,
+        currentUserId: currentUser.id
+      });
+    })
+  );
+
+  @Effect()
+  loadFavouriteItem$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_FAVOURITE_ITEM),
+    map((action: LoadFavouriteItemAction) => action.payload),
+    switchMap((payload) => {
+      return this.jobAdFavouritesRepository.getFavouriteForJobAd(payload.jobAdId, payload.currentUserId).pipe(
+        map(favouriteItem => {
+          return new FavouriteItemLoadedAction({ favouriteItem: favouriteItem });
+        })
+      );
+    }),
+    catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+  );
+
+  @Effect()
   applyFilterValues$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER_VALUES),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
@@ -117,8 +167,8 @@ export class JobAdSearchEffects {
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     concatMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1)).pipe(
-      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({page: response.result})),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
   );
 
@@ -131,7 +181,7 @@ export class JobAdSearchEffects {
       this.router.navigate(['/job-search', id]);
     }),
     map(() => {
-      return {type: 'nothing'};
+      return { type: 'nothing' };
     })
   );
 
@@ -146,7 +196,7 @@ export class JobAdSearchEffects {
       return this.occupationSuggestionService.translateAll(jobSearchFilter.occupations, action.payload.language);
     }),
     map((updatedOccupations) => {
-      return new OccupationLanguageChangedAction({occupations: updatedOccupations});
+      return new OccupationLanguageChangedAction({ occupations: updatedOccupations });
     })
   );
 
@@ -172,14 +222,16 @@ export class JobAdSearchEffects {
       this.router.navigate(['/job-search', id]);
     }),
     map(() => {
-      return {type: 'nothing'};
+      return { type: 'nothing' };
     })
   );
 
   constructor(private actions$: Actions,
               private occupationSuggestionService: OccupationSuggestionService,
               private jobAdvertisementRepository: JobAdvertisementRepository,
+              private jobAdFavouritesRepository: JobAdFavouritesRepository,
               private store: Store<JobAdSearchState>,
+              private authenticationService: AuthenticationService,
               private router: Router,
               @Optional()
               @Inject(JOB_AD_SEARCH_EFFECTS_DEBOUNCE)

@@ -1,5 +1,6 @@
 import {ContractType, JobSearchFilter, Sort} from './job-search-filter.types';
 import {
+  FavouriteItem,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -11,6 +12,7 @@ export interface JobAdSearchState {
   jobSearchFilter: JobSearchFilter;
   resultList: JobAdvertisementWithFavourites[];
   selectedJobAdvertisement: JobAdvertisement;
+  favouriteItem: FavouriteItem;
   resultsAreLoading: boolean;
   visitedJobAds: { [id: string]: boolean; };
   isDirtyResultList: boolean;
@@ -33,6 +35,7 @@ export const initialState: JobAdSearchState = {
   },
   resultList: [],
   selectedJobAdvertisement: null,
+  favouriteItem: null,
   resultsAreLoading: false,
   visitedJobAds: {},
   isDirtyResultList: true
@@ -52,6 +55,8 @@ export const getJobSearchFilter = createSelector(getJobAdSearchState, (state: Jo
 export const getSelectedJobAdvertisement = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.selectedJobAdvertisement);
 
 export const getResultsAreLoading = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultsAreLoading);
+
+export const getFavouriteItem = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.favouriteItem);
 
 export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
   return resultList.map((item) => {

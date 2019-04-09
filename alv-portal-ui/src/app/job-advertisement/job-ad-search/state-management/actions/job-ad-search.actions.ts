@@ -1,12 +1,13 @@
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import {
+  FavouriteItem,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {JobSearchFilter} from '../state';
-import {FilterPanelValues} from '../../job-search/filter-panel/filter-panel.component';
-import {JobQueryPanelValues} from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
-import {OccupationTypeaheadItem} from '../../../../shared/occupations/occupation-typeahead-item';
+import { JobSearchFilter } from '../state';
+import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
+import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
+import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 import {
   AddedJobAdFavouriteAction,
   AddJobAdFavouriteAction,
@@ -33,6 +34,10 @@ export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
 export const RESET = 'JOBS:RESET';
+
+export const FAVOURITE_ITEM_LOADED = 'JOBS:FAVOURITE_ITEM_LOADED';
+
+export const LOAD_FAVOURITE_ITEM = 'JOBS:LOAD_FAVOURITE_ITEM';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -153,6 +158,20 @@ export class ResetAction implements Action {
   }
 }
 
+export class LoadFavouriteItemAction implements Action {
+  readonly type = LOAD_FAVOURITE_ITEM;
+
+  constructor(public payload: { jobAdId: string, currentUserId: string }) {
+  }
+}
+
+export class FavouriteItemLoadedAction implements Action {
+  readonly type = FAVOURITE_ITEM_LOADED;
+
+  constructor(public payload: { favouriteItem: FavouriteItem }) {
+  }
+}
+
 export type Actions =
   | InitResultListAction
   | FilterAppliedAction
@@ -171,4 +190,6 @@ export type Actions =
   | RemovedJobAdFavouriteAction
   | OccupationLanguageChangedAction
   | UpdatedJobAdFavouriteAction
-  | ResetAction;
+  | ResetAction
+  | FavouriteItemLoadedAction
+  | LoadFavouriteItemAction;

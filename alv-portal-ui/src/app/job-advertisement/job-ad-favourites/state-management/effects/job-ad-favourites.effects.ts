@@ -23,7 +23,12 @@ import {
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
-  ResetAction
+  ResetAction,
+  JOB_ADVERTISEMENT_DETAIL_LOADED,
+  JobAdvertisementDetailLoadedAction,
+  LoadFavouriteItemAction,
+  LOAD_FAVOURITE_ITEM,
+  FavouriteItemLoadedAction
 } from '../actions';
 import {JobAdvertisementSearchResponse} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {SchedulerLike} from 'rxjs/src/internal/types';
@@ -62,6 +67,34 @@ export class JobAdFavouritesEffects {
         catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
       );
     })
+  );
+
+  @Effect()
+  jobAdvertisementDetailLoaded$: Observable<Action> = this.actions$.pipe(
+    ofType(JOB_ADVERTISEMENT_DETAIL_LOADED),
+    map((action: JobAdvertisementDetailLoadedAction) => action.payload.jobAdvertisement),
+    withLatestFrom(this.authenticationService.getCurrentUser()),
+    filter(([jobAdvertisement, currentUser]) => !!currentUser),
+    map(([jobAdvertisement, currentUser]) => {
+      return new LoadFavouriteItemAction({
+        jobAdId: jobAdvertisement.id,
+        currentUserId: currentUser.id
+      });
+    })
+  );
+
+  @Effect()
+  loadFavouriteItem$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_FAVOURITE_ITEM),
+    map((action: LoadFavouriteItemAction) => action.payload),
+    switchMap((payload) => {
+      return this.jobAdFavouritesRepository.getFavouriteForJobAd(payload.jobAdId, payload.currentUserId).pipe(
+        map(favouriteItem => {
+          return new FavouriteItemLoadedAction({ favouriteItem: favouriteItem });
+        })
+      );
+    }),
+    catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
   );
 
   @Effect()

@@ -14,8 +14,7 @@ export class JobDetailModel {
 
   constructor(public jobDescription: JobDescription,
               public jobCenter: JobCenter,
-              public jobAdvertisement: JobAdvertisement,
-              public favouriteDescriptor: FavouriteItem) {
+              public jobAdvertisement: JobAdvertisement) {
   }
 
   hasStartDate() {
@@ -76,17 +75,4 @@ export class JobDetailModel {
     return this.jobAdvertisement.stellennummerEgov;
   }
 
-  get isFavourite(): boolean {
-    return Boolean(this.favouriteDescriptor);
-  }
-
-  get hasNote(): boolean {
-    return Boolean(this.isFavourite && this.favouriteDescriptor.note);
-  }
-
-  get note(): string | undefined {
-    if (this.hasNote) {
-      return this.favouriteDescriptor.note;
-    }
-  }
 }
