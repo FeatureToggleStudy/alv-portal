@@ -87,6 +87,7 @@ describe('Job publication page', () => {
 
       page.btnSubmit.sendKeys(Key.ENTER);
       browser.sleep(1000);
+      //FIXME we have to investigate why this check fails randomly. Network related?
       expect(page.jobPublicationForm.isPresent()).toBe(false);
       expect(page.successMessage.isPresent()).toBe(true);
     });
