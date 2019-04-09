@@ -145,7 +145,7 @@ export class JobAdSearchEffects {
     ofType(LOAD_FAVOURITE_ITEM),
     map((action: LoadFavouriteItemAction) => action.payload),
     switchMap((payload) => {
-      return this.jobAdFavouritesRepository.getFavouriteForJobAd(payload.jobAdId, payload.currentUserId).pipe(
+      return this.jobAdFavouritesRepository.getFavourite(payload.jobAdId, payload.currentUserId).pipe(
         map(favouriteItem => {
           return new FavouriteItemLoadedAction({ favouriteItem: favouriteItem });
         })

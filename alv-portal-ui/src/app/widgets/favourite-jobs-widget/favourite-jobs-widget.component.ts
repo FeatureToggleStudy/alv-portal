@@ -55,7 +55,7 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
   private getJobAdFavourites() {
     this.authenticationService.getCurrentUser().pipe(
       switchMap(currentUser => {
-        return this.jobAdFavouritesRepository.getFavouritesForUser({
+        return this.jobAdFavouritesRepository.searchFavourites({
           body: {
             query: ''
           },

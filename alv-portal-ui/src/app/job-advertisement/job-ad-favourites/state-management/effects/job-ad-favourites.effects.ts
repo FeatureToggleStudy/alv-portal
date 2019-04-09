@@ -59,7 +59,7 @@ export class JobAdFavouritesEffects {
     withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
     filter(([a, state]) => state.isDirtyResultList),
     switchMap(([action, state, user]) => {
-      return this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
+      return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount
@@ -88,7 +88,7 @@ export class JobAdFavouritesEffects {
     ofType(LOAD_FAVOURITE_ITEM),
     map((action: LoadFavouriteItemAction) => action.payload),
     switchMap((payload) => {
-      return this.jobAdFavouritesRepository.getFavouriteForJobAd(payload.jobAdId, payload.currentUserId).pipe(
+      return this.jobAdFavouritesRepository.getFavourite(payload.jobAdId, payload.currentUserId).pipe(
         map(favouriteItem => {
           return new FavouriteItemLoadedAction({ favouriteItem: favouriteItem });
         })
@@ -104,7 +104,7 @@ export class JobAdFavouritesEffects {
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
     switchMap(([JobAdFavouritesSearchFilter, state, currentUser]) => {
-      return this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(JobAdFavouritesSearchFilter, state.page), currentUser.id).pipe(
+      return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(JobAdFavouritesSearchFilter, state.page), currentUser.id).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount
@@ -119,7 +119,7 @@ export class JobAdFavouritesEffects {
     ofType(LOAD_NEXT_PAGE),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
-    concatMap(([action, state, currentUser]) => this.jobAdFavouritesRepository.getFavouritesForUser(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page + 1), currentUser.id).pipe(
+    concatMap(([action, state, currentUser]) => this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page + 1), currentUser.id).pipe(
       map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({page: response.result})),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
     )),

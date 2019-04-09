@@ -123,7 +123,7 @@ describe('JobDetailModelFactory', () => {
 
   beforeEach(() => {
     jobAdFavouritesRepositoryMock = jasmine.createSpyObj('JobAdFavouritesRepository', {
-      'getFavouriteForJobAd': cold('-x|', { x: null })
+      'getFavourite': cold('-x|', { x: null })
     });
 
     i18nServiceMock = {

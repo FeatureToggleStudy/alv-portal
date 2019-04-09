@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {flatMap, map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { flatMap, map } from 'rxjs/operators';
 import {
   FavouriteItem,
   JobAdFavouritesSearchRequest,
   JobAdFavouritesSearchResponse,
   JobAdvertisementWithFavourites
 } from '../job-advertisement/job-advertisement.types';
-import {createPageableURLSearchParams} from '../request-util';
+import { createPageableURLSearchParams } from '../request-util';
 
 const FAVOURITES_PREFIX = '/jobadservice/api/favourite-items';
 const SEARCH_PREFIX = FAVOURITES_PREFIX + '/_search';
@@ -43,16 +43,23 @@ export class JobAdFavouritesRepository {
   }
 
   editNote(favouriteItem: FavouriteItem, note: string): Observable<FavouriteItem> {
-    return this.http.put<FavouriteItem>(`${FAVOURITES_PREFIX}/${favouriteItem.id}${UPDATE_NOTE_SUFFIX}`, {note});
+    return this.http.put<FavouriteItem>(`${FAVOURITES_PREFIX}/${favouriteItem.id}${UPDATE_NOTE_SUFFIX}`, { note });
   }
 
-  getFavouritesForUser(jobAdFavouritesSearchRequest: JobAdFavouritesSearchRequest, userId: string): Observable<JobAdFavouritesSearchResponse> {
+  getFavourite(jobAdvertisementId: string, userId: string): Observable<FavouriteItem> {
+    const params = new HttpParams()
+      .set('userId', userId)
+      .set('jobAdvertisementId', jobAdvertisementId);
+    return this.http.get<FavouriteItem>(`${SEARCH_PREFIX}/byJobAdvertisementIdAndUserId`, { params });
+  }
+
+  searchFavourites(jobAdFavouritesSearchRequest: JobAdFavouritesSearchRequest, userId: string): Observable<JobAdFavouritesSearchResponse> {
     const params = createPageableURLSearchParams(jobAdFavouritesSearchRequest)
       .set('userId', userId)
       .set('query', jobAdFavouritesSearchRequest.body.query);
 
     return this.http.get<JobAdvertisementWithFavourites[]>(`${SEARCH_PREFIX}/byUserId`,
-      {params, observe: 'response'}).pipe(
+      { params, observe: 'response' }).pipe(
       map((resp) => {
         return {
           totalCount: parseInt(resp.headers.get('X-Total-Count'), 10),
@@ -60,13 +67,6 @@ export class JobAdFavouritesRepository {
         };
       })
     );
-  }
-
-  getFavouriteForJobAd(jobAdvertisementId: string, userId: string): Observable<FavouriteItem> {
-    const params = new HttpParams()
-      .set('userId', userId)
-      .set('jobAdvertisementId', jobAdvertisementId);
-    return this.http.get<FavouriteItem>(`${SEARCH_PREFIX}/byJobAdvertisementIdAndUserId`, {params});
   }
 
 }
