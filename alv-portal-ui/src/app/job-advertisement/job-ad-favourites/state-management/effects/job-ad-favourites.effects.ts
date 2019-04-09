@@ -1,17 +1,32 @@
-import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {JobAdvertisementRepository} from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import {AsyncScheduler} from 'rxjs/internal/scheduler/AsyncScheduler';
-import {catchError, concatMap, debounceTime, filter, map, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
-import {Action, select, Store} from '@ngrx/store';
-import {asyncScheduler, Observable, of} from 'rxjs';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
+import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
+import {
+  catchError,
+  concatMap,
+  debounceTime,
+  filter,
+  map,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
+import { Action, select, Store } from '@ngrx/store';
+import { asyncScheduler, Observable, of } from 'rxjs';
 import {
   EffectErrorOccurredAction,
   LAZY_LOADED_MODULE_DESTROYED,
   LazyLoadedModuleDestroyedAction,
   ModuleName
 } from '../../../../core/state-management/actions/core.actions';
-import {getJobAdFavouritesState, getNextId, getPrevId, JobAdFavouritesState} from '../state';
+import {
+  getJobAdFavouritesState,
+  getNextId,
+  getPrevId,
+  JobAdFavouritesState
+} from '../state';
 import {
   APPLY_FILTER,
   ApplyFilterAction,
@@ -30,12 +45,13 @@ import {
   LOAD_FAVOURITE_ITEM,
   FavouriteItemLoadedAction
 } from '../actions';
-import {JobAdvertisementSearchResponse} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {SchedulerLike} from 'rxjs/src/internal/types';
-import {Router} from '@angular/router';
-import {JobAdFavouritesRepository} from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
-import {JobAdFavouritesSearchRequestMapper} from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
-import {AuthenticationService} from '../../../../core/auth/authentication.service';
+import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { SchedulerLike } from 'rxjs/src/internal/types';
+import { Router } from '@angular/router';
+import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { JobAdFavouritesSearchRequestMapper } from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
+import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import { isAuthenticatedUser } from '../../../../core/auth/user.model';
 
 export const JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE');
 export const JOB_AD_FAVOURITES_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_FAVOURITES_EFFECTS_SCHEDULER');
@@ -64,7 +80,7 @@ export class JobAdFavouritesEffects {
           page: response.result,
           totalCount: response.totalCount
         })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       );
     })
   );
@@ -74,7 +90,7 @@ export class JobAdFavouritesEffects {
     ofType(JOB_ADVERTISEMENT_DETAIL_LOADED),
     map((action: JobAdvertisementDetailLoadedAction) => action.payload.jobAdvertisement),
     withLatestFrom(this.authenticationService.getCurrentUser()),
-    filter(([jobAdvertisement, currentUser]) => !!currentUser),
+    filter(([jobAdvertisement, currentUser]) => isAuthenticatedUser(currentUser)),
     map(([jobAdvertisement, currentUser]) => {
       return new LoadFavouriteItemAction({
         jobAdId: jobAdvertisement.id,
@@ -109,7 +125,7 @@ export class JobAdFavouritesEffects {
           page: response.result,
           totalCount: response.totalCount
         })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       );
     })
   );
@@ -120,8 +136,8 @@ export class JobAdFavouritesEffects {
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
     concatMap(([action, state, currentUser]) => this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page + 1), currentUser.id).pipe(
-      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({page: response.result})),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
   );
 
@@ -134,7 +150,7 @@ export class JobAdFavouritesEffects {
       this.router.navigate(['/job-favourites', id]);
     }),
     map(() => {
-      return {type: 'nothing'};
+      return { type: 'nothing' };
     })
   );
 
@@ -160,7 +176,7 @@ export class JobAdFavouritesEffects {
       this.router.navigate(['/job-favourites', id]);
     }),
     map(() => {
-      return {type: 'nothing'};
+      return { type: 'nothing' };
     })
   );
 
