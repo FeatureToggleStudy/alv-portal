@@ -1,8 +1,8 @@
 <alv-modal modalTitle="Login"
            primaryLabel="Login"
            (primaryAction)="login()"
-           secondaryLabel="Cancel"
-           (secondaryAction)="modal.dismiss()"
+           cancelLabel="Cancel"
+           (cancelAction)="modal.dismiss()"
            [formGroup]="form">
   <alv-alert *ngIf="errorMessage"
              [notification]="errorMessage"

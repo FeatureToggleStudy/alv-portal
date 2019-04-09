@@ -1,8 +1,8 @@
 <alv-modal modalTitle="portal.admin.api-user-management.dialog.title"
            primaryLabel="portal.admin.api-user-management.confirm"
            (primaryAction)="onSubmit()"
-           secondaryLabel="portal.admin.api-user-management.dismiss"
-           (secondaryAction)="onDismiss()"
+           cancelLabel="portal.admin.api-user-management.dismiss"
+           (cancelAction)="onDismiss()"
            [formGroup]="form">
   <fieldset *ngFor="let inputField of inputFields">
     <alv-input-field label="portal.admin.api-user-management.{{ inputField }}"

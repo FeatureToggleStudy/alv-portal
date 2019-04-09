@@ -43,6 +43,16 @@ export class ModalComponent {
   @Output() primaryAction = new EventEmitter<void>();
 
   /**
+   * (optional) Label of the cancel button
+   */
+  @Input() cancelLabel?: string;
+
+  /**
+   * Emitted event on cancel button click.
+   */
+  @Output() cancelAction = new EventEmitter<void>();
+
+  /**
    * (optional) Label of the secondary button
    */
   @Input() secondaryLabel?: string;
@@ -74,6 +84,10 @@ export class ModalComponent {
 
   handleSubmitClick() {
     this.primaryAction.emit();
+  }
+
+  handleCancelClick() {
+    this.cancelAction.emit();
   }
 
   handleSecondaryClick() {

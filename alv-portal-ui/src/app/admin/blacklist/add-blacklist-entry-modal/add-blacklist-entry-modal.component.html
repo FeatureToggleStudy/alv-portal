@@ -1,8 +1,8 @@
 <alv-modal modalTitle="blacklisted-agent.create-blacklist-entry"
            primaryLabel="blacklisted-agent.create-blacklist-entry"
            (primaryAction)="confirmOrganizationAndCloseModal()"
-           secondaryLabel="blacklisted-agent.change-status-dialog.cancel"
-           (secondaryAction)="modal.dismiss()"
+           cancelLabel="blacklisted-agent.change-status-dialog.cancel"
+           (cancelAction)="modal.dismiss()"
            [formGroup]="form">
   <p>{{'blacklisted-agent.choose-organisation-desc' | translate}}</p>
   <div style="height: 60px;">
