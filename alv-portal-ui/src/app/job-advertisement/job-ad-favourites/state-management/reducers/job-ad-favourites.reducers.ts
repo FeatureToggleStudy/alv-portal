@@ -1,7 +1,8 @@
-import {initialState, JobAdFavouritesState} from '../state';
+import { initialState, JobAdFavouritesState } from '../state';
 import {
   Actions,
-  APPLY_FILTER, FAVOURITE_ITEM_LOADED,
+  APPLY_FILTER,
+  FAVOURITE_ITEM_LOADED,
   FILTER_APPLIED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
@@ -10,7 +11,8 @@ import {
 } from '../actions';
 import {
   ADDED_JOB_AD_FAVOURITE,
-  REMOVED_JOB_AD_FAVOURITE, UPDATED_JOB_AD_FAVOURITE
+  REMOVED_JOB_AD_FAVOURITE,
+  UPDATED_JOB_AD_FAVOURITE
 } from '../../../../core/state-management/actions/core.actions';
 
 
@@ -96,9 +98,7 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       const updatedResultList = state.resultList.slice();
       const indexToUpdate = findJobAdIdIndex(action.payload.removedFavouriteItem.jobAdvertisementId);
       if (indexToUpdate >= 0) {
-        const unstarredJobCopy = Object.assign({}, updatedResultList[indexToUpdate]);
-        unstarredJobCopy.favouriteItem = null;
-        updatedResultList[indexToUpdate] = unstarredJobCopy;
+        updatedResultList.splice(indexToUpdate, 1);
       }
       newState = {
         ...state,

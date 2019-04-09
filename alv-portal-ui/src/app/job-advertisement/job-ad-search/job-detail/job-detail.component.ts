@@ -22,8 +22,10 @@ import {
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   AddJobAdFavouriteAction,
-  RemoveJobAdFavouriteAction, UpdatedJobAdFavouriteAction
+  RemoveJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
 } from '../../../core/state-management/actions/core.actions';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-job-detail',
@@ -41,13 +43,15 @@ export class JobDetailComponent extends AbstractJobAdDetailComponent implements 
     scrollService: ScrollService,
     notificationsService: NotificationsService,
     modalService: ModalService,
+    authenticationService: AuthenticationService,
     private store: Store<JobAdSearchState>) {
     super(
       jobBadgesMapperService,
       jobDetailModelFactory,
       scrollService,
       notificationsService,
-      modalService
+      modalService,
+      authenticationService
     );
   }
 
@@ -80,11 +84,11 @@ export class JobDetailComponent extends AbstractJobAdDetailComponent implements 
   }
 
   removeFavourite(favouriteItem: FavouriteItem) {
-    this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: favouriteItem}));
+    this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: favouriteItem }));
   }
 
   onUpdatedFavourite(updatedFavouriteItem: FavouriteItem) {
-    this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: updatedFavouriteItem}));
+    this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: updatedFavouriteItem }));
   }
 
 }

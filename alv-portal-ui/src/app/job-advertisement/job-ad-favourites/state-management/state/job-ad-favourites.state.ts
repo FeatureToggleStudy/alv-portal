@@ -26,7 +26,7 @@ export const initialState: JobAdFavouritesState = {
   },
   resultList: [],
   selectedJobAdvertisement: null,
-  favouriteItem: null,
+  favouriteItem: undefined,
   resultsAreLoading: false,
   visitedJobAds: {},
   isDirtyResultList: true

@@ -15,15 +15,17 @@ import { ScrollService } from '../../../core/scroll.service';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { AbstractJobAdDetailComponent } from '../../shared/abstract-job-ad-detail/abstract-job-ad-detail.component';
-import { empty, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   FavouriteItem,
   JobAdvertisement
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   AddJobAdFavouriteAction,
-  RemoveJobAdFavouriteAction, UpdatedJobAdFavouriteAction
+  RemoveJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
 } from '../../../core/state-management/actions/core.actions';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-job-ad-favourite-detail',
@@ -41,12 +43,14 @@ export class JobAdFavouriteDetailComponent extends AbstractJobAdDetailComponent 
     scrollService: ScrollService,
     notificationsService: NotificationsService,
     modalService: ModalService,
+    authenticationService: AuthenticationService,
     private store: Store<JobAdFavouritesState>) {
     super(jobBadgesMapperService,
       jobDetailModelFactory,
       scrollService,
       notificationsService,
-      modalService
+      modalService,
+      authenticationService
     );
   }
 

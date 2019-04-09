@@ -5,7 +5,7 @@ import {
   NotificationType
 } from '../../../shared/layout/notifications/notification.model';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { JobDetailModel } from '../job-detail-model';
 import { JobBadge, JobBadgesMapperService } from '../job-badges-mapper.service';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
@@ -21,6 +21,8 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ComplaintModalComponent } from '../complaint-modal/complaint-modal.component';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { isNotAuthenticatedUser } from '../../../core/auth/user.model';
 
 export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
@@ -69,7 +71,8 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     protected jobDetailModelFactory: JobDetailModelFactory,
     private scrollService: ScrollService,
     private notificationsService: NotificationsService,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private authenticationService: AuthenticationService) {
     super();
   }
 
@@ -88,12 +91,16 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
     this.prevEnabled$ = this.isPrevVisible();
     this.nextEnabled$ = this.isNextVisible();
-    this.favouriteItemDetailModel$ = this.loadFavourite().pipe(
-      filter(favouriteItem => !!favouriteItem),
-      map(favouriteItem => {
-        return new FavouriteItemDetailModel(favouriteItem);
-      })
-    );
+
+    this.favouriteItemDetailModel$ = combineLatest(this.authenticationService.getCurrentUser(), this.loadFavourite())
+      .pipe(
+        map(([currentUser, favouriteItem]) => {
+          if (isNotAuthenticatedUser(currentUser)) {
+            return null;
+          }
+          return new FavouriteItemDetailModel(favouriteItem);
+        })
+      );
   }
 
   abstract loadJob$(): Observable<JobAdvertisement>;
