@@ -6,7 +6,7 @@ import { JobSearchResult } from '../../job-advertisement/shared/job-search-resul
 import { NotificationsService } from '../../core/notifications.service';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { CoreState } from '../../core/state-management/state/core.state.ts';
-import { ActionsSubject, Store } from '@ngrx/store';
+import { Action, ActionsSubject, Store } from '@ngrx/store';
 import {
   REMOVED_JOB_AD_FAVOURITE,
   RemoveJobAdFavouriteAction,
@@ -42,9 +42,9 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
   ngOnInit() {
     const currentUser$ = this.authenticationService.getCurrentUser();
 
-    const actions$ = this.actionsSubject.pipe(
+    const actions$: Observable<Action> = this.actionsSubject.pipe(
       ofType(REMOVED_JOB_AD_FAVOURITE, UPDATED_JOB_AD_FAVOURITE),
-      startWith('WIDGET_INIT_ACTION')
+      startWith({ type: 'WIDGET_INIT_ACTION' })
     );
 
     this.jobFavourites$ = combineLatest(currentUser$, actions$)
