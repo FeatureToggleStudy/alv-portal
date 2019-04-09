@@ -2,7 +2,7 @@
 import { JobAdFavouritesSearchFilter } from './job-ad-favourites.types';
 import { JobAdFavouritesSearchRequest } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
-const DEFAULT_ITEMS_PER_PAGE = 20;
+const DEFAULT_ITEMS_PER_PAGE = 150;
 
 export class JobAdFavouritesSearchRequestMapper {
 
