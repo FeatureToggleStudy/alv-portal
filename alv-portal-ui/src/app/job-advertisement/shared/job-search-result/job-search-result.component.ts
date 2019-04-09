@@ -1,11 +1,18 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ResultListItem} from '../../../shared/layout/result-list-item/result-list-item.model';
-import {JobAdvertisementUtils} from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import {JobBadgesMapperService} from '../job-badges-mapper.service';
-import {JobAdvertisementWithFavourites} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {ModalService} from '../../../shared/layout/modal/modal.service';
-import {FavouriteNoteModalComponent} from '../favourite-note-modal/favourite-note-modal.component';
-import {User} from '../../../core/auth/user.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
+import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
+import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
+import { JobBadgesMapperService } from '../job-badges-mapper.service';
+import { JobAdvertisementWithFavourites } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
+import { isAuthenticatedUser, User } from '../../../core/auth/user.model';
 
 export interface JobSearchResult extends JobAdvertisementWithFavourites {
   visited: boolean;
@@ -96,7 +103,7 @@ export class JobSearchResultComponent implements OnInit {
       routerLink: [this.routerLinkBase, jobAdvertisement.id],
       subtitle: jobAdvertisement.jobContent.company.name,
       visited: this.jobSearchResult.visited,
-      hasActions: !!this._currentUser,
+      hasActions: isAuthenticatedUser(this._currentUser),
       isFavourite: !!this.jobSearchResult.favouriteItem,
       hasNote: !!this.jobSearchResult.favouriteItem && !!this.jobSearchResult.favouriteItem.note
     };

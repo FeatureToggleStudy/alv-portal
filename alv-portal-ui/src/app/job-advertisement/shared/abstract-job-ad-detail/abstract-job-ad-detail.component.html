@@ -24,7 +24,8 @@
                   [attr.aria-label]="'portal.global.actions' | translate">
             <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
           </button>
-          <div aria-label="Job detail menu"prev
+          <div aria-label="Job detail menu"
+               prev
                ngbDropdownMenu>
             <button (click)="loadPrev()"
                     [disabled]="!(prevEnabled$ | async)"
@@ -144,51 +145,43 @@
       </p>
 
       <ul class="nav flex-column">
-        <li>
-          <ng-container *ngIf="jobDetailModel.isFavourite; else isNotFavourite">
 
+        <ng-container *ngIf="(favouriteItemDetailModel$ | async) as favouriteItemDetailModel ">
+          <li *ngIf="!favouriteItemDetailModel.isFavourite">
             <button class="btn btn-text btn-text-icon btn-truncate"
-                    (click)="addToFavourites()">
-              <fa-icon class="mr-1"
-                       [icon]="['fas', 'star']"></fa-icon>
-              Add to favourites
-            </button>
-          </ng-container>
-
-          <ng-template #isNotFavourite>
-
-            <button class="btn btn-text btn-text-icon btn-truncate"
-                    (click)="removeFromFavourites()">
+                    (click)="addFavourite(jobDetailModel.jobAdvertisement.id)">
               <fa-icon class="mr-1"
                        [icon]="['far', 'star']"></fa-icon>
-              Remove from favourites
+              {{'portal.job-ad-favourites.tooltip.add-favourite' | translate}}
             </button>
-
-          </ng-template>
-        </li>
-
-        <li>
-          <ng-container *ngIf="jobDetailModel.hasNote; else hasNoNote">
-
+          </li>
+          <li *ngIf="favouriteItemDetailModel.isFavourite">
             <button class="btn btn-text btn-text-icon btn-truncate"
-                    (click)="editNote()">
+                    (click)="removeFavourite(favouriteItemDetailModel.favourite)">
+              <fa-icon class="mr-1"
+                       [icon]="['fas', 'star']"></fa-icon>
+              {{'portal.job-ad-favourites.tooltip.remove-favourite' | translate}}
+            </button>
+          </li>
+
+          <li *ngIf="favouriteItemDetailModel.hasNote">
+            <button class="btn btn-text btn-text-icon btn-truncate"
+                    (click)="editNote(jobDetailModel.id,favouriteItemDetailModel.favourite)">
               <fa-icon class="mr-1"
                        [icon]="['fas', 'sticky-note']"></fa-icon>
-              Edit note
+              {{'portal.job-ad-favourites.tooltip.edit-note' | translate}}
             </button>
-          </ng-container>
+          </li>
 
-          <ng-template #hasNoNote>
-
+          <li *ngIf="!favouriteItemDetailModel.hasNote">
             <button class="btn btn-text btn-text-icon btn-truncate"
-                    (click)="editNote()">
+                    (click)="editNote(jobDetailModel.id,favouriteItemDetailModel.favourite)">
               <fa-icon class="mr-1"
                        [icon]="['far', 'sticky-note']"></fa-icon>
-              Add note
+              {{'portal.job-ad-favourites.tooltip.add-note' | translate}}
             </button>
-
-          </ng-template>
-        </li>
+          </li>
+        </ng-container>
 
         <li>
           <button class="btn btn-text btn-text-icon btn-truncate"

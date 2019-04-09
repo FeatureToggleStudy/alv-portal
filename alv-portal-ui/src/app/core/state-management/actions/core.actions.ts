@@ -139,7 +139,6 @@ export class AddJobAdFavouriteAction implements Action {
   }
 }
 
-
 export class AddedJobAdFavouriteAction implements Action {
   readonly type = ADDED_JOB_AD_FAVOURITE;
 

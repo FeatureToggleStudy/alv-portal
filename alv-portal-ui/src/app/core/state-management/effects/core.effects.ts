@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Observable, of, throwError} from 'rxjs';
-import {Action, select, Store} from '@ngrx/store';
-import {catchError, filter, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Observable, of, throwError } from 'rxjs';
+import { Action, select, Store } from '@ngrx/store';
+import { catchError, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {
   ACCOUNTABILITIES_LOADED,
   ACCOUNTABILITY_SELECTED,
@@ -30,19 +30,19 @@ import {
   SelectCompanyAction,
   SESSION_EXPIRED
 } from '../actions/core.actions';
-import {HttpClient} from '@angular/common/http';
-import {SessionManagerService} from '../../auth/session-manager/session-manager.service';
-import {UserDto} from '../../auth/authentication.service';
-import {User} from '../../auth/user.model';
-import {ErrorHandlerService} from '../../error-handler/error-handler.service';
-import {NotificationsService} from '../../notifications.service';
-import {Router} from '@angular/router';
-import {CoreState, getCurrentUser} from '../state/core.state.ts';
-import {UserInfoRepository} from '../../../shared/backend-services/user-info/user-info-repository';
-import {CompanyRepository} from '../../../shared/backend-services/company/company-repository';
-import {CompanyContactTemplate} from '../../../shared/backend-services/user-info/user-info.types';
-import {FavouriteItem} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {JobAdFavouritesRepository} from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { HttpClient } from '@angular/common/http';
+import { SessionManagerService } from '../../auth/session-manager/session-manager.service';
+import { UserDto } from '../../auth/authentication.service';
+import { isAuthenticatedUser, User } from '../../auth/user.model';
+import { ErrorHandlerService } from '../../error-handler/error-handler.service';
+import { NotificationsService } from '../../notifications.service';
+import { Router } from '@angular/router';
+import { CoreState, getCurrentUser } from '../state/core.state.ts';
+import { UserInfoRepository } from '../../../shared/backend-services/user-info/user-info-repository';
+import { CompanyRepository } from '../../../shared/backend-services/company/company-repository';
+import { CompanyContactTemplate } from '../../../shared/backend-services/user-info/user-info.types';
+import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
 
 @Injectable()
 export class CoreEffects {
@@ -54,16 +54,16 @@ export class CoreEffects {
       if (action.payload.jwt) {
         this.sessionManagerService.setToken(action.payload.jwt);
       }
-      return this.httpClient.get<UserDto>('/api/current-user', {observe: 'response'}).pipe(
+      return this.httpClient.get<UserDto>('/api/current-user', { observe: 'response' }).pipe(
         map((response) => {
           this.sessionManagerService.setToken(response.headers.get('Authorization'));
-          return new CurrentUserLoadedAction({currentUser: User.toUser(response.body)});
+          return new CurrentUserLoadedAction({ currentUser: User.toUser(response.body) });
         }),
         catchError<any, Observable<Action>>((err) => {
           if (err.status === 401) {
-            return of(new CurrentUserLoadedAction({currentUser: null}));
+            return of(new CurrentUserLoadedAction({ currentUser: null }));
           } else {
-            return of(new EffectErrorOccurredAction({httpError: err}));
+            return of(new EffectErrorOccurredAction({ httpError: err }));
           }
         })
       );
@@ -76,9 +76,9 @@ export class CoreEffects {
     map(action => <CurrentUserLoadedAction>action),
     map((action) => {
       if (action.payload.currentUser) {
-        return new LoadAccountabilities({userId: action.payload.currentUser.id});
+        return new LoadAccountabilities({ userId: action.payload.currentUser.id });
       } else {
-        return {type: 'nothing'};
+        return { type: 'nothing' };
       }
     })
   );
@@ -91,9 +91,9 @@ export class CoreEffects {
       return this.userInfoRepository.findAccountabilities(action.payload.userId);
     }),
     map(accountabilities => {
-      return new AcountabilitiesLoaded({accountabilities: accountabilities});
+      return new AcountabilitiesLoaded({ accountabilities: accountabilities });
     }),
-    catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+    catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
   );
 
   @Effect()
@@ -103,9 +103,9 @@ export class CoreEffects {
     map(action => {
       const accountability = action.payload.accountabilities[0];
       if (accountability) {
-        return new AccountabilitySelectedAction({accountability: accountability});
+        return new AccountabilitySelectedAction({ accountability: accountability });
       } else {
-        return new AccountabilitySelectedAction({accountability: null});
+        return new AccountabilitySelectedAction({ accountability: null });
       }
     })
   );
@@ -117,7 +117,7 @@ export class CoreEffects {
     map(action => action.payload.accountability),
     map((accountability) => {
       if (!accountability) {
-        return new SelectCompanyAction({companySelection: null});
+        return new SelectCompanyAction({ companySelection: null });
       }
       return new SelectCompanyAction({
         companySelection: {
@@ -135,16 +135,16 @@ export class CoreEffects {
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
     switchMap(([companySelection, user]) => {
       if (!companySelection) {
-        return of(new CompanySelectedAction({company: null}));
+        return of(new CompanySelectedAction({ company: null }));
       }
       return this.loadCompanyContactTemplate(user, companySelection).pipe(
-        map(companyContactTemplate => new CompanySelectedAction({company: companyContactTemplate})),
+        map(companyContactTemplate => new CompanySelectedAction({ company: companyContactTemplate })),
       );
     }),
-    catchError<any, Observable<Action>>((err) => of(new EffectErrorOccurredAction({httpError: err})))
+    catchError<any, Observable<Action>>((err) => of(new EffectErrorOccurredAction({ httpError: err })))
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logoutUser: Observable<Action> = this.actions$.pipe(
     ofType(LOGOUT_USER),
     tap(() => {
@@ -152,7 +152,7 @@ export class CoreEffects {
     })
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   effectErrorOccurred: Observable<Action> = this.actions$.pipe(
     ofType(EFFECT_ERROR_OCCURRED),
     tap((action: EffectErrorOccurredAction) => {
@@ -177,12 +177,12 @@ export class CoreEffects {
     ofType(ADD_JOB_AD_FAVOURITE),
     map((action: AddJobAdFavouriteAction) => action.payload),
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
-    filter(([action, currentUser]) => !!currentUser),
+    filter(([action, currentUser]) => isAuthenticatedUser(currentUser)),
     switchMap(([action, currentUser]) => {
         return this.jobAdFavouritesRepository.addFavourite(action.jobAdvertisementId, currentUser.id).pipe(
-          map((favouriteItem: FavouriteItem) => new AddedJobAdFavouriteAction({favouriteItem: favouriteItem})),
+          map((favouriteItem: FavouriteItem) => new AddedJobAdFavouriteAction({ favouriteItem: favouriteItem })),
           tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-added')),
-          catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+          catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
         );
       }
     )
@@ -193,12 +193,12 @@ export class CoreEffects {
     ofType(REMOVE_JOB_AD_FAVOURITE),
     map((action: RemoveJobAdFavouriteAction) => action.payload),
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
-    filter(([action, currentUser]) => !!currentUser),
+    filter(([action, currentUser]) => isAuthenticatedUser(currentUser)),
     switchMap(([action]) =>
       this.jobAdFavouritesRepository.removeFavourite(action.favouriteItem.id).pipe(
-        map(() => new RemovedJobAdFavouriteAction({removedFavouriteItem: action.favouriteItem})),
+        map(() => new RemovedJobAdFavouriteAction({ removedFavouriteItem: action.favouriteItem })),
         tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-removed')),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       )
     )
   );

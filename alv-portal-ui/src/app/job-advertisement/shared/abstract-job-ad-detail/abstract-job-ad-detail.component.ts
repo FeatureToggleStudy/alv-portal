@@ -1,19 +1,29 @@
-import {AfterViewInit, OnInit, ViewChild} from '@angular/core';
-import {AbstractSubscriber} from '../../../core/abstract-subscriber';
-import {Notification, NotificationType} from '../../../shared/layout/notifications/notification.model';
-import {LayoutConstants} from '../../../shared/layout/layout-constants.enum';
-import {Observable} from 'rxjs';
-import {JobDetailModel} from '../job-detail-model';
-import {JobBadge, JobBadgesMapperService} from '../job-badges-mapper.service';
-import {NgbTooltip} from '@ng-bootstrap/ng-bootstrap';
-import {JobAdvertisement} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {isDeactivated, isExternal, isUnvalidated} from '../job-ad-rules';
-import {JobDetailModelFactory} from '../job-detail-model-factory';
-import {ScrollService} from '../../../core/scroll.service';
-import {NotificationsService} from '../../../core/notifications.service';
-import {ModalService} from '../../../shared/layout/modal/modal.service';
-import {ComplaintModalComponent} from '../complaint-modal/complaint-modal.component';
-import {filter, map, switchMap} from 'rxjs/operators';
+import { AfterViewInit, OnInit, ViewChild } from '@angular/core';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import {
+  Notification,
+  NotificationType
+} from '../../../shared/layout/notifications/notification.model';
+import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
+import { combineLatest, Observable } from 'rxjs';
+import { JobDetailModel } from '../job-detail-model';
+import { JobBadge, JobBadgesMapperService } from '../job-badges-mapper.service';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import {
+  FavouriteItem,
+  JobAdvertisement
+} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { isDeactivated, isExternal, isUnvalidated } from '../job-ad-rules';
+import { JobDetailModelFactory } from '../job-detail-model-factory';
+import { ScrollService } from '../../../core/scroll.service';
+import { NotificationsService } from '../../../core/notifications.service';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { ComplaintModalComponent } from '../complaint-modal/complaint-modal.component';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { isNotAuthenticatedUser } from '../../../core/auth/user.model';
+import { FavouriteItemDetailModel } from './favourite-item-detail.model';
 
 export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
@@ -52,6 +62,8 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
 
   alerts$: Observable<Notification[]>;
 
+  favouriteItemDetailModel$: Observable<FavouriteItemDetailModel>;
+
   @ViewChild(NgbTooltip)
   clipboardTooltip: NgbTooltip;
 
@@ -60,7 +72,8 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     protected jobDetailModelFactory: JobDetailModelFactory,
     private scrollService: ScrollService,
     private notificationsService: NotificationsService,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private authenticationService: AuthenticationService) {
     super();
   }
 
@@ -79,9 +92,21 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
     this.prevEnabled$ = this.isPrevVisible();
     this.nextEnabled$ = this.isNextVisible();
+
+    this.favouriteItemDetailModel$ = combineLatest(this.authenticationService.getCurrentUser(), this.loadFavourite())
+      .pipe(
+        map(([currentUser, favouriteItem]) => {
+          if (isNotAuthenticatedUser(currentUser)) {
+            return null;
+          }
+          return new FavouriteItemDetailModel(favouriteItem);
+        })
+      );
   }
 
   abstract loadJob$(): Observable<JobAdvertisement>;
+
+  abstract loadFavourite(): Observable<FavouriteItem>;
 
   abstract loadPrev();
 
@@ -90,6 +115,12 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
   abstract isPrevVisible(): Observable<boolean>;
 
   abstract isNextVisible(): Observable<boolean>;
+
+  abstract addFavourite(jobAdvertisementId: string);
+
+  abstract removeFavourite(favouriteItem: FavouriteItem);
+
+  abstract onUpdatedFavourite(updatedFavouriteItem: FavouriteItem);
 
   abstract get backButtonPath();
 
@@ -139,16 +170,18 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     return alerts;
   }
 
-  addToFavourites() {
-    console.log('add');
+  editNote(jobAdvertisementId: string, favouriteItem: FavouriteItem) {
+    const favouriteNoteModalRef = this.modalService.openLarge(FavouriteNoteModalComponent, true);
+    const favouriteNoteComponent = <FavouriteNoteModalComponent>favouriteNoteModalRef.componentInstance;
+    favouriteNoteComponent.jobAdvertisementId = jobAdvertisementId;
+    favouriteNoteComponent.favouriteItem = favouriteItem;
+    favouriteNoteModalRef.result
+      .then(updatedFavouriteItem => {
+        this.onUpdatedFavourite(updatedFavouriteItem);
+      })
+      .catch(() => {
+      });
   }
 
-
-  removeFromFavourites() {
-    console.log('add');
-  }
-
-  editNote() {
-    console.log('note added');
-  }
 }
+

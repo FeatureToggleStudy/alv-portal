@@ -1,5 +1,6 @@
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import {
+  FavouriteItem,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -9,7 +10,7 @@ import {
   RemovedJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../../core/state-management/actions/core.actions';
-import {JobAdFavouritesSearchFilter} from '../../job-ad-favourites/job-ad-favourites.types';
+import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
 
 export const INIT_RESULT_LIST = 'JOBADFAVOURITES:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBADFAVOURITES:FILTER_APPLIED';
@@ -19,8 +20,9 @@ export const NEXT_PAGE_LOADED = 'JOBADFAVOURITES:NEXT_PAGE_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBADFAVOURITES:JOB_ADVERTISEMENT_DETAIL_LOADED';
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
-
 export const RESET = 'JOBADFAVOURITES:RESET';
+export const FAVOURITE_ITEM_LOADED = 'JOBADFAVOURITES:FAVOURITE_ITEM_LOADED';
+export const LOAD_FAVOURITE_ITEM = 'JOBADFAVOURITES:LOAD_FAVOURITE_ITEM';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -85,6 +87,20 @@ export class ResetAction implements Action {
   }
 }
 
+export class LoadFavouriteItemAction implements Action {
+  readonly type = LOAD_FAVOURITE_ITEM;
+
+  constructor(public payload: { jobAdId: string, currentUserId: string }) {
+  }
+}
+
+export class FavouriteItemLoadedAction implements Action {
+  readonly type = FAVOURITE_ITEM_LOADED;
+
+  constructor(public payload: { favouriteItem: FavouriteItem }) {
+  }
+}
+
 export type Actions =
   | InitResultListAction
   | FilterAppliedAction
@@ -96,4 +112,6 @@ export type Actions =
   | UpdatedJobAdFavouriteAction
   | AddedJobAdFavouriteAction
   | ResetAction
-  | LazyLoadedModuleDestroyedAction;
+  | LazyLoadedModuleDestroyedAction
+  | FavouriteItemLoadedAction
+  | FavouriteItemLoadedAction;

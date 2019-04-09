@@ -1,9 +1,10 @@
 import {
+  FavouriteItem,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {JobAdFavouritesSearchFilter} from '../../job-ad-favourites/job-ad-favourites.types';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
 
 export interface JobAdFavouritesState {
   totalCount: number;
@@ -11,6 +12,7 @@ export interface JobAdFavouritesState {
   filter: JobAdFavouritesSearchFilter;
   resultList: JobAdvertisementWithFavourites[];
   selectedJobAdvertisement: JobAdvertisement;
+  favouriteItem: FavouriteItem;
   resultsAreLoading: boolean;
   visitedJobAds: { [id: string]: boolean; };
   isDirtyResultList: boolean;
@@ -24,16 +26,22 @@ export const initialState: JobAdFavouritesState = {
   },
   resultList: [],
   selectedJobAdvertisement: null,
+  favouriteItem: undefined,
   resultsAreLoading: false,
   visitedJobAds: {},
   isDirtyResultList: true
 };
 
 export const getJobAdFavouritesState = createFeatureSelector<JobAdFavouritesState>('jobAdFavourites');
-export const getIsDirtyResultList = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.isDirtyResultList);
+
 export const getJobAdFavouritesSearchFilter = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.filter);
+
 export const getResultList = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.resultList);
+
 export const getVisitedJobAds = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.visitedJobAds);
+
+export const getFavouriteItem = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.favouriteItem);
+
 export const getJobAdFavouritesResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
   return resultList.map((item) => {
     return {
