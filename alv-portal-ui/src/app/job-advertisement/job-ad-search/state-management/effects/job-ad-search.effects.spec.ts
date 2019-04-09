@@ -30,6 +30,8 @@ import { EffectErrorOccurredAction } from '../../../../core/state-management/act
 import SpyObj = jasmine.SpyObj;
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AuthenticationService } from '../../../../core/auth/authentication.service';
 
 describe('JobAdSearchEffects', () => {
   let sut: JobAdSearchEffects;
@@ -47,7 +49,8 @@ describe('JobAdSearchEffects', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ 'jobAdSearch': jobAdSearchReducer })
+        StoreModule.forRoot({ 'jobAdSearch': jobAdSearchReducer }),
+        HttpClientTestingModule
       ],
       providers: [
         JobAdSearchEffects,
