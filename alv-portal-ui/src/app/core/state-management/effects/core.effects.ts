@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Observable, of, throwError} from 'rxjs';
 import {Action, select, Store} from '@ngrx/store';
-import {catchError, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import {catchError, filter, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
 import {
   ACCOUNTABILITIES_LOADED,
   ACCOUNTABILITY_SELECTED,
@@ -177,12 +177,12 @@ export class CoreEffects {
     ofType(ADD_JOB_AD_FAVOURITE),
     map((action: AddJobAdFavouriteAction) => action.payload),
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
+    filter(([action, currentUser]) => !!currentUser),
     switchMap(([action, currentUser]) => {
         return this.jobAdFavouritesRepository.addFavourite(action.jobAdvertisementId, currentUser.id).pipe(
-          map((favouriteItem: FavouriteItem) => {
-            return new AddedJobAdFavouriteAction({favouriteItem: favouriteItem});
-          }),
-          tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-added'))
+          map((favouriteItem: FavouriteItem) => new AddedJobAdFavouriteAction({favouriteItem: favouriteItem})),
+          tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-added')),
+          catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
         );
       }
     )
@@ -192,10 +192,13 @@ export class CoreEffects {
   removeJobAdFavourite$: Observable<Action> = this.actions$.pipe(
     ofType(REMOVE_JOB_AD_FAVOURITE),
     map((action: RemoveJobAdFavouriteAction) => action.payload),
-    switchMap(action =>
+    withLatestFrom(this.store.pipe(select(getCurrentUser))),
+    filter(([action, currentUser]) => !!currentUser),
+    switchMap(([action]) =>
       this.jobAdFavouritesRepository.removeFavourite(action.favouriteItem.id).pipe(
         map(() => new RemovedJobAdFavouriteAction({removedFavouriteItem: action.favouriteItem})),
-        tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-removed'))
+        tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-removed')),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
       )
     )
   );

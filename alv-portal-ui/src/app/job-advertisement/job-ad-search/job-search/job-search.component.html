@@ -43,9 +43,7 @@
       </alv-filter-panel>
     </ng-container>
 
-    <ng-container class="main-column"
-                  *ngIf="i18nService.currentLanguage$ as currentLanguage"
-    >
+    <ng-container class="main-column">
 
       <h2 class="sr-only">
         Stellen Suchresultate
@@ -53,12 +51,13 @@
       <ng-container *ngIf="jobSearchResults$ | async as jobSearchResults">
         <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults"
                                [jobSearchResult]="jobSearchResult"
+                               [language]="currentLanguage$ | async"
+                               [currentUser]="currentUser$ | async"
                                (addFavourite)="addFavourite($event)"
                                (updatedFavourite)="updatedFavourite($event)"
                                (removeFavourite)="removeFavourite($event)"
-                               routerLinkBase="/job-search"
-                               [language]="currentLanguage"
-        ></alv-job-search-result>
+                               routerLinkBase="/job-search">
+        </alv-job-search-result>
         <div *ngIf="!jobSearchResults || !jobSearchResults.length">
           {{'global.common-phrases.no-results-found' | translate}}
         </div>

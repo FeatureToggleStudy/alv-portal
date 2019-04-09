@@ -1,33 +1,24 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
-import { SchedulerLike } from 'rxjs/src/internal/types';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import {
-  catchError,
-  concatMap,
-  debounceTime,
-  filter,
-  map,
-  switchMap,
-  take,
-  takeUntil,
-  tap,
-  withLatestFrom
-} from 'rxjs/operators';
-import { Action, select, Store } from '@ngrx/store';
-import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
-import { asyncScheduler, Observable, of } from 'rxjs/index';
+import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
+import {AsyncScheduler} from 'rxjs/internal/scheduler/AsyncScheduler';
+import {SchedulerLike} from 'rxjs/src/internal/types';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {catchError, concatMap, debounceTime, filter, map, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
+import {Action, select, Store} from '@ngrx/store';
+import {CandidateRepository} from '../../../shared/backend-services/candidate/candidate.repository';
+import {asyncScheduler, Observable, of} from 'rxjs/index';
 import {
   EffectErrorOccurredAction,
   LANGUAGE_CHANGED,
-  LanguageChangedAction
+  LanguageChangedAction,
+  LAZY_LOADED_MODULE_DESTROYED,
+  LazyLoadedModuleDestroyedAction,
+  ModuleName
 } from '../../../core/state-management/actions/core.actions';
 import {
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
   ApplyFilterAction,
-  FILTER_APPLIED,
   FilterAppliedAction,
   FilterResetAction,
   INIT_RESULT_LIST,
@@ -38,18 +29,13 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
-  RESET_FILTER
+  RESET_FILTER,
+  ResetAction
 } from '../actions';
-import { Router } from '@angular/router';
-import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
-import {
-  CandidateSearchState,
-  getCandidateSearchFilter,
-  getCandidateSearchState,
-  getNextId,
-  getPrevId
-} from '../state';
-import { CandidateSearchRequestMapper } from './candidate-search-request.mapper';
+import {Router} from '@angular/router';
+import {OccupationSuggestionService} from '../../../shared/occupations/occupation-suggestion.service';
+import {CandidateSearchState, getCandidateSearchFilter, getCandidateSearchState, getNextId, getPrevId} from '../state';
+import {CandidateSearchRequestMapper} from './candidate-search-request.mapper';
 
 export const CANDIDATE_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('CANDIDATE_SEARCH_EFFECTS_DEBOUNCE');
 export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('CANDIDATE_SEARCH_EFFECTS_SCHEDULER');
@@ -58,19 +44,31 @@ export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLi
 export class CandidateSearchEffects {
 
   @Effect()
+  reset$ = this.actions$.pipe(
+    ofType(LAZY_LOADED_MODULE_DESTROYED),
+    map((action: LazyLoadedModuleDestroyedAction) => action.payload),
+    filter(action => action.moduleName === ModuleName.CANDIDATE_SEARCH),
+    map(() => {
+      return new ResetAction();
+    })
+  );
+
+  @Effect()
   initCandidateSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
-    switchMap(([a, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
-      .pipe(
-        map((response) => new FilterAppliedAction({
-          page: response.result,
-          totalCount: response.totalCount
-        })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-      )
-    ),
-    takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED)))
+    filter(([a, state]) => state.isDirtyResultList),
+    switchMap(([a, state]) => {
+        return this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
+          .pipe(
+            map((response) => new FilterAppliedAction({
+              page: response.result,
+              totalCount: response.totalCount
+            })),
+            catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+          );
+      }
+    )
   );
 
   @Effect()
@@ -84,7 +82,7 @@ export class CandidateSearchEffects {
         page: response.result,
         totalCount: response.totalCount
       })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
     )),
   );
 
@@ -124,7 +122,7 @@ export class CandidateSearchEffects {
       return this.occupationSuggestionService.translateAll(candidateSearchFilter.occupations, action.payload.language);
     }),
     map((updatedOccupations) => {
-      return new OccupationLanguageChangedAction({ occupations: updatedOccupations });
+      return new OccupationLanguageChangedAction({occupations: updatedOccupations});
     })
   );
 
@@ -135,8 +133,8 @@ export class CandidateSearchEffects {
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
     concatMap(([action, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
       .pipe(
-        map((response) => new NextPageLoadedAction({ page: response.result })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+        map((response) => new NextPageLoadedAction({page: response.result})),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
       ))
   );
 
@@ -149,7 +147,7 @@ export class CandidateSearchEffects {
       this.router.navigate(['/candidate-search', id]);
     }),
     map(() => {
-      return { type: 'nothing' };
+      return {type: 'nothing'};
     })
   );
 
@@ -176,7 +174,7 @@ export class CandidateSearchEffects {
       this.router.navigate(['/candidate-search', id]);
     }),
     map(() => {
-      return { type: 'nothing' };
+      return {type: 'nothing'};
     })
   );
 

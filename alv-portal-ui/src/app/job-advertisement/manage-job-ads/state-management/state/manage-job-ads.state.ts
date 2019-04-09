@@ -1,8 +1,5 @@
-import {
-  JobAdvertisement,
-  JobAdvertisementStatus
-} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {JobAdvertisement} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {
   ManagedJobAdsSearchFilter,
   ManagedJobAdsSortingColumn,
@@ -16,6 +13,7 @@ export interface ManageJobAdsState {
   resultList: JobAdvertisement[];
   selectedJobAdvertisement: JobAdvertisement;
   resultsAreLoading: boolean;
+  isDirtyResultList: boolean;
 }
 
 export const initialState: ManageJobAdsState = {
@@ -34,6 +32,7 @@ export const initialState: ManageJobAdsState = {
   resultList: [],
   selectedJobAdvertisement: null,
   resultsAreLoading: false,
+  isDirtyResultList: true
 };
 
 export const getManageJobAdsState = createFeatureSelector<ManageJobAdsState>('manageJobAds');

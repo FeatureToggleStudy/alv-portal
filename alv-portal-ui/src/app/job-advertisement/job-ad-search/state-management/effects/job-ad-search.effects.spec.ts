@@ -105,7 +105,8 @@ describe('JobAdSearchEffects', () => {
      *
      * response delay here isn't counted because we are ending subscription after first triggering 'a'
      */
-    it('should complete (unsubscribe) after FilterAppliedAction is triggered', () => {
+    // TODO FIX TEST SINCE WE DO NOT UNSUBSCRIBE ANYMORE
+    xit('should complete (unsubscribe) after FilterAppliedAction is triggered', () => {
 
       // action
       actions$ = hot('-a-b--b-', {
@@ -132,7 +133,7 @@ describe('JobAdSearchEffects', () => {
      *    3rd: end subscription after 60 F delay (irrelevant of response F)
      */
     it('should throw an EffectErrorOccurredAction on error, then proceed to another InitResultListAction, ' +
-      'and finish with an FilterAppliedAction and terminate subscription to initJobSearch', () => {
+      'and finish with an FilterAppliedAction', () => {
 
       const httpError = new HttpErrorResponse({});
 
@@ -144,11 +145,10 @@ describe('JobAdSearchEffects', () => {
       // response
       jobAdService.search.and.returnValues(
         cold('-#', {}, httpError),
-        cold('-c', {c: jobAdSearchResult}),
-        cold('-|', {})
+        cold('-c', {c: jobAdSearchResult})
       );
       // expected
-      const expected = cold('--e-d-|', {
+      const expected = cold('--e-d', {
         e: new EffectErrorOccurredAction({ httpError }),
         d: filterApplied
       });

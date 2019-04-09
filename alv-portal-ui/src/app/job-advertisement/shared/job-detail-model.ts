@@ -1,11 +1,5 @@
-import {
-  hasImmediately,
-  hasStartDate,
-  isPermanent,
-  isShortEmployment,
-  isTemporary
-} from '../../widgets/job-search-widget/job-ad-rules';
-import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
+import {hasImmediately, hasStartDate, isPermanent, isShortEmployment, isTemporary} from './job-ad-rules';
+import {JobCenter} from '../../shared/backend-services/reference-service/job-center.types';
 import {
   FavouriteItem,
   JobAdvertisement,

@@ -2,8 +2,8 @@ import {
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {JobAdFavouritesSearchFilter} from '../../job-ad-favourites/job-ad-favourites.types';
 
 export interface JobAdFavouritesState {
   totalCount: number;
@@ -13,6 +13,7 @@ export interface JobAdFavouritesState {
   selectedJobAdvertisement: JobAdvertisement;
   resultsAreLoading: boolean;
   visitedJobAds: { [id: string]: boolean; };
+  isDirtyResultList: boolean;
 }
 
 export const initialState: JobAdFavouritesState = {
@@ -24,10 +25,12 @@ export const initialState: JobAdFavouritesState = {
   resultList: [],
   selectedJobAdvertisement: null,
   resultsAreLoading: false,
-  visitedJobAds: {}
+  visitedJobAds: {},
+  isDirtyResultList: true
 };
 
 export const getJobAdFavouritesState = createFeatureSelector<JobAdFavouritesState>('jobAdFavourites');
+export const getIsDirtyResultList = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.isDirtyResultList);
 export const getJobAdFavouritesSearchFilter = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.filter);
 export const getResultList = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.resultList);
 export const getVisitedJobAds = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.visitedJobAds);

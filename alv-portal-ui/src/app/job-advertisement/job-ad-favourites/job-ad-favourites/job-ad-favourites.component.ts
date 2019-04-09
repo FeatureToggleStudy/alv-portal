@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IconKey} from '../../../shared/icons/custom-icon/custom-icon.component';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {debounceTime, take, takeUntil, tap} from 'rxjs/operators';
+import {debounceTime, takeUntil, tap} from 'rxjs/operators';
 import {AbstractSubscriber} from '../../../core/abstract-subscriber';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
@@ -10,7 +10,6 @@ import {
   getJobAdFavouritesSearchFilter,
   JobAdFavouritesState
 } from '../state-management/state';
-import {JobAdFavouritesSearchFilter} from './job-ad-favourites.types';
 import {ApplyFilterAction, LoadNextPageAction} from '../state-management/actions';
 import {JobSearchResult} from '../../shared/job-search-result/job-search-result.component';
 import {
@@ -18,6 +17,9 @@ import {
   RemoveJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../core/state-management/actions/core.actions';
+import {I18nService} from '../../../core/i18n.service';
+import {AuthenticationService} from '../../../core/auth/authentication.service';
+import {User} from '../../../core/auth/user.model';
 
 @Component({
   selector: 'alv-job-ad-favourites',
@@ -32,7 +34,13 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   jobAdFavouriteSearchResults$: Observable<JobSearchResult[]>;
 
+  currentUser$: Observable<User>;
+
+  currentLanguage$: Observable<string>;
+
   constructor(private fb: FormBuilder,
+              private i18nService: I18nService,
+              private authenticationService: AuthenticationService,
               private store: Store<JobAdFavouritesState>) {
     super();
   }
@@ -59,22 +67,27 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
           query: value
         }));
       });
+
+    this.currentUser$ = this.authenticationService.getCurrentUser();
+
+    this.currentLanguage$ = this.i18nService.currentLanguage$;
   }
 
   onScroll() {
     this.store.dispatch(new LoadNextPageAction());
   }
 
-  addToFavourites(jobSearchResult: JobSearchResult) {
+  addFavourite(jobSearchResult: JobSearchResult) {
     this.store.dispatch(new AddJobAdFavouriteAction({jobAdvertisementId: jobSearchResult.jobAdvertisement.id}));
   }
 
-  removeFromFavourites(jobSearchResult: JobSearchResult) {
+  removeFavourite(jobSearchResult: JobSearchResult) {
     this.store.dispatch(new RemoveJobAdFavouriteAction({favouriteItem: jobSearchResult.favouriteItem}));
   }
 
   updatedFavourite(jobSearchResult: JobSearchResult) {
     this.store.dispatch(new UpdatedJobAdFavouriteAction({favouriteItem: jobSearchResult.favouriteItem}));
+    this.store.dispatch(new ApplyFilterAction({query: this.form.get('query').value}));
   }
 
 }

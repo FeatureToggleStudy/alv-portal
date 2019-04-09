@@ -1,9 +1,9 @@
-import { ContractType, JobSearchFilter, Sort } from './job-search-filter.types';
+import {ContractType, JobSearchFilter, Sort} from './job-search-filter.types';
 import {
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
 
 export interface JobAdSearchState {
   totalCount: number;
@@ -13,6 +13,7 @@ export interface JobAdSearchState {
   selectedJobAdvertisement: JobAdvertisement;
   resultsAreLoading: boolean;
   visitedJobAds: { [id: string]: boolean; };
+  isDirtyResultList: boolean;
 }
 
 export const initialState: JobAdSearchState = {
@@ -33,7 +34,8 @@ export const initialState: JobAdSearchState = {
   resultList: [],
   selectedJobAdvertisement: null,
   resultsAreLoading: false,
-  visitedJobAds: {}
+  visitedJobAds: {},
+  isDirtyResultList: true
 };
 
 
