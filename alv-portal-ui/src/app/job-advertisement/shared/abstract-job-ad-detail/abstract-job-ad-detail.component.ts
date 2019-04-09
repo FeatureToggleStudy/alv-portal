@@ -23,6 +23,7 @@ import { filter, map, switchMap } from 'rxjs/operators';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { isNotAuthenticatedUser } from '../../../core/auth/user.model';
+import { FavouriteItemDetailModel } from './favourite-item-detail.model';
 
 export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
@@ -184,25 +185,3 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
 
 }
 
-class FavouriteItemDetailModel {
-
-  public readonly favourite: FavouriteItem;
-
-  constructor(favouriteItem: FavouriteItem) {
-    this.favourite = favouriteItem;
-  }
-
-  get isFavourite(): boolean {
-    return !!this.favourite;
-  }
-
-  get hasNote(): boolean {
-    return this.isFavourite && !!this.favourite.note;
-  }
-
-  get note(): string | undefined {
-    if (this.hasNote) {
-      return this.favourite.note;
-    }
-  }
-}
