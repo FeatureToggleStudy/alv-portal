@@ -2,8 +2,8 @@
            primaryLabel="entity.action.save"
            (primaryAction)="onSubmit()"
            [showPrimaryButton]="!readonly"
-           secondaryLabel="entity.action.cancel"
-           (secondaryAction)="onDismiss()"
+           cancelLabel="entity.action.cancel"
+           (cancelAction)="onDismiss()"
            [formGroup]="form">
   <fieldset *ngIf="!readonly; else readonlyView">
     <alv-date-input label="portal.admin.legal-terms-management.header.effectiveAt"

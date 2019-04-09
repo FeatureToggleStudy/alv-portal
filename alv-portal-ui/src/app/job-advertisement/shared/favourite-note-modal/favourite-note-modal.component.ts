@@ -1,13 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {AbstractSubscriber} from '../../../core/abstract-subscriber';
-import {ModalService} from '../../../shared/layout/modal/modal.service';
-import {FavouriteItem} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {JobAdFavouritesRepository} from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
-import {NotificationsService} from '../../../core/notifications.service';
-import {AuthenticationService} from '../../../core/auth/authentication.service';
-import {switchMap, takeUntil} from 'rxjs/operators';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { NotificationsService } from '../../../core/notifications.service';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -65,20 +65,14 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
   }
 
   onCancel() {
-    if (this.isCreateNote) {
-      this.activeModal.dismiss();
-    } else {
-      this.jobAdFavouritesRepository.editNote(this.favouriteItem, '')
-        .subscribe((updatedFavouriteItem) => {
-          this.activeModal.close(updatedFavouriteItem);
-          this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-removed');
-        });
-    }
+    this.activeModal.dismiss();
   }
 
-  getSecondaryLabel(): string {
-    return this.isCreateNote ? 'portal.job-ad-favourites.note-modal.action.cancel' :
-      'portal.job-ad-favourites.note-modal.action.delete';
+  onDelete() {
+    this.jobAdFavouritesRepository.editNote(this.favouriteItem, '')
+      .subscribe((updatedFavouriteItem) => {
+        this.activeModal.close(updatedFavouriteItem);
+        this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-removed');
+      });
   }
-
 }

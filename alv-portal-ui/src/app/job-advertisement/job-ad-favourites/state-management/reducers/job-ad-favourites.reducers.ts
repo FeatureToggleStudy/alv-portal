@@ -1,20 +1,45 @@
-import {initialState, JobAdFavouritesState} from '../state';
+import { initialState, JobAdFavouritesState } from '../state';
 import {
   Actions,
   APPLY_FILTER,
+  FAVOURITE_ITEM_LOADED,
   FILTER_APPLIED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   RESET,
 } from '../actions';
-import {REMOVED_JOB_AD_FAVOURITE} from '../../../../core/state-management/actions/core.actions';
+import {
+  ADDED_JOB_AD_FAVOURITE,
+  REMOVED_JOB_AD_FAVOURITE,
+  UPDATED_JOB_AD_FAVOURITE
+} from '../../../../core/state-management/actions/core.actions';
+import { FavouriteItem } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+
+
+function removeFavouriteItem(state: JobAdFavouritesState, jobAdId: string) {
+  const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
+  if (indexToUpdate >= 0) {
+    const updatedResultList = [...state.resultList];
+    updatedResultList.splice(indexToUpdate, 1);
+    return updatedResultList;
+  } else {
+    return state.resultList;
+  }
+}
+
+function patchFavouriteItem(state, jobAdId: string, patchedFavouriteItem: FavouriteItem) {
+  const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
+  if (indexToUpdate >= 0) {
+    const updatedResultList = [...state.resultList];
+    updatedResultList[indexToUpdate].favouriteItem = patchedFavouriteItem;
+    return updatedResultList;
+  } else {
+    return state.resultList;
+  }
+}
 
 export function jobAdFavouritesReducer(state = initialState, action: Actions): JobAdFavouritesState {
-
-  function findJobAdIdIndex(jobAdId: string) {
-    return state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
-  }
 
   let newState: JobAdFavouritesState;
 
@@ -69,21 +94,33 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       newState = {
         ...state,
         selectedJobAdvertisement: action.payload.jobAdvertisement,
-        visitedJobAds: {...currentVisited}
+        visitedJobAds: { ...currentVisited }
       };
       break;
 
-    case REMOVED_JOB_AD_FAVOURITE: {
-      const indexToUpdate = findJobAdIdIndex(action.payload.removedFavouriteItem.jobAdvertisementId);
-      if (indexToUpdate === -1) {
-        return state;
-      }
-      // TODO we need a better approach
-      const resultList = state.resultList.slice();
-      resultList.splice(indexToUpdate, 1);
+    case ADDED_JOB_AD_FAVOURITE:
+    case UPDATED_JOB_AD_FAVOURITE: {
       newState = {
         ...state,
-        resultList: resultList
+        resultList: patchFavouriteItem(state, action.payload.favouriteItem.jobAdvertisementId, action.payload.favouriteItem),
+        favouriteItem: action.payload.favouriteItem
+      };
+      break;
+    }
+
+    case REMOVED_JOB_AD_FAVOURITE: {
+      newState = {
+        ...state,
+        resultList: removeFavouriteItem(state, action.payload.removedFavouriteItem.jobAdvertisementId),
+        favouriteItem: null
+      };
+      break;
+    }
+
+    case FAVOURITE_ITEM_LOADED: {
+      newState = {
+        ...state,
+        favouriteItem: action.payload.favouriteItem
       };
       break;
     }
