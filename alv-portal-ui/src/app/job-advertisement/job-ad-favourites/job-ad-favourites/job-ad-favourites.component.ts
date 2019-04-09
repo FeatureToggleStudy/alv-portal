@@ -20,6 +20,7 @@ import {
 import { I18nService } from '../../../core/i18n.service';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
+import { ScrollService } from '../../../core/scroll.service';
 
 @Component({
   selector: 'alv-job-ad-favourites',
@@ -40,6 +41,7 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   constructor(private fb: FormBuilder,
               private i18nService: I18nService,
+              private scrollService: ScrollService,
               private authenticationService: AuthenticationService,
               private store: Store<JobAdFavouritesState>) {
     super();
@@ -88,7 +90,10 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
   updatedFavourite(jobSearchResult: JobSearchResult) {
     this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
     // If we change a Favourite Item's Note then we must rely on the backend search since it might be, that the updated note does not match the current query anymore
-    this.store.dispatch(new ApplyFilterAction({ query: this.form.get('query').value }));
+    if (this.form.get('query').value) {
+      this.store.dispatch(new ApplyFilterAction({ query: this.form.get('query').value }));
+      this.scrollService.scrollToTop();
+    }
   }
 
 }
