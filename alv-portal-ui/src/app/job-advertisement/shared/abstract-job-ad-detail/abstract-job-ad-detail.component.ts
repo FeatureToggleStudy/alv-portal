@@ -94,6 +94,8 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     this.favouriteItemDetailModel$ =
       this.loadFavourite().pipe(
         filter((favouriteItem) => {
+          // if the favouriteItem is undefined then it has not been loaded yet due the
+          // the the current-user has not the privileges to do so or it's still being fetched
           return favouriteItem !== undefined;
         }),
         map((favouriteItem) => {
