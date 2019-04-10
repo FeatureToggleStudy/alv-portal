@@ -34,7 +34,7 @@
     </ng-container>
   </ng-container>
   <ng-template #noFavouritesPlaceholder>
-    <div class="no-favourites p-3 mb-3">
+    <div class="no-favourites p-3 mb-3" *ngIf="!form.get('query').value; else searchReturnedEmptyResult">
       <h3>{{'portal.job-ad-favourites.empty.title' | translate}}</h3>
       <p>{{'portal.job-ad-favourites.empty.text1' | translate}}
         <fa-icon class="text-primary"
@@ -42,6 +42,9 @@
         {{'portal.job-ad-favourites.empty.text2' | translate}}
       </p>
     </div>
+    <ng-template #searchReturnedEmptyResult>
+      {{'global.common-phrases.no-results-found' | translate}}
+    </ng-template>
   </ng-template>
 
 </div>
