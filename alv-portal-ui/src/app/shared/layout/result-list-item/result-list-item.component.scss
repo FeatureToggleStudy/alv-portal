@@ -58,7 +58,10 @@
 
   .date {
     vertical-align: text-top;
-    margin-right: 4rem;
+
+    &.has-actions {
+      margin-right: 4rem;
+    }
   }
 }
 
