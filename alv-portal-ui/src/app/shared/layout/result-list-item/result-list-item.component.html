@@ -30,7 +30,7 @@
 
   <div *ngIf="result.hasActions"
        class="actions-area d-flex">
-    <button class="btn btn-icon mr-1 p-0"
+    <button class="btn btn-toggle-icon mr-1"
             [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (result.isFavourite ? 'remove-favourite' : 'add-favourite') | translate"
             placement="bottom"
             (click)="favouritesClick.emit()">
@@ -39,7 +39,7 @@
       <fa-icon *ngIf="!result.isFavourite"
                [icon]="['far', 'star']"></fa-icon>
     </button>
-    <button class="btn btn-icon p-0"
+    <button class="btn btn-toggle-icon"
             [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (result.hasNote ? 'edit-note' : 'add-note') | translate"
             placement="bottom"
             (click)="noteClick.emit()">

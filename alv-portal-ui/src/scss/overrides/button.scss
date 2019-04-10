@@ -5,7 +5,7 @@ button.btn, a.btn {
   user-select: none;
   border-radius: 0;
 
-  &:not(.btn-sm):not(.btn-icon):not(.btn-text-icon):not(.ngb-dp-arrow-btn) {
+  &:not(.btn-sm):not(.btn-icon):not(.btn-text-icon):not(.btn-toggle-icon):not(.ngb-dp-arrow-btn) {
     padding: 8px 20px;
     font-size: 1rem;
   }
@@ -67,6 +67,7 @@ button.btn, a.btn {
     }
   }
 
+  // Standard icon only button
   &.btn-icon {
     padding: 2px;
     font-size: 1.25em;
@@ -74,6 +75,7 @@ button.btn, a.btn {
     width: 40px;
     height: 42px;
   }
+  // Icon with text button
   &.btn-text-icon {
     padding: 8px 10px;
 
@@ -81,8 +83,18 @@ button.btn, a.btn {
       color: $color-primary
     }
   }
+  // Toggle icon button
+  &.btn-toggle-icon {
+    color: $color-primary;
+    width: 30px;
+    height: 32px;
+    padding: 0;
+
+    &:hover {
+      color: darken($color-primary, 10%);
+    }
+  }
   &.btn-block {
     text-align: center;
   }
-
 }
