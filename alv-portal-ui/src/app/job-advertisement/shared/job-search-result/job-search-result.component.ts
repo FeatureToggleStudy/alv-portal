@@ -13,6 +13,8 @@ import { JobAdvertisementWithFavourites } from '../../../shared/backend-services
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 import { isAuthenticatedUser, User } from '../../../core/auth/user.model';
+import { isDeactivated } from '../job-ad-rules';
+
 
 export interface JobSearchResult extends JobAdvertisementWithFavourites {
   visited: boolean;
@@ -31,24 +33,32 @@ export class JobSearchResultComponent implements OnInit {
 
   @Input()
   routerLinkBase: string;
-
-  private _language: string;
-
-  private _currentUser: User;
-
   @Output()
   removeFavourite = new EventEmitter<JobSearchResult>();
-
   @Output()
   addFavourite = new EventEmitter<JobSearchResult>();
-
   @Output()
   updatedFavourite = new EventEmitter<JobSearchResult>();
-
   resultListItem: ResultListItem;
 
   constructor(private jobBadgesMapperService: JobBadgesMapperService,
               private modalService: ModalService) {
+  }
+
+  private _language: string;
+
+  @Input()
+  set language(value: string) {
+    this._language = value;
+    this.resultListItem = this.mapToResultListItem();
+  }
+
+  private _currentUser: User;
+
+  @Input()
+  set currentUser(value: User) {
+    this._currentUser = value;
+    this.resultListItem = this.mapToResultListItem();
   }
 
   ngOnInit() {
@@ -79,18 +89,6 @@ export class JobSearchResultComponent implements OnInit {
       });
   }
 
-  @Input()
-  set language(value: string) {
-    this._language = value;
-    this.resultListItem = this.mapToResultListItem();
-  }
-
-  @Input()
-  set currentUser(value: User) {
-    this._currentUser = value;
-    this.resultListItem = this.mapToResultListItem();
-  }
-
   private mapToResultListItem(): ResultListItem {
     const jobAdvertisement = this.jobSearchResult.jobAdvertisement;
     const jobDescription = JobAdvertisementUtils.getJobDescription(jobAdvertisement, this._language);
@@ -105,7 +103,8 @@ export class JobSearchResultComponent implements OnInit {
       visited: this.jobSearchResult.visited,
       hasActions: isAuthenticatedUser(this._currentUser),
       isFavourite: !!this.jobSearchResult.favouriteItem,
-      hasNote: !!this.jobSearchResult.favouriteItem && !!this.jobSearchResult.favouriteItem.note
+      hasNote: !!this.jobSearchResult.favouriteItem && !!this.jobSearchResult.favouriteItem.note,
+      isDeactivated: isDeactivated(jobAdvertisement)
     };
   }
 

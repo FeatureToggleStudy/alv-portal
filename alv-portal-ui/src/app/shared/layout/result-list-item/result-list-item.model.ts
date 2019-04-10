@@ -12,5 +12,6 @@ export interface ResultListItem {
   hasActions?: boolean;
   isFavourite?: boolean;
   hasNote?: boolean;
+  isDeactivated?: boolean;
 }
 

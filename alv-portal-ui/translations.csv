@@ -836,6 +836,7 @@ portal.job-ad-favourites.note-modal.action.save,Speichern,Save,Sauvegarder,Salva
 portal.job-ad-favourites.note-modal.action.cancel,Abbrechen,Cancel,Annuler,Interrompere,
 portal.job-ad-favourites.delete-confirmation.yes,"Ja, entfernen","Yes, please remove","Oui, supprimer","Sì, rimuovere",
 portal.job-ad-favourites.delete-confirmation.no,Abbrechen,Cancel,Annuler,Interrompere,
+portal.job-ad-favourites.deactivated.label,Nicht mehr verfügbar,No longer available,Plus disponible,Non più disponibile,
 portal.job-publication.application.legend,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.,
 portal.job-publication.application.validation.atLeastOneRequired,Bitte mindestens eine Bewerbungsform wählen und die ausgewählten Bewerbungsformen korrekt ausfüllen.,Select at least one application channel and provide all required information,Choisir au moins un type de postulation et remplir correctement les champs respectifs.,Scegliere almeno una tipologia di candidatura e compilare correttamente i campi rispettivi.,
 portal.job-publication.browser-title,Stellen melden,Post job,Publier un poste vacant,Annunciare un posto vacante,
