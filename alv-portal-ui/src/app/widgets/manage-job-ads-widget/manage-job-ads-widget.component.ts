@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {JobAdvertisementRepository} from '../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import {ManagedJobAdsSearchRequestMapper} from './managed-job-ads-search-request.mapper';
-import {AuthenticationService} from '../../core/auth/authentication.service';
-import {catchError, map, switchMap, tap} from 'rxjs/operators';
-import {BehaviorSubject, combineLatest, Observable, throwError} from 'rxjs';
-import {AbstractSubscriber} from '../../core/abstract-subscriber';
-import {JobAdvertisementUtils} from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
-import {JobAdManagementColumnService} from './job-ad-management-column.service';
+import { Component, OnInit } from '@angular/core';
+import { JobAdvertisementRepository } from '../../shared/backend-services/job-advertisement/job-advertisement.repository';
+import { ManagedJobAdsSearchRequestMapper } from './managed-job-ads-search-request.mapper';
+import { AuthenticationService } from '../../core/auth/authentication.service';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, throwError } from 'rxjs';
+import { AbstractSubscriber } from '../../core/abstract-subscriber';
+import { JobAdvertisementUtils } from '../../shared/backend-services/job-advertisement/job-advertisement.utils';
+import { JobAdManagementColumnService } from './job-ad-management-column.service';
 import {
   ManagedJobAdColumnDefinition,
   ManagedJobAdRow,
@@ -17,13 +17,13 @@ import {
   ManagedJobAdsSortingColumn,
   SortDirection
 } from './job-ad-management-table/job-ad-management.table-types';
-import {JobAdCancellationComponent} from './job-ad-cancellation/job-ad-cancellation.component';
-import {ModalService} from '../../shared/layout/modal/modal.service';
-import {Router} from '@angular/router';
-import {JobAdvertisement} from '../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {Store} from '@ngrx/store';
-import {CoreState} from '../../core/state-management/state/core.state.ts';
-import {IconKey} from '../../shared/icons/custom-icon/custom-icon.component';
+import { JobAdCancellationComponent } from './job-ad-cancellation/job-ad-cancellation.component';
+import { ModalService } from '../../shared/layout/modal/modal.service';
+import { Router } from '@angular/router';
+import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { Store } from '@ngrx/store';
+import { CoreState } from '../../core/state-management/state/core.state.ts';
+import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-manage-job-ads-widget',
