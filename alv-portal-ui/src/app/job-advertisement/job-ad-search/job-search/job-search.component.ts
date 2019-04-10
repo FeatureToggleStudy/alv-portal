@@ -146,8 +146,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     this.window.addEventListener('resize', this.detectSearchPanelHeightFn);
     this.store.pipe(select(getLastVisitedJobAdId))
       .pipe(take(1))
-      .subscribe(jobAdId => {
-        if (jobAdId && this.scrollService.scrollIntoView(composeResultListItemId(jobAdId))) {
+      .subscribe(lastVisitedJobAdId => {
+        if (lastVisitedJobAdId && this.scrollService.scrollIntoView(composeResultListItemId(lastVisitedJobAdId))) {
           this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH - this.searchPanelHeight);
         } else {
           this.scrollService.scrollToTop();

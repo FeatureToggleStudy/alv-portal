@@ -79,34 +79,6 @@ export class JobAdFavouritesEffects {
     })
   );
 
-  // @Effect()
-  // jobAdvertisementDetailLoaded$: Observable<Action> = this.actions$.pipe(
-  //   ofType(JOB_ADVERTISEMENT_DETAIL_LOADED),
-  //   map((action: JobAdvertisementDetailLoadedAction) => action.payload.jobAdvertisement),
-  //   withLatestFrom(this.authenticationService.getCurrentUser()),
-  //   filter(([jobAdvertisement, currentUser]) => isAuthenticatedUser(currentUser)),
-  //   map(([jobAdvertisement, currentUser]) => {
-  //     return new LoadFavouriteItemAction({
-  //       jobAdId: jobAdvertisement.id,
-  //       currentUserId: currentUser.id
-  //     });
-  //   })
-  // );
-
-  // @Effect()
-  // loadFavouriteItem$: Observable<Action> = this.actions$.pipe(
-  //   ofType(LOAD_FAVOURITE_ITEM),
-  //   map((action: LoadFavouriteItemAction) => action.payload),
-  //   switchMap((payload) => {
-  //     return this.jobAdFavouritesRepository.getFavourite(payload.jobAdId, payload.currentUserId).pipe(
-  //       map(favouriteItem => {
-  //         return new FavouriteItemLoadedAction({ favouriteItem: favouriteItem });
-  //       })
-  //     );
-  //   }),
-  //   catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-  // );
-
   @Effect()
   applyFilter$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER),

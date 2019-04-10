@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import {
   getJobAdFavouritesResults,
   getJobAdFavouritesSearchFilter,
-  getLastVisitedJobAd,
+  getLastVisitedJobAdId,
   hasCustomFilterApplied,
   isLoading,
   JobAdFavouritesState
@@ -113,9 +113,9 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
   }
 
   ngAfterViewInit() {
-    this.store.pipe(select(getLastVisitedJobAd), take(1))
-      .subscribe(lastVisitedJobAd => {
-        if (lastVisitedJobAd && this.scrollService.scrollIntoView(composeResultListItemId(lastVisitedJobAd))) {
+    this.store.pipe(select(getLastVisitedJobAdId), take(1))
+      .subscribe(lastVisitedJobAdId => {
+        if (lastVisitedJobAdId && this.scrollService.scrollIntoView(composeResultListItemId(lastVisitedJobAdId))) {
           this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH);
         } else {
           this.scrollService.scrollToTop();
