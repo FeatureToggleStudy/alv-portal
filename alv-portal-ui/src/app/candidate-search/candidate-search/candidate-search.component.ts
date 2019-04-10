@@ -117,6 +117,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   }
 
   ngOnDestroy() {
+    super.ngOnDestroy();
     this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
   }
 

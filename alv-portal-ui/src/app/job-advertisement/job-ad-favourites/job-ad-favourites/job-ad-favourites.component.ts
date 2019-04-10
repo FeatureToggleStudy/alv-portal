@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -9,6 +9,8 @@ import {
   getJobAdFavouritesResults,
   getJobAdFavouritesSearchFilter,
   getLastVisitedJobAd,
+  hasCustomFilterApplied,
+  isLoading,
   JobAdFavouritesState
 } from '../state-management/state';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
@@ -30,6 +32,7 @@ import {
 import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { ActivatedRoute } from '@angular/router';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'alv-job-ad-favourites',
@@ -48,6 +51,12 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   currentLanguage$: Observable<string>;
 
+  isLoading$: Observable<boolean>;
+
+  hasCustomFilterApplied$: Observable<boolean>;
+
+  @BlockUI() blockUI: NgBlockUI;
+
   constructor(private fb: FormBuilder,
               private i18nService: I18nService,
               private scrollService: ScrollService,
@@ -64,6 +73,23 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
     });
 
     this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults));
+
+    this.isLoading$ = this.store.pipe(select(isLoading));
+
+    this.hasCustomFilterApplied$ = this.store.pipe(select(hasCustomFilterApplied));
+
+    this.store.pipe(select(isLoading))
+      .pipe(
+        distinctUntilChanged(),
+        tap(loading => {
+          if (loading) {
+            this.blockUI.start();
+          } else {
+            this.blockUI.stop();
+          }
+        }),
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe();
 
     this.store.pipe(select(getJobAdFavouritesSearchFilter)).pipe(
       tap(currentFilter => {

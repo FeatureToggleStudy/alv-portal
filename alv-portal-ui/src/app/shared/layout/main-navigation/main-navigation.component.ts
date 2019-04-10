@@ -102,6 +102,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnDestroy() {
+    super.ngOnDestroy();
     this.window.removeEventListener('resize', this.setDesktopMenuHeightFn);
   }
 

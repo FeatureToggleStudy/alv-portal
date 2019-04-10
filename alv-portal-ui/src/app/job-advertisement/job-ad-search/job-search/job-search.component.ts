@@ -18,7 +18,7 @@ import {
   getJobSearchResults,
   getLastVisitedJobAdId,
   getResultsAreLoading,
-  getTotalCount,
+  getTotalCount, hasResults, isLoading,
   JobAdSearchState,
   JobSearchFilter,
   LoadNextPageAction,
@@ -26,7 +26,14 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, take, takeUntil } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  take,
+  takeUntil,
+  tap
+} from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { ScrollService } from '../../../core/scroll.service';
@@ -44,6 +51,7 @@ import {
 } from '../../../core/state-management/actions/core.actions';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'alv-job-search',
@@ -73,7 +81,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   currentLanguage$: Observable<string>;
 
+  hasFoundResults$: Observable<boolean>;
+
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
+
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private store: Store<JobAdSearchState>,
               private actionsSubject: ActionsSubject,
@@ -89,11 +101,26 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   ngOnInit() {
     this.totalCount$ = this.store.pipe(select(getTotalCount));
 
-    this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults));
+    this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults), debounceTime(100));
 
     this.jobSearchFilter$ = this.store.pipe(select(getJobSearchFilter));
 
     this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
+
+    this.hasFoundResults$ = this.store.pipe(select(hasResults));
+
+    this.store.pipe(select(isLoading))
+      .pipe(
+        distinctUntilChanged(),
+        tap(loading => {
+          if (loading) {
+            this.blockUI.start();
+          } else {
+            this.blockUI.stop();
+          }
+        }),
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe();
 
     this.jobSearchMailToLink$ = this.jobSearchFilter$.pipe(
       map((jobSearchFilter: JobSearchFilter) => this.jobSearchFilterParameterService.encode(jobSearchFilter)),
@@ -129,6 +156,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   ngOnDestroy() {
+    super.ngOnDestroy();
     this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
   }
 

@@ -65,6 +65,14 @@ export const getFavouriteItem = createSelector(getJobAdSearchState, (state: JobA
 
 export const getLastVisitedJobAdId = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.lastVisitedJobAdId);
 
+export const isLoading = createSelector(getJobAdSearchState, (state) => {
+  return state.resultsAreLoading;
+});
+
+export const hasResults = createSelector(getResultList, isLoading, (resultList, loading) => {
+  return !(resultList.length === 0 && !loading);
+});
+
 export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
   return resultList.map((item) => {
     return {

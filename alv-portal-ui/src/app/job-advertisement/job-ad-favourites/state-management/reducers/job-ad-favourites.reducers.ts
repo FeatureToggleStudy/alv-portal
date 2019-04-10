@@ -3,7 +3,7 @@ import {
   Actions,
   APPLY_FILTER,
   FAVOURITE_ITEM_LOADED,
-  FILTER_APPLIED,
+  FILTER_APPLIED, INIT_RESULT_LIST,
   JOB_ADVERTISEMENT_DETAIL_LOADED, JOB_ADVERTISEMENT_DETAIL_UNLOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
@@ -63,6 +63,13 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
   let newState: JobAdFavouritesState;
 
   switch (action.type) {
+
+    case INIT_RESULT_LIST:
+      newState = {
+        ...state,
+        resultsAreLoading: true
+      };
+      break;
 
     case RESET:
       newState = {

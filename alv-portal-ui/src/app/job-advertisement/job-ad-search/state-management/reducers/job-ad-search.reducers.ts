@@ -5,7 +5,7 @@ import {
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
   FAVOURITE_ITEM_LOADED,
-  FILTER_APPLIED,
+  FILTER_APPLIED, INIT_RESULT_LIST,
   JOB_ADVERTISEMENT_DETAIL_LOADED, JOB_ADVERTISEMENT_DETAIL_UNLOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
@@ -36,6 +36,13 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
   let newState: JobAdSearchState;
 
   switch (action.type) {
+
+    case INIT_RESULT_LIST:
+      newState = {
+        ...state,
+        resultsAreLoading: true
+      };
+      break;
 
     case RESET:
       newState = {

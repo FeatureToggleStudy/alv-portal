@@ -58,11 +58,10 @@
                                (removeFavourite)="removeFavourite($event)"
                                routerLinkBase="/job-search">
         </alv-job-search-result>
-        <div *ngIf="!jobSearchResults || !jobSearchResults.length">
-          {{'global.common-phrases.no-results-found' | translate}}
-        </div>
-
       </ng-container>
+      <div *ngIf="!(hasFoundResults$ | async)">
+        {{'global.common-phrases.no-results-found' | translate}}
+      </div>
     </ng-container>
 
     <ng-container class="right-column">
