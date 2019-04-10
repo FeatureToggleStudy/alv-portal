@@ -4,7 +4,7 @@ import {
   APPLY_FILTER,
   FAVOURITE_ITEM_LOADED,
   FILTER_APPLIED,
-  JOB_ADVERTISEMENT_DETAIL_LOADED,
+  JOB_ADVERTISEMENT_DETAIL_LOADED, JOB_ADVERTISEMENT_DETAIL_UNLOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   RESET,
@@ -14,8 +14,27 @@ import {
   REMOVED_JOB_AD_FAVOURITE,
   UPDATED_JOB_AD_FAVOURITE
 } from '../../../../core/state-management/actions/core.actions';
-import { FavouriteItem } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  FavouriteItem,
+  JobAdvertisementWithFavourites
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
+
+function getNextId(currentIndex: number, resultList: JobAdvertisementWithFavourites[]) {
+  if (currentIndex !== undefined) {
+    const ids = resultList.map((item) => item.jobAdvertisement.id);
+    return currentIndex < ids.length - 1 ? ids[currentIndex + 1] : null;
+  }
+  return null;
+}
+
+function getPrevId(currentIndex: number, resultList: JobAdvertisementWithFavourites[]) {
+  if (currentIndex !== undefined) {
+    const ids = resultList.map((item) => item.jobAdvertisement.id);
+    return currentIndex > 0 ? ids[currentIndex - 1] : null;
+  }
+  return null;
+}
 
 function removeFavouriteItem(state: JobAdFavouritesState, jobAdId: string) {
   const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
@@ -31,7 +50,7 @@ function removeFavouriteItem(state: JobAdFavouritesState, jobAdId: string) {
 function patchFavouriteItem(state: JobAdFavouritesState, jobAdId: string, patchedFavouriteItem: FavouriteItem) {
   const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
   if (indexToUpdate >= 0) {
-    const updatedResultList = [...state.resultList];
+    const updatedResultList = state.resultList;
     updatedResultList[indexToUpdate].favouriteItem = patchedFavouriteItem;
     return updatedResultList;
   } else {
@@ -91,19 +110,45 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
     case JOB_ADVERTISEMENT_DETAIL_LOADED:
       const currentVisited = state.visitedJobAds;
       currentVisited[action.payload.jobAdvertisement.id] = true;
+      const currentIndex = state.resultList
+        .map((item) => item.jobAdvertisement.id)
+        .findIndex(id => id === action.payload.jobAdvertisement.id);
       newState = {
         ...state,
-        selectedJobAdvertisement: action.payload.jobAdvertisement,
-        visitedJobAds: { ...currentVisited }
+        visitedJobAds: { ...currentVisited },
+        detail: {
+          ...state.detail,
+          jobAdvertisement: action.payload.jobAdvertisement,
+          currentIndex: currentIndex,
+          nextId: getNextId(currentIndex, state.resultList),
+          prevId: getPrevId(currentIndex, state.resultList),
+        }
       };
       break;
 
     case ADDED_JOB_AD_FAVOURITE:
     case UPDATED_JOB_AD_FAVOURITE: {
+      const resultList = [...patchFavouriteItem(state, action.payload.favouriteItem.jobAdvertisementId, action.payload.favouriteItem)];
+      if (state.detail.jobAdvertisement) {
+        // if we are on the detail page and we removed and added the same favourite again => splice it into the result list
+        const currentJobAdId = state.detail.jobAdvertisement.id;
+        const addedFavJobAdId = action.payload.favouriteItem.jobAdvertisementId;
+        const isNotInResultList = state.resultList.findIndex(item => item.jobAdvertisement.id === addedFavJobAdId) === -1;
+        if (isNotInResultList && currentJobAdId === addedFavJobAdId) {
+          resultList.splice(state.detail.currentIndex, 0, {
+            favouriteItem: action.payload.favouriteItem,
+            jobAdvertisement: state.detail.jobAdvertisement
+          });
+        }
+      }
+
       newState = {
         ...state,
-        resultList: patchFavouriteItem(state, action.payload.favouriteItem.jobAdvertisementId, action.payload.favouriteItem),
-        favouriteItem: action.payload.favouriteItem
+        resultList: resultList,
+        detail: {
+          ...state.detail,
+          favouriteItem: action.payload.favouriteItem,
+        }
       };
       break;
     }
@@ -112,7 +157,21 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       newState = {
         ...state,
         resultList: removeFavouriteItem(state, action.payload.removedFavouriteItem.jobAdvertisementId),
-        favouriteItem: null
+        totalCount: state.totalCount - 1,
+        detail: {
+          ...state.detail,
+          favouriteItem: null,
+        }
+      };
+      break;
+    }
+
+    case JOB_ADVERTISEMENT_DETAIL_UNLOADED: {
+      newState = {
+        ...state,
+        detail: {
+          ...initialState.detail
+        }
       };
       break;
     }
@@ -120,7 +179,10 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
     case FAVOURITE_ITEM_LOADED: {
       newState = {
         ...state,
-        favouriteItem: action.payload.favouriteItem
+        detail: {
+          ...state.detail,
+          favouriteItem: action.payload.favouriteItem,
+        }
       };
       break;
     }

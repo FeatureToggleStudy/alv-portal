@@ -15,6 +15,7 @@ const routes: Routes = [
     path: ':id',
     component: JobAdFavouriteDetailComponent,
     canActivate: [JobAdFavouriteDetailGuard],
+    canDeactivate: [JobAdFavouriteDetailGuard],
     data: {
       collapseNavigation: true
     }

@@ -1,12 +1,12 @@
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
+  CanActivate, CanDeactivate,
   RouterStateSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import {
   JobAdFavouritesState,
-  JobAdvertisementDetailLoadedAction
+  JobAdvertisementDetailLoadedAction, JobAdvertisementDetailUnloadAction
 } from '../state-management';
 import { Store } from '@ngrx/store';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { JobAdvertisementRepository } from '../../../shared/backend-services/job
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class JobAdFavouriteDetailGuard implements CanActivate {
+export class JobAdFavouriteDetailGuard implements CanActivate, CanDeactivate<any> {
 
   constructor(private store: Store<JobAdFavouritesState>,
               private jobAdvertisementService: JobAdvertisementRepository) {
@@ -35,4 +35,10 @@ export class JobAdFavouriteDetailGuard implements CanActivate {
     );
   }
 
+  canDeactivate(component: any, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): boolean {
+    this.store.dispatch(new JobAdvertisementDetailUnloadAction({}));
+    return true;
+  }
+
 }
+
