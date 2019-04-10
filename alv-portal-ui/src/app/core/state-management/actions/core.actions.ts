@@ -1,8 +1,11 @@
-import {Action} from '@ngrx/store';
-import {User} from '../../auth/user.model';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Accountability, CompanyContactTemplate} from '../../../shared/backend-services/user-info/user-info.types';
-import {FavouriteItem} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { Action } from '@ngrx/store';
+import { User } from '../../auth/user.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  Accountability,
+  CompanyContactTemplate
+} from '../../../shared/backend-services/user-info/user-info.types';
+import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 export const LANGUAGE_CHANGED = 'CORE:LANGUAGE_CHANGED';
 export const LANGUAGE_INITIALIZED = 'CORE:LANGUAGE_INITIALIZED';

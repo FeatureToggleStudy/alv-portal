@@ -1,11 +1,21 @@
-import {Inject, Injectable, InjectionToken, Optional} from '@angular/core';
-import {AsyncScheduler} from 'rxjs/internal/scheduler/AsyncScheduler';
-import {SchedulerLike} from 'rxjs/src/internal/types';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {catchError, concatMap, debounceTime, filter, map, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
-import {Action, select, Store} from '@ngrx/store';
-import {CandidateRepository} from '../../../shared/backend-services/candidate/candidate.repository';
-import {asyncScheduler, Observable, of} from 'rxjs/index';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
+import { SchedulerLike } from 'rxjs/src/internal/types';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import {
+  catchError,
+  concatMap,
+  debounceTime,
+  filter,
+  map,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom
+} from 'rxjs/operators';
+import { Action, select, Store } from '@ngrx/store';
+import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
+import { asyncScheduler, Observable, of } from 'rxjs/index';
 import {
   EffectErrorOccurredAction,
   LANGUAGE_CHANGED,
@@ -32,10 +42,16 @@ import {
   RESET_FILTER,
   ResetAction
 } from '../actions';
-import {Router} from '@angular/router';
-import {OccupationSuggestionService} from '../../../shared/occupations/occupation-suggestion.service';
-import {CandidateSearchState, getCandidateSearchFilter, getCandidateSearchState, getNextId, getPrevId} from '../state';
-import {CandidateSearchRequestMapper} from './candidate-search-request.mapper';
+import { Router } from '@angular/router';
+import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
+import {
+  CandidateSearchState,
+  getCandidateSearchFilter,
+  getCandidateSearchState,
+  getNextId,
+  getPrevId
+} from '../state';
+import { CandidateSearchRequestMapper } from './candidate-search-request.mapper';
 
 export const CANDIDATE_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('CANDIDATE_SEARCH_EFFECTS_DEBOUNCE');
 export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('CANDIDATE_SEARCH_EFFECTS_SCHEDULER');

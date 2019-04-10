@@ -1,4 +1,4 @@
-import {CandidateSearchState, initialState} from '../state';
+import { CandidateSearchState, initialState } from '../state';
 import {
   Actions,
   APPLY_FILTER,
@@ -106,7 +106,7 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
       newState = {
         ...state,
         selectedCandidateProfile: action.payload.candidateProfile,
-        visitedCandidates: {...currentVisited}
+        visitedCandidates: { ...currentVisited }
       };
       break;
 

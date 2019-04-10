@@ -1,8 +1,12 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot} from '@angular/router';
-import {CoreState} from './state-management/state/core.state.ts';
-import {Store} from '@ngrx/store';
-import {LazyLoadedModuleDestroyedAction} from './state-management/actions/core.actions';
+import { Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanDeactivate,
+  RouterStateSnapshot
+} from '@angular/router';
+import { CoreState } from './state-management/state/core.state.ts';
+import { Store } from '@ngrx/store';
+import { LazyLoadedModuleDestroyedAction } from './state-management/actions/core.actions';
 
 @Injectable({
   providedIn: 'root'

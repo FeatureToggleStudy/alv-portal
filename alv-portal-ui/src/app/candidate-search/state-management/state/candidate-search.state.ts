@@ -1,4 +1,4 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   Availability,
   Canton,
@@ -8,10 +8,13 @@ import {
   Graduation,
   WorkForm
 } from '../../../shared/backend-services/shared.types';
-import {CandidateProfile, FilterLanguageSkill} from '../../../shared/backend-services/candidate/candidate.types';
-import {OccupationTypeaheadItem} from '../../../shared/occupations/occupation-typeahead-item';
-import {StringTypeaheadItem} from '../../../shared/forms/input/typeahead/string-typeahead-item';
-import {LocalityTypeaheadItem} from '../../../shared/localities/locality-typeahead-item';
+import {
+  CandidateProfile,
+  FilterLanguageSkill
+} from '../../../shared/backend-services/candidate/candidate.types';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
+import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
+import { LocalityTypeaheadItem } from '../../../shared/localities/locality-typeahead-item';
 
 export interface CandidateSearchState {
   totalCount: number;
