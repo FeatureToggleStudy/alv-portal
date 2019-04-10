@@ -1,4 +1,4 @@
-import { AfterViewInit, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   Notification,
@@ -19,7 +19,7 @@ import { ScrollService } from '../../../core/scroll.service';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ComplaintModalComponent } from '../complaint-modal/complaint-modal.component';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { isNotAuthenticatedUser } from '../../../core/auth/user.model';
@@ -77,6 +77,8 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     super();
   }
 
+  abstract get backButtonPath();
+
   ngAfterViewInit(): void {
     this.scrollService.scrollToTop();
   }
@@ -122,8 +124,6 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
 
   abstract onUpdatedFavourite(updatedFavouriteItem: FavouriteItem);
 
-  abstract get backButtonPath();
-
   getEncodedUrl() {
     return encodeURIComponent(this.getJobUrl());
   }
@@ -152,6 +152,19 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
       });
   }
 
+  editNote(jobAdvertisementId: string, favouriteItem: FavouriteItem) {
+    const favouriteNoteModalRef = this.modalService.openLarge(FavouriteNoteModalComponent, true);
+    const favouriteNoteComponent = <FavouriteNoteModalComponent>favouriteNoteModalRef.componentInstance;
+    favouriteNoteComponent.jobAdvertisementId = jobAdvertisementId;
+    favouriteNoteComponent.favouriteItem = favouriteItem;
+    favouriteNoteModalRef.result
+      .then(updatedFavouriteItem => {
+        this.onUpdatedFavourite(updatedFavouriteItem);
+      })
+      .catch(() => {
+      });
+  }
+
   protected getJobUrl() {
     return window.location.href;
   }
@@ -168,19 +181,6 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
       alerts.push(AbstractJobAdDetailComponent.ALERTS.jobAdUnvalidated);
     }
     return alerts;
-  }
-
-  editNote(jobAdvertisementId: string, favouriteItem: FavouriteItem) {
-    const favouriteNoteModalRef = this.modalService.openLarge(FavouriteNoteModalComponent, true);
-    const favouriteNoteComponent = <FavouriteNoteModalComponent>favouriteNoteModalRef.componentInstance;
-    favouriteNoteComponent.jobAdvertisementId = jobAdvertisementId;
-    favouriteNoteComponent.favouriteItem = favouriteItem;
-    favouriteNoteModalRef.result
-      .then(updatedFavouriteItem => {
-        this.onUpdatedFavourite(updatedFavouriteItem);
-      })
-      .catch(() => {
-      });
   }
 
 }

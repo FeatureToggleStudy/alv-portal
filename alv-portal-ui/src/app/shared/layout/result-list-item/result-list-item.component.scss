@@ -71,16 +71,6 @@
   top: 0.5rem;
   right: 0.5rem;
   z-index: $z-index-result-list-item + 2;
-
-  .btn.btn-icon {
-    color: $color-primary;
-    width: 30px;
-    height: 32px;
-
-    &:hover {
-      color: darken($color-primary, 10%);
-    }
-  }
 }
 
 .deactivated-overlay {
@@ -90,6 +80,7 @@
   bottom: 0;
   left: 0;
   z-index: $z-index-result-list-item;
+  pointer-events: none;
   .deactivated-text {
     color: $color-white;
     background-color: rgba($color-black, 0.60);

@@ -3,7 +3,8 @@
                            [stickyTop]="layoutConstants.STICKY_TOP_DETAIL"
                            [mobileOrdering]="[2, 1, null]">
     <ng-container class="mobile-menu-bar">
-      <div class="d-flex justify-content-between">
+      <div class="d-flex">
+        <!-- Back Button -->
         <div>
           <a class="btn btn-text btn-text-icon"
              [routerLink]="backButtonPath">
@@ -12,6 +13,30 @@
             {{'job-detail.back' | translate}}
           </a>
         </div>
+        <div class="flex-grow-1"></div>
+        <!-- Favourite Item Actions -->
+        <div *ngIf="(favouriteItemDetailModel$ | async) as favouriteItemDetailModel"
+             class="favourite-item-actions">
+          <button class="btn btn-toggle-icon mr-1"
+                  [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (favouriteItemDetailModel.isFavourite ? 'remove-favourite' : 'add-favourite') | translate"
+                  placement="bottom"
+                  (click)="favouriteItemDetailModel.isFavourite ? removeFavourite(favouriteItemDetailModel.favourite) : addFavourite(jobDetailModel.jobAdvertisement.id)">
+            <fa-icon *ngIf="favouriteItemDetailModel.isFavourite"
+                     [icon]="['fas', 'star']"></fa-icon>
+            <fa-icon *ngIf="!favouriteItemDetailModel.isFavourite"
+                     [icon]="['far', 'star']"></fa-icon>
+          </button>
+          <button class="btn btn-toggle-icon mr-1"
+                  [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (favouriteItemDetailModel.hasNote ? 'edit-note' : 'add-note') | translate"
+                  placement="bottom"
+                  (click)="editNote(jobDetailModel.jobAdvertisement.id, favouriteItemDetailModel.favourite)">
+            <fa-icon *ngIf="favouriteItemDetailModel.hasNote"
+                     [icon]="['fas', 'sticky-note']"></fa-icon>
+            <fa-icon *ngIf="!favouriteItemDetailModel.hasNote"
+                     [icon]="['far', 'sticky-note']"></fa-icon>
+          </button>
+        </div>
+        <!-- Other Mobile Actions -->
         <div #mobileActionsMenu="ngbDropdown"
              class="d-inline-block"
              ngbDropdown
@@ -77,7 +102,7 @@
          [routerLink]="backButtonPath">
         <fa-icon class="mr-1"
                  [icon]="['fas', 'caret-left']"></fa-icon>
-        {{'job-detail.back' | translate}}
+        {{'job-detail.back-to-search' | translate}}
       </a>
       <div class="d-flex d-sm-block flex-column-reverse">
         <div class="alv-panel p-2 mb-3">
