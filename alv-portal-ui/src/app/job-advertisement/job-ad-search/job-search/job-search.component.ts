@@ -18,7 +18,9 @@ import {
   getJobSearchResults,
   getLastVisitedJobAdId,
   getResultsAreLoading,
-  getTotalCount, hasResults, isLoading,
+  getTotalCount,
+  hasResults,
+  isLoading,
   JobAdSearchState,
   JobSearchFilter,
   LoadNextPageAction,
@@ -26,14 +28,7 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  take,
-  takeUntil,
-  tap
-} from 'rxjs/operators';
+import { distinctUntilChanged, map, take, takeUntil, tap } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { ScrollService } from '../../../core/scroll.service';
@@ -101,7 +96,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   ngOnInit() {
     this.totalCount$ = this.store.pipe(select(getTotalCount));
 
-    this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults), debounceTime(100));
+    this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults));
 
     this.jobSearchFilter$ = this.store.pipe(select(getJobSearchFilter));
 
