@@ -28,7 +28,7 @@ function removeFavouriteItem(state: JobAdFavouritesState, jobAdId: string) {
   }
 }
 
-function patchFavouriteItem(state, jobAdId: string, patchedFavouriteItem: FavouriteItem) {
+function patchFavouriteItem(state: JobAdFavouritesState, jobAdId: string, patchedFavouriteItem: FavouriteItem) {
   const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
   if (indexToUpdate >= 0) {
     const updatedResultList = [...state.resultList];
