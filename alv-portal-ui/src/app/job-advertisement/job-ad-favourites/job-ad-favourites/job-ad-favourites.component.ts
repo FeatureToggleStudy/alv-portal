@@ -91,7 +91,7 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   removeFavourite(jobSearchResult: JobSearchResult) {
     this.modalService.openConfirm(
-      jobSearchResult.favouriteItem.note ? CONFIRM_DELETE_FAVOURITE_MODAL : CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
+      jobSearchResult.favouriteItem.note ? CONFIRM_DELETE_FAVOURITE_NOTE_MODAL : CONFIRM_DELETE_FAVOURITE_MODAL
     ).result.then(
       () => this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem })),
       () => {
