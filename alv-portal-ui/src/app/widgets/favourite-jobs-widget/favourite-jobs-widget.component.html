@@ -1,0 +1,39 @@
+<div class="alv-panel pb-3 pb-md-4">
+  <h2 class="panel-title">
+    <alv-custom-icon class="panel-icon"
+                     aria-hidden="true"
+                     [iconKey]="IconKey.JOB_AD_FAVOURITES">
+    </alv-custom-icon>
+    {{'Stellen Merkliste' | translate}}
+  </h2>
+  <ng-container *ngIf="(jobFavourites$ | async) as jobFavourites">
+    <ng-container *ngIf="jobFavourites.length">
+      <alv-job-search-result *ngFor="let jobFavourite of jobFavourites"
+                             [jobSearchResult]="jobFavourite"
+                             [currentUser]="currentUser$ | async"
+                             (updatedFavourite)="updatedFavourite($event)"
+                             (removeFavourite)="removeFromFavourites($event)"
+                             routerLinkBase="/job-favourites">
+      </alv-job-search-result>
+    </ng-container>
+    <ng-container *ngIf="!jobFavourites.length">
+      <div class="no-favourites p-3 mb-3">
+        <h3>{{'portal.job-ad-favourites.empty.title' | translate}}</h3>
+        <p>{{'portal.job-ad-favourites.empty.text1' | translate}}
+          <fa-icon class="text-primary"
+                   [icon]="['fas', 'star']"></fa-icon>
+          {{'portal.job-ad-favourites.empty.text2' | translate}}
+        </p>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <div class="d-flex">
+    <div class="flex-grow-1"></div>
+    <a class="btn btn-secondary"
+       routerLink="/job-favourites">
+      {{ 'portal.widgets.job-ad-favourites.show-all' | translate }}
+    </a>
+  </div>
+
+</div>

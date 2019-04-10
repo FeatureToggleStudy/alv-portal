@@ -192,7 +192,7 @@ describe('candidateSearchReducer', () => {
     expect(newState.resultList).toEqual(candidateProfilePageOne);
     expect(newState.totalCount).toEqual(100);
     expect(newState.resultsAreLoading).toBeFalsy();
-    verifyUnchanged(newState, initialState, ['resultList', 'totalCount', 'resultsAreLoading']);
+    verifyUnchanged(newState, initialState, ['resultList', 'totalCount', 'resultsAreLoading', 'isDirtyResultList']);
   });
 
   it('OCCUPATION_LANGUAGE_CHANGED_ACTION : should update occupation CATEGORY for language and value', () => {

@@ -3,12 +3,13 @@ import {
   Actions,
   APPLY_FILTER,
   FILTER_APPLIED,
+  JOB_ADVERTISEMENT_CANCELLED,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
-  NEXT_PAGE_LOADED
+  NEXT_PAGE_LOADED,
+  RESET
 } from '../actions';
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { JOB_ADVERTISEMENT_CHANGED } from '../../../../core/state-management/actions/core.actions';
 
 function matchesSelectedJobAd(selectedJobAdvertisement: JobAdvertisement, updatedJobAd: JobAdvertisement) {
   return selectedJobAdvertisement && selectedJobAdvertisement.id === updatedJobAd.id;
@@ -19,6 +20,12 @@ export function manageJobAdsReducer(state = initialState, action: Actions): Mana
   let newState: ManageJobAdsState;
 
   switch (action.type) {
+
+    case RESET:
+      newState = {
+        ...initialState
+      };
+      break;
 
     case APPLY_FILTER:
       newState = {
@@ -36,7 +43,8 @@ export function manageJobAdsReducer(state = initialState, action: Actions): Mana
         ...state,
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
-        resultsAreLoading: false
+        resultsAreLoading: false,
+        isDirtyResultList: false
       };
       break;
 
@@ -63,7 +71,7 @@ export function manageJobAdsReducer(state = initialState, action: Actions): Mana
       };
       break;
 
-    case JOB_ADVERTISEMENT_CHANGED:
+    case JOB_ADVERTISEMENT_CANCELLED:
       const updatedJobAd = action.payload.jobAdvertisement;
       const patchedJobAd = matchesSelectedJobAd(state.selectedJobAdvertisement, updatedJobAd) ? updatedJobAd : state.selectedJobAdvertisement;
       newState = {

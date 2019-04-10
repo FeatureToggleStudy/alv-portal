@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
+import {
+  ApplyFilterAction,
+  JobAdvertisementCancelledAction,
+  LoadNextPageAction
+} from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, map, take, takeUntil, tap } from 'rxjs/operators';
@@ -26,7 +30,6 @@ import {
 import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { Router } from '@angular/router';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { JobAdvertisementUpdatedAction } from '../../../core/state-management/actions/core.actions';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 
 interface FilterBadge extends InlineBadge {
@@ -52,6 +55,14 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
   rows$: Observable<ManagedJobAdRow[]>;
 
   columns$: Observable<ManagedJobAdColumnDefinition[]>;
+
+  constructor(private store: Store<ManageJobAdsState>,
+              private modalService: ModalService,
+              private jobAdManagementColumnService: JobAdManagementColumnService,
+              private fb: FormBuilder,
+              private router: Router) {
+    super();
+  }
 
   private static mapBadges(filter: ManagedJobAdsSearchFilter): FilterBadge[] {
     let badges: FilterBadge[] = [];
@@ -80,14 +91,6 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
     }
 
     return badges;
-  }
-
-  constructor(private store: Store<ManageJobAdsState>,
-              private modalService: ModalService,
-              private jobAdManagementColumnService: JobAdManagementColumnService,
-              private fb: FormBuilder,
-              private router: Router) {
-    super();
   }
 
   ngOnInit() {
@@ -168,7 +171,7 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
         jobAdCancellationComponent.accessToken = null;
         jobAdCancellationModalRef.result
           .then((job) => {
-            this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: job }));
+            this.store.dispatch(new JobAdvertisementCancelledAction({ jobAdvertisement: job }));
           })
           .catch(() => {
           });

@@ -23,7 +23,6 @@ import { Router } from '@angular/router';
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../../core/state-management/state/core.state.ts';
-import { JobAdvertisementUpdatedAction } from '../../core/state-management/actions/core.actions';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
@@ -113,7 +112,6 @@ export class ManageJobAdsWidgetComponent extends AbstractSubscriber implements O
         jobAdCancellationModalRef.result
           .then((jobAdvertisement: JobAdvertisement) => {
             this.currentFilter$.next(this.currentFilter$.value);
-            this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: jobAdvertisement }));
           })
           .catch(() => {
           });

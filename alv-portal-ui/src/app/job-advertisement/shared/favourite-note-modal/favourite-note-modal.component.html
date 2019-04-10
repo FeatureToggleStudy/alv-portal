@@ -1,0 +1,20 @@
+<alv-modal (primaryAction)="onSubmit()"
+           (cancelAction)="onCancel()"
+           (secondaryAction)="onDelete()"
+           [formGroup]="form"
+           modalTitle="portal.job-ad-favourites.note-modal.title"
+           [icon]="['fas', 'sticky-note']"
+           primaryLabel="portal.job-ad-favourites.note-modal.action.save"
+           [cancelLabel]="'portal.job-ad-favourites.note-modal.action.cancel'"
+           [secondaryLabel]="!isCreateNote ? 'portal.job-ad-favourites.note-modal.action.delete' : ''">
+
+  <alv-input-field [autofocus]="true"
+                   [maxLength]="MAX_LENGTH_1000"
+                   [multiline]="true"
+                   [showCharacterCounter]="true"
+                   alvFormControlName="note"
+                   label="portal.job-ad-favourites.note-modal.note.label"
+                   class="favourite-note-textarea narrow-form">
+  </alv-input-field>
+
+</alv-modal>

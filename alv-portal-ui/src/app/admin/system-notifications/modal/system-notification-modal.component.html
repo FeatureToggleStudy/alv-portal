@@ -1,8 +1,8 @@
 <alv-modal [modalTitle]="title"
            primaryLabel="entity.action.save"
            (primaryAction)="onSubmit(form)"
-           secondaryLabel="entity.action.cancel"
-           (secondaryAction)="activeModal.dismiss()"
+           cancelLabel="entity.action.cancel"
+           (cancelAction)="activeModal.dismiss()"
            [formGroup]="form">
   <fieldset>
     <alv-input-field label="{{'portal.admin.system-notifications.form.title'| translate}}"

@@ -2,6 +2,10 @@
 
   <div class="d-flex flex-column">
     <h2 class="modal-title">
+      <fa-icon *ngIf="icon"
+               class="mr-2 text-primary"
+               [icon]="icon">
+      </fa-icon>
       {{modalTitle | translate}}
     </h2>
 
@@ -15,7 +19,7 @@
           type="button"
           class="close"
           [attr.aria-label]="'portal.global.close' | translate"
-          (click)="handleSecondaryClick()">
+          (click)="handleCancelClick()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -33,9 +37,15 @@
     <ng-content></ng-content>
   </div>
   <div class="modal-footer">
-    <button *ngIf="secondaryLabel"
+    <button *ngIf="cancelLabel"
             type="button"
             class="btn btn-text"
+            (click)="handleCancelClick()">
+      {{cancelLabel | translate}}
+    </button>
+    <button *ngIf="secondaryLabel"
+            type="button"
+            class="btn btn-secondary"
             (click)="handleSecondaryClick()">
       {{secondaryLabel | translate}}
     </button>

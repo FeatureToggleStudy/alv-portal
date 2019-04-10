@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { JobDetailModel } from '../job-detail-model';
-import { JobBadge } from '../job-badges-mapper.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {JobDetailModel} from '../job-detail-model';
+import {JobBadge} from '../job-badges-mapper.service';
 
 enum JobDetailPanelId {
   JOB_AD_INFO = 'job-ad-info',

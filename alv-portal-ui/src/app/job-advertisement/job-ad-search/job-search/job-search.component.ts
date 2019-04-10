@@ -3,7 +3,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef, Inject, OnDestroy,
+  ElementRef,
+  Inject,
+  OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -19,7 +21,6 @@ import {
   getTotalCount,
   JobAdSearchState,
   JobSearchFilter,
-  JobSearchResult,
   LoadNextPageAction,
   ResetFilterAction
 } from '../state-management';
@@ -34,6 +35,15 @@ import { ofType } from '@ngrx/effects';
 import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { WINDOW } from '../../../core/window.service';
+import { JobSearchResult } from '../../shared/job-search-result/job-search-result.component';
+import { I18nService } from '../../../core/i18n.service';
+import {
+  AddJobAdFavouriteAction,
+  RemoveJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
+} from '../../../core/state-management/actions/core.actions';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { User } from '../../../core/auth/user.model';
 
 @Component({
   selector: 'alv-job-search',
@@ -59,6 +69,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
 
+  currentUser$: Observable<User>;
+
+  currentLanguage$: Observable<string>;
+
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
 
   constructor(private store: Store<JobAdSearchState>,
@@ -66,6 +80,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               private scrollService: ScrollService,
               private cdRef: ChangeDetectorRef,
+              private i18nService: I18nService,
+              private authenticationService: AuthenticationService,
               @Inject(WINDOW) private window: Window) {
     super();
   }
@@ -84,6 +100,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
+
+    this.currentUser$ = this.authenticationService.getCurrentUser();
+
+    this.currentLanguage$ = this.i18nService.currentLanguage$;
 
     this.actionsSubject.pipe(
       ofType(FILTER_APPLIED),
@@ -109,7 +129,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   ngOnDestroy() {
-      this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
+    this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
   }
 
   onQueryChange(queryPanelValues: JobQueryPanelValues) {
@@ -139,6 +159,18 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       this.searchPanelHeight = newSearchPanelHeight;
       this.cdRef.detectChanges();
     }
+  }
+
+  addFavourite(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new AddJobAdFavouriteAction({ jobAdvertisementId: jobSearchResult.jobAdvertisement.id }));
+  }
+
+  removeFavourite(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
+  }
+
+  updatedFavourite(jobSearchResult: JobSearchResult) {
+    this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
   }
 
 }

@@ -1,15 +1,21 @@
 import { ContractType, JobSearchFilter, Sort } from './job-search-filter.types';
-import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  FavouriteItem,
+  JobAdvertisement,
+  JobAdvertisementWithFavourites
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface JobAdSearchState {
   totalCount: number;
   page: number;
   jobSearchFilter: JobSearchFilter;
-  resultList: JobAdvertisement[];
+  resultList: JobAdvertisementWithFavourites[];
   selectedJobAdvertisement: JobAdvertisement;
+  favouriteItem: FavouriteItem;
   resultsAreLoading: boolean;
   visitedJobAds: { [id: string]: boolean; };
+  isDirtyResultList: boolean;
 }
 
 export const initialState: JobAdSearchState = {
@@ -29,14 +35,12 @@ export const initialState: JobAdSearchState = {
   },
   resultList: [],
   selectedJobAdvertisement: null,
+  favouriteItem: undefined,
   resultsAreLoading: false,
-  visitedJobAds: {}
+  visitedJobAds: {},
+  isDirtyResultList: true
 };
 
-export interface JobSearchResult {
-  jobAdvertisement: JobAdvertisement;
-  visited: boolean;
-}
 
 export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobAdSearch');
 
@@ -52,18 +56,21 @@ export const getSelectedJobAdvertisement = createSelector(getJobAdSearchState, (
 
 export const getResultsAreLoading = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultsAreLoading);
 
+export const getFavouriteItem = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.favouriteItem);
+
 export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
-  return resultList.map((jobAd) => {
+  return resultList.map((item) => {
     return {
-      jobAdvertisement: jobAd,
-      visited: visitedJobAds[jobAd.id] || false
+      jobAdvertisement: item.jobAdvertisement,
+      favouriteItem: item.favouriteItem,
+      visited: visitedJobAds[item.jobAdvertisement.id] || false
     };
   });
 });
 
 export const getPrevId = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, current) => {
   if (current) {
-    const ids = resultList.map((item) => item.id);
+    const ids = resultList.map((item) => item.jobAdvertisement.id);
     const idx = ids.findIndex(id => id === current.id);
 
     return idx > 0 ? ids[idx - 1] : null;
@@ -74,7 +81,7 @@ export const getPrevId = createSelector(getResultList, getSelectedJobAdvertiseme
 
 export const getNextId = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, current) => {
   if (current) {
-    const ids = resultList.map((item) => item.id);
+    const ids = resultList.map((item) => item.jobAdvertisement.id);
     const idx = ids.findIndex(id => id === current.id);
 
     return idx < ids.length - 1 ? ids[idx + 1] : null;
@@ -86,7 +93,7 @@ export const getNextId = createSelector(getResultList, getSelectedJobAdvertiseme
 export const isPrevVisible = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, selectedJobAdvertisement) => {
   if (selectedJobAdvertisement) {
     return resultList
-      .map((item) => item.id)
+      .map((item) => item.jobAdvertisement.id)
       .findIndex(id => id === selectedJobAdvertisement.id) > 0;
   }
 
@@ -96,7 +103,7 @@ export const isPrevVisible = createSelector(getResultList, getSelectedJobAdverti
 export const isNextVisible = createSelector(getResultList, getSelectedJobAdvertisement, getTotalCount, (resultList, current, totalCount) => {
   if (current) {
     return resultList
-      .map((item) => item.id)
+      .map((item) => item.jobAdvertisement.id)
       .findIndex(id => id === current.id) < totalCount - 1;
   }
 

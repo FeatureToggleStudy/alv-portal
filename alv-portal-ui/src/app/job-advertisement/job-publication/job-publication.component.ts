@@ -12,7 +12,6 @@ import { AuthenticationService } from '../../core/auth/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { CoreState } from '../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
-import { JobAdvertisementUpdatedAction } from '../../core/state-management/actions/core.actions';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 import { LinkPanelId } from '../../shared/layout/link-panel/link-panel.component';
 import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
@@ -78,7 +77,6 @@ export class JobPublicationComponent implements OnInit {
         flatMap(lang => this.jobCenterRepository.resolveJobCenter(jobAdvertisement.jobCenterCode, lang))
       );
     }
-    this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: jobAdvertisement }));
     this.submitted = true;
   }
 

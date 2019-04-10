@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JobBadge, JobBadgesMapperService } from '../../shared/job-badges-mapper.service';
 import { JobDetailModelFactory } from '../../shared/job-detail-model-factory';
 import { select, Store } from '@ngrx/store';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { JobDetailModel } from '../../shared/job-detail-model';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
@@ -20,10 +20,10 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { JobAdvertisement } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import {
+  JobAdvertisementCancelledAction,
   LoadNextJobAdvertisementDetailAction,
   LoadPreviousJobAdvertisementDetailAction
 } from '../state-management/actions';
-import { JobAdvertisementUpdatedAction } from '../../../core/state-management/actions/core.actions';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 
 @Component({
@@ -62,7 +62,8 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
   }
 
   ngOnInit() {
-    const job$ = this.store.pipe(select(getSelectedJobAdvertisement));
+    const job$ = this.store.pipe(select(getSelectedJobAdvertisement))
+      .pipe(filter(jobAdvertisement => !!jobAdvertisement));
 
     job$.pipe(
       takeUntil(this.ngUnsubscribe))
@@ -108,7 +109,7 @@ export class ManageJobAdDetailComponent extends AbstractSubscriber implements On
     jobAdCancellationComponent.accessToken = this.token;
     jobAdCancellationModalRef.result
       .then(value => {
-        this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: value }));
+        this.store.dispatch(new JobAdvertisementCancelledAction({ jobAdvertisement: value }));
       })
       .catch(() => {
       });

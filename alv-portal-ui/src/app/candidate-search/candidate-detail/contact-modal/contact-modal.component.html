@@ -1,8 +1,8 @@
 <alv-modal modalTitle="candidate-detail.anonymous-contact.title"
            primaryLabel="portal.candidate-detail.anonymous-contact.send"
            (primaryAction)="onSubmit()"
-           secondaryLabel="candidate-detail.anonymous-contact.dismiss"
-           (secondaryAction)="activeModal.dismiss()"
+           cancelLabel="candidate-detail.anonymous-contact.dismiss"
+           (cancelAction)="activeModal.dismiss()"
            [formGroup]="form">
   <fieldset>
     <alv-input-field label="home.tools.job-publication.contact.salutation"

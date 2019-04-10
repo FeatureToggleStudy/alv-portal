@@ -9,6 +9,7 @@ import {
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
+  RESET,
   RESET_FILTER
 } from '../actions';
 
@@ -16,6 +17,13 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
   let newState: CandidateSearchState;
 
   switch (action.type) {
+
+    case RESET:
+      newState = {
+        ...initialState
+      };
+      break;
+
     case APPLY_FILTER_VALUES:
       newState = {
         ...state,
@@ -52,7 +60,8 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         ...state,
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
-        resultsAreLoading: false
+        resultsAreLoading: false,
+        isDirtyResultList: false
       };
       break;
 

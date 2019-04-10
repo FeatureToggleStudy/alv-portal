@@ -1,25 +1,63 @@
-<a [routerLink]="result.routerLink"
-   class="d-block result-list-item flex-height position-relative"
-   [ngClass]="{'visited' : result.visited}">
-  <div class="selected-indicator h-100"></div>
-  <div class="d-flex flex-column flex-sm-row justify-content-between mb-1">
-    <h3 class="title order-2 order-sm-1 mb-0 w-100"
-        [innerHtml]="result.title | safeHtml">
-    </h3>
-    <div class="order-1 order-sm-2">
-      <small class="date text-truncate">
-        {{ result.header | localeAwareDate }}
-      </small>
+<div class="result-list-item-container position-relative">
+  <a [routerLink]="result.routerLink"
+     class="d-block result-list-item flex-height position-relative"
+     [ngClass]="{'visited' : result.visited}">
+    <div class="selected-indicator h-100"></div>
+    <div class="d-flex flex-column flex-sm-row justify-content-between mb-1">
+
+      <h3 class="title order-2 order-sm-1 mb-0 w-100"
+          [innerHTML]="result.title | safeHtml">
+      </h3>
+      <div class="order-1 order-sm-2 d-flex">
+        <small class="date text-truncate"
+               [class.has-actions]="result.hasActions">
+          {{ result.header | localeAwareDate }}
+        </small>
+        <div class="flex-grow-1 flex-md-grow-0"></div>
+
+      </div>
+    </div>
+
+    <span class="subtitle mr-1">{{result.subtitle}}</span>
+
+    <alv-inline-badges [badges]="result.badges"></alv-inline-badges>
+
+    <div class="line-clamp-2"
+         *ngIf="result.description"
+         [style.-webkit-box-orient]="'vertical'"
+         [innerHTML]="result.description | markdownEscape | safeHtml">
+    </div>
+  </a>
+
+  <div *ngIf="result.hasActions"
+       class="actions-area d-flex">
+    <button class="btn btn-toggle-icon mr-1"
+            [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (result.isFavourite ? 'remove-favourite' : 'add-favourite') | translate"
+            placement="bottom"
+            (click)="favouritesClick.emit()"
+            [attr.aria-label]="'portal.job-ad-favourites.tooltip.' + (result.isFavourite ? 'remove-favourite' : 'add-favourite') | translate">
+      <fa-icon *ngIf="result.isFavourite"
+               [icon]="['fas', 'star']"></fa-icon>
+      <fa-icon *ngIf="!result.isFavourite"
+               [icon]="['far', 'star']"></fa-icon>
+    </button>
+    <button class="btn btn-toggle-icon"
+            [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (result.hasNote ? 'edit-note' : 'add-note') | translate"
+            placement="bottom"
+            (click)="noteClick.emit()"
+            [attr.aria-label]="'portal.job-ad-favourites.tooltip.' + (result.hasNote ? 'edit-note' : 'add-note') | translate">
+      <fa-icon *ngIf="result.hasNote"
+               [icon]="['fas', 'sticky-note']"></fa-icon>
+      <fa-icon *ngIf="!result.hasNote"
+               [icon]="['far', 'sticky-note']"></fa-icon>
+    </button>
+  </div>
+
+  <div *ngIf="result.isDeactivated"
+       class="deactivated-overlay position-absolute d-flex align-items-center">
+    <div class="deactivated-text px-3 py-2">
+      {{'portal.job-ad-favourites.deactivated.label' | translate}}
     </div>
   </div>
 
-  <span class="subtitle mr-1">{{result.subtitle}}</span>
-
-  <alv-inline-badges [badges]="result.badges"></alv-inline-badges>
-
-  <div class="line-clamp-2"
-       *ngIf="result.description"
-       [style.-webkit-box-orient]="'vertical'"
-       [innerHtml]="result.description | markdownEscape | safeHtml">
-  </div>
-</a>
+</div>

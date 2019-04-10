@@ -6,19 +6,23 @@ import {
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
-  ApplyFilterAction,
-  FILTER_APPLIED,
+  ApplyFilterAction, FavouriteItemLoadedAction,
   FilterAppliedAction,
   FilterResetAction,
   INIT_RESULT_LIST,
+  JOB_ADVERTISEMENT_DETAIL_LOADED,
+  JobAdvertisementDetailLoadedAction,
+  LOAD_FAVOURITE_ITEM,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
+  LoadFavouriteItemAction,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
-  RESET_FILTER
+  RESET_FILTER,
+  ResetAction
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
@@ -29,7 +33,6 @@ import {
   map,
   switchMap,
   take,
-  takeUntil,
   tap,
   withLatestFrom
 } from 'rxjs/operators';
@@ -47,12 +50,16 @@ import { SchedulerLike } from 'rxjs/src/internal/types';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
 import {
   EffectErrorOccurredAction,
-  JOB_ADVERTISEMENT_CHANGED,
-  JobAdvertisementUpdatedAction,
   LANGUAGE_CHANGED,
-  LanguageChangedAction
+  LanguageChangedAction,
+  LAZY_LOADED_MODULE_DESTROYED,
+  LazyLoadedModuleDestroyedAction,
+  ModuleName
 } from '../../../../core/state-management/actions/core.actions';
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
+import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import { isAuthenticatedUser } from '../../../../core/auth/user.model';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
@@ -61,12 +68,12 @@ export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>
 export class JobAdSearchEffects {
 
   @Effect()
-  jobAdvertisementChanged$: Observable<Action> = this.actions$.pipe(
-    ofType(JOB_ADVERTISEMENT_CHANGED),
-    map((action: JobAdvertisementUpdatedAction) => action.payload),
-    withLatestFrom(this.store.pipe(select(getJobSearchFilter))),
-    map(([action, searchFilter]) => {
-      return new ApplyFilterAction(searchFilter);
+  reset$ = this.actions$.pipe(
+    ofType(LAZY_LOADED_MODULE_DESTROYED),
+    map((action: LazyLoadedModuleDestroyedAction) => action.payload),
+    filter(action => action.moduleName === ModuleName.JOB_SEARCH),
+    map(() => {
+      return new ResetAction();
     })
   );
 
@@ -74,14 +81,16 @@ export class JobAdSearchEffects {
   initJobSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
-      map((response) => new FilterAppliedAction({
-        page: response.result,
-        totalCount: response.totalCount
-      })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-    )),
-    takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
+    filter(([a, state]) => state.isDirtyResultList),
+    switchMap(([action, state]) => {
+      return this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
+        map((response) => new FilterAppliedAction({
+          page: response.result,
+          totalCount: response.totalCount
+        })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    })
   );
 
   @Effect()
@@ -116,6 +125,34 @@ export class JobAdSearchEffects {
     ofType(APPLY_QUERY_VALUES),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
+  );
+
+  @Effect()
+  jobAdvertisementDetailLoaded$: Observable<Action> = this.actions$.pipe(
+    ofType(JOB_ADVERTISEMENT_DETAIL_LOADED),
+    map((action: JobAdvertisementDetailLoadedAction) => action.payload.jobAdvertisement),
+    withLatestFrom(this.authenticationService.getCurrentUser()),
+    filter(([jobAdvertisement, currentUser]) => isAuthenticatedUser(currentUser)),
+    map(([jobAdvertisement, currentUser]) => {
+      return new LoadFavouriteItemAction({
+        jobAdId: jobAdvertisement.id,
+        currentUserId: currentUser.id
+      });
+    })
+  );
+
+  @Effect()
+  loadFavouriteItem$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_FAVOURITE_ITEM),
+    map((action: LoadFavouriteItemAction) => action.payload),
+    switchMap((payload) => {
+      return this.jobAdFavouritesRepository.getFavourite(payload.jobAdId, payload.currentUserId).pipe(
+        map(favouriteItem => {
+          return new FavouriteItemLoadedAction({ favouriteItem: favouriteItem });
+        })
+      );
+    }),
+    catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
   );
 
   @Effect()
@@ -177,7 +214,7 @@ export class JobAdSearchEffects {
           ofType(NEXT_PAGE_LOADED),
           take(1),
           map((nextPageLoadedAction: NextPageLoadedAction) => {
-            return nextPageLoadedAction.payload.page[0].id;
+            return nextPageLoadedAction.payload.page[0].jobAdvertisement.id;
           })
         );
       }
@@ -193,7 +230,9 @@ export class JobAdSearchEffects {
   constructor(private actions$: Actions,
               private occupationSuggestionService: OccupationSuggestionService,
               private jobAdvertisementRepository: JobAdvertisementRepository,
+              private jobAdFavouritesRepository: JobAdFavouritesRepository,
               private store: Store<JobAdSearchState>,
+              private authenticationService: AuthenticationService,
               private router: Router,
               @Optional()
               @Inject(JOB_AD_SEARCH_EFFECTS_DEBOUNCE)
@@ -201,6 +240,7 @@ export class JobAdSearchEffects {
               @Optional()
               @Inject(JOB_AD_SEARCH_EFFECTS_SCHEDULER)
               private scheduler: AsyncScheduler) {
+
   }
 
 }

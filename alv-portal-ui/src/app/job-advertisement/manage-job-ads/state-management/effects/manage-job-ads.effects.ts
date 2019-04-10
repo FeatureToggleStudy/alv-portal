@@ -6,11 +6,10 @@ import {
   catchError,
   concatMap,
   debounceTime,
+  filter,
   map,
-  skipUntil,
   switchMap,
   take,
-  takeUntil,
   tap,
   withLatestFrom
 } from 'rxjs/operators';
@@ -18,20 +17,14 @@ import { Action, select, Store } from '@ngrx/store';
 import { asyncScheduler, Observable, of } from 'rxjs';
 import {
   EffectErrorOccurredAction,
-  JOB_ADVERTISEMENT_CHANGED,
-  JobAdvertisementUpdatedAction
+  LAZY_LOADED_MODULE_DESTROYED,
+  LazyLoadedModuleDestroyedAction,
+  ModuleName
 } from '../../../../core/state-management/actions/core.actions';
-import {
-  getManagedJobAdsSearchFilter,
-  getManageJobAdsState,
-  getNextId,
-  getPrevId,
-  ManageJobAdsState
-} from '../state';
+import { getManageJobAdsState, getNextId, getPrevId, ManageJobAdsState } from '../state';
 import {
   APPLY_FILTER,
   ApplyFilterAction,
-  FILTER_APPLIED,
   FilterAppliedAction,
   INIT_RESULT_LIST,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
@@ -39,10 +32,11 @@ import {
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
-  NextPageLoadedAction
+  NextPageLoadedAction,
+  ResetAction
 } from '../actions';
 import { getCurrentCompanyContactTemplateModel } from '../../../../core/state-management/state/core.state.ts';
-import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { ManagedJobAdsSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { ManagedJobAdsSearchRequestMapper } from '../../../../widgets/manage-job-ads-widget/managed-job-ads-search-request.mapper';
 import { Router } from '@angular/router';
@@ -54,14 +48,12 @@ export const MANAGE_JOB_ADS_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike
 export class ManageJobAdsEffects {
 
   @Effect()
-  jobAdvertisementChanged$: Observable<Action> = this.actions$.pipe(
-    ofType(JOB_ADVERTISEMENT_CHANGED),
-    // only apply the filter action if it has been applied before
-    skipUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
-    map((action: JobAdvertisementUpdatedAction) => action.payload),
-    withLatestFrom(this.store.pipe(select(getManagedJobAdsSearchFilter))),
-    map(([action, filter]) => {
-      return new ApplyFilterAction(filter);
+  reset$ = this.actions$.pipe(
+    ofType(LAZY_LOADED_MODULE_DESTROYED),
+    map((action: LazyLoadedModuleDestroyedAction) => action.payload),
+    filter(action => action.moduleName === ModuleName.MANAGE_JOB_AD),
+    map(() => {
+      return new ResetAction();
     })
   );
 
@@ -69,6 +61,7 @@ export class ManageJobAdsEffects {
   initJobSearch$ = this.actions$.pipe(
     ofType(INIT_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
+    filter(([a, state]) => state.isDirtyResultList),
     switchMap(([action, state, company]) => {
       return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
         map((response) => new FilterAppliedAction({
@@ -77,9 +70,7 @@ export class ManageJobAdsEffects {
         })),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       );
-    }),
-    // unsubscribe the initJobSearch$ once we have applied a filter
-    takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED))),
+    })
   );
 
   @Effect()
@@ -105,7 +96,7 @@ export class ManageJobAdsEffects {
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
     concatMap(([action, state, company]) => this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page + 1, company.companyExternalId)).pipe(
-      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
+      map((response: ManagedJobAdsSearchResponse) => new NextPageLoadedAction({ page: response.result })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
   );

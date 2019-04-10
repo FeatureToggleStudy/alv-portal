@@ -1,9 +1,20 @@
 import { Action } from '@ngrx/store';
-import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  FavouriteItem,
+  JobAdvertisement,
+  JobAdvertisementWithFavourites
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobSearchFilter } from '../state';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
+import {
+  AddedJobAdFavouriteAction,
+  AddJobAdFavouriteAction,
+  RemovedJobAdFavouriteAction,
+  RemoveJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
+} from '../../../../core/state-management/actions/core.actions';
 
 export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
@@ -22,6 +33,11 @@ export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
+export const RESET = 'JOBS:RESET';
+
+export const FAVOURITE_ITEM_LOADED = 'JOBS:FAVOURITE_ITEM_LOADED';
+
+export const LOAD_FAVOURITE_ITEM = 'JOBS:LOAD_FAVOURITE_ITEM';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -86,7 +102,7 @@ export class ApplyFilterAction implements Action {
 export class FilterAppliedAction implements Action {
   readonly type = FILTER_APPLIED;
 
-  constructor(public payload: { page: Array<JobAdvertisement>, totalCount: number }) {
+  constructor(public payload: { page: Array<JobAdvertisementWithFavourites>, totalCount: number }) {
   }
 }
 
@@ -100,7 +116,7 @@ export class LoadNextPageAction implements Action {
 export class NextPageLoadedAction implements Action {
   readonly type = NEXT_PAGE_LOADED;
 
-  constructor(public payload: { page: Array<JobAdvertisement> }) {
+  constructor(public payload: { page: Array<JobAdvertisementWithFavourites> }) {
   }
 }
 
@@ -135,6 +151,26 @@ export class OccupationLanguageChangedAction implements Action {
   }
 }
 
+export class ResetAction implements Action {
+  readonly type = RESET;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class LoadFavouriteItemAction implements Action {
+  readonly type = LOAD_FAVOURITE_ITEM;
+
+  constructor(public payload: { jobAdId: string, currentUserId: string }) {
+  }
+}
+
+export class FavouriteItemLoadedAction implements Action {
+  readonly type = FAVOURITE_ITEM_LOADED;
+
+  constructor(public payload: { favouriteItem: FavouriteItem }) {
+  }
+}
 
 export type Actions =
   | InitResultListAction
@@ -148,4 +184,12 @@ export type Actions =
   | ResetFilterAction
   | ApplyFilterValuesAction
   | ApplyQueryValuesAction
-  | OccupationLanguageChangedAction;
+  | AddJobAdFavouriteAction
+  | AddedJobAdFavouriteAction
+  | RemoveJobAdFavouriteAction
+  | RemovedJobAdFavouriteAction
+  | OccupationLanguageChangedAction
+  | UpdatedJobAdFavouriteAction
+  | ResetAction
+  | FavouriteItemLoadedAction
+  | LoadFavouriteItemAction;

@@ -19,6 +19,7 @@ export const APPLY_QUERY_VALUES = 'CANDIDATES:APPLY_QUERY_VALUES';
 export const RESET_FILTER = 'CANDIDATES:RESET_FILTER';
 export const FILTER_RESET = 'CANDIDATES:FILTER_RESET';
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'CANDIDATES:OCCUPATION_LANGUAGE_CHANGED_ACTION';
+export const RESET = 'CANDIDATES:RESET';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -122,6 +123,13 @@ export class LoadNextCandidateProfileDetailAction implements Action {
   }
 }
 
+export class ResetAction implements Action {
+  readonly type = RESET;
+
+  constructor(public payload = {}) {
+  }
+}
+
 export type Actions = InitResultListAction
   | ApplyFilterAction
   | FilterAppliedAction
@@ -135,4 +143,5 @@ export type Actions = InitResultListAction
   | FilterResetAction
   | ResetFilterAction
   | OccupationLanguageChangedAction
+  | ResetAction
   ;

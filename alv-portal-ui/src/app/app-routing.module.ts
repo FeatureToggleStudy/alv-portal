@@ -9,6 +9,8 @@ import { LegacyUrlStrategyRedirectionGuard } from '../legacy-url-strategy-redire
 import { UserRole } from './core/auth/user.model';
 import { HasAnyAuthoritiesGuard } from './core/auth/has-any-authorities-guard.service';
 import { UserSettingsComponent } from './shared/user-settings/user-settings.component';
+import { LazyModuleDeactivateGuard } from './core/lazy-module-deactivate.guard';
+import { ModuleName } from './core/state-management/actions/core.actions';
 
 const appRoutes: Routes = [
   {
@@ -32,7 +34,9 @@ const appRoutes: Routes = [
   {
     path: 'job-search',
     loadChildren: './job-advertisement/job-ad-search/job-ad-search.module#JobAdSearchModule',
+    canDeactivate: [LazyModuleDeactivateGuard],
     data: {
+      moduleName: ModuleName.JOB_SEARCH,
       collapseNavigation: true,
       titleKey: 'portal.job-ad-search.browser-title'
     }
@@ -40,7 +44,9 @@ const appRoutes: Routes = [
   {
     path: 'candidate-search',
     loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule',
+    canDeactivate: [LazyModuleDeactivateGuard],
     data: {
+      moduleName: ModuleName.CANDIDATE_SEARCH,
       collapseNavigation: true,
       titleKey: 'portal.candidate-search.browser-title'
     }
@@ -48,7 +54,9 @@ const appRoutes: Routes = [
   {
     path: 'job-publication',
     loadChildren: './job-advertisement/job-publication/job-publication.module#JobPublicationModule',
+    canDeactivate: [LazyModuleDeactivateGuard],
     data: {
+      moduleName: ModuleName.JOB_PUBLICATION,
       titleKey: 'portal.job-publication.browser-title',
       scrollToTop: true
     }
@@ -56,8 +64,21 @@ const appRoutes: Routes = [
   {
     path: 'manage-job-ads',
     loadChildren: './job-advertisement/manage-job-ads/manage-job-ads.module#ManageJobAdsModule',
+    canDeactivate: [LazyModuleDeactivateGuard],
     data: {
+      moduleName: ModuleName.MANAGE_JOB_AD,
       titleKey: 'portal.manage-job-ads.browser-title',
+      scrollToTop: true
+    }
+  },
+  {
+    path: 'job-favourites',
+    loadChildren: './job-advertisement/job-ad-favourites/job-ad-favourites.module#JobAdFavouritesModule',
+    canActivateChild: [AuthenticatedGuard],
+    canDeactivate: [LazyModuleDeactivateGuard],
+    data: {
+      moduleName: ModuleName.JOB_AD_FAVOURITE,
+      titleKey: 'portal.job-ad-favourites.browser-title',
       scrollToTop: true
     }
   },

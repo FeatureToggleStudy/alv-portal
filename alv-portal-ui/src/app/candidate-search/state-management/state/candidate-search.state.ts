@@ -24,6 +24,7 @@ export interface CandidateSearchState {
   selectedCandidateProfile: CandidateProfile;
   resultsAreLoading: boolean;
   visitedCandidates: { [id: string]: boolean; };
+  isDirtyResultList: boolean;
 }
 
 export const initialState: CandidateSearchState = {
@@ -47,7 +48,8 @@ export const initialState: CandidateSearchState = {
   resultList: [],
   selectedCandidateProfile: null,
   resultsAreLoading: false,
-  visitedCandidates: {}
+  visitedCandidates: {},
+  isDirtyResultList: true
 };
 
 export interface CandidateSearchFilter {
