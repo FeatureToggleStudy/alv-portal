@@ -25,7 +25,7 @@ import { BlockUIModule } from 'ng-block-ui';
     CoreModule,
     BlockUIModule.forRoot({
       delayStart: 500,
-      delayStop: 500
+      delayStop: 0
     })
   ],
   providers: [WINDOW_PROVIDERS],
