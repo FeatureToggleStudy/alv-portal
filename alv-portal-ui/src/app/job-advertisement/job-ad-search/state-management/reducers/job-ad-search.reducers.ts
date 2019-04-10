@@ -5,8 +5,10 @@ import {
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
   FAVOURITE_ITEM_LOADED,
-  FILTER_APPLIED, INIT_RESULT_LIST,
-  JOB_ADVERTISEMENT_DETAIL_LOADED, JOB_ADVERTISEMENT_DETAIL_UNLOADED,
+  FILTER_APPLIED,
+  INIT_RESULT_LIST,
+  JOB_ADVERTISEMENT_DETAIL_LOADED,
+  JOB_ADVERTISEMENT_DETAIL_UNLOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
@@ -40,7 +42,8 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
     case INIT_RESULT_LIST:
       newState = {
         ...state,
-        resultsAreLoading: true
+        // TODO Cleanup publish a loaded Action in any case
+        resultsAreLoading: (state.isDirtyResultList) ? true : state.resultsAreLoading
       };
       break;
 
