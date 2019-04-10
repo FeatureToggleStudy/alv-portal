@@ -9,7 +9,8 @@
           [innerHTML]="result.title | safeHtml">
       </h3>
       <div class="order-1 order-sm-2 d-flex">
-        <small class="date text-truncate">
+        <small class="date text-truncate"
+               [class.has-actions]="result.hasActions">
           {{ result.header | localeAwareDate }}
         </small>
         <div class="flex-grow-1 flex-md-grow-0"></div>
@@ -33,7 +34,8 @@
     <button class="btn btn-icon mr-1 p-0"
             [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (result.isFavourite ? 'remove-favourite' : 'add-favourite') | translate"
             placement="bottom"
-            (click)="favouritesClick.emit()">
+            (click)="favouritesClick.emit()"
+            [attr.aria-label]="'portal.job-ad-favourites.tooltip.' + (result.isFavourite ? 'remove-favourite' : 'add-favourite') | translate">
       <fa-icon *ngIf="result.isFavourite"
                [icon]="['fas', 'star']"></fa-icon>
       <fa-icon *ngIf="!result.isFavourite"
@@ -42,7 +44,8 @@
     <button class="btn btn-icon p-0"
             [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (result.hasNote ? 'edit-note' : 'add-note') | translate"
             placement="bottom"
-            (click)="noteClick.emit()">
+            (click)="noteClick.emit()"
+            [attr.aria-label]="'portal.job-ad-favourites.tooltip.' + (result.hasNote ? 'edit-note' : 'add-note') | translate">
       <fa-icon *ngIf="result.hasNote"
                [icon]="['fas', 'sticky-note']"></fa-icon>
       <fa-icon *ngIf="!result.hasNote"
