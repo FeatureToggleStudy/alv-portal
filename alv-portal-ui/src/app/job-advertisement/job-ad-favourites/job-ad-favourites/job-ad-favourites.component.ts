@@ -21,6 +21,11 @@ import { I18nService } from '../../../core/i18n.service';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
 import { ScrollService } from '../../../core/scroll.service';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import {
+  CONFIRM_DELETE_FAVOURITE_MODAL,
+  CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
+} from './job-ad-favourites.types';
 
 @Component({
   selector: 'alv-job-ad-favourites',
@@ -43,7 +48,8 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
               private i18nService: I18nService,
               private scrollService: ScrollService,
               private authenticationService: AuthenticationService,
-              private store: Store<JobAdFavouritesState>) {
+              private store: Store<JobAdFavouritesState>,
+              private modalService: ModalService) {
     super();
   }
 
@@ -84,7 +90,13 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
   }
 
   removeFavourite(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
+    this.modalService.openConfirm(
+      jobSearchResult.favouriteItem.note ? CONFIRM_DELETE_FAVOURITE_MODAL : CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
+    ).result.then(
+      () => this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem })),
+      () => {
+      }
+    );
   }
 
   updatedFavourite(jobSearchResult: JobSearchResult) {
