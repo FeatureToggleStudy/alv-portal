@@ -1,4 +1,4 @@
-import {initialState, ManageJobAdsState} from '../state';
+import { initialState, ManageJobAdsState } from '../state';
 import {
   Actions,
   APPLY_FILTER,
@@ -9,7 +9,7 @@ import {
   NEXT_PAGE_LOADED,
   RESET
 } from '../actions';
-import {JobAdvertisement} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 function matchesSelectedJobAd(selectedJobAdvertisement: JobAdvertisement, updatedJobAd: JobAdvertisement) {
   return selectedJobAdvertisement && selectedJobAdvertisement.id === updatedJobAd.id;

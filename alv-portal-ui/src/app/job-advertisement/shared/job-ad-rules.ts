@@ -1,4 +1,4 @@
-import {JobAdvertisement} from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 export function isTemporary(job: JobAdvertisement) {
   return !job.jobContent.employment.permanent && !job.jobContent.employment.endDate;

@@ -33,12 +33,16 @@ export class JobSearchResultComponent implements OnInit {
 
   @Input()
   routerLinkBase: string;
+
   @Output()
   removeFavourite = new EventEmitter<JobSearchResult>();
+
   @Output()
   addFavourite = new EventEmitter<JobSearchResult>();
+
   @Output()
   updatedFavourite = new EventEmitter<JobSearchResult>();
+
   resultListItem: ResultListItem;
 
   constructor(private jobBadgesMapperService: JobBadgesMapperService,

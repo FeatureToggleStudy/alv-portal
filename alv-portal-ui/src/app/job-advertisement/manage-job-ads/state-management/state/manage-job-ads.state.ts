@@ -1,5 +1,5 @@
-import {JobAdvertisement} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import {createFeatureSelector, createSelector} from '@ngrx/store';
+import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   ManagedJobAdsSearchFilter,
   ManagedJobAdsSortingColumn,
