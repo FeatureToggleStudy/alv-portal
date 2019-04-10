@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   getFavouriteItem,
-  getSelectedJobAdvertisement,
+  getJobAdvertisement,
   isNextVisible,
   isPrevVisible,
   JobAdSearchState,
@@ -43,15 +43,13 @@ export class JobDetailComponent extends AbstractJobAdDetailComponent implements 
     scrollService: ScrollService,
     notificationsService: NotificationsService,
     modalService: ModalService,
-    authenticationService: AuthenticationService,
     private store: Store<JobAdSearchState>) {
     super(
       jobBadgesMapperService,
       jobDetailModelFactory,
       scrollService,
       notificationsService,
-      modalService,
-      authenticationService
+      modalService
     );
   }
 
@@ -64,7 +62,7 @@ export class JobDetailComponent extends AbstractJobAdDetailComponent implements 
   }
 
   loadJob$(): Observable<JobAdvertisement> {
-    return this.store.pipe(select(getSelectedJobAdvertisement));
+    return this.store.pipe(select(getJobAdvertisement));
   }
 
   loadFavourite(): Observable<FavouriteItem> {

@@ -43,14 +43,12 @@ export class JobAdFavouriteDetailComponent extends AbstractJobAdDetailComponent 
     scrollService: ScrollService,
     notificationsService: NotificationsService,
     modalService: ModalService,
-    authenticationService: AuthenticationService,
     private store: Store<JobAdFavouritesState>) {
     super(jobBadgesMapperService,
       jobDetailModelFactory,
       scrollService,
       notificationsService,
-      modalService,
-      authenticationService
+      modalService
     );
   }
 

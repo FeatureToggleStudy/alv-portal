@@ -6,17 +6,13 @@ import {
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
-  ApplyFilterAction, FavouriteItemLoadedAction,
+  ApplyFilterAction,
   FilterAppliedAction,
   FilterResetAction,
   INIT_RESULT_LIST,
-  JOB_ADVERTISEMENT_DETAIL_LOADED,
-  JobAdvertisementDetailLoadedAction,
-  LOAD_FAVOURITE_ITEM,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
-  LoadFavouriteItemAction,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
@@ -59,7 +55,6 @@ import {
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
 import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { isAuthenticatedUser } from '../../../../core/auth/user.model';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
@@ -125,34 +120,6 @@ export class JobAdSearchEffects {
     ofType(APPLY_QUERY_VALUES),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
-  );
-
-  @Effect()
-  jobAdvertisementDetailLoaded$: Observable<Action> = this.actions$.pipe(
-    ofType(JOB_ADVERTISEMENT_DETAIL_LOADED),
-    map((action: JobAdvertisementDetailLoadedAction) => action.payload.jobAdvertisement),
-    withLatestFrom(this.authenticationService.getCurrentUser()),
-    filter(([jobAdvertisement, currentUser]) => isAuthenticatedUser(currentUser)),
-    map(([jobAdvertisement, currentUser]) => {
-      return new LoadFavouriteItemAction({
-        jobAdId: jobAdvertisement.id,
-        currentUserId: currentUser.id
-      });
-    })
-  );
-
-  @Effect()
-  loadFavouriteItem$: Observable<Action> = this.actions$.pipe(
-    ofType(LOAD_FAVOURITE_ITEM),
-    map((action: LoadFavouriteItemAction) => action.payload),
-    switchMap((payload) => {
-      return this.jobAdFavouritesRepository.getFavourite(payload.jobAdId, payload.currentUserId).pipe(
-        map(favouriteItem => {
-          return new FavouriteItemLoadedAction({ favouriteItem: favouriteItem });
-        })
-      );
-    }),
-    catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
   );
 
   @Effect()

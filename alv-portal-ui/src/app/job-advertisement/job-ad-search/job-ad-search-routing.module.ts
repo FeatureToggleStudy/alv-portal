@@ -21,7 +21,8 @@ const routes: Routes = [
   {
     path: ':id',
     component: JobDetailComponent,
-    canActivate: [JobDetailGuard]
+    canActivate: [JobDetailGuard],
+    canDeactivate: [JobDetailGuard]
   },
   {
     path: '**',
