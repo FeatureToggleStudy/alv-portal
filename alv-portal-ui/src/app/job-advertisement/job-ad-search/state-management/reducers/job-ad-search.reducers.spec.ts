@@ -282,8 +282,6 @@ describe('jobAdSearchReducers', () => {
     expect(newStateOne.details.jobAdvertisement).toEqual(selectedJobAdOne.jobAdvertisement);
     expect(newStateOne.visitedJobAds).toEqual(visitedJobAdOne);
 
-    verifyUnchanged(newStateOne, jobAdStateChanged, ['jobAdvertisement', 'visitedJobAds']);
-
     // GIVEN
     const selectedJobAdTwo = jobAdPageOne[4];
     const visitedJobAdTwo = { [selectedJobAdOne.jobAdvertisement.id]: true, [selectedJobAdTwo.jobAdvertisement.id]: true };
@@ -296,8 +294,6 @@ describe('jobAdSearchReducers', () => {
     // THEN
     expect(newStateTwo.details.jobAdvertisement).toEqual(selectedJobAdTwo.jobAdvertisement);
     expect(newStateTwo.visitedJobAds).toEqual(visitedJobAdTwo);
-
-    verifyUnchanged(newStateTwo, newStateOne, ['jobAdvertisement', 'visitedJobAds']);
   });
 
   /*----------------------END----------------------*/
