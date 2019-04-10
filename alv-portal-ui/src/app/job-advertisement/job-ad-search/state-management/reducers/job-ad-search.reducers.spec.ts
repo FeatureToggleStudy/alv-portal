@@ -268,7 +268,7 @@ describe('jobAdSearchReducers', () => {
     verifyUnchanged(newState, jobAdStateChanged, ['page', 'resultsAreLoading', 'resultList']);
   });
 
-  it('JOB_ADVERTISEMENT_DETAIL_LOADED : should update selectedJobAdvertisement and visitedJobAds', () => {
+  it('JOB_ADVERTISEMENT_DETAIL_LOADED : should update jobAdvertisement and visitedJobAds', () => {
     // GIVEN
     const selectedJobAdOne = jobAdPageOne[0];
     const visitedJobAdOne = { [selectedJobAdOne.jobAdvertisement.id]: true };
