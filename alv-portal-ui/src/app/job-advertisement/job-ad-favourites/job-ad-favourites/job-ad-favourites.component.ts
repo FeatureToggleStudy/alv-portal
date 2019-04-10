@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import {
   getJobAdFavouritesResults,
   getJobAdFavouritesSearchFilter,
-  getLastVisitedJobAd,
+  getLastVisitedJobAdId,
   JobAdFavouritesState
 } from '../state-management/state';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
@@ -87,7 +87,7 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
   }
 
   ngAfterViewInit() {
-    this.store.pipe(select(getLastVisitedJobAd), take(1))
+    this.store.pipe(select(getLastVisitedJobAdId), take(1))
       .subscribe(lastVisitedJobAd => {
         if (lastVisitedJobAd && this.scrollService.scrollIntoView(composeResultListItemId(lastVisitedJobAd))) {
           this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH);

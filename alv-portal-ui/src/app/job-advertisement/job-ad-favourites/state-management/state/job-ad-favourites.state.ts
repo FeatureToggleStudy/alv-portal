@@ -13,7 +13,7 @@ export interface JobAdFavouritesState {
   resultList: JobAdvertisementWithFavourites[];
   resultsAreLoading: boolean;
   visitedJobAds: { [id: string]: boolean; };
-  lastVisitedJobAd: string;
+  lastVisitedJobAdId: string;
   isDirtyResultList: boolean;
   detail: JobAdFavouriteDetailState;
 }
@@ -35,7 +35,7 @@ export const initialState: JobAdFavouritesState = {
   resultList: [],
   resultsAreLoading: false,
   visitedJobAds: {},
-  lastVisitedJobAd: undefined,
+  lastVisitedJobAdId: undefined,
   isDirtyResultList: true,
   detail: {
     currentIndex: undefined,
@@ -68,7 +68,7 @@ export const getJobAdFavouritesResults = createSelector(getResultList, getVisite
   });
 });
 
-export const getLastVisitedJobAd = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.lastVisitedJobAd);
+export const getLastVisitedJobAdId = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.lastVisitedJobAdId);
 
 export const getJobAdFavouritesTotalCount = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.totalCount);
 
