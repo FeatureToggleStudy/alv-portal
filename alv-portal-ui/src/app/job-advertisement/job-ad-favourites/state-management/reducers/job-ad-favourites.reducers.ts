@@ -50,7 +50,7 @@ function removeFavouriteItem(state: JobAdFavouritesState, jobAdId: string) {
 function patchFavouriteItem(state, jobAdId: string, patchedFavouriteItem: FavouriteItem) {
   const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
   if (indexToUpdate >= 0) {
-    const updatedResultList = [...state.resultList];
+    const updatedResultList = state.resultList;
     updatedResultList[indexToUpdate].favouriteItem = patchedFavouriteItem;
     return updatedResultList;
   } else {
@@ -129,12 +129,12 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
     case ADDED_JOB_AD_FAVOURITE:
     case UPDATED_JOB_AD_FAVOURITE: {
       const resultList = [...patchFavouriteItem(state, action.payload.favouriteItem.jobAdvertisementId, action.payload.favouriteItem)];
-
       if (state.detail.jobAdvertisement) {
-        const currentJobAd = state.detail.jobAdvertisement;
+        // if we are on the detail page and we removed and added the same favourite again => splice it into the result list
+        const currentJobAdId = state.detail.jobAdvertisement.id;
         const addedFavJobAdId = action.payload.favouriteItem.jobAdvertisementId;
-        const index = state.resultList.findIndex(item => item.jobAdvertisement.id === addedFavJobAdId);
-        if (index === -1 && currentJobAd.id === addedFavJobAdId) {
+        const isNotInResultList = state.resultList.findIndex(item => item.jobAdvertisement.id === addedFavJobAdId) === -1;
+        if (isNotInResultList && currentJobAdId === addedFavJobAdId) {
           resultList.splice(state.detail.currentIndex, 0, {
             favouriteItem: action.payload.favouriteItem,
             jobAdvertisement: state.detail.jobAdvertisement
