@@ -18,6 +18,7 @@ export const APPLY_FILTER = 'JOBADFAVOURITES:APPLY_FILTER';
 export const LOAD_NEXT_PAGE = 'JOBADFAVOURITES:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'JOBADFAVOURITES:NEXT_PAGE_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBADFAVOURITES:JOB_ADVERTISEMENT_DETAIL_LOADED';
+export const JOB_ADVERTISEMENT_DETAIL_UNLOADED = 'JOBADFAVOURITES:JOB_ADVERTISEMENT_DETAIL_UNLOADED';
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
 export const RESET = 'JOBADFAVOURITES:RESET';
@@ -66,6 +67,13 @@ export class JobAdvertisementDetailLoadedAction implements Action {
   }
 }
 
+export class JobAdvertisementDetailUnloadAction implements Action {
+  readonly type = JOB_ADVERTISEMENT_DETAIL_UNLOADED;
+
+  constructor(public payload: {}) {
+  }
+}
+
 export class LoadPreviousJobAdvertisementDetailAction implements Action {
   readonly type = LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL;
 
@@ -108,6 +116,7 @@ export type Actions =
   | LoadNextPageAction
   | NextPageLoadedAction
   | JobAdvertisementDetailLoadedAction
+  | JobAdvertisementDetailUnloadAction
   | RemovedJobAdFavouriteAction
   | UpdatedJobAdFavouriteAction
   | AddedJobAdFavouriteAction
