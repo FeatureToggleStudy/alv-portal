@@ -17,7 +17,7 @@ import {
 } from '../candidate-profile-badges-mapper.service';
 import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
 import { CandidateDetailModel } from './candidate-detail-model';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { findRelevantJobExperience, hasEmailContactType } from '../candidate-rules';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { CandidateProfile } from '../../shared/backend-services/candidate/candidate.types';
@@ -72,7 +72,7 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    const candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile));
+    const candidateProfile$ = this.store.pipe(select(getSelectedCandidateProfile)).pipe(filter(candidateProfile => !!candidateProfile));
 
     this.badges$ = candidateProfile$.pipe(
       map(candidateProfile => this.candidateProfileBadgesMapperService.map(candidateProfile, findRelevantJobExperience(candidateProfile)))
