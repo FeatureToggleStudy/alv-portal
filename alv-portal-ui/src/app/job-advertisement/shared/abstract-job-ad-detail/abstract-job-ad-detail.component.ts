@@ -19,7 +19,7 @@ import { ScrollService } from '../../../core/scroll.service';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ComplaintModalComponent } from '../complaint-modal/complaint-modal.component';
-import { filter, map, share, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 import { FavouriteItemDetailModel } from './favourite-item-detail.model';
 
