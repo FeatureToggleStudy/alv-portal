@@ -85,10 +85,12 @@ button.btn, a.btn {
   }
   // Toggle icon button
   &.btn-toggle-icon {
+    padding: 0;
+    font-size: 1.25em;
+    text-align: center;
     color: $color-primary;
     width: 30px;
     height: 32px;
-    padding: 0;
 
     &:hover {
       color: darken($color-primary, 10%);
