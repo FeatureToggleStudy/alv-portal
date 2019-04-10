@@ -279,7 +279,7 @@ describe('jobAdSearchReducers', () => {
     const newStateOne = jobAdSearchReducer(jobAdStateChanged, action);
 
     // THEN
-    expect(newStateOne.selectedJobAdvertisement).toEqual(selectedJobAdOne.jobAdvertisement);
+    expect(newStateOne.details.jobAdvertisement).toEqual(selectedJobAdOne.jobAdvertisement);
     expect(newStateOne.visitedJobAds).toEqual(visitedJobAdOne);
 
     verifyUnchanged(newStateOne, jobAdStateChanged, ['jobAdvertisement', 'visitedJobAds']);
@@ -294,7 +294,7 @@ describe('jobAdSearchReducers', () => {
     const newStateTwo = jobAdSearchReducer(newStateOne, action);
 
     // THEN
-    expect(newStateTwo.selectedJobAdvertisement).toEqual(selectedJobAdTwo.jobAdvertisement);
+    expect(newStateTwo.details.jobAdvertisement).toEqual(selectedJobAdTwo.jobAdvertisement);
     expect(newStateTwo.visitedJobAds).toEqual(visitedJobAdTwo);
 
     verifyUnchanged(newStateTwo, newStateOne, ['jobAdvertisement', 'visitedJobAds']);
