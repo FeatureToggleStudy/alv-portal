@@ -32,7 +32,7 @@
                              routerLinkBase="/job-favourites">
       </alv-job-search-result>
     </ng-container>
-    <ng-container *ngIf="!jobs.length">
+    <ng-container *ngIf="!jobs.length && !(isLoading$ | async)">
       <div class="no-favourites p-3 mb-3"
            *ngIf="!(hasCustomFilterApplied$ | async); else searchReturnedEmptyResult">
         <h3>{{'portal.job-ad-favourites.empty.title' | translate}}</h3>

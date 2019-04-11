@@ -60,6 +60,8 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   hasCustomFilterApplied$: Observable<boolean>;
 
+  isLoading$: Observable<boolean>;
+
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private fb: FormBuilder,
@@ -81,7 +83,7 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
       filter(value => !!value)
     );
 
-    this.store.pipe(select(isLoading)).pipe(
+    this.isLoading$ = this.store.pipe(select(isLoading)).pipe(
       distinctUntilChanged(),
       tap(loading => {
         if (loading) {
@@ -89,9 +91,7 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
         } else {
           this.blockUI.stop();
         }
-      }),
-      takeUntil(this.ngUnsubscribe))
-      .subscribe();
+      }));
 
     this.hasCustomFilterApplied$ = this.store.pipe(select(hasCustomFilterApplied));
 
