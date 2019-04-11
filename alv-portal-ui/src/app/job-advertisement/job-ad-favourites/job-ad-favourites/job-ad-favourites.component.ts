@@ -72,7 +72,7 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
       query: ['']
     });
 
-    this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults))
+    this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults));
 
     this.isLoading$ = this.store.pipe(select(isLoading)).pipe(
       distinctUntilChanged(),

@@ -78,7 +78,7 @@ export class JobAdFavouritesEffects {
           catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
         );
       } else {
-        return of(new ResultListInitializedAction())
+        return of(new ResultListInitializedAction());
       }
     })
   );
