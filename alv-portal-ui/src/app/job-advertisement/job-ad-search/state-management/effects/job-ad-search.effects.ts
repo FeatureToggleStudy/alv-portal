@@ -146,7 +146,7 @@ export class JobAdSearchEffects {
   loadNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
     withLatestFrom(this.store.pipe(select(hasNextPage))),
-    filter(([action, hasNextPage]) => hasNextPage),
+    filter(([action, nextPageAvailable]) => nextPageAvailable),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
     concatMap(([action, state]) => {
@@ -161,7 +161,7 @@ export class JobAdSearchEffects {
   loadNoMoreNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
     withLatestFrom(this.store.pipe(select(hasNextPage))),
-    filter(([action, hasNextPage]) => !hasNextPage),
+    filter(([action, nextPageAvailable]) => !nextPageAvailable),
     map(() => {
       return new NextPageNotAvailableAction({});
     })

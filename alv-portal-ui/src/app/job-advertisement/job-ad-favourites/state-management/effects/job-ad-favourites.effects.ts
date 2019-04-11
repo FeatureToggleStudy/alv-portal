@@ -111,7 +111,7 @@ export class JobAdFavouritesEffects {
   loadNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
     withLatestFrom(this.store.pipe(select(hasNextPage))),
-    filter(([action, hasNextPage]) => hasNextPage),
+    filter(([action, nextPageAvailable]) => nextPageAvailable),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
     concatMap(([action, state, currentUser]) => this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page + 1), currentUser.id).pipe(
@@ -124,7 +124,7 @@ export class JobAdFavouritesEffects {
   loadNoMoreNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
     withLatestFrom(this.store.pipe(select(hasNextPage))),
-    filter(([action, hasNextPage]) => !hasNextPage),
+    filter(([action, nextPageAvailable]) => !nextPageAvailable),
     map(() => {
       return new NextPageNotAvailableAction({});
     })
