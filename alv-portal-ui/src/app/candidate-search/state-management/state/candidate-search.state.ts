@@ -45,7 +45,7 @@ export const initialState: CandidateSearchState = {
     drivingLicenceCategory: null,
     languageSkills: []
   },
-  resultList: undefined,
+  resultList: [],
   selectedCandidateProfile: null,
   resultsAreLoading: false,
   visitedCandidates: {},
@@ -79,8 +79,6 @@ export const getCandidateSearchFilter = createSelector(getCandidateSearchState, 
 
 export const getTotalCount = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.totalCount);
 
-export const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
-
 export const getVisitedCandidates = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.visitedCandidates);
 
 export const getResultsAreLoading = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultsAreLoading);
@@ -89,8 +87,12 @@ export const getSelectedCandidateProfile = createSelector(getCandidateSearchStat
 
 export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations);
 
-export const getCandidateSearchResults = createSelector(getResultList, getVisitedCandidates, (resultList, visitedCandidates) => {
-  if (!resultList) {
+const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
+
+const isDirtyResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.isDirtyResultList);
+
+export const getCandidateSearchResults = createSelector(isDirtyResultList, getResultList, getVisitedCandidates, (dirty, resultList, visitedCandidates) => {
+  if (dirty) {
     return undefined;
   }
   return resultList.map((candidateProfile) => {
