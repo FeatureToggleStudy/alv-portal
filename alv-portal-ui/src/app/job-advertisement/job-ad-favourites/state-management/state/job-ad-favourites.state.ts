@@ -32,7 +32,7 @@ export const initialState: JobAdFavouritesState = {
   filter: {
     query: ''
   },
-  resultList: undefined,
+  resultList: [],
   resultsAreLoading: false,
   visitedJobAds: {},
   lastVisitedJobAdId: undefined,
@@ -50,16 +50,18 @@ export const getJobAdFavouritesState = createFeatureSelector<JobAdFavouritesStat
 
 export const getJobAdFavouritesSearchFilter = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.filter);
 
-export const getResultList = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.resultList);
-
 export const getVisitedJobAds = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.visitedJobAds);
 
 export const getFavouriteItem = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.detail.favouriteItem);
 
 export const getCurrentIndex = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.detail.currentIndex);
 
-export const getJobAdFavouritesResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
-  if (!resultList) {
+const isDirtyResultList = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.isDirtyResultList);
+
+const getResultList = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.resultList);
+
+export const getJobAdFavouritesResults = createSelector(isDirtyResultList, getResultList, getVisitedJobAds, (dirty, resultList, visitedJobAds) => {
+  if (dirty) {
     return undefined;
   }
   return resultList.map((item) => {

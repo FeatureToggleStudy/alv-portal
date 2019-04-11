@@ -36,7 +36,7 @@ export const initialState: JobAdSearchState = {
     keywords: [],
     localities: []
   },
-  resultList: undefined,
+  resultList: [],
   details: {
     favouriteItem: undefined,
     jobAdvertisement: undefined,
@@ -51,8 +51,6 @@ export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobA
 
 export const getTotalCount = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.totalCount);
 
-export const getResultList = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultList);
-
 export const getVisitedJobAds = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.visitedJobAds);
 
 export const getJobSearchFilter = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.jobSearchFilter);
@@ -63,12 +61,14 @@ export const getFavouriteItem = createSelector(getJobAdSearchState, (state: JobA
 
 export const getLastVisitedJobAdId = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.lastVisitedJobAdId);
 
-export const isLoading = createSelector(getJobAdSearchState, (state) => {
-  return state.resultsAreLoading;
-});
+export const isLoading = createSelector(getJobAdSearchState, (state) => state.resultsAreLoading);
 
-export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
-  if (!resultList) {
+export const isDirtyResultList = createSelector(getJobAdSearchState, (state) => state.isDirtyResultList);
+
+const getResultList = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultList);
+
+export const getJobSearchResults = createSelector(isDirtyResultList, getResultList, getVisitedJobAds, (dirty, resultList, visitedJobAds) => {
+  if (dirty) {
     return undefined;
   }
   return resultList.map((item) => {
