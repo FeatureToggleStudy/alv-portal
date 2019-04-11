@@ -24,7 +24,8 @@ import {
 import {
   getJobAdFavouritesState,
   getNextId,
-  getPrevId, hasNextPage,
+  getPrevId,
+  hasNextPage,
   JobAdFavouritesState
 } from '../state';
 import {
@@ -37,7 +38,8 @@ import {
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
-  NextPageLoadedAction, NextPageNotAvailableAction,
+  NextPageLoadedAction,
+  NextPageNotAvailableAction,
   ResetAction,
   ResultListAlreadyInitializedAction
 } from '../actions';
@@ -47,6 +49,7 @@ import { Router } from '@angular/router';
 import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { JobAdFavouritesSearchRequestMapper } from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import { User } from '../../../../core/auth/user.model';
 
 export const JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE');
 export const JOB_AD_FAVOURITES_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_FAVOURITES_EFFECTS_SCHEDULER');
@@ -69,8 +72,9 @@ export class JobAdFavouritesEffects {
     ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe<JobAdFavouritesState>(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
     filter(([action, state]) => state.isDirtyResultList),
-    switchMap(([action, state, user]) => {
-      return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
+    switchMap(([action, state, user]: [Action, JobAdFavouritesState, User]) => {
+      const request = JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page);
+      return this.jobAdFavouritesRepository.searchFavourites(request, user.id).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount
@@ -93,11 +97,11 @@ export class JobAdFavouritesEffects {
   @Effect()
   applyFilter$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER),
-    map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe<JobAdFavouritesState>(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
-    switchMap(([JobAdFavouritesSearchFilter, state, currentUser]) => {
-      return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(JobAdFavouritesSearchFilter, state.page), currentUser.id).pipe(
+    switchMap(([action, state, currentUser]: [ApplyFilterAction, JobAdFavouritesState, User]) => {
+      const request = JobAdFavouritesSearchRequestMapper.mapToRequest(action.payload, state.page);
+      return this.jobAdFavouritesRepository.searchFavourites(request, currentUser.id).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount

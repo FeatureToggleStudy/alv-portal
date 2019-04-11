@@ -71,9 +71,10 @@ export class ManageJobAdsEffects {
   initResultList$ = this.actions$.pipe(
     ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe<ManageJobAdsState>(select(getManageJobAdsState)), this.store.pipe<CompanyContactTemplateModel>(select(getCurrentCompanyContactTemplateModel))),
-    filter(([action, state, company]) => state.isDirtyResultList),
-    switchMap(([action, state, company]) => {
-      return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
+    filter(([action, state]) => state.isDirtyResultList),
+    switchMap(([action, state, company]: [Action, ManageJobAdsState, CompanyContactTemplateModel]) => {
+      const request = ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId);
+      return this.jobAdvertisementRepository.searchManagedJobAds(request).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount
@@ -96,11 +97,11 @@ export class ManageJobAdsEffects {
   @Effect()
   applyFilter$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER),
-    map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe<ManageJobAdsState>(select(getManageJobAdsState)), this.store.pipe<CompanyContactTemplateModel>(select(getCurrentCompanyContactTemplateModel))),
-    switchMap(([managedJobAdsSearchFilter, state, company]) => {
-      return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(managedJobAdsSearchFilter, state.page, company.companyExternalId)).pipe(
+    switchMap(([action, state, company]: [ApplyFilterAction, ManageJobAdsState, CompanyContactTemplateModel]) => {
+      const request = ManagedJobAdsSearchRequestMapper.mapToRequest(action.payload, state.page, company.companyExternalId);
+      return this.jobAdvertisementRepository.searchManagedJobAds(request).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount

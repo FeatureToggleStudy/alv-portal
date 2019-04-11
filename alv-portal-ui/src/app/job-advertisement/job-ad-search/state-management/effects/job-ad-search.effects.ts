@@ -16,11 +16,11 @@ import {
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
+  NextPageNotAvailableAction,
   OccupationLanguageChangedAction,
   RESET_FILTER,
   ResetAction,
-  ResultListAlreadyInitializedAction,
-  NextPageNotAvailableAction
+  ResultListAlreadyInitializedAction
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
@@ -39,8 +39,9 @@ import {
   getJobSearchFilter,
   getNextId,
   getPrevId,
+  hasNextPage,
   JobAdSearchState,
-  hasNextPage, JobSearchFilter
+  JobSearchFilter
 } from '../state';
 import { JobSearchRequestMapper } from './job-search-request.mapper';
 import { Router } from '@angular/router';
@@ -80,7 +81,7 @@ export class JobAdSearchEffects {
     ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe<JobAdSearchState>(select(getJobAdSearchState))),
     filter(([action, state]) => state.isDirtyResultList),
-    switchMap(([action, state]) => {
+    switchMap(([action, state]: [Action, JobAdSearchState]) => {
       const request = JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page);
       return this.jobAdvertisementRepository.search(request).pipe(
         map((response) => new FilterAppliedAction({
@@ -105,16 +106,18 @@ export class JobAdSearchEffects {
   @Effect()
   applyFilter$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER),
-    map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe<JobAdSearchState>(select(getJobAdSearchState))),
-    switchMap(([jobSearchFilter, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(jobSearchFilter, state.page)).pipe(
-      map((response) => new FilterAppliedAction({
-        page: response.result,
-        totalCount: response.totalCount
-      })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-    ))
+    switchMap(([action, state]: [ApplyFilterAction, JobAdSearchState]) => {
+      const request = JobSearchRequestMapper.mapToRequest(action.payload, state.page);
+      return this.jobAdvertisementRepository.search(request).pipe(
+        map((response) => new FilterAppliedAction({
+          page: response.result,
+          totalCount: response.totalCount
+        })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    })
   );
 
   @Effect()
