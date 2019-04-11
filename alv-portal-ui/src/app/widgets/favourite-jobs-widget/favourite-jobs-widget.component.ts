@@ -32,7 +32,7 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
 
   IconKey = IconKey;
 
-  jobFavourites$: Observable<JobSearchResult[]>; //todo replace with observable and async
+  jobFavourites$: Observable<JobSearchResult[]>;
 
   currentUser$: Observable<User>;
 

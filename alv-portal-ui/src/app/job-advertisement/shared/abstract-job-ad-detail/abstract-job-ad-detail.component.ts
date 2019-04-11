@@ -1,11 +1,11 @@
-import { AfterViewInit, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   Notification,
   NotificationType
 } from '../../../shared/layout/notifications/notification.model';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { JobDetailModel } from '../job-detail-model';
 import { JobBadge, JobBadgesMapperService } from '../job-badges-mapper.service';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
@@ -19,10 +19,8 @@ import { ScrollService } from '../../../core/scroll.service';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ComplaintModalComponent } from '../complaint-modal/complaint-modal.component';
-import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { isNotAuthenticatedUser } from '../../../core/auth/user.model';
 import { FavouriteItemDetailModel } from './favourite-item-detail.model';
 
 export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
@@ -72,8 +70,7 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     protected jobDetailModelFactory: JobDetailModelFactory,
     private scrollService: ScrollService,
     private notificationsService: NotificationsService,
-    private modalService: ModalService,
-    private authenticationService: AuthenticationService) {
+    private modalService: ModalService) {
     super();
   }
 
@@ -94,13 +91,14 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     this.badges$ = job$.pipe(map(job => this.jobBadgesMapperService.map(job)));
     this.prevEnabled$ = this.isPrevVisible();
     this.nextEnabled$ = this.isNextVisible();
-
-    this.favouriteItemDetailModel$ = combineLatest(this.authenticationService.getCurrentUser(), this.loadFavourite())
-      .pipe(
-        map(([currentUser, favouriteItem]) => {
-          if (isNotAuthenticatedUser(currentUser)) {
-            return null;
-          }
+    this.favouriteItemDetailModel$ =
+      this.loadFavourite().pipe(
+        filter((favouriteItem) => {
+          // if the favouriteItem is undefined then it has not been loaded yet due the
+          // the the current-user has not the privileges to do so or it's still being fetched
+          return favouriteItem !== undefined;
+        }),
+        map((favouriteItem) => {
           return new FavouriteItemDetailModel(favouriteItem);
         })
       );

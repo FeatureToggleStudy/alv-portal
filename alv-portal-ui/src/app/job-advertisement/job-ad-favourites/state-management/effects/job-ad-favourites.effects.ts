@@ -38,12 +38,7 @@ import {
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
-  ResetAction,
-  JOB_ADVERTISEMENT_DETAIL_LOADED,
-  JobAdvertisementDetailLoadedAction,
-  LoadFavouriteItemAction,
-  LOAD_FAVOURITE_ITEM,
-  FavouriteItemLoadedAction
+  ResetAction
 } from '../actions';
 import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
@@ -51,7 +46,6 @@ import { Router } from '@angular/router';
 import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { JobAdFavouritesSearchRequestMapper } from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { isAuthenticatedUser } from '../../../../core/auth/user.model';
 
 export const JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE');
 export const JOB_AD_FAVOURITES_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_FAVOURITES_EFFECTS_SCHEDULER');
@@ -83,34 +77,6 @@ export class JobAdFavouritesEffects {
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       );
     })
-  );
-
-  @Effect()
-  jobAdvertisementDetailLoaded$: Observable<Action> = this.actions$.pipe(
-    ofType(JOB_ADVERTISEMENT_DETAIL_LOADED),
-    map((action: JobAdvertisementDetailLoadedAction) => action.payload.jobAdvertisement),
-    withLatestFrom(this.authenticationService.getCurrentUser()),
-    filter(([jobAdvertisement, currentUser]) => isAuthenticatedUser(currentUser)),
-    map(([jobAdvertisement, currentUser]) => {
-      return new LoadFavouriteItemAction({
-        jobAdId: jobAdvertisement.id,
-        currentUserId: currentUser.id
-      });
-    })
-  );
-
-  @Effect()
-  loadFavouriteItem$: Observable<Action> = this.actions$.pipe(
-    ofType(LOAD_FAVOURITE_ITEM),
-    map((action: LoadFavouriteItemAction) => action.payload),
-    switchMap((payload) => {
-      return this.jobAdFavouritesRepository.getFavourite(payload.jobAdId, payload.currentUserId).pipe(
-        map(favouriteItem => {
-          return new FavouriteItemLoadedAction({ favouriteItem: favouriteItem });
-        })
-      );
-    }),
-    catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
   );
 
   @Effect()

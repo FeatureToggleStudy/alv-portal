@@ -25,6 +25,8 @@ export const LOAD_NEXT_PAGE = 'JOBS:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'JOBS:NEXT_PAGE_LOADED';
 
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_LOADED';
+export const JOB_ADVERTISEMENT_DETAIL_UNLOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_UNLOADED';
+
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
 
@@ -37,7 +39,6 @@ export const RESET = 'JOBS:RESET';
 
 export const FAVOURITE_ITEM_LOADED = 'JOBS:FAVOURITE_ITEM_LOADED';
 
-export const LOAD_FAVOURITE_ITEM = 'JOBS:LOAD_FAVOURITE_ITEM';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -127,6 +128,13 @@ export class JobAdvertisementDetailLoadedAction implements Action {
   }
 }
 
+export class JobAdvertisementDetailUnloadedAction implements Action {
+  readonly type = JOB_ADVERTISEMENT_DETAIL_UNLOADED;
+
+  constructor(public payload: {}) {
+  }
+}
+
 export class LoadPreviousJobAdvertisementDetailAction implements Action {
   readonly type = LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL;
 
@@ -158,13 +166,6 @@ export class ResetAction implements Action {
   }
 }
 
-export class LoadFavouriteItemAction implements Action {
-  readonly type = LOAD_FAVOURITE_ITEM;
-
-  constructor(public payload: { jobAdId: string, currentUserId: string }) {
-  }
-}
-
 export class FavouriteItemLoadedAction implements Action {
   readonly type = FAVOURITE_ITEM_LOADED;
 
@@ -179,6 +180,7 @@ export type Actions =
   | LoadNextPageAction
   | NextPageLoadedAction
   | JobAdvertisementDetailLoadedAction
+  | JobAdvertisementDetailUnloadedAction
   | LoadPreviousJobAdvertisementDetailAction
   | LoadNextJobAdvertisementDetailAction
   | ResetFilterAction
@@ -191,5 +193,4 @@ export type Actions =
   | OccupationLanguageChangedAction
   | UpdatedJobAdFavouriteAction
   | ResetAction
-  | FavouriteItemLoadedAction
-  | LoadFavouriteItemAction;
+  | FavouriteItemLoadedAction;

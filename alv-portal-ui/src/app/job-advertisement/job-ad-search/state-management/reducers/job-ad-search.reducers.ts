@@ -6,7 +6,7 @@ import {
   APPLY_QUERY_VALUES,
   FAVOURITE_ITEM_LOADED,
   FILTER_APPLIED,
-  JOB_ADVERTISEMENT_DETAIL_LOADED,
+  JOB_ADVERTISEMENT_DETAIL_LOADED, JOB_ADVERTISEMENT_DETAIL_UNLOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
@@ -119,13 +119,27 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       };
       break;
 
+    case JOB_ADVERTISEMENT_DETAIL_UNLOADED: {
+      newState = {
+        ...state,
+        details: {
+          ...initialState.details,
+        }
+      };
+      break;
+    }
+
     case JOB_ADVERTISEMENT_DETAIL_LOADED:
       const currentVisited = state.visitedJobAds;
       currentVisited[action.payload.jobAdvertisement.id] = true;
       newState = {
         ...state,
-        selectedJobAdvertisement: action.payload.jobAdvertisement,
-        visitedJobAds: { ...currentVisited }
+        visitedJobAds: { ...currentVisited },
+        lastVisitedJobAdId: action.payload.jobAdvertisement.id,
+        details: {
+          ...state.details,
+          jobAdvertisement: action.payload.jobAdvertisement
+        }
       };
       break;
 
@@ -134,7 +148,10 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       newState = {
         ...state,
         resultList: patchFavouriteItem(state, action.payload.favouriteItem.jobAdvertisementId, action.payload.favouriteItem),
-        favouriteItem: action.payload.favouriteItem
+        details: {
+          ...state.details,
+          favouriteItem: action.payload.favouriteItem
+        }
       };
       break;
     }
@@ -143,7 +160,10 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       newState = {
         ...state,
         resultList: patchFavouriteItem(state, action.payload.removedFavouriteItem.jobAdvertisementId, null),
-        favouriteItem: null
+        details: {
+          ...state.details,
+          favouriteItem: null
+        }
       };
       break;
     }
@@ -151,7 +171,10 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
     case FAVOURITE_ITEM_LOADED: {
       newState = {
         ...state,
-        favouriteItem: action.payload.favouriteItem
+        details: {
+          ...state.details,
+          favouriteItem: action.payload.favouriteItem
+        }
       };
       break;
     }

@@ -116,6 +116,7 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       newState = {
         ...state,
         visitedJobAds: { ...currentVisited },
+        lastVisitedJobAdId: action.payload.jobAdvertisement.id,
         detail: {
           ...state.detail,
           jobAdvertisement: action.payload.jobAdvertisement,

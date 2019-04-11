@@ -23,7 +23,6 @@ export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_PREV
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
 export const RESET = 'JOBADFAVOURITES:RESET';
 export const FAVOURITE_ITEM_LOADED = 'JOBADFAVOURITES:FAVOURITE_ITEM_LOADED';
-export const LOAD_FAVOURITE_ITEM = 'JOBADFAVOURITES:LOAD_FAVOURITE_ITEM';
 
 export class InitResultListAction implements Action {
   readonly type = INIT_RESULT_LIST;
@@ -92,13 +91,6 @@ export class ResetAction implements Action {
   readonly type = RESET;
 
   constructor(public payload = {}) {
-  }
-}
-
-export class LoadFavouriteItemAction implements Action {
-  readonly type = LOAD_FAVOURITE_ITEM;
-
-  constructor(public payload: { jobAdId: string, currentUserId: string }) {
   }
 }
 

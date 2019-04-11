@@ -11,10 +11,13 @@ export interface JobAdSearchState {
   page: number;
   jobSearchFilter: JobSearchFilter;
   resultList: JobAdvertisementWithFavourites[];
-  selectedJobAdvertisement: JobAdvertisement;
-  favouriteItem: FavouriteItem;
   resultsAreLoading: boolean;
+  details: {
+    jobAdvertisement: JobAdvertisement;
+    favouriteItem: FavouriteItem;
+  };
   visitedJobAds: { [id: string]: boolean; };
+  lastVisitedJobAdId: string;
   isDirtyResultList: boolean;
 }
 
@@ -34,13 +37,15 @@ export const initialState: JobAdSearchState = {
     localities: []
   },
   resultList: [],
-  selectedJobAdvertisement: null,
-  favouriteItem: undefined,
+  details: {
+    favouriteItem: undefined,
+    jobAdvertisement: undefined,
+  },
   resultsAreLoading: false,
   visitedJobAds: {},
+  lastVisitedJobAdId: undefined,
   isDirtyResultList: true
 };
-
 
 export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobAdSearch');
 
@@ -52,11 +57,13 @@ export const getVisitedJobAds = createSelector(getJobAdSearchState, (state: JobA
 
 export const getJobSearchFilter = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.jobSearchFilter);
 
-export const getSelectedJobAdvertisement = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.selectedJobAdvertisement);
+export const getJobAdvertisement = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.details.jobAdvertisement);
 
 export const getResultsAreLoading = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultsAreLoading);
 
-export const getFavouriteItem = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.favouriteItem);
+export const getFavouriteItem = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.details.favouriteItem);
+
+export const getLastVisitedJobAdId = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.lastVisitedJobAdId);
 
 export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
   return resultList.map((item) => {
@@ -68,7 +75,7 @@ export const getJobSearchResults = createSelector(getResultList, getVisitedJobAd
   });
 });
 
-export const getPrevId = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, current) => {
+export const getPrevId = createSelector(getResultList, getJobAdvertisement, (resultList, current) => {
   if (current) {
     const ids = resultList.map((item) => item.jobAdvertisement.id);
     const idx = ids.findIndex(id => id === current.id);
@@ -79,7 +86,7 @@ export const getPrevId = createSelector(getResultList, getSelectedJobAdvertiseme
   return null;
 });
 
-export const getNextId = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, current) => {
+export const getNextId = createSelector(getResultList, getJobAdvertisement, (resultList, current) => {
   if (current) {
     const ids = resultList.map((item) => item.jobAdvertisement.id);
     const idx = ids.findIndex(id => id === current.id);
@@ -90,7 +97,7 @@ export const getNextId = createSelector(getResultList, getSelectedJobAdvertiseme
   return null;
 });
 
-export const isPrevVisible = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, selectedJobAdvertisement) => {
+export const isPrevVisible = createSelector(getResultList, getJobAdvertisement, (resultList, selectedJobAdvertisement) => {
   if (selectedJobAdvertisement) {
     return resultList
       .map((item) => item.jobAdvertisement.id)
@@ -100,7 +107,7 @@ export const isPrevVisible = createSelector(getResultList, getSelectedJobAdverti
   return false;
 });
 
-export const isNextVisible = createSelector(getResultList, getSelectedJobAdvertisement, getTotalCount, (resultList, current, totalCount) => {
+export const isNextVisible = createSelector(getResultList, getJobAdvertisement, getTotalCount, (resultList, current, totalCount) => {
   if (current) {
     return resultList
       .map((item) => item.jobAdvertisement.id)

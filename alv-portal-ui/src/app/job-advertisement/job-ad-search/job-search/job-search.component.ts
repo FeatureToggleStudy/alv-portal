@@ -16,8 +16,8 @@ import {
   FILTER_APPLIED,
   getJobSearchFilter,
   getJobSearchResults,
+  getLastVisitedJobAdId,
   getResultsAreLoading,
-  getSelectedJobAdvertisement,
   getTotalCount,
   JobAdSearchState,
   JobSearchFilter,
@@ -117,10 +117,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     this.detectSearchPanelHeight();
     // Add resize listener to recalculate UI on window resize
     this.window.addEventListener('resize', this.detectSearchPanelHeightFn);
-    this.store.pipe(select(getSelectedJobAdvertisement))
+    this.store.pipe(select(getLastVisitedJobAdId))
       .pipe(take(1))
-      .subscribe(job => {
-        if (job && this.scrollService.scrollIntoView(composeResultListItemId(job.id))) {
+      .subscribe(lastVisitedJobAdId => {
+        if (lastVisitedJobAdId && this.scrollService.scrollIntoView(composeResultListItemId(lastVisitedJobAdId))) {
           this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH - this.searchPanelHeight);
         } else {
           this.scrollService.scrollToTop();

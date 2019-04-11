@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   getJobAdFavouritesResults,
   getJobAdFavouritesSearchFilter,
+  getLastVisitedJobAdId,
   JobAdFavouritesState
 } from '../state-management/state';
 import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
@@ -26,13 +27,16 @@ import {
   CONFIRM_DELETE_FAVOURITE_MODAL,
   CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
 } from './job-ad-favourites.types';
+import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
+import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'alv-job-ad-favourites',
   templateUrl: './job-ad-favourites.component.html',
   styleUrls: ['./job-ad-favourites.component.scss']
 })
-export class JobAdFavouritesComponent extends AbstractSubscriber implements OnInit {
+export class JobAdFavouritesComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
   IconKey = IconKey;
 
@@ -49,6 +53,7 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
               private scrollService: ScrollService,
               private authenticationService: AuthenticationService,
               private store: Store<JobAdFavouritesState>,
+              private route: ActivatedRoute,
               private modalService: ModalService) {
     super();
   }
@@ -79,6 +84,17 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
     this.currentUser$ = this.authenticationService.getCurrentUser();
 
     this.currentLanguage$ = this.i18nService.currentLanguage$;
+  }
+
+  ngAfterViewInit() {
+    this.store.pipe(select(getLastVisitedJobAdId), take(1))
+      .subscribe(lastVisitedJobAdId => {
+        if (lastVisitedJobAdId && this.scrollService.scrollIntoView(composeResultListItemId(lastVisitedJobAdId))) {
+          this.scrollService.scrollBy(0, LayoutConstants.SCROLL_Y_SEARCH);
+        } else {
+          this.scrollService.scrollToTop();
+        }
+      });
   }
 
   onScroll() {
