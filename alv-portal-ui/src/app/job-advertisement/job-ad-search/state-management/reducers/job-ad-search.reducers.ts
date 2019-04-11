@@ -24,6 +24,9 @@ import {
 import { FavouriteItem } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 function patchFavouriteItem(state: JobAdSearchState, jobAdId: string, patchedFavouriteItem: FavouriteItem) {
+  if (!state.resultList) {
+    return state.resultList;
+  }
   const indexToUpdate = state.resultList.findIndex(item => item.jobAdvertisement.id === jobAdId);
   if (indexToUpdate >= 0) {
     const updatedResultList = [...state.resultList];
