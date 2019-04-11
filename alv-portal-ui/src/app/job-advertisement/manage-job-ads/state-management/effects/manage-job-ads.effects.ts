@@ -26,14 +26,15 @@ import {
   APPLY_FILTER,
   ApplyFilterAction,
   FilterAppliedAction,
-  INIT_RESULT_LIST,
+  INITIALIZE_RESULT_LIST,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
-  ResetAction
+  ResetAction,
+  ResultListInitializedAction
 } from '../actions';
 import { getCurrentCompanyContactTemplateModel } from '../../../../core/state-management/state/core.state.ts';
 import { ManagedJobAdsSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -59,17 +60,20 @@ export class ManageJobAdsEffects {
 
   @Effect()
   initJobSearch$ = this.actions$.pipe(
-    ofType(INIT_RESULT_LIST),
+    ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
-    filter(([a, state]) => state.isDirtyResultList),
     switchMap(([action, state, company]) => {
-      return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
-        map((response) => new FilterAppliedAction({
-          page: response.result,
-          totalCount: response.totalCount
-        })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-      );
+      if (state.isDirtyResultList) {
+        return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
+          map((response) => new FilterAppliedAction({
+            page: response.result,
+            totalCount: response.totalCount
+          })),
+          catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+        );
+      } else {
+        return of(new ResultListInitializedAction());
+      }
     })
   );
 
