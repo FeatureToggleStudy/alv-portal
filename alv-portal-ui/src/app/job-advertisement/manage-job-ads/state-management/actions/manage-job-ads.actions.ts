@@ -2,8 +2,8 @@ import { Action } from '@ngrx/store';
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { ManagedJobAdsSearchFilter } from '../../../../widgets/manage-job-ads-widget/job-ad-management-table/job-ad-management.table-types';
 
-export const INITIALIZE_RESULT_LIST = 'JOBS:INITIALIZE_RESULT_LIST';
-export const RESULT_LIST_INITIALIZED = 'JOBS:RESULT_LIST_INITIALIZED';
+export const INITIALIZE_RESULT_LIST = 'MANAGEJOBADS:INITIALIZE_RESULT_LIST';
+export const RESULT_LIST_INITIALIZED = 'MANAGEJOBADS:RESULT_LIST_INITIALIZED';
 export const FILTER_APPLIED = 'MANAGEJOBADS:FILTER_APPLIED';
 export const APPLY_FILTER = 'MANAGEJOBADS:APPLY_FILTER';
 export const LOAD_NEXT_PAGE = 'MANAGEJOBADS:LOAD_NEXT_PAGE';
