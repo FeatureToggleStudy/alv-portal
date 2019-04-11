@@ -44,7 +44,6 @@
     </ng-container>
 
     <ng-container class="main-column">
-
       <h2 class="sr-only">
         Stellen Suchresultate
       </h2>
@@ -58,10 +57,10 @@
                                (removeFavourite)="removeFavourite($event)"
                                routerLinkBase="/job-search">
         </alv-job-search-result>
+        <div *ngIf="!jobSearchResults.length">
+          {{'global.common-phrases.no-results-found' | translate}}
+        </div>
       </ng-container>
-      <div *ngIf="!(hasFoundResults$ | async)">
-        {{'global.common-phrases.no-results-found' | translate}}
-      </div>
     </ng-container>
 
     <ng-container class="right-column">

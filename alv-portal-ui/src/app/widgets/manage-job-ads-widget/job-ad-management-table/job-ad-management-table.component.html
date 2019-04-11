@@ -1,97 +1,100 @@
-<div class="table-responsive-sm"
-     *ngIf="rows?.length; else noResults">
-  <table class="table table-sm d-block d-md-table"
-         role="grid">
-    <thead role="presentation">
-    <tr role="row"
-        class="d-none d-md-table-row">
-      <th scope="col"
-          role="columnheader"
-          class="clickable-column-header"
-          *ngFor="let columnDefinition of columnDefinitions"
-          (click)="changeColumnSort(columnDefinition)"
-          [ngClass]="{'active-sort': currentSorting.column === columnDefinition.column}">
-        <span>{{ columnDefinition.columnName | translate }}</span>
-        <ng-container *ngIf="columnDefinition.sortingEnabled">
-          <ng-container *ngIf="currentSorting.column === columnDefinition.column; else placeholder">
-            <fa-icon class="ml-2 text-primary"
-                     *ngIf="currentSorting.direction === SortDirection.DESC"
-                     [icon]="['fas', 'sort-down']">
-            </fa-icon>
-            <fa-icon class="ml-2 text-primary"
-                     *ngIf="currentSorting.direction === SortDirection.ASC"
-                     [icon]="['fas', 'sort-up']">
-            </fa-icon>
+<div *ngIf="rows">
+  <div class="table-responsive-sm"
+       *ngIf="rows.length">
+    <table class="table table-sm d-block d-md-table"
+           role="grid">
+      <thead role="presentation">
+      <tr role="row"
+          class="d-none d-md-table-row">
+        <th scope="col"
+            role="columnheader"
+            class="clickable-column-header"
+            *ngFor="let columnDefinition of columnDefinitions"
+            (click)="changeColumnSort(columnDefinition)"
+            [ngClass]="{'active-sort': currentSorting.column === columnDefinition.column}">
+          <span>{{ columnDefinition.columnName | translate }}</span>
+          <ng-container *ngIf="columnDefinition.sortingEnabled">
+            <ng-container *ngIf="currentSorting.column === columnDefinition.column; else placeholder">
+              <fa-icon class="ml-2 text-primary"
+                       *ngIf="currentSorting.direction === SortDirection.DESC"
+                       [icon]="['fas', 'sort-down']">
+              </fa-icon>
+              <fa-icon class="ml-2 text-primary"
+                       *ngIf="currentSorting.direction === SortDirection.ASC"
+                       [icon]="['fas', 'sort-up']">
+              </fa-icon>
+            </ng-container>
           </ng-container>
-        </ng-container>
-      </th>
-      <th scope="col"
-          role="columnheader">
-        <span class="sr-only">{{ 'dashboard.job-publication.action' | translate }}</span>
-      </th>
-    </tr>
-    </thead>
-    <tbody (scrolled)="onScroll()"
-           [fromRoot]="true"
-           [infiniteScrollThrottle]="50"
-           [immediateCheck]="true"
-           infiniteScroll
-           role="presentation">
-    <tr *ngFor="let row of rows"
-        (click)="open(row)"
-        class="tr-content d-block d-md-table-row"
-        role="row">
-      <td *ngFor="let column of columnDefinitions; let i=index"
-          class="content-cell align-middle d-block d-md-table-cell"
-          role="gridcell">
-        <div class="d-inline-block mr-1 d-md-none">
-          <strong>{{ columnDefinitions[i].columnName | translate }}:</strong></div>
-        <span [innerHTML]="column.render(row.jobAdvertisement) || '&mdash;' | translate"></span>
-      </td>
-      <td role="gridcell"
-          class="actions-cell d-block d-md-table-cell">
-        <div class="actions"
-             (click)="$event.stopPropagation()">
-          <div #mobileActionsMenu="ngbDropdown"
-               class="d-inline-block"
-               ngbDropdown
-               placement="bottom-right">
-            <button (click)="mobileActionsMenu.toggle()"
-                    aria-label="Open candidate detail menu"
-                    class="btn btn-text btn-icon"
-                    [ngbTooltip]="'portal.global.actions' | translate"
-                    placement="left"
-                    ngbDropdownAnchor
-                    [attr.aria-label]="'portal.global.actions' | translate">
-              <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
-            </button>
-            <div [attr.aria-label]="'portal.manage-job-ads.row-label' | translate: {row: row.title}"
-                 ngbDropdownMenu>
-              <button class="dropdown-item"
-                      (click)="open(row, $event)">
-                {{ 'portal.widgets.manage-job-ads.actions.open' | translate }}
+        </th>
+        <th scope="col"
+            role="columnheader">
+          <span class="sr-only">{{ 'dashboard.job-publication.action' | translate }}</span>
+        </th>
+      </tr>
+      </thead>
+      <tbody (scrolled)="onScroll()"
+             [fromRoot]="true"
+             [infiniteScrollThrottle]="50"
+             [immediateCheck]="true"
+             infiniteScroll
+             role="presentation">
+      <tr *ngFor="let row of rows"
+          (click)="open(row)"
+          class="tr-content d-block d-md-table-row"
+          role="row">
+        <td *ngFor="let column of columnDefinitions; let i=index"
+            class="content-cell align-middle d-block d-md-table-cell"
+            role="gridcell">
+          <div class="d-inline-block mr-1 d-md-none">
+            <strong>{{ columnDefinitions[i].columnName | translate }}:</strong></div>
+          <span [innerHTML]="column.render(row.jobAdvertisement) || '&mdash;' | translate"></span>
+        </td>
+        <td role="gridcell"
+            class="actions-cell d-block d-md-table-cell">
+          <div class="actions"
+               (click)="$event.stopPropagation()">
+            <div #mobileActionsMenu="ngbDropdown"
+                 class="d-inline-block"
+                 ngbDropdown
+                 placement="bottom-right">
+              <button (click)="mobileActionsMenu.toggle()"
+                      aria-label="Open candidate detail menu"
+                      class="btn btn-text btn-icon"
+                      [ngbTooltip]="'portal.global.actions' | translate"
+                      placement="left"
+                      ngbDropdownAnchor
+                      [attr.aria-label]="'portal.global.actions' | translate">
+                <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
               </button>
-              <button class="dropdown-item"
-                      (click)="duplicate(row)">
-                {{ 'portal.widgets.manage-job-ads.actions.duplicate' | translate }}
-              </button>
-              <button class="dropdown-item"
-                      *ngIf="row.isCancellable"
-                      (click)="cancel(row)">
-                {{'portal.widgets.manage-job-ads.actions.cancel' | translate }}
-              </button>
+              <div [attr.aria-label]="'portal.manage-job-ads.row-label' | translate: {row: row.title}"
+                   ngbDropdownMenu>
+                <button class="dropdown-item"
+                        (click)="open(row, $event)">
+                  {{ 'portal.widgets.manage-job-ads.actions.open' | translate }}
+                </button>
+                <button class="dropdown-item"
+                        (click)="duplicate(row)">
+                  {{ 'portal.widgets.manage-job-ads.actions.duplicate' | translate }}
+                </button>
+                <button class="dropdown-item"
+                        *ngIf="row.isCancellable"
+                        (click)="cancel(row)">
+                  {{'portal.widgets.manage-job-ads.actions.cancel' | translate }}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <ng-template #placeholder>
-    <fa-icon class="potential-sort ml-2"
-             [icon]="['fas', 'sort']"></fa-icon>
-  </ng-template>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <ng-template #placeholder>
+      <fa-icon class="potential-sort ml-2"
+               [icon]="['fas', 'sort']"></fa-icon>
+    </ng-template>
+  </div>
+  <div *ngIf="!rows.length">
+    {{'global.common-phrases.no-results-found' | translate}}
+  </div>
 </div>
-<ng-template #noResults>
-  {{'global.common-phrases.no-results-found' | translate}}
-</ng-template>
+

@@ -6,17 +6,33 @@ import {
   APPLY_QUERY_VALUES,
   CANDIDATE_PROFILE_DETAIL_LOADED,
   FILTER_APPLIED,
+  INITIALIZE_RESULT_LIST,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET,
-  RESET_FILTER
+  RESET_FILTER,
+  RESULT_LIST_INITIALIZED
 } from '../actions';
 
 export function candidateSearchReducer(state = initialState, action: Actions): CandidateSearchState {
   let newState: CandidateSearchState;
 
   switch (action.type) {
+
+    case INITIALIZE_RESULT_LIST:
+      newState = {
+        ...state,
+        resultsAreLoading: true
+      };
+      break;
+
+    case RESULT_LIST_INITIALIZED:
+      newState = {
+        ...state,
+        resultsAreLoading: false
+      };
+      break;
 
     case RESET:
       newState = {

@@ -31,7 +31,7 @@ import {
   ApplyFilterAction,
   FilterAppliedAction,
   FilterResetAction,
-  INIT_RESULT_LIST,
+  INITIALIZE_RESULT_LIST,
   LOAD_NEXT_CANDIDATE_PROFILE_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL,
@@ -40,7 +40,8 @@ import {
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
   RESET_FILTER,
-  ResetAction
+  ResetAction,
+  ResultListInitializedAction
 } from '../actions';
 import { Router } from '@angular/router';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
@@ -71,18 +72,21 @@ export class CandidateSearchEffects {
 
   @Effect()
   initCandidateSearch$ = this.actions$.pipe(
-    ofType(INIT_RESULT_LIST),
+    ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
-    filter(([a, state]) => state.isDirtyResultList),
     switchMap(([a, state]) => {
-        return this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
-          .pipe(
-            map((response) => new FilterAppliedAction({
-              page: response.result,
-              totalCount: response.totalCount
-            })),
-            catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
-          );
+        if (state.isDirtyResultList) {
+          return this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
+            .pipe(
+              map((response) => new FilterAppliedAction({
+                page: response.result,
+                totalCount: response.totalCount
+              })),
+              catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+            );
+        } else {
+          return of(new ResultListInitializedAction());
+        }
       }
     )
   );
@@ -98,7 +102,7 @@ export class CandidateSearchEffects {
         page: response.result,
         totalCount: response.totalCount
       })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
   );
 
@@ -138,7 +142,7 @@ export class CandidateSearchEffects {
       return this.occupationSuggestionService.translateAll(candidateSearchFilter.occupations, action.payload.language);
     }),
     map((updatedOccupations) => {
-      return new OccupationLanguageChangedAction({occupations: updatedOccupations});
+      return new OccupationLanguageChangedAction({ occupations: updatedOccupations });
     })
   );
 
@@ -149,8 +153,8 @@ export class CandidateSearchEffects {
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
     concatMap(([action, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
       .pipe(
-        map((response) => new NextPageLoadedAction({page: response.result})),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({httpError: errorResponse})))
+        map((response) => new NextPageLoadedAction({ page: response.result })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       ))
   );
 
@@ -163,7 +167,7 @@ export class CandidateSearchEffects {
       this.router.navigate(['/candidate-search', id]);
     }),
     map(() => {
-      return {type: 'nothing'};
+      return { type: 'nothing' };
     })
   );
 
@@ -190,7 +194,7 @@ export class CandidateSearchEffects {
       this.router.navigate(['/candidate-search', id]);
     }),
     map(() => {
-      return {type: 'nothing'};
+      return { type: 'nothing' };
     })
   );
 

@@ -6,26 +6,35 @@ import {
 } from './candidate-search.effects';
 import { candidateSearchReducer } from '../reducers';
 import {
-  ApplyFilterAction, ApplyFilterValuesAction, ApplyQueryValuesAction,
-  FilterAppliedAction, FilterResetAction,
-  InitResultListAction,
-  LoadNextCandidateProfileDetailAction, LoadNextPageAction, LoadPreviousCandidateProfileDetailAction,
-  NextPageLoadedAction, OccupationLanguageChangedAction, ResetFilterAction
+  ApplyFilterAction,
+  ApplyFilterValuesAction,
+  ApplyQueryValuesAction,
+  FilterAppliedAction,
+  FilterResetAction,
+  InitializeResultListAction,
+  LoadNextCandidateProfileDetailAction,
+  LoadNextPageAction,
+  LoadPreviousCandidateProfileDetailAction,
+  NextPageLoadedAction,
+  OccupationLanguageChangedAction,
+  ResetFilterAction
 } from '../actions';
 import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
-import { getTestScheduler, hot, cold } from 'jasmine-marbles';
+import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
 
 import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
-import SpyObj = jasmine.SpyObj;
 import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
 import { CandidateSearchFilter, CandidateSearchState, initialState } from '../state';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EffectErrorOccurredAction, LanguageChangedAction } from '../../../core/state-management/actions/core.actions';
+import {
+  EffectErrorOccurredAction,
+  LanguageChangedAction
+} from '../../../core/state-management/actions/core.actions';
 import { FilterPanelValues } from '../../candidate-search/filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import {
@@ -33,6 +42,7 @@ import {
   OccupationTypeaheadItemType
 } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
+import SpyObj = jasmine.SpyObj;
 
 describe('CandidateSearchEffects', () => {
   let sut: CandidateSearchEffects;
@@ -70,7 +80,7 @@ describe('CandidateSearchEffects', () => {
 
   describe('initCandidateSearch$', () => {
 
-    const initResultListAction = new InitResultListAction();
+    const initResultListAction = new InitializeResultListAction();
 
     const candidateProfile: any = { id: 1 };
     const result = [ candidateProfile as CandidateProfile];

@@ -36,7 +36,7 @@ export const initialState: JobAdSearchState = {
     keywords: [],
     localities: []
   },
-  resultList: [],
+  resultList: undefined,
   details: {
     favouriteItem: undefined,
     jobAdvertisement: undefined,
@@ -67,11 +67,10 @@ export const isLoading = createSelector(getJobAdSearchState, (state) => {
   return state.resultsAreLoading;
 });
 
-export const hasFoundResults = createSelector(getResultList, isLoading, (resultList, loading) => {
-  return !(resultList.length === 0 && !loading);
-});
-
 export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
+  if (!resultList) {
+    return undefined;
+  }
   return resultList.map((item) => {
     return {
       jobAdvertisement: item.jobAdvertisement,

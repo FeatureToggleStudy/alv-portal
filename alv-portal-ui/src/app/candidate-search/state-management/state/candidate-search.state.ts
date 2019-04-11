@@ -45,7 +45,7 @@ export const initialState: CandidateSearchState = {
     drivingLicenceCategory: null,
     languageSkills: []
   },
-  resultList: [],
+  resultList: undefined,
   selectedCandidateProfile: null,
   resultsAreLoading: false,
   visitedCandidates: {},
@@ -90,6 +90,9 @@ export const getSelectedCandidateProfile = createSelector(getCandidateSearchStat
 export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations);
 
 export const getCandidateSearchResults = createSelector(getResultList, getVisitedCandidates, (resultList, visitedCandidates) => {
+  if (!resultList) {
+    return undefined;
+  }
   return resultList.map((candidateProfile) => {
     return {
       candidateProfile: candidateProfile,

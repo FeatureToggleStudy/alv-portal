@@ -18,7 +18,6 @@ import {
   getJobSearchResults,
   getLastVisitedJobAdId,
   getTotalCount,
-  hasFoundResults,
   isLoading,
   JobAdSearchState,
   JobSearchFilter,
@@ -27,7 +26,7 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, take, takeUntil, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take, takeUntil, tap } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { ScrollService } from '../../../core/scroll.service';
@@ -75,8 +74,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   currentLanguage$: Observable<string>;
 
-  hasFoundResults$: Observable<boolean>;
-
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
 
   @BlockUI() blockUI: NgBlockUI;
@@ -95,7 +92,9 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   ngOnInit() {
     this.totalCount$ = this.store.pipe(select(getTotalCount));
 
-    this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults));
+    this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults)).pipe(
+      filter(value => !!value)
+    );
 
     this.jobSearchFilter$ = this.store.pipe(select(getJobSearchFilter));
 
@@ -109,8 +108,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
         }
       })
     );
-
-    this.hasFoundResults$ = this.store.pipe(select(hasFoundResults));
 
     this.jobSearchMailToLink$ = this.jobSearchFilter$.pipe(
       map((jobSearchFilter: JobSearchFilter) => this.jobSearchFilterParameterService.encode(jobSearchFilter)),

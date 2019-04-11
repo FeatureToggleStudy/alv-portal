@@ -32,7 +32,7 @@ export const initialState: JobAdFavouritesState = {
   filter: {
     query: ''
   },
-  resultList: [],
+  resultList: undefined,
   resultsAreLoading: false,
   visitedJobAds: {},
   lastVisitedJobAdId: undefined,
@@ -59,6 +59,9 @@ export const getFavouriteItem = createSelector(getJobAdFavouritesState, (state: 
 export const getCurrentIndex = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.detail.currentIndex);
 
 export const getJobAdFavouritesResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
+  if (!resultList) {
+    return undefined;
+  }
   return resultList.map((item) => {
     return {
       jobAdvertisement: item.jobAdvertisement,

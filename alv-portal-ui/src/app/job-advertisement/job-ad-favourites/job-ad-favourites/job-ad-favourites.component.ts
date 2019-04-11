@@ -1,7 +1,14 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, take, takeUntil, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  take,
+  takeUntil,
+  tap
+} from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -72,7 +79,9 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
       query: ['']
     });
 
-    this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults));
+    this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults)).pipe(
+      filter(value => !!value)
+    );
 
     this.isLoading$ = this.store.pipe(select(isLoading)).pipe(
       distinctUntilChanged(),

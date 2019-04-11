@@ -31,6 +31,7 @@ import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widg
 import { Router } from '@angular/router';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
+import { filter } from 'rxjs/internal/operators/filter';
 
 interface FilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
@@ -99,6 +100,7 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
 
     this.rows$ = this.store.pipe(
       select(getManagedJobAdResults),
+      filter(value => !!value),
       map(jobs => {
         return jobs.map(job => ({
           jobAdvertisement: job,

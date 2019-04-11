@@ -29,7 +29,7 @@ export const initialState: ManageJobAdsState = {
       direction: SortDirection.DESC
     }
   },
-  resultList: [],
+  resultList: undefined,
   selectedJobAdvertisement: null,
   resultsAreLoading: false,
   isDirtyResultList: true
