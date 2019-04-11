@@ -195,13 +195,13 @@ export interface CreateJobAdvertisement {
   publication: Publication;
   numberOfJobs: string;
   jobDescriptions: JobDescription[];
-  company: Company;
+  company: WebformCompany;
   employer: Employer;
   employment: Employment;
   location: CreateLocation;
   occupation: Occupation;
   languageSkills: LanguageSkill[];
-  applyChannel: ApplyChannel;
+  applyChannel: WebformApplyChannel;
   publicContact: PublicContact;
 }
 
@@ -307,4 +307,34 @@ export interface JobAdvertisementCancelRequest {
   id: string;
   token?: string;
   code: CancellationReason;
+}
+
+export interface WebformCompany {
+  name: string;
+  street?: string;
+  houseNumber?: string;
+  postOfficeBoxNumber?: string;
+  postalCode: string;
+  city: string;
+  countryIsoCode: string;
+  surrogate?: boolean;
+}
+
+export interface WebformApplyChannel {
+  postAddress: WebformPostAddress;
+  rawPostAddress: string;
+  emailAddress: string;
+  phoneNumber: string;
+  formUrl: string;
+  additionalInfo: string;
+}
+
+export interface WebformPostAddress {
+  name: string;
+  street?: string;
+  houseNumber?: string;
+  postOfficeBoxNumber?: string;
+  postalCode: string;
+  city: string;
+  countryIsoCode: string;
 }
