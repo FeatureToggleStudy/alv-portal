@@ -76,28 +76,28 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
     super();
   }
 
-  private static mapBadges(filter: ManagedJobAdsSearchFilter): FilterBadge[] {
+  private static mapBadges(managedJobAdsSearchFilter: ManagedJobAdsSearchFilter): FilterBadge[] {
     let badges: FilterBadge[] = [];
-    for (const key in filter) {
-      if (key === 'onlineSinceDays' && filter[key]) {
+    for (const key in managedJobAdsSearchFilter) {
+      if (key === 'onlineSinceDays' && managedJobAdsSearchFilter[key]) {
         badges.push({
-          label: 'dashboard.job-publication.publication-period.' + filter[key],
-          cssClass: 'badge-manage-jobads-filter badge-big',
+          label: 'dashboard.job-publication.publication-period.' + managedJobAdsSearchFilter[key],
+          cssClass: 'badge-manage-jobads-managedJobAdsSearchFilter badge-big',
           key: key
         });
-      } else if (key === 'ownerUserId' && filter[key]) {
+      } else if (key === 'ownerUserId' && managedJobAdsSearchFilter[key]) {
         badges.push({
-          label: 'portal.manage-job-ads.search.filter.createdBy.myself',
-          cssClass: 'badge-manage-jobads-filter badge-big',
+          label: 'portal.manage-job-ads.search.managedJobAdsSearchFilter.createdBy.myself',
+          cssClass: 'badge-manage-jobads-managedJobAdsSearchFilter badge-big',
           key: key
         });
-      } else if (key === 'status' && filter [key]) {
+      } else if (key === 'status' && managedJobAdsSearchFilter [key]) {
         badges.push({
-          label: 'global.job-publication.status.' + filter[key],
-          cssClass: 'badge-manage-jobads-filter badge-big',
+          label: 'global.job-publication.status.' + managedJobAdsSearchFilter[key],
+          cssClass: 'badge-manage-jobads-managedJobAdsSearchFilter badge-big',
           key: key
         });
-      } else if (!filter[key]) {
+      } else if (!managedJobAdsSearchFilter[key]) {
         badges = badges.filter(badge => badge.key);
       }
     }
