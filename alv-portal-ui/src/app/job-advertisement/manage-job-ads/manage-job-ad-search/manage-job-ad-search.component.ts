@@ -9,7 +9,14 @@ import {
 } from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, map, take, takeUntil, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  take,
+  takeUntil,
+  tap
+} from 'rxjs/operators';
 import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
 import { JobAdManagementColumnService } from '../../../widgets/manage-job-ads-widget/job-ad-management-column.service';
@@ -25,6 +32,7 @@ import {
 import {
   getManagedJobAdResults,
   getManagedJobAdsSearchFilter,
+  isLoading,
   ManageJobAdsState
 } from '../state-management/state';
 import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
@@ -32,6 +40,7 @@ import { Router } from '@angular/router';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { filter } from 'rxjs/internal/operators/filter';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 interface FilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
@@ -56,6 +65,8 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
   rows$: Observable<ManagedJobAdRow[]>;
 
   columns$: Observable<ManagedJobAdColumnDefinition[]>;
+
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private store: Store<ManageJobAdsState>,
               private modalService: ModalService,
@@ -97,6 +108,18 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
   ngOnInit() {
 
     this.columns$ = this.jobAdManagementColumnService.createColumnDefinitions();
+
+    this.store.pipe(select(isLoading)).pipe(
+      distinctUntilChanged(),
+      tap(loading => {
+        if (loading) {
+          this.blockUI.start();
+        } else {
+          this.blockUI.stop();
+        }
+      }),
+      takeUntil(this.ngUnsubscribe))
+      .subscribe();
 
     this.rows$ = this.store.pipe(
       select(getManagedJobAdResults),

@@ -40,6 +40,7 @@ export const getManagedJobAdsSearchFilter = createSelector(getManageJobAdsState,
 export const getManagedJobAdResults = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.resultList);
 export const getManagedJobAdTotalCount = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.totalCount);
 export const getSelectedJobAdvertisement = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.selectedJobAdvertisement);
+export const isLoading = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.resultsAreLoading);
 
 export const getPrevId = createSelector(getManagedJobAdResults, getSelectedJobAdvertisement, (resultList, current) => {
   if (current) {
