@@ -21,7 +21,7 @@ import {
   LazyLoadedModuleDestroyedAction,
   ModuleName
 } from '../../../../core/state-management/actions/core.actions';
-import { getManageJobAdsState, getNextId, getPrevId, ManageJobAdsState } from '../state';
+import { getManageJobAdsState, getNextId, getPrevId, ManageJobAdsState, hasNextPage } from '../state';
 import {
   APPLY_FILTER,
   ApplyFilterAction,
@@ -34,7 +34,8 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   ResetAction,
-  ResultListInitializedAction
+  ResultListAlreadyInitializedAction,
+  NextPageNotAvailableAction
 } from '../actions';
 import { getCurrentCompanyContactTemplateModel } from '../../../../core/state-management/state/core.state.ts';
 import { ManagedJobAdsSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -59,21 +60,28 @@ export class ManageJobAdsEffects {
   );
 
   @Effect()
-  initJobSearch$ = this.actions$.pipe(
+  initResultList$ = this.actions$.pipe(
     ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
+    filter(([action, state, company]) => state.isDirtyResultList),
     switchMap(([action, state, company]) => {
-      if (state.isDirtyResultList) {
-        return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
-          map((response) => new FilterAppliedAction({
-            page: response.result,
-            totalCount: response.totalCount
-          })),
-          catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-        );
-      } else {
-        return of(new ResultListInitializedAction());
-      }
+      return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
+        map((response) => new FilterAppliedAction({
+          page: response.result,
+          totalCount: response.totalCount
+        })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    })
+  );
+
+  @Effect()
+  resultListAlreadyInitialized$ = this.actions$.pipe(
+    ofType(INITIALIZE_RESULT_LIST),
+    withLatestFrom(this.store.pipe(select(getManageJobAdsState))),
+    filter(([action, state]) => !state.isDirtyResultList),
+    map(() => {
+      return new ResultListAlreadyInitializedAction();
     })
   );
 
@@ -97,12 +105,24 @@ export class ManageJobAdsEffects {
   @Effect()
   loadNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
+    withLatestFrom(this.store.pipe(select(hasNextPage))),
+    filter(([action, hasNextPage]) => hasNextPage),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
     concatMap(([action, state, company]) => this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page + 1, company.companyExternalId)).pipe(
       map((response: ManagedJobAdsSearchResponse) => new NextPageLoadedAction({ page: response.result })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
+  );
+
+  @Effect()
+  loadNoMoreNextPage$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_NEXT_PAGE),
+    withLatestFrom(this.store.pipe(select(hasNextPage))),
+    filter(([action, hasNextPage]) => !hasNextPage),
+    map(() => {
+      return new NextPageNotAvailableAction({});
+    })
   );
 
   @Effect()

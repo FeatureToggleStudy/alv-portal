@@ -24,7 +24,7 @@ import {
 import {
   getJobAdFavouritesState,
   getNextId,
-  getPrevId,
+  getPrevId, hasNextPage,
   JobAdFavouritesState
 } from '../state';
 import {
@@ -37,9 +37,9 @@ import {
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
-  NextPageLoadedAction,
+  NextPageLoadedAction, NextPageNotAvailableAction,
   ResetAction,
-  ResultListInitializedAction
+  ResultListAlreadyInitializedAction
 } from '../actions';
 import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
@@ -65,21 +65,28 @@ export class JobAdFavouritesEffects {
   );
 
   @Effect()
-  initJobSearch$ = this.actions$.pipe(
+  initResultList$ = this.actions$.pipe(
     ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
+    filter(([action, state, user]) => state.isDirtyResultList),
     switchMap(([action, state, user]) => {
-      if (state.isDirtyResultList) {
-        return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
-          map((response) => new FilterAppliedAction({
-            page: response.result,
-            totalCount: response.totalCount
-          })),
-          catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-        );
-      } else {
-        return of(new ResultListInitializedAction());
-      }
+      return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
+        map((response) => new FilterAppliedAction({
+          page: response.result,
+          totalCount: response.totalCount
+        })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    })
+  );
+
+  @Effect()
+  resultListAlreadyInitialized$ = this.actions$.pipe(
+    ofType(INITIALIZE_RESULT_LIST),
+    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState))),
+    filter(([action, state]) => !state.isDirtyResultList),
+    map(() => {
+      return new ResultListAlreadyInitializedAction();
     })
   );
 
@@ -103,12 +110,24 @@ export class JobAdFavouritesEffects {
   @Effect()
   loadNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
+    withLatestFrom(this.store.pipe(select(hasNextPage))),
+    filter(([action, hasNextPage]) => hasNextPage),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
     withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
     concatMap(([action, state, currentUser]) => this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page + 1), currentUser.id).pipe(
       map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
+  );
+
+  @Effect()
+  loadNoMoreNextPage$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_NEXT_PAGE),
+    withLatestFrom(this.store.pipe(select(hasNextPage))),
+    filter(([action, hasNextPage]) => !hasNextPage),
+    map(() => {
+      return new NextPageNotAvailableAction({});
+    })
   );
 
   @Effect()

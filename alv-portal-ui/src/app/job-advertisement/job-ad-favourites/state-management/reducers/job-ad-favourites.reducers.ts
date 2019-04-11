@@ -9,8 +9,9 @@ import {
   JOB_ADVERTISEMENT_DETAIL_UNLOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
+  NEXT_PAGE_NOT_AVAILABLE,
   RESET,
-  RESULT_LIST_INITIALIZED,
+  RESULT_LIST_ALREADY_INITIALIZED,
 } from '../actions';
 import {
   ADDED_JOB_AD_FAVOURITE,
@@ -74,7 +75,8 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
       };
       break;
 
-    case RESULT_LIST_INITIALIZED:
+    case NEXT_PAGE_NOT_AVAILABLE:
+    case RESULT_LIST_ALREADY_INITIALIZED:
       newState = {
         ...state,
         resultsAreLoading: false

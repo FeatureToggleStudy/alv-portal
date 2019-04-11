@@ -17,13 +17,14 @@ import {
 } from '../../../../core/state-management/actions/core.actions';
 
 export const INITIALIZE_RESULT_LIST = 'JOBS:INITIALIZE_RESULT_LIST';
-export const RESULT_LIST_INITIALIZED = 'JOBS:RESULT_LIST_INITIALIZED';
+export const RESULT_LIST_ALREADY_INITIALIZED = 'JOBS:RESULT_LIST_ALREADY_INITIALIZED';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
 export const APPLY_FILTER = 'JOBS:APPLY_FILTER';
 export const RESET_FILTER = 'JOBS:RESET_FILTER';
 export const FILTER_RESET = 'JOBS:FILTER_RESET';
 export const LOAD_NEXT_PAGE = 'JOBS:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'JOBS:NEXT_PAGE_LOADED';
+export const NEXT_PAGE_NOT_AVAILABLE = 'JOBS:NEXT_PAGE_NOT_AVAILABLE';
 
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_UNLOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_UNLOADED';
@@ -48,8 +49,8 @@ export class InitializeResultListAction implements Action {
   }
 }
 
-export class ResultListInitializedAction implements Action {
-  readonly type = RESULT_LIST_INITIALIZED;
+export class ResultListAlreadyInitializedAction implements Action {
+  readonly type = RESULT_LIST_ALREADY_INITIALIZED;
 
   constructor(public payload = {}) {
   }
@@ -129,6 +130,13 @@ export class NextPageLoadedAction implements Action {
   }
 }
 
+export class NextPageNotAvailableAction implements Action {
+  readonly type = NEXT_PAGE_NOT_AVAILABLE;
+
+  constructor(public payload = {}) {
+  }
+}
+
 export class JobAdvertisementDetailLoadedAction implements Action {
   readonly type = JOB_ADVERTISEMENT_DETAIL_LOADED;
 
@@ -183,11 +191,12 @@ export class FavouriteItemLoadedAction implements Action {
 
 export type Actions =
   | InitializeResultListAction
-  | ResultListInitializedAction
+  | ResultListAlreadyInitializedAction
   | FilterAppliedAction
   | ApplyFilterAction
   | LoadNextPageAction
   | NextPageLoadedAction
+  | NextPageNotAvailableAction
   | JobAdvertisementDetailLoadedAction
   | JobAdvertisementDetailUnloadedAction
   | LoadPreviousJobAdvertisementDetailAction

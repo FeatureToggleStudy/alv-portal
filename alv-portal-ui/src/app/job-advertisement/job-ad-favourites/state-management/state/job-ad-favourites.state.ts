@@ -73,6 +73,10 @@ export const getJobAdFavouritesResults = createSelector(isDirtyResultList, getRe
   });
 });
 
+export const hasNextPage = createSelector(getJobAdFavouritesState, (state) => {
+  return state.resultList.length < state.totalCount;
+});
+
 export const isLoading = createSelector(getJobAdFavouritesState, (state) => {
   return state.resultsAreLoading;
 });
