@@ -24,8 +24,8 @@ import { BlockUIModule } from 'ng-block-ui';
     ReactiveFormsModule,
     CoreModule,
     BlockUIModule.forRoot({
-      delayStart: 500,
-      delayStop: 0
+      delayStart: 600,
+      delayStop: 300
     })
   ],
   providers: [WINDOW_PROVIDERS],
