@@ -21,7 +21,7 @@
   </alv-input-field>
 
   <ng-container *ngIf="jobAdFavouriteSearchResults$ | async as jobs">
-    <ng-container *ngIf="jobs?.length; else noFavouritesPlaceholder">
+    <ng-container *ngIf="jobs.length">
       <alv-job-search-result *ngFor="let job of jobs"
                              [jobSearchResult]="job"
                              [language]="currentLanguage$ | async"
@@ -32,19 +32,20 @@
                              routerLinkBase="/job-favourites">
       </alv-job-search-result>
     </ng-container>
+    <ng-container *ngIf="!jobs.length">
+      <div class="no-favourites p-3 mb-3"
+           *ngIf="!(hasCustomFilterApplied$ | async); else searchReturnedEmptyResult">
+        <h3>{{'portal.job-ad-favourites.empty.title' | translate}}</h3>
+        <p>{{'portal.job-ad-favourites.empty.text1' | translate}}
+          <fa-icon class="text-primary"
+                   [icon]="['fas', 'star']"></fa-icon>
+          {{'portal.job-ad-favourites.empty.text2' | translate}}
+        </p>
+      </div>
+      <ng-template #searchReturnedEmptyResult>
+        {{'global.common-phrases.no-results-found' | translate}}
+      </ng-template>
+    </ng-container>
   </ng-container>
-  <ng-template #noFavouritesPlaceholder>
-    <div class="no-favourites p-3 mb-3" *ngIf="!form.get('query').value; else searchReturnedEmptyResult">
-      <h3>{{'portal.job-ad-favourites.empty.title' | translate}}</h3>
-      <p>{{'portal.job-ad-favourites.empty.text1' | translate}}
-        <fa-icon class="text-primary"
-                 [icon]="['fas', 'star']"></fa-icon>
-        {{'portal.job-ad-favourites.empty.text2' | translate}}
-      </p>
-    </div>
-    <ng-template #searchReturnedEmptyResult>
-      {{'global.common-phrases.no-results-found' | translate}}
-    </ng-template>
-  </ng-template>
 
 </div>

@@ -4,10 +4,13 @@ import {
   APPLY_FILTER,
   FAVOURITE_ITEM_LOADED,
   FILTER_APPLIED,
-  JOB_ADVERTISEMENT_DETAIL_LOADED, JOB_ADVERTISEMENT_DETAIL_UNLOADED,
+  INITIALIZE_RESULT_LIST,
+  JOB_ADVERTISEMENT_DETAIL_LOADED,
+  JOB_ADVERTISEMENT_DETAIL_UNLOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   RESET,
+  RESULT_LIST_INITIALIZED,
 } from '../actions';
 import {
   ADDED_JOB_AD_FAVOURITE,
@@ -63,6 +66,20 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
   let newState: JobAdFavouritesState;
 
   switch (action.type) {
+
+    case INITIALIZE_RESULT_LIST:
+      newState = {
+        ...state,
+        resultsAreLoading: true
+      };
+      break;
+
+    case RESULT_LIST_INITIALIZED:
+      newState = {
+        ...state,
+        resultsAreLoading: false
+      };
+      break;
 
     case RESET:
       newState = {

@@ -36,12 +36,27 @@ export const initialState: ManageJobAdsState = {
 };
 
 export const getManageJobAdsState = createFeatureSelector<ManageJobAdsState>('manageJobAds');
+
 export const getManagedJobAdsSearchFilter = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.filter);
-export const getManagedJobAdResults = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.resultList);
+
 export const getManagedJobAdTotalCount = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.totalCount);
+
 export const getSelectedJobAdvertisement = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.selectedJobAdvertisement);
 
-export const getPrevId = createSelector(getManagedJobAdResults, getSelectedJobAdvertisement, (resultList, current) => {
+export const isLoading = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.resultsAreLoading);
+
+const isDirtyResultList = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.isDirtyResultList);
+
+const getResultList = createSelector(getManageJobAdsState, (state: ManageJobAdsState) => state.resultList);
+
+export const getManagedJobAdResults = createSelector(isDirtyResultList, getResultList, (dirty, resultList) => {
+  if (dirty) {
+    return undefined;
+  }
+  return resultList;
+});
+
+export const getPrevId = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, current) => {
   if (current) {
     const ids = resultList.map((item) => item.id);
     const idx = ids.findIndex(id => id === current.id);
@@ -52,7 +67,7 @@ export const getPrevId = createSelector(getManagedJobAdResults, getSelectedJobAd
   return null;
 });
 
-export const getNextId = createSelector(getManagedJobAdResults, getSelectedJobAdvertisement, (resultList, current) => {
+export const getNextId = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, current) => {
   if (current) {
     const ids = resultList.map((item) => item.id);
     const idx = ids.findIndex(id => id === current.id);
@@ -63,7 +78,7 @@ export const getNextId = createSelector(getManagedJobAdResults, getSelectedJobAd
   return null;
 });
 
-export const isPrevVisible = createSelector(getManagedJobAdResults, getSelectedJobAdvertisement, (resultList, selectedJobAdvertisement) => {
+export const isPrevVisible = createSelector(getResultList, getSelectedJobAdvertisement, (resultList, selectedJobAdvertisement) => {
   if (selectedJobAdvertisement) {
     return resultList
       .map((item) => item.id)
@@ -73,7 +88,7 @@ export const isPrevVisible = createSelector(getManagedJobAdResults, getSelectedJ
   return false;
 });
 
-export const isNextVisible = createSelector(getManagedJobAdResults, getSelectedJobAdvertisement, getManagedJobAdTotalCount, (resultList, current, totalCount) => {
+export const isNextVisible = createSelector(getResultList, getSelectedJobAdvertisement, getManagedJobAdTotalCount, (resultList, current, totalCount) => {
   if (current) {
     return resultList
       .map((item) => item.id)

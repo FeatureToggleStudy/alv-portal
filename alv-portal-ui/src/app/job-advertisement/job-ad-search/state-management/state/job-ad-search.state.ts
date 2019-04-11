@@ -51,21 +51,26 @@ export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobA
 
 export const getTotalCount = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.totalCount);
 
-export const getResultList = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultList);
-
 export const getVisitedJobAds = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.visitedJobAds);
 
 export const getJobSearchFilter = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.jobSearchFilter);
 
 export const getJobAdvertisement = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.details.jobAdvertisement);
 
-export const getResultsAreLoading = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultsAreLoading);
-
 export const getFavouriteItem = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.details.favouriteItem);
 
 export const getLastVisitedJobAdId = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.lastVisitedJobAdId);
 
-export const getJobSearchResults = createSelector(getResultList, getVisitedJobAds, (resultList, visitedJobAds) => {
+export const isLoading = createSelector(getJobAdSearchState, (state) => state.resultsAreLoading);
+
+export const isDirtyResultList = createSelector(getJobAdSearchState, (state) => state.isDirtyResultList);
+
+const getResultList = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultList);
+
+export const getJobSearchResults = createSelector(isDirtyResultList, getResultList, getVisitedJobAds, (dirty, resultList, visitedJobAds) => {
+  if (dirty) {
+    return undefined;
+  }
   return resultList.map((item) => {
     return {
       jobAdvertisement: item.jobAdvertisement,

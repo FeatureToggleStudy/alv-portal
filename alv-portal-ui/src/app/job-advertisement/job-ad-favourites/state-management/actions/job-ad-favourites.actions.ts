@@ -12,7 +12,8 @@ import {
 } from '../../../../core/state-management/actions/core.actions';
 import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
 
-export const INIT_RESULT_LIST = 'JOBADFAVOURITES:INIT_RESULT_LIST';
+export const INITIALIZE_RESULT_LIST = 'JOBADFAVOURITES:INITIALIZE_RESULT_LIST';
+export const RESULT_LIST_INITIALIZED = 'JOBADFAVOURITES:RESULT_LIST_INITIALIZED';
 export const FILTER_APPLIED = 'JOBADFAVOURITES:FILTER_APPLIED';
 export const APPLY_FILTER = 'JOBADFAVOURITES:APPLY_FILTER';
 export const LOAD_NEXT_PAGE = 'JOBADFAVOURITES:LOAD_NEXT_PAGE';
@@ -24,8 +25,15 @@ export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBADFAVOURITES:LOAD_NEXT_JOB
 export const RESET = 'JOBADFAVOURITES:RESET';
 export const FAVOURITE_ITEM_LOADED = 'JOBADFAVOURITES:FAVOURITE_ITEM_LOADED';
 
-export class InitResultListAction implements Action {
-  readonly type = INIT_RESULT_LIST;
+export class InitializeResultListAction implements Action {
+  readonly type = INITIALIZE_RESULT_LIST;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class ResultListInitializedAction implements Action {
+  readonly type = RESULT_LIST_INITIALIZED;
 
   constructor(public payload = {}) {
   }
@@ -102,7 +110,8 @@ export class FavouriteItemLoadedAction implements Action {
 }
 
 export type Actions =
-  | InitResultListAction
+  | InitializeResultListAction
+  | ResultListInitializedAction
   | FilterAppliedAction
   | ApplyFilterAction
   | LoadNextPageAction

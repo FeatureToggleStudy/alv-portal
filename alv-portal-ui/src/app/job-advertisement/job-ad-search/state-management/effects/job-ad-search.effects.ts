@@ -9,7 +9,7 @@ import {
   ApplyFilterAction,
   FilterAppliedAction,
   FilterResetAction,
-  INIT_RESULT_LIST,
+  INITIALIZE_RESULT_LIST,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
@@ -18,7 +18,8 @@ import {
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
   RESET_FILTER,
-  ResetAction
+  ResetAction,
+  ResultListInitializedAction
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
@@ -74,17 +75,20 @@ export class JobAdSearchEffects {
 
   @Effect()
   initJobSearch$ = this.actions$.pipe(
-    ofType(INIT_RESULT_LIST),
+    ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    filter(([a, state]) => state.isDirtyResultList),
     switchMap(([action, state]) => {
-      return this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
-        map((response) => new FilterAppliedAction({
-          page: response.result,
-          totalCount: response.totalCount
-        })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-      );
+      if (state.isDirtyResultList) {
+        return this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
+          map((response) => new FilterAppliedAction({
+            page: response.result,
+            totalCount: response.totalCount
+          })),
+          catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+        );
+      } else {
+        return of(new ResultListInitializedAction());
+      }
     })
   );
 

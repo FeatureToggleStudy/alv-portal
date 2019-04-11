@@ -10,7 +10,7 @@ import {
   ApplyFilterAction,
   ApplyQueryValuesAction,
   CandidateSearchState,
-  InitResultListAction
+  InitializeResultListAction
 } from '../state-management';
 import { CandidateSearchFilterParameterService } from './candidate-search-filter-parameter.service';
 
@@ -42,7 +42,7 @@ export class CandidateSearchGuard implements CanActivate {
       }
     }
 
-    this.store.dispatch(new InitResultListAction());
+    this.store.dispatch(new InitializeResultListAction());
     return true;
   }
 }

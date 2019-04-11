@@ -16,7 +16,8 @@ import {
   UpdatedJobAdFavouriteAction
 } from '../../../../core/state-management/actions/core.actions';
 
-export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
+export const INITIALIZE_RESULT_LIST = 'JOBS:INITIALIZE_RESULT_LIST';
+export const RESULT_LIST_INITIALIZED = 'JOBS:RESULT_LIST_INITIALIZED';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
 export const APPLY_FILTER = 'JOBS:APPLY_FILTER';
 export const RESET_FILTER = 'JOBS:RESET_FILTER';
@@ -40,8 +41,15 @@ export const RESET = 'JOBS:RESET';
 export const FAVOURITE_ITEM_LOADED = 'JOBS:FAVOURITE_ITEM_LOADED';
 
 
-export class InitResultListAction implements Action {
-  readonly type = INIT_RESULT_LIST;
+export class InitializeResultListAction implements Action {
+  readonly type = INITIALIZE_RESULT_LIST;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class ResultListInitializedAction implements Action {
+  readonly type = RESULT_LIST_INITIALIZED;
 
   constructor(public payload = {}) {
   }
@@ -174,7 +182,8 @@ export class FavouriteItemLoadedAction implements Action {
 }
 
 export type Actions =
-  | InitResultListAction
+  | InitializeResultListAction
+  | ResultListInitializedAction
   | FilterAppliedAction
   | ApplyFilterAction
   | LoadNextPageAction

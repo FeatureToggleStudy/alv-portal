@@ -6,7 +6,8 @@ import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-wid
 import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { CandidateSearchFilter } from '../state';
 
-export const INIT_RESULT_LIST = 'CANDIDATES:INIT_RESULT_LIST';
+export const INITIALIZE_RESULT_LIST = 'CANDIDATES:INITIALIZE_RESULT_LIST';
+export const RESULT_LIST_INITIALIZED = 'CANDIDATES:RESULT_LIST_INITIALIZED';
 export const APPLY_FILTER = 'CANDIDATES:APPLY_FILTER';
 export const FILTER_APPLIED = 'CANDIDATES:FILTER_APPLIED';
 export const LOAD_NEXT_PAGE = 'CANDIDATES:LOAD_NEXT_PAGE';
@@ -21,8 +22,15 @@ export const FILTER_RESET = 'CANDIDATES:FILTER_RESET';
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'CANDIDATES:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 export const RESET = 'CANDIDATES:RESET';
 
-export class InitResultListAction implements Action {
-  readonly type = INIT_RESULT_LIST;
+export class InitializeResultListAction implements Action {
+  readonly type = INITIALIZE_RESULT_LIST;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class ResultListInitializedAction implements Action {
+  readonly type = RESULT_LIST_INITIALIZED;
 
   constructor(public payload = {}) {
   }
@@ -130,7 +138,8 @@ export class ResetAction implements Action {
   }
 }
 
-export type Actions = InitResultListAction
+export type Actions = InitializeResultListAction
+  | ResultListInitializedAction
   | ApplyFilterAction
   | FilterAppliedAction
   | LoadNextPageAction
