@@ -12,6 +12,9 @@ import {
   Occupation,
   Publication,
   PublicContact,
+  WebformApplyChannel,
+  WebformCompany,
+  WebformPostAddress,
   WorkExperience
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
@@ -25,7 +28,6 @@ import {
   DegreeMapping,
   EmploymentDuration,
   LanguageSkill,
-  PostAddress,
   Qualification,
   Salutation,
   WorkForm
@@ -34,22 +36,10 @@ import { EmploymentFormValue } from './employment/employment-form-value.types';
 import { LocationFormValue } from './location/location-form-value.types';
 import { CompanyFormValue } from './company/company-form-value.types';
 import { PublicationFormValue } from './publication/publication-form-value.types';
-import {
-  ContactFormValue,
-  emptyContactFormValue
-} from './contact/contact-form-value.types';
-import {
-  emptyPublicContactFormValue,
-  PublicContactFormValue
-} from './public-contact/public-contact-form-value.types';
-import {
-  ApplicationFormValue,
-  emptyApplicationFormValue
-} from './application/application-form-value.types';
-import {
-  EmployerFormValue,
-  emptyEmployerFormValue
-} from './employer/employer-form-value.types';
+import { ContactFormValue, emptyContactFormValue } from './contact/contact-form-value.types';
+import { emptyPublicContactFormValue, PublicContactFormValue } from './public-contact/public-contact-form-value.types';
+import { ApplicationFormValue, emptyApplicationFormValue } from './application/application-form-value.types';
+import { EmployerFormValue, emptyEmployerFormValue } from './employer/employer-form-value.types';
 
 import { PostAddressFormValue } from './post-address-form/post-address-form-value.types';
 import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
@@ -58,10 +48,7 @@ import { LocalitySuggestionService } from '../../../shared/localities/locality-s
 import { now, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
 
 import { LanguagesFormValue } from './languages/languages-form-value.types';
-import {
-  emptyOccupationFormValue,
-  OccupationFormValue
-} from './occupation/occupation-form-value.types';
+import { emptyOccupationFormValue, OccupationFormValue } from './occupation/occupation-form-value.types';
 import {
   OccupationTypeaheadItem,
   OccupationTypeaheadItemType
@@ -180,13 +167,16 @@ function mapToLocationFormValue(location: Location): LocationFormValue {
 }
 
 function mapCompanyToCompanyFormValue(company: Company): CompanyFormValue {
+  const postalCode = company.postalCode || company.postOfficeBoxPostalCode;
+  const city = company.city || company.postOfficeBoxCity;
+
   return {
     name: company.name,
     postOfficeBoxNumberOrStreet: {
       street: company.street,
       postOfficeBoxNumber: company.postOfficeBoxNumber
     },
-    zipAndCity: mapToZipCityFormValue(company.countryIsoCode, company.postalCode, company.city),
+    zipAndCity: mapToZipCityFormValue(company.countryIsoCode, postalCode, city),
     houseNumber: company.houseNumber,
     countryIsoCode: company.countryIsoCode
   };
@@ -265,7 +255,7 @@ function mapToApplicationFormValue(applyChannel: ApplyChannel): ApplicationFormV
     application.selectedApplicationTypes.post = true;
 
     let zipAndCityFormValue: ZipCityFormValue;
-    if (postAddress.postOfficeBoxNumber && postAddress.postOfficeBoxPostalCode && postAddress.postOfficeBoxCity) {
+    if (postAddress.postOfficeBoxNumber) {
       zipAndCityFormValue = mapToZipCityFormValue(postAddress.countryIsoCode, postAddress.postOfficeBoxPostalCode, postAddress.postOfficeBoxCity);
     } else {
       zipAndCityFormValue = mapToZipCityFormValue(postAddress.countryIsoCode, postAddress.postalCode, postAddress.city);
@@ -388,7 +378,8 @@ function mapToLocation(locationFormValue: LocationFormValue): CreateLocation {
   };
 }
 
-function mapToCompany(companyFormValue: CompanyFormValue, surrogate: boolean): Company {
+function mapToCompany(companyFormValue: CompanyFormValue, surrogate: boolean): WebformCompany {
+
   const postOfficeBoxNumber = companyFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber;
 
   return {
@@ -398,8 +389,7 @@ function mapToCompany(companyFormValue: CompanyFormValue, surrogate: boolean): C
     houseNumber: companyFormValue.houseNumber,
     ...mapToPostalCodeAndCity(companyFormValue.zipAndCity),
     countryIsoCode: companyFormValue.countryIsoCode,
-    postOfficeBoxNumber,
-    ...mapToPostOfficeBoxPostalCodeAndPostOfficeBoxCity(postOfficeBoxNumber, companyFormValue.zipAndCity)
+    postOfficeBoxNumber
   };
 }
 
@@ -444,7 +434,7 @@ function mapToPublication(publicationFormValue: PublicationFormValue): Publicati
   };
 }
 
-function mapToApplyChannel(applicationFormValue: ApplicationFormValue): ApplyChannel {
+function mapToApplyChannel(applicationFormValue: ApplicationFormValue): WebformApplyChannel {
   return {
     formUrl: applicationFormValue.formUrl ? applicationFormValue.formUrl : null,
     emailAddress: applicationFormValue.emailAddress ? applicationFormValue.emailAddress : null,
@@ -455,27 +445,19 @@ function mapToApplyChannel(applicationFormValue: ApplicationFormValue): ApplyCha
   };
 }
 
-function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue): PostAddress {
+function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue): WebformPostAddress {
   if (!postAddressFormValue) {
     return null;
   }
 
   const postOfficeBoxNumber = postAddressFormValue.postOfficeBoxNumberOrStreet.postOfficeBoxNumber;
 
-  if (postOfficeBoxNumber) {
-    return {
-      name: postAddressFormValue.name,
-      countryIsoCode: postAddressFormValue.countryIsoCode,
-      postOfficeBoxNumber,
-      ...mapToPostOfficeBoxPostalCodeAndPostOfficeBoxCity(postOfficeBoxNumber, postAddressFormValue.zipAndCity)
-    };
-  }
-
   return {
     name: postAddressFormValue.name,
     countryIsoCode: postAddressFormValue.countryIsoCode,
     street: postAddressFormValue.postOfficeBoxNumberOrStreet.street,
     houseNumber: postAddressFormValue.houseNumber,
+    postOfficeBoxNumber,
     ...mapToPostalCodeAndCity(postAddressFormValue.zipAndCity)
   };
 }
@@ -493,14 +475,5 @@ function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCod
   return {
     city: zipCityFormValue.city,
     postalCode: zipCityFormValue.zipCode
-  };
-}
-
-function mapToPostOfficeBoxPostalCodeAndPostOfficeBoxCity(postOfficeBoxNumber: string, zipAndCity: ZipCityFormValue): { postOfficeBoxPostalCode, postOfficeBoxCity } {
-  const { postalCode, city } = mapToPostalCodeAndCity(zipAndCity);
-
-  return {
-    postOfficeBoxPostalCode: postOfficeBoxNumber ? postalCode : null,
-    postOfficeBoxCity: postOfficeBoxNumber ? city : null,
   };
 }
