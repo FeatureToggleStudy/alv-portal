@@ -21,7 +21,13 @@ import {
   LazyLoadedModuleDestroyedAction,
   ModuleName
 } from '../../../../core/state-management/actions/core.actions';
-import { getManageJobAdsState, getNextId, getPrevId, ManageJobAdsState, hasNextPage } from '../state';
+import {
+  getManageJobAdsState,
+  getNextId,
+  getPrevId,
+  hasNextPage,
+  ManageJobAdsState
+} from '../state';
 import {
   APPLY_FILTER,
   ApplyFilterAction,
@@ -33,15 +39,17 @@ import {
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
+  NextPageNotAvailableAction,
   ResetAction,
-  ResultListAlreadyInitializedAction,
-  NextPageNotAvailableAction
+  ResultListAlreadyInitializedAction
 } from '../actions';
 import { getCurrentCompanyContactTemplateModel } from '../../../../core/state-management/state/core.state.ts';
 import { ManagedJobAdsSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
 import { ManagedJobAdsSearchRequestMapper } from '../../../../widgets/manage-job-ads-widget/managed-job-ads-search-request.mapper';
 import { Router } from '@angular/router';
+import { CompanyContactTemplateModel } from '../../../../core/auth/company-contact-template-model';
+
 
 export const MANAGE_JOB_ADS_EFFECTS_DEBOUNCE = new InjectionToken<number>('MANAGE_JOB_ADS_EFFECTS_DEBOUNCE');
 export const MANAGE_JOB_ADS_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('MANAGE_JOB_ADS_EFFECTS_SCHEDULER');
@@ -62,7 +70,7 @@ export class ManageJobAdsEffects {
   @Effect()
   initResultList$ = this.actions$.pipe(
     ofType(INITIALIZE_RESULT_LIST),
-    withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
+    withLatestFrom(this.store.pipe<ManageJobAdsState>(select(getManageJobAdsState)), this.store.pipe<CompanyContactTemplateModel>(select(getCurrentCompanyContactTemplateModel))),
     filter(([action, state, company]) => state.isDirtyResultList),
     switchMap(([action, state, company]) => {
       return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page, company.companyExternalId)).pipe(
@@ -78,7 +86,7 @@ export class ManageJobAdsEffects {
   @Effect()
   resultListAlreadyInitialized$ = this.actions$.pipe(
     ofType(INITIALIZE_RESULT_LIST),
-    withLatestFrom(this.store.pipe(select(getManageJobAdsState))),
+    withLatestFrom(this.store.pipe<ManageJobAdsState>(select(getManageJobAdsState))),
     filter(([action, state]) => !state.isDirtyResultList),
     map(() => {
       return new ResultListAlreadyInitializedAction();
@@ -90,7 +98,7 @@ export class ManageJobAdsEffects {
     ofType(APPLY_FILTER),
     map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
+    withLatestFrom(this.store.pipe<ManageJobAdsState>(select(getManageJobAdsState)), this.store.pipe<CompanyContactTemplateModel>(select(getCurrentCompanyContactTemplateModel))),
     switchMap(([managedJobAdsSearchFilter, state, company]) => {
       return this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(managedJobAdsSearchFilter, state.page, company.companyExternalId)).pipe(
         map((response) => new FilterAppliedAction({
@@ -108,11 +116,14 @@ export class ManageJobAdsEffects {
     withLatestFrom(this.store.pipe(select(hasNextPage))),
     filter(([action, nextPageAvailable]) => nextPageAvailable),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getManageJobAdsState)), this.store.pipe(select(getCurrentCompanyContactTemplateModel))),
-    concatMap(([action, state, company]) => this.jobAdvertisementRepository.searchManagedJobAds(ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page + 1, company.companyExternalId)).pipe(
-      map((response: ManagedJobAdsSearchResponse) => new NextPageLoadedAction({ page: response.result })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-    )),
+    withLatestFrom(this.store.pipe<ManageJobAdsState>(select(getManageJobAdsState)), this.store.pipe<CompanyContactTemplateModel>(select(getCurrentCompanyContactTemplateModel))),
+    concatMap(([action, state, company]) => {
+      const request = ManagedJobAdsSearchRequestMapper.mapToRequest(state.filter, state.page + 1, company.companyExternalId);
+      return this.jobAdvertisementRepository.searchManagedJobAds(request).pipe(
+        map((response: ManagedJobAdsSearchResponse) => new NextPageLoadedAction({ page: response.result })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    }),
   );
 
   @Effect()
