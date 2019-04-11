@@ -5,7 +5,6 @@ import {
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
-import * as _ from 'lodash';
 
 export interface JobAdFavouritesState {
   totalCount: number;
@@ -74,7 +73,7 @@ export const isLoading = createSelector(getJobAdFavouritesState, (state) => {
 });
 
 export const hasCustomFilterApplied = createSelector(getJobAdFavouritesSearchFilter, (filter) => {
-  return !_.isEqual(filter, initialState.filter);
+  return filter.query !== initialState.filter.query;
 });
 
 export const getLastVisitedJobAdId = createSelector(getJobAdFavouritesState, (state: JobAdFavouritesState) => state.lastVisitedJobAdId);

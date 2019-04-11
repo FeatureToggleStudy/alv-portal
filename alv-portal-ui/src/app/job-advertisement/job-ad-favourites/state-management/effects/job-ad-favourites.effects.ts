@@ -31,14 +31,15 @@ import {
   APPLY_FILTER,
   ApplyFilterAction,
   FilterAppliedAction,
-  INIT_RESULT_LIST,
+  INITIALIZE_RESULT_LIST,
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
-  ResetAction
+  ResetAction,
+  ResultListInitializedAction
 } from '../actions';
 import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
@@ -65,17 +66,20 @@ export class JobAdFavouritesEffects {
 
   @Effect()
   initJobSearch$ = this.actions$.pipe(
-    ofType(INIT_RESULT_LIST),
+    ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
-    filter(([a, state]) => state.isDirtyResultList),
     switchMap(([action, state, user]) => {
-      return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
-        map((response) => new FilterAppliedAction({
-          page: response.result,
-          totalCount: response.totalCount
-        })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-      );
+      if (state.isDirtyResultList) {
+        return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
+          map((response) => new FilterAppliedAction({
+            page: response.result,
+            totalCount: response.totalCount
+          })),
+          catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+        );
+      } else {
+        return of(new ResultListInitializedAction())
+      }
     })
   );
 

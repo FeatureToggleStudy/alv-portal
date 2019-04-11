@@ -12,26 +12,26 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import {
-  ApplyFilterAction, ApplyFilterValuesAction, ApplyQueryValuesAction,
-  FilterAppliedAction, FilterResetAction, ResetFilterAction,
-  InitResultListAction,
+  ApplyFilterAction,
+  ApplyFilterValuesAction,
+  ApplyQueryValuesAction,
+  FilterAppliedAction,
+  FilterResetAction,
+  InitializeResultListAction,
   LoadNextJobAdvertisementDetailAction,
-  NextPageLoadedAction
+  NextPageLoadedAction,
+  ResetFilterAction
 } from '../actions';
 import { Observable } from 'rxjs';
-import {
-  JobAdvertisement,
-  JobAdvertisementWithFavourites
-} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdvertisementWithFavourites } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { jobAdSearchReducer } from '../reducers';
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EffectErrorOccurredAction } from '../../../../core/state-management/actions/core.actions';
-import SpyObj = jasmine.SpyObj;
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import SpyObj = jasmine.SpyObj;
 
 describe('JobAdSearchEffects', () => {
   let sut: JobAdSearchEffects;
@@ -70,7 +70,7 @@ describe('JobAdSearchEffects', () => {
 
   describe('initJobSearch$', () => {
 
-    const initResultListAction = new InitResultListAction();
+    const initResultListAction = new InitializeResultListAction();
 
     const jobAd: any = { id: 1 };
     const result = [{jobAdvertisement: jobAd, favouriteItem: null} as JobAdvertisementWithFavourites];
@@ -135,7 +135,7 @@ describe('JobAdSearchEffects', () => {
      *    2nd: value response after another 30 F + 10 F = 40 F delay
      *    3rd: end subscription after 60 F delay (irrelevant of response F)
      */
-    it('should throw an EffectErrorOccurredAction on error, then proceed to another InitResultListAction, ' +
+    it('should throw an EffectErrorOccurredAction on error, then proceed to another InitializeResultListAction, ' +
       'and finish with an FilterAppliedAction', () => {
 
       const httpError = new HttpErrorResponse({});

@@ -6,7 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { JobAdFavouritesState } from '../state-management/state';
-import { InitResultListAction } from '../state-management/actions';
+import { InitializeResultListAction } from '../state-management/actions';
 
 @Injectable()
 export class JobAdFavouritesGuard implements CanActivate {
@@ -15,7 +15,7 @@ export class JobAdFavouritesGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    this.store.dispatch(new InitResultListAction());
+    this.store.dispatch(new InitializeResultListAction());
     return true;
   }
 

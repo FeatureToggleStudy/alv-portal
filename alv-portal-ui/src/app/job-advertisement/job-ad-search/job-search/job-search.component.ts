@@ -17,9 +17,8 @@ import {
   getJobSearchFilter,
   getJobSearchResults,
   getLastVisitedJobAdId,
-  getResultsAreLoading,
   getTotalCount,
-  hasResults,
+  hasFoundResults,
   isLoading,
   JobAdSearchState,
   JobSearchFilter,
@@ -100,22 +99,18 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
     this.jobSearchFilter$ = this.store.pipe(select(getJobSearchFilter));
 
-    this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
+    this.resultsAreLoading$ = this.store.pipe(select(isLoading)).pipe(
+      distinctUntilChanged(),
+      tap(loading => {
+        if (loading) {
+          this.blockUI.start();
+        } else {
+          this.blockUI.stop();
+        }
+      })
+    );
 
-    this.hasFoundResults$ = this.store.pipe(select(hasResults));
-
-    this.store.pipe(select(isLoading))
-      .pipe(
-        distinctUntilChanged(),
-        tap(loading => {
-          if (loading) {
-            this.blockUI.start();
-          } else {
-            this.blockUI.stop();
-          }
-        }),
-        takeUntil(this.ngUnsubscribe)
-      ).subscribe();
+    this.hasFoundResults$ = this.store.pipe(select(hasFoundResults));
 
     this.jobSearchMailToLink$ = this.jobSearchFilter$.pipe(
       map((jobSearchFilter: JobSearchFilter) => this.jobSearchFilterParameterService.encode(jobSearchFilter)),

@@ -72,24 +72,20 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
       query: ['']
     });
 
-    this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults));
+    this.jobAdFavouriteSearchResults$ = this.store.pipe(select(getJobAdFavouritesResults))
 
-    this.isLoading$ = this.store.pipe(select(isLoading));
+    this.isLoading$ = this.store.pipe(select(isLoading)).pipe(
+      distinctUntilChanged(),
+      tap(loading => {
+        if (loading) {
+          this.blockUI.start();
+        } else {
+          this.blockUI.stop();
+        }
+      })
+    );
 
     this.hasCustomFilterApplied$ = this.store.pipe(select(hasCustomFilterApplied));
-
-    this.store.pipe(select(isLoading))
-      .pipe(
-        distinctUntilChanged(),
-        tap(loading => {
-          if (loading) {
-            this.blockUI.start();
-          } else {
-            this.blockUI.stop();
-          }
-        }),
-        takeUntil(this.ngUnsubscribe)
-      ).subscribe();
 
     this.store.pipe(select(getJobAdFavouritesSearchFilter)).pipe(
       tap(currentFilter => {

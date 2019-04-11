@@ -4,12 +4,13 @@ import {
   APPLY_FILTER,
   FAVOURITE_ITEM_LOADED,
   FILTER_APPLIED,
-  INIT_RESULT_LIST,
+  INITIALIZE_RESULT_LIST,
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   JOB_ADVERTISEMENT_DETAIL_UNLOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   RESET,
+  RESULT_LIST_INITIALIZED,
 } from '../actions';
 import {
   ADDED_JOB_AD_FAVOURITE,
@@ -66,11 +67,17 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
 
   switch (action.type) {
 
-    case INIT_RESULT_LIST:
+    case INITIALIZE_RESULT_LIST:
       newState = {
         ...state,
-        // TODO Cleanup publish a loaded Action in any case
-        resultsAreLoading: (state.isDirtyResultList) ? true : state.resultsAreLoading
+        resultsAreLoading: true
+      };
+      break;
+
+    case RESULT_LIST_INITIALIZED:
+      newState = {
+        ...state,
+        resultsAreLoading: false
       };
       break;
 
