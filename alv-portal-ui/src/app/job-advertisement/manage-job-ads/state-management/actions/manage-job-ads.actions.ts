@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { ManagedJobAdsSearchFilter } from '../../../../widgets/manage-job-ads-widget/job-ad-management-table/job-ad-management.table-types';
+import { EffectErrorOccurredAction } from '../../../../core/state-management/actions/core.actions';
 
 export const INITIALIZE_RESULT_LIST = 'MANAGEJOBADS:INITIALIZE_RESULT_LIST';
 export const RESULT_LIST_ALREADY_INITIALIZED = 'MANAGEJOBADS:RESULT_LIST_ALREADY_INITIALIZED';
@@ -110,4 +111,5 @@ export type Actions =
   | NextPageNotAvailableAction
   | JobAdvertisementDetailLoadedAction
   | JobAdvertisementCancelledAction
-  | ResetAction;
+  | ResetAction
+  | EffectErrorOccurredAction;

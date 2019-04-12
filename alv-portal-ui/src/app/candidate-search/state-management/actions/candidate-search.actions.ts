@@ -5,6 +5,7 @@ import { FilterPanelValues } from '../../candidate-search/filter-panel/filter-pa
 import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
 import { CandidateSearchFilter } from '../state';
+import { EffectErrorOccurredAction } from '../../../core/state-management/actions/core.actions';
 
 export const INITIALIZE_RESULT_LIST = 'CANDIDATES:INITIALIZE_RESULT_LIST';
 export const RESULT_LIST_INITIALIZED = 'CANDIDATES:RESULT_LIST_INITIALIZED';
@@ -153,4 +154,5 @@ export type Actions = InitializeResultListAction
   | ResetFilterAction
   | OccupationLanguageChangedAction
   | ResetAction
+  | EffectErrorOccurredAction
   ;

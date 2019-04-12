@@ -6,6 +6,7 @@ import {
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   AddedJobAdFavouriteAction,
+  EffectErrorOccurredAction,
   LazyLoadedModuleDestroyedAction,
   RemovedJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
@@ -133,4 +134,5 @@ export type Actions =
   | ResetAction
   | LazyLoadedModuleDestroyedAction
   | FavouriteItemLoadedAction
-  | FavouriteItemLoadedAction;
+  | FavouriteItemLoadedAction
+  | EffectErrorOccurredAction;
