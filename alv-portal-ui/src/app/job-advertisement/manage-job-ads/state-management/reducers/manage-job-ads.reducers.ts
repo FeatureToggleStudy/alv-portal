@@ -13,6 +13,7 @@ import {
   RESULT_LIST_ALREADY_INITIALIZED
 } from '../actions';
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { EFFECT_ERROR_OCCURRED } from '../../../../core/state-management/actions/core.actions';
 
 function matchesSelectedJobAd(selectedJobAdvertisement: JobAdvertisement, updatedJobAd: JobAdvertisement) {
   return selectedJobAdvertisement && selectedJobAdvertisement.id === updatedJobAd.id;
@@ -107,6 +108,14 @@ export function manageJobAdsReducer(state = initialState, action: Actions): Mana
         selectedJobAdvertisement: patchedJobAd
       };
       break;
+
+    case EFFECT_ERROR_OCCURRED: {
+      newState = {
+        ...state,
+        resultsAreLoading: false
+      };
+      break;
+    }
 
     default:
       newState = state;

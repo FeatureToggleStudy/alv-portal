@@ -14,6 +14,7 @@ import {
   RESET_FILTER,
   RESULT_LIST_INITIALIZED
 } from '../actions';
+import { EFFECT_ERROR_OCCURRED } from '../../../core/state-management/actions/core.actions';
 
 export function candidateSearchReducer(state = initialState, action: Actions): CandidateSearchState {
   let newState: CandidateSearchState;
@@ -125,6 +126,14 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         visitedCandidates: { ...currentVisited }
       };
       break;
+
+    case EFFECT_ERROR_OCCURRED: {
+      newState = {
+        ...state,
+        resultsAreLoading: false
+      };
+      break;
+    }
 
     default:
       newState = state;

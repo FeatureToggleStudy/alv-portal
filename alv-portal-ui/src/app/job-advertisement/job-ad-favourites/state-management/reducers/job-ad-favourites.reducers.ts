@@ -15,6 +15,7 @@ import {
 } from '../actions';
 import {
   ADDED_JOB_AD_FAVOURITE,
+  EFFECT_ERROR_OCCURRED,
   REMOVED_JOB_AD_FAVOURITE,
   UPDATED_JOB_AD_FAVOURITE
 } from '../../../../core/state-management/actions/core.actions';
@@ -203,6 +204,14 @@ export function jobAdFavouritesReducer(state = initialState, action: Actions): J
           ...state.detail,
           favouriteItem: action.payload.favouriteItem,
         }
+      };
+      break;
+    }
+
+    case EFFECT_ERROR_OCCURRED: {
+      newState = {
+        ...state,
+        resultsAreLoading: false
       };
       break;
     }
