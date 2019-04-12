@@ -11,6 +11,7 @@ import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupati
 import {
   AddedJobAdFavouriteAction,
   AddJobAdFavouriteAction,
+  EffectErrorOccurredAction,
   RemovedJobAdFavouriteAction,
   RemoveJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
@@ -211,4 +212,5 @@ export type Actions =
   | OccupationLanguageChangedAction
   | UpdatedJobAdFavouriteAction
   | ResetAction
-  | FavouriteItemLoadedAction;
+  | FavouriteItemLoadedAction
+  | EffectErrorOccurredAction;
