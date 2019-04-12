@@ -45,7 +45,7 @@ export class MarkdownEscapePipe implements PipeTransform {
         // Remove reference-style links?
         .replace(/^\s{1,2}\[(.*?)\]: (\S+)( ".*?")?\s*$/g, '')
         // Remove atx-style headers
-         .replace(/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,}$/gm, '$1$2')
+        .replace(/^(\n)?\s{0,}#{1,6}\s+| {0,}(\n)?\s{0,}#{0,}$/gm, '$1$2')
         // Remove emphasis (repeat the line to remove double emphasis)
         .replace(/([\*_]{1,3})(\S.*?\S{0,1})\1/g, '$2')
         .replace(/([\*_]{1,3})(\S.*?\S{0,1})\1/g, '$2')
