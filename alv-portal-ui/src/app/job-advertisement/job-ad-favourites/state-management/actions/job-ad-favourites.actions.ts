@@ -13,10 +13,11 @@ import {
 import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
 
 export const INITIALIZE_RESULT_LIST = 'JOBADFAVOURITES:INITIALIZE_RESULT_LIST';
-export const RESULT_LIST_INITIALIZED = 'JOBADFAVOURITES:RESULT_LIST_INITIALIZED';
+export const RESULT_LIST_ALREADY_INITIALIZED = 'JOBADFAVOURITES:RESULT_LIST_ALREADY_INITIALIZED';
 export const FILTER_APPLIED = 'JOBADFAVOURITES:FILTER_APPLIED';
 export const APPLY_FILTER = 'JOBADFAVOURITES:APPLY_FILTER';
 export const LOAD_NEXT_PAGE = 'JOBADFAVOURITES:LOAD_NEXT_PAGE';
+export const NEXT_PAGE_NOT_AVAILABLE = 'JOBADFAVOURITES:NEXT_PAGE_NOT_AVAILABLE';
 export const NEXT_PAGE_LOADED = 'JOBADFAVOURITES:NEXT_PAGE_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBADFAVOURITES:JOB_ADVERTISEMENT_DETAIL_LOADED';
 export const JOB_ADVERTISEMENT_DETAIL_UNLOADED = 'JOBADFAVOURITES:JOB_ADVERTISEMENT_DETAIL_UNLOADED';
@@ -32,8 +33,8 @@ export class InitializeResultListAction implements Action {
   }
 }
 
-export class ResultListInitializedAction implements Action {
-  readonly type = RESULT_LIST_INITIALIZED;
+export class ResultListAlreadyInitializedAction implements Action {
+  readonly type = RESULT_LIST_ALREADY_INITIALIZED;
 
   constructor(public payload = {}) {
   }
@@ -55,6 +56,13 @@ export class FilterAppliedAction implements Action {
 
 export class LoadNextPageAction implements Action {
   readonly type = LOAD_NEXT_PAGE;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class NextPageNotAvailableAction implements Action {
+  readonly type = NEXT_PAGE_NOT_AVAILABLE;
 
   constructor(public payload = {}) {
   }
@@ -111,7 +119,8 @@ export class FavouriteItemLoadedAction implements Action {
 
 export type Actions =
   | InitializeResultListAction
-  | ResultListInitializedAction
+  | ResultListAlreadyInitializedAction
+  | NextPageNotAvailableAction
   | FilterAppliedAction
   | ApplyFilterAction
   | LoadNextPageAction

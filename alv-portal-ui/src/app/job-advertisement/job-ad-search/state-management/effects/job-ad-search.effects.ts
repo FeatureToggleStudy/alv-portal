@@ -16,10 +16,11 @@ import {
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
+  NextPageNotAvailableAction,
   OccupationLanguageChangedAction,
   RESET_FILTER,
   ResetAction,
-  ResultListInitializedAction
+  ResultListAlreadyInitializedAction
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
@@ -38,7 +39,9 @@ import {
   getJobSearchFilter,
   getNextId,
   getPrevId,
-  JobAdSearchState
+  hasNextPage,
+  JobAdSearchState,
+  JobSearchFilter
 } from '../state';
 import { JobSearchRequestMapper } from './job-search-request.mapper';
 import { Router } from '@angular/router';
@@ -76,41 +79,51 @@ export class JobAdSearchEffects {
   @Effect()
   initJobSearch$ = this.actions$.pipe(
     ofType(INITIALIZE_RESULT_LIST),
-    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([action, state]) => {
-      if (state.isDirtyResultList) {
-        return this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page)).pipe(
-          map((response) => new FilterAppliedAction({
-            page: response.result,
-            totalCount: response.totalCount
-          })),
-          catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-        );
-      } else {
-        return of(new ResultListInitializedAction());
-      }
+    withLatestFrom(this.store.pipe<JobAdSearchState>(select(getJobAdSearchState))),
+    filter(([action, state]) => state.isDirtyResultList),
+    switchMap(([action, state]: [Action, JobAdSearchState]) => {
+      const request = JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page);
+      return this.jobAdvertisementRepository.search(request).pipe(
+        map((response) => new FilterAppliedAction({
+          page: response.result,
+          totalCount: response.totalCount
+        })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    })
+  );
+
+  @Effect()
+  resultListAlreadyInitialized$ = this.actions$.pipe(
+    ofType(INITIALIZE_RESULT_LIST),
+    withLatestFrom(this.store.pipe<JobAdSearchState>(select(getJobAdSearchState))),
+    filter(([action, state]) => !state.isDirtyResultList),
+    map(() => {
+      return new ResultListAlreadyInitializedAction();
     })
   );
 
   @Effect()
   applyFilter$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER),
-    map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    switchMap(([jobSearchFilter, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(jobSearchFilter, state.page)).pipe(
-      map((response) => new FilterAppliedAction({
-        page: response.result,
-        totalCount: response.totalCount
-      })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-    ))
+    withLatestFrom(this.store.pipe<JobAdSearchState>(select(getJobAdSearchState))),
+    switchMap(([action, state]: [ApplyFilterAction, JobAdSearchState]) => {
+      const request = JobSearchRequestMapper.mapToRequest(action.payload, state.page);
+      return this.jobAdvertisementRepository.search(request).pipe(
+        map((response) => new FilterAppliedAction({
+          page: response.result,
+          totalCount: response.totalCount
+        })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    })
   );
 
   @Effect()
   resetFilter$: Observable<Action> = this.actions$.pipe(
     ofType(RESET_FILTER),
-    withLatestFrom(this.store.pipe(select(getJobSearchFilter))),
+    withLatestFrom(this.store.pipe<JobSearchFilter>(select(getJobSearchFilter))),
     switchMap(([action, jobSearchFilter]) => {
       return [
         new ApplyFilterAction(jobSearchFilter),
@@ -122,26 +135,41 @@ export class JobAdSearchEffects {
   @Effect()
   applyQueryValues$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_QUERY_VALUES),
-    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
+    withLatestFrom(this.store.pipe<JobAdSearchState>(select(getJobAdSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
   );
 
   @Effect()
   applyFilterValues$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER_VALUES),
-    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
+    withLatestFrom(this.store.pipe<JobAdSearchState>(select(getJobAdSearchState))),
     map(([action, state]) => new ApplyFilterAction(state.jobSearchFilter))
   );
 
   @Effect()
   loadNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
+    withLatestFrom(this.store.pipe(select(hasNextPage))),
+    filter(([action, nextPageAvailable]) => nextPageAvailable),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getJobAdSearchState))),
-    concatMap(([action, state]) => this.jobAdvertisementRepository.search(JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1)).pipe(
-      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-    )),
+    withLatestFrom(this.store.pipe<JobAdSearchState>(select(getJobAdSearchState))),
+    concatMap(([action, state]) => {
+      const request = JobSearchRequestMapper.mapToRequest(state.jobSearchFilter, state.page + 1);
+      return this.jobAdvertisementRepository.search(request).pipe(
+        map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    }),
+  );
+
+  @Effect()
+  loadNoMoreNextPage$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_NEXT_PAGE),
+    withLatestFrom(this.store.pipe(select(hasNextPage))),
+    filter(([action, nextPageAvailable]) => !nextPageAvailable),
+    map(() => {
+      return new NextPageNotAvailableAction({});
+    })
   );
 
   @Effect()
@@ -161,7 +189,7 @@ export class JobAdSearchEffects {
   translateOccupationsOnLanguageChanged$: Observable<Action> = this.actions$.pipe(
     ofType(LANGUAGE_CHANGED),
     map((a: LanguageChangedAction) => a),
-    withLatestFrom(this.store.pipe(select(getJobSearchFilter))),
+    withLatestFrom(this.store.pipe<JobSearchFilter>(select(getJobSearchFilter))),
     filter(([action, jobSearchFilter]) => !!jobSearchFilter.occupations),
     filter(([action, jobSearchFilter]) => jobSearchFilter.occupations.length > 0),
     switchMap(([action, jobSearchFilter]) => {

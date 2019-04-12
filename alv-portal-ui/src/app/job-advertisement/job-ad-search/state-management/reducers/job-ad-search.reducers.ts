@@ -11,10 +11,11 @@ import {
   JOB_ADVERTISEMENT_DETAIL_UNLOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
+  NEXT_PAGE_NOT_AVAILABLE,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET,
   RESET_FILTER,
-  RESULT_LIST_INITIALIZED
+  RESULT_LIST_ALREADY_INITIALIZED
 } from '../actions';
 import {
   ADDED_JOB_AD_FAVOURITE,
@@ -47,7 +48,8 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
       };
       break;
 
-    case RESULT_LIST_INITIALIZED:
+    case NEXT_PAGE_NOT_AVAILABLE:
+    case RESULT_LIST_ALREADY_INITIALIZED:
       newState = {
         ...state,
         resultsAreLoading: false

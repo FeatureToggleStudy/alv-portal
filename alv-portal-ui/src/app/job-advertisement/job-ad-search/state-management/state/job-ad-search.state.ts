@@ -80,6 +80,10 @@ export const getJobSearchResults = createSelector(isDirtyResultList, getResultLi
   });
 });
 
+export const hasNextPage = createSelector(getJobAdSearchState, (state) => {
+  return state.resultList.length < state.totalCount;
+});
+
 export const getPrevId = createSelector(getResultList, getJobAdvertisement, (resultList, current) => {
   if (current) {
     const ids = resultList.map((item) => item.jobAdvertisement.id);

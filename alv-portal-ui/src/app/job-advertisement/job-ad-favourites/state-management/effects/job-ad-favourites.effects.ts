@@ -25,6 +25,7 @@ import {
   getJobAdFavouritesState,
   getNextId,
   getPrevId,
+  hasNextPage,
   JobAdFavouritesState
 } from '../state';
 import {
@@ -38,8 +39,9 @@ import {
   LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
+  NextPageNotAvailableAction,
   ResetAction,
-  ResultListInitializedAction
+  ResultListAlreadyInitializedAction
 } from '../actions';
 import { JobAdvertisementSearchResponse } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SchedulerLike } from 'rxjs/src/internal/types';
@@ -47,6 +49,7 @@ import { Router } from '@angular/router';
 import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { JobAdFavouritesSearchRequestMapper } from '../../job-ad-favourites/job-ad-favourites-search-request.mapper';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import { User } from '../../../../core/auth/user.model';
 
 export const JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_FAVOURITES_EFFECTS_DEBOUNCE');
 export const JOB_AD_FAVOURITES_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_FAVOURITES_EFFECTS_SCHEDULER');
@@ -65,32 +68,40 @@ export class JobAdFavouritesEffects {
   );
 
   @Effect()
-  initJobSearch$ = this.actions$.pipe(
+  initResultList$ = this.actions$.pipe(
     ofType(INITIALIZE_RESULT_LIST),
-    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
-    switchMap(([action, state, user]) => {
-      if (state.isDirtyResultList) {
-        return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page), user.id).pipe(
-          map((response) => new FilterAppliedAction({
-            page: response.result,
-            totalCount: response.totalCount
-          })),
-          catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-        );
-      } else {
-        return of(new ResultListInitializedAction());
-      }
+    withLatestFrom(this.store.pipe<JobAdFavouritesState>(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
+    filter(([action, state]) => state.isDirtyResultList),
+    switchMap(([action, state, user]: [Action, JobAdFavouritesState, User]) => {
+      const request = JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page);
+      return this.jobAdFavouritesRepository.searchFavourites(request, user.id).pipe(
+        map((response) => new FilterAppliedAction({
+          page: response.result,
+          totalCount: response.totalCount
+        })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    })
+  );
+
+  @Effect()
+  resultListAlreadyInitialized$ = this.actions$.pipe(
+    ofType(INITIALIZE_RESULT_LIST),
+    withLatestFrom(this.store.pipe<JobAdFavouritesState>(select(getJobAdFavouritesState))),
+    filter(([action, state]) => !state.isDirtyResultList),
+    map(() => {
+      return new ResultListAlreadyInitializedAction();
     })
   );
 
   @Effect()
   applyFilter$: Observable<Action> = this.actions$.pipe(
     ofType(APPLY_FILTER),
-    map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
-    switchMap(([JobAdFavouritesSearchFilter, state, currentUser]) => {
-      return this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(JobAdFavouritesSearchFilter, state.page), currentUser.id).pipe(
+    withLatestFrom(this.store.pipe<JobAdFavouritesState>(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
+    switchMap(([action, state, currentUser]: [ApplyFilterAction, JobAdFavouritesState, User]) => {
+      const request = JobAdFavouritesSearchRequestMapper.mapToRequest(action.payload, state.page);
+      return this.jobAdFavouritesRepository.searchFavourites(request, currentUser.id).pipe(
         map((response) => new FilterAppliedAction({
           page: response.result,
           totalCount: response.totalCount
@@ -103,12 +114,27 @@ export class JobAdFavouritesEffects {
   @Effect()
   loadNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
+    withLatestFrom(this.store.pipe(select(hasNextPage))),
+    filter(([action, nextPageAvailable]) => nextPageAvailable),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
-    concatMap(([action, state, currentUser]) => this.jobAdFavouritesRepository.searchFavourites(JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page + 1), currentUser.id).pipe(
-      map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
-      catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-    )),
+    withLatestFrom(this.store.pipe<JobAdFavouritesState>(select(getJobAdFavouritesState)), this.authenticationService.getCurrentUser()),
+    concatMap(([action, state, currentUser]) => {
+      const request = JobAdFavouritesSearchRequestMapper.mapToRequest(state.filter, state.page + 1);
+      return this.jobAdFavouritesRepository.searchFavourites(request, currentUser.id).pipe(
+        map((response: JobAdvertisementSearchResponse) => new NextPageLoadedAction({ page: response.result })),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      );
+    }),
+  );
+
+  @Effect()
+  loadNoMoreNextPage$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_NEXT_PAGE),
+    withLatestFrom(this.store.pipe(select(hasNextPage))),
+    filter(([action, nextPageAvailable]) => !nextPageAvailable),
+    map(() => {
+      return new NextPageNotAvailableAction({});
+    })
   );
 
   @Effect()

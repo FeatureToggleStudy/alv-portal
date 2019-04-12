@@ -8,8 +8,9 @@ import {
   JOB_ADVERTISEMENT_DETAIL_LOADED,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
+  NEXT_PAGE_NOT_AVAILABLE,
   RESET,
-  RESULT_LIST_INITIALIZED
+  RESULT_LIST_ALREADY_INITIALIZED
 } from '../actions';
 import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
@@ -30,11 +31,11 @@ export function manageJobAdsReducer(state = initialState, action: Actions): Mana
       };
       break;
 
-    case RESULT_LIST_INITIALIZED:
+    case RESULT_LIST_ALREADY_INITIALIZED:
+    case NEXT_PAGE_NOT_AVAILABLE:
       newState = {
         ...state,
-        resultsAreLoading: false,
-        isDirtyResultList: false
+        resultsAreLoading: false
       };
       break;
 
