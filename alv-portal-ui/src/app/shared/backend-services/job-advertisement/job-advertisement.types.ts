@@ -322,7 +322,6 @@ export interface WebformCompany {
 
 export interface WebformApplyChannel {
   postAddress: WebformPostAddress;
-  rawPostAddress: string;
   emailAddress: string;
   phoneNumber: string;
   formUrl: string;

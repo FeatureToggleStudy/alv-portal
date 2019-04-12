@@ -440,8 +440,7 @@ function mapToApplyChannel(applicationFormValue: ApplicationFormValue): WebformA
     emailAddress: applicationFormValue.emailAddress ? applicationFormValue.emailAddress : null,
     phoneNumber: applicationFormValue.phoneNumber ? applicationFormValue.phoneNumber : null,
     postAddress: mapToApplyChannelPostAddress(applicationFormValue.postAddress),
-    additionalInfo: applicationFormValue.additionalInfo,
-    rawPostAddress: null
+    additionalInfo: applicationFormValue.additionalInfo
   };
 }
 
