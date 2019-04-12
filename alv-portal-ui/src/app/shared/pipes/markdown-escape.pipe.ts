@@ -1,5 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Inspired by:
+ * https://github.com/opichals/remove-markdown
+ */
 @Pipe({
   name: 'markdownEscape'
 })
