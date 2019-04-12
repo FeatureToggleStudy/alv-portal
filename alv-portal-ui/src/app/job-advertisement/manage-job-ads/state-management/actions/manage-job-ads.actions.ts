@@ -112,4 +112,4 @@ export type Actions =
   | JobAdvertisementDetailLoadedAction
   | JobAdvertisementCancelledAction
   | ResetAction
-  | EffectErrorOccurredAction
+  | EffectErrorOccurredAction;
