@@ -71,6 +71,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   @BlockUI() blockUI: NgBlockUI;
 
+
   constructor(private store: Store<CandidateSearchState>,
               private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
               private actionsSubject: ActionsSubject,
@@ -164,5 +165,9 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       this.searchPanelHeight = newSearchPanelHeight;
       this.cdRef.detectChanges();
     }
+  }
+
+  trackByIdFn(index, item: CandidateSearchResult) {
+    return String(item.candidateProfile.id) + String(item.visited);
   }
 }
