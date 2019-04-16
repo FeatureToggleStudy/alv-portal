@@ -204,8 +204,6 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
     }
   }
 
-  trackByIdFn(index){}
-
   private applyFilter(newFilter: ManagedJobAdSearchFilterValues) {
     this.currentFilter$.pipe(
       take(1))
