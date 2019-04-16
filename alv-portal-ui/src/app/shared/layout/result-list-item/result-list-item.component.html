@@ -32,14 +32,20 @@
   <div *ngIf="result.hasActions"
        class="actions-area d-flex">
     <button class="btn btn-toggle-icon mr-1"
-            (click)="favouritesClick.emit()">
-      <span *ngIf="result.isFavourite">F*</span>
-      <span *ngIf="!result.isFavourite">F</span>
+            (click)="favouritesClick.emit()"
+            [attr.aria-label]="'portal.job-ad-favourites.tooltip.' + (result.isFavourite ? 'remove-favourite' : 'add-favourite') | translate">
+      <fa-icon *ngIf="result.isFavourite"
+               [icon]="['fas', 'star']"></fa-icon>
+      <fa-icon *ngIf="!result.isFavourite"
+               [icon]="['far', 'star']"></fa-icon>
     </button>
     <button class="btn btn-toggle-icon"
-            (click)="noteClick.emit()">
-      <span *ngIf="result.hasNote">N*</span>
-      <span *ngIf="!result.hasNote">N</span>
+            (click)="noteClick.emit()"
+            [attr.aria-label]="'portal.job-ad-favourites.tooltip.' + (result.hasNote ? 'edit-note' : 'add-note') | translate">
+      <fa-icon *ngIf="result.hasNote"
+               [icon]="['fas', 'sticky-note']"></fa-icon>
+      <fa-icon *ngIf="!result.hasNote"
+               [icon]="['far', 'sticky-note']"></fa-icon>
     </button>
   </div>
 
