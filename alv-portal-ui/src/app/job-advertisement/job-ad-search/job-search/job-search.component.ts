@@ -26,7 +26,7 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, take, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take, takeUntil, tap } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { ScrollService } from '../../../core/scroll.service';
@@ -44,6 +44,7 @@ import {
 } from '../../../core/state-management/actions/core.actions';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'alv-job-search',
@@ -75,6 +76,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
 
+  @BlockUI() blockUI: NgBlockUI;
+
   constructor(private store: Store<JobAdSearchState>,
               private actionsSubject: ActionsSubject,
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
@@ -97,6 +100,13 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
     this.resultsAreLoading$ = this.store.pipe(select(isLoading)).pipe(
       distinctUntilChanged(),
+      tap(loading => {
+        if (loading) {
+          this.blockUI.start();
+        } else {
+          this.blockUI.stop();
+        }
+      })
     );
 
     this.jobSearchMailToLink$ = this.jobSearchFilter$.pipe(
@@ -178,7 +188,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
   }
 
-  trackByIdAndFav(index, item: JobSearchResult) {
+  trackById(index, item: JobSearchResult) {
     return item.hashCode;
   }
 
