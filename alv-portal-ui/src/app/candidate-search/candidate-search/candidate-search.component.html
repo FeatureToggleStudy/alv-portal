@@ -47,7 +47,7 @@
 
     <ng-container class="main-column">
       <ng-container *ngIf="candidateSearchResults$ | async as candidateSearchResults">
-        <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults; trackBy: trackByIdFn"
+        <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults;"
                                      [selectedOccupationCodes]="selectedOccupationCodes | async"
                                      [candidateSearchResult]="candidateSearchResult">
         </alv-candidate-search-result>

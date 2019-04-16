@@ -28,7 +28,7 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { distinctUntilChanged, map, take, takeUntil, tap } from 'rxjs/operators';
+import { distinctUntilChanged, map, take, takeUntil } from 'rxjs/operators';
 import { ScrollService } from '../../core/scroll.service';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { composeResultListItemId } from '../../shared/layout/result-list-item/result-list-item.component';
@@ -155,9 +155,5 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       this.searchPanelHeight = newSearchPanelHeight;
       this.cdRef.detectChanges();
     }
-  }
-
-  trackByIdFn(index, item: CandidateSearchResult) {
-    return String(item.candidateProfile.id) + String(item.visited);
   }
 }
