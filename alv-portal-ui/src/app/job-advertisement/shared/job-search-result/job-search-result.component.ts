@@ -9,15 +9,43 @@ import {
 import { ResultListItem } from '../../../shared/layout/result-list-item/result-list-item.model';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
 import { JobBadgesMapperService } from '../job-badges-mapper.service';
-import { JobAdvertisementWithFavourites } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  FavouriteItem,
+  JobAdvertisement
+} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 import { isAuthenticatedUser, User } from '../../../core/auth/user.model';
 import { isDeactivated } from '../job-ad-rules';
 
+/**
+ * Calculate a hashCode that is used for the track-by-fn for angular ngFor
+ *
+ * @param jobSearchResult
+ */
+function hashCode(jobSearchResult: JobSearchResult) {
+  let id = jobSearchResult.jobAdvertisement.id;
+  id += jobSearchResult.visited;
+  if (jobSearchResult.favouriteItem) {
+    id += jobSearchResult.favouriteItem.id;
+    id += jobSearchResult.favouriteItem.note;
+  }
+  return id;
+}
 
-export interface JobSearchResult extends JobAdvertisementWithFavourites {
+export class JobSearchResult {
   visited: boolean;
+  hashCode: string;
+  favouriteItem: FavouriteItem | null;
+  jobAdvertisement: JobAdvertisement;
+
+  constructor(jobAdvertisement: JobAdvertisement, favouriteItem: FavouriteItem, visited: boolean = false) {
+    this.visited = visited;
+    this.favouriteItem = favouriteItem;
+    this.jobAdvertisement = jobAdvertisement;
+    this.hashCode = hashCode(this);
+  }
+
 }
 
 @Component({

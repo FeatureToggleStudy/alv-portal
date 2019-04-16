@@ -145,8 +145,8 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
     }
   }
 
-  trackByIdAndNote(index, item: JobSearchResult){
-    return String(item.jobAdvertisement.id) + String(item.favouriteItem && item.favouriteItem.note);
+  trackByIdAndNote(index, item: JobSearchResult) {
+    return item.hashCode;
   }
 
 }

@@ -26,7 +26,7 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, take, takeUntil, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, take, takeUntil } from 'rxjs/operators';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobQueryPanelValues } from '../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { ScrollService } from '../../../core/scroll.service';
@@ -179,7 +179,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   trackByIdAndFav(index, item: JobSearchResult) {
-    return String(item.jobAdvertisement.id) + String(item.favouriteItem && item.favouriteItem.note);
+    return item.hashCode;
   }
 
 }
