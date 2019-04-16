@@ -10,7 +10,6 @@ import { CoreModule } from './core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { WINDOW_PROVIDERS } from './core/window.service';
-import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   declarations: [AppComponent, ShowcaseComponent],
@@ -22,11 +21,7 @@ import { BlockUIModule } from 'ng-block-ui';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    CoreModule,
-    BlockUIModule.forRoot({
-      delayStart: 600,
-      delayStop: 300
-    })
+    CoreModule
   ],
   providers: [WINDOW_PROVIDERS],
   bootstrap: [AppComponent]

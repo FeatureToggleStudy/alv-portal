@@ -39,7 +39,6 @@ import { OccupationCode } from '../../shared/backend-services/reference-service/
 import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
 import { WINDOW } from '../../core/window.service';
 import { filter } from 'rxjs/internal/operators/filter';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -69,8 +68,6 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
 
-  @BlockUI() blockUI: NgBlockUI;
-
 
   constructor(private store: Store<CandidateSearchState>,
               private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
@@ -91,14 +88,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
     );
 
     this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading)).pipe(
-      distinctUntilChanged(),
-      tap(loading => {
-        if (loading) {
-          this.blockUI.start();
-        } else {
-          this.blockUI.stop();
-        }
-      })
+      distinctUntilChanged()
     );
 
     this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations)).pipe(

@@ -39,7 +39,6 @@ import {
 import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { ActivatedRoute } from '@angular/router';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'alv-job-ad-favourites',
@@ -62,8 +61,6 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   isLoading$: Observable<boolean>;
 
-  @BlockUI() blockUI: NgBlockUI;
-
   constructor(private fb: FormBuilder,
               private i18nService: I18nService,
               private scrollService: ScrollService,
@@ -84,14 +81,8 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
     );
 
     this.isLoading$ = this.store.pipe(select(isLoading)).pipe(
-      distinctUntilChanged(),
-      tap(loading => {
-        if (loading) {
-          this.blockUI.start();
-        } else {
-          this.blockUI.stop();
-        }
-      }));
+      distinctUntilChanged()
+    );
 
     this.hasCustomFilterApplied$ = this.store.pipe(select(hasCustomFilterApplied));
 
