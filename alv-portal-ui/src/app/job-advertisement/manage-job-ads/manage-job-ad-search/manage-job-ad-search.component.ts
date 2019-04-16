@@ -40,6 +40,7 @@ import { Router } from '@angular/router';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { filter } from 'rxjs/internal/operators/filter';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 interface FilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
@@ -64,6 +65,8 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
   rows$: Observable<ManagedJobAdRow[]>;
 
   columns$: Observable<ManagedJobAdColumnDefinition[]>;
+
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private store: Store<ManageJobAdsState>,
               private modalService: ModalService,
@@ -108,6 +111,13 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
 
     this.store.pipe(select(isLoading)).pipe(
       distinctUntilChanged(),
+      tap(loading => {
+        if (loading) {
+          this.blockUI.start();
+        } else {
+          this.blockUI.stop();
+        }
+      }),
       takeUntil(this.ngUnsubscribe))
       .subscribe();
 
