@@ -28,7 +28,7 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { distinctUntilChanged, map, take, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, take, takeUntil, tap } from 'rxjs/operators';
 import { ScrollService } from '../../core/scroll.service';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { composeResultListItemId } from '../../shared/layout/result-list-item/result-list-item.component';
@@ -39,6 +39,7 @@ import { OccupationCode } from '../../shared/backend-services/reference-service/
 import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
 import { WINDOW } from '../../core/window.service';
 import { filter } from 'rxjs/internal/operators/filter';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -68,6 +69,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
 
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private store: Store<CandidateSearchState>,
               private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
@@ -88,7 +90,14 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
     );
 
     this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading)).pipe(
-      distinctUntilChanged()
+      distinctUntilChanged(),
+      tap(loading => {
+        if (loading) {
+          this.blockUI.start();
+        } else {
+          this.blockUI.stop();
+        }
+      })
     );
 
     this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations)).pipe(
