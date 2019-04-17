@@ -188,6 +188,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
   }
 
+  trackById(index, item: JobSearchResult) {
+    return item.hashCode;
+  }
+
 }
 
 
