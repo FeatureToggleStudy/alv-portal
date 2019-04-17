@@ -48,7 +48,7 @@
         Stellen Suchresultate
       </h2>
       <ng-container *ngIf="jobSearchResults$ | async as jobSearchResults">
-        <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults"
+        <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults; trackBy: trackById"
                                [jobSearchResult]="jobSearchResult"
                                [language]="currentLanguage$ | async"
                                [currentUser]="currentUser$ | async"

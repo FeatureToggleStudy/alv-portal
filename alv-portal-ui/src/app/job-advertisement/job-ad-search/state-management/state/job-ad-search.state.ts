@@ -5,6 +5,7 @@ import {
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { JobSearchResult } from '../../../shared/job-search-result/job-search-result.component';
 
 export interface JobAdSearchState {
   totalCount: number;
@@ -72,11 +73,7 @@ export const getJobSearchResults = createSelector(isDirtyResultList, getResultLi
     return undefined;
   }
   return resultList.map((item) => {
-    return {
-      jobAdvertisement: item.jobAdvertisement,
-      favouriteItem: item.favouriteItem,
-      visited: visitedJobAds[item.jobAdvertisement.id] || false
-    };
+    return new JobSearchResult(item.jobAdvertisement, item.favouriteItem, visitedJobAds[item.jobAdvertisement.id] || false);
   });
 });
 

@@ -154,4 +154,8 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
     }
   }
 
+  trackBy(index, item: JobSearchResult) {
+    return item.hashCode;
+  }
+
 }

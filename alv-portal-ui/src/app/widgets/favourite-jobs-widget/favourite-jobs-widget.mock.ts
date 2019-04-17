@@ -10,7 +10,6 @@ import {
   Qualification,
   Salutation
 } from '../../shared/backend-services/shared.types';
-import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
 
 export const mockJobs: JobAdvertisement[] = [
   {
@@ -332,12 +331,6 @@ export const mockJobs: JobAdvertisement[] = [
     owner: null
   }
 ];
-
-export const mockJobSearchResults: JobSearchResult[] = mockJobs.map(x => ({
-  jobAdvertisement: x,
-  favouriteItem: null,
-  visited: false
-}));
 
 export const mockFavouriteDescriptor = {
   id: 'someid',
