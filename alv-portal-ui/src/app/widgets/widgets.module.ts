@@ -8,7 +8,7 @@ import { JobPublicationWidgetComponent } from './job-publication-widget/job-publ
 import { ManageJobAdsWidgetComponent } from './manage-job-ads-widget/manage-job-ads-widget.component';
 import { RouterModule } from '@angular/router';
 import { JobAdManagementTableComponent } from './manage-job-ads-widget/job-ad-management-table/job-ad-management-table.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll-ganqqwerty';
 import { JobAdManagementColumnService } from './manage-job-ads-widget/job-ad-management-column.service';
 import { JobAdCancellationComponent } from './manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../shared/layout/modal/modal.service';
