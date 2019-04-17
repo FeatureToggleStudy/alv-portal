@@ -22,6 +22,7 @@ import {
   CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
 } from '../../job-advertisement/job-ad-favourites/job-ad-favourites/job-ad-favourites.types';
 import { ModalService } from '../../shared/layout/modal/modal.service';
+import { JobAdvertisementWithFavourites } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',
@@ -64,9 +65,9 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
             size: 10 // We have to grab more items because the API returns non-favourite items sometimes.
           }, currentUser.id);
         }),
-        map(favouriteJob => favouriteJob.result),
-        map((result) => result.map(value => ({ ...value, visited: false }))),
-        map(result => result.filter(jobFavourite => jobFavourite.favouriteItem).slice(0, 3)),
+        map(response => response.result),
+        map((results: JobAdvertisementWithFavourites[]) => results.map(value => new JobSearchResult(value.jobAdvertisement, value.favouriteItem))),
+        map(results => results.filter(jobFavourite => jobFavourite.favouriteItem).slice(0, 3)),
         takeUntil(this.ngUnsubscribe)
       );
 

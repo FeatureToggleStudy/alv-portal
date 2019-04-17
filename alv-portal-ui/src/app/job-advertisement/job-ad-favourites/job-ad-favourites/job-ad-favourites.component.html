@@ -22,7 +22,7 @@
 
   <ng-container *ngIf="jobAdFavouriteSearchResults$ | async as jobs">
     <ng-container *ngIf="jobs.length">
-      <alv-job-search-result *ngFor="let job of jobs"
+      <alv-job-search-result *ngFor="let job of jobs; trackBy: trackBy"
                              [jobSearchResult]="job"
                              [language]="currentLanguage$ | async"
                              [currentUser]="currentUser$ | async"
