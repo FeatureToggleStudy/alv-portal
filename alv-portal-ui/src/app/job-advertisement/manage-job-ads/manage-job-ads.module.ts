@@ -12,7 +12,7 @@ import { ManageJobAdsRoutingModule } from './manage-job-ads-routing.module';
 import { ManagedJobAdSearchGuard } from './manage-job-ad-search/managed-job-ad-search.guard';
 import { SharedModule } from '../../shared/shared.module';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll-ganqqwerty';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ManageJobAdDetailGuard } from './manage-job-ad-detail/manage-job-ad-detail.guard';
 import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement.module';

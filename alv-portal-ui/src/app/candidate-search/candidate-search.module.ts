@@ -6,7 +6,7 @@ import { FilterPanelComponent } from './candidate-search/filter-panel/filter-pan
 import { CandidateSearchResultComponent } from './candidate-search/candidate-search-result/candidate-search-result.component';
 import { CandidateSearchComponent } from './candidate-search/candidate-search.component';
 import { CandidateDetailComponent } from './candidate-detail/candidate-detail.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll-ganqqwerty';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CandidateSearchEffects, candidateSearchReducer } from './state-management';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll-ganqqwerty';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { JobAdFavouritesRoutingModule } from './job-ad-favourites-routing.module';
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement.module';

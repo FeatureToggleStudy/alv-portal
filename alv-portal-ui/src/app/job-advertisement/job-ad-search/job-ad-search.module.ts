@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JobSearchComponent } from './job-search/job-search.component';
 import { FilterPanelComponent } from './job-search/filter-panel/filter-panel.component';
 import { SharedModule } from '../../shared/shared.module';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll-ganqqwerty';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { JobAdSearchRoutingModule } from './job-ad-search-routing.module';
 import { JobDetailComponent } from './job-detail/job-detail.component';
 import { StoreModule } from '@ngrx/store';
