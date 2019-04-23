@@ -58,11 +58,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   totalCount$: Observable<number>;
 
-  jobSearchFilter$: Observable<JobSearchFilter>;
+  filter$: Observable<JobSearchFilter>;
 
   resultsAreLoading$: Observable<boolean>;
 
-  jobSearchResults$: Observable<JobSearchResult[]>;
+  results$: Observable<JobSearchResult[]>;
 
   jobSearchMailToLink$: Observable<string>;
 
@@ -92,11 +92,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   ngOnInit() {
     this.totalCount$ = this.store.pipe(select(getTotalCount));
 
-    this.jobSearchResults$ = this.store.pipe(select(getJobSearchResults)).pipe(
+    this.results$ = this.store.pipe(select(getJobSearchResults)).pipe(
       filter(value => !!value)
     );
 
-    this.jobSearchFilter$ = this.store.pipe(select(getJobSearchFilter));
+    this.filter$ = this.store.pipe(select(getJobSearchFilter));
 
     this.resultsAreLoading$ = this.store.pipe(select(isLoading)).pipe(
       distinctUntilChanged(),
@@ -109,7 +109,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       })
     );
 
-    this.jobSearchMailToLink$ = this.jobSearchFilter$.pipe(
+    this.jobSearchMailToLink$ = this.filter$.pipe(
       map((jobSearchFilter: JobSearchFilter) => this.jobSearchFilterParameterService.encode(jobSearchFilter)),
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)

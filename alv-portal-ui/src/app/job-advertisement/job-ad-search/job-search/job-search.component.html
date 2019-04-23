@@ -1,8 +1,8 @@
 <ng-container *ngIf="{
 resultsAreLoading: resultsAreLoading$ | async,
-jobSearchFilter: jobSearchFilter$ | async,
+filter: filter$ | async,
 currentLanguage: currentLanguage$| async,
-jobSearchResults: jobSearchResults$ | async,
+results: results$ | async,
 totalCount: totalCount$ | async,
 currentUser: currentUser$ | async,
 jobSearchMailToLink: jobSearchMailToLink$ | async
@@ -17,7 +17,7 @@ jobSearchMailToLink: jobSearchMailToLink$ | async
       <alv-job-query-panel class="col-lg-9"
                            (jobQueryPanelValuesChange)="onQueryChange($event)"
                            [showSpinner]="observablesExpanded.resultsAreLoading"
-                           [jobQueryPanelValues]="observablesExpanded.jobSearchFilter">
+                           [jobQueryPanelValues]="observablesExpanded.filter">
       </alv-job-query-panel>
 
       <div class="col-lg-3 d-flex">
@@ -49,7 +49,7 @@ jobSearchMailToLink: jobSearchMailToLink$ | async
           {{'job-search.filter.title' | translate}}
         </h2>
         <alv-filter-panel (filterPanelValueChange)="onFiltersChange($event)"
-                          [filterPanelValues]="observablesExpanded.jobSearchFilter">
+                          [filterPanelValues]="observablesExpanded.filter">
         </alv-filter-panel>
       </ng-container>
 
@@ -57,9 +57,9 @@ jobSearchMailToLink: jobSearchMailToLink$ | async
         <h2 class="sr-only">
           Stellen Suchresultate
         </h2>
-        <ng-container *ngIf="observablesExpanded.jobSearchResults as jobSearchResults">
-          <alv-job-search-result *ngFor="let jobSearchResult of jobSearchResults; trackBy: trackById"
-                                 [jobSearchResult]="jobSearchResult"
+        <ng-container *ngIf="observablesExpanded.results as results">
+          <alv-job-search-result *ngFor="let result of results; trackBy: trackById"
+                                 [jobSearchResult]="result"
                                  [language]="observablesExpanded.currentLanguage"
                                  [currentUser]="observablesExpanded.currentUser"
                                  (addFavourite)="addFavourite($event)"
@@ -67,7 +67,7 @@ jobSearchMailToLink: jobSearchMailToLink$ | async
                                  (removeFavourite)="removeFavourite($event)"
                                  routerLinkBase="/job-search">
           </alv-job-search-result>
-          <div *ngIf="!jobSearchResults.length">
+          <div *ngIf="!results.length">
             {{'global.common-phrases.no-results-found' | translate}}
           </div>
         </ng-container>
