@@ -1,5 +1,12 @@
 <div class="container-fluid pt-2 pt-lg-4">
-  <alv-three-column-layout *ngIf="jobDetailModel$ | async as jobDetailModel"
+  <alv-three-column-layout *ngIf="{
+                              jobDetailModel: jobDetailModel$ | async,
+                              favouriteItemDetailModel: favouriteItemDetailModel$ | async,
+                              badges: badges$ | async,
+                              alerts: alerts$ | async,
+                              nextEnabled: nextEnabled$ | async,
+                              prevEnabled: prevEnabled$ | async
+                            } as observablesResolved"
                            [stickyTop]="layoutConstants.STICKY_TOP_DETAIL"
                            [mobileOrdering]="[2, 1, null]">
     <ng-container class="mobile-menu-bar">
@@ -15,12 +22,12 @@
         </div>
         <div class="flex-grow-1"></div>
         <!-- Favourite Item Actions -->
-        <div *ngIf="(favouriteItemDetailModel$ | async) as favouriteItemDetailModel"
+        <div *ngIf="observablesResolved.favouriteItemDetailModel as favouriteItemDetailModel"
              class="favourite-item-actions">
           <button class="btn btn-toggle-icon mr-1"
                   [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (favouriteItemDetailModel.isFavourite ? 'remove-favourite' : 'add-favourite') | translate"
                   placement="bottom"
-                  (click)="favouriteItemDetailModel.isFavourite ? removeFavourite(favouriteItemDetailModel.favourite) : addFavourite(jobDetailModel.jobAdvertisement.id)">
+                  (click)="favouriteItemDetailModel.isFavourite ? removeFavourite(favouriteItemDetailModel.favourite) : addFavourite(observablesResolved.jobDetailModel.jobAdvertisement.id)">
             <fa-icon *ngIf="favouriteItemDetailModel.isFavourite"
                      [icon]="['fas', 'star']"></fa-icon>
             <fa-icon *ngIf="!favouriteItemDetailModel.isFavourite"
@@ -29,7 +36,7 @@
           <button class="btn btn-toggle-icon mr-1"
                   [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (favouriteItemDetailModel.hasNote ? 'edit-note' : 'add-note') | translate"
                   placement="bottom"
-                  (click)="editNote(jobDetailModel.jobAdvertisement.id, favouriteItemDetailModel.favourite)">
+                  (click)="editNote(observablesResolved.jobDetailModel.jobAdvertisement.id, favouriteItemDetailModel.favourite)">
             <fa-icon *ngIf="favouriteItemDetailModel.hasNote"
                      [icon]="['fas', 'sticky-note']"></fa-icon>
             <fa-icon *ngIf="!favouriteItemDetailModel.hasNote"
@@ -53,24 +60,24 @@
                prev
                ngbDropdownMenu>
             <button (click)="loadPrev()"
-                    [disabled]="!(prevEnabled$ | async)"
+                    [disabled]="!(observablesResolved.prevEnabled)"
                     class="dropdown-item">
               {{'portal.job-detail.previous-result' | translate}}
             </button>
             <button (click)="loadNext()"
-                    [disabled]="!(nextEnabled$ | async)"
+                    [disabled]="!observablesResolved.nextEnabled"
                     class="dropdown-item">
               {{'portal.job-detail.next-result' | translate}}
             </button>
-            <a *ngIf="jobDetailModel.applyChannel?.formUrl"
+            <a *ngIf="observablesResolved.jobDetailModel.applyChannel?.formUrl"
                class="dropdown-item"
-               [href]="jobDetailModel.applyChannel?.formUrl"
+               [href]="observablesResolved.jobDetailModel.applyChannel?.formUrl"
                target="_blank">
               {{'job-detail.action.applyNow' | translate}}
             </a>
-            <a *ngIf="jobDetailModel.jobContent.externalUrl"
+            <a *ngIf="observablesResolved.jobDetailModel.jobContent.externalUrl"
                class="dropdown-item"
-               [href]="jobDetailModel.jobContent.externalUrl"
+               [href]="observablesResolved.jobDetailModel.jobContent.externalUrl"
                target="_blank}">
               {{'job-detail.action.showExternalPage' | translate}}
             </a>
@@ -88,7 +95,7 @@
                     class="dropdown-item">
               <span>{{'job-detail.action.print' | translate}}</span>
             </button>
-            <button (click)="openComplaintModal(jobDetailModel.id)"
+            <button (click)="openComplaintModal(observablesResolved.jobDetailModel.id)"
                     class="dropdown-item">
               {{'job-detail.action.complain' | translate}}
             </button>
@@ -106,15 +113,15 @@
       </a>
       <div class="d-flex d-sm-block flex-column-reverse">
         <div class="alv-panel p-2 mb-3">
-          <alv-job-company-context [jobDetailModel]="jobDetailModel">
+          <alv-job-company-context [jobDetailModel]="observablesResolved.jobDetailModel">
           </alv-job-company-context>
         </div>
       </div>
 
-      <div *ngIf="jobDetailModel.stellennummerAvam && jobDetailModel.jobCenter"
+      <div *ngIf="observablesResolved.jobDetailModel.stellennummerAvam && observablesResolved.jobDetailModel.jobCenter"
            class="alv-panel p-2 mb-3">
         <div class="order-sm-2">
-          <alv-job-center-context [jobDetailModel]="jobDetailModel">
+          <alv-job-center-context [jobDetailModel]="observablesResolved.jobDetailModel">
           </alv-job-center-context>
         </div>
       </div>
@@ -122,7 +129,7 @@
 
     <ng-container class="main-column">
 
-      <div *ngIf="(alerts$ | async) as alerts"
+      <div *ngIf="observablesResolved.alerts as alerts"
            [ngClass]="{'mb-4': alerts.length}">
         <alv-alert *ngFor="let alert of alerts"
                    [notification]="alert"
@@ -130,15 +137,15 @@
         </alv-alert>
       </div>
 
-      <alv-job-content [jobDetailModel]="jobDetailModel"
-                       [badges]="badges$ | async">
+      <alv-job-content [jobDetailModel]="observablesResolved.jobDetailModel"
+                       [badges]="observablesResolved.badges">
       </alv-job-content>
     </ng-container>
 
     <ng-container class="right-column">
       <div class="d-flex">
         <button (click)="loadPrev()"
-                [disabled]="!(prevEnabled$ | async)"
+                [disabled]="!observablesResolved.prevEnabled"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           <fa-icon class="mr-1"
                    [icon]="['fas', 'caret-left']"></fa-icon>
@@ -146,7 +153,7 @@
         </button>
         <div class="flex-grow-1"></div>
         <button (click)="loadNext()"
-                [disabled]="!(nextEnabled$ | async)"
+                [disabled]="!observablesResolved.nextEnabled"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
           <fa-icon class="mr-1"
@@ -155,26 +162,26 @@
       </div>
 
       <p>
-        <a *ngIf="jobDetailModel.applyChannel?.formUrl"
+        <a *ngIf="observablesResolved.jobDetailModel.applyChannel?.formUrl"
            class="btn btn-primary btn-block btn-truncate mb-1"
-           [href]="jobDetailModel.applyChannel?.formUrl | normalizeUrl"
+           [href]="observablesResolved.jobDetailModel.applyChannel?.formUrl | normalizeUrl"
            target="_blank">
           {{'job-detail.action.applyNow' | translate}}
         </a>
-        <a *ngIf="jobDetailModel.jobContent.externalUrl"
+        <a *ngIf="observablesResolved.jobDetailModel.jobContent.externalUrl"
            class="btn btn-secondary btn-block btn-truncate"
-           [href]="jobDetailModel.jobContent.externalUrl | normalizeUrl"
-           [target]="jobDetailModel.id">
+           [href]="observablesResolved.jobDetailModel.jobContent.externalUrl | normalizeUrl"
+           [target]="observablesResolved.jobDetailModel.id">
           {{'job-detail.action.showExternalPage' | translate}}
         </a>
       </p>
 
       <ul class="nav flex-column">
 
-        <ng-container *ngIf="(favouriteItemDetailModel$ | async) as favouriteItemDetailModel ">
+        <ng-container *ngIf="observablesResolved.favouriteItemDetailModel as favouriteItemDetailModel ">
           <li *ngIf="!favouriteItemDetailModel.isFavourite">
             <button class="btn btn-text btn-text-icon btn-truncate"
-                    (click)="addFavourite(jobDetailModel.jobAdvertisement.id)">
+                    (click)="addFavourite(observablesResolved.jobDetailModel.jobAdvertisement.id)">
               <fa-icon class="mr-1"
                        [icon]="['far', 'star']"></fa-icon>
               {{'portal.job-ad-favourites.tooltip.add-favourite' | translate}}
@@ -191,7 +198,7 @@
 
           <li *ngIf="favouriteItemDetailModel.hasNote">
             <button class="btn btn-text btn-text-icon btn-truncate"
-                    (click)="editNote(jobDetailModel.id,favouriteItemDetailModel.favourite)">
+                    (click)="editNote(observablesResolved.jobDetailModel.id,favouriteItemDetailModel.favourite)">
               <fa-icon class="mr-1"
                        [icon]="['fas', 'sticky-note']"></fa-icon>
               {{'portal.job-ad-favourites.tooltip.edit-note' | translate}}
@@ -200,7 +207,7 @@
 
           <li *ngIf="!favouriteItemDetailModel.hasNote">
             <button class="btn btn-text btn-text-icon btn-truncate"
-                    (click)="editNote(jobDetailModel.id,favouriteItemDetailModel.favourite)">
+                    (click)="editNote(observablesResolved.jobDetailModel.id,favouriteItemDetailModel.favourite)">
               <fa-icon class="mr-1"
                        [icon]="['far', 'sticky-note']"></fa-icon>
               {{'portal.job-ad-favourites.tooltip.add-note' | translate}}
@@ -227,7 +234,7 @@
           </a>
         </li>
         <li class="d-none d-lg-block">
-          <button (click)="openComplaintModal(jobDetailModel.id)"
+          <button (click)="openComplaintModal(observablesResolved.jobDetailModel.id)"
                   class="btn btn-text btn-text-icon btn-truncate">
             <fa-icon [icon]="['fas', 'ban']"
                      class="mr-1"></fa-icon>
