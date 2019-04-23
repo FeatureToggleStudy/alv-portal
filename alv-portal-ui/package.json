@@ -67,7 +67,7 @@
     "ng2-nouislider": "1.7.13",
     "ngx-clipboard": "12.0.0",
     "ngx-cookie-service": "2.1.0",
-    "ngx-infinite-scroll": "https://github.com/ganqqwerty/ngx-infinite-scroll/raw/master/ngx-infinite-scroll-8.0.0.tgz",
+    "ngx-infinite-scroll": "https://github.com/alv-ch/ngx-infinite-scroll/raw/master/ngx-infinite-scroll-8.0.0.tgz",
     "ngx-markdown": "7.1.4",
     "nodelist-foreach-polyfill": "1.2.0",
     "nouislider": "13.1.4",
