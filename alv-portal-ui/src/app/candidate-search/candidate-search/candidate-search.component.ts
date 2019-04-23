@@ -51,17 +51,17 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   layoutConstants = LayoutConstants;
 
-  totalCount$: Observable<number>;
+  resultCount$: Observable<number>;
 
-  candidateSearchFilter$: Observable<CandidateSearchFilter>;
+  filter$: Observable<CandidateSearchFilter>;
 
   resultsAreLoading$: Observable<boolean>;
 
-  candidateSearchResults$: Observable<CandidateSearchResult[]>;
+  results$: Observable<CandidateSearchResult[]>;
 
   searchMailToLink$: Observable<string>;
 
-  selectedOccupationCodes: Observable<OccupationCode[]>;
+  selectedOccupationCodes$: Observable<OccupationCode[]>;
 
   detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
 
@@ -81,11 +81,11 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   }
 
   ngOnInit() {
-    this.totalCount$ = this.store.pipe(select(getTotalCount));
+    this.resultCount$ = this.store.pipe(select(getTotalCount));
 
-    this.candidateSearchFilter$ = this.store.pipe(select(getCandidateSearchFilter));
+    this.filter$ = this.store.pipe(select(getCandidateSearchFilter));
 
-    this.candidateSearchResults$ = this.store.pipe(select(getCandidateSearchResults)).pipe(
+    this.results$ = this.store.pipe(select(getCandidateSearchResults)).pipe(
       filter(value => !!value)
     );
 
@@ -100,11 +100,11 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       })
     );
 
-    this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations)).pipe(
+    this.selectedOccupationCodes$ = this.store.pipe(select(getSelectedOccupations)).pipe(
       map((occupations) => occupations.map((b) => b.payload))
     );
 
-    this.searchMailToLink$ = this.candidateSearchFilter$.pipe(
+    this.searchMailToLink$ = this.filter$.pipe(
       map((candidateSearchFilter: CandidateSearchFilter) => this.candidateSearchFilterParameterService.encode(candidateSearchFilter)),
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)

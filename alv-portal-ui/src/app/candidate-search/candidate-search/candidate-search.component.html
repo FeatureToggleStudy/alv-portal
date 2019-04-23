@@ -1,10 +1,10 @@
 <ng-container *ngIf="{
 resultsAreLoading: resultsAreLoading$ | async,
-candidateSearchFilter: candidateSearchFilter$ | async,
-candidateSearchResults: candidateSearchResults$ | async,
-totalCount: totalCount$ | async,
+filter: filter$ | async,
+results: results$ | async,
+resultCount: resultCount$ | async,
 searchMailToLink: searchMailToLink$ | async,
-selectedOccupationCodes: selectedOccupationCodes | async
+selectedOccupationCodes: selectedOccupationCodes$ | async
 } as observablesExpanded">
 
   <div #searchPanel
@@ -16,7 +16,7 @@ selectedOccupationCodes: selectedOccupationCodes | async
       <alv-candidate-query-panel class="col-12 col-lg-9"
                                  (candidateQueryPanelValuesChange)="onQueryChange($event)"
                                  [showSpinner]="observablesExpanded.resultsAreLoading"
-                                 [candidateQueryPanelValues]="observablesExpanded.candidateSearchFilter">
+                                 [candidateQueryPanelValues]="observablesExpanded.filter">
       </alv-candidate-query-panel>
       <div class="col-12 col-lg-2 col-lg-3 d-flex">
         <button (click)="onResetFilter()"
@@ -42,7 +42,7 @@ selectedOccupationCodes: selectedOccupationCodes | async
         <div class="alv-bar mb-1">
           <span *ngIf="observablesExpanded.resultsAreLoading; else resultsCount">...</span>
           <ng-template #resultsCount>
-            <strong>{{observablesExpanded.totalCount | number }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
+            <strong>{{observablesExpanded.resultCount | number }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
           </ng-template>
         </div>
 
@@ -51,16 +51,16 @@ selectedOccupationCodes: selectedOccupationCodes | async
         </h2>
 
         <alv-filter-panel (filterPanelValuesChange)="onFiltersChange($event)"
-                          [filterPanelValues]="observablesExpanded.candidateSearchFilter"></alv-filter-panel>
+                          [filterPanelValues]="observablesExpanded.filter"></alv-filter-panel>
       </ng-container>
 
       <ng-container class="main-column">
-        <ng-container *ngIf="observablesExpanded.candidateSearchResults as candidateSearchResults">
-          <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults"
+        <ng-container *ngIf="observablesExpanded.results as results">
+          <alv-candidate-search-result *ngFor="let candidateSearchResult of results"
                                        [selectedOccupationCodes]="observablesExpanded.selectedOccupationCodes"
                                        [candidateSearchResult]="candidateSearchResult">
           </alv-candidate-search-result>
-          <div *ngIf="!candidateSearchResults.length">
+          <div *ngIf="!results.length">
             {{'global.common-phrases.no-results-found' | translate}}
           </div>
         </ng-container>
