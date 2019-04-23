@@ -1,12 +1,12 @@
 <ng-container *ngIf="{
-resultsAreLoading: resultsAreLoading$ | async,
-filter: filter$ | async,
-currentLanguage: currentLanguage$| async,
-results: results$ | async,
-totalCount: totalCount$ | async,
-currentUser: currentUser$ | async,
-jobSearchMailToLink: jobSearchMailToLink$ | async
-} as observablesExpanded">
+                resultsAreLoading: resultsAreLoading$ | async,
+                filter: filter$ | async,
+                currentLanguage: currentLanguage$| async,
+                results: results$ | async,
+                totalCount: totalCount$ | async,
+                currentUser: currentUser$ | async,
+                jobSearchMailToLink: jobSearchMailToLink$ | async
+              } as observablesResolved">
 
   <div #searchPanel
        class="container-fluid query-search-area pt-4 pt-lg-5 pb-4">
@@ -16,8 +16,8 @@ jobSearchMailToLink: jobSearchMailToLink$ | async
       </h2>
       <alv-job-query-panel class="col-lg-9"
                            (jobQueryPanelValuesChange)="onQueryChange($event)"
-                           [showSpinner]="observablesExpanded.resultsAreLoading"
-                           [jobQueryPanelValues]="observablesExpanded.filter">
+                           [showSpinner]="observablesResolved.resultsAreLoading"
+                           [jobQueryPanelValues]="observablesResolved.filter">
       </alv-job-query-panel>
 
       <div class="col-lg-3 d-flex">
@@ -39,9 +39,9 @@ jobSearchMailToLink: jobSearchMailToLink$ | async
                              [stickyTop]="layoutConstants.STICKY_TOP_SEARCH + searchPanelHeight">
       <ng-container class="left-column">
         <div class="alv-bar mb-1">
-          <span *ngIf="observablesExpanded.resultsAreLoading; else resultsCount">...</span>
+          <span *ngIf="observablesResolved.resultsAreLoading; else resultsCount">...</span>
           <ng-template #resultsCount>
-            <strong>{{observablesExpanded.totalCount | number}} {{'portal.job-ad-search.results-count.label' | translate}}</strong>
+            <strong>{{observablesResolved.totalCount | number}} {{'portal.job-ad-search.results-count.label' | translate}}</strong>
           </ng-template>
 
         </div>
@@ -49,7 +49,7 @@ jobSearchMailToLink: jobSearchMailToLink$ | async
           {{'job-search.filter.title' | translate}}
         </h2>
         <alv-filter-panel (filterPanelValueChange)="onFiltersChange($event)"
-                          [filterPanelValues]="observablesExpanded.filter">
+                          [filterPanelValues]="observablesResolved.filter">
         </alv-filter-panel>
       </ng-container>
 
@@ -57,11 +57,11 @@ jobSearchMailToLink: jobSearchMailToLink$ | async
         <h2 class="sr-only">
           Stellen Suchresultate
         </h2>
-        <ng-container *ngIf="observablesExpanded.results as results">
+        <ng-container *ngIf="observablesResolved.results as results">
           <alv-job-search-result *ngFor="let result of results; trackBy: trackById"
                                  [jobSearchResult]="result"
-                                 [language]="observablesExpanded.currentLanguage"
-                                 [currentUser]="observablesExpanded.currentUser"
+                                 [language]="observablesResolved.currentLanguage"
+                                 [currentUser]="observablesResolved.currentUser"
                                  (addFavourite)="addFavourite($event)"
                                  (updatedFavourite)="updatedFavourite($event)"
                                  (removeFavourite)="removeFavourite($event)"
@@ -75,7 +75,7 @@ jobSearchMailToLink: jobSearchMailToLink$ | async
 
       <ng-container class="right-column">
         <div class="w-100 mb-3 text-right text-md-left">
-          <a *ngIf="observablesExpanded.jobSearchMailToLink as jobSearchMailToLink"
+          <a *ngIf="observablesResolved.jobSearchMailToLink as jobSearchMailToLink"
              class="btn btn-text btn-text-icon btn-truncate"
              [href]="jobSearchMailToLink">
             <fa-icon class="mr-1"

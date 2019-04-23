@@ -1,11 +1,11 @@
 <ng-container *ngIf="{
-resultsAreLoading: resultsAreLoading$ | async,
-filter: filter$ | async,
-results: results$ | async,
-resultCount: resultCount$ | async,
-searchMailToLink: searchMailToLink$ | async,
-selectedOccupationCodes: selectedOccupationCodes$ | async
-} as observablesExpanded">
+                resultsAreLoading: resultsAreLoading$ | async,
+                filter: filter$ | async,
+                results: results$ | async,
+                resultCount: resultCount$ | async,
+                searchMailToLink: searchMailToLink$ | async,
+                selectedOccupationCodes: selectedOccupationCodes$ | async
+              } as observablesResolved">
 
   <div #searchPanel
        class="container-fluid query-search-area pt-4 pt-lg-5 pb-4">
@@ -15,8 +15,8 @@ selectedOccupationCodes: selectedOccupationCodes$ | async
       </h2>
       <alv-candidate-query-panel class="col-12 col-lg-9"
                                  (candidateQueryPanelValuesChange)="onQueryChange($event)"
-                                 [showSpinner]="observablesExpanded.resultsAreLoading"
-                                 [candidateQueryPanelValues]="observablesExpanded.filter">
+                                 [showSpinner]="observablesResolved.resultsAreLoading"
+                                 [candidateQueryPanelValues]="observablesResolved.filter">
       </alv-candidate-query-panel>
       <div class="col-12 col-lg-2 col-lg-3 d-flex">
         <button (click)="onResetFilter()"
@@ -40,9 +40,9 @@ selectedOccupationCodes: selectedOccupationCodes$ | async
                              [stickyTop]="layoutConstants.STICKY_TOP_SEARCH + searchPanelHeight">
       <ng-container class="left-column">
         <div class="alv-bar mb-1">
-          <span *ngIf="observablesExpanded.resultsAreLoading; else resultsCount">...</span>
+          <span *ngIf="observablesResolved.resultsAreLoading; else resultsCount">...</span>
           <ng-template #resultsCount>
-            <strong>{{observablesExpanded.resultCount | number }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
+            <strong>{{observablesResolved.resultCount | number }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
           </ng-template>
         </div>
 
@@ -51,13 +51,13 @@ selectedOccupationCodes: selectedOccupationCodes$ | async
         </h2>
 
         <alv-filter-panel (filterPanelValuesChange)="onFiltersChange($event)"
-                          [filterPanelValues]="observablesExpanded.filter"></alv-filter-panel>
+                          [filterPanelValues]="observablesResolved.filter"></alv-filter-panel>
       </ng-container>
 
       <ng-container class="main-column">
-        <ng-container *ngIf="observablesExpanded.results as results">
+        <ng-container *ngIf="observablesResolved.results as results">
           <alv-candidate-search-result *ngFor="let candidateSearchResult of results"
-                                       [selectedOccupationCodes]="observablesExpanded.selectedOccupationCodes"
+                                       [selectedOccupationCodes]="observablesResolved.selectedOccupationCodes"
                                        [candidateSearchResult]="candidateSearchResult">
           </alv-candidate-search-result>
           <div *ngIf="!results.length">
@@ -69,7 +69,7 @@ selectedOccupationCodes: selectedOccupationCodes$ | async
 
       <ng-container class="right-column">
         <div class="w-100 mb-3 text-right text-lg-left">
-          <a *ngIf="observablesExpanded.searchMailToLink as searchMailToLink"
+          <a *ngIf="observablesResolved.searchMailToLink as searchMailToLink"
              class="btn btn-text btn-text-icon btn-truncate"
              [href]="searchMailToLink">
             <fa-icon class="mr-1"
