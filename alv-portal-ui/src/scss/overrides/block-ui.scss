@@ -1,5 +1,13 @@
+@import "../common/colors";
+
 $color-grey-transparent-background: rgba(167, 166, 166, 0.4);
 
 .block-ui-wrapper {
   background: $color-grey-transparent-background !important;
+
+  .block-ui-spinner {
+    .loader {
+      border-left-color: $color-primary;
+    }
+  }
 }
