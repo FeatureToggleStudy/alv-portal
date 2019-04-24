@@ -4,14 +4,14 @@
     <h2 class="sr-only">
       {{'portal.candidate-search.browser-title' | translate}}
     </h2>
-    <alv-candidate-query-panel class="col-12 col-md-10 col-lg-9"
+    <alv-candidate-query-panel class="col-12 col-lg-9"
                                (candidateQueryPanelValuesChange)="onQueryChange($event)"
                                [showSpinner]="resultsAreLoading$ | async"
                                [candidateQueryPanelValues]="candidateSearchFilter$ | async">
     </alv-candidate-query-panel>
-    <div class="col-12 col-md-2 col-lg-3 d-flex">
+    <div class="col-12 col-lg-2 col-lg-3 d-flex">
       <button (click)="onResetFilter()"
-              class="reset-button btn btn-text h-100 mt-1 mt-md-0 flex-grow-1 flex-md-grow-0">
+              class="reset-button btn btn-text h-100 mt-1 mt-lg-0 flex-grow-1 flex-lg-grow-0">
         {{ 'job-search.toolbar.reset' | translate }}
       </button>
     </div>
@@ -51,7 +51,7 @@
                                      [selectedOccupationCodes]="selectedOccupationCodes | async"
                                      [candidateSearchResult]="candidateSearchResult">
         </alv-candidate-search-result>
-        <div *ngIf="!candidateSearchResults || !candidateSearchResults.length">
+        <div *ngIf="!candidateSearchResults.length">
           {{'global.common-phrases.no-results-found' | translate}}
         </div>
       </ng-container>
@@ -59,7 +59,7 @@
     </ng-container>
 
     <ng-container class="right-column">
-      <div class="w-100 mb-3 text-right text-md-left">
+      <div class="w-100 mb-3 text-right text-lg-left">
         <a *ngIf="searchMailToLink$ | async as searchMailToLink"
            class="btn btn-text btn-text-icon btn-truncate"
            [href]="searchMailToLink">

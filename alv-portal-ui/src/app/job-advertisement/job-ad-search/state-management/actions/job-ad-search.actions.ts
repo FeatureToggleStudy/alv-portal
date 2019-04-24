@@ -1,19 +1,35 @@
 import { Action } from '@ngrx/store';
-import { JobAdvertisement } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import {
+  FavouriteItem,
+  JobAdvertisement,
+  JobAdvertisementWithFavourites
+} from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobSearchFilter } from '../state';
 import { FilterPanelValues } from '../../job-search/filter-panel/filter-panel.component';
 import { JobQueryPanelValues } from '../../../../widgets/job-search-widget/job-query-panel/job-query-panel-values';
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
+import {
+  AddedJobAdFavouriteAction,
+  AddJobAdFavouriteAction,
+  EffectErrorOccurredAction,
+  RemovedJobAdFavouriteAction,
+  RemoveJobAdFavouriteAction,
+  UpdatedJobAdFavouriteAction
+} from '../../../../core/state-management/actions/core.actions';
 
-export const INIT_RESULT_LIST = 'JOBS:INIT_RESULT_LIST';
+export const INITIALIZE_RESULT_LIST = 'JOBS:INITIALIZE_RESULT_LIST';
+export const RESULT_LIST_ALREADY_INITIALIZED = 'JOBS:RESULT_LIST_ALREADY_INITIALIZED';
 export const FILTER_APPLIED = 'JOBS:FILTER_APPLIED';
 export const APPLY_FILTER = 'JOBS:APPLY_FILTER';
 export const RESET_FILTER = 'JOBS:RESET_FILTER';
 export const FILTER_RESET = 'JOBS:FILTER_RESET';
 export const LOAD_NEXT_PAGE = 'JOBS:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'JOBS:NEXT_PAGE_LOADED';
+export const NEXT_PAGE_NOT_AVAILABLE = 'JOBS:NEXT_PAGE_NOT_AVAILABLE';
 
 export const JOB_ADVERTISEMENT_DETAIL_LOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_LOADED';
+export const JOB_ADVERTISEMENT_DETAIL_UNLOADED = 'JOBS:JOB_ADVERTISEMENT_DETAIL_UNLOADED';
+
 export const LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL';
 export const LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL = 'JOBS:LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL';
 
@@ -22,9 +38,20 @@ export const APPLY_FILTER_VALUES = 'JOBS:APPLY_FILTER_VALUES';
 
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 
+export const RESET = 'JOBS:RESET';
 
-export class InitResultListAction implements Action {
-  readonly type = INIT_RESULT_LIST;
+export const FAVOURITE_ITEM_LOADED = 'JOBS:FAVOURITE_ITEM_LOADED';
+
+
+export class InitializeResultListAction implements Action {
+  readonly type = INITIALIZE_RESULT_LIST;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class ResultListAlreadyInitializedAction implements Action {
+  readonly type = RESULT_LIST_ALREADY_INITIALIZED;
 
   constructor(public payload = {}) {
   }
@@ -86,7 +113,7 @@ export class ApplyFilterAction implements Action {
 export class FilterAppliedAction implements Action {
   readonly type = FILTER_APPLIED;
 
-  constructor(public payload: { page: Array<JobAdvertisement>, totalCount: number }) {
+  constructor(public payload: { page: Array<JobAdvertisementWithFavourites>, totalCount: number }) {
   }
 }
 
@@ -100,7 +127,14 @@ export class LoadNextPageAction implements Action {
 export class NextPageLoadedAction implements Action {
   readonly type = NEXT_PAGE_LOADED;
 
-  constructor(public payload: { page: Array<JobAdvertisement> }) {
+  constructor(public payload: { page: Array<JobAdvertisementWithFavourites> }) {
+  }
+}
+
+export class NextPageNotAvailableAction implements Action {
+  readonly type = NEXT_PAGE_NOT_AVAILABLE;
+
+  constructor(public payload = {}) {
   }
 }
 
@@ -108,6 +142,13 @@ export class JobAdvertisementDetailLoadedAction implements Action {
   readonly type = JOB_ADVERTISEMENT_DETAIL_LOADED;
 
   constructor(public payload: { jobAdvertisement: JobAdvertisement }) {
+  }
+}
+
+export class JobAdvertisementDetailUnloadedAction implements Action {
+  readonly type = JOB_ADVERTISEMENT_DETAIL_UNLOADED;
+
+  constructor(public payload: {}) {
   }
 }
 
@@ -135,17 +176,41 @@ export class OccupationLanguageChangedAction implements Action {
   }
 }
 
+export class ResetAction implements Action {
+  readonly type = RESET;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class FavouriteItemLoadedAction implements Action {
+  readonly type = FAVOURITE_ITEM_LOADED;
+
+  constructor(public payload: { favouriteItem: FavouriteItem }) {
+  }
+}
 
 export type Actions =
-  | InitResultListAction
+  | InitializeResultListAction
+  | ResultListAlreadyInitializedAction
   | FilterAppliedAction
   | ApplyFilterAction
   | LoadNextPageAction
   | NextPageLoadedAction
+  | NextPageNotAvailableAction
   | JobAdvertisementDetailLoadedAction
+  | JobAdvertisementDetailUnloadedAction
   | LoadPreviousJobAdvertisementDetailAction
   | LoadNextJobAdvertisementDetailAction
   | ResetFilterAction
   | ApplyFilterValuesAction
   | ApplyQueryValuesAction
-  | OccupationLanguageChangedAction;
+  | AddJobAdFavouriteAction
+  | AddedJobAdFavouriteAction
+  | RemoveJobAdFavouriteAction
+  | RemovedJobAdFavouriteAction
+  | OccupationLanguageChangedAction
+  | UpdatedJobAdFavouriteAction
+  | ResetAction
+  | FavouriteItemLoadedAction
+  | EffectErrorOccurredAction;

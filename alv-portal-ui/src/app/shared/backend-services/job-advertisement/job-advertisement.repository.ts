@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   CreateJobAdvertisement,
   JobAdvertisement,
   JobAdvertisementCancelRequest,
   JobAdvertisementSearchRequest,
   JobAdvertisementSearchResponse,
+  JobAdvertisementWithFavourites,
   ManagedJobAdsSearchRequest,
   ManagedJobAdsSearchResponse
 } from './job-advertisement.types';
 
 import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../request-util';
+import { mockJobsWithFavourites } from '../../../widgets/favourite-jobs-widget/favourite-jobs-widget.mock';
 
 @Injectable({ providedIn: 'root' })
 export class JobAdvertisementRepository {
@@ -46,7 +48,7 @@ export class JobAdvertisementRepository {
 
   search(request: JobAdvertisementSearchRequest): Observable<JobAdvertisementSearchResponse> {
     const params = createPageableURLSearchParams(request);
-    return this.http.post<JobAdvertisement[]>(this.searchUrl, request.body, {
+    return this.http.post<JobAdvertisementWithFavourites[]>(this.searchUrl, request.body, {
       params,
       observe: 'response'
     }).pipe(
@@ -56,6 +58,10 @@ export class JobAdvertisementRepository {
           result: resp.body
         };
       }));
+    // return of({
+    //   totalCount: 203,
+    //   result: mockJobsWithFavourites
+    // });
   }
 
   findById(id: string): Observable<JobAdvertisement> {

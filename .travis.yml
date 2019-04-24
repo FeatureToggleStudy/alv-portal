@@ -55,7 +55,20 @@ deploy:
       branch: master
   - provider: script
     skip_cleanup: true
+    script: >-
+      .ci-travis/maven-deploy.sh ${ARTIFACTORY_USERNAME} ${ARTIFACTORY_PASSWORD}
+      && .ci-travis/push-version-bump.sh ${BUILD_VERSION} ${GIT_USER} ${GIT_PWD}
+    on:
+      all_branches: true
+      condition: "$TRAVIS_BRANCH =~ ^release.*$"
+  - provider: script
+    skip_cleanup: true
     script: ".ci-travis/maven-e2e.sh"
     on:
       all_branches: true
       condition: "$TRAVIS_EVENT_TYPE == cron"
+notifications:
+  webhooks:
+    on_success: change
+    on_failure: always
+    on_start: never

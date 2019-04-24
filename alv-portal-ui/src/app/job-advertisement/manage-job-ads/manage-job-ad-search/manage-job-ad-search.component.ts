@@ -2,10 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { ApplyFilterAction, LoadNextPageAction } from '../state-management/actions';
+import {
+  ApplyFilterAction,
+  JobAdvertisementCancelledAction,
+  LoadNextPageAction
+} from '../state-management/actions';
 import { FilterManagedJobAdsComponent } from './filter-managed-job-ads/filter-managed-job-ads.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, map, take, takeUntil, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  take,
+  takeUntil,
+  tap
+} from 'rxjs/operators';
 import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
 import { JobAdManagementColumnService } from '../../../widgets/manage-job-ads-widget/job-ad-management-column.service';
@@ -21,13 +32,15 @@ import {
 import {
   getManagedJobAdResults,
   getManagedJobAdsSearchFilter,
+  isLoading,
   ManageJobAdsState
 } from '../state-management/state';
 import { JobAdCancellationComponent } from '../../../widgets/manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { Router } from '@angular/router';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { JobAdvertisementUpdatedAction } from '../../../core/state-management/actions/core.actions';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
+import { filter } from 'rxjs/internal/operators/filter';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 interface FilterBadge extends InlineBadge {
   key: string; // is needed to identify the filter that corresponds to a badge
@@ -53,34 +66,7 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
 
   columns$: Observable<ManagedJobAdColumnDefinition[]>;
 
-  private static mapBadges(filter: ManagedJobAdsSearchFilter): FilterBadge[] {
-    let badges: FilterBadge[] = [];
-    for (const key in filter) {
-      if (key === 'onlineSinceDays' && filter[key]) {
-        badges.push({
-          label: 'dashboard.job-publication.publication-period.' + filter[key],
-          cssClass: 'badge-manage-jobads-filter badge-big',
-          key: key
-        });
-      } else if (key === 'ownerUserId' && filter[key]) {
-        badges.push({
-          label: 'portal.manage-job-ads.search.filter.createdBy.myself',
-          cssClass: 'badge-manage-jobads-filter badge-big',
-          key: key
-        });
-      } else if (key === 'status' && filter [key]) {
-        badges.push({
-          label: 'global.job-publication.status.' + filter[key],
-          cssClass: 'badge-manage-jobads-filter badge-big',
-          key: key
-        });
-      } else if (!filter[key]) {
-        badges = badges.filter(badge => badge.key);
-      }
-    }
-
-    return badges;
-  }
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private store: Store<ManageJobAdsState>,
               private modalService: ModalService,
@@ -90,12 +76,54 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
     super();
   }
 
+  private static mapBadges(managedJobAdsSearchFilter: ManagedJobAdsSearchFilter): FilterBadge[] {
+    let badges: FilterBadge[] = [];
+    for (const key in managedJobAdsSearchFilter) {
+      if (key === 'onlineSinceDays' && managedJobAdsSearchFilter[key]) {
+        badges.push({
+          label: 'dashboard.job-publication.publication-period.' + managedJobAdsSearchFilter[key],
+          cssClass: 'badge-manage-jobads-managedJobAdsSearchFilter badge-big',
+          key: key
+        });
+      } else if (key === 'ownerUserId' && managedJobAdsSearchFilter[key]) {
+        badges.push({
+          label: 'portal.manage-job-ads.search.managedJobAdsSearchFilter.createdBy.myself',
+          cssClass: 'badge-manage-jobads-managedJobAdsSearchFilter badge-big',
+          key: key
+        });
+      } else if (key === 'status' && managedJobAdsSearchFilter [key]) {
+        badges.push({
+          label: 'global.job-publication.status.' + managedJobAdsSearchFilter[key],
+          cssClass: 'badge-manage-jobads-managedJobAdsSearchFilter badge-big',
+          key: key
+        });
+      } else if (!managedJobAdsSearchFilter[key]) {
+        badges = badges.filter(badge => badge.key);
+      }
+    }
+
+    return badges;
+  }
+
   ngOnInit() {
 
     this.columns$ = this.jobAdManagementColumnService.createColumnDefinitions();
 
+    this.store.pipe(select(isLoading)).pipe(
+      distinctUntilChanged(),
+      tap(loading => {
+        if (loading) {
+          this.blockUI.start();
+        } else {
+          this.blockUI.stop();
+        }
+      }),
+      takeUntil(this.ngUnsubscribe))
+      .subscribe();
+
     this.rows$ = this.store.pipe(
       select(getManagedJobAdResults),
+      filter(value => !!value),
       map(jobs => {
         return jobs.map(job => ({
           jobAdvertisement: job,
@@ -168,7 +196,7 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
         jobAdCancellationComponent.accessToken = null;
         jobAdCancellationModalRef.result
           .then((job) => {
-            this.store.dispatch(new JobAdvertisementUpdatedAction({ jobAdvertisement: job }));
+            this.store.dispatch(new JobAdvertisementCancelledAction({ jobAdvertisement: job }));
           })
           .catch(() => {
           });

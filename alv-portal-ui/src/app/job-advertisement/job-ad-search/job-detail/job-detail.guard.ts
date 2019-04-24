@@ -1,30 +1,54 @@
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
+  CanActivate, CanDeactivate,
   RouterStateSnapshot
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import {
+  FavouriteItemLoadedAction,
   JobAdSearchState,
-  JobAdvertisementDetailLoadedAction
+  JobAdvertisementDetailLoadedAction, JobAdvertisementDetailUnloadedAction
 } from '../state-management';
 import { Store } from '@ngrx/store';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { Injectable } from '@angular/core';
+import { isAuthenticatedUser } from '../../../core/auth/user.model';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import { JobDetailComponent } from './job-detail.component';
 
 @Injectable()
-export class JobDetailGuard implements CanActivate {
+export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailComponent> {
 
-  constructor(private store: Store<JobAdSearchState>, private jobAdvertisementService: JobAdvertisementRepository) {
-
+  constructor(
+    private store: Store<JobAdSearchState>,
+    private authenticationService: AuthenticationService,
+    private jobAdFavouritesRepository: JobAdFavouritesRepository,
+    private jobAdvertisementRepository: JobAdvertisementRepository) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const id = route.params['id'];
-    return this.jobAdvertisementService.findById(id).pipe(
-      tap((jobAd) => {
-        this.store.dispatch(new JobAdvertisementDetailLoadedAction({ jobAdvertisement: jobAd }));
+    const jobAdvertisement$ = this.jobAdvertisementRepository.findById(id);
+    const favouriteItem$ = this.authenticationService.getCurrentUser().pipe(
+      take(1),
+      switchMap(currentUser => {
+        if (isAuthenticatedUser(currentUser)) {
+          return this.jobAdFavouritesRepository.getFavourite(id, currentUser.id);
+        } else {
+          return of(undefined);
+        }
+      })
+    );
+    return forkJoin(jobAdvertisement$, favouriteItem$).pipe(
+      tap(results => {
+        const jobAdvertisement = results[0];
+        const favouriteItem = results[1];
+        this.store.dispatch(new JobAdvertisementDetailLoadedAction({ jobAdvertisement: jobAdvertisement }));
+        if (favouriteItem !== undefined) {
+          this.store.dispatch(new FavouriteItemLoadedAction({ favouriteItem: favouriteItem }));
+        }
       }),
       map(() => {
         return true;
@@ -33,6 +57,11 @@ export class JobDetailGuard implements CanActivate {
         return of(false);
       })
     );
+  }
+
+  canDeactivate(component: JobDetailComponent, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState?: RouterStateSnapshot): boolean {
+    this.store.dispatch(new JobAdvertisementDetailUnloadedAction({}));
+    return true;
   }
 
 }

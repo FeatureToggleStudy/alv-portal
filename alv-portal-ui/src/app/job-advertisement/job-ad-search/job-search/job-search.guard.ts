@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import {
   ApplyFilterAction,
   ApplyQueryValuesAction,
-  InitResultListAction,
+  InitializeResultListAction,
   JobAdSearchState,
   JobSearchFilter
 } from '../state-management';
@@ -43,7 +43,7 @@ export class JobSearchGuard implements CanActivate {
       return false;
     }
 
-    this.store.dispatch(new InitResultListAction());
+    this.store.dispatch(new InitializeResultListAction());
 
     return true;
   }

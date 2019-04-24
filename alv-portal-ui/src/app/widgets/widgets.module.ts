@@ -12,12 +12,16 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { JobAdManagementColumnService } from './manage-job-ads-widget/job-ad-management-column.service';
 import { JobAdCancellationComponent } from './manage-job-ads-widget/job-ad-cancellation/job-ad-cancellation.component';
 import { ModalService } from '../shared/layout/modal/modal.service';
+import { FavouriteJobsWidgetComponent } from './favourite-jobs-widget/favourite-jobs-widget.component';
+import { JobBadgesMapperService } from '../job-advertisement/shared/job-badges-mapper.service';
+import { SharedJobAdvertisementModule } from '../job-advertisement/shared/shared-job-advertisement.module';
 
 @NgModule({
   imports: [
     SharedModule,
     RouterModule,
     InfiniteScrollModule,
+    SharedJobAdvertisementModule
   ],
   declarations: [
     JobSearchWidgetComponent,
@@ -27,11 +31,13 @@ import { ModalService } from '../shared/layout/modal/modal.service';
     JobPublicationWidgetComponent,
     ManageJobAdsWidgetComponent,
     JobAdManagementTableComponent,
-    JobAdCancellationComponent
+    JobAdCancellationComponent,
+    FavouriteJobsWidgetComponent
   ],
   providers: [
     ModalService,
-    JobAdManagementColumnService
+    JobAdManagementColumnService,
+    JobBadgesMapperService
   ],
   entryComponents: [
     JobAdCancellationComponent
@@ -45,7 +51,8 @@ import { ModalService } from '../shared/layout/modal/modal.service';
       JobPublicationWidgetComponent,
       ManageJobAdsWidgetComponent,
       JobAdManagementTableComponent,
-      JobAdCancellationComponent
+      JobAdCancellationComponent,
+      FavouriteJobsWidgetComponent
     ]
 })
 

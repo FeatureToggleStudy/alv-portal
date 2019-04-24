@@ -10,7 +10,7 @@ import { ManageJobAdsState } from '../state-management/state';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { InitResultListAction } from '../state-management/actions/manage-job-ads.actions';
+import { InitializeResultListAction } from '../state-management/actions';
 
 @Injectable()
 export class ManagedJobAdSearchGuard implements CanActivate {
@@ -22,7 +22,7 @@ export class ManagedJobAdSearchGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.authenticationService.getCurrentCompany().pipe(
-      tap(() => this.store.dispatch(new InitResultListAction())),
+      tap(() => this.store.dispatch(new InitializeResultListAction())),
       map(() => true)
     );
   }

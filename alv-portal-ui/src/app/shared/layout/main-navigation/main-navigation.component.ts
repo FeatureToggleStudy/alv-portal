@@ -58,6 +58,8 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   desktopMenuHeight: String;
 
+  setDesktopMenuHeightFn = this.setDesktopMenuHeight.bind(this);
+
   constructor(private router: Router,
               private loginService: LoginService,
               private authenticationService: AuthenticationService,
@@ -95,12 +97,13 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   }
 
   ngAfterViewInit() {
-    this.window.addEventListener('resize', this.setDesktopMenuHeight);
+    this.window.addEventListener('resize', this.setDesktopMenuHeightFn);
     this.setDesktopMenuHeight();
   }
 
   ngOnDestroy() {
-    this.window.removeEventListener('resize', this.setDesktopMenuHeight);
+    super.ngOnDestroy();
+    this.window.removeEventListener('resize', this.setDesktopMenuHeightFn);
   }
 
   login() {

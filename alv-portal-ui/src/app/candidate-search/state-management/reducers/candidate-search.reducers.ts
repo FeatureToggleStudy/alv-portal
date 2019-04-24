@@ -6,16 +6,41 @@ import {
   APPLY_QUERY_VALUES,
   CANDIDATE_PROFILE_DETAIL_LOADED,
   FILTER_APPLIED,
+  INITIALIZE_RESULT_LIST,
   LOAD_NEXT_PAGE,
   NEXT_PAGE_LOADED,
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
-  RESET_FILTER
+  RESET,
+  RESET_FILTER,
+  RESULT_LIST_INITIALIZED
 } from '../actions';
+import { EFFECT_ERROR_OCCURRED } from '../../../core/state-management/actions/core.actions';
 
 export function candidateSearchReducer(state = initialState, action: Actions): CandidateSearchState {
   let newState: CandidateSearchState;
 
   switch (action.type) {
+
+    case INITIALIZE_RESULT_LIST:
+      newState = {
+        ...state,
+        resultsAreLoading: true
+      };
+      break;
+
+    case RESULT_LIST_INITIALIZED:
+      newState = {
+        ...state,
+        resultsAreLoading: false
+      };
+      break;
+
+    case RESET:
+      newState = {
+        ...initialState
+      };
+      break;
+
     case APPLY_FILTER_VALUES:
       newState = {
         ...state,
@@ -52,7 +77,8 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         ...state,
         resultList: [...action.payload.page],
         totalCount: action.payload.totalCount,
-        resultsAreLoading: false
+        resultsAreLoading: false,
+        isDirtyResultList: false
       };
       break;
 
@@ -100,6 +126,14 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         visitedCandidates: { ...currentVisited }
       };
       break;
+
+    case EFFECT_ERROR_OCCURRED: {
+      newState = {
+        ...state,
+        resultsAreLoading: false
+      };
+      break;
+    }
 
     default:
       newState = state;

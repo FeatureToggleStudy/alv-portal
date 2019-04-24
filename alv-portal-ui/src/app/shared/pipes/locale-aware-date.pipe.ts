@@ -13,7 +13,7 @@ export class LocaleAwareDatePipe implements PipeTransform {
   constructor(@Inject(LOCALE_ID) private locale: string) {
   }
 
-  public transform(value: any, pattern = DATE_FORMAT): any {
+  transform(value: any, pattern = DATE_FORMAT): any {
     const wrapped = new DatePipe(this.locale);
     return wrapped.transform(value, pattern);
   }

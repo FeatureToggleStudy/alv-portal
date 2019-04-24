@@ -24,6 +24,7 @@ export interface CandidateSearchState {
   selectedCandidateProfile: CandidateProfile;
   resultsAreLoading: boolean;
   visitedCandidates: { [id: string]: boolean; };
+  isDirtyResultList: boolean;
 }
 
 export const initialState: CandidateSearchState = {
@@ -47,7 +48,8 @@ export const initialState: CandidateSearchState = {
   resultList: [],
   selectedCandidateProfile: null,
   resultsAreLoading: false,
-  visitedCandidates: {}
+  visitedCandidates: {},
+  isDirtyResultList: true
 };
 
 export interface CandidateSearchFilter {
@@ -77,8 +79,6 @@ export const getCandidateSearchFilter = createSelector(getCandidateSearchState, 
 
 export const getTotalCount = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.totalCount);
 
-export const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
-
 export const getVisitedCandidates = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.visitedCandidates);
 
 export const getResultsAreLoading = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultsAreLoading);
@@ -87,7 +87,14 @@ export const getSelectedCandidateProfile = createSelector(getCandidateSearchStat
 
 export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations);
 
-export const getCandidateSearchResults = createSelector(getResultList, getVisitedCandidates, (resultList, visitedCandidates) => {
+const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
+
+const isDirtyResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.isDirtyResultList);
+
+export const getCandidateSearchResults = createSelector(isDirtyResultList, getResultList, getVisitedCandidates, (dirty, resultList, visitedCandidates) => {
+  if (dirty) {
+    return undefined;
+  }
   return resultList.map((candidateProfile) => {
     return {
       candidateProfile: candidateProfile,

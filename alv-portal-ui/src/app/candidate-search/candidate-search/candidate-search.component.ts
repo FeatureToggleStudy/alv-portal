@@ -4,6 +4,8 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  Inject,
+  OnDestroy,
   OnInit,
   ViewChild
 } from '@angular/core';
@@ -26,7 +28,7 @@ import {
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
-import { map, take, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, take, takeUntil, tap } from 'rxjs/operators';
 import { ScrollService } from '../../core/scroll.service';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { composeResultListItemId } from '../../shared/layout/result-list-item/result-list-item.component';
@@ -35,6 +37,9 @@ import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import { OccupationCode } from '../../shared/backend-services/reference-service/occupation-label.types';
 import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
+import { WINDOW } from '../../core/window.service';
+import { filter } from 'rxjs/internal/operators/filter';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -42,7 +47,7 @@ import { LayoutConstants } from '../../shared/layout/layout-constants.enum';
   styleUrls: ['./candidate-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CandidateSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
+export class CandidateSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit, OnDestroy {
 
   layoutConstants = LayoutConstants;
 
@@ -58,15 +63,20 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   selectedOccupationCodes: Observable<OccupationCode[]>;
 
+  detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
+
   searchPanelHeight = 0;
 
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
+
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private store: Store<CandidateSearchState>,
               private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
               private actionsSubject: ActionsSubject,
               private scrollService: ScrollService,
-              private cdRef: ChangeDetectorRef) {
+              private cdRef: ChangeDetectorRef,
+              @Inject(WINDOW) private window: Window) {
     super();
   }
 
@@ -75,9 +85,20 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
     this.candidateSearchFilter$ = this.store.pipe(select(getCandidateSearchFilter));
 
-    this.candidateSearchResults$ = this.store.pipe(select(getCandidateSearchResults));
+    this.candidateSearchResults$ = this.store.pipe(select(getCandidateSearchResults)).pipe(
+      filter(value => !!value)
+    );
 
-    this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading));
+    this.resultsAreLoading$ = this.store.pipe(select(getResultsAreLoading)).pipe(
+      distinctUntilChanged(),
+      tap(loading => {
+        if (loading) {
+          this.blockUI.start();
+        } else {
+          this.blockUI.stop();
+        }
+      })
+    );
 
     this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations)).pipe(
       map((occupations) => occupations.map((b) => b.payload))
@@ -99,6 +120,8 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   ngAfterViewInit() {
     this.detectSearchPanelHeight();
+    // Add resize listener to recalculate UI on window resize
+    this.window.addEventListener('resize', this.detectSearchPanelHeightFn);
     this.store.pipe(select(getSelectedCandidateProfile))
       .pipe(take(1))
       .subscribe(candidateProfile => {
@@ -108,6 +131,11 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
           this.scrollService.scrollToTop();
         }
       });
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
   }
 
   onScroll() {

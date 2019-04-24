@@ -10,7 +10,6 @@ import {
   map,
   switchMap,
   take,
-  takeUntil,
   tap,
   withLatestFrom
 } from 'rxjs/operators';
@@ -20,17 +19,19 @@ import { asyncScheduler, Observable, of } from 'rxjs/index';
 import {
   EffectErrorOccurredAction,
   LANGUAGE_CHANGED,
-  LanguageChangedAction
+  LanguageChangedAction,
+  LAZY_LOADED_MODULE_DESTROYED,
+  LazyLoadedModuleDestroyedAction,
+  ModuleName
 } from '../../../core/state-management/actions/core.actions';
 import {
   APPLY_FILTER,
   APPLY_FILTER_VALUES,
   APPLY_QUERY_VALUES,
   ApplyFilterAction,
-  FILTER_APPLIED,
   FilterAppliedAction,
   FilterResetAction,
-  INIT_RESULT_LIST,
+  INITIALIZE_RESULT_LIST,
   LOAD_NEXT_CANDIDATE_PROFILE_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL,
@@ -38,7 +39,9 @@ import {
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   OccupationLanguageChangedAction,
-  RESET_FILTER
+  RESET_FILTER,
+  ResetAction,
+  ResultListInitializedAction
 } from '../actions';
 import { Router } from '@angular/router';
 import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
@@ -58,19 +61,34 @@ export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLi
 export class CandidateSearchEffects {
 
   @Effect()
+  reset$ = this.actions$.pipe(
+    ofType(LAZY_LOADED_MODULE_DESTROYED),
+    map((action: LazyLoadedModuleDestroyedAction) => action.payload),
+    filter(action => action.moduleName === ModuleName.CANDIDATE_SEARCH),
+    map(() => {
+      return new ResetAction();
+    })
+  );
+
+  @Effect()
   initCandidateSearch$ = this.actions$.pipe(
-    ofType(INIT_RESULT_LIST),
+    ofType(INITIALIZE_RESULT_LIST),
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
-    switchMap(([a, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
-      .pipe(
-        map((response) => new FilterAppliedAction({
-          page: response.result,
-          totalCount: response.totalCount
-        })),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-      )
-    ),
-    takeUntil(this.actions$.pipe(ofType(FILTER_APPLIED)))
+    switchMap(([a, state]) => {
+        if (state.isDirtyResultList) {
+          return this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
+            .pipe(
+              map((response) => new FilterAppliedAction({
+                page: response.result,
+                totalCount: response.totalCount
+              })),
+              catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+            );
+        } else {
+          return of(new ResultListInitializedAction());
+        }
+      }
+    )
   );
 
   @Effect()

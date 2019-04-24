@@ -9,5 +9,9 @@ export interface ResultListItem {
   description: string;
   routerLink: string[];
   visited: boolean;
+  hasActions?: boolean;
+  isFavourite?: boolean;
+  hasNote?: boolean;
+  isDeactivated?: boolean;
 }
 

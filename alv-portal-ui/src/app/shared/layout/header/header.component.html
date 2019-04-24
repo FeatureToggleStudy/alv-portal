@@ -29,15 +29,15 @@
     <div class="flex-grow-1"></div>
 
 
-    <div class="header-buttons ml-1 d-none d-lg-flex align-items-center">
-      <a class="btn mx-3"
+    <div class="header-buttons d-none d-lg-flex align-items-center">
+      <a class="btn mr-3"
          routerLink="home"
          [attr.aria-label]="'global.menu.home' | translate"
          placement="bottom"
          [ngbTooltip]="'global.menu.home' | translate">
         <fa-icon [icon]="['fas', 'home']"></fa-icon>
       </a>
-      <a class="btn mx-3"
+      <a class="btn mr-3"
          [href]="'home.contactform.url' | translate"
          target="_blank"
          rel="noopener">
@@ -48,7 +48,7 @@
                      [user]="user"
                      [company]="company">
       </alv-user-menu>
-      <a class="btn mx-3"
+      <a class="btn mr-3"
          *alvIsAnonymous
          [href]="'home.registration.url' | translate"
          target="_blank"
@@ -65,7 +65,7 @@
 
     <div *ngIf="currentLanguage$ | async as currentLanguage"
          class="language-switchers">
-      <div class="header-buttons ml-1 d-none d-lg-flex align-items-center">
+      <div class="header-buttons d-none d-lg-flex align-items-center">
         <a class="mx-3"
            [href]="'home.title.portal-url' | translate"
            target="_blank"

@@ -5,6 +5,7 @@ import {
   Qualification,
   Salutation
 } from '../shared.types';
+import { GeoPoint } from '../reference-service/locality.types';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -143,7 +144,7 @@ export interface Location {
   communalCode?: string;
   regionCode?: string;
   cantonCode?: string;
-  // coordinates?: GeoPoint;
+  coordinates?: GeoPoint;
 }
 
 export interface CreateLocation {
@@ -194,13 +195,13 @@ export interface CreateJobAdvertisement {
   publication: Publication;
   numberOfJobs: string;
   jobDescriptions: JobDescription[];
-  company: Company;
+  company: WebformCompany;
   employer: Employer;
   employment: Employment;
   location: CreateLocation;
   occupation: Occupation;
   languageSkills: LanguageSkill[];
-  applyChannel: ApplyChannel;
+  applyChannel: WebformApplyChannel;
   publicContact: PublicContact;
 }
 
@@ -226,7 +227,42 @@ export interface ManagedJobAdsSearchResponse {
 
 export interface JobAdvertisementSearchResponse {
   totalCount: number;
-  result: JobAdvertisement[];
+  result: JobAdvertisementWithFavourites[];
+}
+
+export interface JobAdFavouritesSearchResponse {
+  totalCount: number;
+  result: JobAdvertisementWithFavourites[];
+}
+
+export interface JobAdFavouritesSearchRequest {
+  page: number;
+  size: number;
+  body: JobAdFavouritesSearchBody;
+}
+
+export interface JobAdFavouritesSearchBody {
+  query: string;
+}
+
+export interface FavouriteItem {
+  id: string;
+  createdTime: string; //date string
+  updatedTime: string; //date string
+  note: string | null;
+  jobAdvertisementId: string;
+  ownerId: string;
+}
+
+export interface CreateFavouriteItem {
+  note: string;
+  userId: string; //the id of the person who adds the job to his favourites
+  jobAdvertisementId: string;
+}
+
+export interface JobAdvertisementWithFavourites {
+  jobAdvertisement: JobAdvertisement;
+  favouriteItem: FavouriteItem | null;
 }
 
 export interface ProfessionCode {
@@ -271,4 +307,33 @@ export interface JobAdvertisementCancelRequest {
   id: string;
   token?: string;
   code: CancellationReason;
+}
+
+export interface WebformCompany {
+  name: string;
+  street?: string;
+  houseNumber?: string;
+  postOfficeBoxNumber?: string;
+  postalCode: string;
+  city: string;
+  countryIsoCode: string;
+  surrogate?: boolean;
+}
+
+export interface WebformApplyChannel {
+  postAddress: WebformPostAddress;
+  emailAddress: string;
+  phoneNumber: string;
+  formUrl: string;
+  additionalInfo: string;
+}
+
+export interface WebformPostAddress {
+  name: string;
+  street?: string;
+  houseNumber?: string;
+  postOfficeBoxNumber?: string;
+  postalCode: string;
+  city: string;
+  countryIsoCode: string;
 }

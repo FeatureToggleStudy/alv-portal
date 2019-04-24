@@ -1,17 +1,42 @@
-<div class="container-fluid pt-2 pt-md-4">
+<div class="container-fluid pt-2 pt-lg-4">
   <alv-three-column-layout *ngIf="jobDetailModel$ | async as jobDetailModel"
                            [stickyTop]="layoutConstants.STICKY_TOP_DETAIL"
                            [mobileOrdering]="[2, 1, null]">
     <ng-container class="mobile-menu-bar">
-      <div class="d-flex justify-content-between">
+      <div class="d-flex">
+        <!-- Back Button -->
         <div>
           <a class="btn btn-text btn-text-icon"
-             routerLink="/job-search">
+             [routerLink]="backButtonPath">
             <fa-icon class="mr-1"
                      [icon]="['fas', 'caret-left']"></fa-icon>
             {{'job-detail.back' | translate}}
           </a>
         </div>
+        <div class="flex-grow-1"></div>
+        <!-- Favourite Item Actions -->
+        <div *ngIf="(favouriteItemDetailModel$ | async) as favouriteItemDetailModel"
+             class="favourite-item-actions">
+          <button class="btn btn-toggle-icon mr-1"
+                  [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (favouriteItemDetailModel.isFavourite ? 'remove-favourite' : 'add-favourite') | translate"
+                  placement="bottom"
+                  (click)="favouriteItemDetailModel.isFavourite ? removeFavourite(favouriteItemDetailModel.favourite) : addFavourite(jobDetailModel.jobAdvertisement.id)">
+            <fa-icon *ngIf="favouriteItemDetailModel.isFavourite"
+                     [icon]="['fas', 'star']"></fa-icon>
+            <fa-icon *ngIf="!favouriteItemDetailModel.isFavourite"
+                     [icon]="['far', 'star']"></fa-icon>
+          </button>
+          <button class="btn btn-toggle-icon mr-1"
+                  [ngbTooltip]="'portal.job-ad-favourites.tooltip.' + (favouriteItemDetailModel.hasNote ? 'edit-note' : 'add-note') | translate"
+                  placement="bottom"
+                  (click)="editNote(jobDetailModel.jobAdvertisement.id, favouriteItemDetailModel.favourite)">
+            <fa-icon *ngIf="favouriteItemDetailModel.hasNote"
+                     [icon]="['fas', 'sticky-note']"></fa-icon>
+            <fa-icon *ngIf="!favouriteItemDetailModel.hasNote"
+                     [icon]="['far', 'sticky-note']"></fa-icon>
+          </button>
+        </div>
+        <!-- Other Mobile Actions -->
         <div #mobileActionsMenu="ngbDropdown"
              class="d-inline-block"
              ngbDropdown
@@ -25,13 +50,14 @@
             <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
           </button>
           <div aria-label="Job detail menu"
+               prev
                ngbDropdownMenu>
-            <button (click)="prev()"
+            <button (click)="loadPrev()"
                     [disabled]="!(prevEnabled$ | async)"
                     class="dropdown-item">
               {{'portal.job-detail.previous-result' | translate}}
             </button>
-            <button (click)="next()"
+            <button (click)="loadNext()"
                     [disabled]="!(nextEnabled$ | async)"
                     class="dropdown-item">
               {{'portal.job-detail.next-result' | translate}}
@@ -72,11 +98,11 @@
     </ng-container>
 
     <ng-container class="left-column">
-      <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-md-block d-print-none"
-         routerLink="/job-search">
+      <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-lg-block d-print-none"
+         [routerLink]="backButtonPath">
         <fa-icon class="mr-1"
                  [icon]="['fas', 'caret-left']"></fa-icon>
-        {{'job-detail.back' | translate}}
+        {{'job-detail.back-to-search' | translate}}
       </a>
       <div class="d-flex d-sm-block flex-column-reverse">
         <div class="alv-panel p-2 mb-3">
@@ -111,7 +137,7 @@
 
     <ng-container class="right-column">
       <div class="d-flex">
-        <button (click)="prev()"
+        <button (click)="loadPrev()"
                 [disabled]="!(prevEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           <fa-icon class="mr-1"
@@ -119,7 +145,7 @@
           {{'portal.job-detail.previous-result' | translate}}
         </button>
         <div class="flex-grow-1"></div>
-        <button (click)="next()"
+        <button (click)="loadNext()"
                 [disabled]="!(nextEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
@@ -144,6 +170,44 @@
       </p>
 
       <ul class="nav flex-column">
+
+        <ng-container *ngIf="(favouriteItemDetailModel$ | async) as favouriteItemDetailModel ">
+          <li *ngIf="!favouriteItemDetailModel.isFavourite">
+            <button class="btn btn-text btn-text-icon btn-truncate"
+                    (click)="addFavourite(jobDetailModel.jobAdvertisement.id)">
+              <fa-icon class="mr-1"
+                       [icon]="['far', 'star']"></fa-icon>
+              {{'portal.job-ad-favourites.tooltip.add-favourite' | translate}}
+            </button>
+          </li>
+          <li *ngIf="favouriteItemDetailModel.isFavourite">
+            <button class="btn btn-text btn-text-icon btn-truncate"
+                    (click)="removeFavourite(favouriteItemDetailModel.favourite)">
+              <fa-icon class="mr-1"
+                       [icon]="['fas', 'star']"></fa-icon>
+              {{'portal.job-ad-favourites.tooltip.remove-favourite' | translate}}
+            </button>
+          </li>
+
+          <li *ngIf="favouriteItemDetailModel.hasNote">
+            <button class="btn btn-text btn-text-icon btn-truncate"
+                    (click)="editNote(jobDetailModel.id,favouriteItemDetailModel.favourite)">
+              <fa-icon class="mr-1"
+                       [icon]="['fas', 'sticky-note']"></fa-icon>
+              {{'portal.job-ad-favourites.tooltip.edit-note' | translate}}
+            </button>
+          </li>
+
+          <li *ngIf="!favouriteItemDetailModel.hasNote">
+            <button class="btn btn-text btn-text-icon btn-truncate"
+                    (click)="editNote(jobDetailModel.id,favouriteItemDetailModel.favourite)">
+              <fa-icon class="mr-1"
+                       [icon]="['far', 'sticky-note']"></fa-icon>
+              {{'portal.job-ad-favourites.tooltip.add-note' | translate}}
+            </button>
+          </li>
+        </ng-container>
+
         <li>
           <button class="btn btn-text btn-text-icon btn-truncate"
                   ngxClipboard
@@ -162,7 +226,7 @@
             {{'portal.job-detail.sendLink' | translate}}
           </a>
         </li>
-        <li class="d-none d-md-block">
+        <li class="d-none d-lg-block">
           <button (click)="openComplaintModal(jobDetailModel.id)"
                   class="btn btn-text btn-text-icon btn-truncate">
             <fa-icon [icon]="['fas', 'ban']"
@@ -170,7 +234,7 @@
             {{'job-detail.action.complain' | translate}}
           </button>
         </li>
-        <li class="d-none d-md-block">
+        <li class="d-none d-lg-block">
           <button class="btn btn-text btn-text-icon btn-truncate"
                   (click)="printJob()">
             <fa-icon class="mr-1"

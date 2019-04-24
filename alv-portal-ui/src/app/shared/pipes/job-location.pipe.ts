@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Location } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
+
 @Pipe({
   name: 'jobLocation'
 })
@@ -25,5 +26,4 @@ export class JobLocationPipe implements PipeTransform {
     }
     return result;
   }
-
 }

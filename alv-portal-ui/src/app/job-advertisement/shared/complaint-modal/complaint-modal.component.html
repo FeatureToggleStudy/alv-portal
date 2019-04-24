@@ -1,10 +1,16 @@
 <alv-modal (primaryAction)="onSubmit(form)"
-           (secondaryAction)="onCancel()"
+           (cancelAction)="onCancel()"
            [formGroup]="form"
            modalTitle="job-detail.complaint-modal.header"
            primaryLabel="job-detail.complaint-modal.send"
-           secondaryLabel="job-detail.complaint-modal.dismiss">
-  <p [innerHTML]="'job-detail.complaint-modal.description' | translate"></p>
+           cancelLabel="job-detail.complaint-modal.dismiss">
+  <p>{{'job-detail.complaint-modal.description' | translate}}</p>
+  <ul>
+    <li>{{ 'job-detail.complaint-modal.reasons-examples.bribe'| translate }}</li>
+    <li>{{ 'job-detail.complaint-modal.reasons-examples.illicit'| translate }}</li>
+    <li>{{ 'job-detail.complaint-modal.reasons-examples.discrimination'| translate }}</li>
+    <li>{{ 'job-detail.complaint-modal.reasons-examples.sexist'| translate }}</li>
+  </ul>
   <fieldset>
     <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong>
     </p>

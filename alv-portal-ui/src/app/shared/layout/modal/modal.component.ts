@@ -18,6 +18,11 @@ export class ModalComponent {
   @Input() modalTitle: string;
 
   /**
+   * (optional) Icon of the modal
+   */
+  @Input() icon?: string;
+
+  /**
    * (optional) Subtitle of the modal
    */
   @Input() subtitle?: string;
@@ -36,6 +41,16 @@ export class ModalComponent {
    * Emitted event on primary button click.
    */
   @Output() primaryAction = new EventEmitter<void>();
+
+  /**
+   * (optional) Label of the cancel button
+   */
+  @Input() cancelLabel?: string;
+
+  /**
+   * Emitted event on cancel button click.
+   */
+  @Output() cancelAction = new EventEmitter<void>();
 
   /**
    * (optional) Label of the secondary button
@@ -69,6 +84,10 @@ export class ModalComponent {
 
   handleSubmitClick() {
     this.primaryAction.emit();
+  }
+
+  handleCancelClick() {
+    this.cancelAction.emit();
   }
 
   handleSecondaryClick() {

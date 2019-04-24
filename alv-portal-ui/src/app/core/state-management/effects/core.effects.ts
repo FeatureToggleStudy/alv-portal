@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of, throwError } from 'rxjs';
 import { Action, select, Store } from '@ngrx/store';
-import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {
   ACCOUNTABILITIES_LOADED,
   ACCOUNTABILITY_SELECTED,
   AccountabilitySelectedAction,
   AcountabilitiesLoaded,
+  ADD_JOB_AD_FAVOURITE,
+  AddedJobAdFavouriteAction,
+  AddJobAdFavouriteAction,
   CompanySelectedAction,
   CompanySelection,
   CURRENT_USER_LOADED,
@@ -20,6 +23,9 @@ import {
   LoadCurrentUserAction,
   LOGOUT_USER,
   LogoutUserAction,
+  REMOVE_JOB_AD_FAVOURITE,
+  RemovedJobAdFavouriteAction,
+  RemoveJobAdFavouriteAction,
   SELECT_COMPANY,
   SelectCompanyAction,
   SESSION_EXPIRED
@@ -27,7 +33,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { SessionManagerService } from '../../auth/session-manager/session-manager.service';
 import { UserDto } from '../../auth/authentication.service';
-import { User } from '../../auth/user.model';
+import { isAuthenticatedUser, User } from '../../auth/user.model';
 import { ErrorHandlerService } from '../../error-handler/error-handler.service';
 import { NotificationsService } from '../../notifications.service';
 import { Router } from '@angular/router';
@@ -35,6 +41,8 @@ import { CoreState, getCurrentUser } from '../state/core.state.ts';
 import { UserInfoRepository } from '../../../shared/backend-services/user-info/user-info-repository';
 import { CompanyRepository } from '../../../shared/backend-services/company/company-repository';
 import { CompanyContactTemplate } from '../../../shared/backend-services/user-info/user-info.types';
+import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
 
 @Injectable()
 export class CoreEffects {
@@ -164,6 +172,37 @@ export class CoreEffects {
     })
   );
 
+  @Effect()
+  addJobAdFavourite$: Observable<Action> = this.actions$.pipe(
+    ofType(ADD_JOB_AD_FAVOURITE),
+    map((action: AddJobAdFavouriteAction) => action.payload),
+    withLatestFrom(this.store.pipe(select(getCurrentUser))),
+    filter(([action, currentUser]) => isAuthenticatedUser(currentUser)),
+    switchMap(([action, currentUser]) => {
+        return this.jobAdFavouritesRepository.addFavourite(action.jobAdvertisementId, currentUser.id).pipe(
+          map((favouriteItem: FavouriteItem) => new AddedJobAdFavouriteAction({ favouriteItem: favouriteItem })),
+          tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-added')),
+          catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+        );
+      }
+    )
+  );
+
+  @Effect()
+  removeJobAdFavourite$: Observable<Action> = this.actions$.pipe(
+    ofType(REMOVE_JOB_AD_FAVOURITE),
+    map((action: RemoveJobAdFavouriteAction) => action.payload),
+    withLatestFrom(this.store.pipe(select(getCurrentUser))),
+    filter(([action, currentUser]) => isAuthenticatedUser(currentUser)),
+    switchMap(([action]) =>
+      this.jobAdFavouritesRepository.removeFavourite(action.favouriteItem.id).pipe(
+        map(() => new RemovedJobAdFavouriteAction({ removedFavouriteItem: action.favouriteItem })),
+        tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-removed')),
+        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
+      )
+    )
+  );
+
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
               private companyRepository: CompanyRepository,
@@ -172,7 +211,9 @@ export class CoreEffects {
               private userInfoRepository: UserInfoRepository,
               private notificationsService: NotificationsService,
               private errorHandlerService: ErrorHandlerService,
-              private sessionManagerService: SessionManagerService) {
+              private sessionManagerService: SessionManagerService,
+              private jobAdFavouritesRepository: JobAdFavouritesRepository
+  ) {
 
   }
 

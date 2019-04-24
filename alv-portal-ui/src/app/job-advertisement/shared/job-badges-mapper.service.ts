@@ -13,7 +13,7 @@ import {
   isShortEmployment,
   isTemporary
 } from './job-ad-rules';
-import { JobLocationPipe } from './job-location.pipe';
+import { JobLocationPipe } from '../../shared/pipes/job-location.pipe';
 
 export enum JobBadgeType {
   WORKLOAD,
