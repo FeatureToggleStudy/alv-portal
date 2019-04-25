@@ -28,8 +28,6 @@ export enum Qualification {
  * the numbers here correspond to a code of the education in the avam database
  */
 export enum Degree {
-  PRIMAR_OBLIGATORISCHE_SCHULE = '120',
-  SEKUNDAR_SCHULE = '121',
   SEK_II_WEITERFUEHRENDE_SCHULE = '130',
   SEK_II_GRUNDBILDUNG_EBA = '131',
   SEK_II_GRUNDBILDUNG_EFZ = '132',
@@ -47,8 +45,6 @@ export enum Degree {
 }
 
 export const DegreeMapping = {
-  '120': 'PRIMAR_OBLIGATORISCHE_SCHULE',
-  '121': 'SEKUNDAR_SCHULE',
   '130': 'SEK_II_WEITERFUEHRENDE_SCHULE',
   '131': 'SEK_II_GRUNDBILDUNG_EBA',
   '132': 'SEK_II_GRUNDBILDUNG_EFZ',
