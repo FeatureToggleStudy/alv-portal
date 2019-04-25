@@ -9,7 +9,7 @@
           [innerHTML]="result.title | safeHtml">
       </h3>
       <div class="order-1 order-sm-2">
-        <small class="date"
+        <small class="date text-truncate"
                [class.has-actions]="result.hasActions">
           {{ result.header | localeAwareDate }}
         </small>
