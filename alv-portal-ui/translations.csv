@@ -145,6 +145,8 @@ global.degree.TER_BERUFSBILDUNG_FA,"Höhere Berufsbildung, eidg. FA oder äquiva
 global.degree.TER_DOKTORAT_UNIVERSITAET,Doktorat universitäre Hochschule oder äquivalent,Doctorate from a university or equivalent,Doctorat HEU ou équivalent,Dottorato scuola univ./poli. o equivalente,
 global.degree.TER_MASTER_FACHHOCHSCHULE,Master Fachhochschule oder äquivalent,Master’s degree from a university of applied sciences or equivalent,Master HES ou équivalent,Master SUP o equivalente,
 global.degree.TER_MASTER_UNIVERSITAET,Master universitäre Hochschule oder äquivalent,Master’s degree from a university or equivalent,Master HEU ou équivalent,Master scuola univ./poli. o equivalente,
+global.degree.avamCode.120,Primarstufe,Primary school,Primaire,Elementare,
+global.degree.avamCode.121,Sekundarstufe,Secondary school,Ecole obligatoire,Scuola obligatoria,
 global.degree.avamCode.130,Weiterführende Schule (Sek. II),Secondary school (upper-secondary education),Ecole supérieure (Sec. II),Scuola superiore (Sec. II),
 global.degree.avamCode.131,Berufliche Grundbildung EBA oder äquivalent,Vocational education and training with the Swiss Federal VET Certificate or equivalent,Formation professionnelle initiale AFP ou équivalent,Formazione professionale di base CFP o equivalente,
 global.degree.avamCode.132,Berufliche Grundbildung EFZ oder äquivalent,Vocational education and training with the Swiss Federal VET Diploma or equivalent,Formation professionnelle initiale CFC ou équivalent,Formazione professionale di base AFC o equivalente,
