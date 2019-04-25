@@ -27,14 +27,13 @@ describe('Job search page', () => {
     });
   });
 
-  it('should descrease the amount of found jobs when the filter is applied', () => {
+  it('should descrease the amount of found jobs when the filters is applied', () => {
     const resultCount = page.filterPanel.resultCount.then(initialResultCount => {
-      page.filterPanel.setContractType(ContractTypes.TEMPORARY).then(() =>
-        expect(page.filterPanel.resultCount).toBeLessThan(initialResultCount, 'it\'s unlikely that all jobs on the website are temporary')
-      );
+      page.filterPanel.setContractType(ContractTypes.TEMPORARY)
+        .then(() =>
+          expect(page.filterPanel.resultCount).toBeLessThan(initialResultCount, 'it\'s unlikely that all jobs on the website are temporary')
+        );
     });
-
-
-  })
+  });
 });
 

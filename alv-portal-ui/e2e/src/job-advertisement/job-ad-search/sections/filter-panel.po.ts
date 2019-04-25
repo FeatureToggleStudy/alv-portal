@@ -1,9 +1,5 @@
 import { $, browser, promise as wdpromise } from 'protractor';
-import {
-  alvFormControlName,
-  getByTest,
-  getSelectOptions
-} from '../../job-publication/selector-utils';
+import { alvFormControlName, getByTest } from '../../job-publication/selector-utils';
 
 export enum ContractTypes {
   ALL = '0: ALL',
@@ -25,7 +21,9 @@ export class FilterPanelPo {
   }
 
   get resultCount(): wdpromise.Promise<number> {
-    return this._resultCountElement.getText().then(parseInt);
+    return this._resultCountElement.getText().then(textCount => {
+      return parseInt(textCount.replace(/\D/g, ''), 0);
+    });
   }
 
   clickOnOption(value: ContractTypes, selectElement): wdpromise.Promise<void> {
