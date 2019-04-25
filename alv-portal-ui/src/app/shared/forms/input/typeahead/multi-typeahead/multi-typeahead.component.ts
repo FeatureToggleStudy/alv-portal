@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -17,13 +18,8 @@ import { InputIdGenerationService } from '../../input-id-generation.service';
 import { InputType } from '../../input-type.enum';
 import { Observable } from 'rxjs/internal/Observable';
 import { TypeaheadItem } from '../typeahead-item';
-import {
-  NgbTooltip,
-  NgbTypeahead,
-  NgbTypeaheadSelectItemEvent,
-  Placement
-} from '@ng-bootstrap/ng-bootstrap';
-import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
+
+import { catchError, debounceTime, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { DOCUMENT } from '@angular/common';
 import { StringTypeaheadItem } from '../string-typeahead-item';
@@ -31,6 +27,13 @@ import { EMPTY } from 'rxjs';
 import { TypeaheadDisplayItem } from '../typeahead-display-item';
 import { ErrorHandlerService } from '../../../../../core/error-handler/error-handler.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { WINDOW } from '../../../../../core/window.service';
+import {
+  NgbTooltip,
+  NgbTypeahead,
+  NgbTypeaheadSelectItemEvent,
+  Placement
+} from '@ng-bootstrap/ng-bootstrap';
 
 export const TYPEAHEAD_QUERY_MIN_LENGTH = 2;
 
@@ -45,7 +48,7 @@ enum Key {
   templateUrl: './multi-typeahead.component.html',
   styleUrls: ['../../abstract-input.scss', './multi-typeahead.component.scss']
 })
-export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
+export class MultiTypeaheadComponent extends AbstractInput implements OnInit, AfterViewInit {
 
   readonly TYPEAHEAD_DEBOUNCE_TIME = 200;
 
@@ -90,6 +93,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService,
               @Inject(DOCUMENT) private document: any,
+              @Inject(WINDOW) private window: Window,
               private elRef: ElementRef,
               private errorHandlerService: ErrorHandlerService) {
     super(controlContainer, InputType.MULTI_TYPEAHEAD, inputIdGenerationService);
@@ -104,6 +108,11 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       };
     }
     this.allyHelpId = `${this.id}-ally-help`;
+
+  }
+
+  ngAfterViewInit() {
+    this.overrideOpenPopup();
   }
 
   showPlaceholder(): boolean {
@@ -212,6 +221,43 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
     this.getTypeaheadNativeElement().focus();
   }
 
+  /**
+   * Here we override the private _openPopup function of the ngb-typeahead which is
+   * dangerous. We try to contribute to the library to make this officially supported.
+   * Pull request:
+   * TODO: Fix the
+   */
+  private overrideOpenPopup() {
+    const originalOpenPopup = this.ngbTypeahead['_openPopup'].bind(this.ngbTypeahead);
+    this.ngbTypeahead['_openPopup'] = () => {
+      originalOpenPopup();
+      this.getPopupWindowElement().style.opacity = 0;
+      setTimeout(() => {
+        this.calculateDropdownHeight();
+        this.getPopupWindowElement().style.opacity = 1;
+      });
+
+    };
+  }
+
+  private calculateDropdownHeight() {
+    if (this.ngbTypeahead.isPopupOpen()) {
+      const dropdownElement = this.getPopupWindowElement();
+      dropdownElement.style.height = 'unset';
+      const dropdownRect = dropdownElement.getBoundingClientRect();
+      const headerHeight = 20;
+      const bodyHeight = this.document.body.clientHeight - this.window.pageYOffset - headerHeight;
+      if (dropdownRect.bottom > bodyHeight) {
+        dropdownElement.style.maxHeight = `${dropdownRect.height -
+        (dropdownRect.bottom - bodyHeight + (headerHeight * 2))}px`;
+      }
+    }
+  }
+
+  private getPopupWindowElement() {
+    return this.document.querySelector('ngb-typeahead-window');
+  }
+
   private preventAndStopPropagation(event: KeyboardEvent) {
     event.preventDefault();
     event.stopPropagation();
@@ -223,6 +269,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit {
       switchMap((query: string) => query.length >= this.queryMinLength
         ? this.loadItems(query).pipe(catchError(this.handleError.bind(this)))
         : of([])),
+      tap(() => this.calculateDropdownHeight()),
       map(this.toDisplayModelArray.bind(this))
     );
   }
