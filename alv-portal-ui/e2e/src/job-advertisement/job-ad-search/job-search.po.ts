@@ -1,12 +1,15 @@
 import { $, browser, promise as wdpromise } from 'protractor';
-import { SearchPanelPo } from './sections/search-panel.po';
+import { SearchResultsPanelPo } from './sections/search-results-panel.po';
 import { FilterPanelPo } from './sections/filter-panel.po';
+import {MainFilterPanelPo} from "./sections/main-filter-panel.po";
 
 
 export class JobSearchPo {
   private jobSearchComponentElementFinder = $('alv-job-search');
 
-  searchPanel = new SearchPanelPo();
+
+  searchResultsPanel = new SearchResultsPanelPo();
+  mainFilterPanel = new MainFilterPanelPo();
   filterPanel = new FilterPanelPo();
 
 
@@ -22,4 +25,5 @@ export class JobSearchPo {
   get browserTitle() {
     return browser.getTitle();
   }
+
 }

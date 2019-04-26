@@ -37,6 +37,7 @@ export class FilterPanelPo {
       .then(() => this.clickOnOption(value, contractTypeSelect));
   }
 
+  // todo just sends keys to the input, doesn't clear it first!
   setCompany(employerName: string) {
     return this.sectionElementFinder.$(alvFormControlName('company')).$('input')
       .sendKeys(employerName);
