@@ -6,15 +6,13 @@
     <div class="d-flex flex-column flex-sm-row justify-content-between mb-1">
 
       <h3 class="title order-2 order-sm-1 mb-0 w-100"
-          [innerHTML]="result.title | safeHtml">
+          [innerHTML]="result.title | safeHtml">t
       </h3>
       <div class="order-1 order-sm-2">
         <small class="date text-truncate"
                [class.has-actions]="result.hasActions">
           {{ result.header | localeAwareDate }}
         </small>
-        <div class="flex-grow-1 flex-md-grow-0"></div>
-
       </div>
     </div>
 
