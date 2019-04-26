@@ -1,0 +1,17 @@
+@import "../common/colors";
+
+$color-white-border: rgba($color-white, 0.7);
+block-ui-content > .block-ui-wrapper{
+
+    background: rgba($color-grey, 0.4);
+
+    .block-ui-spinner {
+      .loader {
+        border-left-color: $color-primary;
+        border-top-color: $color-white-border;
+        border-right-color: $color-white-border;
+        border-bottom-color: $color-white-border;
+      }
+    }
+}
+
