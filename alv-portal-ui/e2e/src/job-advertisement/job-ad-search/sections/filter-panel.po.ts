@@ -37,7 +37,8 @@ export class FilterPanelPo {
       .then(() => this.clickOnOption(value, contractTypeSelect));
   }
 
-  // get contractType() {
-  //
-  // }
+  setCompany(employerName: string) {
+    return this.sectionElementFinder.$(alvFormControlName('company')).$('input')
+      .sendKeys(employerName);
+  }
 }

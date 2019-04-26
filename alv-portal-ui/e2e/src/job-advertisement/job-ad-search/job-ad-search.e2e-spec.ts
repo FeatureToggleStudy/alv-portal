@@ -27,31 +27,14 @@ describe('Job search page', () => {
     });
   });
 
-  it('should descrease the amount of found jobs when the filters is applied', () => {
-    const jobCountValues = {
-      initial: null,
-      filteredByContractType: null,
-      filteredByEmployer: null,
-    };
-    page.filterPanel.resultCount
-      .then((count) => jobCountValues.initial = count)
-      .then(() => page.filterPanel.setContractType(ContractTypes.TEMPORARY))
-      .then(() => page.filterPanel.resultCount)
-      .then(count => jobCountValues.filteredByContractType = count)
-      .then(()=> expect(jobCountValues.initial).toBeLessThan(jobCountValues.filteredByContractType))
-    ;
-    // const filteredResultCount1P = page.filterPanel.setContractType(ContractTypes.TEMPORARY)
-    //   .then(() => page.filterPanel.resultCount);
-    // initialResultCountP.then(initial => filteredResultCount1P)
-    // const filteredResultCount2P = page.filterPanel.setContractType(ContractTypes.TEMPORARY)
-    //   .then(page.filterPanel.setEmployer('GmbH'))
-    //   .then(() => page.filterPanel.resultCount);
-      // .then(initialResultCount => {
-      //   page.filterPanel.setContractType(ContractTypes.TEMPORARY)
-      //     .then(() =>
-      //       expect(page.filterPanel.resultCount).toBeLessThan(initialResultCount, 'it\'s unlikely that all jobs on the website are temporary')
-      //     );
-      // });
+  it('should decrease the amount of found jobs when the filters is applied', async () => {
+    const initial = await page.filterPanel.resultCount;
+    await page.filterPanel.setContractType(ContractTypes.TEMPORARY);
+    const filteredByContractType = await page.filterPanel.resultCount;
+    expect (filteredByContractType).toBeLessThan(initial);
+    await page.filterPanel.setCompany('GmbH');
+    const filteredByEmployer = page.filterPanel.resultCount;
+    expect(filteredByEmployer).toBeLessThan(filteredByContractType);
   });
 });
 
