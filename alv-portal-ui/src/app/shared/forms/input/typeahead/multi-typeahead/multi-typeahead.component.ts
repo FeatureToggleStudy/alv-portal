@@ -224,8 +224,7 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
   /**
    * Here we override the private _openPopup function of the ngb-typeahead which is
    * dangerous. We try to contribute to the library to make this officially supported.
-   * Pull request:
-   * TODO: Fix the
+   * TODO: Adapt to the official solution as soon as one is provided
    */
   private overrideOpenPopup() {
     const originalOpenPopup = this.ngbTypeahead['_openPopup'].bind(this.ngbTypeahead);
@@ -243,13 +242,15 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
   private calculateDropdownHeight() {
     if (this.ngbTypeahead.isPopupOpen()) {
       const dropdownElement = this.getPopupWindowElement();
+      // Reset the dropdown height
       dropdownElement.style.height = 'unset';
       const dropdownRect = dropdownElement.getBoundingClientRect();
-      const headerHeight = 20;
-      const bodyHeight = this.document.body.clientHeight - this.window.pageYOffset - headerHeight;
-      if (dropdownRect.bottom > bodyHeight) {
-        dropdownElement.style.maxHeight = `${dropdownRect.height -
-        (dropdownRect.bottom - bodyHeight + (headerHeight * 2))}px`;
+      const footerHeight = 20;
+      // Calculate the visible height: body height - scroll distance - footer height
+      const visibleHeight = this.document.body.clientHeight - this.window.pageYOffset - footerHeight;
+      if (dropdownRect.bottom > visibleHeight) {
+        const overflowHeight = dropdownRect.bottom - visibleHeight + footerHeight;
+        dropdownElement.style.maxHeight = `${dropdownRect.height - overflowHeight}px`;
       }
     }
   }
