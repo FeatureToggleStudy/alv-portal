@@ -1,6 +1,6 @@
 import {JobSearchPo} from './job-search.po';
 import {ContractTypes} from './sections/filter-panel.po';
-import {browser} from "protractor";
+import {browser} from 'protractor';
 
 const PAGE_SIZE = 20;
 
@@ -48,10 +48,7 @@ describe('Job search page', () => {
     await browser.sleep(2000);
     const afterFilter = await getResultCount(page);
     expect(afterFilter).toBeLessThan(initialCount);
-  })
-
-  it('should work correctly with the details page', async () => {
-      page.searchResultsPanel
   });
+
 });
 

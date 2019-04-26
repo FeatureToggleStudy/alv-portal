@@ -17,9 +17,9 @@ export class SearchResultsPanelPo {
     return this.results.then((results: ElementFinder[]) => Promise.all(results.map(res => res.getText())));
   }
   //todo not checked yet
-  async clickOnResult(number) {
+  async clickOnResult(numberOfResult) {
     const results = await this.results;
-    return results[number].click();
+    return results[numberOfResult].click();
   }
 }
 

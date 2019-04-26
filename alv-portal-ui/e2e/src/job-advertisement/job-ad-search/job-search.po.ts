@@ -1,7 +1,7 @@
 import { $, browser, promise as wdpromise } from 'protractor';
 import { SearchResultsPanelPo } from './sections/search-results-panel.po';
 import { FilterPanelPo } from './sections/filter-panel.po';
-import {MainFilterPanelPo} from "./sections/main-filter-panel.po";
+import {MainFilterPanelPo} from './sections/main-filter-panel.po';
 
 
 export class JobSearchPo {
