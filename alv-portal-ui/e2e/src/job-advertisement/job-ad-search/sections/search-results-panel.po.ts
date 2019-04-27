@@ -1,6 +1,5 @@
 import { promise as wdpromise } from 'selenium-webdriver';
 import { $, ElementArrayFinder, ElementFinder } from 'protractor';
-import {result} from "lodash/index";
 
 export class SearchResultsPanelPo {
   private sectionElementFinder = $('.main-column');
