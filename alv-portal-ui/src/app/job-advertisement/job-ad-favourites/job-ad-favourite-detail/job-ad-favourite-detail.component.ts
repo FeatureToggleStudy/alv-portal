@@ -88,4 +88,7 @@ export class JobAdFavouriteDetailComponent extends AbstractJobAdDetailComponent 
     this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: updatedFavouriteItem }));
   }
 
+  getBackButtonText(): string {
+    return 'job-detail.back';
+  }
 }

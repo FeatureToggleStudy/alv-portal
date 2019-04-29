@@ -126,6 +126,8 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
 
   abstract onUpdatedFavourite(updatedFavouriteItem: FavouriteItem);
 
+  abstract getBackButtonText(): string;
+
   getEncodedUrl() {
     return encodeURIComponent(this.getJobUrl());
   }
@@ -165,10 +167,6 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
       })
       .catch(() => {
       });
-  }
-
-  getBackButtonText(): string {
-    return this.backButtonPath === this.JOB_SEARCH_BASE_URL ? 'job-detail.back-to-search' : 'job-detail.back';
   }
 
   protected getJobUrl() {
