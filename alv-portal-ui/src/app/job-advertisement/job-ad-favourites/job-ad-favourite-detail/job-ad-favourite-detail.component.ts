@@ -35,7 +35,11 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 })
 export class JobAdFavouriteDetailComponent extends AbstractJobAdDetailComponent implements OnInit {
 
-  public backButtonPath = '/job-favourites';
+  backButtonPath = '/job-favourites';
+
+  private readonly JOB_SEARCH_BASE_URL = '/job-search';
+
+  private readonly JOB_FAVOURITES_BASE_URL = '/job-favourites';
 
   constructor(
     jobBadgesMapperService: JobBadgesMapperService,
@@ -86,6 +90,11 @@ export class JobAdFavouriteDetailComponent extends AbstractJobAdDetailComponent 
 
   onUpdatedFavourite(updatedFavouriteItem: FavouriteItem) {
     this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: updatedFavouriteItem }));
+  }
+
+  getJobUrl() {
+    // For sharing the URL (copy or send) we modify the URL to always point to Job-Search
+    return window.location.href.replace(this.JOB_FAVOURITES_BASE_URL, this.JOB_SEARCH_BASE_URL);
   }
 
   getBackButtonText(): string {
