@@ -124,8 +124,6 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
 
   abstract getBackButtonText(): string;
 
-  abstract getJobUrl(): string;
-
   getEncodedUrl() {
     return encodeURIComponent(this.getJobUrl());
   }
@@ -165,6 +163,10 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
       })
       .catch(() => {
       });
+  }
+
+  protected getJobUrl() {
+    return window.location.href;
   }
 
   private mapJobAdAlerts(job: JobAdvertisement): Notification[] {
