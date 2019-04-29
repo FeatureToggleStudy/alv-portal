@@ -35,7 +35,7 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 })
 export class JobDetailComponent extends AbstractJobAdDetailComponent implements OnInit {
 
-  backButtonPath = '/job-search';
+  backButtonPath = this.JOB_SEARCH_BASE_URL;
 
   constructor(
     jobBadgesMapperService: JobBadgesMapperService,

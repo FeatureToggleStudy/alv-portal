@@ -48,6 +48,10 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
     }
   };
 
+  protected readonly JOB_SEARCH_BASE_URL = '/job-search';
+
+  protected readonly JOB_FAVOURITES_BASE_URL = '/job-favourites';
+
   layoutConstants = LayoutConstants;
 
   jobDetailModel$: Observable<JobDetailModel>;

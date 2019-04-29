@@ -35,11 +35,7 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 })
 export class JobAdFavouriteDetailComponent extends AbstractJobAdDetailComponent implements OnInit {
 
-  backButtonPath = '/job-favourites';
-
-  private readonly JOB_SEARCH_BASE_URL = '/job-search';
-
-  private readonly JOB_FAVOURITES_BASE_URL = '/job-favourites';
+  backButtonPath = this.JOB_FAVOURITES_BASE_URL;
 
   constructor(
     jobBadgesMapperService: JobBadgesMapperService,
