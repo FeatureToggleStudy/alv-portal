@@ -62,6 +62,8 @@ export class JobAdFavouritesComponent extends AbstractSubscriber implements OnIn
 
   isLoading$: Observable<boolean>;
 
+  readonly SEARCH_QUERY_MAX_LENGTH = 1000;
+
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private fb: FormBuilder,
