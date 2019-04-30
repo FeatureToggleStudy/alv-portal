@@ -25,7 +25,6 @@ import {
   RemoveJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../core/state-management/actions/core.actions';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-job-detail',
