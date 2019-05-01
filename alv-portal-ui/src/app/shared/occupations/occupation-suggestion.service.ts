@@ -79,15 +79,14 @@ export class OccupationSuggestionService {
     return;
   }
 
-  private toProfessionCodesFromClassification(classification: OccupationLabel) {
+  private toProfessionCodesFromClassification(classification: OccupationLabel): OccupationCode {
     return {
       type: classification.type,
-      value: classification.code,
-      classifier: classification.classifier
+      value: classification.code
     };
   }
 
-  private toJobSearchOccupationCode(occupation: OccupationLabelSuggestion) {
+  private toJobSearchOccupationCode(occupation: OccupationLabelSuggestion): OccupationCode {
     const occupationCode: OccupationCode = {
       type: occupation.type,
       value: occupation.code,
@@ -101,7 +100,7 @@ export class OccupationSuggestionService {
     return occupationCode;
   }
 
-  private toCandidateSearchOccupationCode(occupation: OccupationLabelSuggestion) {
+  private toCandidateSearchOccupationCode(occupation: OccupationLabelSuggestion): OccupationCode {
     const occupationCode: OccupationCode = {
       type: occupation.type,
       value: occupation.code
@@ -115,7 +114,7 @@ export class OccupationSuggestionService {
     return occupationCode;
   }
 
-  private toJobPublicationOccupations(occupation: OccupationLabelSuggestion) {
+  private toJobPublicationOccupations(occupation: OccupationLabelSuggestion): OccupationCode {
     return {
       type: occupation.type,
       value: occupation.code
