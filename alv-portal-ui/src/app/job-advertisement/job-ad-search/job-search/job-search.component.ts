@@ -45,6 +45,11 @@ import {
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import {
+  CONFIRM_DELETE_FAVOURITE_MODAL,
+  CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
+} from '../../job-ad-favourites/job-ad-favourites/job-ad-favourites.types';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
 
 @Component({
   selector: 'alv-job-search',
@@ -83,6 +88,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               private scrollService: ScrollService,
               private cdRef: ChangeDetectorRef,
+              private modalService: ModalService,
               private i18nService: I18nService,
               private authenticationService: AuthenticationService,
               @Inject(WINDOW) private window: Window) {
@@ -181,7 +187,17 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   removeFavourite(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
+    if (jobSearchResult.favouriteItem.note) {
+      this.modalService.openConfirm(
+          CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
+      ).result.then(
+        () =>   this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem })),
+        () => {
+        }
+      );
+    } else {
+      this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
+    }
   }
 
   updatedFavourite(jobSearchResult: JobSearchResult) {

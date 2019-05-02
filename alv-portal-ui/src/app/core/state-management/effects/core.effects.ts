@@ -188,20 +188,16 @@ export class CoreEffects {
     )
   );
 
-  @Effect()
-  removeJobAdFavourite$: Observable<Action> = this.actions$.pipe(
-    ofType(REMOVE_JOB_AD_FAVOURITE),
-    map((action: RemoveJobAdFavouriteAction) => action.payload),
-    withLatestFrom(this.store.pipe(select(getCurrentUser))),
-    filter(([action, currentUser]) => isAuthenticatedUser(currentUser)),
-    switchMap(([action]) =>
-      this.jobAdFavouritesRepository.removeFavourite(action.favouriteItem.id).pipe(
-        map(() => new RemovedJobAdFavouriteAction({ removedFavouriteItem: action.favouriteItem })),
-        tap(() => this.notificationsService.success('portal.job-ad-favourites.notification.favourite-removed')),
-        catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-      )
-    )
-  );
+  @Effect() removeJobAdFavourite$: Observable<Action> = this.actions$.pipe(ofType(REMOVE_JOB_AD_FAVOURITE), map((action: RemoveJobAdFavouriteAction) => action.payload), withLatestFrom(this.store.pipe(select(getCurrentUser))), filter(([action, currentUser]) => isAuthenticatedUser(currentUser)), switchMap(([action]) => {
+    return this.jobAdFavouritesRepository.removeFavourite(action.favouriteItem.id).pipe(map(() => new RemovedJobAdFavouriteAction({ removedFavouriteItem: action.favouriteItem })),
+      tap(() => {
+      if (action.favouriteItem.note) {
+        return this.notificationsService.success('portal.job-ad-favourites.notification.favourite-and-note-removed');
+      } else {
+        return this.notificationsService.success('portal.job-ad-favourites.notification.favourite-removed');
+      }
+    }), catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse }))));
+  }));
 
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
