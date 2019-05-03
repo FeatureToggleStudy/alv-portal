@@ -25,7 +25,6 @@ import {
   RemoveJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../core/state-management/actions/core.actions';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-job-detail',
@@ -35,7 +34,7 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 })
 export class JobDetailComponent extends AbstractJobAdDetailComponent implements OnInit {
 
-  backButtonPath = '/job-search';
+  backButtonPath = this.JOB_SEARCH_BASE_URL;
 
   constructor(
     jobBadgesMapperService: JobBadgesMapperService,
@@ -89,4 +88,7 @@ export class JobDetailComponent extends AbstractJobAdDetailComponent implements 
     this.store.dispatch(new UpdatedJobAdFavouriteAction({ favouriteItem: updatedFavouriteItem }));
   }
 
+  getBackButtonText(): string {
+    return 'job-detail.back-to-search';
+  }
 }
