@@ -4,7 +4,7 @@
                      aria-hidden="true"
                      [iconKey]="IconKey.JOB_AD_FAVOURITES">
     </alv-custom-icon>
-    {{'Stellen Merkliste' | translate}}
+    {{'portal.job-ad-favourites.title' | translate}}
   </h2>
   <ng-container *ngIf="(jobFavourites$ | async) as jobFavourites">
     <ng-container *ngIf="jobFavourites.length">

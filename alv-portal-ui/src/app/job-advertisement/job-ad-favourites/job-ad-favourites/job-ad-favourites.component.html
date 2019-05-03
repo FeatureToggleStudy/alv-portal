@@ -17,7 +17,8 @@
   <hr class="mt-0 mb-3">
 
   <alv-input-field [alvControl]="form.get('query')"
-                   label="portal.job-ad-favourites.search.query">
+                   label="portal.job-ad-favourites.search.query"
+                   [maxLength]="SEARCH_QUERY_MAX_LENGTH">
   </alv-input-field>
 
   <ng-container *ngIf="jobAdFavouriteSearchResults$ | async as jobs">
