@@ -30,6 +30,7 @@ function hashCode(jobSearchResult: JobSearchResult) {
     id += jobSearchResult.favouriteItem.id;
     id += jobSearchResult.favouriteItem.note;
   }
+  id += Date.now().toString();
   return id;
 }
 
