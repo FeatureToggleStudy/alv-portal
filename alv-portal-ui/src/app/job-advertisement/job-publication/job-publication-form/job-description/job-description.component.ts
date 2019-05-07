@@ -18,7 +18,7 @@ export class JobDescriptionComponent implements OnInit {
 
   readonly NUMBER_OF_JOBS_MAX = 99;
 
-  readonly DESCRIPTION_MAX_LENGTH = 10000;
+  readonly DESCRIPTION_MAX_LENGTH = 9000;
 
   @Input()
   parentForm: FormGroup;
