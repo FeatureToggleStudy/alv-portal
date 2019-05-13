@@ -45,6 +45,7 @@ import {
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-job-search',
@@ -53,6 +54,8 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit, OnDestroy {
+
+  IconKey = IconKey;
 
   layoutConstants = LayoutConstants;
 

@@ -66,12 +66,19 @@
     <ng-container class="right-column">
       <div class="w-100 mb-3 text-right text-md-left">
         <a *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
-           class="btn btn-text btn-text-icon btn-truncate"
+           class="btn btn-text btn-text-icon btn-truncate mb-2"
            [href]="jobSearchMailToLink">
           <fa-icon class="mr-1"
                    [icon]="['fas', 'share']"></fa-icon>
           {{'portal.job-search.sendLink' | translate}}
         </a>
+        <button *ngIf="true"
+           class="btn btn-text btn-text-icon btn-truncate mb-2">
+          <alv-custom-icon class="mr-1"
+                           [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
+          </alv-custom-icon>
+          {{'Sauvegarder le profil de recherche' | translate}}
+        </button>
       </div>
     </ng-container>
   </alv-three-column-layout>

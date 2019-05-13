@@ -188,6 +188,7 @@ export enum ModuleName {
   MANAGE_JOB_AD = <any>'MANAGE_JOB_AD',
   CANDIDATE_SEARCH = <any>'CANDIDATE_SEARCH',
   JOB_PUBLICATION = <any>'JOB-PUBLICATION',
+  JOB_SEARCH_PROFILES = <any>'JOB_SEARCH_PROFILES',
 }
 
 export interface CompanySelection {
