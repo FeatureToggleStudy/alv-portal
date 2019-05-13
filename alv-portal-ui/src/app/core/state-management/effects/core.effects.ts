@@ -188,7 +188,8 @@ export class CoreEffects {
     )
   );
 
-  @Effect() removeJobAdFavourite$: Observable<Action> = this.actions$.pipe(
+  @Effect()
+  removeJobAdFavourite$: Observable<Action> = this.actions$.pipe(
     ofType(REMOVE_JOB_AD_FAVOURITE),
     map((action: RemoveJobAdFavouriteAction) => action.payload),
     withLatestFrom(this.store.pipe(select(getCurrentUser))),
