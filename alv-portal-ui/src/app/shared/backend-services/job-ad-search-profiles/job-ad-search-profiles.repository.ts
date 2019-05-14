@@ -5,8 +5,11 @@ import { Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../request-util';
-import { JobAdSearchProfile } from './job-ad-search-profiles.types';
-import { JobAdvertisementSearchResponse } from '../job-advertisement/job-advertisement.types';
+import {
+  JobAdSearchProfile,
+  JobAdSearchProfilesSearchResponse,
+  JobAdvertisementSearchResponse
+} from '../job-advertisement/job-advertisement.types';
 
 @Injectable({ providedIn: 'root' })
 export class JobAdSearchProfilesRepository {
@@ -26,9 +29,9 @@ export class JobAdSearchProfilesRepository {
     return this.http.put<JobAdSearchProfile>(this.resourceUrl + '/' + jobPublication.id, jobPublication);
   }
 
-  search(ownerUserId: string): Observable<JobAdvertisementSearchResponse> {
-    const params = createPageableURLSearchParams(request);
-    return this.http.post<JobAdvertisementWithFavourites[]>(this.searchUrl, request.body, {
+  search(ownerUserId: string): Observable<JobAdSearchProfilesSearchResponse> {
+    const params = createPageableURLSearchParams({page: 1, size: 10});
+    return this.http.get<JobAdSearchProfile[]>(this.searchUrl, {
       params,
       observe: 'response'
     }).pipe(

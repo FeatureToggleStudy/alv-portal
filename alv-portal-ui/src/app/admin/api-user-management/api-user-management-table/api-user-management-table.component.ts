@@ -21,7 +21,7 @@ export class ApiUserManagementTableComponent implements OnInit {
   readonly CONFIRM_CHANGE_STATUS_MODAL: ConfirmModalConfig = {
     title: 'portal.admin.api-user-management.change-status-dialog.title',
     content: 'portal.admin.api-user-management.change-status-dialog.question',
-    confirmLabel: 'portal.admin.user-info.confirm-dialog.yes',
+    primaryLabel: 'portal.admin.user-info.confirm-dialog.yes',
     cancelLabel: 'portal.admin.user-info.confirm-dialog.no'
   };
 

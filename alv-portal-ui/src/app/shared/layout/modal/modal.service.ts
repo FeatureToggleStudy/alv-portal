@@ -30,7 +30,7 @@ export class ModalService {
     component.title = config.title;
     component.content = config.content ;
     component.contentParams = config.contentParams || component.contentParams;
-    component.confirmLabel = config.confirmLabel || component.confirmLabel;
+    component.primaryLabel = config.primaryLabel || component.primaryLabel;
     component.cancelLabel = config.cancelLabel || component.cancelLabel;
 
     return modalRef;

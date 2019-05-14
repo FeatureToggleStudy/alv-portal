@@ -46,6 +46,9 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 import { User } from '../../../core/auth/user.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { SaveSearchProfileModalComponent } from '../save-search-profile-modal/save-search-profile-modal.component';
+import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 
 @Component({
   selector: 'alv-job-search',
@@ -87,6 +90,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
               private scrollService: ScrollService,
               private cdRef: ChangeDetectorRef,
               private i18nService: I18nService,
+              private modalService: ModalService,
               private authenticationService: AuthenticationService,
               @Inject(WINDOW) private window: Window) {
     super();
@@ -193,6 +197,36 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   trackById(index, item: JobSearchResult) {
     return item.hashCode;
+  }
+
+  overrideSearchProfile() {
+    this.modalService.openConfirm({
+      title: 'portal.job-ad-search-profiles.override-modal.title',
+      content: 'portal.job-ad-search-profiles.override-modal.question',
+      contentParams: { profileName: 'profileName' },
+      primaryLabel: 'portal.job-ad-search-profiles.override-modal.primary-button.label',
+      secondaryLabel: 'portal.job-ad-search-profiles.override-modal.secondary-button.label',
+      cancelLabel: 'portal.job-ad-search-profiles.override-modal.cancel-button.label'
+    } as ConfirmModalConfig).result
+      .then(
+        (result) => {
+        if (result === 'primary') {
+
+        } else if (result === 'secondary') {
+
+        }
+        alert(result);
+        })
+      .catch(() => {
+      });
+  }
+
+  saveSearchProfile() {
+    const modalRef = this.modalService.openMedium(SaveSearchProfileModalComponent);
+    //modalRef.componentInstance.legalTerm = legalTerm;
+    modalRef.result.then(() => {
+    }, () => {
+    });
   }
 
 }

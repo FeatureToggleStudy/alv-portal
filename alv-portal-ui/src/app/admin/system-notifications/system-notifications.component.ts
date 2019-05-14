@@ -71,7 +71,7 @@ export class SystemNotificationsComponent extends AbstractSubscriber implements 
     this.modalService.openConfirm({
       title: 'portal.admin.system-notifications.delete.modal.title',
       content: 'portal.admin.system-notifications.delete.modal.text',
-      confirmLabel: 'portal.admin.system-notifications.delete.modal.confirm-dialog.yes',
+      primaryLabel: 'portal.admin.system-notifications.delete.modal.confirm-dialog.yes',
       cancelLabel: 'portal.admin.system-notifications.delete.modal.confirm-dialog.no'
     } as ConfirmModalConfig).result
       .then(

@@ -73,7 +73,8 @@
           {{'portal.job-search.sendLink' | translate}}
         </a>
         <button *ngIf="true"
-           class="btn btn-text btn-text-icon btn-truncate mb-2">
+           class="btn btn-text btn-text-icon btn-truncate mb-2"
+           (click)="overrideSearchProfile()">
           <alv-custom-icon class="mr-1"
                            [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
           </alv-custom-icon>

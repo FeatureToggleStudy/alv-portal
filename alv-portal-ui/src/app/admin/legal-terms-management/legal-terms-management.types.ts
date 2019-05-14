@@ -8,7 +8,7 @@ export enum LEGAL_ACTIONS {
 export const CONFIRM_DELETE_MODAL: ConfirmModalConfig = {
   title: 'entity.delete.title',
   content: 'portal.admin.legal-terms-management.legal-terms-delete-dialog.question',
-  confirmLabel: 'entity.action.delete',
+  primaryLabel: 'entity.action.delete',
   cancelLabel: 'entity.action.cancel'
 };
 

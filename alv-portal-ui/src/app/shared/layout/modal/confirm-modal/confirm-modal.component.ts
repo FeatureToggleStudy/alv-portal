@@ -14,7 +14,9 @@ export class ConfirmModalComponent {
 
   contentParams = {};
 
-  confirmLabel = 'portal.modal.confirm.yes';
+  primaryLabel = 'portal.modal.confirm.yes';
+
+  secondaryLabel: string;
 
   cancelLabel = 'portal.modal.confirm.no';
 

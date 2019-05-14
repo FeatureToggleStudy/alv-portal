@@ -32,7 +32,7 @@ export class ElasticSearchReindexComponent implements OnInit {
   readonly CONFIRM_REINDEX_MODAL: ConfirmModalConfig = {
     title: 'portal.admin.elastic-search-reindex.dialog.title',
     content: 'portal.admin.elastic-search-reindex.dialog.question',
-    confirmLabel: 'portal.admin.elastic-search-reindex.dialog.confirm',
+    primaryLabel: 'portal.admin.elastic-search-reindex.dialog.confirm',
     cancelLabel: 'portal.admin.elastic-search-reindex.dialog.cancel'
   };
 
