@@ -1,5 +1,6 @@
 import {$, browser} from 'protractor';
 import {alvFormControlName} from '../../job-publication/selector-utils';
+import {DEFAULT_SLEEP_TIME} from "../../../constants";
 
 export class MainFilterPanelPo {
   private sectionElementFinder = $('.query-search-area');
@@ -10,7 +11,7 @@ export class MainFilterPanelPo {
 
   async fillOccupation(occupation: string) {
     await this.occupationsElement.sendKeys(occupation);
-    await browser.sleep(1000);
+    await browser.sleep(DEFAULT_SLEEP_TIME);
     return $('ngb-typeahead-window button').click();
   }
 

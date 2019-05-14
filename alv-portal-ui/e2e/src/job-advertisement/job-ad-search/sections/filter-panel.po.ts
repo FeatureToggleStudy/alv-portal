@@ -1,5 +1,6 @@
 import { $, browser, promise as wdpromise } from 'protractor';
 import { alvFormControlName, getByTest } from '../../job-publication/selector-utils';
+import {DEFAULT_SLEEP_TIME} from "../../../constants";
 
 export enum ContractTypes {
   ALL = '0: ALL',
@@ -7,7 +8,6 @@ export enum ContractTypes {
   PERMANENT = '2: PERMANENT'
 }
 
-export const SLEEP_TIME = 2000;
 
 export class FilterPanelPo {
   private sectionElementFinder = $('.left-column');
@@ -28,7 +28,7 @@ export class FilterPanelPo {
 
   clickOnOption(value: ContractTypes, selectElement): wdpromise.Promise<void> {
     return selectElement.$(`option[value="${value}"]`).click()
-      .then(() => browser.sleep(SLEEP_TIME));
+      .then(() => browser.sleep(DEFAULT_SLEEP_TIME));
   }
 
   setContractType(value: ContractTypes) {

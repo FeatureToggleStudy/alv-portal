@@ -1,6 +1,7 @@
 import {JobSearchPo} from './job-search.po';
 import {ContractTypes} from './sections/filter-panel.po';
 import {browser} from 'protractor';
+import {DEFAULT_SLEEP_TIME} from "../../constants";
 
 const PAGE_SIZE = 20;
 
@@ -45,7 +46,7 @@ describe('Job search page', () => {
   it('should perform search by the criteria in the upper panel', async () => {
     const initialCount = await getResultCount(page);
     await page.mainFilterPanel.fillOccupation('pro');
-    await browser.sleep(2000);
+    await browser.sleep(DEFAULT_SLEEP_TIME);
     const afterFilter = await getResultCount(page);
     expect(afterFilter).toBeLessThan(initialCount);
   });

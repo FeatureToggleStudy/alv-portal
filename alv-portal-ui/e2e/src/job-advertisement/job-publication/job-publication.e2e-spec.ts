@@ -1,6 +1,7 @@
 import { JobPublicationPo } from './job-publication.po';
 import { browser, Key } from 'protractor';
 import { getSelectOptions } from './selector-utils';
+import {DEFAULT_SLEEP_TIME, SHORT_SLEEP_TIME} from "../../constants";
 
 describe('Job publication page', () => {
   let page: JobPublicationPo;
@@ -26,7 +27,7 @@ describe('Job publication page', () => {
       page.jobDescriptionSection.jobDescription.sendKeys(testTextPrefix + ' description');
 
       page.occupationSection.occupation.sendKeys('Met');
-      browser.sleep(100);
+      browser.sleep(SHORT_SLEEP_TIME);
       page.occupationSection.occupation.sendKeys(Key.TAB);
       getSelectOptions(page.occupationSection.qualification).last().click();
       getSelectOptions(page.occupationSection.degree).last().click();
@@ -42,7 +43,7 @@ describe('Job publication page', () => {
 
       expect(page.location.countryIsoCode.getAttribute('value')).toMatch(/\d:\sCH/);
       page.location.zipCityAutoComplete.sendKeys('8047');
-      browser.sleep(100);
+      browser.sleep(SHORT_SLEEP_TIME);
       page.location.zipCityAutoComplete.sendKeys(Key.TAB);
       expect(page.location.zipCityAutoComplete.getAttribute('value')).toEqual('8047 Zürich');
       page.location.remarks.sendKeys(testTextPrefix + ' location remarks');
@@ -52,7 +53,7 @@ describe('Job publication page', () => {
       page.company.street.sendKeys(testTextPrefix + ' company street');
       page.company.houseNumber.sendKeys('42');
       page.company.zipCityAutoComplete.sendKeys('8047');
-      browser.sleep(100);
+      browser.sleep(SHORT_SLEEP_TIME);
       page.company.zipCityAutoComplete.sendKeys(Key.TAB);
       page.company.postOfficeBoxNumber.sendKeys('24');
       expect(page.company.countryIsoCode.getAttribute('value')).toMatch(/\d:\sCH/);
@@ -67,7 +68,7 @@ describe('Job publication page', () => {
 
 
       page.publicContact.btnCopy.sendKeys(Key.ENTER);
-      browser.sleep(100);
+      browser.sleep(SHORT_SLEEP_TIME);
       expect(page.publicContact.salutation.getAttribute('value')).toEqual(page.contact.salutation.getAttribute('value'));
       expect(page.publicContact.firstName.getAttribute('value')).toEqual(page.contact.firstName.getAttribute('value'));
       expect(page.publicContact.lastName.getAttribute('value')).toEqual(page.contact.lastName.getAttribute('value'));
@@ -86,7 +87,7 @@ describe('Job publication page', () => {
 
 
       page.btnSubmit.sendKeys(Key.ENTER);
-      browser.sleep(1000);
+      browser.sleep(DEFAULT_SLEEP_TIME);
       //FIXME we have to investigate why this check fails randomly. Network related?
       expect(page.jobPublicationForm.isPresent()).toBe(false);
       expect(page.successMessage.isPresent()).toBe(true);
