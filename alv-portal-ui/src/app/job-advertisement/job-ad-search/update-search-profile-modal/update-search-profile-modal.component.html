@@ -1,0 +1,11 @@
+<alv-modal (primaryAction)="onUpdateExisting()"
+           (secondaryAction)="onCreateNew()"
+           (cancelAction)="onCancel()"
+           modalTitle="portal.job-ad-search-profiles.override-modal.title"
+           primaryLabel="portal.job-ad-search-profiles.override-modal.primary-button.label'"
+           secondaryLabel="portal.job-ad-search-profiles.override-modal.secondary-button.label"
+           cancelLabel="pportal.job-ad-search-profiles.override-modal.cancel-button.label">
+
+  <span [innerHTML]="'portal.job-ad-search-profiles.override-modal.question' | translate:{profileName: searchProfile.name}"></span>
+
+</alv-modal>

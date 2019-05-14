@@ -30,12 +30,12 @@
     <div class="flex-grow-1"></div>
     <button *ngIf="secondaryLabel"
             class="btn"
-            [ngClass]="primaryLabel ? 'btn-text' : 'btn-secondary'"
+            [ngClass]="confirmLabel ? 'btn-text' : 'btn-secondary'"
             type="button"
             (click)="handleSecondaryClick()">{{secondaryLabel| translate}}</button>
-    <button *ngIf="primaryLabel"
+    <button *ngIf="confirmLabel"
             class="btn btn-primary ml-2"
             type="submit"
-            [disabled]="formGroup?.invalid">{{primaryLabel | translate}}</button>
+            [disabled]="formGroup?.invalid">{{confirmLabel | translate}}</button>
   </div>
 </ng-template>

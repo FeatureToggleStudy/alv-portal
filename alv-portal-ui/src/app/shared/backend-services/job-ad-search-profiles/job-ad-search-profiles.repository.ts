@@ -21,12 +21,12 @@ export class JobAdSearchProfilesRepository {
   constructor(private http: HttpClient) {
   }
 
-  create(jobPublication: JobAdSearchProfile): Observable<JobAdSearchProfile> {
-    return this.http.post<JobAdSearchProfile>(this.resourceUrl, jobPublication);
+  create(jobAdSearchProfile: JobAdSearchProfile): Observable<JobAdSearchProfile> {
+    return this.http.post<JobAdSearchProfile>(this.resourceUrl, jobAdSearchProfile);
   }
 
-  update(jobPublication: JobAdSearchProfile): Observable<JobAdSearchProfile> {
-    return this.http.put<JobAdSearchProfile>(this.resourceUrl + '/' + jobPublication.id, jobPublication);
+  update(jobAdSearchProfile: JobAdSearchProfile): Observable<JobAdSearchProfile> {
+    return this.http.put<JobAdSearchProfile>(this.resourceUrl + '/' + jobAdSearchProfile.id, jobAdSearchProfile);
   }
 
   search(ownerUserId: string): Observable<JobAdSearchProfilesSearchResponse> {

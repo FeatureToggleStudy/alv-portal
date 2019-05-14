@@ -98,7 +98,7 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
     this.modalService.openConfirm({
       title: 'job-detail.confirm-cancel-modal.title',
       content: 'job-detail.confirm-cancel-modal.content',
-      primaryLabel: 'job-detail.confirm-cancel-modal.button.confirm',
+      confirmLabel: 'job-detail.confirm-cancel-modal.button.confirm',
       cancelLabel: 'job-detail.confirm-cancel-modal.button.cancel'
     } as ConfirmModalConfig).result
       .then(

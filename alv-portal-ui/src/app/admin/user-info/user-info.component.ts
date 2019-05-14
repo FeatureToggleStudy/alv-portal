@@ -160,7 +160,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       title: 'portal.admin.user-info.actions.unregister.title',
       content: 'portal.admin.user-info.confirmMessage',
       contentParams: { email: this.form.get('searchParam').value },
-      primaryLabel: 'portal.admin.user-info.confirm-dialog.yes',
+      confirmLabel: 'portal.admin.user-info.confirm-dialog.yes',
       cancelLabel: 'portal.admin.user-info.confirm-dialog.no'
     } as ConfirmModalConfig).result
       .then(

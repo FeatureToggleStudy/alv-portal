@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import {
-  FavouriteItem,
+  FavouriteItem, JobAdSearchProfile,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -41,6 +41,10 @@ export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHAN
 export const RESET = 'JOBS:RESET';
 
 export const FAVOURITE_ITEM_LOADED = 'JOBS:FAVOURITE_ITEM_LOADED';
+
+export const LOAD_SEARCH_PROFILE = 'JOBS:LOAD_SEARCH_PROFILE';
+export const SEARCH_PROFILE_LOADED = 'JOBS:SEARCH_PROFILE_LOADED';
+export const SEARCH_PROFILE_UPDATED = 'JOBS:SEARCH_PROFILE_UPDATED';
 
 
 export class InitializeResultListAction implements Action {
@@ -190,6 +194,27 @@ export class FavouriteItemLoadedAction implements Action {
   }
 }
 
+export class LoadSearchProfileAction implements Action {
+  readonly type = LOAD_SEARCH_PROFILE;
+
+  constructor(public payload: { searchProfileId: string }) {
+  }
+}
+
+export class SearchProfileLoadedAction implements Action {
+  readonly type = SEARCH_PROFILE_LOADED;
+
+  constructor(public payload: { searchProfile: JobAdSearchProfile }) {
+  }
+}
+
+export class SearchProfileUpdatedAction implements Action {
+  readonly type = SEARCH_PROFILE_UPDATED;
+
+  constructor(public payload: { searchProfile: JobAdSearchProfile }) {
+  }
+}
+
 export type Actions =
   | InitializeResultListAction
   | ResultListAlreadyInitializedAction
@@ -213,4 +238,7 @@ export type Actions =
   | UpdatedJobAdFavouriteAction
   | ResetAction
   | FavouriteItemLoadedAction
-  | EffectErrorOccurredAction;
+  | EffectErrorOccurredAction
+  | LoadSearchProfileAction
+  | SearchProfileLoadedAction
+  | SearchProfileUpdatedAction;

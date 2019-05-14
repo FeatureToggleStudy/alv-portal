@@ -17,6 +17,7 @@ import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement
 import { JobFingerprintGuard } from './job-fingerprint-redirect/job-fingerprint.guard';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { SaveSearchProfileModalComponent } from './save-search-profile-modal/save-search-profile-modal.component';
+import { UpdateSearchProfileModalComponent } from './update-search-profile-modal/update-search-profile-modal.component';
 
 @NgModule({
   imports: [
@@ -33,10 +34,12 @@ import { SaveSearchProfileModalComponent } from './save-search-profile-modal/sav
     JobSearchComponent,
     FilterPanelComponent,
     JobDetailComponent,
-    SaveSearchProfileModalComponent
+    SaveSearchProfileModalComponent,
+    UpdateSearchProfileModalComponent
   ],
   entryComponents: [
-    SaveSearchProfileModalComponent
+    SaveSearchProfileModalComponent,
+    UpdateSearchProfileModalComponent
   ],
   providers: [
     JobSearchFilterParameterService,

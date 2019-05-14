@@ -114,7 +114,7 @@ export class BlacklistComponent extends AbstractSubscriber implements OnInit {
       title: 'blacklisted-agent.change-status-dialog.title',
       content: 'blacklisted-agent.change-status-dialog.message',
       contentParams: { agentName: agent.name },
-      primaryLabel: 'blacklisted-agent.change-status-dialog.change-status',
+      confirmLabel: 'blacklisted-agent.change-status-dialog.change-status',
       cancelLabel: 'blacklisted-agent.change-status-dialog.cancel'
     } as ConfirmModalConfig).result
       .then(

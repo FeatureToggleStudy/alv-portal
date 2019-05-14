@@ -15,7 +15,9 @@ import {
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET,
   RESET_FILTER,
-  RESULT_LIST_ALREADY_INITIALIZED
+  RESULT_LIST_ALREADY_INITIALIZED,
+  SEARCH_PROFILE_LOADED,
+  SEARCH_PROFILE_UPDATED
 } from '../actions';
 import {
   ADDED_JOB_AD_FAVOURITE,
@@ -194,6 +196,28 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         details: {
           ...state.details,
           favouriteItem: action.payload.favouriteItem
+        }
+      };
+      break;
+    }
+
+    case SEARCH_PROFILE_LOADED: {
+      newState = {
+        ...state,
+        jobAdSearchProfile: action.payload.searchProfile,
+        details: {
+          ...state.details
+        }
+      };
+      break;
+    }
+
+    case SEARCH_PROFILE_UPDATED: {
+      newState = {
+        ...state,
+        jobAdSearchProfile: action.payload.searchProfile,
+        details: {
+          ...state.details
         }
       };
       break;

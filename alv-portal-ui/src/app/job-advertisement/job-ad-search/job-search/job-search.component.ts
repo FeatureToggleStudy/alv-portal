@@ -14,6 +14,7 @@ import {
   ApplyFilterValuesAction,
   ApplyQueryValuesAction,
   FILTER_APPLIED,
+  getJobAdSearchProfile,
   getJobSearchFilter,
   getJobSearchResults,
   getLastVisitedJobAdId,
@@ -22,7 +23,8 @@ import {
   JobAdSearchState,
   JobSearchFilter,
   LoadNextPageAction,
-  ResetFilterAction
+  ResetFilterAction,
+  SearchProfileUpdatedAction
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -49,6 +51,8 @@ import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { SaveSearchProfileModalComponent } from '../save-search-profile-modal/save-search-profile-modal.component';
 import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
+import { JobAdSearchProfile } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { UpdateSearchProfileModalComponent } from '../update-search-profile-modal/update-search-profile-modal.component';
 
 @Component({
   selector: 'alv-job-search',
@@ -199,34 +203,44 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     return item.hashCode;
   }
 
-  overrideSearchProfile() {
-    this.modalService.openConfirm({
-      title: 'portal.job-ad-search-profiles.override-modal.title',
-      content: 'portal.job-ad-search-profiles.override-modal.question',
-      contentParams: { profileName: 'profileName' },
-      primaryLabel: 'portal.job-ad-search-profiles.override-modal.primary-button.label',
-      secondaryLabel: 'portal.job-ad-search-profiles.override-modal.secondary-button.label',
-      cancelLabel: 'portal.job-ad-search-profiles.override-modal.cancel-button.label'
-    } as ConfirmModalConfig).result
+  saveSearchProfile() {
+    this.store.pipe(
+      select(getJobAdSearchProfile),
+      take(1)
+    ).subscribe(searchProfile => {
+      if (searchProfile) {
+        this.overrideSearchProfile(searchProfile);
+      } else {
+        this.createSearchProfile();
+      }
+    });
+  }
+
+  overrideSearchProfile(searchProfile: JobAdSearchProfile) {
+    const modalRef = this.modalService.openMedium(UpdateSearchProfileModalComponent);
+    modalRef.componentInstance.searchProfile = searchProfile;
+    modalRef.result
       .then(
         (result) => {
-        if (result === 'primary') {
-
-        } else if (result === 'secondary') {
-
-        }
-        alert(result);
+          if (result) {
+            this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: searchProfile }));
+          } else {
+            this.createSearchProfile();
+          }
         })
       .catch(() => {
       });
   }
 
-  saveSearchProfile() {
+  createSearchProfile() {
     const modalRef = this.modalService.openMedium(SaveSearchProfileModalComponent);
     //modalRef.componentInstance.legalTerm = legalTerm;
-    modalRef.result.then(() => {
-    }, () => {
-    });
+    modalRef.result
+      .then((searchProfile) => {
+        this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: searchProfile }));
+      })
+      .catch(() => {
+      });
   }
 
 }

@@ -13,14 +13,17 @@ import {
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
-  LoadNextPageAction,
+  LOAD_SEARCH_PROFILE,
+  LoadNextPageAction, LoadSearchProfileAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   NextPageNotAvailableAction,
   OccupationLanguageChangedAction,
   RESET_FILTER,
   ResetAction,
-  ResultListAlreadyInitializedAction
+  ResultListAlreadyInitializedAction,
+  SEARCH_PROFILE_LOADED,
+  SearchProfileLoadedAction
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
@@ -59,6 +62,7 @@ import {
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
 import { JobAdFavouritesRepository } from '../../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
+import { JobAdSearchProfilesRepository } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 
 export const JOB_AD_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('JOB_AD_SEARCH_EFFECTS_DEBOUNCE');
 export const JOB_AD_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('JOB_AD_SEARCH_EFFECTS_SCHEDULER');
@@ -226,12 +230,32 @@ export class JobAdSearchEffects {
     })
   );
 
+  @Effect()
+  loadSearchProfile$: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_SEARCH_PROFILE),
+    switchMap((action: LoadSearchProfileAction) => {
+      return this.jobAdSearchProfilesRepository.findById(action.payload.searchProfileId);
+    }),
+    map((searchProfile) => {
+      return new SearchProfileLoadedAction({ searchProfile: searchProfile });
+    })
+  );
+
+  @Effect()
+  searchProfileLoaded$: Observable<Action> = this.actions$.pipe(
+    ofType(SEARCH_PROFILE_LOADED),
+    map((action: SearchProfileLoadedAction) => {
+      return new ApplyFilterAction(action.payload.searchProfile.searchFilter);
+    })
+  );
+
   constructor(private actions$: Actions,
               private occupationSuggestionService: OccupationSuggestionService,
               private jobAdvertisementRepository: JobAdvertisementRepository,
               private jobAdFavouritesRepository: JobAdFavouritesRepository,
               private store: Store<JobAdSearchState>,
               private authenticationService: AuthenticationService,
+              private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
               private router: Router,
               @Optional()
               @Inject(JOB_AD_SEARCH_EFFECTS_DEBOUNCE)
