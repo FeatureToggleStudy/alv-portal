@@ -44,10 +44,12 @@
              [style.width]="getInputWidth()"
              [ngbTypeahead]="loadItemsGuardedFn"
              [resultTemplate]="template"
+             container="body"
              [focusFirst]="focusFirst"
              [editable]="true"
              [readonly]="limit && control.value?.length >= limit"
              [(ngModel)]="inputValue"
+             [placement]="['bottom-left', 'top-left']"
              (selectItem)="selectItem($event)"
              (keydown)="handleKeyDown($event)"
              (blur)="onBlur(control)">
@@ -84,12 +86,12 @@
         {{'portal.typeahead-multiselect.help-text.limit-reached' | translate : {'limit': limit} }}
       </ng-container>
       <ng-template #a11yHelpText>
-          {{'portal.typeahead-multiselect.help-text.query-min-length '| translate : {'queryMinLength': queryMinLength} }}
+        {{'portal.typeahead-multiselect.help-text.query-min-length '| translate : {'queryMinLength': queryMinLength} }}
         <ng-container *ngIf="editable">
           {{'portal.typeahead-multiselect.help-text.add-free-text'| translate}}
         </ng-container>
         <ng-container *ngIf="limit">
-          {{'portal.typeahead-multiselect.help-text.select-up-to-limit' | translate : { 'limit': limit} }}
+          {{'portal.typeahead-multiselect.help-text.select-up-to-limit' | translate : {'limit': limit} }}
         </ng-container>
       </ng-template>
     </div>
@@ -116,7 +118,7 @@
 
   </div>
   <small *ngIf="helpText && !(isTouched() && isInvalid())"
-         class="help-text" >
+         class="help-text">
     {{helpText | translate}}
   </small>
   <alv-validation-messages *ngIf="!readonly"
