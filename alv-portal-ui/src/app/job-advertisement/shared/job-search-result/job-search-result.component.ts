@@ -17,6 +17,7 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 import { isAuthenticatedUser, User } from '../../../core/auth/user.model';
 import { isDeactivated } from '../job-ad-rules';
+import * as xxhash from 'xxhashjs/build/xxhash.js';
 
 /**
  * Calculate a hashCode that is used for the track-by-fn for angular ngFor
@@ -30,7 +31,7 @@ function hashCode(jobSearchResult: JobSearchResult) {
     id += jobSearchResult.favouriteItem.id;
     id += jobSearchResult.favouriteItem.note;
   }
-  id += Date.now().toString();
+  id += xxhash.h32(JSON.stringify(jobSearchResult.jobAdvertisement.jobContent.jobDescriptions)).toString(16);
   return id;
 }
 
