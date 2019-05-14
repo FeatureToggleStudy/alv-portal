@@ -25,14 +25,7 @@ import * as xxhash from 'xxhashjs/build/xxhash.js';
  * @param jobSearchResult
  */
 function hashCode(jobSearchResult: JobSearchResult) {
-  let id = jobSearchResult.jobAdvertisement.id;
-  id += jobSearchResult.visited;
-  if (jobSearchResult.favouriteItem) {
-    id += jobSearchResult.favouriteItem.id;
-    id += jobSearchResult.favouriteItem.note;
-  }
-  id += JSON.stringify(jobSearchResult.jobAdvertisement.jobContent.jobDescriptions);
-  return xxhash.h32(id, 0xABCD).toString(16);
+  return xxhash.h32(JSON.stringify(jobSearchResult), 0xABCD).toString(16);
 }
 
 export class JobSearchResult {
