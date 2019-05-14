@@ -1,6 +1,6 @@
-import {$, browser} from 'protractor';
-import {alvFormControlName} from '../../job-publication/selector-utils';
-import {DEFAULT_SLEEP_TIME} from "../../../constants";
+import { $, browser } from 'protractor';
+import { alvFormControlName } from '../../job-publication/selector-utils';
+import { DEFAULT_SLEEP_TIME } from '../../../constants';
 
 export class MainFilterPanelPo {
   private sectionElementFinder = $('.query-search-area');

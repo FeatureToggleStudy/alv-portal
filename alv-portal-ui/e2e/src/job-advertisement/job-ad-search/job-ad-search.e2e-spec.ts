@@ -1,7 +1,7 @@
-import {JobSearchPo} from './job-search.po';
-import {ContractTypes} from './sections/filter-panel.po';
-import {browser} from 'protractor';
-import {DEFAULT_SLEEP_TIME} from "../../constants";
+import { JobSearchPo } from './job-search.po';
+import { ContractTypes } from './sections/filter-panel.po';
+import { browser } from 'protractor';
+import { DEFAULT_SLEEP_TIME } from '../../constants';
 
 const PAGE_SIZE = 20;
 
@@ -37,7 +37,7 @@ describe('Job search page', () => {
     const initialCount = await getResultCount(page);
     await page.filterPanel.setContractType(ContractTypes.TEMPORARY);
     const filteredByContractTypeCount = await getResultCount(page);
-    expect (filteredByContractTypeCount).toBeLessThan(initialCount);
+    expect(filteredByContractTypeCount).toBeLessThan(initialCount);
     await page.filterPanel.setCompany('GmbH');
     const filteredByCompanyCount = await getResultCount(page);
     expect(filteredByCompanyCount).toBeLessThan(filteredByContractTypeCount);

@@ -1,7 +1,7 @@
 import { JobPublicationPo } from './job-publication.po';
 import { browser, Key } from 'protractor';
 import { getSelectOptions } from './selector-utils';
-import {DEFAULT_SLEEP_TIME, SHORT_SLEEP_TIME} from "../../constants";
+import { DEFAULT_SLEEP_TIME, SHORT_SLEEP_TIME } from '../../constants';
 
 describe('Job publication page', () => {
   let page: JobPublicationPo;

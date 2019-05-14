@@ -1,6 +1,6 @@
 import { $, browser, promise as wdpromise } from 'protractor';
 import { alvFormControlName, getByTest } from '../../job-publication/selector-utils';
-import {DEFAULT_SLEEP_TIME} from "../../../constants";
+import { DEFAULT_SLEEP_TIME } from '../../../constants';
 
 export enum ContractTypes {
   ALL = '0: ALL',

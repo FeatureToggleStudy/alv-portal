@@ -2,8 +2,8 @@ import { $, browser, promise as wdpromise } from 'protractor';
 import { SearchResultsPanelPo } from './sections/search-results-panel.po';
 import { FilterPanelPo } from './sections/filter-panel.po';
 import { MainFilterPanelPo } from './sections/main-filter-panel.po';
-import { scrollToBottom } from "../../utils";
-import {DEFAULT_SLEEP_TIME} from "../../constants";
+import { scrollToBottom } from '../../utils';
+import { DEFAULT_SLEEP_TIME } from '../../constants';
 
 
 export class JobSearchPo {
@@ -18,7 +18,7 @@ export class JobSearchPo {
     return browser.get('/job-search');
   }
 
-  scrollToBottom(): wdpromise.Promise<void>  {
+  scrollToBottom(): wdpromise.Promise<void> {
     return scrollToBottom()
       .then(x => browser.sleep(DEFAULT_SLEEP_TIME));
   }
