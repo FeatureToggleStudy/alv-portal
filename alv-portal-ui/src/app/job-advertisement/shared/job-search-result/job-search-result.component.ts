@@ -19,13 +19,15 @@ import { isAuthenticatedUser, User } from '../../../core/auth/user.model';
 import { isDeactivated } from '../job-ad-rules';
 import * as xxhash from 'xxhashjs/build/xxhash.js';
 
+const HASH = xxhash.h32(0xABCDEF);
+
 /**
  * Calculate a hashCode that is used for the track-by-fn for angular ngFor
  *
  * @param jobSearchResult
  */
 function hashCode(jobSearchResult: JobSearchResult) {
-  return xxhash.h32(JSON.stringify(jobSearchResult), 0xABCD).toString(16);
+  return HASH.update(JSON.stringify(jobSearchResult)).digest().toString(16);
 }
 
 export class JobSearchResult {
