@@ -31,8 +31,8 @@ function hashCode(jobSearchResult: JobSearchResult) {
     id += jobSearchResult.favouriteItem.id;
     id += jobSearchResult.favouriteItem.note;
   }
-  id += xxhash.h32(JSON.stringify(jobSearchResult.jobAdvertisement.jobContent.jobDescriptions)).toString(16);
-  return id;
+  id += JSON.stringify(jobSearchResult.jobAdvertisement.jobContent.jobDescriptions);
+  return xxhash.h32(id, 0xABCD).toString(16);
 }
 
 export class JobSearchResult {
