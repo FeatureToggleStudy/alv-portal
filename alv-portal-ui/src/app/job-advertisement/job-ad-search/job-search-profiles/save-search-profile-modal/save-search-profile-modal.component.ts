@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
-import { map } from 'rxjs/operators';
+import { JobAdSearchProfilesRepository } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
+import { JobAdSearchProfile } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Component({
   selector: 'alv-save-search-profile-modal',
@@ -28,7 +28,7 @@ export class SaveSearchProfileModalComponent implements OnInit {
 
   onSubmit() {
     // TODO: How to retrieve the filter values?
-    this.jobAdSearchProfilesRepository.create({})
+    this.jobAdSearchProfilesRepository.create(<JobAdSearchProfile>{})
       .subscribe(searchProfile => {
         this.activeModal.close(searchProfile);
       });

@@ -49,10 +49,11 @@ import { User } from '../../../core/auth/user.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { SaveSearchProfileModalComponent } from '../save-search-profile-modal/save-search-profile-modal.component';
 import { JobAdSearchProfile } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { UpdateSearchProfileModalComponent } from '../update-search-profile-modal/update-search-profile-modal.component';
 import { CONFIRM_DELETE_FAVOURITE_NOTE_MODAL } from '../../job-ad-favourites/job-ad-favourites/job-ad-favourites.types';
+import { SaveSearchProfileModalComponent } from '../job-search-profiles/save-search-profile-modal/save-search-profile-modal.component';
+import { UpdateSearchProfileModalComponent } from '../job-search-profiles/update-search-profile-modal/update-search-profile-modal.component';
+import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 
 @Component({
   selector: 'alv-job-search',
@@ -219,14 +220,14 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       take(1)
     ).subscribe(searchProfile => {
       if (searchProfile) {
-        this.overrideSearchProfile(searchProfile);
+        this.updateSearchProfile(searchProfile);
       } else {
         this.createSearchProfile();
       }
     });
   }
 
-  overrideSearchProfile(searchProfile: JobAdSearchProfile) {
+  updateSearchProfile(searchProfile: JobAdSearchProfile) {
     const modalRef = this.modalService.openMedium(UpdateSearchProfileModalComponent);
     modalRef.componentInstance.searchProfile = searchProfile;
     modalRef.result
@@ -251,6 +252,18 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       })
       .catch(() => {
       });
+  }
+
+  deleteSearchProfile() {
+    this.modalService.openConfirm({
+      title: 'portal.job-ad-search-profiles.delete-confirmation-modal.title',
+      content: 'portal.job-ad-search-profiles.delete-confirmation-modal.question',
+      contentParams: {profileName: 'd'}
+    } as ConfirmModalConfig).result
+      .then(result => {
+        // delete profile
+      })
+      .catch(() => {});
   }
 
 }

@@ -74,11 +74,19 @@
         </a>
         <button *ngIf="true"
            class="btn btn-text btn-text-icon btn-truncate mb-2"
-           (click)="overrideSearchProfile({name: 'test'})">
+           (click)="saveSearchProfile({name: 'test'})">
           <alv-custom-icon class="mr-1"
                            [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
           </alv-custom-icon>
-          {{'Sauvegarder le profil de recherche' | translate}}
+          {{'portal.job-ad-search-profiles.label.save-profile' | translate}}
+        </button>
+        <button *ngIf="true"
+                class="btn btn-text btn-text-icon btn-truncate mb-2"
+                (click)="deleteSearchProfile()">
+          <alv-custom-icon class="mr-1"
+                           [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
+          </alv-custom-icon>
+          {{'portal.job-ad-search-profiles.label.delete-profile' | translate}}
         </button>
       </div>
     </ng-container>

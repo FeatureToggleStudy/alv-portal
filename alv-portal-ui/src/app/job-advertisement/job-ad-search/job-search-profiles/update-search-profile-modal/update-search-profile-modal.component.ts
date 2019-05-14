@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
-import { JobAdSearchProfile } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdSearchProfile } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdSearchProfilesRepository } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 
 @Component({
   selector: 'alv-update-search-profile-modal',
