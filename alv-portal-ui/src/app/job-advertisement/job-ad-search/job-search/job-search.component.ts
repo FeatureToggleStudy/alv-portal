@@ -50,9 +50,9 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { SaveSearchProfileModalComponent } from '../save-search-profile-modal/save-search-profile-modal.component';
-import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { JobAdSearchProfile } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { UpdateSearchProfileModalComponent } from '../update-search-profile-modal/update-search-profile-modal.component';
+import { CONFIRM_DELETE_FAVOURITE_NOTE_MODAL } from '../../job-ad-favourites/job-ad-favourites/job-ad-favourites.types';
 
 @Component({
   selector: 'alv-job-search',
@@ -93,8 +93,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
               private jobSearchFilterParameterService: JobSearchFilterParameterService,
               private scrollService: ScrollService,
               private cdRef: ChangeDetectorRef,
-              private i18nService: I18nService,
               private modalService: ModalService,
+              private i18nService: I18nService,
               private authenticationService: AuthenticationService,
               @Inject(WINDOW) private window: Window) {
     super();
@@ -192,7 +192,17 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   removeFavourite(jobSearchResult: JobSearchResult) {
-    this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
+    if (jobSearchResult.favouriteItem.note) {
+      this.modalService.openConfirm(
+          CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
+      ).result.then(
+        () => this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem })),
+        () => {
+        }
+      );
+    } else {
+      this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem }));
+    }
   }
 
   updatedFavourite(jobSearchResult: JobSearchResult) {

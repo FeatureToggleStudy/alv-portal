@@ -4,16 +4,14 @@ import {
   MultiTypeaheadComponent,
   TYPEAHEAD_QUERY_MIN_LENGTH
 } from './multi-typeahead.component';
-import { TypeaheadItem } from '../typeahead-item';
 import { BehaviorSubject, of } from 'rxjs';
 import { ValidationMessagesComponent } from '../../validation-messages/validation-messages.component';
 import { FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { StringTypeaheadItem } from '../string-typeahead-item';
 import { TypeaheadDisplayItem } from '../typeahead-display-item';
-import { SessionManagerService } from '../../../../../core/auth/session-manager/session-manager.service';
-import { Store } from '@ngrx/store';
 import { ErrorHandlerService } from '../../../../../core/error-handler/error-handler.service';
+import { WINDOW } from '../../../../../core/window.service';
 
 describe('MultiTypeaheadComponent', () => {
 
@@ -21,15 +19,17 @@ describe('MultiTypeaheadComponent', () => {
   let fixture: ComponentFixture<MultiTypeaheadComponent>;
 
   let mockErrorHandlerService;
+  let mockWindow;
 
   beforeEach(async(() => {
     mockErrorHandlerService = jasmine.createSpyObj('mockErrorHandlerService', ['handleHttpError', 'handleError']);
-
+    mockWindow = {};
     TestBed.configureTestingModule({
       imports: [NgbTypeaheadModule, TranslateModule],
       declarations: [MultiTypeaheadComponent, ValidationMessagesComponent],
       providers: [
         { provide: ErrorHandlerService, useValue: mockErrorHandlerService },
+        { provide: WINDOW, useValue: mockWindow }
       ]
     })
       .overrideTemplate(MultiTypeaheadComponent, '<input [ngbTypeahead]="loadItemsGuardedFn"/>') // we need only the @ViewChild
@@ -219,4 +219,12 @@ describe('MultiTypeaheadComponent', () => {
       ]);
     }));
   });
+
+  describe('overrideOpenPopup', () => {
+    it('should check if private method can be overridden', () => {
+      // THEN
+      expect(component.ngbTypeahead['_openPopup']).toBeDefined();
+    });
+  });
+
 });

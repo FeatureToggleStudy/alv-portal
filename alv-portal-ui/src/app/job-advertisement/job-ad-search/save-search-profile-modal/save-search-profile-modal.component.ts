@@ -27,7 +27,11 @@ export class SaveSearchProfileModalComponent implements OnInit {
   }
 
   onSubmit() {
-    this.activeModal.close(/* search profile */);
+    // TODO: How to retrieve the filter values?
+    this.jobAdSearchProfilesRepository.create({})
+      .subscribe(searchProfile => {
+        this.activeModal.close(searchProfile);
+      });
   }
 
   onCancel() {
