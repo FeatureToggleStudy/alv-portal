@@ -49,13 +49,13 @@ import { User } from '../../../core/auth/user.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { JobAdSearchProfile } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdSearchProfileResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { CONFIRM_DELETE_FAVOURITE_NOTE_MODAL } from '../../job-ad-favourites/job-ad-favourites/job-ad-favourites.types';
 import { SaveSearchProfileModalComponent } from '../job-search-profiles/save-search-profile-modal/save-search-profile-modal.component';
 import { UpdateSearchProfileModalComponent } from '../job-search-profiles/update-search-profile-modal/update-search-profile-modal.component';
-import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { NotificationsService } from '../../../core/notifications.service';
+import { JobSearchProfileService } from '../job-search-profiles/job-search-profile.service';
 
 @Component({
   selector: 'alv-job-search',
@@ -100,6 +100,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
               private i18nService: I18nService,
               private authenticationService: AuthenticationService,
               private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
+              private jobSearchProfileService: JobSearchProfileService,
               private notificationsService: NotificationsService,
               @Inject(WINDOW) private window: Window) {
     super();
@@ -199,7 +200,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   removeFavourite(jobSearchResult: JobSearchResult) {
     if (jobSearchResult.favouriteItem.note) {
       this.modalService.openConfirm(
-          CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
+        CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
       ).result.then(
         () => this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: jobSearchResult.favouriteItem })),
         () => {
@@ -231,14 +232,14 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     });
   }
 
-  updateSearchProfile(searchProfile: JobAdSearchProfile) {
+  updateSearchProfile(searchProfile: JobAdSearchProfileResponse) {
     const modalRef = this.modalService.openMedium(UpdateSearchProfileModalComponent);
     modalRef.componentInstance.searchProfile = searchProfile;
     modalRef.result
       .then(
         (result) => {
           if (result) {
-            this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: searchProfile }));
+            this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: result }));
           } else {
             this.createSearchProfile();
           }
@@ -249,7 +250,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   createSearchProfile() {
     const modalRef = this.modalService.openMedium(SaveSearchProfileModalComponent);
-    //modalRef.componentInstance.legalTerm = legalTerm;
     modalRef.result
       .then((searchProfile) => {
         this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: searchProfile }));
@@ -264,18 +264,18 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       take(1)
     ).subscribe(searchProfile => {
       if (searchProfile) {
-        this.modalService.openConfirm({
-          title: 'portal.job-ad-search-profiles.delete-confirmation-modal.title',
-          content: 'portal.job-ad-search-profiles.delete-confirmation-modal.question',
-          contentParams: {profileName: 'd'}
-        } as ConfirmModalConfig).result
+        this.modalService.openConfirm(
+          this.jobSearchProfileService.getDeleteConfirmationModalConfig(searchProfile.name)
+        ).result
           .then(result => {
-              this.jobAdSearchProfilesRepository.delete(searchProfile.id)
-                .subscribe(() => {
-                  this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-deleted');
-                });
+            this.jobAdSearchProfilesRepository.delete(searchProfile.id)
+              .subscribe(() => {
+                this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: undefined }));
+                this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-deleted');
+              });
           })
-          .catch(() => {});
+          .catch(() => {
+          });
       }
     });
   }

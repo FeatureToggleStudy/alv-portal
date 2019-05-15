@@ -1,6 +1,6 @@
 import { ContractType, JobSearchFilter, Sort } from './job-search-filter.types';
 import {
-  FavouriteItem, JobAdSearchProfile,
+  FavouriteItem, JobAdSearchProfileRequest, JobAdSearchProfileResponse,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -20,7 +20,7 @@ export interface JobAdSearchState {
   visitedJobAds: { [id: string]: boolean; };
   lastVisitedJobAdId: string;
   isDirtyResultList: boolean;
-  jobAdSearchProfile: JobAdSearchProfile;
+  jobAdSearchProfile: JobAdSearchProfileResponse;
 }
 
 export const initialState: JobAdSearchState = {

@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JobAdSearchProfile } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdSearchProfileRequest } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdSearchProfilesRepository } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { NotificationsService } from '../../../../core/notifications.service';
+import { select, Store } from '@ngrx/store';
+import { getJobSearchFilter, JobAdSearchState } from '../../state-management/state';
+import { flatMap } from 'rxjs/operators';
+import { JobSearchProfileService } from '../job-search-profile.service';
 
 @Component({
   selector: 'alv-update-search-profile-modal',
@@ -11,17 +15,27 @@ import { NotificationsService } from '../../../../core/notifications.service';
 })
 export class UpdateSearchProfileModalComponent {
 
-  searchProfile: JobAdSearchProfile;
+  searchProfile: JobAdSearchProfileRequest;
 
   constructor(public activeModal: NgbActiveModal,
+              private store: Store<JobAdSearchState>,
               private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
+              private jobSearchProfileService: JobSearchProfileService,
               private notificationsService: NotificationsService) {
   }
 
   onUpdateExisting() {
     // TODO: how to update the search filter?
-    this.jobAdSearchProfilesRepository.update(this.searchProfile)
-      .subscribe(updatedSearchProfile => {
+    this.store.pipe(
+      select(getJobSearchFilter),
+      flatMap(searchFilter => {
+        return this.jobAdSearchProfilesRepository.update({
+          id: this.searchProfile.id,
+          name: this.searchProfile.name,
+          searchFilter: this.jobSearchProfileService.mapToRequest(searchFilter)
+        });
+      })
+    ).subscribe(updatedSearchProfile => {
         this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-updated');
         this.activeModal.close(updatedSearchProfile);
       });

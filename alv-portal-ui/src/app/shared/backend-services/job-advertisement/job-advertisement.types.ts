@@ -6,7 +6,10 @@ import {
   Salutation
 } from '../shared.types';
 import { GeoPoint } from '../reference-service/locality.types';
-import { JobSearchFilter } from '../../../job-advertisement/job-ad-search/state-management/state';
+import {
+  JobSearchFilter, JobSearchFilterRequest,
+  JobSearchFilterResponse
+} from '../../../job-advertisement/job-ad-search/state-management/state';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',
@@ -138,6 +141,7 @@ export interface Employment {
 }
 
 export interface Location {
+  id?: string;
   remarks?: string;
   city: string;
   postalCode: string;
@@ -238,7 +242,7 @@ export interface JobAdFavouritesSearchResponse {
 
 export interface JobAdSearchProfilesSearchResponse {
   totalCount: number;
-  result: JobAdSearchProfile[];
+  result: JobAdSearchProfileRequest[];
 }
 
 export interface JobAdFavouritesSearchRequest {
@@ -344,11 +348,20 @@ export interface WebformPostAddress {
   countryIsoCode: string;
 }
 
-export interface JobAdSearchProfile {
+export interface JobAdSearchProfileResponse {
   id?: string;
   name: string;
   ownerUserId: string;
   createdTime?: Date;
   updatedTime?: Date;
-  searchFilter: JobSearchFilter;
+  searchFilter: JobSearchFilterResponse;
+}
+
+export interface JobAdSearchProfileRequest {
+  id?: string;
+  name: string;
+  ownerUserId?: string;
+  createdTime?: Date;
+  updatedTime?: Date;
+  searchFilter: JobSearchFilterRequest;
 }

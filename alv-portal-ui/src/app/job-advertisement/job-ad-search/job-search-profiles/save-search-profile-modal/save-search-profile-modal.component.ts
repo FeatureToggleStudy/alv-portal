@@ -2,8 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JobAdSearchProfilesRepository } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
-import { JobAdSearchProfile } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdSearchProfileRequest } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { NotificationsService } from '../../../../core/notifications.service';
+import { catchError, flatMap, withLatestFrom } from 'rxjs/operators';
+import { EMPTY, throwError } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { getJobSearchFilter, JobAdSearchState } from '../../state-management/state';
+import { getCurrentUser } from '../../../../core/state-management/state/core.state.ts';
+import { JobSearchProfileService } from '../job-search-profile.service';
 
 @Component({
   selector: 'alv-save-search-profile-modal',
@@ -17,7 +23,9 @@ export class SaveSearchProfileModalComponent implements OnInit {
   form: FormGroup;
 
   constructor(public activeModal: NgbActiveModal,
+              private store: Store<JobAdSearchState>,
               private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
+              private jobSearchProfileService: JobSearchProfileService,
               private notificationsService: NotificationsService,
               private fb: FormBuilder) {
   }
@@ -29,8 +37,29 @@ export class SaveSearchProfileModalComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO: How to retrieve the filter values?
-    this.jobAdSearchProfilesRepository.create(<JobAdSearchProfile>{})
+    this.store.pipe(
+      select(getCurrentUser),
+      withLatestFrom(this.store.pipe(select(getJobSearchFilter))),
+      flatMap(([currentUser, jobSearchFilter]) => {
+        return this.jobAdSearchProfilesRepository.create(<JobAdSearchProfileRequest>{
+          name: this.form.get('name').value,
+          ownerUserId: currentUser.id,
+          searchFilter: this.jobSearchProfileService.mapToRequest(jobSearchFilter),
+        })
+          .pipe(
+            catchError(error => {
+              this.form.reset();
+              if (error.error.reason) {
+                if (error.error.reason === 'Ask how the exception is called') {
+                  this.notificationsService.error('portal.job-ad-search-profiles.save-modal.validation.name.already-exists');
+                  return EMPTY;
+                }
+              }
+              return throwError(error);
+            })
+          );
+      })
+    )
       .subscribe(searchProfile => {
         this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-saved');
         this.activeModal.close(searchProfile);

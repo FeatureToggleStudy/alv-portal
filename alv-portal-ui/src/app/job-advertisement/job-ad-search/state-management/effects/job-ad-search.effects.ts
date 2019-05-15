@@ -13,8 +13,7 @@ import {
   LOAD_NEXT_JOB_ADVERTISEMENT_DETAIL,
   LOAD_NEXT_PAGE,
   LOAD_PREVIOUS_JOB_ADVERTISEMENT_DETAIL,
-  LOAD_SEARCH_PROFILE,
-  LoadNextPageAction, LoadSearchProfileAction,
+  LoadNextPageAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   NextPageNotAvailableAction,
@@ -22,8 +21,6 @@ import {
   RESET_FILTER,
   ResetAction,
   ResultListAlreadyInitializedAction,
-  SEARCH_PROFILE_LOADED,
-  SearchProfileLoadedAction
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {
@@ -227,25 +224,6 @@ export class JobAdSearchEffects {
     }),
     map(() => {
       return { type: 'nothing' };
-    })
-  );
-
-  @Effect()
-  loadSearchProfile$: Observable<Action> = this.actions$.pipe(
-    ofType(LOAD_SEARCH_PROFILE),
-    switchMap((action: LoadSearchProfileAction) => {
-      return this.jobAdSearchProfilesRepository.findById(action.payload.searchProfileId);
-    }),
-    map((searchProfile) => {
-      return new SearchProfileLoadedAction({ searchProfile: searchProfile });
-    })
-  );
-
-  @Effect()
-  searchProfileLoaded$: Observable<Action> = this.actions$.pipe(
-    ofType(SEARCH_PROFILE_LOADED),
-    map((action: SearchProfileLoadedAction) => {
-      return new ApplyFilterAction(action.payload.searchProfile.searchFilter);
     })
   );
 

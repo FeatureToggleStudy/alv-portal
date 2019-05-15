@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../request-util';
 import {
-  JobAdSearchProfile,
+  JobAdSearchProfileRequest, JobAdSearchProfileResponse,
   JobAdSearchProfilesSearchResponse
 } from '../job-advertisement/job-advertisement.types';
 
@@ -20,12 +20,12 @@ export class JobAdSearchProfilesRepository {
   constructor(private http: HttpClient) {
   }
 
-  create(jobAdSearchProfile: JobAdSearchProfile): Observable<JobAdSearchProfile> {
-    return this.http.post<JobAdSearchProfile>(this.resourceUrl, jobAdSearchProfile);
+  create(jobAdSearchProfile: JobAdSearchProfileRequest): Observable<JobAdSearchProfileRequest> {
+    return this.http.post<JobAdSearchProfileRequest>(this.resourceUrl, jobAdSearchProfile);
   }
 
-  update(jobAdSearchProfile: JobAdSearchProfile): Observable<JobAdSearchProfile> {
-    return this.http.put<JobAdSearchProfile>(this.resourceUrl + '/' + jobAdSearchProfile.id, jobAdSearchProfile);
+  update(jobAdSearchProfile: JobAdSearchProfileRequest): Observable<JobAdSearchProfileRequest> {
+    return this.http.put<JobAdSearchProfileRequest>(this.resourceUrl + '/' + jobAdSearchProfile.id, jobAdSearchProfile);
   }
 
   delete(jobAdSearchProfileId: string): Observable<void> {
@@ -34,7 +34,7 @@ export class JobAdSearchProfilesRepository {
 
   search(ownerUserId: string): Observable<JobAdSearchProfilesSearchResponse> {
     const params = createPageableURLSearchParams({page: 1, size: 10});
-    return this.http.get<JobAdSearchProfile[]>(this.searchUrl, {
+    return this.http.get<JobAdSearchProfileRequest[]>(this.searchUrl, {
       params,
       observe: 'response'
     }).pipe(
@@ -50,8 +50,8 @@ export class JobAdSearchProfilesRepository {
     // });
   }
 
-  findById(id: string): Observable<JobAdSearchProfile> {
-    return this.http.get<JobAdSearchProfile>(`${this.resourceUrl}/${id}`);
+  findById(id: string): Observable<JobAdSearchProfileResponse> {
+    return this.http.get<JobAdSearchProfileResponse>(`${this.resourceUrl}/${id}`);
   }
 
 }
