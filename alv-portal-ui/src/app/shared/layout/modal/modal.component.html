@@ -51,6 +51,7 @@
     </button>
     <button *ngIf="showPrimaryButton"
             [attr.type]="formGroup ? 'submit' : 'button'"
+            [disabled]="formGroup && formGroup.invalid"
             (click)="handlePrimaryClick()"
             class="btn btn-primary">
       {{primaryLabel | translate}}
