@@ -1,5 +1,6 @@
 import { promise as wdpromise } from 'selenium-webdriver';
 import { $, ElementArrayFinder, ElementFinder } from 'protractor';
+import { getByTest } from '../../job-publication/selector-utils';
 
 export class SearchResultsPanelPo {
   private sectionElementFinder = $('.main-column');
@@ -12,10 +13,11 @@ export class SearchResultsPanelPo {
     return this.results.then((results: ElementFinder[]) => results.length);
   }
 
-  get resultHeaders(): wdpromise.Promise<string[]> {
-    return this.results.then((results: ElementFinder[]) => Promise.all(results.map(res => res.getText())));
+  async getResultHeaders(): wdpromise.Promise<string[]> {
+    return this.sectionElementFinder.$$(getByTest('resultTitle'))
+      .then((results: ElementFinder[]) => Promise.all(results.map(r=>r.getText())));
   }
-  //todo not checked yet
+
   async clickOnResult(numberOfResult) {
     const results = await this.results;
     return results[numberOfResult].click();

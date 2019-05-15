@@ -14,7 +14,7 @@ export class JobSearchPo {
   filterPanel = new FilterPanelPo();
 
 
-  navigateTo() {
+  navigateTo(): wdpromise.Promise<any> {
     return browser.get('/job-search');
   }
 

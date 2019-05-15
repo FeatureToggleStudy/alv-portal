@@ -1,7 +1,8 @@
 import { JobSearchPo } from './job-search.po';
 import { ContractTypes } from './sections/filter-panel.po';
-import { browser } from 'protractor';
+import { browser, element } from 'protractor';
 import { DEFAULT_SLEEP_TIME } from '../../constants';
+import { JobDetailsPo } from './job-details.po';
 
 const PAGE_SIZE = 20;
 
@@ -15,7 +16,6 @@ describe('Job search page', () => {
   beforeEach(() => {
     page = new JobSearchPo();
     page.navigateTo();
-
   });
 
   it('should navigate to the job-search page', () => {
@@ -54,6 +54,15 @@ describe('Job search page', () => {
   });
 
   it('should go to a details page and navigate to previous and next search results', async () => {
+    const resultsHeaders = await page.searchResultsPanel.getResultHeaders();
+    await page.searchResultsPanel.clickOnResult(0);
+    const detailsPage = new JobDetailsPo();
+    expect(detailsPage.header).toBe(resultsHeaders[0]);
+    detailsPage.nextButton.click();
+    // await browser.sleep(DEFAULT_SLEEP_TIME);
+    // expect(detailsPage.header).toBe(resultsHeaders[1]);
+
+
 
   });
 

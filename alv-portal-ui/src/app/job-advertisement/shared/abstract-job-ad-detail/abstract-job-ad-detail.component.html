@@ -138,6 +138,7 @@
     <ng-container class="right-column">
       <div class="d-flex">
         <button (click)="loadPrev()"
+                data-test="previousJobAdButton"
                 [disabled]="!(prevEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           <fa-icon class="mr-1"
@@ -146,6 +147,7 @@
         </button>
         <div class="flex-grow-1"></div>
         <button (click)="loadNext()"
+                data-test="nextJobAdButton"
                 [disabled]="!(nextEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
