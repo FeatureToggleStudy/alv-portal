@@ -832,7 +832,7 @@ portal.job-ad-search-profiles.save-modal.validation.name.already-exists,Diese Be
 portal.job-ad-search-profiles.save-modal.primary-button.label,Speichern,Save,Sauvegarder,Salvare,
 portal.job-ad-search-profiles.save-modal.cancel-button.label,Abbrechen,Cancel,Annuler,Interrompere,
 portal.job-ad-search-profiles.notification.profile-saved,Ihr Suchprofil wurde gespeichert.,Your search has been saved.,Votre profil de recherche a été enregistré.,Il profilo di ricerca è stato salvato.,
-portal.job-ad-search-profiles.notification.profile-overridden,Ihr Suchprofil wurde aktualisiert.,Your search has been edited.,Votre profil de recherche a été remplacé.,Il profilo di ricerca è stato sovrascritto.,
+portal.job-ad-search-profiles.notification.profile-updated,Ihr Suchprofil wurde aktualisiert.,Your search has been edited.,Votre profil de recherche a été remplacé.,Il profilo di ricerca è stato sovrascritto.,
 portal.job-ad-search-profiles.notification.profile-deleted,Das Suchprofil wurde gelöscht.,Your saved search has been deleted.,Le profil de recherche a été supprimé.,Il profilo di ricerca è stato cancellato.,
 portal.job-ad-search-profiles.delete-confirmation-modal.question,"Möchten Sie das Suchprofil ""<strong>{{profileName}}</strong>"" wirklich löschen?","Are you sure you want to delete your search ""<strong>{{profileName}}</strong>""?","Souhaitez-vous vraiment supprimer le profil de recherche ""<strong>{{profileName}}</strong>""?","Volete davvero cancellare il profilo di ricerca ""<strong>{{profileName}}</strong>""?",
 portal.job-ad-search-profiles.delete-confirmation-modal.title,Suchprofil löschen?,Delete search?,Supprimer le profil de recherche?,Cancellare il profilo di ricerca?,

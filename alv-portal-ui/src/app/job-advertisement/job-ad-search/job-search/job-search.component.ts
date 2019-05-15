@@ -54,6 +54,8 @@ import { CONFIRM_DELETE_FAVOURITE_NOTE_MODAL } from '../../job-ad-favourites/job
 import { SaveSearchProfileModalComponent } from '../job-search-profiles/save-search-profile-modal/save-search-profile-modal.component';
 import { UpdateSearchProfileModalComponent } from '../job-search-profiles/update-search-profile-modal/update-search-profile-modal.component';
 import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
+import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
+import { NotificationsService } from '../../../core/notifications.service';
 
 @Component({
   selector: 'alv-job-search',
@@ -97,6 +99,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
               private modalService: ModalService,
               private i18nService: I18nService,
               private authenticationService: AuthenticationService,
+              private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
+              private notificationsService: NotificationsService,
               @Inject(WINDOW) private window: Window) {
     super();
   }
@@ -255,15 +259,25 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   deleteSearchProfile() {
-    this.modalService.openConfirm({
-      title: 'portal.job-ad-search-profiles.delete-confirmation-modal.title',
-      content: 'portal.job-ad-search-profiles.delete-confirmation-modal.question',
-      contentParams: {profileName: 'd'}
-    } as ConfirmModalConfig).result
-      .then(result => {
-        // delete profile
-      })
-      .catch(() => {});
+    this.store.pipe(
+      select(getJobAdSearchProfile),
+      take(1)
+    ).subscribe(searchProfile => {
+      if (searchProfile) {
+        this.modalService.openConfirm({
+          title: 'portal.job-ad-search-profiles.delete-confirmation-modal.title',
+          content: 'portal.job-ad-search-profiles.delete-confirmation-modal.question',
+          contentParams: {profileName: 'd'}
+        } as ConfirmModalConfig).result
+          .then(result => {
+              this.jobAdSearchProfilesRepository.delete(searchProfile.id)
+                .subscribe(() => {
+                  this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-deleted');
+                });
+          })
+          .catch(() => {});
+      }
+    });
   }
 
 }

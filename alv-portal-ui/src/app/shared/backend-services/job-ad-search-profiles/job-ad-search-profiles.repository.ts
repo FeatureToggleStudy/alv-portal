@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -7,8 +7,7 @@ import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../request-util';
 import {
   JobAdSearchProfile,
-  JobAdSearchProfilesSearchResponse,
-  JobAdvertisementSearchResponse
+  JobAdSearchProfilesSearchResponse
 } from '../job-advertisement/job-advertisement.types';
 
 @Injectable({ providedIn: 'root' })
@@ -27,6 +26,10 @@ export class JobAdSearchProfilesRepository {
 
   update(jobAdSearchProfile: JobAdSearchProfile): Observable<JobAdSearchProfile> {
     return this.http.put<JobAdSearchProfile>(this.resourceUrl + '/' + jobAdSearchProfile.id, jobAdSearchProfile);
+  }
+
+  delete(jobAdSearchProfileId: string): Observable<void> {
+    return this.http.delete<void>(this.resourceUrl + '/' + jobAdSearchProfileId);
   }
 
   search(ownerUserId: string): Observable<JobAdSearchProfilesSearchResponse> {

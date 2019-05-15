@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JobAdSearchProfilesRepository } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { JobAdSearchProfile } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { NotificationsService } from '../../../../core/notifications.service';
 
 @Component({
   selector: 'alv-save-search-profile-modal',
@@ -17,6 +18,7 @@ export class SaveSearchProfileModalComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
               private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
+              private notificationsService: NotificationsService,
               private fb: FormBuilder) {
   }
 
@@ -30,6 +32,7 @@ export class SaveSearchProfileModalComponent implements OnInit {
     // TODO: How to retrieve the filter values?
     this.jobAdSearchProfilesRepository.create(<JobAdSearchProfile>{})
       .subscribe(searchProfile => {
+        this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-saved');
         this.activeModal.close(searchProfile);
       });
   }
