@@ -8,7 +8,7 @@ import {
 import { ManageJobAdsState } from '../state-management/state';
 import { Store } from '@ngrx/store';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { JobAdvertisementDetailLoadedAction } from '../state-management/actions';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
@@ -33,10 +33,6 @@ export class ManageJobAdDetailGuard implements CanActivate {
         }),
         map(() => {
           return true;
-        }),
-        catchError(() => {
-          this.router.navigate(['home']);
-          return of(false);
         })
       );
     }
@@ -52,10 +48,6 @@ export class ManageJobAdDetailGuard implements CanActivate {
           }),
           map(() => {
             return true;
-          }),
-          catchError(() => {
-            this.router.navigate(['home']);
-            return of(false);
           })
         );
       })
