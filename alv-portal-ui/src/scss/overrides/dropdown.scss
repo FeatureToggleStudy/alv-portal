@@ -37,9 +37,11 @@
 
   }
 }
+// When the dropdown is attached to body, we have to apply the z-index manually
 .dropdown:not([ngbDropdown]) {
   z-index: $z-index-dropdown-menu;
 }
+
 ngb-typeahead-window.dropdown-menu {
   max-height: 80%;
 }
