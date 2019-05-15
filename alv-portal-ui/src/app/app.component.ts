@@ -1,7 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './core/auth/authentication.service';
-import { filter, map, mergeMap, pairwise, startWith, switchMap } from 'rxjs/operators';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {
+  filter,
+  map,
+  mergeMap,
+  pairwise,
+  startWith,
+  switchMap,
+  withLatestFrom
+} from 'rxjs/operators';
+import {
+  ActivatedRoute,
+  GuardsCheckEnd,
+  NavigationEnd,
+  NavigationError,
+  Router
+} from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { I18nService } from './core/i18n.service';
 
@@ -12,6 +26,8 @@ import { TrackingService } from './shared/tracking/tracking.service';
 import { ScrollService } from './core/scroll.service';
 
 const FALLBACK_TITLE_KEY = 'global.title';
+
+const EMPTY_URL = 'EMPTY_URL';
 
 @Component({
   selector: 'alv-root',
@@ -39,6 +55,28 @@ export class AppComponent implements OnInit {
     this.i18nService.init();
 
     this.authenticationService.init();
+
+    const lastUrl$ = this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map((value: NavigationEnd) => value.url),
+      startWith(EMPTY_URL)
+    );
+
+    this.router.events.pipe(
+      filter((event) => {
+        if (event instanceof GuardsCheckEnd) {
+          return !event.shouldActivate;
+        } else if (event instanceof NavigationError) {
+          return true;
+        }
+        return false;
+      }),
+      withLatestFrom(lastUrl$)
+    ).subscribe(([navigationError, lastUrl]) => {
+      if (lastUrl === EMPTY_URL) {
+        this.router.navigate(['home']);
+      }
+    });
 
     // Based on the idea: https://toddmotto.com/dynamic-page-titles-angular-2-router-events
     const currentRoute$ = this.router.events.pipe(
