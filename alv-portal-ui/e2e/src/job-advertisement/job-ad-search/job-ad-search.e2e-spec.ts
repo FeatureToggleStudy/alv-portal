@@ -1,6 +1,6 @@
 import { JobSearchPo } from './job-search.po';
 import { ContractTypes } from './sections/filter-panel.po';
-import { browser, element } from 'protractor';
+import { browser } from 'protractor';
 import { DEFAULT_SLEEP_TIME } from '../../constants';
 import { JobDetailsPo } from './job-details.po';
 
@@ -53,17 +53,45 @@ describe('Job search page', () => {
     expect(afterFilter).toBeLessThan(initialCount);
   });
 
-  it('should go to a details page and navigate to previous and next search results', async () => {
+  it('should go to a details page and navigate to next search results', async () => {
     const resultsHeaders = await page.searchResultsPanel.getResultHeaders();
     await page.searchResultsPanel.clickOnResult(0);
     const detailsPage = new JobDetailsPo();
-    expect(detailsPage.header).toBe(resultsHeaders[0]);
-    detailsPage.nextButton.click();
-    // await browser.sleep(DEFAULT_SLEEP_TIME);
-    // expect(detailsPage.header).toBe(resultsHeaders[1]);
 
+    //check that all headers match the search results headers
+    for (const resultHeader of resultsHeaders) {
+      await expect(detailsPage.header).toBe(resultHeader);
+      await detailsPage.nextButton.click();
+    }
+    //we've reached the last result header and the new ones have to be loaded now. The next button must be clickable
 
+    await expect(detailsPage.nextButton.isEnabled()).toBe(true, 'The next button must be clickable after iterating through the first page of results');
 
+    await detailsPage.goBackToSearch();
+    await expect(page.searchResultsPanel.results.$$('.visited').count()).toBe(21, 'must be 21 visited search results');
+
+  });
+
+  it('should navigate from the last to the first search result normally', async () => {
+    await page.scrollToBottom();
+    const resultHeaders = await page.searchResultsPanel.getResultHeaders();
+    await expect(resultHeaders.length).toBe(40);
+
+    await page.scrollToBottom();
+    //now let's go back from the 40th result to a 0th result
+    await page.searchResultsPanel.clickOnResult(39);
+
+    const detailsPage = new JobDetailsPo();
+
+    for (const resultHeader of resultHeaders.reverse()) {
+      await expect(detailsPage.header).toBe(resultHeader);
+      await detailsPage.previousButton.click();
+    }
+
+    await expect(detailsPage.previousButton.isEnabled()).toBeFalsy();
+
+    await detailsPage.goBackToSearch();
+    await expect(page.searchResultsPanel.results.$$('.visited').count()).toBe(40);
   });
 
 });

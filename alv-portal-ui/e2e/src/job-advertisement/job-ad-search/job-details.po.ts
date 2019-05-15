@@ -23,4 +23,7 @@ export class JobDetailsPo {
     return $(getByTest('jobAdHeader')).getText();
   }
 
+  goBackToSearch(): wdpromise.Promise<any> {
+    return $(getByTest('backToSearch')).click();
+  }
 }

@@ -7,7 +7,8 @@
         <!-- Back Button -->
         <div>
           <a class="btn btn-text btn-text-icon"
-             [routerLink]="backButtonPath">
+             [routerLink]="backButtonPath"
+          >
             <fa-icon class="mr-1"
                      [icon]="['fas', 'caret-left']"></fa-icon>
             {{'job-detail.back' | translate}}
@@ -99,7 +100,9 @@
 
     <ng-container class="left-column">
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-lg-block d-print-none"
-         [routerLink]="backButtonPath">
+         [routerLink]="backButtonPath"
+         data-test="backToSearch"
+      >
         <fa-icon class="mr-1"
                  [icon]="['fas', 'caret-left']"></fa-icon>
         {{getBackButtonText() | translate}}

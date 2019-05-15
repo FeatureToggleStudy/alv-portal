@@ -13,9 +13,9 @@ export class SearchResultsPanelPo {
     return this.results.then((results: ElementFinder[]) => results.length);
   }
 
-  async getResultHeaders(): wdpromise.Promise<string[]> {
+  getResultHeaders(): wdpromise.Promise<string[]> {
     return this.sectionElementFinder.$$(getByTest('resultTitle'))
-      .then((results: ElementFinder[]) => Promise.all(results.map(r=>r.getText())));
+      .then((results: ElementFinder[]) => Promise.all(results.map(r => r.getText())));
   }
 
   async clickOnResult(numberOfResult) {
