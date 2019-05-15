@@ -1,3 +1,4 @@
+
 @import "../common/colors";
 @import "../common/_variables";
 @import '../../../node_modules/bootstrap/scss/functions';
@@ -35,6 +36,9 @@
     }
 
   }
+}
+.dropdown:not([ngbDropdown]) {
+  z-index: $z-index-dropdown-menu;
 }
 ngb-typeahead-window.dropdown-menu {
   max-height: 80%;
