@@ -7,3 +7,7 @@ export function alvFormControlName(value: string): string {
 export function getSelectOptions(selectElement: ElementFinder): ElementArrayFinder {
   return selectElement.$$('option');
 }
+
+export function getByTest(name: string): string {
+  return `[data-test="${name}"]`;
+}
