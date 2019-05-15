@@ -24,6 +24,7 @@ import { Store } from '@ngrx/store';
 import { ToggleMainNavigationAction } from './core/state-management/actions/core.actions';
 import { TrackingService } from './shared/tracking/tracking.service';
 import { ScrollService } from './core/scroll.service';
+import { Observable } from 'rxjs';
 
 const FALLBACK_TITLE_KEY = 'global.title';
 
@@ -56,6 +57,19 @@ export class AppComponent implements OnInit {
 
     this.authenticationService.init();
 
+    this.handleGuardErrors();
+
+    const activatedRoute$ = this.determineActivatedRoute();
+
+    this.handleMainNavigationToggle(activatedRoute$);
+
+    this.handleScrollToTop(activatedRoute$);
+
+    this.handleTitle(activatedRoute$);
+
+  }
+
+  private handleGuardErrors() {
     const lastUrl$ = this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map((value: NavigationEnd) => value.url),
@@ -77,9 +91,11 @@ export class AppComponent implements OnInit {
         this.router.navigate(['home']);
       }
     });
+  }
 
-    // Based on the idea: https://toddmotto.com/dynamic-page-titles-angular-2-router-events
-    const currentRoute$ = this.router.events.pipe(
+  // Based on the idea: https://toddmotto.com/dynamic-page-titles-angular-2-router-events
+  private determineActivatedRoute() {
+    const activatedRoute$: Observable<ActivatedRoute> = this.router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map(() => this.activatedRoute),
       map((route) => {
@@ -90,8 +106,12 @@ export class AppComponent implements OnInit {
       }),
       filter((route) => route.outlet === 'primary')
     );
+    return activatedRoute$;
+  }
 
-    currentRoute$.pipe(
+
+  private handleMainNavigationToggle(activatedRoute$: Observable<ActivatedRoute>) {
+    activatedRoute$.pipe(
       mergeMap((route) => {
         return route.data.pipe(map(data => ({
           collapseNavigation: data.collapseNavigation,
@@ -111,8 +131,10 @@ export class AppComponent implements OnInit {
         this.store.dispatch(new ToggleMainNavigationAction({ expanded: !currentCollapseState }));
       }
     });
+  }
 
-    currentRoute$.pipe(
+  private handleScrollToTop(activatedRoute$: Observable<ActivatedRoute>) {
+    activatedRoute$.pipe(
       mergeMap((route) => route.data),
       map((data) => data.scrollToTop)
     ).subscribe((scrollToTop) => {
@@ -120,8 +142,10 @@ export class AppComponent implements OnInit {
         this.scrollService.scrollToTop();
       }
     });
+  }
 
-    currentRoute$.pipe(
+  private handleTitle(activatedRoute$: Observable<ActivatedRoute>) {
+    activatedRoute$.pipe(
       mergeMap((route) => route.data),
       map((data) => data.titleKey),
       switchMap((titleKey) => {
@@ -136,4 +160,5 @@ export class AppComponent implements OnInit {
       this.trackingService.trackCurrentPage(title);
     });
   }
+
 }
