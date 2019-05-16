@@ -90,6 +90,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   currentLanguage$: Observable<string>;
 
+  showSaveSearchProfileButton$: Observable<boolean>;
+
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
 
   @BlockUI() blockUI: NgBlockUI;
@@ -141,6 +143,14 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
     this.currentLanguage$ = this.i18nService.currentLanguage$;
 
+    this.showSaveSearchProfileButton$ = this.jobSearchFilter$.pipe(
+      map(searchFilter => {
+        return searchFilter.occupations.length > 0 ||
+          searchFilter.localities.length > 0 ||
+          searchFilter.keywords.length > 0 ||
+          !!searchFilter.company;
+      })
+    );
     this.actionsSubject.pipe(
       ofType(FILTER_APPLIED),
       takeUntil(this.ngUnsubscribe))
@@ -180,6 +190,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   onResetFilter() {
     this.store.dispatch(new ResetFilterAction({}));
+    this.store.dispatch(new SearchProfileUpdatedAction({searchProfile: undefined}));
     // Give the search panel some time to adjust
     setTimeout(() => {
       this.detectSearchPanelHeight();

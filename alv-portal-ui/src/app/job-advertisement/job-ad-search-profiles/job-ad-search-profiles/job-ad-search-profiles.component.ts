@@ -8,6 +8,7 @@ import { flatMap, map, take } from 'rxjs/operators';
 import { JobSearchProfileService } from '../../job-ad-search/job-search-profile/job-search-profile.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../../core/notifications.service';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'alv-job-ad-search-profiles',
