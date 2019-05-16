@@ -20,7 +20,9 @@ export class JobAdSearchProfilesComponent implements OnInit {
 
   jobSearchProfiles: JobAdSearchProfileRequest[] = [];
 
-  page = 0;
+  private page = 0;
+
+  private readonly size = 100;
 
   constructor(private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
               private authenticationService: AuthenticationService,
@@ -34,7 +36,7 @@ export class JobAdSearchProfilesComponent implements OnInit {
   onScroll() {
     this.authenticationService.getCurrentUser().pipe(
       take(1),
-      flatMap(user => this.jobAdSearchProfilesRepository.search(user.id, this.page++)),
+      flatMap(user => this.jobAdSearchProfilesRepository.search(user.id, this.page++, this.size)),
       map(response => response.result)
     ).subscribe(profiles => {
       this.jobSearchProfiles = [...this.jobSearchProfiles, ...profiles];

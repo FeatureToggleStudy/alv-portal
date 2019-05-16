@@ -17,8 +17,8 @@
   .hover-indicator {
     position: absolute;
     left: 0;
-    top: 0;
-    height: 100%;
+    top: -1px;
+    height: calc(100% + 2px);
     width: 5px;
   }
   &:hover {
