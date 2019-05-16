@@ -17,12 +17,12 @@ import { ofType } from '@ngrx/effects';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
 import { combineLatest, Observable } from 'rxjs';
 import { User } from '../../core/auth/user.model';
+import { ModalService } from '../../shared/layout/modal/modal.service';
+import { JobAdvertisementWithFavourites } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import {
   CONFIRM_DELETE_FAVOURITE_MODAL,
   CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
-} from '../../job-advertisement/job-ad-favourites/job-ad-favourites/job-ad-favourites.types';
-import { ModalService } from '../../shared/layout/modal/modal.service';
-import { JobAdvertisementWithFavourites } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+} from '../../job-advertisement/shared/job-ad-favourites.types';
 
 @Component({
   selector: 'alv-favourite-jobs-widget',

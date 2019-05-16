@@ -22,6 +22,7 @@ import { ComplaintModalComponent } from '../complaint-modal/complaint-modal.comp
 import { filter, map, switchMap } from 'rxjs/operators';
 import { FavouriteNoteModalComponent } from '../favourite-note-modal/favourite-note-modal.component';
 import { FavouriteItemDetailModel } from './favourite-item-detail.model';
+import { CONFIRM_DELETE_FAVOURITE_NOTE_MODAL } from '../job-ad-favourites.types';
 
 export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
@@ -122,11 +123,25 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
 
   abstract addFavourite(jobAdvertisementId: string);
 
-  abstract removeFavourite(favouriteItem: FavouriteItem);
+  abstract onRemoveFavourite(favouriteItem: FavouriteItem);
 
   abstract onUpdatedFavourite(updatedFavouriteItem: FavouriteItem);
 
   abstract getBackButtonText(): string;
+
+  removeFavourite(favouriteItem: FavouriteItem) {
+    if (favouriteItem.note) {
+      this.modalService.openConfirm(
+        CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
+      ).result.then(
+        () => this.onRemoveFavourite(favouriteItem),
+        () => {
+        }
+      );
+    } else {
+      this.onRemoveFavourite(favouriteItem);
+    }
+  }
 
   getEncodedUrl() {
     return encodeURIComponent(this.getJobUrl());
@@ -169,8 +184,9 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
       });
   }
 
-  protected getJobUrl() {
-    return window.location.href;
+  getJobUrl() {
+    // For sharing the URL (copy or send) we modify the URL to always point to Job-Search
+    return window.location.href.replace(this.JOB_FAVOURITES_BASE_URL, this.JOB_SEARCH_BASE_URL);
   }
 
   private mapJobAdAlerts(job: JobAdvertisement): Notification[] {

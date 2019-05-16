@@ -27,11 +27,12 @@
 
   <alv-three-column-layout [mobileOrdering]="[1, 2, null]"
                            [stickyTop]="layoutConstants.STICKY_TOP_SEARCH + searchPanelHeight">
-    <ng-container class="left-column">
+    <div class="left-column">
       <div class="alv-bar mb-1 d-flex">
-        <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
+        <span *ngIf="resultsAreLoading$ | async; else resultsCount"
+              data-test="count-placeholder">...</span>
         <ng-template #resultsCount>
-          <strong>{{totalCount$ | async | number}} {{'portal.job-ad-search.results-count.label' | translate}}</strong>
+          <strong><span data-test="resultCount">{{totalCount$ | async | number}} </span>{{'portal.job-ad-search.results-count.label' | translate}}</strong>
         </ng-template>
         <div class="flex-grow-1"></div>
 
@@ -77,9 +78,9 @@
       <alv-filter-panel (filterPanelValueChange)="onFiltersChange($event)"
                         [filterPanelValues]="jobSearchFilter$ | async">
       </alv-filter-panel>
-    </ng-container>
+    </div>
 
-    <ng-container class="main-column">
+    <div class="main-column">
       <h2 class="sr-only">
         Stellen Suchresultate
       </h2>
@@ -97,9 +98,9 @@
           {{'global.common-phrases.no-results-found' | translate}}
         </div>
       </ng-container>
-    </ng-container>
+    </div>
 
-    <ng-container class="right-column">
+    <div class="right-column">
       <div class="w-100 mb-3 text-right text-md-left">
         <a *ngIf="jobSearchMailToLink$ | async as jobSearchMailToLink"
            class="btn btn-text btn-text-icon btn-truncate mb-2"
@@ -125,6 +126,6 @@
           {{'portal.job-ad-search-profiles.label.delete-profile' | translate}}
         </button>
       </div>
-    </ng-container>
+    </div>
   </alv-three-column-layout>
 </div>

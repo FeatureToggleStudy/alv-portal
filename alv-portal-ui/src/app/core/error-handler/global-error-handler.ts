@@ -2,7 +2,9 @@ import { ErrorHandler, Injectable, NgZone } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerService } from './error-handler.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class GlobalErrorHandler implements ErrorHandler {
 
   constructor(private zone: NgZone, private errorHandlerService: ErrorHandlerService) {
@@ -19,9 +21,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         if (rejection instanceof HttpErrorResponse) {
           this.errorHandlerService.handleHttpError(rejection);
         } else {
-          console.error(error);
           this.errorHandlerService.handleError(error);
-
         }
       }
     });

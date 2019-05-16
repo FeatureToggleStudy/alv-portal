@@ -1,6 +1,5 @@
-
-import { JobAdFavouritesSearchFilter } from './job-ad-favourites.types';
 import { JobAdFavouritesSearchRequest } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { JobAdFavouritesSearchFilter } from '../state-management/state';
 
 const DEFAULT_ITEMS_PER_PAGE = 150;
 

@@ -32,14 +32,14 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 import { User } from '../../../core/auth/user.model';
 import { ScrollService } from '../../../core/scroll.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import {
-  CONFIRM_DELETE_FAVOURITE_MODAL,
-  CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
-} from './job-ad-favourites.types';
 import { composeResultListItemId } from '../../../shared/layout/result-list-item/result-list-item.component';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { ActivatedRoute } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import {
+  CONFIRM_DELETE_FAVOURITE_MODAL,
+  CONFIRM_DELETE_FAVOURITE_NOTE_MODAL
+} from '../../shared/job-ad-favourites.types';
 
 @Component({
   selector: 'alv-job-ad-favourites',
