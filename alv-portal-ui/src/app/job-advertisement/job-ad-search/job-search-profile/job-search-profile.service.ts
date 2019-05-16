@@ -51,10 +51,10 @@ export class JobSearchProfileService {
       occupationFilters: this.mapOccupations(jobSearchFilter.occupations),
       cantonFilters: this.mapCantons(jobSearchFilter.localities.filter(locality => locality.type === 'canton')),
       localityFilters: this.mapLocalities(jobSearchFilter.localities.filter(locality => locality.type === 'locality')),
-      keywords: jobSearchFilter.keywords.map(keyword => keyword.payload),
-      radiusSearchFilter: {
+      keywords: jobSearchFilter.keywords.map(keyword => keyword.payload).filter(k => !!k),
+      radiusSearchFilter: jobSearchFilter.localities.filter(locality => locality.type === 'locality').length === 1 ? {
         distance: jobSearchFilter.radius
-      }
+      } : undefined
     };
   }
 
