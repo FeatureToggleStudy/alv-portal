@@ -23,13 +23,8 @@
     </alv-job-search-profile-item>
   </ng-container>
   <ng-container *ngIf="!jobSearchProfiles.length">
-    <div class="no-profiles p-3 mb-3">
-      <h3>{{'portal.job-ad-favourites.empty.title' | translate}}</h3>
-      <p>{{'portal.job-ad-favourites.empty.text1' | translate}}
-        <fa-icon class="text-primary"
-                 [icon]="['fas', 'star']"></fa-icon>
-        {{'portal.job-ad-favourites.empty.text2' | translate}}
-      </p>
+    <div class="no-profiles p-3">
+      {{'portal.job-ad-search-profiles.no-profiles' | translate}}
     </div>
   </ng-container>
 

@@ -36,16 +36,16 @@
   <div class="modal-body">
     <ng-content></ng-content>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer align-items-stretch align-items-md-center flex-column-reverse flex-md-row">
     <button *ngIf="cancelLabel"
             type="button"
-            class="btn btn-text"
+            class="btn btn-text mr-0 mr-md-1 mb-1 mb-md-0"
             (click)="handleCancelClick()">
       {{cancelLabel | translate}}
     </button>
     <button *ngIf="secondaryLabel"
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-secondary mr-0 mr-md-1 mb-1 mb-md-0"
             (click)="handleSecondaryClick()">
       {{secondaryLabel | translate}}
     </button>
@@ -53,7 +53,7 @@
             [attr.type]="formGroup ? 'submit' : 'button'"
             [disabled]="formGroup && formGroup.invalid"
             (click)="handlePrimaryClick()"
-            class="btn btn-primary">
+            class="btn btn-primary mb-1 mb-md-0">
       {{primaryLabel | translate}}
     </button>
   </div>
