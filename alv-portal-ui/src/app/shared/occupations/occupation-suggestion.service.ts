@@ -81,6 +81,7 @@ export class OccupationSuggestionService {
 
   private toProfessionCodesFromClassification(classification: OccupationLabel) {
     return {
+      id: classification.id,
       type: classification.type,
       value: classification.code,
       classifier: classification.classifier
@@ -89,6 +90,7 @@ export class OccupationSuggestionService {
 
   private toJobSearchOccupationCode(occupation: OccupationLabelSuggestion) {
     const occupationCode: OccupationCode = {
+      id: occupation.id,
       type: occupation.type,
       value: occupation.code,
     };
@@ -103,6 +105,7 @@ export class OccupationSuggestionService {
 
   private toCandidateSearchOccupationCode(occupation: OccupationLabelSuggestion) {
     const occupationCode: OccupationCode = {
+      id: occupation.id,
       type: occupation.type,
       value: occupation.code
     };
@@ -117,6 +120,7 @@ export class OccupationSuggestionService {
 
   private toJobPublicationOccupations(occupation: OccupationLabelSuggestion) {
     return {
+      id: occupation.id,
       type: occupation.type,
       value: occupation.code
     };

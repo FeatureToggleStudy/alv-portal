@@ -71,6 +71,8 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   totalCount$: Observable<number>;
 
+  jobSearchProfile$: Observable<JobAdSearchProfileResponse>;
+
   jobSearchFilter$: Observable<JobSearchFilter>;
 
   resultsAreLoading$: Observable<boolean>;
@@ -126,9 +128,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
       })
     );
 
+    this.jobSearchProfile$ = this.store.pipe(select(getJobAdSearchProfile));
+
     this.jobSearchMailToLink$ = this.jobSearchFilter$.pipe(
       map((jobSearchFilter: JobSearchFilter) => this.jobSearchFilterParameterService.encode(jobSearchFilter)),
-      map((filterParam) => `${window.location.href}?filter=${filterParam}`),
+      map((filterParam) => `${this.window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
 

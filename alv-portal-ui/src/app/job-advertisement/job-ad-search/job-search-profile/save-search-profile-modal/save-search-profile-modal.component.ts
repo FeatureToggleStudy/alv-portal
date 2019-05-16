@@ -49,10 +49,10 @@ export class SaveSearchProfileModalComponent implements OnInit {
         })
           .pipe(
             catchError(error => {
-              this.form.reset();
-              if (error.error.reason) {
-                if (error.error.reason === 'Ask how the exception is called') {
-                  this.notificationsService.error('portal.job-ad-search-profiles.save-modal.validation.name.already-exists');
+              if (error.error.type) {
+
+                if (error.error.type === 'http://www.job-room.ch/job-ad-service/problem/search-profile/already-exists') {
+                  this.form.get('name').setErrors({nameAlreadyExists: true});
                   return EMPTY;
                 }
               }

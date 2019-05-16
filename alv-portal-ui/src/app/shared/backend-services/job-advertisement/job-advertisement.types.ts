@@ -363,5 +363,5 @@ export interface JobAdSearchProfileRequest {
   ownerUserId?: string;
   createdTime?: Date;
   updatedTime?: Date;
-  searchFilter: JobSearchFilterRequest;
+  searchFilter?: JobSearchFilterRequest;
 }

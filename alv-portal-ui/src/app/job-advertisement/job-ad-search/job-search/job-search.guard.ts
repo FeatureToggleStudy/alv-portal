@@ -11,7 +11,7 @@ import {
   ApplyQueryValuesAction,
   InitializeResultListAction,
   JobAdSearchState,
-  JobSearchFilter
+  JobSearchFilter, SearchProfileUpdatedAction
 } from '../state-management';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
@@ -53,6 +53,7 @@ export class JobSearchGuard implements CanActivate {
     if (searchProfileId) {
       return this.jobAdSearchProfilesRepository.findById(searchProfileId).pipe(
         tap(searchProfile => {
+          this.store.dispatch(new SearchProfileUpdatedAction({searchProfile: searchProfile}));
           this.store.dispatch(new ApplyFilterAction(this.jobSearchProfileService.mapFromRequest(searchProfile.searchFilter)));
           this.router.navigate(['job-search']);
         }),

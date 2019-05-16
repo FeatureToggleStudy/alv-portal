@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 
 import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../request-util';
 import {
-  JobAdSearchProfileRequest, JobAdSearchProfileResponse,
+  JobAdSearchProfileRequest,
+  JobAdSearchProfileResponse,
   JobAdSearchProfilesSearchResponse
 } from '../job-advertisement/job-advertisement.types';
 
@@ -25,15 +26,19 @@ export class JobAdSearchProfilesRepository {
   }
 
   update(jobAdSearchProfile: JobAdSearchProfileRequest): Observable<JobAdSearchProfileRequest> {
-    return this.http.put<JobAdSearchProfileRequest>(this.resourceUrl + '/' + jobAdSearchProfile.id, jobAdSearchProfile);
+    return this.http.put<JobAdSearchProfileRequest>(this.resourceUrl + '/' + jobAdSearchProfile.id, {
+      name: jobAdSearchProfile.name,
+      searchFilter: jobAdSearchProfile.searchFilter
+    });
   }
 
   delete(jobAdSearchProfileId: string): Observable<void> {
     return this.http.delete<void>(this.resourceUrl + '/' + jobAdSearchProfileId);
   }
 
-  search(ownerUserId: string): Observable<JobAdSearchProfilesSearchResponse> {
-    const params = createPageableURLSearchParams({page: 1, size: 10});
+  search(ownerUserId: string, page = 0, size = 10): Observable<JobAdSearchProfilesSearchResponse> {
+    let params = createPageableURLSearchParams({ page: page, size: size });
+    params = params.set('ownerUserId', ownerUserId);
     return this.http.get<JobAdSearchProfileRequest[]>(this.searchUrl, {
       params,
       observe: 'response'

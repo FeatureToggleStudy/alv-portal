@@ -84,7 +84,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'job-search-profiles',
-    loadChildren: './job-advertisement/job-ad-favourites/job-ad-favourites.module#JobAdFavouritesModule',
+    loadChildren: './job-advertisement/job-ad-search-profiles/job-ad-search-profiles.module#JobAdSearchProfilesModule',
     canActivateChild: [AuthenticatedGuard],
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {

@@ -1,0 +1,36 @@
+<div class="alv-panel pb-3 pb-md-4">
+  <h2 class="panel-title">
+    <alv-custom-icon class="panel-icon"
+                     aria-hidden="true"
+                     [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
+    </alv-custom-icon>
+    {{'portal.job-ad-search-profiles.title' | translate}}
+  </h2>
+  <ng-container *ngIf="(jobSearchProfiles$ | async) as jobSearchProfiles">
+    <ng-container *ngIf="jobSearchProfiles.length">
+      <alv-job-search-profile-item *ngFor="let jobSearchProfile of jobSearchProfiles"
+                                   [jobSearchProfile]="jobSearchProfile"
+                                    (deleted)="onDeleteProfile($event)">
+      </alv-job-search-profile-item>
+    </ng-container>
+    <ng-container *ngIf="!jobSearchProfiles.length">
+      <div class="no-profiles p-3 mb-3">
+        <h3>{{'portal.job-ad-favourites.empty.title' | translate}}</h3>
+        <p>{{'portal.job-ad-favourites.empty.text1' | translate}}
+          <fa-icon class="text-primary"
+                   [icon]="['fas', 'star']"></fa-icon>
+          {{'portal.job-ad-favourites.empty.text2' | translate}}
+        </p>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <div class="d-flex mt-3">
+    <div class="flex-grow-1"></div>
+    <a class="btn btn-secondary"
+       routerLink="/job-search-profiles">
+      {{ 'portal.widgets.job-ad-search-profiles.show-all' | translate }}
+    </a>
+  </div>
+
+</div>

@@ -9,7 +9,8 @@
                    [maxLength]="MAX_LENGTH_50"
                    [showCharacterCounter]="true"
                    alvFormControlName="name"
-                   [validationMessages]="[{error: 'required', message: 'portal.job-ad-search-profiles.save-modal.validation.name.required'}]"
+                   [validationMessages]="[{error: 'required', message: 'portal.job-ad-search-profiles.save-modal.validation.name.required'},
+                   {error: 'nameAlreadyExists', message: 'portal.job-ad-search-profiles.save-modal.validation.name.already-exists'}]"
                    label="portal.job-ad-search-profiles.save-modal.name.label"
                    class="narrow-form">
   </alv-input-field>
