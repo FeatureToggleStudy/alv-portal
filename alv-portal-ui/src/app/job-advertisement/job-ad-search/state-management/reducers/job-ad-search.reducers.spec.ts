@@ -30,7 +30,7 @@ const COMMUNAL_CODE_BERN = 351;
 describe('jobAdSearchReducers', () => {
 
   /* QUERY PANEL VALUES CHANGED */
-  const occupationCode: OccupationCode = { type: 'X28', value: '11000976' };
+  const occupationCode: OccupationCode = { id: 'some-id', type: 'X28', value: '11000976' };
   const localityItem: LocalityItem = { communalCode: COMMUNAL_CODE_BERN };
   const occupation = new OccupationTypeaheadItem(
     OccupationTypeaheadItemType.OCCUPATION, occupationCode, 'Java Applikationsentwickler', 7);
@@ -192,7 +192,7 @@ describe('jobAdSearchReducers', () => {
 
   it('OCCUPATION_LANGUAGE_CHANGED_ACTION : should update occupation category for language and value', () => {
     // GIVEN
-    const occupCode: OccupationCode = { type: 'SBN3', value: '361' };
+    const occupCode: OccupationCode = { id: 'some-id', type: 'SBN3', value: '361' };
     const classificationDE = new OccupationTypeaheadItem(
       OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Berufe der Informatik', 10);
     const classificationEN = new OccupationTypeaheadItem(
