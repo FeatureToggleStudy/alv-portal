@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JobAdSearchProfilesRepository } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { JobAdSearchProfileRequest } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { NotificationsService } from '../../../../core/notifications.service';
-import { catchError, flatMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, flatMap, take, withLatestFrom } from 'rxjs/operators';
 import { EMPTY, throwError } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { getJobSearchFilter, JobAdSearchState } from '../../state-management/state';
@@ -40,6 +40,7 @@ export class SaveSearchProfileModalComponent implements OnInit {
     this.store.pipe(
       select(getCurrentUser),
       withLatestFrom(this.store.pipe(select(getJobSearchFilter))),
+      take(1),
       flatMap(([currentUser, jobSearchFilter]) => {
         return this.jobAdSearchProfilesRepository.create(<JobAdSearchProfileRequest>{
           name: this.form.get('name').value,

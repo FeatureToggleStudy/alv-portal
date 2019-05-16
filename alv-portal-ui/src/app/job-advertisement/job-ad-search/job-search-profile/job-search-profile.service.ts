@@ -18,10 +18,7 @@ import {
   LocalityTypeaheadItem
 } from '../../../shared/localities/locality-typeahead-item';
 import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
-import {
-  JobAdSearchProfileRequest,
-  Location
-} from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { Location } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 
 @Injectable({
@@ -32,7 +29,7 @@ export class JobSearchProfileService {
   constructor() {
   }
 
-  getDeleteConfirmationModalConfig(profileName: string): ConfirmModalConfig {
+  static getDeleteConfirmationModalConfig(profileName: string): ConfirmModalConfig {
     return {
       title: 'portal.job-ad-search-profiles.delete-confirmation-modal.title',
       content: 'portal.job-ad-search-profiles.delete-confirmation-modal.question',

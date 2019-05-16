@@ -17,7 +17,7 @@ import { JobSearchFilterParameterService } from './job-search-filter-parameter.s
 import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { JobSearchProfileService } from '../job-search-profiles/job-search-profile.service';
+import { JobSearchProfileService } from '../job-search-profile/job-search-profile.service';
 
 @Injectable()
 export class JobSearchGuard implements CanActivate {

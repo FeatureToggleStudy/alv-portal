@@ -5,7 +5,7 @@ import { JobAdSearchProfilesRepository } from '../../../../shared/backend-servic
 import { NotificationsService } from '../../../../core/notifications.service';
 import { select, Store } from '@ngrx/store';
 import { getJobSearchFilter, JobAdSearchState } from '../../state-management/state';
-import { flatMap } from 'rxjs/operators';
+import { flatMap, take } from 'rxjs/operators';
 import { JobSearchProfileService } from '../job-search-profile.service';
 
 @Component({
@@ -25,9 +25,9 @@ export class UpdateSearchProfileModalComponent {
   }
 
   onUpdateExisting() {
-    // TODO: how to update the search filter?
     this.store.pipe(
       select(getJobSearchFilter),
+      take(1),
       flatMap(searchFilter => {
         return this.jobAdSearchProfilesRepository.update({
           id: this.searchProfile.id,

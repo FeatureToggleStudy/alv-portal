@@ -16,8 +16,8 @@ import { WidgetsModule } from '../../widgets/widgets.module';
 import { SharedJobAdvertisementModule } from '../shared/shared-job-advertisement.module';
 import { JobFingerprintGuard } from './job-fingerprint-redirect/job-fingerprint.guard';
 import { ModalService } from '../../shared/layout/modal/modal.service';
-import { UpdateSearchProfileModalComponent } from './job-search-profiles/update-search-profile-modal/update-search-profile-modal.component';
-import { SaveSearchProfileModalComponent } from './job-search-profiles/save-search-profile-modal/save-search-profile-modal.component';
+import { UpdateSearchProfileModalComponent } from './job-search-profile/update-search-profile-modal/update-search-profile-modal.component';
+import { SaveSearchProfileModalComponent } from './job-search-profile/save-search-profile-modal/save-search-profile-modal.component';
 
 @NgModule({
   imports: [

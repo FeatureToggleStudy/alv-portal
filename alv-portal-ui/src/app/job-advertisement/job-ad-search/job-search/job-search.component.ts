@@ -51,11 +51,11 @@ import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { JobAdSearchProfileResponse } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { CONFIRM_DELETE_FAVOURITE_NOTE_MODAL } from '../../job-ad-favourites/job-ad-favourites/job-ad-favourites.types';
-import { SaveSearchProfileModalComponent } from '../job-search-profiles/save-search-profile-modal/save-search-profile-modal.component';
-import { UpdateSearchProfileModalComponent } from '../job-search-profiles/update-search-profile-modal/update-search-profile-modal.component';
+import { SaveSearchProfileModalComponent } from '../job-search-profile/save-search-profile-modal/save-search-profile-modal.component';
+import { UpdateSearchProfileModalComponent } from '../job-search-profile/update-search-profile-modal/update-search-profile-modal.component';
 import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { NotificationsService } from '../../../core/notifications.service';
-import { JobSearchProfileService } from '../job-search-profiles/job-search-profile.service';
+import { JobSearchProfileService } from '../job-search-profile/job-search-profile.service';
 
 @Component({
   selector: 'alv-job-search',
@@ -265,7 +265,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     ).subscribe(searchProfile => {
       if (searchProfile) {
         this.modalService.openConfirm(
-          this.jobSearchProfileService.getDeleteConfirmationModalConfig(searchProfile.name)
+          JobSearchProfileService.getDeleteConfirmationModalConfig(searchProfile.name)
         ).result
           .then(result => {
             this.jobAdSearchProfilesRepository.delete(searchProfile.id)
