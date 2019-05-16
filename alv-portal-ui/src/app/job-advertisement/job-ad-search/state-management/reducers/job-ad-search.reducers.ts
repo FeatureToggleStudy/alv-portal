@@ -121,6 +121,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
         jobSearchFilter: {
           ...initialState.jobSearchFilter
         },
+        jobAdSearchProfile: initialState.jobAdSearchProfile
       };
       break;
 

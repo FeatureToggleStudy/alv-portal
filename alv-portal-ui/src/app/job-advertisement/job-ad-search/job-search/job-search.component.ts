@@ -190,7 +190,6 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   onResetFilter() {
     this.store.dispatch(new ResetFilterAction({}));
-    this.store.dispatch(new SearchProfileUpdatedAction({searchProfile: undefined}));
     // Give the search panel some time to adjust
     setTimeout(() => {
       this.detectSearchPanelHeight();
