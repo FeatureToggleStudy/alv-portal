@@ -169,8 +169,9 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
       });
   }
 
-  protected getJobUrl() {
-    return window.location.href;
+  getJobUrl() {
+    // For sharing the URL (copy or send) we modify the URL to always point to Job-Search
+    return window.location.href.replace(this.JOB_FAVOURITES_BASE_URL, this.JOB_SEARCH_BASE_URL);
   }
 
   private mapJobAdAlerts(job: JobAdvertisement): Notification[] {
