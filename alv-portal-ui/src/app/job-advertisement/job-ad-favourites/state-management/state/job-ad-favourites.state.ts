@@ -4,8 +4,12 @@ import {
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
+
 import { JobSearchResult } from '../../../shared/job-search-result/job-search-result.component';
+
+export interface JobAdFavouritesSearchFilter {
+  query: string;
+}
 
 export interface JobAdFavouritesState {
   totalCount: number;

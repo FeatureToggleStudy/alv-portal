@@ -79,7 +79,7 @@ export class JobAdFavouriteDetailComponent extends AbstractJobAdDetailComponent 
     this.store.dispatch(new AddJobAdFavouriteAction({ jobAdvertisementId: jobAdvertisementId }));
   }
 
-  removeFavourite(favouriteItem: FavouriteItem) {
+  onRemoveFavourite(favouriteItem: FavouriteItem) {
     this.store.dispatch(new RemoveJobAdFavouriteAction({ favouriteItem: favouriteItem }));
   }
 

@@ -1,8 +1,4 @@
-import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
-
-export interface JobAdFavouritesSearchFilter {
-  query: string;
-}
+import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 
 export const CONFIRM_DELETE_FAVOURITE_MODAL: ConfirmModalConfig = {
   title: 'portal.job-ad-favourites.delete-confirmation.title',
