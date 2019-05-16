@@ -11,7 +11,7 @@ import {
   RemovedJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../../core/state-management/actions/core.actions';
-import { JobAdFavouritesSearchFilter } from '../../job-ad-favourites/job-ad-favourites.types';
+import { JobAdFavouritesSearchFilter } from '../state';
 
 export const INITIALIZE_RESULT_LIST = 'JOBADFAVOURITES:INITIALIZE_RESULT_LIST';
 export const RESULT_LIST_ALREADY_INITIALIZED = 'JOBADFAVOURITES:RESULT_LIST_ALREADY_INITIALIZED';
