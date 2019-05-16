@@ -1,16 +1,15 @@
 import { JobSearchPo } from './job-search.po';
 import { ContractTypes } from './sections/filter-panel.po';
 import { browser } from 'protractor';
-import { DEFAULT_SLEEP_TIME } from '../../constants';
+import { DEFAULT_SLEEP_TIME, PAGE_SIZE } from '../../constants';
 import { JobDetailsPo } from './job-details.po';
 
-const PAGE_SIZE = 20;
 
 function getResultCount(page: JobSearchPo) {
   return page.filterPanel.resultCount;
 }
 
-describe('Job search page', () => {
+describe('Job search page for anonymous', () => {
   let searchPage: JobSearchPo;
 
   beforeEach(() => {
