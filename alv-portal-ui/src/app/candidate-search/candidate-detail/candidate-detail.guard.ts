@@ -10,8 +10,8 @@ import {
   CandidateSearchState
 } from '../state-management';
 import { CandidateRepository } from '../../shared/backend-services/candidate/candidate.repository';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class CandidateDetailGuard implements CanActivate {
@@ -27,9 +27,6 @@ export class CandidateDetailGuard implements CanActivate {
       }),
       map(() => {
         return true;
-      }),
-      catchError(() => {
-        return of(false);
       })
     );
   }
