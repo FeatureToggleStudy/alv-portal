@@ -49,10 +49,6 @@ export class JobAdSearchProfilesRepository {
           result: resp.body
         };
       }));
-    // return of({
-    //   totalCount: 203,
-    //   result: mockJobsWithFavourites
-    // });
   }
 
   findById(id: string): Observable<JobAdSearchProfileResponse> {
