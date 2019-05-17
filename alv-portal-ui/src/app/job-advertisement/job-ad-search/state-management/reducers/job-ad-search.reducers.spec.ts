@@ -1,9 +1,7 @@
 import {
-  ContractType,
   initialState,
   JobAdSearchState,
-  JobSearchFilter,
-  Sort
+  JobSearchFilter
 } from '../state';
 import * as jobActions from '../actions/job-ad-search.actions';
 import { jobAdSearchReducer } from './job-ad-search.reducers';
@@ -24,6 +22,7 @@ import {
   LocalityItem,
   LocalityTypeaheadItem
 } from '../../../../shared/localities/locality-typeahead-item';
+import { ContractType, Sort } from '../../../../shared/backend-services/shared.types';
 
 const COMMUNAL_CODE_BERN = 351;
 
