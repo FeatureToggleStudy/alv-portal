@@ -18,9 +18,9 @@ import { WidgetsModule } from '../../widgets/widgets.module';
     WidgetsModule
   ],
   declarations: [
-  JobAdSearchProfilesComponent],
-  entryComponents: [
+    JobAdSearchProfilesComponent
   ],
+  entryComponents: [],
   providers: [
     ModalService
   ]
