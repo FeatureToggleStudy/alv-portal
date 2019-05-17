@@ -236,8 +236,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   saveSearchProfile() {
-    this.store.pipe(
-      select(getJobAdSearchProfile),
+    this.jobSearchProfile$.pipe(
       take(1)
     ).subscribe(searchProfile => {
       if (searchProfile) {
@@ -275,8 +274,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   }
 
   deleteSearchProfile() {
-    this.store.pipe(
-      select(getJobAdSearchProfile),
+    this.jobSearchProfile$.pipe(
       take(1)
     ).subscribe(searchProfile => {
       if (searchProfile) {
