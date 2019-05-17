@@ -90,7 +90,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   currentLanguage$: Observable<string>;
 
-  showSaveSearchProfileButton$: Observable<boolean>;
+  disableSaveSearchProfileButton$: Observable<boolean>;
 
   @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
 
@@ -143,12 +143,12 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
     this.currentLanguage$ = this.i18nService.currentLanguage$;
 
-    this.showSaveSearchProfileButton$ = this.jobSearchFilter$.pipe(
+    this.disableSaveSearchProfileButton$ = this.jobSearchFilter$.pipe(
       map(searchFilter => {
-        return searchFilter.occupations.length > 0 ||
-          searchFilter.localities.length > 0 ||
-          searchFilter.keywords.length > 0 ||
-          !!searchFilter.company;
+        return searchFilter.occupations.length === 0 &&
+          searchFilter.localities.length === 0 &&
+          searchFilter.keywords.length === 0 &&
+          !searchFilter.company;
       })
     );
     this.actionsSubject.pipe(

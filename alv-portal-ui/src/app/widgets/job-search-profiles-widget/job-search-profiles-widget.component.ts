@@ -55,4 +55,5 @@ export class JobSearchProfilesWidgetComponent implements OnInit {
       .catch(() => {
       });
   }
+
 }

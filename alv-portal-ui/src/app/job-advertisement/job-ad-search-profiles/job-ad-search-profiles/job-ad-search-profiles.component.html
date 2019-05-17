@@ -17,10 +17,16 @@
   <hr class="mt-0 mb-3">
 
   <ng-container *ngIf="jobSearchProfiles?.length">
-    <alv-job-search-profile-item *ngFor="let jobSearchProfile of jobSearchProfiles"
-                                 [jobSearchProfile]="jobSearchProfile"
-                                 (deleted)="onDeleteProfile($event)">
-    </alv-job-search-profile-item>
+
+      <alv-job-search-profile-item
+        @removeProfile
+        *ngFor="let jobSearchProfile of jobSearchProfiles"
+        class="d-block"
+        [jobSearchProfile]="jobSearchProfile"
+        (deleted)="onDeleteProfile($event)">
+      </alv-job-search-profile-item>
+
+
   </ng-container>
   <ng-container *ngIf="!jobSearchProfiles.length">
     <div class="no-profiles p-3">

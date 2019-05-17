@@ -57,8 +57,9 @@
                  [href]="jobSearchMailToLink">
                 {{'portal.job-search.sendLink' | translate}}
               </a>
-              <button *ngIf="showSaveSearchProfileButton$ | async"
+              <button *ngIf="currentUser$ | async"
                       (click)="saveSearchProfile()"
+                      [disabled]="disableSaveSearchProfileButton$ | async"
                       class="dropdown-item">
                 {{'portal.job-ad-search-profiles.label.save-profile' | translate}}
               </button>
@@ -109,8 +110,9 @@
                    [icon]="['fas', 'share']"></fa-icon>
           {{'portal.job-search.sendLink' | translate}}
         </a>
-        <button *ngIf="showSaveSearchProfileButton$ | async"
+        <button *ngIf="currentUser$ | async"
            class="btn btn-text btn-text-icon btn-truncate mb-2"
+                [disabled]="disableSaveSearchProfileButton$ | async"
            (click)="saveSearchProfile()">
           <alv-custom-icon class="mr-1"
                            [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
