@@ -11,7 +11,8 @@ import {
   ApplyQueryValuesAction,
   InitializeResultListAction,
   JobAdSearchState,
-  JobSearchFilter, SearchProfileUpdatedAction
+  JobSearchFilter,
+  SearchProfileUpdatedAction
 } from '../state-management';
 import { JobSearchFilterParameterService } from './job-search-filter-parameter.service';
 import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
