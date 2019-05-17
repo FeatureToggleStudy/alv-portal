@@ -9,7 +9,10 @@ import { select, Store } from '@ngrx/store';
 import { getJobSearchFilter, JobAdSearchState } from '../../state-management/state';
 import { getCurrentUser } from '../../../../core/state-management/state/core.state.ts';
 import { JobSearchProfileService } from '../job-search-profile.service';
-import { CreateJobAdSearchProfile } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import {
+  CreateJobAdSearchProfile,
+  SearchProfileErrors
+} from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 @Component({
   selector: 'alv-save-search-profile-modal',
@@ -51,7 +54,7 @@ export class SaveSearchProfileModalComponent implements OnInit {
             catchError(error => {
               if (error.error.type) {
 
-                if (error.error.type === 'http://www.job-room.ch/job-ad-service/problem/search-profile/already-exists') {
+                if (error.error.type === SearchProfileErrors.PROFILE_ALREADY_EXISTS) {
                   this.form.get('name').setErrors({ nameAlreadyExists: true });
                   return EMPTY;
                 }

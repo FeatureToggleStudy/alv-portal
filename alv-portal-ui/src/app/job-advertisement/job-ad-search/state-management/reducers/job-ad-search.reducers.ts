@@ -204,10 +204,7 @@ export function jobAdSearchReducer(state = initialState, action: Actions): JobAd
     case SEARCH_PROFILE_UPDATED: {
       newState = {
         ...state,
-        jobAdSearchProfile: action.payload.searchProfile,
-        details: {
-          ...state.details
-        }
+        jobAdSearchProfile: action.payload.searchProfile
       };
       break;
     }

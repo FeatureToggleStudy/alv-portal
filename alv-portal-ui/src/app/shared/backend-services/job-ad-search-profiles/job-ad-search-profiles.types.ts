@@ -1,4 +1,4 @@
-import { CantonSuggestion, GeoPoint } from '../reference-service/locality.types';
+import { CantonSuggestion } from '../reference-service/locality.types';
 import { Location } from '../job-advertisement/job-advertisement.types';
 import { ContractType, Sort } from '../shared.types';
 
@@ -87,4 +87,8 @@ export interface LocalityFilter {
 
 export interface OccupationFilter {
   labelId: string;
+}
+
+export enum SearchProfileErrors {
+  PROFILE_ALREADY_EXISTS = 'http://www.job-room.ch/job-ad-service/problem/search-profile/already-exists'
 }
