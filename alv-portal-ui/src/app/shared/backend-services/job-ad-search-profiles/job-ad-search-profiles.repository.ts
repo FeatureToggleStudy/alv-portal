@@ -6,9 +6,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { createPageableURLSearchParams } from '../request-util';
 import {
-  JobAdSearchProfileRequest,
-  JobAdSearchProfileResponse,
-  JobAdSearchProfilesSearchResponse
+  CreateJobAdSearchProfile,
+  JobAdSearchProfileResult,
+  JobAdSearchProfilesSearchResponse,
+  ResolvedJobAdSearchProfile,
+  UpdateJobAdSearchProfile
 } from './job-ad-search-profiles.types';
 
 @Injectable({ providedIn: 'root' })
@@ -21,15 +23,12 @@ export class JobAdSearchProfilesRepository {
   constructor(private http: HttpClient) {
   }
 
-  create(jobAdSearchProfile: JobAdSearchProfileRequest): Observable<JobAdSearchProfileRequest> {
-    return this.http.post<JobAdSearchProfileRequest>(this.resourceUrl, jobAdSearchProfile);
+  create(jobAdSearchProfile: CreateJobAdSearchProfile): Observable<ResolvedJobAdSearchProfile> {
+    return this.http.post<ResolvedJobAdSearchProfile>(this.resourceUrl, jobAdSearchProfile);
   }
 
-  update(jobAdSearchProfile: JobAdSearchProfileRequest): Observable<JobAdSearchProfileRequest> {
-    return this.http.put<JobAdSearchProfileRequest>(this.resourceUrl + '/' + jobAdSearchProfile.id, {
-      name: jobAdSearchProfile.name,
-      searchFilter: jobAdSearchProfile.searchFilter
-    });
+  update(jobAdSearchProfileId: string, jobAdSearchProfile: UpdateJobAdSearchProfile): Observable<ResolvedJobAdSearchProfile> {
+    return this.http.put<ResolvedJobAdSearchProfile>(this.resourceUrl + '/' + jobAdSearchProfileId, jobAdSearchProfile);
   }
 
   delete(jobAdSearchProfileId: string): Observable<void> {
@@ -39,7 +38,7 @@ export class JobAdSearchProfilesRepository {
   search(ownerUserId: string, page = 0, size = 10): Observable<JobAdSearchProfilesSearchResponse> {
     let params = createPageableURLSearchParams({ page: page, size: size });
     params = params.set('ownerUserId', ownerUserId);
-    return this.http.get<JobAdSearchProfileRequest[]>(this.searchUrl, {
+    return this.http.get<JobAdSearchProfileResult[]>(this.searchUrl, {
       params,
       observe: 'response'
     }).pipe(
@@ -51,8 +50,8 @@ export class JobAdSearchProfilesRepository {
       }));
   }
 
-  findById(id: string): Observable<JobAdSearchProfileResponse> {
-    return this.http.get<JobAdSearchProfileResponse>(`${this.resourceUrl}/${id}`);
+  findById(id: string): Observable<ResolvedJobAdSearchProfile> {
+    return this.http.get<ResolvedJobAdSearchProfile>(`${this.resourceUrl}/${id}`);
   }
 
 }

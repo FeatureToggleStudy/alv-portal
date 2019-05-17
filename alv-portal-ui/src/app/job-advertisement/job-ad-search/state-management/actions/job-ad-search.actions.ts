@@ -16,7 +16,7 @@ import {
   RemoveJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../../core/state-management/actions/core.actions';
-import { JobAdSearchProfileResponse } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { ResolvedJobAdSearchProfile } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 export const INITIALIZE_RESULT_LIST = 'JOBS:INITIALIZE_RESULT_LIST';
 export const RESULT_LIST_ALREADY_INITIALIZED = 'JOBS:RESULT_LIST_ALREADY_INITIALIZED';
@@ -196,7 +196,7 @@ export class FavouriteItemLoadedAction implements Action {
 export class SearchProfileUpdatedAction implements Action {
   readonly type = SEARCH_PROFILE_UPDATED;
 
-  constructor(public payload: { searchProfile: JobAdSearchProfileResponse }) {
+  constructor(public payload: { searchProfile: ResolvedJobAdSearchProfile }) {
   }
 }
 

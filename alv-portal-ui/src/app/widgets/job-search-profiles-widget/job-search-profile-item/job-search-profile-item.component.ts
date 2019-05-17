@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
-import { JobAdSearchProfileRequest } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { JobAdSearchProfileResult } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 @Component({
   selector: 'alv-job-search-profile-item',
@@ -10,12 +8,12 @@ import { JobAdSearchProfileRequest } from '../../../shared/backend-services/job-
 })
 export class JobSearchProfileItemComponent implements OnInit {
 
-  @Input() jobSearchProfile: JobAdSearchProfileRequest;
+  @Input() jobSearchProfile: JobAdSearchProfileResult;
 
-  @Output() deleted = new EventEmitter<JobAdSearchProfileRequest>();
+  @Output() deleted = new EventEmitter<JobAdSearchProfileResult>();
 
-  constructor(private modalService: ModalService,
-              private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository) { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

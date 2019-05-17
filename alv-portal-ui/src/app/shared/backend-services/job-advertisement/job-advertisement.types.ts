@@ -6,10 +6,6 @@ import {
   Salutation
 } from '../shared.types';
 import { GeoPoint } from '../reference-service/locality.types';
-import {
-  JobSearchFilter, JobSearchFilterRequest,
-  JobSearchFilterResponse
-} from '../../../job-advertisement/job-ad-search/state-management/state';
 
 export enum JobAdvertisementStatus {
   CREATED = 'CREATED',

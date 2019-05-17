@@ -1,4 +1,4 @@
-import { ContractType, JobSearchFilter, Sort } from './job-search-filter.types';
+import { JobSearchFilter } from './job-search-filter.types';
 import {
   FavouriteItem,
   JobAdvertisement,
@@ -6,7 +6,8 @@ import {
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { JobSearchResult } from '../../../shared/job-search-result/job-search-result.component';
-import { JobAdSearchProfileResponse } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { ResolvedJobAdSearchProfile } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { ContractType, Sort } from '../../../../shared/backend-services/shared.types';
 
 export interface JobAdSearchState {
   totalCount: number;
@@ -21,7 +22,7 @@ export interface JobAdSearchState {
   visitedJobAds: { [id: string]: boolean; };
   lastVisitedJobAdId: string;
   isDirtyResultList: boolean;
-  jobAdSearchProfile: JobAdSearchProfileResponse;
+  jobAdSearchProfile: ResolvedJobAdSearchProfile;
 }
 
 export const initialState: JobAdSearchState = {

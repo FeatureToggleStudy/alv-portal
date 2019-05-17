@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { JobAdSearchProfilesRepository } from '../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { flatMap, map, take } from 'rxjs/operators';
-import { JobSearchProfileService } from '../../job-advertisement/job-ad-search/job-search-profile/job-search-profile.service';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../core/notifications.service';
-import { JobAdSearchProfileRequest } from '../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { JobAdSearchProfileResult } from '../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { getDeleteConfirmModalConfig } from '../../shared/job-search-profiles/modal-config.types';
 
 @Component({
   selector: 'alv-job-search-profiles-widget',
@@ -18,14 +18,15 @@ export class JobSearchProfilesWidgetComponent implements OnInit {
 
   IconKey = IconKey;
 
-  jobSearchProfiles$: Observable<JobAdSearchProfileRequest[]>;
+  jobSearchProfiles$: Observable<JobAdSearchProfileResult[]>;
 
   private readonly MAX_DISPLAY_ITEMS = 5;
 
   constructor(private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
               private modalService: ModalService,
               private notificationsService: NotificationsService,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService) {
+  }
 
   ngOnInit() {
     this.initItems();
@@ -41,9 +42,9 @@ export class JobSearchProfilesWidgetComponent implements OnInit {
     );
   }
 
-  onDeleteProfile(profile: JobAdSearchProfileRequest) {
+  onDeleteProfile(profile: JobAdSearchProfileResult) {
     this.modalService.openConfirm(
-      JobSearchProfileService.getDeleteConfirmationModalConfig(profile.name)
+      getDeleteConfirmModalConfig(profile.name)
     ).result
       .then(result => {
         this.jobAdSearchProfilesRepository.delete(profile.id)

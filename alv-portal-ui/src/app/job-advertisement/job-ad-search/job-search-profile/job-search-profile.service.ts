@@ -1,15 +1,5 @@
 import { Injectable } from '@angular/core';
 import {
-  CantonFilter,
-  ContractType,
-  JobSearchFilter,
-  JobSearchFilterRequest,
-  JobSearchFilterResponse,
-  LocalityFilter,
-  OccupationFilter,
-  OccupationResolved
-} from '../state-management/state';
-import {
   OccupationTypeaheadItem,
   OccupationTypeaheadItemType
 } from '../../../shared/occupations/occupation-typeahead-item';
@@ -20,8 +10,17 @@ import {
 } from '../../../shared/localities/locality-typeahead-item';
 import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
 import { Location } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
-import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { CantonSuggestion } from '../../../shared/backend-services/reference-service/locality.types';
+import { JobSearchFilter } from '../state-management/state';
+import {
+  CantonFilter,
+  JobSearchFilterRequest,
+  LocalityFilter,
+  OccupationFilter,
+  OccupationResolved,
+  ResolvedJobSearchFilter
+} from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { ContractType } from '../../../shared/backend-services/shared.types';
 
 @Injectable({
   providedIn: 'root'
@@ -31,13 +30,6 @@ export class JobSearchProfileService {
   constructor() {
   }
 
-  static getDeleteConfirmationModalConfig(profileName: string): ConfirmModalConfig {
-    return {
-      title: 'portal.job-ad-search-profiles.delete-confirmation-modal.title',
-      content: 'portal.job-ad-search-profiles.delete-confirmation-modal.question',
-      contentParams: {profileName: profileName}
-    };
-  }
 
   mapToRequest(jobSearchFilter: JobSearchFilter): JobSearchFilterRequest {
     return {
@@ -58,7 +50,7 @@ export class JobSearchProfileService {
     };
   }
 
-  mapFromRequest(jobSearchFilter: JobSearchFilterResponse): JobSearchFilter {
+  mapFromRequest(jobSearchFilter: ResolvedJobSearchFilter): JobSearchFilter {
     return {
       sort: jobSearchFilter.sort,
       displayRestricted: jobSearchFilter.displayRestricted,

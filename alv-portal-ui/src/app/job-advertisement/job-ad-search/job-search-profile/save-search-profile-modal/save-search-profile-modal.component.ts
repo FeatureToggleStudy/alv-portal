@@ -9,7 +9,7 @@ import { select, Store } from '@ngrx/store';
 import { getJobSearchFilter, JobAdSearchState } from '../../state-management/state';
 import { getCurrentUser } from '../../../../core/state-management/state/core.state.ts';
 import { JobSearchProfileService } from '../job-search-profile.service';
-import { JobAdSearchProfileRequest } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { CreateJobAdSearchProfile } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 @Component({
   selector: 'alv-save-search-profile-modal',
@@ -42,7 +42,7 @@ export class SaveSearchProfileModalComponent implements OnInit {
       withLatestFrom(this.store.pipe(select(getJobSearchFilter))),
       take(1),
       flatMap(([currentUser, jobSearchFilter]) => {
-        return this.jobAdSearchProfilesRepository.create(<JobAdSearchProfileRequest>{
+        return this.jobAdSearchProfilesRepository.create(<CreateJobAdSearchProfile>{
           name: this.form.get('name').value,
           ownerUserId: currentUser.id,
           searchFilter: this.jobSearchProfileService.mapToRequest(jobSearchFilter),
@@ -52,7 +52,7 @@ export class SaveSearchProfileModalComponent implements OnInit {
               if (error.error.type) {
 
                 if (error.error.type === 'http://www.job-room.ch/job-ad-service/problem/search-profile/already-exists') {
-                  this.form.get('name').setErrors({nameAlreadyExists: true});
+                  this.form.get('name').setErrors({ nameAlreadyExists: true });
                   return EMPTY;
                 }
               }

@@ -55,7 +55,8 @@ import { NotificationsService } from '../../../core/notifications.service';
 import { JobSearchProfileService } from '../job-search-profile/job-search-profile.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CONFIRM_DELETE_FAVOURITE_NOTE_MODAL } from '../../shared/job-ad-favourites.types';
-import { JobAdSearchProfileResponse } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { ResolvedJobAdSearchProfile } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { getDeleteConfirmModalConfig } from '../../../shared/job-search-profiles/modal-config.types';
 
 
 @Component({
@@ -72,7 +73,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   totalCount$: Observable<number>;
 
-  jobSearchProfile$: Observable<JobAdSearchProfileResponse>;
+  jobSearchProfile$: Observable<ResolvedJobAdSearchProfile>;
 
   jobSearchFilter$: Observable<JobSearchFilter>;
 
@@ -247,7 +248,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     });
   }
 
-  updateSearchProfile(searchProfile: JobAdSearchProfileResponse) {
+  updateSearchProfile(searchProfile: ResolvedJobAdSearchProfile) {
     const modalRef = this.modalService.openMedium(UpdateSearchProfileModalComponent);
     modalRef.componentInstance.searchProfile = searchProfile;
     modalRef.result
@@ -280,7 +281,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     ).subscribe(searchProfile => {
       if (searchProfile) {
         this.modalService.openConfirm(
-          JobSearchProfileService.getDeleteConfirmationModalConfig(searchProfile.name)
+          getDeleteConfirmModalConfig(searchProfile.name)
         ).result
           .then(result => {
             this.jobAdSearchProfilesRepository.delete(searchProfile.id)

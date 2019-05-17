@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { getJobSearchFilter, JobAdSearchState } from '../../state-management/state';
 import { flatMap, take } from 'rxjs/operators';
 import { JobSearchProfileService } from '../job-search-profile.service';
-import { JobAdSearchProfileRequest } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { ResolvedJobAdSearchProfile } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 @Component({
   selector: 'alv-update-search-profile-modal',
@@ -15,7 +15,7 @@ import { JobAdSearchProfileRequest } from '../../../../shared/backend-services/j
 })
 export class UpdateSearchProfileModalComponent {
 
-  searchProfile: JobAdSearchProfileRequest;
+  searchProfile: ResolvedJobAdSearchProfile;
 
   constructor(public activeModal: NgbActiveModal,
               private store: Store<JobAdSearchState>,
@@ -29,16 +29,15 @@ export class UpdateSearchProfileModalComponent {
       select(getJobSearchFilter),
       take(1),
       flatMap(searchFilter => {
-        return this.jobAdSearchProfilesRepository.update({
-          id: this.searchProfile.id,
+        return this.jobAdSearchProfilesRepository.update(this.searchProfile.id, {
           name: this.searchProfile.name,
           searchFilter: this.jobSearchProfileService.mapToRequest(searchFilter)
         });
       })
     ).subscribe(updatedSearchProfile => {
-        this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-updated');
-        this.activeModal.close(updatedSearchProfile);
-      });
+      this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-updated');
+      this.activeModal.close(updatedSearchProfile);
+    });
   }
 
   onCreateNew() {
