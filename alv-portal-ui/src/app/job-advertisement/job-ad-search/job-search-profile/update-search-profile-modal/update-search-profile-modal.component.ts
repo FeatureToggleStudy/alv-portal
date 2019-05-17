@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JobAdSearchProfileRequest } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdSearchProfilesRepository } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { NotificationsService } from '../../../../core/notifications.service';
 import { select, Store } from '@ngrx/store';
 import { getJobSearchFilter, JobAdSearchState } from '../../state-management/state';
 import { flatMap, take } from 'rxjs/operators';
 import { JobSearchProfileService } from '../job-search-profile.service';
+import { JobAdSearchProfileRequest } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 @Component({
   selector: 'alv-update-search-profile-modal',

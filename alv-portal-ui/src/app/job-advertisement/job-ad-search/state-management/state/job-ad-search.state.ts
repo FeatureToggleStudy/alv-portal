@@ -1,11 +1,12 @@
 import { ContractType, JobSearchFilter, Sort } from './job-search-filter.types';
 import {
-  FavouriteItem, JobAdSearchProfileRequest, JobAdSearchProfileResponse,
+  FavouriteItem,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { JobSearchResult } from '../../../shared/job-search-result/job-search-result.component';
+import { JobAdSearchProfileResponse } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 export interface JobAdSearchState {
   totalCount: number;

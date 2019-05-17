@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 
 import { map } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import {
   JobAdSearchProfileRequest,
   JobAdSearchProfileResponse,
   JobAdSearchProfilesSearchResponse
-} from '../job-advertisement/job-advertisement.types';
+} from './job-ad-search-profiles.types';
 
 @Injectable({ providedIn: 'root' })
 export class JobAdSearchProfilesRepository {

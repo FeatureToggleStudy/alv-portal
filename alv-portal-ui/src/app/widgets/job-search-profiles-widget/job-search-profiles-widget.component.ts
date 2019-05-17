@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 import { Observable } from 'rxjs';
-import { JobAdSearchProfileRequest } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdSearchProfilesRepository } from '../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { flatMap, map, take } from 'rxjs/operators';
 import { JobSearchProfileService } from '../../job-advertisement/job-ad-search/job-search-profile/job-search-profile.service';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../core/notifications.service';
+import { JobAdSearchProfileRequest } from '../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 @Component({
   selector: 'alv-job-search-profiles-widget',

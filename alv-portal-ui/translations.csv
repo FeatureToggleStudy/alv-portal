@@ -819,7 +819,7 @@ portal.job-detail.workload.label,Arbeitspensum,Workload,Taux d'occupation,Grado 
 portal.job-detail.workplace.label,Arbeitsort,Work location,Lieu de travail,Luogo di lavoro,
 portal.job-ad-search-profiles.browser-title,Stellen-Suchprofile,Saved job searches,Profils de recherche d'offre d'emploi,Profili di ricerca posti di lavoro,
 portal.job-ad-search-profiles.title,Stellen-Suchprofile,Saved job searches,Profils de recherche d'offre d'emploi,Profili di ricerca posti di lavoro,
-portal.job-ad-search-profiles.no-profiles,Sie haben noch keine Stellen-Suchprofile.,You currently have no saved job search.,Vous n'avez pas encore des profils de recherche.,Non hai ancora nessun profilo di ricerca.,
+portal.job-ad-search-profiles.no-profiles,Sie haben noch keine Stellen-Suchprofile.,You currently have no saved job searches.,Vous n'avez pas encore des profils de recherche.,Non hai ancora nessun profilo di ricerca.,
 portal.job-ad-search-profiles.label.save-profile,Suchprofil speichern,Save search profile,Sauvegarder le profil de recherche,Salvare profilo di ricerca,
 portal.job-ad-search-profiles.label.delete-profile,Suchprofil löschen,Delete search,Supprimer le profil de recherche,Cancellare il profilo di ricerca,
 portal.job-ad-search-profiles.update-modal.title,Suchprofil aktualisieren,Edit saved search,Actualiser le profil de recherche,Aggiornare il profilo di ricerca,

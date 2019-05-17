@@ -240,11 +240,6 @@ export interface JobAdFavouritesSearchResponse {
   result: JobAdvertisementWithFavourites[];
 }
 
-export interface JobAdSearchProfilesSearchResponse {
-  totalCount: number;
-  result: JobAdSearchProfileRequest[];
-}
-
 export interface JobAdFavouritesSearchRequest {
   page: number;
   size: number;
@@ -346,22 +341,4 @@ export interface WebformPostAddress {
   postalCode: string;
   city: string;
   countryIsoCode: string;
-}
-
-export interface JobAdSearchProfileResponse {
-  id?: string;
-  name: string;
-  ownerUserId: string;
-  createdTime?: Date;
-  updatedTime?: Date;
-  searchFilter: JobSearchFilterResponse;
-}
-
-export interface JobAdSearchProfileRequest {
-  id?: string;
-  name: string;
-  ownerUserId?: string;
-  createdTime?: Date;
-  updatedTime?: Date;
-  searchFilter?: JobSearchFilterRequest;
 }

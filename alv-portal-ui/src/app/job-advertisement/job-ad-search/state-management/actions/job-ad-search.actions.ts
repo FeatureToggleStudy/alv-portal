@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import {
-  FavouriteItem, JobAdSearchProfileRequest, JobAdSearchProfileResponse,
+  FavouriteItem,
   JobAdvertisement,
   JobAdvertisementWithFavourites
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -16,6 +16,7 @@ import {
   RemoveJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../../core/state-management/actions/core.actions';
+import { JobAdSearchProfileResponse } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 export const INITIALIZE_RESULT_LIST = 'JOBS:INITIALIZE_RESULT_LIST';
 export const RESULT_LIST_ALREADY_INITIALIZED = 'JOBS:RESULT_LIST_ALREADY_INITIALIZED';
