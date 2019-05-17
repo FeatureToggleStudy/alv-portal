@@ -8,12 +8,12 @@
   </h2>
   <ng-container *ngIf="(jobSearchProfiles$ | async) as jobSearchProfiles">
     <ng-container *ngIf="jobSearchProfiles.length">
-      <alv-job-search-profile-item *ngFor="let jobSearchProfile of jobSearchProfiles"
+      <alv-job-search-profile-item *ngFor="let jobSearchProfile of jobSearchProfiles; trackBy: trackById"
                                    [jobSearchProfile]="jobSearchProfile"
                                     (deleted)="onDeleteProfile($event)">
       </alv-job-search-profile-item>
     </ng-container>
-    <ng-container *ngIf="!jobSearchProfiles.length">
+    <ng-container *ngIf="jobSearchProfiles && !jobSearchProfiles.length">
       <div class="no-profiles p-3">
         {{'portal.job-ad-search-profiles.no-profiles' | translate}}
       </div>

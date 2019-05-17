@@ -57,4 +57,7 @@ export class JobSearchProfilesWidgetComponent implements OnInit {
       });
   }
 
+  trackById(profile: JobAdSearchProfileResult): string {
+    return profile.id;
+  }
 }

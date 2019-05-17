@@ -37,7 +37,7 @@ export class JobAdSearchProfilesComponent implements OnInit {
 
   IconKey = IconKey;
 
-  jobSearchProfiles: JobAdSearchProfileResult[] = [];
+  jobSearchProfiles: JobAdSearchProfileResult[];
 
   private page = 0;
 
@@ -59,7 +59,7 @@ export class JobAdSearchProfilesComponent implements OnInit {
       flatMap(user => this.jobAdSearchProfilesRepository.search(user.id, this.page++, this.size)),
       map(response => response.result)
     ).subscribe(profiles => {
-      this.jobSearchProfiles = [...this.jobSearchProfiles, ...profiles];
+      this.jobSearchProfiles = [...(this.jobSearchProfiles || []), ...profiles];
     });
   }
 
@@ -76,5 +76,9 @@ export class JobAdSearchProfilesComponent implements OnInit {
       })
       .catch(() => {
       });
+  }
+
+  trackById(profile: JobAdSearchProfileResult): string {
+    return profile.id;
   }
 }
