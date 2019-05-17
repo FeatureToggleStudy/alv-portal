@@ -137,6 +137,7 @@ export interface Employment {
 }
 
 export interface Location {
+  id?: string;
   remarks?: string;
   city: string;
   postalCode: string;

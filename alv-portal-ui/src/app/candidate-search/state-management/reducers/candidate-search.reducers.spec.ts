@@ -45,6 +45,7 @@ describe('candidateSearchReducer', () => {
 
   /* QUERY PANEL VALUES CHANGED */
   const occupationCode: OccupationCode = {
+    id: 'some-id',
     type: 'AVAM',
     value: '68913',
     mapping: { type: 'BFS', value: '33302009' }
@@ -197,7 +198,7 @@ describe('candidateSearchReducer', () => {
 
   it('OCCUPATION_LANGUAGE_CHANGED_ACTION : should update occupation CATEGORY for language and value', () => {
     // GIVEN
-    const occupCode: OccupationCode = { type: 'SBN5', value: '36102' };
+    const occupCode: OccupationCode = { id: 'some-id', type: 'SBN5', value: '36102' };
     const classificationDE = new OccupationTypeaheadItem(
       OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmierer/innen', 2);
     const classificationEN = new OccupationTypeaheadItem(

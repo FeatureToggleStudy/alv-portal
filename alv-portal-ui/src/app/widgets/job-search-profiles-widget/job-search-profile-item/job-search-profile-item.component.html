@@ -1,0 +1,14 @@
+<a routerLink="/job-search"
+   [queryParams]="{'search-profile-id': jobSearchProfile.id}"
+   class="profile-item d-flex align-items-center position-relative py-2 px-3">
+  <div class="hover-indicator"></div>
+  <div class="profile-name">
+    {{jobSearchProfile.name}}
+  </div>
+  <div class="flex-grow-1"></div>
+  <button class="btn btn-toggle-icon"
+          (click)="deleteProfile($event)">
+    <fa-icon class="text-primary"
+             [icon]="['fas', 'trash-alt']"></fa-icon>
+  </button>
+</a>
