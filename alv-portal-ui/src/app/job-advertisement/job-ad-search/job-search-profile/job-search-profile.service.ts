@@ -11,7 +11,7 @@ import {
 import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
 import { Location } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { CantonSuggestion } from '../../../shared/backend-services/reference-service/locality.types';
-import { JobSearchFilter } from '../state-management/state';
+import { initialState, JobSearchFilter } from '../state-management/state';
 import {
   CantonFilter,
   JobSearchFilterRequest,
@@ -44,9 +44,7 @@ export class JobSearchProfileService {
       cantonFilters: this.mapCantons(jobSearchFilter.localities.filter(locality => locality.type === 'canton')),
       localityFilters: this.mapLocalities(jobSearchFilter.localities.filter(locality => locality.type === 'locality')),
       keywords: jobSearchFilter.keywords.map(keyword => keyword.payload).filter(k => !!k),
-      radiusSearchFilter: jobSearchFilter.localities.filter(locality => locality.type === 'locality').length === 1 ? {
-        distance: jobSearchFilter.radius
-      } : undefined
+      distance: jobSearchFilter.localities.filter(locality => locality.type === 'locality').length === 1 ? jobSearchFilter.radius : undefined
     };
   }
 
@@ -64,7 +62,7 @@ export class JobSearchProfileService {
       keywords: jobSearchFilter.keywords
         .filter(k => !!k)
         .map(keyword => new StringTypeaheadItem('free-text', keyword, keyword)),
-      radius: jobSearchFilter.radiusSearchFilter ? jobSearchFilter.radiusSearchFilter.distance : 30
+      radius: jobSearchFilter.distance ? jobSearchFilter.distance : initialState.jobSearchFilter.radius
     };
   }
 

@@ -45,7 +45,7 @@ export interface ResolvedJobSearchFilter {
   locations: LocationResolved[];
   cantons: CantonSuggestion[];
   keywords: string[];
-  radiusSearchFilter?: RadiusSearchFilter;
+  distance?: number;
 }
 
 export interface JobSearchFilterRequest {
@@ -60,7 +60,7 @@ export interface JobSearchFilterRequest {
   localityFilters: LocalityFilter[];
   cantonFilters: CantonFilter[];
   keywords: string[];
-  radiusSearchFilter?: RadiusSearchFilter;
+  distance?: number;
 }
 
 export interface LocationResolved extends Location {
@@ -87,9 +87,4 @@ export interface LocalityFilter {
 
 export interface OccupationFilter {
   labelId: string;
-}
-
-export interface RadiusSearchFilter {
-  geoPoint?: GeoPoint;
-  distance: number;
 }
