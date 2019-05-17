@@ -233,7 +233,6 @@ export class JobAdSearchEffects {
               private jobAdFavouritesRepository: JobAdFavouritesRepository,
               private store: Store<JobAdSearchState>,
               private authenticationService: AuthenticationService,
-              private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
               private router: Router,
               @Optional()
               @Inject(JOB_AD_SEARCH_EFFECTS_DEBOUNCE)
