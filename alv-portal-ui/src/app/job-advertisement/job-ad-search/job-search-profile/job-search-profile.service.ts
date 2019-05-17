@@ -122,7 +122,7 @@ export class JobSearchProfileService {
   private mapOccupations(occupations: OccupationTypeaheadItem[]): OccupationFilter[] {
     return occupations.map(occupation => {
       return {
-        labelId: occupation.payload.id // TODO: where to get the labelId from?
+        labelId: occupation.payload.id
       };
     });
   }
