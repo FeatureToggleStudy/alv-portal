@@ -1,18 +1,7 @@
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import { LocalityTypeaheadItem } from '../../../../shared/localities/locality-typeahead-item';
-
-export enum Sort {
-  RELEVANCE_DESC = 'RELEVANCE_DESC',
-  DATE_DESC = 'DATE_DESC',
-  DATE_ASC = 'DATE_ASC'
-}
-
-export enum ContractType {
-  ALL = 'ALL',
-  TEMPORARY = 'TEMPORARY',
-  PERMANENT = 'PERMANENT',
-}
+import { ContractType, Sort } from '../../../../shared/backend-services/shared.types';
 
 export interface JobSearchFilter {
   sort: Sort;

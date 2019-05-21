@@ -9,7 +9,8 @@ import {
   LocalityInputType,
   LocalityTypeaheadItem
 } from '../../../../shared/localities/locality-typeahead-item';
-import { ContractType, JobSearchFilter, Sort } from '../state';
+import { JobSearchFilter } from '../state';
+import { ContractType, Sort } from '../../../../shared/backend-services/shared.types';
 
 const ITEMS_PER_PAGE = 20;
 

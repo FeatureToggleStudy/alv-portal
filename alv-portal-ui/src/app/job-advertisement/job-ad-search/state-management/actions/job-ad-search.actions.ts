@@ -16,6 +16,7 @@ import {
   RemoveJobAdFavouriteAction,
   UpdatedJobAdFavouriteAction
 } from '../../../../core/state-management/actions/core.actions';
+import { ResolvedJobAdSearchProfile } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 
 export const INITIALIZE_RESULT_LIST = 'JOBS:INITIALIZE_RESULT_LIST';
 export const RESULT_LIST_ALREADY_INITIALIZED = 'JOBS:RESULT_LIST_ALREADY_INITIALIZED';
@@ -41,6 +42,8 @@ export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'JOBS:OCCUPATION_LANGUAGE_CHAN
 export const RESET = 'JOBS:RESET';
 
 export const FAVOURITE_ITEM_LOADED = 'JOBS:FAVOURITE_ITEM_LOADED';
+
+export const SEARCH_PROFILE_UPDATED = 'JOBS:SEARCH_PROFILE_UPDATED';
 
 
 export class InitializeResultListAction implements Action {
@@ -190,6 +193,13 @@ export class FavouriteItemLoadedAction implements Action {
   }
 }
 
+export class SearchProfileUpdatedAction implements Action {
+  readonly type = SEARCH_PROFILE_UPDATED;
+
+  constructor(public payload: { searchProfile: ResolvedJobAdSearchProfile }) {
+  }
+}
+
 export type Actions =
   | InitializeResultListAction
   | ResultListAlreadyInitializedAction
@@ -213,4 +223,5 @@ export type Actions =
   | UpdatedJobAdFavouriteAction
   | ResetAction
   | FavouriteItemLoadedAction
-  | EffectErrorOccurredAction;
+  | EffectErrorOccurredAction
+  | SearchProfileUpdatedAction;

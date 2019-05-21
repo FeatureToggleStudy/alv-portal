@@ -188,3 +188,15 @@ export enum EmploymentDuration {
   TEMPORARY = 'temporary',
   SHORT_EMPLOYMENT = 'short-employment'
 }
+
+export enum Sort {
+  RELEVANCE_DESC = 'RELEVANCE_DESC',
+  DATE_DESC = 'DATE_DESC',
+  DATE_ASC = 'DATE_ASC'
+}
+
+export enum ContractType {
+  ALL = 'ALL',
+  TEMPORARY = 'TEMPORARY',
+  PERMANENT = 'PERMANENT',
+}

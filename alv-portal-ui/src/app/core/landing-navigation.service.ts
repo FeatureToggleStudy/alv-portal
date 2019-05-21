@@ -18,8 +18,7 @@ export class LandingNavigationService {
 
     if (!user.isRegistered()) {
       // For authorised user without permissions - navigate to finish registration page:
-      if (user.registrationStatus === RegistrationStatus.UNREGISTERED
-      ) {
+      if (user.registrationStatus === RegistrationStatus.UNREGISTERED) {
         return this.router.navigate(['registration', 'finish']);
       }
       // For PAV and companies with open validation - navigate to access code page

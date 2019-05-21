@@ -1,16 +1,18 @@
 import {
   ActivatedRouteSnapshot,
-  CanActivate, CanDeactivate,
+  CanActivate,
+  CanDeactivate,
   RouterStateSnapshot
 } from '@angular/router';
 import { forkJoin, Observable, of } from 'rxjs';
 import {
   FavouriteItemLoadedAction,
   JobAdSearchState,
-  JobAdvertisementDetailLoadedAction, JobAdvertisementDetailUnloadedAction
+  JobAdvertisementDetailLoadedAction,
+  JobAdvertisementDetailUnloadedAction
 } from '../state-management';
 import { Store } from '@ngrx/store';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { Injectable } from '@angular/core';
 import { isAuthenticatedUser } from '../../../core/auth/user.model';
@@ -52,9 +54,6 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
       }),
       map(() => {
         return true;
-      }),
-      catchError(() => {
-        return of(false);
       })
     );
   }

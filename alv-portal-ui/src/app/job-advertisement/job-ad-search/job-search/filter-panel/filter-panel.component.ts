@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
-import { ContractType, Sort } from '../../state-management';
 import { UserRole } from '../../../../core/auth/user.model';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 import { debounceTime, map, takeUntil } from 'rxjs/operators';
+import { ContractType, Sort } from '../../../../shared/backend-services/shared.types';
 
 export interface FilterPanelValues {
   sort: Sort;

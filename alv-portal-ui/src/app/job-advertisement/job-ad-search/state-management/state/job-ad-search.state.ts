@@ -1,4 +1,4 @@
-import { ContractType, JobSearchFilter, Sort } from './job-search-filter.types';
+import { JobSearchFilter } from './job-search-filter.types';
 import {
   FavouriteItem,
   JobAdvertisement,
@@ -6,6 +6,8 @@ import {
 } from '../../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { JobSearchResult } from '../../../shared/job-search-result/job-search-result.component';
+import { ResolvedJobAdSearchProfile } from '../../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
+import { ContractType, Sort } from '../../../../shared/backend-services/shared.types';
 
 export interface JobAdSearchState {
   totalCount: number;
@@ -20,6 +22,7 @@ export interface JobAdSearchState {
   visitedJobAds: { [id: string]: boolean; };
   lastVisitedJobAdId: string;
   isDirtyResultList: boolean;
+  jobAdSearchProfile: ResolvedJobAdSearchProfile;
 }
 
 export const initialState: JobAdSearchState = {
@@ -45,7 +48,8 @@ export const initialState: JobAdSearchState = {
   resultsAreLoading: false,
   visitedJobAds: {},
   lastVisitedJobAdId: undefined,
-  isDirtyResultList: true
+  isDirtyResultList: true,
+  jobAdSearchProfile: undefined
 };
 
 export const getJobAdSearchState = createFeatureSelector<JobAdSearchState>('jobAdSearch');
@@ -65,6 +69,8 @@ export const getLastVisitedJobAdId = createSelector(getJobAdSearchState, (state:
 export const isLoading = createSelector(getJobAdSearchState, (state) => state.resultsAreLoading);
 
 export const isDirtyResultList = createSelector(getJobAdSearchState, (state) => state.isDirtyResultList);
+
+export const getJobAdSearchProfile = createSelector(getJobAdSearchState, (state) => state.jobAdSearchProfile);
 
 const getResultList = createSelector(getJobAdSearchState, (state: JobAdSearchState) => state.resultList);
 

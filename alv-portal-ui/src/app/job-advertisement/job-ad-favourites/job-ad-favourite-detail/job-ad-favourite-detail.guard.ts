@@ -12,7 +12,7 @@ import {
   JobAdvertisementDetailUnloadAction
 } from '../state-management';
 import { Store } from '@ngrx/store';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { Injectable } from '@angular/core';
 import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
@@ -54,9 +54,6 @@ export class JobAdFavouriteDetailGuard implements CanActivate, CanDeactivate<Job
       }),
       map(() => {
         return true;
-      }),
-      catchError(() => {
-        return of(false);
       })
     );
   }

@@ -83,6 +83,17 @@ const appRoutes: Routes = [
     }
   },
   {
+    path: 'job-search-profiles',
+    loadChildren: './job-advertisement/job-ad-search-profiles/job-ad-search-profiles.module#JobAdSearchProfilesModule',
+    canActivateChild: [AuthenticatedGuard],
+    canDeactivate: [LazyModuleDeactivateGuard],
+    data: {
+      moduleName: ModuleName.JOB_SEARCH_PROFILES,
+      titleKey: 'portal.job-ad-search-profiles.browser-title',
+      scrollToTop: true
+    }
+  },
+  {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
     canActivateChild: [HasAnyAuthoritiesGuard],
