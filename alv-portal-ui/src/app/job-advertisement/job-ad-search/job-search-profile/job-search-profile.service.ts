@@ -92,7 +92,7 @@ export class JobSearchProfileService {
       ...cantons.map((canton, index) =>
         new LocalityTypeaheadItem(LocalityInputType.CANTON,
           { cantonCode: canton.code },
-          canton.name + ' (' + canton.code + ')',
+          canton.name,
           localities.length + index))
     ];
   }
