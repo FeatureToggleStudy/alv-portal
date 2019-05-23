@@ -102,7 +102,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   {
     id: 'work-efforts',
     iconKey: IconKey.WORK_EFFORTS,
-    labelKey: 'portal.navigation.menu-entry.job-ad-favourites',
+    labelKey: 'portal.navigation.menu-entry.work-efforts',
     path: ['work-efforts'],
     userPredicate: (u) => isAuthenticatedUser(u)
   },
