@@ -14,10 +14,11 @@ describe('Job search page', () => {
 
   beforeEach(() => {
     page = new JobSearchPo();
+    page.navigateTo();
+
   });
 
   it('should navigate to the job-search page', () => {
-    page.navigateTo();
     expect(page.browserTitle).toEqual('Search job');
   });
 
@@ -28,9 +29,10 @@ describe('Job search page', () => {
   });
 
   it('should have working pagination', () => {
-    page.scrollToBottom().then(() => {
-      expect(page.searchResultsPanel.resultCount).toBe(PAGE_SIZE * 2, 'the amount of results fetched after pagination is not two pages');
-    });
+    page.scrollToBottom()
+      .then(() => {
+        expect(page.searchResultsPanel.resultCount).toBe(PAGE_SIZE * 2, 'the amount of results fetched after pagination is not two pages');
+      });
   });
 
   it('should decrease the amount of found jobs when the filters is applied', async () => {
@@ -49,6 +51,10 @@ describe('Job search page', () => {
     await browser.sleep(DEFAULT_SLEEP_TIME);
     const afterFilter = await getResultCount(page);
     expect(afterFilter).toBeLessThan(initialCount);
+  });
+
+  it('should go to a details page and navigate to previous and next search results', async () => {
+
   });
 
 });
