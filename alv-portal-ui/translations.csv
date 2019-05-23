@@ -827,7 +827,7 @@ portal.job-ad-search-profiles.update-modal.question,"Möchten Sie die Suche ""<s
 portal.job-ad-search-profiles.update-modal.primary-button.label,Aktualisieren,Update,Actualiser,Aggiornare,
 portal.job-ad-search-profiles.update-modal.secondary-button.label,Neu erstellen,Create new,Créer un nouveau,Creare una nuova,
 portal.job-ad-search-profiles.update-modal.cancel-button.label,Abbrechen,Cancel,Annuler,Interrompere,
-portal.job-ad-search-profiles.save-modal.title,Suchprofil speichern,Save search,Sauvegarder le profil de recherche,Salvare profilo di ricerca,
+portal.job-ad-search-profiles.save-modal.title,Suche speichern,Save search,Sauvegarder la recherche,Salvare di ricerca,
 portal.job-ad-search-profiles.save-modal.name.label,Bezeichnung,Title,Désignation,Denominazione,
 portal.job-ad-search-profiles.save-modal.validation.name.required,Bitte geben Sie eine Profilbezeichnung ein.,Please enter a title for your saved job search.,Veuillez saisir une désignation pour le profil.,Inserire una denominazione per il profilo.,
 portal.job-ad-search-profiles.save-modal.validation.name.already-exists,Diese Bezeichnung wird bereits verwendet.,This title is already in use.,Cette désignation est déjà utilisée.,Questa denominazione è già in uso.,
@@ -837,7 +837,7 @@ portal.job-ad-search-profiles.notification.profile-saved,Ihre Suche wurde gespei
 portal.job-ad-search-profiles.notification.profile-updated,Ihre Suche wurde aktualisiert.,Your saved search has been updated.,Votre recherche a été actualisé.,La ricerca è stata aggiornata.,
 portal.job-ad-search-profiles.notification.profile-deleted,Ihre Suche wurde gelöscht.,Your saved search has been deleted.,Votre recherche a été supprimé.,La ricerca è stata cancellata.,
 portal.job-ad-search-profiles.delete-confirmation-modal.question,"Möchten Sie diese Suche ""<strong>{{profileName}}</strong>"" wirklich löschen?","Are you sure you want to delete your search ""<strong>{{profileName}}</strong>""?","Souhaitez-vous vraiment supprimer cette recherche ""<strong>{{profileName}}</strong>""?","Volete davvero cancellare questa ricerca ""<strong>{{profileName}}</strong>""?"
-portal.job-ad-search-profiles.delete-confirmation-modal.title,Suchprofil löschen?,Delete search?,Supprimer le profil de recherche?,Cancellare il profilo di ricerca?,
+portal.job-ad-search-profiles.delete-confirmation-modal.title,Suche löschen?,Delete search?,Supprimer la recherche?,Cancellare di ricerca?,
 portal.job-ad-search-profiles.delete-confirmation-modal.button.confirm,"Ja, löschen","Yes, delete","Oui, supprimer","Sì, cancellare",
 portal.job-ad-favourites.browser-title,Stellen-Merkliste,Saved jobs,Postes favoris,Favoriti dei posti,
 portal.job-ad-favourites.notification.favourite-added,Diese Stelle wurde in Ihrer Merkliste gespeichert.,This posting has been added to your saved jobs.,Cette offre d'emploi a été ajoutée à vos favoris.,Questo posto è stato salvato nei favoriti.,
