@@ -1,11 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
+import { WorkEffortsComponent } from './work-efforts/work-efforts.component';
+import { WorkEffortFormComponent } from './work-effort-form/work-effort-form.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: JobAdFavouritesComponent,
+    component: WorkEffortsComponent,
     canActivate: [AuthenticatedGuard],
     data: {
       collapseNavigation: true
@@ -13,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: JobAdFavouriteDetailComponent,
+    component: WorkEffortFormComponent,
     canActivate: [AuthenticatedGuard],
     data: {
       collapseNavigation: true

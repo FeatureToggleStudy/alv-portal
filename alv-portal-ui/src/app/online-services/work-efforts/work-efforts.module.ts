@@ -4,9 +4,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { WorkEffortsRoutingModule } from './work-efforts-routing.module';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { WorkEffortsComponent } from './work-efforts/work-efforts.component';
-import { WorkEffortComponent } from './work-effort/work-effort.component';
-import { ControlPeriodComponent } from './control-period/control-period.component';
 import { WorkEffortFormComponent } from './work-effort-form/work-effort-form.component';
+import { WorkEffortComponent } from './work-efforts/work-effort/work-effort.component';
+import { ControlPeriodComponent } from './work-efforts/control-period/control-period.component';
 
 
 @NgModule({

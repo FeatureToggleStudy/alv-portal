@@ -94,6 +94,17 @@ const appRoutes: Routes = [
     }
   },
   {
+    path: 'work-efforts',
+    loadChildren: './online-services/work-efforts/work-efforts.module#WorkEffortsModule',
+    canActivateChild: [AuthenticatedGuard],
+    canDeactivate: [LazyModuleDeactivateGuard],
+    data: {
+      moduleName: ModuleName.WORK_EFFORTS,
+      titleKey: 'portal.work-efforts.browser-title',
+      scrollToTop: true
+    }
+  },
+  {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
     canActivateChild: [HasAnyAuthoritiesGuard],
