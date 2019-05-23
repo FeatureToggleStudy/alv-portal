@@ -7,7 +7,8 @@ export enum IconKey {
   CANDIDATE_SEARCH,
   MANAGE_JOB_ADS,
   JOB_AD_FAVOURITES,
-  JOB_AD_SEARCH_PROFILES
+  JOB_AD_SEARCH_PROFILES,
+  WORK_EFFORTS
 }
 
 interface IconEntry {
@@ -114,6 +115,21 @@ export class CustomIconComponent implements OnInit {
         },
         {
           icon: ['fas', 'search'],
+          transform: 'shrink-9 down-7.5 right-4',
+          mask: null
+        }
+      ]
+    },
+    {
+      key: IconKey.WORK_EFFORTS,
+      iconStack: [
+        {
+          icon: ['fas', 'circle'],
+          transform: 'shrink-5 down-8 right-4',
+          mask: ['fas', 'file-alt']
+        },
+        {
+          icon: ['fas', 'pen'],
           transform: 'shrink-9 down-7.5 right-4',
           mask: null
         }
