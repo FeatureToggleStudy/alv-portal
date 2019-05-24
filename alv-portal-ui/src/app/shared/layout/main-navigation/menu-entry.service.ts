@@ -90,7 +90,7 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     iconKey: IconKey.JOB_AD_SEARCH_PROFILES,
     labelKey: 'portal.navigation.menu-entry.job-ad-search-profiles',
     path: ['job-search-profiles'],
-    userPredicate: isAnyUser
+    userPredicate: isAuthenticatedUser
   },
   {
     id: 'job-favourites',
