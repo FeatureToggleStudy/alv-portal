@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-work-efforts',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkEffortsComponent implements OnInit {
 
-  constructor() { }
+  readonly SEARCH_QUERY_MAX_LENGTH = 1000;
+
+  IconKey = IconKey;
+
+  form: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      query: ['']
+    });
+  }
+
+  onFilterClick() {
+    alert('not implemented yet');
   }
 
 }

@@ -1,3 +1,34 @@
-<p>
-  work-efforts works!
-</p>
+<div class="container-fluid pt-4 pt-lg-5 px-lg-5">
+  <div class="d-flex justify-content-between align-items-end position-relative">
+    <h2 class="pr-5">
+      <alv-custom-icon class="text-primary"
+                       aria-hidden="true"
+                       [iconKey]="IconKey.WORK_EFFORTS">
+      </alv-custom-icon>
+      {{ 'portal.work-efforts.title' | translate }}
+
+      <button type="button"
+              class="btn btn-text filter-button"
+              (click)="onFilterClick()">
+        <fa-icon class="mr-0 mr-md-2"
+                 [icon]="['fas', 'filter']"></fa-icon>
+        <span class="d-none d-md-inline">
+        {{'portal.manage-job-ads.search.filter-button' | translate}}
+      </span>
+      </button>
+    </h2>
+  </div>
+
+  <hr class="mt-0 mb-3">
+
+  <alv-input-field [alvControl]="form?.get('query')"
+                   label="portal.work-efforts.search.query"
+                   [maxLength]="SEARCH_QUERY_MAX_LENGTH">
+  </alv-input-field>
+
+
+  <alv-control-period>
+
+  </alv-control-period>
+
+</div>

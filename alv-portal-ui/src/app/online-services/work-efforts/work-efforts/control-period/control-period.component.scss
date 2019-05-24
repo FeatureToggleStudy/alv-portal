@@ -1,0 +1,54 @@
+@import "../../../../../scss/common/colors";
+
+.control-period {
+  background-color: $color-white;
+  border: 1px solid $color-medium-grey;
+
+
+  .pdf-link {
+    color: $color-grey-black;
+    &:hover {
+      text-decoration: none;
+      color: $color-primary;
+    }
+  }
+
+  .name-cell, .pdf-cell {
+    padding: 0.5em 0.75em;
+  }
+
+  .status-cell {
+    line-height: 20px;
+    border-left: 1px solid $color-medium-grey;
+    padding: 0.25em 0.5em 0.5em 0.5em;
+    .status-label {
+      color: $color-dark-grey;
+    }
+  }
+
+  &:hover, &.expanded {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+    .name-cell {
+      color: $color-primary;
+    }
+    .expanded-indicator {
+      background-color: $color-primary;
+      width: 3px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+.collapse-panel {
+  .add-work-effort-button {
+    background-color: $color-light-grey;
+    border-color: $color-medium-grey;
+  }
+
+  .work-effort-divider {
+    width: 100%;
+    border-top: 4px solid $color-medium-grey;
+  }
+}
