@@ -1,8 +1,8 @@
 import { Company } from '../shared.types';
 
 export interface WorkEffort {
-  id: string;
-  date: Date;
+  id?: string;
+  date: string;
   form: WorkEffortForm;
   company: WorkEffortCompany;
   occupation: string;
@@ -12,8 +12,8 @@ export interface WorkEffort {
 }
 
 export interface ControlPeriod {
-  id: string;
-  date: Date;
+  id?: string;
+  date: string;
   filePath: string;
   workEfforts: WorkEffort[];
   status: WorkEffortStatus;

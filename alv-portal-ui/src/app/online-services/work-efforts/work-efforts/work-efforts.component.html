@@ -26,13 +26,9 @@
                    [maxLength]="SEARCH_QUERY_MAX_LENGTH">
   </alv-input-field>
 
-
-  <alv-control-period class="d-block mb-4">
-
-  </alv-control-period>
-
-  <alv-control-period>
-
+  <alv-control-period *ngFor="let controlPeriod of controlPeriods"
+                      [controlPeriod]="controlPeriod"
+                      class="d-block mb-4">
   </alv-control-period>
 
 </div>

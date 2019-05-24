@@ -8,12 +8,12 @@
     <h3 class="mb-1">
       <fa-icon [icon]="['fas', expanded ? 'caret-up' : 'caret-down']"
                class="mr-1"></fa-icon>
-      März 2019
+      {{controlPeriod.date | date:'MMM yyyy'}}
     </h3>
   </span>
   <span class="col-3 pdf-cell">
     <a class="pdf-link"
-       [href]="'https://www.google.com'"
+       [href]="controlPeriod.filePath"
        (click)="$event.stopPropagation()"
        target="_blank"
        rel="noopener">
@@ -24,7 +24,7 @@
   <span class="col-3 status-cell d-flex flex-column">
     <small class="status-label">Bearbeitungsstatus</small>
     <div class="flex-grow-1">
-      Anzahl erfasst: 0
+      Anzahl erfasst: {{controlPeriod.workEfforts.length}}
     </div>
   </span>
   <span class="col-3 status-cell d-flex flex-column">
@@ -49,13 +49,15 @@
                class="mr-1"></fa-icon>
       Neue Arbeitsbemühung erfassen
     </a>
-    <div class="work-effort-divider"></div>
 
-    <alv-work-effort></alv-work-effort>
+    <ng-container *ngFor="let workEffort of controlPeriod.workEfforts; let last = last">
+      <div class="work-effort-divider"></div>
 
-    <div class="work-effort-divider"></div>
-    <alv-work-effort></alv-work-effort>
-    <div class="work-effort-divider"></div>
+      <alv-work-effort [workEffort]="workEffort"></alv-work-effort>
+
+      <div *ngIf="last" class="work-effort-divider"></div>
+    </ng-container>
+
   </div>
 
 </ng-container>

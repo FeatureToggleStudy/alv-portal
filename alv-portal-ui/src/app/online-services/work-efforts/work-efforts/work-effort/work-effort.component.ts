@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { WorkEffort } from '../../../../shared/backend-services/work-efforts/work-efforts.types';
 
 @Component({
   selector: 'alv-work-effort',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./work-effort.component.scss']
 })
 export class WorkEffortComponent implements OnInit {
+
+  @Input() workEffort: WorkEffort;
 
   constructor() { }
 
