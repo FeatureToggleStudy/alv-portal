@@ -1,3 +1,31 @@
-<p>
-  work-effort-form works!
-</p>
+<form [formGroup]="formGroup">
+  <alv-collapse-panel panelTitle="portal.online-services.work-efforts.edit-form.application-date-label">
+    <!--    <alv-date-input alvFormControlName="date"-->
+    <!--                    label="portal.online-services.work-efforts.edit-form.date-label">-->
+    <!--    </alv-date-input>-->
+    <alv-input-field alvFormControlName="date"></alv-input-field>
+  </alv-collapse-panel>
+
+  <alv-collapse-panel panelTitle="portal.online-services.work-efforts.edit-form.way-of-application-label">
+    <alv-checkbox alvFormControlName="onlineCheckbox"
+                  label="portal.online-services.work-efforts.edit-form.way-of-application.online"></alv-checkbox>
+    <alv-checkbox alvFormControlName="mailCheckbox"
+                  label="portal.online-services.work-efforts.edit-form.way-of-application.mail"></alv-checkbox>
+    <alv-checkbox alvFormControlName="personallyCheckbox"
+                  label="portal.online-services.work-efforts.edit-form.way-of-application.personally"></alv-checkbox>
+    <alv-checkbox alvFormControlName="phoneCheckbox"
+                  label="portal.online-services.work-efforts.edit-form.way-of-application.phone"></alv-checkbox>
+
+
+  </alv-collapse-panel>
+
+  <alv-collapse-panel panelTitle="portal.online-services.work-efforts.edit-form.company-label">
+    <alv-post-address-form
+      [parentForm]="formGroup"
+      [postAddressFormValue]="postAddressFormValue"
+      groupName="address"
+    ></alv-post-address-form>
+  </alv-collapse-panel>
+
+
+</form>

@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: WorkEffortsComponent,
-    canActivate: [AuthenticatedGuard],
+    // canActivate: [AuthenticatedGuard],
     data: {
       collapseNavigation: true
     }
@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: WorkEffortFormComponent,
-    canActivate: [AuthenticatedGuard],
+    // canActivate: [AuthenticatedGuard],
     data: {
       collapseNavigation: true
     }

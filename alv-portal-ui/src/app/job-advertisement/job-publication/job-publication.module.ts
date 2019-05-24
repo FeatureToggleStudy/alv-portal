@@ -47,6 +47,9 @@ import { JobPublicationGuard } from './job-publication.guard';
     ApplicationComponent,
     PostAddressFormComponent
   ],
+  exports: [
+    PostAddressFormComponent
+  ],
   providers: [
     IsoCountryService,
     JobPublicationFormValueFactory,
