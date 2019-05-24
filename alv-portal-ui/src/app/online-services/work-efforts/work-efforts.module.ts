@@ -7,13 +7,15 @@ import { WorkEffortsComponent } from './work-efforts/work-efforts.component';
 import { WorkEffortFormComponent } from './work-effort-form/work-effort-form.component';
 import { WorkEffortComponent } from './work-efforts/work-effort/work-effort.component';
 import { ControlPeriodComponent } from './work-efforts/control-period/control-period.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    WorkEffortsRoutingModule
+    WorkEffortsRoutingModule,
+    NgbDropdownModule
   ],
   declarations: [
     WorkEffortsComponent,

@@ -1,3 +1,54 @@
-<p>
-  work-effort works!
-</p>
+<div class="work-effort-container position-relative">
+  <a class="work-effort row no-gutters"
+     [routerLink]="'/work-efforts/some-id'">
+    <div class="col-3 work-effort-cell main-cell">
+      <small class="cell-label">
+        Bewerbung vom 01.03.2019
+      </small>
+      <div class="flex-grow-1">
+        SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker
+      </div>
+    </div>
+    <div class="col-3 work-effort-cell">
+      <small class="cell-label">Ergebnis der Bewerbung</small>
+      <div class="flex-grow-1">
+        Anzahl erfasst: 0
+      </div>
+    </div>
+    <div class="col-3 work-effort-cell d-flex flex-column">
+      <small class="cell-label">Bearbeitungsstatus</small>
+      <div class="flex-grow-1">
+        Anzahl erfasst: 0
+      </div>
+    </div>
+    <div class="col-3 work-effort-cell d-flex flex-column">
+      <small class="cell-label">Übermittlungsstatus</small>
+      <div class="flex-grow-1">
+        Übermittlung erfolgt am 05.04.2019 23:59 Uhr
+      </div>
+    </div>
+    <span class="expanded-indicator h-100">
+  </span>
+  </a>
+
+  <div #actionsMenu="ngbDropdown"
+       class="actions-dropdown"
+       ngbDropdown
+       placement="left">
+    <button (click)="actionsMenu.toggle()"
+            class="btn btn-text actions-button no-dropdown-indicator h-100"
+            [ngbTooltip]="'portal.global.actions' | translate"
+            placement="left"
+            ngbDropdownAnchor
+            [attr.aria-label]="'portal.global.actions' | translate">
+      <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
+    </button>
+    <div aria-label="Work effort actions"
+         ngbDropdownMenu>
+      <button (click)="deleteWorkEffort()"
+              class="dropdown-item">
+        {{'portal.work-efforts.work-effort.actions.delete' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

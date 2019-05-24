@@ -964,6 +964,7 @@ portal.work-efforts.search.query,Suche nach bereits erfasster Firma oder Stellen
 portal.work-efforts.search.filter,Filtern,Filter,Filtrer,Filtra,
 portal.work-efforts.title,Nachweis der persönlichen Arbeitsbemühungen,,,,
 portal.work-efforts.browser-title,Nachweis der persönlichen Arbeitsbemühungen,,,,
+portal.work-efforts.work-effort.actions.delete,Löschen,Delete,,,
 register.title,Registrierung,Registration,Enregistrement,Registrazione,
 registration.customer.birthdate.label,Geburtsdatum,Date of Birth,Date de naissance,Data di nascita,
 registration.customer.cancel,Abbrechen,Cancel,Annuler,Annullare,

@@ -12,4 +12,7 @@ export class WorkEffortComponent implements OnInit {
   ngOnInit() {
   }
 
+  deleteWorkEffort() {
+
+  }
 }
