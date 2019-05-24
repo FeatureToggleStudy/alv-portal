@@ -56,7 +56,35 @@ export class WorkEffortsComponent implements OnInit {
             form: WorkEffortForm.TELEPHONE,
             occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
             ravJob: false,
-            result: WorkEffortResult.PENDING,
+            results: [WorkEffortResult.PENDING, WorkEffortResult.INTERVIEW],
+            workload: WorkEffortWorkload.FULL_TIME
+          }
+        ]
+      },
+      {
+        date: '2019-04-01',
+        filePath: 'https://www.google.com',
+        status: WorkEffortStatus.SENT,
+        type: WorkEffortType.DURING_UNEMPLOYMENT,
+        workEfforts: [
+          {
+            company: {
+              name: 'Example Company',
+              city: 'Zurich',
+              contactPerson: 'Some Dude',
+              country: 'CH',
+              email: 'mail@address.com',
+              houseNumber: '22b',
+              phone: '+41 33 322 34 41',
+              street: 'Evergreen Terrace',
+              url: 'www.example-company.com',
+              zipCode: '8098'
+            },
+            date: '2019-05-24',
+            form: WorkEffortForm.TELEPHONE,
+            occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+            ravJob: false,
+            results: [WorkEffortResult.INTERVIEW, WorkEffortResult.EMPLOYED],
             workload: WorkEffortWorkload.FULL_TIME
           }
         ]

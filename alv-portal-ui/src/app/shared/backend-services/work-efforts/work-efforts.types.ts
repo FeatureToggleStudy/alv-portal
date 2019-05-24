@@ -8,7 +8,7 @@ export interface WorkEffort {
   occupation: string;
   ravJob: boolean;
   workload: WorkEffortWorkload;
-  result: WorkEffortResult;
+  results: WorkEffortResult[];
 }
 
 export interface ControlPeriod {
