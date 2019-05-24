@@ -5,9 +5,11 @@
     <small class="d-block text-truncate">
       Nachweis der persönlichen Arbeitsbemühungen
     </small>
-    <h3 class="mb-1"><fa-icon [icon]="['fas', expanded ? 'caret-up' : 'caret-down']"
-                 class="mr-1"></fa-icon>
-      März 2019</h3>
+    <h3 class="mb-1">
+      <fa-icon [icon]="['fas', expanded ? 'caret-up' : 'caret-down']"
+               class="mr-1"></fa-icon>
+      März 2019
+    </h3>
   </span>
   <span class="col-3 pdf-cell">
     <a class="pdf-link"
@@ -41,15 +43,18 @@
   </div>
 
   <div class="collapse-panel">
-    <button class="btn btn-text add-work-effort-button w-100">
+    <a [routerLink]="'/work-efforts/new'"
+       class="btn btn-text add-work-effort-button w-100">
       <fa-icon [icon]="['fas', 'plus']"
                class="mr-1"></fa-icon>
       Neue Arbeitsbemühung erfassen
-    </button>
+    </a>
     <div class="work-effort-divider"></div>
 
     <alv-work-effort></alv-work-effort>
 
+    <div class="work-effort-divider"></div>
+    <alv-work-effort></alv-work-effort>
     <div class="work-effort-divider"></div>
   </div>
 

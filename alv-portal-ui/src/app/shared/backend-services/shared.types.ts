@@ -200,3 +200,13 @@ export enum ContractType {
   TEMPORARY = 'TEMPORARY',
   PERMANENT = 'PERMANENT',
 }
+
+export interface Company {
+  name: string;
+  contactPerson: string;
+  street: string;
+  houseNumber: string;
+  zipCode: string;
+  city: string;
+  country: string;
+}

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
   CandidateProfile,
-  Company,
   EmailContactModal
 } from '../../../shared/backend-services/candidate/candidate.types';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
@@ -19,6 +18,7 @@ import { patternInputValidator } from '../../../shared/forms/input/input-field/p
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
+import { Company } from '../../../shared/backend-services/shared.types';
 
 interface ContactCandidateFormValues {
   subject: string;

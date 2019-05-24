@@ -1,6 +1,6 @@
 import {
   Availability,
-  CEFR_Level,
+  CEFR_Level, Company,
   Contact,
   Degree,
   Experience,
@@ -134,14 +134,4 @@ export interface EmailContactModal {
   phone?: string;
   email?: string;
   company?: Company;
-}
-
-export interface Company {
-  name: string;
-  contactPerson: string;
-  street: string;
-  houseNumber: string;
-  zipCode: string;
-  city: string;
-  country: string;
 }
