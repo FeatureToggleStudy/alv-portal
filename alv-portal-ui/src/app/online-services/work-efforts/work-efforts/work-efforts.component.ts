@@ -84,7 +84,7 @@ export class WorkEffortsComponent implements OnInit {
             form: WorkEffortForm.TELEPHONE,
             occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
             ravJob: false,
-            results: [WorkEffortResult.INTERVIEW, WorkEffortResult.EMPLOYED],
+            results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
             workload: WorkEffortWorkload.FULL_TIME
           }
         ]

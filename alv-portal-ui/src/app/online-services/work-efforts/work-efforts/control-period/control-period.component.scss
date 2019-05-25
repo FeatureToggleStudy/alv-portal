@@ -1,4 +1,7 @@
 @import "../../../../../scss/common/colors";
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../../node_modules/bootstrap/scss/mixins';
 
 .control-period {
   background-color: $color-white;
@@ -50,5 +53,11 @@
   .work-effort-divider {
     width: 100%;
     border-top: 3px solid $color-medium-grey;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .status-cell {
+    border-top: 1px solid $color-medium-grey;
   }
 }
