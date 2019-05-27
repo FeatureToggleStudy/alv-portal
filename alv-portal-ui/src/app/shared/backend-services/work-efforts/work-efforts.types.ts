@@ -59,3 +59,285 @@ export interface WorkEffortCompany extends Company {
   url: string;
   phone: string;
 }
+
+export const mockedControlPeriods = [
+  {
+    date: '2019-05-01',
+    filePath: 'https://www.google.com',
+    status: WorkEffortStatus.EDITED,
+    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    workEfforts: [
+      {
+        company: {
+          name: 'Example Company',
+          city: 'Zurich',
+          contactPerson: 'Some Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2019-05-24',
+        form: WorkEffortForm.TELEPHONE,
+        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        ravJob: false,
+        results: [WorkEffortResult.PENDING, WorkEffortResult.INTERVIEW],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.EDITED,
+        createdTime: '2019-05-17T13:17:41.981',
+        updatedTime: '2019-05-17T13:17:41.981'
+      }
+    ]
+  },
+  {
+    date: '2019-04-01',
+    filePath: 'https://www.google.com',
+    status: WorkEffortStatus.SENT,
+    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    workEfforts: [
+      {
+        company: {
+          name: 'Example Company',
+          city: 'Zurich',
+          contactPerson: 'Some Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2019-05-24',
+        form: WorkEffortForm.TELEPHONE,
+        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        ravJob: false,
+        results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.SENT,
+        createdTime: '2019-05-17T13:17:41.981',
+        updatedTime: '2019-05-17T13:17:41.981'
+      }
+    ]
+  },
+  {
+    date: '2019-03-01',
+    filePath: 'https://www.google.com',
+    status: WorkEffortStatus.SENT,
+    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    workEfforts: [
+      {
+        company: {
+          name: 'Example Company',
+          city: 'Zurich',
+          contactPerson: 'Some Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2019-03-24',
+        form: WorkEffortForm.TELEPHONE,
+        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        ravJob: false,
+        results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.SENT,
+        createdTime: '2019-03-17T13:17:41.981',
+        updatedTime: '2019-03-17T13:17:41.981'
+      }
+    ]
+  },
+  {
+    date: '2019-02-01',
+    filePath: 'https://www.google.com',
+    status: WorkEffortStatus.SENT,
+    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    workEfforts: [
+      {
+        company: {
+          name: 'Example Company',
+          city: 'Zurich',
+          contactPerson: 'Some Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2019-02-04',
+        form: WorkEffortForm.TELEPHONE,
+        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        ravJob: false,
+        results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.SENT,
+        createdTime: '2019-05-17T13:17:41.981',
+        updatedTime: '2019-05-17T13:17:41.981'
+      }
+    ]
+  },
+  {
+    date: '2019-01-01',
+    filePath: 'https://www.google.com',
+    status: WorkEffortStatus.SENT,
+    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    workEfforts: [
+      {
+        company: {
+          name: 'Example Company',
+          city: 'Zurich',
+          contactPerson: 'Some Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2019-01-25',
+        form: WorkEffortForm.TELEPHONE,
+        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        ravJob: false,
+        results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.SENT,
+        createdTime: '2019-05-17T13:17:41.981',
+        updatedTime: '2019-05-17T13:17:41.981'
+      }
+    ]
+  },
+  {
+    date: '2018-12-01',
+    filePath: 'https://www.google.com',
+    status: WorkEffortStatus.SENT,
+    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    workEfforts: [
+      {
+        company: {
+          name: 'Example Company',
+          city: 'Zurich',
+          contactPerson: 'Some Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2018-11-01',
+        form: WorkEffortForm.TELEPHONE,
+        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        ravJob: false,
+        results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.SENT,
+        createdTime: '2019-05-17T13:17:41.981',
+        updatedTime: '2019-05-17T13:17:41.981'
+      }
+    ]
+  },
+  {
+    date: '2018-11-01',
+    filePath: 'https://www.google.com',
+    status: WorkEffortStatus.SENT,
+    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    workEfforts: [
+      {
+        company: {
+          name: 'Example Company',
+          city: 'Zurich',
+          contactPerson: 'Some Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2018-11-24',
+        form: WorkEffortForm.TELEPHONE,
+        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        ravJob: false,
+        results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.SENT,
+        createdTime: '2019-05-17T13:17:41.981',
+        updatedTime: '2019-05-17T13:17:41.981'
+      }
+    ]
+  },
+  {
+    date: '2018-10-01',
+    filePath: 'https://www.google.com',
+    status: WorkEffortStatus.SENT,
+    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    workEfforts: [
+      {
+        company: {
+          name: 'Example Company',
+          city: 'Zurich',
+          contactPerson: 'Some Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2018-10-24',
+        form: WorkEffortForm.TELEPHONE,
+        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        ravJob: false,
+        results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.SENT,
+        createdTime: '2019-05-17T13:17:41.981',
+        updatedTime: '2019-05-17T13:17:41.981'
+      }
+    ]
+  },
+  {
+    date: '2018-09-01',
+    filePath: 'https://www.google.com',
+    status: WorkEffortStatus.SENT,
+    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    workEfforts: [
+      {
+        company: {
+          name: 'Example Company',
+          city: 'Zurich',
+          contactPerson: 'Some Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2018-09-14',
+        form: WorkEffortForm.TELEPHONE,
+        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        ravJob: false,
+        results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.SENT,
+        createdTime: '2019-05-17T13:17:41.981',
+        updatedTime: '2019-05-17T13:17:41.981'
+      }
+    ]
+  }
+];
