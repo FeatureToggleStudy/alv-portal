@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ControlPeriod } from '../../../../shared/backend-services/work-efforts/work-efforts.types';
+import {
+  ControlPeriod,
+  WorkEffortStatus
+} from '../../../../shared/backend-services/work-efforts/work-efforts.types';
 
 @Component({
   selector: 'alv-control-period',
@@ -17,4 +20,7 @@ export class ControlPeriodComponent implements OnInit {
   ngOnInit() {
   }
 
+  isSentSuccessfully(controlPeriod: ControlPeriod): boolean {
+    return controlPeriod.status === WorkEffortStatus.SENT;
+  }
 }

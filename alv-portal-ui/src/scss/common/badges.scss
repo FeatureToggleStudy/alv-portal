@@ -1,5 +1,10 @@
 @import "../common/colors";
 
+.badge-work-effort-result-employed {
+  background-color: $color-green;
+  color: $color-white;
+}
+
 .badge-job,
 .badge-workplace,
 .badge-locality,
@@ -29,12 +34,19 @@
 }
 
 .badge-workload,
-.badge-job-experience {
+.badge-job-experience,
+.badge-work-effort-result-pending {
   background-color: $color-light-grey;
 }
 
-.badge-contract-type {
+.badge-contract-type,
+.badge-work-effort-result-interview {
   background-color: $color-light-green;
+}
+
+.badge-work-effort-result-rejected {
+  background-color: $color-white;
+  border: 1px solid $color-light-grey;
 }
 
 .badge-danger {

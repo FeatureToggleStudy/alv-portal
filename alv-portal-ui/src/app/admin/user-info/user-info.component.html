@@ -66,13 +66,13 @@
         <ul class="alv-list" *ngIf="user; else no_account_info">
           <alv-inline-badges [badges]="badges"></alv-inline-badges>
           <alv-list-item-content label="portal.admin.user-info.account-info.created">
-            {{ user.createdAt | date:'dd.MM.yyyy' }}
+            {{ user.createdAt | date: 'dd.MM.yyyy, hh:mm:ss' }}
           </alv-list-item-content>
           <alv-list-item-content label="portal.admin.user-info.account-info.modified">
-            {{ user.modifiedAt | date:'dd.MM.yyyy' }}
+            {{ user.modifiedAt | date: 'dd.MM.yyyy, hh:mm:ss' }}
           </alv-list-item-content>
           <alv-list-item-content label="portal.admin.user-info.account-info.lastLogin">
-            {{ user.lastLoginAt | date:'dd.MM.yyyy' }}
+            {{ user.lastLoginAt | date: 'dd.MM.yyyy, hh:mm:ss' }}
           </alv-list-item-content>
         </ul>
         <ng-template #no_account_info>
@@ -88,7 +88,7 @@
             {{ user.stesInformation.personNumber }}
           </alv-list-item-content>
           <alv-list-item-content label="portal.admin.user-info.stes-info.verified">
-            {{ user.stesInformation.verifiedAt | date:'dd.MM.yyyy' }}
+            {{ user.stesInformation.verifiedAt | date: 'dd.MM.yyyy, hh:mm:ss' }}
           </alv-list-item-content>
         </ul>
         <ng-template #no_stes_info>
