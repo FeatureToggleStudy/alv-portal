@@ -42,7 +42,7 @@ export class WorkEffortFormComponent implements OnInit {
   ngOnInit() {
 
     this.formGroup = this.fb.group({
-      date: ['someval',],
+      date: [''],
       onlineCheckbox: [false],
       mailCheckbox: [false],
       personallyCheckbox: [false],
