@@ -7,7 +7,8 @@
         {{workEffort.date | localeAwareDate}}
       </small>
       <div class="flex-grow-1">
-        {{workEffort.occupation}}
+        <div>{{workEffort.company.name}}</div>
+        <div>{{workEffort.occupation}}</div>
       </div>
       <div #actionsMenu="ngbDropdown"
            (click)="$event.preventDefault();$event.stopPropagation()"

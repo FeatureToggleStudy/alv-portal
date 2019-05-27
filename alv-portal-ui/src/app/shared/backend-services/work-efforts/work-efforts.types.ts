@@ -95,7 +95,7 @@ export const mockedControlPeriods = [
       {
         id: 'some-id-1',
         company: {
-          name: 'Example Company',
+          name: 'SRF - Schweizer Radio und Fernsehen',
           city: 'Zurich',
           contactPerson: 'Some Dude',
           country: 'CH',
@@ -108,7 +108,7 @@ export const mockedControlPeriods = [
         },
         date: '2019-05-10',
         form: WorkEffortForm.TELEPHONE,
-        occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+        occupation: 'Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED],
         workload: WorkEffortWorkload.FULL_TIME,
@@ -119,7 +119,7 @@ export const mockedControlPeriods = [
       {
         id: 'some-id-2',
         company: {
-          name: 'Some Company',
+          name: 'Basler Kantonalbank',
           city: 'Zurich',
           contactPerson: 'Another Dude',
           country: 'CH',
@@ -132,7 +132,7 @@ export const mockedControlPeriods = [
         },
         date: '2019-05-19',
         form: WorkEffortForm.MAIL,
-        occupation: 'Basler Kantonalbank Fachinformatiker',
+        occupation: 'Fachinformatiker',
         ravJob: false,
         results: [WorkEffortResult.INTERVIEW, WorkEffortResult.PENDING],
         workload: WorkEffortWorkload.FULL_TIME,
@@ -143,7 +143,7 @@ export const mockedControlPeriods = [
       {
         id: 'some-id-3',
         company: {
-          name: 'Another Company',
+          name: 'Google',
           city: 'Zurich',
           contactPerson: 'Random Dude',
           country: 'CH',
@@ -156,7 +156,7 @@ export const mockedControlPeriods = [
         },
         date: '2019-05-21',
         form: WorkEffortForm.ELECTRONIC,
-        occupation: 'Google Big Data Analyst',
+        occupation: 'Big Data Analyst',
         ravJob: false,
         results: [WorkEffortResult.INTERVIEW, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
@@ -394,7 +394,7 @@ export const mockedControlPeriods = [
     date: '2018-09-01',
     filePath: 'https://www.google.com',
     status: WorkEffortStatus.SENT,
-    type: WorkEffortType.DURING_UNEMPLOYMENT,
+    type: WorkEffortType.BEFORE_UNEMPLOYMENT,
     workEfforts: [
       {
         id: 'some-id-11',

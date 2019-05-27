@@ -8,6 +8,7 @@ import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badg
 import { getDeleteConfirmModalConfig } from '../../../../shared/job-search-profiles/modal-config.types';
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
 import { deleteWorkEffortModalConfig } from '../modal-config.types';
+import { NotificationsService } from '../../../../core/notifications.service';
 
 @Component({
   selector: 'alv-work-effort',
@@ -22,7 +23,8 @@ export class WorkEffortComponent implements OnInit {
 
   resultBadges: InlineBadge[] = [];
 
-  constructor(private modalService: ModalService) { }
+  constructor(private modalService: ModalService,
+              private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.mapResultBadges();
@@ -35,6 +37,7 @@ export class WorkEffortComponent implements OnInit {
       .then(result => {
         // TODO: call backend
         this.deleted.emit(this.workEffort);
+        this.notificationsService.success('portal.work-efforts.work-effort.notification.deleted');
       })
       .catch(() => {
       });
