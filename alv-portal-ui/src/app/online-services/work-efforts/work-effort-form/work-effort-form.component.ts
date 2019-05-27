@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
 import { PostAddressFormValue } from '../../../job-advertisement/job-publication/job-publication-form/post-address-form/post-address-form-value.types';
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
+import { of } from 'rxjs';
+import { ContractType } from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-work-effort-form',
@@ -32,6 +34,18 @@ export class WorkEffortFormComponent implements OnInit {
     }
 
   };
+
+  contractTypeOptions$ = of([
+    {
+      value: ContractType.TEMPORARY,
+      label: 'portal.work-efforts.edit-form.contract-types.temporary'
+    },
+    {
+      value: ContractType.PERMANENT,
+      label: 'portal.work-efforts.edit-form.contract-types.permanent'
+    },
+
+  ]);
 
   constructor(private fb: FormBuilder) {
 
