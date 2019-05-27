@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   ControlPeriod,
   WorkEffort,
@@ -18,6 +18,8 @@ export class WorkEffortComponent implements OnInit {
 
   @Input() workEffort: WorkEffort;
 
+  @Output() deleted = new EventEmitter<WorkEffort>();
+
   resultBadges: InlineBadge[] = [];
 
   constructor(private modalService: ModalService) { }
@@ -32,6 +34,7 @@ export class WorkEffortComponent implements OnInit {
     ).result
       .then(result => {
         // TODO: call backend
+        this.deleted.emit(this.workEffort);
       })
       .catch(() => {
       });
@@ -41,28 +44,28 @@ export class WorkEffortComponent implements OnInit {
     if (this.workEffort.results.includes(WorkEffortResult.INTERVIEW)) {
       this.resultBadges.push({
         cssClass: 'badge-work-effort-result-interview',
-        label: WorkEffortResult.INTERVIEW
+        label: 'portal.work-efforts.work-effort-result.badge.' + WorkEffortResult.INTERVIEW
       });
     }
 
     if (this.workEffort.results.includes(WorkEffortResult.EMPLOYED)) {
       this.resultBadges.push({
         cssClass: 'badge-work-effort-result-employed',
-        label: WorkEffortResult.EMPLOYED
+        label: 'portal.work-efforts.work-effort-result.badge.' + WorkEffortResult.EMPLOYED
       });
     }
 
     if (this.workEffort.results.includes(WorkEffortResult.PENDING)) {
       this.resultBadges.push({
         cssClass: 'badge-work-effort-result-pending',
-        label: WorkEffortResult.PENDING
+        label: 'portal.work-efforts.work-effort-result.badge.' + WorkEffortResult.PENDING
       });
     }
 
     if (this.workEffort.results.includes(WorkEffortResult.REJECTED)) {
       this.resultBadges.push({
         cssClass: 'badge-work-effort-result-rejected',
-        label: WorkEffortResult.REJECTED
+        label: 'portal.work-efforts.work-effort-result.badge.' + WorkEffortResult.REJECTED
       });
     }
   }

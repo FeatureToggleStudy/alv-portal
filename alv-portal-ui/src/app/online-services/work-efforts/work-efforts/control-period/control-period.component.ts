@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import {
-  ControlPeriod,
+  ControlPeriod, WorkEffort,
   WorkEffortStatus
 } from '../../../../shared/backend-services/work-efforts/work-efforts.types';
 
@@ -39,4 +39,8 @@ export class ControlPeriodComponent implements OnInit {
       'portal.work-efforts.control-period.pdf-file.name';
   }
 
+  removeWorkEffort(deletedWorkEffort: WorkEffort) {
+    const indexToRemove = this.controlPeriod.workEfforts.findIndex(workEffort => workEffort.id === deletedWorkEffort.id);
+    this.controlPeriod.workEfforts.splice(indexToRemove, 1);
+  }
 }

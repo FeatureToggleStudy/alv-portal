@@ -93,7 +93,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
-        id: 'some-id',
+        id: 'some-id-1',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -117,7 +117,7 @@ export const mockedControlPeriods = [
         updatedTime: '2019-05-17T13:17:41.981'
       },
       {
-        id: 'some-id',
+        id: 'some-id-2',
         company: {
           name: 'Some Company',
           city: 'Zurich',
@@ -141,7 +141,7 @@ export const mockedControlPeriods = [
         updatedTime: '2019-05-20T13:17:41.981'
       },
       {
-        id: 'some-id',
+        id: 'some-id-3',
         company: {
           name: 'Another Company',
           city: 'Zurich',
@@ -173,7 +173,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
-        id: 'some-id',
+        id: 'some-id-4',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -205,7 +205,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
-        id: 'some-id',
+        id: 'some-id-5',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -237,7 +237,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
-        id: 'some-id',
+        id: 'some-id-6',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -269,7 +269,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
-        id: 'some-id',
+        id: 'some-id-7',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -301,7 +301,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
-        id: 'some-id',
+        id: 'some-id-8',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -333,7 +333,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
-        id: 'some-id',
+        id: 'some-id-9',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -365,7 +365,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
-        id: 'some-id',
+        id: 'some-id-10',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -397,7 +397,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
-        id: 'some-id',
+        id: 'some-id-11',
         company: {
           name: 'Example Company',
           city: 'Zurich',
