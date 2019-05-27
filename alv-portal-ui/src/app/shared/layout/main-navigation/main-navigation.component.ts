@@ -21,7 +21,7 @@ import {
 } from '../../../core/state-management/actions/core.actions';
 import { MenuEntryService } from './menu-entry.service';
 import { Observable } from 'rxjs';
-import { MenuEntry } from './menu-entry.type';
+import { MenuDefinition, MenuEntry } from './menu-entry.type';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { isAuthenticatedUser, User, UserRole } from '../../../core/auth/user.model';
 import { LoginService } from '../../auth/login.service';
@@ -48,7 +48,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
 
   mobileMenuExpanded: boolean;
 
-  menuEntries$: Observable<Array<MenuEntry>>;
+  menuDefinition$: Observable<MenuDefinition>;
 
   currentUser: User;
 
@@ -70,7 +70,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnInit() {
-    this.menuEntries$ = this.menuEntryService.prepareEntries();
+    this.menuDefinition$ = this.menuEntryService.prepareEntries();
 
     this.authenticationService.getCurrentUser().pipe(
       takeUntil(this.ngUnsubscribe)

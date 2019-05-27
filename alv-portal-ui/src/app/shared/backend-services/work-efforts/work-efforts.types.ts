@@ -60,6 +60,31 @@ export interface WorkEffortCompany extends Company {
   phone: string;
 }
 
+export const mockedWorkEffort = {
+  id: 'some-id',
+  company: {
+    name: 'Example Company',
+    city: 'Zurich',
+    contactPerson: 'Some Dude',
+    country: 'CH',
+    email: 'mail@address.com',
+    houseNumber: '22b',
+    phone: '+41 33 322 34 41',
+    street: 'Evergreen Terrace',
+    url: 'www.example-company.com',
+    zipCode: '8098'
+  },
+  date: '2019-05-10',
+  form: WorkEffortForm.TELEPHONE,
+  occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
+  ravJob: false,
+  results: [WorkEffortResult.REJECTED],
+  workload: WorkEffortWorkload.FULL_TIME,
+  status: WorkEffortStatus.SENT,
+  createdTime: '2019-05-17T13:17:41.981',
+  updatedTime: '2019-05-17T13:17:41.981'
+};
+
 export const mockedControlPeriods = [
   {
     date: '2019-05-01',
@@ -68,6 +93,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
+        id: 'some-id',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -80,15 +106,63 @@ export const mockedControlPeriods = [
           url: 'www.example-company.com',
           zipCode: '8098'
         },
-        date: '2019-05-24',
+        date: '2019-05-10',
         form: WorkEffortForm.TELEPHONE,
         occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
         ravJob: false,
-        results: [WorkEffortResult.PENDING, WorkEffortResult.INTERVIEW],
+        results: [WorkEffortResult.REJECTED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.EDITED,
+        status: WorkEffortStatus.SENT,
         createdTime: '2019-05-17T13:17:41.981',
         updatedTime: '2019-05-17T13:17:41.981'
+      },
+      {
+        id: 'some-id',
+        company: {
+          name: 'Some Company',
+          city: 'Zurich',
+          contactPerson: 'Another Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2019-05-19',
+        form: WorkEffortForm.MAIL,
+        occupation: 'Basler Kantonalbank Fachinformatiker',
+        ravJob: false,
+        results: [WorkEffortResult.INTERVIEW, WorkEffortResult.PENDING],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.EDITED,
+        createdTime: '2019-05-20T13:17:41.981',
+        updatedTime: '2019-05-20T13:17:41.981'
+      },
+      {
+        id: 'some-id',
+        company: {
+          name: 'Another Company',
+          city: 'Zurich',
+          contactPerson: 'Random Dude',
+          country: 'CH',
+          email: 'mail@address.com',
+          houseNumber: '22b',
+          phone: '+41 33 322 34 41',
+          street: 'Evergreen Terrace',
+          url: 'www.example-company.com',
+          zipCode: '8098'
+        },
+        date: '2019-05-21',
+        form: WorkEffortForm.ELECTRONIC,
+        occupation: 'Google Big Data Analyst',
+        ravJob: false,
+        results: [WorkEffortResult.INTERVIEW, WorkEffortResult.EMPLOYED],
+        workload: WorkEffortWorkload.FULL_TIME,
+        status: WorkEffortStatus.NEW,
+        createdTime: '2019-05-22T13:17:41.981',
+        updatedTime: '2019-05-22T13:17:41.981'
       }
     ]
   },
@@ -99,6 +173,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
+        id: 'some-id',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -130,6 +205,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
+        id: 'some-id',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -161,6 +237,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
+        id: 'some-id',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -192,6 +269,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
+        id: 'some-id',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -223,6 +301,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
+        id: 'some-id',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -254,6 +333,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
+        id: 'some-id',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -285,6 +365,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
+        id: 'some-id',
         company: {
           name: 'Example Company',
           city: 'Zurich',
@@ -316,6 +397,7 @@ export const mockedControlPeriods = [
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
+        id: 'some-id',
         company: {
           name: 'Example Company',
           city: 'Zurich',

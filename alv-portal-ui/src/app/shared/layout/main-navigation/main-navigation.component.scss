@@ -37,6 +37,14 @@
         display: none;
       }
     }
+
+    .menu-divider {
+      border-top: 1px solid $color-light-grey;
+    }
+
+    .sub-menu-header small {
+      display: none;
+    }
   }
 
   .back-button {
@@ -50,6 +58,16 @@
 
   .nav-fill-item, .nav-spacer {
     background-color: $color-light-grey;
+  }
+
+  .menu-divider {
+    border-top: 1px solid $color-medium-grey;
+  }
+
+  .sub-menu-header {
+    background-color: $color-light-grey;
+    padding-left: 18px;
+    height: 18px;
   }
 }
 
@@ -190,6 +208,16 @@
 
   .nav-spacer, .nav-fill-item {
     background-color: $color-grey-black;
+  }
+
+  .sub-menu-header small {
+    color: $color-medium-grey;
+    padding-left: 18px;
+    height: 18px;
+  }
+
+  .menu-divider {
+    border-top: 1px solid $color-grey;
   }
 
   &.open {

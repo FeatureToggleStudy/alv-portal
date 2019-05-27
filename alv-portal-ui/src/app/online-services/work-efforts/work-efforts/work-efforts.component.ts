@@ -5,6 +5,10 @@ import {
   ControlPeriod,
   mockedControlPeriods
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
+import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { flatMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'alv-work-efforts',
@@ -19,18 +23,22 @@ export class WorkEffortsComponent implements OnInit {
 
   form: FormGroup;
 
-  controlPeriods: ControlPeriod[];
+  controlPeriods$: Observable<ControlPeriod[]>;
 
   private today = new Date();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private authenticationService: AuthenticationService,
+              private workEffortsRepository: WorkEffortsRepository) { }
 
   ngOnInit() {
     this.form = this.fb.group({
       query: ['']
     });
 
-    this.controlPeriods = mockedControlPeriods;
+    this.controlPeriods$ = this.authenticationService.getCurrentUser().pipe(
+      flatMap(user => this.workEffortsRepository.getControlPeriods(user.id))
+    );
   }
 
   onFilterClick() {
