@@ -7,7 +7,8 @@
         <!-- Back Button -->
         <div>
           <a class="btn btn-text btn-text-icon"
-             [routerLink]="backButtonPath">
+             [routerLink]="backButtonPath"
+          >
             <fa-icon class="mr-1"
                      [icon]="['fas', 'caret-left']"></fa-icon>
             {{'job-detail.back' | translate}}
@@ -99,7 +100,9 @@
 
     <ng-container class="left-column">
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-lg-block d-print-none"
-         [routerLink]="backButtonPath">
+         [routerLink]="backButtonPath"
+         data-test="backToSearch"
+      >
         <fa-icon class="mr-1"
                  [icon]="['fas', 'caret-left']"></fa-icon>
         {{getBackButtonText() | translate}}
@@ -138,6 +141,7 @@
     <ng-container class="right-column">
       <div class="d-flex">
         <button (click)="loadPrev()"
+                data-test="previousJobAdButton"
                 [disabled]="!(prevEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           <fa-icon class="mr-1"
@@ -146,6 +150,7 @@
         </button>
         <div class="flex-grow-1"></div>
         <button (click)="loadNext()"
+                data-test="nextJobAdButton"
                 [disabled]="!(nextEnabled$ | async)"
                 class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
