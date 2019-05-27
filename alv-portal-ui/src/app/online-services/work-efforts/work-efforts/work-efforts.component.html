@@ -28,6 +28,8 @@
 
   <alv-control-period *ngFor="let controlPeriod of controlPeriods"
                       [controlPeriod]="controlPeriod"
+                      [expanded]="isCurrentControlPeriod(controlPeriod)"
+                      [class.current-period]="isCurrentControlPeriod(controlPeriod)"
                       class="d-block mb-4">
   </alv-control-period>
 

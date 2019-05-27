@@ -9,6 +9,9 @@ export interface WorkEffort {
   ravJob: boolean;
   workload: WorkEffortWorkload;
   results: WorkEffortResult[];
+  status: WorkEffortStatus;
+  createdTime?: string;
+  updatedTime?: string;
 }
 
 export interface ControlPeriod {

@@ -27,6 +27,22 @@
     .status-label {
       color: $color-dark-grey;
     }
+    .success-icon-container {
+      display: none;
+    }
+    &.success {
+      background-color: $color-light-green;
+      padding-right: 30px;
+      .success-icon-container {
+        display: flex;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 24px;
+        border-left: 1px solid $color-medium-grey;
+        color: $color-dark-grey;
+      }
+    }
   }
 
   &:hover, &.expanded {
@@ -53,6 +69,12 @@
   .work-effort-divider {
     width: 100%;
     border-top: 3px solid $color-medium-grey;
+  }
+}
+
+:host.current-period {
+  .period-title {
+    font-weight: 600;
   }
 }
 

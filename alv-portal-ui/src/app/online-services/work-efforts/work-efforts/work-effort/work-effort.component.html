@@ -3,10 +3,10 @@
      [routerLink]="'/work-efforts/some-id'">
     <div class="col-12 col-lg-3 work-effort-cell main-cell">
       <small class="cell-label">
-        Bewerbung vom 01.03.2019
+        Bewerbung vom {{workEffort.date | localeAwareDate}}
       </small>
       <div class="flex-grow-1">
-        SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker
+        {{workEffort.occupation}}
       </div>
       <div #actionsMenu="ngbDropdown"
            (click)="$event.preventDefault();$event.stopPropagation()"
@@ -39,10 +39,11 @@
     <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column">
       <small class="cell-label">Bearbeitungsstatus</small>
       <div class="flex-grow-1">
-        Anzahl erfasst: 0
+        Erfasst am {{workEffort.updatedTime | localeAwareDate}}
       </div>
     </div>
-    <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column">
+    <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column"
+         [class.success]="isSentSuccessfully(workEffort)">
       <small class="cell-label">Übermittlungsstatus</small>
       <div class="flex-grow-1">
         Übermittlung erfolgt am 05.04.2019 23:59 Uhr

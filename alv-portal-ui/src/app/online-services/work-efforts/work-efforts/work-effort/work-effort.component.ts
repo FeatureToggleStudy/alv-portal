@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
+  ControlPeriod,
   WorkEffort,
-  WorkEffortResult
+  WorkEffortResult, WorkEffortStatus
 } from '../../../../shared/backend-services/work-efforts/work-efforts.types';
 import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badge.types';
 
@@ -54,5 +55,9 @@ export class WorkEffortComponent implements OnInit {
         label: WorkEffortResult.REJECTED
       });
     }
+  }
+
+  isSentSuccessfully(workEffort: WorkEffort): boolean {
+    return workEffort.status === WorkEffortStatus.SENT;
   }
 }

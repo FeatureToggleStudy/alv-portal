@@ -5,7 +5,7 @@
     <small class="d-block text-truncate">
       Nachweis der persönlichen Arbeitsbemühungen
     </small>
-    <h3 class="mb-0 mt-1 my-lg-1">
+    <h3 class="period-title mb-0 mt-1 my-lg-1">
       <fa-icon [icon]="['fas', expanded ? 'caret-up' : 'caret-down']"
                class="mr-1"></fa-icon>
       {{controlPeriod.date | date:'MMMM yyyy'}}
@@ -27,15 +27,21 @@
       Anzahl erfasst: {{controlPeriod.workEfforts.length}}
     </div>
   </span>
-  <span class="col-12 col-lg-3 status-cell d-flex flex-column">
+  <span class="col-12 col-lg-3 status-cell d-flex flex-column"
+    [class.success]="isSentSuccessfully(controlPeriod)">
     <small class="status-label">Übermittlungsstatus</small>
     <div class="flex-grow-1">
       Übermittlung erfolgt am 05.04.2019 23:59 Uhr
+    </div>
+    <div class="success-icon-container text-center h-100 align-items-center">
+      <fa-icon class="w-100" [icon]="['fas', 'check']"></fa-icon>
     </div>
   </span>
   <span class="expanded-indicator h-100">
   </span>
 </button>
+
+<!-- Collapse Panel -->
 <ng-container *ngIf="expanded">
   <div class="arrow-container">
     <div class="arrow-down">
