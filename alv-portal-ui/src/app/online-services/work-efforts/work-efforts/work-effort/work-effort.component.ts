@@ -5,6 +5,9 @@ import {
   WorkEffortResult, WorkEffortStatus
 } from '../../../../shared/backend-services/work-efforts/work-efforts.types';
 import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badge.types';
+import { getDeleteConfirmModalConfig } from '../../../../shared/job-search-profiles/modal-config.types';
+import { ModalService } from '../../../../shared/layout/modal/modal.service';
+import { deleteWorkEffortModalConfig } from '../modal-config.types';
 
 @Component({
   selector: 'alv-work-effort',
@@ -17,14 +20,21 @@ export class WorkEffortComponent implements OnInit {
 
   resultBadges: InlineBadge[] = [];
 
-  constructor() { }
+  constructor(private modalService: ModalService) { }
 
   ngOnInit() {
     this.mapResultBadges();
   }
 
   deleteWorkEffort() {
-
+    this.modalService.openConfirm(
+      deleteWorkEffortModalConfig
+    ).result
+      .then(result => {
+        // TODO: call backend
+      })
+      .catch(() => {
+      });
   }
 
   mapResultBadges() {
