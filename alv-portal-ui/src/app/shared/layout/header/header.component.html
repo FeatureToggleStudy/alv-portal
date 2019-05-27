@@ -75,6 +75,7 @@
         <ng-container *ngFor="let language of LANGUAGES">
           <button (click)="changeLanguage(language)"
                   class="language-switch-button text-uppercase"
+                  attr.data-test="language-switcher-{{language}}"
                   [ngClass]="{active: language===currentLanguage}">{{language}}
           </button>
         </ng-container>

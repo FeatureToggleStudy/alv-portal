@@ -2,9 +2,14 @@
 
   <!-----------------Title-->
   <h2 class="job-title mt-1 mb-4">
-    <strong class="mr-3" [innerHTML]="jobDescription.title | safeHtml"></strong>
-    <small class="text-muted job-ad-status" *ngIf="showStatusInformation">
-      {{'portal.job-detail.status' | translate}}: {{'global.job-publication.status.' + jobDetailModel.jobAdvertisement.status | translate}}
+    <strong class="mr-3"
+            [innerHTML]="jobDescription.title | safeHtml"
+            data-test="jobAdHeader"
+    ></strong>
+    <small class="text-muted job-ad-status"
+           *ngIf="showStatusInformation">
+      {{'portal.job-detail.status' | translate}}
+      : {{'global.job-publication.status.' + jobDetailModel.jobAdvertisement.status | translate}}
     </small>
   </h2>
 
@@ -83,7 +88,7 @@
                         panelTitle="portal.job-detail.min-requirements.label">
       <ul class="alv-list">
         <alv-list-item-content *ngIf="occupation.qualificationCode"
-          label="portal.job-publication.occupation.qualification.label">
+                               label="portal.job-publication.occupation.qualification.label">
           {{'portal.job-ad.qualification.' + occupation.qualificationCode | translate}}
         </alv-list-item-content>
         <alv-list-item-content label="portal.job-detail.workExperience">
