@@ -1,9 +1,10 @@
-import { $, browser, by, element, promise as wdpromise } from 'protractor';
+import { $, browser, promise as wdpromise } from 'protractor';
 import { SearchResultsPanelPo } from './sections/search-results-panel.po';
 import { FilterPanelPo } from './sections/filter-panel.po';
 import { MainFilterPanelPo } from './sections/main-filter-panel.po';
 import { scrollToBottom } from '../../utils';
-import { DEFAULT_SLEEP_TIME, LONG_SLEEP_TIME } from '../../constants';
+import { LONG_SLEEP_TIME } from '../../constants';
+import { getByTest } from '../job-publication/selector-utils';
 
 
 export class JobSearchPo {
@@ -14,13 +15,13 @@ export class JobSearchPo {
   filterPanel = new FilterPanelPo();
 
 
-  navigateTo() {
+  navigateTo(): wdpromise.Promise<any> {
     return browser.get('/job-search');
   }
 
   scrollToBottom(): wdpromise.Promise<void> {
 
-    element(by.css('.language-switch-button')).click();
+    $(getByTest('language-switcher-en')).click();
     // this is funny but I need to click somewhere on a page
     // to bring focus to window, so that we could scroll it
     return scrollToBottom()

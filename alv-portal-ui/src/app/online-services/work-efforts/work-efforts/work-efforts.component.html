@@ -26,10 +26,9 @@
                    [maxLength]="SEARCH_QUERY_MAX_LENGTH">
   </alv-input-field>
 
-  <alv-control-period *ngFor="let controlPeriod of controlPeriods"
+  <alv-control-period *ngFor="let controlPeriod of controlPeriods$ | async"
                       [controlPeriod]="controlPeriod"
-                      [expanded]="isCurrentControlPeriod(controlPeriod)"
-                      [class.current-period]="isCurrentControlPeriod(controlPeriod)"
+                      [isCurrentPeriod]="isCurrentControlPeriod(controlPeriod)"
                       class="d-block mb-4">
   </alv-control-period>
 

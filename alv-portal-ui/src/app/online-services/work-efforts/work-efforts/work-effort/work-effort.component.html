@@ -1,12 +1,14 @@
 <div class="work-effort-container position-relative">
   <a class="work-effort row no-gutters"
-     [routerLink]="'/work-efforts/some-id'">
+     [routerLink]="'/work-efforts/' + workEffort.id">
     <div class="col-12 col-lg-3 work-effort-cell main-cell">
       <small class="cell-label">
-        Bewerbung vom {{workEffort.date | localeAwareDate}}
+        {{'portal.work-efforts.work-effort.cell-label.application-date' | translate}}
+        {{workEffort.date | localeAwareDate}}
       </small>
       <div class="flex-grow-1">
-        {{workEffort.occupation}}
+        <div>{{workEffort.company.name}}</div>
+        <div>{{workEffort.occupation}}</div>
       </div>
       <div #actionsMenu="ngbDropdown"
            (click)="$event.preventDefault();$event.stopPropagation()"
@@ -14,6 +16,7 @@
            ngbDropdown
            placement="left">
         <button (click)="actionsMenu.toggle()"
+                *ngIf="!isSentSuccessfully(workEffort)"
                 class="btn btn-text actions-button no-dropdown-indicator h-100"
                 [ngbTooltip]="'portal.global.actions' | translate"
                 placement="left"
@@ -31,27 +34,37 @@
       </div>
     </div>
     <div class="col-12 col-lg-3 work-effort-cell">
-      <small class="cell-label">Ergebnis der Bewerbung</small>
+      <small class="cell-label">
+        {{'portal.work-efforts.work-effort.cell-label.application-result' | translate}}
+      </small>
       <div class="flex-grow-1">
         <alv-inline-badges [badges]="resultBadges"></alv-inline-badges>
       </div>
     </div>
     <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column">
-      <small class="cell-label">Bearbeitungsstatus</small>
+      <small class="cell-label">
+        {{'portal.work-efforts.edit-status.label' | translate}}
+      </small>
       <div class="flex-grow-1">
-        Erfasst am {{workEffort.updatedTime | localeAwareDate}}
+        {{'portal.work-efforts.work-effort.cell-text.edited-at' | translate}}
+        {{workEffort.updatedTime | localeAwareDate}}
       </div>
     </div>
     <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column"
          [class.success]="isSentSuccessfully(workEffort)">
-      <small class="cell-label">Übermittlungsstatus</small>
+      <small class="cell-label">
+        {{'portal.work-efforts.submit-status.label' | translate}}
+      </small>
       <div class="flex-grow-1">
-        Übermittlung erfolgt am 05.04.2019 23:59 Uhr
+        {{'portal.work-efforts.submit-status.text.' + workEffort.status
+        | translate:{dateTime: workEffort.date | date: 'dd.MM.yyyy hh:mm'} }}
+      </div>
+      <div class="success-icon-container text-center h-100 align-items-center">
+        <fa-icon [icon]="['fas', 'check']"
+                 class="w-100"></fa-icon>
       </div>
     </div>
     <span class="expanded-indicator h-100">
-  </span>
+    </span>
   </a>
-
-
 </div>

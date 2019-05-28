@@ -11,3 +11,8 @@ export interface MenuEntry {
   entries?: MenuEntry[];
 }
 
+export interface MenuDefinition {
+  mainMenuEntries: MenuEntry[];
+  onlineFormsMenuEntries: MenuEntry[];
+  settingsMenuEntries: MenuEntry[];
+}
