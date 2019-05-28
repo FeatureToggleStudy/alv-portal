@@ -1,6 +1,6 @@
 <alv-two-column-layout [showLeftColumn]="false">
   <div class="main-column">
-    <form [formGroup]="formGroup">
+    <form [formGroup]="workEffortFormGroup">
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
         <alv-date-input alvFormControlName="date"
                         label="portal.global.date">
@@ -22,7 +22,7 @@
 
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label">
         <alv-post-address-form
-          [parentForm]="formGroup"
+          [parentForm]="workEffortFormGroup"
           [postAddressFormValue]="postAddressFormValue"
           groupName="address"
         ></alv-post-address-form>
@@ -58,6 +58,23 @@
         </alv-radio-button>
       </alv-collapse-panel>
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">
+        <fieldset [formGroup]="resultFormGroup"
+                  class="mb-2">
+          <legend class="label">
+            {{ 'global.workForm.label' | translate }}
+          </legend>
+          <ng-container *ngFor="let resultOption of resultOptions; let i = index">
+            <div class="alv-light-panel p-2 mb-1">
+              <alv-checkbox
+                [alvFormControlName]="resultOption.value"
+                [label]="resultOption.label"
+                class="narrow-form">
+              </alv-checkbox>
+            </div>
+          </ng-container>
+
+        </fieldset>
+
         <!--        <alv-checkbox alvFormControlName="">-->
         <!--          -->
         <!--        </alv-checkbox>-->
