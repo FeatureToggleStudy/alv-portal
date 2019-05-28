@@ -3,30 +3,34 @@ import { Company } from '../shared.types';
 export interface WorkEffort {
   id?: string;
   date: string;
-  form: WorkEffortForm;
+  form: WorkEffortForm[];
   company: WorkEffortCompany;
   occupation: string;
-  ravJob: boolean;
-  workload: WorkEffortWorkload;
+  appliedThroughRav: boolean;
+  fullTimeJob: boolean;
   results: WorkEffortResult[];
-  status: WorkEffortStatus;
-  createdTime?: string;
-  updatedTime?: string;
+  rejectionReason?: string;
+  submittedAt?: string; // if null, then edit is possible
+  updatedAt?: string;
 }
 
-export interface ControlPeriod {
+export interface WorkEffortsReport {
   id?: string;
-  date: string;
-  filePath: string;
+  controlPeriod: string; // e.g 2019-05
+  documentId: string;
   workEfforts: WorkEffort[];
-  status: WorkEffortStatus;
+  status: WorkEffortsReportStatus;
   type: WorkEffortType;
+  forecastSubmissionDate: string;
+  submittedAt?: string;
+  updatedAt?: string;
 }
 
-export enum WorkEffortStatus {
-  EDITED = 'EDITED',
-  SENT = 'SENT',
-  NEW = 'NEW'
+export enum WorkEffortsReportStatus {
+  CHANGED = 'CHANGED',
+  SUBMITTED = 'SUBMITTED',
+  OPEN = 'OPEN',
+  CLOSED = 'CLOSED' // TODO: no add/edit button for work efforts
 }
 
 export enum WorkEffortType {
@@ -37,26 +41,29 @@ export enum WorkEffortType {
 export enum WorkEffortForm {
   ELECTRONIC = 'ELECTRONIC',
   PERSONAL = 'PERSONAL',
-  TELEPHONE = 'TELEPHONE',
+  PHONE = 'PHONE',
   MAIL = 'MAIL'
 }
 
-export enum WorkEffortWorkload {
-  FULL_TIME = 'FULL_TIME',
-  PART_TIME = 'PART_TIME'
-}
-
 export enum WorkEffortResult {
+  ALL = 'ALL',
   PENDING = 'PENDING',
   REJECTED = 'REJECTED',
   EMPLOYED = 'EMPLOYED',
   INTERVIEW = 'INTERVIEW'
 }
 
+export enum WorkEffortsFilterPeriod {
+  CURRENT_MONTH = 'CURRENT_MONTH',
+  LAST_3_MONTHS = 'LAST_3_MONTHS',
+  LAST_6_MONTHS = 'LAST_6_MONTHS',
+  LAST_12_MONTHS = 'LAST_12_MONTHS',
+  ALL_PAST_MONTHS = 'ALL_PAST_MONTHS'
+}
 
 export interface WorkEffortCompany extends Company {
   email: string;
-  url: string;
+  applyFormUrl: string;
   phone: string;
 }
 
@@ -80,7 +87,7 @@ export const mockedWorkEffort = {
   ravJob: false,
   results: [WorkEffortResult.REJECTED],
   workload: WorkEffortWorkload.FULL_TIME,
-  status: WorkEffortStatus.SENT,
+  status: WorkEffortsReportStatus.SENT,
   createdTime: '2019-05-17T13:17:41.981',
   updatedTime: '2019-05-17T13:17:41.981'
 };
@@ -89,7 +96,7 @@ export const mockedControlPeriods = [
   {
     date: '2019-05-01',
     filePath: 'https://www.google.com',
-    status: WorkEffortStatus.EDITED,
+    status: WorkEffortsReportStatus.EDITED,
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
@@ -112,7 +119,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.REJECTED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.SENT,
+        status: WorkEffortsReportStatus.SENT,
         createdTime: '2019-05-17T13:17:41.981',
         updatedTime: '2019-05-17T13:17:41.981'
       },
@@ -136,7 +143,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.INTERVIEW, WorkEffortResult.PENDING],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.EDITED,
+        status: WorkEffortsReportStatus.EDITED,
         createdTime: '2019-05-20T13:17:41.981',
         updatedTime: '2019-05-20T13:17:41.981'
       },
@@ -160,7 +167,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.INTERVIEW, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.NEW,
+        status: WorkEffortsReportStatus.NEW,
         createdTime: '2019-05-22T13:17:41.981',
         updatedTime: '2019-05-22T13:17:41.981'
       }
@@ -169,7 +176,7 @@ export const mockedControlPeriods = [
   {
     date: '2019-04-01',
     filePath: 'https://www.google.com',
-    status: WorkEffortStatus.SENT,
+    status: WorkEffortsReportStatus.SENT,
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
@@ -192,7 +199,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.SENT,
+        status: WorkEffortsReportStatus.SENT,
         createdTime: '2019-05-17T13:17:41.981',
         updatedTime: '2019-05-17T13:17:41.981'
       }
@@ -201,7 +208,7 @@ export const mockedControlPeriods = [
   {
     date: '2019-03-01',
     filePath: 'https://www.google.com',
-    status: WorkEffortStatus.SENT,
+    status: WorkEffortsReportStatus.SENT,
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
@@ -224,7 +231,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.SENT,
+        status: WorkEffortsReportStatus.SENT,
         createdTime: '2019-03-17T13:17:41.981',
         updatedTime: '2019-03-17T13:17:41.981'
       }
@@ -233,7 +240,7 @@ export const mockedControlPeriods = [
   {
     date: '2019-02-01',
     filePath: 'https://www.google.com',
-    status: WorkEffortStatus.SENT,
+    status: WorkEffortsReportStatus.SENT,
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
@@ -256,7 +263,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.SENT,
+        status: WorkEffortsReportStatus.SENT,
         createdTime: '2019-05-17T13:17:41.981',
         updatedTime: '2019-05-17T13:17:41.981'
       }
@@ -265,7 +272,7 @@ export const mockedControlPeriods = [
   {
     date: '2019-01-01',
     filePath: 'https://www.google.com',
-    status: WorkEffortStatus.SENT,
+    status: WorkEffortsReportStatus.SENT,
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
@@ -288,7 +295,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.SENT,
+        status: WorkEffortsReportStatus.SENT,
         createdTime: '2019-05-17T13:17:41.981',
         updatedTime: '2019-05-17T13:17:41.981'
       }
@@ -297,7 +304,7 @@ export const mockedControlPeriods = [
   {
     date: '2018-12-01',
     filePath: 'https://www.google.com',
-    status: WorkEffortStatus.SENT,
+    status: WorkEffortsReportStatus.SENT,
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
@@ -320,7 +327,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.SENT,
+        status: WorkEffortsReportStatus.SENT,
         createdTime: '2019-05-17T13:17:41.981',
         updatedTime: '2019-05-17T13:17:41.981'
       }
@@ -329,7 +336,7 @@ export const mockedControlPeriods = [
   {
     date: '2018-11-01',
     filePath: 'https://www.google.com',
-    status: WorkEffortStatus.SENT,
+    status: WorkEffortsReportStatus.SENT,
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
@@ -352,7 +359,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.SENT,
+        status: WorkEffortsReportStatus.SENT,
         createdTime: '2019-05-17T13:17:41.981',
         updatedTime: '2019-05-17T13:17:41.981'
       }
@@ -361,7 +368,7 @@ export const mockedControlPeriods = [
   {
     date: '2018-10-01',
     filePath: 'https://www.google.com',
-    status: WorkEffortStatus.SENT,
+    status: WorkEffortsReportStatus.SENT,
     type: WorkEffortType.DURING_UNEMPLOYMENT,
     workEfforts: [
       {
@@ -384,7 +391,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.SENT,
+        status: WorkEffortsReportStatus.SENT,
         createdTime: '2019-05-17T13:17:41.981',
         updatedTime: '2019-05-17T13:17:41.981'
       }
@@ -393,7 +400,7 @@ export const mockedControlPeriods = [
   {
     date: '2018-09-01',
     filePath: 'https://www.google.com',
-    status: WorkEffortStatus.SENT,
+    status: WorkEffortsReportStatus.SENT,
     type: WorkEffortType.BEFORE_UNEMPLOYMENT,
     workEfforts: [
       {
@@ -416,7 +423,7 @@ export const mockedControlPeriods = [
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
         workload: WorkEffortWorkload.FULL_TIME,
-        status: WorkEffortStatus.SENT,
+        status: WorkEffortsReportStatus.SENT,
         createdTime: '2019-05-17T13:17:41.981',
         updatedTime: '2019-05-17T13:17:41.981'
       }
