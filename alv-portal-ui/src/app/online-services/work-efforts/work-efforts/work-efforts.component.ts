@@ -35,7 +35,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
 
   form: FormGroup;
 
-  controlPeriods$: Observable<WorkEffortsReport[]>;
+  workEffortsReports$: Observable<WorkEffortsReport[]>;
 
   currentFilter: WorkEffortsFilter = initialWorkEffortsFilter;
 
@@ -53,7 +53,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       query: ['']
     });
 
-    this.controlPeriods$ = this.authenticationService.getCurrentUser().pipe(
+    this.workEffortsReports$ = this.authenticationService.getCurrentUser().pipe(
       flatMap(user => this.workEffortsRepository.getControlPeriods(user.id))
     );
 
