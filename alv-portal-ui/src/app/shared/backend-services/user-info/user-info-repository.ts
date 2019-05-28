@@ -3,6 +3,11 @@ import { Accountability, CompanyContactTemplate, UserInfoDTO } from './user-info
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+export enum UserSearchParameterTypes {
+  EMAIL = 'eMail',
+  STES_NR = 'stesNr'
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,11 +44,16 @@ export class UserInfoRepository {
     return this.http.get<string[]>(`${UserInfoRepository.USER_INFO_URL}${userId}/roles`);
   }
 
-  public unregisterUser(email: string, role: string): Observable<any> {
+  public unregisterUser(searchParamType: UserSearchParameterTypes, searchParam: string, role: string): Observable<any> {
     const params = new HttpParams()
-      .set('eMail', email)
+      .set(searchParamType, searchParam)
       .set('role', role);
-    return this.http.delete(UserInfoRepository.USER_INFO_URL, { params: params });
+
+    let url = UserInfoRepository.USER_INFO_URL;
+    if (searchParamType === UserSearchParameterTypes.STES_NR) {
+      url += 'by-stes-nr/';
+    }
+    return this.http.delete(url, { params: params });
   }
 
 }

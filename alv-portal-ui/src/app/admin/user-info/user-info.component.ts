@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserInfoRepository } from '../../shared/backend-services/user-info/user-info-repository';
+import {
+  UserInfoRepository,
+  UserSearchParameterTypes
+} from '../../shared/backend-services/user-info/user-info-repository';
 import { patternInputValidator } from '../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, PERSON_NUMBER_REGEX } from '../../shared/forms/regex-patterns';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
@@ -13,11 +16,6 @@ import { Notification, NotificationType } from '../../shared/layout/notification
 import { UserInfoBadge, UserInfoBadgesMapperService } from './user-info-badges-mapper.service';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
-
-enum UserSearchParameterTypes {
-  EMAIL = 'EMAIL',
-  STES_NR = 'STES_NR'
-}
 
 const ALERTS = {
   userNotFoundByEmail: {
@@ -159,12 +157,12 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     this.modalService.openConfirm({
       title: 'portal.admin.user-info.actions.unregister.title',
       content: 'portal.admin.user-info.confirmMessage',
-      contentParams: { email: this.form.get('searchParam').value },
+      contentParams: { searchParam: this.form.get('searchParam').value },
       confirmLabel: 'portal.admin.user-info.confirm-dialog.yes',
       cancelLabel: 'portal.admin.user-info.confirm-dialog.no'
     } as ConfirmModalConfig).result
       .then(
-        () => this.userInfoRepository.unregisterUser(this.form.get('searchParam').value, this.determineRoleToBeRemoved())
+        () => this.userInfoRepository.unregisterUser(this.form.value.searchParameterType, this.form.get('searchParam').value, this.determineRoleToBeRemoved())
           .subscribe(() => {
             this.alert = ALERTS.unregisterSuccess;
             this.onSubmit();
