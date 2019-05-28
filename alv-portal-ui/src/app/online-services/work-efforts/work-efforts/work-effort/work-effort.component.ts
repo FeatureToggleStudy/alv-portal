@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  ControlPeriod,
+  WorkEffortsReport,
   WorkEffort,
-  WorkEffortResult, WorkEffortStatus
+  WorkEffortResult, WorkEffortsReportStatus
 } from '../../../../shared/backend-services/work-efforts/work-efforts.types';
 import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badge.types';
 import { getDeleteConfirmModalConfig } from '../../../../shared/job-search-profiles/modal-config.types';
@@ -47,33 +47,33 @@ export class WorkEffortComponent implements OnInit {
     if (this.workEffort.results.includes(WorkEffortResult.INTERVIEW)) {
       this.resultBadges.push({
         cssClass: 'badge-work-effort-result-interview',
-        label: 'portal.work-efforts.work-effort-result.badge.' + WorkEffortResult.INTERVIEW
+        label: 'portal.work-efforts.work-effort-result.' + WorkEffortResult.INTERVIEW
       });
     }
 
     if (this.workEffort.results.includes(WorkEffortResult.EMPLOYED)) {
       this.resultBadges.push({
         cssClass: 'badge-work-effort-result-employed',
-        label: 'portal.work-efforts.work-effort-result.badge.' + WorkEffortResult.EMPLOYED
+        label: 'portal.work-efforts.work-effort-result.' + WorkEffortResult.EMPLOYED
       });
     }
 
     if (this.workEffort.results.includes(WorkEffortResult.PENDING)) {
       this.resultBadges.push({
         cssClass: 'badge-work-effort-result-pending',
-        label: 'portal.work-efforts.work-effort-result.badge.' + WorkEffortResult.PENDING
+        label: 'portal.work-efforts.work-effort-result.' + WorkEffortResult.PENDING
       });
     }
 
     if (this.workEffort.results.includes(WorkEffortResult.REJECTED)) {
       this.resultBadges.push({
         cssClass: 'badge-work-effort-result-rejected',
-        label: 'portal.work-efforts.work-effort-result.badge.' + WorkEffortResult.REJECTED
+        label: 'portal.work-efforts.work-effort-result.' + WorkEffortResult.REJECTED
       });
     }
   }
 
   isSentSuccessfully(workEffort: WorkEffort): boolean {
-    return workEffort.status === WorkEffortStatus.SENT;
+    return !!workEffort.submittedAt;
   }
 }

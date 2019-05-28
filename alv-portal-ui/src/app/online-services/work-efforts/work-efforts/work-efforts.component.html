@@ -27,7 +27,7 @@
   </alv-input-field>
 
   <alv-control-period *ngFor="let controlPeriod of controlPeriods$ | async"
-                      [controlPeriod]="controlPeriod"
+                      [workEffortsReport]="controlPeriod"
                       [isCurrentPeriod]="isCurrentControlPeriod(controlPeriod)"
                       class="d-block mb-4">
   </alv-control-period>

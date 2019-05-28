@@ -137,7 +137,7 @@
       </alv-menu-entry>
     </ng-container>
   </ng-container>
-  <hr>
+
   <a class="nav-item"
      target="_blank"
      rel="noopener"
@@ -149,9 +149,9 @@
     <span class="nav-text logo-text"
           [innerHTML]="'home.title.cms' | translate"></span>
   </a>
-  <hr>
+
   <!--Logout Button-->
-  <a class="nav-item"
+  <a class="nav-item mt-3 d-block"
      *alvIsAuthenticated
      (click)="logout()">
     <fa-icon class="nav-icon"

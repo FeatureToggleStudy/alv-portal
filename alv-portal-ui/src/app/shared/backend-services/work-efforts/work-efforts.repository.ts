@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import {
-  ControlPeriod,
+  WorkEffortsReport,
   mockedControlPeriods,
   mockedWorkEffort,
   WorkEffort
@@ -19,7 +19,7 @@ export class WorkEffortsRepository {
   constructor(private http: HttpClient) {
   }
 
-  getControlPeriods(userId: string): Observable<ControlPeriod[]> {
+  getControlPeriods(userId: string): Observable<WorkEffortsReport[]> {
     return of(mockedControlPeriods);
   }
 
