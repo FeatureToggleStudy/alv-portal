@@ -15,9 +15,9 @@ import { WorkEffortResult } from '../../../shared/backend-services/work-efforts/
 })
 export class WorkEffortFormComponent implements OnInit {
 
-  Object = Object;
   workEffortFormGroup: FormGroup;
   resultOptions = WorkEffortResult;
+  resultOptionsKeys: string[] = Object.keys(WorkEffortResult);
 
   bottomAlert: Notification = {
     isSticky: true,
@@ -51,9 +51,7 @@ export class WorkEffortFormComponent implements OnInit {
 
   ]);
 
-  get resultFormGroup(): FormGroup {
-    return this.workEffortFormGroup.get('workload') as FormGroup;
-  }
+
 
   constructor(private fb: FormBuilder) {
 
@@ -92,7 +90,7 @@ export class WorkEffortFormComponent implements OnInit {
       occupation: [''],
       ravJobCheckBox: [false],
       workload: [''],
-      result: ['']
+      result: this.fb.array(['', '', '', ''])
 
 
     });

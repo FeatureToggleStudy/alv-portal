@@ -3,7 +3,7 @@ import { Company } from '../shared.types';
 export interface WorkEffort {
   id?: string;
   date: string;
-  applicationForms: WorkEffortForm[];
+  applicationForms: WorkEffortApplyChannel[];
   company: WorkEffortCompany;
   occupation: string;
   appliedThroughRav: boolean;
@@ -38,7 +38,7 @@ export enum WorkEffortType {
   BEFORE_UNEMPLOYMENT = 'BEFORE_UNEMPLOYMENT'
 }
 
-export enum WorkEffortForm {
+export enum WorkEffortApplyChannel {
   ELECTRONIC = 'ELECTRONIC',
   PERSONAL = 'PERSONAL',
   PHONE = 'PHONE',
@@ -82,7 +82,7 @@ export const mockedWorkEffort: WorkEffort = {
     applyFormUrl: 'www.example-company.com',
     zipCode: '8098'
   },
-  applicationForms: [WorkEffortForm.PHONE],
+  applicationForms: [WorkEffortApplyChannel.PHONE],
   occupation: 'Systemadministrator Informatiker',
   appliedThroughRav: false,
   results: [WorkEffortResult.REJECTED],
@@ -116,7 +116,7 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           zipCode: '8098'
         },
         date: '2019-05-10',
-        applicationForms: [WorkEffortForm.PHONE],
+        applicationForms: [WorkEffortApplyChannel.PHONE],
         occupation: 'Systemadministrator Informatiker',
         appliedThroughRav: false,
         results: [WorkEffortResult.REJECTED],
@@ -139,7 +139,7 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           zipCode: '8098'
         },
         date: '2019-05-10',
-        applicationForms: [WorkEffortForm.PHONE],
+        applicationForms: [WorkEffortApplyChannel.PHONE],
         occupation: 'Systemadministrator Informatiker',
         appliedThroughRav: false,
         results: [WorkEffortResult.REJECTED],
@@ -162,7 +162,7 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           zipCode: '8098'
         },
         date: '2019-05-10',
-        applicationForms: [WorkEffortForm.PHONE],
+        applicationForms: [WorkEffortApplyChannel.PHONE],
         occupation: 'Systemadministrator Informatiker',
         appliedThroughRav: false,
         results: [WorkEffortResult.REJECTED],

@@ -1,17 +1,13 @@
-<div *ngFor="let res of Object.keys(resultOptions)">
-  <pre>{{res}}</pre>
-  <pre>{{resultOptions[res]}}</pre>
-  <hr>
-</div>
 <alv-two-column-layout [showLeftColumn]="false">
   <div class="main-column">
     <form [formGroup]="workEffortFormGroup">
+      <!--      Date-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
         <alv-date-input alvFormControlName="date"
                         label="portal.global.date">
         </alv-date-input>
       </alv-collapse-panel>
-
+      <
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label">
         <alv-checkbox alvFormControlName="onlineCheckbox"
                       label="portal.work-efforts.edit-form.way-of-application.online"></alv-checkbox>
@@ -62,28 +58,28 @@
           class="narrow-form">
         </alv-radio-button>
       </alv-collapse-panel>
-      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">
-        <fieldset [formGroup]="resultFormGroup"
-                  class="mb-2">
-          <legend class="label">
-            {{ 'global.workForm.label' | translate }}
-          </legend>
-          <ng-container *ngFor="let resultOption of resultOptions; let i = index">
-            <div class="alv-light-panel p-2 mb-1">
-              <alv-checkbox
-                [alvFormControlName]="resultOption.value"
-                [label]="resultOption.label"
-                class="narrow-form">
-              </alv-checkbox>
-            </div>
-          </ng-container>
+      <!--      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">-->
+      <!--        <fieldset formArrayName="result"-->
+      <!--                  class="mb-2">-->
+      <!--          <legend class="label">-->
+      <!--            {{ 'global.workForm.' | translate }}-->
+      <!--          </legend>-->
+      <!--          <ng-container *ngFor="let res of resultOptionsKeys; let i=index;">-->
+      <!--            <div class="alv-light-panel p-2 mb-1">-->
+      <!--              <alv-checkbox-->
+      <!--                [alvFormControlName]="i"-->
+      <!--                [label]="resultOptions[res]"-->
+      <!--                class="narrow-form">-->
+      <!--              </alv-checkbox>-->
+      <!--            </div>-->
+      <!--          </ng-container>-->
 
-        </fieldset>
+      <!--        </fieldset>-->
 
-        <!--        <alv-checkbox alvFormControlName="">-->
-        <!--          -->
-        <!--        </alv-checkbox>-->
-      </alv-collapse-panel>
+      <!--        &lt;!&ndash;        <alv-checkbox alvFormControlName="">&ndash;&gt;-->
+      <!--        &lt;!&ndash;          &ndash;&gt;-->
+      <!--        &lt;!&ndash;        </alv-checkbox>&ndash;&gt;-->
+      <!--      </alv-collapse-panel>-->
 
       <alv-alert [hideDismiss]="true"
                  [notification]="bottomAlert"></alv-alert>
