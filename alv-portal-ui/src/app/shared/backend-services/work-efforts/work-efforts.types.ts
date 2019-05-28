@@ -3,7 +3,7 @@ import { Company } from '../shared.types';
 export interface WorkEffort {
   id?: string;
   date: string;
-  form: WorkEffortForm;
+  communicationChannel: WorkEffortCommunicationChannel[];
   company: WorkEffortCompany;
   occupation: string;
   ravJob: boolean;
@@ -34,7 +34,7 @@ export enum WorkEffortType {
   BEFORE_UNEMPLOYMENT = 'BEFORE_UNEMPLOYMENT'
 }
 
-export enum WorkEffortForm {
+export enum WorkEffortCommunicationChannel {
   ELECTRONIC = 'ELECTRONIC',
   PERSONAL = 'PERSONAL',
   TELEPHONE = 'TELEPHONE',
@@ -75,7 +75,7 @@ export const mockedWorkEffort = {
     zipCode: '8098'
   },
   date: '2019-05-10',
-  form: WorkEffortForm.TELEPHONE,
+  form: WorkEffortCommunicationChannel.TELEPHONE,
   occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
   ravJob: false,
   results: [WorkEffortResult.REJECTED],
@@ -107,7 +107,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2019-05-10',
-        form: WorkEffortForm.TELEPHONE,
+        form: WorkEffortCommunicationChannel.TELEPHONE,
         occupation: 'Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED],
@@ -131,7 +131,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2019-05-19',
-        form: WorkEffortForm.MAIL,
+        form: WorkEffortCommunicationChannel.MAIL,
         occupation: 'Fachinformatiker',
         ravJob: false,
         results: [WorkEffortResult.INTERVIEW, WorkEffortResult.PENDING],
@@ -155,7 +155,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2019-05-21',
-        form: WorkEffortForm.ELECTRONIC,
+        form: WorkEffortCommunicationChannel.ELECTRONIC,
         occupation: 'Big Data Analyst',
         ravJob: false,
         results: [WorkEffortResult.INTERVIEW, WorkEffortResult.EMPLOYED],
@@ -187,7 +187,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2019-05-24',
-        form: WorkEffortForm.TELEPHONE,
+        form: WorkEffortCommunicationChannel.TELEPHONE,
         occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
@@ -219,7 +219,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2019-03-24',
-        form: WorkEffortForm.TELEPHONE,
+        form: WorkEffortCommunicationChannel.TELEPHONE,
         occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
@@ -251,7 +251,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2019-02-04',
-        form: WorkEffortForm.TELEPHONE,
+        form: WorkEffortCommunicationChannel.TELEPHONE,
         occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
@@ -283,7 +283,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2019-01-25',
-        form: WorkEffortForm.TELEPHONE,
+        form: WorkEffortCommunicationChannel.TELEPHONE,
         occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
@@ -315,7 +315,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2018-11-01',
-        form: WorkEffortForm.TELEPHONE,
+        form: WorkEffortCommunicationChannel.TELEPHONE,
         occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
@@ -347,7 +347,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2018-11-24',
-        form: WorkEffortForm.TELEPHONE,
+        form: WorkEffortCommunicationChannel.TELEPHONE,
         occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
@@ -379,7 +379,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2018-10-24',
-        form: WorkEffortForm.TELEPHONE,
+        form: WorkEffortCommunicationChannel.TELEPHONE,
         occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
@@ -411,7 +411,7 @@ export const mockedControlPeriods = [
           zipCode: '8098'
         },
         date: '2018-09-14',
-        form: WorkEffortForm.TELEPHONE,
+        form: WorkEffortCommunicationChannel.TELEPHONE,
         occupation: 'SRF - Schweizer Radio und Fernsehen Systemadministrator Informatiker',
         ravJob: false,
         results: [WorkEffortResult.REJECTED, WorkEffortResult.EMPLOYED],
