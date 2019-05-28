@@ -3,7 +3,7 @@ import { Company } from '../shared.types';
 export interface WorkEffort {
   id?: string;
   date: string;
-  form: WorkEffortForm;
+  form: WorkEffortForm[];
   company: WorkEffortCompany;
   occupation: string;
   ravJob: boolean;
