@@ -1,3 +1,8 @@
+<div *ngFor="let res of Object.keys(resultOptions)">
+  <pre>{{res}}</pre>
+  <pre>{{resultOptions[res]}}</pre>
+  <hr>
+</div>
 <alv-two-column-layout [showLeftColumn]="false">
   <div class="main-column">
     <form [formGroup]="workEffortFormGroup">

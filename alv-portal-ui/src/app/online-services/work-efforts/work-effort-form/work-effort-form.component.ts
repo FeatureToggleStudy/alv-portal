@@ -5,6 +5,8 @@ import { PostAddressFormValue } from '../../../job-advertisement/job-publication
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { of } from 'rxjs';
 import { ContractType } from '../../../shared/backend-services/shared.types';
+import { WorkEffortResult } from '../../../shared/backend-services/work-efforts/work-efforts.types';
+
 
 @Component({
   selector: 'alv-work-effort-form',
@@ -13,7 +15,9 @@ import { ContractType } from '../../../shared/backend-services/shared.types';
 })
 export class WorkEffortFormComponent implements OnInit {
 
+  Object = Object;
   workEffortFormGroup: FormGroup;
+  resultOptions = WorkEffortResult;
 
   bottomAlert: Notification = {
     isSticky: true,
