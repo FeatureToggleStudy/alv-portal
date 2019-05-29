@@ -5,7 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 export enum UserSearchParameterTypes {
   EMAIL = 'eMail',
-  STES_NR = 'stesNr'
+  PERSON_NR = 'personNr'
 }
 
 @Injectable({
@@ -35,9 +35,9 @@ export class UserInfoRepository {
     return this.http.get<UserInfoDTO>(UserInfoRepository.USER_INFO_URL, { params: params });
   }
 
-  public loadUserByStesNr(stesNumber: string): Observable<UserInfoDTO> {
-    const params = new HttpParams().set('stesNr', stesNumber);
-    return this.http.get<UserInfoDTO>(`${UserInfoRepository.USER_INFO_URL}_search/by-stes-nr`, { params: params });
+  public loadUserByPersonNr(personNumber: string): Observable<UserInfoDTO> {
+    const params = new HttpParams().set(UserSearchParameterTypes.PERSON_NR, personNumber);
+    return this.http.get<UserInfoDTO>(`${UserInfoRepository.USER_INFO_URL}_search/by-person-nr`, { params: params });
   }
 
   public loadUserRoles(userId: string): Observable<string[]> {
@@ -50,8 +50,8 @@ export class UserInfoRepository {
       .set('role', role);
 
     let url = UserInfoRepository.USER_INFO_URL;
-    if (searchParamType === UserSearchParameterTypes.STES_NR) {
-      url += 'by-stes-nr/';
+    if (searchParamType === UserSearchParameterTypes.PERSON_NR) {
+      url += 'by-person-nr/';
     }
     return this.http.delete(url, { params: params });
   }

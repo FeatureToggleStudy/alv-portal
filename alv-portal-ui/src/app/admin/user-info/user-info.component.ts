@@ -23,9 +23,9 @@ const ALERTS = {
     messageKey: 'portal.admin.user-info.alert.user-info-not-found-by-email',
     isSticky: true
   } as Notification,
-  userNotFoundByStesNr: {
+  userNotFoundByPersonNr: {
     type: NotificationType.ERROR,
-    messageKey: 'portal.admin.user-info.alert.user-info-not-found-by-stes-nr',
+    messageKey: 'portal.admin.user-info.alert.user-info-not-found-by-person-nr',
     isSticky: true
   } as Notification,
   userTechError: {
@@ -95,8 +95,8 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       value: UserSearchParameterTypes.EMAIL
     },
     {
-      label: 'portal.admin.user-info.use.search.parameter.option.stesnr',
-      value: UserSearchParameterTypes.STES_NR
+      label: 'portal.admin.user-info.use.search.parameter.option.person-nr',
+      value: UserSearchParameterTypes.PERSON_NR
     }
   ]);
 
@@ -188,7 +188,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
           if (this.form.value.searchParameterType === UserSearchParameterTypes.EMAIL) {
             this.alert = ALERTS.userNotFoundByEmail;
           } else {
-            this.alert = ALERTS.userNotFoundByStesNr;
+            this.alert = ALERTS.userNotFoundByPersonNr;
           }
         } else {
           this.alert = ALERTS.userTechError;
@@ -216,7 +216,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
       this.formLabel = 'portal.admin.user-info.user-info.email';
       validator = patternInputValidator(EMAIL_REGEX);
     } else {
-      this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.stesnr';
+      this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.person-nr';
       this.formLabel = 'portal.admin.user-info.stes-info.pn';
       validator = patternInputValidator(PERSON_NUMBER_REGEX);
     }
@@ -228,7 +228,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     if (this.form.value.searchParameterType === UserSearchParameterTypes.EMAIL) {
       return this.userInfoRepository.loadUserByEmail(this.form.get('searchParam').value);
     } else {
-      return this.userInfoRepository.loadUserByStesNr(this.form.get('searchParam').value);
+      return this.userInfoRepository.loadUserByPersonNr(this.form.get('searchParam').value);
     }
   }
 
