@@ -4,15 +4,8 @@ import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component
 import { WorkEffortsReport } from '../../../shared/backend-services/work-efforts/work-efforts.types';
 import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import {
-  catchError,
-  debounceTime,
-  flatMap,
-  switchMap,
-  take,
-  takeUntil
-} from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { debounceTime, flatMap, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { WorkEffortsFilterModalComponent } from './work-efforts-filter-modal/work-efforts-filter-modal.component';
 import {
@@ -54,20 +47,17 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
     });
 
     this.workEffortsReports$ = this.authenticationService.getCurrentUser().pipe(
-      flatMap(user => this.workEffortsRepository.getControlPeriods(user.id))
+      flatMap(user => this.workEffortsRepository.getWorkEffortsReports(user.id))
     );
-
-    /*
 
     this.form.get('query').valueChanges.pipe(
       debounceTime(300),
-      switchMap((query: string) => query.length >= this.queryMinLength
-        ? this.loadItems(query).pipe(catchError(this.handleError.bind(this)))
-        : of([])),
       takeUntil(this.ngUnsubscribe))
-      .subscribe(value => this.applyQuery(value));
-
-      */
+      .subscribe(value => {
+        if (value.length >= 3) {
+          this.applyQuery(value);
+        }
+      });
   }
 
   onFilterClick() {
