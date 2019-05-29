@@ -6,6 +6,7 @@ import { Notification, NotificationType } from '../../../shared/layout/notificat
 import { of } from 'rxjs';
 import { ContractType } from '../../../shared/backend-services/shared.types';
 import {
+  mockedWorkEffort,
   WorkEffortApplyChannel,
   WorkEffortResult
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
@@ -20,6 +21,11 @@ const contractTypePrefix = 'portal.work-efforts.edit-form.contract-types';
 export class WorkEffortFormComponent implements OnInit {
 
   workEffortFormGroup: FormGroup;
+  /**
+   * the main input
+   */
+  public initialWorkEffort = mockedWorkEffort;
+
   resultOptions = WorkEffortResult;
   resultOptionsKeys: string[] = Object.keys(WorkEffortResult).filter(key => key !== 'ALL');
 
@@ -54,8 +60,7 @@ export class WorkEffortFormComponent implements OnInit {
     {
       value: ContractType.PERMANENT,
       label: contractTypePrefix + '.' + ContractType.PERMANENT
-    },
-
+    }
   ]);
 
 
@@ -68,7 +73,7 @@ export class WorkEffortFormComponent implements OnInit {
   ngOnInit() {
 
     this.workEffortFormGroup = this.fb.group({
-      date: [''],
+      date: [this.initialWorkEffort.date],
       applyChannel: this.generateApplyChannelGroup(),
       address: this.fb.group({
           name: ['name'],
