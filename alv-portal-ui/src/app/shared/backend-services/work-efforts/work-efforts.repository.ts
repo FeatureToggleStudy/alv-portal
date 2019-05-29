@@ -14,7 +14,7 @@ export class WorkEffortsRepository {
   constructor(private http: HttpClient) {
   }
 
-  getControlPeriods(userId: string): Observable<WorkEffortsReport[]> {
+  getWorkEffortsReports(userId: string): Observable<WorkEffortsReport[]> {
     return of(mockedControlPeriods);
   }
 

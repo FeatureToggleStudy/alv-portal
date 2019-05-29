@@ -28,7 +28,8 @@ export class WorkEffortsReportComponent implements OnInit {
   }
 
   isSentSuccessfully(workEffortsReport: WorkEffortsReport): boolean {
-    return workEffortsReport.status === WorkEffortsReportStatus.SUBMITTED;
+    return workEffortsReport.status === WorkEffortsReportStatus.SUBMITTED ||
+      workEffortsReport.status === WorkEffortsReportStatus.CLOSED;
   }
 
   isBeforeEmployment(workEffortsReport: WorkEffortsReport): boolean {
@@ -49,5 +50,13 @@ export class WorkEffortsReportComponent implements OnInit {
   removeWorkEffort(deletedWorkEffort: WorkEffort) {
     const indexToRemove = this.workEffortsReport.workEfforts.findIndex(workEffort => workEffort.id === deletedWorkEffort.id);
     this.workEffortsReport.workEfforts.splice(indexToRemove, 1);
+  }
+
+  getSubmissionDate(workEffortsReport: WorkEffortsReport): string {
+    return this.isSentSuccessfully(workEffortsReport) ? workEffortsReport.submittedAt : workEffortsReport.forecastSubmissionDate;
+  }
+
+  isReportClosed(workEffortsReport: WorkEffortsReport): boolean {
+    return workEffortsReport.status === WorkEffortsReportStatus.CLOSED;
   }
 }

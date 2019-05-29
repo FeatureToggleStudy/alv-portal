@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { WorkEffort, WorkEffortResult } from '../../../../shared/backend-services/work-efforts/work-efforts.types';
+import {
+  WorkEffort,
+  WorkEffortResult,
+  WorkEffortsReportStatus
+} from '../../../../shared/backend-services/work-efforts/work-efforts.types';
 import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badge.types';
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
 import { deleteWorkEffortModalConfig } from '../modal-config.types';
@@ -13,6 +17,8 @@ import { NotificationsService } from '../../../../core/notifications.service';
 export class WorkEffortComponent implements OnInit {
 
   @Input() workEffort: WorkEffort;
+
+  @Input() forecastSubmissionDate: string;
 
   @Output() deleted = new EventEmitter<WorkEffort>();
 
@@ -71,5 +77,14 @@ export class WorkEffortComponent implements OnInit {
 
   isSentSuccessfully(workEffort: WorkEffort): boolean {
     return !!workEffort.submittedAt;
+  }
+
+  getSubmissionDate(workEffort: WorkEffort): string {
+    return workEffort.submittedAt || this.forecastSubmissionDate;
+  }
+
+  getSubmissionText(workEffort: WorkEffort): string {
+    return 'portal.work-efforts.submit-status.text.' +
+      (this.isSentSuccessfully(workEffort) ? WorkEffortsReportStatus.SUBMITTED : WorkEffortsReportStatus.OPEN);
   }
 }
