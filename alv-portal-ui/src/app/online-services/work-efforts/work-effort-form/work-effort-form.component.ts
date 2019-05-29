@@ -96,12 +96,15 @@ export class WorkEffortFormComponent implements OnInit {
   }
 
   private generateResultGroup(): FormGroup {
-    return this.fb.group({
-      PENDING: [false],
-      REJECTED: [false],
-      EMPLOYED: [false],
-      INTERVIEW: [false]
-    });
+    const controlsConfig = {};
+
+    for (const result of this.resultOptionsKeys) {
+      controlsConfig[this.resultOptions[result]] = false;
+    }
+    for (const result of this.initialWorkEffort.results) {
+      controlsConfig[result] = true;
+    }
+    return this.fb.group(controlsConfig);
 
   }
 
