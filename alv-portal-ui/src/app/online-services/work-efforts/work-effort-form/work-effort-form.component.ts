@@ -106,12 +106,14 @@ export class WorkEffortFormComponent implements OnInit {
   }
 
   generateApplyChannelGroup(): FormGroup {
-    return this.fb.group({
-      ELECTRONIC: [false],
-      PERSONAL: [false],
-      PHONE: [false],
-      MAIL: [false]
-    });
+    const controlsConfig = {};
+    for (const applyChannel of this.applyChannelOptionsKeys) {
+      controlsConfig[this.applyChannelOptions[applyChannel]] = false;
+    }
+    for (const applyChannel of this.initialWorkEffort.applicationForms) {
+      controlsConfig[applyChannel] = true;
+    }
+    return this.fb.group(controlsConfig);
   }
 
 
