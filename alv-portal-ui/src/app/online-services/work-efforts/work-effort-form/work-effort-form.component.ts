@@ -5,8 +5,12 @@ import { PostAddressFormValue } from '../../../job-advertisement/job-publication
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { of } from 'rxjs';
 import { ContractType } from '../../../shared/backend-services/shared.types';
-import { WorkEffortResult } from '../../../shared/backend-services/work-efforts/work-efforts.types';
+import {
+  WorkEffortApplyChannel,
+  WorkEffortResult
+} from '../../../shared/backend-services/work-efforts/work-efforts.types';
 
+const contractTypePrefix = 'portal.work-efforts.edit-form.contract-types';
 
 @Component({
   selector: 'alv-work-effort-form',
@@ -18,6 +22,9 @@ export class WorkEffortFormComponent implements OnInit {
   workEffortFormGroup: FormGroup;
   resultOptions = WorkEffortResult;
   resultOptionsKeys: string[] = Object.keys(WorkEffortResult).filter(key => key !== 'ALL');
+
+  applyChannelOptions = WorkEffortApplyChannel;
+  applyChannelOptionsKeys: string[] = Object.keys(WorkEffortApplyChannel);
 
   bottomAlert: Notification = {
     isSticky: true,
@@ -42,11 +49,11 @@ export class WorkEffortFormComponent implements OnInit {
   contractTypeOptions$ = of([
     {
       value: ContractType.TEMPORARY,
-      label: 'portal.work-efforts.edit-form.contract-types.temporary'
+      label: contractTypePrefix + '.' + ContractType.TEMPORARY
     },
     {
       value: ContractType.PERMANENT,
-      label: 'portal.work-efforts.edit-form.contract-types.permanent'
+      label: contractTypePrefix + '.' + ContractType.PERMANENT
     },
 
   ]);
@@ -62,17 +69,7 @@ export class WorkEffortFormComponent implements OnInit {
 
     this.workEffortFormGroup = this.fb.group({
       date: [''],
-      communicationChannel: this.fb.array([
-          this.fb.control(''),
-          this.fb.control(''),
-          this.fb.control(''),
-          this.fb.control(''),
-        ]
-      ),
-      onlineCheckbox: [false],
-      mailCheckbox: [false],
-      personallyCheckbox: [false],
-      phoneCheckbox: [false],
+      applyChannel: this.generateApplyChannelGroup(),
       address: this.fb.group({
           name: ['name'],
           houseNumber: [''],
@@ -102,6 +99,16 @@ export class WorkEffortFormComponent implements OnInit {
     });
 
   }
+
+  generateApplyChannelGroup(): FormGroup {
+    return this.fb.group({
+      ELECTRONIC: [false],
+      PERSONAL: [false],
+      PHONE: [false],
+      MAIL: [false]
+    });
+  }
+
 
   submit() {
 

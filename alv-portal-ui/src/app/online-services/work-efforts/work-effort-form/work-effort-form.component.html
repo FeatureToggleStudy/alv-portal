@@ -1,25 +1,24 @@
 <alv-two-column-layout [showLeftColumn]="false">
   <div class="main-column">
     <form [formGroup]="workEffortFormGroup">
+
       <!--      Date-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
         <alv-date-input alvFormControlName="date"
                         label="portal.global.date">
         </alv-date-input>
       </alv-collapse-panel>
+
+      <!--      Apply channel-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label">
-        <alv-checkbox alvFormControlName="onlineCheckbox"
-                      label="portal.work-efforts.edit-form.way-of-application.online"></alv-checkbox>
-        <alv-checkbox alvFormControlName="mailCheckbox"
-                      label="portal.work-efforts.edit-form.way-of-application.mail"></alv-checkbox>
-        <alv-checkbox alvFormControlName="personallyCheckbox"
-                      label="portal.work-efforts.edit-form.way-of-application.personally"></alv-checkbox>
-        <alv-checkbox alvFormControlName="phoneCheckbox"
-                      label="portal.work-efforts.edit-form.way-of-application.phone"></alv-checkbox>
+        <fieldset formGroupName="applyChannel">
+          <ng-container *ngFor="let key of applyChannelOptionsKeys">
+            <alv-checkbox [alvFormControlName]="applyChannelOptions[key]"
+                          [label]="'portal.work-efforts.edit-form.apply-channel.'+applyChannelOptions[key]"></alv-checkbox>
 
-
+          </ng-container>
+        </fieldset>
       </alv-collapse-panel>
-
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label">
         <alv-post-address-form
           [parentForm]="workEffortFormGroup"
@@ -41,15 +40,21 @@
                          type="tel">
         </alv-input-field>
       </alv-collapse-panel>
+
+      <!--      Occupation-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.occupation-panel-label">
         <alv-input-field [showGroupErrors]="true"
                          alvFormControlName="occupation"
                          label="portal.global.job-title">
         </alv-input-field>
       </alv-collapse-panel>
+
+      <!--      Is it a RAV-job?-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label">
 
       </alv-collapse-panel>
+
+      <!--      Contract type-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.contract-type">
         <alv-radio-button
           [options$]="contractTypeOptions$"
@@ -57,42 +62,21 @@
           class="narrow-form">
         </alv-radio-button>
       </alv-collapse-panel>
+
+      <!--      Result and rejection reason -->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">
         <fieldset formGroupName="result">
           <ng-container *ngFor="let key of resultOptionsKeys">
             <div class="alv-light-panel p-2 mb-1">
               <alv-checkbox
                 [alvFormControlName]="resultOptions[key]"
-                [label]="resultOptions[key]"
+                [label]="'portal.work-efforts.edit-form.results.'+resultOptions[key]"
                 class="narrow-form">
               </alv-checkbox>
             </div>
           </ng-container>
         </fieldset>
       </alv-collapse-panel>
-      <!--      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">-->
-      <!--        <fieldset formArrayName="result"-->
-      <!--                  class="mb-2">-->
-      <!--          <legend class="label">-->
-      <!--            {{ 'global.workForm.' | translate }}-->
-      <!--          </legend>-->
-      <!--          <ng-container *ngFor="let res of resultOptionsKeys; let i=index;">-->
-      <!--            <div class="alv-light-panel p-2 mb-1">-->
-      <!--              <alv-checkbox-->
-      <!--                [alvFormControlName]="i"-->
-      <!--                [label]="resultOptions[res]"-->
-      <!--                class="narrow-form">-->
-      <!--              </alv-checkbox>-->
-      <!--            </div>-->
-      <!--          </ng-container>-->
-
-      <!--        </fieldset>-->
-
-      <!--        &lt;!&ndash;        <alv-checkbox alvFormControlName="">&ndash;&gt;-->
-      <!--        &lt;!&ndash;          &ndash;&gt;-->
-      <!--        &lt;!&ndash;        </alv-checkbox>&ndash;&gt;-->
-      <!--      </alv-collapse-panel>-->
-
       <alv-alert [hideDismiss]="true"
                  [notification]="bottomAlert"></alv-alert>
       <button class="btn btn-outline-secondary">{{'portal.global.cancel' | translate}}</button>
