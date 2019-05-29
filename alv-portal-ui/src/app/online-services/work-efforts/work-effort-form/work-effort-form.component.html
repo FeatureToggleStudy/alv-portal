@@ -7,7 +7,6 @@
                         label="portal.global.date">
         </alv-date-input>
       </alv-collapse-panel>
-      <
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label">
         <alv-checkbox alvFormControlName="onlineCheckbox"
                       label="portal.work-efforts.edit-form.way-of-application.online"></alv-checkbox>
@@ -57,6 +56,19 @@
           alvFormControlName="workload"
           class="narrow-form">
         </alv-radio-button>
+      </alv-collapse-panel>
+      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">
+        <fieldset formGroupName="result">
+          <ng-container *ngFor="let key of resultOptionsKeys">
+            <div class="alv-light-panel p-2 mb-1">
+              <alv-checkbox
+                [alvFormControlName]="resultOptions[key]"
+                [label]="resultOptions[key]"
+                class="narrow-form">
+              </alv-checkbox>
+            </div>
+          </ng-container>
+        </fieldset>
       </alv-collapse-panel>
       <!--      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">-->
       <!--        <fieldset formArrayName="result"-->

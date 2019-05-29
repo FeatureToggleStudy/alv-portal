@@ -17,7 +17,7 @@ export class WorkEffortFormComponent implements OnInit {
 
   workEffortFormGroup: FormGroup;
   resultOptions = WorkEffortResult;
-  resultOptionsKeys: string[] = Object.keys(WorkEffortResult);
+  resultOptionsKeys: string[] = Object.keys(WorkEffortResult).filter(key => key !== 'ALL');
 
   bottomAlert: Notification = {
     isSticky: true,
@@ -50,7 +50,6 @@ export class WorkEffortFormComponent implements OnInit {
     },
 
   ]);
-
 
 
   constructor(private fb: FormBuilder) {
@@ -90,10 +89,18 @@ export class WorkEffortFormComponent implements OnInit {
       occupation: [''],
       ravJobCheckBox: [false],
       workload: [''],
-      result: this.fb.array(['', '', '', ''])
-
-
+      result: this.generateResultGroup()
     });
+  }
+
+  private generateResultGroup(): FormGroup {
+    return this.fb.group({
+      PENDING: [false],
+      REJECTED: [false],
+      EMPLOYED: [false],
+      INTERVIEW: [false]
+    });
+
   }
 
   submit() {
