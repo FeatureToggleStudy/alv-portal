@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   WorkEffort,
-  WorkEffortResult,
   WorkEffortsReportStatus
 } from '../../../../shared/backend-services/work-efforts/work-efforts.types';
 import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badge.types';
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
 import { deleteWorkEffortModalConfig } from '../modal-config.types';
 import { NotificationsService } from '../../../../core/notifications.service';
+import { WorkEffortsService } from '../work-efforts.service';
+import { WorkEffortsRepository } from '../../../../shared/backend-services/work-efforts/work-efforts.repository';
 
 @Component({
   selector: 'alv-work-effort',
@@ -25,10 +26,12 @@ export class WorkEffortComponent implements OnInit {
   resultBadges: InlineBadge[] = [];
 
   constructor(private modalService: ModalService,
+              private workEffortsService: WorkEffortsService,
+              private workEffortsRepository: WorkEffortsRepository,
               private notificationsService: NotificationsService) { }
 
   ngOnInit() {
-    this.mapResultBadges();
+    this.resultBadges = this.workEffortsService.mapResultBadges(this.workEffort.results);
   }
 
   deleteWorkEffort() {
@@ -36,42 +39,14 @@ export class WorkEffortComponent implements OnInit {
       deleteWorkEffortModalConfig
     ).result
       .then(result => {
-        // TODO: call backend
-        this.deleted.emit(this.workEffort);
-        this.notificationsService.success('portal.work-efforts.work-effort.notification.deleted');
+        this.workEffortsRepository.deleteWorkEffort(this.workEffort.id)
+          .subscribe(() => {
+            this.deleted.emit(this.workEffort);
+            this.notificationsService.success('portal.work-efforts.work-effort.notification.deleted');
+          });
       })
       .catch(() => {
       });
-  }
-
-  mapResultBadges() {
-    if (this.workEffort.results.includes(WorkEffortResult.INTERVIEW)) {
-      this.resultBadges.push({
-        cssClass: 'badge-work-effort-result-interview',
-        label: 'portal.work-efforts.work-effort-result.' + WorkEffortResult.INTERVIEW
-      });
-    }
-
-    if (this.workEffort.results.includes(WorkEffortResult.EMPLOYED)) {
-      this.resultBadges.push({
-        cssClass: 'badge-work-effort-result-employed',
-        label: 'portal.work-efforts.work-effort-result.' + WorkEffortResult.EMPLOYED
-      });
-    }
-
-    if (this.workEffort.results.includes(WorkEffortResult.PENDING)) {
-      this.resultBadges.push({
-        cssClass: 'badge-work-effort-result-pending',
-        label: 'portal.work-efforts.work-effort-result.' + WorkEffortResult.PENDING
-      });
-    }
-
-    if (this.workEffort.results.includes(WorkEffortResult.REJECTED)) {
-      this.resultBadges.push({
-        cssClass: 'badge-work-effort-result-rejected',
-        label: 'portal.work-efforts.work-effort-result.' + WorkEffortResult.REJECTED
-      });
-    }
   }
 
   isSentSuccessfully(workEffort: WorkEffort): boolean {

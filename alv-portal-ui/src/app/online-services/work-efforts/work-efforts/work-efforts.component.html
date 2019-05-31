@@ -9,7 +9,7 @@
 
       <button type="button"
               class="btn btn-text filter-button"
-              (click)="onFilterClick()">
+              (click)="openFilterModal()">
         <fa-icon class="mr-0 mr-md-2"
                  [icon]="['fas', 'filter']"></fa-icon>
         <span class="d-none d-md-inline">
@@ -25,6 +25,14 @@
                    label="portal.work-efforts.search.query"
                    [maxLength]="SEARCH_QUERY_MAX_LENGTH">
   </alv-input-field>
+
+  <div class="d-flex justify-content-end mb-3"
+       *ngIf="currentBadges?.length">
+    <alv-inline-badges [badges]="currentBadges"
+                       (removed)="removeCurrentBadge($event)"
+                       [canRemove]="true">
+    </alv-inline-badges>
+  </div>
 
   <alv-work-efforts-report *ngFor="let workEffortsReport of workEffortsReports$ | async"
                       [workEffortsReport]="workEffortsReport"
