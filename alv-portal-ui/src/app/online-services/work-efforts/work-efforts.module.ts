@@ -10,6 +10,7 @@ import { WorkEffortsReportComponent } from './work-efforts/work-efforts-report/w
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { WorkEffortsFilterModalComponent } from './work-efforts/work-efforts-filter-modal/work-efforts-filter-modal.component';
 import { JobPublicationModule } from '../../job-advertisement/job-publication/job-publication.module';
+import { PrettyJsonModule } from 'angular2-prettyjson';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { JobPublicationModule } from '../../job-advertisement/job-publication/jo
     SharedModule,
     WorkEffortsRoutingModule,
     NgbDropdownModule,
-    JobPublicationModule
+    JobPublicationModule,
+    PrettyJsonModule
   ],
   declarations: [
     WorkEffortsComponent,

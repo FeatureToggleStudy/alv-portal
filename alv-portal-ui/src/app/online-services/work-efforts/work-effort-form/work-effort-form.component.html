@@ -1,12 +1,17 @@
 <alv-two-column-layout [showLeftColumn]="false">
+  <div class="right-column">
+    <alv-collapse-panel panelTitle="debug">
+      <pre [innerHTML]="workEffortFormGroup.value | prettyjson"></pre>
+    </alv-collapse-panel>
+  </div>
   <div class="main-column">
     <form [formGroup]="workEffortFormGroup">
 
       <!--      Date-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
-        <alv-date-input alvFormControlName="date"
-                        label="portal.global.date">
-        </alv-date-input>
+        <!--        <alv-date-input alvFormControlName="date"-->
+        <!--                        label="portal.global.date">-->
+        <!--        </alv-date-input>-->
       </alv-collapse-panel>
 
       <!--      Apply channel-->
@@ -14,31 +19,83 @@
         <fieldset formGroupName="applyChannel">
           <ng-container *ngFor="let key of applyChannelOptionsKeys">
             <alv-checkbox [alvFormControlName]="applyChannelOptions[key]"
-                          [label]="'portal.work-efforts.edit-form.apply-channel.'+applyChannelOptions[key]"></alv-checkbox>
+                          [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelOptions[key]"></alv-checkbox>
 
           </ng-container>
         </fieldset>
       </alv-collapse-panel>
+      <!--      ADDRESS AND COMPANY DETAILS SECTION -->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label">
-        <alv-post-address-form
-          [parentForm]="workEffortFormGroup"
-          [postAddressFormValue]="postAddressFormValue"
-          groupName="address"
-        ></alv-post-address-form>
-        <alv-input-field [showGroupErrors]="true"
-                         alvFormControlName="email"
-                         label="portal.global.email">
-        </alv-input-field>
-        <alv-input-field [showGroupErrors]="true"
-                         alvFormControlName="url"
-                         label="portal.work-efforts.edit-form.company.online-form-url">
-        </alv-input-field>
-        <alv-input-field [showGroupErrors]="true"
-                         alvFormControlName="phone"
-                         label="portal.global.phone"
-                         placeholder="portal.global.phone-swiss-example"
-                         type="tel">
-        </alv-input-field>
+        <fieldset formGroupName="companyDetails">
+
+          <alv-input-field [maxLength]="NAME_MAX_LENGTH"
+                           alvFormControlName="name"
+                           label="home.tools.job-publication.company.name">
+          </alv-input-field>
+
+          <div class="form-row">
+            <div class="col-8"
+                 formGroupName="postOfficeBoxNumberOrStreet">
+              <alv-input-field [maxLength]="STREET_MAX_LENGTH"
+                               [showGroupErrors]="true"
+                               [validationMessages]="[{
+                                error: 'atLeastOneRequired',
+                                message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
+                                ]"
+                               alvFormControlName="street"
+                               label="home.tools.job-publication.company.street">
+              </alv-input-field>
+              <div class="col-4">
+                <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
+                                 alvFormControlName="houseNumber"
+                                 label="home.tools.job-publication.company.house-number">
+                </alv-input-field>
+              </div>
+
+              <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
+                               [showGroupErrors]="true"
+                               [validationMessages]="[{
+                        error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
+                     }]"
+                               alvFormControlName="postOfficeBoxNumber"
+                               label="home.tools.job-publication.company.postbox-number">
+              </alv-input-field>
+            </div>
+
+          </div>
+
+          <!--                    <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyDetails')"-->
+          <!--                                        [zipCityFormValue]="postAddressFormValue.zipAndCity"-->
+          <!--                                        [countryIsoCode]="countryIsoCode$ | async">-->
+          <!--                    </alv-zip-city-input>-->
+
+          <alv-select [options$]="countryOptions$"
+                      alvFormControlName="countryIsoCode"
+                      label="home.tools.job-publication.company.country"></alv-select>
+
+        </fieldset>
+
+
+        <!--        Company name-->
+        <!--        <alv-input-field [maxLength]="NAME_MAX_LENGTH"-->
+        <!--                         alvFormControlName="companyName"-->
+        <!--                         label="home.tools.job-publication.company.name">-->
+        <!--        </alv-input-field>-->
+        <!--        -->
+        <!--        <alv-input-field [showGroupErrors]="true"-->
+        <!--                         alvFormControlName="email"-->
+        <!--                         label="portal.global.email">-->
+        <!--        </alv-input-field>-->
+        <!--        <alv-input-field [showGroupErrors]="true"-->
+        <!--                         alvFormControlName="url"-->
+        <!--                         label="portal.work-efforts.edit-form.company.online-form-url">-->
+        <!--        </alv-input-field>-->
+        <!--        <alv-input-field [showGroupErrors]="true"-->
+        <!--                         alvFormControlName="phone"-->
+        <!--                         label="portal.global.phone"-->
+        <!--                         placeholder="portal.global.phone-swiss-example"-->
+        <!--                         type="tel">-->
+        <!--        </alv-input-field>-->
       </alv-collapse-panel>
 
       <!--      Occupation-->

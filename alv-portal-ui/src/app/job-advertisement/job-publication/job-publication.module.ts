@@ -48,7 +48,8 @@ import { JobPublicationGuard } from './job-publication.guard';
     PostAddressFormComponent
   ],
   exports: [
-    PostAddressFormComponent
+    PostAddressFormComponent,
+    ZipCityInputComponent
   ],
   providers: [
     IsoCountryService,

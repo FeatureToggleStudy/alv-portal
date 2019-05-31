@@ -1,4 +1,4 @@
-import { Company } from '../shared.types';
+import { Company } from '../job-advertisement/job-advertisement.types';
 
 export interface WorkEffort {
   id?: string;
@@ -62,9 +62,8 @@ export enum WorkEffortsFilterPeriod {
 }
 
 export interface WorkEffortCompany extends Company {
-  email: string;
   applyFormUrl: string;
-  phone: string;
+  contactPerson: string;
 }
 
 export const mockedWorkEffort: WorkEffort = {
@@ -74,13 +73,13 @@ export const mockedWorkEffort: WorkEffort = {
     name: 'SRF - Schweizer Radio und Fernsehen ',
     city: 'Zurich',
     contactPerson: 'Some Dude',
-    country: 'CH',
+    countryIsoCode: 'CH',
     email: 'mail@address.com',
     houseNumber: '22b',
     phone: '+41 33 322 34 41',
     street: 'Evergreen Terrace',
     applyFormUrl: 'www.example-company.com',
-    zipCode: '8098'
+    postalCode: '8098'
   },
   applicationForms: [WorkEffortApplyChannel.PHONE],
   occupation: 'Systemadministrator Informatiker',
@@ -111,13 +110,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           name: 'SRF - Schweizer Radio und Fernsehen ',
           city: 'Zurich',
           contactPerson: 'Some Dude',
-          country: 'CH',
+          countryIsoCode: 'CH',
           email: 'mail@address.com',
           houseNumber: '22b',
           phone: '+41 33 322 34 41',
           street: 'Evergreen Terrace',
           applyFormUrl: 'www.example-company.com',
-          zipCode: '8098'
+          postalCode: '8098'
         },
         date: '2019-05-10',
         applicationForms: [WorkEffortApplyChannel.PHONE],
@@ -134,13 +133,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           name: 'SRF - Schweizer Radio und Fernsehen ',
           city: 'Zurich',
           contactPerson: 'Some Dude',
-          country: 'CH',
+          countryIsoCode: 'CH',
           email: 'mail@address.com',
           houseNumber: '22b',
           phone: '+41 33 322 34 41',
           street: 'Evergreen Terrace',
           applyFormUrl: 'www.example-company.com',
-          zipCode: '8098'
+          postalCode: '8098'
         },
         date: '2019-05-10',
         applicationForms: [WorkEffortApplyChannel.PHONE],
@@ -157,13 +156,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           name: 'SRF - Schweizer Radio und Fernsehen ',
           city: 'Zurich',
           contactPerson: 'Some Dude',
-          country: 'CH',
+          countryIsoCode: 'CH',
           email: 'mail@address.com',
           houseNumber: '22b',
           phone: '+41 33 322 34 41',
           street: 'Evergreen Terrace',
           applyFormUrl: 'www.example-company.com',
-          zipCode: '8098'
+          postalCode: '8098'
         },
         date: '2019-05-10',
         applicationForms: [WorkEffortApplyChannel.PHONE],
@@ -191,13 +190,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           name: 'SRF - Schweizer Radio und Fernsehen',
           city: 'Zurich',
           contactPerson: 'Some Dude',
-          country: 'CH',
+          countryIsoCode: 'CH',
           email: 'mail@address.com',
           houseNumber: '22b',
           phone: '+41 33 322 34 41',
           street: 'Evergreen Terrace',
           applyFormUrl: 'www.example-company.com',
-          zipCode: '8098'
+          postalCode: '8098'
         },
         date: '2019-04-30',
         applicationForms: [WorkEffortApplyChannel.PHONE],
@@ -214,13 +213,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           name: 'SRF - Schweizer Radio und Fernsehen ',
           city: 'Zurich',
           contactPerson: 'Some Dude',
-          country: 'CH',
+          countryIsoCode: 'CH',
           email: 'mail@address.com',
           houseNumber: '22b',
           phone: '+41 33 322 34 41',
           street: 'Evergreen Terrace',
           applyFormUrl: 'www.example-company.com',
-          zipCode: '8098'
+          postalCode: '8098'
         },
         date: '2019-05-02',
         applicationForms: [WorkEffortApplyChannel.PHONE],
@@ -248,13 +247,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           name: 'SRF - Schweizer Radio und Fernsehen',
           city: 'Zurich',
           contactPerson: 'Some Dude',
-          country: 'CH',
+          countryIsoCode: 'CH',
           email: 'mail@address.com',
           houseNumber: '22b',
           phone: '+41 33 322 34 41',
           street: 'Evergreen Terrace',
           applyFormUrl: 'www.example-company.com',
-          zipCode: '8098'
+          postalCode: '8098'
         },
         date: '2019-03-20',
         applicationForms: [WorkEffortApplyChannel.PHONE],
@@ -282,13 +281,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           name: 'SRF - Schweizer Radio und Fernsehen',
           city: 'Zurich',
           contactPerson: 'Some Dude',
-          country: 'CH',
+          countryIsoCode: 'CH',
           email: 'mail@address.com',
           houseNumber: '22b',
           phone: '+41 33 322 34 41',
           street: 'Evergreen Terrace',
           applyFormUrl: 'www.example-company.com',
-          zipCode: '8098'
+          postalCode: '8098'
         },
         date: '2019-04-30',
         applicationForms: [WorkEffortApplyChannel.PHONE],
@@ -305,13 +304,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           name: 'SRF - Schweizer Radio und Fernsehen ',
           city: 'Zurich',
           contactPerson: 'Some Dude',
-          country: 'CH',
+          countryIsoCode: 'CH',
           email: 'mail@address.com',
           houseNumber: '22b',
           phone: '+41 33 322 34 41',
           street: 'Evergreen Terrace',
           applyFormUrl: 'www.example-company.com',
-          zipCode: '8098'
+          postalCode: '8098'
         },
         date: '2019-05-02',
         applicationForms: [WorkEffortApplyChannel.PHONE],
