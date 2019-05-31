@@ -11,6 +11,7 @@ import {
 import { Company } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
+import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
 
 const contractTypePrefix = 'portal.work-efforts.edit-form.contract-types';
 
@@ -78,6 +79,8 @@ export class WorkEffortFormComponent implements OnInit {
             street: [''],
             houseNumber: [''],
             postOfficeBoxNumber: [''],
+          }, {
+            validator: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])]
           }),
           countryIsoCode: ['']
         }
