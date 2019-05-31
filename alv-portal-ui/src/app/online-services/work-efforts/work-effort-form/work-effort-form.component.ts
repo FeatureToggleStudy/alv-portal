@@ -75,7 +75,7 @@ export class WorkEffortFormComponent implements OnInit {
       applyChannel: this.generateApplyChannelGroup(),
       companyDetails: this.fb.group({
           name: [''],
-        countryIsoCode: [''],
+          countryIsoCode: [''],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
             houseNumber: [''],
