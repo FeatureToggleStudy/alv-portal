@@ -75,6 +75,7 @@ export class WorkEffortFormComponent implements OnInit {
       applyChannel: this.generateApplyChannelGroup(),
       companyDetails: this.fb.group({
           name: [''],
+        countryIsoCode: [''],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
             houseNumber: [''],
@@ -82,7 +83,6 @@ export class WorkEffortFormComponent implements OnInit {
           }, {
             validator: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])]
           }),
-          countryIsoCode: ['']
         }
       ),
       companyName: [''],
