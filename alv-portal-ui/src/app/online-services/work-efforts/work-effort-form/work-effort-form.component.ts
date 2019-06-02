@@ -82,7 +82,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
 
     this.workEffortFormGroup = this.fb.group({
-      tmp: [''],
       date: [this.initialWorkEffort.date],
       applyChannel: this.generateApplyChannelGroup(),
       name: ['', Validators.required],
@@ -113,22 +112,38 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     });
 
     this.workEffortFormGroup.get('applyChannel').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((newApplyChannel: ApplyChannelFormValue) => {
-        if (newApplyChannel.ELECTRONIC) {
-          this.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), ['email', 'url']);
-        }
-        else {
-          this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'));
-        }
-        if(newApplyChannel.PHONE) {
-          this.makeRequired(this.workEffortFormGroup.get('phone'));
-          this.makeRequired(this.workEffortFormGroup.get('contactPerson'))
-        }
-        else {
-          this.makeOptional(this.workEffortFormGroup.get('phone'));
-        }
+      .subscribe(this.updateRequiredOptionalFields.bind(this));
 
-      });
+  }
+
+  /**
+   * checks the values of the various applychannels and manages which fields of the form must be optional or required
+   * @param newApplyChannel
+   */
+  private updateRequiredOptionalFields(newApplyChannel: ApplyChannelFormValue) {
+    const requiredMap = {
+      address: newApplyChannel.MAIL || newApplyChannel.PERSONAL || newApplyChannel.PHONE,
+      contactPerson: newApplyChannel.PERSONAL || newApplyChannel.PHONE,
+      companyEmailAndUrl: newApplyChannel.ELECTRONIC,
+      phone: newApplyChannel.PHONE
+    };
+
+    if (requiredMap.companyEmailAndUrl) {
+      WorkEffortFormComponent.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), ['email', 'url']);
+      WorkEffortFormComponent.makeRequired(this.workEffortFormGroup.get('companyEmailAndUrl'))
+    } else {
+      WorkEffortFormComponent.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'));
+      WorkEffortFormComponent.makeOptional(this.workEffortFormGroup.get('companyEmailAndUrl'))
+    }
+
+    for (let abstractControlName of ['address', 'contactPerson', 'phone']) {
+      if (requiredMap[abstractControlName]) {
+        WorkEffortFormComponent.makeRequired(this.workEffortFormGroup.get(abstractControlName));
+      } else {
+        WorkEffortFormComponent.makeOptional(this.workEffortFormGroup.get(abstractControlName));
+      }
+    }
+
 
   }
 
@@ -145,7 +160,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   }
 
-  generateApplyChannelGroup(): FormGroup {
+  private generateApplyChannelGroup(): FormGroup {
     const controlsConfig = {};
     for (const applyChannel of this.applyChannelOptionsKeys) {
       controlsConfig[this.applyChannelOptions[applyChannel]] = false;
@@ -166,7 +181,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
    * todo there's a problem: this functions clears all other validators from the form control
    * @param control can be got with formGroup.get('')
    */
-  makeRequired(control: AbstractControl) {
+  private static  makeRequired(control: AbstractControl) {
     control.setValidators(Validators.required);
     control.updateValueAndValidity();
   }
@@ -176,17 +191,17 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
    * todo: all validators will be cleared. We need to set them up back again.
    * @param control can be got with formGroup.get('')
    */
-  makeOptional(control: AbstractControl) {
+  private static makeOptional(control: AbstractControl) {
     control.clearValidators();
     control.updateValueAndValidity();
   }
 
-  private clearValidatorsFromGroup(group: FormGroup) {
+  private static clearValidatorsFromGroup(group: FormGroup) {
     group.clearValidators();
     group.updateValueAndValidity();
   }
 
-  private makeAtLeastOneInGroupRequired(group: FormGroup, fields: string[]) {
+  private static makeAtLeastOneInGroupRequired(group: FormGroup, fields: string[]) {
     group.setValidators(atLeastOneRequiredValidator(fields));
     group.updateValueAndValidity();
   }
