@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { Observable, of } from 'rxjs';
 import { ContractType } from '../../../shared/backend-services/shared.types';
@@ -71,10 +71,11 @@ export class WorkEffortFormComponent implements OnInit {
   ngOnInit() {
 
     this.workEffortFormGroup = this.fb.group({
+      tmp: [''],
       date: [this.initialWorkEffort.date],
       applyChannel: this.generateApplyChannelGroup(),
       companyDetails: this.fb.group({
-          name: [''],
+          name: ['', Validators.required],
           countryIsoCode: [''],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
@@ -85,11 +86,10 @@ export class WorkEffortFormComponent implements OnInit {
           }),
         }
       ),
-      companyName: [''],
       email: [''],
       url: [''],
       phone: [''],
-      occupation: [''],
+      occupation: ['', Validators.required],
       ravJobCheckBox: [false],
       workload: [''],
       result: this.generateResultGroup()
@@ -123,6 +123,27 @@ export class WorkEffortFormComponent implements OnInit {
 
 
   submit() {
+
+  }
+
+  /**
+   * makes a certain control a required field.
+   * todo there's a problem: this functions clears all other validators from the form control
+   * @param control can be got with formGroup.get('')
+   */
+  makeRequired(control: AbstractControl) {
+    control.setValidators(Validators.required);
+    control.updateValueAndValidity();
+  }
+
+  /**
+   * clears all validators from the field, making it optional
+   * todo: all validators will be cleared. We need to set them up back again.
+   * @param control can be got with formGroup.get('')
+   */
+  makeOptional(control: AbstractControl) {
+    control.clearValidators();
+    control.updateValueAndValidity();
 
   }
 

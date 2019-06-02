@@ -5,7 +5,10 @@
     </alv-collapse-panel>
   </div>
   <div class="main-column">
+    <button (click)="makeRequired(workEffortFormGroup.get('tmp'))">make required</button>
     <form [formGroup]="workEffortFormGroup">
+      <alv-input-field alvFormControlName="tmp">
+      </alv-input-field>
 
       <!--      Date-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
@@ -76,26 +79,20 @@
         </fieldset>
 
 
-        <!--        Company name-->
-        <!--        <alv-input-field [maxLength]="NAME_MAX_LENGTH"-->
-        <!--                         alvFormControlName="companyName"-->
-        <!--                         label="home.tools.job-publication.company.name">-->
-        <!--        </alv-input-field>-->
-        <!--        -->
-        <!--        <alv-input-field [showGroupErrors]="true"-->
-        <!--                         alvFormControlName="email"-->
-        <!--                         label="portal.global.email">-->
-        <!--        </alv-input-field>-->
-        <!--        <alv-input-field [showGroupErrors]="true"-->
-        <!--                         alvFormControlName="url"-->
-        <!--                         label="portal.work-efforts.edit-form.company.online-form-url">-->
-        <!--        </alv-input-field>-->
-        <!--        <alv-input-field [showGroupErrors]="true"-->
-        <!--                         alvFormControlName="phone"-->
-        <!--                         label="portal.global.phone"-->
-        <!--                         placeholder="portal.global.phone-swiss-example"-->
-        <!--                         type="tel">-->
-        <!--        </alv-input-field>-->
+        <alv-input-field [showGroupErrors]="true"
+                         alvFormControlName="email"
+                         label="portal.global.email">
+        </alv-input-field>
+        <alv-input-field [showGroupErrors]="true"
+                         alvFormControlName="url"
+                         label="portal.work-efforts.edit-form.company.online-form-url">
+        </alv-input-field>
+        <alv-input-field [showGroupErrors]="true"
+                         alvFormControlName="phone"
+                         label="portal.global.phone"
+                         placeholder="portal.global.phone-swiss-example"
+                         type="tel">
+        </alv-input-field>
       </alv-collapse-panel>
 
       <!--      Occupation-->
