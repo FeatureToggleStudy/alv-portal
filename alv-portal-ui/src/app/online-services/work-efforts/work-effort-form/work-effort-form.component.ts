@@ -12,15 +12,25 @@ import { Company } from '../../../shared/backend-services/job-advertisement/job-
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
+import { takeUntil } from 'rxjs/operators';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 const contractTypePrefix = 'portal.work-efforts.edit-form.contract-types';
+
+// todo this interface doesn't depend on the WorkEffortApplyChannel interface, so if something is changed there, we will  need to change it here as well. Probably it's possible to specify this interface in a nicer way.
+interface ApplyChannelFormValue {
+  ELECTRONIC: boolean,
+  MAIL: boolean,
+  PERSONAL: boolean,
+  PHONE: boolean,
+}
 
 @Component({
   selector: 'alv-work-effort-form',
   templateUrl: './work-effort-form.component.html',
   styleUrls: ['./work-effort-form.component.scss']
 })
-export class WorkEffortFormComponent implements OnInit {
+export class WorkEffortFormComponent extends AbstractSubscriber implements OnInit {
 
   readonly PO_BOX_MAX_LENGTH = 6;
   readonly HOUSE_NUMBER_MAX_LENGTH = 10;
@@ -63,6 +73,7 @@ export class WorkEffortFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private isoCountryService: IsoCountryService) {
 
+    super();
     this.countryOptions$ = this.isoCountryService.countryOptions$;
     this.initialCompany = this.initialWorkEffort.company;
   }
@@ -74,8 +85,9 @@ export class WorkEffortFormComponent implements OnInit {
       tmp: [''],
       date: [this.initialWorkEffort.date],
       applyChannel: this.generateApplyChannelGroup(),
-      companyDetails: this.fb.group({
-          name: ['', Validators.required],
+      name: ['', Validators.required],
+
+      address: this.fb.group({
           countryIsoCode: [''],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
@@ -86,14 +98,37 @@ export class WorkEffortFormComponent implements OnInit {
           }),
         }
       ),
-      email: [''],
-      url: [''],
+      contactPerson: [''],
+      companyEmailAndUrl: this.fb.group(
+        {
+          email: [''],
+          url: ['']
+        }
+      ),
       phone: [''],
       occupation: ['', Validators.required],
       ravJobCheckBox: [false],
       workload: [''],
       result: this.generateResultGroup()
     });
+
+    this.workEffortFormGroup.get('applyChannel').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((newApplyChannel: ApplyChannelFormValue) => {
+        if (newApplyChannel.ELECTRONIC) {
+          this.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), ['email', 'url']);
+        }
+        else {
+          this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'));
+        }
+        if(newApplyChannel.PHONE) {
+          this.makeRequired(this.workEffortFormGroup.get('phone'));
+          this.makeRequired(this.workEffortFormGroup.get('contactPerson'))
+        }
+        else {
+          this.makeOptional(this.workEffortFormGroup.get('phone'));
+        }
+
+      });
 
   }
 
@@ -144,7 +179,15 @@ export class WorkEffortFormComponent implements OnInit {
   makeOptional(control: AbstractControl) {
     control.clearValidators();
     control.updateValueAndValidity();
-
   }
 
+  private clearValidatorsFromGroup(group: FormGroup) {
+    group.clearValidators();
+    group.updateValueAndValidity();
+  }
+
+  private makeAtLeastOneInGroupRequired(group: FormGroup, fields: string[]) {
+    group.setValidators(atLeastOneRequiredValidator(fields));
+    group.updateValueAndValidity();
+  }
 }

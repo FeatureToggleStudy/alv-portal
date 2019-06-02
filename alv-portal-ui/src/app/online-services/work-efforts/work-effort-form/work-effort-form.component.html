@@ -7,9 +7,6 @@
   <div class="main-column">
     <button (click)="makeRequired(workEffortFormGroup.get('tmp'))">make required</button>
     <form [formGroup]="workEffortFormGroup">
-      <alv-input-field alvFormControlName="tmp">
-      </alv-input-field>
-
       <!--      Date-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
         <!--        <alv-date-input alvFormControlName="date"-->
@@ -29,13 +26,11 @@
       </alv-collapse-panel>
       <!--      ADDRESS AND COMPANY DETAILS SECTION -->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label">
-        <fieldset formGroupName="companyDetails">
-
-          <alv-input-field [maxLength]="NAME_MAX_LENGTH"
-                           alvFormControlName="name"
-                           label="home.tools.job-publication.company.name">
-          </alv-input-field>
-
+        <alv-input-field [maxLength]="NAME_MAX_LENGTH"
+                         alvFormControlName="name"
+                         label="home.tools.job-publication.company.name">
+        </alv-input-field>
+        <fieldset formGroupName="address">
           <div class="form-row">
             <div class="col-8"
                  formGroupName="postOfficeBoxNumberOrStreet">
@@ -67,7 +62,7 @@
 
           </div>
 
-          <!--                    <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyDetails')"-->
+          <!--                    <alv-zip-city-input [parentForm]="workEffortFormGroup.get('address')"-->
           <!--                                        [zipCityFormValue]="postAddressFormValue.zipAndCity"-->
           <!--                                        [countryIsoCode]="countryIsoCode$ | async">-->
           <!--                    </alv-zip-city-input>-->
@@ -78,15 +73,21 @@
 
         </fieldset>
 
+        <alv-input-field alvFormControlName="contactPerson"
+                         label="portal.work-efforts.edit-form.contact-person">
+        </alv-input-field>
 
-        <alv-input-field [showGroupErrors]="true"
-                         alvFormControlName="email"
-                         label="portal.global.email">
-        </alv-input-field>
-        <alv-input-field [showGroupErrors]="true"
-                         alvFormControlName="url"
-                         label="portal.work-efforts.edit-form.company.online-form-url">
-        </alv-input-field>
+        <fieldset formGroupName="companyEmailAndUrl">
+          <alv-input-field [showGroupErrors]="true"
+                           alvFormControlName="email"
+                           label="portal.global.email">
+          </alv-input-field>
+          <alv-input-field [showGroupErrors]="true"
+                           alvFormControlName="url"
+                           label="portal.work-efforts.edit-form.company.online-form-url">
+          </alv-input-field>
+        </fieldset>
+
         <alv-input-field [showGroupErrors]="true"
                          alvFormControlName="phone"
                          label="portal.global.phone"
