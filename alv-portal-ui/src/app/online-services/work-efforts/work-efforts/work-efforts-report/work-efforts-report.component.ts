@@ -41,7 +41,7 @@ export class WorkEffortsReportComponent implements OnInit {
   }
 
   getPdfFileNamePrefix(): string {
-    return this.isCurrentPeriod ?
+    return this.workEffortsReport.status === WorkEffortsReportStatus.OPEN ?
       'portal.work-efforts.work-effort-report.pdf-file.temporary-name' :
       'portal.work-efforts.work-effort-report.pdf-file.name';
   }

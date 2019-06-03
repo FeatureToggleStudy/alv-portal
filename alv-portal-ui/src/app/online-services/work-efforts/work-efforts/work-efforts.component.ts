@@ -117,7 +117,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       });
   }
 
-  isCurrentControlPeriod(workEffortsReport: WorkEffortsReport): boolean {
+  isCurrentReportPeriod(workEffortsReport: WorkEffortsReport): boolean {
     const date = new Date(workEffortsReport.controlPeriod);
     return this.today.getFullYear() === date.getFullYear() && this.today.getMonth() === date.getMonth();
   }
