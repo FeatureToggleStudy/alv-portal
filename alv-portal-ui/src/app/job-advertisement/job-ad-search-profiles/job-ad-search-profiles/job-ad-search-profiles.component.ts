@@ -16,7 +16,7 @@ import { getDeleteConfirmModalConfig } from '../../../shared/job-search-profiles
   animations: [
     trigger('removeProfile', [
       transition(':leave', [
-        animate('0.5s ease-in', keyframes([
+        animate('0.25s ease-in', keyframes([
           style({
             transformOrigin: 'top',
             transform: 'scaleY(1)',
@@ -76,9 +76,5 @@ export class JobAdSearchProfilesComponent implements OnInit {
       })
       .catch(() => {
       });
-  }
-
-  trackById(profile: JobAdSearchProfileResult): string {
-    return profile.id;
   }
 }
