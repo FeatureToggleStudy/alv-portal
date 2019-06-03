@@ -17,22 +17,10 @@
   color: $color-white;
   pointer-events: none;
 
-  alv-version {
-    margin: 0 1em;
-  }
-
   a {
     float: right;
     color: $color-white;
     pointer-events: all;
-  }
-}
-
-@include media-breakpoint-down(sm) {
-  :host {
-    alv-version {
-      display: none;
-    }
   }
 }
 

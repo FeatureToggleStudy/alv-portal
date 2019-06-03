@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { NavigationContainerComponent } from './navigation-container/navigation-container.component';
-import { VersionComponent } from './version/version.component';
 import { HeaderComponent } from './header/header.component';
 import {
   NgbAlert,
@@ -75,7 +74,6 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     UserMenuComponent,
     MainNavigationComponent,
     NavigationContainerComponent,
-    VersionComponent,
     HeaderComponent,
     FooterComponent,
     NotificationComponent,
@@ -117,7 +115,6 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     NavigationContainerComponent,
     HeaderComponent,
     FooterComponent,
-    VersionComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
