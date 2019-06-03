@@ -12,4 +12,4 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.log(err));
 
-console.info(`version: ${VERSION.version}`);
+console.log(`version: ${VERSION.version}`);
