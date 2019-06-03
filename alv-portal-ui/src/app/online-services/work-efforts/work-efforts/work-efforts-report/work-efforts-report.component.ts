@@ -42,8 +42,8 @@ export class WorkEffortsReportComponent implements OnInit {
 
   getPdfFileNamePrefix(): string {
     return this.isCurrentPeriod ?
-      'portal.work-efforts.control-period.pdf-file.temporary-name' :
-      'portal.work-efforts.control-period.pdf-file.name';
+      'portal.work-efforts.work-effort-report.pdf-file.temporary-name' :
+      'portal.work-efforts.work-effort-report.pdf-file.name';
   }
 
   removeWorkEffort(deletedWorkEffort: WorkEffort) {

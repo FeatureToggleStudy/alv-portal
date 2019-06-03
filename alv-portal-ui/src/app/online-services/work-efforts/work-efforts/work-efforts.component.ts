@@ -7,7 +7,7 @@ import {
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
 import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { debounceTime, filter, flatMap, takeUntil } from 'rxjs/operators';
+import { debounceTime, filter, flatMap, map, takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { WorkEffortsFilterModalComponent } from './work-efforts-filter-modal/work-efforts-filter-modal.component';
@@ -19,6 +19,12 @@ import {
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { FilterBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { WorkEffortsService } from './work-efforts.service';
+import {
+  Notification,
+  NotificationType
+} from '../../../shared/layout/notifications/notification.model';
+import { I18nService } from '../../../core/i18n.service';
+import { Languages, LANGUAGES } from '../../../core/languages.constants';
 
 @Component({
   selector: 'alv-work-efforts',
@@ -36,6 +42,12 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
     workEffortResult: WorkEffortResult.ALL
   };
 
+  englishNotSupportedNotification = {
+    type: NotificationType.ERROR,
+    messageKey: 'portal.work-efforts.work-effort-report.notification.no-english',
+    isSticky: true
+  } as Notification;
+
   IconKey = IconKey;
 
   form: FormGroup;
@@ -43,6 +55,8 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
   workEffortsReports$: Observable<WorkEffortsReport[]>;
 
   currentBadges: FilterBadge[];
+
+  isEnglishLanguageSelected$: Observable<boolean>;
 
   private today = new Date();
 
@@ -59,6 +73,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
   constructor(private fb: FormBuilder,
               private modalService: ModalService,
               private authenticationService: AuthenticationService,
+              private i18nService: I18nService,
               private workEffortsService: WorkEffortsService,
               private workEffortsRepository: WorkEffortsRepository) {
     super();
@@ -84,6 +99,10 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
           this.applyQuery(value);
         }
       });
+
+    this.isEnglishLanguageSelected$ = this.i18nService.currentLanguage$.pipe(
+      map(language => language === Languages.EN)
+    );
   }
 
   openFilterModal() {

@@ -1,15 +1,15 @@
-<button class="control-period w-100 d-flex align-items-stretch text-left position-relative p-0 row no-gutters"
+<button class="work-effort-report w-100 d-flex align-items-stretch text-left position-relative p-0 row no-gutters"
         (click)="expanded = !expanded"
         [ngClass]="expanded ? 'expanded' : 'collapsed'">
   <span class="col-12 col-lg-3 name-cell">
     <small class="d-block text-truncate">
-      {{'portal.work-efforts.control-period.name-cell.title' | translate}}
+      {{'portal.work-efforts.work-effort-report.name-cell.title' | translate}}
     </small>
     <h3 class="period-title mb-0 mt-1 my-lg-1">
       <fa-icon [icon]="['fas', expanded ? 'caret-up' : 'caret-down']"
                class="mr-1"></fa-icon>
       <small *ngIf="isBeforeEmployment(workEffortsReport); else date">
-        {{'portal.work-efforts.control-period.name-cell.before-unemployment.label' | translate}}
+        {{'portal.work-efforts.work-effort-report.name-cell.before-unemployment.label' | translate}}
       </small>
       <ng-template #date>{{workEffortsReport.controlPeriod | date:'MMMM yyyy'}}</ng-template>
     </h3>
@@ -29,7 +29,7 @@
       {{'portal.work-efforts.edit-status.label' | translate}}
     </small>
     <div class="flex-grow-1">
-      {{'portal.work-efforts.control-period.edit-status.text' | translate}}:
+      {{'portal.work-efforts.work-effort-report.edit-status.text' | translate}}:
       {{workEffortsReport.workEfforts.length}}
     </div>
   </span>
@@ -64,7 +64,7 @@
        class="btn btn-text add-work-effort-button w-100">
       <fa-icon [icon]="['fas', 'plus']"
                class="mr-1"></fa-icon>
-      {{'portal.work-efforts.control-period.add-work-effort.button.label' | translate}}
+      {{'portal.work-efforts.work-effort-report.add-work-effort.button.label' | translate}}
     </a>
 
     <ng-container *ngFor="let workEffort of workEffortsReport.workEfforts; let last = last">

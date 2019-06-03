@@ -21,6 +21,10 @@
 
   <hr class="mt-0 mb-3">
 
+  <alv-alert *ngIf="isEnglishLanguageSelected$ | async"
+             [notification]="englishNotSupportedNotification"
+             [hideDismiss]="true"></alv-alert>
+
   <alv-input-field [alvControl]="form?.get('query')"
                    label="portal.work-efforts.search.query"
                    [maxLength]="SEARCH_QUERY_MAX_LENGTH">
