@@ -4,7 +4,8 @@ import {
   WorkEffortResult
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
 import { mapToNgbDateStruct } from '../../../job-advertisement/job-publication/job-publication-form/job-publication-form.mapper';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { WorkLoad } from '../../../shared/backend-services/candidate/candidate.types';
 
 
 export interface ApplyChannelsFormValue {
@@ -13,6 +14,7 @@ export interface ApplyChannelsFormValue {
   PERSONAL: boolean,
   PHONE: boolean,
 }
+
 export const formPossibleApplyChannels = ['ELECTRONIC', 'MAIL', 'PERSONAL', 'PHONE'];
 
 
@@ -22,9 +24,16 @@ export interface ResultsFormValue {
   EMPLOYED: boolean;
   INTERVIEW: boolean
 }
+
 export const formPossibleResults = ['PENDING', 'REJECTED', 'EMPLOYED', 'INTERVIEW'];
 
+export enum WorkLoadFormOption {
+  FULLTIME = "FULLTIME",
+  PARTTIME = "PARTTIME"
+};
+
 export interface WorkEffortFormValue {
+  companyName: string,
   date: NgbDateStruct,
   applyChannels: ApplyChannelsFormValue,
   companyAddress?: {
@@ -34,6 +43,8 @@ export interface WorkEffortFormValue {
       houseNumber?: string,
       postOfficeBoxNumber?: string
     }
+    postalCode?: string;
+    city: string,
   }
   contactPerson?: string,
   companyEmailAndUrl?: {
@@ -44,6 +55,8 @@ export interface WorkEffortFormValue {
   occupation: string;
   appliedThroughRav: boolean;
   results: ResultsFormValue;
+  rejectionReason: string;
+  workload: WorkLoadFormOption;
 }
 
 
@@ -58,7 +71,7 @@ function mapToApplyChannelsFormValue(applyChannels: WorkEffortApplyChannel[]): A
   };
 }
 
-function mapToResultsFormValue(results: WorkEffortResult[]): ResultsFormValue {
+function mapBackendResultsToResultsFormValue(results: WorkEffortResult[]): ResultsFormValue {
   return {
     EMPLOYED: results.includes(WorkEffortResult.EMPLOYED),
     INTERVIEW: results.includes(WorkEffortResult.INTERVIEW),
@@ -67,11 +80,37 @@ function mapToResultsFormValue(results: WorkEffortResult[]): ResultsFormValue {
   }
 }
 
+function mapResultsFormValueToBackendResults(results: ResultsFormValue): WorkEffortResult[] {
+  return Object.keys(results).filter(resultKey => results[resultKey]) as WorkEffortResult[];
+}
+
+function mapApplyChannelsFormValueToBackend(applyChannels: ApplyChannelsFormValue): WorkEffortApplyChannel[] {
+  return Object.keys(applyChannels).filter(channelKey => applyChannels[channelKey]) as WorkEffortApplyChannel[];
+}
+
+function mapNgbDateStructToString(struct: NgbDateStruct): string {
+  return `${struct.year}-${struct.month}-${struct.day}`
+}
+
+function mapToWorkloadFormValue(isFulltime: boolean):WorkLoadFormOption {
+  return isFulltime ? WorkLoadFormOption.FULLTIME : WorkLoadFormOption.PARTTIME;
+}
+
+/**
+ *
+ * @return true if full time
+ */
+function mapWorkloadToBackend(workLoadFormValue: WorkLoadFormOption): boolean {
+  return workLoadFormValue===WorkLoadFormOption.FULLTIME;
+}
 export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortFormValue {
+  //todo fulltimejob
   return {
+    companyName: workEffort.company.name,
     date: mapToNgbDateStruct(workEffort.date),
     applyChannels: mapToApplyChannelsFormValue(workEffort.applicationForms),
     companyAddress: {
+      city: workEffort.company.city,
       countryIsoCode: workEffort.company.countryIsoCode,
       postOfficeBoxNumberOrStreet: {
         houseNumber: workEffort.company.houseNumber,
@@ -85,8 +124,37 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
     },
     occupation: workEffort.occupation,
     phone: workEffort.company.phone,
-    results: mapToResultsFormValue(workEffort.results),
+    results: mapBackendResultsToResultsFormValue(workEffort.results),
     contactPerson: workEffort.company.contactPerson,
-    appliedThroughRav: workEffort.appliedThroughRav
+    appliedThroughRav: workEffort.appliedThroughRav,
+    workload: mapToWorkloadFormValue(workEffort.fullTimeJob),
+    rejectionReason: workEffort.rejectionReason
   };
+}
+
+export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): WorkEffort {
+  // todo fulltime job
+  return {
+    date: mapNgbDateStructToString(formValue.date),
+    appliedThroughRav: formValue.appliedThroughRav,
+    company: {
+      contactPerson: formValue.contactPerson,
+      phone: formValue.phone,
+      applyFormUrl: formValue.companyEmailAndUrl.url,
+      email: formValue.companyEmailAndUrl.email,
+      street: formValue.companyAddress.postOfficeBoxNumberOrStreet.street,
+      postOfficeBoxNumber: formValue.companyAddress.postOfficeBoxNumberOrStreet.postOfficeBoxNumber,
+      houseNumber: formValue.companyAddress.postOfficeBoxNumberOrStreet.houseNumber,
+      countryIsoCode: formValue.companyAddress.countryIsoCode,
+      postalCode: formValue.companyAddress.postalCode,
+      name: formValue.companyName,
+      city: formValue.companyAddress.city,
+
+    },
+    results: mapResultsFormValueToBackendResults(formValue.results),
+    applicationForms: mapApplyChannelsFormValueToBackend(formValue.applyChannels),
+    occupation: formValue.occupation,
+    fullTimeJob: mapWorkloadToBackend(formValue.workload),
+    rejectionReason: formValue.rejectionReason,
+  }
 }

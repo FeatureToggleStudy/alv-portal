@@ -19,10 +19,10 @@ import {
   ApplyChannelsFormValue,
   mapToWorkEffortFormValue,
   formPossibleResults,
-  formPossibleApplyChannels
+  formPossibleApplyChannels, WorkLoadFormOption
 } from './work-effort-form.mapper';
 
-const contractTypePrefix = 'portal.work-efforts.edit-form.contract-types';
+const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 
 
 @Component({
@@ -57,16 +57,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     messageKey: 'portal.work-efforts.edit-form.note.note-text'
   };
 
-  contractTypeOptions$ = of([
-    {
-      value: ContractType.TEMPORARY,
-      label: contractTypePrefix + '.' + ContractType.TEMPORARY
-    },
-    {
-      value: ContractType.PERMANENT,
-      label: contractTypePrefix + '.' + ContractType.PERMANENT
-    }
-  ]);
+  workLoadOptions$ = of(Object.keys(WorkLoadFormOption).map(key => ({
+    value: key,
+    label: workLoadPrefix + '.' + key
+  })));
 
 
   constructor(private fb: FormBuilder, private isoCountryService: IsoCountryService) {
@@ -83,10 +77,12 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       companyName: ['', Validators.required],
 
       companyAddress: this.fb.group({
+          city: [],
           countryIsoCode: [''],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
             houseNumber: [''],
+            postalCode: [''],
             postOfficeBoxNumber: [''],
           }, {
             validator: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])]
@@ -104,7 +100,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       occupation: ['', Validators.required],
       appliedThroughRav: [false],
       workload: [''],
-      results: this.generateResultsGroup()
+      results: this.generateResultsGroup(),
+      rejectionReason: [''],
     });
 
     this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
