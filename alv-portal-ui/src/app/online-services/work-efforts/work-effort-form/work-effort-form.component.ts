@@ -25,7 +25,6 @@ import {
 const contractTypePrefix = 'portal.work-efforts.edit-form.contract-types';
 
 
-
 @Component({
   selector: 'alv-work-effort-form',
   templateUrl: './work-effort-form.component.html',
@@ -76,7 +75,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.countryOptions$ = this.isoCountryService.countryOptions$;
   }
 
-
   ngOnInit() {
 
     this.workEffortFormGroup = this.fb.group({
@@ -111,7 +109,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(this.updateRequiredOptionalFields.bind(this));
-
   }
 
   /**
@@ -141,28 +138,23 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         WorkEffortFormComponent.makeOptional(this.workEffortFormGroup.get(abstractControlName));
       }
     }
-
-
   }
 
   private generateResultsGroup(): FormGroup {
-    const controlsConfig = {};
-
-    for (const result of this.resultsCheckboxNames) {
-      controlsConfig[result] = [false];
-    }
-    return this.fb.group(controlsConfig);
-
+    return this.generateCheckboxesFormGroup(this.resultsCheckboxNames);
   }
 
   private generateApplyChannelsGroup(): FormGroup {
+    return this.generateCheckboxesFormGroup(this.applyChannelsCheckboxNames);
+  }
+
+  private generateCheckboxesFormGroup(checkboxNames: string[]): FormGroup {
     const controlsConfig = {};
-    for (const applyChannel of this.applyChannelsCheckboxNames) {
-      controlsConfig[applyChannel] = [false];
+    for (const checkbox of checkboxNames) {
+      controlsConfig[checkbox] = [false];
     }
     return this.fb.group(controlsConfig);
   }
-
 
   submit() {
 

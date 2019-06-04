@@ -27,18 +27,18 @@ export const formPossibleResults = ['PENDING', 'REJECTED', 'EMPLOYED', 'INTERVIE
 export interface WorkEffortFormValue {
   date: NgbDateStruct,
   applyChannels: ApplyChannelsFormValue,
-  companyAddress: {
+  companyAddress?: {
     countryIsoCode: string,
     postOfficeBoxNumberOrStreet: {
-      street: string,
-      houseNumber: string,
-      postOfficeBoxNumber: string
+      street?: string,
+      houseNumber?: string,
+      postOfficeBoxNumber?: string
     }
   }
-  contactPerson: string,
-  companyEmailAndUrl: {
-    email: string,
-    url: string
+  contactPerson?: string,
+  companyEmailAndUrl?: {
+    email?: string,
+    url?: string
   }
   phone?: string,
   occupation: string;
@@ -49,7 +49,7 @@ export interface WorkEffortFormValue {
 
 const applyChannelOptionsKeys: string[] = Object.keys(WorkEffortApplyChannel);
 
-function mapToApplyChannelFormValue(applyChannels: WorkEffortApplyChannel[]): ApplyChannelsFormValue {
+function mapToApplyChannelsFormValue(applyChannels: WorkEffortApplyChannel[]): ApplyChannelsFormValue {
   return {
     ELECTRONIC: applyChannels.includes(WorkEffortApplyChannel.ELECTRONIC),
     MAIL: applyChannels.includes(WorkEffortApplyChannel.MAIL),
@@ -58,7 +58,7 @@ function mapToApplyChannelFormValue(applyChannels: WorkEffortApplyChannel[]): Ap
   };
 }
 
-function mapToResultFormValue(results: WorkEffortResult[]): ResultsFormValue {
+function mapToResultsFormValue(results: WorkEffortResult[]): ResultsFormValue {
   return {
     EMPLOYED: results.includes(WorkEffortResult.EMPLOYED),
     INTERVIEW: results.includes(WorkEffortResult.INTERVIEW),
@@ -70,7 +70,7 @@ function mapToResultFormValue(results: WorkEffortResult[]): ResultsFormValue {
 export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortFormValue {
   return {
     date: mapToNgbDateStruct(workEffort.date),
-    applyChannels: mapToApplyChannelFormValue(workEffort.applicationForms),
+    applyChannels: mapToApplyChannelsFormValue(workEffort.applicationForms),
     companyAddress: {
       countryIsoCode: workEffort.company.countryIsoCode,
       postOfficeBoxNumberOrStreet: {
@@ -85,7 +85,7 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
     },
     occupation: workEffort.occupation,
     phone: workEffort.company.phone,
-    results: mapToResultFormValue(workEffort.results),
+    results: mapToResultsFormValue(workEffort.results),
     contactPerson: workEffort.company.contactPerson,
     appliedThroughRav: workEffort.appliedThroughRav
   };

@@ -8,9 +8,9 @@
     <form [formGroup]="workEffortFormGroup">
       <!--      Date-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
-                <alv-date-input alvFormControlName="date"
-                                label="portal.global.date">
-                </alv-date-input>
+        <alv-date-input alvFormControlName="date"
+                        label="portal.global.date">
+        </alv-date-input>
       </alv-collapse-panel>
 
       <!--      Apply channel-->
@@ -18,8 +18,8 @@
         <fieldset formGroupName="applyChannels">
           <ng-container *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
             <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
-                          [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"></alv-checkbox>
-
+                          [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox">
+            </alv-checkbox>
           </ng-container>
         </fieldset>
       </alv-collapse-panel>
