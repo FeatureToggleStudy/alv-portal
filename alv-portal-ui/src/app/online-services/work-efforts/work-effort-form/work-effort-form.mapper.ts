@@ -89,7 +89,7 @@ function mapApplyChannelsFormValueToBackend(applyChannels: ApplyChannelsFormValu
 }
 
 function mapNgbDateStructToString(struct: NgbDateStruct): string {
-  return `${struct.year}-${struct.month}-${struct.day}`
+  return new Date(struct.year, struct.month-1, struct.day).toISOString();
 }
 
 function mapToWorkloadFormValue(isFulltime: boolean):WorkLoadFormOption {
@@ -114,9 +114,10 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
       countryIsoCode: workEffort.company.countryIsoCode,
       postOfficeBoxNumberOrStreet: {
         houseNumber: workEffort.company.houseNumber,
-        postOfficeBoxNumber: workEffort.company.postOfficeBoxNumber,
+        postOfficeBoxNumber: workEffort.company.postOfficeBoxNumber || '',
         street: workEffort.company.street
-      }
+      },
+      postalCode: workEffort.company.postalCode
     },
     companyEmailAndUrl: {
       email: workEffort.company.email,
