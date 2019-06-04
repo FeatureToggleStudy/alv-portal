@@ -4,7 +4,7 @@ import { Notification, NotificationType } from '../../../shared/layout/notificat
 import { Observable, of } from 'rxjs';
 import { ContractType } from '../../../shared/backend-services/shared.types';
 import {
-  mockedWorkEffort,
+  mockedWorkEffort, WorkEffort,
   WorkEffortApplyChannel,
   WorkEffortResult
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
@@ -14,16 +14,17 @@ import { IsoCountryService } from '../../../shared/localities/iso-country.servic
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { mapToNgbDateStruct } from '../../../job-advertisement/job-publication/job-publication-form/job-publication-form.mapper';
+import {
+  ApplyChannelsFormValue,
+  mapToWorkEffortFormValue,
+  formPossibleResults,
+  formPossibleApplyChannels
+} from './work-effort-form.mapper';
 
 const contractTypePrefix = 'portal.work-efforts.edit-form.contract-types';
 
-// todo this interface doesn't depend on the WorkEffortApplyChannel interface, so if something is changed there, we will  need to change it here as well. Probably it's possible to specify this interface in a nicer way.
-interface ApplyChannelFormValue {
-  ELECTRONIC: boolean,
-  MAIL: boolean,
-  PERSONAL: boolean,
-  PHONE: boolean,
-}
+
 
 @Component({
   selector: 'alv-work-effort-form',
@@ -41,15 +42,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   /**
    * the main input
    */
-  public initialWorkEffort = mockedWorkEffort;
+  public initialWorkEffort = mapToWorkEffortFormValue(mockedWorkEffort);
 
   public initialCompany: Company;
 
-  resultOptions = WorkEffortResult;
-  resultOptionsKeys: string[] = Object.keys(WorkEffortResult).filter(key => key !== 'ALL');
+  resultsCheckboxNames = formPossibleResults;
 
-  applyChannelOptions = WorkEffortApplyChannel;
-  applyChannelOptionsKeys: string[] = Object.keys(WorkEffortApplyChannel);
+  applyChannelsCheckboxNames = formPossibleApplyChannels;
 
   countryOptions$: Observable<SelectableOption[]>;
 
@@ -75,7 +74,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     super();
     this.countryOptions$ = this.isoCountryService.countryOptions$;
-    this.initialCompany = this.initialWorkEffort.company;
   }
 
 
@@ -83,10 +81,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     this.workEffortFormGroup = this.fb.group({
       date: [this.initialWorkEffort.date],
-      applyChannel: this.generateApplyChannelGroup(),
-      name: ['', Validators.required],
+      applyChannels: this.generateApplyChannelsGroup(),
+      companyName: ['', Validators.required],
 
-      address: this.fb.group({
+      companyAddress: this.fb.group({
           countryIsoCode: [''],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
@@ -106,12 +104,12 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       ),
       phone: [''],
       occupation: ['', Validators.required],
-      ravJobCheckBox: [false],
+      appliedThroughRav: [false],
       workload: [''],
-      result: this.generateResultGroup()
+      results: this.generateResultsGroup()
     });
 
-    this.workEffortFormGroup.get('applyChannel').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+    this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(this.updateRequiredOptionalFields.bind(this));
 
   }
@@ -120,9 +118,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
    * checks the values of the various applychannels and manages which fields of the form must be optional or required
    * @param newApplyChannel
    */
-  private updateRequiredOptionalFields(newApplyChannel: ApplyChannelFormValue) {
+  private updateRequiredOptionalFields(newApplyChannel: ApplyChannelsFormValue) {
     const requiredMap = {
-      address: newApplyChannel.MAIL || newApplyChannel.PERSONAL || newApplyChannel.PHONE,
+      companyAddress: newApplyChannel.MAIL || newApplyChannel.PERSONAL || newApplyChannel.PHONE,
       contactPerson: newApplyChannel.PERSONAL || newApplyChannel.PHONE,
       companyEmailAndUrl: newApplyChannel.ELECTRONIC,
       phone: newApplyChannel.PHONE
@@ -136,7 +134,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       WorkEffortFormComponent.makeOptional(this.workEffortFormGroup.get('companyEmailAndUrl'))
     }
 
-    for (let abstractControlName of ['address', 'contactPerson', 'phone']) {
+    for (let abstractControlName of ['companyAddress', 'contactPerson', 'phone']) {
       if (requiredMap[abstractControlName]) {
         WorkEffortFormComponent.makeRequired(this.workEffortFormGroup.get(abstractControlName));
       } else {
@@ -147,26 +145,20 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   }
 
-  private generateResultGroup(): FormGroup {
+  private generateResultsGroup(): FormGroup {
     const controlsConfig = {};
 
-    for (const result of this.resultOptionsKeys) {
-      controlsConfig[this.resultOptions[result]] = false;
-    }
-    for (const result of this.initialWorkEffort.results) {
-      controlsConfig[result] = true;
+    for (const result of this.resultsCheckboxNames) {
+      controlsConfig[result] = [false];
     }
     return this.fb.group(controlsConfig);
 
   }
 
-  private generateApplyChannelGroup(): FormGroup {
+  private generateApplyChannelsGroup(): FormGroup {
     const controlsConfig = {};
-    for (const applyChannel of this.applyChannelOptionsKeys) {
-      controlsConfig[this.applyChannelOptions[applyChannel]] = false;
-    }
-    for (const applyChannel of this.initialWorkEffort.applicationForms) {
-      controlsConfig[applyChannel] = true;
+    for (const applyChannel of this.applyChannelsCheckboxNames) {
+      controlsConfig[applyChannel] = [false];
     }
     return this.fb.group(controlsConfig);
   }
@@ -181,7 +173,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
    * todo there's a problem: this functions clears all other validators from the form control
    * @param control can be got with formGroup.get('')
    */
-  private static  makeRequired(control: AbstractControl) {
+  private static makeRequired(control: AbstractControl) {
     control.setValidators(Validators.required);
     control.updateValueAndValidity();
   }
@@ -205,4 +197,5 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     group.setValidators(atLeastOneRequiredValidator(fields));
     group.updateValueAndValidity();
   }
+
 }

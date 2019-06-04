@@ -8,17 +8,17 @@
     <form [formGroup]="workEffortFormGroup">
       <!--      Date-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
-        <!--        <alv-date-input alvFormControlName="date"-->
-        <!--                        label="portal.global.date">-->
-        <!--        </alv-date-input>-->
+                <alv-date-input alvFormControlName="date"
+                                label="portal.global.date">
+                </alv-date-input>
       </alv-collapse-panel>
 
       <!--      Apply channel-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label">
-        <fieldset formGroupName="applyChannel">
-          <ng-container *ngFor="let key of applyChannelOptionsKeys">
-            <alv-checkbox [alvFormControlName]="applyChannelOptions[key]"
-                          [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelOptions[key]"></alv-checkbox>
+        <fieldset formGroupName="applyChannels">
+          <ng-container *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
+            <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
+                          [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"></alv-checkbox>
 
           </ng-container>
         </fieldset>
@@ -26,10 +26,10 @@
       <!--      ADDRESS AND COMPANY DETAILS SECTION -->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label">
         <alv-input-field [maxLength]="NAME_MAX_LENGTH"
-                         alvFormControlName="name"
+                         alvFormControlName="companyName"
                          label="home.tools.job-publication.company.name">
         </alv-input-field>
-        <fieldset formGroupName="address">
+        <fieldset formGroupName="companyAddress">
           <div class="form-row">
             <div class="col-8"
                  formGroupName="postOfficeBoxNumberOrStreet">
@@ -61,7 +61,7 @@
 
           </div>
 
-          <!--                    <alv-zip-city-input [parentForm]="workEffortFormGroup.get('address')"-->
+          <!--                    <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"-->
           <!--                                        [zipCityFormValue]="postAddressFormValue.zipAndCity"-->
           <!--                                        [countryIsoCode]="countryIsoCode$ | async">-->
           <!--                    </alv-zip-city-input>-->
@@ -103,7 +103,7 @@
         </alv-input-field>
       </alv-collapse-panel>
 
-      <!--      Is it a RAV-job?-->
+      <!-- todo     Is it a RAV-job?-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label">
 
       </alv-collapse-panel>
@@ -117,14 +117,14 @@
         </alv-radio-button>
       </alv-collapse-panel>
 
-      <!--      Result and rejection reason -->
+      <!--      Results and rejection reason -->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">
-        <fieldset formGroupName="result">
-          <ng-container *ngFor="let key of resultOptionsKeys">
+        <fieldset formGroupName="results">
+          <ng-container *ngFor="let resultCheckbox of resultsCheckboxNames">
             <div class="alv-light-panel p-2 mb-1">
               <alv-checkbox
-                [alvFormControlName]="resultOptions[key]"
-                [label]="'portal.work-efforts.edit-form.results.'+resultOptions[key]"
+                [alvFormControlName]="resultCheckbox"
+                [label]="'portal.work-efforts.edit-form.results.' + resultCheckbox"
                 class="narrow-form">
               </alv-checkbox>
             </div>
