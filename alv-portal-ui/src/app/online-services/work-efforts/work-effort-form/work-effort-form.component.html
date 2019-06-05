@@ -130,6 +130,11 @@
             </div>
           </ng-container>
         </fieldset>
+        <alv-input-field [showGroupErrors]="true"
+                         *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
+                         alvFormControlName="rejectionReason"
+                         label="portal.work-efforts.edit-form.rejection-reason">
+        </alv-input-field>
       </alv-collapse-panel>
       <alv-alert [hideDismiss]="true"
                  [notification]="bottomAlert"></alv-alert>
