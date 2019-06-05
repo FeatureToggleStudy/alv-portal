@@ -31,9 +31,8 @@
                          label="home.tools.job-publication.company.name">
         </alv-input-field>
         <fieldset formGroupName="companyAddress">
-          <div class="form-row">
-            <div class="col-8"
-                 formGroupName="postOfficeBoxNumberOrStreet">
+            <div formGroupName="postOfficeBoxNumberOrStreet"
+                 class="form-row">
               <alv-input-field [maxLength]="STREET_MAX_LENGTH"
                                [showGroupErrors]="true"
                                [validationMessages]="[{
@@ -41,6 +40,7 @@
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
                                 ]"
                                alvFormControlName="street"
+                               class="col-8"
                                label="home.tools.job-publication.company.street">
               </alv-input-field>
               <div class="col-4">
@@ -56,11 +56,10 @@
                         error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
                      }]"
                                alvFormControlName="postOfficeBoxNumber"
-                               label="home.tools.job-publication.company.postbox-number">
+                               label="home.tools.job-publication.company.postbox-number"
+                               class="col-12">
               </alv-input-field>
             </div>
-
-          </div>
 
           <!--                    <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"-->
           <!--                                        [zipCityFormValue]="postAddressFormValue.zipAndCity"-->
