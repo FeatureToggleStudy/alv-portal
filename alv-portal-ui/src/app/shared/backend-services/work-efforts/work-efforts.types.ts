@@ -58,7 +58,7 @@ export enum WorkEffortsFilterPeriod {
   LAST_3_MONTHS = 'LAST_3_MONTHS',
   LAST_6_MONTHS = 'LAST_6_MONTHS',
   LAST_12_MONTHS = 'LAST_12_MONTHS',
-  ALL_PAST_MONTHS = 'ALL_PAST_MONTHS'
+  ALL_MONTHS = 'ALL_MONTHS'
 }
 
 export interface WorkEffortCompany extends Company {

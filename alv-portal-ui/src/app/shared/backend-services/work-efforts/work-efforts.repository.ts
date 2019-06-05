@@ -22,4 +22,9 @@ export class WorkEffortsRepository {
     return of(mockedWorkEffort);
   }
 
+  deleteWorkEffort(workEffortId: string): Observable<null> {
+    return of(null);
+  }
+
+
 }

@@ -10,7 +10,7 @@
 
       <button type="button"
               class="btn btn-text filter-button"
-              (click)="onFilterClick()">
+              (click)="openFilterModal()">
         <fa-icon class="mr-0 mr-md-2"
                  [icon]="['fas', 'filter']"></fa-icon>
         <span class="d-none d-md-inline">
@@ -22,14 +22,26 @@
 
   <hr class="mt-0 mb-3">
 
+  <alv-alert *ngIf="isEnglishLanguageSelected$ | async"
+             [notification]="englishNotSupportedNotification"
+             [hideDismiss]="true"></alv-alert>
+
   <alv-input-field [alvControl]="form?.get('query')"
                    label="portal.work-efforts.search.query"
                    [maxLength]="SEARCH_QUERY_MAX_LENGTH">
   </alv-input-field>
 
+  <div class="d-flex justify-content-end mb-3"
+       *ngIf="currentBadges?.length">
+    <alv-inline-badges [badges]="currentBadges"
+                       (removed)="removeCurrentBadge($event)"
+                       [canRemove]="true">
+    </alv-inline-badges>
+  </div>
+
   <alv-work-efforts-report *ngFor="let workEffortsReport of workEffortsReports$ | async"
                       [workEffortsReport]="workEffortsReport"
-                      [isCurrentPeriod]="isCurrentControlPeriod(workEffortsReport)"
+                      [isCurrentPeriod]="isCurrentReportPeriod(workEffortsReport)"
                       class="d-block mb-4">
   </alv-work-efforts-report>
 

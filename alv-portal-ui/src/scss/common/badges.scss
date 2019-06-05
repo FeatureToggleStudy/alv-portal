@@ -3,6 +3,9 @@
 .badge-work-effort-result-employed {
   background-color: $color-green;
   color: $color-white;
+  .remove-button {
+    color: $color-white;
+  }
 }
 
 .badge-job,
@@ -23,7 +26,8 @@
 .badge-free-text,
 .badge-availability,
 .badge-manage-jobads-filter,
-.badge-user-pav-or-emp {
+.badge-user-pav-or-emp,
+.badge-work-effort-period {
   background-color: $color-light-yellow;
 }
 

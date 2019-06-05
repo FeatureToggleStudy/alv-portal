@@ -3,6 +3,11 @@ import { Accountability, CompanyContactTemplate, UserInfoDTO } from './user-info
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+export enum UserSearchParameterTypes {
+  EMAIL = 'eMail',
+  PERSON_NR = 'personNr'
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -30,20 +35,25 @@ export class UserInfoRepository {
     return this.http.get<UserInfoDTO>(UserInfoRepository.USER_INFO_URL, { params: params });
   }
 
-  public loadUserByStesNr(stesNumber: string): Observable<UserInfoDTO> {
-    const params = new HttpParams().set('stesNr', stesNumber);
-    return this.http.get<UserInfoDTO>(`${UserInfoRepository.USER_INFO_URL}_search/by-stes-nr`, { params: params });
+  public loadUserByPersonNr(personNumber: string): Observable<UserInfoDTO> {
+    const params = new HttpParams().set(UserSearchParameterTypes.PERSON_NR, personNumber);
+    return this.http.get<UserInfoDTO>(`${UserInfoRepository.USER_INFO_URL}_search/by-person-nr`, { params: params });
   }
 
   public loadUserRoles(userId: string): Observable<string[]> {
     return this.http.get<string[]>(`${UserInfoRepository.USER_INFO_URL}${userId}/roles`);
   }
 
-  public unregisterUser(email: string, role: string): Observable<any> {
+  public unregisterUser(searchParamType: UserSearchParameterTypes, searchParam: string, role: string): Observable<any> {
     const params = new HttpParams()
-      .set('eMail', email)
+      .set(searchParamType, searchParam)
       .set('role', role);
-    return this.http.delete(UserInfoRepository.USER_INFO_URL, { params: params });
+
+    let url = UserInfoRepository.USER_INFO_URL;
+    if (searchParamType === UserSearchParameterTypes.PERSON_NR) {
+      url += 'by-person-nr/';
+    }
+    return this.http.delete(url, { params: params });
   }
 
 }
