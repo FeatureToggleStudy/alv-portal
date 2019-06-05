@@ -19,9 +19,10 @@ import {
   ApplyChannelsFormValue,
   mapToWorkEffortFormValue,
   formPossibleResults,
-  formPossibleApplyChannels, WorkLoadFormOption
+  formPossibleApplyChannels, WorkLoadFormOption, WorkEffortFormValue
 } from './work-effort-form.mapper';
 import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
+import { ActivatedRoute } from '@angular/router';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 
@@ -42,7 +43,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   /**
    * the main input
    */
-  public initialWorkEffort$: Observable<WorkEffort>;
+  public initialWorkEffort: WorkEffortFormValue;
 
   resultsCheckboxNames = formPossibleResults;
 
@@ -64,7 +65,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
-              private workEffortsRepository: WorkEffortsRepository) {
+              private workEffortsRepository: WorkEffortsRepository,
+              private route: ActivatedRoute) {
 
     super();
     this.countryOptions$ = this.isoCountryService.countryOptions$;
@@ -105,8 +107,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       rejectionReason: [''],
     });
 
+    this.initialWorkEffort = this.route.snapshot.data.initialFormValue;
+    this.workEffortFormGroup.patchValue(this.initialWorkEffort);
+
     this.setUpDynamicValidation();
-    this.loadWorkEffortById('SAMPLE ID');
+    // this.patchValue(this.initialWorkEffort);
   }
 
   private setUpDynamicValidation(): void {
@@ -116,9 +121,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       .subscribe(this.updateRequiredOptionalFields.bind(this));
   }
 
-  private loadWorkEffortById(id): void {
-    this.initialWorkEffort$ = this.workEffortsRepository.getWorkEffortById(id);
-  }
 
   /**
    * checks the values of the various applychannels and manages which fields of the form must be optional or required

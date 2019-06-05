@@ -24,21 +24,21 @@ const routes: Routes = [
       collapseNavigation: true
     },
     resolve: {
-      initialFormValueConfig: WorkEffortFormResolverService
+      initialFormValue: WorkEffortFormResolverService
     },
   },
-  {
-    path: 'create',
-    component: WorkEffortFormComponent,
-    canActivate: [AuthenticatedGuard],
-    canDeactivate: [WorkEffortFormGuard],
-    data: {
-      collapseNavigation: true
-    },
-    resolve: {
-      initialFormValueConfig: WorkEffortFormResolverService
-    },
-  },
+  // {
+  //   path: 'create',
+  //   component: WorkEffortFormComponent,
+  //   canActivate: [AuthenticatedGuard],
+  //   canDeactivate: [WorkEffortFormGuard],
+  //   data: {
+  //     collapseNavigation: true
+  //   },
+  //   resolve: {
+  //     initialFormValueConfig: WorkEffortFormResolverService
+  //   },
+  // },
   {
     path: '**',
     redirectTo: ''
