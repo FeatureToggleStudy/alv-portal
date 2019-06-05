@@ -13,7 +13,7 @@ import {
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Injectable()
-export class JobPublicationResolver implements Resolve<Observable<InitialFormValueConfig>> {
+  export class JobPublicationResolver implements Resolve<Observable<InitialFormValueConfig>> {
 
   constructor(private authenticationService: AuthenticationService,
               private jobAdvertisementRepository: JobAdvertisementRepository) {

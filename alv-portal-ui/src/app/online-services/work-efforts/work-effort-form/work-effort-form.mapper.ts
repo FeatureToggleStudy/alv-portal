@@ -104,7 +104,6 @@ function mapWorkloadToBackend(workLoadFormValue: WorkLoadFormOption): boolean {
   return workLoadFormValue===WorkLoadFormOption.FULLTIME;
 }
 export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortFormValue {
-  //todo fulltimejob
   return {
     companyName: workEffort.company.name,
     date: mapToNgbDateStruct(workEffort.date),
@@ -134,7 +133,6 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
 }
 
 export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): WorkEffort {
-  // todo fulltime job
   return {
     date: mapNgbDateStructToString(formValue.date),
     appliedThroughRav: formValue.appliedThroughRav,
