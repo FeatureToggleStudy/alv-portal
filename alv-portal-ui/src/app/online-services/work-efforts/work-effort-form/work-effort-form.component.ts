@@ -1,30 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { Observable, of } from 'rxjs';
-import { ContractType } from '../../../shared/backend-services/shared.types';
-import {
-  mockedWorkEffort, WorkEffort,
-  WorkEffortApplyChannel,
-  WorkEffortResult
-} from '../../../shared/backend-services/work-efforts/work-efforts.types';
-import { Company } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { mapToNgbDateStruct } from '../../../job-advertisement/job-publication/job-publication-form/job-publication-form.mapper';
 import {
+  AppliedThroughRavOption,
   ApplyChannelsFormValue,
-  mapToWorkEffortFormValue,
+  formPossibleApplyChannels,
   formPossibleResults,
-  formPossibleApplyChannels, WorkLoadFormOption, WorkEffortFormValue
+  WorkEffortFormValue,
+  WorkLoadFormOption
 } from './work-effort-form.mapper';
 import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
 import { ActivatedRoute } from '@angular/router';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
+const appliedThroughRavPrefix = 'portal.global';
 
 
 @Component({
@@ -57,11 +52,18 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     messageKey: 'portal.work-efforts.edit-form.note.note-text'
   };
 
-  workLoadOptions$ = of(Object.keys(WorkLoadFormOption).map(key => ({
-    value: key,
-    label: workLoadPrefix + '.' + key
+  workLoadOptions$ = of(Object.values(WorkLoadFormOption).map(value => ({
+    value: value,
+    label: workLoadPrefix + '.' + value
   })));
 
+  appliedThroughRavOptions$ = of([{
+    value: false,
+    label: appliedThroughRavPrefix + '.' + 'no'
+  }, {
+    value: true,
+    label: appliedThroughRavPrefix + '.' + 'yes'
+  }]);
 
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,

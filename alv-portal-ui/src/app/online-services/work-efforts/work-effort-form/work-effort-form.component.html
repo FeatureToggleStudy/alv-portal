@@ -14,6 +14,11 @@
         </alv-date-input>
       </alv-collapse-panel>
 
+      <div class="arrow-container">
+        <div class="arrow-down secondary">
+        </div>
+      </div>
+
       <!--      Apply channel-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label">
         <fieldset formGroupName="applyChannels">
@@ -24,6 +29,11 @@
           </ng-container>
         </fieldset>
       </alv-collapse-panel>
+
+      <div class="arrow-container">
+        <div class="arrow-down secondary">
+        </div>
+      </div>
       <!--      ADDRESS AND COMPANY DETAILS SECTION -->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label">
         <alv-input-field [maxLength]="NAME_MAX_LENGTH"
@@ -31,35 +41,35 @@
                          label="home.tools.job-publication.company.name">
         </alv-input-field>
         <fieldset formGroupName="companyAddress">
-            <div formGroupName="postOfficeBoxNumberOrStreet"
-                 class="form-row">
-              <alv-input-field [maxLength]="STREET_MAX_LENGTH"
-                               [showGroupErrors]="true"
-                               [validationMessages]="[{
+          <div formGroupName="postOfficeBoxNumberOrStreet"
+               class="form-row">
+            <alv-input-field [maxLength]="STREET_MAX_LENGTH"
+                             [showGroupErrors]="true"
+                             [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
                                 ]"
-                               alvFormControlName="street"
-                               class="col-8"
-                               label="home.tools.job-publication.company.street">
-              </alv-input-field>
-              <div class="col-4">
-                <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
-                                 alvFormControlName="houseNumber"
-                                 label="home.tools.job-publication.company.house-number">
-                </alv-input-field>
-              </div>
-
-              <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
-                               [showGroupErrors]="true"
-                               [validationMessages]="[{
-                        error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
-                     }]"
-                               alvFormControlName="postOfficeBoxNumber"
-                               label="home.tools.job-publication.company.postbox-number"
-                               class="col-12">
+                             alvFormControlName="street"
+                             class="col-8"
+                             label="home.tools.job-publication.company.street">
+            </alv-input-field>
+            <div class="col-4">
+              <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
+                               alvFormControlName="houseNumber"
+                               label="home.tools.job-publication.company.house-number">
               </alv-input-field>
             </div>
+
+            <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
+                             [showGroupErrors]="true"
+                             [validationMessages]="[{
+                        error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
+                     }]"
+                             alvFormControlName="postOfficeBoxNumber"
+                             label="home.tools.job-publication.company.postbox-number"
+                             class="col-12">
+            </alv-input-field>
+          </div>
 
           <!--                    <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"-->
           <!--                                        [zipCityFormValue]="postAddressFormValue.zipAndCity"-->
@@ -95,6 +105,11 @@
         </alv-input-field>
       </alv-collapse-panel>
 
+      <div class="arrow-container">
+        <div class="arrow-down secondary">
+        </div>
+      </div>
+
       <!--      Occupation-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.occupation-panel-label">
         <alv-input-field [showGroupErrors]="true"
@@ -103,11 +118,23 @@
         </alv-input-field>
       </alv-collapse-panel>
 
+      <div class="arrow-container">
+        <div class="arrow-down secondary">
+        </div>
+      </div>
+
       <!-- todo     Is it a RAV-job?-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label">
-
+        <alv-radio-button
+          [options$]="appliedThroughRavOptions$"
+          alvFormControlName="appliedThroughRav"
+          class="narrow-form">
+        </alv-radio-button>
       </alv-collapse-panel>
-
+      <div class="arrow-container">
+        <div class="arrow-down secondary">
+        </div>
+      </div>
       <!--      Contract type-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.work-load-panel-label">
         <alv-radio-button
@@ -117,6 +144,10 @@
         </alv-radio-button>
       </alv-collapse-panel>
 
+      <div class="arrow-container">
+        <div class="arrow-down secondary">
+        </div>
+      </div>
       <!--      Results and rejection reason -->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">
         <fieldset formGroupName="results">
@@ -130,11 +161,18 @@
             </div>
           </ng-container>
         </fieldset>
-        <alv-input-field [showGroupErrors]="true"
-                         *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
-                         alvFormControlName="rejectionReason"
-                         label="portal.work-efforts.edit-form.rejection-reason">
-        </alv-input-field>
+        <ng-container
+          *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
+        >
+          <div class="arrow-container">
+            <div class="arrow-down secondary">
+            </div>
+          </div>
+          <alv-input-field [showGroupErrors]="true"
+                           alvFormControlName="rejectionReason"
+                           label="portal.work-efforts.edit-form.rejection-reason">
+          </alv-input-field>
+        </ng-container>
       </alv-collapse-panel>
       <alv-alert [hideDismiss]="true"
                  [notification]="bottomAlert"></alv-alert>

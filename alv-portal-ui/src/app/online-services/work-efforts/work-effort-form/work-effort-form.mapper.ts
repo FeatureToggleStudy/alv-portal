@@ -28,9 +28,14 @@ export interface ResultsFormValue {
 export const formPossibleResults = ['PENDING', 'REJECTED', 'EMPLOYED', 'INTERVIEW'];
 
 export enum WorkLoadFormOption {
-  FULLTIME = "FULLTIME",
-  PARTTIME = "PARTTIME"
-};
+  FULLTIME = 'FULLTIME',
+  PARTTIME = 'PARTTIME'
+}
+
+export enum AppliedThroughRavOption {
+  YES = 'yes',
+  NO = 'no'
+}
 
 export interface WorkEffortFormValue {
   companyName: string,
@@ -89,20 +94,22 @@ function mapApplyChannelsFormValueToBackend(applyChannels: ApplyChannelsFormValu
 }
 
 function mapNgbDateStructToString(struct: NgbDateStruct): string {
-  return new Date(struct.year, struct.month-1, struct.day).toISOString();
+  return new Date(struct.year, struct.month - 1, struct.day).toISOString();
 }
 
-function mapToWorkloadFormValue(isFulltime: boolean):WorkLoadFormOption {
+function mapToWorkloadFormValue(isFulltime: boolean): WorkLoadFormOption {
   return isFulltime ? WorkLoadFormOption.FULLTIME : WorkLoadFormOption.PARTTIME;
 }
+
 
 /**
  *
  * @return true if full time
  */
 function mapWorkloadToBackend(workLoadFormValue: WorkLoadFormOption): boolean {
-  return workLoadFormValue===WorkLoadFormOption.FULLTIME;
+  return workLoadFormValue === WorkLoadFormOption.FULLTIME;
 }
+
 export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortFormValue {
   return {
     companyName: workEffort.company.name,

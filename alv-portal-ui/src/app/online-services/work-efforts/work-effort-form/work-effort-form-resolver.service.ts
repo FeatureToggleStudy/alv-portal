@@ -10,13 +10,13 @@ import { WorkEffort } from '../../../shared/backend-services/work-efforts/work-e
 @Injectable({
   providedIn: 'root'
 })
-export class WorkEffortFormResolverService implements Resolve<Observable<InitialFormValueConfig>> {
+export class WorkEffortFormResolverService implements Resolve<Observable<WorkEffortFormValue>> {
 
   constructor(private workEffortsRepository: WorkEffortsRepository) {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<WorkEffortFormValue> {
     const workEffortId = route.params['id'];
     return this.workEffortsRepository.getWorkEffortById(workEffortId).pipe(
       take(1),
