@@ -50,7 +50,6 @@ export interface CandidateProtectedData {
   lastName: string;
   phone: string;
   mobile: string;
-  email: string;
   address: Address;
   nationalityCode: string;
   candidateProfile: CandidateProfile;

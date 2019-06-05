@@ -244,11 +244,6 @@
                  href="tel:{{candidateProtectedData.mobile}}">{{candidateProtectedData.mobile | phoneNumber}}</a>
             </alv-list-item-content>
 
-            <alv-list-item-content *ngIf="candidateProtectedData.email"
-                                   label="candidate-detail.personal-information.e-mail.label">
-              <a class="link"
-                 href="mailto:{{candidateProtectedData.email}}">{{candidateProtectedData.email}}</a>
-            </alv-list-item-content>
           </ul>
         </alv-collapse-panel>
       </div>
