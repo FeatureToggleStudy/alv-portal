@@ -1,4 +1,3 @@
-<!--
 <div class="container-fluid pt-4 pt-lg-5 px-lg-5">
   <div class="d-flex justify-content-between align-items-end position-relative">
     <h2 class="pr-5">
@@ -40,10 +39,9 @@
   </div>
 
   <alv-work-efforts-report *ngFor="let workEffortsReport of workEffortsReports$ | async"
-                      [workEffortsReport]="workEffortsReport"
-                      [isCurrentPeriod]="isCurrentReportPeriod(workEffortsReport)"
-                      class="d-block mb-4">
+                           [workEffortsReport]="workEffortsReport"
+                           [isCurrentPeriod]="isCurrentReportPeriod(workEffortsReport)"
+                           class="d-block mb-4">
   </alv-work-efforts-report>
 
 </div>
--->

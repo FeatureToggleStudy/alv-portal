@@ -87,6 +87,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       flatMap(user => this.workEffortsRepository.getWorkEffortsReports(user.id))
     );
 
+
     this.form.get('query').valueChanges.pipe(
       debounceTime(300),
       takeUntil(this.ngUnsubscribe))
