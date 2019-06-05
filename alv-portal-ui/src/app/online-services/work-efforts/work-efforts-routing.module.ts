@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 import { WorkEffortsComponent } from './work-efforts/work-efforts.component';
 import { WorkEffortFormComponent } from './work-effort-form/work-effort-form.component';
+import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
     path: ':id',
     component: WorkEffortFormComponent,
     // canActivate: [AuthenticatedGuard],
+    canDeactivate: [WorkEffortFormGuard],
     data: {
       collapseNavigation: true
     }
