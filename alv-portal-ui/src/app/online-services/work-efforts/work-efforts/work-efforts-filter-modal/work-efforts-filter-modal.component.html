@@ -1,19 +1,19 @@
-<alv-modal modalTitle="portal.work-efforts.filter-modal.title"
+<alv-modal (cancelAction)="cancel()"
            (primaryAction)="filter()"
-           (cancelAction)="cancel()"
            [formGroup]="form"
-           primaryLabel="entity.action.ok"
-           cancelLabel="entity.action.cancel">
+           cancelLabel="entity.action.cancel"
+           modalTitle="portal.work-efforts.filter-modal.title"
+           primaryLabel="entity.action.ok">
   <fieldset>
     <alv-select
-      label="portal.work-efforts.filter-modal.period.label"
       [alvControl]="form.get('period')"
-      [options$]="periodOptions$">
+      [options$]="periodOptions$"
+      label="portal.work-efforts.filter-modal.period.label">
     </alv-select>
     <alv-select
-      label="portal.work-efforts.filter-modal.result.label"
       [alvControl]="form.get('workEffortResult')"
-      [options$]="workEffortResultOptions$">
+      [options$]="workEffortResultOptions$"
+      label="portal.work-efforts.filter-modal.result.label">
     </alv-select>
   </fieldset>
 </alv-modal>

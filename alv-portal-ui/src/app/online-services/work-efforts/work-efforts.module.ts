@@ -9,6 +9,9 @@ import { WorkEffortComponent } from './work-efforts/work-effort/work-effort.comp
 import { WorkEffortsReportComponent } from './work-efforts/work-efforts-report/work-efforts-report.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { WorkEffortsFilterModalComponent } from './work-efforts/work-efforts-filter-modal/work-efforts-filter-modal.component';
+import { JobPublicationModule } from '../../job-advertisement/job-publication/job-publication.module';
+import { PrettyJsonModule } from 'angular2-prettyjson';
+import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
 
 
 @NgModule({
@@ -16,7 +19,9 @@ import { WorkEffortsFilterModalComponent } from './work-efforts/work-efforts-fil
     CommonModule,
     SharedModule,
     WorkEffortsRoutingModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    JobPublicationModule,
+    PrettyJsonModule
   ],
   declarations: [
     WorkEffortsComponent,
@@ -29,7 +34,8 @@ import { WorkEffortsFilterModalComponent } from './work-efforts/work-efforts-fil
     WorkEffortsFilterModalComponent
   ],
   providers: [
-    ModalService
+    ModalService,
+    WorkEffortFormGuard
   ]
 })
 export class WorkEffortsModule {

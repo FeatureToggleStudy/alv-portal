@@ -144,7 +144,7 @@ function mapToDuration(employment: Employment): EmploymentDuration {
   return EmploymentDuration.TEMPORARY;
 }
 
-function mapToNgbDateStruct(dateSting: string): NgbDateStruct {
+export function mapToNgbDateStruct(dateSting: string): NgbDateStruct {
   if (!dateSting) {
     return null;
   }

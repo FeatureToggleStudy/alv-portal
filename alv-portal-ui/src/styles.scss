@@ -36,3 +36,26 @@ alv-root {
 @import "~nouislider/distribute/nouislider.min.css";
 
 
+pre span {
+  white-space: normal;
+}
+
+.string {
+  color: #388066;
+}
+
+.number {
+  color: darkorange;
+}
+
+.boolean {
+  color: blue;
+}
+
+.null {
+  color: #a800a8;
+}
+
+.key {
+  color: #3d1211;
+}

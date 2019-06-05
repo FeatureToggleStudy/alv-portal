@@ -28,7 +28,8 @@ export class WorkEffortComponent implements OnInit {
   constructor(private modalService: ModalService,
               private workEffortsService: WorkEffortsService,
               private workEffortsRepository: WorkEffortsRepository,
-              private notificationsService: NotificationsService) { }
+              private notificationsService: NotificationsService) {
+  }
 
   ngOnInit() {
     this.resultBadges = this.workEffortsService.mapResultBadges(this.workEffort.results);

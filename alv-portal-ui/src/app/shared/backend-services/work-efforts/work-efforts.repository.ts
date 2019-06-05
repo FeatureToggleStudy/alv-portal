@@ -1,14 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import {
-  WorkEffortsReport,
-  mockedControlPeriods,
-  mockedWorkEffort,
-  WorkEffort
-} from './work-efforts.types';
+import { mockedControlPeriods, mockedWorkEffort, WorkEffort, WorkEffortsReport } from './work-efforts.types';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class WorkEffortsRepository {
 
   // TODO: replace with correct endpoint

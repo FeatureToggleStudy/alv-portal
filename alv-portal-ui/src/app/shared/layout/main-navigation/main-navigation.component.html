@@ -110,8 +110,8 @@
   <ng-container *ngIf="(menuDefinition$ | async) as menuDefinition">
     <!-- Main Menu Entries -->
     <ng-container *ngFor="let menuEntry of menuDefinition.mainMenuEntries">
-      <alv-menu-entry [menuEntry]="menuEntry"
-                      (itemClicked)="toggleMobileSideNav()">
+      <alv-menu-entry (itemClicked)="toggleMobileSideNav()"
+                      [menuEntry]="menuEntry">
       </alv-menu-entry>
     </ng-container>
 
@@ -124,16 +124,16 @@
         </small>
       </div>
       <ng-container *ngFor="let menuEntry of menuDefinition.onlineFormsMenuEntries">
-        <alv-menu-entry [menuEntry]="menuEntry"
-                        (itemClicked)="toggleMobileSideNav()">
+        <alv-menu-entry (itemClicked)="toggleMobileSideNav()"
+                        [menuEntry]="menuEntry">
         </alv-menu-entry>
       </ng-container>
       <div class="menu-divider"></div>
     </ng-container>
 
     <ng-container *ngFor="let menuEntry of menuDefinition.settingsMenuEntries">
-      <alv-menu-entry [menuEntry]="menuEntry"
-                      (itemClicked)="toggleMobileSideNav()">
+      <alv-menu-entry (itemClicked)="toggleMobileSideNav()"
+                      [menuEntry]="menuEntry">
       </alv-menu-entry>
     </ng-container>
   </ng-container>

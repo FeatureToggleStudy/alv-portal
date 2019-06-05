@@ -32,12 +32,15 @@
       &:last-of-type {
         padding-right: 30px;
       }
+
       .success-icon-container {
         display: none;
       }
+
       &.success {
         background-color: $color-light-green;
         padding-right: 30px;
+
         .success-icon-container {
           display: flex;
           position: absolute;

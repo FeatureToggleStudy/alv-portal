@@ -20,7 +20,8 @@ export class WorkEffortsReportComponent implements OnInit {
   @HostBinding('class.current-period')
   @Input() isCurrentPeriod: boolean;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.expanded = this.isCurrentPeriod;

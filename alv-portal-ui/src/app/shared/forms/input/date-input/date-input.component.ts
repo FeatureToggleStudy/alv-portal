@@ -52,6 +52,12 @@ export class DateInputComponent extends AbstractInput {
    */
   @Input() placement: 'bottom-left' | 'bottom-right' = 'bottom-left';
 
+  /**
+   * (optional) A selector specifying the element the datepicker popup should be appended to.
+   * Currently only supports "body".
+   */
+  @Input() container: string;
+
   @ViewChild('datePicker') datePicker: any;
 
   constructor(@Optional() @Host() @SkipSelf()controlContainer: ControlContainer,

@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  HostBinding,
-  Inject,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { AfterViewInit, Component, HostBinding, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
@@ -21,7 +14,7 @@ import {
 } from '../../../core/state-management/actions/core.actions';
 import { MenuEntryService } from './menu-entry.service';
 import { Observable } from 'rxjs';
-import { MenuDefinition, MenuEntry } from './menu-entry.type';
+import { MenuDefinition } from './menu-entry.type';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { isAuthenticatedUser, User, UserRole } from '../../../core/auth/user.model';
 import { LoginService } from '../../auth/login.service';

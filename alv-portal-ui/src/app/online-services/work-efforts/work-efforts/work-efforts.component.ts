@@ -11,11 +11,7 @@ import { debounceTime, filter, flatMap, map, takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { WorkEffortsFilterModalComponent } from './work-efforts-filter-modal/work-efforts-filter-modal.component';
-import {
-  initialWorkEffortsFilter,
-  WorkEffortsFilter,
-  WorkEffortsFilterValues
-} from './work-efforts-filter.types';
+import { initialWorkEffortsFilter, WorkEffortsFilter, WorkEffortsFilterValues } from './work-efforts-filter.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { FilterBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { WorkEffortsService } from './work-efforts.service';

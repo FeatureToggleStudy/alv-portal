@@ -43,8 +43,8 @@
       | translate:{dateTime: getSubmissionDate(workEffortsReport) | date: 'dd.MM.yyyy HH:mm'} }}
     </div>
     <div class="success-icon-container text-center h-100 align-items-center">
-      <fa-icon class="w-100"
-               [icon]="['fas', 'check']"></fa-icon>
+      <fa-icon [icon]="['fas', 'check']"
+               class="w-100"></fa-icon>
     </div>
   </span>
   <span class="expanded-indicator h-100">
@@ -70,9 +70,9 @@
     <ng-container *ngFor="let workEffort of workEffortsReport.workEfforts; let last = last">
       <div class="work-effort-divider"></div>
 
-      <alv-work-effort [workEffort]="workEffort"
+      <alv-work-effort (deleted)="removeWorkEffort($event)"
                        [forecastSubmissionDate]="workEffortsReport.forecastSubmissionDate"
-                       (deleted)="removeWorkEffort($event)"></alv-work-effort>
+                       [workEffort]="workEffort"></alv-work-effort>
 
       <div *ngIf="last"
            class="work-effort-divider"></div>
