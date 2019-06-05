@@ -21,6 +21,7 @@ import {
   formPossibleResults,
   formPossibleApplyChannels, WorkLoadFormOption
 } from './work-effort-form.mapper';
+import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 
@@ -41,9 +42,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   /**
    * the main input
    */
-  public initialWorkEffort = mapToWorkEffortFormValue(mockedWorkEffort);
-
-  public initialCompany: Company;
+  public initialWorkEffort$: Observable<WorkEffort>;
 
   resultsCheckboxNames = formPossibleResults;
 
@@ -63,7 +62,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   })));
 
 
-  constructor(private fb: FormBuilder, private isoCountryService: IsoCountryService) {
+  constructor(private fb: FormBuilder,
+              private isoCountryService: IsoCountryService,
+              private workEffortsRepository: WorkEffortsRepository) {
 
     super();
     this.countryOptions$ = this.isoCountryService.countryOptions$;
@@ -72,7 +73,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
 
     this.workEffortFormGroup = this.fb.group({
-      date: [this.initialWorkEffort.date],
+      date: ['', Validators.required],
       applyChannels: this.generateApplyChannelsGroup(),
       companyName: ['', Validators.required],
 
@@ -104,8 +105,19 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       rejectionReason: [''],
     });
 
-    this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(takeUntil(this.ngUnsubscribe))
+    this.setUpDynamicValidation();
+    this.loadWorkEffortById('SAMPLE ID');
+  }
+
+  private setUpDynamicValidation(): void {
+    this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe)
+    )
       .subscribe(this.updateRequiredOptionalFields.bind(this));
+  }
+
+  private loadWorkEffortById(id): void {
+    this.initialWorkEffort$ = this.workEffortsRepository.getWorkEffortById(id);
   }
 
   /**
