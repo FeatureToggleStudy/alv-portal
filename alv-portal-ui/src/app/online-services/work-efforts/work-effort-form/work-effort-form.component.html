@@ -76,15 +76,15 @@
             </alv-input-field>
           </div>
 
-<!--          Fixme zip-city must be dependent on a country. For a different country we should not have a combined input-->
-          <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
-                              [zipCityFormValue]="initialWorkEffort.companyAddress.zipCity"
-                              [countryIsoCode]="countryIsoCode$ | async">
-          </alv-zip-city-input>
-
           <alv-select [options$]="countryOptions$"
                       alvFormControlName="countryIsoCode"
                       label="home.tools.job-publication.company.country"></alv-select>
+
+          <!--          Fixme zip-city must be dependent on a country. For a different country we should not have a combined input-->
+          <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
+                              [zipCityFormValue]="initialWorkEffort.companyAddress.zipAndCity"
+                              [countryIsoCode]="countryIsoCode$ | async">
+          </alv-zip-city-input>
 
         </fieldset>
 
@@ -171,7 +171,7 @@
           *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
         >
           <div class="arrow-container">
-            <div class="arrow-down secondary">
+            <div class="arrow-down">
             </div>
           </div>
           <alv-input-field [showGroupErrors]="true"

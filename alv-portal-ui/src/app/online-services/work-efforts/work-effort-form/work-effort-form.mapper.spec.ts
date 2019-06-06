@@ -11,10 +11,11 @@ import {
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
 
 const mockedWorkEffortBackend: WorkEffort = {
-  date: "2019-07-12T22:00:00.000Z",
+  date: '2019-07-12T22:00:00.000Z',
   company: {
     name: 'SRF - Schweizer Radio und Fernsehen ',
     city: 'Zurich',
+    postalCode: '8098',
     contactPerson: 'Some Dude',
     countryIsoCode: 'CH',
     email: 'mail@address.com',
@@ -22,7 +23,6 @@ const mockedWorkEffortBackend: WorkEffort = {
     phone: '+41 33 322 34 41',
     street: 'Evergreen Terrace',
     applyFormUrl: 'www.example-company.com',
-    postalCode: '8098',
     postOfficeBoxNumber: ''
   },
   applicationForms: [WorkEffortApplyChannel.PHONE],
@@ -41,8 +41,11 @@ const mockWorkEffortFormValue: WorkEffortFormValue = {
   },
   companyName: 'SRF - Schweizer Radio und Fernsehen ',
   companyAddress: {
-    city: 'Zurich',
-    postalCode: '8098',
+    zipAndCity: {
+      city: 'Zurich',
+      zipCode: '8098',
+      zipCityAutoComplete: null
+    },
     postOfficeBoxNumberOrStreet: {
       houseNumber: '22b',
       street: 'Evergreen Terrace',
@@ -74,7 +77,7 @@ const mockWorkEffortFormValue: WorkEffortFormValue = {
   contactPerson: 'Some Dude',
 };
 
-describe('Work Effort Form mappers', () => {
+fdescribe('Work Effort Form mappers', () => {
   it('should convert work effort -> form value', () => {
     expect(mapToWorkEffortFormValue(mockedWorkEffortBackend)).toEqual(mockWorkEffortFormValue);
   });

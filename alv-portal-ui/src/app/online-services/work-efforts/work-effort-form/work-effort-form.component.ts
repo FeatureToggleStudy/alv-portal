@@ -120,12 +120,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       companyName: ['', Validators.required],
 
       companyAddress: this.fb.group({
-          city: [],
           countryIsoCode: [''],
+          zipAndCity: [''],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
             houseNumber: [''],
-            postalCode: [''],
             postOfficeBoxNumber: [''],
           }, {
             validator: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])]
