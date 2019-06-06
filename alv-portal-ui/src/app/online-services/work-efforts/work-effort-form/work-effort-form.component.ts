@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
@@ -27,6 +27,26 @@ import { phoneInputValidator } from '../../../shared/forms/input/input-field/pho
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
 
+
+function allErrors(fGroup) {
+  return Object
+    .keys(fGroup.controls) // go through all the control names
+    .reduce((result, name) => {
+      const control = <FormGroup | AbstractControl>fGroup.controls[name];
+
+      // if control is FormGroup recursively call its `allErrors`
+      if (control instanceof FormGroup) {
+        result[name] = allErrors(control);
+      } else if (control instanceof FormArray) {
+        // add implementation for array here
+      } else {
+        // for normal controls add errors here
+        result[name] = control.errors;
+      }
+
+      return result; // and return the result to the next control
+    }, {});
+}
 /**
  * todo move to shared
  * @param input
@@ -326,4 +346,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     }
     return this.fb.group(controlsConfig);
   }
+  allErrors=allErrors;
+
 }

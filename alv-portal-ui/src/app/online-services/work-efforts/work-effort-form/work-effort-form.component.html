@@ -6,6 +6,8 @@
     </alv-link-panel>
 
     <alv-collapse-panel panelTitle="debug">
+      <pre [innerHTML]="allErrors(workEffortFormGroup) | prettyjson"></pre>
+      <hr>
       <pre [innerHTML]="workEffortFormGroup.value | prettyjson"></pre>
     </alv-collapse-panel>
   </div>
