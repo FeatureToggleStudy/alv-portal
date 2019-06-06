@@ -5,10 +5,9 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
-import { takeUntil } from 'rxjs/operators';
+import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
-  AppliedThroughRavOption,
   ApplyChannelsFormValue,
   formPossibleApplyChannels,
   formPossibleResults,
@@ -37,9 +36,31 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly NAME_MAX_LENGTH = 255;
   readonly EMAIL_MAX_LENGTH = 255;
   readonly FORM_URL_MAX_LENGTH = 255;
-  LinkPanelId = LinkPanelId;
+  readonly LinkPanelId = LinkPanelId;
+  countryIsoCode$: Observable<String>;
+  workEffortFormGroup: FormGroup;
+  initialWorkEffort: WorkEffortFormValue;
+  resultsCheckboxNames = formPossibleResults;
+  applyChannelsCheckboxNames = formPossibleApplyChannels;
+  countryOptions$: Observable<SelectableOption[]>;
+  bottomAlert: Notification = {
+    isSticky: true,
+    type: NotificationType.WARNING,
+    messageKey: 'portal.work-efforts.edit-form.note.note-text'
+  };
+  workLoadOptions$ = of(Object.values(WorkLoadFormOption).map(value => ({
+    value: value,
+    label: workLoadPrefix + '.' + value
+  })));
+  appliedThroughRavOptions$ = of([{
+    value: false,
+    label: appliedThroughRavPrefix + '.' + 'no'
+  }, {
+    value: true,
+    label: appliedThroughRavPrefix + '.' + 'yes'
+  }]);
 
-
+  //fixme have the list of the default validators per field. Is not used yet
   private defaultValidators = {
     email: [
       patternInputValidator(EMAIL_REGEX),
@@ -52,38 +73,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     ]
   };
 
-
-  workEffortFormGroup: FormGroup;
-  /**
-   * the main input
-   */
-  initialWorkEffort: WorkEffortFormValue;
-
-  resultsCheckboxNames = formPossibleResults;
-
-  applyChannelsCheckboxNames = formPossibleApplyChannels;
-
-  countryOptions$: Observable<SelectableOption[]>;
-
-  bottomAlert: Notification = {
-    isSticky: true,
-    type: NotificationType.WARNING,
-    messageKey: 'portal.work-efforts.edit-form.note.note-text'
-  };
-
-  workLoadOptions$ = of(Object.values(WorkLoadFormOption).map(value => ({
-    value: value,
-    label: workLoadPrefix + '.' + value
-  })));
-
-  appliedThroughRavOptions$ = of([{
-    value: false,
-    label: appliedThroughRavPrefix + '.' + 'no'
-  }, {
-    value: true,
-    label: appliedThroughRavPrefix + '.' + 'yes'
-  }]);
-
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
               private workEffortsRepository: WorkEffortsRepository,
@@ -91,6 +80,36 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     super();
     this.countryOptions$ = this.isoCountryService.countryOptions$;
+  }
+
+  /**
+   * makes a certain control a required field.
+   * todo there's a problem: this functions clears all other validators from the form control
+   * @param control can be got with formGroup.get('')
+   */
+  private static makeRequired(control: AbstractControl) {
+    control.setValidators(Validators.required);
+    control.updateValueAndValidity();
+  }
+
+  /**
+   * clears all validators from the field, making it optional
+   * todo: all validators will be cleared. We need to set them up back again.
+   * @param control can be got with formGroup.get('')
+   */
+  private static makeOptional(control: AbstractControl) {
+    control.clearValidators();
+    control.updateValueAndValidity();
+  }
+
+  private static clearValidatorsFromGroup(group: FormGroup) {
+    group.clearValidators();
+    group.updateValueAndValidity();
+  }
+
+  private static makeAtLeastOneInGroupRequired(group: FormGroup, fields: string[]) {
+    group.setValidators(atLeastOneRequiredValidator(fields));
+    group.updateValueAndValidity();
   }
 
   ngOnInit() {
@@ -132,7 +151,16 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
     this.setUpDynamicValidation();
-    // this.patchValue(this.initialWorkEffort);
+
+    this.countryIsoCode$ = this.workEffortFormGroup.get('companyAddress').get('countryIsoCode').valueChanges
+      .pipe(
+        filter((value) => !!value),
+        startWith(this.initialWorkEffort.companyAddress.countryIsoCode),
+      );
+  }
+
+  submit() {
+
   }
 
   private setUpDynamicValidation(): void {
@@ -141,7 +169,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     )
       .subscribe(this.updateRequiredOptionalFields.bind(this));
   }
-
 
   /**
    * checks the values of the various applychannels and manages which fields of the form must be optional or required
@@ -186,40 +213,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       controlsConfig[checkbox] = [false];
     }
     return this.fb.group(controlsConfig);
-  }
-
-  submit() {
-
-  }
-
-  /**
-   * makes a certain control a required field.
-   * todo there's a problem: this functions clears all other validators from the form control
-   * @param control can be got with formGroup.get('')
-   */
-  private static makeRequired(control: AbstractControl) {
-    control.setValidators(Validators.required);
-    control.updateValueAndValidity();
-  }
-
-  /**
-   * clears all validators from the field, making it optional
-   * todo: all validators will be cleared. We need to set them up back again.
-   * @param control can be got with formGroup.get('')
-   */
-  private static makeOptional(control: AbstractControl) {
-    control.clearValidators();
-    control.updateValueAndValidity();
-  }
-
-  private static clearValidatorsFromGroup(group: FormGroup) {
-    group.clearValidators();
-    group.updateValueAndValidity();
-  }
-
-  private static makeAtLeastOneInGroupRequired(group: FormGroup, fields: string[]) {
-    group.setValidators(atLeastOneRequiredValidator(fields));
-    group.updateValueAndValidity();
   }
 
 }

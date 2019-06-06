@@ -6,6 +6,7 @@ import {
 import { mapToNgbDateStruct } from '../../../job-advertisement/job-publication/job-publication-form/job-publication-form.mapper';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { WorkLoad } from '../../../shared/backend-services/candidate/candidate.types';
+import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
 
 
 export interface ApplyChannelsFormValue {
@@ -48,8 +49,9 @@ export interface WorkEffortFormValue {
       houseNumber?: string,
       postOfficeBoxNumber?: string
     }
-    postalCode?: string;
-    city: string,
+    postalCode?: string; //todo remove
+    city: string, //todo remove
+    zipCity?: ZipCityFormValue,
   }
   contactPerson?: string,
   companyEmailAndUrl?: {
@@ -122,7 +124,12 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
         postOfficeBoxNumber: workEffort.company.postOfficeBoxNumber || '',
         street: workEffort.company.street
       },
-      postalCode: workEffort.company.postalCode
+      postalCode: workEffort.company.postalCode,
+      zipCity: {
+        city: workEffort.company.city, //todo check that the mapping works
+        zipCode: workEffort.company.postalCode,
+        zipCityAutoComplete: null
+      }
     },
     companyEmailAndUrl: {
       email: workEffort.company.email,
@@ -154,6 +161,7 @@ export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): Wor
       postalCode: formValue.companyAddress.postalCode,
       name: formValue.companyName,
       city: formValue.companyAddress.city,
+      //todo add mapping to zipCity value for Switzerland
 
     },
     results: mapResultsFormValueToBackendResults(formValue.results),

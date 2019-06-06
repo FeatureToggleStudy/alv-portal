@@ -76,10 +76,11 @@
             </alv-input-field>
           </div>
 
-          <!--                    <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"-->
-          <!--                                        [zipCityFormValue]="postAddressFormValue.zipAndCity"-->
-          <!--                                        [countryIsoCode]="countryIsoCode$ | async">-->
-          <!--                    </alv-zip-city-input>-->
+<!--          Fixme zip-city must be dependent on a country. For a different country we should not have a combined input-->
+          <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
+                              [zipCityFormValue]="initialWorkEffort.companyAddress.zipCity"
+                              [countryIsoCode]="countryIsoCode$ | async">
+          </alv-zip-city-input>
 
           <alv-select [options$]="countryOptions$"
                       alvFormControlName="countryIsoCode"
