@@ -20,7 +20,7 @@
 
       <alv-job-search-profile-item
         @removeProfile
-        *ngFor="let jobSearchProfile of jobSearchProfiles; trackBy: trackById"
+        *ngFor="let jobSearchProfile of jobSearchProfiles"
         class="d-block"
         [jobSearchProfile]="jobSearchProfile"
         (deleted)="onDeleteProfile($event)">
