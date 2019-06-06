@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
@@ -22,10 +22,18 @@ import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.compon
 import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
 import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
 
+/**
+ * todo move to shared
+ * @param input
+ * @param days
+ * @param months
+ * @param years
+ */
 function deltaDate(input, days, months, years): Date {
   var date = new Date(input);
   date.setDate(date.getDate() + days);
@@ -34,12 +42,27 @@ function deltaDate(input, days, months, years): Date {
   return date;
 }
 
+/**
+ * todo move to shared
+ * @param ngbDate
+ */
 function mapNgbDateToDate(ngbDate: NgbDate): Date {
   return ngbDate ? new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day) : null;
 }
 
+/**
+ * todo move to shared
+ * @param date
+ */
 function mapDateToNgbDate(date: Date): NgbDate {
   return NgbDate.from({ day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear()});
+}
+
+interface DefaultValidatorsRepository {
+  phone: ValidatorFn[],
+  email: ValidatorFn[],
+  url: ValidatorFn[],
+  rejectionReason: ValidatorFn[],
 }
 
 @Component({
@@ -53,6 +76,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly HOUSE_NUMBER_MAX_LENGTH = 10;
   readonly STREET_MAX_LENGTH = 60;
   readonly NAME_MAX_LENGTH = 255;
+  readonly REJECTION_REASON_MAX_LENGTH = 120;
   readonly EMAIL_MAX_LENGTH = 255;
   readonly FORM_URL_MAX_LENGTH = 255;
   readonly MIN_MONTHS_DIFF=-4;
@@ -85,7 +109,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   maxDate: NgbDate;
 
   //fixme have the list of the default validators per field. Is not used yet
-  private defaultDynamicValidators = {
+  private defaultDynamicValidators: DefaultValidatorsRepository = {
     email: [
       patternInputValidator(EMAIL_REGEX),
       Validators.maxLength(this.EMAIL_MAX_LENGTH)
@@ -94,7 +118,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       Validators.required,
       patternInputValidator(URL_REGEX),
       Validators.maxLength(this.FORM_URL_MAX_LENGTH)
-    ]
+    ],
+    phone: [phoneInputValidator],
+    rejectionReason: [Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH)],
+
   };
 
   constructor(private fb: FormBuilder,
@@ -180,11 +207,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       contactPerson: [''],
       companyEmailAndUrl: this.fb.group(
         {
-          email: [''],
-          url: ['']
+          email: ['', this.defaultDynamicValidators.email],
+          url: ['', this.defaultDynamicValidators.url]
         }
       ),
-      phone: [''],
+      phone: ['', this.defaultDynamicValidators.phone],
       occupation: ['', Validators.required],
       appliedThroughRav: [false],
       workload: [''],
