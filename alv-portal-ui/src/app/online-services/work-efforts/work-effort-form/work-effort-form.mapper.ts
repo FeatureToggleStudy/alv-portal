@@ -101,7 +101,6 @@ function mapToWorkloadFormValue(isFulltime: boolean): WorkLoadFormOption {
   return isFulltime ? WorkLoadFormOption.FULLTIME : WorkLoadFormOption.PARTTIME;
 }
 
-
 /**
  *
  * @return true if full time
