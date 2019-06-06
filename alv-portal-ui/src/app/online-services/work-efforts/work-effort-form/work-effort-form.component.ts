@@ -119,7 +119,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
    * This solution is temporary before there will be AbstractControl.getValidators() function available.
    * See https://github.com/angular/angular/issues/13461 for the details of the problem
    */
-  private defaultDynamicValidators: DefaultValidatorsRepository = {
+  private readonly defaultDynamicValidators: DefaultValidatorsRepository = {
     email: [
       patternInputValidator(EMAIL_REGEX),
       Validators.maxLength(this.EMAIL_MAX_LENGTH)
@@ -130,7 +130,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     ],
     phone: [phoneInputValidator],
     rejectionReason: [Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH)],
-    companyAddress: [],
+    companyAddress: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])],
     contactPerson: [],
     companyEmailAndUrl: [atLeastOneRequiredValidator(['email', 'url'])],
   };
@@ -181,7 +181,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
             houseNumber: [''],
             postOfficeBoxNumber: [''],
           }, {
-            validator: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])]
+            validator: this.defaultDynamicValidators.companyAddress
           }),
         }
       ),
@@ -230,7 +230,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       control.updateValueAndValidity();
     }
     else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators to make it optional`);
+      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
     }
   }
 
@@ -246,20 +246,33 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       control.setValidators(this.defaultDynamicValidators[name]);
       control.updateValueAndValidity();
     }
-    // else {
-    //   throw new Error('You need to add all default validators to the list in this.defaultDynamicValidators to make it optional')
-    // }
+    else {
+      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`)
+    }
 
   }
 
-  private clearValidatorsFromGroup(group: FormGroup) {
-    group.clearValidators();
-    group.updateValueAndValidity();
+  private clearValidatorsFromGroup(group: FormGroup, name: string) {
+    const defaultValidators = this.defaultDynamicValidators[name];
+    if (defaultValidators) {
+
+      group.clearValidators();
+      group.updateValueAndValidity();
+    }
+    else {
+      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`)
+    }
   }
 
-  private makeAtLeastOneInGroupRequired(group: FormGroup, fields: string[]) {
-    group.setValidators(atLeastOneRequiredValidator(fields));
-    group.updateValueAndValidity();
+  private makeAtLeastOneInGroupRequired(group: FormGroup, name:string, fields: string[]) {
+    const defaultValidators = this.defaultDynamicValidators[name];
+    if (defaultValidators) {
+      group.setValidators([atLeastOneRequiredValidator(fields)].concat(defaultValidators));
+      group.updateValueAndValidity();
+    }
+    else {
+      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`)
+    }
   }
 
   private setUpDynamicValidation(): void {
@@ -282,10 +295,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     };
 
     if (requiredMap.companyEmailAndUrl) {
-      this.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), ['email', 'url']);
+      this.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl', ['email', 'url']);
       this.makeRequired(this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl')
     } else {
-      this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'));
+      this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl');
       this.makeOptional(this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl')
     }
 
