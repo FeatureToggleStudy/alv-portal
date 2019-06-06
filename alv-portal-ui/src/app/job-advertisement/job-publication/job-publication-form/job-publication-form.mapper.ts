@@ -144,12 +144,12 @@ function mapToDuration(employment: Employment): EmploymentDuration {
   return EmploymentDuration.TEMPORARY;
 }
 
-export function mapToNgbDateStruct(dateSting: string): NgbDateStruct {
-  if (!dateSting) {
+export function mapToNgbDateStruct(dateString: string): NgbDateStruct {
+  if (!dateString) {
     return null;
   }
 
-  const date = new Date(dateSting);
+  const date = new Date(dateString);
   return {
     year: date.getFullYear(),
     month: date.getMonth() + 1,

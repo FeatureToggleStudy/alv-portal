@@ -21,9 +21,26 @@ import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.component';
 import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
 import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
+import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
+
+function deltaDate(input, days, months, years): Date {
+  var date = new Date(input);
+  date.setDate(date.getDate() + days);
+  date.setMonth(date.getMonth() + months);
+  date.setFullYear(date.getFullYear() + years);
+  return date;
+}
+
+function mapNgbDateToDate(ngbDate: NgbDate): Date {
+  return ngbDate ? new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day) : null;
+}
+
+function mapDateToNgbDate(date: Date): NgbDate {
+  return NgbDate.from({ day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear()});
+}
 
 @Component({
   selector: 'alv-work-effort-form',
@@ -38,6 +55,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly NAME_MAX_LENGTH = 255;
   readonly EMAIL_MAX_LENGTH = 255;
   readonly FORM_URL_MAX_LENGTH = 255;
+  readonly MIN_MONTHS_DIFF=-4;
+  readonly MAX_DAYS_DIFF=5;
   readonly LinkPanelId = LinkPanelId;
   countryIsoCode$: Observable<String>;
   workEffortFormGroup: FormGroup;
@@ -62,8 +81,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     label: appliedThroughRavPrefix + '.' + 'yes'
   }]);
   initialZipAndCity: ZipCityFormValue;
+  minDate: NgbDate;
+  maxDate: NgbDate;
+
   //fixme have the list of the default validators per field. Is not used yet
-  private defaultValidators = {
+  private defaultDynamicValidators = {
     email: [
       patternInputValidator(EMAIL_REGEX),
       Validators.maxLength(this.EMAIL_MAX_LENGTH)
@@ -82,6 +104,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     super();
     this.countryOptions$ = this.isoCountryService.countryOptions$;
+    const today = new Date();
+    this.minDate = mapDateToNgbDate(deltaDate(today, 0, this.MIN_MONTHS_DIFF, 0));
+    this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
   }
 
   /**
@@ -112,6 +137,26 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   private static makeAtLeastOneInGroupRequired(group: FormGroup, fields: string[]) {
     group.setValidators(atLeastOneRequiredValidator(fields));
     group.updateValueAndValidity();
+  }
+
+  /**
+   * creates a typeahead item for switzerland and fills the zipInput. For other countries doesn't do anything
+   * fixme technically it's a mapper, maybe move it to work-effort mappers?
+   * @param zipAndCity
+   * @param countryIsoCode
+   */
+  private static createInitialZipAndCityFormValue(zipAndCity: ZipCityFormValue, countryIsoCode: string): ZipCityFormValue {
+    const {zipCode, city} = zipAndCity;
+
+    if (countryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND && zipCode && city) {
+      const {zipCode, city} = zipAndCity;
+      const label = zipCode + ' ' + city;
+      return {
+        ...zipAndCity,
+        zipCityAutoComplete: new ZipAndCityTypeaheadItem({zipCode, city}, label, 0) //fixme maybe this logic should reside in zip input instead, because there's no reason WorkEffort should know about typeahead items.
+      }
+    }
+    return zipAndCity;
   }
 
   ngOnInit() {
@@ -157,7 +202,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         filter((value) => !!value),
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode),
       );
-    this.initialZipAndCity = this.createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode)
+    this.initialZipAndCity = WorkEffortFormComponent.createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode)
   }
 
   submit() {
@@ -214,24 +259,5 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       controlsConfig[checkbox] = [false];
     }
     return this.fb.group(controlsConfig);
-  }
-
-  /**
-   * creates a typeahead item for switzerland
-   * @param zipAndCity
-   * @param countryIsoCode
-   */
-  private createInitialZipAndCityFormValue(zipAndCity: ZipCityFormValue, countryIsoCode: string): ZipCityFormValue {
-    const {zipCode, city} = zipAndCity;
-
-    if (countryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND && zipCode && city) {
-      const {zipCode, city} = zipAndCity;
-      const label = zipCode + ' ' + city;
-      return {
-        ...zipAndCity,
-        zipCityAutoComplete: new ZipAndCityTypeaheadItem({zipCode, city}, label, 0) //fixme maybe this logic should reside in zip input instead, because there's no reason WorkEffort should know about typeahead items.
-      }
-    }
-    return zipAndCity;
   }
 }

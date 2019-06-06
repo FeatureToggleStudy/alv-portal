@@ -14,6 +14,8 @@
       <!--      Date-->
       <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
         <alv-date-input alvFormControlName="date"
+                        [minDate]="minDate"
+                        [maxDate]="maxDate"
                         label="portal.global.date"
                         container="body">
         </alv-date-input>
@@ -184,7 +186,6 @@
                  [notification]="bottomAlert"></alv-alert>
       <button class="btn btn-outline-secondary">{{'portal.global.cancel' | translate}}</button>
       <button class="btn btn-primary">{{'entity.action.save' | translate}}</button>
-
     </form>
   </div>
 </alv-two-column-layout>
