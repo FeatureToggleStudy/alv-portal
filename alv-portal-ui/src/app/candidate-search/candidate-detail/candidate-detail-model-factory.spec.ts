@@ -43,7 +43,6 @@ describe('CandidateDetailModelFactory', () => {
     lastName: 'lastName',
     phone: '+41211212',
     mobile: '+41211212',
-    email: 'string@dd.com',
     address: {
       street: 'street',
       zipCode: '2002',
