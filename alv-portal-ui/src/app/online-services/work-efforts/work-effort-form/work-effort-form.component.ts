@@ -17,10 +17,12 @@ import {
 } from './work-effort-form.mapper';
 import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
 import { ActivatedRoute } from '@angular/router';
+import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
+import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
+import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.component';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
-
 
 @Component({
   selector: 'alv-work-effort-form',
@@ -33,12 +35,29 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly HOUSE_NUMBER_MAX_LENGTH = 10;
   readonly STREET_MAX_LENGTH = 60;
   readonly NAME_MAX_LENGTH = 255;
+  readonly EMAIL_MAX_LENGTH = 255;
+  readonly FORM_URL_MAX_LENGTH = 255;
+  LinkPanelId = LinkPanelId;
+
+
+  private defaultValidators = {
+    email: [
+      patternInputValidator(EMAIL_REGEX),
+      Validators.maxLength(this.EMAIL_MAX_LENGTH)
+    ],
+    url: [
+      Validators.required,
+      patternInputValidator(URL_REGEX),
+      Validators.maxLength(this.FORM_URL_MAX_LENGTH)
+    ]
+  };
+
 
   workEffortFormGroup: FormGroup;
   /**
    * the main input
    */
-  public initialWorkEffort: WorkEffortFormValue;
+  initialWorkEffort: WorkEffortFormValue;
 
   resultsCheckboxNames = formPossibleResults;
 

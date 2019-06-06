@@ -1,5 +1,10 @@
 <alv-two-column-layout [showLeftColumn]="false">
   <div class="right-column">
+    <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
+                    [numberOfColumns]="1"
+                    class="d-block my-4">
+    </alv-link-panel>
+
     <alv-collapse-panel panelTitle="debug">
       <pre [innerHTML]="workEffortFormGroup.value | prettyjson"></pre>
     </alv-collapse-panel>
