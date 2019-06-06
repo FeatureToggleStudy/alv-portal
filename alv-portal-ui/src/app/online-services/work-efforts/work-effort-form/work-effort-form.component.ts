@@ -21,7 +21,7 @@ import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.component';
 import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
 import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
-import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
@@ -55,7 +55,7 @@ function mapNgbDateToDate(ngbDate: NgbDate): Date {
  * @param date
  */
 function mapDateToNgbDate(date: Date): NgbDate {
-  return NgbDate.from({ day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear()});
+  return NgbDate.from({day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear()});
 }
 
 interface DefaultValidatorsRepository {
@@ -63,6 +63,9 @@ interface DefaultValidatorsRepository {
   email: ValidatorFn[],
   url: ValidatorFn[],
   rejectionReason: ValidatorFn[],
+  companyAddress: ValidatorFn[],
+  contactPerson:  ValidatorFn[],
+  companyEmailAndUrl:  ValidatorFn[],
 }
 
 @Component({
@@ -80,8 +83,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly OCCUPATION_MAX_LENGTH = 100;
   readonly EMAIL_MAX_LENGTH = 255;
   readonly FORM_URL_MAX_LENGTH = 255;
-  readonly MIN_MONTHS_DIFF=-4;
-  readonly MAX_DAYS_DIFF=5;
+  readonly MIN_MONTHS_DIFF = -4;
+  readonly MAX_DAYS_DIFF = 5;
   readonly LinkPanelId = LinkPanelId;
   countryIsoCode$: Observable<String>;
   workEffortFormGroup: FormGroup;
@@ -109,20 +112,27 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   minDate: NgbDate;
   maxDate: NgbDate;
 
-  //fixme have the list of the default validators per field. Is not used yet
+  /**
+   * For each form control in this.workEffortFormGroup and its subgroups we list all the default validators,
+   * EXCEPT the required validator.
+   * This is done to dynamically make a control required or optional without losing all validators.
+   * This solution is temporary before there will be AbstractControl.getValidators() function available.
+   * See https://github.com/angular/angular/issues/13461 for the details of the problem
+   */
   private defaultDynamicValidators: DefaultValidatorsRepository = {
     email: [
       patternInputValidator(EMAIL_REGEX),
       Validators.maxLength(this.EMAIL_MAX_LENGTH)
     ],
     url: [
-      Validators.required,
       patternInputValidator(URL_REGEX),
       Validators.maxLength(this.FORM_URL_MAX_LENGTH)
     ],
     phone: [phoneInputValidator],
     rejectionReason: [Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH)],
-
+    companyAddress: [],
+    contactPerson: [],
+    companyEmailAndUrl: [atLeastOneRequiredValidator(['email', 'url'])],
   };
 
   constructor(private fb: FormBuilder,
@@ -135,36 +145,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     const today = new Date();
     this.minDate = mapDateToNgbDate(deltaDate(today, 0, this.MIN_MONTHS_DIFF, 0));
     this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
-  }
-
-  /**
-   * makes a certain control a required field.
-   * todo there's a problem: this functions clears all other validators from the form control
-   * @param control can be got with formGroup.get('')
-   */
-  private static makeRequired(control: AbstractControl) {
-    control.setValidators(Validators.required);
-    control.updateValueAndValidity();
-  }
-
-  /**
-   * clears all validators from the field, making it optional
-   * todo: all validators will be cleared. We need to set them up back again.
-   * @param control can be got with formGroup.get('')
-   */
-  private static makeOptional(control: AbstractControl) {
-    control.clearValidators();
-    control.updateValueAndValidity();
-  }
-
-  private static clearValidatorsFromGroup(group: FormGroup) {
-    group.clearValidators();
-    group.updateValueAndValidity();
-  }
-
-  private static makeAtLeastOneInGroupRequired(group: FormGroup, fields: string[]) {
-    group.setValidators(atLeastOneRequiredValidator(fields));
-    group.updateValueAndValidity();
   }
 
   /**
@@ -205,7 +185,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
           }),
         }
       ),
-      contactPerson: [''],
+      contactPerson: ['', this.defaultDynamicValidators.contactPerson],
       companyEmailAndUrl: this.fb.group(
         {
           email: ['', this.defaultDynamicValidators.email],
@@ -213,8 +193,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         }
       ),
       phone: ['', this.defaultDynamicValidators.phone],
-      occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH) ]],
-      appliedThroughRav: [false],
+      occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
+      appliedThroughRav: ['', Validators.required,],
       workload: [''],
       results: this.generateResultsGroup(),
       rejectionReason: [''],
@@ -237,6 +217,51 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   }
 
+  /**
+   * makes a certain control a required field.
+   * todo there's a problem: this functions clears all other validators from the form control
+   * @param control can be got with formGroup.get('')
+   * @param name
+   */
+  private makeRequired(control: AbstractControl, name: string) {
+    const defaultValidators = this.defaultDynamicValidators[name];
+    if (defaultValidators) {
+      control.setValidators([Validators.required].concat(defaultValidators));
+      control.updateValueAndValidity();
+    }
+    else {
+      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators to make it optional`);
+    }
+  }
+
+  /**
+   * clears all validators from the field, making it optional
+   * todo: all validators will be cleared. We need to set them up back again.
+   * @param control can be got with formGroup.get('')
+   * @param name of the form control to search in defaultDynamicValidators;
+   */
+  private makeOptional(control: AbstractControl, name: string) {
+    const defaultValidators = this.defaultDynamicValidators[name];
+    if (defaultValidators) {
+      control.setValidators(this.defaultDynamicValidators[name]);
+      control.updateValueAndValidity();
+    }
+    // else {
+    //   throw new Error('You need to add all default validators to the list in this.defaultDynamicValidators to make it optional')
+    // }
+
+  }
+
+  private clearValidatorsFromGroup(group: FormGroup) {
+    group.clearValidators();
+    group.updateValueAndValidity();
+  }
+
+  private makeAtLeastOneInGroupRequired(group: FormGroup, fields: string[]) {
+    group.setValidators(atLeastOneRequiredValidator(fields));
+    group.updateValueAndValidity();
+  }
+
   private setUpDynamicValidation(): void {
     this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(
       takeUntil(this.ngUnsubscribe)
@@ -257,18 +282,18 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     };
 
     if (requiredMap.companyEmailAndUrl) {
-      WorkEffortFormComponent.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), ['email', 'url']);
-      WorkEffortFormComponent.makeRequired(this.workEffortFormGroup.get('companyEmailAndUrl'))
+      this.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), ['email', 'url']);
+      this.makeRequired(this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl')
     } else {
-      WorkEffortFormComponent.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'));
-      WorkEffortFormComponent.makeOptional(this.workEffortFormGroup.get('companyEmailAndUrl'))
+      this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'));
+      this.makeOptional(this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl')
     }
 
     for (let abstractControlName of ['companyAddress', 'contactPerson', 'phone']) {
       if (requiredMap[abstractControlName]) {
-        WorkEffortFormComponent.makeRequired(this.workEffortFormGroup.get(abstractControlName));
+        this.makeRequired(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
       } else {
-        WorkEffortFormComponent.makeOptional(this.workEffortFormGroup.get(abstractControlName));
+        this.makeOptional(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
       }
     }
   }
