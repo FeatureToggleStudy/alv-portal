@@ -461,7 +461,7 @@ function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue
   };
 }
 
-function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCode: string, city: string } {
+export function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCode: string, city: string } {
   if (zipCityFormValue.zipCityAutoComplete) {
     const zipAndCity = zipCityFormValue.zipCityAutoComplete.payload;
 

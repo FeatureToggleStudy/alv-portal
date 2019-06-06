@@ -3,7 +3,10 @@ import {
   WorkEffortApplyChannel,
   WorkEffortResult
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
-import { mapToNgbDateStruct } from '../../../job-advertisement/job-publication/job-publication-form/job-publication-form.mapper';
+import {
+  mapToNgbDateStruct,
+  mapToPostalCodeAndCity
+} from '../../../job-advertisement/job-publication/job-publication-form/job-publication-form.mapper';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { WorkLoad } from '../../../shared/backend-services/candidate/candidate.types';
 import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
@@ -142,6 +145,7 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
 }
 
 export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): WorkEffort {
+  const zipAndCity  = mapToPostalCodeAndCity(formValue.companyAddress.zipAndCity);
   return {
     date: mapNgbDateStructToString(formValue.date),
     appliedThroughRav: formValue.appliedThroughRav,
@@ -154,8 +158,8 @@ export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): Wor
       postOfficeBoxNumber: formValue.companyAddress.postOfficeBoxNumberOrStreet.postOfficeBoxNumber,
       houseNumber: formValue.companyAddress.postOfficeBoxNumberOrStreet.houseNumber,
       countryIsoCode: formValue.companyAddress.countryIsoCode,
-      postalCode: formValue.companyAddress.zipAndCity.zipCode,
-      city: formValue.companyAddress.zipAndCity.city,
+      postalCode: zipAndCity.postalCode,
+      city: zipAndCity.city,
       name: formValue.companyName,
 
     },

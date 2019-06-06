@@ -121,7 +121,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
       companyAddress: this.fb.group({
           countryIsoCode: [''],
-          zipAndCity: [''],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
             houseNumber: [''],
