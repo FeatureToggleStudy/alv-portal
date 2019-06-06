@@ -77,7 +77,7 @@ const mockWorkEffortFormValue: WorkEffortFormValue = {
   contactPerson: 'Some Dude',
 };
 
-fdescribe('Work Effort Form mappers', () => {
+describe('Work Effort Form mappers', () => {
   it('should convert work effort -> form value', () => {
     expect(mapToWorkEffortFormValue(mockedWorkEffortBackend)).toEqual(mockWorkEffortFormValue);
   });

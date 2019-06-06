@@ -82,7 +82,7 @@
 
           <!--          Fixme zip-city must be dependent on a country. For a different country we should not have a combined input-->
           <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
-                              [zipCityFormValue]="initialWorkEffort.companyAddress.zipAndCity"
+                              [zipCityFormValue]="initialZipAndCity"
                               [countryIsoCode]="countryIsoCode$ | async">
           </alv-zip-city-input>
 

@@ -4,7 +4,7 @@ import { IsoCountryService } from '../../../../shared/localities/iso-country.ser
 import { LocalitySuggestionService } from '../../../../shared/localities/locality-suggestion.service';
 import { Observable } from 'rxjs';
 import { TypeaheadItem } from '../../../../shared/forms/input/typeahead/typeahead-item';
-import { ZipAndCity } from '../../../../shared/localities/zip-and-city-typeahead-item';
+import { ZipAndCity, ZipAndCityTypeaheadItem } from '../../../../shared/localities/zip-and-city-typeahead-item';
 import { ZipCityFormValue } from './zip-city-form-value.types';
 
 @Component({
@@ -46,7 +46,7 @@ export class ZipCityInputComponent implements OnInit {
   }
 
   loadLocationsFn = (query: string): Observable<TypeaheadItem<ZipAndCity>[]> =>
-    this.localitySuggestionService.fetchJobPublicationLocations(query)
+    this.localitySuggestionService.fetchJobPublicationLocations(query);
 
   ngOnInit(): void {
     const { zipCityAutoComplete, zipCode, city } = this.zipCityFormValue;
@@ -64,7 +64,6 @@ export class ZipCityInputComponent implements OnInit {
         Validators.maxLength(this.CITY_MAX_LENGTH)
       ]]
     });
-
     this.parentForm.addControl('zipAndCity', this.zipAndCity);
     this.toggleAutocomplete(this._countryIsoCode);
   }
@@ -90,4 +89,5 @@ export class ZipCityInputComponent implements OnInit {
       cityControl.enable();
     }
   }
+
 }

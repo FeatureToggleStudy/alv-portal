@@ -19,6 +19,8 @@ import { ActivatedRoute } from '@angular/router';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.component';
+import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
+import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -59,7 +61,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     value: true,
     label: appliedThroughRavPrefix + '.' + 'yes'
   }]);
-
+  initialZipAndCity: ZipCityFormValue;
   //fixme have the list of the default validators per field. Is not used yet
   private defaultValidators = {
     email: [
@@ -155,6 +157,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         filter((value) => !!value),
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode),
       );
+    this.initialZipAndCity = this.createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode)
   }
 
   submit() {
@@ -213,4 +216,22 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     return this.fb.group(controlsConfig);
   }
 
+  /**
+   * creates a typeahead item for switzerland
+   * @param zipAndCity
+   * @param countryIsoCode
+   */
+  private createInitialZipAndCityFormValue(zipAndCity: ZipCityFormValue, countryIsoCode: string): ZipCityFormValue {
+    const {zipCode, city} = zipAndCity;
+
+    if (countryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND && zipCode && city) {
+      const {zipCode, city} = zipAndCity;
+      const label = zipCode + ' ' + city;
+      return {
+        ...zipAndCity,
+        zipCityAutoComplete: new ZipAndCityTypeaheadItem({zipCode, city}, label, 0) //fixme maybe this logic should reside in zip input instead, because there's no reason WorkEffort should know about typeahead items.
+      }
+    }
+    return zipAndCity;
+  }
 }
