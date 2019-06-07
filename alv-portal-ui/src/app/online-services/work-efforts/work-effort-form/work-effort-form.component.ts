@@ -36,7 +36,10 @@ function allErrors(fGroup) {
 
       // if control is FormGroup recursively call its `allErrors`
       if (control instanceof FormGroup) {
-        result[name] = allErrors(control);
+        result[name] = {
+          __groupErrors: control.errors,
+          ...allErrors(control)
+        };
       } else if (control instanceof FormArray) {
         // add implementation for array here
       } else {
@@ -45,8 +48,9 @@ function allErrors(fGroup) {
       }
 
       return result; // and return the result to the next control
-    }, {});
+    }, {__groupErrors: fGroup.errors});
 }
+
 /**
  * todo move to shared
  * @param input
@@ -84,8 +88,8 @@ interface DefaultValidatorsRepository {
   url: ValidatorFn[],
   rejectionReason: ValidatorFn[],
   companyAddress: ValidatorFn[],
-  contactPerson:  ValidatorFn[],
-  companyEmailAndUrl:  ValidatorFn[],
+  contactPerson: ValidatorFn[],
+  companyEmailAndUrl: ValidatorFn[],
 }
 
 @Component({
@@ -106,6 +110,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly MIN_MONTHS_DIFF = -4;
   readonly MAX_DAYS_DIFF = 5;
   readonly LinkPanelId = LinkPanelId;
+  allErrors = allErrors;
   countryIsoCode$: Observable<String>;
   workEffortFormGroup: FormGroup;
   initialWorkEffort: WorkEffortFormValue;
@@ -248,8 +253,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     if (defaultValidators) {
       control.setValidators([Validators.required].concat(defaultValidators));
       control.updateValueAndValidity();
-    }
-    else {
+    } else {
       throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
     }
   }
@@ -265,8 +269,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     if (defaultValidators) {
       control.setValidators(this.defaultDynamicValidators[name]);
       control.updateValueAndValidity();
-    }
-    else {
+    } else {
       throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`)
     }
 
@@ -278,19 +281,17 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
       group.clearValidators();
       group.updateValueAndValidity();
-    }
-    else {
+    } else {
       throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`)
     }
   }
 
-  private makeAtLeastOneInGroupRequired(group: FormGroup, name:string, fields: string[]) {
+  private makeAtLeastOneInGroupRequired(group: FormGroup, name: string, fields: string[]) {
     const defaultValidators = this.defaultDynamicValidators[name];
     if (defaultValidators) {
       group.setValidators([atLeastOneRequiredValidator(fields)].concat(defaultValidators));
       group.updateValueAndValidity();
-    }
-    else {
+    } else {
       throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`)
     }
   }
@@ -336,16 +337,24 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   private generateApplyChannelsGroup(): FormGroup {
-    return this.generateCheckboxesFormGroup(this.applyChannelsCheckboxNames);
+
+    const controlsConfig = {};
+    for (const checkbox of this.applyChannelsCheckboxNames) {
+      controlsConfig[checkbox] = [null];
+    }
+    debugger
+    return this.fb.group(controlsConfig, {validators: [atLeastOneRequiredValidator(this.applyChannelsCheckboxNames)]});
   }
 
   private generateCheckboxesFormGroup(checkboxNames: string[]): FormGroup {
-    const controlsConfig = {};
+    const controlsConfig: {
+      [key: string]: any;
+    } = {};
     for (const checkbox of checkboxNames) {
       controlsConfig[checkbox] = [false];
     }
     return this.fb.group(controlsConfig);
   }
-  allErrors=allErrors;
+
 
 }
