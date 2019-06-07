@@ -1,0 +1,30 @@
+<ng-container *ngIf="currentRibbon">
+  <h3 class="environment-label">
+    {{currentRibbon.label}}
+  </h3>
+  <svg xmlns="http://www.w3.org/2000/svg"
+       width="200"
+       height="200">
+    <title>Environment Ribbon
+    </title>
+
+    <g>
+      <title>Main Layer</title>
+
+      <path [attr.fill]="currentRibbon.backgroundColor"
+            fill-opacity="1"
+            stroke="none"
+            stroke-width="2"
+            stroke-dasharray="none"
+            stroke-linejoin="round"
+            stroke-linecap="butt"
+            fill-rule="nonzero"
+            opacity="0.6"
+            id="svg_environment_ribbon"
+            d="M0,110L110,0L200,0L0,200L0,110z"
+            style="color: rgb(0, 0, 0);">
+      </path>
+    </g>
+  </svg>
+</ng-container>
+
