@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  AbstractControlOptions,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
@@ -11,6 +19,7 @@ import {
   ApplyChannelsFormValue,
   formPossibleApplyChannels,
   formPossibleResults,
+  ResultsFormValue,
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.mapper';
@@ -159,6 +168,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     contactPerson: [],
     companyEmailAndUrl: [atLeastOneRequiredValidator(['email', 'url'])],
   };
+  private previousResultsValue;
 
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
@@ -229,6 +239,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
     this.setUpDynamicValidation();
+    this.previousResultsValue = {...this.initialWorkEffort.results};
+    this.setUpUnclicking({
+      PENDING: ['EMPLOYED', 'REJECTED'],
+      REJECTED: ['EMPLOYED', 'PENDING'],
+      EMPLOYED: ['REJECTED', 'PENDING'],
+      INTERVIEW: []
+    });
 
     this.countryIsoCode$ = this.workEffortFormGroup.get('companyAddress').get('countryIsoCode').valueChanges
       .pipe(
@@ -317,10 +334,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     if (requiredMap.companyEmailAndUrl) {
       this.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl', ['email', 'url']);
-      this.makeRequired(this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl')
     } else {
       this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl');
-      this.makeOptional(this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl')
     }
 
     for (let abstractControlName of ['companyAddress', 'contactPerson', 'phone']) {
@@ -333,28 +348,46 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   private generateResultsGroup(): FormGroup {
-    return this.generateCheckboxesFormGroup(this.resultsCheckboxNames);
+    return this.generateCheckboxesFormGroup(this.resultsCheckboxNames, {
+      validators: atLeastOneRequiredValidator(this.resultsCheckboxNames)
+    });
   }
 
   private generateApplyChannelsGroup(): FormGroup {
+    return this.generateCheckboxesFormGroup(this.applyChannelsCheckboxNames, {
+      validators: atLeastOneRequiredValidator(this.applyChannelsCheckboxNames)
+    });
+  }
 
+  private generateCheckboxesFormGroup(checkboxNames: string[], options: AbstractControlOptions | null = null): FormGroup {
     const controlsConfig = {};
-    for (const checkbox of this.applyChannelsCheckboxNames) {
+    for (const checkbox of checkboxNames) {
       controlsConfig[checkbox] = [null];
     }
-    debugger
-    return this.fb.group(controlsConfig, {validators: [atLeastOneRequiredValidator(this.applyChannelsCheckboxNames)]});
+    return this.fb.group(controlsConfig, options);
   }
 
-  private generateCheckboxesFormGroup(checkboxNames: string[]): FormGroup {
-    const controlsConfig: {
-      [key: string]: any;
-    } = {};
-    for (const checkbox of checkboxNames) {
-      controlsConfig[checkbox] = [false];
-    }
-    return this.fb.group(controlsConfig);
+  /**
+   * Certain results are mutually exclusive, for example if the result of the work effort is rejection,
+   * you can't also click an employed checkbox. We unset the mutually exclusive checkboxes each time the user
+   * clicks on a results checkbox group.
+   * @param clearingRules keys are checkbox keys. Values are checkboxes you wanna unset if the key is set
+   */
+  private setUpUnclicking(clearingRules: { [key: string]: string[] }) {
+    this.workEffortFormGroup.get('results').valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe)
+    )
+      .subscribe((next: ResultsFormValue) => {
+        const prev = this.previousResultsValue;
+        const keySetToTrue: string = Object.keys(prev).filter(key => !prev[key] && next[key])[0];
+        const valueToPatch: ResultsFormValue = {...next};
+        if (keySetToTrue) {
+          for (const key of clearingRules[keySetToTrue]) {
+            valueToPatch[key] = false;
+          }
+        }
+        this.previousResultsValue = {...valueToPatch};
+        this.workEffortFormGroup.get('results').setValue(valueToPatch, {emitEvent: false});
+      })
   }
-
-
 }

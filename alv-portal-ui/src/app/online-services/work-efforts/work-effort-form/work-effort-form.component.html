@@ -6,6 +6,8 @@
     </alv-link-panel>
 
     <alv-collapse-panel panelTitle="debug">
+      <pre [innerHTML]="workEffortFormGroup.get('results').value | prettyjson"></pre>
+      <hr>
       <pre [innerHTML]="allErrors(workEffortFormGroup) | prettyjson"></pre>
       <hr>
       <pre [innerHTML]="workEffortFormGroup.value | prettyjson"></pre>
@@ -33,7 +35,12 @@
         <fieldset formGroupName="applyChannels">
           <ng-container *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
             <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
-                          [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox">
+                          [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"
+                          [showGroupErrors]="true"
+                          [validationMessages]="[{
+                                error: 'atLeastOneRequired',
+                                message: 'portal.work-efforts.edit-form.group-errors.at-least-one-apply-channel-required'}
+                                ]">
             </alv-checkbox>
           </ng-container>
         </fieldset>
@@ -99,11 +106,19 @@
         <fieldset formGroupName="companyEmailAndUrl">
           <alv-input-field [showGroupErrors]="true"
                            alvFormControlName="email"
+                           [validationMessages]="[{
+                                error: 'atLeastOneRequired',
+                                message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
+                                ]"
                            label="portal.global.email">
           </alv-input-field>
           <alv-input-field [showGroupErrors]="true"
                            alvFormControlName="url"
-                           label="portal.work-efforts.edit-form.company.online-form-url">
+                           label="portal.work-efforts.edit-form.company.online-form-url"
+                           [validationMessages]="[{
+                                error: 'atLeastOneRequired',
+                                message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
+                           ]">
           </alv-input-field>
         </fieldset>
 
