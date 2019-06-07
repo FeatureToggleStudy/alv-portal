@@ -32,7 +32,10 @@
         <span *ngIf="resultsAreLoading$ | async; else resultsCount"
               data-test="count-placeholder">...</span>
         <ng-template #resultsCount>
-          <strong><span data-test="resultCount">{{totalCount$ | async | number}} </span>{{'portal.job-ad-search.results-count.label' | translate}}</strong>
+          <strong *ngIf="totalCount$ | async | number as totalCount">
+            <span data-test="resultCount">{{totalCount}}</span>
+            {{getTotalCountLabel(totalCount) | translate}}
+          </strong>
         </ng-template>
         <div class="flex-grow-1"></div>
 
