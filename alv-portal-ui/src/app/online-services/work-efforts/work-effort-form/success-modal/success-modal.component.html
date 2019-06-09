@@ -1,0 +1,17 @@
+<alv-modal (cancelAction)="recordAnotherWorkEffort()"
+           (primaryAction)="goToWorkEffortList()"
+           cancelLabel="job-detail.complaint-modal.dismiss"
+           modalTitle="job-detail.complaint-modal.header"
+           primaryLabel="job-detail.complaint-modal.send">
+  <alv-alert [hideDismiss]="true"
+             [notification]="{
+           messageKey: 'portal.work-efforts.edit-form.modal-success.success-message',
+           type: notificationType.SUCCESS
+           }"></alv-alert>
+  <alv-alert [hideDismiss]="true"
+             [notification]="{
+           messageKey: 'portal.work-efforts.edit-form.modal-success.info-message',
+           type: notificationType.INFO
+           }">
+  </alv-alert>
+</alv-modal>

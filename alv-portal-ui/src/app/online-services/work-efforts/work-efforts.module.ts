@@ -12,6 +12,7 @@ import { WorkEffortsFilterModalComponent } from './work-efforts/work-efforts-fil
 import { JobPublicationModule } from '../../job-advertisement/job-publication/job-publication.module';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
+import { SuccessModalComponent } from './work-effort-form/success-modal/success-modal.component';
 
 
 @NgModule({
@@ -28,10 +29,12 @@ import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
     WorkEffortComponent,
     WorkEffortsReportComponent,
     WorkEffortFormComponent,
-    WorkEffortsFilterModalComponent
+    WorkEffortsFilterModalComponent,
+    SuccessModalComponent
   ],
   entryComponents: [
-    WorkEffortsFilterModalComponent
+    WorkEffortsFilterModalComponent,
+    SuccessModalComponent
   ],
   providers: [
     ModalService,

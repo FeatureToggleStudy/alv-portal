@@ -24,7 +24,7 @@ import {
   WorkLoadFormOption
 } from './work-effort-form.mapper';
 import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.component';
@@ -32,6 +32,8 @@ import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job
 import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { ActionsOnClose, SuccessModalComponent } from './success-modal/success-modal.component';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -173,7 +175,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
               private workEffortsRepository: WorkEffortsRepository,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private modalService: ModalService) {
 
     super();
     this.countryOptions$ = this.isoCountryService.countryOptions$;
@@ -257,6 +261,17 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   submit() {
 
+  }
+
+  async openSuccessModal() {
+    // if all fields in the the form are okay
+    const successModalRef = this.modalService.openLarge(SuccessModalComponent);
+    const res = await successModalRef.result;
+    if (res === ActionsOnClose.RECORD_NEW) {
+      await this.router.navigate(['work-efforts', 'edit'])
+    } else if (res === ActionsOnClose.GO_TO_LIST) {
+      await this.router.navigate(['work-efforts']);
+    }
   }
 
   /**
