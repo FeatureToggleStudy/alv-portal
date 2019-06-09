@@ -1,208 +1,212 @@
-<alv-two-column-layout [showLeftColumn]="false">
-  <div class="right-column">
-    <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
-                    [numberOfColumns]="1"
-                    class="d-block my-4">
-    </alv-link-panel>
+<div class="container-fluid mb-4">
+  <alv-two-column-layout [showLeftColumn]="false">
+    <div class="right-column">
+      <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
+                      [numberOfColumns]="1"
+                      class="d-block my-4">
+      </alv-link-panel>
 
-    <alv-collapse-panel panelTitle="debug">
-      <pre [innerHTML]="workEffortFormGroup.get('results').value | prettyjson"></pre>
-      <hr>
-      <pre [innerHTML]="allErrors(workEffortFormGroup) | prettyjson"></pre>
-      <hr>
-      <pre [innerHTML]="workEffortFormGroup.value | prettyjson"></pre>
-    </alv-collapse-panel>
-  </div>
-  <div class="main-column">
-    <form [formGroup]="workEffortFormGroup">
-      <!--      Date-->
-      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
-        <alv-date-input alvFormControlName="date"
-                        [minDate]="minDate"
-                        [maxDate]="maxDate"
-                        label="portal.global.date"
-                        container="body">
-        </alv-date-input>
+      <alv-collapse-panel panelTitle="debug">
+        <pre [innerHTML]="workEffortFormGroup.get('results').value | prettyjson"></pre>
+        <hr>
+        <pre [innerHTML]="allErrors(workEffortFormGroup) | prettyjson"></pre>
+        <hr>
+        <pre [innerHTML]="workEffortFormGroup.value | prettyjson"></pre>
       </alv-collapse-panel>
+    </div>
+    <div class="main-column">
+      <form [formGroup]="workEffortFormGroup">
+        <!--      Date-->
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
+          <alv-date-input alvFormControlName="date"
+                          [minDate]="minDate"
+                          [maxDate]="maxDate"
+                          label="portal.global.date"
+                          container="body">
+          </alv-date-input>
+        </alv-collapse-panel>
 
-      <div class="arrow-container">
-        <div class="arrow-down secondary">
+        <div class="arrow-container">
+          <div class="arrow-down secondary">
+          </div>
         </div>
-      </div>
 
-      <!--      Apply channel-->
-      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label">
-        <fieldset formGroupName="applyChannels">
-          <ng-container *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
-            <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
-                          [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"
-                          [showGroupErrors]="true"
-                          [validationMessages]="[{
+        <!--      Apply channel-->
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label">
+          <fieldset formGroupName="applyChannels">
+            <ng-container *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
+              <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
+                            [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"
+                            [showGroupErrors]="true"
+                            [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.at-least-one-apply-channel-required'}
                                 ]">
-            </alv-checkbox>
-          </ng-container>
-        </fieldset>
-      </alv-collapse-panel>
+              </alv-checkbox>
+            </ng-container>
+          </fieldset>
+        </alv-collapse-panel>
 
-      <div class="arrow-container">
-        <div class="arrow-down secondary">
+        <div class="arrow-container">
+          <div class="arrow-down secondary">
+          </div>
         </div>
-      </div>
-      <!--      ADDRESS AND COMPANY DETAILS SECTION -->
-      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label">
-        <alv-input-field [maxLength]="NAME_MAX_LENGTH"
-                         alvFormControlName="companyName"
-                         label="home.tools.job-publication.company.name">
-        </alv-input-field>
-        <fieldset formGroupName="companyAddress">
-          <div formGroupName="postOfficeBoxNumberOrStreet"
-               class="form-row">
-            <alv-input-field [maxLength]="STREET_MAX_LENGTH"
-                             [showGroupErrors]="true"
-                             [validationMessages]="[{
+        <!--      ADDRESS AND COMPANY DETAILS SECTION -->
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label">
+          <alv-input-field [maxLength]="NAME_MAX_LENGTH"
+                           alvFormControlName="companyName"
+                           label="home.tools.job-publication.company.name">
+          </alv-input-field>
+          <fieldset formGroupName="companyAddress">
+            <div formGroupName="postOfficeBoxNumberOrStreet"
+                 class="form-row">
+              <alv-input-field [maxLength]="STREET_MAX_LENGTH"
+                               [showGroupErrors]="true"
+                               [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
                                 ]"
-                             alvFormControlName="street"
-                             class="col-8"
-                             label="home.tools.job-publication.company.street">
-            </alv-input-field>
-            <div class="col-4">
-              <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
-                               alvFormControlName="houseNumber"
-                               label="home.tools.job-publication.company.house-number">
+                               alvFormControlName="street"
+                               class="col-8"
+                               label="home.tools.job-publication.company.street">
+              </alv-input-field>
+              <div class="col-4">
+                <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
+                                 alvFormControlName="houseNumber"
+                                 label="home.tools.job-publication.company.house-number">
+                </alv-input-field>
+              </div>
+
+              <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
+                               [showGroupErrors]="true"
+                               [validationMessages]="[{
+                        error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
+                     }]"
+                               alvFormControlName="postOfficeBoxNumber"
+                               label="home.tools.job-publication.company.postbox-number"
+                               class="col-12">
               </alv-input-field>
             </div>
 
-            <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
-                             [showGroupErrors]="true"
+            <alv-select [options$]="countryOptions$"
+                        alvFormControlName="countryIsoCode"
+                        label="home.tools.job-publication.company.country"></alv-select>
+
+            <!--          Fixme zip-city must be dependent on a country. For a different country we should not have a combined input-->
+            <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
+                                [zipCityFormValue]="initialZipAndCity"
+                                [countryIsoCode]="countryIsoCode$ | async">
+            </alv-zip-city-input>
+
+          </fieldset>
+
+          <alv-input-field alvFormControlName="contactPerson"
+                           label="portal.work-efforts.edit-form.contact-person">
+          </alv-input-field>
+
+          <fieldset formGroupName="companyEmailAndUrl">
+            <alv-input-field [showGroupErrors]="true"
+                             alvFormControlName="email"
                              [validationMessages]="[{
-                        error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
-                     }]"
-                             alvFormControlName="postOfficeBoxNumber"
-                             label="home.tools.job-publication.company.postbox-number"
-                             class="col-12">
-            </alv-input-field>
-          </div>
-
-          <alv-select [options$]="countryOptions$"
-                      alvFormControlName="countryIsoCode"
-                      label="home.tools.job-publication.company.country"></alv-select>
-
-          <!--          Fixme zip-city must be dependent on a country. For a different country we should not have a combined input-->
-          <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
-                              [zipCityFormValue]="initialZipAndCity"
-                              [countryIsoCode]="countryIsoCode$ | async">
-          </alv-zip-city-input>
-
-        </fieldset>
-
-        <alv-input-field alvFormControlName="contactPerson"
-                         label="portal.work-efforts.edit-form.contact-person">
-        </alv-input-field>
-
-        <fieldset formGroupName="companyEmailAndUrl">
-          <alv-input-field [showGroupErrors]="true"
-                           alvFormControlName="email"
-                           [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
-                           label="portal.global.email">
-          </alv-input-field>
-          <alv-input-field [showGroupErrors]="true"
-                           alvFormControlName="url"
-                           label="portal.work-efforts.edit-form.company.online-form-url"
-                           [validationMessages]="[{
+                             label="portal.global.email">
+            </alv-input-field>
+            <alv-input-field [showGroupErrors]="true"
+                             alvFormControlName="url"
+                             label="portal.work-efforts.edit-form.company.online-form-url"
+                             [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                            ]">
-          </alv-input-field>
-        </fieldset>
+            </alv-input-field>
+          </fieldset>
 
-        <alv-input-field [showGroupErrors]="true"
-                         alvFormControlName="phone"
-                         label="portal.global.phone"
-                         placeholder="portal.global.phone-swiss-example"
-                         type="tel">
-        </alv-input-field>
-      </alv-collapse-panel>
-
-      <div class="arrow-container">
-        <div class="arrow-down secondary">
-        </div>
-      </div>
-
-      <!--      Occupation-->
-      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.occupation-panel-label">
-        <alv-input-field [showGroupErrors]="true"
-                         alvFormControlName="occupation"
-                         label="portal.global.job-title">
-        </alv-input-field>
-      </alv-collapse-panel>
-
-      <div class="arrow-container">
-        <div class="arrow-down secondary">
-        </div>
-      </div>
-
-      <!-- todo     Is it a RAV-job?-->
-      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label">
-        <alv-radio-button
-          [options$]="appliedThroughRavOptions$"
-          alvFormControlName="appliedThroughRav"
-          class="narrow-form">
-        </alv-radio-button>
-      </alv-collapse-panel>
-      <div class="arrow-container">
-        <div class="arrow-down secondary">
-        </div>
-      </div>
-      <!--      Contract type-->
-      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.work-load-panel-label">
-        <alv-radio-button
-          [options$]="workLoadOptions$"
-          alvFormControlName="workload"
-          class="narrow-form">
-        </alv-radio-button>
-      </alv-collapse-panel>
-
-      <div class="arrow-container">
-        <div class="arrow-down secondary">
-        </div>
-      </div>
-      <!--      Results and rejection reason -->
-      <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">
-        <fieldset formGroupName="results">
-          <ng-container *ngFor="let resultCheckbox of resultsCheckboxNames">
-            <div class="alv-light-panel p-2 mb-1">
-              <alv-checkbox
-                [alvFormControlName]="resultCheckbox"
-                [label]="'portal.work-efforts.edit-form.results.' + resultCheckbox"
-                class="narrow-form">
-              </alv-checkbox>
-            </div>
-          </ng-container>
-        </fieldset>
-        <ng-container
-          *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
-        >
-          <div class="arrow-container">
-            <div class="arrow-down">
-            </div>
-          </div>
           <alv-input-field [showGroupErrors]="true"
-                           alvFormControlName="rejectionReason"
-                           label="portal.work-efforts.edit-form.rejection-reason">
+                           alvFormControlName="phone"
+                           label="portal.global.phone"
+                           placeholder="portal.global.phone-swiss-example"
+                           type="tel">
           </alv-input-field>
-        </ng-container>
-      </alv-collapse-panel>
-      <alv-alert [hideDismiss]="true"
-                 [notification]="bottomAlert"></alv-alert>
-      <button class="btn btn-outline-secondary">{{'portal.global.cancel' | translate}}</button>
-      <button class="btn btn-primary">{{'entity.action.save' | translate}}</button>
-    </form>
-  </div>
-</alv-two-column-layout>
+        </alv-collapse-panel>
+
+        <div class="arrow-container">
+          <div class="arrow-down secondary">
+          </div>
+        </div>
+
+        <!--      Occupation-->
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.occupation-panel-label">
+          <alv-input-field [showGroupErrors]="true"
+                           alvFormControlName="occupation"
+                           label="portal.global.job-title">
+          </alv-input-field>
+        </alv-collapse-panel>
+
+        <div class="arrow-container">
+          <div class="arrow-down secondary">
+          </div>
+        </div>
+
+        <!-- todo     Is it a RAV-job?-->
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label">
+          <alv-radio-button
+            [options$]="appliedThroughRavOptions$"
+            alvFormControlName="appliedThroughRav"
+            class="narrow-form">
+          </alv-radio-button>
+        </alv-collapse-panel>
+        <div class="arrow-container">
+          <div class="arrow-down secondary">
+          </div>
+        </div>
+        <!--      Contract type-->
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.work-load-panel-label">
+          <alv-radio-button
+            [options$]="workLoadOptions$"
+            alvFormControlName="workload"
+            class="narrow-form">
+          </alv-radio-button>
+        </alv-collapse-panel>
+
+        <div class="arrow-container">
+          <div class="arrow-down secondary">
+          </div>
+        </div>
+        <!--      Results and rejection reason -->
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">
+          <fieldset formGroupName="results">
+            <ng-container *ngFor="let resultCheckbox of resultsCheckboxNames">
+              <div class="alv-light-panel p-2 mb-1">
+                <alv-checkbox
+                  [alvFormControlName]="resultCheckbox"
+                  [label]="'portal.work-efforts.edit-form.results.' + resultCheckbox"
+                  class="narrow-form">
+                </alv-checkbox>
+              </div>
+            </ng-container>
+          </fieldset>
+          <ng-container
+            *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
+          >
+            <div class="arrow-container">
+              <div class="arrow-down">
+              </div>
+            </div>
+            <alv-input-field [showGroupErrors]="true"
+                             alvFormControlName="rejectionReason"
+                             label="portal.work-efforts.edit-form.rejection-reason">
+            </alv-input-field>
+          </ng-container>
+        </alv-collapse-panel>
+        <alv-alert [hideDismiss]="true"
+                   [notification]="bottomAlert"></alv-alert>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-text">{{'portal.global.cancel' | translate}}</button>
+          <button class="btn btn-primary">{{'entity.action.save' | translate}}</button>
+        </div>
+      </form>
+    </div>
+  </alv-two-column-layout>
+</div>
