@@ -203,7 +203,8 @@
         <alv-alert [hideDismiss]="true"
                    [notification]="bottomAlert"></alv-alert>
         <div class="d-flex justify-content-end">
-          <button class="btn btn-text">{{'portal.global.cancel' | translate}}</button>
+<!--          TODO add checks for the unsaved data-->
+          <button class="btn btn-text" (click)="router.navigate(['work-efforts'])">{{'portal.global.cancel' | translate}}</button>
           <button (click)="openSuccessModal()"
                   class="btn btn-primary">{{'entity.action.save' | translate}}</button>
         </div>
