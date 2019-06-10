@@ -18,30 +18,16 @@ a {
   color: $color-grey-black;
   border-left-color: transparent;
 
-  &.primary-link {
-    background-color: $color-primary;
-    color: $color-white;
-
-    fa-icon {
-      color: $color-white;
-    }
-  }
-
   fa-icon {
     color: $color-primary;
     margin-right: 0.25rem;
   }
 }
 
-.assistant-panel-item:hover {
+.assistant-panel-item:hover, .active {
 
   border-left-color: $color-primary;
   color: $color-primary;
   cursor: pointer;
 
-  &.primary-link {
-    border-left: 5px solid darken($color-primary, 10%);
-    color: $color-white;
-    background-color: darken($color-primary, 10%);
-  }
 }

@@ -1,12 +1,12 @@
 <div class="container-fluid mb-4">
   <alv-two-column-layout [showLeftColumn]="true">
     <div class="left-column">
-      <div data-test="assistantPanel">
-        <alv-assistant-link></alv-assistant-link>
-        <a fragment="bla-anchor"
-           routerLink=".">bla</a>
-
-      </div>
+      <!--        todo this is a stub. The assistant for all steps needs to be specified and implemented in the future-->
+      <alv-assistant-link [isActive]="true"
+                          [link]="{
+          labelKey: 'portal.work-efforts.assistant-label',
+          routerLink: '.'
+        }"></alv-assistant-link>
     </div>
     <div class="right-column">
       <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"

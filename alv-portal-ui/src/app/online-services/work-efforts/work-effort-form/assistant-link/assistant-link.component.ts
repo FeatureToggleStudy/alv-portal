@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export interface AssistantLink {
   labelKey: string;
-  anchor: string
+  routerLink: any[] | string; //see angular router link
 }
 @Component({
   selector: 'alv-assistant-link',
@@ -16,6 +16,9 @@ export class AssistantLinkComponent implements OnInit {
 
   @Input()
   link: AssistantLink;
+
+  @Input()
+  isActive: boolean;
 
   ngOnInit() {
   }
