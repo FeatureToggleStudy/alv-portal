@@ -45,7 +45,7 @@ import { PostAddressFormValue } from './post-address-form/post-address-form-valu
 import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
-import { now, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
+import { fromISODate, now, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
 
 import { LanguagesFormValue } from './languages/languages-form-value.types';
 import { emptyOccupationFormValue, OccupationFormValue } from './occupation/occupation-form-value.types';
@@ -119,8 +119,8 @@ function mapToLanguagesFormValue(languageSkills: LanguageSkill[]): LanguagesForm
 
 function mapToEmploymentFormValue(employment: Employment): EmploymentFormValue {
   return {
-    startDate: mapToNgbDateStruct(employment.startDate),
-    endDate: mapToNgbDateStruct(employment.endDate),
+    startDate: fromISODate(employment.startDate),
+    endDate: fromISODate(employment.endDate),
     immediately: employment.immediately,
     workloadPercentageMin: parseInt(employment.workloadPercentageMin.toString(), 10),
     workloadPercentageMax: parseInt(employment.workloadPercentageMax.toString(), 10),
@@ -144,18 +144,6 @@ function mapToDuration(employment: Employment): EmploymentDuration {
   return EmploymentDuration.TEMPORARY;
 }
 
-export function mapToNgbDateStruct(dateString: string): NgbDateStruct {
-  if (!dateString) {
-    return null;
-  }
-
-  const date = new Date(dateString);
-  return {
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate()
-  };
-}
 
 function mapToLocationFormValue(location: Location): LocationFormValue {
 

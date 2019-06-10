@@ -63,6 +63,3 @@ export function tomorrow(): NgbDateStruct {
 
   return fromDate(date);
 }
-
-
-
