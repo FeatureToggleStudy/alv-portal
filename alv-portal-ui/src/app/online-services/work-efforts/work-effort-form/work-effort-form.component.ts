@@ -244,7 +244,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     });
 
     this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
-    debugger;
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
     this.setUpDynamicValidation();
@@ -269,7 +268,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   async openSuccessModal() {
-    debugger;
     // if all fields in the the form are okay
     const successModalRef = this.modalService.openLarge(SuccessModalComponent);
     const res = await successModalRef.result;

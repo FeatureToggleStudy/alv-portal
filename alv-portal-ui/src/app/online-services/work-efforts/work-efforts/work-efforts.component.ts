@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import {
-  WorkEffortResult, WorkEffortsFilterPeriod,
+  WorkEffortResult,
+  WorkEffortsFilterPeriod,
   WorkEffortsReport
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
 import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
@@ -15,12 +16,9 @@ import { initialWorkEffortsFilter, WorkEffortsFilter, WorkEffortsFilterValues } 
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { FilterBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { WorkEffortsService } from './work-efforts.service';
-import {
-  Notification,
-  NotificationType
-} from '../../../shared/layout/notifications/notification.model';
+import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { I18nService } from '../../../core/i18n.service';
-import { Languages, LANGUAGES } from '../../../core/languages.constants';
+import { Languages } from '../../../core/languages.constants';
 
 @Component({
   selector: 'alv-work-efforts',
@@ -131,7 +129,6 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       period: newFilter.period,
       workEffortResult: newFilter.workEffortResult
     };
-    console.log(this._currentFilter);
   }
 
   private applyQuery(newQuery: string) {
@@ -139,6 +136,5 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       ...this.currentFilter,
       query: newQuery
     };
-    console.log(this.currentFilter);
   }
 }
