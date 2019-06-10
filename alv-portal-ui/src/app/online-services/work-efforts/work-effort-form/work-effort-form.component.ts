@@ -99,6 +99,7 @@ interface DefaultValidatorsRepository {
   url: ValidatorFn[],
   rejectionReason: ValidatorFn[],
   companyAddress: ValidatorFn[],
+  postOfficeBoxNumberOrStreet: ValidatorFn[],
   contactPerson: ValidatorFn[],
   companyEmailAndUrl: ValidatorFn[],
 }
@@ -166,7 +167,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     ],
     phone: [phoneInputValidator],
     rejectionReason: [Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH)],
-    companyAddress: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])],
+    companyAddress: [],
+    postOfficeBoxNumberOrStreet: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])],
     contactPerson: [],
     companyEmailAndUrl: [atLeastOneRequiredValidator(['email', 'url'])],
   };
