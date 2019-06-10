@@ -13,14 +13,6 @@
                       [numberOfColumns]="1"
                       class="d-block my-4">
       </alv-link-panel>
-
-      <alv-collapse-panel panelTitle="debug">
-        <pre [innerHTML]="workEffortFormGroup.get('results').value | prettyjson"></pre>
-        <hr>
-        <pre [innerHTML]="allErrors(workEffortFormGroup) | prettyjson"></pre>
-        <hr>
-        <pre [innerHTML]="workEffortFormGroup.value | prettyjson"></pre>
-      </alv-collapse-panel>
     </div>
     <div class="main-column">
       <form (validSubmit)="submit()"
@@ -80,12 +72,11 @@
                                class="col-8"
                                label="home.tools.job-publication.company.street">
               </alv-input-field>
-              <div class="col-4">
-                <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
-                                 alvFormControlName="houseNumber"
-                                 label="home.tools.job-publication.company.house-number">
-                </alv-input-field>
-              </div>
+              <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
+                               alvFormControlName="houseNumber"
+                               class="col-4"
+                               label="home.tools.job-publication.company.house-number">
+              </alv-input-field>
 
               <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
                                [showGroupErrors]="true"
@@ -199,8 +190,7 @@
             </ng-container>
           </fieldset>
           <ng-container
-            *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
-          >
+            *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
             <div class="arrow-container">
               <div class="arrow-down">
               </div>

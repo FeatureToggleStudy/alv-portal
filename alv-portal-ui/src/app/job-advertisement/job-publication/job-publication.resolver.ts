@@ -13,7 +13,7 @@ import {
 import { JobAdvertisement } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Injectable()
-  export class JobPublicationResolver implements Resolve<Observable<InitialFormValueConfig>> {
+export class JobPublicationResolver implements Resolve<Observable<InitialFormValueConfig>> {
 
   constructor(private authenticationService: AuthenticationService,
               private jobAdvertisementRepository: JobAdvertisementRepository) {
@@ -32,9 +32,9 @@ import { JobAdvertisement } from '../../shared/backend-services/job-advertisemen
     const jobAdvertisement$ = this.getJobAdvertisement(token, duplicationJobAdvertisementId);
 
     return companyContactTemplate$.pipe(
-      map((companyContactTemplateModel) => ({ companyContactTemplateModel })),
+      map((companyContactTemplateModel) => ({companyContactTemplateModel})),
       flatMap((initialFormValueConfig) => jobAdvertisement$.pipe(
-        map((jobAdvertisement) => ({ ...initialFormValueConfig, jobAdvertisement}))
+        map((jobAdvertisement) => ({...initialFormValueConfig, jobAdvertisement}))
       )),
       map((initialFormValueConfig) => ({...initialFormValueConfig, jobAdvertisementTitle}))
     );
