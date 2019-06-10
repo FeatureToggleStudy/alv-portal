@@ -7,9 +7,9 @@ import {
   mapToNgbDateStruct,
   mapToPostalCodeAndCity
 } from '../../../job-advertisement/job-publication/job-publication-form/job-publication-form.mapper';
-import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { WorkLoad } from '../../../shared/backend-services/candidate/candidate.types';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
+import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 
 
 export interface ApplyChannelsFormValue {
@@ -63,9 +63,29 @@ export interface WorkEffortFormValue {
   occupation: string;
   appliedThroughRav: boolean;
   results: ResultsFormValue;
-  rejectionReason: string;
+  rejectionReason?: string;
   workload: WorkLoadFormOption;
 }
+
+export const emptyWorkEffortFormValue = {
+  companyName: '',
+  date: mapToNgbDateStruct(new Date().toISOString()),
+  applyChannels: {
+    PERSONAL: null,
+    PHONE: null,
+    MAIL: null,
+    ELECTRONIC: null
+  },
+  companyAddress: {
+    countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
+  },
+  results: {
+    PENDING: false,
+    REJECTED: false,
+    EMPLOYED: false,
+    INTERVIEW: false
+  }
+};
 
 
 const applyChannelOptionsKeys: string[] = Object.keys(WorkEffortApplyChannel);
@@ -145,7 +165,7 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
 }
 
 export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): WorkEffort {
-  const zipAndCity  = mapToPostalCodeAndCity(formValue.companyAddress.zipAndCity);
+  const zipAndCity = mapToPostalCodeAndCity(formValue.companyAddress.zipAndCity);
   return {
     date: mapNgbDateStructToString(formValue.date),
     appliedThroughRav: formValue.appliedThroughRav,

@@ -17,6 +17,7 @@ import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   ApplyChannelsFormValue,
+  emptyWorkEffortFormValue,
   formPossibleApplyChannels,
   formPossibleResults,
   ResultsFormValue,
@@ -194,7 +195,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
    * @param zipAndCity
    * @param countryIsoCode
    */
-  private static createInitialZipAndCityFormValue(zipAndCity: ZipCityFormValue, countryIsoCode: string): ZipCityFormValue {
+  private static createInitialZipAndCityFormValue(zipAndCity: ZipCityFormValue = {zipCode: '', city: ''},
+                                                  countryIsoCode: string): ZipCityFormValue {
     const {zipCode, city} = zipAndCity;
 
     if (countryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND && zipCode && city) {
@@ -241,7 +243,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       rejectionReason: [''],
     });
 
-    this.initialWorkEffort = this.route.snapshot.data.initialFormValue;
+    this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
+    debugger;
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
     this.setUpDynamicValidation();
@@ -271,7 +274,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     const successModalRef = this.modalService.openLarge(SuccessModalComponent);
     const res = await successModalRef.result;
     if (res === ActionsOnClose.RECORD_NEW) {
-      await this.router.navigate(['work-efforts', 'edit'])
+      await this.router.navigate(['work-efforts', 'create'])
     } else if (res === ActionsOnClose.GO_TO_LIST) {
       await this.router.navigate(['work-efforts']);
     }

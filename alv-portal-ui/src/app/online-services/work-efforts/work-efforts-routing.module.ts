@@ -4,6 +4,7 @@ import { WorkEffortsComponent } from './work-efforts/work-efforts.component';
 import { WorkEffortFormComponent } from './work-effort-form/work-effort-form.component';
 import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
 import { WorkEffortFormResolverService } from './work-effort-form/work-effort-form-resolver.service';
+import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: WorkEffortFormComponent,
+    canActivate: [AuthenticatedGuard],
     canDeactivate: [WorkEffortFormGuard],
     data: {
       collapseNavigation: true
@@ -24,18 +26,15 @@ const routes: Routes = [
       initialFormValue: WorkEffortFormResolverService
     },
   },
-  // {
-  //   path: 'create',
-  //   component: WorkEffortFormComponent,
-  //   canActivate: [AuthenticatedGuard],
-  //   canDeactivate: [WorkEffortFormGuard],
-  //   data: {
-  //     collapseNavigation: true
-  //   },
-  //   resolve: {
-  //     initialFormValueConfig: WorkEffortFormResolverService
-  //   },
-  // },
+  {
+    path: 'create',
+    component: WorkEffortFormComponent,
+    canActivate: [AuthenticatedGuard],
+    canDeactivate: [WorkEffortFormGuard],
+    data: {
+      collapseNavigation: true
+    },
+  },
   {
     path: '**',
     redirectTo: ''
