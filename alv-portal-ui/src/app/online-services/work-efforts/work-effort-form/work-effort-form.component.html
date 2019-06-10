@@ -205,7 +205,7 @@
                    [notification]="bottomAlert"></alv-alert>
         <div class="d-flex justify-content-end">
           <!--          TODO add checks for the unsaved data-->
-          <button (click)="router.navigate(['work-efforts'])"
+          <button (click)="goToWorkEffortsList()"
                   class="btn btn-text">{{'portal.global.cancel' | translate}}</button>
           <button type="submit"
                   class="btn btn-primary">{{'entity.action.save' | translate}}</button>

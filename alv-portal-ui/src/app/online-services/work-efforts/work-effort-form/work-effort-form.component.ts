@@ -179,7 +179,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
               private isoCountryService: IsoCountryService,
               private workEffortsRepository: WorkEffortsRepository,
               private route: ActivatedRoute,
-              private router: Router,
+              public router: Router,
               private modalService: ModalService) {
 
     super();
@@ -274,10 +274,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     if (res === ActionsOnClose.RECORD_NEW) {
       await this.router.navigate(['work-efforts', 'create'])
     } else if (res === ActionsOnClose.GO_TO_LIST) {
-      await this.router.navigate(['work-efforts']);
+      await this.goToWorkEffortsList();
     }
   }
 
+  async goToWorkEffortsList() {
+    return await this.router.navigate(['work-efforts']);
+  }
   /**
    * makes a certain control a required field.
    * todo there's a problem: this functions clears all other validators from the form control
