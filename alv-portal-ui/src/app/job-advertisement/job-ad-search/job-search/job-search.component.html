@@ -114,17 +114,17 @@
            class="btn btn-text btn-text-icon btn-truncate mb-2"
                 [disabled]="disableSaveSearchProfileButton$ | async"
            (click)="saveSearchProfile()">
-          <alv-custom-icon class="mr-1"
-                           [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
-          </alv-custom-icon>
+          <fa-icon [icon]="['fas', 'bell']"
+                   class="mr-1">
+          </fa-icon>
           {{'portal.job-ad-search-profiles.label.save-profile' | translate}}
         </button>
         <button *ngIf="jobSearchProfile$ | async"
                 class="btn btn-text btn-text-icon btn-truncate mb-2"
                 (click)="deleteSearchProfile()">
-          <alv-custom-icon class="mr-1"
-                           [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
-          </alv-custom-icon>
+          <fa-icon [icon]="['fas', 'trash-alt']"
+                   class="mr-1">
+          </fa-icon>
           {{'portal.job-ad-search-profiles.label.delete-profile' | translate}}
         </button>
       </div>
