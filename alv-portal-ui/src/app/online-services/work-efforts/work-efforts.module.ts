@@ -22,7 +22,6 @@ import { AssistantLinkComponent } from './work-effort-form/assistant-link/assist
     SharedModule,
     WorkEffortsRoutingModule,
     NgbDropdownModule,
-    JobPublicationModule,
     PrettyJsonModule
   ],
   declarations: [
