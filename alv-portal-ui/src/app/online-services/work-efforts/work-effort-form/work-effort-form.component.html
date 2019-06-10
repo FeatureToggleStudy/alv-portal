@@ -23,7 +23,9 @@
       </alv-collapse-panel>
     </div>
     <div class="main-column">
-      <form [formGroup]="workEffortFormGroup">
+      <form (validSubmit)="submit()"
+            [formGroup]="workEffortFormGroup"
+            alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
           <alv-date-input alvFormControlName="date"
@@ -72,8 +74,8 @@
                                [showGroupErrors]="true"
                                [validationMessages]="[{
                                 error: 'atLeastOneRequired',
-                                message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'}
-                                ]"
+                                message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
+                                }]"
                                alvFormControlName="street"
                                class="col-8"
                                label="home.tools.job-publication.company.street">
@@ -88,7 +90,8 @@
               <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
                                [showGroupErrors]="true"
                                [validationMessages]="[{
-                        error: 'atLeastOneRequired', message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
+                              error: 'atLeastOneRequired',
+                              message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
                      }]"
                                alvFormControlName="postOfficeBoxNumber"
                                label="home.tools.job-publication.company.postbox-number"
@@ -100,7 +103,6 @@
                         alvFormControlName="countryIsoCode"
                         label="home.tools.job-publication.company.country"></alv-select>
 
-            <!--          Fixme zip-city must be dependent on a country. For a different country we should not have a combined input-->
             <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
                                 [zipCityFormValue]="initialZipAndCity"
                                 [countryIsoCode]="countryIsoCode$ | async">
@@ -215,7 +217,7 @@
           <!--          TODO add checks for the unsaved data-->
           <button (click)="router.navigate(['work-efforts'])"
                   class="btn btn-text">{{'portal.global.cancel' | translate}}</button>
-          <button (click)="openSuccessModal()"
+          <button type="submit"
                   class="btn btn-primary">{{'entity.action.save' | translate}}</button>
         </div>
       </form>

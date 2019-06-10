@@ -259,11 +259,12 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.initialZipAndCity = WorkEffortFormComponent.createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode)
   }
 
-  submit() {
-
+  async submit() {
+    await this.openSuccessModal();
   }
 
   async openSuccessModal() {
+    debugger;
     // if all fields in the the form are okay
     const successModalRef = this.modalService.openLarge(SuccessModalComponent);
     const res = await successModalRef.result;
