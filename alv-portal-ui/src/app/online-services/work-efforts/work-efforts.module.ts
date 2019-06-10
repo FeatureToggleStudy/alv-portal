@@ -13,6 +13,7 @@ import { JobPublicationModule } from '../../job-advertisement/job-publication/jo
 import { PrettyJsonModule } from 'angular2-prettyjson';
 import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
 import { SuccessModalComponent } from './work-effort-form/success-modal/success-modal.component';
+import { AssistantLinkComponent } from './work-effort-form/assistant-link/assistant-link.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { SuccessModalComponent } from './work-effort-form/success-modal/success-
     WorkEffortsReportComponent,
     WorkEffortFormComponent,
     WorkEffortsFilterModalComponent,
-    SuccessModalComponent
+    SuccessModalComponent,
+    AssistantLinkComponent
   ],
   entryComponents: [
     WorkEffortsFilterModalComponent,

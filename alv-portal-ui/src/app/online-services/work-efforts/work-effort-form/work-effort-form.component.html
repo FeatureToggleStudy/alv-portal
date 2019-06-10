@@ -1,5 +1,11 @@
 <div class="container-fluid mb-4">
-  <alv-two-column-layout [showLeftColumn]="false">
+  <alv-two-column-layout [showLeftColumn]="true">
+    <div class="left-column">
+      <div data-test="assistantPanel">
+        <alv-assistant-link></alv-assistant-link>
+
+      </div>
+    </div>
     <div class="right-column">
       <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
                       [numberOfColumns]="1"
