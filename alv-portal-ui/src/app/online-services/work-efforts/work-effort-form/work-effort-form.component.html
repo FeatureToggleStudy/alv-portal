@@ -3,6 +3,8 @@
     <div class="left-column">
       <div data-test="assistantPanel">
         <alv-assistant-link></alv-assistant-link>
+        <a fragment="bla-anchor"
+           routerLink=".">bla</a>
 
       </div>
     </div>
@@ -150,7 +152,8 @@
           </alv-input-field>
         </alv-collapse-panel>
 
-        <div class="arrow-container">
+        <div class="arrow-container"
+             id="bla-anchor">
           <div class="arrow-down secondary">
           </div>
         </div>
@@ -209,8 +212,9 @@
         <alv-alert [hideDismiss]="true"
                    [notification]="bottomAlert"></alv-alert>
         <div class="d-flex justify-content-end">
-<!--          TODO add checks for the unsaved data-->
-          <button class="btn btn-text" (click)="router.navigate(['work-efforts'])">{{'portal.global.cancel' | translate}}</button>
+          <!--          TODO add checks for the unsaved data-->
+          <button (click)="router.navigate(['work-efforts'])"
+                  class="btn btn-text">{{'portal.global.cancel' | translate}}</button>
           <button (click)="openSuccessModal()"
                   class="btn btn-primary">{{'entity.action.save' | translate}}</button>
         </div>
