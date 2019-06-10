@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IsoCountryService } from '../../../../shared/localities/iso-country.service';
-import { LocalitySuggestionService } from '../../../../shared/localities/locality-suggestion.service';
+import { IsoCountryService } from '../../../localities/iso-country.service';
+import { LocalitySuggestionService } from '../../../localities/locality-suggestion.service';
 import { Observable } from 'rxjs';
-import { TypeaheadItem } from '../../../../shared/forms/input/typeahead/typeahead-item';
-import { ZipAndCity, ZipAndCityTypeaheadItem } from '../../../../shared/localities/zip-and-city-typeahead-item';
+import { TypeaheadItem } from '../typeahead/typeahead-item';
+import { ZipAndCity, ZipAndCityTypeaheadItem } from '../../../localities/zip-and-city-typeahead-item';
 import { ZipCityFormValue } from './zip-city-form-value.types';
 
 @Component({

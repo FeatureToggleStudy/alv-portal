@@ -1,7 +1,7 @@
 import {
   emptyZipCityFormValue,
   ZipCityFormValue
-} from '../zip-city-input/zip-city-form-value.types';
+} from '../../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
 import { IsoCountryService } from '../../../../shared/localities/iso-country.service';
 
 export interface EmployerFormValue {

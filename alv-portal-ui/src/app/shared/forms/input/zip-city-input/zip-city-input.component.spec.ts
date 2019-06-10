@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../../../shared/shared.module';
+import { SharedModule } from '../../../shared.module';
 import { FormGroup } from '@angular/forms';
 import { ZipCityInputComponent } from './zip-city-input.component';
-import { LocalitySuggestionService } from '../../../../shared/localities/locality-suggestion.service';
+import { LocalitySuggestionService } from '../../../localities/locality-suggestion.service';
 import { emptyZipCityFormValue } from './zip-city-form-value.types';
 import SpyObj = jasmine.SpyObj;
 
@@ -25,7 +25,6 @@ describe('ZipCityInputComponent', () => {
       providers: [
         { provide: LocalitySuggestionService, useValue: mockLocalitySuggestionService }
       ],
-      declarations: [ZipCityInputComponent],
     })
       .overrideTemplate(ZipCityInputComponent, '')
       .compileComponents();

@@ -37,11 +37,11 @@ export function toISOLocalDate(date: NgbDateStruct): string {
  * @param date
  */
 export function fromDate(date: Date): NgbDateStruct {
-  return NgbDate.from({
+  return {
     year: date.getFullYear(),
     month: date.getMonth() + 1,
     day: date.getDate()
-  });
+  };
 }
 
 /**

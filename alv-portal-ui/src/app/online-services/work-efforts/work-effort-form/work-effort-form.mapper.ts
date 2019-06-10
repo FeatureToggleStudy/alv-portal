@@ -4,9 +4,10 @@ import {
   WorkEffortResult
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
+import { ZipCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { fromISODate, now } from '../../../shared/forms/input/ngb-date-utils';
+import { mapToPostalCodeAndCity } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
 
 
 export interface ApplyChannelsFormValue {

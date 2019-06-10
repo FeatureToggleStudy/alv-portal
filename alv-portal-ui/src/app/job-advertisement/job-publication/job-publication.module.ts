@@ -13,7 +13,6 @@ import { ContactComponent } from './job-publication-form/contact/contact.compone
 import { LocationComponent } from './job-publication-form/location/location.component';
 import { CompanyComponent } from './job-publication-form/company/company.component';
 import { IsoCountryService } from '../../shared/localities/iso-country.service';
-import { ZipCityInputComponent } from './job-publication-form/zip-city-input/zip-city-input.component';
 import { PublicContactComponent } from './job-publication-form/public-contact/public-contact.component';
 import { PublicationComponent } from './job-publication-form/publication/publication.component';
 import { EmployerComponent } from './job-publication-form/employer/employer.component';
@@ -40,7 +39,6 @@ import { JobPublicationGuard } from './job-publication.guard';
     ContactComponent,
     LocationComponent,
     CompanyComponent,
-    ZipCityInputComponent,
     PublicContactComponent,
     PublicationComponent,
     EmployerComponent,
@@ -49,7 +47,6 @@ import { JobPublicationGuard } from './job-publication.guard';
   ],
   exports: [
     PostAddressFormComponent,
-    ZipCityInputComponent
   ],
   providers: [
     IsoCountryService,

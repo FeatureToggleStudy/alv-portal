@@ -29,7 +29,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.component';
-import { ZipCityFormValue } from '../../../job-advertisement/job-publication/job-publication-form/zip-city-input/zip-city-form-value.types';
+import { ZipCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
 import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
