@@ -4,6 +4,8 @@ import { now } from '../../../shared/forms/input/ngb-date-utils';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { ValidatorFn } from '@angular/forms';
 
+type ArrayFromInterface<T> = (keyof(T))[];
+
 export interface ApplyChannelsFormValue {
   ELECTRONIC: boolean,
   MAIL: boolean,
@@ -11,7 +13,8 @@ export interface ApplyChannelsFormValue {
   PHONE: boolean,
 }
 
-export const formPossibleApplyChannels = ['ELECTRONIC', 'MAIL', 'PERSONAL', 'PHONE'];
+export const formPossibleApplyChannels: ArrayFromInterface<ApplyChannelsFormValue> = ['ELECTRONIC', 'MAIL', 'PERSONAL', 'PHONE'];
+
 
 
 export interface ResultsFormValue {
@@ -21,7 +24,7 @@ export interface ResultsFormValue {
   INTERVIEW: boolean
 }
 
-export const formPossibleResults = ['PENDING', 'REJECTED', 'EMPLOYED', 'INTERVIEW'];
+export const formPossibleResults: ArrayFromInterface<ResultsFormValue> = ['PENDING', 'REJECTED', 'EMPLOYED', 'INTERVIEW'];
 
 export enum WorkLoadFormOption {
   FULLTIME = 'FULLTIME',
