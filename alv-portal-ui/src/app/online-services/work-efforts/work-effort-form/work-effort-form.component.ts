@@ -30,41 +30,10 @@ import {
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.types';
+import { deltaDate, mapDateToNgbDate } from '../../../shared/forms/input/ngb-date-utils';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
-
-/**
- * todo move to shared
- * @param input
- * @param days
- * @param months
- * @param years
- */
-function deltaDate(input, days, months, years): Date {
-  var date = new Date(input);
-  date.setDate(date.getDate() + days);
-  date.setMonth(date.getMonth() + months);
-  date.setFullYear(date.getFullYear() + years);
-  return date;
-}
-
-/**
- * todo move to shared
- * @param ngbDate
- */
-function mapNgbDateToDate(ngbDate: NgbDate): Date {
-  return ngbDate ? new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day) : null;
-}
-
-/**
- * todo move to shared
- * @param date
- */
-function mapDateToNgbDate(date: Date): NgbDate {
-  return NgbDate.from({day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear()});
-}
-
 
 @Component({
   selector: 'alv-work-effort-form',

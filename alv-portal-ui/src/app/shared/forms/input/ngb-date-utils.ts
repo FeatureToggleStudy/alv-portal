@@ -63,3 +63,30 @@ export function tomorrow(): NgbDateStruct {
 
   return fromDate(date);
 }
+
+
+/**
+ * allows to add and subtract the dates. Takes the input date and adds days, months and years to it
+ * for example:
+ * @example deltaDate(new Date, 0, -2, 0) will return the date that is 2 months before today
+ * @example deltaDate(new Date, 4, 0, 0) will return the date that is 4 months after today
+ * @param input date
+ * @param days
+ * @param months
+ * @param years
+ */
+export function deltaDate(input: Date, days: number, months: number, years: number): Date {
+  var date = new Date(input);
+  date.setDate(date.getDate() + days);
+  date.setMonth(date.getMonth() + months);
+  date.setFullYear(date.getFullYear() + years);
+  return date;
+}
+
+
+/**
+ * @param date
+ */
+export function mapDateToNgbDate(date: Date): NgbDate {
+  return NgbDate.from(fromDate(date))
+}
