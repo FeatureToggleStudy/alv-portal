@@ -35,6 +35,7 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ActionsOnClose, SuccessModalComponent } from './success-modal/success-modal.component';
+import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -123,6 +124,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly MIN_MONTHS_DIFF = -4;
   readonly MAX_DAYS_DIFF = 5;
   readonly LinkPanelId = LinkPanelId;
+  readonly IconKey = IconKey;
   allErrors = allErrors;
   countryIsoCode$: Observable<String>;
   workEffortFormGroup: FormGroup;
@@ -281,6 +283,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   async goToWorkEffortsList() {
     return await this.router.navigate(['work-efforts']);
   }
+
   /**
    * makes a certain control a required field.
    * todo there's a problem: this functions clears all other validators from the form control

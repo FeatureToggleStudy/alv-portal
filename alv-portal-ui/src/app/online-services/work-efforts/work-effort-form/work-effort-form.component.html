@@ -15,6 +15,13 @@
       </alv-link-panel>
     </div>
     <div class="main-column">
+      <h2>
+        <alv-custom-icon class="text-primary"
+                         aria-hidden="true"
+                         [iconKey]="IconKey.WORK_EFFORTS">
+        </alv-custom-icon>
+        {{'portal.work-efforts.edit-form.title'|translate}}
+      </h2>
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
             alvFormSubmitValidation>
@@ -189,7 +196,8 @@
             </ng-container>
           </fieldset>
           <ng-container
-            *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"``>
+            *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
+            ``>
             <div class="arrow-container">
               <div class="arrow-down">
               </div>
