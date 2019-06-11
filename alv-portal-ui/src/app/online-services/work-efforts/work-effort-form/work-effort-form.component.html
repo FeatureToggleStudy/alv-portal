@@ -26,10 +26,12 @@
             [formGroup]="workEffortFormGroup"
             alvFormSubmitValidation>
         <!--      Date-->
-        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label">
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
+        [isAlwaysExpanded]="true">
           <alv-date-input alvFormControlName="date"
                           [minDate]="minDate"
                           [maxDate]="maxDate"
+
                           label="portal.global.date"
                           container="body">
           </alv-date-input>
@@ -41,7 +43,8 @@
         </div>
 
         <!--      Apply channel-->
-        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label">
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label"
+                            [isAlwaysExpanded]="true">
           <fieldset formGroupName="applyChannels">
             <ng-container *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
               <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
@@ -61,7 +64,8 @@
           </div>
         </div>
         <!--      ADDRESS AND COMPANY DETAILS SECTION -->
-        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label">
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label"
+                            [isAlwaysExpanded]="true">
           <alv-input-field [maxLength]="NAME_MAX_LENGTH"
                            alvFormControlName="companyName"
                            label="home.tools.job-publication.company.name">
@@ -145,7 +149,8 @@
         </div>
 
         <!--      Occupation-->
-        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.occupation-panel-label">
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.occupation-panel-label"
+                            [isAlwaysExpanded]="true">
           <alv-input-field [showGroupErrors]="true"
                            alvFormControlName="occupation"
                            label="portal.global.job-title">
@@ -158,7 +163,8 @@
         </div>
 
         <!-- todo     Is it a RAV-job?-->
-        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label">
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label"
+                            [isAlwaysExpanded]="true">
           <alv-radio-button
             [options$]="appliedThroughRavOptions$"
             alvFormControlName="appliedThroughRav"
@@ -170,7 +176,8 @@
           </div>
         </div>
         <!--      Contract type-->
-        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.work-load-panel-label">
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.work-load-panel-label"
+                            [isAlwaysExpanded]="true">
           <alv-radio-button
             [options$]="workLoadOptions$"
             alvFormControlName="workload"
@@ -183,7 +190,8 @@
           </div>
         </div>
         <!--      Results and rejection reason -->
-        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result">
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result"
+                            [isAlwaysExpanded]="true">
           <fieldset formGroupName="results">
             <ng-container *ngFor="let resultCheckbox of resultsCheckboxNames">
               <div class="alv-light-panel p-2 mb-1">

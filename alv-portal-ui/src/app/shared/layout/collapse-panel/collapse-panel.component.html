@@ -6,10 +6,12 @@
         [attr.aria-controls]="panelId">
   {{ panelTitle | translate }}
   <span class="flex-grow-1"></span>
-  <fa-icon class="collapse-icon"
-           [icon]="['fas', 'chevron-up']"></fa-icon>
-  <fa-icon class="expand-icon"
-           [icon]="['fas', 'chevron-down']"></fa-icon>
+  <ng-container *ngIf="!isAlwaysExpanded">
+    <fa-icon class="collapse-icon"
+             [icon]="['fas', 'chevron-up']"></fa-icon>
+    <fa-icon class="expand-icon"
+             [icon]="['fas', 'chevron-down']"></fa-icon>
+  </ng-container>
 </button>
 <div class="panel-content"
      [id]="panelId"

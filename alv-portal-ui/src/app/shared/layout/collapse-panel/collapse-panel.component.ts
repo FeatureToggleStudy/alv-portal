@@ -33,6 +33,9 @@ export class CollapsePanelComponent {
   @Input()
   isCollapsed = false;
 
+  @Input()
+  isAlwaysExpanded = false;
+
   toggle() {
     this.isCollapsed = !this.isCollapsed;
   }
