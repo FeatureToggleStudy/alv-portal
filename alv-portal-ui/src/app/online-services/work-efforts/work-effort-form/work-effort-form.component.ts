@@ -15,15 +15,7 @@ import { IsoCountryService } from '../../../shared/localities/iso-country.servic
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
 import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import {
-  ApplyChannelsFormValue,
-  emptyWorkEffortFormValue,
-  formPossibleApplyChannels,
-  formPossibleResults,
-  ResultsFormValue,
-  WorkEffortFormValue,
-  WorkLoadFormOption
-} from './work-effort-form.mapper';
+
 import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
 import { ActivatedRoute, Router } from '@angular/router';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
@@ -36,6 +28,14 @@ import { phoneInputValidator } from '../../../shared/forms/input/input-field/pho
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ActionsOnClose, SuccessModalComponent } from './success-modal/success-modal.component';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
+import {
+  ApplyChannelsFormValue, DefaultValidatorsRepository,
+  emptyWorkEffortFormValue,
+  formPossibleApplyChannels,
+  formPossibleResults, ResultsFormValue,
+  WorkEffortFormValue,
+  WorkLoadFormOption
+} from './work-effort-form.types';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -95,16 +95,6 @@ function mapDateToNgbDate(date: Date): NgbDate {
   return NgbDate.from({day: date.getUTCDate(), month: date.getUTCMonth() + 1, year: date.getUTCFullYear()});
 }
 
-interface DefaultValidatorsRepository {
-  phone: ValidatorFn[],
-  email: ValidatorFn[],
-  url: ValidatorFn[],
-  rejectionReason: ValidatorFn[],
-  companyAddress: ValidatorFn[],
-  postOfficeBoxNumberOrStreet: ValidatorFn[],
-  contactPerson: ValidatorFn[],
-  companyEmailAndUrl: ValidatorFn[],
-}
 
 @Component({
   selector: 'alv-work-effort-form',

@@ -3,9 +3,10 @@ import { WorkEffortsRepository } from '../../../shared/backend-services/work-eff
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { InitialFormValueConfig } from '../../../job-advertisement/job-publication/job-publication-form/job-publication-form-value-factory';
-import { mapToWorkEffortFormValue, WorkEffortFormValue } from './work-effort-form.mapper';
+import { mapToWorkEffortFormValue } from './work-effort-form.mapper';
 import { map, take } from 'rxjs/operators';
 import { WorkEffort } from '../../../shared/backend-services/work-efforts/work-efforts.types';
+import { WorkEffortFormValue } from './work-effort-form.types';
 
 @Injectable({
   providedIn: 'root'

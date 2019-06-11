@@ -1,14 +1,13 @@
 import {
   mapToWorkEffortBackendValue,
   mapToWorkEffortFormValue,
-  WorkEffortFormValue,
-  WorkLoadFormOption
 } from './work-effort-form.mapper';
 import {
   WorkEffort,
   WorkEffortApplyChannel,
   WorkEffortResult
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
+import { WorkEffortFormValue, WorkLoadFormOption } from './work-effort-form.types';
 
 const mockedWorkEffortBackend: WorkEffort = {
   date: '2019-07-12T22:00:00.000Z',
