@@ -16,9 +16,6 @@ import {
 } from './work-effort-form.types';
 
 
-
-const applyChannelOptionsKeys: string[] = Object.keys(WorkEffortApplyChannel);
-
 function mapToApplyChannelsFormValue(applyChannels: WorkEffortApplyChannel[]): ApplyChannelsFormValue {
   return {
     ELECTRONIC: applyChannels.includes(WorkEffortApplyChannel.ELECTRONIC),

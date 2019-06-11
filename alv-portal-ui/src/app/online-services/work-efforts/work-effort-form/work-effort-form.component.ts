@@ -31,6 +31,7 @@ import {
   WorkLoadFormOption
 } from './work-effort-form.types';
 import { deltaDate, mapDateToNgbDate } from '../../../shared/forms/input/ngb-date-utils';
+import { createInitialZipAndCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -119,27 +120,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
   }
 
-  /**
-   * creates a typeahead item for switzerland and fills the zipInput. For other countries doesn't do anything
-   * fixme technically it's a mapper, maybe move it to work-effort mappers?
-   * @param zipAndCity
-   * @param countryIsoCode
-   */
-  private static createInitialZipAndCityFormValue(zipAndCity: ZipCityFormValue = {zipCode: '', city: ''},
-                                                  countryIsoCode: string): ZipCityFormValue {
-    const {zipCode, city} = zipAndCity;
-
-    if (countryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND && zipCode && city) {
-      const {zipCode, city} = zipAndCity;
-      const label = zipCode + ' ' + city;
-      return {
-        ...zipAndCity,
-        zipCityAutoComplete: new ZipAndCityTypeaheadItem({zipCode, city}, label, 0) //fixme maybe this logic should reside in zip input instead, because there's no reason WorkEffort should know about typeahead items.
-      }
-    }
-    return zipAndCity;
-  }
-
   ngOnInit() {
 
     this.workEffortFormGroup = this.fb.group({
@@ -190,7 +170,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         filter((value) => !!value),
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode),
       );
-    this.initialZipAndCity = WorkEffortFormComponent.createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode)
+    this.initialZipAndCity = createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode)
   }
 
   async submit() {
