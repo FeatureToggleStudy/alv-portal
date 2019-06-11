@@ -1,13 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  AbstractControlOptions,
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  ValidatorFn,
-  Validators
-} from '@angular/forms';
+import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
@@ -29,40 +21,18 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ActionsOnClose, SuccessModalComponent } from './success-modal/success-modal.component';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import {
-  ApplyChannelsFormValue, DefaultValidatorsRepository,
+  ApplyChannelsFormValue,
+  DefaultValidatorsRepository,
   emptyWorkEffortFormValue,
   formPossibleApplyChannels,
-  formPossibleResults, ResultsFormValue,
+  formPossibleResults,
+  ResultsFormValue,
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.types';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
-
-
-function allErrors(fGroup) {
-  return Object
-    .keys(fGroup.controls) // go through all the control names
-    .reduce((result, name) => {
-      const control = <FormGroup | AbstractControl>fGroup.controls[name];
-
-      // if control is FormGroup recursively call its `allErrors`
-      if (control instanceof FormGroup) {
-        result[name] = {
-          __groupErrors: control.errors,
-          ...allErrors(control)
-        };
-      } else if (control instanceof FormArray) {
-        // add implementation for array here
-      } else {
-        // for normal controls add errors here
-        result[name] = control.errors;
-      }
-
-      return result; // and return the result to the next control
-    }, {__groupErrors: fGroup.errors});
-}
 
 /**
  * todo move to shared
@@ -115,7 +85,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly MAX_DAYS_DIFF = 5;
   readonly LinkPanelId = LinkPanelId;
   readonly IconKey = IconKey;
-  allErrors = allErrors;
   countryIsoCode$: Observable<String>;
   workEffortFormGroup: FormGroup;
   initialWorkEffort: WorkEffortFormValue;
