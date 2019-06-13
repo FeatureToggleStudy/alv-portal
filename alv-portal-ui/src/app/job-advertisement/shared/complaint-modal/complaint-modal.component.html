@@ -4,16 +4,29 @@
            modalTitle="job-detail.complaint-modal.header"
            primaryLabel="job-detail.complaint-modal.send"
            cancelLabel="job-detail.complaint-modal.dismiss">
-  <p>{{'job-detail.complaint-modal.description' | translate}}</p>
-  <ul>
-    <li>{{ 'job-detail.complaint-modal.reasons-examples.bribe'| translate }}</li>
-    <li>{{ 'job-detail.complaint-modal.reasons-examples.illicit'| translate }}</li>
-    <li>{{ 'job-detail.complaint-modal.reasons-examples.discrimination'| translate }}</li>
-    <li>{{ 'job-detail.complaint-modal.reasons-examples.sexist'| translate }}</li>
-  </ul>
+  <alv-alert [hideDismiss]="true"
+             [notification]="infoNotification">
+    <label><strong>{{'job-detail.complaint-modal.notification.info.title' | translate}}</strong></label>
+    <ul class="pl-3 mb-0">
+      <li class="mb-1">{{'job-detail.complaint-modal.notification.info.description' | translate}}</li>
+    </ul>
+  </alv-alert>
+  <alv-alert [hideDismiss]="true"
+             [notification]="warnNotification">
+    <label><strong>{{'job-detail.complaint-modal.notification.warn.title' | translate}}</strong></label>
+    <ul class="pl-3 mb-0">
+      <li class="mb-1">{{'job-detail.complaint-modal.notification.warn.description' | translate}}</li>
+      <li class="mb-1">{{'job-detail.complaint-modal.notification.warn.not-for-apply' | translate}}</li>
+    </ul>
+  </alv-alert>
+  <p><strong>{{'job-detail.complaint-modal.description' | translate}}</strong></p>
+  <alv-radio-button
+    alvFormControlName="complaintType"
+    class="form-row"
+    [options$]="complaintOptions$">
+  </alv-radio-button>
   <fieldset>
-    <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong>
-    </p>
+    <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong></p>
     <div class="form-row">
       <div class="col-3">
         <alv-select [options$]="salutationOptions$"

@@ -15,6 +15,8 @@ import { flatMap, take, takeUntil } from 'rxjs/operators';
 import { ConfirmModalConfig } from '../../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
 import { mapFormToDto } from './complaint-request-mapper';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
+import { NotificationType } from '../../../shared/layout/notifications/notification.model';
+import { ComplaintType } from '../../../shared/backend-services/complaint/complaint.types';
 
 
 export interface ComplaintFormValue {
@@ -24,6 +26,7 @@ export interface ComplaintFormValue {
   email: string;
   contactLanguage: string;
   complaintMessage: string;
+  complaintType: ComplaintType;
 }
 
 @Component({
@@ -33,6 +36,16 @@ export interface ComplaintFormValue {
 export class ComplaintModalComponent extends AbstractSubscriber implements OnInit {
 
   form: FormGroup;
+
+  infoNotification = {
+    type: NotificationType.INFO,
+    isSticky: true
+  };
+
+  warnNotification = {
+    type: NotificationType.WARNING,
+    isSticky: true
+  };
 
   @Input() jobAdvertisementId: string;
 
@@ -54,6 +67,21 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
     ]
   );
 
+  complaintOptions$ = of([
+    {
+      label: 'job-detail.complaint-modal.reasons-examples.bribe',
+      value: ComplaintType.BRIBE
+    },
+    {
+      label: 'job-detail.complaint-modal.reasons-examples.offensive',
+      value: ComplaintType.OFFENSIVE
+    },
+    {
+      label: 'job-detail.complaint-modal.reasons-examples.discrimination',
+      value: ComplaintType.DISCRIMINATION
+    }
+  ]);
+
   constructor(public activeModal: NgbActiveModal,
               private authenticationService: AuthenticationService,
               private modalService: ModalService,
@@ -65,9 +93,10 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
 
   ngOnInit() {
     this.form = this.fb.group({
+      complaintType: [null, Validators.required],
       salutation: [null, Validators.required],
       name: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
-      phone: ['', phoneInputValidator()],
+      phone: ['', [Validators.required, phoneInputValidator()]],
       email: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255), patternInputValidator(EMAIL_REGEX)]],
       complaintMessage: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]]
     });
