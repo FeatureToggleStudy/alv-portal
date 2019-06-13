@@ -6,6 +6,7 @@ import { CandidateQueryPanelValues } from '../../../../widgets/candidate-search-
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 import { CandidateSearchFilter } from '../state';
 import { EffectErrorOccurredAction } from '../../../../core/state-management/actions/core.actions';
+import { ResolvedCandidateSearchProfile } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
 
 export const INITIALIZE_RESULT_LIST = 'CANDIDATES:INITIALIZE_RESULT_LIST';
 export const RESULT_LIST_INITIALIZED = 'CANDIDATES:RESULT_LIST_INITIALIZED';
@@ -22,6 +23,7 @@ export const RESET_FILTER = 'CANDIDATES:RESET_FILTER';
 export const FILTER_RESET = 'CANDIDATES:FILTER_RESET';
 export const OCCUPATION_LANGUAGE_CHANGED_ACTION = 'CANDIDATES:OCCUPATION_LANGUAGE_CHANGED_ACTION';
 export const RESET = 'CANDIDATES:RESET';
+export const SEARCH_PROFILE_UPDATED = 'CANDIDATES:SEARCH_PROFILE_UPDATED';
 
 export class InitializeResultListAction implements Action {
   readonly type = INITIALIZE_RESULT_LIST;
@@ -139,6 +141,13 @@ export class ResetAction implements Action {
   }
 }
 
+export class SearchProfileUpdatedAction implements Action {
+  readonly type = SEARCH_PROFILE_UPDATED;
+
+  constructor(public payload: { searchProfile: ResolvedCandidateSearchProfile }) {
+  }
+}
+
 export type Actions = InitializeResultListAction
   | ResultListInitializedAction
   | ApplyFilterAction
@@ -155,4 +164,5 @@ export type Actions = InitializeResultListAction
   | OccupationLanguageChangedAction
   | ResetAction
   | EffectErrorOccurredAction
+  | SearchProfileUpdatedAction
   ;

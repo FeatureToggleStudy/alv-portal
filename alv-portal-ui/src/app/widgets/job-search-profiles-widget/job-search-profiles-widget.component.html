@@ -10,6 +10,7 @@
     <ng-container *ngIf="jobSearchProfiles.length">
       <alv-search-profile-item *ngFor="let jobSearchProfile of jobSearchProfiles; trackBy: trackById"
                                    [searchProfile]="jobSearchProfile"
+                                   baseRouterLink="/job-search"
                                    (deleted)="onDeleteProfile($event)">
       </alv-search-profile-item>
     </ng-container>

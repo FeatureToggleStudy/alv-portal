@@ -17,6 +17,8 @@ import { CandidateSearchGuard } from './candidate-search/candidate-search.guard'
 import { CandidateSearchFilterParameterService } from './candidate-search/candidate-search-filter-parameter.service';
 import { CandidateProfileBadgesMapperService } from './candidate-profile-badges-mapper.service';
 import { WidgetsModule } from '../../widgets/widgets.module';
+import { SaveSearchProfileModalComponent } from './candidate-search/candidate-search-profile/save-search-profile-modal/save-search-profile-modal.component';
+import { UpdateSearchProfileModalComponent } from './candidate-search/candidate-search-profile/update-search-profile-modal/update-search-profile-modal.component';
 
 @NgModule({
   imports: [
@@ -32,7 +34,13 @@ import { WidgetsModule } from '../../widgets/widgets.module';
     CandidateSearchComponent,
     CandidateDetailComponent,
     CandidateSearchResultComponent,
-    FilterPanelComponent
+    FilterPanelComponent,
+    SaveSearchProfileModalComponent,
+    UpdateSearchProfileModalComponent
+  ],
+  entryComponents: [
+    SaveSearchProfileModalComponent,
+    UpdateSearchProfileModalComponent
   ],
   providers: [
     CandidateDetailGuard,

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Location } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { Location } from '../backend-services/shared.types';
 
 
 @Pipe({

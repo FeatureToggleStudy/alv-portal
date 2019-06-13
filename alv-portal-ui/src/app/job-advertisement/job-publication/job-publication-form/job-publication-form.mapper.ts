@@ -8,7 +8,6 @@ import {
   Employment,
   JobAdvertisement,
   JobDescription,
-  Location,
   Occupation,
   Publication,
   PublicContact,
@@ -30,7 +29,8 @@ import {
   LanguageSkill,
   Qualification,
   Salutation,
-  WorkForm
+  WorkForm,
+  Location
 } from '../../../shared/backend-services/shared.types';
 import { EmploymentFormValue } from './employment/employment-form-value.types';
 import { LocationFormValue } from './location/location-form-value.types';

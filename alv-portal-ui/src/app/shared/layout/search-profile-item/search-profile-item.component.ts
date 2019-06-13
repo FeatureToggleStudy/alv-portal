@@ -8,6 +8,8 @@ import { SearchProfile } from '../../backend-services/shared.types';
 })
 export class SearchProfileItemComponent implements OnInit {
 
+  @Input() baseRouterLink: string; // e.g. '/job-search'
+
   @Input() searchProfile: SearchProfile;
 
   @Output() deleted = new EventEmitter<SearchProfile>();

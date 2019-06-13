@@ -23,6 +23,7 @@
         *ngFor="let jobSearchProfile of jobSearchProfiles"
         class="d-block"
         [searchProfile]="jobSearchProfile"
+        baseRouterLink="/job-search"
         (deleted)="onDeleteProfile($event)">
       </alv-search-profile-item>
 

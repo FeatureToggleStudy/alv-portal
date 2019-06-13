@@ -27,17 +27,59 @@
      class="container-fluid"
      infiniteScroll>
 
-  <alv-three-column-layout [mobileOrdering]="[1, 3, 2]"
+  <alv-three-column-layout [mobileOrdering]="[1, 2, null]"
                            [stickyTop]="layoutConstants.STICKY_TOP_SEARCH + searchPanelHeight">
     <ng-container class="left-column">
-      <div class="alv-bar mb-1">
-        <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
+      <div class="alv-bar mb-1 d-flex">
+        <span *ngIf="resultsAreLoading$ | async; else resultsCount"
+              data-test="count-placeholder">...</span>
         <ng-template #resultsCount>
           <strong *ngIf="totalCount$ | async | number as totalCount">
-            {{totalCount}} {{getTotalCountLabel(totalCount) | translate}}
+            <span data-test="resultCount">{{totalCount}}</span>
+            {{getTotalCountLabel(totalCount) | translate}}
           </strong>
         </ng-template>
+        <div class="flex-grow-1"></div>
+
+        <!-- Mobile Menu -->
+        <div class="candidate-search-mobile-menu d-block d-lg-none">
+          <div class="d-inline-block"
+               ngbDropdown
+               container="body"
+               placement="bottom-right">
+            <button id="candidate-search-mobile-menu"
+                    class="btn btn-text btn-icon no-dropdown-indicator"
+                    [ngbTooltip]="'portal.global.actions' | translate"
+                    placement="left"
+                    ngbDropdownToggle
+                    [attr.aria-label]="'portal.global.actions' | translate">
+              <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
+            </button>
+            <div aria-hidden="true"
+                 ngbDropdownMenu>
+              <a *ngIf="searchMailToLink$ | async as searchMailToLink"
+                 class="dropdown-item"
+                 [href]="searchMailToLink">
+                {{'candidate-search.filter.candidate-search-link' | translate}}
+              </a>
+              <button *alvHasAnyAuthority="candidateSearchProfileRoles"
+                      (click)="saveSearchProfile()"
+                      [disabled]="disableSaveSearchProfileButton$ | async"
+                      class="dropdown-item">
+                {{'portal.candidate-search-profiles.label.save-profile' | translate}}
+              </button>
+              <button *ngIf="candidateSearchProfile$ | async"
+                      (click)="deleteSearchProfile()"
+                      class="dropdown-item">
+                {{'portal.candidate-search-profiles.label.delete-profile' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+
 
       <h2 class="sr-only">
         {{'candidate-search.filter.title' | translate}}
@@ -63,12 +105,29 @@
     <ng-container class="right-column">
       <div class="w-100 mb-3 text-right text-lg-left">
         <a *ngIf="searchMailToLink$ | async as searchMailToLink"
-           class="btn btn-text btn-text-icon btn-truncate"
+           class="btn btn-text btn-text-icon btn-truncate mb-2"
            [href]="searchMailToLink">
           <fa-icon class="mr-1"
                    [icon]="['fas', 'share']"></fa-icon>
           {{'candidate-search.filter.candidate-search-link' | translate}}
         </a>
+        <button *alvHasAnyAuthority="candidateSearchProfileRoles"
+                class="btn btn-text btn-text-icon btn-truncate mb-2"
+                [disabled]="disableSaveSearchProfileButton$ | async"
+                (click)="saveSearchProfile()">
+          <fa-icon [icon]="['fas', 'bell']"
+                   class="mr-1">
+          </fa-icon>
+          {{'portal.candidate-search-profiles.label.save-profile' | translate}}
+        </button>
+        <button *ngIf="candidateSearchProfile$ | async"
+                class="btn btn-text btn-text-icon btn-truncate mb-2"
+                (click)="deleteSearchProfile()">
+          <fa-icon [icon]="['fas', 'trash-alt']"
+                   class="mr-1">
+          </fa-icon>
+          {{'portal.candidate-search-profiles.label.delete-profile' | translate}}
+        </button>
       </div>
     </ng-container>
 

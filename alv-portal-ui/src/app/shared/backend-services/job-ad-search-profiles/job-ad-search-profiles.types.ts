@@ -1,10 +1,10 @@
 import { CantonSuggestion } from '../reference-service/locality.types';
-import { Location } from '../job-advertisement/job-advertisement.types';
 import {
   CantonFilter,
   ContractType,
   OccupationFilter,
   OccupationResolved,
+  Location,
   Sort
 } from '../shared.types';
 
@@ -48,7 +48,7 @@ export interface ResolvedJobSearchFilter {
   companyName?: string;
   onlineSince: string;
   occupations: OccupationResolved[];
-  locations: LocationResolved[];
+  locations: Location[];
   cantons: CantonSuggestion[];
   keywords: string[];
   distance?: number;
@@ -67,10 +67,6 @@ export interface JobSearchFilterRequest {
   cantonFilters: CantonFilter[];
   keywords: string[];
   distance?: number;
-}
-
-export interface LocationResolved extends Location {
-  id: string;
 }
 
 export interface LocalityFilter {

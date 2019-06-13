@@ -207,7 +207,6 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
   suggestCanton(query: string): Observable<StringTypeaheadItem[]> {
     const cantonSuggestions = Object.keys(Canton)
-      .filter((key) => !isNaN(Number(Canton[key])))
       .map((key, index) => this.cantonAutocompleteMapper(key, index))
       .filter((option) => option.label.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
     return of(cantonSuggestions);

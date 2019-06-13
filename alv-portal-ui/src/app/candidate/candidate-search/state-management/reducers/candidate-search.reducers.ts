@@ -12,7 +12,7 @@ import {
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET,
   RESET_FILTER,
-  RESULT_LIST_INITIALIZED
+  RESULT_LIST_INITIALIZED, SEARCH_PROFILE_UPDATED
 } from '../actions';
 import { EFFECT_ERROR_OCCURRED } from '../../../../core/state-management/actions/core.actions';
 
@@ -88,6 +88,7 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         candidateSearchFilter: {
           ...initialState.candidateSearchFilter
         },
+        candidateSearchProfile: initialState.candidateSearchProfile
       };
       break;
 
@@ -126,6 +127,14 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
         visitedCandidates: { ...currentVisited }
       };
       break;
+
+    case SEARCH_PROFILE_UPDATED: {
+      newState = {
+        ...state,
+        candidateSearchProfile: action.payload.searchProfile
+      };
+      break;
+    }
 
     case EFFECT_ERROR_OCCURRED: {
       newState = {

@@ -1,3 +1,5 @@
+import { GeoPoint } from './reference-service/locality.types';
+
 export enum Gender {
   MALE = 'MALE',
   FEMALE = 'FEMALE'
@@ -111,7 +113,32 @@ export enum DrivingLicenceCategory {
 }
 
 export enum Canton {
-  AG, AI, AR, BE, BL, BS, FR, GE, GL, GR, JU, LU, NE, NW, OW, SG, SH, SO, SZ, TG, TI, UR, VD, VS, ZG, ZH
+  AG = 'AG',
+  AI = 'AI',
+  AR = 'AR',
+  BE = 'BE',
+  BL = 'BL',
+  BS = 'BS',
+  FR = 'FR',
+  GE = 'GE',
+  GL = 'GL',
+  GR = 'GR',
+  JU = 'JU',
+  LU = 'LU',
+  NE = 'NE',
+  NW = 'NW',
+  OW = 'OW',
+  SG = 'SG',
+  SH = 'SH',
+  SO = 'SO',
+  SZ = 'SZ',
+  TG = 'TG',
+  TI = 'TI',
+  UR = 'UR',
+  VD = 'VD',
+  VS = 'VS',
+  ZG = 'ZG',
+  ZH = 'ZH'
 }
 
 export enum Language {
@@ -217,6 +244,18 @@ export interface CantonFilter {
 
 export interface OccupationFilter {
   labelId: string;
+}
+
+export interface Location {
+  id?: string;
+  remarks?: string;
+  city: string;
+  postalCode: string;
+  countryIsoCode: string;
+  communalCode?: string;
+  regionCode?: string;
+  cantonCode?: string;
+  coordinates?: GeoPoint;
 }
 
 export interface SearchProfile {

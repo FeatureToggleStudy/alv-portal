@@ -15,6 +15,7 @@ import {
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import { LocalityTypeaheadItem } from '../../../../shared/localities/locality-typeahead-item';
+import { ResolvedCandidateSearchProfile } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
 
 export interface CandidateSearchState {
   totalCount: number;
@@ -25,6 +26,7 @@ export interface CandidateSearchState {
   resultsAreLoading: boolean;
   visitedCandidates: { [id: string]: boolean; };
   isDirtyResultList: boolean;
+  candidateSearchProfile: ResolvedCandidateSearchProfile;
 }
 
 export const initialState: CandidateSearchState = {
@@ -49,7 +51,8 @@ export const initialState: CandidateSearchState = {
   selectedCandidateProfile: null,
   resultsAreLoading: false,
   visitedCandidates: {},
-  isDirtyResultList: true
+  isDirtyResultList: true,
+  candidateSearchProfile: undefined
 };
 
 export interface CandidateSearchFilter {
@@ -86,6 +89,8 @@ export const getResultsAreLoading = createSelector(getCandidateSearchState, (sta
 export const getSelectedCandidateProfile = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.selectedCandidateProfile);
 
 export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations);
+
+export const getCandidateSearchProfile = createSelector(getCandidateSearchState, (state) => state.candidateSearchProfile);
 
 const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
 

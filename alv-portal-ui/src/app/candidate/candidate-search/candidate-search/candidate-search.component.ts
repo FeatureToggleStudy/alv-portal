@@ -17,14 +17,14 @@ import {
   CandidateSearchResult,
   CandidateSearchState,
   FILTER_APPLIED,
-  getCandidateSearchFilter,
+  getCandidateSearchFilter, getCandidateSearchProfile,
   getCandidateSearchResults,
   getResultsAreLoading,
   getSelectedCandidateProfile,
   getSelectedOccupations,
   getTotalCount,
   LoadNextPageAction,
-  ResetFilterAction
+  ResetFilterAction, SearchProfileUpdatedAction
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
@@ -40,6 +40,16 @@ import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { WINDOW } from '../../../core/window.service';
 import { filter } from 'rxjs/internal/operators/filter';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { User, UserRole } from '../../../core/auth/user.model';
+import {
+  getCandidateDeleteConfirmModalConfig
+} from '../../../shared/search-profiles/modal-config.types';
+import { ModalService } from '../../../shared/layout/modal/modal.service';
+import { CandidateSearchProfilesRepository } from '../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.repository';
+import { NotificationsService } from '../../../core/notifications.service';
+import { ResolvedCandidateSearchProfile } from '../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
+import { UpdateSearchProfileModalComponent } from './candidate-search-profile/update-search-profile-modal/update-search-profile-modal.component';
+import { SaveSearchProfileModalComponent } from './candidate-search-profile/save-search-profile-modal/save-search-profile-modal.component';
 
 @Component({
   selector: 'alv-candidate-search',
@@ -48,6 +58,13 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CandidateSearchComponent extends AbstractSubscriber implements OnInit, AfterViewInit, OnDestroy {
+
+  candidateSearchProfileRoles = [
+    UserRole.ROLE_PAV,
+    UserRole.ROLE_COMPANY,
+    UserRole.ROLE_ADMIN,
+    UserRole.ROLE_SYSADMIN
+  ];
 
   layoutConstants = LayoutConstants;
 
@@ -59,9 +76,13 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   candidateSearchResults$: Observable<CandidateSearchResult[]>;
 
+  candidateSearchProfile$: Observable<ResolvedCandidateSearchProfile>;
+
   searchMailToLink$: Observable<string>;
 
   selectedOccupationCodes: Observable<OccupationCode[]>;
+
+  disableSaveSearchProfileButton$: Observable<boolean>;
 
   detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
 
@@ -75,6 +96,9 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
               private candidateSearchFilterParameterService: CandidateSearchFilterParameterService,
               private actionsSubject: ActionsSubject,
               private scrollService: ScrollService,
+              private modalService: ModalService,
+              private notificationsService: NotificationsService,
+              private candidateSearchProfilesRepository: CandidateSearchProfilesRepository,
               private cdRef: ChangeDetectorRef,
               @Inject(WINDOW) private window: Window) {
     super();
@@ -104,10 +128,20 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       map((occupations) => occupations.map((b) => b.payload))
     );
 
+    this.candidateSearchProfile$ = this.store.pipe(select(getCandidateSearchProfile));
+
     this.searchMailToLink$ = this.candidateSearchFilter$.pipe(
       map((candidateSearchFilter: CandidateSearchFilter) => this.candidateSearchFilterParameterService.encode(candidateSearchFilter)),
       map((filterParam) => `${window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
+    );
+
+    this.disableSaveSearchProfileButton$ = this.candidateSearchFilter$.pipe(
+      map(searchFilter => {
+        return searchFilter.occupations.length === 0 &&
+          searchFilter.keywords.length === 0 &&
+          !searchFilter.workplace;
+      })
     );
 
     this.actionsSubject.pipe(
@@ -164,6 +198,65 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       this.searchPanelHeight = newSearchPanelHeight;
       this.cdRef.detectChanges();
     }
+  }
+
+  saveSearchProfile() {
+    this.candidateSearchProfile$.pipe(
+      take(1)
+    ).subscribe(searchProfile => {
+      if (searchProfile) {
+        this.updateSearchProfile(searchProfile);
+      } else {
+        this.createSearchProfile();
+      }
+    });
+  }
+
+  updateSearchProfile(searchProfile: ResolvedCandidateSearchProfile) {
+    const modalRef = this.modalService.openMedium(UpdateSearchProfileModalComponent);
+    modalRef.componentInstance.searchProfile = searchProfile;
+    modalRef.result
+      .then(
+        (result) => {
+          if (result) {
+            this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: result }));
+          } else {
+            this.createSearchProfile();
+          }
+        })
+      .catch(() => {
+      });
+  }
+
+  createSearchProfile() {
+    const modalRef = this.modalService.openMedium(SaveSearchProfileModalComponent);
+    modalRef.result
+      .then((searchProfile) => {
+        this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: searchProfile }));
+      })
+      .catch(() => {
+      });
+  }
+
+  deleteSearchProfile() {
+    this.candidateSearchProfile$.pipe(
+      take(1)
+    ).subscribe(searchProfile => {
+      if (searchProfile) {
+        this.modalService.openConfirm(
+          getCandidateDeleteConfirmModalConfig(searchProfile.name)
+        ).result
+          .then(result => {
+            this.candidateSearchProfilesRepository.delete(searchProfile.id)
+              .subscribe(() => {
+                this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: undefined }));
+                this.notificationsService.success('portal.candidate-search-profiles.notification.profile-deleted');
+              });
+          })
+          .catch(() => {
+          });
+      }
+    });
   }
 
   getTotalCountLabel(totalCount: string): string {

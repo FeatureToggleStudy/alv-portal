@@ -92,5 +92,5 @@ export interface ResolvedLocation {
 }
 
 export enum SearchProfileErrors {
-  PROFILE_ALREADY_EXISTS = 'http://www.job-room.ch/job-ad-service/problem/search-profile/already-exists'
+  PROFILE_ALREADY_EXISTS = 'http://www.jhipster.tech/problem/search-profile/already-exists'
 }

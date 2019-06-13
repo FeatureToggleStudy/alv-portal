@@ -10,6 +10,7 @@
     <ng-container *ngIf="candidateSearchProfiles.length">
       <alv-search-profile-item *ngFor="let candidateSearchProfile of candidateSearchProfiles"
                                [searchProfile]="candidateSearchProfile"
+                               baseRouterLink="/candidate-search"
                                (deleted)="onDeleteProfile($event)">
       </alv-search-profile-item>
     </ng-container>
