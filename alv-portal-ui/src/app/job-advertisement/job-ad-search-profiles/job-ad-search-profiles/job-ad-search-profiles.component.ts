@@ -7,7 +7,7 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../../core/notifications.service';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { JobAdSearchProfileResult } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
-import { getDeleteConfirmModalConfig } from '../../../shared/job-search-profiles/modal-config.types';
+import { getJobAdDeleteConfirmModalConfig } from '../../../shared/search-profiles/modal-config.types';
 import { SearchProfile } from '../../../shared/backend-services/shared.types';
 
 @Component({
@@ -66,7 +66,7 @@ export class JobAdSearchProfilesComponent implements OnInit {
 
   onDeleteProfile(profile: SearchProfile) {
     this.modalService.openConfirm(
-      getDeleteConfirmModalConfig(profile.name)
+      getJobAdDeleteConfirmModalConfig(profile.name)
     ).result
       .then(result => {
         this.jobAdSearchProfilesRepository.delete(profile.id)

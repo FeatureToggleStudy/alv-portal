@@ -3,7 +3,7 @@ import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component
 import { CandidateSearchProfileResult } from '../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
 import { flatMap, map, take } from 'rxjs/operators';
 import { SearchProfile } from '../../../shared/backend-services/shared.types';
-import { getDeleteConfirmModalConfig } from '../../../shared/job-search-profiles/modal-config.types';
+import { getCandidateDeleteConfirmModalConfig } from '../../../shared/search-profiles/modal-config.types';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../../core/notifications.service';
@@ -66,12 +66,12 @@ export class CandidateSearchProfilesComponent implements OnInit {
 
   onDeleteProfile(profile: SearchProfile) {
     this.modalService.openConfirm(
-      getDeleteConfirmModalConfig(profile.name)
+      getCandidateDeleteConfirmModalConfig(profile.name)
     ).result
       .then(result => {
         this.candidateSearchProfilesRepository.delete(profile.id)
           .subscribe(() => {
-            this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-deleted');
+            this.notificationsService.success('portal.candidate-search-profiles.notification.profile-deleted');
             this.candidateSearchProfiles.splice(this.candidateSearchProfiles.findIndex(searchProfile => searchProfile.id === profile.id), 1);
           });
       })

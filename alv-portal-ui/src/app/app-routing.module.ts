@@ -102,7 +102,7 @@ const appRoutes: Routes = [
       moduleName: ModuleName.CANDIDATE_SEARCH_PROFILES,
       titleKey: 'portal.candidate-search-profiles.browser-title',
       scrollToTop: true,
-      authorities: [UserRole.ROLE_SYSADMIN]
+      authorities: [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_SYSADMIN, UserRole.ROLE_ADMIN]
     }
   },
   {

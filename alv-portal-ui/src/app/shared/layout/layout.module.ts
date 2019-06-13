@@ -53,6 +53,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AccountabilitySwitcherComponent } from './accountability-switcher/accountability-switcher.component';
 import { LinkPanelComponent } from './link-panel/link-panel.component';
 import { EnvironmentRibbonComponent } from './environment-ribbon/environment-ribbon.component';
+import { SearchProfileItemComponent } from './search-profile-item/search-profile-item.component';
 
 @NgModule({
   imports: [
@@ -103,7 +104,7 @@ import { EnvironmentRibbonComponent } from './environment-ribbon/environment-rib
     AccountabilitySwitcherComponent,
     LinkPanelComponent,
     EnvironmentRibbonComponent,
-
+    SearchProfileItemComponent
   ],
   providers: [
     CandidateContactRepository
@@ -146,7 +147,8 @@ import { EnvironmentRibbonComponent } from './environment-ribbon/environment-rib
     SystemNotificationComponent,
     AccountabilitySwitcherComponent,
     LinkPanelComponent,
-    EnvironmentRibbonComponent
+    EnvironmentRibbonComponent,
+    SearchProfileItemComponent
   ]
 })
 export class LayoutModule {
