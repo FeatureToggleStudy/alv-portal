@@ -9,8 +9,8 @@
   <ng-container *ngIf="(jobSearchProfiles$ | async) as jobSearchProfiles">
     <ng-container *ngIf="jobSearchProfiles.length">
       <alv-job-search-profile-item *ngFor="let jobSearchProfile of jobSearchProfiles; trackBy: trackById"
-                                   [jobSearchProfile]="jobSearchProfile"
-                                    (deleted)="onDeleteProfile($event)">
+                                   [searchProfile]="jobSearchProfile"
+                                   (deleted)="onDeleteProfile($event)">
       </alv-job-search-profile-item>
     </ng-container>
     <ng-container *ngIf="jobSearchProfiles && !jobSearchProfiles.length">

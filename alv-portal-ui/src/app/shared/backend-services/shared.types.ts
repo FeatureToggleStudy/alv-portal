@@ -200,3 +200,26 @@ export enum ContractType {
   TEMPORARY = 'TEMPORARY',
   PERMANENT = 'PERMANENT',
 }
+
+export interface OccupationResolved {
+  id: string;
+  code: string;
+  type: string;
+  filterType: string;
+  label: string;
+  mappings?: { [key: string]: string };
+}
+
+export interface CantonFilter {
+  name: string;
+  code: string;
+}
+
+export interface OccupationFilter {
+  labelId: string;
+}
+
+export interface SearchProfile {
+  id: string;
+  name: string;
+}

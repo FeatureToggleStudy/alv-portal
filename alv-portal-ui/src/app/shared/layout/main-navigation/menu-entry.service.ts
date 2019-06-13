@@ -32,12 +32,12 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
   },
   {
     id: 'PAV',
-    menuEntryKeys: ['dashboard', 'candidate-search', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites', 'user-settings'],
+    menuEntryKeys: ['dashboard', 'candidate-search', 'candidate-search-profiles', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites', 'user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_PAV])
   },
   {
     id: 'COMPANY',
-    menuEntryKeys: ['dashboard', 'candidate-search', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites', 'user-settings'],
+    menuEntryKeys: ['dashboard', 'candidate-search', 'candidate-search-profiles', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites', 'user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY])
   }
 ];
@@ -63,6 +63,13 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     labelKey: 'portal.navigation.menu-entry.candidate-search',
     path: ['candidate-search'],
     userPredicate: (u) => isNotAuthenticatedUser(u) || hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
+  },
+  {
+    id: 'candidate-search-profiles',
+    iconKey: IconKey.CANDIDATE_SEARCH_PROFILES,
+    labelKey: 'portal.navigation.menu-entry.candidate-search-profiles',
+    path: ['candidate-search-profiles'],
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV])
   },
   {
     id: 'job-publication',

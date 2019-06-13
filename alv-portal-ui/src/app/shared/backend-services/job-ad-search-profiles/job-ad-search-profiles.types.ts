@@ -1,6 +1,12 @@
 import { CantonSuggestion } from '../reference-service/locality.types';
 import { Location } from '../job-advertisement/job-advertisement.types';
-import { ContractType, Sort } from '../shared.types';
+import {
+  CantonFilter,
+  ContractType,
+  OccupationFilter,
+  OccupationResolved,
+  Sort
+} from '../shared.types';
 
 export interface JobAdSearchProfilesSearchResponse {
   totalCount: number;
@@ -67,26 +73,8 @@ export interface LocationResolved extends Location {
   id: string;
 }
 
-export interface OccupationResolved {
-  id: string;
-  code: string;
-  type: string;
-  filterType: string;
-  label: string;
-  mappings?: { [key: string]: string };
-}
-
-export interface CantonFilter {
-  name: string;
-  code: string;
-}
-
 export interface LocalityFilter {
   localityId: string;
-}
-
-export interface OccupationFilter {
-  labelId: string;
 }
 
 export enum SearchProfileErrors {

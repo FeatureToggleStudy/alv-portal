@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
-import { JobAdSearchProfilesRepository } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { CandidateSearchProfileResult } from '../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
 import { flatMap, map, take } from 'rxjs/operators';
+import { SearchProfile } from '../../../shared/backend-services/shared.types';
+import { getDeleteConfirmModalConfig } from '../../../shared/job-search-profiles/modal-config.types';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../../core/notifications.service';
+import { CandidateSearchProfilesRepository } from '../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.repository';
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
-import { JobAdSearchProfileResult } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
-import { getDeleteConfirmModalConfig } from '../../../shared/job-search-profiles/modal-config.types';
-import { SearchProfile } from '../../../shared/backend-services/shared.types';
 
 @Component({
-  selector: 'alv-job-ad-search-profiles',
-  templateUrl: './job-ad-search-profiles.component.html',
-  styleUrls: ['./job-ad-search-profiles.component.scss'],
+  selector: 'alv-candidate-search-profiles',
+  templateUrl: './candidate-search-profiles.component.html',
+  styleUrls: ['./candidate-search-profiles.component.scss'],
   animations: [
     trigger('removeProfile', [
       transition(':leave', [
@@ -34,33 +34,33 @@ import { SearchProfile } from '../../../shared/backend-services/shared.types';
     ]),
   ]
 })
-export class JobAdSearchProfilesComponent implements OnInit {
+export class CandidateSearchProfilesComponent implements OnInit {
 
   IconKey = IconKey;
 
-  jobSearchProfiles: JobAdSearchProfileResult[];
+  candidateSearchProfiles: CandidateSearchProfileResult[];
 
   private page = 0;
 
   private readonly size = 100;
 
-  constructor(private jobAdSearchProfilesRepository: JobAdSearchProfilesRepository,
+  constructor(private candidateSearchProfilesRepository: CandidateSearchProfilesRepository,
               private authenticationService: AuthenticationService,
               private modalService: ModalService,
-              private notificationsService: NotificationsService) {
-  }
+              private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.onScroll();
   }
 
+
   onScroll() {
     this.authenticationService.getCurrentUser().pipe(
       take(1),
-      flatMap(user => this.jobAdSearchProfilesRepository.search(user.id, this.page++, this.size)),
+      flatMap(user => this.candidateSearchProfilesRepository.search(user.id, this.page++, this.size)),
       map(response => response.result)
     ).subscribe(profiles => {
-      this.jobSearchProfiles = [...(this.jobSearchProfiles || []), ...profiles];
+      this.candidateSearchProfiles = [...(this.candidateSearchProfiles || []), ...profiles];
     });
   }
 
@@ -69,10 +69,10 @@ export class JobAdSearchProfilesComponent implements OnInit {
       getDeleteConfirmModalConfig(profile.name)
     ).result
       .then(result => {
-        this.jobAdSearchProfilesRepository.delete(profile.id)
+        this.candidateSearchProfilesRepository.delete(profile.id)
           .subscribe(() => {
             this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-deleted');
-            this.jobSearchProfiles.splice(this.jobSearchProfiles.findIndex(searchProfile => searchProfile.id === profile.id), 1);
+            this.candidateSearchProfiles.splice(this.candidateSearchProfiles.findIndex(searchProfile => searchProfile.id === profile.id), 1);
           });
       })
       .catch(() => {
