@@ -8,15 +8,15 @@
              [notification]="infoNotification">
     <label><strong>{{'job-detail.complaint-modal.notification.info.title' | translate}}</strong></label>
     <ul class="pl-3 mb-0">
-      <li class="mb-1">{{'job-detail.complaint-modal.notification.info.description' | translate}}</li>
+      <li class="mb-1" [innerHTML]="'job-detail.complaint-modal.notification.info.description' | translate"></li>
     </ul>
   </alv-alert>
   <alv-alert [hideDismiss]="true"
              [notification]="warnNotification">
     <label><strong>{{'job-detail.complaint-modal.notification.warn.title' | translate}}</strong></label>
     <ul class="pl-3 mb-0">
-      <li class="mb-1">{{'job-detail.complaint-modal.notification.warn.description' | translate}}</li>
-      <li class="mb-1">{{'job-detail.complaint-modal.notification.warn.not-for-apply' | translate}}</li>
+      <li class="mb-1" [innerHTML]="'job-detail.complaint-modal.notification.warn.description' | translate"></li>
+      <li class="mb-1" [innerHTML]="'job-detail.complaint-modal.notification.warn.not-for-apply' | translate"></li>
     </ul>
   </alv-alert>
   <p><strong>{{'job-detail.complaint-modal.description' | translate}}</strong></p>
