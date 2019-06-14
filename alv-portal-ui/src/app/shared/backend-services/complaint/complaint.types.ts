@@ -16,6 +16,8 @@ export interface ContactInformationDto {
 }
 
 export enum ComplaintType {
-  BRIBE, OFFENSIVE, DISCRIMINATION
+  BRIBE = "BRIBE",
+  OFFENSIVE = "OFFENSIVE",
+  DISCRIMINATION = "DISCRIMINATION"
 }
 
