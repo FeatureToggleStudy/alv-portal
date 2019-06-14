@@ -9,13 +9,43 @@
         {{'entity.action.back' | translate}}
       </a>
       <alv-assistant-link [isActive]="true"
+                          class="d-none d-lg-block d-print-none"
                           [link]="{
           labelKey: 'portal.work-efforts.assistant-label',
           routerLink: '.'
-        }"></alv-assistant-link>
+        }">
+      </alv-assistant-link>
+
     </div>
     <div class="main-column">
-      <h2>
+      <div class="d-block d-lg-none w-100 mb-4"
+           ngbDropdown
+           placement="bottom">
+        <button class="btn btn-secondary btn-block py-1"
+                ngbDropdownToggle>
+          {{'portal.navigation.menu-entry.work-efforts'|translate}}
+        </button>
+        <div class="w-100"
+             ngbDropdownMenu>
+          <button *ngFor="let toolbarButton of [
+                    {
+                      label: 'entity.action.back',
+                      route: 'work-efforts'
+                    },
+                    {
+                      label: 'portal.navigation.menu-entry.work-efforts',
+                      route: '.'
+                    }
+                  ]"
+                  [routerLink]="toolbarButton.route"
+                  class="dropdown-item"
+                  ngbDropdownItem
+                  routerLinkActive="active">
+            {{toolbarButton.label | translate}}
+          </button>
+        </div>
+      </div>
+      <h2 class="mb-4">
         <alv-custom-icon class="text-primary"
                          aria-hidden="true"
                          [iconKey]="IconKey.WORK_EFFORTS">
@@ -24,7 +54,7 @@
       </h2>
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
-            class="my-2"
+            class="mb-2"
             alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
