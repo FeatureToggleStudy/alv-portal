@@ -35,7 +35,6 @@ export class CandidateSearchProfilesComponent implements OnInit {
     this.onScroll();
   }
 
-
   onScroll() {
     this.authenticationService.getCurrentUser().pipe(
       take(1),

@@ -39,6 +39,7 @@ export class CandidateSearchProfilesWidgetComponent implements OnInit {
       take(1),
       flatMap(user => this.candidateSearchProfilesRepository.search(user.id)),
     ).subscribe(response => {
+      // Pushing new items to the array is needed in order to make the animation work
       response.result.slice(this.candidateSearchProfiles.length, this.MAX_DISPLAY_ITEMS).forEach(result => {
         this.candidateSearchProfiles.push(result);
       });

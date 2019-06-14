@@ -247,18 +247,6 @@ export interface OccupationFilter {
   labelId: string;
 }
 
-export interface Location {
-  id?: string;
-  remarks?: string;
-  city: string;
-  postalCode: string;
-  countryIsoCode: string;
-  communalCode?: string;
-  regionCode?: string;
-  cantonCode?: string;
-  coordinates?: GeoPoint;
-}
-
 export interface SearchProfile {
   id: string;
   name: string;

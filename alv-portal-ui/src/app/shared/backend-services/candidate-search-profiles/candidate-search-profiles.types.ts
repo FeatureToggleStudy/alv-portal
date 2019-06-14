@@ -11,6 +11,7 @@ import {
 } from '../shared.types';
 import { JobAdSearchProfileResult } from '../job-ad-search-profiles/job-ad-search-profiles.types';
 import { LanguageSkill } from '../candidate/candidate.types';
+import { GeoPoint } from '../reference-service/locality.types';
 
 
 export interface CandidateSearchProfilesSearchResponse {
@@ -80,7 +81,6 @@ export interface CandidateSearchFilterRequest {
 }
 
 export interface ResolvedLocation {
-  localityId: string;
   id: string;
   city: string;
   postalCode: string;
@@ -88,7 +88,7 @@ export interface ResolvedLocation {
   regionCode: string;
   cantonCode: string;
   countryIsoCode: string;
-  geoPoints: string;
+  geoPoints: GeoPoint;
 }
 
 export enum SearchProfileErrors {

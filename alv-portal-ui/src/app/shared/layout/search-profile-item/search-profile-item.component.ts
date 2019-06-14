@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SearchProfile } from '../../backend-services/shared.types';
 
 @Component({
@@ -6,7 +6,7 @@ import { SearchProfile } from '../../backend-services/shared.types';
   templateUrl: './search-profile-item.component.html',
   styleUrls: ['./search-profile-item.component.scss']
 })
-export class SearchProfileItemComponent implements OnInit {
+export class SearchProfileItemComponent {
 
   @Input() baseRouterLink: string; // e.g. '/job-search'
 
@@ -15,9 +15,6 @@ export class SearchProfileItemComponent implements OnInit {
   @Output() deleted = new EventEmitter<SearchProfile>();
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
   deleteProfile(event: MouseEvent) {

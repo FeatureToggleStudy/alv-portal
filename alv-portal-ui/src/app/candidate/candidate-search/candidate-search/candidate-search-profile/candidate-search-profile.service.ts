@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import {
   Canton,
   CantonFilter,
-  Location,
   OccupationFilter,
   OccupationResolved
 } from '../../../../shared/backend-services/shared.types';
 import { CandidateSearchFilter } from '../../state-management/state';
 import {
   CandidateSearchFilterRequest,
-  ResolvedCandidateSearchFilter
+  ResolvedCandidateSearchFilter,
+  ResolvedLocation
 } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import {
@@ -74,7 +74,7 @@ export class CandidateSearchProfileService {
     };
   }
 
-  private mapWorkplaceFromRequest(location: Location, canton: CantonFilter): LocalityTypeaheadItem {
+  private mapWorkplaceFromRequest(location: ResolvedLocation, canton: CantonFilter): LocalityTypeaheadItem {
     if (location) {
       return new LocalityTypeaheadItem(LocalityInputType.LOCALITY,
         this.mapLocalityItemFromRequest(location),
@@ -88,14 +88,14 @@ export class CandidateSearchProfileService {
     }
   }
 
-  private mapLocalityItemFromRequest(location: Location): LocalityItem {
+  private mapLocalityItemFromRequest(location: ResolvedLocation): LocalityItem {
     return {
       id: location.id,
       cantonCode: location.cantonCode,
       city: location.city,
       communalCode: parseInt(location.communalCode, 10),
       zipCode: location.postalCode,
-      geoPoint: location.coordinates,
+      geoPoint: location.geoPoints,
       regionCode: location.regionCode
     };
   }

@@ -3,8 +3,7 @@ import {
   LanguageSkill,
   PostAddress,
   Qualification,
-  Salutation,
-  Location
+  Salutation
 } from '../shared.types';
 import { GeoPoint } from '../reference-service/locality.types';
 
@@ -135,6 +134,18 @@ export interface Employment {
   workloadPercentageMin: number;
   workloadPercentageMax: number;
   workForms?: string[];
+}
+
+export interface Location {
+  id?: string;
+  remarks?: string;
+  city: string;
+  postalCode: string;
+  countryIsoCode: string;
+  communalCode?: string;
+  regionCode?: string;
+  cantonCode?: string;
+  coordinates?: GeoPoint;
 }
 
 export interface CreateLocation {
