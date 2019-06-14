@@ -91,4 +91,8 @@ export interface DefaultValidatorsRepository {
   postOfficeBoxNumberOrStreet: ValidatorFn[],
   contactPerson: ValidatorFn[],
   companyEmailAndUrl: ValidatorFn[],
+  zipAndCity: ValidatorFn[],
+  zipCityAutoComplete: ValidatorFn[],
+  city: ValidatorFn[],
+  zipCode: ValidatorFn[]
 }

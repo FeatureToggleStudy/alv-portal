@@ -4,7 +4,7 @@ import { IsoCountryService } from '../../../localities/iso-country.service';
 import { LocalitySuggestionService } from '../../../localities/locality-suggestion.service';
 import { Observable } from 'rxjs';
 import { TypeaheadItem } from '../typeahead/typeahead-item';
-import { ZipAndCity, ZipAndCityTypeaheadItem } from '../../../localities/zip-and-city-typeahead-item';
+import { ZipAndCity } from '../../../localities/zip-and-city-typeahead-item';
 import { ZipCityFormValue } from './zip-city-form-value.types';
 
 @Component({
@@ -14,12 +14,25 @@ import { ZipCityFormValue } from './zip-city-form-value.types';
 })
 export class ZipCityInputComponent implements OnInit {
 
-  readonly CITY_MAX_LENGTH = 100;
+  readonly static  CITY_MAX_LENGTH = 100;
 
-  readonly ZIP_CODE_MAX_LENGTH = 12;
+  readonly static ZIP_CODE_MAX_LENGTH = 12;
 
   @Input()
   parentForm: FormGroup;
+  @Input()
+  zipCityFormValue: ZipCityFormValue;
+  zipAndCity: FormGroup;
+  static validators = {
+    zipCode: Validators.maxLength(ZipCityInputComponent.ZIP_CODE_MAX_LENGTH),
+    city: Validators.maxLength(ZipCityInputComponent.CITY_MAX_LENGTH)
+  };
+
+  constructor(private fb: FormBuilder,
+              private localitySuggestionService: LocalitySuggestionService) {
+  }
+
+  private _countryIsoCode: string;
 
   @Input()
   set countryIsoCode(countryIsoCode: string) {
@@ -30,17 +43,6 @@ export class ZipCityInputComponent implements OnInit {
     }
   }
 
-  @Input()
-  zipCityFormValue: ZipCityFormValue;
-
-  zipAndCity: FormGroup;
-
-  private _countryIsoCode: string;
-
-  constructor(private fb: FormBuilder,
-              private localitySuggestionService: LocalitySuggestionService) {
-  }
-
   private static isCityZipAutocomplete(selectedCountryIsoCode: string) {
     return selectedCountryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND;
   }
@@ -49,7 +51,7 @@ export class ZipCityInputComponent implements OnInit {
     this.localitySuggestionService.fetchJobPublicationLocations(query);
 
   ngOnInit(): void {
-    const { zipCityAutoComplete, zipCode, city } = this.zipCityFormValue;
+    const {zipCityAutoComplete, zipCode, city} = this.zipCityFormValue;
 
     this.zipAndCity = this.fb.group({
       zipCityAutoComplete: [zipCityAutoComplete, [
@@ -57,11 +59,11 @@ export class ZipCityInputComponent implements OnInit {
       ]],
       zipCode: [zipCode, [
         Validators.required,
-        Validators.maxLength(this.ZIP_CODE_MAX_LENGTH)
+        ZipCityInputComponent.validators.zipCode
       ]],
       city: [city, [
         Validators.required,
-        Validators.maxLength(this.CITY_MAX_LENGTH)
+        ZipCityInputComponent.validators.city
       ]]
     });
     this.parentForm.addControl('zipAndCity', this.zipAndCity);

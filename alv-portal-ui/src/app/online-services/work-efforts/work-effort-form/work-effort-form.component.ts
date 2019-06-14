@@ -32,6 +32,8 @@ import {
 } from './work-effort-form.types';
 import { deltaDate, mapDateToNgbDate } from '../../../shared/forms/input/ngb-date-utils';
 import { createInitialZipAndCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
+import { getAllErrors } from '../../../shared/forms/forms.utils';
+import { ZipCityInputComponent } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -56,6 +58,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly LinkPanelId = LinkPanelId;
   readonly IconKey = IconKey;
   countryIsoCode$: Observable<String>;
+  allErrors=getAllErrors;
   workEffortFormGroup: FormGroup;
   initialWorkEffort: WorkEffortFormValue;
   resultsCheckboxNames = formPossibleResults;
@@ -102,6 +105,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     companyAddress: [],
     postOfficeBoxNumberOrStreet: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])],
     contactPerson: [],
+    zipAndCity: [],
+    zipCityAutoComplete: [],
+    city: [ZipCityInputComponent.validators.city],
+    zipCode: [ZipCityInputComponent.validators.zipCode],
     companyEmailAndUrl: [atLeastOneRequiredValidator(['email', 'url'])],
   };
   private previousResultsValue;
@@ -262,7 +269,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       companyAddress: newApplyChannel.MAIL || newApplyChannel.PERSONAL || newApplyChannel.PHONE,
       contactPerson: newApplyChannel.PERSONAL || newApplyChannel.PHONE,
       companyEmailAndUrl: newApplyChannel.ELECTRONIC,
-      phone: newApplyChannel.PHONE
+      phone: newApplyChannel.PHONE,
     };
 
     if (requiredMap.companyEmailAndUrl) {
@@ -271,12 +278,23 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl');
     }
 
-    for (let abstractControlName of ['companyAddress', 'contactPerson', 'phone']) {
+    for (const abstractControlName of [ 'contactPerson', 'phone']) {
       if (requiredMap[abstractControlName]) {
         this.makeRequired(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
       } else {
         this.makeOptional(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
       }
+    }
+
+    if(requiredMap.companyAddress) {
+      this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
+      this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
+      this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
+    }
+    else {
+      this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
+      this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
+      this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
     }
   }
 
