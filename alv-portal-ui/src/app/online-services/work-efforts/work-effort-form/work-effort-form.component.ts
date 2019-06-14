@@ -235,7 +235,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   private clearValidatorsFromGroup(group: FormGroup, name: string) {
     const defaultValidators = this.defaultDynamicValidators[name];
     if (defaultValidators) {
-
       group.clearValidators();
       group.updateValueAndValidity();
     } else {

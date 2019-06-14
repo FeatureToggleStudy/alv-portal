@@ -35,7 +35,7 @@
             alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
-        [isAlwaysExpanded]="true">
+                            [isAlwaysExpanded]="true">
           <alv-date-input alvFormControlName="date"
                           [minDate]="minDate"
                           [maxDate]="maxDate"
@@ -54,7 +54,8 @@
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label"
                             [isAlwaysExpanded]="true">
           <fieldset formGroupName="applyChannels">
-            <ng-container *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
+            <div class="alv-light-panel p-2 mb-1"
+                 *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
               <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
                             [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"
                             [showGroupErrors]="true"
@@ -63,7 +64,7 @@
                                 message: 'portal.work-efforts.edit-form.group-errors.at-least-one-apply-channel-required'}
                                 ]">
               </alv-checkbox>
-            </ng-container>
+            </div>
           </fieldset>
         </alv-collapse-panel>
 
@@ -173,11 +174,13 @@
         <!-- todo     Is it a RAV-job?-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label"
                             [isAlwaysExpanded]="true">
-          <alv-radio-button
-            [options$]="appliedThroughRavOptions$"
-            alvFormControlName="appliedThroughRav"
-            class="narrow-form">
-          </alv-radio-button>
+          <div class="alv-light-panel p-2 mb-1">
+            <alv-radio-button
+              [options$]="appliedThroughRavOptions$"
+              alvFormControlName="appliedThroughRav"
+              class="narrow-form">
+            </alv-radio-button>
+          </div>
         </alv-collapse-panel>
         <div class="arrow-container">
           <div class="arrow-down secondary">
@@ -186,11 +189,13 @@
         <!--      Contract type-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.work-load-panel-label"
                             [isAlwaysExpanded]="true">
-          <alv-radio-button
-            [options$]="workLoadOptions$"
-            alvFormControlName="workload"
-            class="narrow-form">
-          </alv-radio-button>
+          <div class="alv-light-panel p-2 mb-1">
+            <alv-radio-button
+              [options$]="workLoadOptions$"
+              alvFormControlName="workload"
+              class="narrow-form">
+            </alv-radio-button>
+          </div>
         </alv-collapse-panel>
 
         <div class="arrow-container">
