@@ -9,20 +9,20 @@ import {
   DrivingLicenceCategory,
   Experience,
   Graduation
-} from '../../../shared/backend-services/shared.types';
-import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
-import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
+} from '../../../../shared/backend-services/shared.types';
+import { CandidateQueryPanelValues } from '../../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
+import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
 import {
   OccupationTypeaheadItem,
   OccupationTypeaheadItemType
-} from '../../../shared/occupations/occupation-typeahead-item';
-import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
+} from '../../../../shared/occupations/occupation-typeahead-item';
+import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import {
   LocalityInputType,
   LocalityItem,
   LocalityTypeaheadItem
-} from '../../../shared/localities/locality-typeahead-item';
-import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
+} from '../../../../shared/localities/locality-typeahead-item';
+import { CandidateProfile } from '../../../../shared/backend-services/candidate/candidate.types';
 import { createCandidateProfile } from './candidate-search.reducers.spec-util';
 
 const COMMUNAL_CODE_ZURICH = 261;

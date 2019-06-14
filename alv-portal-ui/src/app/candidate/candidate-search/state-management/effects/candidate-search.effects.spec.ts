@@ -24,24 +24,24 @@ import { Actions } from '@ngrx/effects';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
 
-import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
+import { CandidateRepository } from '../../../../shared/backend-services/candidate/candidate.repository';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
-import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
+import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
+import { CandidateProfile } from '../../../../shared/backend-services/candidate/candidate.types';
 import { CandidateSearchFilter, CandidateSearchState, initialState } from '../state';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   EffectErrorOccurredAction,
   LanguageChangedAction
-} from '../../../core/state-management/actions/core.actions';
+} from '../../../../core/state-management/actions/core.actions';
 import { FilterPanelValues } from '../../candidate-search/filter-panel/filter-panel.component';
-import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
+import { CandidateQueryPanelValues } from '../../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import {
   OccupationTypeaheadItem,
   OccupationTypeaheadItemType
-} from '../../../shared/occupations/occupation-typeahead-item';
-import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
+} from '../../../../shared/occupations/occupation-typeahead-item';
+import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
 import SpyObj = jasmine.SpyObj;
 
 describe('CandidateSearchEffects', () => {

@@ -1,19 +1,19 @@
-import { JobCenterRepository } from '../../shared/backend-services/reference-service/job-center.repository';
+import { JobCenterRepository } from '../../../shared/backend-services/reference-service/job-center.repository';
 import { cold, hot } from 'jasmine-marbles';
 import { TestBed } from '@angular/core/testing';
-import { I18nService } from '../../core/i18n.service';
-import { mockJobCenter } from '../../shared/backend-services/reference-service/job-center.mock';
+import { I18nService } from '../../../core/i18n.service';
+import { mockJobCenter } from '../../../shared/backend-services/reference-service/job-center.mock';
 import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
-import { OccupationLabelRepository } from '../../shared/backend-services/reference-service/occupation-label.repository';
-import { CandidateRepository } from '../../shared/backend-services/candidate/candidate.repository';
-import { AuthenticationService } from '../../core/auth/authentication.service';
-import { OccupationLabelData } from '../../shared/backend-services/reference-service/occupation-label.types';
-import { CandidateProtectedData } from '../../shared/backend-services/candidate/candidate.types';
-import { RegistrationStatus, User, UserRole } from '../../core/auth/user.model';
+import { OccupationLabelRepository } from '../../../shared/backend-services/reference-service/occupation-label.repository';
+import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { OccupationLabelData } from '../../../shared/backend-services/reference-service/occupation-label.types';
+import { CandidateProtectedData } from '../../../shared/backend-services/candidate/candidate.types';
+import { RegistrationStatus, User, UserRole } from '../../../core/auth/user.model';
 import {
   mockCandidateProfile,
   mockJobExperience
-} from '../../shared/backend-services/candidate/candidate.mock';
+} from '../../../shared/backend-services/candidate/candidate.mock';
 import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
 import { of } from 'rxjs';
 

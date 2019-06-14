@@ -14,7 +14,8 @@ import {
   WebformApplyChannel,
   WebformCompany,
   WebformPostAddress,
-  WorkExperience
+  WorkExperience,
+  Location
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
 import {
@@ -29,8 +30,7 @@ import {
   LanguageSkill,
   Qualification,
   Salutation,
-  WorkForm,
-  Location
+  WorkForm
 } from '../../../shared/backend-services/shared.types';
 import { EmploymentFormValue } from './employment/employment-form-value.types';
 import { LocationFormValue } from './location/location-form-value.types';

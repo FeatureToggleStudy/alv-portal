@@ -4,9 +4,9 @@ import {
   ContractType,
   OccupationFilter,
   OccupationResolved,
-  Location,
   Sort
 } from '../shared.types';
+import { Location } from '../job-advertisement/job-advertisement.types';
 
 export interface JobAdSearchProfilesSearchResponse {
   totalCount: number;
