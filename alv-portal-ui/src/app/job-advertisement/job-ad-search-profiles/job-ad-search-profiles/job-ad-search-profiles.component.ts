@@ -5,34 +5,16 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 import { flatMap, map, take } from 'rxjs/operators';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../../core/notifications.service';
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { JobAdSearchProfileResult } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
 import { getJobAdDeleteConfirmModalConfig } from '../../../shared/search-profiles/modal-config.types';
 import { SearchProfile } from '../../../shared/backend-services/shared.types';
+import { removeSearchProfileAnimation } from '../../../shared/animations/animations';
 
 @Component({
   selector: 'alv-job-ad-search-profiles',
   templateUrl: './job-ad-search-profiles.component.html',
   styleUrls: ['./job-ad-search-profiles.component.scss'],
-  animations: [
-    trigger('removeProfile', [
-      transition(':leave', [
-        animate('0.25s ease-in', keyframes([
-          style({
-            transformOrigin: 'top',
-            transform: 'scaleY(1)',
-            opacity: 1,
-            maxHeight: '50px'
-          }),
-          style({
-            transform: 'scaleY(0)',
-            opacity: 0,
-            maxHeight: 0
-          })
-        ]))
-      ])
-    ]),
-  ]
+  animations: [removeSearchProfileAnimation]
 })
 export class JobAdSearchProfilesComponent implements OnInit {
 

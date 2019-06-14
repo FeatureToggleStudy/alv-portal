@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
-import { Observable } from 'rxjs';
 import { CandidateSearchProfileResult } from '../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../core/notifications.service';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { CandidateSearchProfilesRepository } from '../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.repository';
-import { flatMap, map, take } from 'rxjs/operators';
+import { flatMap, take } from 'rxjs/operators';
 import { SearchProfile } from '../../shared/backend-services/shared.types';
-import {
-  getCandidateDeleteConfirmModalConfig
-} from '../../shared/search-profiles/modal-config.types';
+import { getCandidateDeleteConfirmModalConfig } from '../../shared/search-profiles/modal-config.types';
+import { removeSearchProfileAnimation } from '../../shared/animations/animations';
 
 @Component({
   selector: 'alv-candidate-search-profiles-widget',
   templateUrl: './candidate-search-profiles-widget.component.html',
-  styleUrls: ['./candidate-search-profiles-widget.component.scss']
+  styleUrls: ['./candidate-search-profiles-widget.component.scss'],
+  animations: [removeSearchProfileAnimation]
 })
 export class CandidateSearchProfilesWidgetComponent implements OnInit {
 
   IconKey = IconKey;
 
-  candidateSearchProfiles$: Observable<CandidateSearchProfileResult[]>;
+  candidateSearchProfiles: CandidateSearchProfileResult[] = [];
 
   private readonly MAX_DISPLAY_ITEMS = 5;
 
@@ -36,13 +35,14 @@ export class CandidateSearchProfilesWidgetComponent implements OnInit {
   }
 
   initItems() {
-    this.candidateSearchProfiles$ = this.authenticationService.getCurrentUser().pipe(
+    this.authenticationService.getCurrentUser().pipe(
       take(1),
       flatMap(user => this.candidateSearchProfilesRepository.search(user.id)),
-      map(response => {
-        return response.result.slice(0, this.MAX_DISPLAY_ITEMS);
-      })
-    );
+    ).subscribe(response => {
+      response.result.slice(this.candidateSearchProfiles.length, this.MAX_DISPLAY_ITEMS).forEach(result => {
+        this.candidateSearchProfiles.push(result);
+      });
+    });
   }
 
   onDeleteProfile(profile: SearchProfile) {
@@ -53,6 +53,7 @@ export class CandidateSearchProfilesWidgetComponent implements OnInit {
         this.candidateSearchProfilesRepository.delete(profile.id)
           .subscribe(() => {
             this.notificationsService.success('portal.candidate-search-profiles.notification.profile-deleted');
+            this.candidateSearchProfiles.splice(this.candidateSearchProfiles.findIndex(p => p.id === profile.id), 1);
             this.initItems();
           });
       })
