@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ModalService } from '../../shared/layout/modal/modal.service';
-import { WidgetsModule } from '../../widgets/widgets.module';
 import { CandidateSearchProfilesRoutingModule } from './candidate-search-profiles-routing.module';
 import { CandidateSearchProfilesComponent } from './candidate-search-profiles/candidate-search-profiles.component';
 
@@ -12,8 +11,7 @@ import { CandidateSearchProfilesComponent } from './candidate-search-profiles/ca
     CommonModule,
     SharedModule,
     CandidateSearchProfilesRoutingModule,
-    InfiniteScrollModule,
-    WidgetsModule
+    InfiniteScrollModule
   ],
   declarations: [
     CandidateSearchProfilesComponent
