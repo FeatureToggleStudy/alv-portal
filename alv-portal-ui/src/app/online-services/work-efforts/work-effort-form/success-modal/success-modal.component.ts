@@ -22,7 +22,7 @@ export class SuccessModalComponent implements OnInit {
   }
 
   goToWorkEffortList() {
-    this.activeModal.close(ActionsOnClose.GO_TO_LIST)
+    this.activeModal.close(ActionsOnClose.GO_TO_LIST);
   }
 
   recordAnotherWorkEffort() {

@@ -1,1 +1,2 @@
-export const DATE_PARAM_NAME='date'
+export const DATE_PARAM_NAME = 'date';
+

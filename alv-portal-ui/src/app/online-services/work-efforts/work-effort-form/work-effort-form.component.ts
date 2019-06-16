@@ -14,7 +14,6 @@ import { patternInputValidator } from '../../../shared/forms/input/input-field/p
 import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.component';
 import { ZipCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
-import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
@@ -60,7 +59,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly IconKey = IconKey;
   readonly layoutConstants = LayoutConstants;
   countryIsoCode$: Observable<String>;
-  allErrors=getAllErrors;
+  allErrors = getAllErrors;
   workEffortFormGroup: FormGroup;
   initialWorkEffort: WorkEffortFormValue;
   resultsCheckboxNames = formPossibleResults;
@@ -156,7 +155,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       ),
       phone: ['', this.defaultDynamicValidators.phone],
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
-      appliedThroughRav: ['', Validators.required,],
+      appliedThroughRav: ['', Validators.required],
       workload: [''],
       results: this.generateResultsGroup(),
       rejectionReason: [''],
@@ -179,7 +178,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         filter((value) => !!value),
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode),
       );
-    this.initialZipAndCity = createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode)
+    this.initialZipAndCity = createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode);
   }
 
   async submit() {
@@ -191,7 +190,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     const successModalRef = this.modalService.openLarge(SuccessModalComponent);
     const res = await successModalRef.result;
     if (res === ActionsOnClose.RECORD_NEW) {
-      await this.router.navigate(['work-efforts', 'create'])
+      await this.router.navigate(['work-efforts', 'create']);
     } else if (res === ActionsOnClose.GO_TO_LIST) {
       await this.goToWorkEffortsList();
     }
@@ -229,7 +228,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       control.setValidators(this.defaultDynamicValidators[name]);
       control.updateValueAndValidity();
     } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`)
+      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
     }
 
   }
@@ -240,7 +239,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       group.clearValidators();
       group.updateValueAndValidity();
     } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`)
+      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
     }
   }
 
@@ -250,7 +249,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       group.setValidators([atLeastOneRequiredValidator(fields)].concat(defaultValidators));
       group.updateValueAndValidity();
     } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`)
+      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
     }
   }
 
@@ -279,7 +278,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl');
     }
 
-    for (const abstractControlName of [ 'contactPerson', 'phone']) {
+    for (const abstractControlName of ['contactPerson', 'phone']) {
       if (requiredMap[abstractControlName]) {
         this.makeRequired(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
       } else {
@@ -287,12 +286,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       }
     }
 
-    if(requiredMap.companyAddress) {
+    if (requiredMap.companyAddress) {
       this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
       this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
       this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
-    }
-    else {
+    } else {
       this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
       this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
       this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
@@ -340,6 +338,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         }
         this.previousResultsValue = {...valueToPatch};
         this.workEffortFormGroup.get('results').setValue(valueToPatch, {emitEvent: false});
-      })
+      });
   }
 }

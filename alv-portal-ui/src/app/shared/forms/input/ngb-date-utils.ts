@@ -76,7 +76,7 @@ export function tomorrow(): NgbDateStruct {
  * @param years
  */
 export function deltaDate(input: Date, days: number, months: number, years: number): Date {
-  var date = new Date(input);
+  const date = new Date(input);
   date.setDate(date.getDate() + days);
   date.setMonth(date.getMonth() + months);
   date.setFullYear(date.getFullYear() + years);
@@ -88,5 +88,5 @@ export function deltaDate(input: Date, days: number, months: number, years: numb
  * @param date
  */
 export function mapDateToNgbDate(date: Date): NgbDate {
-  return NgbDate.from(fromDate(date))
+  return NgbDate.from(fromDate(date));
 }

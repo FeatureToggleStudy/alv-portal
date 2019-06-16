@@ -4,9 +4,7 @@ import {
   WorkEffortResult
 } from '../../../shared/backend-services/work-efforts/work-efforts.types';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { ZipCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
-import { IsoCountryService } from '../../../shared/localities/iso-country.service';
-import { fromISODate, now } from '../../../shared/forms/input/ngb-date-utils';
+import { fromISODate } from '../../../shared/forms/input/ngb-date-utils';
 import { mapToPostalCodeAndCity } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
 import {
   ApplyChannelsFormValue,
@@ -31,7 +29,7 @@ function mapBackendResultsToResultsFormValue(results: WorkEffortResult[]): Resul
     INTERVIEW: results.includes(WorkEffortResult.INTERVIEW),
     PENDING: results.includes(WorkEffortResult.PENDING),
     REJECTED: results.includes(WorkEffortResult.REJECTED),
-  }
+  };
 }
 
 function mapResultsFormValueToBackendResults(results: ResultsFormValue): WorkEffortResult[] {
@@ -114,5 +112,5 @@ export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): Wor
     occupation: formValue.occupation,
     fullTimeJob: mapWorkloadToBackend(formValue.workload),
     rejectionReason: formValue.rejectionReason,
-  }
+  };
 }

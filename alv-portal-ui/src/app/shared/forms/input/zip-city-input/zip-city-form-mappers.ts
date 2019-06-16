@@ -28,12 +28,11 @@ export function createInitialZipAndCityFormValue(zipAndCity: ZipCityFormValue = 
   const {zipCode, city} = zipAndCity;
 
   if (countryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND && zipCode && city) {
-    const {zipCode, city} = zipAndCity;
     const label = zipCode + ' ' + city;
     return {
       ...zipAndCity,
       zipCityAutoComplete: new ZipAndCityTypeaheadItem({zipCode, city}, label, 0) //fixme maybe this logic should reside in zip input instead, because there's no reason WorkEffort should know about typeahead items.
-    }
+    };
   }
   return zipAndCity;
 }
