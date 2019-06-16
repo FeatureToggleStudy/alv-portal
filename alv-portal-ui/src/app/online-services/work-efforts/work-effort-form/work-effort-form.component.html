@@ -1,5 +1,5 @@
 <div class="container-fluid pt-2 pt-lg-4">
-  <alv-three-column-layout>
+  <alv-three-column-layout [stickyTop]="layoutConstants.STICKY_TOP_DETAIL">
     <div class="left-column">
       <!--        todo this is a stub. The assistant for all steps needs to be specified and implemented in the future-->
       <a class="btn btn-text btn-text-icon btn-truncate mb-3 d-none d-lg-block d-print-none"
@@ -54,7 +54,7 @@
       </h2>
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
-            class="mb-2"
+            class="mb-5"
             alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
@@ -62,7 +62,6 @@
           <alv-date-input alvFormControlName="date"
                           [minDate]="minDate"
                           [maxDate]="maxDate"
-
                           label="portal.global.date"
                           container="body">
           </alv-date-input>
@@ -81,13 +80,16 @@
                  *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
               <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
                             [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"
-                            [showGroupErrors]="true"
-                            [validationMessages]="[{
-                                error: 'atLeastOneRequired',
-                                message: 'portal.work-efforts.edit-form.group-errors.at-least-one-apply-channel-required'}
-                                ]">
+                            >
               </alv-checkbox>
             </div>
+            <alv-validation-messages id="application-at-least-one-required-msg-id"
+                                     [control]="workEffortFormGroup.get('applyChannels')"
+                                     [customValidationMessages]="[{
+                                        error: 'atLeastOneRequired',
+                                        message: 'portal.work-efforts.edit-form.group-errors.at-least-one-apply-channel-required'
+                                      }]">
+            </alv-validation-messages>
           </fieldset>
         </alv-collapse-panel>
 
@@ -266,8 +268,7 @@
 
     <div class="right-column">
       <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
-                      [numberOfColumns]="1"
-                      class="d-block my-4">
+                      [numberOfColumns]="1">
       </alv-link-panel>
 
       <alv-collapse-panel panelTitle="debug">

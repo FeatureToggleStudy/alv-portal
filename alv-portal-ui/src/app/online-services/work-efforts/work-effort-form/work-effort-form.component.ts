@@ -34,6 +34,7 @@ import { deltaDate, mapDateToNgbDate } from '../../../shared/forms/input/ngb-dat
 import { createInitialZipAndCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
 import { getAllErrors } from '../../../shared/forms/forms.utils';
 import { ZipCityInputComponent } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
+import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -57,6 +58,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly MAX_DAYS_DIFF = 5;
   readonly LinkPanelId = LinkPanelId;
   readonly IconKey = IconKey;
+  readonly layoutConstants = LayoutConstants;
   countryIsoCode$: Observable<String>;
   allErrors=getAllErrors;
   workEffortFormGroup: FormGroup;
