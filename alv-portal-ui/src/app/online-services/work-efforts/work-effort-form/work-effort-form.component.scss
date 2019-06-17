@@ -1,3 +1,7 @@
 ::ng-deep alv-collapse-panel > button.btn  {
   text-align: left;
 }
+
+::ng-deep .info-panel > .alv-panel {
+  min-width: 230px;
+}
