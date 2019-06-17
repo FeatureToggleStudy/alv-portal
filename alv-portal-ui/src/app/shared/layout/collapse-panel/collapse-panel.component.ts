@@ -37,7 +37,11 @@ export class CollapsePanelComponent {
   isAlwaysExpanded = false;
 
   toggle() {
-    this.isCollapsed = !this.isCollapsed;
+    if (!this.isAlwaysExpanded) {
+      this.isCollapsed = !this.isCollapsed;
+    } else {
+      this.expand();
+    }
   }
 
   expand() {
@@ -45,6 +49,8 @@ export class CollapsePanelComponent {
   }
 
   collapse() {
-    this.isCollapsed = true;
+    if (!this.isAlwaysExpanded) {
+      this.isCollapsed = true;
+    }
   }
 }
