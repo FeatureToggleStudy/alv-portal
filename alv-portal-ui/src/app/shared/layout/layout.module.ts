@@ -52,6 +52,7 @@ import { SystemNotificationComponent } from './system-notification/system-notifi
 import { FooterComponent } from './footer/footer.component';
 import { AccountabilitySwitcherComponent } from './accountability-switcher/accountability-switcher.component';
 import { LinkPanelComponent } from './link-panel/link-panel.component';
+import { AssistantLayoutComponent } from './column-layout/assistant-layout/assistant-layout.component';
 
 @NgModule({
   imports: [
@@ -101,6 +102,7 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     SystemNotificationComponent,
     AccountabilitySwitcherComponent,
     LinkPanelComponent,
+    AssistantLayoutComponent,
   ],
   providers: [
     CandidateContactRepository
@@ -112,6 +114,7 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
 
   ],
   exports: [
+    AssistantLayoutComponent,
     NavigationContainerComponent,
     HeaderComponent,
     FooterComponent,

@@ -14,9 +14,8 @@ import { ZipCityFormValue } from './zip-city-form-value.types';
 })
 export class ZipCityInputComponent implements OnInit {
 
-  readonly static CITY_MAX_LENGTH = 100;
-
-  readonly static ZIP_CODE_MAX_LENGTH = 12;
+  static readonly CITY_MAX_LENGTH = 100;
+  static readonly ZIP_CODE_MAX_LENGTH = 12;
   static validators = {
     zipCode: Validators.maxLength(ZipCityInputComponent.ZIP_CODE_MAX_LENGTH),
     city: Validators.maxLength(ZipCityInputComponent.CITY_MAX_LENGTH)
@@ -47,7 +46,7 @@ export class ZipCityInputComponent implements OnInit {
   }
 
   loadLocationsFn = (query: string): Observable<TypeaheadItem<ZipAndCity>[]> =>
-    this.localitySuggestionService.fetchJobPublicationLocations(query)
+    this.localitySuggestionService.fetchJobPublicationLocations(query);
 
   ngOnInit(): void {
     const {zipCityAutoComplete, zipCode, city} = this.zipCityFormValue;
