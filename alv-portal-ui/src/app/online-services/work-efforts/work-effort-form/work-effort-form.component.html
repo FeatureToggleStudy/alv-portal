@@ -279,14 +279,6 @@
                       class="info-panel"
                       [numberOfColumns]="1">
       </alv-link-panel>
-
-      <alv-collapse-panel panelTitle="debug">
-        <pre [innerHTML]="workEffortFormGroup.get('results').value | prettyjson"></pre>
-        <hr>
-        <pre [innerHTML]="allErrors(workEffortFormGroup) | prettyjson"></pre>
-        <hr>
-        <pre [innerHTML]="workEffortFormGroup.value | prettyjson"></pre>
-      </alv-collapse-panel>
     </div>
   </alv-assistant-layout>
 </div>
