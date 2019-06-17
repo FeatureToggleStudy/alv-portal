@@ -24,7 +24,7 @@ export interface ResultsFormValue {
   INTERVIEW: boolean;
 }
 
-export const formPossibleResults: ArrayFromInterface<ResultsFormValue> = ['PENDING', 'REJECTED', 'EMPLOYED', 'INTERVIEW'];
+export const formPossibleResults: ArrayFromInterface<ResultsFormValue> = ['PENDING', 'INTERVIEW', 'EMPLOYED', 'REJECTED'];
 
 export enum WorkLoadFormOption {
   FULLTIME = 'FULLTIME',
