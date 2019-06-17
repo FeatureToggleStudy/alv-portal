@@ -11,7 +11,7 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
 import { EMPTY, throwError } from 'rxjs';
 import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
-import {NotificationType} from "../../../../shared/layout/notifications/notification.model";
+import { NotificationType } from '../../../../shared/layout/notifications/notification.model';
 
 @Component({
   selector: 'alv-jobseeker-identification',
