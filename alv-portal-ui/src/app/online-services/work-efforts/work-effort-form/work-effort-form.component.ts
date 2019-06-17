@@ -130,7 +130,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   ngOnInit() {
 
-    this.workEffortFormGroup = this.fb.group({
+    this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
+    const controlsConfig = {
       date: ['', Validators.required],
       applyChannels: this.generateApplyChannelsGroup(),
       companyName: ['', Validators.required],
@@ -159,9 +160,14 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       workload: [''],
       results: this.generateResultsGroup(),
       rejectionReason: ['', this.defaultDynamicValidators.rejectionReason]
-    });
+    };
 
-    this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
+    if (this.initialWorkEffort.results.REJECTED) {
+      controlsConfig.rejectionReason = ['', [...this.defaultDynamicValidators.rejectionReason, Validators.required]]
+    }
+    
+    this.workEffortFormGroup = this.fb.group(controlsConfig);
+
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
     this.setUpDynamicValidation();
