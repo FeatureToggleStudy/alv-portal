@@ -1,5 +1,3 @@
-import { GeoPoint } from './reference-service/locality.types';
-
 export enum Gender {
   MALE = 'MALE',
   FEMALE = 'FEMALE'
