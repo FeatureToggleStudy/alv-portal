@@ -158,7 +158,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       appliedThroughRav: ['', Validators.required],
       workload: [''],
       results: this.generateResultsGroup(),
-      rejectionReason: [''],
+      rejectionReason: ['', this.defaultDynamicValidators.rejectionReason]
     });
 
     this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
@@ -176,7 +176,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.countryIsoCode$ = this.workEffortFormGroup.get('companyAddress').get('countryIsoCode').valueChanges
       .pipe(
         filter((value) => !!value),
-        startWith(this.initialWorkEffort.companyAddress.countryIsoCode),
+        startWith(this.initialWorkEffort.companyAddress.countryIsoCode)
       );
     this.initialZipAndCity = createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode);
   }
@@ -258,6 +258,16 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       takeUntil(this.ngUnsubscribe)
     )
       .subscribe(this.updateRequiredOptionalFields.bind(this));
+    this.workEffortFormGroup.get('results').valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe)
+    )
+      .subscribe((newValue: ResultsFormValue) => {
+        if (newValue.REJECTED) {
+          this.makeRequired(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason')
+        } else {
+          this.makeOptional(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason');
+        }
+      })
   }
 
   /**

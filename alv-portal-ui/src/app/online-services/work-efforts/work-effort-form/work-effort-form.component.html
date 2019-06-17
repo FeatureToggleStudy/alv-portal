@@ -237,15 +237,20 @@
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result"
                             [isAlwaysExpanded]="true">
           <fieldset formGroupName="results">
-            <ng-container *ngFor="let resultCheckbox of resultsCheckboxNames">
-              <div class="alv-light-panel p-2 mb-1">
-                <alv-checkbox
-                  [alvFormControlName]="resultCheckbox"
-                  [label]="'portal.work-efforts.edit-form.results.' + resultCheckbox"
-                  class="narrow-form">
-                </alv-checkbox>
-              </div>
-            </ng-container>
+            <div *ngFor="let resultCheckbox of resultsCheckboxNames"
+                 class="alv-light-panel p-2 mb-1">
+              <alv-checkbox
+                [alvFormControlName]="resultCheckbox"
+                [label]="'portal.work-efforts.edit-form.results.' + resultCheckbox"
+                class="narrow-form">
+              </alv-checkbox>
+            </div>
+            <alv-validation-messages [control]="workEffortFormGroup.get('results')"
+                                     [customValidationMessages]="[{
+                                        error: 'atLeastOneRequired',
+                                        message: 'portal.work-efforts.edit-form.group-errors.at-least-one-result-required'
+                                      }]">
+            </alv-validation-messages>
           </fieldset>
           <ng-container
             *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
