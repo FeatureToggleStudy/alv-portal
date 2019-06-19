@@ -85,7 +85,7 @@ describe('ZipCityInputComponent', () => {
           const field = component.zipAndCity.get('city');
 
           //when
-          field.setValue(generateString(component.CITY_MAX_LENGTH + 1));
+          field.setValue(generateString(ZipCityInputComponent.CITY_MAX_LENGTH + 1));
 
           //then
           expect(field.hasError('maxlength')).toBeTrue();
@@ -109,7 +109,7 @@ describe('ZipCityInputComponent', () => {
           const field = component.zipAndCity.get('zipCode');
 
           //when
-          field.setValue(generateString(component.ZIP_CODE_MAX_LENGTH + 1));
+          field.setValue(generateString(ZipCityInputComponent.ZIP_CODE_MAX_LENGTH + 1));
 
           //then
           expect(field.hasError('maxlength')).toBeTrue();

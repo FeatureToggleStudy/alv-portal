@@ -165,7 +165,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     if (this.initialWorkEffort.results.REJECTED) {
       controlsConfig.rejectionReason = ['', [...this.defaultDynamicValidators.rejectionReason, Validators.required]]
     }
-    
+
     this.workEffortFormGroup = this.fb.group(controlsConfig);
 
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
@@ -208,7 +208,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   /**
    * makes a certain control a required field.
-   * todo there's a problem: this functions clears all other validators from the form control
    * @param control can be got with formGroup.get('')
    * @param name
    */
@@ -224,7 +223,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   /**
    * clears all validators from the field, making it optional
-   * todo: all validators will be cleared. We need to set them up back again.
    * @param control can be got with formGroup.get('')
    * @param name of the form control to search in defaultDynamicValidators;
    */
