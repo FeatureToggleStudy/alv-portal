@@ -7,6 +7,11 @@ import { TypeaheadItem } from '../typeahead/typeahead-item';
 import { ZipAndCity } from '../../../localities/zip-and-city-typeahead-item';
 import { ZipCityFormValue } from './zip-city-form-value.types';
 
+export const zipCityInputSettings = {
+  CITY_MAX_LENGTH: 100,
+  ZIP_CODE_MAX_LENGTH: 12
+};
+
 @Component({
   selector: 'alv-zip-city-input',
   templateUrl: './zip-city-input.component.html',
@@ -14,12 +19,14 @@ import { ZipCityFormValue } from './zip-city-form-value.types';
 })
 export class ZipCityInputComponent implements OnInit {
 
-  static readonly CITY_MAX_LENGTH = 100;
-  static readonly ZIP_CODE_MAX_LENGTH = 12;
+
   static validators = {
-    zipCode: Validators.maxLength(ZipCityInputComponent.ZIP_CODE_MAX_LENGTH),
-    city: Validators.maxLength(ZipCityInputComponent.CITY_MAX_LENGTH)
+    zipCode: Validators.maxLength(zipCityInputSettings.ZIP_CODE_MAX_LENGTH),
+    city: Validators.maxLength(zipCityInputSettings.CITY_MAX_LENGTH)
   };
+
+  readonly CITY_MAX_LENGTH = zipCityInputSettings.CITY_MAX_LENGTH;
+  readonly ZIP_CODE_MAX_LENGTH = zipCityInputSettings.ZIP_CODE_MAX_LENGTH;
   @Input()
   parentForm: FormGroup;
   @Input()
@@ -45,8 +52,9 @@ export class ZipCityInputComponent implements OnInit {
     return selectedCountryIsoCode === IsoCountryService.ISO_CODE_SWITZERLAND;
   }
 
-  loadLocationsFn = (query: string): Observable<TypeaheadItem<ZipAndCity>[]> =>
-    this.localitySuggestionService.fetchJobPublicationLocations(query);
+  public loadLocations(query: string): Observable<TypeaheadItem<ZipAndCity>[]> {
+    return this.localitySuggestionService.fetchJobPublicationLocations(query);
+  }
 
   ngOnInit(): void {
     const {zipCityAutoComplete, zipCode, city} = this.zipCityFormValue;

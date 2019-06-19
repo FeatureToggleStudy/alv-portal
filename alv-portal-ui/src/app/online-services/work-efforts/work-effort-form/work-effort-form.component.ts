@@ -163,7 +163,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     };
 
     if (this.initialWorkEffort.results.REJECTED) {
-      controlsConfig.rejectionReason = ['', [...this.defaultDynamicValidators.rejectionReason, Validators.required]]
+      controlsConfig.rejectionReason = ['', [...this.defaultDynamicValidators.rejectionReason, Validators.required]];
     }
 
     this.workEffortFormGroup = this.fb.group(controlsConfig);
@@ -267,11 +267,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     )
       .subscribe((newValue: ResultsFormValue) => {
         if (newValue.REJECTED) {
-          this.makeRequired(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason')
+          this.makeRequired(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason');
         } else {
           this.makeOptional(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason');
         }
-      })
+      });
   }
 
   /**
