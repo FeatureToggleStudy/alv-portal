@@ -11,7 +11,7 @@ exports.config = {
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
-      args: ["--window-size=1280,960"]
+      args: ["--headless", "--disable-gpu", "--window-size=1280,960"]
     }
   },
   directConnect: true,
@@ -19,7 +19,7 @@ exports.config = {
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000,
+    defaultTimeoutInterval: 50000,
     print: function() {}
   },
   onPrepare() {
