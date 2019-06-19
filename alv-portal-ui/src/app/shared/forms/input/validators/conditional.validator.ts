@@ -1,6 +1,6 @@
 import { ValidatorFn } from '@angular/forms';
 
-interface BooleanFn {
+export interface BooleanFn {
   (): boolean;
 }
 
@@ -30,9 +30,9 @@ interface BooleanFn {
  * @param validator
  * @param errorNamespace optional argument that creates own namespace for the validation error
  */
-function conditionalValidator(predicate: BooleanFn,
-                              validator: ValidatorFn,
-                              errorNamespace?: string): ValidatorFn {
+export function conditionalValidator(predicate: BooleanFn,
+                                     validator: ValidatorFn,
+                                     errorNamespace?: string): ValidatorFn {
   return (formControl => {
     if (!formControl.parent) {
       return null;
@@ -49,3 +49,4 @@ function conditionalValidator(predicate: BooleanFn,
     return error;
   })
 }
+

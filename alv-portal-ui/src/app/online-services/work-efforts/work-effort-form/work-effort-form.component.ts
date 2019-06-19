@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
@@ -20,7 +20,6 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { ActionsOnClose, SuccessModalComponent } from './success-modal/success-modal.component';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import {
-  ApplyChannelsFormValue,
   DefaultValidatorsRepository,
   emptyWorkEffortFormValue,
   formPossibleApplyChannels,
@@ -34,6 +33,7 @@ import { createInitialZipAndCityFormValue } from '../../../shared/forms/input/zi
 import { getAllErrors } from '../../../shared/forms/forms.utils';
 import { ZipCityInputComponent } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
+import { requiredIfValidator } from '../../../shared/forms/input/validators/required-if.validator';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -159,7 +159,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       appliedThroughRav: ['', Validators.required],
       workload: [''],
       results: this.generateResultsGroup(),
-      rejectionReason: ['', this.defaultDynamicValidators.rejectionReason]
+      rejectionReason: ['', [
+        Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH),
+        requiredIfValidator(() => this.workEffortFormGroup.get('results').value.REJECTED)
+      ]]
     };
 
     if (this.initialWorkEffort.results.REJECTED) {
@@ -170,7 +173,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
-    this.setUpDynamicValidation();
     this.previousResultsValue = {...this.initialWorkEffort.results};
     this.setUpUnclicking({
       PENDING: ['EMPLOYED', 'REJECTED'],
@@ -206,110 +208,60 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     return await this.router.navigate(['work-efforts']);
   }
 
-  /**
-   * makes a certain control a required field.
-   * @param control can be got with formGroup.get('')
-   * @param name
-   */
-  private makeRequired(control: AbstractControl, name: string) {
-    const defaultValidators = this.defaultDynamicValidators[name];
-    if (defaultValidators) {
-      control.setValidators([Validators.required].concat(defaultValidators));
-      control.updateValueAndValidity();
-    } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
-    }
-  }
 
-  /**
-   * clears all validators from the field, making it optional
-   * @param control can be got with formGroup.get('')
-   * @param name of the form control to search in defaultDynamicValidators;
-   */
-  private makeOptional(control: AbstractControl, name: string) {
-    const defaultValidators = this.defaultDynamicValidators[name];
-    if (defaultValidators) {
-      control.setValidators(this.defaultDynamicValidators[name]);
-      control.updateValueAndValidity();
-    } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
-    }
+  // private setUpDynamicValidation(): void {
+  //   this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(
+  //     takeUntil(this.ngUnsubscribe)
+  //   )
+  //     .subscribe(this.updateRequiredOptionalFields.bind(this));
+  //   this.workEffortFormGroup.get('results').valueChanges.pipe(
+  //     takeUntil(this.ngUnsubscribe)
+  //   )
+  //     .subscribe((newValue: ResultsFormValue) => {
+  //       if (newValue.REJECTED) {
+  //         this.makeRequired(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason');
+  //       } else {
+  //         this.makeOptional(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason');
+  //       }
+  //     });
+  // }
 
-  }
-
-  private clearValidatorsFromGroup(group: FormGroup, name: string) {
-    const defaultValidators = this.defaultDynamicValidators[name];
-    if (defaultValidators) {
-      group.clearValidators();
-      group.updateValueAndValidity();
-    } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
-    }
-  }
-
-  private makeAtLeastOneInGroupRequired(group: FormGroup, name: string, fields: string[]) {
-    const defaultValidators = this.defaultDynamicValidators[name];
-    if (defaultValidators) {
-      group.setValidators([atLeastOneRequiredValidator(fields)].concat(defaultValidators));
-      group.updateValueAndValidity();
-    } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
-    }
-  }
-
-  private setUpDynamicValidation(): void {
-    this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe)
-    )
-      .subscribe(this.updateRequiredOptionalFields.bind(this));
-    this.workEffortFormGroup.get('results').valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe)
-    )
-      .subscribe((newValue: ResultsFormValue) => {
-        if (newValue.REJECTED) {
-          this.makeRequired(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason');
-        } else {
-          this.makeOptional(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason');
-        }
-      });
-  }
-
-  /**
-   * checks the values of the various applychannels and manages which fields of the form must be optional or required
-   * @param newApplyChannel
-   */
-  private updateRequiredOptionalFields(newApplyChannel: ApplyChannelsFormValue) {
-    const requiredMap = {
-      companyAddress: newApplyChannel.MAIL || newApplyChannel.PERSONAL || newApplyChannel.PHONE,
-      contactPerson: newApplyChannel.PERSONAL || newApplyChannel.PHONE,
-      companyEmailAndUrl: newApplyChannel.ELECTRONIC,
-      phone: newApplyChannel.PHONE,
-    };
-
-    if (requiredMap.companyEmailAndUrl) {
-      this.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl', ['email', 'url']);
-    } else {
-      this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl');
-    }
-
-    for (const abstractControlName of ['contactPerson', 'phone']) {
-      if (requiredMap[abstractControlName]) {
-        this.makeRequired(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
-      } else {
-        this.makeOptional(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
-      }
-    }
-
-    if (requiredMap.companyAddress) {
-      this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
-      this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
-      this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
-    } else {
-      this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
-      this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
-      this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
-    }
-  }
+  // /**
+  //  * checks the values of the various applychannels and manages which fields of the form must be optional or required
+  //  * @param newApplyChannel
+  //  */
+  // private updateRequiredOptionalFields(newApplyChannel: ApplyChannelsFormValue) {
+  //   const requiredMap = {
+  //     companyAddress: newApplyChannel.MAIL || newApplyChannel.PERSONAL || newApplyChannel.PHONE,
+  //     contactPerson: newApplyChannel.PERSONAL || newApplyChannel.PHONE,
+  //     companyEmailAndUrl: newApplyChannel.ELECTRONIC,
+  //     phone: newApplyChannel.PHONE,
+  //   };
+  //
+  //   if (requiredMap.companyEmailAndUrl) {
+  //     this.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl', ['email', 'url']);
+  //   } else {
+  //     this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl');
+  //   }
+  //
+  //   for (const abstractControlName of ['contactPerson', 'phone']) {
+  //     if (requiredMap[abstractControlName]) {
+  //       this.makeRequired(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
+  //     } else {
+  //       this.makeOptional(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
+  //     }
+  //   }
+  //
+  //   if (requiredMap.companyAddress) {
+  //     this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
+  //     this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
+  //     this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
+  //   } else {
+  //     this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
+  //     this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
+  //     this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
+  //   }
+  // }
 
   private generateResultsGroup(): FormGroup {
     return this.generateCheckboxesFormGroup(this.resultsCheckboxNames, {
