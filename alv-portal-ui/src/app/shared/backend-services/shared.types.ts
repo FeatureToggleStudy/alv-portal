@@ -120,6 +120,7 @@ export enum Language {
   IT = 'it',
   EN = 'en',
   DE_CH = 'de-ch',
+  AR = 'ar',
   BG = 'bg',
   BS = 'bs',
   CS = 'cs',
