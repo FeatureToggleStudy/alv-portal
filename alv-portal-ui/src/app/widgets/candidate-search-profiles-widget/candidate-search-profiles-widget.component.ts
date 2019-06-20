@@ -61,5 +61,4 @@ export class CandidateSearchProfilesWidgetComponent implements OnInit {
       .catch(() => {
       });
   }
-
 }
