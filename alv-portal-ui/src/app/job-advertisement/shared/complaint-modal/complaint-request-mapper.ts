@@ -11,6 +11,7 @@ export function mapFormToDto(id: string, currentLanguage: string, formValue: Com
       email: formValue.email,
       contactLanguage: currentLanguage,
     },
+    complaintType: formValue.complaintType,
     complaintMessage: formValue.complaintMessage
   };
 }
