@@ -1,8 +1,6 @@
 import { ValidatorFn } from '@angular/forms';
 
-export interface BooleanFn {
-  (): boolean;
-}
+type BooleanFn = () => boolean;
 
 /**
  * A conditional validator generator. Assigns a validator to the form control if the predicate function returns true on the moment of validation
@@ -47,6 +45,6 @@ export function conditionalValidator(predicate: BooleanFn,
       error = customError
     }
     return error;
-  })
+  });
 }
 

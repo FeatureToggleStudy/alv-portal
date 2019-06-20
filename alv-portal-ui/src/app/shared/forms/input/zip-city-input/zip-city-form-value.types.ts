@@ -9,7 +9,7 @@ export interface ZipCityFormValue {
 
 type Index = keyof ZipCityFormValue;
 
-export type ZipCityValidators = { [i in Index]: ValidatorFn[] }
+export type ZipCityValidators = { [i in Index]: ValidatorFn[] };
 
 export function emptyZipCityFormValue() {
   return {

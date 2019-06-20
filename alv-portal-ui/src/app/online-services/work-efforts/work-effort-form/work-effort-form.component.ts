@@ -121,20 +121,20 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   isCompanyAddressRequired() {
     const applyChannel = this.applyChannelsValue;
-    return applyChannel.MAIL || applyChannel.PERSONAL || applyChannel.PHONE
+    return applyChannel.MAIL || applyChannel.PERSONAL || applyChannel.PHONE;
   }
 
   isContactPersonRequired() {
     const applyChannel = this.applyChannelsValue;
-    return applyChannel.PERSONAL || applyChannel.PHONE
+    return applyChannel.PERSONAL || applyChannel.PHONE;
   }
 
   isCompanyEmailAndUrlRequired() {
-    return this.applyChannelsValue.ELECTRONIC
+    return this.applyChannelsValue.ELECTRONIC;
   }
 
   isPhoneRequired() {
-    return this.applyChannelsValue.PHONE
+    return this.applyChannelsValue.PHONE;
   }
 
   ngOnInit() {
@@ -205,7 +205,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode)
       );
     this.initialZipAndCity = createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode);
-    this.setUpUpdateValidity();
 
   }
 
@@ -270,13 +269,5 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         this.previousResultsValue = {...valueToPatch};
         this.workEffortFormGroup.get('results').setValue(valueToPatch, {emitEvent: false});
       });
-  }
-
-  private setUpUpdateValidity() {
-    this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe((applyChannelsValue: ApplyChannelsFormValue) => {
-      // this.workEffortFormGroup.get('phone').updateValueAndValidity();
-    })
   }
 }
