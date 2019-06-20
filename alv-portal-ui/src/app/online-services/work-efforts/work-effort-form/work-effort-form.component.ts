@@ -140,8 +140,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
           }),
         }
       ),
-      contactPerson: ['', [conditionalValidator(() => this.isContactPersonRequired(this.applyChannelsValue),
-        Validators.required)]],
+      contactPerson: ['', [requiredIfValidator(() => this.isContactPersonRequired(this.applyChannelsValue))]],
       companyEmailAndUrl: this.fb.group(
         {
           email: ['', [
@@ -160,8 +159,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         }
       ),
       phone: ['', [phoneInputValidator,
-        conditionalValidator(() => this.isPhoneRequired(this.applyChannelsValue),
-          Validators.required)]],
+        requiredIfValidator(() => this.isPhoneRequired(this.applyChannelsValue))]],
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
       appliedThroughRav: ['', Validators.required],
       workload: [''],
