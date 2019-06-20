@@ -89,13 +89,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   minDate: NgbDate;
   maxDate: NgbDate;
   zipCityValidators: ZipCityValidators = {
-    zipCityAutoComplete: [requiredIfValidator(() => this.isCompanyAddressRequired(this.applyChannelsValue))],
+    zipCityAutoComplete: [requiredIfValidator(() => this.isCompanyAddressRequired())],
     zipCode: [
-      requiredIfValidator(() => this.isCompanyAddressRequired(this.applyChannelsValue)),
+      requiredIfValidator(() => this.isCompanyAddressRequired()),
       Validators.maxLength(zipCityInputSettings.ZIP_CODE_MAX_LENGTH)
     ],
     city: [
-      requiredIfValidator(() => this.isCompanyAddressRequired(this.applyChannelsValue)),
+      requiredIfValidator(() => this.isCompanyAddressRequired()),
       Validators.maxLength(zipCityInputSettings.CITY_MAX_LENGTH)
     ]
   };

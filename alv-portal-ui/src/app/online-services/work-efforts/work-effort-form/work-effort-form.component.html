@@ -227,12 +227,12 @@
 
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label"
                             [isAlwaysExpanded]="true">
-            <alv-radio-button
-              radioButtonClass="alv-light-panel p-2 mb-1"
-              [options$]="appliedThroughRavOptions$"
-              alvFormControlName="appliedThroughRav"
-              class="narrow-form">
-            </alv-radio-button>
+          <alv-radio-button
+            [options$]="appliedThroughRavOptions$"
+            alvFormControlName="appliedThroughRav"
+            class="narrow-form"
+            radioButtonClass="alv-light-panel p-2 mb-1">
+          </alv-radio-button>
         </alv-collapse-panel>
         <div class="arrow-container pt-0">
           <div class="arrow-down secondary">
@@ -241,13 +241,12 @@
         <!--      Contract type-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.work-load-panel-label"
                             [isAlwaysExpanded]="true">
-          <div class="alv-light-panel p-2 mb-1">
-            <alv-radio-button
-              [options$]="workLoadOptions$"
-              alvFormControlName="workload"
-              class="narrow-form">
-            </alv-radio-button>
-          </div>
+          <alv-radio-button
+            [options$]="workLoadOptions$"
+            alvFormControlName="workload"
+            class="narrow-form"
+            radioButtonClass="alv-light-panel p-2 mb-1">
+          </alv-radio-button>
         </alv-collapse-panel>
 
         <div class="arrow-container pt-0">
@@ -294,7 +293,6 @@
         </div>
       </form>
     </div>
-
     <div class="right-column">
       <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
                       class="info-panel"
