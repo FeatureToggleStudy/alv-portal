@@ -2,9 +2,9 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ZipCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
 import { now } from '../../../shared/forms/input/ngb-date-utils';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
-import { ValidatorFn } from '@angular/forms';
 
-type ArrayFromInterface<T> = (keyof(T))[];
+type ArrayFromInterface<T> = (keyof (T))[];
+
 export interface ApplyChannelsFormValue {
   ELECTRONIC: boolean;
   MAIL: boolean;
@@ -13,7 +13,6 @@ export interface ApplyChannelsFormValue {
 }
 
 export const formPossibleApplyChannels: ArrayFromInterface<ApplyChannelsFormValue> = ['ELECTRONIC', 'MAIL', 'PERSONAL', 'PHONE'];
-
 
 
 export interface ResultsFormValue {
@@ -81,17 +80,3 @@ export const emptyWorkEffortFormValue = {
   }
 };
 
-export interface DefaultValidatorsRepository {
-  phone: ValidatorFn[];
-  email: ValidatorFn[];
-  url: ValidatorFn[];
-  rejectionReason: ValidatorFn[];
-  companyAddress: ValidatorFn[];
-  postOfficeBoxNumberOrStreet: ValidatorFn[];
-  contactPerson: ValidatorFn[];
-  companyEmailAndUrl: ValidatorFn[];
-  zipAndCity: ValidatorFn[];
-  zipCityAutoComplete: ValidatorFn[];
-  city: ValidatorFn[];
-  zipCode: ValidatorFn[];
-}
