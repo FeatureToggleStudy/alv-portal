@@ -6,7 +6,7 @@ import {
   WorkEffort,
   WorkEffortApplyChannel,
   WorkEffortResult
-} from '../../../shared/backend-services/work-efforts/work-efforts.types';
+} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortFormValue, WorkLoadFormOption } from './work-effort-form.types';
 
 const mockedWorkEffortBackend: WorkEffort = {

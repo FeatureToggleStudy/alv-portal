@@ -4,7 +4,7 @@ import {
   WorkEffortsReport,
   WorkEffortsReportStatus,
   WorkEffortType
-} from '../../../../shared/backend-services/work-efforts/work-efforts.types';
+} from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 
 @Component({
   selector: 'alv-work-efforts-report',

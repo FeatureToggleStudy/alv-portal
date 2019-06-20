@@ -5,10 +5,10 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
-import { filter, startWith, takeUntil } from 'rxjs/operators';
+import { filter, flatMap, startWith, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
-import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
+import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
 import { ActivatedRoute, Router } from '@angular/router';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
@@ -34,6 +34,8 @@ import { createInitialZipAndCityFormValue } from '../../../shared/forms/input/zi
 import { getAllErrors } from '../../../shared/forms/forms.utils';
 import { ZipCityInputComponent } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { mapToWorkEffortBackendValue } from './work-effort-form.mapper';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -116,7 +118,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
-              private workEffortsRepository: WorkEffortsRepository,
+              private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
+              private authenticationService: AuthenticationService,
               private route: ActivatedRoute,
               public router: Router,
               private modalService: ModalService) {
@@ -188,6 +191,12 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   async submit() {
+    this.authenticationService.getCurrentUser().pipe(
+      filter(user => !!user),
+      flatMap(user => this.proofOfWorkEffortsRepository.saveWorkEffort(user.id,
+        mapToWorkEffortBackendValue(this.workEffortFormGroup.value))
+      )
+    );
     await this.openSuccessModal();
   }
 

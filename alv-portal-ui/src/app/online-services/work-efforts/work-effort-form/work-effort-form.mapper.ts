@@ -2,7 +2,7 @@ import {
   WorkEffort,
   WorkEffortApplyChannel,
   WorkEffortResult
-} from '../../../shared/backend-services/work-efforts/work-efforts.types';
+} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { fromISODate } from '../../../shared/forms/input/ngb-date-utils';
 import { mapToPostalCodeAndCity } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';

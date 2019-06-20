@@ -7,7 +7,7 @@ import {
 import {
   WorkEffortResult,
   WorkEffortsFilterPeriod
-} from '../../../shared/backend-services/work-efforts/work-efforts.types';
+} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 
 @Injectable({
   providedIn: 'root'

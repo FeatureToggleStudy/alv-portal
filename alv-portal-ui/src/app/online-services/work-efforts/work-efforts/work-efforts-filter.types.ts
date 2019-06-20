@@ -1,7 +1,7 @@
 import {
   WorkEffortsFilterPeriod,
   WorkEffortResult
-} from '../../../shared/backend-services/work-efforts/work-efforts.types';
+} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 
 export interface WorkEffortsFilterValues {
   period: WorkEffortsFilterPeriod;

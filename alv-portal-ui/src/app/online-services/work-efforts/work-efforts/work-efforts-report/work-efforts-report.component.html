@@ -72,6 +72,7 @@
 
       <alv-work-effort (deleted)="removeWorkEffort($event)"
                        [forecastSubmissionDate]="workEffortsReport.forecastSubmissionDate"
+                       [workEffortsReportId]="workEffortsReport.id"
                        [workEffort]="workEffort"></alv-work-effort>
 
       <div *ngIf="last"

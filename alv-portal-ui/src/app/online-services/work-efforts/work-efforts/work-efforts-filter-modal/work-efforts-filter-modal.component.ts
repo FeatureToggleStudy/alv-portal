@@ -6,7 +6,7 @@ import { SelectableOption } from '../../../../shared/forms/input/selectable-opti
 import {
   WorkEffortResult,
   WorkEffortsFilterPeriod
-} from '../../../../shared/backend-services/work-efforts/work-efforts.types';
+} from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortsFilterValues } from '../work-efforts-filter.types';
 
 @Component({

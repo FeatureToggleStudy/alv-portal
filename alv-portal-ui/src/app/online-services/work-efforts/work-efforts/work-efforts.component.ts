@@ -5,8 +5,8 @@ import {
   WorkEffortResult,
   WorkEffortsFilterPeriod,
   WorkEffortsReport
-} from '../../../shared/backend-services/work-efforts/work-efforts.types';
-import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
+} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { debounceTime, filter, flatMap, map, takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -69,7 +69,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
               private authenticationService: AuthenticationService,
               private i18nService: I18nService,
               private workEffortsService: WorkEffortsService,
-              private workEffortsRepository: WorkEffortsRepository) {
+              private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository) {
     super();
   }
 
@@ -82,7 +82,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
 
     this.workEffortsReports$ = this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
-      flatMap(user => this.workEffortsRepository.getWorkEffortsReports(user.id))
+      flatMap(user => this.proofOfWorkEffortsRepository.getWorkEffortsReports(user.id))
     );
 
 
