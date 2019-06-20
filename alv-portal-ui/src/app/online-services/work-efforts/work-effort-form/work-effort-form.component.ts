@@ -133,7 +133,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     return this.applyChannelsValue.ELECTRONIC
   }
 
-  isPhoneRequired(applyChannel) {
+  isPhoneRequired() {
     return this.applyChannelsValue.PHONE
   }
 
