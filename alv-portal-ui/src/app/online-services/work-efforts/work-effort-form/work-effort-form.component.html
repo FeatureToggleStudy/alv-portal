@@ -177,6 +177,7 @@
                            class="mb-0"
                            alvFormControlName="phone"
                            label="portal.global.phone"
+                           [isRequired]="workEffortFormGroup.get('applyChannels')?.value?.PHONE"
                            placeholder="portal.global.phone-swiss-example"
                            type="tel">
           </alv-input-field>
@@ -251,13 +252,12 @@
                                       }]">
             </alv-validation-messages>
           </fieldset>
-          <ng-container
-            *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
+          <ng-container *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
             <div class="arrow-container">
               <div class="arrow-down">
               </div>
             </div>
-            <alv-input-field [showGroupErrors]="true"
+            <alv-input-field [isRequired]="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
                              alvFormControlName="rejectionReason"
                              label="portal.work-efforts.edit-form.rejection-reason">
             </alv-input-field>
