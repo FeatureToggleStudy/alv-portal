@@ -16,6 +16,9 @@ export class RadioButtonComponent extends AbstractSelectableInput implements OnI
   @Input()
   name: string;
 
+  @Input()
+  radioButtonClass: string;
+
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {
     super(controlContainer, InputType.RADIO_BUTTON, inputIdGenerationService);

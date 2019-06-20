@@ -6,6 +6,7 @@
           *ngIf="label">{{label | translate}}
   </legend>
   <div class="checkbox-radio"
+       [ngClass]="radioButtonClass"
        *ngFor="let option of options$ | async; let first = first">
     <input class="form-check-input"
            type="radio"
