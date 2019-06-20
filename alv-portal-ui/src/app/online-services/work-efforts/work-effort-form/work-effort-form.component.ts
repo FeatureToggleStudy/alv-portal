@@ -188,6 +188,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode)
       );
     this.initialZipAndCity = createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode);
+    this.setUpUpdateValidity();
+
   }
 
   async submit() {
@@ -251,5 +253,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         this.previousResultsValue = {...valueToPatch};
         this.workEffortFormGroup.get('results').setValue(valueToPatch, {emitEvent: false});
       });
+  }
+
+  private setUpUpdateValidity() {
+    this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe((applyChannelsValue: ApplyChannelsFormValue) => {
+      // this.workEffortFormGroup.get('phone').updateValueAndValidity();
+    })
   }
 }
