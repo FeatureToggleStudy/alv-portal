@@ -113,6 +113,10 @@
                  class="form-row">
               <alv-input-field [maxLength]="STREET_MAX_LENGTH"
                                [showGroupErrors]="true"
+                               [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber').value &&
+                                  (workEffortFormGroup.get('applyChannels')?.value?.PERSONAL ||
+                                  workEffortFormGroup.get('applyChannels')?.value?.PHONE ||
+                                  workEffortFormGroup.get('applyChannels')?.value?.PERSONAL)"
                                [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
@@ -129,6 +133,10 @@
 
               <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
                                [showGroupErrors]="true"
+                               [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('street').value &&
+                                  (workEffortFormGroup.get('applyChannels')?.value?.PERSONAL ||
+                                  workEffortFormGroup.get('applyChannels')?.value?.PHONE ||
+                                  workEffortFormGroup.get('applyChannels')?.value?.PERSONAL)"
                                [validationMessages]="[{
                               error: 'atLeastOneRequired',
                               message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
@@ -151,6 +159,8 @@
           </fieldset>
 
           <alv-input-field alvFormControlName="contactPerson"
+                           [isRequired]="workEffortFormGroup.get('applyChannels')?.value?.PERSONAL ||
+                            workEffortFormGroup.get('applyChannels')?.value?.PHONE"
                            label="portal.work-efforts.edit-form.contact-person">
           </alv-input-field>
 
@@ -161,11 +171,15 @@
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
+                             [isRequired]="workEffortFormGroup.get('applyChannels')?.value?.ELECTRONIC &&
+                                !workEffortFormGroup.get('companyEmailAndUrl')?.get('url')?.value"
                              label="portal.global.email">
             </alv-input-field>
             <alv-input-field [showGroupErrors]="true"
                              alvFormControlName="url"
                              label="portal.work-efforts.edit-form.company.online-form-url"
+                             [isRequired]="workEffortFormGroup.get('applyChannels')?.value?.ELECTRONIC &&
+                                !workEffortFormGroup.get('companyEmailAndUrl')?.get('email')?.value"
                              [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
