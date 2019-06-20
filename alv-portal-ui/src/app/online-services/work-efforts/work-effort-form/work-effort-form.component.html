@@ -157,7 +157,11 @@
             <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
                                 [zipCityFormValue]="initialZipAndCity"
                                 [validators]="zipCityValidators"
-                                [countryIsoCode]="countryIsoCode$ | async">
+                                [countryIsoCode]="countryIsoCode$ | async"
+                                [isRequired]="watchedValues.applyChannels?.PERSONAL ||
+                                  watchedValues.applyChannels?.PHONE ||
+                                  watchedValues.applyChannels?.MAIL"
+            >
             </alv-zip-city-input>
 
           </fieldset>

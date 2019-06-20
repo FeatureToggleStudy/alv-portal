@@ -33,6 +33,10 @@ export class ZipCityInputComponent implements OnInit {
 
   readonly CITY_MAX_LENGTH = zipCityInputSettings.CITY_MAX_LENGTH;
   readonly ZIP_CODE_MAX_LENGTH = zipCityInputSettings.ZIP_CODE_MAX_LENGTH;
+
+  @Input()
+  isRequired: boolean;
+
   @Input()
   parentForm: FormGroup;
   @Input()
