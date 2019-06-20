@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class ProofOfWorkEffortsRepository {
 
-  private readonly resourceUrl = '/onlineforms-service/api/npa';
+  private readonly resourceUrl = '/onlineformsservice/api/npa';
 
   private readonly searchUrl = `${this.resourceUrl}/_search`;
 
