@@ -70,7 +70,7 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
         street: workEffort.company.street
       },
       zipAndCity: {
-        city: workEffort.company.city, //todo check that the mapping works
+        city: workEffort.company.city,
         zipCode: workEffort.company.postalCode,
         zipCityAutoComplete: null
       }
