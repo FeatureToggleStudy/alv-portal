@@ -12,6 +12,7 @@ import {
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.types';
+import { format } from 'date-fns'
 
 
 function mapToApplyChannelsFormValue(applyChannels: WorkEffortApplyChannel[]): ApplyChannelsFormValue {
@@ -41,7 +42,7 @@ function mapApplyChannelsFormValueToBackend(applyChannels: ApplyChannelsFormValu
 }
 
 function mapNgbDateStructToString(struct: NgbDateStruct): string {
-  return new Date(struct.year, struct.month - 1, struct.day).toISOString();
+  return format(new Date(struct.year, struct.month - 1, struct.day), 'YYYY-MM-DD',)
 }
 
 function mapToWorkloadFormValue(isFulltime: boolean): WorkLoadFormOption {

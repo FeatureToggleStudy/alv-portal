@@ -1,7 +1,4 @@
-import {
-  mapToWorkEffortBackendValue,
-  mapToWorkEffortFormValue,
-} from './work-effort-form.mapper';
+import { mapToWorkEffortBackendValue, mapToWorkEffortFormValue, } from './work-effort-form.mapper';
 import {
   WorkEffort,
   WorkEffortApplyChannel,
@@ -10,7 +7,7 @@ import {
 import { WorkEffortFormValue, WorkLoadFormOption } from './work-effort-form.types';
 
 const mockedWorkEffortBackend: WorkEffort = {
-  date: '2019-07-12T22:00:00.000Z',
+  date: '2019-07-13',
   company: {
     name: 'SRF - Schweizer Radio und Fernsehen ',
     city: 'Zurich',
