@@ -11,6 +11,7 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
 import { EMPTY, throwError } from 'rxjs';
 import { RegistrationRepository } from '../../../../shared/backend-services/registration/registration.repository';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
+import { NotificationType } from '../../../../shared/layout/notifications/notification.model';
 
 @Component({
   selector: 'alv-jobseeker-identification',
@@ -32,6 +33,11 @@ export class JobseekerIdentificationComponent extends AbstractRegistrationStep i
   readonly PERSON_NR_MAX_LENGTH = 8;
 
   jobseekerIdentificationForm: FormGroup;
+
+  infoNotification = {
+    type: NotificationType.INFO,
+    isSticky: true
+  };
 
   constructor(private fb: FormBuilder,
               private router: Router,
