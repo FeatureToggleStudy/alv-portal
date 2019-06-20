@@ -119,20 +119,22 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     return this.workEffortFormGroup.get('applyChannels').value;
   }
 
-  isCompanyAddressRequired(applyChannel) {
+  isCompanyAddressRequired() {
+    const applyChannel = this.applyChannelsValue;
     return applyChannel.MAIL || applyChannel.PERSONAL || applyChannel.PHONE
   }
 
-  isContactPersonRequired(applyChannel) {
+  isContactPersonRequired() {
+    const applyChannel = this.applyChannelsValue;
     return applyChannel.PERSONAL || applyChannel.PHONE
   }
 
-  isCompanyEmailAndUrlRequired(applyChannel) {
-    return applyChannel.ELECTRONIC
+  isCompanyEmailAndUrlRequired() {
+    return this.applyChannelsValue.ELECTRONIC
   }
 
   isPhoneRequired(applyChannel) {
-    return applyChannel.PHONE
+    return this.applyChannelsValue.PHONE
   }
 
   ngOnInit() {
@@ -150,12 +152,12 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
             houseNumber: [''],
             postOfficeBoxNumber: [''],
           }, {
-            validator: [conditionalValidator(() => this.isCompanyAddressRequired(this.applyChannelsValue),
+            validator: [conditionalValidator(() => this.isCompanyAddressRequired(),
               atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber']))]
           }),
         }
       ),
-      contactPerson: ['', [requiredIfValidator(() => this.isContactPersonRequired(this.applyChannelsValue))]],
+      contactPerson: ['', [requiredIfValidator(() => this.isContactPersonRequired())]],
       companyEmailAndUrl: this.fb.group(
         {
           email: ['', [
@@ -168,13 +170,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
           ]]
         }, {
           validators: [
-            conditionalValidator(() => this.isCompanyEmailAndUrlRequired(this.applyChannelsValue),
+            conditionalValidator(() => this.isCompanyEmailAndUrlRequired(),
               atLeastOneRequiredValidator(['email', 'url']))
           ]
         }
       ),
       phone: ['', [phoneInputValidator,
-        requiredIfValidator(() => this.isPhoneRequired(this.applyChannelsValue))]],
+        requiredIfValidator(() => this.isPhoneRequired())]],
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
       appliedThroughRav: ['', Validators.required],
       workload: [''],
