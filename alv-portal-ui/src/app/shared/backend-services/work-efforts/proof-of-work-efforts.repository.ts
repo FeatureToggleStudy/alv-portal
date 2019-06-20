@@ -6,6 +6,7 @@ import {
   WorkEffort,
   WorkEffortsReport
 } from './proof-of-work-efforts.types';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ProofOfWorkEffortsRepository {
@@ -25,8 +26,15 @@ export class ProofOfWorkEffortsRepository {
     });
   }
 
-  getWorkEffortById(workEffortId: string): Observable<WorkEffort> {
-    return of(mockedWorkEffort);
+  getWorkEffortsReportById(workEffortReportId: string): Observable<WorkEffortsReport> {
+    return this.http.get<WorkEffortsReport>(`${this.resourceUrl}/${workEffortReportId}`);
+  }
+
+  getWorkEffortById(workEffortReportId: string, workEffortId: string): Observable<WorkEffort> {
+    return this.getWorkEffortsReportById(workEffortReportId).pipe(
+      map(workEffortReport =>
+        workEffortReport.workEfforts.find(workEffort => workEffort.id === workEffortId))
+    );
   }
 
   deleteWorkEffort(workEffortsReportId: string, workEffortId: string): Observable<null> {

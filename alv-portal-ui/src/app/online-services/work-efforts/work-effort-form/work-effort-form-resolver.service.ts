@@ -14,12 +14,12 @@ import { WorkEffortFormValue } from './work-effort-form.types';
 export class WorkEffortFormResolverService implements Resolve<Observable<WorkEffortFormValue>> {
 
   constructor(private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository) {
-
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<WorkEffortFormValue> {
+    const workEffortsReportId = route.params['report-id'];
     const workEffortId = route.params['id'];
-    return this.proofOfWorkEffortsRepository.getWorkEffortById(workEffortId).pipe(
+    return this.proofOfWorkEffortsRepository.getWorkEffortById(workEffortsReportId, workEffortId).pipe(
       map((workEffort: WorkEffort) => mapToWorkEffortFormValue(workEffort))
     );
   }
