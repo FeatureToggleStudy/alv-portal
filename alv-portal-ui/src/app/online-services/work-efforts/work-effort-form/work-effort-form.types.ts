@@ -5,7 +5,6 @@ import { IsoCountryService } from '../../../shared/localities/iso-country.servic
 import { ValidatorFn } from '@angular/forms';
 
 type ArrayFromInterface<T> = (keyof(T))[];
-
 export interface ApplyChannelsFormValue {
   ELECTRONIC: boolean;
   MAIL: boolean;
