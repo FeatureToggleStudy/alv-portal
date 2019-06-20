@@ -56,6 +56,9 @@
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
             class="mb-5"
+            *ngIf=" {
+                applyChannels: workEffortFormGroup.get('applyChannels')?.value
+            } as watchedValues"
             alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
@@ -114,9 +117,9 @@
               <alv-input-field [maxLength]="STREET_MAX_LENGTH"
                                [showGroupErrors]="true"
                                [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber').value &&
-                                  (workEffortFormGroup.get('applyChannels')?.value?.PERSONAL ||
-                                  workEffortFormGroup.get('applyChannels')?.value?.PHONE ||
-                                  workEffortFormGroup.get('applyChannels')?.value?.PERSONAL)"
+                                  (watchedValues.applyChannels?.PERSONAL ||
+                                  watchedValues.applyChannels?.PHONE ||
+                                  watchedValues.applyChannels?.MAIL)"
                                [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
@@ -134,9 +137,9 @@
               <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
                                [showGroupErrors]="true"
                                [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('street').value &&
-                                  (workEffortFormGroup.get('applyChannels')?.value?.PERSONAL ||
-                                  workEffortFormGroup.get('applyChannels')?.value?.PHONE ||
-                                  workEffortFormGroup.get('applyChannels')?.value?.PERSONAL)"
+                                  (watchedValues.applyChannels?.PERSONAL ||
+                                  watchedValues.applyChannels?.PHONE ||
+                                  watchedValues.applyChannels?.MAIL)"
                                [validationMessages]="[{
                               error: 'atLeastOneRequired',
                               message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
@@ -159,8 +162,8 @@
           </fieldset>
 
           <alv-input-field alvFormControlName="contactPerson"
-                           [isRequired]="workEffortFormGroup.get('applyChannels')?.value?.PERSONAL ||
-                            workEffortFormGroup.get('applyChannels')?.value?.PHONE"
+                           [isRequired]="watchedValues.applyChannels?.PERSONAL ||
+                            watchedValues.applyChannels?.PHONE"
                            label="portal.work-efforts.edit-form.contact-person">
           </alv-input-field>
 
@@ -171,14 +174,14 @@
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
-                             [isRequired]="workEffortFormGroup.get('applyChannels')?.value?.ELECTRONIC &&
+                             [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
                                 !workEffortFormGroup.get('companyEmailAndUrl')?.get('url')?.value"
                              label="portal.global.email">
             </alv-input-field>
             <alv-input-field [showGroupErrors]="true"
                              alvFormControlName="url"
                              label="portal.work-efforts.edit-form.company.online-form-url"
-                             [isRequired]="workEffortFormGroup.get('applyChannels')?.value?.ELECTRONIC &&
+                             [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
                                 !workEffortFormGroup.get('companyEmailAndUrl')?.get('email')?.value"
                              [validationMessages]="[{
                                 error: 'atLeastOneRequired',
@@ -191,7 +194,7 @@
                            class="mb-0"
                            alvFormControlName="phone"
                            label="portal.global.phone"
-                           [isRequired]="workEffortFormGroup.get('applyChannels')?.value?.PHONE"
+                           [isRequired]="watchedValues.applyChannels?.PHONE"
                            placeholder="portal.global.phone-swiss-example"
                            type="tel">
           </alv-input-field>
