@@ -13,7 +13,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.component';
-import { ZipCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
+import {
+  ZipCityFormValue,
+  ZipCityValidators
+} from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
@@ -34,6 +37,7 @@ import { getAllErrors } from '../../../shared/forms/forms.utils';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { requiredIfValidator } from '../../../shared/forms/input/validators/required-if.validator';
 import { conditionalValidator } from '../../../shared/forms/input/validators/conditional.validator';
+import { zipCityInputSettings } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -84,6 +88,17 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   initialZipAndCity: ZipCityFormValue;
   minDate: NgbDate;
   maxDate: NgbDate;
+  zipCityValidators: ZipCityValidators = {
+    zipCityAutoComplete: [requiredIfValidator(() => this.isCompanyAddressRequired(this.applyChannelsValue))],
+    zipCode: [
+      requiredIfValidator(() => this.isCompanyAddressRequired(this.applyChannelsValue)),
+      Validators.maxLength(zipCityInputSettings.ZIP_CODE_MAX_LENGTH)
+    ],
+    city: [
+      requiredIfValidator(() => this.isCompanyAddressRequired(this.applyChannelsValue)),
+      Validators.maxLength(zipCityInputSettings.CITY_MAX_LENGTH)
+    ]
+  };
   private previousResultsValue;
 
   constructor(private fb: FormBuilder,

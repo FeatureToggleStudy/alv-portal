@@ -156,6 +156,7 @@
 
             <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
                                 [zipCityFormValue]="initialZipAndCity"
+                                [validators]="zipCityValidators"
                                 [countryIsoCode]="countryIsoCode$ | async">
             </alv-zip-city-input>
 

@@ -13,17 +13,17 @@ export const zipCityInputSettings = {
 };
 
 export const zipCityDefaultValidators: ZipCityValidators = {
-    zipCityAutoComplete: [Validators.required],
-    zipCode: [
-      Validators.required,
-      Validators.maxLength(zipCityInputSettings.ZIP_CODE_MAX_LENGTH)
-    ],
-    city: [
-      Validators.required,
-      Validators.maxLength(zipCityInputSettings.CITY_MAX_LENGTH)
-    ]
-  }
-;
+  zipCityAutoComplete: [Validators.required],
+  zipCode: [
+    Validators.required,
+    Validators.maxLength(zipCityInputSettings.ZIP_CODE_MAX_LENGTH)
+  ],
+  city: [
+    Validators.required,
+    Validators.maxLength(zipCityInputSettings.CITY_MAX_LENGTH)
+  ]
+};
+
 @Component({
   selector: 'alv-zip-city-input',
   templateUrl: './zip-city-input.component.html',
@@ -38,7 +38,7 @@ export class ZipCityInputComponent implements OnInit {
   @Input()
   zipCityFormValue: ZipCityFormValue;
   @Input()
-  defaultValidators = zipCityDefaultValidators;
+  validators = zipCityDefaultValidators;
   zipAndCity: FormGroup;
 
   constructor(private fb: FormBuilder,
@@ -68,9 +68,9 @@ export class ZipCityInputComponent implements OnInit {
     const {zipCityAutoComplete, zipCode, city} = this.zipCityFormValue;
 
     this.zipAndCity = this.fb.group({
-      zipCityAutoComplete: [zipCityAutoComplete, this.defaultValidators.zipCityAutoComplete],
-      zipCode: [zipCode, this.defaultValidators.zipCode],
-      city: [city, this.defaultValidators.city]
+      zipCityAutoComplete: [zipCityAutoComplete, this.validators.zipCityAutoComplete],
+      zipCode: [zipCode, this.validators.zipCode],
+      city: [city, this.validators.city]
     });
     this.parentForm.addControl('zipAndCity', this.zipAndCity);
     this.toggleAutocomplete(this._countryIsoCode);
