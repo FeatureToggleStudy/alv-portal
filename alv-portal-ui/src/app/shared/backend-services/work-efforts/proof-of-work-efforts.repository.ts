@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class ProofOfWorkEffortsRepository {
 
-  private readonly resourceUrl = '/onlineformservice/api/npa';
+  private readonly resourceUrl = '/onlineform-service/api/npa';
 
   private readonly searchUrl = `${this.resourceUrl}/_search`;
 
@@ -21,9 +21,11 @@ export class ProofOfWorkEffortsRepository {
   }
 
   getWorkEffortsReports(userId: string): Observable<WorkEffortsReport[]> {
-    return this.http.get<WorkEffortsReport[]>(`${this.searchUrl}/by-owner-user-id`, {
+    return this.http.get<any>(`${this.searchUrl}/by-owner-user-id`, {
       params: new HttpParams().set('userId', userId)
-    });
+    }).pipe(
+      map(result => result.content)
+    );
   }
 
   getWorkEffortsReportById(workEffortReportId: string): Observable<WorkEffortsReport> {

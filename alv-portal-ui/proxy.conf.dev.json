@@ -54,7 +54,7 @@
     "secure": false,
     "loglevel": "debug"
   },
-  "/onlineformservice/*": {
+  "/onlineform-service/*": {
     "target": "https://dev.job-room.ch",
     "secure": false,
     "loglevel": "debug"
