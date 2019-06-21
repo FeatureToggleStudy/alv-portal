@@ -103,7 +103,7 @@ export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): Wor
         name: formValue.companyName,
         street: formValue.companyAddress.postOfficeBoxNumberOrStreet.street,
         houseNumber: formValue.companyAddress.postOfficeBoxNumberOrStreet.houseNumber,
-        postalCode: formValue.companyAddress.postOfficeBoxNumberOrStreet.postOfficeBoxNumber,
+        postalCode: formValue.companyAddress.zipAndCity.zipCode,
         country: formValue.companyAddress.countryIsoCode,
         city: formValue.companyAddress.zipAndCity.city,
         poBox: formValue.companyAddress.postOfficeBoxNumberOrStreet.postOfficeBoxNumber

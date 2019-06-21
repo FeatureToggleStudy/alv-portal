@@ -11,20 +11,22 @@ import { WorkEffortFormValue, WorkLoadFormOption } from './work-effort-form.type
 
 const mockedWorkEffortBackend: WorkEffort = {
   applyDate: '2019-07-12T22:00:00.000Z',
-  company: {
-    name: 'SRF - Schweizer Radio und Fernsehen ',
-    city: 'Zurich',
-    postalCode: '8098',
+  applyChannel: {
+    address: {
+      name: 'SRF - Schweizer Radio und Fernsehen ',
+      city: 'Zurich',
+      postalCode: '8098',
+      street: 'Evergreen Terrace',
+      houseNumber: '22b',
+      country: 'CH',
+      poBox: ''
+    },
     contactPerson: 'Some Dude',
-    countryIsoCode: 'CH',
+    formUrl: 'www.example-company.com',
     email: 'mail@address.com',
-    houseNumber: '22b',
     phone: '+41 33 322 34 41',
-    street: 'Evergreen Terrace',
-    applyFormUrl: 'www.example-company.com',
-    postOfficeBoxNumber: ''
+    types: [WorkEffortApplyChannelType.PHONE]
   },
-  applicationForms: [WorkEffortApplyChannelType.PHONE],
   occupation: 'Systemadministrator Informatiker',
   ravAssigned: false,
   applyStatus: [WorkEffortApplyStatus.REJECTED],

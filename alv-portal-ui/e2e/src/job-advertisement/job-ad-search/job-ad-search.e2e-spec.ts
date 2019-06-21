@@ -22,7 +22,7 @@ describe('Job search page', () => {
     expect(searchPage.browserTitle).toEqual('Search job');
   });
 
-  it('should have some more than 0 applyStatus with empty search query', () => {
+  it('should have some more than 0 results with empty search query', () => {
     expect(searchPage.filterPanel.isResultCountPresent).toBe(true, 'the result counter is not rendered at all');
     expect(searchPage.filterPanel.resultCount).toBeGreaterThan(0, 'the result counter is more than 0'); // parseInt will cut everything after . character, so if in English locale big number are written like this '85.111' instead of this '85'111', the result won't be precise. We don't care about that here though.
     expect(searchPage.searchResultsPanel.resultCount).toBe(PAGE_SIZE);
@@ -31,7 +31,7 @@ describe('Job search page', () => {
   it('should have working pagination', () => {
     searchPage.scrollToBottom()
       .then(() => {
-        expect(searchPage.searchResultsPanel.resultCount).toBe(PAGE_SIZE * 2, 'the amount of applyStatus fetched after pagination is not two pages');
+        expect(searchPage.searchResultsPanel.resultCount).toBe(PAGE_SIZE * 2, 'the amount of results fetched after pagination is not two pages');
       });
   });
 
@@ -53,22 +53,22 @@ describe('Job search page', () => {
     expect(afterFilter).toBeLessThan(initialCount);
   });
 
-  it('should go to a details searchPage and navigate to next search applyStatus', async () => {
+  it('should go to a details searchPage and navigate to next search results', async () => {
     const resultsHeaders = await searchPage.searchResultsPanel.getResultHeaders();
     await searchPage.searchResultsPanel.clickOnResult(0);
     const detailsPage = new JobDetailsPo();
 
-    //check that all headers match the search applyStatus headers
+    //check that all headers match the search results headers
     for (const resultHeader of resultsHeaders) {
       await expect(detailsPage.header).toBe(resultHeader);
       await detailsPage.nextButton.click();
     }
     //we've reached the last result header and the new ones have to be loaded now. The next button must be clickable
 
-    await expect(detailsPage.nextButton.isEnabled()).toBe(true, 'The next button must be clickable after iterating through the first searchPage of applyStatus');
+    await expect(detailsPage.nextButton.isEnabled()).toBe(true, 'The next button must be clickable after iterating through the first searchPage of results');
 
     await detailsPage.goBackToSearch();
-    await expect(searchPage.searchResultsPanel.results.$$('.visited').count()).toBe(21, 'must be 21 visited search applyStatus');
+    await expect(searchPage.searchResultsPanel.results.$$('.visited').count()).toBe(21, 'must be 21 visited search results');
 
   });
 

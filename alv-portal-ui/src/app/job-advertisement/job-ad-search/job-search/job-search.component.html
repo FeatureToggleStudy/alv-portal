@@ -32,7 +32,7 @@
         <span *ngIf="resultsAreLoading$ | async; else resultsCount"
               data-test="count-placeholder">...</span>
         <ng-template #resultsCount>
-          <strong><span data-test="resultCount">{{totalCount$ | async | number}} </span>{{'portal.job-ad-search.applyStatus-count.label' | translate}}</strong>
+          <strong><span data-test="resultCount">{{totalCount$ | async | number}} </span>{{'portal.job-ad-search.results-count.label' | translate}}</strong>
         </ng-template>
         <div class="flex-grow-1"></div>
 
@@ -96,7 +96,7 @@
                                routerLinkBase="/job-search">
         </alv-job-search-result>
         <div *ngIf="!jobSearchResults.length">
-          {{'global.common-phrases.no-applyStatus-found' | translate}}
+          {{'global.common-phrases.no-results-found' | translate}}
         </div>
       </ng-container>
     </div>

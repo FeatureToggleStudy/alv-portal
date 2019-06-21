@@ -200,7 +200,7 @@ describe('JobAdSearchEffects', () => {
     /*
      * action : triggered 3x, but only 2nd and 3rd 'a' are dispatched, 2nd after 30 F delay and 3rd after 70 F delay
      * response : returned after 10 F delay (both actions)
-     * expected : emit 2 same action applyStatus,
+     * expected : emit 2 same action results,
      *    1st: after 30 F + 10 F + 30 F from the debounce = 70 F delay
      *    2nd: after 70 F + 10 F + 30 F from the debounce = 110 F delay (all together from the start!)
      */
@@ -238,7 +238,7 @@ describe('JobAdSearchEffects', () => {
     /*
      * action : dispatched after 10 F delay and after debounce again after 50 F delay
      * response : return ERROR after 10 F delay, and another response is correct result after additional 10 F delay
-     * expected : two emitted applyStatus, one error and one successful
+     * expected : two emitted results, one error and one successful
      *    1st: after 10 F + 10 F + 30 F debounce = 50 F delay (emitted ERROR)
      *    2nd: after 50 F + 10 F + 30 F debounce = 90 F delay (emitted valid result)
      */

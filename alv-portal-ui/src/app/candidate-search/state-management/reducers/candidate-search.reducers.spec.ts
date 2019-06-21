@@ -234,7 +234,7 @@ describe('candidateSearchReducer', () => {
     verifyUnchanged(newState, candidateStateChanged, ['candidateSearchFilter']);
   });
 
-  it('LOAD_NEXT_PAGE : should only flag tre that applyStatus are loading', () => {
+  it('LOAD_NEXT_PAGE : should only flag tre that results are loading', () => {
     // GIVEN
     const action = new candidateActions.LoadNextPageAction();
 
