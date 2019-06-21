@@ -66,11 +66,11 @@ export function tomorrow(): NgbDateStruct {
 
 
 /**
- * allows to add and subtract the dates. Takes the input applyDate and adds days, months and years to it
+ * allows to add and subtract the dates. Takes the input date and adds days, months and years to it
  * for example:
- * @example deltaDate(new Date, 0, -2, 0) will return the applyDate that is 2 months before today
- * @example deltaDate(new Date, 4, 0, 0) will return the applyDate that is 4 months after today
- * @param input applyDate
+ * @example deltaDate(new Date, 0, -2, 0) will return the date that is 2 months before today
+ * @example deltaDate(new Date, 4, 0, 0) will return the date that is 4 months after today
+ * @param input date
  * @param days
  * @param months
  * @param years

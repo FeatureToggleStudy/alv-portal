@@ -14,16 +14,16 @@ import { InputIdGenerationService } from '../input-id-generation.service';
 import { ControlContainer } from '@angular/forms';
 
 /**
- * Component to display a single applyDate picker
+ * Component to display a single date picker
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
- * @example <alv-applyDate-input
+ * @example <alv-date-input
  *            label="Date picker label"
  *            [control]="myFormControl"
  *            [minDate]="myMinDate"
  *            [validationMessages]="[{error: 'require', message: 'Custom message'}]"
  *            [readonly]="false"
  *            placement="bottom-right"
- *          </alv-applyDate-input>
+ *          </alv-date-input>
  */
 @Component({
   selector: 'alv-date-input',
@@ -33,22 +33,22 @@ import { ControlContainer } from '@angular/forms';
 export class DateInputComponent extends AbstractInput {
 
   /**
-   * minimal selectable applyDate
+   * minimal selectable date
    */
   @Input() minDate?: NgbDate;
 
   /**
-   * maximal selectable applyDate
+   * maximal selectable date
    */
   @Input() maxDate?: NgbDate;
 
   /**
-   * (optional) starting applyDate
+   * (optional) starting date
    */
   @Input() startDate?: NgbDate;
 
   /**
-   * (optional) where to display the applyDate picker: bottom-left (default) or bottom-right
+   * (optional) where to display the date picker: bottom-left (default) or bottom-right
    */
   @Input() placement: 'bottom-left' | 'bottom-right' = 'bottom-left';
 
