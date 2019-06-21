@@ -166,7 +166,7 @@ describe('CandidateSearchEffects', () => {
     /*
      * action : triggered multiple 'a' applyFilterAction, but only dispatched after 30 F and 80 F delay because of debounce
      * response : value returned after 10 F delay
-     * expected : emit 2 results, one after 30 F + 10 F + 30 F debounce = 70 F delay, and other after 80 F + 10 F + 30 F = 120 F delay
+     * expected : emit 2 applyStatus, one after 30 F + 10 F + 30 F debounce = 70 F delay, and other after 80 F + 10 F + 30 F = 120 F delay
      */
     it('should return multiple new FilterAppliedAction on success, including debouncing', () => {
 
@@ -200,7 +200,7 @@ describe('CandidateSearchEffects', () => {
     /*
      * action : dispatched only 2 times after 30 F delay and 100 F delay (because of debouncing)
      * response : return error after 10 F delay for 1st response, and value after 10 F delay for 2nd response
-     * expected : two emitted results, one error and one successful
+     * expected : two emitted applyStatus, one error and one successful
      *    1st: after 30 F + 10 F + 30 F debounce = 70 F delay for error
      *    2nd: after 100 F + 10 F + 30 F debounce = 140 F delay for successful result
      */
@@ -367,7 +367,7 @@ describe('CandidateSearchEffects', () => {
     /*
      * action : dispatched only 2 times after 30 F delay and 100 F delay (because of debouncing)
      * response : return error after 10 F delay for 1st response, and value after 10 F delay for 2nd response
-     * expected : two emitted results, one error and one successful
+     * expected : two emitted applyStatus, one error and one successful
      *    1st: after 30 F + 10 F + 30 F debounce = 70 F delay for error
      *    2nd: after 100 F + 10 F + 30 F debounce = 140 F delay for successful result
      */

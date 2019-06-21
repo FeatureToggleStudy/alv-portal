@@ -53,7 +53,7 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
   @HostBinding('class.d-block') readonly blockClass = true;
 
   /**
-   * type of the input, e.g. number, date, email, password, etc. Defaults to text.
+   * type of the input, e.g. number, applyDate, email, password, etc. Defaults to text.
    */
   @Input() type = 'text';
 

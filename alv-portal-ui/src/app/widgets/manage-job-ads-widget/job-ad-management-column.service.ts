@@ -31,7 +31,7 @@ export class JobAdManagementColumnService {
         const newVar: ManagedJobAdColumnDefinition[] = [
           {
             column: ManagedJobAdsSortingColumn.PUBLICATION_DATE,
-            columnName: 'dashboard.job-publication.publication-date',
+            columnName: 'dashboard.job-publication.publication-applyDate',
             sortingEnabled: true,
             render: job => {
               return this.localeAwareDatePipe.transform(job.publication.startDate);

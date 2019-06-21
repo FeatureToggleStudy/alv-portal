@@ -210,3 +210,7 @@ export interface Company {
   city: string;
   country: string;
 }
+
+export interface Pageable<T> {
+
+}

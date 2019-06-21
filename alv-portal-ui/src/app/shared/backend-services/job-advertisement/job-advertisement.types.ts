@@ -58,8 +58,8 @@ export interface JobContent {
 
 export interface JobAdvertisement {
   id: string;
-  createdTime?: string; //date string
-  updatedTime?: string; //date string
+  createdTime?: string; //applyDate string
+  updatedTime?: string; //applyDate string
   status: JobAdvertisementStatus;
   sourceSystem: SourceSystem;
   owner: {
@@ -248,8 +248,8 @@ export interface JobAdFavouritesSearchBody {
 
 export interface FavouriteItem {
   id: string;
-  createdTime: string; //date string
-  updatedTime: string; //date string
+  createdTime: string; //applyDate string
+  updatedTime: string; //applyDate string
   note: string | null;
   jobAdvertisementId: string;
   ownerId: string;

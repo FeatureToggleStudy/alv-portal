@@ -11,7 +11,7 @@
       <small *ngIf="isBeforeEmployment(workEffortsReport); else date">
         {{'portal.work-efforts.work-effort-report.name-cell.before-unemployment.label' | translate}}
       </small>
-      <ng-template #date>{{workEffortsReport.controlPeriod | date:'MMMM yyyy'}}</ng-template>
+      <ng-template #date>{{workEffortsReport.controlPeriod?.value | date:'MMMM yyyy'}}</ng-template>
     </h3>
   </span>
   <span class="col-12 col-lg-3 pdf-cell">
@@ -71,7 +71,7 @@
       <div class="work-effort-divider"></div>
 
       <alv-work-effort (deleted)="removeWorkEffort($event)"
-                       [forecastSubmissionDate]="workEffortsReport.forecastSubmissionDate"
+                       [nextSubmissionDate]="workEffortsReport.nextSubmissionDate"
                        [workEffortsReportId]="workEffortsReport.id"
                        [workEffort]="workEffort"></alv-work-effort>
 

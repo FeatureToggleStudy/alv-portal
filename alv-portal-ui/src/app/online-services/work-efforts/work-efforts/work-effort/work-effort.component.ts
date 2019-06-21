@@ -21,7 +21,7 @@ export class WorkEffortComponent implements OnInit {
 
   @Input() workEffort: WorkEffort;
 
-  @Input() forecastSubmissionDate: string;
+  @Input() nextSubmissionDate: string;
 
   @Output() deleted = new EventEmitter<WorkEffort>();
 
@@ -34,7 +34,7 @@ export class WorkEffortComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resultBadges = this.workEffortsService.mapResultBadges(this.workEffort.results);
+    this.resultBadges = this.workEffortsService.mapResultBadges(this.workEffort.applyStatus);
   }
 
   deleteWorkEffort() {
@@ -57,7 +57,7 @@ export class WorkEffortComponent implements OnInit {
   }
 
   getSubmissionDate(workEffort: WorkEffort): string {
-    return workEffort.submittedAt || this.forecastSubmissionDate;
+    return workEffort.submittedAt || this.nextSubmissionDate;
   }
 
   getSubmissionText(workEffort: WorkEffort): string {

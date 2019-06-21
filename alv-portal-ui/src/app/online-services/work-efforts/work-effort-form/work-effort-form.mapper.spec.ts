@@ -4,13 +4,13 @@ import {
 } from './work-effort-form.mapper';
 import {
   WorkEffort,
-  WorkEffortApplyChannel,
-  WorkEffortResult
+  WorkEffortApplyChannelType,
+  WorkEffortApplyStatus
 } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortFormValue, WorkLoadFormOption } from './work-effort-form.types';
 
 const mockedWorkEffortBackend: WorkEffort = {
-  date: '2019-07-12T22:00:00.000Z',
+  applyDate: '2019-07-12T22:00:00.000Z',
   company: {
     name: 'SRF - Schweizer Radio und Fernsehen ',
     city: 'Zurich',
@@ -24,10 +24,10 @@ const mockedWorkEffortBackend: WorkEffort = {
     applyFormUrl: 'www.example-company.com',
     postOfficeBoxNumber: ''
   },
-  applicationForms: [WorkEffortApplyChannel.PHONE],
+  applicationForms: [WorkEffortApplyChannelType.PHONE],
   occupation: 'Systemadministrator Informatiker',
-  appliedThroughRav: false,
-  results: [WorkEffortResult.REJECTED],
+  ravAssigned: false,
+  applyStatus: [WorkEffortApplyStatus.REJECTED],
   fullTimeJob: true,
   rejectionReason: 'bad breath'
 };

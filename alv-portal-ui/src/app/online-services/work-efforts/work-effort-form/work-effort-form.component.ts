@@ -190,29 +190,36 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.initialZipAndCity = createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode);
   }
 
-  async submit() {
+  submit() {
     this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
       flatMap(user => this.proofOfWorkEffortsRepository.saveWorkEffort(user.id,
         mapToWorkEffortBackendValue(this.workEffortFormGroup.value))
       )
-    );
-    await this.openSuccessModal();
+    ).subscribe(result => {
+      this.openSuccessModal();
+    });
+
   }
 
-  async openSuccessModal() {
+  openSuccessModal() {
     // if all fields in the the form are okay
     const successModalRef = this.modalService.openLarge(SuccessModalComponent);
-    const res = await successModalRef.result;
-    if (res === ActionsOnClose.RECORD_NEW) {
-      await this.router.navigate(['work-efforts', 'create']);
-    } else if (res === ActionsOnClose.GO_TO_LIST) {
-      await this.goToWorkEffortsList();
-    }
+    successModalRef.result.then(res => {
+      if (res === ActionsOnClose.RECORD_NEW) {
+        this.createNewWorkEffort();
+      } else if (res === ActionsOnClose.GO_TO_LIST) {
+        this.goToWorkEffortsList();
+      }
+    });
   }
 
-  async goToWorkEffortsList() {
-    return await this.router.navigate(['work-efforts']);
+  goToWorkEffortsList() {
+    this.router.navigate(['work-efforts']);
+  }
+
+  createNewWorkEffort() {
+    this.router.navigate(['work-efforts', 'create']);
   }
 
   /**

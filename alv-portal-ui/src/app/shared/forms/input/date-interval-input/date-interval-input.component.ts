@@ -2,14 +2,14 @@ import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 /**
- * Sub-form component to display a date interval input (2 date pickers)
+ * Sub-form component to display a applyDate interval input (2 applyDate pickers)
  * Use the TS class DateIntervalFormGroup to create the input FormGroup object.
  * The ChangeDetectionStrategy.OnPush is used in order to improve the performance (less digest cycles).
- * @example <alv-date-interval-input
+ * @example <alv-applyDate-interval-input
  *            [form]="myDateIntervalFormGroup"
  *            fromLabel="From"
  *            toLabel="To"
- *          </alv-date-interval-input>
+ *          </alv-applyDate-interval-input>
  */
 @Component({
   selector: 'alv-date-interval-input',
@@ -19,7 +19,7 @@ import { FormGroup } from '@angular/forms';
 export class DateIntervalInputComponent {
 
   /**
-   * FormGroup object the date interval input is bound to
+   * FormGroup object the applyDate interval input is bound to
    */
   @Input() form: FormGroup;
 

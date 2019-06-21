@@ -230,7 +230,7 @@ describe('jobAdSearchReducers', () => {
     verifyUnchanged(newState, jobAdStateChanged, ['jobSearchFilter']);
   });
 
-  it('LOAD_NEXT_PAGE : should only flag true that results are loading', () => {
+  it('LOAD_NEXT_PAGE : should only flag true that applyStatus are loading', () => {
     // GIVEN
     const action = new jobActions.LoadNextPageAction();
 
@@ -243,7 +243,7 @@ describe('jobAdSearchReducers', () => {
     verifyUnchanged(newState, initialState, ['resultsAreLoading']);
   });
 
-  it('NEXT_PAGE_LOADED : should update resultList, page and results are loading flagged false', () => {
+  it('NEXT_PAGE_LOADED : should update resultList, page and applyStatus are loading flagged false', () => {
     // GIVEN
     const jobAdPageTwo: JobAdvertisementWithFavourites[] = [
       createJobAdvertisementWithFavourites('06'),

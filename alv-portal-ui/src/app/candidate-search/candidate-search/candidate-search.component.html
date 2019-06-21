@@ -33,7 +33,7 @@
       <div class="alv-bar mb-1">
         <span *ngIf="resultsAreLoading$ | async; else resultsCount">...</span>
         <ng-template #resultsCount>
-          <strong>{{totalCount$ | async | number }} {{'portal.candidate-search.results-count.label' | translate}}</strong>
+          <strong>{{totalCount$ | async | number }} {{'portal.candidate-search.applyStatus-count.label' | translate}}</strong>
         </ng-template>
       </div>
 
@@ -52,7 +52,7 @@
                                      [candidateSearchResult]="candidateSearchResult">
         </alv-candidate-search-result>
         <div *ngIf="!candidateSearchResults.length">
-          {{'global.common-phrases.no-results-found' | translate}}
+          {{'global.common-phrases.no-applyStatus-found' | translate}}
         </div>
       </ng-container>
 

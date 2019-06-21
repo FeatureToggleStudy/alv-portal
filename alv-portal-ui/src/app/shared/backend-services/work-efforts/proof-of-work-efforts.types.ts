@@ -1,29 +1,55 @@
-import { Company } from '../job-advertisement/job-advertisement.types';
+export interface WorkEffortsReport {
+  id?: string;
+  businessCaseId: string;
+  controlPeriod: ControlPeriod;
+  firstName: string;
+  lastName: string;
+  ownerUserId: string;
+  personNumber: string;
+  workEfforts: WorkEffort[];
+  status: WorkEffortsReportStatus;
+  nextSubmissionDate: string;
+  lastSubmittedAt?: string;
+  updatedAt?: string;
+  createdAt?: string;
+}
 
 export interface WorkEffort {
   id?: string;
-  date: string;
-  applicationForms: WorkEffortApplyChannel[];
-  company: WorkEffortCompany;
   occupation: string;
-  appliedThroughRav: boolean;
+  applyDate: string;
+  applyStatus: WorkEffortApplyStatus[];
+  applyChannel: WorkEffortApplyChannel;
+  ravAssigned: boolean;
   fullTimeJob: boolean;
-  results: WorkEffortResult[];
   rejectionReason?: string;
   submittedAt?: string; // if null, then edit is possible
-  updatedAt?: string;
 }
 
-export interface WorkEffortsReport {
-  id?: string;
-  controlPeriod: string; // e.g 2019-05
-  documentId: string;
-  workEfforts: WorkEffort[];
-  status: WorkEffortsReportStatus;
-  type: WorkEffortType;
-  forecastSubmissionDate: string;
-  submittedAt?: string;
-  updatedAt?: string;
+export interface WorkEffortApplyChannel {
+  address: WorkEffortApplyChannelAddress;
+  contactPerson: string;
+  email: string;
+  formUrl: string;
+  phone: string;
+  types: WorkEffortApplyChannelType[];
+}
+
+export interface WorkEffortApplyChannelAddress {
+  city: string;
+  country: string;
+  houseNumber: string;
+  name: string;
+  poBox: string;
+  postalCode: string;
+  street: string;
+}
+
+export interface ControlPeriod {
+  endDate: string;
+  startDate: string;
+  type: ControlPeriodType;
+  value: string;
 }
 
 export enum WorkEffortsReportStatus {
@@ -33,19 +59,19 @@ export enum WorkEffortsReportStatus {
   CLOSED = 'CLOSED' // TODO: no add/edit button for work efforts
 }
 
-export enum WorkEffortType {
+export enum ControlPeriodType {
   DURING_UNEMPLOYMENT = 'DURING_UNEMPLOYMENT',
   BEFORE_UNEMPLOYMENT = 'BEFORE_UNEMPLOYMENT'
 }
 
-export enum WorkEffortApplyChannel {
+export enum WorkEffortApplyChannelType {
   ELECTRONIC = 'ELECTRONIC',
   PERSONAL = 'PERSONAL',
   PHONE = 'PHONE',
   MAIL = 'MAIL'
 }
 
-export enum WorkEffortResult {
+export enum WorkEffortApplyStatus {
   ALL = 'ALL',
   PENDING = 'PENDING',
   REJECTED = 'REJECTED',
@@ -61,14 +87,10 @@ export enum WorkEffortsFilterPeriod {
   ALL_MONTHS = 'ALL_MONTHS'
 }
 
-export interface WorkEffortCompany extends Company {
-  applyFormUrl: string;
-  contactPerson: string;
-}
-
+/*
 export const mockedWorkEffort: WorkEffort = {
   id: 'some-id',
-  date: '2019-05-13',
+  applyDate: '2019-05-13',
   company: {
     name: 'SRF - Schweizer Radio und Fernsehen ',
     city: 'Zurich',
@@ -81,27 +103,28 @@ export const mockedWorkEffort: WorkEffort = {
     applyFormUrl: 'www.example-company.com',
     postalCode: '8098'
   },
-  applicationForms: [WorkEffortApplyChannel.PHONE],
+  applicationForms: [WorkEffortApplyChannelType.PHONE],
   occupation: 'Systemadministrator Informatiker',
-  appliedThroughRav: false,
-  results: [WorkEffortResult.REJECTED],
+  ravAssigned: false,
+  applyStatus: [WorkEffortApplyStatus.REJECTED],
   fullTimeJob: true,
   submittedAt: null,
   updatedAt: '2019-05-17T13:17:41.981'
 };
 
-const forecastSubmissionDate = new Date();
-forecastSubmissionDate.setDate(forecastSubmissionDate.getDate() + 1);
-forecastSubmissionDate.setHours(23, 59, 59, 0);
+const nextSubmissionDate = new Date();
+nextSubmissionDate.setDate(nextSubmissionDate.getDate() + 1);
+nextSubmissionDate.setHours(23, 59, 59, 0);
+
 
 export const mockedControlPeriods: WorkEffortsReport[] = [
   {
     controlPeriod: '2019-05',
     documentId: 'some-pdf-document-id',
     status: WorkEffortsReportStatus.CHANGED,
-    type: WorkEffortType.DURING_UNEMPLOYMENT,
-    forecastSubmissionDate: '2019-06-05T23:59:59.999',
-    submittedAt: null,
+    type: ControlPeriodType.DURING_UNEMPLOYMENT,
+    nextSubmissionDate: '2019-06-05T23:59:59.999',
+    lastSubmittedAt: null,
     updatedAt: '2019-05-17T13:17:41.981',
     workEfforts: [
       {
@@ -118,13 +141,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           applyFormUrl: 'www.example-company.com',
           postalCode: '8098'
         },
-        date: '2019-05-10',
-        applicationForms: [WorkEffortApplyChannel.PHONE],
+        applyDate: '2019-05-10',
+        applicationForms: [WorkEffortApplyChannelType.PHONE],
         occupation: 'Systemadministrator Informatiker',
-        appliedThroughRav: false,
-        results: [WorkEffortResult.PENDING],
+        ravAssigned: false,
+        applyStatus: [WorkEffortApplyStatus.PENDING],
         fullTimeJob: true,
-        submittedAt: null,
+        lastSubmittedAt: null,
         updatedAt: '2019-05-17T13:17:41.981'
       },
       {
@@ -141,13 +164,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           applyFormUrl: 'www.example-company.com',
           postalCode: '8098'
         },
-        date: '2019-05-10',
-        applicationForms: [WorkEffortApplyChannel.PHONE],
+        applyDate: '2019-05-10',
+        applicationForms: [WorkEffortApplyChannelType.PHONE],
         occupation: 'Systemadministrator Informatiker',
-        appliedThroughRav: false,
-        results: [WorkEffortResult.INTERVIEW, WorkEffortResult.REJECTED],
+        ravAssigned: false,
+        applyStatus: [WorkEffortApplyStatus.INTERVIEW, WorkEffortApplyStatus.REJECTED],
         fullTimeJob: true,
-        submittedAt: null,
+        lastSubmittedAt: null,
         updatedAt: '2019-05-17T13:17:41.981'
       },
       {
@@ -164,13 +187,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           applyFormUrl: 'www.example-company.com',
           postalCode: '8098'
         },
-        date: '2019-05-10',
-        applicationForms: [WorkEffortApplyChannel.PHONE],
+        applyDate: '2019-05-10',
+        applicationForms: [WorkEffortApplyChannelType.PHONE],
         occupation: 'Systemadministrator Informatiker',
-        appliedThroughRav: false,
-        results: [WorkEffortResult.REJECTED],
+        ravAssigned: false,
+        applyStatus: [WorkEffortApplyStatus.REJECTED],
         fullTimeJob: true,
-        submittedAt: null,
+        lastSubmittedAt: null,
         updatedAt: '2019-05-17T13:17:41.981'
       }
     ]
@@ -179,9 +202,9 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
     controlPeriod: '2019-04',
     documentId: 'some-pdf-document-id-2',
     status: WorkEffortsReportStatus.SUBMITTED,
-    type: WorkEffortType.DURING_UNEMPLOYMENT,
-    forecastSubmissionDate: '2019-06-05T23:59:59.999',
-    submittedAt: '2019-05-05T23:59:59.999',
+    type: ControlPeriodType.DURING_UNEMPLOYMENT,
+    nextSubmissionDate: '2019-06-05T23:59:59.999',
+    lastSubmittedAt: '2019-05-05T23:59:59.999',
     updatedAt: '2019-05-02T13:17:41.981',
     workEfforts: [
       {
@@ -198,13 +221,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           applyFormUrl: 'www.example-company.com',
           postalCode: '8098'
         },
-        date: '2019-04-30',
-        applicationForms: [WorkEffortApplyChannel.PHONE],
+        applyDate: '2019-04-30',
+        applicationForms: [WorkEffortApplyChannelType.PHONE],
         occupation: 'Systemadministrator Informatiker',
-        appliedThroughRav: false,
-        results: [WorkEffortResult.EMPLOYED],
+        ravAssigned: false,
+        applyStatus: [WorkEffortApplyStatus.EMPLOYED],
         fullTimeJob: true,
-        submittedAt: '2019-05-05T23:59:59.999',
+        lastSubmittedAt: '2019-05-05T23:59:59.999',
         updatedAt: '2019-05-17T13:17:41.981'
       },
       {
@@ -221,13 +244,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           applyFormUrl: 'www.example-company.com',
           postalCode: '8098'
         },
-        date: '2019-05-02',
-        applicationForms: [WorkEffortApplyChannel.PHONE],
+        applyDate: '2019-05-02',
+        applicationForms: [WorkEffortApplyChannelType.PHONE],
         occupation: 'Systemadministrator Informatiker',
-        appliedThroughRav: false,
-        results: [WorkEffortResult.INTERVIEW],
+        ravAssigned: false,
+        applyStatus: [WorkEffortApplyStatus.INTERVIEW],
         fullTimeJob: true,
-        submittedAt: '2019-05-05T23:59:59.999',
+        lastSubmittedAt: '2019-05-05T23:59:59.999',
         updatedAt: '2019-05-17T13:17:41.981'
       }
     ]
@@ -236,9 +259,9 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
     controlPeriod: '2019-03',
     documentId: 'some-pdf-document-id-3',
     status: WorkEffortsReportStatus.CHANGED,
-    type: WorkEffortType.DURING_UNEMPLOYMENT,
-    forecastSubmissionDate: forecastSubmissionDate.toISOString(),
-    submittedAt: '2019-05-05T23:59:59.999',
+    type: ControlPeriodType.DURING_UNEMPLOYMENT,
+    nextSubmissionDate: nextSubmissionDate.toISOString(),
+    lastSubmittedAt: '2019-05-05T23:59:59.999',
     updatedAt: '2019-05-02T13:17:41.981',
     workEfforts: [
       {
@@ -255,13 +278,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           applyFormUrl: 'www.example-company.com',
           postalCode: '8098'
         },
-        date: '2019-03-20',
-        applicationForms: [WorkEffortApplyChannel.PHONE],
+        applyDate: '2019-03-20',
+        applicationForms: [WorkEffortApplyChannelType.PHONE],
         occupation: 'Systemadministrator Informatiker',
-        appliedThroughRav: false,
-        results: [WorkEffortResult.EMPLOYED],
+        ravAssigned: false,
+        applyStatus: [WorkEffortApplyStatus.EMPLOYED],
         fullTimeJob: true,
-        submittedAt: null,
+        lastSubmittedAt: null,
         updatedAt: '2019-03-17T13:17:41.981'
       }
     ]
@@ -270,9 +293,9 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
     controlPeriod: '2019-02',
     documentId: 'some-pdf-document-id-3',
     status: WorkEffortsReportStatus.CLOSED,
-    type: WorkEffortType.DURING_UNEMPLOYMENT,
-    forecastSubmissionDate: '2019-06-05T23:59:59.999',
-    submittedAt: '2019-05-05T23:59:59.999',
+    type: ControlPeriodType.DURING_UNEMPLOYMENT,
+    nextSubmissionDate: '2019-06-05T23:59:59.999',
+    lastSubmittedAt: '2019-05-05T23:59:59.999',
     updatedAt: '2019-05-02T13:17:41.981',
     workEfforts: [
       {
@@ -289,13 +312,13 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           applyFormUrl: 'www.example-company.com',
           postalCode: '8098'
         },
-        date: '2019-04-30',
-        applicationForms: [WorkEffortApplyChannel.PHONE],
+        applyDate: '2019-04-30',
+        applicationForms: [WorkEffortApplyChannelType.PHONE],
         occupation: 'Systemadministrator Informatiker',
-        appliedThroughRav: false,
-        results: [WorkEffortResult.EMPLOYED],
+        ravAssigned: false,
+        applyStatus: [WorkEffortApplyStatus.EMPLOYED],
         fullTimeJob: true,
-        submittedAt: '2019-05-05T23:59:59.999',
+        lastSubmittedAt: '2019-05-05T23:59:59.999',
         updatedAt: '2019-05-17T13:17:41.981'
       },
       {
@@ -312,15 +335,16 @@ export const mockedControlPeriods: WorkEffortsReport[] = [
           applyFormUrl: 'www.example-company.com',
           postalCode: '8098'
         },
-        date: '2019-05-02',
-        applicationForms: [WorkEffortApplyChannel.PHONE],
+        applyDate: '2019-05-02',
+        applicationForms: [WorkEffortApplyChannelType.PHONE],
         occupation: 'Systemadministrator Informatiker',
-        appliedThroughRav: false,
-        results: [WorkEffortResult.INTERVIEW],
+        ravAssigned: false,
+        applyStatus: [WorkEffortApplyStatus.INTERVIEW],
         fullTimeJob: true,
-        submittedAt: '2019-05-05T23:59:59.999',
+        lastSubmittedAt: '2019-05-05T23:59:59.999',
         updatedAt: '2019-05-17T13:17:41.981'
       }
     ]
   }
 ];
+*/

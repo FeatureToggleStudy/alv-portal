@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import {
-  WorkEffortResult,
+  WorkEffortApplyStatus,
   WorkEffortsFilterPeriod,
   WorkEffortsReport
 } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
@@ -33,7 +33,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
 
   readonly FILTER_RESET_VALUES = {
     period: WorkEffortsFilterPeriod.ALL_MONTHS,
-    workEffortResult: WorkEffortResult.ALL
+    workEffortResult: WorkEffortApplyStatus.ALL
   };
 
   englishNotSupportedNotification = {
@@ -113,7 +113,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
   }
 
   isCurrentReportPeriod(workEffortsReport: WorkEffortsReport): boolean {
-    const date = new Date(workEffortsReport.controlPeriod);
+    const date = new Date(workEffortsReport.controlPeriod.value);
     return this.today.getFullYear() === date.getFullYear() && this.today.getMonth() === date.getMonth();
   }
 
