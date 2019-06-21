@@ -59,6 +59,7 @@ function mapWorkloadToBackend(workLoadFormValue: WorkLoadFormOption): boolean {
 
 export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortFormValue {
   return {
+    id: workEffort.id,
     companyName: workEffort.applyChannel.address ? workEffort.applyChannel.address.name : undefined,
     date: fromISODate(workEffort.applyDate),
     applyChannels: mapToApplyChannelsFormValue(workEffort.applyChannel.types),
@@ -92,6 +93,7 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
 export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): WorkEffort {
   const zipAndCity = mapToPostalCodeAndCity(formValue.companyAddress.zipAndCity);
   return {
+    id: formValue.id,
     applyDate: mapNgbDateStructToString(formValue.date),
     ravAssigned: formValue.appliedThroughRav,
     applyChannel: {

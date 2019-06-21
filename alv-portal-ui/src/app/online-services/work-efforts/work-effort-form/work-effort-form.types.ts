@@ -35,6 +35,7 @@ export enum AppliedThroughRavOption {
 }
 
 export interface WorkEffortFormValue {
+  id?: string;
   companyName: string;
   date: NgbDateStruct;
   applyChannels: ApplyChannelsFormValue;

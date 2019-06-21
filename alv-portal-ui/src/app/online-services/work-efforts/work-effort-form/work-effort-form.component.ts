@@ -155,6 +155,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     //todo also update the zip city
     this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
     const controlsConfig = {
+      id: [undefined],
       date: ['', Validators.required],
       applyChannels: this.generateApplyChannelsGroup(),
       companyName: ['', Validators.required],
