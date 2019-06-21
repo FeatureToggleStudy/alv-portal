@@ -294,6 +294,11 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     });
   }
 
+  getTotalCountLabel(totalCount: string): string {
+    return totalCount === '1' ? 'portal.job-ad-search.results-count.label.singular' :
+      'portal.job-ad-search.results-count.label.plural';
+  }
+
 }
 
 

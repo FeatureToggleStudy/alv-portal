@@ -55,6 +55,9 @@ export abstract class AbstractInput implements OnInit {
    */
   @Input() showGroupErrors = false;
 
+  @Input() isRequired?: boolean;
+
+
   validationId: string;
 
   protected constructor(
@@ -98,7 +101,7 @@ export abstract class AbstractInput implements OnInit {
   }
 
   public showRequiredIndicator(): boolean {
-    return !!this.required && this.isInvalid() && !this.readonly;
+    return !!this.isRequired || (this.required && this.isInvalid() && !this.readonly);
   }
 
   public get control() {

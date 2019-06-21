@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../shared.module';
 import { FormGroup } from '@angular/forms';
-import { ZipCityInputComponent } from './zip-city-input.component';
+import { ZipCityInputComponent, zipCityInputSettings } from './zip-city-input.component';
 import { LocalitySuggestionService } from '../../../localities/locality-suggestion.service';
 import { emptyZipCityFormValue } from './zip-city-form-value.types';
 import SpyObj = jasmine.SpyObj;
@@ -85,7 +85,7 @@ describe('ZipCityInputComponent', () => {
           const field = component.zipAndCity.get('city');
 
           //when
-          field.setValue(generateString(ZipCityInputComponent.CITY_MAX_LENGTH + 1));
+          field.setValue(generateString(zipCityInputSettings.CITY_MAX_LENGTH + 1));
 
           //then
           expect(field.hasError('maxlength')).toBeTrue();
@@ -109,7 +109,7 @@ describe('ZipCityInputComponent', () => {
           const field = component.zipAndCity.get('zipCode');
 
           //when
-          field.setValue(generateString(ZipCityInputComponent.ZIP_CODE_MAX_LENGTH + 1));
+          field.setValue(generateString(zipCityInputSettings.ZIP_CODE_MAX_LENGTH + 1));
 
           //then
           expect(field.hasError('maxlength')).toBeTrue();

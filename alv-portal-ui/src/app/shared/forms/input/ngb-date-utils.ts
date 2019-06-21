@@ -1,5 +1,5 @@
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { formatDate } from '@angular/common';
+import { format } from 'date-fns';
 
 /**
  * Converts a NgbDateStruct with hours and minutes parameters to an (8601) ISOLocalDatetime string representation without timezone information
@@ -14,7 +14,7 @@ export function toISOLocalDateTime(date: NgbDateStruct, timeHours: string, timeM
     return null;
   }
   const dateObj = new Date(date.year, date.month - 1, date.day, parseInt(timeHours, 10), parseInt(timeMinutes, 10));
-  return formatDate(dateObj, 'yyyy-MM-ddTHH:mm:00', 'en-US');
+  return format(dateObj, 'YYYY-MM-DDTHH:mm:00');
 }
 
 /**
@@ -28,7 +28,7 @@ export function toISOLocalDate(date: NgbDateStruct): string {
     return null;
   }
   const dateObj = new Date(date.year, date.month - 1, date.day, 12);
-  return formatDate(dateObj, 'yyyy-MM-dd', 'en-US');
+  return format(dateObj, 'YYYY-MM-DD');
 }
 
 /**

@@ -56,6 +56,9 @@
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
             class="mb-5"
+            *ngIf=" {
+                applyChannels: workEffortFormGroup.get('applyChannels')?.value
+            } as watchedValues"
             alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
@@ -113,6 +116,10 @@
                  class="form-row">
               <alv-input-field [maxLength]="STREET_MAX_LENGTH"
                                [showGroupErrors]="true"
+                               [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber').value &&
+                                  (watchedValues.applyChannels?.PERSONAL ||
+                                  watchedValues.applyChannels?.PHONE ||
+                                  watchedValues.applyChannels?.MAIL)"
                                [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
@@ -129,6 +136,10 @@
 
               <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
                                [showGroupErrors]="true"
+                               [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('street').value &&
+                                  (watchedValues.applyChannels?.PERSONAL ||
+                                  watchedValues.applyChannels?.PHONE ||
+                                  watchedValues.applyChannels?.MAIL)"
                                [validationMessages]="[{
                               error: 'atLeastOneRequired',
                               message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
@@ -145,12 +156,19 @@
 
             <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
                                 [zipCityFormValue]="initialZipAndCity"
-                                [countryIsoCode]="countryIsoCode$ | async">
+                                [validators]="zipCityValidators"
+                                [countryIsoCode]="countryIsoCode$ | async"
+                                [isRequired]="watchedValues.applyChannels?.PERSONAL ||
+                                  watchedValues.applyChannels?.PHONE ||
+                                  watchedValues.applyChannels?.MAIL"
+            >
             </alv-zip-city-input>
 
           </fieldset>
 
           <alv-input-field alvFormControlName="contactPerson"
+                           [isRequired]="watchedValues.applyChannels?.PERSONAL ||
+                            watchedValues.applyChannels?.PHONE"
                            label="portal.work-efforts.edit-form.contact-person">
           </alv-input-field>
 
@@ -161,11 +179,15 @@
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
+                             [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
+                                !workEffortFormGroup.get('companyEmailAndUrl')?.get('url')?.value"
                              label="portal.global.email">
             </alv-input-field>
             <alv-input-field [showGroupErrors]="true"
                              alvFormControlName="url"
                              label="portal.work-efforts.edit-form.company.online-form-url"
+                             [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
+                                !workEffortFormGroup.get('companyEmailAndUrl')?.get('email')?.value"
                              [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
@@ -177,6 +199,7 @@
                            class="mb-0"
                            alvFormControlName="phone"
                            label="portal.global.phone"
+                           [isRequired]="watchedValues.applyChannels?.PHONE"
                            placeholder="portal.global.phone-swiss-example"
                            type="tel">
           </alv-input-field>
@@ -204,13 +227,12 @@
 
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label"
                             [isAlwaysExpanded]="true">
-          <div class="alv-light-panel p-2 mb-1">
-            <alv-radio-button
-              [options$]="appliedThroughRavOptions$"
-              alvFormControlName="appliedThroughRav"
-              class="narrow-form">
-            </alv-radio-button>
-          </div>
+          <alv-radio-button
+            [options$]="appliedThroughRavOptions$"
+            alvFormControlName="appliedThroughRav"
+            class="narrow-form"
+            radioButtonClass="alv-light-panel p-2 mb-1">
+          </alv-radio-button>
         </alv-collapse-panel>
         <div class="arrow-container pt-0">
           <div class="arrow-down secondary">
@@ -219,13 +241,12 @@
         <!--      Contract type-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.work-load-panel-label"
                             [isAlwaysExpanded]="true">
-          <div class="alv-light-panel p-2 mb-1">
-            <alv-radio-button
-              [options$]="workLoadOptions$"
-              alvFormControlName="workload"
-              class="narrow-form">
-            </alv-radio-button>
-          </div>
+          <alv-radio-button
+            [options$]="workLoadOptions$"
+            alvFormControlName="workload"
+            class="narrow-form"
+            radioButtonClass="alv-light-panel p-2 mb-1">
+          </alv-radio-button>
         </alv-collapse-panel>
 
         <div class="arrow-container pt-0">
@@ -251,13 +272,12 @@
                                       }]">
             </alv-validation-messages>
           </fieldset>
-          <ng-container
-            *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
+          <ng-container *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
             <div class="arrow-container">
               <div class="arrow-down">
               </div>
             </div>
-            <alv-input-field [showGroupErrors]="true"
+            <alv-input-field [isRequired]="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
                              alvFormControlName="rejectionReason"
                              label="portal.work-efforts.edit-form.rejection-reason">
             </alv-input-field>
@@ -273,7 +293,6 @@
         </div>
       </form>
     </div>
-
     <div class="right-column">
       <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
                       class="info-panel"

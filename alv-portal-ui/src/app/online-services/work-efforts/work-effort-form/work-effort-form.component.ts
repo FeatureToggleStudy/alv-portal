@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
+import {
+  AbstractControlOptions,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import {
+  Notification,
+  NotificationType
+} from '../../../shared/layout/notifications/notification.model';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
@@ -13,15 +21,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
 import { LinkPanelId } from '../../../shared/layout/link-panel/link-panel.component';
-import { ZipCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
+import {
+  ZipCityFormValue,
+  ZipCityValidators
+} from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { ActionsOnClose, SuccessModalComponent } from './success-modal/success-modal.component';
+import {
+  ActionsOnClose,
+  SuccessModalComponent
+} from './success-modal/success-modal.component';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import {
   ApplyChannelsFormValue,
-  DefaultValidatorsRepository,
   emptyWorkEffortFormValue,
   formPossibleApplyChannels,
   formPossibleResults,
@@ -32,10 +45,12 @@ import {
 import { deltaDate, mapDateToNgbDate } from '../../../shared/forms/input/ngb-date-utils';
 import { createInitialZipAndCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
 import { getAllErrors } from '../../../shared/forms/forms.utils';
-import { ZipCityInputComponent } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { mapToWorkEffortBackendValue } from './work-effort-form.mapper';
+import { requiredIfValidator } from '../../../shared/forms/input/validators/required-if.validator';
+import { conditionalValidator } from '../../../shared/forms/input/validators/conditional.validator';
+import { zipCityInputSettings } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -86,33 +101,16 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   initialZipAndCity: ZipCityFormValue;
   minDate: NgbDate;
   maxDate: NgbDate;
-
-  /**
-   * For each form control in this.workEffortFormGroup and its subgroups we list all the default validators,
-   * EXCEPT the required validator.
-   * This is done to dynamically make a control required or optional without losing all validators.
-   * This solution is temporary before there will be AbstractControl.getValidators() function available.
-   * See https://github.com/angular/angular/issues/13461 for the details of the problem
-   */
-  private readonly defaultDynamicValidators: DefaultValidatorsRepository = {
-    email: [
-      patternInputValidator(EMAIL_REGEX),
-      Validators.maxLength(this.EMAIL_MAX_LENGTH)
+  zipCityValidators: ZipCityValidators = {
+    zipCityAutoComplete: [requiredIfValidator(() => this.isCompanyAddressRequired())],
+    zipCode: [
+      requiredIfValidator(() => this.isCompanyAddressRequired()),
+      Validators.maxLength(zipCityInputSettings.ZIP_CODE_MAX_LENGTH)
     ],
-    url: [
-      patternInputValidator(URL_REGEX),
-      Validators.maxLength(this.FORM_URL_MAX_LENGTH)
-    ],
-    phone: [phoneInputValidator],
-    rejectionReason: [Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH)],
-    companyAddress: [],
-    postOfficeBoxNumberOrStreet: [atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber'])],
-    contactPerson: [],
-    zipAndCity: [],
-    zipCityAutoComplete: [],
-    city: [ZipCityInputComponent.validators.city],
-    zipCode: [ZipCityInputComponent.validators.zipCode],
-    companyEmailAndUrl: [atLeastOneRequiredValidator(['email', 'url'])],
+    city: [
+      requiredIfValidator(() => this.isCompanyAddressRequired()),
+      Validators.maxLength(zipCityInputSettings.CITY_MAX_LENGTH)
+    ]
   };
   private previousResultsValue;
 
@@ -131,8 +129,30 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
   }
 
-  ngOnInit() {
+  get applyChannelsValue(): ApplyChannelsFormValue {
+    return this.workEffortFormGroup.get('applyChannels').value;
+  }
 
+  isCompanyAddressRequired() {
+    const applyChannel = this.applyChannelsValue;
+    return applyChannel.MAIL || applyChannel.PERSONAL || applyChannel.PHONE;
+  }
+
+  isContactPersonRequired() {
+    const applyChannel = this.applyChannelsValue;
+    return applyChannel.PERSONAL || applyChannel.PHONE;
+  }
+
+  isCompanyEmailAndUrlRequired() {
+    return this.applyChannelsValue.ELECTRONIC;
+  }
+
+  isPhoneRequired() {
+    return this.applyChannelsValue.PHONE;
+  }
+
+  ngOnInit() {
+    //todo also update the zip city
     this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
     const controlsConfig = {
       date: ['', Validators.required],
@@ -146,34 +166,45 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
             houseNumber: [''],
             postOfficeBoxNumber: [''],
           }, {
-            validator: this.defaultDynamicValidators.companyAddress
+            validator: [conditionalValidator(() => this.isCompanyAddressRequired(),
+              atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber']))]
           }),
         }
       ),
-      contactPerson: ['', this.defaultDynamicValidators.contactPerson],
+      contactPerson: ['', [requiredIfValidator(() => this.isContactPersonRequired())]],
       companyEmailAndUrl: this.fb.group(
         {
-          email: ['', this.defaultDynamicValidators.email],
-          url: ['', this.defaultDynamicValidators.url]
+          email: ['', [
+            patternInputValidator(EMAIL_REGEX),
+            Validators.maxLength(this.EMAIL_MAX_LENGTH)
+          ]],
+          url: ['', [
+            patternInputValidator(URL_REGEX),
+            Validators.maxLength(this.FORM_URL_MAX_LENGTH)
+          ]]
+        }, {
+          validators: [
+            conditionalValidator(() => this.isCompanyEmailAndUrlRequired(),
+              atLeastOneRequiredValidator(['email', 'url']))
+          ]
         }
       ),
-      phone: ['', this.defaultDynamicValidators.phone],
+      phone: ['', [phoneInputValidator,
+        requiredIfValidator(() => this.isPhoneRequired())]],
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
       appliedThroughRav: ['', Validators.required],
       workload: [''],
       results: this.generateResultsGroup(),
-      rejectionReason: ['', this.defaultDynamicValidators.rejectionReason]
+      rejectionReason: ['', [
+        Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH),
+        requiredIfValidator(() => this.workEffortFormGroup.get('results').value.REJECTED)
+      ]]
     };
-
-    if (this.initialWorkEffort.results.REJECTED) {
-      controlsConfig.rejectionReason = ['', [...this.defaultDynamicValidators.rejectionReason, Validators.required]]
-    }
 
     this.workEffortFormGroup = this.fb.group(controlsConfig);
 
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
-    this.setUpDynamicValidation();
     this.previousResultsValue = {...this.initialWorkEffort.results};
     this.setUpUnclicking({
       PENDING: ['EMPLOYED', 'REJECTED'],
@@ -188,6 +219,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode)
       );
     this.initialZipAndCity = createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode);
+
   }
 
   submit() {
@@ -220,111 +252,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   createNewWorkEffort() {
     this.router.navigate(['work-efforts', 'create']);
-  }
-
-  /**
-   * makes a certain control a required field.
-   * @param control can be got with formGroup.get('')
-   * @param name
-   */
-  private makeRequired(control: AbstractControl, name: string) {
-    const defaultValidators = this.defaultDynamicValidators[name];
-    if (defaultValidators) {
-      control.setValidators([Validators.required].concat(defaultValidators));
-      control.updateValueAndValidity();
-    } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
-    }
-  }
-
-  /**
-   * clears all validators from the field, making it optional
-   * @param control can be got with formGroup.get('')
-   * @param name of the form control to search in defaultDynamicValidators;
-   */
-  private makeOptional(control: AbstractControl, name: string) {
-    const defaultValidators = this.defaultDynamicValidators[name];
-    if (defaultValidators) {
-      control.setValidators(this.defaultDynamicValidators[name]);
-      control.updateValueAndValidity();
-    } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
-    }
-
-  }
-
-  private clearValidatorsFromGroup(group: FormGroup, name: string) {
-    const defaultValidators = this.defaultDynamicValidators[name];
-    if (defaultValidators) {
-      group.clearValidators();
-      group.updateValueAndValidity();
-    } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
-    }
-  }
-
-  private makeAtLeastOneInGroupRequired(group: FormGroup, name: string, fields: string[]) {
-    const defaultValidators = this.defaultDynamicValidators[name];
-    if (defaultValidators) {
-      group.setValidators([atLeastOneRequiredValidator(fields)].concat(defaultValidators));
-      group.updateValueAndValidity();
-    } else {
-      throw new Error(`Problem with setting validators for the field ${name}. You need to add all default validators to the list in this.defaultDynamicValidators`);
-    }
-  }
-
-  private setUpDynamicValidation(): void {
-    this.workEffortFormGroup.get('applyChannels').valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe)
-    )
-      .subscribe(this.updateRequiredOptionalFields.bind(this));
-    this.workEffortFormGroup.get('results').valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe)
-    )
-      .subscribe((newValue: ResultsFormValue) => {
-        if (newValue.REJECTED) {
-          this.makeRequired(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason')
-        } else {
-          this.makeOptional(this.workEffortFormGroup.get('rejectionReason'), 'rejectionReason');
-        }
-      })
-  }
-
-  /**
-   * checks the values of the various applychannels and manages which fields of the form must be optional or required
-   * @param newApplyChannel
-   */
-  private updateRequiredOptionalFields(newApplyChannel: ApplyChannelsFormValue) {
-    const requiredMap = {
-      companyAddress: newApplyChannel.MAIL || newApplyChannel.PERSONAL || newApplyChannel.PHONE,
-      contactPerson: newApplyChannel.PERSONAL || newApplyChannel.PHONE,
-      companyEmailAndUrl: newApplyChannel.ELECTRONIC,
-      phone: newApplyChannel.PHONE,
-    };
-
-    if (requiredMap.companyEmailAndUrl) {
-      this.makeAtLeastOneInGroupRequired(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl', ['email', 'url']);
-    } else {
-      this.clearValidatorsFromGroup(<FormGroup>this.workEffortFormGroup.get('companyEmailAndUrl'), 'companyEmailAndUrl');
-    }
-
-    for (const abstractControlName of ['contactPerson', 'phone']) {
-      if (requiredMap[abstractControlName]) {
-        this.makeRequired(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
-      } else {
-        this.makeOptional(this.workEffortFormGroup.get(abstractControlName), abstractControlName);
-      }
-    }
-
-    if (requiredMap.companyAddress) {
-      this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
-      this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
-      this.makeRequired(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
-    } else {
-      this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCityAutoComplete'), 'zipCityAutoComplete');
-      this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('zipCode'), 'zipCode');
-      this.makeOptional(this.workEffortFormGroup.get('companyAddress').get('zipAndCity').get('city'), 'city');
-    }
   }
 
   private generateResultsGroup(): FormGroup {

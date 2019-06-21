@@ -165,4 +165,9 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       this.cdRef.detectChanges();
     }
   }
+
+  getTotalCountLabel(totalCount: string): string {
+    return totalCount === '1' ? 'portal.candidate-search.results-count.label.singular' :
+      'portal.candidate-search.results-count.label.plural';
+  }
 }
