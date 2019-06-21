@@ -238,6 +238,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     // if all fields in the the form are okay
     const successModalRef = this.modalService.openLarge(SuccessModalComponent);
     successModalRef.result.then(res => {
+      this.workEffortFormGroup.reset();
       if (res === ActionsOnClose.RECORD_NEW) {
         this.createNewWorkEffort();
       } else if (res === ActionsOnClose.GO_TO_LIST) {
