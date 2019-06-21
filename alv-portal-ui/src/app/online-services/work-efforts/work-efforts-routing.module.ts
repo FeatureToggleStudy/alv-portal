@@ -15,7 +15,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'edit/:id',
+    path: 'edit/:report-id/:id',
     component: WorkEffortFormComponent,
     canActivate: [AuthenticatedGuard],
     canDeactivate: [WorkEffortFormGuard],

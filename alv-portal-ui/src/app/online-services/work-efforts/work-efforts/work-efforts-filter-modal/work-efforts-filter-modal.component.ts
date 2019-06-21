@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import {
-  WorkEffortResult,
+  WorkEffortApplyStatus,
   WorkEffortsFilterPeriod
-} from '../../../../shared/backend-services/work-efforts/work-efforts.types';
+} from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortsFilterValues } from '../work-efforts-filter.types';
 
 @Component({
@@ -41,7 +41,7 @@ export class WorkEffortsFilterModalComponent implements OnInit {
       }))
     );
 
-    this.workEffortResultOptions$ = of(Object.values(WorkEffortResult)
+    this.workEffortResultOptions$ = of(Object.values(WorkEffortApplyStatus)
       .map(s => ({
         label: 'portal.work-efforts.work-effort-result.' + s,
         value: s

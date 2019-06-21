@@ -3,8 +3,8 @@ import {
   WorkEffort,
   WorkEffortsReport,
   WorkEffortsReportStatus,
-  WorkEffortType
-} from '../../../../shared/backend-services/work-efforts/work-efforts.types';
+  ControlPeriodType
+} from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 
 @Component({
   selector: 'alv-work-efforts-report',
@@ -33,11 +33,11 @@ export class WorkEffortsReportComponent implements OnInit {
   }
 
   isBeforeEmployment(workEffortsReport: WorkEffortsReport): boolean {
-    return workEffortsReport.type === WorkEffortType.BEFORE_UNEMPLOYMENT;
+    return workEffortsReport.controlPeriod.type === ControlPeriodType.BEFORE_UNEMPLOYMENT;
   }
 
   getDateStringFromControlPeriod(workEffortsReport: WorkEffortsReport): string {
-    const date = new Date(workEffortsReport.controlPeriod);
+    const date = new Date(workEffortsReport.controlPeriod.value);
     return `${date.getFullYear()}${('0' + (date.getMonth() + 1)).slice(-2)}`;
   }
 
@@ -53,7 +53,7 @@ export class WorkEffortsReportComponent implements OnInit {
   }
 
   getSubmissionDate(workEffortsReport: WorkEffortsReport): string {
-    return this.isSentSuccessfully(workEffortsReport) ? workEffortsReport.submittedAt : workEffortsReport.forecastSubmissionDate;
+    return this.isSentSuccessfully(workEffortsReport) ? workEffortsReport.lastSubmittedAt : workEffortsReport.nextSubmissionDate;
   }
 
   isReportClosed(workEffortsReport: WorkEffortsReport): boolean {

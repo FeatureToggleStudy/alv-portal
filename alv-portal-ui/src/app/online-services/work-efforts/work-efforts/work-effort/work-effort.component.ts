@@ -2,13 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   WorkEffort,
   WorkEffortsReportStatus
-} from '../../../../shared/backend-services/work-efforts/work-efforts.types';
+} from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badge.types';
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
 import { deleteWorkEffortModalConfig } from '../modal-config.types';
 import { NotificationsService } from '../../../../core/notifications.service';
 import { WorkEffortsService } from '../work-efforts.service';
-import { WorkEffortsRepository } from '../../../../shared/backend-services/work-efforts/work-efforts.repository';
+import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
 
 @Component({
   selector: 'alv-work-effort',
@@ -17,9 +17,11 @@ import { WorkEffortsRepository } from '../../../../shared/backend-services/work-
 })
 export class WorkEffortComponent implements OnInit {
 
+  @Input() workEffortsReportId: string;
+
   @Input() workEffort: WorkEffort;
 
-  @Input() forecastSubmissionDate: string;
+  @Input() nextSubmissionDate: string;
 
   @Output() deleted = new EventEmitter<WorkEffort>();
 
@@ -27,12 +29,12 @@ export class WorkEffortComponent implements OnInit {
 
   constructor(private modalService: ModalService,
               private workEffortsService: WorkEffortsService,
-              private workEffortsRepository: WorkEffortsRepository,
+              private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
               private notificationsService: NotificationsService) {
   }
 
   ngOnInit() {
-    this.resultBadges = this.workEffortsService.mapResultBadges(this.workEffort.results);
+    this.resultBadges = this.workEffortsService.mapResultBadges(this.workEffort.applyStatus);
   }
 
   deleteWorkEffort() {
@@ -40,7 +42,7 @@ export class WorkEffortComponent implements OnInit {
       deleteWorkEffortModalConfig
     ).result
       .then(result => {
-        this.workEffortsRepository.deleteWorkEffort(this.workEffort.id)
+        this.proofOfWorkEffortsRepository.deleteWorkEffort(this.workEffortsReportId, this.workEffort.id)
           .subscribe(() => {
             this.deleted.emit(this.workEffort);
             this.notificationsService.success('portal.work-efforts.work-effort.notification.deleted');
@@ -55,7 +57,7 @@ export class WorkEffortComponent implements OnInit {
   }
 
   getSubmissionDate(workEffort: WorkEffort): string {
-    return workEffort.submittedAt || this.forecastSubmissionDate;
+    return workEffort.submittedAt || this.nextSubmissionDate;
   }
 
   getSubmissionText(workEffort: WorkEffort): string {

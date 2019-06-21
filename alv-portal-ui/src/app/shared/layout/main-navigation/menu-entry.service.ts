@@ -40,7 +40,7 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
   {
     id: 'PAV',
     mainMenuEntryKeys: ['dashboard', 'candidate-search', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites'],
-    onlineFormsMenuEntryKeys: ['work-efforts'], // TODO: remove from PAV
+    onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: ['user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_PAV])
   },

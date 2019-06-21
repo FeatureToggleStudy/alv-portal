@@ -211,3 +211,32 @@ export interface Company {
   city: string;
   country: string;
 }
+
+export interface Page<T> {
+  content: T[];
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  sort: PageableSort;
+  pageable: Pageable;
+}
+
+export interface PageableSort {
+  empty: boolean;
+  unsorted: boolean;
+  sorted: boolean;
+}
+
+export interface Pageable {
+  offset: number;
+  pageNumber: number;
+  pageSize: number;
+  paged: boolean;
+  unpaged: boolean;
+  sort: PageableSort;
+}

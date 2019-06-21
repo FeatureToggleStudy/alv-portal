@@ -1,8 +1,8 @@
 import {
   WorkEffort,
-  WorkEffortApplyChannel,
-  WorkEffortResult
-} from '../../../shared/backend-services/work-efforts/work-efforts.types';
+  WorkEffortApplyChannelType,
+  WorkEffortApplyStatus
+} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { fromISODate } from '../../../shared/forms/input/ngb-date-utils';
 import { mapToPostalCodeAndCity } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
@@ -15,30 +15,30 @@ import {
 import { format } from 'date-fns';
 
 
-function mapToApplyChannelsFormValue(applyChannels: WorkEffortApplyChannel[]): ApplyChannelsFormValue {
+function mapToApplyChannelsFormValue(applyChannels: WorkEffortApplyChannelType[]): ApplyChannelsFormValue {
   return {
-    ELECTRONIC: applyChannels.includes(WorkEffortApplyChannel.ELECTRONIC),
-    MAIL: applyChannels.includes(WorkEffortApplyChannel.MAIL),
-    PERSONAL: applyChannels.includes(WorkEffortApplyChannel.PERSONAL),
-    PHONE: applyChannels.includes(WorkEffortApplyChannel.PHONE),
+    ELECTRONIC: applyChannels.includes(WorkEffortApplyChannelType.ELECTRONIC),
+    MAIL: applyChannels.includes(WorkEffortApplyChannelType.MAIL),
+    PERSONAL: applyChannels.includes(WorkEffortApplyChannelType.PERSONAL),
+    PHONE: applyChannels.includes(WorkEffortApplyChannelType.PHONE),
   };
 }
 
-function mapBackendResultsToResultsFormValue(results: WorkEffortResult[]): ResultsFormValue {
+function mapBackendResultsToResultsFormValue(results: WorkEffortApplyStatus[]): ResultsFormValue {
   return {
-    EMPLOYED: results.includes(WorkEffortResult.EMPLOYED),
-    INTERVIEW: results.includes(WorkEffortResult.INTERVIEW),
-    PENDING: results.includes(WorkEffortResult.PENDING),
-    REJECTED: results.includes(WorkEffortResult.REJECTED),
+    EMPLOYED: results.includes(WorkEffortApplyStatus.EMPLOYED),
+    INTERVIEW: results.includes(WorkEffortApplyStatus.INTERVIEW),
+    PENDING: results.includes(WorkEffortApplyStatus.PENDING),
+    REJECTED: results.includes(WorkEffortApplyStatus.REJECTED),
   };
 }
 
-function mapResultsFormValueToBackendResults(results: ResultsFormValue): WorkEffortResult[] {
-  return Object.keys(results).filter(resultKey => results[resultKey]) as WorkEffortResult[];
+function mapResultsFormValueToBackendResults(results: ResultsFormValue): WorkEffortApplyStatus[] {
+  return Object.keys(results).filter(resultKey => results[resultKey]) as WorkEffortApplyStatus[];
 }
 
-function mapApplyChannelsFormValueToBackend(applyChannels: ApplyChannelsFormValue): WorkEffortApplyChannel[] {
-  return Object.keys(applyChannels).filter(channelKey => applyChannels[channelKey]) as WorkEffortApplyChannel[];
+function mapApplyChannelsFormValueToBackend(applyChannels: ApplyChannelsFormValue): WorkEffortApplyChannelType[] {
+  return Object.keys(applyChannels).filter(channelKey => applyChannels[channelKey]) as WorkEffortApplyChannelType[];
 }
 
 function mapNgbDateStructToString(struct: NgbDateStruct): string {
@@ -59,31 +59,31 @@ function mapWorkloadToBackend(workLoadFormValue: WorkLoadFormOption): boolean {
 
 export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortFormValue {
   return {
-    companyName: workEffort.company.name,
-    date: fromISODate(workEffort.date),
-    applyChannels: mapToApplyChannelsFormValue(workEffort.applicationForms),
+    companyName: workEffort.applyChannel.address ? workEffort.applyChannel.address.name : undefined,
+    date: fromISODate(workEffort.applyDate),
+    applyChannels: mapToApplyChannelsFormValue(workEffort.applyChannel.types),
     companyAddress: {
-      countryIsoCode: workEffort.company.countryIsoCode,
+      countryIsoCode: workEffort.applyChannel.address ? workEffort.applyChannel.address.country : undefined,
       postOfficeBoxNumberOrStreet: {
-        houseNumber: workEffort.company.houseNumber,
-        postOfficeBoxNumber: workEffort.company.postOfficeBoxNumber || '',
-        street: workEffort.company.street
+        houseNumber: workEffort.applyChannel.address ? workEffort.applyChannel.address.houseNumber : undefined,
+        postOfficeBoxNumber: workEffort.applyChannel.address ? workEffort.applyChannel.address.poBox : undefined,
+        street: workEffort.applyChannel.address ? workEffort.applyChannel.address.street : undefined
       },
       zipAndCity: {
-        city: workEffort.company.city,
-        zipCode: workEffort.company.postalCode,
+        city: workEffort.applyChannel.address ? workEffort.applyChannel.address.city : undefined, //todo check that the mapping works
+        zipCode: workEffort.applyChannel.address ? workEffort.applyChannel.address.postalCode : undefined,
         zipCityAutoComplete: null
       }
     },
     companyEmailAndUrl: {
-      email: workEffort.company.email,
-      url: workEffort.company.applyFormUrl
+      email: workEffort.applyChannel.email,
+      url: workEffort.applyChannel.formUrl
     },
     occupation: workEffort.occupation,
-    phone: workEffort.company.phone,
-    results: mapBackendResultsToResultsFormValue(workEffort.results),
-    contactPerson: workEffort.company.contactPerson,
-    appliedThroughRav: workEffort.appliedThroughRav,
+    phone: workEffort.applyChannel.phone,
+    results: mapBackendResultsToResultsFormValue(workEffort.applyStatus),
+    contactPerson: workEffort.applyChannel.contactPerson,
+    appliedThroughRav: workEffort.ravAssigned,
     workload: mapToWorkloadFormValue(workEffort.fullTimeJob),
     rejectionReason: workEffort.rejectionReason
   };
@@ -92,24 +92,25 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
 export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): WorkEffort {
   const zipAndCity = mapToPostalCodeAndCity(formValue.companyAddress.zipAndCity);
   return {
-    date: mapNgbDateStructToString(formValue.date),
-    appliedThroughRav: formValue.appliedThroughRav,
-    company: {
+    applyDate: mapNgbDateStructToString(formValue.date),
+    ravAssigned: formValue.appliedThroughRav,
+    applyChannel: {
       contactPerson: formValue.contactPerson,
-      phone: formValue.phone,
-      applyFormUrl: formValue.companyEmailAndUrl.url,
       email: formValue.companyEmailAndUrl.email,
-      street: formValue.companyAddress.postOfficeBoxNumberOrStreet.street,
-      postOfficeBoxNumber: formValue.companyAddress.postOfficeBoxNumberOrStreet.postOfficeBoxNumber,
-      houseNumber: formValue.companyAddress.postOfficeBoxNumberOrStreet.houseNumber,
-      countryIsoCode: formValue.companyAddress.countryIsoCode,
-      postalCode: zipAndCity.postalCode,
-      city: zipAndCity.city,
-      name: formValue.companyName,
-
+      formUrl: formValue.companyEmailAndUrl.url,
+      phone: formValue.phone,
+      types: mapApplyChannelsFormValueToBackend(formValue.applyChannels),
+      address: {
+        name: formValue.companyName,
+        street: formValue.companyAddress.postOfficeBoxNumberOrStreet.street,
+        houseNumber: formValue.companyAddress.postOfficeBoxNumberOrStreet.houseNumber,
+        postalCode: zipAndCity.postalCode,
+        country: formValue.companyAddress.countryIsoCode,
+        city: zipAndCity.city,
+        poBox: formValue.companyAddress.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
+      }
     },
-    results: mapResultsFormValueToBackendResults(formValue.results),
-    applicationForms: mapApplyChannelsFormValueToBackend(formValue.applyChannels),
+    applyStatus: mapResultsFormValueToBackendResults(formValue.results),
     occupation: formValue.occupation,
     fullTimeJob: mapWorkloadToBackend(formValue.workload),
     rejectionReason: formValue.rejectionReason,

@@ -1,14 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
+import {
+  AbstractControlOptions,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import {
+  Notification,
+  NotificationType
+} from '../../../shared/layout/notifications/notification.model';
 import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
-import { filter, startWith, takeUntil } from 'rxjs/operators';
+import { filter, flatMap, startWith, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
-import { WorkEffortsRepository } from '../../../shared/backend-services/work-efforts/work-efforts.repository';
+import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
 import { ActivatedRoute, Router } from '@angular/router';
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX, URL_REGEX } from '../../../shared/forms/regex-patterns';
@@ -20,7 +28,10 @@ import {
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { phoneInputValidator } from '../../../shared/forms/input/input-field/phone-input.validator';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { ActionsOnClose, SuccessModalComponent } from './success-modal/success-modal.component';
+import {
+  ActionsOnClose,
+  SuccessModalComponent
+} from './success-modal/success-modal.component';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import {
   ApplyChannelsFormValue,
@@ -35,6 +46,8 @@ import { deltaDate, mapDateToNgbDate } from '../../../shared/forms/input/ngb-dat
 import { createInitialZipAndCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
 import { getAllErrors } from '../../../shared/forms/forms.utils';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { mapToWorkEffortBackendValue } from './work-effort-form.mapper';
 import { requiredIfValidator } from '../../../shared/forms/input/validators/required-if.validator';
 import { conditionalValidator } from '../../../shared/forms/input/validators/conditional.validator';
 import { zipCityInputSettings } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
@@ -103,7 +116,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
-              private workEffortsRepository: WorkEffortsRepository,
+              private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
+              private authenticationService: AuthenticationService,
               private route: ActivatedRoute,
               public router: Router,
               private modalService: ModalService) {
@@ -208,23 +222,36 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   }
 
-  async submit() {
-    await this.openSuccessModal();
+  submit() {
+    this.authenticationService.getCurrentUser().pipe(
+      filter(user => !!user),
+      flatMap(user => this.proofOfWorkEffortsRepository.saveWorkEffort(user.id,
+        mapToWorkEffortBackendValue(this.workEffortFormGroup.value))
+      )
+    ).subscribe(result => {
+      this.openSuccessModal();
+    });
+
   }
 
-  async openSuccessModal() {
+  openSuccessModal() {
     // if all fields in the the form are okay
     const successModalRef = this.modalService.openLarge(SuccessModalComponent);
-    const res = await successModalRef.result;
-    if (res === ActionsOnClose.RECORD_NEW) {
-      await this.router.navigate(['work-efforts', 'create']);
-    } else if (res === ActionsOnClose.GO_TO_LIST) {
-      await this.goToWorkEffortsList();
-    }
+    successModalRef.result.then(res => {
+      if (res === ActionsOnClose.RECORD_NEW) {
+        this.createNewWorkEffort();
+      } else if (res === ActionsOnClose.GO_TO_LIST) {
+        this.goToWorkEffortsList();
+      }
+    });
   }
 
-  async goToWorkEffortsList() {
-    return await this.router.navigate(['work-efforts']);
+  goToWorkEffortsList() {
+    this.router.navigate(['work-efforts']);
+  }
+
+  createNewWorkEffort() {
+    this.router.navigate(['work-efforts', 'create']);
   }
 
   private generateResultsGroup(): FormGroup {

@@ -1,30 +1,32 @@
 import { mapToWorkEffortBackendValue, mapToWorkEffortFormValue, } from './work-effort-form.mapper';
 import {
   WorkEffort,
-  WorkEffortApplyChannel,
-  WorkEffortResult
-} from '../../../shared/backend-services/work-efforts/work-efforts.types';
+  WorkEffortApplyChannelType,
+  WorkEffortApplyStatus
+} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortFormValue, WorkLoadFormOption } from './work-effort-form.types';
 
 const mockedWorkEffortBackend: WorkEffort = {
-  date: '2019-07-13',
-  company: {
-    name: 'SRF - Schweizer Radio und Fernsehen ',
-    city: 'Zurich',
-    postalCode: '8098',
+  applyDate: '2019-07-13',
+  applyChannel: {
+    address: {
+      name: 'SRF - Schweizer Radio und Fernsehen ',
+      city: 'Zurich',
+      postalCode: '8098',
+      street: 'Evergreen Terrace',
+      houseNumber: '22b',
+      country: 'CH',
+      poBox: ''
+    },
     contactPerson: 'Some Dude',
-    countryIsoCode: 'CH',
+    formUrl: 'www.example-company.com',
     email: 'mail@address.com',
-    houseNumber: '22b',
     phone: '+41 33 322 34 41',
-    street: 'Evergreen Terrace',
-    applyFormUrl: 'www.example-company.com',
-    postOfficeBoxNumber: ''
+    types: [WorkEffortApplyChannelType.PHONE]
   },
-  applicationForms: [WorkEffortApplyChannel.PHONE],
   occupation: 'Systemadministrator Informatiker',
-  appliedThroughRav: false,
-  results: [WorkEffortResult.REJECTED],
+  ravAssigned: false,
+  applyStatus: [WorkEffortApplyStatus.REJECTED],
   fullTimeJob: true,
   rejectionReason: 'bad breath'
 };

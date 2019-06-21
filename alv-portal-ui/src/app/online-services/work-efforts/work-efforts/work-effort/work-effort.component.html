@@ -1,13 +1,13 @@
 <div class="work-effort-container position-relative">
   <a class="work-effort row no-gutters"
-     [routerLink]="'edit/' + workEffort.id">
+     [routerLink]="'edit/' + workEffortsReportId + '/' + workEffort.id" >
     <div class="col-12 col-lg-3 work-effort-cell main-cell">
       <small class="cell-label">
         {{'portal.work-efforts.work-effort.cell-label.application-date' | translate}}
-        {{workEffort.date | localeAwareDate}}
+        {{workEffort.applyDate | localeAwareDate}}
       </small>
       <div class="flex-grow-1">
-        <div>{{workEffort.company.name}}</div>
+        <div>{{workEffort.applyChannel.address?.name}}</div>
         <div>{{workEffort.occupation}}</div>
       </div>
       <div #actionsMenu="ngbDropdown"
