@@ -65,7 +65,7 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
       countryIsoCode: workEffort.applyChannel.address ? workEffort.applyChannel.address.country : undefined,
       postOfficeBoxNumberOrStreet: {
         houseNumber: workEffort.applyChannel.address ? workEffort.applyChannel.address.houseNumber : undefined,
-        postOfficeBoxNumber: workEffort.applyChannel.address ? workEffort.applyChannel.address.postalCode : undefined,
+        postOfficeBoxNumber: workEffort.applyChannel.address ? workEffort.applyChannel.address.poBox : undefined,
         street: workEffort.applyChannel.address ? workEffort.applyChannel.address.street : undefined
       },
       zipAndCity: {
