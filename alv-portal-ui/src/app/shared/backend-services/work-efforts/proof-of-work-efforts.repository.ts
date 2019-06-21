@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import {
-  WorkEffort,
-  WorkEffortsReport
-} from './proof-of-work-efforts.types';
+import { Observable } from 'rxjs';
+import { WorkEffort, WorkEffortsReport } from './proof-of-work-efforts.types';
 import { map } from 'rxjs/operators';
+import { Page } from '../shared.types';
 
 @Injectable({ providedIn: 'root' })
 export class ProofOfWorkEffortsRepository {
@@ -20,7 +18,7 @@ export class ProofOfWorkEffortsRepository {
   }
 
   getWorkEffortsReports(userId: string): Observable<WorkEffortsReport[]> {
-    return this.http.get<any>(`${this.searchUrl}/by-owner-user-id`, {
+    return this.http.get<Page<WorkEffortsReport>>(`${this.searchUrl}/by-owner-user-id`, {
       params: new HttpParams().set('userId', userId)
     }).pipe(
       map(result => result.content)
