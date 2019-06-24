@@ -9,18 +9,20 @@ import {
   LocalityTypeaheadItem
 } from '../../../shared/localities/locality-typeahead-item';
 import { StringTypeaheadItem } from '../../../shared/forms/input/typeahead/string-typeahead-item';
-import { Location } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { CantonSuggestion } from '../../../shared/backend-services/reference-service/locality.types';
 import { initialState, JobSearchFilter } from '../state-management/state';
 import {
-  CantonFilter,
   JobSearchFilterRequest,
   LocalityFilter,
-  OccupationFilter,
-  OccupationResolved,
   ResolvedJobSearchFilter
 } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
-import { ContractType } from '../../../shared/backend-services/shared.types';
+import {
+  CantonFilter,
+  ContractType,
+  OccupationFilter,
+  OccupationResolved
+} from '../../../shared/backend-services/shared.types';
+import { Location } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 
 @Injectable({
   providedIn: 'root'
