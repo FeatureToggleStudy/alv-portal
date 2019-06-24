@@ -1,0 +1,16 @@
+<a [routerLink]="baseRouterLink"
+   [queryParams]="{'search-profile-id': searchProfile.id}"
+   class="profile-item d-flex align-items-center position-relative py-2 px-3">
+  <div class="hover-indicator"></div>
+  <div class="profile-name text-truncate">
+    {{searchProfile.name}}
+  </div>
+  <div class="flex-grow-1"></div>
+  <button class="btn btn-toggle-icon"
+          (click)="deleteProfile($event)"
+          [attr.title]="'portal.job-ad-search-profiles.label.delete-profile' | translate">
+    <fa-icon class="text-primary"
+             [fixedWidth]="true"
+             [icon]="['fas', 'trash-alt']"></fa-icon>
+  </button>
+</a>

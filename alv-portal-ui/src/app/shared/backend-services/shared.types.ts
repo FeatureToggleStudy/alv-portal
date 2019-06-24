@@ -111,7 +111,32 @@ export enum DrivingLicenceCategory {
 }
 
 export enum Canton {
-  AG, AI, AR, BE, BL, BS, FR, GE, GL, GR, JU, LU, NE, NW, OW, SG, SH, SO, SZ, TG, TI, UR, VD, VS, ZG, ZH
+  AG = 'AG',
+  AI = 'AI',
+  AR = 'AR',
+  BE = 'BE',
+  BL = 'BL',
+  BS = 'BS',
+  FR = 'FR',
+  GE = 'GE',
+  GL = 'GL',
+  GR = 'GR',
+  JU = 'JU',
+  LU = 'LU',
+  NE = 'NE',
+  NW = 'NW',
+  OW = 'OW',
+  SG = 'SG',
+  SH = 'SH',
+  SO = 'SO',
+  SZ = 'SZ',
+  TG = 'TG',
+  TI = 'TI',
+  UR = 'UR',
+  VD = 'VD',
+  VS = 'VS',
+  ZG = 'ZG',
+  ZH = 'ZH'
 }
 
 export enum Language {
@@ -239,4 +264,27 @@ export interface Pageable {
   paged: boolean;
   unpaged: boolean;
   sort: PageableSort;
+}
+
+export interface OccupationResolved {
+  id: string;
+  code: string;
+  type: string;
+  filterType: string;
+  label: string;
+  mappings?: { [key: string]: string };
+}
+
+export interface CantonFilter {
+  name: string;
+  code: string;
+}
+
+export interface OccupationFilter {
+  labelId: string;
+}
+
+export interface SearchProfile {
+  id: string;
+  name: string;
 }

@@ -1,0 +1,33 @@
+<div class="alv-panel pb-3 pb-md-4">
+  <h2 class="panel-title">
+    <alv-custom-icon class="panel-icon"
+                     aria-hidden="true"
+                     [iconKey]="IconKey.CANDIDATE_SEARCH_PROFILES">
+    </alv-custom-icon>
+    {{'portal.candidate-search-profiles.title' | translate}}
+  </h2>
+
+  <ng-container *ngIf="candidateSearchProfiles.length">
+    <alv-search-profile-item @removeProfile
+                             *ngFor="let candidateSearchProfile of candidateSearchProfiles"
+                             [searchProfile]="candidateSearchProfile"
+                             baseRouterLink="/candidate-search"
+                             (deleted)="onDeleteProfile($event)"
+                             class="d-block">
+    </alv-search-profile-item>
+  </ng-container>
+  <ng-container *ngIf="candidateSearchProfiles && !candidateSearchProfiles.length">
+    <div class="no-profiles p-3">
+      {{'portal.candidate-search-profiles.no-profiles' | translate}}
+    </div>
+  </ng-container>
+
+  <div class="d-flex mt-3">
+    <div class="flex-grow-1"></div>
+    <a class="btn btn-secondary"
+       routerLink="/candidate-search-profiles">
+      {{ 'portal.widgets.candidate-search-profiles.show-all' | translate }}
+    </a>
+  </div>
+
+</div>

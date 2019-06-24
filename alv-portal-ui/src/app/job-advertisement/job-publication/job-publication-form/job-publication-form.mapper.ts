@@ -8,14 +8,14 @@ import {
   Employment,
   JobAdvertisement,
   JobDescription,
-  Location,
   Occupation,
   Publication,
   PublicContact,
   WebformApplyChannel,
   WebformCompany,
   WebformPostAddress,
-  WorkExperience
+  WorkExperience,
+  Location
 } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobPublicationFormValue } from './job-publication-form-value.types';
 import {
