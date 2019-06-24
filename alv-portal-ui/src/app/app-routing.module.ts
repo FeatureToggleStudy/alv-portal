@@ -132,7 +132,7 @@ const appRoutes: Routes = [
   {
     path: 'showcase',
     component: ShowcaseComponent,
-    data: {titleKey: 'portal.showcase.browser-title'}
+    data: { titleKey: 'portal.showcase.browser-title' }
   },
   {
     path: 'user-settings',
