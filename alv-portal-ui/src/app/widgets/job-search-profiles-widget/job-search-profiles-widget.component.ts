@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
-import { Observable } from 'rxjs';
 import { JobAdSearchProfilesRepository } from '../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.repository';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import { flatMap, map, take } from 'rxjs/operators';
+import { flatMap, take } from 'rxjs/operators';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../core/notifications.service';
 import { JobAdSearchProfileResult } from '../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
-import { getDeleteConfirmModalConfig } from '../../shared/job-search-profiles/modal-config.types';
+import { getJobAdDeleteConfirmModalConfig } from '../../shared/search-profiles/modal-config.types';
+import { SearchProfile } from '../../shared/backend-services/shared.types';
+import { removeSearchProfileAnimation } from '../../shared/animations/animations';
 
 @Component({
   selector: 'alv-job-search-profiles-widget',
   templateUrl: './job-search-profiles-widget.component.html',
-  styleUrls: ['./job-search-profiles-widget.component.scss']
+  styleUrls: ['./job-search-profiles-widget.component.scss'],
+  animations: [removeSearchProfileAnimation]
 })
 export class JobSearchProfilesWidgetComponent implements OnInit {
 
   IconKey = IconKey;
 
-  jobSearchProfiles$: Observable<JobAdSearchProfileResult[]>;
+  jobSearchProfiles: JobAdSearchProfileResult[] = [];
 
   private readonly MAX_DISPLAY_ITEMS = 5;
 
@@ -33,23 +35,26 @@ export class JobSearchProfilesWidgetComponent implements OnInit {
   }
 
   initItems() {
-    this.jobSearchProfiles$ = this.authenticationService.getCurrentUser().pipe(
+    this.authenticationService.getCurrentUser().pipe(
       take(1),
-      flatMap(user => this.jobAdSearchProfilesRepository.search(user.id)),
-      map(response => {
-        return response.result.slice(0, this.MAX_DISPLAY_ITEMS);
-      })
-    );
+      flatMap(user => this.jobAdSearchProfilesRepository.search(user.id))
+    ).subscribe(response => {
+      // Pushing new items to the array is needed in order to make the animation work
+      response.result.slice(this.jobSearchProfiles.length, this.MAX_DISPLAY_ITEMS).forEach(result => {
+        this.jobSearchProfiles.push(result);
+      });
+    });
   }
 
-  onDeleteProfile(profile: JobAdSearchProfileResult) {
+  onDeleteProfile(profile: SearchProfile) {
     this.modalService.openConfirm(
-      getDeleteConfirmModalConfig(profile.name)
+      getJobAdDeleteConfirmModalConfig(profile.name)
     ).result
       .then(result => {
         this.jobAdSearchProfilesRepository.delete(profile.id)
           .subscribe(() => {
             this.notificationsService.success('portal.job-ad-search-profiles.notification.profile-deleted');
+            this.jobSearchProfiles.splice(this.jobSearchProfiles.findIndex(p => p.id === profile.id), 1);
             this.initItems();
           });
       })
@@ -57,7 +62,4 @@ export class JobSearchProfilesWidgetComponent implements OnInit {
       });
   }
 
-  trackById(profile: JobAdSearchProfileResult): string {
-    return profile.id;
-  }
 }
