@@ -11,6 +11,7 @@
            #datePicker="ngbDatepicker"
            ngbDatepicker
            (click)="datePicker.toggle()"
+           (closed)="this.focus()"
            [minDate]="minDate"
            [maxDate]="maxDate"
            [alvAutofocus]="autofocus"
