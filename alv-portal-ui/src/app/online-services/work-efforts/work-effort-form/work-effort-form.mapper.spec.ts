@@ -7,6 +7,8 @@ import {
 import { WorkEffortFormValue, WorkLoadFormOption } from './work-effort-form.types';
 
 const mockedWorkEffortBackend: WorkEffort = {
+  id: 'testId',
+
   applyDate: '2019-07-13',
   applyChannel: {
     address: {
@@ -32,6 +34,7 @@ const mockedWorkEffortBackend: WorkEffort = {
 };
 
 const mockWorkEffortFormValue: WorkEffortFormValue = {
+  id: 'testId',
   date: {
     year: 2019,
     month: 7,
