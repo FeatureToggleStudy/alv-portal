@@ -1,3 +1,6 @@
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
 
 .side-panel {
   position: sticky;
@@ -11,3 +14,10 @@
   }
 }
 
+// Remove the stickiness of the side-panel for small (sm) size
+@include media-breakpoint-down(sm) {
+  .side-panel {
+    position: relative;
+    top: 0;
+  }
+}
