@@ -29,11 +29,6 @@ export enum WorkLoadFormOption {
   PARTTIME = 'PARTTIME'
 }
 
-export enum AppliedThroughRavOption {
-  YES = 'yes',
-  NO = 'no'
-}
-
 export interface WorkEffortFormValue {
   id?: string;
   companyName: string;
