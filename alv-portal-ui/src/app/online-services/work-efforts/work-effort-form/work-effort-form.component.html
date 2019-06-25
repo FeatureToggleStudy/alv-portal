@@ -27,16 +27,7 @@
         </button>
         <div class="w-100"
              ngbDropdownMenu>
-          <button *ngFor="let toolbarButton of [
-                    {
-                      label: 'entity.action.back',
-                      route: 'work-efforts'
-                    },
-                    {
-                      label: 'portal.navigation.menu-entry.work-efforts',
-                      route: '.'
-                    }
-                  ]"
+          <button *ngFor="let toolbarButton of toolbarButtons"
                   [routerLink]="toolbarButton.route"
                   class="dropdown-item"
                   ngbDropdownItem

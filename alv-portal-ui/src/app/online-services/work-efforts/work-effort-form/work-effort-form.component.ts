@@ -82,6 +82,16 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   resultsCheckboxNames = formPossibleResults;
   applyChannelsCheckboxNames = formPossibleApplyChannels;
   countryOptions$: Observable<SelectableOption[]>;
+  toolbarButtons = [
+    {
+      label: 'entity.action.back',
+      route: 'work-efforts'
+    },
+    {
+      label: 'portal.navigation.menu-entry.work-efforts',
+      route: '.'
+    }
+  ];
   bottomAlert: Notification = {
     isSticky: true,
     type: NotificationType.WARNING,
