@@ -41,7 +41,7 @@
                          aria-hidden="true"
                          [iconKey]="IconKey.WORK_EFFORTS">
         </alv-custom-icon>
-        {{'portal.work-efforts.edit-form.title'|translate}}
+        {{'portal.work-efforts.edit-form.title' | translate}}
       </h2>
       <hr class="mb-4">
       <form (validSubmit)="submit()"
@@ -54,14 +54,17 @@
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
                             [isAlwaysExpanded]="true">
-          <div class="alv-light-panel p-2 pb-0 mb-0">
-            <alv-date-input alvFormControlName="date"
-                            [minDate]="minDate"
-                            [maxDate]="maxDate"
-                            label="portal.global.date"
-                            container="body">
-            </alv-date-input>
-          </div>
+          <fieldset>
+            <legend class="sr-only">{{'portal.work-efforts.edit-form.application-date-panel-label' | translate}}</legend>
+            <div class="alv-light-panel p-2 pb-0 mb-0">
+              <alv-date-input alvFormControlName="date"
+                              [minDate]="minDate"
+                              [maxDate]="maxDate"
+                              label="portal.global.date"
+                              container="body">
+              </alv-date-input>
+            </div>
+          </fieldset>
         </alv-collapse-panel>
 
         <div class="arrow-container pt-0">
@@ -73,6 +76,7 @@
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.way-of-application-panel-label"
                             [isAlwaysExpanded]="true">
           <fieldset formGroupName="applyChannels">
+            <legend class="sr-only">{{'portal.work-efforts.edit-form.way-of-application-panel-label' | translate}}</legend>
             <div class="alv-light-panel p-2 mb-1"
                  *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
               <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
@@ -98,101 +102,107 @@
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.company-panel-label"
                             class="pb-0"
                             [isAlwaysExpanded]="true">
-          <alv-input-field [maxLength]="NAME_MAX_LENGTH"
-                           alvFormControlName="companyName"
-                           label="home.tools.job-publication.company.name">
-          </alv-input-field>
-          <fieldset formGroupName="companyAddress">
-            <div formGroupName="postOfficeBoxNumberOrStreet"
-                 class="form-row">
-              <alv-input-field [maxLength]="STREET_MAX_LENGTH"
-                               [showGroupErrors]="true"
-                               [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber').value &&
+          <fieldset>
+            <legend class="sr-only">{{'portal.work-efforts.edit-form.company-panel-label' | translate}}</legend>
+
+            <alv-input-field [maxLength]="NAME_MAX_LENGTH"
+                             alvFormControlName="companyName"
+                             label="home.tools.job-publication.company.name">
+            </alv-input-field>
+            <fieldset formGroupName="companyAddress">
+              <div formGroupName="postOfficeBoxNumberOrStreet"
+                   class="form-row">
+                <alv-input-field [maxLength]="STREET_MAX_LENGTH"
+                                 [showGroupErrors]="true"
+                                 [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber').value &&
                                   (watchedValues.applyChannels?.PERSONAL ||
                                   watchedValues.applyChannels?.PHONE ||
                                   watchedValues.applyChannels?.MAIL)"
-                               [validationMessages]="[{
+                                 [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
                                 }]"
-                               alvFormControlName="street"
-                               class="col-8"
-                               label="home.tools.job-publication.company.street">
-              </alv-input-field>
-              <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
-                               alvFormControlName="houseNumber"
-                               class="col-4"
-                               label="home.tools.job-publication.company.house-number">
-              </alv-input-field>
+                                 alvFormControlName="street"
+                                 class="col-8"
+                                 label="home.tools.job-publication.company.street">
+                </alv-input-field>
+                <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
+                                 alvFormControlName="houseNumber"
+                                 class="col-4"
+                                 label="home.tools.job-publication.company.house-number">
+                </alv-input-field>
 
-              <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
-                               [showGroupErrors]="true"
-                               [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('street').value &&
+                <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
+                                 [showGroupErrors]="true"
+                                 [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('street').value &&
                                   (watchedValues.applyChannels?.PERSONAL ||
                                   watchedValues.applyChannels?.PHONE ||
                                   watchedValues.applyChannels?.MAIL)"
-                               [validationMessages]="[{
+                                 [validationMessages]="[{
                               error: 'atLeastOneRequired',
                               message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
                      }]"
-                               alvFormControlName="postOfficeBoxNumber"
-                               label="home.tools.job-publication.company.postbox-number"
-                               class="col-12">
-              </alv-input-field>
-            </div>
+                                 alvFormControlName="postOfficeBoxNumber"
+                                 label="home.tools.job-publication.company.postbox-number"
+                                 class="col-12">
+                </alv-input-field>
+              </div>
 
-            <alv-select [options$]="countryOptions$"
-                        alvFormControlName="countryIsoCode"
-                        label="home.tools.job-publication.company.country"></alv-select>
+              <alv-select [options$]="countryOptions$"
+                          alvFormControlName="countryIsoCode"
+                          label="home.tools.job-publication.company.country"></alv-select>
 
-            <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
-                                [zipCityFormValue]="initialZipAndCity"
-                                [validators]="zipCityValidators"
-                                [countryIsoCode]="countryIsoCode$ | async"
-                                [isRequired]="watchedValues.applyChannels?.PERSONAL ||
+              <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
+                                  [zipCityFormValue]="initialZipAndCity"
+                                  [validators]="zipCityValidators"
+                                  [countryIsoCode]="countryIsoCode$ | async"
+                                  [isRequired]="watchedValues.applyChannels?.PERSONAL ||
                                   watchedValues.applyChannels?.PHONE ||
                                   watchedValues.applyChannels?.MAIL">
-            </alv-zip-city-input>
+              </alv-zip-city-input>
 
-          </fieldset>
+            </fieldset>
 
-          <alv-input-field alvFormControlName="contactPerson"
-                           [isRequired]="watchedValues.applyChannels?.PERSONAL ||
+            <alv-input-field alvFormControlName="contactPerson"
+                             [isRequired]="watchedValues.applyChannels?.PERSONAL ||
                             watchedValues.applyChannels?.PHONE"
-                           label="portal.work-efforts.edit-form.contact-person">
-          </alv-input-field>
+                             label="portal.work-efforts.edit-form.contact-person">
+            </alv-input-field>
 
-          <fieldset formGroupName="companyEmailAndUrl">
-            <alv-input-field [showGroupErrors]="true"
-                             alvFormControlName="email"
-                             [validationMessages]="[{
+            <fieldset formGroupName="companyEmailAndUrl">
+              <alv-input-field [showGroupErrors]="true"
+                               alvFormControlName="email"
+                               [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
-                             [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
+                               [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
                                 !workEffortFormGroup.get('companyEmailAndUrl')?.get('url')?.value"
-                             label="portal.global.email">
-            </alv-input-field>
-            <alv-input-field [showGroupErrors]="true"
-                             alvFormControlName="url"
-                             label="portal.work-efforts.edit-form.company.online-form-url"
-                             [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
+                               label="portal.global.email">
+              </alv-input-field>
+              <alv-input-field [showGroupErrors]="true"
+                               alvFormControlName="url"
+                               label="portal.work-efforts.edit-form.company.online-form-url"
+                               [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
                                 !workEffortFormGroup.get('companyEmailAndUrl')?.get('email')?.value"
-                             [validationMessages]="[{
+                               [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                            ]">
+              </alv-input-field>
+            </fieldset>
+
+            <alv-input-field [showGroupErrors]="true"
+                             class="mb-0"
+                             alvFormControlName="phone"
+                             label="portal.global.phone"
+                             [isRequired]="watchedValues.applyChannels?.PHONE"
+                             placeholder="portal.global.phone-swiss-example"
+                             type="tel">
             </alv-input-field>
           </fieldset>
 
-          <alv-input-field [showGroupErrors]="true"
-                           class="mb-0"
-                           alvFormControlName="phone"
-                           label="portal.global.phone"
-                           [isRequired]="watchedValues.applyChannels?.PHONE"
-                           placeholder="portal.global.phone-swiss-example"
-                           type="tel">
-          </alv-input-field>
+
         </alv-collapse-panel>
 
         <div class="arrow-container">
