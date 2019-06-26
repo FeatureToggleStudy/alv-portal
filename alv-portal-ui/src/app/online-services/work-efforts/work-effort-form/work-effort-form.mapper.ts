@@ -5,7 +5,10 @@ import {
 } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { fromISODate } from '../../../shared/forms/input/ngb-date-utils';
-import { mapToPostalCodeAndCity } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
+import {
+  createInitialZipAndCityFormValue,
+  mapToPostalCodeAndCity
+} from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
 import {
   ApplyChannelsFormValue,
   ResultsFormValue,
@@ -70,11 +73,10 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
         postOfficeBoxNumber: workEffort.applyChannel.address ? workEffort.applyChannel.address.poBox : undefined,
         street: workEffort.applyChannel.address ? workEffort.applyChannel.address.street : undefined
       },
-      zipAndCity: {
-        city: workEffort.applyChannel.address ? workEffort.applyChannel.address.city : undefined, //todo check that the mapping works
-        zipCode: workEffort.applyChannel.address ? workEffort.applyChannel.address.postalCode : undefined,
-        zipCityAutoComplete: null
-      }
+      zipAndCity: createInitialZipAndCityFormValue({
+        city: workEffort.applyChannel.address ? workEffort.applyChannel.address.city : undefined,
+        zipCode: workEffort.applyChannel.address ? workEffort.applyChannel.address.postalCode : undefined
+      }, workEffort.applyChannel.address ? workEffort.applyChannel.address.country : undefined)
     },
     companyEmailAndUrl: {
       email: workEffort.applyChannel.email,
@@ -106,9 +108,9 @@ export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): Wor
         name: formValue.companyName,
         street: formValue.companyAddress.postOfficeBoxNumberOrStreet.street,
         houseNumber: formValue.companyAddress.postOfficeBoxNumberOrStreet.houseNumber,
-        postalCode: zipAndCity.postalCode,
+        postalCode: zipAndCity ? zipAndCity.postalCode : undefined,
         country: formValue.companyAddress.countryIsoCode,
-        city: zipAndCity.city,
+        city: zipAndCity ? zipAndCity.city : undefined,
         poBox: formValue.companyAddress.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
       }
     },

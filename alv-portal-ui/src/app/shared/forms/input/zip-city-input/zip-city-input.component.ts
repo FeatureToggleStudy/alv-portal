@@ -39,10 +39,13 @@ export class ZipCityInputComponent implements OnInit {
 
   @Input()
   parentForm: FormGroup;
+
   @Input()
   zipCityFormValue: ZipCityFormValue;
+
   @Input()
   validators = zipCityDefaultValidators;
+
   zipAndCity: FormGroup;
 
   constructor(private fb: FormBuilder,

@@ -47,7 +47,7 @@ export class ProofOfWorkEffortsRepository {
   }
 
   updateWorkEffort(userId: string, workEffort: WorkEffort): Observable<WorkEffortsReport> {
-    return this.http.post<WorkEffortsReport>(`${this.actionUrl}/updates-work-effort`, workEffort, {
+    return this.http.post<WorkEffortsReport>(`${this.actionUrl}/update-work-effort`, workEffort, {
       params: new HttpParams().set('userId', userId)
     });
   }

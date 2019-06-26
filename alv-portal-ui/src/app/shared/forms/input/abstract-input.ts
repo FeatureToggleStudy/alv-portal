@@ -101,7 +101,7 @@ export abstract class AbstractInput implements OnInit {
   }
 
   public showRequiredIndicator(): boolean {
-    return !!this.isRequired || (this.required && this.isInvalid() && !this.readonly);
+    return (!!this.isRequired && this.isInvalid()) || (this.required && this.isInvalid() && !this.readonly);
   }
 
   public get control() {

@@ -3,6 +3,9 @@ import { IsoCountryService } from '../../../localities/iso-country.service';
 import { ZipAndCityTypeaheadItem } from '../../../localities/zip-and-city-typeahead-item';
 
 export function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCode: string, city: string } {
+  if (!zipCityFormValue) {
+    return null;
+  }
   if (zipCityFormValue.zipCityAutoComplete) {
     const zipAndCity = zipCityFormValue.zipCityAutoComplete.payload;
 

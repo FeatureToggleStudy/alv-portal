@@ -13,7 +13,7 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
-import { filter, flatMap, startWith, takeUntil } from 'rxjs/operators';
+import { filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
@@ -122,6 +122,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       Validators.maxLength(zipCityInputSettings.CITY_MAX_LENGTH)
     ]
   };
+  isSubmitting: boolean;
+
   private previousResultsValue;
 
   constructor(private fb: FormBuilder,
@@ -172,7 +174,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
       companyAddress: this.fb.group({
           countryIsoCode: [''],
-          zipAndCity: [],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
             houseNumber: [''],
@@ -217,7 +218,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
-    this.previousResultsValue = {...this.initialWorkEffort.results};
+    this.previousResultsValue = { ...this.initialWorkEffort.results };
     this.setUpUnclicking({
       PENDING: ['EMPLOYED', 'REJECTED'],
       REJECTED: ['EMPLOYED', 'PENDING'],
@@ -238,11 +239,15 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   submit() {
+    this.isSubmitting = true;
     this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
-      flatMap(user => this.createOrUpdateWorkEffort(user.id))
+      switchMap(user => this.createOrUpdateWorkEffort(user.id))
     ).subscribe(result => {
+      this.isSubmitting = false;
       this.openSuccessModal();
+    }, (err) => {
+      this.isSubmitting = false;
     });
   }
 
@@ -309,14 +314,14 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       .subscribe((next: ResultsFormValue) => {
         const prev = this.previousResultsValue;
         const keySetToTrue: string = Object.keys(prev).filter(key => !prev[key] && next[key])[0];
-        const valueToPatch: ResultsFormValue = {...next};
+        const valueToPatch: ResultsFormValue = { ...next };
         if (keySetToTrue) {
           for (const key of clearingRules[keySetToTrue]) {
             valueToPatch[key] = false;
           }
         }
-        this.previousResultsValue = {...valueToPatch};
-        this.workEffortFormGroup.get('results').setValue(valueToPatch, {emitEvent: false});
+        this.previousResultsValue = { ...valueToPatch };
+        this.workEffortFormGroup.get('results').setValue(valueToPatch, { emitEvent: false });
       });
   }
 }
