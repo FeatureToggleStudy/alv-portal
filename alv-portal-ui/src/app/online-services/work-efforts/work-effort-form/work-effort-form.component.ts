@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   AbstractControlOptions,
   FormBuilder,
@@ -58,7 +58,8 @@ const appliedThroughRavPrefix = 'portal.global';
 @Component({
   selector: 'alv-work-effort-form',
   templateUrl: './work-effort-form.component.html',
-  styleUrls: ['./work-effort-form.component.scss']
+  styleUrls: ['./work-effort-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorkEffortFormComponent extends AbstractSubscriber implements OnInit {
 
