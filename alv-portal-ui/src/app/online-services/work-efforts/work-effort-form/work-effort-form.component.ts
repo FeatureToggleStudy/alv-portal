@@ -230,8 +230,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         filter((value) => !!value),
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode)
       );
-    this.initialZipAndCity = createInitialZipAndCityFormValue(this.initialWorkEffort.companyAddress.zipAndCity, this.initialWorkEffort.companyAddress.countryIsoCode);
 
+    this.initialZipAndCity = createInitialZipAndCityFormValue(
+      this.initialWorkEffort.companyAddress.zipAndCity,
+      this.initialWorkEffort.companyAddress.countryIsoCode
+    );
   }
 
   submit() {
