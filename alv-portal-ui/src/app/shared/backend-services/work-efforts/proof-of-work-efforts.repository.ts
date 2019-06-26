@@ -40,8 +40,14 @@ export class ProofOfWorkEffortsRepository {
     return this.http.delete<null>(`${this.resourceUrl}/${workEffortsReportId}/work-efforts/${workEffortId}`);
   }
 
-  saveWorkEffort(userId: string, workEffort: WorkEffort): Observable<WorkEffortsReport> {
+  addWorkEffort(userId: string, workEffort: WorkEffort): Observable<WorkEffortsReport> {
     return this.http.post<WorkEffortsReport>(`${this.actionUrl}/add-work-effort`, workEffort, {
+      params: new HttpParams().set('userId', userId)
+    });
+  }
+
+  updateWorkEffort(userId: string, workEffort: WorkEffort): Observable<WorkEffortsReport> {
+    return this.http.post<WorkEffortsReport>(`${this.actionUrl}/updates-work-effort`, workEffort, {
       params: new HttpParams().set('userId', userId)
     });
   }

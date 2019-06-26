@@ -44,13 +44,13 @@ import {
 } from './work-effort-form.types';
 import { deltaDate, mapDateToNgbDate } from '../../../shared/forms/input/ngb-date-utils';
 import { createInitialZipAndCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
-import { getAllErrors } from '../../../shared/forms/forms.utils';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { mapToWorkEffortBackendValue } from './work-effort-form.mapper';
 import { requiredIfValidator } from '../../../shared/forms/input/validators/required-if.validator';
 import { conditionalValidator } from '../../../shared/forms/input/validators/conditional.validator';
 import { zipCityInputSettings } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
+import { WorkEffortsReport } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -77,7 +77,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly IconKey = IconKey;
   readonly layoutConstants = LayoutConstants;
   countryIsoCode$: Observable<String>;
-  allErrors = getAllErrors;
   workEffortFormGroup: FormGroup;
   initialWorkEffort: WorkEffortFormValue;
   resultsCheckboxNames = formPossibleResults;
@@ -173,6 +172,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
       companyAddress: this.fb.group({
           countryIsoCode: [''],
+          zipAndCity: [],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
             houseNumber: [''],
@@ -237,16 +237,26 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   submit() {
     this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
-      flatMap(user => this.proofOfWorkEffortsRepository.saveWorkEffort(user.id,
-        mapToWorkEffortBackendValue(this.workEffortFormGroup.value))
-      )
+      flatMap(user => this.createOrUpdateWorkEffort(user.id))
     ).subscribe(result => {
       this.openSuccessModal();
     });
-
   }
 
-  openSuccessModal() {
+  goToWorkEffortsList() {
+    this.router.navigate(['work-efforts']);
+  }
+
+  private createOrUpdateWorkEffort(userId: string): Observable<WorkEffortsReport> {
+    if (this.workEffortFormGroup.value.id) {
+      return this.proofOfWorkEffortsRepository.updateWorkEffort(userId,
+        mapToWorkEffortBackendValue(this.workEffortFormGroup.value));
+    }
+    return this.proofOfWorkEffortsRepository.addWorkEffort(userId,
+      mapToWorkEffortBackendValue(this.workEffortFormGroup.value));
+  }
+
+  private openSuccessModal() {
     // if all fields in the the form are okay
     const successModalRef = this.modalService.openLarge(SuccessModalComponent);
     successModalRef.result.then(res => {
@@ -259,11 +269,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     });
   }
 
-  goToWorkEffortsList() {
-    this.router.navigate(['work-efforts']);
-  }
-
-  createNewWorkEffort() {
+  private createNewWorkEffort() {
     this.router.navigate(['work-efforts', 'create']);
   }
 
