@@ -164,7 +164,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnInit() {
-    //todo also update the zip city
     this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
     const controlsConfig = {
       id: [undefined],

@@ -213,11 +213,14 @@
         <!--      Occupation-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.occupation-panel-label"
                             [isAlwaysExpanded]="true">
-          <alv-input-field [showGroupErrors]="true"
-                           alvFormControlName="occupation"
-                           class="mb-0"
-                           label="portal.global.job-title">
-          </alv-input-field>
+          <fieldset>
+            <legend class="sr-only">{{'portal.work-efforts.edit-form.occupation-panel-label' | translate}}</legend>
+            <alv-input-field [showGroupErrors]="true"
+                             alvFormControlName="occupation"
+                             class="mb-0"
+                             label="portal.global.job-title">
+            </alv-input-field>
+          </fieldset>
         </alv-collapse-panel>
 
         <div class="arrow-container">
@@ -227,12 +230,15 @@
 
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.rav-helped-label"
                             [isAlwaysExpanded]="true">
-          <alv-radio-button
-            [options$]="appliedThroughRavOptions$"
-            alvFormControlName="appliedThroughRav"
-            class="narrow-form"
-            radioButtonClass="alv-light-panel p-2 mb-1">
-          </alv-radio-button>
+          <fieldset>
+            <legend class="sr-only">{{'portal.work-efforts.edit-form.rav-helped-label' | translate}}</legend>
+            <alv-radio-button
+              [options$]="appliedThroughRavOptions$"
+              alvFormControlName="appliedThroughRav"
+              class="narrow-form"
+              radioButtonClass="alv-light-panel p-2 mb-1">
+            </alv-radio-button>
+          </fieldset>
         </alv-collapse-panel>
         <div class="arrow-container pt-0">
           <div class="arrow-down secondary">
@@ -241,12 +247,15 @@
         <!--      Contract type-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.work-load-panel-label"
                             [isAlwaysExpanded]="true">
-          <alv-radio-button
-            [options$]="workLoadOptions$"
-            alvFormControlName="workload"
-            class="narrow-form"
-            radioButtonClass="alv-light-panel p-2 mb-1">
-          </alv-radio-button>
+          <fieldset>
+            <legend class="sr-only">{{'portal.work-efforts.edit-form.work-load-panel-label' | translate}}</legend>
+            <alv-radio-button
+              [options$]="workLoadOptions$"
+              alvFormControlName="workload"
+              class="narrow-form"
+              radioButtonClass="alv-light-panel p-2 mb-1">
+            </alv-radio-button>
+          </fieldset>
         </alv-collapse-panel>
 
         <div class="arrow-container pt-0">
@@ -256,32 +265,36 @@
         <!--      Results and rejection reason -->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result"
                             [isAlwaysExpanded]="true">
-          <fieldset formGroupName="results">
-            <div *ngFor="let resultCheckbox of resultsCheckboxNames"
-                 class="alv-light-panel p-2 mb-1">
-              <alv-checkbox
-                [alvFormControlName]="resultCheckbox"
-                [label]="'portal.work-efforts.edit-form.results.' + resultCheckbox"
-                class="narrow-form">
-              </alv-checkbox>
-            </div>
-            <alv-validation-messages [control]="workEffortFormGroup.get('results')"
-                                     [customValidationMessages]="[{
+          <fieldset>
+            <legend class="sr-only">{{'portal.work-efforts.edit-form.result' | translate}}</legend>
+            <div formGroupName="results">
+              <div *ngFor="let resultCheckbox of resultsCheckboxNames"
+                   class="alv-light-panel p-2 mb-1">
+                <alv-checkbox
+                  [alvFormControlName]="resultCheckbox"
+                  [label]="'portal.work-efforts.edit-form.results.' + resultCheckbox"
+                  class="narrow-form">
+                </alv-checkbox>
+              </div>
+              <alv-validation-messages [control]="workEffortFormGroup.get('results')"
+                                       [customValidationMessages]="[{
                                         error: 'atLeastOneRequired',
                                         message: 'portal.work-efforts.edit-form.group-errors.at-least-one-result-required'
                                       }]">
-            </alv-validation-messages>
-          </fieldset>
-          <ng-container *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
-            <div class="arrow-container">
-              <div class="arrow-down">
-              </div>
+              </alv-validation-messages>
             </div>
-            <alv-input-field [isRequired]="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
-                             alvFormControlName="rejectionReason"
-                             label="portal.work-efforts.edit-form.rejection-reason">
-            </alv-input-field>
-          </ng-container>
+            <ng-container *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
+              <div class="arrow-container">
+                <div class="arrow-down">
+                </div>
+              </div>
+              <alv-input-field [isRequired]="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
+                               alvFormControlName="rejectionReason"
+                               label="portal.work-efforts.edit-form.rejection-reason">
+              </alv-input-field>
+            </ng-container>
+          </fieldset>
+
         </alv-collapse-panel>
         <alv-alert [hideDismiss]="true"
                    [notification]="bottomAlert"></alv-alert>
