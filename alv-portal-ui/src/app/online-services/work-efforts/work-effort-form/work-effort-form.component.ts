@@ -184,7 +184,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
           ]
         }
       ),
-      phone: ['', [phoneInputValidator,
+      phone: ['', [phoneInputValidator(),
         requiredIfValidator(() => this.isPhoneRequired())]],
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
       appliedThroughRav: ['', Validators.required],
@@ -295,6 +295,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.workEffortFormGroup
       .get('companyAddress')
       .get('zipAndCity')
+      .get('zipCityAutoComplete')
       .updateValueAndValidity();
     this.workEffortFormGroup
       .get('contactPerson')
