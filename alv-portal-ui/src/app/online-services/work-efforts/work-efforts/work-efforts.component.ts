@@ -129,6 +129,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       period: newFilter.period,
       workEffortResult: newFilter.workEffortResult
     };
+    // TODO: call search/filter endpoint
   }
 
   private applyQuery(newQuery: string) {
@@ -136,5 +137,6 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       ...this.currentFilter,
       query: newQuery
     };
+    // TODO: call search/filter endpoint
   }
 }
