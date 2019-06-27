@@ -47,9 +47,6 @@
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
             class="mb-5"
-            *ngIf=" {
-                applyChannels: workEffortFormGroup.get('applyChannels')?.value
-            } as watchedValues"
             alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
