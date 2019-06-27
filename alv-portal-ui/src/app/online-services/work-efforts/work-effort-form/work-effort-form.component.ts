@@ -231,10 +231,17 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode)
       );
 
+
     this.initialZipAndCity = createInitialZipAndCityFormValue(
       this.initialWorkEffort.companyAddress.zipAndCity,
       this.initialWorkEffort.companyAddress.countryIsoCode
     );
+
+    this.workEffortFormGroup.get('applyChannels').valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(applyChannel => {
+        this.updateValueAndValidity();
+      });
   }
 
   submit() {
@@ -252,6 +259,26 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   goToWorkEffortsList() {
     this.router.navigate(['work-efforts']);
+  }
+
+  private updateValueAndValidity() {
+    this.workEffortFormGroup
+      .get('companyAddress')
+      .get('postOfficeBoxNumberOrStreet')
+      .updateValueAndValidity();
+    this.workEffortFormGroup
+      .get('companyAddress')
+      .get('zipAndCity')
+      .updateValueAndValidity();
+    this.workEffortFormGroup
+      .get('contactPerson')
+      .updateValueAndValidity();
+    this.workEffortFormGroup
+      .get('companyEmailAndUrl')
+      .updateValueAndValidity();
+    this.workEffortFormGroup
+      .get('phone')
+      .updateValueAndValidity();
   }
 
   private createOrUpdateWorkEffort(userId: string): Observable<WorkEffortsReport> {

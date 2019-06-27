@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { InitialFormValueConfig } from '../../../job-advertisement/job-publication/job-publication-form/job-publication-form-value-factory';
+import { Observable } from 'rxjs';
 import { mapToWorkEffortFormValue } from './work-effort-form.mapper';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { WorkEffort } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortFormValue } from './work-effort-form.types';
 

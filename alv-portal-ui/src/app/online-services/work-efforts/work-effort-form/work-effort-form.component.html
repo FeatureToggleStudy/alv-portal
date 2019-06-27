@@ -192,8 +192,7 @@
               </alv-input-field>
             </fieldset>
 
-            <alv-input-field [showGroupErrors]="true"
-                             class="mb-0"
+            <alv-input-field class="mb-0"
                              alvFormControlName="phone"
                              label="portal.global.phone"
                              [isRequired]="watchedValues.applyChannels?.PHONE"
@@ -201,7 +200,6 @@
                              type="tel">
             </alv-input-field>
           </fieldset>
-
 
         </alv-collapse-panel>
 
@@ -215,8 +213,7 @@
                             [isAlwaysExpanded]="true">
           <fieldset>
             <legend class="sr-only">{{'portal.work-efforts.edit-form.occupation-panel-label' | translate}}</legend>
-            <alv-input-field [showGroupErrors]="true"
-                             alvFormControlName="occupation"
+            <alv-input-field alvFormControlName="occupation"
                              class="mb-0"
                              label="portal.global.job-title">
             </alv-input-field>
