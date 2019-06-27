@@ -123,6 +123,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     ]
   };
   isSubmitting: boolean;
+  selectedApplyChannels: ApplyChannelsFormValue;
 
   private previousResultsValue;
 
@@ -143,24 +144,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   get applyChannelsValue(): ApplyChannelsFormValue {
     return this.workEffortFormGroup.get('applyChannels').value;
-  }
-
-  isCompanyAddressRequired() {
-    const applyChannel = this.applyChannelsValue;
-    return applyChannel.MAIL || applyChannel.PERSONAL || applyChannel.PHONE;
-  }
-
-  isContactPersonRequired() {
-    const applyChannel = this.applyChannelsValue;
-    return applyChannel.PERSONAL || applyChannel.PHONE;
-  }
-
-  isCompanyEmailAndUrlRequired() {
-    return this.applyChannelsValue.ELECTRONIC;
-  }
-
-  isPhoneRequired() {
-    return this.applyChannelsValue.PHONE;
   }
 
   ngOnInit() {
@@ -196,7 +179,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
           ]]
         }, {
           validators: [
-            conditionalValidator(() => this.isCompanyEmailAndUrlRequired(),
+            conditionalValidator(() => this.isCompanyEmailOrUrlRequired(),
               atLeastOneRequiredValidator(['email', 'url']))
           ]
         }
@@ -237,11 +220,16 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       this.initialWorkEffort.companyAddress.countryIsoCode
     );
 
+    this.selectedApplyChannels = this.workEffortFormGroup.get('applyChannels').value;
     this.workEffortFormGroup.get('applyChannels').valueChanges
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(applyChannel => {
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe(applyChannels => {
+        this.selectedApplyChannels = applyChannels;
         this.updateValueAndValidity();
       });
+
   }
 
   submit() {
@@ -259,6 +247,44 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   goToWorkEffortsList() {
     this.router.navigate(['work-efforts']);
+  }
+
+  isCompanyAddressRequired() {
+    const applyChannel = this.applyChannelsValue;
+    return applyChannel.MAIL || applyChannel.PERSONAL || applyChannel.PHONE;
+  }
+
+  isStreetRequired(): boolean {
+    return this.isCompanyAddressRequired() &&
+      !this.workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber').value;
+  }
+
+  isPoBoxRequired(): boolean {
+    return this.isCompanyAddressRequired() &&
+      !this.workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('street').value;
+  }
+
+  isContactPersonRequired() {
+    const applyChannel = this.applyChannelsValue;
+    return applyChannel.PERSONAL || applyChannel.PHONE;
+  }
+
+  isPhoneRequired() {
+    return this.applyChannelsValue.PHONE;
+  }
+
+  isCompanyEmailOrUrlRequired() {
+    return this.applyChannelsValue.ELECTRONIC;
+  }
+
+  isCompanyEmailRequired(): boolean {
+    return this.isCompanyEmailOrUrlRequired() &&
+      !this.workEffortFormGroup.get('companyEmailAndUrl').get('url').value;
+  }
+
+  isCompanyUrlRequired(): boolean {
+    return this.isCompanyEmailOrUrlRequired() &&
+      !this.workEffortFormGroup.get('companyEmailAndUrl').get('email').value;
   }
 
   private updateValueAndValidity() {

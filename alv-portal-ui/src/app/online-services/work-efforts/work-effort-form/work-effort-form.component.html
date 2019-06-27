@@ -114,10 +114,7 @@
                    class="form-row">
                 <alv-input-field [maxLength]="STREET_MAX_LENGTH"
                                  [showGroupErrors]="true"
-                                 [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('postOfficeBoxNumber').value &&
-                                  (watchedValues.applyChannels?.PERSONAL ||
-                                  watchedValues.applyChannels?.PHONE ||
-                                  watchedValues.applyChannels?.MAIL)"
+                                 [isRequired]="isStreetRequired()"
                                  [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
@@ -134,10 +131,7 @@
 
                 <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
                                  [showGroupErrors]="true"
-                                 [isRequired]="!workEffortFormGroup.get('companyAddress').get('postOfficeBoxNumberOrStreet').get('street').value &&
-                                  (watchedValues.applyChannels?.PERSONAL ||
-                                  watchedValues.applyChannels?.PHONE ||
-                                  watchedValues.applyChannels?.MAIL)"
+                                 [isRequired]="isPoBoxRequired()"
                                  [validationMessages]="[{
                               error: 'atLeastOneRequired',
                               message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
@@ -156,16 +150,13 @@
                                   [zipCityFormValue]="initialZipAndCity"
                                   [validators]="zipCityValidators"
                                   [countryIsoCode]="countryIsoCode$ | async"
-                                  [isRequired]="watchedValues.applyChannels?.PERSONAL ||
-                                  watchedValues.applyChannels?.PHONE ||
-                                  watchedValues.applyChannels?.MAIL">
+                                  [isRequired]="isCompanyAddressRequired()">
               </alv-zip-city-input>
 
             </fieldset>
 
             <alv-input-field alvFormControlName="contactPerson"
-                             [isRequired]="watchedValues.applyChannels?.PERSONAL ||
-                            watchedValues.applyChannels?.PHONE"
+                             [isRequired]="isContactPersonRequired()"
                              label="portal.work-efforts.edit-form.contact-person">
             </alv-input-field>
 
@@ -176,15 +167,13 @@
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
-                               [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
-                                !workEffortFormGroup.get('companyEmailAndUrl')?.get('url')?.value"
+                               [isRequired]="isCompanyEmailRequired()"
                                label="portal.global.email">
               </alv-input-field>
               <alv-input-field [showGroupErrors]="true"
                                alvFormControlName="url"
                                label="portal.work-efforts.edit-form.company.online-form-url"
-                               [isRequired]="watchedValues.applyChannels?.ELECTRONIC &&
-                                !workEffortFormGroup.get('companyEmailAndUrl')?.get('email')?.value"
+                               [isRequired]="isCompanyUrlRequired()"
                                [validationMessages]="[{
                                 error: 'atLeastOneRequired',
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
@@ -195,7 +184,7 @@
             <alv-input-field class="mb-0"
                              alvFormControlName="phone"
                              label="portal.global.phone"
-                             [isRequired]="watchedValues.applyChannels?.PHONE"
+                             [isRequired]="isPhoneRequired()"
                              placeholder="portal.global.phone-swiss-example"
                              type="tel">
             </alv-input-field>
