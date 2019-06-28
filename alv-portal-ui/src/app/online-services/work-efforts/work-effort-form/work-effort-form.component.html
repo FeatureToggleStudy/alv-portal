@@ -176,7 +176,9 @@
                                [isRequired]="isCompanyUrlRequired()"
                                [validationMessages]="[{
                                 error: 'atLeastOneRequired',
-                                message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
+                                message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'},
+                                {error: 'urlValidator',
+                                message: 'portal.work-efforts.edit-form.errors.url-format'}
                            ]">
               </alv-input-field>
             </fieldset>

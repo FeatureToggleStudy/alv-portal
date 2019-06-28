@@ -1030,6 +1030,7 @@ portal.work-efforts.edit-form.contact-person,Kontaktperson,Kontaktperson,Personn
 portal.work-efforts.edit-form.group-errors.at-least-one-apply-channel-required,Bitte treffen Sie eine Auswahl.,Bitte treffen Sie eine Auswahl.,Veuillez sélectionner,Effettuare una selezione,
 portal.work-efforts.edit-form.group-errors.email-or-url-required,Bitte Email oder Link zum Online-Formular angeben.,Bitte Email oder Link zum Online-Formular angeben.,Veuillez indiquer l'adresse courriel ou le lien vers le formulaire en ligne.,Si prega di indicare e-mail o link al modulo online.,
 portal.work-efforts.edit-form.group-errors.at-least-one-result-required,Bitte treffen Sie eine Auswahl.,Bitte treffen Sie eine Auswahl.,Veuillez sélectionner,Effettuare una selezione,
+portal.work-efforts.edit-form.errors.url-format,Bitte erfassen Sie den Link im korrekten Format.,Veuillez saisir le lien dans le format correct.,Il link deve essere nel formato corretto.,
 portal.work-efforts.edit-form.email.placeholder,muster@example.org,muster@example.org,exemple@exemple.ch,esempio@esempio.ch,
 portal.work-efforts.edit-form.company.online-form-url.label,Link zum Online-Formular,Link zum Online-Formular,Lien vers le formulaire en ligne,Link al modulo online,
 portal.work-efforts.edit-form.company.online-form-url.placeholder,www.example.org/stelle-xy,www.exemple.org/poste-xy,www.esempio.org/posto-xy,
