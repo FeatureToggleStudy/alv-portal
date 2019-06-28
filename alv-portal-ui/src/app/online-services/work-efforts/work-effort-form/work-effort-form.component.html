@@ -74,8 +74,9 @@
                             [isAlwaysExpanded]="true">
           <fieldset formGroupName="applyChannels">
             <legend class="sr-only">{{'portal.work-efforts.edit-form.way-of-application-panel-label' | translate}}</legend>
-            <div class="alv-light-panel p-2 mb-1"
-                 *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames">
+            <div *ngFor="let applyChannelCheckbox of applyChannelsCheckboxNames; let last = last"
+                 class="alv-light-panel p-2"
+                 [class.mb-1]="!last">
               <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
                             [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"
               >
@@ -189,7 +190,7 @@
 
         </alv-collapse-panel>
 
-        <div class="arrow-container">
+        <div class="arrow-container pt-0">
           <div class="arrow-down secondary">
           </div>
         </div>
@@ -206,7 +207,7 @@
           </fieldset>
         </alv-collapse-panel>
 
-        <div class="arrow-container">
+        <div class="arrow-container pt-0">
           <div class="arrow-down secondary">
           </div>
         </div>
@@ -267,7 +268,7 @@
               </alv-validation-messages>
             </div>
             <ng-container *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
-              <div class="arrow-container">
+              <div class="arrow-container pt-0">
                 <div class="arrow-down">
                 </div>
               </div>
