@@ -1050,7 +1050,7 @@ portal.work-efforts.edit-form.modal-success.info-message,Diese Arbeitsbemühung 
 portal.work-efforts.edit-form.modal-success.go-to-work-efforts-list,Zur Übersicht,Zur Übersicht,Vers l’aperçu,Vai al riepilogo,
 portal.work-efforts.edit-form.modal-success.record-another-work-effort,Weitere Arbeitsbemühung erfassen,Weitere Arbeitsbemühung erfassen,Saisir une nouvelle recherche d’emploi,Registrare altri sforzi personali intrapresi per trovare lavoro,
 portal.work-efforts.assistant-label,Arbeitsbemühung,Arbeitsbemühung,Recherche d’emploi,Sforzo personale intrapreso per trovare lavoro ,
-portal.work-efforts.work-effort.confirm-discard-modal.title,Ihre Eingaben gehen verloren,Ihre Eingaben gehen verloren,Les données que vous avez saisies seront perdues.,I dati andranno persi.,
+portal.work-efforts.work-effort.confirm-discard-modal.title,Formular verlassen?,Formular verlassen?,Quitter le formulaire?,Abbandonare il modulo?,
 portal.work-efforts.work-effort.confirm-discard-modal.content,Ihre Eingaben gehen verloren. Möchten Sie das Formular verlassen?,Ihre Eingaben gehen verloren. Möchten Sie das Formular verlassen?,Les données que vous avez saisies seront perdues. Voulez-vous quitter le formulaire?,I dati andranno persi. Volete abbandonare il modulo?,
 portal.work-efforts.work-effort.confirm-discard-modal.confirm-label,"Ja, abbrechen","Ja, abbrechen","Oui, annuler","Sì, annullare",
 portal.work-efforts.work-effort.confirm-discard-modal.cancel-label,"Nein, nicht abbrechen","Nein, nicht abbrechen","Non, ne pas annuler","No, non annullare"
