@@ -27,8 +27,8 @@ export class WorkEffortFormGuard implements CanDeactivate<WorkEffortFormComponen
           confirmLabel: 'portal.work-efforts.work-effort.confirm-discard-modal.confirm-label',
           cancelLabel: 'portal.work-efforts.work-effort.confirm-discard-modal.cancel-label'
         } as ConfirmModalConfig).result).pipe(
-        map(result => !result),
-        catchError(err => of(true))
+        map(result => !!result),
+        catchError(err => of(false))
       );
     }
     return true;

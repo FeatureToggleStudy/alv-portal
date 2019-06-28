@@ -51,6 +51,7 @@ import { requiredIfValidator } from '../../../shared/forms/input/validators/requ
 import { conditionalValidator } from '../../../shared/forms/input/validators/conditional.validator';
 import { zipCityInputSettings } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
 import { WorkEffortsReport } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+import { ScrollService } from '../../../core/scroll.service';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -133,6 +134,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
               private authenticationService: AuthenticationService,
               private route: ActivatedRoute,
               public router: Router,
+              private scrollService: ScrollService,
               private modalService: ModalService) {
 
     super();
@@ -155,7 +157,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       companyName: ['', Validators.required],
 
       companyAddress: this.fb.group({
-          countryIsoCode: [''],
+          countryIsoCode: ['CH'],
           postOfficeBoxNumberOrStreet: this.fb.group({
             street: [''],
             houseNumber: [''],
@@ -188,7 +190,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         requiredIfValidator(() => this.isPhoneRequired())]],
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
       appliedThroughRav: ['', Validators.required],
-      workload: [''],
+      workload: ['', Validators.required],
       results: this.generateResultsGroup(),
       rejectionReason: ['', [
         Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH),
@@ -321,7 +323,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     // if all fields in the the form are okay
     const successModalRef = this.modalService.openLarge(SuccessModalComponent);
     successModalRef.result.then(res => {
-      this.workEffortFormGroup.reset();
+      this.workEffortFormGroup.reset(emptyWorkEffortFormValue);
       if (res === ActionsOnClose.RECORD_NEW) {
         this.createNewWorkEffort();
       } else if (res === ActionsOnClose.GO_TO_LIST) {
@@ -331,7 +333,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   private createNewWorkEffort() {
-    this.router.navigate(['work-efforts', 'create']);
+    this.router.navigate(['work-efforts', 'create']).then(() => {
+      this.scrollService.scrollToTop();
+    });
   }
 
   private generateResultsGroup(): FormGroup {

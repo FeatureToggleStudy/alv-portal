@@ -20,7 +20,8 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuard],
     canDeactivate: [WorkEffortFormGuard],
     data: {
-      collapseNavigation: true
+      collapseNavigation: true,
+      scrollToTop: true
     },
     resolve: {
       initialFormValue: WorkEffortFormResolverService
@@ -32,7 +33,8 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuard],
     canDeactivate: [WorkEffortFormGuard],
     data: {
-      collapseNavigation: true
+      collapseNavigation: true,
+      scrollToTop: true
     },
   },
   {
