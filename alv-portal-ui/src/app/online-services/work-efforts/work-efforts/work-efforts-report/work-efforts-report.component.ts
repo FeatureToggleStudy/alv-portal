@@ -41,12 +41,6 @@ export class WorkEffortsReportComponent implements OnInit {
     return `${date.getFullYear()}${('0' + (date.getMonth() + 1)).slice(-2)}`;
   }
 
-  getPdfFileNamePrefix(): string {
-    return this.workEffortsReport.status === WorkEffortsReportStatus.OPEN ?
-      'portal.work-efforts.work-effort-report.pdf-file.temporary-name' :
-      'portal.work-efforts.work-effort-report.pdf-file.name';
-  }
-
   removeWorkEffort(deletedWorkEffort: WorkEffort) {
     const indexToRemove = this.workEffortsReport.workEfforts.findIndex(workEffort => workEffort.id === deletedWorkEffort.id);
     this.workEffortsReport.workEfforts.splice(indexToRemove, 1);

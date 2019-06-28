@@ -2,12 +2,16 @@
   "title": "arbeit.swiss – Info",
   "links": [
     {
-      "url": "https://www.arbeit.swiss/secoalv/de/home/menue/stellensuchende/fuer-die-stellensuche/bewerbungstipps.html",
-      "title": "Bewerbungstipps"
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/stellensuchende/fuer-die-stellensuche/bewerbungstipps.html",
+      "title": "Consigli per la candidatura"
     },
     {
-      "url": "https://www.arbeit.swiss/secoalv/de/home/service/publikationen/broschueren.html",
-      "title": "Broschüren"
+      "url": "https://www.arbeit.swiss/secoalv/it/home/service/publikationen/broschueren.html",
+      "title": "Opuscoli"
+    },
+    {
+      "url": "https://www.arbeit.swiss/secoalv/it/home/menue/institutionen---medien/faq.html",
+      "title": "FAQ"
     }
   ]
 }
