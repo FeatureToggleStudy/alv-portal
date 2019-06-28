@@ -6,6 +6,15 @@
                         panelTitle="registration.customer.title"
                         primaryLabel="registration.customer.login"
                         secondaryLabel="registration.customer.cancel">
+
+  <alv-alert [hideDismiss]="true"
+             [notification]="infoNotification">
+    <ul class="pl-3 mb-0">
+      <li class="mb-1">{{ 'registration.customer.info-notification.message-1' | translate }}</li>
+      <li class="mb-1">{{ 'registration.customer.info-notification.message-2' | translate }}</li>
+    </ul>
+  </alv-alert>
+
   <alv-input-field [autofocus]="true"
                    [maxLength]="PERSON_NR_MAX_LENGTH"
                    [validationMessages]="[{error: 'required', message: 'home.tools.job-publication.messages.validate.required'}]"

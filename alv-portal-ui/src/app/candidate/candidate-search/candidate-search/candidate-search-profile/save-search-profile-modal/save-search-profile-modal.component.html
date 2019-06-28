@@ -1,0 +1,18 @@
+<alv-modal (primaryAction)="onSubmit()"
+           (cancelAction)="onCancel()"
+           [formGroup]="form"
+           modalTitle="portal.candidate-search-profiles.save-modal.title"
+           primaryLabel="portal.candidate-search-profiles.save-modal.primary-button.label"
+           cancelLabel="portal.candidate-search-profiles.save-modal.cancel-button.label">
+
+  <alv-input-field [autofocus]="true"
+                   [maxLength]="MAX_LENGTH_50"
+                   [showCharacterCounter]="true"
+                   alvFormControlName="name"
+                   [validationMessages]="[{error: 'required', message: 'portal.candidate-search-profiles.save-modal.validation.name.required'},
+                   {error: 'nameAlreadyExists', message: 'portal.candidate-search-profiles.save-modal.validation.name.already-exists'}]"
+                   label="portal.candidate-search-profiles.save-modal.name.label"
+                   class="narrow-form">
+  </alv-input-field>
+
+</alv-modal>

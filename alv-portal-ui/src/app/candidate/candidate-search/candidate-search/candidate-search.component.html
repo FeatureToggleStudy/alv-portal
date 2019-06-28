@@ -1,0 +1,136 @@
+<div #searchPanel
+     class="container-fluid query-search-area pt-4 pt-lg-5 pb-4">
+  <div class="form-row">
+    <h2 class="sr-only">
+      {{'portal.candidate-search.browser-title' | translate}}
+    </h2>
+    <alv-candidate-query-panel class="col-12 col-lg-9"
+                               (candidateQueryPanelValuesChange)="onQueryChange($event)"
+                               [showSpinner]="resultsAreLoading$ | async"
+                               [candidateQueryPanelValues]="candidateSearchFilter$ | async">
+    </alv-candidate-query-panel>
+    <div class="col-12 col-lg-2 col-lg-3 d-flex">
+      <button (click)="onResetFilter()"
+              class="reset-button btn btn-text h-100 mt-1 mt-lg-0 flex-grow-1 flex-lg-grow-0">
+        {{ 'job-search.toolbar.reset' | translate }}
+      </button>
+    </div>
+
+
+  </div>
+</div>
+
+<div (scrolled)="onScroll()"
+     [fromRoot]="true"
+     [infiniteScrollThrottle]="50"
+     [immediateCheck]="true"
+     class="container-fluid"
+     infiniteScroll>
+
+  <alv-three-column-layout [mobileOrdering]="[1, 2, null]"
+                           [stickyTop]="layoutConstants.STICKY_TOP_SEARCH + searchPanelHeight">
+    <ng-container class="left-column">
+      <div class="alv-bar mb-1 d-flex">
+        <span *ngIf="resultsAreLoading$ | async; else resultsCount"
+              data-test="count-placeholder">...</span>
+        <ng-template #resultsCount>
+          <strong *ngIf="totalCount$ | async | number as totalCount">
+            <span data-test="resultCount">{{totalCount}}</span>
+            {{getTotalCountLabel(totalCount) | translate}}
+          </strong>
+        </ng-template>
+        <div class="flex-grow-1"></div>
+
+        <!-- Mobile Menu -->
+        <div class="candidate-search-mobile-menu d-block d-lg-none">
+          <div class="d-inline-block"
+               ngbDropdown
+               container="body"
+               placement="bottom-right">
+            <button id="candidate-search-mobile-menu"
+                    class="btn btn-text btn-icon no-dropdown-indicator"
+                    [ngbTooltip]="'portal.global.actions' | translate"
+                    placement="left"
+                    ngbDropdownToggle
+                    [attr.aria-label]="'portal.global.actions' | translate">
+              <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
+            </button>
+            <div aria-hidden="true"
+                 ngbDropdownMenu>
+              <a *ngIf="searchMailToLink$ | async as searchMailToLink"
+                 class="dropdown-item"
+                 [href]="searchMailToLink">
+                {{'candidate-search.filter.candidate-search-link' | translate}}
+              </a>
+              <button *alvHasAnyAuthority="candidateSearchProfileRoles"
+                      (click)="saveSearchProfile()"
+                      [disabled]="disableSaveSearchProfileButton$ | async"
+                      class="dropdown-item">
+                {{'portal.candidate-search-profiles.label.save-profile' | translate}}
+              </button>
+              <button *ngIf="candidateSearchProfile$ | async"
+                      (click)="deleteSearchProfile()"
+                      class="dropdown-item">
+                {{'portal.candidate-search-profiles.label.delete-profile' | translate}}
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <h2 class="sr-only">
+        {{'candidate-search.filter.title' | translate}}
+      </h2>
+
+      <alv-filter-panel (filterPanelValuesChange)="onFiltersChange($event)"
+                        [filterPanelValues]="candidateSearchFilter$ | async"></alv-filter-panel>
+    </ng-container>
+
+    <ng-container class="main-column">
+      <ng-container *ngIf="candidateSearchResults$ | async as candidateSearchResults">
+        <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults"
+                                     [selectedOccupationCodes]="selectedOccupationCodes | async"
+                                     [candidateSearchResult]="candidateSearchResult">
+        </alv-candidate-search-result>
+        <div *ngIf="!candidateSearchResults.length">
+          {{'global.common-phrases.no-results-found' | translate}}
+        </div>
+      </ng-container>
+
+    </ng-container>
+
+    <ng-container class="right-column">
+      <div class="w-100 mb-3 text-right text-md-left d-flex flex-column align-items-start">
+        <a *ngIf="searchMailToLink$ | async as searchMailToLink"
+           class="btn btn-text btn-text-icon btn-truncate mb-2"
+           [href]="searchMailToLink">
+          <fa-icon class="mr-1"
+                   [icon]="['fas', 'share']"></fa-icon>
+          {{'candidate-search.filter.candidate-search-link' | translate}}
+        </a>
+        <button *alvHasAnyAuthority="candidateSearchProfileRoles"
+                class="btn btn-text btn-text-icon btn-truncate mb-2"
+                [disabled]="disableSaveSearchProfileButton$ | async"
+                (click)="saveSearchProfile()">
+          <fa-icon [icon]="['fas', 'bell']"
+                   class="mr-1">
+          </fa-icon>
+          {{'portal.candidate-search-profiles.label.save-profile' | translate}}
+        </button>
+        <button *ngIf="candidateSearchProfile$ | async"
+                class="btn btn-text btn-text-icon btn-truncate mb-2"
+                (click)="deleteSearchProfile()">
+          <fa-icon [icon]="['fas', 'trash-alt']"
+                   class="mr-1">
+          </fa-icon>
+          {{'portal.candidate-search-profiles.label.delete-profile' | translate}}
+        </button>
+      </div>
+    </ng-container>
+
+  </alv-three-column-layout>
+
+</div>

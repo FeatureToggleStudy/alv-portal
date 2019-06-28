@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { MainNavigationComponent } from './main-navigation/main-navigation.component';
 import { NavigationContainerComponent } from './navigation-container/navigation-container.component';
-import { VersionComponent } from './version/version.component';
 import { HeaderComponent } from './header/header.component';
 import {
   NgbAlert,
@@ -43,7 +42,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ThreeColumnLayoutComponent } from './column-layout/three-column-layout/three-column-layout.component';
 import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 import { ListItemContentComponent } from './list-item-content/list-item-content.component';
-import { ContactModalComponent } from '../../candidate-search/candidate-detail/contact-modal/contact-modal.component';
+import { ContactModalComponent } from '../../candidate/candidate-search/candidate-detail/contact-modal/contact-modal.component';
 import { CandidateContactRepository } from '../backend-services/candidate/candidate-contact-repository';
 import { UserNameAndCompanyComponent } from './user-name-and-company/user-name-and-company.component';
 import { TwoColumnLayoutComponent } from './column-layout/two-column-layout/two-column-layout.component';
@@ -53,6 +52,8 @@ import { SystemNotificationComponent } from './system-notification/system-notifi
 import { FooterComponent } from './footer/footer.component';
 import { AccountabilitySwitcherComponent } from './accountability-switcher/accountability-switcher.component';
 import { LinkPanelComponent } from './link-panel/link-panel.component';
+import { EnvironmentRibbonComponent } from './environment-ribbon/environment-ribbon.component';
+import { SearchProfileItemComponent } from './search-profile-item/search-profile-item.component';
 
 @NgModule({
   imports: [
@@ -75,7 +76,6 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     UserMenuComponent,
     MainNavigationComponent,
     NavigationContainerComponent,
-    VersionComponent,
     HeaderComponent,
     FooterComponent,
     NotificationComponent,
@@ -103,6 +103,8 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     SystemNotificationComponent,
     AccountabilitySwitcherComponent,
     LinkPanelComponent,
+    EnvironmentRibbonComponent,
+    SearchProfileItemComponent
   ],
   providers: [
     CandidateContactRepository
@@ -117,7 +119,6 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     NavigationContainerComponent,
     HeaderComponent,
     FooterComponent,
-    VersionComponent,
     NotificationComponent,
     HelpButtonComponent,
     NotificationsComponent,
@@ -145,7 +146,9 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
     GeoLocationSelectionComponent,
     SystemNotificationComponent,
     AccountabilitySwitcherComponent,
-    LinkPanelComponent
+    LinkPanelComponent,
+    EnvironmentRibbonComponent,
+    SearchProfileItemComponent
   ]
 })
 export class LayoutModule {

@@ -43,7 +43,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'candidate-search',
-    loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule',
+    loadChildren: './candidate/candidate-search/candidate-search.module#CandidateSearchModule',
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {
       moduleName: ModuleName.CANDIDATE_SEARCH,
@@ -91,6 +91,18 @@ const appRoutes: Routes = [
       moduleName: ModuleName.JOB_SEARCH_PROFILES,
       titleKey: 'portal.job-ad-search-profiles.browser-title',
       scrollToTop: true
+    }
+  },
+  {
+    path: 'candidate-search-profiles',
+    loadChildren: './candidate/candidate-search-profiles/candidate-search-profiles.module#CandidateSearchProfilesModule',
+    canDeactivate: [LazyModuleDeactivateGuard],
+    canActivateChild: [HasAnyAuthoritiesGuard],
+    data: {
+      moduleName: ModuleName.CANDIDATE_SEARCH_PROFILES,
+      titleKey: 'portal.candidate-search-profiles.browser-title',
+      scrollToTop: true,
+      authorities: [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_SYSADMIN]
     }
   },
   {

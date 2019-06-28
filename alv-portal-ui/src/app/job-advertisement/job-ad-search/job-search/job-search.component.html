@@ -32,7 +32,10 @@
         <span *ngIf="resultsAreLoading$ | async; else resultsCount"
               data-test="count-placeholder">...</span>
         <ng-template #resultsCount>
-          <strong><span data-test="resultCount">{{totalCount$ | async | number}} </span>{{'portal.job-ad-search.results-count.label' | translate}}</strong>
+          <strong *ngIf="totalCount$ | async | number as totalCount">
+            <span data-test="resultCount">{{totalCount}}</span>
+            {{getTotalCountLabel(totalCount) | translate}}
+          </strong>
         </ng-template>
         <div class="flex-grow-1"></div>
 
@@ -114,17 +117,17 @@
            class="btn btn-text btn-text-icon btn-truncate mb-2"
                 [disabled]="disableSaveSearchProfileButton$ | async"
            (click)="saveSearchProfile()">
-          <alv-custom-icon class="mr-1"
-                           [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
-          </alv-custom-icon>
+          <fa-icon [icon]="['fas', 'bell']"
+                   class="mr-1">
+          </fa-icon>
           {{'portal.job-ad-search-profiles.label.save-profile' | translate}}
         </button>
         <button *ngIf="jobSearchProfile$ | async"
                 class="btn btn-text btn-text-icon btn-truncate mb-2"
                 (click)="deleteSearchProfile()">
-          <alv-custom-icon class="mr-1"
-                           [iconKey]="IconKey.JOB_AD_SEARCH_PROFILES">
-          </alv-custom-icon>
+          <fa-icon [icon]="['fas', 'trash-alt']"
+                   class="mr-1">
+          </fa-icon>
           {{'portal.job-ad-search-profiles.label.delete-profile' | translate}}
         </button>
       </div>

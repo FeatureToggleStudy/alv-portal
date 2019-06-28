@@ -1,0 +1,11 @@
+@import "../../../scss/common/colors";
+
+.no-profiles {
+  border-top: 1px solid $color-medium-grey;
+  border-bottom: 1px solid $color-medium-grey;
+  background-color: white;
+  color: $color-grey;
+  h3 {
+    margin-bottom: 0;
+  }
+}
