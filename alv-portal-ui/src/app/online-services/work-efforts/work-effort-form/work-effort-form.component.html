@@ -166,11 +166,13 @@
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
                                [isRequired]="isCompanyEmailRequired()"
+                               placeholder="portal.work-efforts.edit-form.email.placeholder"
                                label="portal.global.email">
               </alv-input-field>
               <alv-input-field [showGroupErrors]="true"
                                alvFormControlName="url"
-                               label="portal.work-efforts.edit-form.company.online-form-url"
+                               label="portal.work-efforts.edit-form.company.online-form-url.label"
+                               placeholder="portal.work-efforts.edit-form.company.online-form-url.placeholder"
                                [isRequired]="isCompanyUrlRequired()"
                                [validationMessages]="[{
                                 error: 'atLeastOneRequired',
