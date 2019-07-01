@@ -9,6 +9,9 @@ import {
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { defaultLanguageSkill } from './languages-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
+import { I18nService } from '../../../../core/i18n.service';
+import { flatMap, map, tap } from 'rxjs/operators';
+import { LanguagesService } from '../../../../shared/languages/languages.service';
 
 
 const DEFAULT_LANGUAGE_SKILL = defaultLanguageSkill();
@@ -28,18 +31,7 @@ export class LanguagesComponent implements OnInit {
 
   languageSkillFormArray: FormArray;
 
-  languageOptions$: Observable<SelectableOption[]> = of([
-    {
-      value: null,
-      label: 'global.reference.language.no-selection'
-    },
-    ...Object.values(Language).map(language => {
-      return {
-        value: language,
-        label: 'global.reference.language.' + language
-      };
-    })
-  ]);
+  languageOptions$: Observable<SelectableOption[]>;
 
   languageLevelOptions$: Observable<SelectableOption[]> = of(
     Object.values(CEFR_Level).map(level => {
@@ -52,7 +44,9 @@ export class LanguagesComponent implements OnInit {
 
   private readonly MAX_LANGUAGE_OPTIONS_NUM = 5;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private languagesService: LanguagesService,
+              private i8nService: I18nService) {
   }
 
   ngOnInit() {
@@ -61,6 +55,8 @@ export class LanguagesComponent implements OnInit {
       : [this.createNewLanguageSkillFormGroup()];
     this.languageSkillFormArray = this.fb.array(languageSkillGroups);
     this.parentForm.addControl(JobPublicationFormValueKeys.LANGUAGE_SKILLS, this.languageSkillFormArray);
+
+    this.languageOptions$ = this.languagesService.getLanguages();
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {

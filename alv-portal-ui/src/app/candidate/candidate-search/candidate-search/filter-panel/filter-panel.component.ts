@@ -21,6 +21,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angu
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { FilterLanguageSkill } from '../../../../shared/backend-services/candidate/candidate.types';
+import { LanguagesService } from '../../../../shared/languages/languages.service';
 
 const DEFAULT_LANGUAGE_SKILL: FilterLanguageSkill = {
   code: null,
@@ -165,19 +166,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     })
   ));
 
-  languageOptions$: Observable<SelectableOption[]> = of([
-    {
-      value: null,
-      label: 'global.reference.language.no-selection'
-    }
-  ].concat(
-    Object.values(Language).map(language => {
-      return {
-        value: language,
-        label: 'global.reference.language.' + language
-      };
-    })
-  ));
+  languageOptions$: Observable<SelectableOption[]>;
 
   languageLevelOptions$: Observable<SelectableOption[]> = of(
     Object.values(CEFR_Level).map(level => {
@@ -193,6 +182,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
   private readonly MAX_LANGUAGE_OPTIONS_NUM = 5;
 
   constructor(private fb: FormBuilder,
+              private languagesService: LanguagesService,
               private i18nService: I18nService) {
     super();
   }
@@ -227,6 +217,8 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
     });
 
     this.setFormValues(this._filterPanelValues);
+
+    this.languageOptions$ = this.languagesService.getLanguages();
 
     this.form.valueChanges
       .pipe(
