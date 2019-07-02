@@ -15,19 +15,22 @@ export class LanguagesService {
 
   getLanguages(): Observable<SelectableOption[]> {
     return this.i18nService.currentLanguage$.pipe(
-      flatMap(currentLang => this.i18nService.stream(Object.values(Language).slice(5)
-        .map(lang => 'global.reference.language.' + lang))),
+      flatMap(currentLang => this.i18nService.stream(
+        Object.values(Language).slice(5).map(lang => 'global.reference.language.' + lang)
+      )),
       map(translatedKeys => [
           {
             value: null,
             label: 'global.reference.language.no-selection'
           },
+          // The big five: German, French, Italian, English, Swiss-German
           ...Object.values(Language).slice(0, 5).map(language => {
             return {
               value: language,
               label: 'global.reference.language.' + language
             };
           }),
+          // All the rest sorted in ascending order
           ...Object.values(Language).slice(5)
             .map(language => {
               return {
