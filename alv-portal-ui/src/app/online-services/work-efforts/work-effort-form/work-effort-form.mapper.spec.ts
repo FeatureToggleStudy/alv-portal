@@ -1,10 +1,14 @@
-import { mapToWorkEffortBackendValue, mapToWorkEffortFormValue, } from './work-effort-form.mapper';
+import {
+  mapToWorkEffortBackendValue,
+  mapToWorkEffortFormValue,
+} from './work-effort-form.mapper';
 import {
   WorkEffort,
   WorkEffortApplyChannelType,
   WorkEffortApplyStatus
 } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortFormValue, WorkLoadFormOption } from './work-effort-form.types';
+import { ZipAndCityTypeaheadItem } from '../../../shared/localities/zip-and-city-typeahead-item';
 
 const mockedWorkEffortBackend: WorkEffort = {
   id: 'testId',
@@ -45,7 +49,10 @@ const mockWorkEffortFormValue: WorkEffortFormValue = {
     zipAndCity: {
       city: 'Zurich',
       zipCode: '8098',
-      zipCityAutoComplete: null
+      zipCityAutoComplete: new ZipAndCityTypeaheadItem({
+        zipCode: '8098',
+        city: 'Zurich'
+      }, '8098 Zurich', 0)
     },
     postOfficeBoxNumberOrStreet: {
       houseNumber: '22b',
