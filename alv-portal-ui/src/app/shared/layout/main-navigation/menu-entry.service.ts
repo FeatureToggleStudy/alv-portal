@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 import {
   hasAnyAuthorities,
   isAnyUser,
@@ -12,7 +12,7 @@ import {
 } from '../../../core/auth/user.model';
 import { MenuDefinition, MenuEntry } from './menu-entry.type';
 import { IconKey } from '../../icons/custom-icon/custom-icon.component';
-import { environment } from '../../../../environments/environment';
+import { ProfileInfoService } from '../header/profile-info.service';
 
 interface UserMenuDefinition {
   id: string;
@@ -199,16 +199,18 @@ const SETTINGS_MENU_ENTRIES: Array<MenuEntry> = [
 @Injectable()
 export class MenuEntryService {
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private profileInfoService: ProfileInfoService) {
   }
 
   public prepareEntries(): Observable<MenuDefinition> {
     return this.authenticationService.getCurrentUser().pipe(
-      map((user) => {
+      withLatestFrom(this.profileInfoService.getProfileInfo()),
+      map(([user, profileInfo]) => {
         const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => e.userPredicate(user));
         const mainMenuEntries = MAIN_MENU_ENTRIES.filter(m => m.userPredicate(user));
-        const onlineFormsMenuEntries = environment.isOnlineFormsEnabled ?
-          ONLINE_FORMS_MENU_ENTRIES.filter(m => m.userPredicate(user)) : [];
+        const onlineFormsMenuEntries = profileInfo.inProduction ? [] :
+          ONLINE_FORMS_MENU_ENTRIES.filter(m => m.userPredicate(user));
         const settingsMenuEntries = SETTINGS_MENU_ENTRIES.filter(m => m.userPredicate(user));
         if (!userMenuDefinition) {
           return {

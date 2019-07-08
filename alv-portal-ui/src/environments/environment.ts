@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   translationBaseUrl: 'assets/i18n/',
-  gaTrackingId: null,
-  isOnlineFormsEnabled: true
+  gaTrackingId: null
 };
 
 /*
