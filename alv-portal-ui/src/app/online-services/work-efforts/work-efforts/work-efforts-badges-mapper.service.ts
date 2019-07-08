@@ -12,7 +12,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class WorkEffortsService {
+export class WorkEffortsBadgesMapperService {
 
   constructor() { }
 

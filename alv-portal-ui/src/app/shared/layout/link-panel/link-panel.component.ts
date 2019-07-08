@@ -16,7 +16,7 @@ export enum LinkPanelId {
   HOME_PAV = 'home/pav',
   JOB_PUBLICATION_COMPANY = 'job-publication/company',
   JOB_PUBLICATION_PAV = 'job-publication/pav',
-  WORK_EFFORT_EDIT =  'work-efforts/pav'
+  WORK_EFFORT_EDIT =  'work-efforts/edit'
 }
 
 interface LinkPanelColumned {

@@ -11,7 +11,6 @@ import {
   DrivingLicenceCategory,
   Experience,
   Graduation,
-  Language,
   WorkForm
 } from '../../../../shared/backend-services/shared.types';
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';

@@ -95,8 +95,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   ];
   bottomAlert: Notification = {
     isSticky: true,
-    type: NotificationType.WARNING,
-    messageKey: 'portal.work-efforts.edit-form.note.note-text'
+    type: NotificationType.WARNING
   };
   workLoadOptions$ = of(Object.values(WorkLoadFormOption).map(value => ({
     value: value,
