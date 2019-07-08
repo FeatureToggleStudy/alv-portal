@@ -126,7 +126,7 @@ function mapToEmploymentFormValue(employment: Employment): EmploymentFormValue {
     workloadPercentageMax: parseInt(employment.workloadPercentageMax.toString(), 10),
     duration: mapToDuration(employment),
     workForms: Object.keys(WorkForm).reduce((acc, curr) => {
-      acc[curr] = !!employment.workForms[curr];
+      acc[curr] = employment.workForms.includes(curr);
       return acc;
     }, {})
   };
