@@ -56,7 +56,7 @@ export class LanguagesComponent implements OnInit {
     this.languageSkillFormArray = this.fb.array(languageSkillGroups);
     this.parentForm.addControl(JobPublicationFormValueKeys.LANGUAGE_SKILLS, this.languageSkillFormArray);
 
-    this.languageOptions$ = this.languagesService.getLanguages();
+    this.languageOptions$ = this.languagesService.getLanguages(true);
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {

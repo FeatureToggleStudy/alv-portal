@@ -218,7 +218,7 @@ export class FilterPanelComponent extends AbstractSubscriber implements OnInit {
 
     this.setFormValues(this._filterPanelValues);
 
-    this.languageOptions$ = this.languagesService.getLanguages();
+    this.languageOptions$ = this.languagesService.getLanguages(true);
 
     this.form.valueChanges
       .pipe(
