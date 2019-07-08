@@ -31,6 +31,7 @@ import { InjectionToken } from '@angular/core';
 import { ErrorHandlerService } from '../../../core/error-handler/error-handler.service';
 import { WorkExperience } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import SpyObj = jasmine.SpyObj;
+import { LanguagesService } from '../../../shared/languages/languages.service';
 
 
 describe('JobPublicationFormComponent', () => {
@@ -48,6 +49,13 @@ describe('JobPublicationFormComponent', () => {
     ])
   };
 
+  const mockLanguagesService = {
+    getLanguages: () => of([
+      { value: 'de', label: 'Deutsch'},
+      { value: 'fr', label: 'Französisch'}
+    ])
+  };
+
   let mockJobPublicationFormValueFactory: SpyObj<JobPublicationFormValueFactory>;
 
   let mockErrorHandlerService;
@@ -61,6 +69,7 @@ describe('JobPublicationFormComponent', () => {
     mockJobPublicationFormValueFactory = jasmine.createSpyObj('mockJobPublicationFormValueFactory', ['createJobPublicationFormValue']);
     mockJobPublicationFormValueFactory.createJobPublicationFormValue.and.returnValue(emptyJobPublicationFormValue);
     mockErrorHandlerService = jasmine.createSpyObj('mockErrorHandlerService', ['handleHttpError', 'handleError']);
+
 
     TestBed.configureTestingModule({
       imports: [
@@ -81,6 +90,7 @@ describe('JobPublicationFormComponent', () => {
         { provide: I18nService, useValue: mockI18nService },
         { provide: APP_BASE_HREF, useValue: new InjectionToken<string>('/') },
         { provide: IsoCountryService, useValue: mockIsoCountryService },
+        { provide: LanguagesService, useValue: mockLanguagesService},
         {
           provide: JobPublicationFormValueFactory,
           useValue: mockJobPublicationFormValueFactory
