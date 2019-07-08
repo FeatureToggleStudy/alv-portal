@@ -34,7 +34,7 @@ export class WorkEffortComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resultBadges = this.workEffortsService.mapResultBadges(this.workEffort.applyStatus);
+    this.resultBadges = this.workEffortsBadgesMapperService.mapResultBadges(this.workEffort.applyStatus);
   }
 
   deleteWorkEffort() {

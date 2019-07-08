@@ -7,6 +7,7 @@
       </alv-custom-icon>
       {{ 'portal.work-efforts.title' | translate }}
 
+      <!--
       <button type="button"
               class="btn btn-text filter-button"
               (click)="openFilterModal()">
@@ -16,6 +17,7 @@
         {{'portal.manage-job-ads.search.filter-button' | translate}}
       </span>
       </button>
+      -->
     </h2>
   </div>
 
@@ -25,6 +27,7 @@
              [notification]="englishNotSupportedNotification"
              [hideDismiss]="true"></alv-alert>
 
+  <!--
   <alv-input-field [alvControl]="form?.get('query')"
                    label="portal.work-efforts.search.query"
                    [maxLength]="SEARCH_QUERY_MAX_LENGTH">
@@ -37,6 +40,7 @@
                        [canRemove]="true">
     </alv-inline-badges>
   </div>
+  -->
 
   <alv-work-efforts-report *ngFor="let workEffortsReport of workEffortsReports$ | async"
                            [workEffortsReport]="workEffortsReport"

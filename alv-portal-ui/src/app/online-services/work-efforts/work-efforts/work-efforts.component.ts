@@ -61,7 +61,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
   }
 
   set currentFilter(value: WorkEffortsFilter) {
-    this.currentBadges = this.workEffortsService.mapFilterBadges(value);
+    this.currentBadges = this.workEffortsBadgesMapperService.mapFilterBadges(value);
     this._currentFilter = value;
   }
   constructor(private fb: FormBuilder,
