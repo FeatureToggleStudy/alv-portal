@@ -15,15 +15,12 @@
     </h3>
   </span>
   <span class="col-12 col-lg-3 pdf-cell">
-    <!-- TODO: How to retrieve the PDF? -->
-    <a class="pdf-link"
-       [href]="workEffortsReport.businessCaseId"
-       (click)="$event.stopPropagation()"
-       target="_blank"
-       rel="noopener">
+    <button *ngIf="workEffortsReport.documentId"
+            class="pdf-link p-0"
+       (click)="$event.stopPropagation();downloadPdf(workEffortsReport.id)">
     <fa-icon [icon]="['far', 'file-pdf']"
              class="text-primary mr-1"></fa-icon>
-      {{'portal.work-efforts.work-effort-report.pdf-file.name' | translate}}{{getDateStringFromControlPeriod(workEffortsReport)}}.pdf</a>
+      {{'portal.work-efforts.work-effort-report.pdf-file.name' | translate}}{{getDateStringFromControlPeriod(workEffortsReport)}}.pdf</button>
   </span>
   <span class="col-12 col-lg-3 status-cell d-flex flex-column">
     <small class="status-label">

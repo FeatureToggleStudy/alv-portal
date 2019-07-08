@@ -1,10 +1,15 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Inject, Input, OnInit } from '@angular/core';
 import {
+  ControlPeriodType,
   WorkEffort,
   WorkEffortsReport,
-  WorkEffortsReportStatus,
-  ControlPeriodType
+  WorkEffortsReportStatus
 } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
+import { WINDOW } from '../../../../core/window.service';
+import { DOCUMENT } from '@angular/common';
+import { I18nService } from '../../../../core/i18n.service';
+import { withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-work-efforts-report',
@@ -20,7 +25,9 @@ export class WorkEffortsReportComponent implements OnInit {
   @HostBinding('class.current-period')
   @Input() isCurrentPeriod: boolean;
 
-  constructor() {
+  constructor(private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
+              private i18nService: I18nService,
+              @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {
@@ -52,5 +59,21 @@ export class WorkEffortsReportComponent implements OnInit {
 
   isReportClosed(workEffortsReport: WorkEffortsReport): boolean {
     return workEffortsReport.status === WorkEffortsReportStatus.CLOSED;
+  }
+
+  downloadPdf(proofOfWorkEffortsId: string) {
+    this.proofOfWorkEffortsRepository.downloadPdf(proofOfWorkEffortsId).pipe(
+      withLatestFrom(this.i18nService.stream('portal.work-efforts.work-effort-report.pdf-file.name'))
+    )
+      .subscribe(([data, filenamePrefix]) => {
+        const element = this.document.createElement('a');
+        element.href = URL.createObjectURL(data.file);
+        element.download = filenamePrefix + data.filename;
+        this.document.body.appendChild(element);
+        element.click();
+        //this.window.open(this.window.URL.createObjectURL(blob));
+      }
+  )
+    ;
   }
 }

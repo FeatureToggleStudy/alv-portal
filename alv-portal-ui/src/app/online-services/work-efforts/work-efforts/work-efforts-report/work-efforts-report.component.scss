@@ -9,8 +9,9 @@
 
   .pdf-link {
     color: $color-grey-black;
+    border: none;
+    background-color: transparent;
     &:hover {
-      text-decoration: none;
       color: $color-primary;
     }
   }

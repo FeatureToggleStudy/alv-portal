@@ -1008,8 +1008,8 @@ portal.work-efforts.submit-status.text.OPEN,Übermittlung erfolgt am {{dateTime}
 portal.work-efforts.submit-status.text.CHANGED,Übermittlung erfolgt am {{dateTime}} Uhr,Übermittlung erfolgt am {{dateTime}} Uhr,Sera transmis le {{dateTime}},Trasmissione avviene in data {{dateTime}},why is it the same as the previous one
 portal.work-efforts.submit-status.text.SUBMITTED,Erfolgreich übermittelt am {{dateTime}} Uhr,Erfolgreich übermittelt am {{dateTime}} Uhr,Transmis avec succès le {{dateTime}},Trasmissione avvenuta in data {{dateTime}},
 portal.work-efforts.submit-status.text.CLOSED,Erfolgreich übermittelt am {{dateTime}} Uhr,Erfolgreich übermittelt am {{dateTime}} Uhr,Transmis avec succès le {{dateTime}},Trasmissione avvenuta in data {{dateTime}},
-portal.work-efforts.work-effort-report.edit-status.text,Anzahl erfasst,Anzahl erfasst,Nombre saisi:,Numero di registrazioni:,
-portal.work-efforts.work-effort-report.add-work-effort.button.label,Neue Arbeitsbemühung erfassen,Neue Arbeitsbemühung erfassen,,,
+portal.work-efforts.work-effort-report.edit-status.text,Anzahl erfasst,Anzahl erfasst,Nombre saisi,Numero di registrazioni,
+portal.work-efforts.work-effort-report.add-work-effort.button.label,Neue Arbeitsbemühung erfassen,Neue Arbeitsbemühung erfassen,Saisir nouvelle recherche d'emploi,Registrare nuovi sforzi personali intrapresi per trovare lavoro,
 portal.work-efforts.work-effort-report.name-cell.title,Nachweis der persönlichen Arbeitsbemühungen,Nachweis der persönlichen Arbeitsbemühungen,Preuves de recherches personnelles d'emploi,Prova degli sforzi personali intrapresi per trovare lavoro,
 portal.work-efforts.work-effort-report.name-cell.before-unemployment.label,Arbeitsbemühungen VOR Eintritt der Arbeitslosigkeit,Arbeitsbemühungen VOR Eintritt der Arbeitslosigkeit,Recherches d'emploi AVANT le chômage,Ricerche di lavoro PRIMA della disoccupazione,
 portal.work-efforts.work-effort-report.pdf-file.name,NpA-,NpA-,PRE-,PSPL_,
