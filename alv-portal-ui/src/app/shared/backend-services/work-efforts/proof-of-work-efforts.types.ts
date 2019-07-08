@@ -27,6 +27,7 @@ export interface WorkEffort {
   fullTimeJob: boolean;
   rejectionReason?: string;
   submittedAt?: string; // if null, then edit is possible
+  createdAt: string;
 }
 
 export interface WorkEffortApplyChannel {
