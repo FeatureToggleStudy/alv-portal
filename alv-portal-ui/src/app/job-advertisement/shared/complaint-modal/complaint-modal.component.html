@@ -19,14 +19,15 @@
       <li class="mb-1" [innerHTML]="'job-detail.complaint-modal.notification.warn.not-for-apply' | translate"></li>
     </ul>
   </alv-alert>
-  <p><strong>{{'job-detail.complaint-modal.description' | translate}}</strong></p>
-  <alv-radio-button
-    alvFormControlName="complaintType"
-    class="form-row"
-    [options$]="complaintOptions$">
-  </alv-radio-button>
   <fieldset>
-    <p><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong></p>
+    <p class="mt-3 mb-2"><strong>{{'job-detail.complaint-modal.description' | translate}}</strong></p>
+    <alv-radio-button
+      alvFormControlName="complaintType"
+      [options$]="complaintOptions$">
+    </alv-radio-button>
+  </fieldset>
+  <fieldset>
+    <p class="my-2"><strong>{{'job-detail.complaint-modal.contact.description' | translate}}</strong></p>
     <div class="form-row">
       <div class="col-3">
         <alv-select [options$]="salutationOptions$"
@@ -54,7 +55,7 @@
     </alv-input-field>
   </fieldset>
   <fieldset>
-    <p><strong>{{'job-detail.complaint-modal.message.label' | translate}}</strong></p>
+    <p class="my-2"><strong>{{'job-detail.complaint-modal.message.label' | translate}}</strong></p>
     <alv-input-field [autofocus]="true"
                      [maxLength]="MAX_LENGTH_1000"
                      [multiline]="true"
