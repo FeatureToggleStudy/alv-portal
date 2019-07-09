@@ -188,7 +188,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       phone: ['', [phoneInputValidator(),
         requiredIfValidator(() => this.isPhoneRequired())]],
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
-      appliedThroughRav: [''],
+      appliedThroughRav: ['', Validators.required],
       workload: ['', Validators.required],
       results: this.generateResultsGroup(),
       rejectionReason: ['', [
