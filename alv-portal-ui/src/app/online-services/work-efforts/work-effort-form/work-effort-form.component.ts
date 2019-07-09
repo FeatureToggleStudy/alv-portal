@@ -72,7 +72,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly OCCUPATION_MAX_LENGTH = 100;
   readonly EMAIL_MAX_LENGTH = 255;
   readonly FORM_URL_MAX_LENGTH = 255;
-  readonly MIN_MONTHS_DIFF = -4;
+  readonly MIN_MONTHS_DIFF = -5;
   readonly MAX_DAYS_DIFF = 5;
   readonly LinkPanelId = LinkPanelId;
   readonly IconKey = IconKey;
@@ -188,7 +188,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       phone: ['', [phoneInputValidator(),
         requiredIfValidator(() => this.isPhoneRequired())]],
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
-      appliedThroughRav: ['', Validators.required],
+      appliedThroughRav: [''],
       workload: ['', Validators.required],
       results: this.generateResultsGroup(),
       rejectionReason: ['', [

@@ -113,8 +113,8 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
   }
 
   isCurrentReportPeriod(workEffortsReport: WorkEffortsReport): boolean {
-    const date = new Date(workEffortsReport.controlPeriod.value);
-    return this.today.getFullYear() === date.getFullYear() && this.today.getMonth() === date.getMonth();
+    return this.today >= new Date(workEffortsReport.startDate) &&
+      this.today <= new Date(workEffortsReport.endDate);
   }
 
   removeCurrentBadge(badge: FilterBadge) {

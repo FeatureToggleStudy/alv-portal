@@ -18,7 +18,7 @@
   <span class="col-12 col-lg-3 pdf-cell">
     <button *ngIf="workEffortsReport.documentId"
             class="pdf-link p-0"
-       (click)="$event.stopPropagation();downloadPdf(workEffortsReport.id)">
+       (click)="$event.stopPropagation();downloadPdf(workEffortsReport)">
     <fa-icon [icon]="['far', 'file-pdf']"
              class="text-primary mr-1"></fa-icon>
       {{'portal.work-efforts.work-effort-report.pdf-file.name' | translate}}{{getDateStringFromControlPeriod(workEffortsReport)}}.pdf</button>
