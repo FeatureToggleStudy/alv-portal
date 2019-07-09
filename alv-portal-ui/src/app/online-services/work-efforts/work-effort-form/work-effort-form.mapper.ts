@@ -10,7 +10,7 @@ import {
 } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
 import {
   ApplyChannelsFormValue,
-  ResultsFormValue,
+  ApplyStatusFormValue,
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.types';
@@ -25,17 +25,17 @@ function mapToApplyChannelsFormValue(applyChannels: WorkEffortApplyChannelType[]
   };
 }
 
-function mapBackendResultsToResultsFormValue(results: WorkEffortApplyStatus[]): ResultsFormValue {
+function mapBackendApplyStatusToApplyStatusFormValue(applyStatus: WorkEffortApplyStatus[]): ApplyStatusFormValue {
   return {
-    EMPLOYED: results.includes(WorkEffortApplyStatus.EMPLOYED),
-    INTERVIEW: results.includes(WorkEffortApplyStatus.INTERVIEW),
-    PENDING: results.includes(WorkEffortApplyStatus.PENDING),
-    REJECTED: results.includes(WorkEffortApplyStatus.REJECTED),
+    EMPLOYED: applyStatus.includes(WorkEffortApplyStatus.EMPLOYED),
+    INTERVIEW: applyStatus.includes(WorkEffortApplyStatus.INTERVIEW),
+    PENDING: applyStatus.includes(WorkEffortApplyStatus.PENDING),
+    REJECTED: applyStatus.includes(WorkEffortApplyStatus.REJECTED),
   };
 }
 
-function mapResultsFormValueToBackendResults(results: ResultsFormValue): WorkEffortApplyStatus[] {
-  return Object.keys(results).filter(resultKey => results[resultKey]) as WorkEffortApplyStatus[];
+function mapApplyStatusFormValueToBackendApplyStatus(applyStatusFormValue: ApplyStatusFormValue): WorkEffortApplyStatus[] {
+  return Object.keys(applyStatusFormValue).filter(resultKey => applyStatusFormValue[resultKey]) as WorkEffortApplyStatus[];
 }
 
 function mapApplyChannelsFormValueToBackend(applyChannels: ApplyChannelsFormValue): WorkEffortApplyChannelType[] {
@@ -78,7 +78,7 @@ export function mapToWorkEffortFormValue(workEffort: WorkEffort): WorkEffortForm
     },
     occupation: workEffort.occupation,
     phone: workEffort.applyChannel.phone,
-    results: mapBackendResultsToResultsFormValue(workEffort.applyStatus),
+    applyStatus: mapBackendApplyStatusToApplyStatusFormValue(workEffort.applyStatus),
     contactPerson: workEffort.applyChannel.contactPerson,
     appliedThroughRav: workEffort.ravAssigned,
     workload: mapToWorkloadFormValue(workEffort.fullTimeJob),
@@ -108,7 +108,7 @@ export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): Wor
         poBox: formValue.companyAddress.postOfficeBoxNumberOrStreet.postOfficeBoxNumber
       }
     },
-    applyStatus: mapResultsFormValueToBackendResults(formValue.results),
+    applyStatus: mapApplyStatusFormValueToBackendApplyStatus(formValue.applyStatus),
     occupation: formValue.occupation,
     fullTimeJob: mapWorkloadToBackend(formValue.workload),
     rejectionReason: formValue.rejectionReason,

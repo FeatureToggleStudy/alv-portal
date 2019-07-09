@@ -37,8 +37,8 @@ import {
   ApplyChannelsFormValue,
   emptyWorkEffortFormValue,
   formPossibleApplyChannels,
-  formPossibleResults,
-  ResultsFormValue,
+  formPossibleApplyStatus,
+  ApplyStatusFormValue,
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.types';
@@ -80,7 +80,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   countryIsoCode$: Observable<String>;
   workEffortFormGroup: FormGroup;
   initialWorkEffort: WorkEffortFormValue;
-  resultsCheckboxNames = formPossibleResults;
+  applyStatusCheckboxNames = formPossibleApplyStatus;
   applyChannelsCheckboxNames = formPossibleApplyChannels;
   countryOptions$: Observable<SelectableOption[]>;
   toolbarButtons = [
@@ -190,10 +190,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
       appliedThroughRav: ['', Validators.required],
       workload: ['', Validators.required],
-      results: this.generateResultsGroup(),
+      applyStatus: this.generateApplyStatusGroup(),
       rejectionReason: ['', [
         Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH),
-        requiredIfValidator(() => this.workEffortFormGroup.get('results').value.REJECTED)
+        requiredIfValidator(() => this.workEffortFormGroup.get('applyStatus').value.REJECTED)
       ]]
     };
 
@@ -201,7 +201,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
-    this.previousResultsValue = { ...this.initialWorkEffort.results };
+    this.previousResultsValue = { ...this.initialWorkEffort.applyStatus };
     this.setUpUnclicking({
       PENDING: ['EMPLOYED', 'REJECTED'],
       REJECTED: ['EMPLOYED', 'PENDING'],
@@ -337,9 +337,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     });
   }
 
-  private generateResultsGroup(): FormGroup {
-    return this.generateCheckboxesFormGroup(this.resultsCheckboxNames, {
-      validators: atLeastOneRequiredValidator(this.resultsCheckboxNames)
+  private generateApplyStatusGroup(): FormGroup {
+    return this.generateCheckboxesFormGroup(this.applyStatusCheckboxNames, {
+      validators: atLeastOneRequiredValidator(this.applyStatusCheckboxNames)
     });
   }
 
@@ -358,26 +358,26 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   /**
-   * Certain results are mutually exclusive, for example if the result of the work effort is rejection,
+   * Certain applyStatus are mutually exclusive, for example if the applyStatus of the work effort is rejection,
    * you can't also click an employed checkbox. We unset the mutually exclusive checkboxes each time the user
-   * clicks on a results checkbox group.
+   * clicks on a applyStatus checkbox group.
    * @param clearingRules keys are checkbox keys. Values are checkboxes you wanna unset if the key is set
    */
   private setUpUnclicking(clearingRules: { [key: string]: string[] }) {
-    this.workEffortFormGroup.get('results').valueChanges.pipe(
+    this.workEffortFormGroup.get('applyStatus').valueChanges.pipe(
       takeUntil(this.ngUnsubscribe)
     )
-      .subscribe((next: ResultsFormValue) => {
+      .subscribe((next: ApplyStatusFormValue) => {
         const prev = this.previousResultsValue;
         const keySetToTrue: string = Object.keys(prev).filter(key => !prev[key] && next[key])[0];
-        const valueToPatch: ResultsFormValue = { ...next };
+        const valueToPatch: ApplyStatusFormValue = { ...next };
         if (keySetToTrue) {
           for (const key of clearingRules[keySetToTrue]) {
             valueToPatch[key] = false;
           }
         }
         this.previousResultsValue = { ...valueToPatch };
-        this.workEffortFormGroup.get('results').setValue(valueToPatch, { emitEvent: false });
+        this.workEffortFormGroup.get('applyStatus').setValue(valueToPatch, { emitEvent: false });
       });
   }
 }
