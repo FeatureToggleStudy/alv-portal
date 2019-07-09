@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { WorkEffortsFilter, WorkEffortsFilterPeriod } from './work-efforts-filter.types';
+import {
+  WorkEffortApplyStatusFilter,
+  WorkEffortsFilter,
+  WorkEffortsFilterPeriod
+} from './work-efforts-filter.types';
 import {
   FilterBadge,
   InlineBadge
@@ -26,34 +30,34 @@ export class WorkEffortsBadgesMapperService {
         });
       } else if (key === 'workEffortResult' && workEffortsFilter[key]) {
 
-        if (workEffortsFilter[key] === WorkEffortApplyStatus.INTERVIEW) {
+        if (workEffortsFilter[key] === WorkEffortApplyStatusFilter.INTERVIEW) {
           badges.push({
             cssClass: 'badge-work-effort-result-interview',
-            label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatus.INTERVIEW,
+            label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatusFilter.INTERVIEW,
             key
           });
         }
 
-        if (workEffortsFilter[key] === WorkEffortApplyStatus.EMPLOYED) {
+        if (workEffortsFilter[key] === WorkEffortApplyStatusFilter.EMPLOYED) {
           badges.push({
             cssClass: 'badge-work-effort-result-employed',
-            label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatus.EMPLOYED,
+            label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatusFilter.EMPLOYED,
             key
           });
         }
 
-        if (workEffortsFilter[key] === WorkEffortApplyStatus.PENDING) {
+        if (workEffortsFilter[key] === WorkEffortApplyStatusFilter.PENDING) {
           badges.push({
             cssClass: 'badge-work-effort-result-pending',
-            label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatus.PENDING,
+            label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatusFilter.PENDING,
             key
           });
         }
 
-        if (workEffortsFilter[key] === WorkEffortApplyStatus.REJECTED) {
+        if (workEffortsFilter[key] === WorkEffortApplyStatusFilter.REJECTED) {
           badges.push({
             cssClass: 'badge-work-effort-result-rejected',
-            label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatus.REJECTED,
+            label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatusFilter.REJECTED,
             key
           });
         }

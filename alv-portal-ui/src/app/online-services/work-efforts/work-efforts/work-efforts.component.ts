@@ -117,7 +117,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       });
   }
 
-  isCurrentReportPeriod(workEffortsReport: WorkEffortsReport): boolean {
+  isCurrentPeriod(workEffortsReport: WorkEffortsReport): boolean {
     return this.today >= new Date(workEffortsReport.startDate) &&
       this.today <= new Date(workEffortsReport.endDate);
   }

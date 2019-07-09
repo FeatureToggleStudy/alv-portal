@@ -1,7 +1,3 @@
-import {
-  WorkEffortApplyStatus
-} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
-
 export enum WorkEffortsFilterPeriod {
   CURRENT_MONTH = 'CURRENT_MONTH',
   LAST_3_MONTHS = 'LAST_3_MONTHS',
@@ -20,7 +16,7 @@ export enum WorkEffortApplyStatusFilter {
 
 export interface WorkEffortsFilterValues {
   period: WorkEffortsFilterPeriod;
-  workEffortResult: WorkEffortApplyStatus;
+  workEffortResult: WorkEffortApplyStatusFilter;
 }
 
 export interface WorkEffortsFilter extends WorkEffortsFilterValues {
@@ -34,4 +30,3 @@ export const initialWorkEffortsFilter = {
   period: WorkEffortsFilterPeriod.LAST_3_MONTHS,
   workEffortResult: WorkEffortApplyStatusFilter.ALL
 };
-
