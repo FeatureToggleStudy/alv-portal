@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
-import {
-  WorkEffortApplyStatus,
-  WorkEffortsReport
-} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+import { WorkEffortsReport } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { debounceTime, filter, flatMap, map, takeUntil } from 'rxjs/operators';
@@ -13,6 +10,7 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { WorkEffortsFilterModalComponent } from './work-efforts-filter-modal/work-efforts-filter-modal.component';
 import {
   initialWorkEffortsFilter,
+  WorkEffortApplyStatusFilter,
   WorkEffortsFilter,
   WorkEffortsFilterPeriod,
   WorkEffortsFilterValues
@@ -20,7 +18,10 @@ import {
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { FilterBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { WorkEffortsBadgesMapperService } from './work-efforts-badges-mapper.service';
-import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
+import {
+  Notification,
+  NotificationType
+} from '../../../shared/layout/notifications/notification.model';
 import { I18nService } from '../../../core/i18n.service';
 import { Languages } from '../../../core/languages.constants';
 
@@ -37,7 +38,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
 
   readonly FILTER_RESET_VALUES = {
     period: WorkEffortsFilterPeriod.ALL_MONTHS,
-    workEffortResult: WorkEffortApplyStatus.ALL
+    workEffortResult: WorkEffortApplyStatusFilter.ALL
   };
 
   englishNotSupportedNotification = {
