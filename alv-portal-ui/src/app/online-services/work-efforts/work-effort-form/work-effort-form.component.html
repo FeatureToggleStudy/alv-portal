@@ -46,7 +46,7 @@
       <hr class="mb-4">
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
-            class="mb-5"
+            class="mb-4"
             alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
@@ -301,7 +301,7 @@
         </div>
       </form>
     </div>
-    <div class="right-column">
+    <div class="right-column mb-3">
       <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
                       class="info-panel"
                       [numberOfColumns]="1">
