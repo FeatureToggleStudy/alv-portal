@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { WorkEffortsFilter } from './work-efforts-filter.types';
+import { WorkEffortsFilter, WorkEffortsFilterPeriod } from './work-efforts-filter.types';
 import {
   FilterBadge,
   InlineBadge
 } from '../../../shared/layout/inline-badges/inline-badge.types';
 import {
-  WorkEffortApplyStatus,
-  WorkEffortsFilterPeriod
+  WorkEffortApplyStatus
 } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 
 @Injectable({

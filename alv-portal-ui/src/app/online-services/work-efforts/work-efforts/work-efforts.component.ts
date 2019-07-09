@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import {
   WorkEffortApplyStatus,
-  WorkEffortsFilterPeriod,
   WorkEffortsReport
 } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
@@ -12,7 +11,12 @@ import { debounceTime, filter, flatMap, map, takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { WorkEffortsFilterModalComponent } from './work-efforts-filter-modal/work-efforts-filter-modal.component';
-import { initialWorkEffortsFilter, WorkEffortsFilter, WorkEffortsFilterValues } from './work-efforts-filter.types';
+import {
+  initialWorkEffortsFilter,
+  WorkEffortsFilter,
+  WorkEffortsFilterPeriod,
+  WorkEffortsFilterValues
+} from './work-efforts-filter.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { FilterBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 import { WorkEffortsBadgesMapperService } from './work-efforts-badges-mapper.service';

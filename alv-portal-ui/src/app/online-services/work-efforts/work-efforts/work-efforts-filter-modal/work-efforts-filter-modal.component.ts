@@ -4,10 +4,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import {
-  WorkEffortApplyStatus,
-  WorkEffortsFilterPeriod
+  WorkEffortApplyStatus
 } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
-import { WorkEffortsFilterValues } from '../work-efforts-filter.types';
+import {
+  WorkEffortsFilterPeriod,
+  WorkEffortsFilterValues
+} from '../work-efforts-filter.types';
 
 @Component({
   selector: 'alv-work-efforts-filter-modal',

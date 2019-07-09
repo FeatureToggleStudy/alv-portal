@@ -80,11 +80,3 @@ export enum WorkEffortApplyStatus {
   EMPLOYED = 'EMPLOYED',
   INTERVIEW = 'INTERVIEW'
 }
-
-export enum WorkEffortsFilterPeriod {
-  CURRENT_MONTH = 'CURRENT_MONTH',
-  LAST_3_MONTHS = 'LAST_3_MONTHS',
-  LAST_6_MONTHS = 'LAST_6_MONTHS',
-  LAST_12_MONTHS = 'LAST_12_MONTHS',
-  ALL_MONTHS = 'ALL_MONTHS'
-}
