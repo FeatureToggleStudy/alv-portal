@@ -61,6 +61,10 @@ export class WorkEffortsReportComponent implements OnInit {
     return workEffortsReport.status === WorkEffortsReportStatus.CLOSED;
   }
 
+  getMonthValue(controlPeriodValue: string): number {
+    return controlPeriodValue ? parseInt(controlPeriodValue.split('-')[1], 10) : null;
+  }
+
   downloadPdf(proofOfWorkEffortsId: string) {
     this.proofOfWorkEffortsRepository.downloadPdf(proofOfWorkEffortsId).pipe(
       withLatestFrom(this.i18nService.stream('portal.work-efforts.work-effort-report.pdf-file.name'))
