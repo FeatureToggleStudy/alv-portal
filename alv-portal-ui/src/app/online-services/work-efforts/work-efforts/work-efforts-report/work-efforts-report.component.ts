@@ -45,8 +45,7 @@ export class WorkEffortsReportComponent implements OnInit {
   }
 
   getDateStringFromControlPeriod(workEffortsReport: WorkEffortsReport): string {
-    const date = new Date(workEffortsReport.controlPeriod.value);
-    return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}`;
+    return workEffortsReport.controlPeriod.value;
   }
 
   removeWorkEffort(deletedWorkEffort: WorkEffort) {
@@ -69,14 +68,14 @@ export class WorkEffortsReportComponent implements OnInit {
   downloadPdf(proofOfWorkEfforts: WorkEffortsReport) {
     this.proofOfWorkEffortsRepository.downloadPdf(proofOfWorkEfforts.id).pipe(
       withLatestFrom(this.i18nService.stream('portal.work-efforts.work-effort-report.pdf-file.name'))
-    ).subscribe(([data, filenamePrefix]) => {
+    ).subscribe(([blob, filenamePrefix]) => {
         const filename = filenamePrefix + this.getDateStringFromControlPeriod(proofOfWorkEfforts);
         // Handle Edge and IE11 separately (as usual)
         if (this.window.navigator && this.window.navigator.msSaveOrOpenBlob) {
-          this.window.navigator.msSaveOrOpenBlob(data.file, filename);
+          this.window.navigator.msSaveOrOpenBlob(blob, filename);
         } else {
           const element = this.document.createElement('a');
-          element.href = URL.createObjectURL(data.file);
+          element.href = URL.createObjectURL(blob);
           element.download = filename;
           this.document.body.appendChild(element);
           element.click();

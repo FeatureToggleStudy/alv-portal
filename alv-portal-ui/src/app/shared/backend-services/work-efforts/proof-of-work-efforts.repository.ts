@@ -52,15 +52,7 @@ export class ProofOfWorkEffortsRepository {
     });
   }
 
-  downloadPdf(proofOfWorkEffortsId: string): Observable<{file: any, filename: string}> {
-    return this.http.get(this.resourceUrl + '/' + proofOfWorkEffortsId + '/pdf-document', { observe: 'response', responseType: 'blob' })
-      .pipe(
-        map(res => {
-          return {
-            file: res.body,
-            filename: res.headers.get('content-disposition').split('filename=')[1]
-          };
-        })
-      );
+  downloadPdf(proofOfWorkEffortsId: string): Observable<Blob> {
+    return this.http.get(this.resourceUrl + '/' + proofOfWorkEffortsId + '/pdf-document', { responseType: 'blob' });
   }
 }
