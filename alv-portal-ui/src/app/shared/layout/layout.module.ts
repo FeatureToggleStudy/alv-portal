@@ -52,6 +52,7 @@ import { SystemNotificationComponent } from './system-notification/system-notifi
 import { FooterComponent } from './footer/footer.component';
 import { AccountabilitySwitcherComponent } from './accountability-switcher/accountability-switcher.component';
 import { LinkPanelComponent } from './link-panel/link-panel.component';
+import { AssistantLayoutComponent } from './column-layout/assistant-layout/assistant-layout.component';
 import { EnvironmentRibbonComponent } from './environment-ribbon/environment-ribbon.component';
 import { SearchProfileItemComponent } from './search-profile-item/search-profile-item.component';
 
@@ -103,6 +104,7 @@ import { SearchProfileItemComponent } from './search-profile-item/search-profile
     SystemNotificationComponent,
     AccountabilitySwitcherComponent,
     LinkPanelComponent,
+    AssistantLayoutComponent,
     EnvironmentRibbonComponent,
     SearchProfileItemComponent
   ],
@@ -116,6 +118,7 @@ import { SearchProfileItemComponent } from './search-profile-item/search-profile
 
   ],
   exports: [
+    AssistantLayoutComponent,
     NavigationContainerComponent,
     HeaderComponent,
     FooterComponent,

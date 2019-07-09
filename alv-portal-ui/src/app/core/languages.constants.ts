@@ -10,3 +10,10 @@ export const LANGUAGES: string[] = [
 ];
 
 export const FALLBACK_LANGUAGE = 'en';
+
+export enum Languages {
+  DE = 'de',
+  FR = 'fr',
+  IT = 'it',
+  EN = 'en'
+}

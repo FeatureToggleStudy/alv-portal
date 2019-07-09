@@ -41,11 +41,11 @@ export class EnvironmentRibbonComponent implements OnInit {
     this.profileInfoService.getProfileInfo()
       .pipe(take(1))
       .subscribe(profileInfo => {
-      this.currentRibbon = this.environmentRibbons.find(
-        environment => !!profileInfo.activeProfiles.find(
-          activeProfile => activeProfile === environment.name)
-      );
-    });
+        this.currentRibbon = this.environmentRibbons.find(
+          environment => !!profileInfo.activeProfiles.find(
+            activeProfile => activeProfile === environment.name)
+        );
+      });
   }
 }
 

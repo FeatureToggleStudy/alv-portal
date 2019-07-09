@@ -94,6 +94,17 @@ const appRoutes: Routes = [
     }
   },
   {
+    path: 'work-efforts',
+    loadChildren: './online-services/work-efforts/work-efforts.module#WorkEffortsModule',
+    canDeactivate: [LazyModuleDeactivateGuard],
+    data: {
+      authorities: [UserRole.ROLE_JOB_SEEKER],
+      moduleName: ModuleName.WORK_EFFORTS,
+      titleKey: 'portal.work-efforts.browser-title',
+      scrollToTop: true
+    }
+  },
+  {
     path: 'candidate-search-profiles',
     loadChildren: './candidate/candidate-search-profiles/candidate-search-profiles.module#CandidateSearchProfilesModule',
     canDeactivate: [LazyModuleDeactivateGuard],
@@ -143,7 +154,9 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false }
+      {
+        enableTracing: false,
+      },
     )
   ],
   exports: [

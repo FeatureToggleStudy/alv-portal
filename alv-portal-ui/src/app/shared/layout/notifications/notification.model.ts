@@ -1,7 +1,7 @@
 export interface Notification {
   id?: number;
   type: NotificationType;
-  messageKey: string;
+  messageKey?: string;
   isSticky: boolean;
 }
 
