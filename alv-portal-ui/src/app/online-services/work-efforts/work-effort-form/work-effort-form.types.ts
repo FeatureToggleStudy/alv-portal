@@ -68,6 +68,7 @@ export const emptyWorkEffortFormValue = {
   companyAddress: {
     countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
   },
+  appliedThroughRav: false,
   results: {
     PENDING: false,
     REJECTED: false,
