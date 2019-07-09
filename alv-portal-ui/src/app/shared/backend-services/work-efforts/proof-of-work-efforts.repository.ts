@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { WorkEffort, WorkEffortsReport } from './proof-of-work-efforts.types';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Page } from '../shared.types';
 
 @Injectable({ providedIn: 'root' })
@@ -50,5 +50,17 @@ export class ProofOfWorkEffortsRepository {
     return this.http.post<WorkEffortsReport>(`${this.actionUrl}/update-work-effort`, workEffort, {
       params: new HttpParams().set('userId', userId)
     });
+  }
+
+  downloadPdf(proofOfWorkEffortsId: string): Observable<{file: any, filename: string}> {
+    return this.http.get(this.resourceUrl + '/' + proofOfWorkEffortsId + '/pdf-document', { observe: 'response', responseType: 'blob' })
+      .pipe(
+        map(res => {
+          return {
+            file: res.body,
+            filename: res.headers.get('content-disposition').split('filename=')[1]
+          };
+        })
+      );
   }
 }

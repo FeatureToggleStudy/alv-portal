@@ -15,7 +15,7 @@ import { WorkEffortsFilterModalComponent } from './work-efforts-filter-modal/wor
 import { initialWorkEffortsFilter, WorkEffortsFilter, WorkEffortsFilterValues } from './work-efforts-filter.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { FilterBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
-import { WorkEffortsService } from './work-efforts.service';
+import { WorkEffortsBadgesMapperService } from './work-efforts-badges-mapper.service';
 import { Notification, NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { I18nService } from '../../../core/i18n.service';
 import { Languages } from '../../../core/languages.constants';
@@ -61,14 +61,14 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
   }
 
   set currentFilter(value: WorkEffortsFilter) {
-    this.currentBadges = this.workEffortsService.mapFilterBadges(value);
+    this.currentBadges = this.workEffortsBadgesMapperService.mapFilterBadges(value);
     this._currentFilter = value;
   }
   constructor(private fb: FormBuilder,
               private modalService: ModalService,
               private authenticationService: AuthenticationService,
               private i18nService: I18nService,
-              private workEffortsService: WorkEffortsService,
+              private workEffortsBadgesMapperService: WorkEffortsBadgesMapperService,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository) {
     super();
   }
@@ -113,8 +113,8 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
   }
 
   isCurrentReportPeriod(workEffortsReport: WorkEffortsReport): boolean {
-    const date = new Date(workEffortsReport.controlPeriod.value);
-    return this.today.getFullYear() === date.getFullYear() && this.today.getMonth() === date.getMonth();
+    return this.today >= new Date(workEffortsReport.startDate) &&
+      this.today <= new Date(workEffortsReport.endDate);
   }
 
   removeCurrentBadge(badge: FilterBadge) {

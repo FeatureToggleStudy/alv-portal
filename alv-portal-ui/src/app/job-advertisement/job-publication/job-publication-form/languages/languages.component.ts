@@ -3,7 +3,6 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import {
   CEFR_Level,
-  Language,
   LanguageSkill
 } from '../../../../shared/backend-services/shared.types';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';

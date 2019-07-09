@@ -227,16 +227,6 @@ export enum ContractType {
   PERMANENT = 'PERMANENT',
 }
 
-export interface Company {
-  name: string;
-  contactPerson: string;
-  street: string;
-  houseNumber: string;
-  zipCode: string;
-  city: string;
-  country: string;
-}
-
 export interface Page<T> {
   content: T[];
   empty: boolean;

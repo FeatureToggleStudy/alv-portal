@@ -7,7 +7,7 @@ import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badg
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
 import { deleteWorkEffortModalConfig } from '../modal-config.types';
 import { NotificationsService } from '../../../../core/notifications.service';
-import { WorkEffortsService } from '../work-efforts.service';
+import { WorkEffortsBadgesMapperService } from '../work-efforts-badges-mapper.service';
 import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
 
 @Component({
@@ -28,13 +28,13 @@ export class WorkEffortComponent implements OnInit {
   resultBadges: InlineBadge[] = [];
 
   constructor(private modalService: ModalService,
-              private workEffortsService: WorkEffortsService,
+              private workEffortsBadgesMapperService: WorkEffortsBadgesMapperService,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
               private notificationsService: NotificationsService) {
   }
 
   ngOnInit() {
-    this.resultBadges = this.workEffortsService.mapResultBadges(this.workEffort.applyStatus);
+    this.resultBadges = this.workEffortsBadgesMapperService.mapResultBadges(this.workEffort.applyStatus);
   }
 
   deleteWorkEffort() {

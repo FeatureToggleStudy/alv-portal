@@ -1,10 +1,15 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Inject, Input, OnInit } from '@angular/core';
 import {
+  ControlPeriodType,
   WorkEffort,
   WorkEffortsReport,
-  WorkEffortsReportStatus,
-  ControlPeriodType
+  WorkEffortsReportStatus
 } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
+import { WINDOW } from '../../../../core/window.service';
+import { DOCUMENT } from '@angular/common';
+import { I18nService } from '../../../../core/i18n.service';
+import { withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'alv-work-efforts-report',
@@ -20,7 +25,10 @@ export class WorkEffortsReportComponent implements OnInit {
   @HostBinding('class.current-period')
   @Input() isCurrentPeriod: boolean;
 
-  constructor() {
+  constructor(private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
+              private i18nService: I18nService,
+              @Inject(DOCUMENT) private document: any,
+              @Inject(WINDOW) private window: Window) {
   }
 
   ngOnInit() {
@@ -38,7 +46,7 @@ export class WorkEffortsReportComponent implements OnInit {
 
   getDateStringFromControlPeriod(workEffortsReport: WorkEffortsReport): string {
     const date = new Date(workEffortsReport.controlPeriod.value);
-    return `${date.getFullYear()}${('0' + (date.getMonth() + 1)).slice(-2)}`;
+    return `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}`;
   }
 
   removeWorkEffort(deletedWorkEffort: WorkEffort) {
@@ -52,5 +60,28 @@ export class WorkEffortsReportComponent implements OnInit {
 
   isReportClosed(workEffortsReport: WorkEffortsReport): boolean {
     return workEffortsReport.status === WorkEffortsReportStatus.CLOSED;
+  }
+
+  getMonthValue(controlPeriodValue: string): number {
+    return controlPeriodValue ? parseInt(controlPeriodValue.split('-')[1], 10) : null;
+  }
+
+  downloadPdf(proofOfWorkEfforts: WorkEffortsReport) {
+    this.proofOfWorkEffortsRepository.downloadPdf(proofOfWorkEfforts.id).pipe(
+      withLatestFrom(this.i18nService.stream('portal.work-efforts.work-effort-report.pdf-file.name'))
+    ).subscribe(([data, filenamePrefix]) => {
+        const filename = filenamePrefix + this.getDateStringFromControlPeriod(proofOfWorkEfforts);
+        // Handle Edge and IE11 separately (as usual)
+        if (this.window.navigator && this.window.navigator.msSaveOrOpenBlob) {
+          this.window.navigator.msSaveOrOpenBlob(data.file, filename);
+        } else {
+          const element = this.document.createElement('a');
+          element.href = URL.createObjectURL(data.file);
+          element.download = filename;
+          this.document.body.appendChild(element);
+          element.click();
+        }
+      }
+    );
   }
 }

@@ -2,6 +2,8 @@ export interface WorkEffortsReport {
   id?: string;
   businessCaseId: string;
   controlPeriod: ControlPeriod;
+  endDate: string;
+  startDate: string;
   firstName: string;
   lastName: string;
   ownerUserId: string;
@@ -12,6 +14,7 @@ export interface WorkEffortsReport {
   lastSubmittedAt?: string;
   updatedAt?: string;
   createdAt?: string;
+  documentId?: string;
 }
 
 export interface WorkEffort {
@@ -24,6 +27,7 @@ export interface WorkEffort {
   fullTimeJob: boolean;
   rejectionReason?: string;
   submittedAt?: string; // if null, then edit is possible
+  createdAt?: string;
 }
 
 export interface WorkEffortApplyChannel {
@@ -46,8 +50,6 @@ export interface WorkEffortApplyChannelAddress {
 }
 
 export interface ControlPeriod {
-  endDate: string;
-  startDate: string;
   type: ControlPeriodType;
   value: string;
 }

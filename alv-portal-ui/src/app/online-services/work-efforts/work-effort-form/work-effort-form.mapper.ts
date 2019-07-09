@@ -3,8 +3,7 @@ import {
   WorkEffortApplyChannelType,
   WorkEffortApplyStatus
 } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { fromISODate } from '../../../shared/forms/input/ngb-date-utils';
+import { fromISODate, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
 import {
   createInitialZipAndCityFormValue,
   mapToPostalCodeAndCity
@@ -15,7 +14,6 @@ import {
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.types';
-import { format } from 'date-fns';
 
 
 function mapToApplyChannelsFormValue(applyChannels: WorkEffortApplyChannelType[]): ApplyChannelsFormValue {
@@ -42,10 +40,6 @@ function mapResultsFormValueToBackendResults(results: ResultsFormValue): WorkEff
 
 function mapApplyChannelsFormValueToBackend(applyChannels: ApplyChannelsFormValue): WorkEffortApplyChannelType[] {
   return Object.keys(applyChannels).filter(channelKey => applyChannels[channelKey]) as WorkEffortApplyChannelType[];
-}
-
-function mapNgbDateStructToString(struct: NgbDateStruct): string {
-  return format(new Date(struct.year, struct.month - 1, struct.day), 'YYYY-MM-DD');
 }
 
 function mapToWorkloadFormValue(isFulltime: boolean): WorkLoadFormOption {
@@ -96,7 +90,7 @@ export function mapToWorkEffortBackendValue(formValue: WorkEffortFormValue): Wor
   const zipAndCity = mapToPostalCodeAndCity(formValue.companyAddress.zipAndCity);
   return {
     id: formValue.id,
-    applyDate: mapNgbDateStructToString(formValue.date),
+    applyDate: toISOLocalDate(formValue.date),
     ravAssigned: formValue.appliedThroughRav,
     applyChannel: {
       contactPerson: formValue.contactPerson,

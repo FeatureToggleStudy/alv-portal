@@ -72,7 +72,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly OCCUPATION_MAX_LENGTH = 100;
   readonly EMAIL_MAX_LENGTH = 255;
   readonly FORM_URL_MAX_LENGTH = 255;
-  readonly MIN_MONTHS_DIFF = -4;
+  readonly MIN_MONTHS_DIFF = -5;
   readonly MAX_DAYS_DIFF = 5;
   readonly LinkPanelId = LinkPanelId;
   readonly IconKey = IconKey;
@@ -95,8 +95,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   ];
   bottomAlert: Notification = {
     isSticky: true,
-    type: NotificationType.WARNING,
-    messageKey: 'portal.work-efforts.edit-form.note.note-text'
+    type: NotificationType.WARNING
   };
   workLoadOptions$ = of(Object.values(WorkLoadFormOption).map(value => ({
     value: value,

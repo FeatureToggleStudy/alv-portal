@@ -41,7 +41,7 @@
     </alv-inline-badges>
   </div>
   -->
-  
+
   <alv-work-efforts-report *ngFor="let workEffortsReport of workEffortsReports$ | async"
                            [workEffortsReport]="workEffortsReport"
                            [isCurrentPeriod]="isCurrentReportPeriod(workEffortsReport)"
