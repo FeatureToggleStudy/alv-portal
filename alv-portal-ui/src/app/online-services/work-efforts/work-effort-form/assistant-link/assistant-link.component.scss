@@ -1,0 +1,33 @@
+@import "../../../../../scss/common/colors";
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.assistant-panel-item, .assistant-panel-item:hover {
+  padding: .2rem 1rem;
+  border-left: 5px solid;
+}
+
+.assistant-panel-item {
+  background-color: $color-white;
+  color: $color-grey-black;
+  border-left-color: transparent;
+
+  fa-icon {
+    color: $color-primary;
+    margin-right: 0.25rem;
+  }
+}
+
+.assistant-panel-item:hover, .active {
+
+  border-left-color: $color-primary;
+  color: $color-primary;
+  cursor: pointer;
+
+}

@@ -14,7 +14,6 @@ import { EmploymentComponent } from './employment/employment.component';
 import { ContactComponent } from './contact/contact.component';
 import { LocationComponent } from './location/location.component';
 import { CompanyComponent } from './company/company.component';
-import { ZipCityInputComponent } from './zip-city-input/zip-city-input.component';
 import { PublicContactComponent } from './public-contact/public-contact.component';
 import { PublicationComponent } from './publication/publication.component';
 import { EmployerComponent } from './employer/employer.component';
@@ -110,9 +109,7 @@ describe('JobPublicationFormComponent', () => {
         LocationComponent,
         CompanyComponent,
         PublicContactComponent,
-        ZipCityInputComponent,
         PublicationComponent,
-        ZipCityInputComponent,
         EmployerComponent,
         ApplicationComponent,
         PostAddressFormComponent

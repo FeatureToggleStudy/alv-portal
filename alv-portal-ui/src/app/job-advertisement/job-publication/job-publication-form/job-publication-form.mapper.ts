@@ -42,10 +42,10 @@ import { ApplicationFormValue, emptyApplicationFormValue } from './application/a
 import { EmployerFormValue, emptyEmployerFormValue } from './employer/employer-form-value.types';
 
 import { PostAddressFormValue } from './post-address-form/post-address-form-value.types';
-import { ZipCityFormValue } from './zip-city-input/zip-city-form-value.types';
+import { ZipCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { LocalitySuggestionService } from '../../../shared/localities/locality-suggestion.service';
-import { now, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
+import { fromISODate, now, toISOLocalDate } from '../../../shared/forms/input/ngb-date-utils';
 
 import { LanguagesFormValue } from './languages/languages-form-value.types';
 import { emptyOccupationFormValue, OccupationFormValue } from './occupation/occupation-form-value.types';
@@ -54,8 +54,8 @@ import {
   OccupationTypeaheadItemType
 } from '../../../shared/occupations/occupation-typeahead-item';
 import { OccupationTypes } from '../../../shared/backend-services/reference-service/occupation-label.repository';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
+import { mapToPostalCodeAndCity } from '../../../shared/forms/input/zip-city-input/zip-city-form-mappers';
 
 
 export function mapToJobPublicationFormValue(jobAdvertisement: JobAdvertisement, languageIsoCode: string): JobPublicationFormValue {
@@ -119,8 +119,8 @@ function mapToLanguagesFormValue(languageSkills: LanguageSkill[]): LanguagesForm
 
 function mapToEmploymentFormValue(employment: Employment): EmploymentFormValue {
   return {
-    startDate: mapToNgbDateStruct(employment.startDate),
-    endDate: mapToNgbDateStruct(employment.endDate),
+    startDate: fromISODate(employment.startDate),
+    endDate: fromISODate(employment.endDate),
     immediately: employment.immediately,
     workloadPercentageMin: parseInt(employment.workloadPercentageMin.toString(), 10),
     workloadPercentageMax: parseInt(employment.workloadPercentageMax.toString(), 10),
@@ -144,18 +144,6 @@ function mapToDuration(employment: Employment): EmploymentDuration {
   return EmploymentDuration.TEMPORARY;
 }
 
-function mapToNgbDateStruct(dateSting: string): NgbDateStruct {
-  if (!dateSting) {
-    return null;
-  }
-
-  const date = new Date(dateSting);
-  return {
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate()
-  };
-}
 
 function mapToLocationFormValue(location: Location): LocationFormValue {
 
@@ -458,21 +446,5 @@ function mapToApplyChannelPostAddress(postAddressFormValue: PostAddressFormValue
     houseNumber: postAddressFormValue.houseNumber,
     postOfficeBoxNumber,
     ...mapToPostalCodeAndCity(postAddressFormValue.zipAndCity)
-  };
-}
-
-function mapToPostalCodeAndCity(zipCityFormValue: ZipCityFormValue): { postalCode: string, city: string } {
-  if (zipCityFormValue.zipCityAutoComplete) {
-    const zipAndCity = zipCityFormValue.zipCityAutoComplete.payload;
-
-    return {
-      city: zipAndCity.city,
-      postalCode: zipAndCity.zipCode
-    };
-  }
-
-  return {
-    city: zipCityFormValue.city,
-    postalCode: zipCityFormValue.zipCode
   };
 }

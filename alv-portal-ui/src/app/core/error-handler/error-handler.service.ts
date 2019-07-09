@@ -64,7 +64,6 @@ export class ErrorHandlerService {
   }
 
   handleError(error) {
-    console.error('handleError:', error);
     this.showMessage('portal.global.exception.client.unknown', NotificationType.ERROR);
     this.trackingService.trackException(error, true);
   }

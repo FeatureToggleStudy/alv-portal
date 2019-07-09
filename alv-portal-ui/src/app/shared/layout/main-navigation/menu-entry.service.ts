@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 import {
   hasAnyAuthorities,
   isAnyUser,
@@ -10,39 +10,50 @@ import {
   User,
   UserRole
 } from '../../../core/auth/user.model';
-import { MenuEntry } from './menu-entry.type';
+import { MenuDefinition, MenuEntry } from './menu-entry.type';
 import { IconKey } from '../../icons/custom-icon/custom-icon.component';
+import { ProfileInfoService } from '../header/profile-info.service';
 
 interface UserMenuDefinition {
   id: string;
-  menuEntryKeys: string[];
+  mainMenuEntryKeys: string[];
+  onlineFormsMenuEntryKeys?: string[];
+  settingsMenuEntryKeys?: string[];
   userPredicate: (user: User) => boolean;
 }
 
 const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
   {
     id: 'ANONYM',
-    menuEntryKeys: ['home', 'job-search', 'candidate-search', 'job-publication'],
+    mainMenuEntryKeys: ['home', 'job-search', 'candidate-search', 'job-publication'],
+    onlineFormsMenuEntryKeys: [],
+    settingsMenuEntryKeys: [],
     userPredicate: isNotAuthenticatedUser
   },
   {
     id: 'STES',
-    menuEntryKeys: ['dashboard', 'job-search', 'job-search-profiles', 'job-favourites', 'user-settings'],
+    mainMenuEntryKeys: ['dashboard', 'job-search', 'job-search-profiles', 'job-favourites'],
+    onlineFormsMenuEntryKeys: ['work-efforts'],
+    settingsMenuEntryKeys: ['user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_JOB_SEEKER])
   },
   {
     id: 'PAV',
-    menuEntryKeys: ['dashboard', 'candidate-search', 'candidate-search-profiles', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites', 'user-settings'],
+    mainMenuEntryKeys: ['dashboard', 'candidate-search', 'candidate-search-profiles', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites'],
+    onlineFormsMenuEntryKeys: [],
+    settingsMenuEntryKeys: ['user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_PAV])
   },
   {
     id: 'COMPANY',
-    menuEntryKeys: ['dashboard', 'candidate-search', 'candidate-search-profiles', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites', 'user-settings'],
+    mainMenuEntryKeys: ['dashboard', 'candidate-search', 'candidate-search-profiles', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites'],
+    onlineFormsMenuEntryKeys: [],
+    settingsMenuEntryKeys: ['user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY])
   }
 ];
 
-const MENU_ENTRIES: Array<MenuEntry> = [
+const MAIN_MENU_ENTRIES: Array<MenuEntry> = [
   {
     id: 'home',
     iconClass: 'home',
@@ -105,7 +116,20 @@ const MENU_ENTRIES: Array<MenuEntry> = [
     labelKey: 'portal.navigation.menu-entry.job-ad-favourites',
     path: ['job-favourites'],
     userPredicate: (u) => isAuthenticatedUser(u)
-  },
+  }
+];
+
+const ONLINE_FORMS_MENU_ENTRIES: Array<MenuEntry> = [
+  {
+    id: 'work-efforts',
+    iconKey: IconKey.WORK_EFFORTS,
+    labelKey: 'portal.navigation.menu-entry.work-efforts',
+    path: ['work-efforts'],
+    userPredicate: (u) => isAuthenticatedUser(u)
+  }
+];
+
+const SETTINGS_MENU_ENTRIES: Array<MenuEntry> = [
   {
     id: 'user-settings',
     iconClass: 'cog',
@@ -171,23 +195,41 @@ const MENU_ENTRIES: Array<MenuEntry> = [
   }
 ];
 
+
 @Injectable()
 export class MenuEntryService {
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private profileInfoService: ProfileInfoService) {
   }
 
-  public prepareEntries(): Observable<MenuEntry[]> {
+  public prepareEntries(): Observable<MenuDefinition> {
     return this.authenticationService.getCurrentUser().pipe(
-      map((user) => {
+      withLatestFrom(this.profileInfoService.getProfileInfo()),
+      map(([user, profileInfo]) => {
         const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => e.userPredicate(user));
-        const menuEntries = MENU_ENTRIES.filter(m => m.userPredicate(user));
+        const mainMenuEntries = MAIN_MENU_ENTRIES.filter(m => m.userPredicate(user));
+        const onlineFormsMenuEntries = profileInfo.inProduction ? [] :
+          ONLINE_FORMS_MENU_ENTRIES.filter(m => m.userPredicate(user));
+        const settingsMenuEntries = SETTINGS_MENU_ENTRIES.filter(m => m.userPredicate(user));
         if (!userMenuDefinition) {
-          return menuEntries;
+          return {
+            mainMenuEntries: mainMenuEntries,
+            onlineFormsMenuEntries: onlineFormsMenuEntries,
+            settingsMenuEntries: settingsMenuEntries
+          };
         }
-        return userMenuDefinition.menuEntryKeys.map(value => {
-          return menuEntries.find(m => m.id === value);
-        });
+        return {
+          mainMenuEntries: userMenuDefinition.mainMenuEntryKeys.map(value => {
+            return mainMenuEntries.find(m => m.id === value);
+          }),
+          onlineFormsMenuEntries: userMenuDefinition.onlineFormsMenuEntryKeys.map(value => {
+            return onlineFormsMenuEntries.find(m => m.id === value);
+          }),
+          settingsMenuEntries: userMenuDefinition.settingsMenuEntryKeys.map(value => {
+            return settingsMenuEntries.find(m => m.id === value);
+          })
+        };
       })
     );
   }

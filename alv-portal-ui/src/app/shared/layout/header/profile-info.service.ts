@@ -12,7 +12,7 @@ export class ProfileInfoService {
   private profileInfo$ = new Subject<ProfileInfo>();
 
   constructor(private httpClient: HttpClient) {
-   this.initProfileInfo();
+    this.initProfileInfo();
   }
 
   getProfileInfo(): Observable<ProfileInfo> {

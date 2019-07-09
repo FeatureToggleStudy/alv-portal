@@ -1,0 +1,8 @@
+
+::ng-deep .info-panel > .alv-panel {
+  max-width: 300px;
+}
+
+::ng-deep alv-collapse-panel .checkbox-radio:not(:first-of-type) {
+  margin-top: 0 !important;
+}

@@ -1,0 +1,89 @@
+@import "../../../../../scss/common/colors";
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../../node_modules/bootstrap/scss/mixins';
+
+.work-effort-container {
+
+  .work-effort {
+    color: $color-grey-black;
+    border-right: 1px solid $color-medium-grey;
+    border-bottom: 1px solid $color-medium-grey;
+    &:hover {
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+      text-decoration: none;
+      .main-cell {
+        color: $color-primary;
+      }
+      .expanded-indicator {
+        background-color: $color-primary;
+        width: 3px;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+
+    .work-effort-cell {
+      line-height: 20px;
+      border-left: 1px solid $color-medium-grey;
+      padding: 0.25em 0.5em 0.5em 0.5em;
+
+      &:last-of-type {
+        padding-right: 30px;
+      }
+
+      .success-icon-container {
+        display: none;
+      }
+
+      &.success {
+        background-color: $color-light-green;
+        padding-right: 30px;
+
+        .success-icon-container {
+          display: flex;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 24px;
+          border-left: 1px solid $color-medium-grey;
+          color: $color-dark-grey;
+        }
+      }
+    }
+    .main-cell {
+      position: unset;
+    }
+    .cell-label {
+      color: $color-dark-grey;
+    }
+  }
+}
+.actions-dropdown {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  height: calc(100% + 1px);
+  z-index: 1;
+  .actions-button {
+    padding: 0 !important;
+    width: 24px;
+    &:not(:hover) {
+      border: 1px solid $color-medium-grey;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .work-effort-cell:not(.main-cell) {
+    border-top: 1px solid $color-medium-grey;
+  }
+  .work-effort-container .work-effort .work-effort-cell.main-cell {
+    position: relative;
+  }
+  .actions-dropdown .actions-button:not(:hover) {
+    border: 1px solid transparent;
+  }
+}
+

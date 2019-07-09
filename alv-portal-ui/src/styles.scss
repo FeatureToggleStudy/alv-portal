@@ -21,7 +21,9 @@ alv-root {
 @import "scss/overrides/modal";
 @import "scss/overrides/typography";
 @import "scss/overrides/container";
+@import "scss/overrides/pre";
 
+@import "scss/common/arrow";
 @import "scss/common/panel";
 @import "scss/common/bar";
 @import "scss/common/badges";
@@ -33,5 +35,4 @@ alv-root {
 @import "scss/common/browser-specific";
 @import "scss/common/background";
 @import "~nouislider/distribute/nouislider.min.css";
-
 

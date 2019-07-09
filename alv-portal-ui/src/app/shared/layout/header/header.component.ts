@@ -5,7 +5,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { Router } from '@angular/router';
 import { I18nService } from '../../../core/i18n.service';
-import { LANGUAGES } from '../../../core/languages.constants';
+import { Languages } from '../../../core/languages.constants';
 import { Observable } from 'rxjs';
 import { CoreState } from '../../../core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
@@ -26,7 +26,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   noEiam: boolean;
 
-  LANGUAGES: string[] = LANGUAGES;
+  languages: string[] = Object.values(Languages);
 
   currentLanguage$: Observable<string>;
 

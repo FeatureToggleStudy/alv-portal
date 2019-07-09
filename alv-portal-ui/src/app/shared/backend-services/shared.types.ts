@@ -227,6 +227,35 @@ export enum ContractType {
   PERMANENT = 'PERMANENT',
 }
 
+export interface Page<T> {
+  content: T[];
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  sort: PageableSort;
+  pageable: Pageable;
+}
+
+export interface PageableSort {
+  empty: boolean;
+  unsorted: boolean;
+  sorted: boolean;
+}
+
+export interface Pageable {
+  offset: number;
+  pageNumber: number;
+  pageSize: number;
+  paged: boolean;
+  unpaged: boolean;
+  sort: PageableSort;
+}
+
 export interface OccupationResolved {
   id: string;
   code: string;
