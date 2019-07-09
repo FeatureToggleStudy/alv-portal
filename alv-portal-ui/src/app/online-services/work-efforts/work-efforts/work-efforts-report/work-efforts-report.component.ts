@@ -27,7 +27,8 @@ export class WorkEffortsReportComponent implements OnInit {
 
   constructor(private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
               private i18nService: I18nService,
-              @Inject(DOCUMENT) private document: any) {
+              @Inject(DOCUMENT) private document: any,
+              @Inject(WINDOW) private window: Window) {
   }
 
   ngOnInit() {
@@ -68,16 +69,18 @@ export class WorkEffortsReportComponent implements OnInit {
   downloadPdf(proofOfWorkEffortsId: string) {
     this.proofOfWorkEffortsRepository.downloadPdf(proofOfWorkEffortsId).pipe(
       withLatestFrom(this.i18nService.stream('portal.work-efforts.work-effort-report.pdf-file.name'))
-    )
-      .subscribe(([data, filenamePrefix]) => {
-        const element = this.document.createElement('a');
-        element.href = URL.createObjectURL(data.file);
-        element.download = filenamePrefix + data.filename;
-        this.document.body.appendChild(element);
-        element.click();
-        //this.window.open(this.window.URL.createObjectURL(blob));
+    ).subscribe(([data, filenamePrefix]) => {
+        // Handle Edge and IE11 separately (as usual)
+        if (this.window.navigator && this.window.navigator.msSaveOrOpenBlob) {
+          this.window.navigator.msSaveOrOpenBlob(data.file, filenamePrefix + data.filename);
+        } else {
+          const element = this.document.createElement('a');
+          element.href = URL.createObjectURL(data.file);
+          element.download = filenamePrefix + data.filename;
+          this.document.body.appendChild(element);
+          element.click();
+        }
       }
-  )
-    ;
+    );
   }
 }
