@@ -17,6 +17,7 @@ import { I18nService } from '../../../../core/i18n.service';
 import { withLatestFrom } from 'rxjs/operators';
 import { ProofOfWorkEffortsModel } from './proof-of-work-efforts.model';
 import { WorkEffortModel } from '../work-effort/work-effort.model';
+import { FileSaverService } from '../../../../shared/file-saver/file-saver.service';
 
 @Component({
   selector: 'alv-proof-of-work-efforts',
@@ -36,6 +37,7 @@ export class ProofOfWorkEffortsComponent implements OnInit {
 
   constructor(private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
               private i18nService: I18nService,
+              private fileSaverService: FileSaverService,
               @Inject(DOCUMENT) private document: any,
               @Inject(WINDOW) private window: Window) {
   }
@@ -56,18 +58,7 @@ export class ProofOfWorkEffortsComponent implements OnInit {
       withLatestFrom(this.i18nService.stream('portal.work-efforts.proof-of-work-efforts.pdf-file.name'))
     ).subscribe(([blob, filenamePrefix]) => {
         const filename = filenamePrefix + this.proofOfWorkEffortsModel.controlPeriodDateString;
-        // Handle Edge and IE11 separately (as usual)
-        if (this.window.navigator && this.window.navigator.msSaveOrOpenBlob) {
-          this.window.navigator.msSaveOrOpenBlob(blob, filename);
-        } else {
-          const element = this.document.createElement('a');
-          element.href = URL.createObjectURL(blob);
-          element.download = filename;
-          this.document.body.appendChild(element);
-          element.click();
-          URL.revokeObjectURL(element.href);
-          element.parentElement.removeChild(element);
-        }
+        this.fileSaverService.saveFile(blob, filename);
       }
     );
   }
