@@ -52,13 +52,11 @@ export class WorkEffortsOverviewComponent extends AbstractSubscriber implements 
 
   form: FormGroup;
 
-  proofOfWorkEffortsModels$: Observable<ProofOfWorkEffortsModel[]>;
+  proofOfWorkEffortsModels: ProofOfWorkEffortsModel[];
 
   currentBadges: FilterBadge[];
 
   isEnglishLanguageSelected$: Observable<boolean>;
-
-  private today = new Date();
 
   private _currentFilter: WorkEffortsFilter;
 
@@ -86,12 +84,6 @@ export class WorkEffortsOverviewComponent extends AbstractSubscriber implements 
       query: ['']
     });
 
-    this.proofOfWorkEffortsModels$ = this.authenticationService.getCurrentUser().pipe(
-      filter(user => !!user),
-      flatMap(user => this.proofOfWorkEffortsRepository.getProofOfWorkEfforts(user.id)),
-      map(proofOfWorkEffortsList => proofOfWorkEffortsList.map(proofOfWorkEfforts => new ProofOfWorkEffortsModel(proofOfWorkEfforts)))
-    );
-
     this.form.get('query').valueChanges.pipe(
       debounceTime(300),
       takeUntil(this.ngUnsubscribe))
@@ -104,6 +96,26 @@ export class WorkEffortsOverviewComponent extends AbstractSubscriber implements 
     this.isEnglishLanguageSelected$ = this.i18nService.currentLanguage$.pipe(
       map(language => language === Languages.EN)
     );
+
+    this.onScroll();
+  }
+
+  onScroll() {
+    this.authenticationService.getCurrentUser().pipe(
+      filter(user => !!user),
+      flatMap(user => this.proofOfWorkEffortsRepository.getProofOfWorkEfforts(user.id)),
+      map(proofOfWorkEffortsList => proofOfWorkEffortsList.map(proofOfWorkEfforts => new ProofOfWorkEffortsModel(proofOfWorkEfforts)))
+    ).subscribe(proofOfWorkEffortsModels => {
+      this.proofOfWorkEffortsModels = [...(this.proofOfWorkEffortsModels || []), ...proofOfWorkEffortsModels];
+    });
+  }
+
+  reloadProofOfWorkEfforts(proofOfWorkEfforts: ProofOfWorkEfforts) {
+    this.proofOfWorkEffortsRepository.getProofOfWorkEffortsById(proofOfWorkEfforts.id)
+      .subscribe(reloadedProofOfWorkEfforts => {
+        const indexToUpdate = this.proofOfWorkEffortsModels.findIndex(model => model.proofOfWorkEfforts.id === reloadedProofOfWorkEfforts.id);
+        this.proofOfWorkEffortsModels[indexToUpdate] = new ProofOfWorkEffortsModel(reloadedProofOfWorkEfforts);
+      });
   }
 
   openFilterModal() {

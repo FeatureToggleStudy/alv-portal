@@ -12,6 +12,7 @@ import { WorkEffortsFilterModalComponent } from './work-efforts-overview/work-ef
 import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
 import { SuccessModalComponent } from './work-effort-form/success-modal/success-modal.component';
 import { AssistantLinkComponent } from './work-effort-form/assistant-link/assistant-link.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { AssistantLinkComponent } from './work-effort-form/assistant-link/assist
     SharedModule,
     WorkEffortsRoutingModule,
     NgbDropdownModule,
+    InfiniteScrollModule
   ],
   declarations: [
     WorkEffortsOverviewComponent,

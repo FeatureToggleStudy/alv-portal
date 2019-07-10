@@ -1,4 +1,11 @@
-import { Component, HostBinding, Inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostBinding,
+  Inject,
+  Input,
+  OnInit, Output
+} from '@angular/core';
 import {
   ProofOfWorkEfforts,
   WorkEffort
@@ -21,6 +28,8 @@ export class ProofOfWorkEffortsComponent implements OnInit {
 
   @Input() expanded: boolean;
 
+  @Output() reload = new EventEmitter<ProofOfWorkEfforts>();
+
   @HostBinding('class.current-period')
   isCurrentPeriod: boolean;
 
@@ -38,6 +47,7 @@ export class ProofOfWorkEffortsComponent implements OnInit {
   removeWorkEffort(deletedWorkEffort: WorkEffort) {
     const indexToRemove = this.proofOfWorkEffortsModel.workEfforts.findIndex(workEffortModel => workEffortModel.workEffort.id === deletedWorkEffort.id);
     this.proofOfWorkEffortsModel.workEfforts.splice(indexToRemove, 1);
+    this.reload.emit(this.proofOfWorkEffortsModel.proofOfWorkEfforts);
   }
 
   downloadPdf(proofOfWorkEfforts: ProofOfWorkEfforts) {
