@@ -41,9 +41,14 @@ export class WorkEffortModel {
   }
 
   private buildSubmissionDate(): Date {
-    const submissionDate = new Date(this.workEffort.submittedAt || this.proofOfWorkEfforts.nextSubmissionDate);
-    submissionDate.setHours(23, 59);
-    return submissionDate;
+    if (this.workEffort.submittedAt) {
+      return new Date(this.workEffort.submittedAt);
+    }
+    if (this.proofOfWorkEfforts.nextSubmissionDate) {
+      const submissionDate = new Date(this.proofOfWorkEfforts.nextSubmissionDate);
+      submissionDate.setHours(23, 59);
+      return submissionDate;
+    }
   }
 
   private mapApplyStatusBadges(applyStatus: WorkEffortApplyStatus[]): InlineBadge[] {
