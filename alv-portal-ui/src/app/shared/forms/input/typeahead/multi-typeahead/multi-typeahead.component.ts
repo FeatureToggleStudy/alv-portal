@@ -79,10 +79,9 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
 
   @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
 
+  @ViewChild(NgbTypeahead, {static: false}) ngbTypeahead: NgbTypeahead;
 
-  @ViewChild(NgbTypeahead) ngbTypeahead: NgbTypeahead;
-
-  @ViewChild(NgbTooltip) ngbTooltip: NgbTooltip;
+  @ViewChild(NgbTooltip, {static: false}) ngbTooltip: NgbTooltip;
 
   inputValue: string;
 

@@ -21,7 +21,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         if (rejection instanceof HttpErrorResponse) {
           this.errorHandlerService.handleHttpError(rejection);
         } else {
-          console.error('handleError:', error); // This is important. This allows us to see the html template errors. Do not delete this.
+          console.error(error); // This is important. This allows us to see the html template errors. Do not delete this.
           this.errorHandlerService.handleError(error);
         }
       }

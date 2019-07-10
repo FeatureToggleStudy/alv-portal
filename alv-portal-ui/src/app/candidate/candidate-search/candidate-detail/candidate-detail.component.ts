@@ -60,7 +60,7 @@ export class CandidateDetailComponent implements OnInit {
 
   candidateDetailPanelId = CandidateDetailPanelId;
 
-  @ViewChild(NgbTooltip)
+  @ViewChild(NgbTooltip, {static: false})
   clipboardTooltip: NgbTooltip;
 
   constructor(private store: Store<CandidateSearchState>,

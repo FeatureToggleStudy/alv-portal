@@ -67,7 +67,7 @@ export abstract class AbstractJobAdDetailComponent extends AbstractSubscriber im
 
   favouriteItemDetailModel$: Observable<FavouriteItemDetailModel>;
 
-  @ViewChild(NgbTooltip)
+  @ViewChild(NgbTooltip, {static: false})
   clipboardTooltip: NgbTooltip;
 
   protected constructor(
