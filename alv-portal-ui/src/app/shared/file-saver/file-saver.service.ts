@@ -24,8 +24,4 @@ export class FileSaverService {
       element.parentElement.removeChild(element);
     }
   }
-
-  hello() {
-    alert(this.document);
-  }
 }
