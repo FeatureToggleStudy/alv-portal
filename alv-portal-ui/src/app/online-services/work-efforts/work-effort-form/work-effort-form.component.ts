@@ -13,7 +13,7 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
-import { filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
@@ -35,7 +35,6 @@ import {
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import {
   ApplyChannelsFormValue,
-  ApplyStatusFormValue,
   emptyWorkEffortFormValue,
   formPossibleApplyChannels,
   formPossibleApplyStatus,
@@ -233,12 +232,14 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.isSubmitting = true;
     this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
-      switchMap(user => this.createOrUpdateWorkEffort(user.id))
+      switchMap(user => this.createOrUpdateWorkEffort(user.id)),
+      catchError(error => {
+        this.isSubmitting = false;
+        throw error;
+      })
     ).subscribe(result => {
       this.isSubmitting = false;
       this.openSuccessModal();
-    }, (err) => {
-      this.isSubmitting = false;
     });
   }
 
@@ -360,6 +361,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.minDate = mapDateToNgbDate(minDate);
     this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
   }
+
   /**
    * Certain applyStatus are mutually exclusive, for example if the applyStatus of the work effort is rejection,
    * you can't also click an employed checkbox. We unset the mutually exclusive checkboxes each time the user
