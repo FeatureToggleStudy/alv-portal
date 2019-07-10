@@ -12,7 +12,7 @@
     "build": "npm run build:dev",
     "build:dev": "npm run i18n && ng build --base-href /",
     "build:prod": "npm run i18n && ng build --base-href / --aot --prod --stats-json",
-    "test": "ng test --source-map=false",
+    "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e --host=127.0.0.1",
     "clean": "npm cache verify && rimraf -- node_modules doc target/classes package-lock.json",
