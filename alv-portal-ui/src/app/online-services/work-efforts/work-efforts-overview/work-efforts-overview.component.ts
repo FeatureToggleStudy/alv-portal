@@ -60,19 +60,21 @@ export class WorkEffortsOverviewComponent extends AbstractSubscriber implements 
 
   private _currentFilter: WorkEffortsFilter;
 
+  private page = 0;
+
   get currentFilter(): WorkEffortsFilter {
     return this._currentFilter;
   }
 
   set currentFilter(value: WorkEffortsFilter) {
-    this.currentBadges = this.workEffortsBadgesMapperService.mapFilterBadges(value);
+    this.currentBadges = this.workEffortsOverviewFilterBadgesMapper.mapFilterBadges(value);
     this._currentFilter = value;
   }
   constructor(private fb: FormBuilder,
               private modalService: ModalService,
               private authenticationService: AuthenticationService,
               private i18nService: I18nService,
-              private workEffortsBadgesMapperService: WorkEffortsOverviewFilterBadgesMapper,
+              private workEffortsOverviewFilterBadgesMapper: WorkEffortsOverviewFilterBadgesMapper,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository) {
     super();
   }
@@ -103,17 +105,17 @@ export class WorkEffortsOverviewComponent extends AbstractSubscriber implements 
   onScroll() {
     this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
-      flatMap(user => this.proofOfWorkEffortsRepository.getProofOfWorkEfforts(user.id)),
+      flatMap(user => this.proofOfWorkEffortsRepository.findByOwnerUserId(user.id, this.page++)),
       map(proofOfWorkEffortsList => proofOfWorkEffortsList.map(proofOfWorkEfforts => new ProofOfWorkEffortsModel(proofOfWorkEfforts)))
     ).subscribe(proofOfWorkEffortsModels => {
       this.proofOfWorkEffortsModels = [...(this.proofOfWorkEffortsModels || []), ...proofOfWorkEffortsModels];
     });
   }
 
-  reloadProofOfWorkEfforts(proofOfWorkEfforts: ProofOfWorkEfforts) {
-    this.proofOfWorkEffortsRepository.getProofOfWorkEffortsById(proofOfWorkEfforts.id)
+  reloadProofOfWorkEfforts(proofOfWorkEffortsModel: ProofOfWorkEffortsModel) {
+    this.proofOfWorkEffortsRepository.getProofOfWorkEffortsById(proofOfWorkEffortsModel.id)
       .subscribe(reloadedProofOfWorkEfforts => {
-        const indexToUpdate = this.proofOfWorkEffortsModels.findIndex(model => model.proofOfWorkEfforts.id === reloadedProofOfWorkEfforts.id);
+        const indexToUpdate = this.proofOfWorkEffortsModels.findIndex(model => model.id === reloadedProofOfWorkEfforts.id);
         this.proofOfWorkEffortsModels[indexToUpdate] = new ProofOfWorkEffortsModel(reloadedProofOfWorkEfforts);
       });
   }

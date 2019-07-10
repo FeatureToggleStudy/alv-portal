@@ -17,9 +17,11 @@ export class ProofOfWorkEffortsRepository {
   constructor(private http: HttpClient) {
   }
 
-  getProofOfWorkEfforts(userId: string): Observable<ProofOfWorkEfforts[]> {
+  findByOwnerUserId(userId: string, page: number): Observable<ProofOfWorkEfforts[]> {
     return this.http.get<Page<ProofOfWorkEfforts>>(`${this.searchUrl}/by-owner-user-id`, {
-      params: new HttpParams().set('userId', userId)
+      params: new HttpParams()
+        .set('userId', userId)
+        .set('page', page.toString())
     }).pipe(
       map(result => result.content)
     );

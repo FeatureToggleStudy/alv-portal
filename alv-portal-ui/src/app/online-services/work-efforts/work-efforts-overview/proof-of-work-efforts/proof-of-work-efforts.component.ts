@@ -16,6 +16,7 @@ import { DOCUMENT } from '@angular/common';
 import { I18nService } from '../../../../core/i18n.service';
 import { withLatestFrom } from 'rxjs/operators';
 import { ProofOfWorkEffortsModel } from './proof-of-work-efforts.model';
+import { WorkEffortModel } from '../work-effort/work-effort.model';
 
 @Component({
   selector: 'alv-proof-of-work-efforts',
@@ -28,7 +29,7 @@ export class ProofOfWorkEffortsComponent implements OnInit {
 
   @Input() expanded: boolean;
 
-  @Output() reload = new EventEmitter<ProofOfWorkEfforts>();
+  @Output() reload = new EventEmitter<ProofOfWorkEffortsModel>();
 
   @HostBinding('class.current-period')
   isCurrentPeriod: boolean;
@@ -44,10 +45,10 @@ export class ProofOfWorkEffortsComponent implements OnInit {
     this.expanded = this.proofOfWorkEffortsModel.isCurrentPeriod;
   }
 
-  removeWorkEffort(deletedWorkEffort: WorkEffort) {
+  removeWorkEffort(deletedWorkEffort: WorkEffortModel) {
     const indexToRemove = this.proofOfWorkEffortsModel.workEfforts.findIndex(workEffortModel => workEffortModel.workEffort.id === deletedWorkEffort.id);
     this.proofOfWorkEffortsModel.workEfforts.splice(indexToRemove, 1);
-    this.reload.emit(this.proofOfWorkEffortsModel.proofOfWorkEfforts);
+    this.reload.emit(this.proofOfWorkEffortsModel);
   }
 
   downloadPdf(proofOfWorkEfforts: ProofOfWorkEfforts) {

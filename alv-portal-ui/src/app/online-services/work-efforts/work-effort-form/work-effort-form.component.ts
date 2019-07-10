@@ -136,9 +136,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     super();
     this.countryOptions$ = this.isoCountryService.countryOptions$;
-    const today = new Date();
-    this.minDate = mapDateToNgbDate(deltaDate(today, 0, this.MIN_MONTHS_DIFF, 0));
-    this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
   }
 
   get applyChannelsValue(): ApplyChannelsFormValue {
@@ -205,6 +202,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       EMPLOYED: ['REJECTED', 'PENDING'],
       INTERVIEW: []
     });
+
+    this.setupMinMaxDate();
 
     this.countryIsoCode$ = this.workEffortFormGroup.get('companyAddress').get('countryIsoCode').valueChanges
       .pipe(
@@ -354,6 +353,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     return this.fb.group(controlsConfig, options);
   }
 
+  private setupMinMaxDate() {
+    const today = new Date();
+    const minDate = deltaDate(today, 0, this.MIN_MONTHS_DIFF, 0);
+    minDate.setDate(1);
+    this.minDate = mapDateToNgbDate(minDate);
+    this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
+  }
   /**
    * Certain applyStatus are mutually exclusive, for example if the applyStatus of the work effort is rejection,
    * you can't also click an employed checkbox. We unset the mutually exclusive checkboxes each time the user

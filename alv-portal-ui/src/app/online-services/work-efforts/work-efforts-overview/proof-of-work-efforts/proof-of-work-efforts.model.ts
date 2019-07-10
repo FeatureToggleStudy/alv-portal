@@ -12,6 +12,8 @@ import { WorkEffortModel } from '../work-effort/work-effort.model';
 
 export class ProofOfWorkEffortsModel {
 
+  id: string;
+
   isSentSuccessfully: boolean;
 
   isClosed: boolean;
@@ -33,6 +35,9 @@ export class ProofOfWorkEffortsModel {
   workEfforts: WorkEffortModel[];
 
   constructor(public proofOfWorkEfforts: ProofOfWorkEfforts) {
+
+    this.id = this.proofOfWorkEfforts.id;
+
     this.isSentSuccessfully = this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.SUBMITTED ||
       this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.CLOSED;
 

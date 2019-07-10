@@ -12,6 +12,8 @@ import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badg
 
 export class WorkEffortModel {
 
+  id: string;
+
   applyStatusBadges: InlineBadge[];
 
   isSentSuccessfully: boolean;
@@ -24,6 +26,9 @@ export class WorkEffortModel {
 
   constructor(public workEffort: WorkEffort,
               public proofOfWorkEfforts: ProofOfWorkEfforts) {
+
+    this.id = this.workEffort.id;
+
     this.applyStatusBadges = this.mapApplyStatusBadges(this.workEffort.applyStatus);
 
     this.isSentSuccessfully = !!this.workEffort.submittedAt;
@@ -32,7 +37,7 @@ export class WorkEffortModel {
 
     this.statusLabel = 'portal.work-efforts.submit-status.text.' + (this.isSentSuccessfully ? 'closed' : 'open');
 
-    this.workEffortEditLink = `edit/${this.proofOfWorkEfforts.id}/${this.workEffort.id}`;
+    this.workEffortEditLink = `edit/${this.proofOfWorkEfforts.id}/${this.id}`;
   }
 
   private buildSubmissionDate(): Date {
