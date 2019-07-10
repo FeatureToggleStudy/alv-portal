@@ -46,7 +46,7 @@ export class ProofOfWorkEffortsComponent implements OnInit {
   }
 
   removeWorkEffort(deletedWorkEffort: WorkEffortModel) {
-    const indexToRemove = this.proofOfWorkEffortsModel.workEfforts.findIndex(workEffortModel => workEffortModel.workEffort.id === deletedWorkEffort.id);
+    const indexToRemove = this.proofOfWorkEffortsModel.workEfforts.findIndex(workEffortModel => workEffortModel.id === deletedWorkEffort.id);
     this.proofOfWorkEffortsModel.workEfforts.splice(indexToRemove, 1);
     this.reload.emit(this.proofOfWorkEffortsModel);
   }
@@ -65,6 +65,7 @@ export class ProofOfWorkEffortsComponent implements OnInit {
           element.download = filename;
           this.document.body.appendChild(element);
           element.click();
+          element.parentElement.removeChild(element);
         }
       }
     );
