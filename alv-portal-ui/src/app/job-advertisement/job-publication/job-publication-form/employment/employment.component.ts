@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { BehaviorSubject, of } from 'rxjs';
@@ -18,7 +18,7 @@ import { JobPublicationFormValueKeys } from '../job-publication-form-value.types
   templateUrl: './employment.component.html',
   styleUrls: ['./employment.component.scss']
 })
-export class EmploymentComponent extends AbstractSubscriber implements OnInit {
+export class EmploymentComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
   todayDate = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
 
@@ -126,10 +126,12 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
 
     this.parentForm.addControl(JobPublicationFormValueKeys.EMPLOYMENT, this.employment);
     this.setupWorkload();
+  }
+
+  public ngAfterViewInit() {
     this.setupWorkStart();
     this.setupWorkDuration();
   }
-
   getEmploymentEndMinDate(): NgbDateStruct {
     const selectedStartDate = this.employment.get('startDate').value;
     if (!!selectedStartDate && this.todayDate.before(selectedStartDate)) {
