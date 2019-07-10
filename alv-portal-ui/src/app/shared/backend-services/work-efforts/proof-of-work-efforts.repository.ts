@@ -27,19 +27,19 @@ export class ProofOfWorkEffortsRepository {
     );
   }
 
-  getProofOfWorkEffortsById(workEffortReportId: string): Observable<ProofOfWorkEfforts> {
-    return this.http.get<ProofOfWorkEfforts>(`${this.resourceUrl}/${workEffortReportId}`);
+  getProofOfWorkEffortsById(proofOfWorkEffortsId: string): Observable<ProofOfWorkEfforts> {
+    return this.http.get<ProofOfWorkEfforts>(`${this.resourceUrl}/${proofOfWorkEffortsId}`);
   }
 
-  getWorkEffortById(workEffortReportId: string, workEffortId: string): Observable<WorkEffort> {
-    return this.getProofOfWorkEffortsById(workEffortReportId).pipe(
+  getWorkEffortById(proofOfWorkEffortsId: string, workEffortId: string): Observable<WorkEffort> {
+    return this.getProofOfWorkEffortsById(proofOfWorkEffortsId).pipe(
       map(workEffortReport =>
         workEffortReport.workEfforts.find(workEffort => workEffort.id === workEffortId))
     );
   }
 
-  deleteWorkEffort(workEffortsReportId: string, workEffortId: string): Observable<null> {
-    return this.http.delete<null>(`${this.resourceUrl}/${workEffortsReportId}/work-efforts/${workEffortId}`);
+  deleteWorkEffort(proofOfWorkEffortsId: string, workEffortId: string): Observable<null> {
+    return this.http.delete<null>(`${this.resourceUrl}/${proofOfWorkEffortsId}/work-efforts/${workEffortId}`);
   }
 
   addWorkEffort(userId: string, workEffort: WorkEffort): Observable<ProofOfWorkEfforts> {
