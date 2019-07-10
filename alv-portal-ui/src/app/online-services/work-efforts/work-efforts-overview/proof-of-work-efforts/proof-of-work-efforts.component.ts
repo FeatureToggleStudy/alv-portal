@@ -65,6 +65,7 @@ export class ProofOfWorkEffortsComponent implements OnInit {
           element.download = filename;
           this.document.body.appendChild(element);
           element.click();
+          URL.revokeObjectURL(element.href);
           element.parentElement.removeChild(element);
         }
       }
