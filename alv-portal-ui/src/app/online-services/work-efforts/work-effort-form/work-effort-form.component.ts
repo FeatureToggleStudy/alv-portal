@@ -35,10 +35,10 @@ import {
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import {
   ApplyChannelsFormValue,
+  ApplyStatusFormValue,
   emptyWorkEffortFormValue,
   formPossibleApplyChannels,
   formPossibleApplyStatus,
-  ApplyStatusFormValue,
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.types';
@@ -125,8 +125,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   isSubmitting: boolean;
   selectedApplyChannels: ApplyChannelsFormValue;
 
-  private previousResultsValue;
-
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
@@ -201,7 +199,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
-    this.previousResultsValue = { ...this.initialWorkEffort.applyStatus };
     this.setUpUnclicking({
       PENDING: ['EMPLOYED', 'REJECTED'],
       REJECTED: ['EMPLOYED', 'PENDING'],
@@ -364,20 +361,18 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
    * @param clearingRules keys are checkbox keys. Values are checkboxes you wanna unset if the key is set
    */
   private setUpUnclicking(clearingRules: { [key: string]: string[] }) {
-    this.workEffortFormGroup.get('applyStatus').valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe)
-    )
-      .subscribe((next: ApplyStatusFormValue) => {
-        const prev = this.previousResultsValue;
-        const keySetToTrue: string = Object.keys(prev).filter(key => !prev[key] && next[key])[0];
-        const valueToPatch: ApplyStatusFormValue = { ...next };
-        if (keySetToTrue) {
-          for (const key of clearingRules[keySetToTrue]) {
-            valueToPatch[key] = false;
-          }
-        }
-        this.previousResultsValue = { ...valueToPatch };
-        this.workEffortFormGroup.get('applyStatus').setValue(valueToPatch, { emitEvent: false });
-      });
+    for (const rule in clearingRules) {
+      if (clearingRules.hasOwnProperty(rule)) {
+        this.workEffortFormGroup.get('applyStatus').get(rule).valueChanges.pipe(
+          takeUntil(this.ngUnsubscribe)
+        )
+          .subscribe((newValue) => {
+            clearingRules[rule].forEach(formControlToUncheck => {
+              this.workEffortFormGroup.get('applyStatus').get(formControlToUncheck).setValue(false, { emitEvent: false });
+            });
+          });
+      }
+    }
   }
+
 }

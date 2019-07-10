@@ -56,8 +56,10 @@ export class WorkEffortComponent implements OnInit {
     return !!workEffort.submittedAt;
   }
 
-  getSubmissionDate(workEffort: WorkEffort): string {
-    return workEffort.submittedAt || this.nextSubmissionDate;
+  getSubmissionDate(workEffort: WorkEffort): Date {
+    const submissionDate = new Date(workEffort.submittedAt || this.nextSubmissionDate);
+    submissionDate .setHours(23, 59);
+    return submissionDate;
   }
 
   getSubmissionText(workEffort: WorkEffort): string {

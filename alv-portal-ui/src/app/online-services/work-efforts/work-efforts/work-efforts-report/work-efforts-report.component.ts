@@ -53,8 +53,11 @@ export class WorkEffortsReportComponent implements OnInit {
     this.workEffortsReport.workEfforts.splice(indexToRemove, 1);
   }
 
-  getSubmissionDate(workEffortsReport: WorkEffortsReport): string {
-    return this.isSentSuccessfully(workEffortsReport) ? workEffortsReport.lastSubmittedAt : workEffortsReport.nextSubmissionDate;
+  getSubmissionDate(workEffortsReport: WorkEffortsReport): Date {
+    const submissionDate = new Date(this.isSentSuccessfully(workEffortsReport) ?
+      workEffortsReport.lastSubmittedAt : workEffortsReport.nextSubmissionDate);
+    submissionDate.setHours(23, 59);
+    return submissionDate;
   }
 
   isReportClosed(workEffortsReport: WorkEffortsReport): boolean {
