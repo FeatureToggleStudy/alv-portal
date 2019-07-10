@@ -4,11 +4,11 @@
     <div class="col-12 col-lg-3 work-effort-cell main-cell">
       <small class="cell-label">
         {{'portal.work-efforts.work-effort.cell-label.application-date' | translate}}
-        {{workEffortModel.workEffort.applyDate | localeAwareDate}}
+        {{workEffortModel.applyDate | localeAwareDate}}
       </small>
       <div class="flex-grow-1">
-        <div>{{workEffortModel.workEffort.applyChannel.address?.name}}</div>
-        <div>{{workEffortModel.workEffort.occupation}}</div>
+        <div>{{workEffortModel.companyName}}</div>
+        <div>{{workEffortModel.occupation}}</div>
       </div>
       <div #actionsMenu="ngbDropdown"
            (click)="$event.preventDefault();$event.stopPropagation()"
@@ -47,7 +47,7 @@
       </small>
       <div class="flex-grow-1">
         {{'portal.work-efforts.work-effort.cell-text.edited-at' | translate}}
-        {{workEffortModel.workEffort.createdAt | localeAwareDate}}
+        {{workEffortModel.createdAt | localeAwareDate}}
       </div>
     </div>
     <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column"

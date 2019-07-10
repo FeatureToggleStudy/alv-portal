@@ -51,8 +51,8 @@ export class ProofOfWorkEffortsComponent implements OnInit {
     this.reload.emit(this.proofOfWorkEffortsModel);
   }
 
-  downloadPdf(proofOfWorkEfforts: ProofOfWorkEfforts) {
-    this.proofOfWorkEffortsRepository.downloadPdf(proofOfWorkEfforts.id).pipe(
+  downloadPdf(proofOfWorkEffortsId: string) {
+    this.proofOfWorkEffortsRepository.downloadPdf(proofOfWorkEffortsId).pipe(
       withLatestFrom(this.i18nService.stream('portal.work-efforts.proof-of-work-efforts.pdf-file.name'))
     ).subscribe(([blob, filenamePrefix]) => {
         const filename = filenamePrefix + this.proofOfWorkEffortsModel.controlPeriodDateString;

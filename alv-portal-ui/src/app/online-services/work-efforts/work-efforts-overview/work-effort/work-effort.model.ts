@@ -14,6 +14,16 @@ export class WorkEffortModel {
 
   id: string;
 
+  proofOfWorkEffortsId: string;
+
+  createdAt: Date;
+
+  applyDate: Date;
+
+  companyName: string;
+
+  occupation: string;
+
   applyStatusBadges: InlineBadge[];
 
   isSentSuccessfully: boolean;
@@ -24,10 +34,20 @@ export class WorkEffortModel {
 
   workEffortEditLink: string;
 
-  constructor(public workEffort: WorkEffort,
-              public proofOfWorkEfforts: ProofOfWorkEfforts) {
+  constructor(private workEffort: WorkEffort,
+              private proofOfWorkEfforts: ProofOfWorkEfforts) {
 
     this.id = this.workEffort.id;
+
+    this.proofOfWorkEffortsId = this.proofOfWorkEfforts.id;
+
+    this.createdAt = new Date(this.workEffort.createdAt);
+
+    this.applyDate = new Date(this.workEffort.applyDate);
+
+    this.companyName = this.workEffort.applyChannel.address.name;
+
+    this.occupation = this.workEffort.occupation;
 
     this.applyStatusBadges = this.mapApplyStatusBadges(this.workEffort.applyStatus);
 

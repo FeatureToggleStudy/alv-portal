@@ -26,7 +26,7 @@ export class WorkEffortComponent {
       deleteWorkEffortModalConfig
     ).result
       .then(result => {
-        this.proofOfWorkEffortsRepository.deleteWorkEffort(this.workEffortModel.proofOfWorkEfforts.id, this.workEffortModel.id)
+        this.proofOfWorkEffortsRepository.deleteWorkEffort(this.workEffortModel.proofOfWorkEffortsId, this.workEffortModel.id)
           .subscribe(() => {
             this.deleted.emit(this.workEffortModel);
             this.notificationsService.success('portal.work-efforts.work-effort.notification.deleted');

@@ -34,7 +34,7 @@ export class ProofOfWorkEffortsModel {
 
   workEfforts: WorkEffortModel[];
 
-  constructor(public proofOfWorkEfforts: ProofOfWorkEfforts) {
+  constructor(private proofOfWorkEfforts: ProofOfWorkEfforts) {
 
     this.id = this.proofOfWorkEfforts.id;
 
