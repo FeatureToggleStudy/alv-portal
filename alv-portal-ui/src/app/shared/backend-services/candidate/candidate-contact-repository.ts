@@ -12,7 +12,7 @@ export class CandidateContactRepository {
   }
 
   sendContactModalEmail(emailContactModal: EmailContactModal): Observable<void> {
-    return this.httpClient.post<void>(`${this.resourceUrl}/messages/send-anonymous-message/`, emailContactModal);
+    return this.httpClient.post<void>(`${this.resourceUrl}/messages/send-anonymous-message`, emailContactModal);
   }
 
 }
