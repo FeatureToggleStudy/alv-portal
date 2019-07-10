@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { WorkEffortsOverviewComponent } from './work-efforts/work-efforts-overview.component';
+import { WorkEffortsOverviewComponent } from './work-efforts-overview/work-efforts-overview.component';
 import { WorkEffortFormComponent } from './work-effort-form/work-effort-form.component';
 import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
 import { WorkEffortFormResolverService } from './work-effort-form/work-effort-form-resolver.service';
