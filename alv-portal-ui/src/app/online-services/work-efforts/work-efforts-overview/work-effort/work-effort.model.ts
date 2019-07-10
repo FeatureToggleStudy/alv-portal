@@ -30,7 +30,7 @@ export class WorkEffortModel {
 
     this.submissionDate = this.buildSubmissionDate();
 
-    this.statusLabel = 'portal.work-efforts.submit-status.text.' + (this.isSentSuccessfully ? 'SUBMITTED' : 'OPEN');
+    this.statusLabel = 'portal.work-efforts.submit-status.text.' + (this.isSentSuccessfully ? 'closed' : 'open');
 
     this.workEffortEditLink = `edit/${this.proofOfWorkEfforts.id}/${this.workEffort.id}`;
   }

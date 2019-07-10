@@ -42,14 +42,14 @@ export class ProofOfWorkEffortsModel {
 
     this.controlPeriodDateString = this.proofOfWorkEfforts.controlPeriod.value;
 
-    this.monthValue  =  this.proofOfWorkEfforts.controlPeriod.value ?
+    this.monthValue = this.proofOfWorkEfforts.controlPeriod.value ?
       parseInt(this.proofOfWorkEfforts.controlPeriod.value.split('-')[1], 10) : null;
 
     this.submissionDate = this.buildSubmissionDate();
 
     this.hasPdfDocument = !!this.proofOfWorkEfforts.documentId;
 
-    this.statusLabel = 'portal.work-efforts.submit-status.text.' + this.proofOfWorkEfforts.status;
+    this.statusLabel = this.getStatusLabel();
 
     this.isCurrentPeriod = this.checkIsCurrentPeriod();
 
@@ -68,6 +68,16 @@ export class ProofOfWorkEffortsModel {
     const startDate = new Date(this.proofOfWorkEfforts.startDate + 'T00:00:00');
     const endDate = new Date(this.proofOfWorkEfforts.endDate + 'T00:00:00');
     return today >= startDate && today <= endDate;
+  }
+
+  private getStatusLabel(): string {
+    const baseLabel = 'portal.work-efforts.submit-status.text.';
+    if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.OPEN ||
+      this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.RE_OPENED) {
+      return baseLabel + 'open';
+    } else {
+      return baseLabel + 'closed';
+    }
   }
 }
 
