@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
-import { WorkEffortsReport } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+import { ProofOfWorkEfforts } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { debounceTime, filter, flatMap, map, takeUntil } from 'rxjs/operators';
@@ -14,23 +14,24 @@ import {
   WorkEffortsFilter,
   WorkEffortsFilterPeriod,
   WorkEffortsFilterValues
-} from './work-efforts-filter.types';
+} from './work-efforts-overview-filter.types';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { FilterBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
-import { WorkEffortsBadgesMapperService } from './work-efforts-badges-mapper.service';
+import { WorkEffortsOverviewFilterBadgesMapper } from './work-efforts-overview-filter-badges.mapper';
 import {
   Notification,
   NotificationType
 } from '../../../shared/layout/notifications/notification.model';
 import { I18nService } from '../../../core/i18n.service';
 import { Languages } from '../../../core/languages.constants';
+import { ProofOfWorkEffortsModel } from './proof-of-work-efforts/proof-of-work-efforts.model';
 
 @Component({
-  selector: 'alv-work-efforts',
-  templateUrl: './work-efforts.component.html',
-  styleUrls: ['./work-efforts.component.scss']
+  selector: 'alv-work-efforts-overview',
+  templateUrl: './work-efforts-overview.component.html',
+  styleUrls: ['./work-efforts-overview.component.scss']
 })
-export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
+export class WorkEffortsOverviewComponent extends AbstractSubscriber implements OnInit {
 
   readonly SEARCH_QUERY_MAX_LENGTH = 1000;
 
@@ -43,7 +44,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
 
   englishNotSupportedNotification = {
     type: NotificationType.ERROR,
-    messageKey: 'portal.work-efforts.work-effort-report.notification.no-english',
+    messageKey: 'portal.work-efforts.proof-of-work-efforts.notification.no-english',
     isSticky: true
   } as Notification;
 
@@ -51,7 +52,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
 
   form: FormGroup;
 
-  workEffortsReports$: Observable<WorkEffortsReport[]>;
+  proofOfWorkEffortsModels$: Observable<ProofOfWorkEffortsModel[]>;
 
   currentBadges: FilterBadge[];
 
@@ -73,7 +74,7 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
               private modalService: ModalService,
               private authenticationService: AuthenticationService,
               private i18nService: I18nService,
-              private workEffortsBadgesMapperService: WorkEffortsBadgesMapperService,
+              private workEffortsBadgesMapperService: WorkEffortsOverviewFilterBadgesMapper,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository) {
     super();
   }
@@ -85,11 +86,11 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       query: ['']
     });
 
-    this.workEffortsReports$ = this.authenticationService.getCurrentUser().pipe(
+    this.proofOfWorkEffortsModels$ = this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
-      flatMap(user => this.proofOfWorkEffortsRepository.getWorkEffortsReports(user.id))
+      flatMap(user => this.proofOfWorkEffortsRepository.getProofOfWorkEfforts(user.id)),
+      map(proofOfWorkEffortsList => proofOfWorkEffortsList.map(proofOfWorkEfforts => new ProofOfWorkEffortsModel(proofOfWorkEfforts)))
     );
-
 
     this.form.get('query').valueChanges.pipe(
       debounceTime(300),
@@ -115,11 +116,6 @@ export class WorkEffortsComponent extends AbstractSubscriber implements OnInit {
       })
       .catch(() => {
       });
-  }
-
-  isCurrentPeriod(workEffortsReport: WorkEffortsReport): boolean {
-    return this.today >= new Date(workEffortsReport.startDate) &&
-      this.today <= new Date(workEffortsReport.endDate);
   }
 
   removeCurrentBadge(badge: FilterBadge) {

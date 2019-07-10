@@ -42,10 +42,9 @@
   </div>
   -->
 
-  <alv-work-efforts-report *ngFor="let workEffortsReport of workEffortsReports$ | async"
-                           [workEffortsReport]="workEffortsReport"
-                           [isCurrentPeriod]="isCurrentPeriod(workEffortsReport)"
-                           class="d-block mb-4">
-  </alv-work-efforts-report>
+  <alv-proof-of-work-efforts *ngFor="let proofOfWorkEffortsModel of proofOfWorkEffortsModels$ | async"
+                             [proofOfWorkEffortsModel]="proofOfWorkEffortsModel"
+                             class="d-block mb-4">
+  </alv-proof-of-work-efforts>
 
 </div>

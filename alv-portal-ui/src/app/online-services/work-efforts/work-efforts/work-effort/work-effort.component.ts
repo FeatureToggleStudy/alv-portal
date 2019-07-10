@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   WorkEffort,
-  WorkEffortsReportStatus
+  ProofOfWorkEffortsStatus
 } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { InlineBadge } from '../../../../shared/layout/inline-badges/inline-badge.types';
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
 import { deleteWorkEffortModalConfig } from '../modal-config.types';
 import { NotificationsService } from '../../../../core/notifications.service';
-import { WorkEffortsBadgesMapperService } from '../work-efforts-badges-mapper.service';
+import { WorkEffortsOverviewFilterBadgesMapper } from '../work-efforts-overview-filter-badges.mapper';
 import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
+import { WorkEffortModel } from './work-effort.model';
 
 @Component({
   selector: 'alv-work-effort',
@@ -17,24 +18,18 @@ import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-service
 })
 export class WorkEffortComponent implements OnInit {
 
-  @Input() workEffortsReportId: string;
-
-  @Input() workEffort: WorkEffort;
-
-  @Input() nextSubmissionDate: string;
+  @Input() workEffortModel: WorkEffortModel;
 
   @Output() deleted = new EventEmitter<WorkEffort>();
 
-  resultBadges: InlineBadge[] = [];
-
   constructor(private modalService: ModalService,
-              private workEffortsBadgesMapperService: WorkEffortsBadgesMapperService,
+              private workEffortsBadgesMapperService: WorkEffortsOverviewFilterBadgesMapper,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
               private notificationsService: NotificationsService) {
   }
 
   ngOnInit() {
-    this.resultBadges = this.workEffortsBadgesMapperService.mapResultBadges(this.workEffort.applyStatus);
+
   }
 
   deleteWorkEffort() {
@@ -42,9 +37,9 @@ export class WorkEffortComponent implements OnInit {
       deleteWorkEffortModalConfig
     ).result
       .then(result => {
-        this.proofOfWorkEffortsRepository.deleteWorkEffort(this.workEffortsReportId, this.workEffort.id)
+        this.proofOfWorkEffortsRepository.deleteWorkEffort(this.workEffortModel.proofOfWorkEfforts.id, this.workEffortModel.workEffort.id)
           .subscribe(() => {
-            this.deleted.emit(this.workEffort);
+            this.deleted.emit(this.workEffortModel.workEffort);
             this.notificationsService.success('portal.work-efforts.work-effort.notification.deleted');
           });
       })
@@ -52,18 +47,4 @@ export class WorkEffortComponent implements OnInit {
       });
   }
 
-  isSentSuccessfully(workEffort: WorkEffort): boolean {
-    return !!workEffort.submittedAt;
-  }
-
-  getSubmissionDate(workEffort: WorkEffort): Date {
-    const submissionDate = new Date(workEffort.submittedAt || this.nextSubmissionDate);
-    submissionDate .setHours(23, 59);
-    return submissionDate;
-  }
-
-  getSubmissionText(workEffort: WorkEffort): string {
-    return 'portal.work-efforts.submit-status.text.' +
-      (this.isSentSuccessfully(workEffort) ? WorkEffortsReportStatus.SUBMITTED : WorkEffortsReportStatus.OPEN);
-  }
 }

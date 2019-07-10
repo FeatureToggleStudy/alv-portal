@@ -16,9 +16,9 @@ export class WorkEffortFormResolverService implements Resolve<Observable<WorkEff
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<WorkEffortFormValue> {
-    const workEffortsReportId = route.params['report-id'];
+    const proofOfWorkEffortsId = route.params['proof-id'];
     const workEffortId = route.params['id'];
-    return this.proofOfWorkEffortsRepository.getWorkEffortById(workEffortsReportId, workEffortId).pipe(
+    return this.proofOfWorkEffortsRepository.getWorkEffortById(proofOfWorkEffortsId, workEffortId).pipe(
       map((workEffort: WorkEffort) => mapToWorkEffortFormValue(workEffort))
     );
   }

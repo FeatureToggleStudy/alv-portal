@@ -50,7 +50,7 @@ import { mapToWorkEffortBackendValue } from './work-effort-form.mapper';
 import { requiredIfValidator } from '../../../shared/forms/input/validators/required-if.validator';
 import { conditionalValidator } from '../../../shared/forms/input/validators/conditional.validator';
 import { zipCityInputSettings } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
-import { WorkEffortsReport } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+import { ProofOfWorkEfforts } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ScrollService } from '../../../core/scroll.service';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
@@ -306,7 +306,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       .updateValueAndValidity();
   }
 
-  private createOrUpdateWorkEffort(userId: string): Observable<WorkEffortsReport> {
+  private createOrUpdateWorkEffort(userId: string): Observable<ProofOfWorkEfforts> {
     if (this.workEffortFormGroup.value.id) {
       return this.proofOfWorkEffortsRepository.updateWorkEffort(userId,
         mapToWorkEffortBackendValue(this.workEffortFormGroup.value));
@@ -367,9 +367,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
           takeUntil(this.ngUnsubscribe)
         )
           .subscribe((newValue) => {
-            clearingRules[rule].forEach(formControlToUncheck => {
-              this.workEffortFormGroup.get('applyStatus').get(formControlToUncheck).setValue(false, { emitEvent: false });
-            });
+            if (newValue) {
+              clearingRules[rule].forEach(formControlToUncheck => {
+                this.workEffortFormGroup.get('applyStatus').get(formControlToUncheck).setValue(false, { emitEvent: false });
+              });
+            }
           });
       }
     }

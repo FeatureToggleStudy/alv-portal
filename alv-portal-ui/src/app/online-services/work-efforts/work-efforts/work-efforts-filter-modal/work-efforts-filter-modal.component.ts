@@ -9,7 +9,7 @@ import {
 import {
   WorkEffortsFilterPeriod,
   WorkEffortsFilterValues
-} from '../work-efforts-filter.types';
+} from '../work-efforts-overview-filter.types';
 
 @Component({
   selector: 'alv-work-efforts-filter-modal',

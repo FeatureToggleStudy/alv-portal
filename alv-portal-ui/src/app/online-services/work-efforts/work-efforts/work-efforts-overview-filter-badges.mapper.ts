@@ -3,19 +3,13 @@ import {
   WorkEffortApplyStatusFilter,
   WorkEffortsFilter,
   WorkEffortsFilterPeriod
-} from './work-efforts-filter.types';
-import {
-  FilterBadge,
-  InlineBadge
-} from '../../../shared/layout/inline-badges/inline-badge.types';
-import {
-  WorkEffortApplyStatus
-} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+} from './work-efforts-overview-filter.types';
+import { FilterBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WorkEffortsBadgesMapperService {
+export class WorkEffortsOverviewFilterBadgesMapper {
 
   constructor() { }
 
@@ -64,38 +58,6 @@ export class WorkEffortsBadgesMapperService {
       }
     }
 
-    return badges;
-  }
-
-  mapResultBadges(workEffortResults: WorkEffortApplyStatus[]): InlineBadge[] {
-    const badges: InlineBadge[] = [];
-    if (workEffortResults.includes(WorkEffortApplyStatus.INTERVIEW)) {
-      badges.push({
-        cssClass: 'badge-work-effort-result-interview',
-        label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatus.INTERVIEW
-      });
-    }
-
-    if (workEffortResults.includes(WorkEffortApplyStatus.EMPLOYED)) {
-      badges.push({
-        cssClass: 'badge-work-effort-result-employed',
-        label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatus.EMPLOYED
-      });
-    }
-
-    if (workEffortResults.includes(WorkEffortApplyStatus.PENDING)) {
-      badges.push({
-        cssClass: 'badge-work-effort-result-pending',
-        label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatus.PENDING
-      });
-    }
-
-    if (workEffortResults.includes(WorkEffortApplyStatus.REJECTED)) {
-      badges.push({
-        cssClass: 'badge-work-effort-result-rejected',
-        label: 'portal.work-efforts.work-effort-result.' + WorkEffortApplyStatus.REJECTED
-      });
-    }
     return badges;
   }
 }

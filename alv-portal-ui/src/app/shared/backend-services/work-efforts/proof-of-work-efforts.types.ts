@@ -1,4 +1,4 @@
-export interface WorkEffortsReport {
+export interface ProofOfWorkEfforts {
   id?: string;
   businessCaseId: string;
   controlPeriod: ControlPeriod;
@@ -9,7 +9,7 @@ export interface WorkEffortsReport {
   ownerUserId: string;
   personNumber: string;
   workEfforts: WorkEffort[];
-  status: WorkEffortsReportStatus;
+  status: ProofOfWorkEffortsStatus;
   nextSubmissionDate: string;
   lastSubmittedAt?: string;
   updatedAt?: string;
@@ -54,7 +54,7 @@ export interface ControlPeriod {
   value: string;
 }
 
-export enum WorkEffortsReportStatus {
+export enum ProofOfWorkEffortsStatus {
   RE_OPENED = 'RE_OPENED',
   SUBMITTED = 'SUBMITTED',
   OPEN = 'OPEN',

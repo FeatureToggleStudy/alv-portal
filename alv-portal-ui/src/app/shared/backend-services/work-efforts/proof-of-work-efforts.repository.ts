@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { WorkEffort, WorkEffortsReport } from './proof-of-work-efforts.types';
-import { map, tap } from 'rxjs/operators';
+import { ProofOfWorkEfforts, WorkEffort } from './proof-of-work-efforts.types';
+import { map } from 'rxjs/operators';
 import { Page } from '../shared.types';
 
 @Injectable({ providedIn: 'root' })
@@ -17,20 +17,20 @@ export class ProofOfWorkEffortsRepository {
   constructor(private http: HttpClient) {
   }
 
-  getWorkEffortsReports(userId: string): Observable<WorkEffortsReport[]> {
-    return this.http.get<Page<WorkEffortsReport>>(`${this.searchUrl}/by-owner-user-id`, {
+  getProofOfWorkEfforts(userId: string): Observable<ProofOfWorkEfforts[]> {
+    return this.http.get<Page<ProofOfWorkEfforts>>(`${this.searchUrl}/by-owner-user-id`, {
       params: new HttpParams().set('userId', userId)
     }).pipe(
       map(result => result.content)
     );
   }
 
-  getWorkEffortsReportById(workEffortReportId: string): Observable<WorkEffortsReport> {
-    return this.http.get<WorkEffortsReport>(`${this.resourceUrl}/${workEffortReportId}`);
+  getProofOfWorkEffortsById(workEffortReportId: string): Observable<ProofOfWorkEfforts> {
+    return this.http.get<ProofOfWorkEfforts>(`${this.resourceUrl}/${workEffortReportId}`);
   }
 
   getWorkEffortById(workEffortReportId: string, workEffortId: string): Observable<WorkEffort> {
-    return this.getWorkEffortsReportById(workEffortReportId).pipe(
+    return this.getProofOfWorkEffortsById(workEffortReportId).pipe(
       map(workEffortReport =>
         workEffortReport.workEfforts.find(workEffort => workEffort.id === workEffortId))
     );
@@ -40,14 +40,14 @@ export class ProofOfWorkEffortsRepository {
     return this.http.delete<null>(`${this.resourceUrl}/${workEffortsReportId}/work-efforts/${workEffortId}`);
   }
 
-  addWorkEffort(userId: string, workEffort: WorkEffort): Observable<WorkEffortsReport> {
-    return this.http.post<WorkEffortsReport>(`${this.actionUrl}/add-work-effort`, workEffort, {
+  addWorkEffort(userId: string, workEffort: WorkEffort): Observable<ProofOfWorkEfforts> {
+    return this.http.post<ProofOfWorkEfforts>(`${this.actionUrl}/add-work-effort`, workEffort, {
       params: new HttpParams().set('userId', userId)
     });
   }
 
-  updateWorkEffort(userId: string, workEffort: WorkEffort): Observable<WorkEffortsReport> {
-    return this.http.post<WorkEffortsReport>(`${this.actionUrl}/update-work-effort`, workEffort, {
+  updateWorkEffort(userId: string, workEffort: WorkEffort): Observable<ProofOfWorkEfforts> {
+    return this.http.post<ProofOfWorkEfforts>(`${this.actionUrl}/update-work-effort`, workEffort, {
       params: new HttpParams().set('userId', userId)
     });
   }
