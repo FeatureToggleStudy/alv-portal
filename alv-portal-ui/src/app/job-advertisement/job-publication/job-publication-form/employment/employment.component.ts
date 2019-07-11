@@ -1,13 +1,10 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { BehaviorSubject, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
-import {
-  EmploymentDuration,
-  WorkForm
-} from '../../../../shared/backend-services/shared.types';
+import { EmploymentDuration, WorkForm } from '../../../../shared/backend-services/shared.types';
 import { NgbDate, NgbDateNativeAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DateInputComponent } from '../../../../shared/forms/input/date-input/date-input.component';
 import { EmploymentFormValue } from './employment-form-value.types';
@@ -18,7 +15,7 @@ import { JobPublicationFormValueKeys } from '../job-publication-form-value.types
   templateUrl: './employment.component.html',
   styleUrls: ['./employment.component.scss']
 })
-export class EmploymentComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
+export class EmploymentComponent extends AbstractSubscriber implements OnInit {
 
   todayDate = NgbDate.from(this.ngbDateNativeAdapter.fromModel(new Date()));
 
@@ -34,16 +31,16 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit, A
   employment: FormGroup;
 
   defaultPercentages = [
-    { label: '10%', value: 10 },
-    { label: '20%', value: 20 },
-    { label: '30%', value: 30 },
-    { label: '40%', value: 40 },
-    { label: '50%', value: 50 },
-    { label: '60%', value: 60 },
-    { label: '70%', value: 70 },
-    { label: '80%', value: 80 },
-    { label: '90%', value: 90 },
-    { label: '100%', value: 100 }
+    {label: '10%', value: 10},
+    {label: '20%', value: 20},
+    {label: '30%', value: 30},
+    {label: '40%', value: 40},
+    {label: '50%', value: 50},
+    {label: '60%', value: 60},
+    {label: '70%', value: 70},
+    {label: '80%', value: 80},
+    {label: '90%', value: 90},
+    {label: '100%', value: 100}
   ];
 
   percentagesMin$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
@@ -98,7 +95,7 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit, A
   }
 
   ngOnInit(): void {
-    const { workloadPercentageMin, workloadPercentageMax, duration, immediately, startDate, endDate, workForms } = this.employmentFormValue;
+    const {workloadPercentageMin, workloadPercentageMax, duration, immediately, startDate, endDate, workForms} = this.employmentFormValue;
 
     this.employment = this.fb.group({
       workloadPercentageMin: [workloadPercentageMin, [
@@ -113,7 +110,7 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit, A
       duration: [duration, [
         Validators.required
       ]],
-      startDate: [{ value: startDate, disabled: immediately }, [Validators.required]],
+      startDate: [{value: startDate, disabled: immediately}, [Validators.required]],
       endDate: [{
         value: endDate,
         disabled: duration !== EmploymentDuration.TEMPORARY
@@ -126,12 +123,10 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit, A
 
     this.parentForm.addControl(JobPublicationFormValueKeys.EMPLOYMENT, this.employment);
     this.setupWorkload();
-  }
-
-  public ngAfterViewInit() {
     this.setupWorkStart();
     this.setupWorkDuration();
   }
+
   getEmploymentEndMinDate(): NgbDateStruct {
     const selectedStartDate = this.employment.get('startDate').value;
     if (!!selectedStartDate && this.todayDate.before(selectedStartDate)) {
