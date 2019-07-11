@@ -1,3 +1,10 @@
+# Debugging Helpers
+
+The document lists some debugging helpers for Angular that have proven to be useful.
+
+## Get all errors from a FromGroup
+
+```
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 
 /**
@@ -28,3 +35,34 @@ export function getAllErrors(fGroup: FormGroup ): {[index: string]: any} {
       return result; // and return the result to the next control
     }, {__groupErrors: fGroup.errors});
 }
+
+```   
+
+## Color JSON values according their type
+
+```
+pre span {
+  white-space: normal;
+}
+
+.string {
+  color: #388066;
+}
+
+.number {
+  color: darkorange;
+}
+
+.boolean {
+  color: blue;
+}
+
+.null {
+  color: #a800a8;
+}
+
+.key {
+  color: #3d1211;
+}
+
+```

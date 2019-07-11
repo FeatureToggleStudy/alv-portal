@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { WorkEffort, WorkEffortsReport } from './proof-of-work-efforts.types';
-import { map, tap } from 'rxjs/operators';
+import { ProofOfWorkEfforts, WorkEffort } from './proof-of-work-efforts.types';
+import { map } from 'rxjs/operators';
 import { Page } from '../shared.types';
 
 @Injectable({ providedIn: 'root' })
@@ -17,50 +17,44 @@ export class ProofOfWorkEffortsRepository {
   constructor(private http: HttpClient) {
   }
 
-  getWorkEffortsReports(userId: string): Observable<WorkEffortsReport[]> {
-    return this.http.get<Page<WorkEffortsReport>>(`${this.searchUrl}/by-owner-user-id`, {
-      params: new HttpParams().set('userId', userId)
+  findByOwnerUserId(userId: string, page: number): Observable<ProofOfWorkEfforts[]> {
+    return this.http.get<Page<ProofOfWorkEfforts>>(`${this.searchUrl}/by-owner-user-id`, {
+      params: new HttpParams()
+        .set('userId', userId)
+        .set('page', page.toString())
     }).pipe(
       map(result => result.content)
     );
   }
 
-  getWorkEffortsReportById(workEffortReportId: string): Observable<WorkEffortsReport> {
-    return this.http.get<WorkEffortsReport>(`${this.resourceUrl}/${workEffortReportId}`);
+  getProofOfWorkEffortsById(proofOfWorkEffortsId: string): Observable<ProofOfWorkEfforts> {
+    return this.http.get<ProofOfWorkEfforts>(`${this.resourceUrl}/${proofOfWorkEffortsId}`);
   }
 
-  getWorkEffortById(workEffortReportId: string, workEffortId: string): Observable<WorkEffort> {
-    return this.getWorkEffortsReportById(workEffortReportId).pipe(
+  getWorkEffortById(proofOfWorkEffortsId: string, workEffortId: string): Observable<WorkEffort> {
+    return this.getProofOfWorkEffortsById(proofOfWorkEffortsId).pipe(
       map(workEffortReport =>
         workEffortReport.workEfforts.find(workEffort => workEffort.id === workEffortId))
     );
   }
 
-  deleteWorkEffort(workEffortsReportId: string, workEffortId: string): Observable<null> {
-    return this.http.delete<null>(`${this.resourceUrl}/${workEffortsReportId}/work-efforts/${workEffortId}`);
+  deleteWorkEffort(proofOfWorkEffortsId: string, workEffortId: string): Observable<null> {
+    return this.http.delete<null>(`${this.resourceUrl}/${proofOfWorkEffortsId}/work-efforts/${workEffortId}`);
   }
 
-  addWorkEffort(userId: string, workEffort: WorkEffort): Observable<WorkEffortsReport> {
-    return this.http.post<WorkEffortsReport>(`${this.actionUrl}/add-work-effort`, workEffort, {
+  addWorkEffort(userId: string, workEffort: WorkEffort): Observable<ProofOfWorkEfforts> {
+    return this.http.post<ProofOfWorkEfforts>(`${this.actionUrl}/add-work-effort`, workEffort, {
       params: new HttpParams().set('userId', userId)
     });
   }
 
-  updateWorkEffort(userId: string, workEffort: WorkEffort): Observable<WorkEffortsReport> {
-    return this.http.post<WorkEffortsReport>(`${this.actionUrl}/update-work-effort`, workEffort, {
+  updateWorkEffort(userId: string, workEffort: WorkEffort): Observable<ProofOfWorkEfforts> {
+    return this.http.post<ProofOfWorkEfforts>(`${this.actionUrl}/update-work-effort`, workEffort, {
       params: new HttpParams().set('userId', userId)
     });
   }
 
-  downloadPdf(proofOfWorkEffortsId: string): Observable<{file: any, filename: string}> {
-    return this.http.get(this.resourceUrl + '/' + proofOfWorkEffortsId + '/pdf-document', { observe: 'response', responseType: 'blob' })
-      .pipe(
-        map(res => {
-          return {
-            file: res.body,
-            filename: res.headers.get('content-disposition').split('filename=')[1]
-          };
-        })
-      );
+  downloadPdf(proofOfWorkEffortsId: string): Observable<Blob> {
+    return this.http.get(this.resourceUrl + '/' + proofOfWorkEffortsId + '/pdf-document', { responseType: 'blob' });
   }
 }

@@ -1,4 +1,4 @@
-export interface WorkEffortsReport {
+export interface ProofOfWorkEfforts {
   id?: string;
   businessCaseId: string;
   controlPeriod: ControlPeriod;
@@ -9,7 +9,7 @@ export interface WorkEffortsReport {
   ownerUserId: string;
   personNumber: string;
   workEfforts: WorkEffort[];
-  status: WorkEffortsReportStatus;
+  status: ProofOfWorkEffortsStatus;
   nextSubmissionDate: string;
   lastSubmittedAt?: string;
   updatedAt?: string;
@@ -54,8 +54,8 @@ export interface ControlPeriod {
   value: string;
 }
 
-export enum WorkEffortsReportStatus {
-  CHANGED = 'CHANGED',
+export enum ProofOfWorkEffortsStatus {
+  RE_OPENED = 'RE_OPENED',
   SUBMITTED = 'SUBMITTED',
   OPEN = 'OPEN',
   CLOSED = 'CLOSED' // TODO: no add/edit button for work efforts
@@ -74,17 +74,8 @@ export enum WorkEffortApplyChannelType {
 }
 
 export enum WorkEffortApplyStatus {
-  ALL = 'ALL',
   PENDING = 'PENDING',
   REJECTED = 'REJECTED',
   EMPLOYED = 'EMPLOYED',
   INTERVIEW = 'INTERVIEW'
-}
-
-export enum WorkEffortsFilterPeriod {
-  CURRENT_MONTH = 'CURRENT_MONTH',
-  LAST_3_MONTHS = 'LAST_3_MONTHS',
-  LAST_6_MONTHS = 'LAST_6_MONTHS',
-  LAST_12_MONTHS = 'LAST_12_MONTHS',
-  ALL_MONTHS = 'ALL_MONTHS'
 }

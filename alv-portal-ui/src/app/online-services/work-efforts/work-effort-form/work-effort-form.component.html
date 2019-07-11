@@ -46,7 +46,7 @@
       <hr class="mb-4">
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
-            class="mb-5"
+            class="mb-4"
             alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
@@ -251,32 +251,32 @@
           </div>
         </div>
         <!--      Results and rejection reason -->
-        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result"
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.apply-status.label"
                             [isAlwaysExpanded]="true">
           <fieldset>
-            <legend class="sr-only">{{'portal.work-efforts.edit-form.result' | translate}}</legend>
-            <div formGroupName="results">
-              <div *ngFor="let resultCheckbox of resultsCheckboxNames"
+            <legend class="sr-only">{{'portal.work-efforts.edit-form.apply-status' | translate}}</legend>
+            <div formGroupName="applyStatus">
+              <div *ngFor="let applyStatusCheckbox of applyStatusCheckboxNames"
                    class="alv-light-panel p-2 mb-1">
                 <alv-checkbox
-                  [alvFormControlName]="resultCheckbox"
-                  [label]="'portal.work-efforts.edit-form.results.' + resultCheckbox"
+                  [alvFormControlName]="applyStatusCheckbox"
+                  [label]="'portal.work-efforts.edit-form.apply-status.' + applyStatusCheckbox"
                   class="narrow-form">
                 </alv-checkbox>
               </div>
-              <alv-validation-messages [control]="workEffortFormGroup.get('results')"
+              <alv-validation-messages [control]="workEffortFormGroup.get('applyStatus')"
                                        [customValidationMessages]="[{
                                         error: 'atLeastOneRequired',
-                                        message: 'portal.work-efforts.edit-form.group-errors.at-least-one-result-required'
+                                        message: 'portal.work-efforts.edit-form.group-errors.at-least-one-apply-status-required'
                                       }]">
               </alv-validation-messages>
             </div>
-            <ng-container *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
+            <ng-container *ngIf="workEffortFormGroup?.get('applyStatus')?.get('REJECTED')?.value">
               <div class="arrow-container pt-0">
                 <div class="arrow-down">
                 </div>
               </div>
-              <alv-input-field [isRequired]="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
+              <alv-input-field [isRequired]="workEffortFormGroup?.get('applyStatus')?.get('REJECTED')?.value"
                                alvFormControlName="rejectionReason"
                                label="portal.work-efforts.edit-form.rejection-reason">
               </alv-input-field>
@@ -301,7 +301,7 @@
         </div>
       </form>
     </div>
-    <div class="right-column">
+    <div class="right-column mb-3">
       <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
                       class="info-panel"
                       [numberOfColumns]="1">
