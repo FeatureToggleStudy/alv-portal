@@ -4,3 +4,8 @@ em {
   padding: 0 0.125rem;
   background-color: $color-light-yellow;
 }
+
+markdown em {
+  padding: 0;
+  background-color: $color-white;
+}
