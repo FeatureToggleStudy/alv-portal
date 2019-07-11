@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
 import {
   AbstractControlOptions,
   FormBuilder,
@@ -130,6 +135,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
               private authenticationService: AuthenticationService,
               private route: ActivatedRoute,
               public router: Router,
+              private cdRef: ChangeDetectorRef,
               private scrollService: ScrollService,
               private modalService: ModalService) {
 
@@ -235,6 +241,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       switchMap(user => this.createOrUpdateWorkEffort(user.id)),
       catchError(error => {
         this.isSubmitting = false;
+        this.cdRef.detectChanges(); // needed because of changeDetectionStrategy.OnPush
         throw error;
       })
     ).subscribe(result => {
