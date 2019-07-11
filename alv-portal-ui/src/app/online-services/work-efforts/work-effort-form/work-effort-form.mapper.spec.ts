@@ -62,7 +62,7 @@ const mockWorkEffortFormValue: WorkEffortFormValue = {
     countryIsoCode: 'CH',
   },
   appliedThroughRav: false,
-  results: {
+  applyStatus: {
     EMPLOYED: false,
     REJECTED: true,
     INTERVIEW: false,

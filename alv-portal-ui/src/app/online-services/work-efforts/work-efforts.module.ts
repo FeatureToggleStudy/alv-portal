@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { WorkEffortsRoutingModule } from './work-efforts-routing.module';
 import { ModalService } from '../../shared/layout/modal/modal.service';
-import { WorkEffortsComponent } from './work-efforts/work-efforts.component';
+import { WorkEffortsOverviewComponent } from './work-efforts-overview/work-efforts-overview.component';
 import { WorkEffortFormComponent } from './work-effort-form/work-effort-form.component';
-import { WorkEffortComponent } from './work-efforts/work-effort/work-effort.component';
-import { WorkEffortsReportComponent } from './work-efforts/work-efforts-report/work-efforts-report.component';
+import { WorkEffortComponent } from './work-efforts-overview/work-effort/work-effort.component';
+import { ProofOfWorkEffortsComponent } from './work-efforts-overview/proof-of-work-efforts/proof-of-work-efforts.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { WorkEffortsFilterModalComponent } from './work-efforts/work-efforts-filter-modal/work-efforts-filter-modal.component';
+import { WorkEffortsFilterModalComponent } from './work-efforts-overview/work-efforts-filter-modal/work-efforts-filter-modal.component';
 import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
 import { SuccessModalComponent } from './work-effort-form/success-modal/success-modal.component';
 import { AssistantLinkComponent } from './work-effort-form/assistant-link/assistant-link.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -20,11 +21,12 @@ import { AssistantLinkComponent } from './work-effort-form/assistant-link/assist
     SharedModule,
     WorkEffortsRoutingModule,
     NgbDropdownModule,
+    InfiniteScrollModule
   ],
   declarations: [
-    WorkEffortsComponent,
+    WorkEffortsOverviewComponent,
     WorkEffortComponent,
-    WorkEffortsReportComponent,
+    ProofOfWorkEffortsComponent,
     WorkEffortFormComponent,
     WorkEffortsFilterModalComponent,
     SuccessModalComponent,

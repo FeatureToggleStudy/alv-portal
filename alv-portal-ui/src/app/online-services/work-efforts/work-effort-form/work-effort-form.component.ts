@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
 import {
   AbstractControlOptions,
   FormBuilder,
@@ -13,7 +18,7 @@ import { Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
-import { filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
@@ -37,8 +42,7 @@ import {
   ApplyChannelsFormValue,
   emptyWorkEffortFormValue,
   formPossibleApplyChannels,
-  formPossibleResults,
-  ResultsFormValue,
+  formPossibleApplyStatus,
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.types';
@@ -50,7 +54,7 @@ import { mapToWorkEffortBackendValue } from './work-effort-form.mapper';
 import { requiredIfValidator } from '../../../shared/forms/input/validators/required-if.validator';
 import { conditionalValidator } from '../../../shared/forms/input/validators/conditional.validator';
 import { zipCityInputSettings } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
-import { WorkEffortsReport } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+import { ProofOfWorkEfforts } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ScrollService } from '../../../core/scroll.service';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
@@ -80,7 +84,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   countryIsoCode$: Observable<String>;
   workEffortFormGroup: FormGroup;
   initialWorkEffort: WorkEffortFormValue;
-  resultsCheckboxNames = formPossibleResults;
+  applyStatusCheckboxNames = formPossibleApplyStatus;
   applyChannelsCheckboxNames = formPossibleApplyChannels;
   countryOptions$: Observable<SelectableOption[]>;
   toolbarButtons = [
@@ -125,22 +129,18 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   isSubmitting: boolean;
   selectedApplyChannels: ApplyChannelsFormValue;
 
-  private previousResultsValue;
-
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
               private authenticationService: AuthenticationService,
               private route: ActivatedRoute,
               public router: Router,
+              private cdRef: ChangeDetectorRef,
               private scrollService: ScrollService,
               private modalService: ModalService) {
 
     super();
     this.countryOptions$ = this.isoCountryService.countryOptions$;
-    const today = new Date();
-    this.minDate = mapDateToNgbDate(deltaDate(today, 0, this.MIN_MONTHS_DIFF, 0));
-    this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
   }
 
   get applyChannelsValue(): ApplyChannelsFormValue {
@@ -190,10 +190,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
       appliedThroughRav: ['', Validators.required],
       workload: ['', Validators.required],
-      results: this.generateResultsGroup(),
+      applyStatus: this.generateApplyStatusGroup(),
       rejectionReason: ['', [
         Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH),
-        requiredIfValidator(() => this.workEffortFormGroup.get('results').value.REJECTED)
+        requiredIfValidator(() => this.workEffortFormGroup.get('applyStatus').value.REJECTED)
       ]]
     };
 
@@ -201,13 +201,14 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
-    this.previousResultsValue = { ...this.initialWorkEffort.results };
     this.setUpUnclicking({
       PENDING: ['EMPLOYED', 'REJECTED'],
       REJECTED: ['EMPLOYED', 'PENDING'],
       EMPLOYED: ['REJECTED', 'PENDING'],
       INTERVIEW: []
     });
+
+    this.setupMinMaxDate();
 
     this.countryIsoCode$ = this.workEffortFormGroup.get('companyAddress').get('countryIsoCode').valueChanges
       .pipe(
@@ -237,12 +238,15 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.isSubmitting = true;
     this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
-      switchMap(user => this.createOrUpdateWorkEffort(user.id))
+      switchMap(user => this.createOrUpdateWorkEffort(user.id)),
+      catchError(error => {
+        this.isSubmitting = false;
+        this.cdRef.detectChanges(); // needed because of changeDetectionStrategy.OnPush
+        throw error;
+      })
     ).subscribe(result => {
       this.isSubmitting = false;
       this.openSuccessModal();
-    }, (err) => {
-      this.isSubmitting = false;
     });
   }
 
@@ -309,7 +313,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       .updateValueAndValidity();
   }
 
-  private createOrUpdateWorkEffort(userId: string): Observable<WorkEffortsReport> {
+  private createOrUpdateWorkEffort(userId: string): Observable<ProofOfWorkEfforts> {
     if (this.workEffortFormGroup.value.id) {
       return this.proofOfWorkEffortsRepository.updateWorkEffort(userId,
         mapToWorkEffortBackendValue(this.workEffortFormGroup.value));
@@ -337,9 +341,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     });
   }
 
-  private generateResultsGroup(): FormGroup {
-    return this.generateCheckboxesFormGroup(this.resultsCheckboxNames, {
-      validators: atLeastOneRequiredValidator(this.resultsCheckboxNames)
+  private generateApplyStatusGroup(): FormGroup {
+    return this.generateCheckboxesFormGroup(this.applyStatusCheckboxNames, {
+      validators: atLeastOneRequiredValidator(this.applyStatusCheckboxNames)
     });
   }
 
@@ -357,27 +361,35 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     return this.fb.group(controlsConfig, options);
   }
 
+  private setupMinMaxDate() {
+    const today = new Date();
+    const minDate = deltaDate(today, 0, this.MIN_MONTHS_DIFF, 0);
+    minDate.setDate(1);
+    this.minDate = mapDateToNgbDate(minDate);
+    this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
+  }
+
   /**
-   * Certain results are mutually exclusive, for example if the result of the work effort is rejection,
+   * Certain applyStatus are mutually exclusive, for example if the applyStatus of the work effort is rejection,
    * you can't also click an employed checkbox. We unset the mutually exclusive checkboxes each time the user
-   * clicks on a results checkbox group.
+   * clicks on a applyStatus checkbox group.
    * @param clearingRules keys are checkbox keys. Values are checkboxes you wanna unset if the key is set
    */
   private setUpUnclicking(clearingRules: { [key: string]: string[] }) {
-    this.workEffortFormGroup.get('results').valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe)
-    )
-      .subscribe((next: ResultsFormValue) => {
-        const prev = this.previousResultsValue;
-        const keySetToTrue: string = Object.keys(prev).filter(key => !prev[key] && next[key])[0];
-        const valueToPatch: ResultsFormValue = { ...next };
-        if (keySetToTrue) {
-          for (const key of clearingRules[keySetToTrue]) {
-            valueToPatch[key] = false;
-          }
-        }
-        this.previousResultsValue = { ...valueToPatch };
-        this.workEffortFormGroup.get('results').setValue(valueToPatch, { emitEvent: false });
-      });
+    for (const rule in clearingRules) {
+      if (clearingRules.hasOwnProperty(rule)) {
+        this.workEffortFormGroup.get('applyStatus').get(rule).valueChanges.pipe(
+          takeUntil(this.ngUnsubscribe)
+        )
+          .subscribe((newValue) => {
+            if (newValue) {
+              clearingRules[rule].forEach(formControlToUncheck => {
+                this.workEffortFormGroup.get('applyStatus').get(formControlToUncheck).setValue(false, { emitEvent: false });
+              });
+            }
+          });
+      }
+    }
   }
+
 }
