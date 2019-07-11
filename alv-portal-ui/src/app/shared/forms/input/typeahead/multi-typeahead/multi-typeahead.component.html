@@ -50,6 +50,7 @@
              [readonly]="limit && control.value?.length >= limit"
              [(ngModel)]="inputValue"
              [placement]="['bottom-left', 'top-left']"
+             [disabled]="control.disabled"
              (selectItem)="selectItem($event)"
              (keydown)="handleKeyDown($event)"
              (blur)="onBlur(control)">

@@ -2,6 +2,7 @@
      *ngIf="control">
   <div class="form-label-group position-relative"
        [class.invalid]="isTouched() && isInvalid()"
+       [class.disabled]="control.disabled"
        [class.readonly]="readonly">
     <span class="required-indicator"
           *ngIf="showRequiredIndicator()"></span>
@@ -10,6 +11,7 @@
             [attr.id]="id"
             [formControl]="control"
             [attr.required]="required"
+            [disabled]="control.disabled"
             [attr.aria-required]="!!required"
             [attr.aria-describedby]="validationId"
             [alvAutofocus]="autofocus"

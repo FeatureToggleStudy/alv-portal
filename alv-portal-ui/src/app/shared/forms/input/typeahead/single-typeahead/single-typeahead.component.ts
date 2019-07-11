@@ -60,6 +60,8 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
   controlValueChange$: Observable<string>;
 
+  disabled: boolean;
+
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService,
               private errorHandlerService: ErrorHandlerService
@@ -74,6 +76,8 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
       map(this.formatResultItem),
       distinctUntilChanged()
     );
+
+    this.disabled = this.control.disabled;
   }
 
   formatResultItem(item: TypeaheadItem<any>): string {

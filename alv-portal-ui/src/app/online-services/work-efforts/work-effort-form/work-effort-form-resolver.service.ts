@@ -5,21 +5,26 @@ import { Observable } from 'rxjs';
 import { mapToWorkEffortFormValue } from './work-effort-form.mapper';
 import { map } from 'rxjs/operators';
 import { WorkEffort } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
-import { WorkEffortFormValue } from './work-effort-form.types';
+import { WorkEffortFormInfo } from './work-effort-form.types';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WorkEffortFormResolverService implements Resolve<Observable<WorkEffortFormValue>> {
+export class WorkEffortFormResolverService implements Resolve<Observable<WorkEffortFormInfo>> {
 
   constructor(private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository) {
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<WorkEffortFormValue> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<WorkEffortFormInfo> {
     const proofOfWorkEffortsId = route.params['proof-id'];
     const workEffortId = route.params['id'];
     return this.proofOfWorkEffortsRepository.getWorkEffortById(proofOfWorkEffortsId, workEffortId).pipe(
-      map((workEffort: WorkEffort) => mapToWorkEffortFormValue(workEffort))
+      map((workEffort: WorkEffort) => {
+        return {
+          workEffortFormValue: mapToWorkEffortFormValue(workEffort),
+          readonly: !!workEffort.submittedAt
+        };
+      })
     );
   }
 }

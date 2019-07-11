@@ -129,6 +129,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   isSubmitting: boolean;
   selectedApplyChannels: ApplyChannelsFormValue;
 
+  readonly: boolean;
+
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
@@ -148,33 +150,35 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnInit() {
-    this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
+    this.initialWorkEffort = this.route.snapshot.data.initialFormInfo ?
+      this.route.snapshot.data.initialFormInfo.workEffortFormValue : emptyWorkEffortFormValue;
+    this.readonly = this.route.snapshot.data.initialFormInfo.readonly;
     const controlsConfig = {
       id: [undefined],
-      date: ['', Validators.required],
+      date: [{value: '', disabled: this.readonly}, Validators.required],
       applyChannels: this.generateApplyChannelsGroup(),
-      companyName: ['', Validators.required],
+      companyName: [{value: '', disabled: this.readonly}, Validators.required],
 
       companyAddress: this.fb.group({
-          countryIsoCode: ['CH'],
+          countryIsoCode: [{value: 'CH', disabled: this.readonly}],
           postOfficeBoxNumberOrStreet: this.fb.group({
-            street: [''],
-            houseNumber: [''],
-            postOfficeBoxNumber: [''],
+            street: [{value: '', disabled: this.readonly}],
+            houseNumber: [{value: '', disabled: this.readonly}],
+            postOfficeBoxNumber: [{value: '', disabled: this.readonly}],
           }, {
             validator: [conditionalValidator(() => this.isCompanyAddressRequired(),
               atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber']))]
           }),
         }
       ),
-      contactPerson: ['', [requiredIfValidator(() => this.isContactPersonRequired())]],
+      contactPerson: [{value: '', disabled: this.readonly}, [requiredIfValidator(() => this.isContactPersonRequired())]],
       companyEmailAndUrl: this.fb.group(
         {
-          email: ['', [
+          email: [{value: '', disabled: this.readonly}, [
             patternInputValidator(EMAIL_REGEX),
             Validators.maxLength(this.EMAIL_MAX_LENGTH)
           ]],
-          url: ['', [
+          url: [{value: '', disabled: this.readonly}, [
             patternInputValidator(URL_REGEX),
             Validators.maxLength(this.FORM_URL_MAX_LENGTH)
           ]]
@@ -185,13 +189,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
           ]
         }
       ),
-      phone: ['', [phoneInputValidator(),
+      phone: [{value: '', disabled: this.readonly}, [phoneInputValidator(),
         requiredIfValidator(() => this.isPhoneRequired())]],
-      occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
-      appliedThroughRav: ['', Validators.required],
-      workload: ['', Validators.required],
+      occupation: [{value: '', disabled: this.readonly}, [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
+      appliedThroughRav: [{value: '', disabled: this.readonly}, Validators.required],
+      workload: [{value: '', disabled: this.readonly}, Validators.required],
       applyStatus: this.generateApplyStatusGroup(),
-      rejectionReason: ['', [
+      rejectionReason: [{value: '', disabled: this.readonly}, [
         Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH),
         requiredIfValidator(() => this.workEffortFormGroup.get('applyStatus').value.REJECTED)
       ]]
@@ -356,7 +360,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   private generateCheckboxesFormGroup(checkboxNames: string[], options: AbstractControlOptions | null = null): FormGroup {
     const controlsConfig = {};
     for (const checkbox of checkboxNames) {
-      controlsConfig[checkbox] = [null];
+      controlsConfig[checkbox] = [{value: null, disabled: this.readonly}];
     }
     return this.fb.group(controlsConfig, options);
   }
