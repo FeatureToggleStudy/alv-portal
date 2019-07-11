@@ -95,7 +95,7 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   }
 
   ngOnInit(): void {
-    const {workloadPercentageMin, workloadPercentageMax, duration, immediately, startDate, endDate, workForms} = this.employmentFormValue;
+    const { workloadPercentageMin, workloadPercentageMax, duration, immediately, startDate, endDate, workForms } = this.employmentFormValue;
 
     this.employment = this.fb.group({
       workloadPercentageMin: [workloadPercentageMin, [
@@ -110,7 +110,7 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
       duration: [duration, [
         Validators.required
       ]],
-      startDate: [{value: startDate, disabled: immediately}, [Validators.required]],
+      startDate: [{ value: startDate, disabled: immediately }, [Validators.required]],
       endDate: [{
         value: endDate,
         disabled: duration !== EmploymentDuration.TEMPORARY
