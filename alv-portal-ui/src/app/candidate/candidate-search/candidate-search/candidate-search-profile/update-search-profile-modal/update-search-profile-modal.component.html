@@ -1,0 +1,11 @@
+<alv-modal (primaryAction)="onUpdateExisting()"
+           (secondaryAction)="onCreateNew()"
+           (cancelAction)="onCancel()"
+           modalTitle="portal.candidate-search-profiles.update-modal.title"
+           primaryLabel="portal.candidate-search-profiles.update-modal.primary-button.label"
+           secondaryLabel="portal.candidate-search-profiles.update-modal.secondary-button.label"
+           cancelLabel="portal.candidate-search-profiles.update-modal.cancel-button.label">
+
+  <span [innerHTML]="'portal.candidate-search-profiles.update-modal.question' | translate:{profileName: searchProfile.name}"></span>
+
+</alv-modal>

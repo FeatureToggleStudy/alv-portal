@@ -2,12 +2,12 @@
 
   <!-----------------Title-->
   <h2 class="job-title mt-1 mb-4">
-    <strong class="mr-3"
-            [innerHTML]="jobDescription.title | safeHtml"
+    <strong [innerHTML]="jobDescription.title | safeHtml"
+            class="mr-3"
             data-test="jobAdHeader"
     ></strong>
-    <small class="text-muted job-ad-status"
-           *ngIf="showStatusInformation">
+    <small *ngIf="showStatusInformation"
+           class="text-muted job-ad-status">
       {{'portal.job-detail.status' | translate}}
       : {{'global.job-publication.status.' + jobDetailModel.jobAdvertisement.status | translate}}
     </small>

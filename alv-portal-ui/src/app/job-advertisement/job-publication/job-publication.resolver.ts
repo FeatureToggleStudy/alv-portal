@@ -32,9 +32,9 @@ export class JobPublicationResolver implements Resolve<Observable<InitialFormVal
     const jobAdvertisement$ = this.getJobAdvertisement(token, duplicationJobAdvertisementId);
 
     return companyContactTemplate$.pipe(
-      map((companyContactTemplateModel) => ({ companyContactTemplateModel })),
+      map((companyContactTemplateModel) => ({companyContactTemplateModel})),
       flatMap((initialFormValueConfig) => jobAdvertisement$.pipe(
-        map((jobAdvertisement) => ({ ...initialFormValueConfig, jobAdvertisement}))
+        map((jobAdvertisement) => ({...initialFormValueConfig, jobAdvertisement}))
       )),
       map((initialFormValueConfig) => ({...initialFormValueConfig, jobAdvertisementTitle}))
     );

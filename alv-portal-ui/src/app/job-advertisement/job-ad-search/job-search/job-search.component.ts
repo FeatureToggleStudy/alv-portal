@@ -56,7 +56,7 @@ import { JobSearchProfileService } from '../job-search-profile/job-search-profil
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CONFIRM_DELETE_FAVOURITE_NOTE_MODAL } from '../../shared/job-ad-favourites.types';
 import { ResolvedJobAdSearchProfile } from '../../../shared/backend-services/job-ad-search-profiles/job-ad-search-profiles.types';
-import { getDeleteConfirmModalConfig } from '../../../shared/job-search-profiles/modal-config.types';
+import { getJobAdDeleteConfirmModalConfig } from '../../../shared/search-profiles/modal-config.types';
 
 
 @Component({
@@ -279,7 +279,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
     ).subscribe(searchProfile => {
       if (searchProfile) {
         this.modalService.openConfirm(
-          getDeleteConfirmModalConfig(searchProfile.name)
+          getJobAdDeleteConfirmModalConfig(searchProfile.name)
         ).result
           .then(result => {
             this.jobAdSearchProfilesRepository.delete(searchProfile.id)

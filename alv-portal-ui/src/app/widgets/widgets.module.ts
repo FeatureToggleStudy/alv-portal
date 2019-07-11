@@ -16,7 +16,7 @@ import { FavouriteJobsWidgetComponent } from './favourite-jobs-widget/favourite-
 import { JobBadgesMapperService } from '../job-advertisement/shared/job-badges-mapper.service';
 import { SharedJobAdvertisementModule } from '../job-advertisement/shared/shared-job-advertisement.module';
 import { JobSearchProfilesWidgetComponent } from './job-search-profiles-widget/job-search-profiles-widget.component';
-import { JobSearchProfileItemComponent } from './job-search-profiles-widget/job-search-profile-item/job-search-profile-item.component';
+import { CandidateSearchProfilesWidgetComponent } from './candidate-search-profiles-widget/candidate-search-profiles-widget.component';
 
 @NgModule({
   imports: [
@@ -36,7 +36,7 @@ import { JobSearchProfileItemComponent } from './job-search-profiles-widget/job-
     JobAdCancellationComponent,
     FavouriteJobsWidgetComponent,
     JobSearchProfilesWidgetComponent,
-    JobSearchProfileItemComponent
+    CandidateSearchProfilesWidgetComponent
   ],
   providers: [
     ModalService,
@@ -58,7 +58,7 @@ import { JobSearchProfileItemComponent } from './job-search-profiles-widget/job-
       JobAdCancellationComponent,
       FavouriteJobsWidgetComponent,
       JobSearchProfilesWidgetComponent,
-      JobSearchProfileItemComponent
+      CandidateSearchProfilesWidgetComponent
     ]
 })
 

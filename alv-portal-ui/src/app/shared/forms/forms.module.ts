@@ -25,6 +25,7 @@ import { AutofocusDirective } from './autofocus.directive';
 import { IconsModule } from '../icons/icons.module';
 import { SliderInputComponent } from './input/slider-input/slider-input.component';
 import { NouisliderModule } from 'ng2-nouislider';
+import { ZipCityInputComponent } from './input/zip-city-input/zip-city-input.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { NouisliderModule } from 'ng2-nouislider';
     MultiTypeaheadComponent,
     SingleTypeaheadComponent,
     AutofocusDirective,
-    SliderInputComponent
+    SliderInputComponent,
+    ZipCityInputComponent
   ],
   exports: [
     DateIntervalInputComponent,
@@ -65,7 +67,8 @@ import { NouisliderModule } from 'ng2-nouislider';
     SliderInputComponent,
     SingleTypeaheadComponent,
     ReactiveFormsModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    ZipCityInputComponent
   ],
   providers: [
     NgbPopoverConfig,

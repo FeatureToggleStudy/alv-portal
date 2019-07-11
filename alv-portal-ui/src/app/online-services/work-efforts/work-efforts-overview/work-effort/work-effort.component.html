@@ -1,0 +1,70 @@
+<div class="work-effort-container position-relative">
+  <a class="work-effort row no-gutters"
+     [routerLink]="workEffortModel.workEffortEditLink" >
+    <div class="col-12 col-lg-3 work-effort-cell main-cell">
+      <small class="cell-label">
+        {{'portal.work-efforts.work-effort.cell-label.application-date' | translate}}
+        {{workEffortModel.applyDate | localeAwareDate}}
+      </small>
+      <div class="flex-grow-1">
+        <div>{{workEffortModel.companyName}}</div>
+        <div>{{workEffortModel.occupation}}</div>
+      </div>
+      <div #actionsMenu="ngbDropdown"
+           (click)="$event.preventDefault();$event.stopPropagation()"
+           class="actions-dropdown"
+           ngbDropdown
+           placement="left">
+        <button (click)="actionsMenu.toggle()"
+                *ngIf="!workEffortModel.isSentSuccessfully"
+                class="btn btn-text actions-button no-dropdown-indicator h-100"
+                [ngbTooltip]="'portal.global.actions' | translate"
+                placement="left"
+                ngbDropdownAnchor
+                [attr.aria-label]="'portal.global.actions' | translate">
+          <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
+        </button>
+        <div aria-label="Work effort actions"
+             ngbDropdownMenu>
+          <button (click)="deleteWorkEffort()"
+                  class="dropdown-item">
+            {{'portal.work-efforts.work-effort.actions.delete' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-3 work-effort-cell">
+      <small class="cell-label">
+        {{'portal.work-efforts.work-effort.cell-label.application-result' | translate}}
+      </small>
+      <div class="flex-grow-1">
+        <alv-inline-badges [badges]="workEffortModel.applyStatusBadges"></alv-inline-badges>
+      </div>
+    </div>
+    <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column">
+      <small class="cell-label">
+        {{'portal.work-efforts.edit-status.label' | translate}}
+      </small>
+      <div class="flex-grow-1">
+        {{'portal.work-efforts.work-effort.cell-text.edited-at' | translate}}
+        {{workEffortModel.createdAt | localeAwareDate}}
+      </div>
+    </div>
+    <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column"
+         [class.success]="workEffortModel.isSentSuccessfully">
+      <small class="cell-label">
+        {{'portal.work-efforts.submit-status.label' | translate}}
+      </small>
+      <div class="flex-grow-1">
+        {{ workEffortModel.statusLabel
+        | translate:{dateTime: workEffortModel.submissionDate | date: 'dd.MM.yyyy HH:mm'} }}
+      </div>
+      <div class="success-icon-container text-center h-100 align-items-center">
+        <fa-icon [icon]="['fas', 'check']"
+                 class="w-100"></fa-icon>
+      </div>
+    </div>
+    <span class="expanded-indicator h-100">
+    </span>
+  </a>
+</div>

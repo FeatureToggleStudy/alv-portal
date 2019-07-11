@@ -1,0 +1,14 @@
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
+
+
+::ng-deep alv-collapse-panel .checkbox-radio:not(:first-of-type) {
+  margin-top: 0 !important;
+}
+
+@include media-breakpoint-up(lg) {
+  ::ng-deep .info-panel > .alv-panel {
+    max-width: 300px;
+  }
+}
