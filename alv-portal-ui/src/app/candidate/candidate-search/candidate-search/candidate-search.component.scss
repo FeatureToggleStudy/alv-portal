@@ -1,0 +1,37 @@
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../node_modules/bootstrap/scss/mixins';
+@import "../../../../scss/common/colors";
+@import "../../../../scss/common/variables";
+
+.query-search-area {
+  background-color: $color-super-light-grey;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+}
+
+.reset-button {
+  max-height: 46px;
+}
+
+.candidate-search-mobile-menu {
+   margin-right: -0.5em;
+
+   #candidate-search-mobile-menu {
+     font-size: 20px;
+   }
+ }
+
+@include media-breakpoint-up(lg) {
+  .query-search-area {
+    position: sticky;
+    top: $height-header-desktop;
+    z-index: $z-index-query-search-area;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .alv-bar, button.alv-bar {
+    height: 42px;
+    align-items: center;
+  }
+}

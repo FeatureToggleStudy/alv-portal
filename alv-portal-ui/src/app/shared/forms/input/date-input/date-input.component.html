@@ -11,6 +11,7 @@
            #datePicker="ngbDatepicker"
            ngbDatepicker
            (click)="datePicker.toggle()"
+           (closed)="this.focus()"
            [minDate]="minDate"
            [maxDate]="maxDate"
            [alvAutofocus]="autofocus"
@@ -20,6 +21,7 @@
            [placement]="placement"
            [formControl]="control"
            [dayTemplate]="dayTemplate"
+           [container]="container"
            [class.placeholder-shown]="!control.value"
            *ngIf="!readonly"
            class="form-control">

@@ -22,11 +22,36 @@
              class="ml-2"
              [icon]="['fas', 'caret-right']"></fa-icon>
   </button>
-  <!-- Menu Entries -->
-  <ng-container *ngFor="let menuEntry of menuEntries$ | async">
-    <alv-menu-entry [menuEntry]="menuEntry"
-                    [showTooltip]="mainNavigationCollapsed">
-    </alv-menu-entry>
+
+  <ng-container *ngIf="(menuDefinition$ | async) as menuDefinition">
+    <!-- Main Menu Entries -->
+    <ng-container *ngFor="let menuEntry of menuDefinition.mainMenuEntries">
+      <alv-menu-entry [menuEntry]="menuEntry"
+                      [showTooltip]="mainNavigationCollapsed">
+      </alv-menu-entry>
+    </ng-container>
+
+    <!-- Online Forms Menu Entries -->
+    <ng-container *ngIf="menuDefinition.onlineFormsMenuEntries?.length">
+      <div class="menu-divider"></div>
+      <div class="sub-menu-header d-flex">
+        <small>
+          {{'portal.navigation.sub-menu.online-forms.label' | translate}}
+        </small>
+      </div>
+      <ng-container *ngFor="let menuEntry of menuDefinition.onlineFormsMenuEntries">
+        <alv-menu-entry [menuEntry]="menuEntry"
+                        [showTooltip]="mainNavigationCollapsed">
+        </alv-menu-entry>
+      </ng-container>
+      <div class="menu-divider"></div>
+    </ng-container>
+
+    <ng-container *ngFor="let menuEntry of menuDefinition.settingsMenuEntries">
+      <alv-menu-entry [menuEntry]="menuEntry"
+                      [showTooltip]="mainNavigationCollapsed">
+      </alv-menu-entry>
+    </ng-container>
   </ng-container>
 
   <a class="nav-item"
@@ -82,12 +107,37 @@
   </button>
 
   <!-- Menu Entries -->
-  <ng-container *ngFor="let menuEntry of menuEntries$ | async">
-    <alv-menu-entry [menuEntry]="menuEntry"
-                    (itemClicked)="toggleMobileSideNav()">
-    </alv-menu-entry>
+  <ng-container *ngIf="(menuDefinition$ | async) as menuDefinition">
+    <!-- Main Menu Entries -->
+    <ng-container *ngFor="let menuEntry of menuDefinition.mainMenuEntries">
+      <alv-menu-entry (itemClicked)="toggleMobileSideNav()"
+                      [menuEntry]="menuEntry">
+      </alv-menu-entry>
+    </ng-container>
+
+    <!-- Online Forms Menu Entries -->
+    <ng-container *ngIf="menuDefinition.onlineFormsMenuEntries?.length">
+      <div class="menu-divider"></div>
+      <div class="sub-menu-header d-flex">
+        <small>
+          {{'portal.navigation.sub-menu.online-forms.label' | translate}}
+        </small>
+      </div>
+      <ng-container *ngFor="let menuEntry of menuDefinition.onlineFormsMenuEntries">
+        <alv-menu-entry (itemClicked)="toggleMobileSideNav()"
+                        [menuEntry]="menuEntry">
+        </alv-menu-entry>
+      </ng-container>
+      <div class="menu-divider"></div>
+    </ng-container>
+
+    <ng-container *ngFor="let menuEntry of menuDefinition.settingsMenuEntries">
+      <alv-menu-entry (itemClicked)="toggleMobileSideNav()"
+                      [menuEntry]="menuEntry">
+      </alv-menu-entry>
+    </ng-container>
   </ng-container>
-  <hr>
+
   <a class="nav-item"
      target="_blank"
      rel="noopener"
@@ -99,9 +149,9 @@
     <span class="nav-text logo-text"
           [innerHTML]="'home.title.cms' | translate"></span>
   </a>
-  <hr>
+
   <!--Logout Button-->
-  <a class="nav-item"
+  <a class="nav-item mt-3 d-block"
      *alvIsAuthenticated
      (click)="logout()">
     <fa-icon class="nav-icon"

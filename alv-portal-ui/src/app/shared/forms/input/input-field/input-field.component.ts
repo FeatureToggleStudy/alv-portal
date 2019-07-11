@@ -102,7 +102,7 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
    */
   @ViewChild('textarea') textareaElement: ElementRef<HTMLTextAreaElement>;
 
-  private readonly MULTILINE_MIN_HEIGHT = 46;
+  private readonly MULTILINE_MIN_HEIGHT = 96; // = 3 rows
 
   private readonly INPUT_TYPE_TELEPHONE = 'tel';
 

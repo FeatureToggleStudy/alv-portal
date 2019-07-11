@@ -6,7 +6,7 @@ export class JobDetailsPo {
     return browser.get('/job-search/' + id);
   }
 
-  async getId(): wdpromise.Promise<string> {
+  async getId() {
     const currentUrl = await browser.getCurrentUrl();
     return currentUrl.replace(/.*\//, '');
   }

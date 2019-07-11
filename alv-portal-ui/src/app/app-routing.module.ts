@@ -43,7 +43,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'candidate-search',
-    loadChildren: './candidate-search/candidate-search.module#CandidateSearchModule',
+    loadChildren: './candidate/candidate-search/candidate-search.module#CandidateSearchModule',
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {
       moduleName: ModuleName.CANDIDATE_SEARCH,
@@ -80,6 +80,40 @@ const appRoutes: Routes = [
       moduleName: ModuleName.JOB_AD_FAVOURITE,
       titleKey: 'portal.job-ad-favourites.browser-title',
       scrollToTop: true
+    }
+  },
+  {
+    path: 'job-search-profiles',
+    loadChildren: './job-advertisement/job-ad-search-profiles/job-ad-search-profiles.module#JobAdSearchProfilesModule',
+    canActivateChild: [AuthenticatedGuard],
+    canDeactivate: [LazyModuleDeactivateGuard],
+    data: {
+      moduleName: ModuleName.JOB_SEARCH_PROFILES,
+      titleKey: 'portal.job-ad-search-profiles.browser-title',
+      scrollToTop: true
+    }
+  },
+  {
+    path: 'work-efforts',
+    loadChildren: './online-services/work-efforts/work-efforts.module#WorkEffortsModule',
+    canDeactivate: [LazyModuleDeactivateGuard],
+    data: {
+      authorities: [UserRole.ROLE_JOB_SEEKER],
+      moduleName: ModuleName.WORK_EFFORTS,
+      titleKey: 'portal.work-efforts.browser-title',
+      scrollToTop: true
+    }
+  },
+  {
+    path: 'candidate-search-profiles',
+    loadChildren: './candidate/candidate-search-profiles/candidate-search-profiles.module#CandidateSearchProfilesModule',
+    canDeactivate: [LazyModuleDeactivateGuard],
+    canActivateChild: [HasAnyAuthoritiesGuard],
+    data: {
+      moduleName: ModuleName.CANDIDATE_SEARCH_PROFILES,
+      titleKey: 'portal.candidate-search-profiles.browser-title',
+      scrollToTop: true,
+      authorities: [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_SYSADMIN]
     }
   },
   {
@@ -120,7 +154,9 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false }
+      {
+        enableTracing: false,
+      },
     )
   ],
   exports: [

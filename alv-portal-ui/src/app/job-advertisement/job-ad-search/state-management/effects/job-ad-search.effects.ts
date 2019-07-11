@@ -20,7 +20,7 @@ import {
   OccupationLanguageChangedAction,
   RESET_FILTER,
   ResetAction,
-  ResultListAlreadyInitializedAction
+  ResultListAlreadyInitializedAction,
 } from '../actions';
 import { JobAdvertisementRepository } from '../../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import {

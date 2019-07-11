@@ -29,6 +29,7 @@ export interface OccupationLabelData {
 }
 
 export interface OccupationCode {
+  id?: string;
   value: string;
   type: string;
   mapping?: { value: string; type: string };

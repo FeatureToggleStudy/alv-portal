@@ -17,7 +17,9 @@ import {
   takeUntil,
   tap
 } from 'rxjs/operators';
-import { InlineBadge } from '../../../shared/layout/inline-badges/inline-badge.types';
+import {
+  FilterBadge
+} from '../../../shared/layout/inline-badges/inline-badge.types';
 import { ManagedJobAdSearchFilterValues } from './managed-job-ad-search-types';
 import { JobAdManagementColumnService } from '../../../widgets/manage-job-ads-widget/job-ad-management-column.service';
 import { JobAdvertisementUtils } from '../../../shared/backend-services/job-advertisement/job-advertisement.utils';
@@ -41,10 +43,6 @@ import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { filter } from 'rxjs/internal/operators/filter';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-
-interface FilterBadge extends InlineBadge {
-  key: string; // is needed to identify the filter that corresponds to a badge
-}
 
 
 @Component({

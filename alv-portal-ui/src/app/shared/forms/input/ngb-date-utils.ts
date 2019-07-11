@@ -1,5 +1,5 @@
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { formatDate } from '@angular/common';
+import { format } from 'date-fns';
 
 /**
  * Converts a NgbDateStruct with hours and minutes parameters to an (8601) ISOLocalDatetime string representation without timezone information
@@ -14,7 +14,7 @@ export function toISOLocalDateTime(date: NgbDateStruct, timeHours: string, timeM
     return null;
   }
   const dateObj = new Date(date.year, date.month - 1, date.day, parseInt(timeHours, 10), parseInt(timeMinutes, 10));
-  return formatDate(dateObj, 'yyyy-MM-ddTHH:mm:00', 'en-US');
+  return format(dateObj, 'YYYY-MM-DDTHH:mm:00');
 }
 
 /**
@@ -28,7 +28,7 @@ export function toISOLocalDate(date: NgbDateStruct): string {
     return null;
   }
   const dateObj = new Date(date.year, date.month - 1, date.day, 12);
-  return formatDate(dateObj, 'yyyy-MM-dd', 'en-US');
+  return format(dateObj, 'YYYY-MM-DD');
 }
 
 /**
@@ -37,11 +37,11 @@ export function toISOLocalDate(date: NgbDateStruct): string {
  * @param date
  */
 export function fromDate(date: Date): NgbDateStruct {
-  return NgbDate.from({
+  return {
     year: date.getFullYear(),
     month: date.getMonth() + 1,
     day: date.getDate()
-  });
+  };
 }
 
 /**
@@ -65,4 +65,28 @@ export function tomorrow(): NgbDateStruct {
 }
 
 
+/**
+ * allows to add and subtract the dates. Takes the input date and adds days, months and years to it
+ * for example:
+ * @example deltaDate(new Date, 0, -2, 0) will return the date that is 2 months before today
+ * @example deltaDate(new Date, 4, 0, 0) will return the date that is 4 months after today
+ * @param input date
+ * @param days
+ * @param months
+ * @param years
+ */
+export function deltaDate(input: Date, days: number, months: number, years: number): Date {
+  const date = new Date(input);
+  date.setDate(date.getDate() + days);
+  date.setMonth(date.getMonth() + months);
+  date.setFullYear(date.getFullYear() + years);
+  return date;
+}
 
+
+/**
+ * @param date
+ */
+export function mapDateToNgbDate(date: Date): NgbDate {
+  return NgbDate.from(fromDate(date));
+}

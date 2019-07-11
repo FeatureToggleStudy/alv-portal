@@ -1,0 +1,22 @@
+<div class="row d-print-block">
+  <div class="col-12 d-lg-none d-print-none pt-2">
+    <ng-content select=".mobile-menu-bar"></ng-content>
+  </div>
+  <div [ngClass]="getCommonColumnClasses(0)"
+       class="col-lg-2">
+    <div class="side-panel pt-3 pt-lg-4 px-3">
+      <ng-content select=".left-column"></ng-content>
+    </div>
+  </div>
+  <div [ngClass]="getCommonColumnClasses(1)"
+       class="col-lg-6 col-xl-7">
+    <ng-content select=".main-column"></ng-content>
+  </div>
+  <div [ngClass]="getCommonColumnClasses(2)"
+       class="col-lg-4 col-xl-3 d-print-none">
+    <div class="side-panel pt-3 pt-lg-4 px-3">
+      <ng-content select=".right-column"></ng-content>
+    </div>
+  </div>
+</div>
+

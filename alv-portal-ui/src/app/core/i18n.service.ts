@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
-import { FALLBACK_LANGUAGE, LANGUAGES } from './languages.constants';
+import { FALLBACK_LANGUAGE, Languages } from './languages.constants';
 import { Observable } from 'rxjs';
 import { CoreState, getCurrentLanguage } from './state-management/state/core.state.ts';
 import { select, Store } from '@ngrx/store';
@@ -73,7 +73,7 @@ export class I18nService {
   }
 
   private isValid(language: string): boolean {
-    return LANGUAGES.includes(language);
+    return Object.values(Languages).includes(language);
   }
 
   private getAppDefaultLanguage(): string {

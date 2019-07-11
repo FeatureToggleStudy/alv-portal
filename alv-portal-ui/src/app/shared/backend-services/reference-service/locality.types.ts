@@ -4,6 +4,7 @@ export interface LocalityAutocomplete {
 }
 
 export interface LocalitySuggestion {
+  id?: string;
   city: string;
   communalCode: number;
   cantonCode: string;

@@ -1,0 +1,22 @@
+@import "../../scss/common/colors";
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+
+  border-top: 18px solid $color-primary;
+
+  &.secondary {
+    border-top-color: $color-medium-grey;
+  }
+}
+
+.arrow-container {
+  width: 100%;
+  padding: .35em;
+  .arrow-down {
+    margin: auto;
+  }
+}
