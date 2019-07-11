@@ -129,7 +129,7 @@
     "rimraf, crossenv and crossvar are needed for cross-browser compatibility of the npm scripts (including Windows)"
   ],
   "engines": {
-    "node": ">= 10.6.0",
+    "node": ">= 10.9.0",
     "npm": ">= 6"
   }
 }
