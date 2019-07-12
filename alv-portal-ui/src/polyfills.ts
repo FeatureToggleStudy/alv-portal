@@ -36,6 +36,8 @@ import 'core-js/es/set';
 /** IE10 and IE11 requires the following for the Reflect API. */
 import 'core-js/es/reflect';
 // Needs to be set for zone.js so it does not throw an exception in IE11 while being in developer tools
+// in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
+// with the following flag, it will bypass `zone.js` patch for IE/Edge
 // https://github.com/angular/zone.js/issues/933
 (window as any).__Zone_enable_cross_context_check = true;
 
@@ -71,12 +73,6 @@ import 'nodelist-foreach-polyfill';
  // (window as any).__Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame
  // (window as any).__Zone_disable_on_property = true; // disable patch onProperty such as onclick
  // (window as any).__zone_symbol__BLACK_LISTED_EVENTS = ['scroll', 'mousemove']; // disable patch specified eventNames
-
- /*
- * in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
- * with the following flag, it will bypass `zone.js` patch for IE/Edge
- */
-// (window as any).__Zone_enable_cross_context_check = true;
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
