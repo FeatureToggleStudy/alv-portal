@@ -12,6 +12,7 @@ import {
   map,
   startWith,
   switchMap,
+  take,
   takeUntil,
   withLatestFrom
 } from 'rxjs/operators';
@@ -149,6 +150,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   onSubmit() {
     const formValue = <ContactCandidateFormValues>this.form.value;
     this.mapEmailContent(formValue).pipe(
+      take(1),
       switchMap(emailContact =>
         this.candidateContactRepository.sendContactModalEmail(emailContact)
       )
@@ -248,7 +250,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
         if (formValue.company) {
           const companyFormValue = <ContactCandidateCompanyFormValues>formValue.company;
           const emailContactCompany = this.mapCompany(companyFormValue, countryOptions);
-          emailContact = {...emailContact, company: emailContactCompany};
+          emailContact = { ...emailContact, company: emailContactCompany };
         }
         return emailContact;
       })
