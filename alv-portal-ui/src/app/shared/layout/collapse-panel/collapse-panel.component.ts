@@ -8,7 +8,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   animations: [
     trigger('expandCollapse', [
       state('open', style({
-        display: 'block',
+        display: 'block !important' ,
         'max-height': '100%',
         transform: 'scaleY(1)',
         opacity: 1
@@ -20,7 +20,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
         transform: 'scaleY(0)',
         opacity: 0
       })),
-      transition('* <=> *', [animate('200ms')])
+      transition('open => closed', [animate('200ms')])
     ])
   ]
 })
