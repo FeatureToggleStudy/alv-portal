@@ -8,19 +8,17 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   animations: [
     trigger('expandCollapse', [
       state('open', style({
-        display: 'block !important' ,
         'max-height': '100%',
         transform: 'scaleY(1)',
         opacity: 1
       })),
       state('closed', style({
-        display: 'none',
-        height: 0,
-        'max-height': 0,
+        height: '1px',
+        'max-height': '1px',
         transform: 'scaleY(0)',
         opacity: 0
       })),
-      transition('open => closed', [animate('200ms')])
+      transition('* => *', [animate('200ms')])
     ])
   ]
 })
