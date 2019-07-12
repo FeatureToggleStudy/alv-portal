@@ -35,6 +35,10 @@ import 'core-js/es/weak-map';
 import 'core-js/es/set';
 /** IE10 and IE11 requires the following for the Reflect API. */
 import 'core-js/es/reflect';
+// Needs to be set for zone.js so it does not throw an exception in IE11 while being in developer tools
+// https://github.com/angular/zone.js/issues/933
+(window as any).__Zone_enable_cross_context_check = true;
+
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
