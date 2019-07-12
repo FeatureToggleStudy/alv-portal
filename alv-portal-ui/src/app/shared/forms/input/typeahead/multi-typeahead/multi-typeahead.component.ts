@@ -126,8 +126,12 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
     return `badge-${item.type}`;
   }
 
-  hasFocus() {
-    return this.document.activeElement.id === this.id;
+  hasFocus(): boolean {
+    if (this.document.activeElement && this.id) {
+      //in IE11 if the tooltip is set, the activeElement can be null
+      return this.document.activeElement.id === this.id;
+    }
+    return false;
   }
 
   getInputWidth(): string {
