@@ -155,30 +155,30 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.readonly = this.route.snapshot.data.initialFormInfo.readonly;
     const controlsConfig = {
       id: [undefined],
-      date: [{value: '', disabled: this.readonly}, Validators.required],
+      date: ['', Validators.required],
       applyChannels: this.generateApplyChannelsGroup(),
-      companyName: [{value: '', disabled: this.readonly}, Validators.required],
+      companyName: ['', Validators.required],
 
       companyAddress: this.fb.group({
-          countryIsoCode: [{value: 'CH', disabled: this.readonly}],
+          countryIsoCode: ['CH'],
           postOfficeBoxNumberOrStreet: this.fb.group({
-            street: [{value: '', disabled: this.readonly}],
-            houseNumber: [{value: '', disabled: this.readonly}],
-            postOfficeBoxNumber: [{value: '', disabled: this.readonly}],
+            street: [''],
+            houseNumber: [''],
+            postOfficeBoxNumber: [''],
           }, {
             validator: [conditionalValidator(() => this.isCompanyAddressRequired(),
               atLeastOneRequiredValidator(['street', 'postOfficeBoxNumber']))]
           }),
         }
       ),
-      contactPerson: [{value: '', disabled: this.readonly}, [requiredIfValidator(() => this.isContactPersonRequired())]],
+      contactPerson: ['', [requiredIfValidator(() => this.isContactPersonRequired())]],
       companyEmailAndUrl: this.fb.group(
         {
-          email: [{value: '', disabled: this.readonly}, [
+          email: ['', [
             patternInputValidator(EMAIL_REGEX),
             Validators.maxLength(this.EMAIL_MAX_LENGTH)
           ]],
-          url: [{value: '', disabled: this.readonly}, [
+          url: ['', [
             patternInputValidator(URL_REGEX),
             Validators.maxLength(this.FORM_URL_MAX_LENGTH)
           ]]
@@ -189,13 +189,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
           ]
         }
       ),
-      phone: [{value: '', disabled: this.readonly}, [phoneInputValidator(),
+      phone: ['', [phoneInputValidator(),
         requiredIfValidator(() => this.isPhoneRequired())]],
-      occupation: [{value: '', disabled: this.readonly}, [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
-      appliedThroughRav: [{value: '', disabled: this.readonly}, Validators.required],
-      workload: [{value: '', disabled: this.readonly}, Validators.required],
+      occupation: ['', [Validators.required, Validators.maxLength(this.OCCUPATION_MAX_LENGTH)]],
+      appliedThroughRav: ['', Validators.required],
+      workload: ['', Validators.required],
       applyStatus: this.generateApplyStatusGroup(),
-      rejectionReason: [{value: '', disabled: this.readonly}, [
+      rejectionReason: ['', [
         Validators.maxLength(this.REJECTION_REASON_MAX_LENGTH),
         requiredIfValidator(() => this.workEffortFormGroup.get('applyStatus').value.REJECTED)
       ]]
@@ -204,6 +204,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.workEffortFormGroup = this.fb.group(controlsConfig);
 
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
+
+    if (this.readonly) {
+      this.workEffortFormGroup.disable();
+    }
 
     this.setUpUnclicking({
       PENDING: ['EMPLOYED', 'REJECTED'],
@@ -219,7 +223,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         filter((value) => !!value),
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode)
       );
-
 
     this.initialZipAndCity = createInitialZipAndCityFormValue(
       this.initialWorkEffort.companyAddress.zipAndCity,
@@ -301,11 +304,15 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       .get('companyAddress')
       .get('postOfficeBoxNumberOrStreet')
       .updateValueAndValidity();
-    this.workEffortFormGroup
+    const zipAndCity = this.workEffortFormGroup
       .get('companyAddress')
-      .get('zipAndCity')
-      .get('zipCityAutoComplete')
-      .updateValueAndValidity();
+      .get('zipAndCity');
+    if (zipAndCity) {
+      zipAndCity
+        .get('zipCityAutoComplete')
+        .updateValueAndValidity();
+    }
+
     this.workEffortFormGroup
       .get('contactPerson')
       .updateValueAndValidity();
@@ -360,7 +367,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   private generateCheckboxesFormGroup(checkboxNames: string[], options: AbstractControlOptions | null = null): FormGroup {
     const controlsConfig = {};
     for (const checkbox of checkboxNames) {
-      controlsConfig[checkbox] = [{value: null, disabled: this.readonly}];
+      controlsConfig[checkbox] = [null];
     }
     return this.fb.group(controlsConfig, options);
   }

@@ -46,9 +46,6 @@ export class ZipCityInputComponent implements OnInit {
   @Input()
   validators = zipCityDefaultValidators;
 
-  @Input()
-  disabled: boolean;
-
   zipAndCity: FormGroup;
 
   constructor(private fb: FormBuilder,
@@ -78,9 +75,9 @@ export class ZipCityInputComponent implements OnInit {
     const {zipCityAutoComplete, zipCode, city} = this.zipCityFormValue;
 
     this.zipAndCity = this.fb.group({
-      zipCityAutoComplete: [{value: zipCityAutoComplete, disabled: this.disabled}, this.validators.zipCityAutoComplete],
-      zipCode: [{value: zipCode, disabled: this.disabled}, this.validators.zipCode],
-      city: [{value: city, disabled: this.disabled}, this.validators.city]
+      zipCityAutoComplete: [{value: zipCityAutoComplete, disabled: this.parentForm.disabled}, this.validators.zipCityAutoComplete],
+      zipCode: [{value: zipCode, disabled: this.parentForm.disabled}, this.validators.zipCode],
+      city: [{value: city, disabled: this.parentForm.disabled}, this.validators.city]
     });
     this.parentForm.addControl('zipAndCity', this.zipAndCity);
     this.toggleAutocomplete(this._countryIsoCode);
@@ -96,18 +93,19 @@ export class ZipCityInputComponent implements OnInit {
     const cityControl = this.zipAndCity.get('city');
 
     if (ZipCityInputComponent.isCityZipAutocomplete(selectedCountryIsoCode)) {
-      if (!this.disabled) {
+      if (this.parentForm.enabled) {
         zipCityAutoCompleteControl.enable();
       }
+
       zipCodeControl.disable();
       cityControl.disable();
     } else {
       zipCityAutoCompleteControl.disable();
-      if (!this.disabled) {
+
+      if (this.parentForm.enabled) {
         zipCodeControl.enable();
         cityControl.enable();
       }
-
     }
   }
 
