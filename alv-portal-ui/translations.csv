@@ -1007,7 +1007,7 @@ portal.work-efforts.submit-status.label,Übermittlungsstatus,Übermittlungsstatu
 portal.work-efforts.submit-status.text.open,Übermittlung erfolgt am {{dateTime}} Uhr,Übermittlung erfolgt am {{dateTime}} Uhr,Sera transmis le {{dateTime}},Trasmissione avviene in data {{dateTime}},
 portal.work-efforts.submit-status.text.closed,Erfolgreich übermittelt am {{dateTime}} Uhr,Erfolgreich übermittelt am {{dateTime}} Uhr,Transmis avec succès le {{dateTime}},Trasmissione avvenuta in data {{dateTime}},
 portal.work-efforts.proof-of-work-efforts.edit-status.text,Anzahl erfasst,Anzahl erfasst,Nombre saisi,Numero di registrazioni,
-portal.work-efforts.proof-of-work-efforts.add-work-effort.button.label,Neue Arbeitsbemühung erfassen,Neue Arbeitsbemühung erfassen,Saisir nouvelle recherche d'emploi,Registrare nuovi sforzi personali intrapresi per trovare lavoro,
+portal.work-efforts.proof-of-work-efforts.add-work-effort.button.label,Erfassen,Erfassen,Saisir,Registrare,
 portal.work-efforts.proof-of-work-efforts.name-cell.title,Nachweis der persönlichen Arbeitsbemühungen,Nachweis der persönlichen Arbeitsbemühungen,Preuves de recherches personnelles d'emploi,Prova degli sforzi personali intrapresi per trovare lavoro,
 portal.work-efforts.proof-of-work-efforts.name-cell.before-unemployment.label,Arbeitsbemühungen VOR Eintritt der Arbeitslosigkeit,Arbeitsbemühungen VOR Eintritt der Arbeitslosigkeit,Recherches d'emploi AVANT le chômage,Ricerche di lavoro PRIMA della disoccupazione,
 portal.work-efforts.proof-of-work-efforts.pdf-file.name,NpA_,NpA_,PRE_,PSPL_,

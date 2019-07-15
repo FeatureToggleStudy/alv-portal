@@ -57,13 +57,6 @@
   </div>
 
   <div class="collapse-panel">
-    <a *ngIf="!proofOfWorkEffortsModel.isClosed"
-       [routerLink]="'/work-efforts/create'"
-       class="btn btn-text add-work-effort-button w-100">
-      <fa-icon [icon]="['fas', 'plus']"
-               class="mr-1"></fa-icon>
-      {{'portal.work-efforts.proof-of-work-efforts.add-work-effort.button.label' | translate}}
-    </a>
 
     <ng-container *ngFor="let workEffort of proofOfWorkEffortsModel.workEfforts; let last = last">
       <div class="work-effort-divider"></div>

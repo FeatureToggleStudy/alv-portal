@@ -8,9 +8,6 @@
   top: -0.5em;
 }
 
-@include media-breakpoint-up(lg) {
-  .container-fluid {
-    max-width: 1400px;
-    margin-left: 0;
-  }
+.add-work-effort-button {
+  top: 154px;
 }
