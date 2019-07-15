@@ -57,6 +57,11 @@ export interface WorkEffortFormValue {
   workload?: WorkLoadFormOption;
 }
 
+export interface WorkEffortFormInfo {
+  workEffortFormValue: WorkEffortFormValue;
+  readonly: boolean;
+}
+
 export const emptyWorkEffortFormValue: WorkEffortFormValue = {
   companyName: '',
   date: now(),

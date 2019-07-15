@@ -24,7 +24,7 @@ const routes: Routes = [
       scrollToTop: true
     },
     resolve: {
-      initialFormValue: WorkEffortFormResolverService
+      initialFormInfo: WorkEffortFormResolverService
     },
   },
   {

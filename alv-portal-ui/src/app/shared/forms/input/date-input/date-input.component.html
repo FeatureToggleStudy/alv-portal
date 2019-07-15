@@ -28,7 +28,7 @@
     <div *ngIf="readonly"
          [class.placeholder-shown]="!control.value"
          class="readonly-input">
-      {{control.value | date:'dd.MM.yyyy'}}
+      {{control.value}}
     </div>
     <label [attr.for]="id">
       {{label | translate}}

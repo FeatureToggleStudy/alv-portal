@@ -21,6 +21,7 @@
            [focusFirst]="focusFirst"
            [value]="controlValueChange$ | async"
            [ngbTypeahead]="loadItemsGuardedFn"
+           [disabled]="control.disabled"
            [resultTemplate]="template"
            [inputFormatter]="formatResultItem"
            (input)="handleInput()"

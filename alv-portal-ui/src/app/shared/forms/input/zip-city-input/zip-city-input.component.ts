@@ -75,9 +75,9 @@ export class ZipCityInputComponent implements OnInit {
     const {zipCityAutoComplete, zipCode, city} = this.zipCityFormValue;
 
     this.zipAndCity = this.fb.group({
-      zipCityAutoComplete: [zipCityAutoComplete, this.validators.zipCityAutoComplete],
-      zipCode: [zipCode, this.validators.zipCode],
-      city: [city, this.validators.city]
+      zipCityAutoComplete: [{value: zipCityAutoComplete, disabled: this.parentForm.disabled}, this.validators.zipCityAutoComplete],
+      zipCode: [{value: zipCode, disabled: this.parentForm.disabled}, this.validators.zipCode],
+      city: [{value: city, disabled: this.parentForm.disabled}, this.validators.city]
     });
     this.parentForm.addControl('zipAndCity', this.zipAndCity);
     this.toggleAutocomplete(this._countryIsoCode);
@@ -93,15 +93,19 @@ export class ZipCityInputComponent implements OnInit {
     const cityControl = this.zipAndCity.get('city');
 
     if (ZipCityInputComponent.isCityZipAutocomplete(selectedCountryIsoCode)) {
-      zipCityAutoCompleteControl.enable();
+      if (this.parentForm.enabled) {
+        zipCityAutoCompleteControl.enable();
+      }
 
       zipCodeControl.disable();
       cityControl.disable();
     } else {
       zipCityAutoCompleteControl.disable();
 
-      zipCodeControl.enable();
-      cityControl.enable();
+      if (this.parentForm.enabled) {
+        zipCodeControl.enable();
+        cityControl.enable();
+      }
     }
   }
 
