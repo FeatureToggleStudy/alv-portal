@@ -37,8 +37,10 @@ button.collapse-button {
     }
   }
 }
+// see the explanation of what's going on here in the component ts file
 .panel-content {
-  padding: 0.5em 0;
   display: block;
   transform-origin: top;
+  min-height: 0;
+  overflow:hidden;
 }
