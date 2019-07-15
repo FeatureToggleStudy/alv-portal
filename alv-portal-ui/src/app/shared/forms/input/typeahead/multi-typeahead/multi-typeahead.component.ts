@@ -90,8 +90,6 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
 
   allyHelpId: string;
 
-  disabled: boolean;
-
   constructor(@Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService,
               @Inject(DOCUMENT) private document: any,
