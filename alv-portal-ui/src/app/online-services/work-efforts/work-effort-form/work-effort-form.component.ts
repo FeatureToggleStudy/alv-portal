@@ -150,10 +150,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnInit() {
-    this.initialWorkEffort = this.route.snapshot.data.initialFormInfo ?
-      this.route.snapshot.data.initialFormInfo.workEffortFormValue : emptyWorkEffortFormValue;
-    this.readonly = this.route.snapshot.data.initialFormInfo ?
-      this.route.snapshot.data.initialFormInfo.readonly : false;
+
+    this.setInitialFormState();
+
     const controlsConfig = {
       id: [undefined],
       date: ['', Validators.required],
@@ -298,6 +297,18 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   isCompanyUrlRequired(): boolean {
     return this.isCompanyEmailOrUrlRequired() &&
       !this.workEffortFormGroup.get('companyEmailAndUrl').get('email').value;
+  }
+
+  private setInitialFormState() {
+    if (this.route.snapshot.data.initialFormInfo) {
+      // Edit
+      this.initialWorkEffort = this.route.snapshot.data.initialFormInfo.workEffortFormValue;
+      this.readonly = this.route.snapshot.data.initialFormInfo.readonly;
+    } else {
+      // Create
+      this.initialWorkEffort = emptyWorkEffortFormValue;
+      this.readonly = false;
+    }
   }
 
   private updateValueAndValidity() {
