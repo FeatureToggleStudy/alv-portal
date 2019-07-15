@@ -65,6 +65,7 @@ textarea.form-control,
 .form-label-group {
   user-select: none;
   cursor: text;
+  background-color: $color-white;
   /* Hide native placeholder */
   input::placeholder, textarea::placeholder {
     color: transparent;

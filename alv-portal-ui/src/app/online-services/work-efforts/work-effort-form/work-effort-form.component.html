@@ -78,8 +78,7 @@
                  class="alv-light-panel p-2"
                  [class.mb-1]="!last">
               <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
-                            [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"
-              >
+                            [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox">
               </alv-checkbox>
             </div>
             <alv-validation-messages id="application-at-least-one-required-msg-id"
@@ -142,7 +141,8 @@
 
               <alv-select [options$]="countryOptions$"
                           alvFormControlName="countryIsoCode"
-                          label="home.tools.job-publication.company.country"></alv-select>
+                          label="home.tools.job-publication.company.country">
+              </alv-select>
 
               <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
                                   [zipCityFormValue]="initialZipAndCity"
@@ -291,13 +291,22 @@
           </div>
         </alv-alert>
         <div class="d-flex justify-content-end">
-          <button (click)="goToWorkEffortsList()"
-                  [disabled]="isSubmitting"
+          <ng-container *ngIf="!readonly">
+            <button (click)="goToWorkEffortsList()"
+                    [disabled]="isSubmitting"
+                    type="button"
+                    class="btn btn-text">{{('portal.global.cancel') | translate}}</button>
+            <button type="submit"
+                    [disabled]="isSubmitting"
+                    class="btn btn-primary ml-1">{{'entity.action.save' | translate}}</button>
+          </ng-container>
+
+          <button *ngIf="readonly"
+                  (click)="goToWorkEffortsList()"
                   type="button"
-                  class="btn btn-text">{{'portal.global.cancel' | translate}}</button>
-          <button type="submit"
-                  [disabled]="isSubmitting"
-                  class="btn btn-primary ml-1">{{'entity.action.save' | translate}}</button>
+                  class="btn btn-primary">
+            {{'entity.action.back' | translate}}
+          </button>
         </div>
       </form>
     </div>

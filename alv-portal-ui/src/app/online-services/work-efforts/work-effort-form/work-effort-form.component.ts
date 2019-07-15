@@ -129,6 +129,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   isSubmitting: boolean;
   selectedApplyChannels: ApplyChannelsFormValue;
 
+  readonly: boolean;
+
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
@@ -148,7 +150,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnInit() {
-    this.initialWorkEffort = this.route.snapshot.data.initialFormValue || emptyWorkEffortFormValue;
+
+    this.setInitialFormState();
+
     const controlsConfig = {
       id: [undefined],
       date: ['', Validators.required],
@@ -201,6 +205,10 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
     this.workEffortFormGroup.patchValue(this.initialWorkEffort);
 
+    if (this.readonly) {
+      this.workEffortFormGroup.disable();
+    }
+
     this.setUpUnclicking({
       PENDING: ['EMPLOYED', 'REJECTED'],
       REJECTED: ['EMPLOYED', 'PENDING'],
@@ -215,7 +223,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         filter((value) => !!value),
         startWith(this.initialWorkEffort.companyAddress.countryIsoCode)
       );
-
 
     this.initialZipAndCity = createInitialZipAndCityFormValue(
       this.initialWorkEffort.companyAddress.zipAndCity,
@@ -292,16 +299,32 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       !this.workEffortFormGroup.get('companyEmailAndUrl').get('email').value;
   }
 
+  private setInitialFormState() {
+    if (this.route.snapshot.data.initialFormInfo) {
+      // Edit
+      this.initialWorkEffort = this.route.snapshot.data.initialFormInfo.workEffortFormValue;
+      this.readonly = this.route.snapshot.data.initialFormInfo.readonly;
+    } else {
+      // Create
+      this.initialWorkEffort = emptyWorkEffortFormValue;
+      this.readonly = false;
+    }
+  }
+
   private updateValueAndValidity() {
     this.workEffortFormGroup
       .get('companyAddress')
       .get('postOfficeBoxNumberOrStreet')
       .updateValueAndValidity();
-    this.workEffortFormGroup
+    const zipAndCity = this.workEffortFormGroup
       .get('companyAddress')
-      .get('zipAndCity')
-      .get('zipCityAutoComplete')
-      .updateValueAndValidity();
+      .get('zipAndCity');
+    if (zipAndCity) {
+      zipAndCity
+        .get('zipCityAutoComplete')
+        .updateValueAndValidity();
+    }
+
     this.workEffortFormGroup
       .get('contactPerson')
       .updateValueAndValidity();

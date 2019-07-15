@@ -108,7 +108,6 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
       };
     }
     this.allyHelpId = `${this.id}-ally-help`;
-
   }
 
   ngAfterViewInit() {
