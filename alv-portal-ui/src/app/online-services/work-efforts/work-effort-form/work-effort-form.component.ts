@@ -152,7 +152,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
     this.initialWorkEffort = this.route.snapshot.data.initialFormInfo ?
       this.route.snapshot.data.initialFormInfo.workEffortFormValue : emptyWorkEffortFormValue;
-    this.readonly = this.route.snapshot.data.initialFormInfo.readonly;
+    this.readonly = this.route.snapshot.data.initialFormInfo ?
+      this.route.snapshot.data.initialFormInfo.readonly : false;
     const controlsConfig = {
       id: [undefined],
       date: ['', Validators.required],
