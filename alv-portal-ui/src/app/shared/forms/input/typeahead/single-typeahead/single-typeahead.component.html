@@ -15,7 +15,7 @@
            [attr.aria-required]="!!required"
            [attr.id]="id"
            [attr.required]="required"
-           [class.placeholder-shown]="!inputField.value && !(controlValueChange$ | async)"
+           [class.placeholder-shown]="!inputField.value && (controlValueChange$ | async) === false"
            [container]="'body'"
            [editable]="false"
            [focusFirst]="focusFirst"

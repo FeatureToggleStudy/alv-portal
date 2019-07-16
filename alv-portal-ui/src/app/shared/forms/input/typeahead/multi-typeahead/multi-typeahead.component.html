@@ -1,6 +1,6 @@
 <div class="w-100 form-group"
      [container]="tooltipContainer"
-     [ngbTooltip]="tooltip ? tooltipText : false"
+     [ngbTooltip]="tooltip ? (tooltip | translate): false"
      [placement]="tooltipPlacement"
      tooltipClass="typeahead-tooltip"
      [autoClose]="'outside'"
@@ -55,9 +55,6 @@
              (keydown)="handleKeyDown($event)"
              (blur)="onBlur(control)">
     </div>
-    <ng-template #tooltipText>
-      {{ tooltip | translate}}
-    </ng-template>
     <label class="d-flex"
            [attr.for]="id">
       <span class="label text-truncate">{{label | translate}}</span>

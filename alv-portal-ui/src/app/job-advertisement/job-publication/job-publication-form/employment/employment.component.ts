@@ -24,9 +24,9 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
 
   @Input() parentForm: FormGroup;
 
-  @ViewChild('startDate') startDate: DateInputComponent;
+  @ViewChild('startDate', { static: false }) startDate: DateInputComponent;
 
-  @ViewChild('endDate') endDate: DateInputComponent;
+  @ViewChild('endDate', { static: false }) endDate: DateInputComponent;
 
   @Input()
   employmentFormValue: EmploymentFormValue;

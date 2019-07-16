@@ -22,8 +22,6 @@ import {
   selector: 'alv-job-ad-management-table',
   templateUrl: './job-ad-management-table.component.html',
   styleUrls: ['./job-ad-management-table.component.scss'],
-  /* tslint:disable:use-view-encapsulation */
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobAdManagementTableComponent implements OnInit {

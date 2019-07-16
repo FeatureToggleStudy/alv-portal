@@ -88,7 +88,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   searchPanelHeight = 0;
 
-  @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
+  @ViewChild('searchPanel', {static: false}) searchPanelElement: ElementRef<Element>;
 
   @BlockUI() blockUI: NgBlockUI;
 

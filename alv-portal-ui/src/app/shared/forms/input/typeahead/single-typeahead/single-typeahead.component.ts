@@ -52,7 +52,7 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
   @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
 
-  @ViewChild('inputField') inputFieldRef: ElementRef<HTMLInputElement>;
+  @ViewChild('inputField', {static: false}) inputFieldRef: ElementRef<HTMLInputElement>;
 
   helpId = this.id + '-help';
 

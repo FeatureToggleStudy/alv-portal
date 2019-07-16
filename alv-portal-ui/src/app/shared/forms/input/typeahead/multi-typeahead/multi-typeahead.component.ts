@@ -79,10 +79,9 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
 
   @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
 
+  @ViewChild(NgbTypeahead, {static: false}) ngbTypeahead: NgbTypeahead;
 
-  @ViewChild(NgbTypeahead) ngbTypeahead: NgbTypeahead;
-
-  @ViewChild(NgbTooltip) ngbTooltip: NgbTooltip;
+  @ViewChild(NgbTooltip, {static: false}) ngbTooltip: NgbTooltip;
 
   inputValue: string;
 
@@ -126,8 +125,12 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
     return `badge-${item.type}`;
   }
 
-  hasFocus() {
-    return this.document.activeElement.id === this.id;
+  hasFocus(): boolean {
+    if (this.document.activeElement && this.id) {
+      //in IE11 if the tooltip is set, the activeElement can be null
+      return this.document.activeElement.id === this.id;
+    }
+    return false;
   }
 
   getInputWidth(): string {

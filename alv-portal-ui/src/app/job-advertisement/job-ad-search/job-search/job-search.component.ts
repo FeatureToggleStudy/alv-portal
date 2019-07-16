@@ -93,7 +93,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   disableSaveSearchProfileButton$: Observable<boolean>;
 
-  @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
+  @ViewChild('searchPanel', {static: false}) searchPanelElement: ElementRef<Element>;
 
   @BlockUI() blockUI: NgBlockUI;
 
