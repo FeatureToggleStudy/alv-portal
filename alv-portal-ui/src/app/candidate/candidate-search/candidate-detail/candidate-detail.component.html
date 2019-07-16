@@ -30,13 +30,13 @@
                ngbDropdownMenu>
 
             <button (click)="prev()"
-                    [disabled]="(prevEnabled$ | async)===false"
+                    [disabled]="(prevEnabled$ | async) === false"
                     class="dropdown-item">
               {{'portal.job-detail.previous-result' | translate}}
             </button>
 
             <button (click)="next()"
-                    [disabled]="(nextEnabled$ | async)===false"
+                    [disabled]="(nextEnabled$ | async) === false"
                     class="dropdown-item">
               {{'portal.job-detail.next-result' | translate}}
             </button>
@@ -253,7 +253,7 @@
       <div class="d-flex">
         <button
           (click)="prev()"
-          [disabled]="(prevEnabled$ | async)===false"
+          [disabled]="(prevEnabled$ | async) === false"
           class="btn btn-text btn-text-icon btn-truncate mb-2">
           <fa-icon class="mr-1" [icon]="['fas', 'caret-left']"></fa-icon>
           {{'portal.job-detail.previous-result' | translate}}
@@ -261,7 +261,7 @@
         <div class="flex-grow-1"></div>
         <button
           (click)="next()"
-          [disabled]="(nextEnabled$ | async)===false"
+          [disabled]="(nextEnabled$ | async) === false"
           class="btn btn-text btn-text-icon btn-truncate mb-2">
           {{'portal.job-detail.next-result' | translate}}
           <fa-icon class="mr-1" [icon]="['fas', 'caret-right']"></fa-icon>

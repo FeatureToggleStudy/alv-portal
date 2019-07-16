@@ -4,7 +4,10 @@ import { SelectableOption } from '../../../../shared/forms/input/selectable-opti
 import { BehaviorSubject, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
-import { EmploymentDuration, WorkForm } from '../../../../shared/backend-services/shared.types';
+import {
+  EmploymentDuration,
+  WorkForm
+} from '../../../../shared/backend-services/shared.types';
 import { NgbDate, NgbDateNativeAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DateInputComponent } from '../../../../shared/forms/input/date-input/date-input.component';
 import { EmploymentFormValue } from './employment-form-value.types';
@@ -21,9 +24,9 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
 
   @Input() parentForm: FormGroup;
 
-  @ViewChild('startDate', {static: false}) startDate: DateInputComponent;
+  @ViewChild('startDate', { static: false }) startDate: DateInputComponent;
 
-  @ViewChild('endDate', {static: false}) endDate: DateInputComponent;
+  @ViewChild('endDate', { static: false }) endDate: DateInputComponent;
 
   @Input()
   employmentFormValue: EmploymentFormValue;
@@ -31,16 +34,16 @@ export class EmploymentComponent extends AbstractSubscriber implements OnInit {
   employment: FormGroup;
 
   defaultPercentages = [
-    {label: '10%', value: 10},
-    {label: '20%', value: 20},
-    {label: '30%', value: 30},
-    {label: '40%', value: 40},
-    {label: '50%', value: 50},
-    {label: '60%', value: 60},
-    {label: '70%', value: 70},
-    {label: '80%', value: 80},
-    {label: '90%', value: 90},
-    {label: '100%', value: 100}
+    { label: '10%', value: 10 },
+    { label: '20%', value: 20 },
+    { label: '30%', value: 30 },
+    { label: '40%', value: 40 },
+    { label: '50%', value: 50 },
+    { label: '60%', value: 60 },
+    { label: '70%', value: 70 },
+    { label: '80%', value: 80 },
+    { label: '90%', value: 90 },
+    { label: '100%', value: 100 }
   ];
 
   percentagesMin$: BehaviorSubject<SelectableOption[]> = new BehaviorSubject<SelectableOption[]>(this.defaultPercentages);
