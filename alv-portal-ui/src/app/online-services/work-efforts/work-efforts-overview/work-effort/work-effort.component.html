@@ -11,12 +11,12 @@
         <div>{{workEffortModel.occupation}}</div>
       </div>
       <div #actionsMenu="ngbDropdown"
+           *ngIf="!workEffortModel.isSentSuccessfully"
            (click)="$event.preventDefault();$event.stopPropagation()"
            class="actions-dropdown"
            ngbDropdown
            placement="left">
         <button (click)="actionsMenu.toggle()"
-                *ngIf="!workEffortModel.isSentSuccessfully"
                 class="btn btn-text actions-button no-dropdown-indicator h-100"
                 [ngbTooltip]="'portal.global.actions' | translate"
                 placement="left"
@@ -27,6 +27,7 @@
         <div aria-label="Work effort actions"
              ngbDropdownMenu>
           <button (click)="deleteWorkEffort()"
+                  ngbDropdownItem
                   class="dropdown-item">
             {{'portal.work-efforts.work-effort.actions.delete' | translate}}
           </button>
