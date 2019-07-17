@@ -69,7 +69,9 @@
            class="work-effort-divider"></div>
     </ng-container>
     <ng-container *ngIf="proofOfWorkEffortsModel.workEfforts && !proofOfWorkEffortsModel.workEfforts.length">
-      <div class="p-3 no-work-efforts">Sie haben noch keine Arbeitsbemühungen.</div>
+      <div class="p-3 no-work-efforts">
+        {{'portal.work-efforts.proof-of-work-efforts.no-work-effort.label' | translate}}
+      </div>
     </ng-container>
 
   </div>
