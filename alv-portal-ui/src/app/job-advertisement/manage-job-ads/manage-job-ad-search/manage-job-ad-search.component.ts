@@ -80,19 +80,19 @@ export class ManageJobAdSearchComponent extends AbstractSubscriber implements On
       if (key === 'onlineSinceDays' && managedJobAdsSearchFilter[key]) {
         badges.push({
           label: 'dashboard.job-publication.publication-period.' + managedJobAdsSearchFilter[key],
-          cssClass: 'badge-manage-jobads-managedJobAdsSearchFilter badge-big',
+          cssClass: 'badge-manage-jobads-filter badge-big',
           key: key
         });
       } else if (key === 'ownerUserId' && managedJobAdsSearchFilter[key]) {
         badges.push({
-          label: 'portal.manage-job-ads.search.managedJobAdsSearchFilter.createdBy.myself',
-          cssClass: 'badge-manage-jobads-managedJobAdsSearchFilter badge-big',
+          label: 'portal.manage-job-ads.search.filter.createdBy.myself',
+          cssClass: 'badge-manage-jobads-filter badge-big',
           key: key
         });
       } else if (key === 'status' && managedJobAdsSearchFilter [key]) {
         badges.push({
           label: 'global.job-publication.status.' + managedJobAdsSearchFilter[key],
-          cssClass: 'badge-manage-jobads-managedJobAdsSearchFilter badge-big',
+          cssClass: 'badge-manage-jobads-filter badge-big',
           key: key
         });
       } else if (!managedJobAdsSearchFilter[key]) {
