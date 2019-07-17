@@ -37,6 +37,9 @@ export function toISOLocalDate(date: NgbDateStruct): string {
  * @param date
  */
 export function fromDate(date: Date): NgbDateStruct {
+  if (!date) {
+    return null;
+  }
   return {
     year: date.getFullYear(),
     month: date.getMonth() + 1,
@@ -50,6 +53,9 @@ export function fromDate(date: Date): NgbDateStruct {
  * @param isoDateString
  */
 export function fromISODate(isoDateString: string): NgbDateStruct {
+  if (!isoDateString) {
+    return null;
+  }
   return fromDate(new Date(isoDateString));
 }
 
