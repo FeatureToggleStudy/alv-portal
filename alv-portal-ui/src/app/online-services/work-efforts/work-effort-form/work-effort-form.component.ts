@@ -253,7 +253,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
         this.cdRef.detectChanges(); // needed because of changeDetectionStrategy.OnPush
         if (error.error && error.error.message === 'error.validation' &&
           error.error.fieldErrors.find(fieldError => fieldError.field === 'applyDate')) {
-          this.notificationsService.error('Invalid apply date');
+          this.notificationsService.error('portal.work-efforts.edit-form.error.control-period');
           return EMPTY;
         }
         throw error;
