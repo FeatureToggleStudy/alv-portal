@@ -251,8 +251,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       catchError(error => {
         this.isSubmitting = false;
         this.cdRef.detectChanges(); // needed because of changeDetectionStrategy.OnPush
-        if (error.error && error.error.message === 'error.validation' &&
-          error.error.fieldErrors.find(fieldError => fieldError.field === 'applyDate')) {
+        if (this.hasApplyDateError(error)) {
           this.notificationsService.error('portal.work-efforts.edit-form.error.control-period');
           return EMPTY;
         }
@@ -399,6 +398,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     minDate.setDate(1);
     this.minDate = mapDateToNgbDate(minDate);
     this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
+  }
+
+  private hasApplyDateError(error): boolean {
+    return error.error && error.error.message === 'error.validation' && error.error.fieldErrors &&
+    error.error.fieldErrors.find(fieldError => fieldError.field === 'applyDate');
   }
 
   /**
