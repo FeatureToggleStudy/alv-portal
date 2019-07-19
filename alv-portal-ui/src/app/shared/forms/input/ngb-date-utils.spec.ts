@@ -148,7 +148,7 @@ describe('NgbDateUtils tests', () => {
     expect(convertedLocalDateTimeString).toContain('2007-12-24');
   });
 
-  it('should convert miöö LocalDateTime string representation to null', () => {
+  it('should convert null LocalDateTime string representation to null', () => {
     const convertedLocalDateTimeString = toISOLocalDate(fromISODate(null));
     expect(convertedLocalDateTimeString).toBe(null);
   });
