@@ -60,6 +60,12 @@
   }
 }
 
+.no-work-efforts {
+  border: 1px solid $color-medium-grey;
+  background-color: white;
+  color: $color-dark-grey;
+}
+
 .collapse-panel {
   .add-work-effort-button {
     background-color: $color-light-grey;
