@@ -37,6 +37,11 @@ describe('NgbDateUtils tests', () => {
     expect(convertedLocalDateTimeString).toContain('2018-03-25');
   });
 
+  it('should convert null Date to null', () => {
+    const convertedLocalDateTimeString = toISOLocalDateTime(null, '11', '00');
+    expect(convertedLocalDateTimeString).toBe(null);
+  });
+
 
   // Date -> NgbDateStruct
 
@@ -68,6 +73,11 @@ describe('NgbDateUtils tests', () => {
     expect(convertedNgbDateStruct.day).toEqual(25);
   });
 
+  it('should convert null Date to null', () => {
+    const convertedNgbDateStruct = fromDate(null);
+    expect(convertedNgbDateStruct).toBe(null);
+  });
+
 
   // NgbDateStruct -> ISOLocalDate string representation
 
@@ -90,6 +100,11 @@ describe('NgbDateUtils tests', () => {
   it('should convert NgbDateStruct to ISOLocalDate string representation #4', () => {
     const ISOLocalDateString = toISOLocalDate(fromDate(TESTING_DATE_4));
     expect(ISOLocalDateString).toContain('2018-03-25');
+  });
+
+  it('should convert null NgbDateStruct to null', () => {
+    const ISOLocalDateString = toISOLocalDate(fromDate(null));
+    expect(ISOLocalDateString).toBe(null);
   });
 
 
@@ -116,6 +131,11 @@ describe('NgbDateUtils tests', () => {
     expect(convertedNgbDateStruct.day).toEqual(1);
   });
 
+  it('should convert null ISODate string representation to null', () => {
+    const convertedNgbDateStruct = fromISODate(null);
+    expect(convertedNgbDateStruct).toBe(null);
+  });
+
   // ISODateTime string representation -> ISOLocalDate string Representation
 
   it('should convert LocalDateTime string representation to ISOLocalDate string representation #1', () => {
@@ -126,6 +146,11 @@ describe('NgbDateUtils tests', () => {
   it('should convert LocalDateTime string representation to ISOLocalDate string representation #2', () => {
     const convertedLocalDateTimeString = toISOLocalDate(fromISODate(TESTING_DATE_TIME_STRING_2));
     expect(convertedLocalDateTimeString).toContain('2007-12-24');
+  });
+
+  it('should convert null LocalDateTime string representation to null', () => {
+    const convertedLocalDateTimeString = toISOLocalDate(fromISODate(null));
+    expect(convertedLocalDateTimeString).toBe(null);
   });
 
 });
