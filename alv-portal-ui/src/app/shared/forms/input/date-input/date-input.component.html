@@ -41,6 +41,7 @@
               (click)="datePicker.toggle()"
               [disabled]="control.disabled"
               placement="top"
+              [container]="container"
               [ngbTooltip]="'portal.forms.date-input.open-calendar-button' | translate">
         <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
       </button>
