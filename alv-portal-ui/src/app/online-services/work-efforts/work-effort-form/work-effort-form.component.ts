@@ -14,7 +14,7 @@ import {
   Notification,
   NotificationType
 } from '../../../shared/layout/notifications/notification.model';
-import { Observable, of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
@@ -56,6 +56,7 @@ import { conditionalValidator } from '../../../shared/forms/input/validators/con
 import { zipCityInputSettings } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
 import { ProofOfWorkEfforts } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ScrollService } from '../../../core/scroll.service';
+import { NotificationsService } from '../../../core/notifications.service';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -135,6 +136,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
               private isoCountryService: IsoCountryService,
               private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
               private authenticationService: AuthenticationService,
+              private notificationsService: NotificationsService,
               private route: ActivatedRoute,
               public router: Router,
               private cdRef: ChangeDetectorRef,
@@ -249,11 +251,17 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       catchError(error => {
         this.isSubmitting = false;
         this.cdRef.detectChanges(); // needed because of changeDetectionStrategy.OnPush
+        if (this.hasApplyDateError(error)) {
+          this.notificationsService.error('portal.work-efforts.edit-form.error.control-period');
+          return EMPTY;
+        }
         throw error;
       })
     ).subscribe(result => {
       this.isSubmitting = false;
-      this.openSuccessModal();
+      if (result) {
+        this.openSuccessModal();
+      }
     });
   }
 
@@ -390,6 +398,11 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     minDate.setDate(1);
     this.minDate = mapDateToNgbDate(minDate);
     this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
+  }
+
+  private hasApplyDateError(error): boolean {
+    return error.error && error.error.message === 'error.validation' && error.error.fieldErrors &&
+    error.error.fieldErrors.find(fieldError => fieldError.field === 'applyDate');
   }
 
   /**
