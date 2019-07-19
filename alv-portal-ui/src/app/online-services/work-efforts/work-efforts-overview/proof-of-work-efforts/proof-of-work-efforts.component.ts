@@ -53,7 +53,8 @@ export class ProofOfWorkEffortsComponent implements OnInit {
     this.reload.emit(this.proofOfWorkEffortsModel);
   }
 
-  downloadPdf(proofOfWorkEffortsId: string) {
+  downloadPdf(proofOfWorkEffortsId: string, $event: Event) {
+    $event.stopPropagation();
     this.proofOfWorkEffortsRepository.downloadPdf(proofOfWorkEffortsId).pipe(
       withLatestFrom(this.i18nService.stream('portal.work-efforts.proof-of-work-efforts.pdf-file.name'))
     ).subscribe(([blob, filenamePrefix]) => {
