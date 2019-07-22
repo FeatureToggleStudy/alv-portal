@@ -1,0 +1,20 @@
+<form>
+
+</form>
+<button class="uploadfilecontainer"
+        alvDragDrop
+        (click)="fileInput.click()"
+        (fileDropped)="uploadFile($event)">
+  <input hidden
+         type="file"
+         #fileInput
+         (change)="uploadFile($event.target.files)">
+</button>
+<div class="files-list"
+     *ngFor="let file of files;let i = index">
+  <p> {{ file }} </p>
+  <button class="delete-file"
+          (click)="deleteAttachment(i)">
+    <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+  </button>
+</div>
