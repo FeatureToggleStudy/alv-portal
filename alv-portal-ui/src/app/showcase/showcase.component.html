@@ -6,8 +6,10 @@
 
   <alv-alert [notification]="customNotification">
     <p>Custom <strong>HTML</strong> Content</p>
-    <a class="link" href="#">
-      <fa-icon class="link-icon" [icon]="['fas', 'caret-right']"></fa-icon>
+    <a class="link"
+       href="#">
+      <fa-icon class="link-icon"
+               [icon]="['fas', 'caret-right']"></fa-icon>
       Demo Link
     </a>
   </alv-alert>
@@ -51,7 +53,12 @@
   {{confirmModalDemoText}}
 
   <h1 class="mt-2">File Upload</h1>
-  <alv-file-upload></alv-file-upload>
+  <alv-file-upload accept="*/*"
+                   [maxFilesCount]="3"
+                   [showDeleteFile]="true"
+                   [maxFileSize]="2 * 1024 * 1024"
+                   (filesChanged)="logFiles($event)">
+  </alv-file-upload>
 
   <h1 class="mt-2">Buttons</h1>
   <div class="d-flex mb-2">

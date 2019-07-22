@@ -1,20 +1,34 @@
-<form>
-
-</form>
-<button class="uploadfilecontainer"
+<button class="upload-button btn btn-secondary p-2 w-100"
         alvDragDrop
-        (click)="fileInput.click()"
-        (fileDropped)="uploadFile($event)">
-  <input hidden
+        [disabled]="isFileUploadDisabled()"
+        (click)="fileInput.value = ''; fileInput.click();"
+        (fileDropped)="uploadFile($event); fileInput.value = ''">
+  Datei auswählen
+  <input #fileInput
+         hidden
          type="file"
-         #fileInput
-         (change)="uploadFile($event.target.files)">
+         name="files"
+         [attr.multiple]="maxFilesCount > 1 ? true : null"
+         [accept]="accept"
+         (change)="uploadFile(($event.target || $event.srcElement).files);">
 </button>
-<div class="files-list"
-     *ngFor="let file of files;let i = index">
-  <p> {{ file }} </p>
-  <button class="delete-file"
-          (click)="deleteAttachment(i)">
+<div class="files-list p-2 mt-2"
+     *ngFor="let file of files; let index = index">
+  <div class="file-icon">
+    <fa-icon class="text-primary"
+             [fixedWidth]="true"
+             [icon]="getFileIcon(file.type)"
+             size="lg"></fa-icon>
+  </div>
+  <div class="file-name ml-2 text-truncate">{{file.name}}</div>
+  <div class="file-size ml-2">
+    <small class="d-block">{{file.size | bytes}}</small>
+  </div>
+
+  <div class="flex-grow-1 ml-2"></div>
+  <button *ngIf="showDeleteFile"
+          class="btn btn-toggle-icon"
+          (click)="deleteAttachment(index)">
     <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
   </button>
 </div>

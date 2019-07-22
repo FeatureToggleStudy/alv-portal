@@ -55,8 +55,8 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
 import { AssistantLayoutComponent } from './column-layout/assistant-layout/assistant-layout.component';
 import { EnvironmentRibbonComponent } from './environment-ribbon/environment-ribbon.component';
 import { SearchProfileItemComponent } from './search-profile-item/search-profile-item.component';
-import { DragDropDirective } from './drag-drop.directive';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { DragDropDirective } from './file-upload/drag-drop.directive';
 
 @NgModule({
   imports: [
