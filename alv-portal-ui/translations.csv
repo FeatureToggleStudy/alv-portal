@@ -742,7 +742,6 @@ portal.candidate-search-profiles.notification.profile-deleted,Ihre Suche wurde g
 portal.candidate-search-profiles.delete-confirmation-modal.title,Suche löschen?,Delete search?,Supprimer la recherche?,Cancellare la ricerca?,
 portal.candidate-search-profiles.delete-confirmation-modal.question,"Möchten Sie diese Suche ""<strong>{{profileName}}</strong>"" wirklich löschen?","Are you sure you want to delete this search ""<strong>{{profileName}}</strong>""?","Souhaitez-vous vraiment supprimer cette recherche ""<strong>{{profileName}}</strong>""?","Volete davvero cancellare questa ricerca ""<strong>{{profileName}}</strong>""?",
 portal.candidate-search-profiles.delete-confirmation-modal.button.confirm,"Ja, löschen","Yes, delete","Oui, supprimer","Sì, cancellare",
-portal.candidate-search-profiles.delete-confirmation-modal.button.cancel,Abbrechen,Cancel,Annuler,Annullare,
 portal.candidate-search-profiles.label.save-profile,Suche speichern,Save search,Sauvegarder la recherche,Salvare la ricerca,
 portal.candidate-search-profiles.label.delete-profile,Suche löschen,Delete search,Supprimer la recherche,Cancellare la ricerca,
 portal.candidate-search-profiles.update-modal.title,Suche aktualisieren,Update search,Actualiser la recherche,Aggiornare la ricerca,
