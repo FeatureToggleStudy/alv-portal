@@ -36,7 +36,7 @@ import { CompanyContactManagementComponent } from './user-settings/company-conta
     SharedAuthModule,
     ClipboardModule,
     PipesModule,
-    IconsModuleß
+    IconsModule
   ],
   entryComponents: [
     LegalTermsModalComponent
