@@ -33,7 +33,7 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
   {
     id: 'STES',
     mainMenuEntryKeys: ['dashboard', 'job-search', 'job-search-profiles', 'job-favourites'],
-    onlineFormsMenuEntryKeys: ['work-efforts'],
+    onlineFormsMenuEntryKeys: ['work-efforts', 'application-documents'],
     settingsMenuEntryKeys: ['user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_JOB_SEEKER])
   },
@@ -125,6 +125,13 @@ const ONLINE_FORMS_MENU_ENTRIES: Array<MenuEntry> = [
     iconKey: IconKey.WORK_EFFORTS,
     labelKey: 'portal.navigation.menu-entry.work-efforts',
     path: ['work-efforts'],
+    userPredicate: (u) => isAuthenticatedUser(u)
+  },
+  {
+    id: 'application-documents',
+    iconClass: 'file-certificate',
+    labelKey: 'portal.navigation.menu-entry.application-documents',
+    path: ['application-documents'],
     userPredicate: (u) => isAuthenticatedUser(u)
   }
 ];

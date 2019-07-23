@@ -1,0 +1,24 @@
+<alv-modal (cancelAction)="cancel()"
+           (primaryAction)="goToWorkEffortList()"
+           cancelLabel="portal.work-efforts.edit-form.modal-success.record-another-work-effort"
+           modalTitle="portal.work-efforts.edit-form.modal-success.title"
+           primaryLabel="portal.work-efforts.edit-form.modal-success.go-to-work-efforts-list"
+           [formGroup]="form">
+  <alv-alert [hideDismiss]="true"
+             [notification]="{
+           messageKey: 'portal.work-efforts.edit-form.modal-success.info-message',
+           type: notificationType.INFO
+           }">
+  </alv-alert>
+
+  <alv-select [label]="'portal.admin.system-notifications.form.type'| translate"
+              alvFormControlName="documentType"
+              [options$]="documentTypes$">
+  </alv-select>
+  <alv-file-upload [accept]="ACCEPTED_FILE_TYPES"
+                   [maxFileSize]="MAX_FILE_SIZE"
+                    [showDeleteButton]="false"
+                    (filesChanged)="updateFile($event)">
+
+  </alv-file-upload>
+</alv-modal>

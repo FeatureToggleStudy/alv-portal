@@ -105,6 +105,17 @@ const appRoutes: Routes = [
     }
   },
   {
+    path: 'application-documents',
+    loadChildren: './online-services/application-documents/application-documents.module#ApplicationDocumentsModule',
+    canDeactivate: [LazyModuleDeactivateGuard],
+    data: {
+      authorities: [UserRole.ROLE_JOB_SEEKER],
+      moduleName: ModuleName.APPLICATION_DOCUMENTS,
+      titleKey: 'portal.application-documents.browser-title',
+      scrollToTop: true
+    }
+  },
+  {
     path: 'candidate-search-profiles',
     loadChildren: './candidate/candidate-search-profiles/candidate-search-profiles.module#CandidateSearchProfilesModule',
     canDeactivate: [LazyModuleDeactivateGuard],

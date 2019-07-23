@@ -15,7 +15,7 @@ export class FileUploadComponent implements OnInit {
 
   @Input() maxFileSize: number;
 
-  @Input() showDeleteFile = true;
+  @Input() showDeleteButton = true;
 
   @Output() filesChanged = new EventEmitter<File[]>();
 
@@ -35,8 +35,8 @@ export class FileUploadComponent implements OnInit {
   }
 
   uploadFile(files: File[]) {
-    if (!this.showDeleteFile) {
-      this.files = [];
+    if (!this.showDeleteButton) {
+      this.files = []; // reset because there is no delete button
     }
 
     let fileAdded = false;
@@ -71,6 +71,6 @@ export class FileUploadComponent implements OnInit {
   }
 
   isFileUploadDisabled(): boolean {
-    return this.showDeleteFile && this.files.length >= this.maxFilesCount;
+    return this.showDeleteButton && this.files.length >= this.maxFilesCount;
   }
 }
