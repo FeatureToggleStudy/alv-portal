@@ -4,13 +4,11 @@
 @import '../../../../../../node_modules/bootstrap/scss/mixins';
 
 .alv-cells {
-  .work-effort {
-    .actions-cell {
-      padding-right: 30px;
-    }
-    .main-cell {
-      position: unset;
-    }
+  .actions-cell {
+    padding-right: 30px;
+  }
+  .main-cell {
+    position: unset;
   }
 }
 
@@ -20,6 +18,7 @@
   right: 0;
   z-index: 1;
   height: calc(100% + 2px);
+
   .actions-button {
     padding: 0 !important;
     width: 24px;
@@ -31,7 +30,7 @@
 }
 
 @include media-breakpoint-down(md) {
-  .alv-cells .work-effort {
+  .alv-cells {
     .cell:not(:first-of-type) {
       border-top: 1px solid $color-medium-grey;
     }
@@ -41,9 +40,6 @@
     .actions-dropdown {
       top: 0;
       height: 100%;
-      .actions-button {
-
-      }
       .actions-button:not(:hover) {
         border: 1px solid transparent;
       }
@@ -52,8 +48,5 @@
       position: relative;
     }
   }
-
-
-
 }
 
