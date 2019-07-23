@@ -9,6 +9,7 @@ import { JobBadgesMapperService } from './job-badges-mapper.service';
 import { JobSearchResultComponent } from './job-search-result/job-search-result.component';
 import { ComplaintModalComponent } from './complaint-modal/complaint-modal.component';
 import { FavouriteNoteModalComponent } from './favourite-note-modal/favourite-note-modal.component';
+import { MarkdownPreprocessPipe } from '../../shared/pipes/markdown-preprocess.pipe';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { FavouriteNoteModalComponent } from './favourite-note-modal/favourite-no
   providers: [
     JobBadgesMapperService,
     JobDetailModelFactory,
+    MarkdownPreprocessPipe
   ],
   entryComponents: [
     ComplaintModalComponent,
