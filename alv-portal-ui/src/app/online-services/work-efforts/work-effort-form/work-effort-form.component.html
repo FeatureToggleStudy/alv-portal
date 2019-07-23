@@ -139,17 +139,17 @@
                 </alv-input-field>
               </div>
 
-              <alv-select [options$]="countryOptions$"
-                          alvFormControlName="countryIsoCode"
-                          label="home.tools.job-publication.company.country">
-              </alv-select>
-
               <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
                                   [zipCityFormValue]="initialZipAndCity"
                                   [validators]="zipCityValidators"
                                   [countryIsoCode]="countryIsoCode$ | async"
                                   [isRequired]="isCompanyAddressRequired()">
               </alv-zip-city-input>
+
+              <alv-select [options$]="countryOptions$"
+                          alvFormControlName="countryIsoCode"
+                          label="home.tools.job-publication.company.country">
+              </alv-select>
 
             </fieldset>
 
