@@ -1,11 +1,11 @@
-<div class="work-effort-container position-relative">
+<div class="alv-cells position-relative">
   <a class="work-effort row no-gutters"
      [routerLink]="workEffortModel.workEffortEditLink" >
-    <div class="col-12 col-lg-3 work-effort-cell main-cell">
-      <small class="cell-label">
+    <div class="col-12 col-lg-3 cell main-cell">
+      <span class="cell-label">
         {{'portal.work-efforts.work-effort.cell-label.application-date' | translate}}
         {{workEffortModel.applyDate | localeAwareDate}}
-      </small>
+      </span>
       <div class="flex-grow-1">
         <div>{{workEffortModel.companyName}}</div>
         <div>{{workEffortModel.occupation}}</div>
@@ -34,38 +34,39 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-lg-3 work-effort-cell">
-      <small class="cell-label">
+    <div class="col-12 col-lg-3 cell">
+      <span class="cell-label">
         {{'portal.work-efforts.work-effort.cell-label.application-result' | translate}}
-      </small>
+      </span>
       <div class="flex-grow-1">
         <alv-inline-badges [badges]="workEffortModel.applyStatusBadges"></alv-inline-badges>
       </div>
     </div>
-    <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column">
-      <small class="cell-label">
+    <div class="col-12 col-lg-3 cell d-flex flex-column">
+      <span class="cell-label">
         {{'portal.work-efforts.edit-status.label' | translate}}
-      </small>
+      </span>
       <div class="flex-grow-1">
         {{'portal.work-efforts.work-effort.cell-text.edited-at' | translate}}
         {{workEffortModel.createdAt | localeAwareDate}}
       </div>
     </div>
-    <div class="col-12 col-lg-3 work-effort-cell d-flex flex-column"
+    <div class="col-12 col-lg-3 cell actions-cell d-flex flex-column"
          [class.success]="workEffortModel.isSentSuccessfully">
-      <small class="cell-label">
+      <span class="cell-label">
         {{'portal.work-efforts.submit-status.label' | translate}}
-      </small>
+      </span>
       <div class="flex-grow-1">
+
         {{ workEffortModel.statusLabel
-        | translate:{dateTime: workEffortModel.submissionDate | date: 'dd.MM.yyyy HH:mm'} }}
+        | translate:{dateTime: workEffortModel.submissionDate | date: (workEffortModel.submissionDateFormat)} }}
       </div>
-      <div class="success-icon-container text-center h-100 align-items-center">
+      <div class="success-icon-container">
         <fa-icon [icon]="['fas', 'check']"
                  class="w-100"></fa-icon>
       </div>
     </div>
-    <span class="expanded-indicator h-100">
+    <span class="expanded-indicator">
     </span>
   </a>
 </div>

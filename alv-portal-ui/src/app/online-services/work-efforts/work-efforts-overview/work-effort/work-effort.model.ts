@@ -30,6 +30,8 @@ export class WorkEffortModel {
 
   submissionDate: Date;
 
+  submissionDateFormat: string;
+
   statusLabel: string;
 
   workEffortEditLink: string;
@@ -55,7 +57,9 @@ export class WorkEffortModel {
 
     this.submissionDate = this.buildSubmissionDate();
 
-    this.statusLabel = 'portal.work-efforts.submit-status.text.' + (this.isSentSuccessfully ? 'closed' : 'open');
+    this.submissionDateFormat = this.isSentSuccessfully ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:mm';
+
+    this.statusLabel = 'portal.work-efforts.submit-status.text.' + (this.isSentSuccessfully ? 'submitted' : 'open');
 
     this.workEffortEditLink = `edit/${this.proofOfWorkEfforts.id}/${this.id}`;
   }
