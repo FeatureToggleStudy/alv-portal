@@ -53,7 +53,6 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
   }
 
   ngOnInit() {
-
     this.isEnglishLanguageSelected$ = this.i18nService.currentLanguage$.pipe(
       map(language => language === Languages.EN)
     );
