@@ -68,14 +68,15 @@ export enum ControlPeriodType {
 
 export enum WorkEffortApplyChannelType {
   ELECTRONIC = 'ELECTRONIC',
+  MAIL = 'MAIL',
   PERSONAL = 'PERSONAL',
-  PHONE = 'PHONE',
-  MAIL = 'MAIL'
+  PHONE = 'PHONE'
+
 }
 
 export enum WorkEffortApplyStatus {
   PENDING = 'PENDING',
-  REJECTED = 'REJECTED',
+  INTERVIEW = 'INTERVIEW',
   EMPLOYED = 'EMPLOYED',
-  INTERVIEW = 'INTERVIEW'
+  REJECTED = 'REJECTED'
 }

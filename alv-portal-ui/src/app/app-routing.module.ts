@@ -96,6 +96,7 @@ const appRoutes: Routes = [
   {
     path: 'work-efforts',
     loadChildren: './online-services/work-efforts/work-efforts.module#WorkEffortsModule',
+    canActivateChild: [HasAnyAuthoritiesGuard],
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {
       authorities: [UserRole.ROLE_JOB_SEEKER],

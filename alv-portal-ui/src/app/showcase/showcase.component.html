@@ -46,6 +46,40 @@
     label="Demo Select">
   </alv-select>
 
+  <h1>Cells</h1>
+
+  <button class="alv-cells my-1"
+          *ngFor="let i of [1, 2, 3]">
+    <span class="cell col-12 col-lg-3">
+      <span class="cell-label">
+        Row {{i}} Cell 1 Label
+      </span>
+      Row {{i}} Cell 1 Content
+    </span>
+    <span class="cell col-12 col-lg-3">
+      <span class="cell-label">
+        Row {{i}} Cell 2 Label
+      </span>
+      Row {{i}} Cell 2 Content
+    </span>
+    <span class="cell col-12 col-lg-3">
+      <span class="cell-label">
+        Row {{i}} Cell 3 Label
+      </span>
+      Row {{i}} Cell 3 Content
+    </span>
+    <span class="cell success col-12 col-lg-3">
+      <span class="cell-label">
+        Row {{i}} Cell 4 Label
+      </span>
+      Row {{i}} Cell 4 Content
+      <span class="success-icon-container">
+        <fa-icon [icon]="['fas', 'heart']"></fa-icon>
+      </span>
+    </span>
+    <span class="expanded-indicator"></span>
+  </button>
+
   <h1>Confirm Modal</h1>
   <button class="btn btn-primary"
           (click)="openConfirmModal()">Open Confirm Modal
