@@ -1,4 +1,4 @@
-@import "../../../../scss/common/colors";
+@import "../../../../../scss/common/colors";
 
 .upload-button {
   height: 50px;
@@ -9,11 +9,11 @@
     border: 2px dashed $color-primary;
   }
 }
-.files-list {
+.file {
   display: flex;
   align-items: center;
   border: 1px solid $color-medium-grey;
-
+  height: 50px;
   .file-size {
     color: $color-grey;
     white-space: nowrap;

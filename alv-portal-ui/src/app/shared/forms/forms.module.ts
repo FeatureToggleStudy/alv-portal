@@ -26,6 +26,9 @@ import { IconsModule } from '../icons/icons.module';
 import { SliderInputComponent } from './input/slider-input/slider-input.component';
 import { NouisliderModule } from 'ng2-nouislider';
 import { ZipCityInputComponent } from './input/zip-city-input/zip-city-input.component';
+import { DragDropDirective } from './input/file-input/drag-drop.directive';
+import { FileInputComponent } from './input/file-input/file-input.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -37,7 +40,8 @@ import { ZipCityInputComponent } from './input/zip-city-input/zip-city-input.com
     NgbTypeaheadModule,
     NgbTooltipModule,
     TranslateModule,
-    NouisliderModule
+    NouisliderModule,
+    PipesModule
   ],
   declarations: [
     DateIntervalInputComponent,
@@ -52,7 +56,9 @@ import { ZipCityInputComponent } from './input/zip-city-input/zip-city-input.com
     SingleTypeaheadComponent,
     AutofocusDirective,
     SliderInputComponent,
-    ZipCityInputComponent
+    ZipCityInputComponent,
+    DragDropDirective,
+    FileInputComponent
   ],
   exports: [
     DateIntervalInputComponent,
@@ -68,7 +74,9 @@ import { ZipCityInputComponent } from './input/zip-city-input/zip-city-input.com
     SingleTypeaheadComponent,
     ReactiveFormsModule,
     NgbTooltipModule,
-    ZipCityInputComponent
+    ZipCityInputComponent,
+    DragDropDirective,
+    FileInputComponent
   ],
   providers: [
     NgbPopoverConfig,

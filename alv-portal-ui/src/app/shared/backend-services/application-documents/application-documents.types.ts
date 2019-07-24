@@ -12,7 +12,6 @@ export interface CreateApplicationDocument {
   ownerUserId: string;
 }
 
-
 export interface DocumentMetadata {
   documentId: string;
   mimeType: string;

@@ -53,13 +53,23 @@
   {{confirmModalDemoText}}
 
   <h1 class="mt-2">File Upload</h1>
-  <alv-file-upload accept="*/*"
+  <button class="btn btn-primary"
+          (click)="fileInputControl.enable()">Enable</button>
+  <button class="btn btn-secondary"
+          (click)="fileInputControl.disable()">Disable</button>
+  <alv-file-input label="Choose files"
+                   accept="*/*"
+                   helpText="Max. 3 files of 2 MB"
                    [maxFilesCount]="3"
-                   [showDeleteButton]="true"
+                   [showRemoveButton]="true"
                    [maxFileSize]="2 * 1024 * 1024"
-                   (filesChanged)="logFiles($event)">
-  </alv-file-upload>
+                   [alvControl]="fileInputControl">
+  </alv-file-input>
 
+  <div>
+    <h3>Result:</h3>
+    <pre>{{fileInputControl.value | json}}</pre>
+  </div>
   <h1 class="mt-2">Buttons</h1>
   <div class="d-flex mb-2">
     <button class="btn btn-primary btn-icon mr-2">

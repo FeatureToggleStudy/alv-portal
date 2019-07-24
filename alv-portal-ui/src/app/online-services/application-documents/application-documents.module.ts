@@ -7,6 +7,7 @@ import { ApplicationDocumentsOverviewComponent } from './application-documents-o
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ApplicationDocumentComponent } from './application-documents-overview/application-document/application-document.component';
+import { ApplicationDocumentModalComponent } from './application-documents-overview/application-document-modal/application-document-modal.component';
 
 
 @NgModule({
@@ -20,9 +21,10 @@ import { ApplicationDocumentComponent } from './application-documents-overview/a
   declarations: [
     ApplicationDocumentsOverviewComponent,
     ApplicationDocumentComponent,
-
+    ApplicationDocumentModalComponent
   ],
   entryComponents: [
+    ApplicationDocumentModalComponent
   ],
   providers: [
     ModalService

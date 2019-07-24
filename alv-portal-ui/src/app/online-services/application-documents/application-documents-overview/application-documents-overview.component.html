@@ -30,8 +30,8 @@
         </ul>
       </alv-alert>
 
-      <button
-        class="btn btn-primary btn-block my-3 d-block d-md-none">
+      <button class="btn btn-primary btn-block my-3 d-block d-lg-none"
+              (click)="openModal(applicationDocumentModel)">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
         {{'portal.application-documents.add-button.label' | translate}}
@@ -39,12 +39,13 @@
 
       <alv-application-document *ngFor="let applicationDocumentModel of applicationDocumentModels"
                                 [applicationDocumentModel]="applicationDocumentModel"
+                                (click)="openModal(applicationDocumentModel)"
                                 class="d-block mb-4">
       </alv-application-document>
     </div>
     <div class="d-none d-lg-block col-lg-3 col-xl-2">
-      <button
-        class="add-button btn btn-primary btn-block position-sticky">
+      <button class="add-button btn btn-primary btn-block position-sticky"
+              (click)="openModal()">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
         {{'portal.application-documents.add-button.label' | translate}}

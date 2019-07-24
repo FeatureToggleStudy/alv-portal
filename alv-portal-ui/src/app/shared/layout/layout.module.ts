@@ -55,8 +55,6 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
 import { AssistantLayoutComponent } from './column-layout/assistant-layout/assistant-layout.component';
 import { EnvironmentRibbonComponent } from './environment-ribbon/environment-ribbon.component';
 import { SearchProfileItemComponent } from './search-profile-item/search-profile-item.component';
-import { FileUploadComponent } from './file-upload/file-upload.component';
-import { DragDropDirective } from './file-upload/drag-drop.directive';
 
 @NgModule({
   imports: [
@@ -108,9 +106,7 @@ import { DragDropDirective } from './file-upload/drag-drop.directive';
     LinkPanelComponent,
     AssistantLayoutComponent,
     EnvironmentRibbonComponent,
-    SearchProfileItemComponent,
-    DragDropDirective,
-    FileUploadComponent
+    SearchProfileItemComponent
   ],
   providers: [
     CandidateContactRepository
@@ -155,9 +151,7 @@ import { DragDropDirective } from './file-upload/drag-drop.directive';
     AccountabilitySwitcherComponent,
     LinkPanelComponent,
     EnvironmentRibbonComponent,
-    SearchProfileItemComponent,
-    DragDropDirective,
-    FileUploadComponent
+    SearchProfileItemComponent
   ]
 })
 export class LayoutModule {

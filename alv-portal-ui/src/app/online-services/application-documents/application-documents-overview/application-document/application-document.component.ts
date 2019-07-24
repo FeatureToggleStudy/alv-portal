@@ -22,19 +22,6 @@ export class ApplicationDocumentComponent {
               private notificationsService: NotificationsService) {
   }
 
-  deleteApplicationDocument() {
-    this.modalService.openConfirm(
-      deleteApplicationDocumentModalConfig
-    ).result
-      .then(result => {
-        this.applicationDocumentsRepository.deleteApplicationDocument(this.applicationDocumentModel.id)
-          .subscribe(() => {
-            this.deleted.emit(this.applicationDocumentModel);
-            this.notificationsService.success('portal.application-documents.notification.deleted');
-          });
-      })
-      .catch(() => {
-      });
-  }
+
 
 }

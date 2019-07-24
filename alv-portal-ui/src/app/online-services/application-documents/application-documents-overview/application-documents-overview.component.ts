@@ -15,6 +15,8 @@ import { I18nService } from '../../../core/i18n.service';
 import { Languages } from '../../../core/languages.constants';
 import { ApplicationDocumentsRepository } from '../../../shared/backend-services/application-documents/application-documents.repository';
 import { ApplicationDocumentModel } from './application-document/application-document.model';
+import { ApplicationDocumentModalComponent } from './application-document-modal/application-document-modal.component';
+import { NotificationsService } from '../../../core/notifications.service';
 
 @Component({
   selector: 'alv-work-efforts-overview',
@@ -48,6 +50,7 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
               private modalService: ModalService,
               private authenticationService: AuthenticationService,
               private i18nService: I18nService,
+              private notificationsService: NotificationsService,
               private applicationDocumentsRepository: ApplicationDocumentsRepository) {
     super();
   }
@@ -76,6 +79,18 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
         const indexToUpdate = this.applicationDocumentModels.findIndex(model => model.id === reloadedApplicationDocument.id);
         this.applicationDocumentModels[indexToUpdate] = new ApplicationDocumentModel(reloadedApplicationDocument);
       });
+  }
+
+  openModal(applicationDocumentModel?: ApplicationDocumentModel) {
+    const modalRef = this.modalService.openMedium(ApplicationDocumentModalComponent);
+    modalRef.componentInstance.applicationDocumentModel = applicationDocumentModel;
+    modalRef.result
+      .then(result => {
+        this.notificationsService.success('portal.application-documents.success-notification.submitted');
+        this.page = 0;
+        this.onScroll();
+      })
+      .catch(err => {});
   }
 
   dismissUploadInstruction() {

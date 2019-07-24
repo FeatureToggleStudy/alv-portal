@@ -42,6 +42,8 @@ export class ShowcaseComponent implements OnInit {
     }
   ]);
 
+  fileInputControl = new FormControl();
+
   confirmModalDemoText: string;
 
   notifications = [
@@ -78,6 +80,7 @@ export class ShowcaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fileInputControl.disable();
   }
 
   fetchSuggestions(prefix: string): Observable<LocalityTypeaheadItem[]> {

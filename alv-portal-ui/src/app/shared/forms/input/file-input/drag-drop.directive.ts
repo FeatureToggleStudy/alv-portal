@@ -2,7 +2,7 @@ import {
   Directive,
   EventEmitter,
   HostBinding,
-  HostListener,
+  HostListener, Input,
   Output
 } from '@angular/core';
 
@@ -15,27 +15,36 @@ export class DragDropDirective {
 
   @Output() fileDropped = new EventEmitter<File[]>();
 
+  @Input() dragDropDisabled: boolean;
+
   @HostBinding('class.alv-dragover') private dragover: boolean;
 
   @HostListener('dragover', ['$event']) onDragOver(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.dragover = true;
+    if (!this.dragDropDisabled) {
+      this.dragover = true;
+    }
+
   }
 
   @HostListener('dragleave', ['$event']) onDragLeave(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.dragover = false;
+    if (!this.dragDropDisabled) {
+      this.dragover = false;
+    }
   }
 
   @HostListener('drop', ['$event']) ondrop(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.dragover = false;
-    const files = evt.dataTransfer.files;
-    if (files.length > 0) {
-      this.fileDropped.emit(files);
+    if (!this.dragDropDisabled) {
+      this.dragover = false;
+      const files = evt.dataTransfer.files;
+      if (files.length > 0) {
+        this.fileDropped.emit(files);
+      }
     }
   }
 }

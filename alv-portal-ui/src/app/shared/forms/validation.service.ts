@@ -62,6 +62,18 @@ export class ValidationService {
     {
       error: 'positiveIntegerValidator',
       message: 'portal.forms.validation.message.integerError'
+    },
+    {
+      error: 'fileTooLarge',
+      message: 'portal.forms.validation.fileTooLarge'
+    },
+    {
+      error: 'maxFilesCount',
+      message: 'portal.forms.validation.maxFilesCount'
+    },
+    {
+      error: 'invalidFileType',
+      message: 'portal.forms.validation.invalidFileType'
     }
   ];
 
