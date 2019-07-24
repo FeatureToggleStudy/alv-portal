@@ -76,7 +76,7 @@ export enum WorkEffortApplyChannelType {
 
 export enum WorkEffortApplyStatus {
   PENDING = 'PENDING',
-  REJECTED = 'REJECTED',
+  INTERVIEW = 'INTERVIEW',
   EMPLOYED = 'EMPLOYED',
-  INTERVIEW = 'INTERVIEW'
+  REJECTED = 'REJECTED'
 }
