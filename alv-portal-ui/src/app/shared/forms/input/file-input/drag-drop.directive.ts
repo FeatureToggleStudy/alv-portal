@@ -20,26 +20,25 @@ export class DragDropDirective {
   @HostBinding('class.alv-dragover') private dragover: boolean;
 
   @HostListener('dragover', ['$event']) onDragOver(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
     if (!this.dragDropDisabled) {
+      evt.preventDefault();
+      evt.stopPropagation();
       this.dragover = true;
     }
-
   }
 
   @HostListener('dragleave', ['$event']) onDragLeave(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
     if (!this.dragDropDisabled) {
+      evt.preventDefault();
+      evt.stopPropagation();
       this.dragover = false;
     }
   }
 
   @HostListener('drop', ['$event']) ondrop(evt) {
-    evt.preventDefault();
-    evt.stopPropagation();
     if (!this.dragDropDisabled) {
+      evt.preventDefault();
+      evt.stopPropagation();
       this.dragover = false;
       const files = evt.dataTransfer.files;
       if (files.length > 0) {
