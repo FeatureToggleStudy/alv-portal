@@ -1,5 +1,5 @@
-<li>
-  <strong>
+<li [class.no-heading]="!label">
+  <strong *ngIf="label">
     {{label | translate}}
   </strong>
   <div class="list-item-content">
