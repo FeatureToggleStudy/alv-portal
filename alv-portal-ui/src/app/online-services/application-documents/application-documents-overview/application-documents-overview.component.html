@@ -8,11 +8,10 @@
     <div class="col-12 col-lg-9 col-xl-10">
       <div class="d-flex justify-content-between align-items-end position-relative">
         <h2 class="pr-5">
-          <alv-custom-icon class="text-primary"
-                           aria-hidden="true"
-                           [iconKey]="IconKey.WORK_EFFORTS">
-          </alv-custom-icon>
-          {{ 'portal.work-efforts.title' | translate }}
+          <fa-icon [icon]="['fas', 'file-certificate']"
+                   [fixedWidth]="true">
+          </fa-icon>
+          {{ 'portal.application-documents.title' | translate }}
         </h2>
       </div>
 
@@ -22,25 +21,34 @@
                  [notification]="englishNotSupportedNotification"
                  [hideDismiss]="true"></alv-alert>
 
+      <alv-alert *ngIf="showUploadInstruction"
+                 [notification]="uploadInstructionNotification"
+                 (dismiss)="dismissUploadInstruction()">
+        <ul class="m-0 pl-4">
+          <li class="mb-2">{{'portal.application-documents.info-notification.text1' | translate}}</li>
+          <li>{{'portal.application-documents.info-notification.text2' | translate}}</li>
+        </ul>
+      </alv-alert>
+
       <button
-              class="btn btn-primary btn-block my-3 d-block">
+        class="btn btn-primary btn-block my-3 d-block d-md-none">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
-        {{'portal.work-efforts.proof-of-work-efforts.add-work-effort.button.label' | translate}}
+        {{'portal.application-documents.add-button.label' | translate}}
       </button>
 
-      <alv-application-document *ngFor="let proofOfWorkEffortsModel of proofOfWorkEffortsModels"
-                                 [proofOfWorkEffortsModel]="proofOfWorkEffortsModel"
-                                 class="d-block mb-4">
+      <alv-application-document *ngFor="let applicationDocumentModel of applicationDocumentModels"
+                                [applicationDocumentModel]="applicationDocumentModel"
+                                class="d-block mb-4">
       </alv-application-document>
     </div>
     <div class="d-none d-lg-block col-lg-3 col-xl-2">
-        <button
-           class="add-work-effort-button btn btn-primary btn-block position-sticky">
-          <fa-icon [icon]="['fas', 'plus']"
-                   class="mr-1"></fa-icon>
-          {{'portal.work-efforts.proof-of-work-efforts.add-work-effort.button.label' | translate}}
-        </button>
+      <button
+        class="add-button btn btn-primary btn-block position-sticky">
+        <fa-icon [icon]="['fas', 'plus']"
+                 class="mr-1"></fa-icon>
+        {{'portal.application-documents.add-button.label' | translate}}
+      </button>
     </div>
   </div>
 

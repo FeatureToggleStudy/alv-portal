@@ -1,6 +1,6 @@
 export const deleteApplicationDocumentModalConfig = {
-  title: 'portal.work-efforts.work-effort.confirm-delete-modal.title',
-  content: 'portal.work-efforts.work-effort.confirm-delete-modal.question',
-  confirmLabel: 'portal.work-efforts.work-effort.confirm-delete-modal.confirm.label'
+  title: 'portal.application-documents.confirm-delete-modal.title',
+  content: 'portal.application-documents.confirm-delete-modal.question',
+  confirmLabel: 'portal.application-documents.confirm-delete-modal.confirm.label'
 };
 

@@ -22,7 +22,7 @@ export class ApplicationDocumentComponent {
               private notificationsService: NotificationsService) {
   }
 
-  deleteWorkEffort() {
+  deleteApplicationDocument() {
     this.modalService.openConfirm(
       deleteApplicationDocumentModalConfig
     ).result
@@ -30,7 +30,7 @@ export class ApplicationDocumentComponent {
         this.applicationDocumentsRepository.deleteApplicationDocument(this.applicationDocumentModel.id)
           .subscribe(() => {
             this.deleted.emit(this.applicationDocumentModel);
-            this.notificationsService.success('portal.work-efforts.work-effort.notification.deleted');
+            this.notificationsService.success('portal.application-documents.notification.deleted');
           });
       })
       .catch(() => {
