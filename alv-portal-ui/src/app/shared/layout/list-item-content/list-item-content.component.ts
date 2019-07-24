@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'alv-list-item-content',
   templateUrl: './list-item-content.component.html',
-  styleUrls: ['./list-item-content.component.scss']
+  styleUrls: ['./list-item-content.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListItemContentComponent implements OnInit {
 
