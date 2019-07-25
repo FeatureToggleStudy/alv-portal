@@ -79,6 +79,8 @@ export class ModalComponent {
   handlePrimaryClick() {
     if (!this.formGroup) {
       this.handleSubmitClick();
+    } else if (this.formGroup.invalid) {
+      this.formGroup.updateValueAndValidity();
     }
   }
 

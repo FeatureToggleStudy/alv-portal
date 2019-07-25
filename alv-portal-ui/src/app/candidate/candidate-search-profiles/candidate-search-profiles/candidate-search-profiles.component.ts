@@ -40,7 +40,7 @@ export class CandidateSearchProfilesComponent implements OnInit {
       take(1),
       flatMap(user => this.candidateSearchProfilesRepository.search(user.id, this.page++, this.size)),
       map(response => response.result)
-    ).subscribe(profiles => {
+    ).subscribe((profiles: CandidateSearchProfileResult[]) => {
       this.candidateSearchProfiles = [...(this.candidateSearchProfiles || []), ...profiles];
     });
   }

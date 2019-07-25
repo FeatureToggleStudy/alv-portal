@@ -1,0 +1,76 @@
+@import "colors";
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+
+.alv-cells {
+  background-color: $color-white;
+  border: 1px solid $color-medium-grey;
+  padding: 0;
+  text-align: left;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0;
+  margin-right: 0;
+  .cell {
+    color: $color-grey-black;
+    line-height: 20px;
+    padding: 0.25em 0.5em 0.5em 0.5em;
+    display: block;
+    &:not(:first-of-type) {
+      border-left: 1px solid $color-medium-grey;
+    }
+    .cell-label {
+      color: $color-dark-grey;
+      font-size: 0.75em;
+      font-weight: 400;
+      display: block;
+    }
+    .success-icon-container {
+      display: none;
+    }
+    &.success {
+      background-color: $color-light-green;
+      padding-right: 30px;
+      .success-icon-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 24px;
+        border-left: 1px solid $color-medium-grey;
+        color: $color-dark-grey;
+        text-align: center;
+        height: 100%;
+      }
+    }
+  }
+
+  &:hover, &.expanded {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+    text-decoration: none !important;
+
+    .cell:first-of-type {
+      color: $color-primary;
+    }
+    .expanded-indicator {
+      background-color: $color-primary;
+      width: 3px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .alv-cells .cell:not(:first-of-type) {
+    border-top: 1px solid $color-medium-grey;
+    border-left: none;
+  }
+}

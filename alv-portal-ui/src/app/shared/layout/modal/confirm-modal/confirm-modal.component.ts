@@ -16,7 +16,7 @@ export class ConfirmModalComponent {
 
   confirmLabel = 'portal.modal.confirm.yes';
 
-  cancelLabel = 'portal.modal.confirm.no';
+  cancelLabel = 'portal.modal.confirm.cancel'; // DF-1117
 
   constructor(public modal: NgbActiveModal) {
   }
