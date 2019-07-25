@@ -1,17 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationType } from '../../../../shared/layout/notifications/notification.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { ApplicationDocumentsRepository } from '../../../../shared/backend-services/application-documents/application-documents.repository';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { flatMap, take } from 'rxjs/operators';
-import { ApplicationDocumentModel } from '../application-document/application-document.model';
+import { finalize, flatMap, take } from 'rxjs/operators';
 import { deleteApplicationDocumentModalConfig } from '../modal-config.types';
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../../../core/notifications.service';
-import { ApplicationDocumentType } from '../../../../shared/backend-services/application-documents/application-documents.types';
+import {
+  ApplicationDocument,
+  ApplicationDocumentType
+} from '../../../../shared/backend-services/application-documents/application-documents.types';
 import { ValidationMessage } from '../../../../shared/forms/input/validation-messages/validation-message.model';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'alv-application-document-modal',
@@ -24,7 +27,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
   readonly MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
-  @Input() applicationDocumentModel: ApplicationDocumentModel;
+  @Input() applicationDocument: ApplicationDocument;
 
   isEdit: boolean;
 
@@ -35,6 +38,14 @@ export class ApplicationDocumentModalComponent implements OnInit {
   notificationType = NotificationType;
 
   form: FormGroup;
+
+  uploadedBytes = 0;
+
+  totalBytes = 100;
+
+  showProgress: boolean;
+
+  progressSubscription: Subscription;
 
   documentTypes$ = of(Object.keys(ApplicationDocumentType).map(documentType => {
       return {
@@ -48,10 +59,6 @@ export class ApplicationDocumentModalComponent implements OnInit {
     {
       error: 'required',
       message: 'portal.application-documents.edit-create-modal.document-type.validation.required'
-    },
-    {
-      error: 'maxFilesCount',
-      message: 'portal.application-documents.edit-create-modal.document-type.validation.maxFilesCount'
     }
   ];
 
@@ -79,11 +86,11 @@ export class ApplicationDocumentModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isEdit = !!this.applicationDocumentModel;
+    this.isEdit = !!this.applicationDocument;
 
     this.form = this.fb.group({
-      documentType: ['', Validators.required],
-      file: ['', [Validators.required]]
+      documentType: [this.isEdit ? this.applicationDocument.documentType : '', Validators.required],
+      file: ['', this.isEdit ? null : Validators.required]
     });
 
     this.modalTitle = 'portal.application-documents.edit-create-modal.' + (this.isEdit ? 'edit-title' : 'create-title');
@@ -92,15 +99,24 @@ export class ApplicationDocumentModalComponent implements OnInit {
   }
 
   submit() {
-    this.authenticationService.getCurrentUser()
+    this.uploadedBytes = 1;
+    this.progressSubscription = this.authenticationService.getCurrentUser()
       .pipe(
         take(1),
         flatMap(user => this.applicationDocumentsRepository.uploadApplicationDocument({
           documentType: this.form.value.documentType,
           ownerUserId: user.id
-        }, this.form.value.file))
-      ).subscribe(result => {
-      this.activeModal.close();
+        }, this.form.value.file)),
+        finalize(() => this.uploadedBytes = 0)
+      ).subscribe((event: HttpEvent<ApplicationDocument>) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.totalBytes = event.total;
+          this.uploadedBytes = event.loaded;
+        }
+        if (event.type === HttpEventType.Response) {
+
+          this.activeModal.close();
+        }
     });
   }
 
@@ -109,14 +125,18 @@ export class ApplicationDocumentModalComponent implements OnInit {
       deleteApplicationDocumentModalConfig
     ).result
       .then(result => {
-        this.applicationDocumentsRepository.deleteApplicationDocument(this.applicationDocumentModel.id)
+        this.applicationDocumentsRepository.deleteApplicationDocument(this.applicationDocument.id)
           .subscribe(() => {
-            this.notificationsService.success('portal.application-documents.notification.deleted');
-            this.activeModal.close();
+              this.notificationsService.success('portal.application-documents.notification.deleted');
+              this.activeModal.close();
           });
       })
       .catch(() => {
       });
+  }
+
+  cancelRequest() {
+    this.progressSubscription.unsubscribe();
   }
 
   cancel() {

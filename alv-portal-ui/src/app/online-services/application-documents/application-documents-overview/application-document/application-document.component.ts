@@ -5,6 +5,7 @@ import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-service
 import { ApplicationDocumentModel } from './application-document.model';
 import { deleteApplicationDocumentModalConfig } from '../modal-config.types';
 import { ApplicationDocumentsRepository } from '../../../../shared/backend-services/application-documents/application-documents.repository';
+import { ApplicationDocument } from '../../../../shared/backend-services/application-documents/application-documents.types';
 
 @Component({
   selector: 'alv-application-document',
@@ -13,9 +14,9 @@ import { ApplicationDocumentsRepository } from '../../../../shared/backend-servi
 })
 export class ApplicationDocumentComponent {
 
-  @Input() applicationDocumentModel: ApplicationDocumentModel;
+  @Input() applicationDocument: ApplicationDocument;
 
-  @Output() deleted = new EventEmitter<ApplicationDocumentModel>();
+  @Output() clicked = new EventEmitter<ApplicationDocument>();
 
   constructor(private modalService: ModalService,
               private applicationDocumentsRepository: ApplicationDocumentsRepository,

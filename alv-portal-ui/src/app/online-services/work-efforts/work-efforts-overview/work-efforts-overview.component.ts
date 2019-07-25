@@ -44,7 +44,7 @@ export class WorkEffortsOverviewComponent extends AbstractSubscriber implements 
 
   englishNotSupportedNotification = {
     type: NotificationType.ERROR,
-    messageKey: 'portal.work-efforts.proof-of-work-efforts.notification.no-english',
+    messageKey: 'portal.online-forms.notification.no-english',
     isSticky: true
   } as Notification;
 

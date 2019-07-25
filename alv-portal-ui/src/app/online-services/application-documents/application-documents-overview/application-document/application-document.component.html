@@ -1,1 +1,36 @@
-Application Document works
+<button class="alv-cells">
+
+  <span class="cell col-12 col-lg-4">
+    <span class="cell-label">
+      {{'portal.application-documents.document-type.label' | translate}}
+    </span>
+    {{ 'portal.application-documents.document-type.' + applicationDocument.documentType | translate}}
+  </span>
+
+  <span class="cell col-12 col-lg-4">
+    <span class="cell-label">
+      {{'portal.application-documents.file-name.label' | translate}}
+    </span>
+    <button class="download-link"
+            (click)="$event.stopPropagation()">
+      <fa-icon class="text-primary"
+               [icon]="['far', 'file-pdf']">
+      </fa-icon>
+      <span class="text-truncate d-block ml-1">
+        {{ applicationDocument.documentMetadata.fileName }}
+      </span>
+    </button>
+  </span>
+
+  <span class="cell success col-12 col-lg-4">
+    <span class="cell-label">
+      {{'portal.application-documents.submission.label' | translate}}
+    </span>
+    {{ applicationDocument.createdAt | date: 'dd.MM.yyyy hh:mm' }}h
+    <span class="success-icon-container">
+      <fa-icon [icon]="['fas', 'check']"></fa-icon>
+    </span>
+  </span>
+
+  <span class="expanded-indicator"></span>
+</button>

@@ -37,10 +37,10 @@
         {{'portal.application-documents.add-button.label' | translate}}
       </button>
 
-      <alv-application-document *ngFor="let applicationDocumentModel of applicationDocumentModels"
-                                [applicationDocumentModel]="applicationDocumentModel"
-                                (click)="openModal(applicationDocumentModel)"
-                                class="d-block mb-4">
+      <alv-application-document *ngFor="let applicationDocument of applicationDocuments"
+                                [applicationDocument]="applicationDocument"
+                                (click)="openModal(applicationDocument)"
+                                class="d-block mb-2">
       </alv-application-document>
     </div>
     <div class="d-none d-lg-block col-lg-3 col-xl-2">

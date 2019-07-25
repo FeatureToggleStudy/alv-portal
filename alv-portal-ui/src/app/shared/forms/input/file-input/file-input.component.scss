@@ -1,7 +1,7 @@
 @import "../../../../../scss/common/colors";
 
 .upload-button {
-  height: 50px;
+  height: 46px;
 
   &.alv-dragover {
     opacity: 80%;
@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   border: 1px solid $color-medium-grey;
-  height: 50px;
+  height: 46px;
   .file-size {
     color: $color-grey;
     white-space: nowrap;

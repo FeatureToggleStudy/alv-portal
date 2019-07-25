@@ -13,13 +13,17 @@ import {
 } from '../../../shared/layout/notifications/notification.model';
 import { I18nService } from '../../../core/i18n.service';
 import { Languages } from '../../../core/languages.constants';
-import { ApplicationDocumentsRepository } from '../../../shared/backend-services/application-documents/application-documents.repository';
+import {
+  ApplicationDocumentsRepository,
+  mockApplicationDocuments
+} from '../../../shared/backend-services/application-documents/application-documents.repository';
 import { ApplicationDocumentModel } from './application-document/application-document.model';
 import { ApplicationDocumentModalComponent } from './application-document-modal/application-document-modal.component';
 import { NotificationsService } from '../../../core/notifications.service';
+import { ApplicationDocument } from '../../../shared/backend-services/application-documents/application-documents.types';
 
 @Component({
-  selector: 'alv-work-efforts-overview',
+  selector: 'alv-application-documents-overview',
   templateUrl: './application-documents-overview.component.html',
   styleUrls: ['./application-documents-overview.component.scss']
 })
@@ -27,7 +31,7 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
 
   englishNotSupportedNotification: Notification = {
     type: NotificationType.ERROR,
-    messageKey: 'portal.work-efforts.proof-of-work-efforts.notification.no-english',
+    messageKey: 'portal.online-forms.notification.no-english',
     isSticky: true
   };
 
@@ -38,7 +42,7 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
 
   IconKey = IconKey;
 
-  applicationDocumentModels: ApplicationDocumentModel[];
+  applicationDocuments: ApplicationDocument[];
 
   isEnglishLanguageSelected$: Observable<boolean>;
 
@@ -67,23 +71,22 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
     this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
       flatMap(user => this.applicationDocumentsRepository.findByOwnerUserId(user.id, this.page++)),
-      map(applicationDocuments => applicationDocuments.map(applicationDocument => new ApplicationDocumentModel(applicationDocument)))
-    ).subscribe(applicationDocumentModels => {
-      this.applicationDocumentModels = [...(this.applicationDocumentModels || []), ...applicationDocumentModels];
+    ).subscribe(applicationDocuments => {
+      this.applicationDocuments = [...(this.applicationDocuments || []), ...applicationDocuments];
     });
   }
 
-  reloadApplicationDocument(applicationDocumentModel: ApplicationDocumentModel) {
-    this.applicationDocumentsRepository.getApplicationDocumentById(applicationDocumentModel.id)
+  reloadApplicationDocument(applicationDocument: ApplicationDocument) {
+    this.applicationDocumentsRepository.getApplicationDocumentById(applicationDocument.id)
       .subscribe(reloadedApplicationDocument => {
-        const indexToUpdate = this.applicationDocumentModels.findIndex(model => model.id === reloadedApplicationDocument.id);
-        this.applicationDocumentModels[indexToUpdate] = new ApplicationDocumentModel(reloadedApplicationDocument);
+        const indexToUpdate = this.applicationDocuments.findIndex(model => model.id === reloadedApplicationDocument.id);
+        this.applicationDocuments[indexToUpdate] = reloadedApplicationDocument;
       });
   }
 
-  openModal(applicationDocumentModel?: ApplicationDocumentModel) {
+  openModal(applicationDocument?: ApplicationDocument) {
     const modalRef = this.modalService.openMedium(ApplicationDocumentModalComponent);
-    modalRef.componentInstance.applicationDocumentModel = applicationDocumentModel;
+    modalRef.componentInstance.applicationDocument = applicationDocument;
     modalRef.result
       .then(result => {
         this.notificationsService.success('portal.application-documents.success-notification.submitted');

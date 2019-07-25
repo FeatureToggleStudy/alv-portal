@@ -3,9 +3,10 @@
            (primaryAction)="submit()"
            [secondaryLabel]="secondaryLabel"
            (secondaryAction)="delete()"
-           cancelLabel="entity.action.cancel"
+           cancelLabel="portal.application-documents.edit-create-modal.cancel-button.label"
            (cancelAction)="cancel()"
-           [formGroup]="form">
+           [formGroup]="form"
+           [loadingSubscription]="progressSubscription">
   <alv-alert [hideDismiss]="true"
              [notification]="{type: notificationType.INFO}">
     <ul class="m-0 pl-4">
@@ -29,4 +30,11 @@
                   [showRemoveButton]="false"
                   [validationMessages]="fileValidationMessages">
   </alv-file-input>
+
+  <alv-progressbar *ngIf="uploadedBytes"
+                   [subscription]="progressSubscription"
+                   [max]="totalBytes"
+                   [value]="uploadedBytes">
+  </alv-progressbar>
+
 </alv-modal>
