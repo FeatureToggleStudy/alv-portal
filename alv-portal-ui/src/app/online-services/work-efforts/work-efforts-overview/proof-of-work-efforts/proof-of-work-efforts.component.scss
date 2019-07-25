@@ -3,59 +3,42 @@
 @import '../../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../../node_modules/bootstrap/scss/mixins';
 
-.proof-of-work-efforts {
-  background-color: $color-white;
-  border: 1px solid $color-medium-grey;
+.alv-cells {
 
-  .pdf-link {
-    color: $color-grey-black;
-    border: none;
-    background-color: transparent;
-    &:hover {
-      color: $color-primary;
-    }
-  }
+  .pdf-cell {
+    padding-top: 1.5em;
 
-  .name-cell, .pdf-cell {
-    padding: 0.5em 0.75em;
-  }
+    .pdf-link {
+      color: $color-grey-black;
+      border: none;
+      background-color: transparent;
 
-  .status-cell {
-    line-height: 20px;
-    border-left: 1px solid $color-medium-grey;
-    padding: 0.25em 0.5em 0.5em 0.5em;
-    .status-label {
-      color: $color-dark-grey;
-    }
-    .success-icon-container {
-      display: none;
-    }
-    &.success {
-      background-color: $color-light-green;
-      padding-right: 30px;
-      .success-icon-container {
-        display: flex;
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 24px;
-        border-left: 1px solid $color-medium-grey;
-        color: $color-dark-grey;
+      &:hover {
+        color: $color-primary;
       }
     }
   }
 
-  &:hover, &.expanded {
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
-    .name-cell {
-      color: $color-primary;
+  .name-cell {
+
+    padding-top: 1.5em;
+    display: block;
+
+    .period-title {
+      font-size: 1.1em;
     }
-    .expanded-indicator {
-      background-color: $color-primary;
-      width: 3px;
-      position: absolute;
-      left: 0;
-      top: 0;
+
+    .cell-label {
+      display: none;
+    }
+
+    &.before-unemployment {
+      padding-top: 0.25em;
+
+      .cell-label {
+        padding-left: 1.5em;
+        display: block;
+      }
     }
   }
 }
@@ -67,11 +50,6 @@
 }
 
 .collapse-panel {
-  .add-work-effort-button {
-    background-color: $color-light-grey;
-    border-color: $color-medium-grey;
-  }
-
   .work-effort-divider {
     width: 100%;
     border-top: 3px solid $color-medium-grey;
@@ -85,7 +63,16 @@
 }
 
 @include media-breakpoint-down(md) {
-  .status-cell {
-    border-top: 1px solid $color-medium-grey;
+  .alv-cells {
+    .cell.pdf-cell, .cell.name-cell {
+      border-top: none;
+      padding-top: 0.25em;
+    }
+
+    .cell.pdf-cell {
+      border-left: none;
+      display: flex;
+      align-items: center;
+    }
   }
 }
