@@ -1,8 +1,8 @@
 <button class="upload-button btn btn-secondary p-2 w-100"
         alvDragDrop
         type="button"
-        [dragDropDisabled]="isDisabled()"
-        [disabled]="isDisabled()"
+        [dragDropDisabled]="isFileSelectionDisabled()"
+        [disabled]="isFileSelectionDisabled()"
         (click)="fileInput.value = ''; fileInput.click();"
         (fileDropped)="uploadFile($event); fileInput.value = ''">
   {{ label | translate }}
@@ -14,27 +14,15 @@
          [accept]="accept"
          (change)="uploadFile(($event.target || $event.srcElement).files);">
 </button>
-<div class="file p-2 mt-2"
-     *ngFor="let file of files; let index = index">
-  <div class="file-icon">
-    <fa-icon class="text-primary"
-             [fixedWidth]="true"
-             [icon]="getFileIcon(file.type)"
-             size="lg"></fa-icon>
-  </div>
-  <div class="file-name ml-2 text-truncate">{{file.name}}</div>
-  <div class="file-size ml-2">
-    <small class="d-block">{{file.size | bytes}}</small>
-  </div>
-
-  <div class="flex-grow-1 ml-2"></div>
-  <button *ngIf="showRemoveButton"
-          class="btn btn-toggle-icon"
-          [disabled]="isDisabled()"
-          (click)="removeFile(index)">
-    <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
-  </button>
-</div>
+<alv-file *ngFor="let file of files; let index = index"
+          [fileName]="file.name"
+          [fileSize]="file.size"
+          [fileType]="file.type"
+          [showRemoveButton]="showRemoveButton"
+          [isDisabled]="control.disabled"
+          [downloadFile$]="downloadFile(file)"
+          (removeFile)="removeFile(index)">
+</alv-file>
 <div *ngIf="!(isTouched() && isInvalid())"
      class="help-text">
   <small *ngIf="helpText"

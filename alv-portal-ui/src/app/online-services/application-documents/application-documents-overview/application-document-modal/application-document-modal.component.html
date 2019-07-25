@@ -23,7 +23,15 @@
               class="narrow-form d-block mb-2 mt-3">
   </alv-select>
 
-  <alv-file-input label="portal.application-documents.edit-create-modal.upload-button-label"
+  <alv-file *ngIf="isEdit"
+            [downloadFile$]="downloadFile$"
+            [fileName]="applicationDocument.documentMetadata.fileName"
+            [fileType]="applicationDocument.documentMetadata.mimeType"
+            [fileSize]="applicationDocument.documentMetadata.contentLength">
+  </alv-file>
+
+  <alv-file-input *ngIf="!isEdit"
+                  label="portal.application-documents.edit-create-modal.upload-button-label"
                   alvFormControlName="file"
                   [accept]="ACCEPTED_FILE_TYPES"
                   [maxFileSize]="MAX_FILE_SIZE"

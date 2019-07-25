@@ -4,6 +4,7 @@ import { AbstractInput } from '../abstract-input';
 import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
 import { InputType } from '../input-type.enum';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'alv-file-input',
@@ -36,12 +37,6 @@ export class FileInputComponent extends AbstractInput {
   @Input() showRemoveButton = true;
 
   files: File[] = [];
-
-  private iconMappings = {
-    'application/pdf': ['far', 'file-pdf'],
-    'image/png': ['far', 'file-image'],
-    'image/jpeg': ['far', 'file-image']
-  };
 
   constructor(private bytesPipe: BytesPipe,
               @Optional() @Host() @SkipSelf() controlContainer: ControlContainer,
@@ -92,17 +87,12 @@ export class FileInputComponent extends AbstractInput {
     this.control.setValue(this.getFiles(this.files));
   }
 
-  getFileIcon(fileType: string): string[] {
-    const fileIcon = this.iconMappings[fileType];
-    if (fileIcon) {
-      return fileIcon;
-    }
-    return ['far', 'file'];
+  isFileSelectionDisabled(): boolean {
+    return this.showRemoveButton && this.files.length >= this.maxFilesCount || this.control.disabled;
   }
 
-
-  isDisabled(): boolean {
-    return this.showRemoveButton && this.files.length >= this.maxFilesCount || this.control.disabled;
+  downloadFile(file: File) {
+    return of(file);
   }
 
   private checkFileType(file: File): boolean {

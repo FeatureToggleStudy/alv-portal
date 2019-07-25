@@ -9,16 +9,6 @@
     border: 2px dashed $color-primary;
   }
 }
-.file {
-  display: flex;
-  align-items: center;
-  border: 1px solid $color-medium-grey;
-  height: 46px;
-  .file-size {
-    color: $color-grey;
-    white-space: nowrap;
-  }
-}
 
 
 .files-list .delete-file {

@@ -87,10 +87,13 @@
   {{confirmModalDemoText}}
 
   <h1 class="mt-2">File Upload</h1>
-  <button class="btn btn-primary"
-          (click)="fileInputControl.enable()">Enable</button>
-  <button class="btn btn-secondary"
-          (click)="fileInputControl.disable()">Disable</button>
+  <div class="my-2">
+    <button class="btn btn-primary mr-1"
+            (click)="fileInputControl.enable()">Enable</button>
+    <button class="btn btn-secondary"
+            (click)="fileInputControl.disable()">Disable</button>
+  </div>
+
   <alv-file-input label="Choose files"
                    accept="*/*"
                    helpText="Max. 3 files of 2 MB"

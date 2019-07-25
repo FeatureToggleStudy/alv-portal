@@ -34,11 +34,13 @@ a {
 }
 
 button.download-link {
+  height: 1.25em;
   padding: 0;
   color: $color-grey-black;
   border: none;
   background-color: transparent;
   display: flex;
+  align-items: center;
   &:hover {
     color: $color-primary;
   }

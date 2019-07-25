@@ -29,6 +29,7 @@ import { ZipCityInputComponent } from './input/zip-city-input/zip-city-input.com
 import { DragDropDirective } from './input/file-input/drag-drop.directive';
 import { FileInputComponent } from './input/file-input/file-input.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { FileComponent } from './input/file-input/file/file.component';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { PipesModule } from '../pipes/pipes.module';
     SliderInputComponent,
     ZipCityInputComponent,
     DragDropDirective,
-    FileInputComponent
+    FileInputComponent,
+    FileComponent
   ],
   exports: [
     DateIntervalInputComponent,
@@ -76,7 +78,8 @@ import { PipesModule } from '../pipes/pipes.module';
     NgbTooltipModule,
     ZipCityInputComponent,
     DragDropDirective,
-    FileInputComponent
+    FileInputComponent,
+    FileComponent
   ],
   providers: [
     NgbPopoverConfig,

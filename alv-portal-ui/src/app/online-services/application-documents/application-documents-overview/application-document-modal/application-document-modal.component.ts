@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationType } from '../../../../shared/layout/notifications/notification.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { of, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { ApplicationDocumentsRepository } from '../../../../shared/backend-services/application-documents/application-documents.repository';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
 import { finalize, flatMap, take } from 'rxjs/operators';
@@ -15,6 +15,7 @@ import {
 } from '../../../../shared/backend-services/application-documents/application-documents.types';
 import { ValidationMessage } from '../../../../shared/forms/input/validation-messages/validation-message.model';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { FileSaverService } from '../../../../shared/file-saver/file-saver.service';
 
 @Component({
   selector: 'alv-application-document-modal',
@@ -43,7 +44,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
   totalBytes = 100;
 
-  showProgress: boolean;
+  downloadFile$: Observable<Blob>;
 
   progressSubscription: Subscription;
 
@@ -81,6 +82,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private applicationDocumentsRepository: ApplicationDocumentsRepository,
               private notificationsService: NotificationsService,
+              private fileSaverService: FileSaverService,
               private modalService: ModalService,
               private fb: FormBuilder) {
   }
@@ -96,6 +98,9 @@ export class ApplicationDocumentModalComponent implements OnInit {
     this.modalTitle = 'portal.application-documents.edit-create-modal.' + (this.isEdit ? 'edit-title' : 'create-title');
 
     this.secondaryLabel = this.isEdit ? 'entity.action.delete' : null;
+
+    this.downloadFile$ = this.isEdit ? this.applicationDocumentsRepository.downloadDocument(this.applicationDocument.id) :
+    of(this.form.value.file);
   }
 
   submit() {

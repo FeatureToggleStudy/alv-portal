@@ -6,6 +6,7 @@ import { ApplicationDocumentModel } from './application-document.model';
 import { deleteApplicationDocumentModalConfig } from '../modal-config.types';
 import { ApplicationDocumentsRepository } from '../../../../shared/backend-services/application-documents/application-documents.repository';
 import { ApplicationDocument } from '../../../../shared/backend-services/application-documents/application-documents.types';
+import { FileSaverService } from '../../../../shared/file-saver/file-saver.service';
 
 @Component({
   selector: 'alv-application-document',
@@ -20,9 +21,16 @@ export class ApplicationDocumentComponent {
 
   constructor(private modalService: ModalService,
               private applicationDocumentsRepository: ApplicationDocumentsRepository,
-              private notificationsService: NotificationsService) {
+              private fileSaverService: FileSaverService) {
   }
 
+  downloadDocument(event: Event) {
+    event.stopPropagation();
+    this.applicationDocumentsRepository.downloadDocument(this.applicationDocument.id)
+      .subscribe(blob => {
+        this.fileSaverService.saveFile(blob, this.applicationDocument.documentMetadata.fileName);
+      });
+  }
 
 
 }

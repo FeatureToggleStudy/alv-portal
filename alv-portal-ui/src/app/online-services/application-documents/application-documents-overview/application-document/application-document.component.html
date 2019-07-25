@@ -12,7 +12,7 @@
       {{'portal.application-documents.file-name.label' | translate}}
     </span>
     <button class="download-link"
-            (click)="$event.stopPropagation()">
+            (click)="downloadDocument($event)">
       <fa-icon class="text-primary"
                [icon]="['far', 'file-pdf']">
       </fa-icon>

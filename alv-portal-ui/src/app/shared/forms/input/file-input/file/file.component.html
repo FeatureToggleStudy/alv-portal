@@ -1,0 +1,31 @@
+<div class="file p-2 mt-2">
+  <button *ngIf="downloadFile$; else fileNameElement"
+          type="button"
+          (click)="downloadFile()"
+          class="download-link">
+    <ng-container *ngTemplateOutlet="fileNameElement"></ng-container>
+
+  </button>
+  <div class="file-size ml-2">
+    <small class="d-block">{{fileSize | bytes}}</small>
+  </div>
+  <div class="flex-grow-1 ml-2"></div>
+  <button *ngIf="showRemoveButton"
+          type="button"
+          class="btn btn-toggle-icon"
+          [disabled]="isDisabled"
+          (click)="remove()">
+    <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+  </button>
+</div>
+
+<ng-template #fileNameElement>
+  <div class="file-icon">
+    <fa-icon class="text-primary"
+             [fixedWidth]="true"
+             [icon]="getFileIcon(fileType)"
+             size="lg">
+    </fa-icon>
+  </div>
+  <div class="file-name ml-1 text-truncate">{{fileName}}</div>
+</ng-template>
