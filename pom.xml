@@ -157,20 +157,20 @@
 
     <distributionManagement>
         <repository>
-            <id>libs-releases-local</id>
-            <name>libs-releases-local</name>
+            <id>central</id>
+            <name>alvch-releases</name>
             <url>https://alvch.jfrog.io/alvch/libs-releases-local</url>
         </repository>
         <snapshotRepository>
-            <id>libs-snapshots-local</id>
-            <name>libs-snapshots-local</name>
+            <id>snapshots</id>
+            <name>alvch-snapshots</name>
             <url>https://alvch.jfrog.io/alvch/libs-snapshots-local</url>
         </snapshotRepository>
     </distributionManagement>
 
     <repositories>
         <repository>
-            <id>libs-releases</id>
+            <id>central</id>
             <name>libs-releases</name>
             <url>https://alvch.jfrog.io/alvch/libs-releases</url>
             <snapshots>
@@ -178,7 +178,7 @@
             </snapshots>
         </repository>
         <repository>
-            <id>libs-snapshots</id>
+            <id>snapshots</id>
             <name>libs-snapshots</name>
             <url>https://alvch.jfrog.io/alvch/libs-snapshots</url>
             <snapshots>
