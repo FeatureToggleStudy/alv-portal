@@ -13,6 +13,14 @@
             <id>snapshots</id>
         </server>
     </servers>
+    <mirrors>
+        <mirror>
+            <id>maven-central</id>
+            <mirrorOf>*</mirrorOf>
+            <url>https://repo1.maven.org/maven2</url>
+            <name>Central Repository</name>
+        </mirror>
+    </mirrors>
     <profiles>
         <profile>
             <repositories>
