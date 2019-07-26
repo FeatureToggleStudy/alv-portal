@@ -20,8 +20,8 @@ export interface DocumentMetadata {
 }
 
 export enum ApplicationDocumentType {
-  CV = 'CV',
   LETTER_OF_APPLICATION = 'LETTER_OF_APPLICATION',
+  CV = 'CV',
   TESTIMONIAL = 'TESTIMONIAL',
   CERTIFICATES = 'CERTIFICATES'
 }

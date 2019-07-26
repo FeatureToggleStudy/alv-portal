@@ -1,7 +1,13 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationType } from '../../../../shared/layout/notifications/notification.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 import { Observable, of, Subscription } from 'rxjs';
 import { ApplicationDocumentsRepository } from '../../../../shared/backend-services/application-documents/application-documents.repository';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
@@ -17,6 +23,7 @@ import { ValidationMessage } from '../../../../shared/forms/input/validation-mes
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { FileSaverService } from '../../../../shared/file-saver/file-saver.service';
 
+
 @Component({
   selector: 'alv-application-document-modal',
   templateUrl: './application-document-modal.component.html',
@@ -29,6 +36,8 @@ export class ApplicationDocumentModalComponent implements OnInit {
   readonly MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
   @Input() applicationDocument: ApplicationDocument;
+
+  @Input() invalidatedDocumentTypes: ApplicationDocumentType[];
 
   isEdit: boolean;
 
@@ -60,6 +69,10 @@ export class ApplicationDocumentModalComponent implements OnInit {
     {
       error: 'required',
       message: 'portal.application-documents.edit-create-modal.document-type.validation.required'
+    },
+    {
+      error: 'invalidDocumentType',
+      message: 'portal.application-documents.edit-create-modal.document-type.validation.invalidDocumentType'
     }
   ];
 
@@ -91,7 +104,8 @@ export class ApplicationDocumentModalComponent implements OnInit {
     this.isEdit = !!this.applicationDocument;
 
     this.form = this.fb.group({
-      documentType: [this.isEdit ? this.applicationDocument.documentType : '', Validators.required],
+      documentType: [this.isEdit ? this.applicationDocument.documentType : '',
+        [Validators.required, this.validateDocumentTypes(this.invalidatedDocumentTypes)]],
       file: ['', this.isEdit ? null : Validators.required]
     });
 
@@ -100,7 +114,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
     this.secondaryLabel = this.isEdit ? 'entity.action.delete' : null;
 
     this.downloadFile$ = this.isEdit ? this.applicationDocumentsRepository.downloadDocument(this.applicationDocument.id) :
-    of(this.form.value.file);
+      of(this.form.value.file);
   }
 
   submit() {
@@ -122,7 +136,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
           this.activeModal.close();
         }
-    });
+      });
   }
 
   delete() {
@@ -132,8 +146,8 @@ export class ApplicationDocumentModalComponent implements OnInit {
       .then(result => {
         this.applicationDocumentsRepository.deleteApplicationDocument(this.applicationDocument.id)
           .subscribe(() => {
-              this.notificationsService.success('portal.application-documents.notification.deleted');
-              this.activeModal.close();
+            this.notificationsService.success('portal.application-documents.notification.deleted');
+            this.activeModal.close();
           });
       })
       .catch(() => {
@@ -148,6 +162,16 @@ export class ApplicationDocumentModalComponent implements OnInit {
     this.activeModal.dismiss();
   }
 
+  private validateDocumentTypes(invalidatedDocumentTypes: ApplicationDocumentType[]): ValidatorFn {
+    return (control: AbstractControl) => {
+      if (invalidatedDocumentTypes.includes(control.value)) {
+        return {
+          'invalidDocumentType': true
+        };
+      }
+      return null;
+    };
+  }
 }
 
 

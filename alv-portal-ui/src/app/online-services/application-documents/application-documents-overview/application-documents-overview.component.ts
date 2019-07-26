@@ -13,14 +13,13 @@ import {
 } from '../../../shared/layout/notifications/notification.model';
 import { I18nService } from '../../../core/i18n.service';
 import { Languages } from '../../../core/languages.constants';
-import {
-  ApplicationDocumentsRepository,
-  mockApplicationDocuments
-} from '../../../shared/backend-services/application-documents/application-documents.repository';
-import { ApplicationDocumentModel } from './application-document/application-document.model';
+import { ApplicationDocumentsRepository } from '../../../shared/backend-services/application-documents/application-documents.repository';
 import { ApplicationDocumentModalComponent } from './application-document-modal/application-document-modal.component';
 import { NotificationsService } from '../../../core/notifications.service';
-import { ApplicationDocument } from '../../../shared/backend-services/application-documents/application-documents.types';
+import {
+  ApplicationDocument,
+  ApplicationDocumentType
+} from '../../../shared/backend-services/application-documents/application-documents.types';
 
 @Component({
   selector: 'alv-application-documents-overview',
@@ -34,20 +33,15 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
     messageKey: 'portal.online-forms.notification.no-english',
     isSticky: true
   };
-
   uploadInstructionNotification: Notification = {
     type: NotificationType.INFO,
     isSticky: true
   };
-
   IconKey = IconKey;
-
-  applicationDocuments: ApplicationDocument[];
-
+  applicationDocuments: ApplicationDocument[] = [];
   isEnglishLanguageSelected$: Observable<boolean>;
-
   showUploadInstruction = true;
-
+  private readonly MAX_DOCUMENTS_PER_TYPE = 3;
   private page = 0;
 
   constructor(private fb: FormBuilder,
@@ -87,16 +81,25 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
   openModal(applicationDocument?: ApplicationDocument) {
     const modalRef = this.modalService.openMedium(ApplicationDocumentModalComponent);
     modalRef.componentInstance.applicationDocument = applicationDocument;
+    modalRef.componentInstance.invalidatedDocumentTypes = this.getInvalidatedDocumentTypes(applicationDocument ? applicationDocument.documentType : null);
     modalRef.result
       .then(result => {
         this.notificationsService.success('portal.application-documents.success-notification.submitted');
         this.page = 0;
         this.onScroll();
       })
-      .catch(err => {});
+      .catch(err => {
+      });
   }
 
   dismissUploadInstruction() {
     this.showUploadInstruction = false;
+  }
+
+  private getInvalidatedDocumentTypes(excludedDocumentType: ApplicationDocumentType): ApplicationDocumentType[] {
+    return Object.values(ApplicationDocumentType).filter(
+      documentType => this.applicationDocuments.filter(
+        doc => doc.documentType === documentType).length >= this.MAX_DOCUMENTS_PER_TYPE &&
+        documentType !== excludedDocumentType);
   }
 }

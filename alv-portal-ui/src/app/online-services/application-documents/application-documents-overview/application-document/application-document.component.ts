@@ -5,7 +5,10 @@ import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-service
 import { ApplicationDocumentModel } from './application-document.model';
 import { deleteApplicationDocumentModalConfig } from '../modal-config.types';
 import { ApplicationDocumentsRepository } from '../../../../shared/backend-services/application-documents/application-documents.repository';
-import { ApplicationDocument } from '../../../../shared/backend-services/application-documents/application-documents.types';
+import {
+  ApplicationDocument,
+  ApplicationDocumentType
+} from '../../../../shared/backend-services/application-documents/application-documents.types';
 import { FileSaverService } from '../../../../shared/file-saver/file-saver.service';
 
 @Component({
@@ -16,8 +19,6 @@ import { FileSaverService } from '../../../../shared/file-saver/file-saver.servi
 export class ApplicationDocumentComponent {
 
   @Input() applicationDocument: ApplicationDocument;
-
-  @Output() clicked = new EventEmitter<ApplicationDocument>();
 
   constructor(private modalService: ModalService,
               private applicationDocumentsRepository: ApplicationDocumentsRepository,
