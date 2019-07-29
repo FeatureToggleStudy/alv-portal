@@ -112,9 +112,15 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
   }
 
   private calculateInvalidDocumentTypes(excludedDocumentType: ApplicationDocumentType): ApplicationDocumentType[] {
-    return Object.values(ApplicationDocumentType).filter(
-      documentType => this.applicationDocuments.filter(
-        doc => doc.documentType === documentType).length >= this.MAX_DOCUMENTS_PER_TYPE &&
-        documentType !== excludedDocumentType);
+    return Object.values(ApplicationDocumentType).reduce((invalidDocumentTypes, currentDocumentType) => {
+      if (currentDocumentType !== excludedDocumentType && this.checkDocumentTypeLimitReached(this.applicationDocuments, currentDocumentType)) {
+        invalidDocumentTypes.push(currentDocumentType);
+      }
+      return invalidDocumentTypes;
+    });
+  }
+
+  private checkDocumentTypeLimitReached(applicationDocuments: ApplicationDocument[], documentType: ApplicationDocumentType): boolean {
+    return applicationDocuments.filter(doc => doc.documentType === documentType).length >= this.MAX_DOCUMENTS_PER_TYPE;
   }
 }
