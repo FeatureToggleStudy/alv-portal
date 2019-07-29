@@ -54,8 +54,6 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
 
   private readonly MAX_DOCUMENTS_PER_TYPE = 3;
 
-  private page = 0;
-
   constructor(private fb: FormBuilder,
               private modalService: ModalService,
               private authenticationService: AuthenticationService,
