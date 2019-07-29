@@ -22,7 +22,7 @@ export class MarkdownEscapePipe implements PipeTransform {
       // Remove horizontal rules
         .replace(/^(-\s*?|\*\s*?|_\s*?){3,}\s*$/gm, '')
         // Strip list leaders
-        .replace(/^([\s\t]*)([\*\-\+•]|\d+\.)\s+/gm, '$1')
+        .replace(/^([\s\t]*)([\*\-\+]|\d+\.)\s+/gm, '$1')
         // Header
         .replace(/\n={2,}/g, '\n')
         // Fenced codeblocks
