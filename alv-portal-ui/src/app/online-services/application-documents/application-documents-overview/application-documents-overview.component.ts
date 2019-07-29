@@ -79,7 +79,7 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
       filter(user => !!user),
       flatMap(user => this.applicationDocumentsRepository.findByOwnerUserId(user.id)),
     ).subscribe(applicationDocuments => {
-      this.applicationDocuments = this.applicationDocumentsSortingService.sort(this.applicationDocuments, this.selectedSortType);
+      this.applicationDocuments = this.applicationDocumentsSortingService.sort(applicationDocuments, this.selectedSortType);
     });
   }
 
