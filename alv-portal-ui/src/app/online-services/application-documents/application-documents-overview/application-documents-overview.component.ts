@@ -115,7 +115,7 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
         invalidDocumentTypes.push(currentDocumentType);
       }
       return invalidDocumentTypes;
-    });
+    }, []);
   }
 
   private checkDocumentTypeLimitReached(applicationDocuments: ApplicationDocument[], documentType: ApplicationDocumentType): boolean {
