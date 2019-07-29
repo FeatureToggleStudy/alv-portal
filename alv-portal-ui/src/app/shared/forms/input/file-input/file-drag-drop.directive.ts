@@ -2,14 +2,15 @@ import {
   Directive,
   EventEmitter,
   HostBinding,
-  HostListener, Input,
+  HostListener,
+  Input,
   Output
 } from '@angular/core';
 
 @Directive({
-  selector: '[alvDragDrop]'
+  selector: '[alvFileDragDrop]'
 })
-export class DragDropDirective {
+export class FileDragDropDirective {
 
   constructor() { }
 

@@ -86,7 +86,7 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
   openModal(applicationDocument?: ApplicationDocument) {
     const modalRef = this.modalService.openMedium(ApplicationDocumentModalComponent);
     modalRef.componentInstance.applicationDocument = applicationDocument;
-    modalRef.componentInstance.invalidatedDocumentTypes = this.getInvalidatedDocumentTypes(applicationDocument ? applicationDocument.documentType : null);
+    modalRef.componentInstance.invalidDocumentTypes = this.calculateInvalidDocumentTypes(applicationDocument ? applicationDocument.documentType : null);
     modalRef.result
       .then(result => {
         this.getAllApplicationDocuments();
@@ -111,7 +111,7 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
     this.applicationDocuments = this.applicationDocumentsSortingService.sortByFilename(this.applicationDocuments);
   }
 
-  private getInvalidatedDocumentTypes(excludedDocumentType: ApplicationDocumentType): ApplicationDocumentType[] {
+  private calculateInvalidDocumentTypes(excludedDocumentType: ApplicationDocumentType): ApplicationDocumentType[] {
     return Object.values(ApplicationDocumentType).filter(
       documentType => this.applicationDocuments.filter(
         doc => doc.documentType === documentType).length >= this.MAX_DOCUMENTS_PER_TYPE &&

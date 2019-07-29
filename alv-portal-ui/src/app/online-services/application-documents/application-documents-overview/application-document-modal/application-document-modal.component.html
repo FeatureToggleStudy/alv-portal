@@ -23,12 +23,12 @@
               class="narrow-form d-block mb-2 mt-3">
   </alv-select>
 
-  <alv-file *ngIf="isEdit"
+  <alv-file-upload-preview *ngIf="isEdit"
             [downloadFile$]="downloadFile$"
             [fileName]="applicationDocument.documentMetadata.fileName"
             [fileType]="applicationDocument.documentMetadata.mimeType"
             [fileSize]="applicationDocument.documentMetadata.contentLength">
-  </alv-file>
+  </alv-file-upload-preview>
 
   <alv-file-input *ngIf="!isEdit"
                   label="portal.application-documents.edit-create-modal.upload-button-label"

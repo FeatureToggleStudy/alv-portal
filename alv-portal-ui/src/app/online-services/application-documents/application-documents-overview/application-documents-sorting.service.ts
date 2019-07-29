@@ -16,15 +16,13 @@ export class ApplicationDocumentsSortingService {
   constructor() { }
 
   sortByDate(applicationDocuments: ApplicationDocument[]): ApplicationDocument[] {
-    return applicationDocuments.sort((a, b) => {
-      return new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime();
-    });
+    return applicationDocuments.sort(this.dateComparator);
   }
 
   sortByDocumentType(applicationDocuments: ApplicationDocument[]): ApplicationDocument[] {
     return applicationDocuments.sort((a, b) => {
       if (a.documentType === b.documentType) {
-        return new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime();
+        return this.dateComparator(a, b);
       }
       return this.DOCUMENT_TYPE_SORT_ORDER[a.documentType] - this.DOCUMENT_TYPE_SORT_ORDER[b.documentType];
     });
@@ -45,6 +43,10 @@ export class ApplicationDocumentsSortingService {
       case ApplicationDocumentSortType.BY_FILENAME:
         return this.sortByFilename(applicationDocuments);
     }
+  }
+
+  private dateComparator(a: ApplicationDocument, b: ApplicationDocument): number {
+    return new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime();
   }
 }
 

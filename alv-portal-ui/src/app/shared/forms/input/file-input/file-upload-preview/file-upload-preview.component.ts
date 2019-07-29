@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileSaverService } from '../../../../file-saver/file-saver.service';
-import { FileMetadata } from './file.types';
+import { FileMetadata } from './file-upload-preview.types';
 
 @Component({
-  selector: 'alv-file',
-  templateUrl: './file.component.html',
-  styleUrls: ['./file.component.scss']
+  selector: 'alv-file-upload-preview',
+  templateUrl: './file-upload-preview.component.html',
+  styleUrls: ['./file-upload-preview.component.scss']
 })
-export class FileComponent implements OnInit {
+export class FileUploadPreviewComponent {
 
   @Input() fileName: string;
 
@@ -31,10 +31,6 @@ export class FileComponent implements OnInit {
   };
 
   constructor(private fileSaverService: FileSaverService) { }
-
-  ngOnInit() {
-
-  }
 
   getFileIcon(fileType: string): string[] {
     const fileIcon = this.iconMappings[fileType];

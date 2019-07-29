@@ -37,7 +37,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
   @Input() applicationDocument: ApplicationDocument;
 
-  @Input() invalidatedDocumentTypes: ApplicationDocumentType[];
+  @Input() invalidDocumentTypes: ApplicationDocumentType[];
 
   isEdit: boolean;
 
@@ -105,7 +105,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
     this.form = this.fb.group({
       documentType: [this.isEdit ? this.applicationDocument.documentType : '',
-        [Validators.required, this.validateDocumentTypes(this.invalidatedDocumentTypes)]],
+        [Validators.required, this.validateDocumentTypes(this.invalidDocumentTypes)]],
       file: ['', this.isEdit ? null : Validators.required]
     });
 
@@ -175,9 +175,9 @@ export class ApplicationDocumentModalComponent implements OnInit {
       });
   }
 
-  private validateDocumentTypes(invalidatedDocumentTypes: ApplicationDocumentType[]): ValidatorFn {
+  private validateDocumentTypes(invalidDocumentTypes: ApplicationDocumentType[]): ValidatorFn {
     return (control: AbstractControl) => {
-      if (invalidatedDocumentTypes.includes(control.value)) {
+      if (invalidDocumentTypes.includes(control.value)) {
         return {
           'invalidDocumentType': true
         };
