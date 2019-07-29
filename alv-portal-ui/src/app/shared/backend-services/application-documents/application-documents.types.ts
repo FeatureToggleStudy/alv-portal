@@ -4,6 +4,7 @@ export interface ApplicationDocument {
   documentType: ApplicationDocumentType;
   ownerUserId: string;
   createdAt: string;
+  updatedAt: string;
   documentMetadata: DocumentMetadata;
 }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
-  ApplicationDocument,
+  ApplicationDocument, ApplicationDocumentType,
   CreateApplicationDocument,
 } from './application-documents.types';
 
@@ -18,11 +18,10 @@ export class ApplicationDocumentsRepository {
   constructor(private http: HttpClient) {
   }
 
-  findByOwnerUserId(userId: string, page: number): Observable<ApplicationDocument[]> {
+  findByOwnerUserId(userId: string): Observable<ApplicationDocument[]> {
     return this.http.get<ApplicationDocument[]>(`${this.searchUrl}/by-owner-user-id`, {
       params: new HttpParams()
         .set('userId', userId)
-        .set('page', page.toString())
     });
   }
 
@@ -32,6 +31,12 @@ export class ApplicationDocumentsRepository {
 
   deleteApplicationDocument(id: string): Observable<null> {
     return this.http.delete<null>(`${this.resourceUrl}/${id}`);
+  }
+
+  updateApplicationDocumentType(id: string, type: ApplicationDocumentType): Observable<ApplicationDocument> {
+    return this.http.put<ApplicationDocument>(`${this.resourceUrl}/${id}/document-type`, {
+      newDocumentType: type
+    });
   }
 
   uploadApplicationDocument(createApplicationDocument: CreateApplicationDocument, file: File): Observable<HttpEvent<ApplicationDocument>> {

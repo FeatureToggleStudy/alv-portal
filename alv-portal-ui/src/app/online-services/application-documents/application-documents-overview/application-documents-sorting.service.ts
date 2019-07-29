@@ -17,14 +17,14 @@ export class ApplicationDocumentsSortingService {
 
   sortByDate(applicationDocuments: ApplicationDocument[]): ApplicationDocument[] {
     return applicationDocuments.sort((a, b) => {
-      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      return new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime();
     });
   }
 
   sortByDocumentType(applicationDocuments: ApplicationDocument[]): ApplicationDocument[] {
     return applicationDocuments.sort((a, b) => {
       if (a.documentType === b.documentType) {
-        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+        return new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime();
       }
       return this.DOCUMENT_TYPE_SORT_ORDER[a.documentType] - this.DOCUMENT_TYPE_SORT_ORDER[b.documentType];
     });

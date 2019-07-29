@@ -5,7 +5,6 @@ import { ApplicationDocumentsRoutingModule } from './application-documents-routi
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ApplicationDocumentsOverviewComponent } from './application-documents-overview/application-documents-overview.component';
 import { NgbDropdownModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ApplicationDocumentComponent } from './application-documents-overview/application-document/application-document.component';
 import { ApplicationDocumentModalComponent } from './application-documents-overview/application-document-modal/application-document-modal.component';
 
@@ -15,8 +14,7 @@ import { ApplicationDocumentModalComponent } from './application-documents-overv
     SharedModule,
     ApplicationDocumentsRoutingModule,
     NgbDropdownModule,
-    NgbProgressbarModule,
-    InfiniteScrollModule
+    NgbProgressbarModule
   ],
   declarations: [
     ApplicationDocumentsOverviewComponent,

@@ -71,26 +71,16 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
       map(language => language === Languages.EN)
     );
 
-    this.onScroll();
+    this.getAllApplicationDocuments();
   }
 
-  onScroll() {
+  getAllApplicationDocuments() {
     this.authenticationService.getCurrentUser().pipe(
       filter(user => !!user),
-      flatMap(user => this.applicationDocumentsRepository.findByOwnerUserId(user.id, this.page++)),
+      flatMap(user => this.applicationDocumentsRepository.findByOwnerUserId(user.id)),
     ).subscribe(applicationDocuments => {
-      this.applicationDocuments = this.applicationDocumentsSortingService.sort(
-        [...(this.applicationDocuments || []), ...applicationDocuments],
-        this.selectedSortType);
+      this.applicationDocuments = this.applicationDocumentsSortingService.sort(this.applicationDocuments, this.selectedSortType);
     });
-  }
-
-  reloadApplicationDocument(applicationDocument: ApplicationDocument) {
-    this.applicationDocumentsRepository.getApplicationDocumentById(applicationDocument.id)
-      .subscribe(reloadedApplicationDocument => {
-        const indexToUpdate = this.applicationDocuments.findIndex(model => model.id === reloadedApplicationDocument.id);
-        this.applicationDocuments[indexToUpdate] = reloadedApplicationDocument;
-      });
   }
 
   openModal(applicationDocument?: ApplicationDocument) {
@@ -99,9 +89,7 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
     modalRef.componentInstance.invalidatedDocumentTypes = this.getInvalidatedDocumentTypes(applicationDocument ? applicationDocument.documentType : null);
     modalRef.result
       .then(result => {
-        this.notificationsService.success('portal.application-documents.success-notification.submitted');
-        this.page = 0;
-        this.onScroll();
+        this.getAllApplicationDocuments();
       })
       .catch(err => {
       });

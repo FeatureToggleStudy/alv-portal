@@ -118,24 +118,11 @@ export class ApplicationDocumentModalComponent implements OnInit {
   }
 
   submit() {
-    this.uploadedBytes = 1;
-    this.uploadProgressSubscription = this.authenticationService.getCurrentUser()
-      .pipe(
-        take(1),
-        flatMap(user => this.applicationDocumentsRepository.uploadApplicationDocument({
-          documentType: this.form.value.documentType,
-          ownerUserId: user.id
-        }, this.form.value.file)),
-        finalize(() => this.uploadedBytes = 0)
-      ).subscribe((event: HttpEvent<ApplicationDocument>) => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.totalBytes = event.total;
-          this.uploadedBytes = event.loaded;
-        }
-        if (event.type === HttpEventType.Response) {
-          this.activeModal.close();
-        }
-      });
+    if (this.isEdit) {
+      this.updateApplicationDocument();
+    } else {
+      this.createApplicationDocument();
+    }
   }
 
   delete() {
@@ -155,6 +142,37 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
   cancel() {
     this.activeModal.dismiss();
+  }
+
+  private createApplicationDocument() {
+    this.uploadedBytes = 1;
+    this.uploadProgressSubscription = this.authenticationService.getCurrentUser()
+      .pipe(
+        take(1),
+        flatMap(user => this.applicationDocumentsRepository.uploadApplicationDocument({
+          documentType: this.form.value.documentType,
+          ownerUserId: user.id
+        }, this.form.value.file)),
+        finalize(() => this.uploadedBytes = 0)
+      ).subscribe((event: HttpEvent<ApplicationDocument>) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.totalBytes = event.total;
+          this.uploadedBytes = event.loaded;
+        }
+        if (event.type === HttpEventType.Response) {
+          this.notificationsService.success('portal.application-documents.success-notification.submitted');
+          this.activeModal.close();
+        }
+      });
+  }
+
+  private updateApplicationDocument() {
+    this.uploadProgressSubscription = this.applicationDocumentsRepository
+      .updateApplicationDocumentType(this.applicationDocument.id, this.form.value.documentType)
+      .subscribe(applicationDocument => {
+        this.notificationsService.success('portal.application-documents.success-notification.submitted');
+        this.activeModal.close();
+      });
   }
 
   private validateDocumentTypes(invalidatedDocumentTypes: ApplicationDocumentType[]): ValidatorFn {

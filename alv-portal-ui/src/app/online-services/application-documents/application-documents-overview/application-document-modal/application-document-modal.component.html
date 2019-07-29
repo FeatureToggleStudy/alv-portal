@@ -39,10 +39,10 @@
                   [validationMessages]="fileValidationMessages">
   </alv-file-input>
 
-  <alv-progressbar *ngIf="uploadedBytes"
+  <alv-upload-progressbar *ngIf="uploadedBytes"
                    [subscription]="uploadProgressSubscription"
                    [max]="totalBytes"
                    [value]="uploadedBytes">
-  </alv-progressbar>
+  </alv-upload-progressbar>
 
 </alv-modal>

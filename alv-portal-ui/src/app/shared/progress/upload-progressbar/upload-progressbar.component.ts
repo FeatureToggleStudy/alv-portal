@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'alv-progressbar',
-  templateUrl: './progressbar.component.html',
-  styleUrls: ['./progressbar.component.scss']
+  selector: 'alv-upload-progressbar',
+  templateUrl: './upload-progressbar.component.html',
+  styleUrls: ['./upload-progressbar.component.scss']
 })
-export class ProgressbarComponent implements OnInit {
+export class UploadProgressbarComponent {
 
   @Input() subscription: Subscription;
 
@@ -15,10 +15,6 @@ export class ProgressbarComponent implements OnInit {
   @Input() value: number;
 
   constructor() { }
-
-  ngOnInit() {
-
-  }
 
   cancelRequest() {
     this.subscription.unsubscribe();
