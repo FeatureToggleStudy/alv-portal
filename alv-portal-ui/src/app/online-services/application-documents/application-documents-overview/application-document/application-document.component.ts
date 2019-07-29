@@ -1,14 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
-import { NotificationsService } from '../../../../core/notifications.service';
-import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
-import { ApplicationDocumentModel } from './application-document.model';
-import { deleteApplicationDocumentModalConfig } from '../modal-config.types';
 import { ApplicationDocumentsRepository } from '../../../../shared/backend-services/application-documents/application-documents.repository';
-import {
-  ApplicationDocument,
-  ApplicationDocumentType
-} from '../../../../shared/backend-services/application-documents/application-documents.types';
+import { ApplicationDocument } from '../../../../shared/backend-services/application-documents/application-documents.types';
 import { FileSaverService } from '../../../../shared/file-saver/file-saver.service';
 
 @Component({
