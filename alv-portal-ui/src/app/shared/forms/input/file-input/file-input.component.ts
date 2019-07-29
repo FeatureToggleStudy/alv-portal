@@ -55,16 +55,16 @@ export class FileInputComponent extends AbstractInput {
     let maxFilesCount = false;
     let invalidFileType = false;
     for (let i = 0; i < files.length; i++) {
-      if (this.maxFileSize && files[i].size > this.maxFileSize) {
-        fileTooLarge = true;
-        continue;
-      }
-      if (this.files.length === this.maxFilesCount) {
+      if (this.isMaxFilesCountReached()) {
         maxFilesCount = true;
         break;
       }
-      if (!this.checkFileType(files[i])) {
+      if (this.isInvalidFileType(files[i])) {
         invalidFileType = true;
+        continue;
+      }
+      if (this.isFileTooBig(files[i])) {
+        fileTooLarge = true;
         continue;
       }
       this.files.push(files[i]);
@@ -74,11 +74,11 @@ export class FileInputComponent extends AbstractInput {
     if (maxFilesCount) {
       this.control.setErrors({ 'maxFilesCount': { maxFilesCount: this.maxFilesCount } }, { emitEvent: true });
     }
-    if (fileTooLarge) {
-      this.control.setErrors({ 'fileTooLarge': { fileTooLarge: this.bytesPipe.transform(this.maxFileSize) } }, { emitEvent: true });
-    }
     if (invalidFileType) {
       this.control.setErrors({ 'invalidFileType': { invalidFileType: this.bytesPipe.transform(this.maxFileSize) } }, { emitEvent: true });
+    }
+    if (fileTooLarge) {
+      this.control.setErrors({ 'fileTooLarge': { fileTooLarge: this.bytesPipe.transform(this.maxFileSize) } }, { emitEvent: true });
     }
   }
 
@@ -95,17 +95,25 @@ export class FileInputComponent extends AbstractInput {
     return of(file);
   }
 
-  private checkFileType(file: File): boolean {
+  private isFileTooBig(file: File): boolean {
+    return this.maxFileSize && file.size > this.maxFileSize;
+  }
+
+  private isMaxFilesCountReached(): boolean {
+    return this.files.length === this.maxFilesCount;
+  }
+
+  private isInvalidFileType(file: File): boolean {
     if (!this.accept || this.accept === this.ALL_FILE_TYPES) {
-      return true;
+      return false;
     }
     const allowedTypes = this.accept.split(',');
     for (const allowedType of allowedTypes) {
       if (file.type.match(allowedType)) {
-        return true;
+        return false;
       }
     }
-    return false;
+    return true;
   }
 
   private getFiles(files: File[]): File | File[] {
