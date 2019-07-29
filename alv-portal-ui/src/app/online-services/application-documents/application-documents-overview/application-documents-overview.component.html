@@ -7,12 +7,40 @@
   <div class="row">
     <div class="col-12 col-lg-9 col-xl-10">
       <div class="d-flex justify-content-between align-items-end position-relative">
-        <h2 class="pr-5">
+        <h2 class="pr-5 pr-md-0">
           <fa-icon [icon]="['fas', 'file-certificate']"
+                   class="text-primary"
                    [fixedWidth]="true">
           </fa-icon>
           {{ 'portal.application-documents.title' | translate }}
         </h2>
+        <div ngbDropdown
+             placement="bottom-right">
+          <button type="button"
+                  class="btn btn-text sort-button no-dropdown-indicator"
+                  ngbDropdownToggle>
+            <span class="d-none d-md-inline">
+            {{'portal.application-documents.filter.' + selectedSortType | translate}}
+            </span>
+            <fa-icon class="ml-0 ml-md-2"
+                     [icon]="['fas', 'sort']"></fa-icon>
+          </button>
+          <div ngbDropdownMenu>
+            <button (click)="applySortByDate()"
+               class="dropdown-item">
+              {{'portal.application-documents.filter.BY_DATE' | translate}}
+            </button>
+            <button (click)="applySortByDocumentType()"
+                    class="dropdown-item">
+              {{'portal.application-documents.filter.BY_DOCUMENT_TYPE' | translate}}
+            </button>
+            <button (click)="applySortByFilename()"
+                    class="dropdown-item">
+              {{'portal.application-documents.filter.BY_FILENAME' | translate}}
+            </button>
+          </div>
+        </div>
+
       </div>
 
       <hr class="mt-0 mb-3">

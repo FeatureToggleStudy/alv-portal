@@ -20,6 +20,10 @@ import {
   ApplicationDocument,
   ApplicationDocumentType
 } from '../../../shared/backend-services/application-documents/application-documents.types';
+import {
+  ApplicationDocumentSortType,
+  ApplicationDocumentsSortingService
+} from './application-documents-sorting.service';
 
 @Component({
   selector: 'alv-application-documents-overview',
@@ -37,11 +41,19 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
     type: NotificationType.INFO,
     isSticky: true
   };
+
   IconKey = IconKey;
+
   applicationDocuments: ApplicationDocument[] = [];
+
   isEnglishLanguageSelected$: Observable<boolean>;
+
   showUploadInstruction = true;
+
+  selectedSortType = ApplicationDocumentSortType.BY_DATE;
+
   private readonly MAX_DOCUMENTS_PER_TYPE = 3;
+
   private page = 0;
 
   constructor(private fb: FormBuilder,
@@ -49,6 +61,7 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
               private authenticationService: AuthenticationService,
               private i18nService: I18nService,
               private notificationsService: NotificationsService,
+              private applicationDocumentsSortingService: ApplicationDocumentsSortingService,
               private applicationDocumentsRepository: ApplicationDocumentsRepository) {
     super();
   }
@@ -66,7 +79,9 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
       filter(user => !!user),
       flatMap(user => this.applicationDocumentsRepository.findByOwnerUserId(user.id, this.page++)),
     ).subscribe(applicationDocuments => {
-      this.applicationDocuments = [...(this.applicationDocuments || []), ...applicationDocuments];
+      this.applicationDocuments = this.applicationDocumentsSortingService.sort(
+        [...(this.applicationDocuments || []), ...applicationDocuments],
+        this.selectedSortType);
     });
   }
 
@@ -94,6 +109,18 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
 
   dismissUploadInstruction() {
     this.showUploadInstruction = false;
+  }
+
+  applySortByDate() {
+    this.applicationDocuments = this.applicationDocumentsSortingService.sortByDate(this.applicationDocuments);
+  }
+
+  applySortByDocumentType() {
+    this.applicationDocuments = this.applicationDocumentsSortingService.sortByDocumentType(this.applicationDocuments);
+  }
+
+  applySortByFilename() {
+    this.applicationDocuments = this.applicationDocumentsSortingService.sortByFilename(this.applicationDocuments);
   }
 
   private getInvalidatedDocumentTypes(excludedDocumentType: ApplicationDocumentType): ApplicationDocumentType[] {
