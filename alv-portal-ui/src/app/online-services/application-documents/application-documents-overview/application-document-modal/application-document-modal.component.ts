@@ -55,7 +55,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
   downloadFile$: Observable<Blob>;
 
-  progressSubscription: Subscription;
+  uploadProgressSubscription: Subscription;
 
   documentTypes$ = of(Object.keys(ApplicationDocumentType).map(documentType => {
       return {
@@ -119,7 +119,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
   submit() {
     this.uploadedBytes = 1;
-    this.progressSubscription = this.authenticationService.getCurrentUser()
+    this.uploadProgressSubscription = this.authenticationService.getCurrentUser()
       .pipe(
         take(1),
         flatMap(user => this.applicationDocumentsRepository.uploadApplicationDocument({
@@ -133,7 +133,6 @@ export class ApplicationDocumentModalComponent implements OnInit {
           this.uploadedBytes = event.loaded;
         }
         if (event.type === HttpEventType.Response) {
-
           this.activeModal.close();
         }
       });
@@ -152,10 +151,6 @@ export class ApplicationDocumentModalComponent implements OnInit {
       })
       .catch(() => {
       });
-  }
-
-  cancelRequest() {
-    this.progressSubscription.unsubscribe();
   }
 
   cancel() {

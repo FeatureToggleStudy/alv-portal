@@ -6,7 +6,7 @@
            cancelLabel="portal.application-documents.edit-create-modal.cancel-button.label"
            (cancelAction)="cancel()"
            [formGroup]="form"
-           [loadingSubscription]="progressSubscription">
+           [loadingSubscription]="uploadProgressSubscription">
   <alv-alert [hideDismiss]="true"
              [notification]="{type: notificationType.INFO}">
     <ul class="m-0 pl-4">
@@ -40,7 +40,7 @@
   </alv-file-input>
 
   <alv-progressbar *ngIf="uploadedBytes"
-                   [subscription]="progressSubscription"
+                   [subscription]="uploadProgressSubscription"
                    [max]="totalBytes"
                    [value]="uploadedBytes">
   </alv-progressbar>
