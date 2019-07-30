@@ -189,7 +189,7 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>plugins-releases</id>
+            <id>central</id>
             <name>plugins-releases</name>
             <url>https://alvch.jfrog.io/alvch/plugins-releases</url>
             <snapshots>
@@ -197,7 +197,7 @@
             </snapshots>
         </pluginRepository>
         <pluginRepository>
-            <id>plugins-snapshots</id>
+            <id>snapshots</id>
             <name>plugins-snapshots</name>
             <url>https://alvch.jfrog.io/alvch/plugins-snapshots</url>
             <snapshots>
