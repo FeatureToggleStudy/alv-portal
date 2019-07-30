@@ -99,14 +99,17 @@ export class ApplicationDocumentsOverviewComponent extends AbstractSubscriber im
 
   applySortByDate() {
     this.applicationDocuments = this.applicationDocumentsSortingService.sortByDate(this.applicationDocuments);
+    this.selectedSortType = ApplicationDocumentSortType.BY_DATE;
   }
 
   applySortByDocumentType() {
     this.applicationDocuments = this.applicationDocumentsSortingService.sortByDocumentType(this.applicationDocuments);
+    this.selectedSortType = ApplicationDocumentSortType.BY_DOCUMENT_TYPE;
   }
 
   applySortByFilename() {
     this.applicationDocuments = this.applicationDocumentsSortingService.sortByFilename(this.applicationDocuments);
+    this.selectedSortType = ApplicationDocumentSortType.BY_FILENAME;
   }
 
   private calculateInvalidDocumentTypes(excludedDocumentType: ApplicationDocumentType): ApplicationDocumentType[] {
