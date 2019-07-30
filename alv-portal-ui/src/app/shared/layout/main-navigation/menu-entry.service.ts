@@ -129,7 +129,7 @@ const ONLINE_FORMS_MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     id: 'application-documents',
-    iconClass: 'file-certificate',
+    iconClass: 'file-import',
     labelKey: 'portal.navigation.menu-entry.application-documents',
     path: ['application-documents'],
     userPredicate: (u) => isAuthenticatedUser(u)
