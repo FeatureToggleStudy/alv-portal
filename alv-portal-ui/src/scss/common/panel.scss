@@ -19,6 +19,8 @@
   }
 
   .panel-title {
+    display: flex;
+    flex-direction: row;
     color: $color-dark-grey;
     font-size: 1.3em;
     margin-bottom: 1.2rem;
