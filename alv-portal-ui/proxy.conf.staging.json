@@ -58,5 +58,10 @@
     "target": "https://staging.job-room.ch",
     "secure": false,
     "loglevel": "debug"
+  },
+  "/zuul/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
   }
 }

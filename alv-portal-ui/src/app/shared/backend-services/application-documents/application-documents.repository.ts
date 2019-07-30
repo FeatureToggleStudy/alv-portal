@@ -13,7 +13,12 @@ export class ApplicationDocumentsRepository {
 
   private readonly searchUrl = `${this.resourceUrl}/_search`;
 
-  private readonly uploadUrl = `${this.resourceUrl}/`;
+  /*
+    Notice: the upload URL is prepended with "/zuul" to bypass the DispatcherServlet and
+    allow files bigger than 1MB to be uploaded.
+    @link https://cloud.spring.io/spring-cloud-static/spring-cloud.html#_uploading_files_through_zuul
+   */
+  private readonly uploadUrl = `/zuul${this.resourceUrl}/`;
 
   constructor(private http: HttpClient) {
   }
