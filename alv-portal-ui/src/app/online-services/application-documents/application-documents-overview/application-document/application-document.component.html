@@ -11,15 +11,12 @@
     <span class="cell-label">
       {{'portal.application-documents.file-name.label' | translate}}
     </span>
-    <button class="download-link"
-            (click)="downloadDocument($event)">
-      <fa-icon class="text-primary"
-               [icon]="['far', 'file-pdf']">
-      </fa-icon>
-      <span class="text-truncate d-block ml-1">
-        {{ applicationDocument.documentMetadata.fileName }}
-      </span>
-    </button>
+    <alv-file (click)="$event.stopPropagation()"
+              [fileName]="applicationDocument.documentMetadata.fileName"
+              [fileType]="applicationDocument.documentMetadata.mimeType"
+              [downloadFile$]="downloadDocument$">
+    </alv-file>
+
   </span>
 
   <span class="cell success col-12 col-lg-4">

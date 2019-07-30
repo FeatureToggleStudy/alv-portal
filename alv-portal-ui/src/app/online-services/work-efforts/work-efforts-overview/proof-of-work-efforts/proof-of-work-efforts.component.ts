@@ -14,10 +14,11 @@ import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-service
 import { WINDOW } from '../../../../core/window.service';
 import { DOCUMENT } from '@angular/common';
 import { I18nService } from '../../../../core/i18n.service';
-import { withLatestFrom } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 import { ProofOfWorkEffortsModel } from './proof-of-work-efforts.model';
 import { WorkEffortModel } from '../work-effort/work-effort.model';
 import { FileSaverService } from '../../../../shared/file-saver/file-saver.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'alv-proof-of-work-efforts',
@@ -35,6 +36,8 @@ export class ProofOfWorkEffortsComponent implements OnInit {
   @HostBinding('class.current-period')
   isCurrentPeriod: boolean;
 
+  downloadPdf$: Observable<File>;
+
   constructor(private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
               private i18nService: I18nService,
               private fileSaverService: FileSaverService,
@@ -45,22 +48,12 @@ export class ProofOfWorkEffortsComponent implements OnInit {
   ngOnInit() {
     this.isCurrentPeriod = this.proofOfWorkEffortsModel.isCurrentPeriod;
     this.expanded = this.proofOfWorkEffortsModel.isCurrentPeriod;
+    this.downloadPdf$ = this.proofOfWorkEffortsRepository.downloadPdf(this.proofOfWorkEffortsModel.id);
   }
 
   removeWorkEffort(deletedWorkEffort: WorkEffortModel) {
     const indexToRemove = this.proofOfWorkEffortsModel.workEfforts.findIndex(workEffortModel => workEffortModel.id === deletedWorkEffort.id);
     this.proofOfWorkEffortsModel.workEfforts.splice(indexToRemove, 1);
     this.reload.emit(this.proofOfWorkEffortsModel);
-  }
-
-  downloadPdf(proofOfWorkEffortsId: string, $event: Event) {
-    $event.stopPropagation();
-    this.proofOfWorkEffortsRepository.downloadPdf(proofOfWorkEffortsId).pipe(
-      withLatestFrom(this.i18nService.stream('portal.work-efforts.proof-of-work-efforts.pdf-file.name'))
-    ).subscribe(([blob, filenamePrefix]) => {
-        const filename = filenamePrefix + this.proofOfWorkEffortsModel.controlPeriodDateString;
-        this.fileSaverService.saveFile(blob, filename);
-      }
-    );
   }
 }
