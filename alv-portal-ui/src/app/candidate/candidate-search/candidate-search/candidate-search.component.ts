@@ -170,6 +170,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   ngOnDestroy() {
     super.ngOnDestroy();
     this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
+    this.stopSpinner();
   }
 
   onScroll() {
@@ -262,5 +263,9 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   getTotalCountLabel(totalCount: string): string {
     return totalCount === '1' ? 'portal.candidate-search.results-count.label.singular' :
       'portal.candidate-search.results-count.label.plural';
+  }
+
+  private stopSpinner() {
+    this.blockUI.reset();
   }
 }
