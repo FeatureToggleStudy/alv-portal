@@ -11,7 +11,7 @@
             [attr.id]="id"
             [formControl]="control"
             [attr.required]="required"
-            [disabled]="control.disabled"
+            [attr.disabled]="control.disabled ? true : null"
             [attr.aria-required]="!!required"
             [attr.aria-describedby]="validationId"
             [alvAutofocus]="autofocus"
