@@ -30,6 +30,7 @@ import { FileDragDropDirective } from './input/file-input/file-drag-drop.directi
 import { FileInputComponent } from './input/file-input/file-input.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { FileUploadPreviewComponent } from './input/file-input/file-upload-preview/file-upload-preview.component';
+import { FileComponent } from './input/file-input/file/file.component';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { FileUploadPreviewComponent } from './input/file-input/file-upload-previ
     ZipCityInputComponent,
     FileDragDropDirective,
     FileInputComponent,
-    FileUploadPreviewComponent
+    FileUploadPreviewComponent,
+    FileComponent
   ],
   exports: [
     DateIntervalInputComponent,
@@ -79,7 +81,8 @@ import { FileUploadPreviewComponent } from './input/file-input/file-upload-previ
     ZipCityInputComponent,
     FileDragDropDirective,
     FileInputComponent,
-    FileUploadPreviewComponent
+    FileUploadPreviewComponent,
+    FileComponent
   ],
   providers: [
     NgbPopoverConfig,

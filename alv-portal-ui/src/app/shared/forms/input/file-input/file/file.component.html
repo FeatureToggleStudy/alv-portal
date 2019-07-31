@@ -1,0 +1,20 @@
+<button *ngIf="downloadFile$; else fileNameElement"
+        type="button"
+        (click)="downloadFile()"
+        class="download-link">
+  <ng-container *ngTemplateOutlet="fileNameElement"></ng-container>
+
+</button>
+
+<ng-template #fileNameElement>
+  <div class="file-icon">
+    <fa-icon class="text-primary"
+             [fixedWidth]="isLargeIconSize()"
+             [icon]="getFileIcon(fileType)"
+             [size]="iconSize">
+    </fa-icon>
+  </div>
+  <div class="file-name ml-1 text-truncate">
+    {{fileName}}
+  </div>
+</ng-template>

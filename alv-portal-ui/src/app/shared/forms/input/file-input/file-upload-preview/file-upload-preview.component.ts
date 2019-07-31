@@ -24,27 +24,7 @@ export class FileUploadPreviewComponent {
 
   @Output() removeFile = new EventEmitter<FileMetadata>();
 
-  private iconMappings = {
-    'application/pdf': ['far', 'file-pdf'],
-    'image/png': ['far', 'file-image'],
-    'image/jpeg': ['far', 'file-image']
-  };
-
-  constructor(private fileSaverService: FileSaverService) { }
-
-  getFileIcon(fileType: string): string[] {
-    const fileIcon = this.iconMappings[fileType];
-    if (fileIcon) {
-      return fileIcon;
-    }
-    return ['far', 'file'];
-  }
-
-  downloadFile() {
-    this.downloadFile$.subscribe(blob => {
-      this.fileSaverService.saveFile(blob, this.fileName);
-    });
-  }
+  constructor() { }
 
   remove() {
     this.removeFile.emit({
