@@ -27,8 +27,8 @@ export class MarkdownPreprocessPipe implements PipeTransform {
 }
 
 export enum BulletPoints {
-  SMALL_BULLET = String.fromCharCode(183),
-  MEDIUM_BULLET = String.fromCharCode(8226),
-  OPERATOR_BULLET = String.fromCharCode(8729),
-  LARGE_BULLET = String.fromCharCode(9679)
+  SMALL_BULLET = '·', // String.fromCharCode(183)
+  MEDIUM_BULLET = '•', // String.fromCharCode(8226)
+  OPERATOR_BULLET = '∙', // String.fromCharCode(8729)
+  LARGE_BULLET = '●', // String.fromCharCode(9679)
 }

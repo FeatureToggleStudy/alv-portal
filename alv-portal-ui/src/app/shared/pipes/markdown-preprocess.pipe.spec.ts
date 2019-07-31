@@ -1,6 +1,6 @@
 import 'jasmine-expect';
 import { MarkdownEscapePipe } from './markdown-escape.pipe';
-import { BulletPoints } from './markdown-preprocess.pipe';
+import { BulletPoints, MarkdownPreprocessPipe } from './markdown-preprocess.pipe';
 
 /**
  * This pipe transforms certain non-markdown tokens (like the bullet point for a list)
@@ -8,12 +8,12 @@ import { BulletPoints } from './markdown-preprocess.pipe';
  * Currently transformed:
  * - Bullet points (all 4 sizes) -> dashes
  */
-describe('MarkdownEscapePipe', () => {
+describe('MarkdownPreprocessPipe', () => {
 
-  let pipe: MarkdownEscapePipe;
+  let pipe: MarkdownPreprocessPipe;
 
   beforeEach(() => {
-    pipe = new MarkdownEscapePipe();
+    pipe = new MarkdownPreprocessPipe();
   });
 
   it('should replace small bullets with dashes', function () {
@@ -42,13 +42,13 @@ describe('MarkdownEscapePipe', () => {
 
   it('should replace all bullets with dashes', function () {
     const testString = BulletPoints.SMALL_BULLET + 'Yesterday is history.\n' +
-      BulletPoints.MEDIUM_BULLET + 'Tomorrow is a mystery.' +
-      BulletPoints.OPERATOR_BULLET + 'But today is a gift.' +
-      BulletPoints.LARGE_BULLET + 'That\'s why it\'s called present.';
+      BulletPoints.MEDIUM_BULLET + 'Tomorrow is a mystery.\n' +
+      BulletPoints.OPERATOR_BULLET + 'But today is a gift.\n' +
+      BulletPoints.LARGE_BULLET + 'That\'s why it\'s called the present.';
     const expected = '- Yesterday is history.\n' +
       '- Tomorrow is a mystery.\n' +
       '- But today is a gift.\n' +
-      '- That\'s why it\'s called present.';
+      '- That\'s why it\'s called the present.';
     expect(pipe.transform(testString)).toEqual(expected);
   });
 });
