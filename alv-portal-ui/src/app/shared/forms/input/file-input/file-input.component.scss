@@ -1,0 +1,11 @@
+@import "../../../../../scss/common/colors";
+
+.upload-button {
+  height: 46px;
+
+  &.alv-dragover {
+    opacity: 80%;
+    background-color: $color-red-transparent;
+    border: 2px dashed $color-primary;
+  }
+}

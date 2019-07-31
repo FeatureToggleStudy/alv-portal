@@ -15,6 +15,9 @@
       cursor: pointer;
       background: transparent;
     }
+    select.form-control {
+      border: none;
+    }
   }
   &.disabled {
     background-color: $color-disabled-grey;

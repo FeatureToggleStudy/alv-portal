@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 /**
  * Component to create custom modals after the styleguide
@@ -73,6 +74,11 @@ export class ModalComponent {
    */
   @Input() showCloseButton = true;
 
+  /**
+   * (optional) pass subscription to disable modal buttons while it is not completed
+   */
+  @Input() loadingSubscription?: Subscription;
+
   constructor() {
   }
 
@@ -96,4 +102,7 @@ export class ModalComponent {
     this.secondaryAction.emit();
   }
 
+  isLoading(): boolean {
+    return this.loadingSubscription && !this.loadingSubscription.closed;
+  }
 }

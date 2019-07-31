@@ -15,6 +15,7 @@
             [attr.aria-required]="!!required"
             [attr.aria-describedby]="validationId"
             [alvAutofocus]="autofocus"
+            (change)="control.markAsTouched()"
             [class.placeholder-shown]="control.value === ''">
       <option *ngFor="let option of options$ | async"
               [ngValue]="option.value">{{option.label | translate}}

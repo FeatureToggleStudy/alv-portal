@@ -35,6 +35,9 @@
       background-color: $color-primary;
     }
   }
+  &:focus {
+    z-index: $z-index-result-list-item;
+  }
 
   &.visited {
     background: $color-light-grey;

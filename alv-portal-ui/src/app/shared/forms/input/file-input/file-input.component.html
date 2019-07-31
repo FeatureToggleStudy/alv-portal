@@ -1,0 +1,41 @@
+<button class="upload-button btn btn-secondary p-2 w-100"
+        alvFileDragDrop
+        type="button"
+        [dragDropDisabled]="isFileSelectionDisabled()"
+        [disabled]="isFileSelectionDisabled()"
+        (click)="fileInput.value = ''; fileInput.click();"
+        (fileDropped)="uploadFile($event); fileInput.value = ''">
+  {{ label | translate }}
+  <input #fileInput
+         hidden
+         type="file"
+         name="files"
+         [attr.multiple]="maxFilesCount > 1 ? true : null"
+         [accept]="accept"
+         (change)="uploadFile(($event.target || $event.srcElement).files);">
+</button>
+<alv-file-upload-preview *ngFor="let file of files; let index = index"
+          [fileName]="file.name"
+          [fileSize]="file.size"
+          [fileType]="file.type"
+          [showRemoveButton]="showRemoveButton"
+          [isDisabled]="control.disabled"
+          [downloadFile$]="downloadFile(file)"
+          (removeFile)="removeFile(index)">
+</alv-file-upload-preview>
+<div *ngIf="!(isTouched() && isInvalid())"
+     class="help-text">
+  <small *ngIf="helpText"
+         class="mt-1">{{helpText | translate}}
+  </small>
+</div>
+<alv-validation-messages *ngIf="!readonly"
+                         [control]="control"
+                         [attr.id]="validationId"
+                         [customValidationMessages]="validationMessages">
+</alv-validation-messages>
+<alv-validation-messages *ngIf="!readonly && showGroupErrors"
+                         [control]="control.parent"
+                         [attr.id]="validationId"
+                         [customValidationMessages]="validationMessages">
+</alv-validation-messages>

@@ -73,11 +73,13 @@ textarea.form-control,
   /* Empty input/label styling */
   &> input,
   &> textarea,
-  &> select,
   &> label,
   &> .typeahead-form-control,
   &> .readonly-input {
     padding: 10px 10px;
+  }
+  &> select + label {
+    padding: 8px 10px;
   }
   &> label {
     position: absolute;

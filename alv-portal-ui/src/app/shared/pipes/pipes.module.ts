@@ -9,6 +9,7 @@ import { NormalizeUrlPipe } from './normalize-url.pipe';
 import { KeysPipe } from './enum-keys.pipe';
 import { JobLocationPipe } from './job-location.pipe';
 import { MarkdownPreprocessPipe } from './markdown-preprocess.pipe';
+import { BytesPipe } from './bytes.pipe';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,14 @@ import { MarkdownPreprocessPipe } from './markdown-preprocess.pipe';
     NormalizeUrlPipe,
     KeysPipe,
     JobLocationPipe,
+    BytesPipe,
     MarkdownPreprocessPipe
   ],
   providers: [
     LocaleAwareDatePipe,
     WorkingTimeRangePipe,
-    JobLocationPipe
+    JobLocationPipe,
+    BytesPipe
   ],
   imports: [
     MarkdownModule.forRoot()
@@ -40,11 +43,11 @@ import { MarkdownPreprocessPipe } from './markdown-preprocess.pipe';
     NormalizeUrlPipe,
     KeysPipe,
     JobLocationPipe,
+    BytesPipe,
     MarkdownPreprocessPipe
   ]
 })
 export class PipesModule {
 
 }
-
 

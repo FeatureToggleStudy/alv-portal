@@ -12,6 +12,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  align-items: stretch;
   margin-left: 0;
   margin-right: 0;
   .cell {
@@ -50,6 +51,16 @@
     }
   }
 
+  .expanded-indicator {
+    background-color: $color-primary;
+    width: 3px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    opacity: 0;
+  }
+
   &:hover, &.expanded {
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
     text-decoration: none !important;
@@ -58,12 +69,7 @@
       color: $color-primary;
     }
     .expanded-indicator {
-      background-color: $color-primary;
-      width: 3px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
+      opacity: 1;
     }
   }
 }

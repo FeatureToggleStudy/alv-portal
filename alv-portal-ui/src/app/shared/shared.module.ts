@@ -17,6 +17,8 @@ import { IsoCountryService } from './localities/iso-country.service';
 import { TrackingEventDirective } from './tracking/tracking-event.directive';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { CompanyContactManagementComponent } from './user-settings/company-contact-management/company-contact-management.component';
+import { UploadProgressbarComponent } from './progress/upload-progressbar/upload-progressbar.component';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { CompanyContactManagementComponent } from './user-settings/company-conta
     LegalTermsModalComponent,
     TrackingEventDirective,
     UserSettingsComponent,
-    CompanyContactManagementComponent
+    CompanyContactManagementComponent,
+    UploadProgressbarComponent
   ],
   imports: [
     TranslateModule.forChild(),
@@ -36,7 +39,8 @@ import { CompanyContactManagementComponent } from './user-settings/company-conta
     SharedAuthModule,
     ClipboardModule,
     PipesModule,
-    IconsModule
+    IconsModule,
+    NgbProgressbarModule
   ],
   entryComponents: [
     LegalTermsModalComponent
@@ -55,7 +59,8 @@ import { CompanyContactManagementComponent } from './user-settings/company-conta
     LegalTermsDirective,
     TrackingEventDirective,
     UserSettingsComponent,
-    CompanyContactManagementComponent
+    CompanyContactManagementComponent,
+    UploadProgressbarComponent
   ],
   providers: [
     LandingPageGuard,

@@ -6,8 +6,10 @@
 
   <alv-alert [notification]="customNotification">
     <p>Custom <strong>HTML</strong> Content</p>
-    <a class="link" href="#">
-      <fa-icon class="link-icon" [icon]="['fas', 'caret-right']"></fa-icon>
+    <a class="link"
+       href="#">
+      <fa-icon class="link-icon"
+               [icon]="['fas', 'caret-right']"></fa-icon>
       Demo Link
     </a>
   </alv-alert>
@@ -84,6 +86,27 @@
   </button>
   {{confirmModalDemoText}}
 
+  <h1 class="mt-2">File Upload</h1>
+  <div class="my-2">
+    <button class="btn btn-primary mr-1"
+            (click)="fileInputControl.enable()">Enable</button>
+    <button class="btn btn-secondary"
+            (click)="fileInputControl.disable()">Disable</button>
+  </div>
+
+  <alv-file-input label="Choose files"
+                   accept="*/*"
+                   helpText="Max. 3 files of 2 MB"
+                   [maxFilesCount]="3"
+                   [showRemoveButton]="true"
+                   [maxFileSize]="2 * 1024 * 1024"
+                   [alvControl]="fileInputControl">
+  </alv-file-input>
+
+  <div>
+    <h3>Result:</h3>
+    <pre>{{fileInputControl.value | json}}</pre>
+  </div>
   <h1 class="mt-2">Buttons</h1>
   <div class="d-flex mb-2">
     <button class="btn btn-primary btn-icon mr-2">

@@ -1,0 +1,48 @@
+<alv-modal [modalTitle]="modalTitle"
+           primaryLabel="portal.application-documents.edit-create-modal.submit-button.label"
+           (primaryAction)="submit()"
+           [secondaryLabel]="secondaryLabel"
+           (secondaryAction)="delete()"
+           cancelLabel="portal.application-documents.edit-create-modal.cancel-button.label"
+           (cancelAction)="cancel()"
+           [formGroup]="form"
+           [loadingSubscription]="uploadProgressSubscription">
+  <alv-alert [hideDismiss]="true"
+             [notification]="{type: notificationType.INFO}">
+    <ul class="m-0 pl-4">
+      <li class="mb-1">{{'portal.application-documents.edit-create-modal.info-notification.upload-instruction1' | translate}}</li>
+      <li class="mb-1">{{'portal.application-documents.edit-create-modal.info-notification.upload-instruction2' | translate}}</li>
+      <li class="mb-1">{{'portal.application-documents.edit-create-modal.info-notification.upload-instruction3' | translate}}</li>
+    </ul>
+  </alv-alert>
+
+  <alv-select label="portal.application-documents.edit-create-modal.document-type.label"
+              alvFormControlName="documentType"
+              [options$]="documentTypes$"
+              [validationMessages]="documentTypeValidationMessages"
+              class="narrow-form d-block mb-2 mt-3">
+  </alv-select>
+
+  <alv-file-upload-preview *ngIf="isEdit"
+            [downloadFile$]="downloadFile$"
+            [fileName]="applicationDocument.documentMetadata.fileName"
+            [fileType]="applicationDocument.documentMetadata.mimeType"
+            [fileSize]="applicationDocument.documentMetadata.contentLength">
+  </alv-file-upload-preview>
+
+  <alv-file-input *ngIf="!isEdit"
+                  label="portal.application-documents.edit-create-modal.upload-button-label"
+                  alvFormControlName="file"
+                  [accept]="ACCEPTED_FILE_TYPES"
+                  [maxFileSize]="MAX_FILE_SIZE"
+                  [showRemoveButton]="false"
+                  [validationMessages]="fileValidationMessages">
+  </alv-file-input>
+
+  <alv-upload-progressbar *ngIf="uploadedBytes"
+                   [subscription]="uploadProgressSubscription"
+                   [max]="totalBytes"
+                   [value]="uploadedBytes">
+  </alv-upload-progressbar>
+
+</alv-modal>

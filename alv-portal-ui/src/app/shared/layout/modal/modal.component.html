@@ -19,6 +19,7 @@
           type="button"
           class="close"
           [attr.aria-label]="'portal.global.close' | translate"
+          [disabled]="isLoading()"
           (click)="handleCancelClick()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -40,17 +41,20 @@
     <button *ngIf="cancelLabel"
             type="button"
             class="btn btn-text mr-0 mr-md-1 mb-1 mb-md-0"
+            [disabled]="isLoading()"
             (click)="handleCancelClick()">
       {{cancelLabel | translate}}
     </button>
     <button *ngIf="secondaryLabel"
             type="button"
             class="btn btn-secondary mr-0 mr-md-1 mb-1 mb-md-0"
+            [disabled]="isLoading()"
             (click)="handleSecondaryClick()">
       {{secondaryLabel | translate}}
     </button>
     <button *ngIf="showPrimaryButton"
             [attr.type]="formGroup ? 'submit' : 'button'"
+            [disabled]="isLoading()"
             (click)="handlePrimaryClick()"
             class="btn btn-primary mb-1 mb-md-0 ml-0">
       {{primaryLabel | translate}}
