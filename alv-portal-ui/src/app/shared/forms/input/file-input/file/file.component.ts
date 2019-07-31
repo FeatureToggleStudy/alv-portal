@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FileSaverService } from '../../../../file-saver/file-saver.service';
 
@@ -8,7 +8,7 @@ import { FileSaverService } from '../../../../file-saver/file-saver.service';
   styleUrls: ['./file.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FileComponent {
+export class FileComponent implements OnInit {
 
   @Input() fileName: string;
 
@@ -18,6 +18,10 @@ export class FileComponent {
 
   @Input() downloadFile$?: Observable<Blob>;
 
+  fileIcon: string[];
+
+  isLargeIconSize: boolean;
+
   private iconMappings = {
     'application/pdf': ['far', 'file-pdf'],
     'image/png': ['far', 'file-image'],
@@ -26,21 +30,22 @@ export class FileComponent {
 
   constructor(private fileSaverService: FileSaverService) { }
 
+  ngOnInit() {
+    this.fileIcon = this.getFileIcon(this.fileType);
+    this.isLargeIconSize = this.iconSize === 'lg';
+  }
+
   downloadFile() {
     this.downloadFile$.subscribe(blob => {
       this.fileSaverService.saveFile(blob, this.fileName);
     });
   }
 
-  getFileIcon(fileType: string): string[] {
+  private getFileIcon(fileType: string): string[] {
     const fileIcon = this.iconMappings[fileType];
     if (fileIcon) {
       return fileIcon;
     }
     return ['far', 'file'];
-  }
-
-  isLargeIconSize(): boolean {
-    return this.iconSize === 'lg';
   }
 }
