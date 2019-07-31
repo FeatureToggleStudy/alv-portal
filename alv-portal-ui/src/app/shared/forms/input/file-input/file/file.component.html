@@ -9,11 +9,12 @@
 <ng-template #fileNameElement>
   <div class="file-icon">
     <fa-icon class="text-primary"
-             [fixedWidth]="true"
+             [fixedWidth]="isLargeIconSize()"
              [icon]="getFileIcon(fileType)"
              [size]="iconSize">
     </fa-icon>
   </div>
-  <div class="file-name ml-1 text-truncate"
-       [class.ml-1]="isLargeIconSize()">{{fileName}}</div>
+  <div class="file-name ml-1 text-truncate">
+    {{fileName}}
+  </div>
 </ng-template>
