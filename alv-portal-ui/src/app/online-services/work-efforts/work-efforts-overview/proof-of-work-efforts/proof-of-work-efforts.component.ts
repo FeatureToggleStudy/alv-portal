@@ -4,17 +4,13 @@ import {
   HostBinding,
   Inject,
   Input,
-  OnInit, Output
+  OnInit,
+  Output
 } from '@angular/core';
-import {
-  ProofOfWorkEfforts,
-  WorkEffort
-} from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ProofOfWorkEffortsRepository } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
 import { WINDOW } from '../../../../core/window.service';
 import { DOCUMENT } from '@angular/common';
 import { I18nService } from '../../../../core/i18n.service';
-import { map, withLatestFrom } from 'rxjs/operators';
 import { ProofOfWorkEffortsModel } from './proof-of-work-efforts.model';
 import { WorkEffortModel } from '../work-effort/work-effort.model';
 import { FileSaverService } from '../../../../shared/file-saver/file-saver.service';
@@ -36,7 +32,7 @@ export class ProofOfWorkEffortsComponent implements OnInit {
   @HostBinding('class.current-period')
   isCurrentPeriod: boolean;
 
-  downloadPdf$: Observable<File>;
+  downloadPdf$: Observable<Blob>;
 
   constructor(private proofOfWorkEffortsRepository: ProofOfWorkEffortsRepository,
               private i18nService: I18nService,
