@@ -11,3 +11,8 @@
 .job-title, .job-description {
   word-wrap: break-word;
 }
+
+// Capitalize the first letter of the job title
+.job-title:first-letter {
+  text-transform: capitalize;
+}
