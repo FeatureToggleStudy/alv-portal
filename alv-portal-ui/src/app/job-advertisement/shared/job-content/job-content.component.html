@@ -37,7 +37,7 @@
 
   <div *ngIf="jobDescription.description"
        class="job-description">
-    <markdown [data]="jobDescription.description"
+    <markdown [data]="jobDescription.description | markdownPreprocess"
               ngPreserveWhitespaces>
     </markdown>
   </div>

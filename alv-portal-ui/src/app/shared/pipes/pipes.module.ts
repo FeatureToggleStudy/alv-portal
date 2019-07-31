@@ -8,6 +8,7 @@ import { WorkingTimeRangePipe } from './working-time-range.pipe';
 import { NormalizeUrlPipe } from './normalize-url.pipe';
 import { KeysPipe } from './enum-keys.pipe';
 import { JobLocationPipe } from './job-location.pipe';
+import { MarkdownPreprocessPipe } from './markdown-preprocess.pipe';
 import { BytesPipe } from './bytes.pipe';
 
 @NgModule({
@@ -20,7 +21,8 @@ import { BytesPipe } from './bytes.pipe';
     NormalizeUrlPipe,
     KeysPipe,
     JobLocationPipe,
-    BytesPipe
+    BytesPipe,
+    MarkdownPreprocessPipe
   ],
   providers: [
     LocaleAwareDatePipe,
@@ -41,11 +43,11 @@ import { BytesPipe } from './bytes.pipe';
     NormalizeUrlPipe,
     KeysPipe,
     JobLocationPipe,
-    BytesPipe
+    BytesPipe,
+    MarkdownPreprocessPipe
   ]
 })
 export class PipesModule {
 
 }
-
 
