@@ -8,16 +8,19 @@
   background-color: $color-super-light-grey;
 
   .modal-header {
-
+    display: flex;
+    align-items: center;
     border-color: $color-medium-grey;
     .modal-title {
       font-size: 1.5em;
-      font-weight: 500;
+      font-weight: 300;
       color: $color-dark-grey;
-      margin-bottom: 0.25em;
     }
     .modal-subtitle {
       font-size: 1em;
+    }
+    .close {
+      margin: -.75rem -1rem -.75rem auto;
     }
   }
 
@@ -35,8 +38,7 @@
     .modal-header {
       .modal-title {
         font-size: 1.25em;
-        font-weight: 700;
-        margin-bottom: 0.25em;
+        font-weight: 400;
       }
       .modal-subtitle {
         font-size: 80%;
