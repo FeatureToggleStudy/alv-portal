@@ -26,6 +26,13 @@
 
   .modal-footer {
     border-color: $color-medium-grey;
+
+    &> :not(:last-child) {
+      margin-right: 0;
+    }
+    &> :not(:first-child) {
+      margin-left: 0;
+    }
   }
 
   .modal-header, .modal-body, .modal-footer {
