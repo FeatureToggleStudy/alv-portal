@@ -1,14 +1,7 @@
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot
-} from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  CandidateProfileDetailLoadedAction,
-  CandidateSearchState
-} from '../state-management';
+import { CandidateProfileDetailLoadedAction, CandidateSearchState } from '../state-management';
 import { CandidateRepository } from '../../../shared/backend-services/candidate/candidate.repository';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';

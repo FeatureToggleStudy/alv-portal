@@ -4,17 +4,12 @@ import { EMPTY, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { I18nService } from '../../../../core/i18n.service';
 import { JobExperience } from '../../../../shared/backend-services/candidate/candidate.types';
-import { CandidateSearchResult } from '../../state-management';
-import {
-  GenderAwareOccupationLabel,
-  OccupationService
-} from '../../../../shared/occupations/occupation.service';
-import {
-  extractGenderNeutralTitle,
-  findRelevantJobExperience
-} from '../../candidate-rules';
+import { CandidateClickedAction, CandidateSearchResult, CandidateSearchState } from '../../state-management';
+import { GenderAwareOccupationLabel, OccupationService } from '../../../../shared/occupations/occupation.service';
+import { extractGenderNeutralTitle, findRelevantJobExperience } from '../../candidate-rules';
 import { CandidateProfileBadgesMapperService } from '../../candidate-profile-badges-mapper.service';
 import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'alv-candidate-search-result',
@@ -33,12 +28,17 @@ export class CandidateSearchResultComponent implements OnInit {
   resultListItem$: Observable<ResultListItem>;
 
   constructor(private i18nService: I18nService,
+              private store: Store<CandidateSearchState>,
               private candidateProfileBadgesMapperService: CandidateProfileBadgesMapperService,
               private occupationService: OccupationService) {
   }
 
   ngOnInit() {
     this.resultListItem$ = this.candidateSearchResultToResultListItemMapper(this.candidateSearchResult);
+  }
+
+  logClick() {
+    this.store.dispatch(new CandidateClickedAction({candidateProfile: this.candidateSearchResult.candidateProfile}));
   }
 
   private candidateSearchResultToResultListItemMapper(candidateSearchResult: CandidateSearchResult): Observable<ResultListItem> {
@@ -79,7 +79,6 @@ export class CandidateSearchResultComponent implements OnInit {
       type: 'AVAM'
     };
   }
-
 }
 
 

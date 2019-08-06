@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { HttpErrorHandlerStrategy, matchesStatus } from './http-error-handler-strategy';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { TrackingService } from '../../shared/tracking/tracking.service';
+import { GATrackingService } from '../../shared/tracking/g-a-tracking.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ErrorHandlerService {
   private httpErrorHandlerStrategies: Array<HttpErrorHandlerStrategy> = [];
 
   constructor(private notificationsService: NotificationsService,
-              private trackingService: TrackingService,
+              private gaTrackingService: GATrackingService,
               authenticationService: AuthenticationService,
               store: Store<CoreState>) {
 
@@ -65,7 +65,7 @@ export class ErrorHandlerService {
 
   handleError(error) {
     this.showMessage('portal.global.exception.client.unknown', NotificationType.ERROR);
-    this.trackingService.trackException(error, true);
+    this.gaTrackingService.trackException(error, true);
   }
 
   handleHttpError(httpErrorResponse: HttpErrorResponse) {
@@ -81,10 +81,10 @@ export class ErrorHandlerService {
     const trackingErrorMessage = `${httpErrorResponse.status}-${httpErrorResponse.message}`;
     if (!!errorHandlingStrategy) {
       errorHandlingStrategy.handle();
-      this.trackingService.trackExceptionMessage(trackingErrorMessage, false);
+      this.gaTrackingService.trackExceptionMessage(trackingErrorMessage, false);
     } else {
       this.showMessage('portal.global.exception.server.unknown');
-      this.trackingService.trackExceptionMessage(trackingErrorMessage, true);
+      this.gaTrackingService.trackExceptionMessage(trackingErrorMessage, true);
     }
   }
 

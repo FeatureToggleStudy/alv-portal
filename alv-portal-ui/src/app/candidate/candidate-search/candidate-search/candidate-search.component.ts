@@ -90,6 +90,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   @ViewChild('searchPanel', {static: false}) searchPanelElement: ElementRef<Element>;
 
+
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private store: Store<CandidateSearchState>,
@@ -132,7 +133,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
     this.searchMailToLink$ = this.candidateSearchFilter$.pipe(
       map((candidateSearchFilter: CandidateSearchFilter) => this.candidateSearchFilterParameterService.encode(candidateSearchFilter)),
-      map((filterParam) => `${window.location.href}?filter=${filterParam}`),
+      map((filterParam) => `${this.window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
 

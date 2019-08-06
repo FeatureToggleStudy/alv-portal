@@ -51,10 +51,10 @@
                     ngxClipboard>
               {{'candidate-detail.candidate-copy-link' | translate}}
             </button>
-            <a [href]="'mailto:?body=' + getEncodedUrl()"
+            <button (click)="sendEmail()"
                class="dropdown-item">
               {{'portal.candidate-detail.action.sendLink' | translate}}
-            </a>
+            </button>
             <button (click)="printCandidate()"
                     class="dropdown-item">
               {{'candidate-detail.candidate-print' | translate}}
@@ -99,6 +99,7 @@
                 </div>
                 <div *ngIf="contact.phone">
                   <a class="link"
+                     (click)="logPhoneRav()"
                      href="tel:{{contact.phone}}">{{contact.phone | phoneNumber}}</a>
                 </div>
                 <div *ngIf="contact.email">
@@ -211,6 +212,8 @@
 
         <alv-collapse-panel *ngIf="candidateDetailModel.protectedData as candidateProtectedData"
                             [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
+                            [isCollapsed]="isProtectedDataCollapsed"
+                            (collapsed)="onCandidateProtectedDataCollapsed($event)"
                             panelTitle="candidate-detail.personal-information.title">
           <ul class="alv-list">
             <alv-list-item-content *ngIf="candidateProtectedData.firstName || candidateProtectedData.lastName"
@@ -235,12 +238,14 @@
             <alv-list-item-content *ngIf="candidateProtectedData.phone"
                                    label="candidate-detail.personal-information.phone.label">
               <a class="link"
+                 (click)="logSelectCandidatePhone()"
                  href="tel:{{candidateProtectedData.phone}}">{{candidateProtectedData.phone | phoneNumber}}</a>
             </alv-list-item-content>
 
             <alv-list-item-content *ngIf="candidateProtectedData.mobile"
                                    label="candidate-detail.personal-information.mobile.label">
               <a class="link"
+                 (click)="logSelectCandidatePhone()"
                  href="tel:{{candidateProtectedData.mobile}}">{{candidateProtectedData.mobile | phoneNumber}}</a>
             </alv-list-item-content>
 
@@ -288,11 +293,11 @@
           </button>
         </li>
         <li>
-          <a [href]="'mailto:?body=' + getEncodedUrl()"
+          <button (click)="sendEmail()"
              class="btn btn-text btn-text-icon btn-truncate">
             <fa-icon class="mr-1" [icon]="['fas', 'share']"></fa-icon>
             {{'portal.candidate-detail.action.sendLink' | translate}}
-          </a>
+          </button>
         </li>
         <li class="d-none d-lg-block">
           <button (click)="printCandidate()"

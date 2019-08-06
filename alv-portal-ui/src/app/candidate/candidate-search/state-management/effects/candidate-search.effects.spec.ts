@@ -129,15 +129,15 @@ describe('CandidateSearchEffects', () => {
      * expected : 3 emitted action, error after 10 F + 10 F = 20 F delay, value after 30 F + 10 F = 40 F delay, and end subscription after 50 F delay
      */
     it('should throw an EffectErrorOccurredAction on error, then proceed to another InitResultListAction, ' +
-        'and finish with and FilterAppliedAction', () => {
+      'and finish with and FilterAppliedAction', () => {
 
       const httpError = new HttpErrorResponse({});
       // action
       actions$ = hot('-a-a-b', { a: initResultListAction, b: filterAppliedAction});
       // response
       candidateRepository.searchCandidateProfiles.and.returnValues(
-          cold('-#', {}, httpError),
-          cold('-c', { c: candidateSearchResult})
+        cold('-#', {}, httpError),
+        cold('-c', { c: candidateSearchResult})
       );
       // expected
       const expected = cold('--e-d', {
@@ -210,8 +210,8 @@ describe('CandidateSearchEffects', () => {
       actions$ = hot('-a-a---a--a-', { a: applyFilterAction });
       // response
       candidateRepository.searchCandidateProfiles.and.returnValues(
-          cold('-#', {}, httpError),
-          cold('-b', { b: candidateSearchResult })
+        cold('-#', {}, httpError),
+        cold('-b', { b: candidateSearchResult })
       );
       // expected
       const expected = cold('-------e------c', {
@@ -288,9 +288,9 @@ describe('CandidateSearchEffects', () => {
 
     const occupCode: OccupationCode = { type: 'SBN5', value: '36102' };
     const classificationDE = new OccupationTypeaheadItem(
-        OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmierer/innen', 2);
+      OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmierer/innen', 2);
     const classificationEN = new OccupationTypeaheadItem(
-        OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmers', 2);
+      OccupationTypeaheadItemType.CLASSIFICATION, occupCode, 'Programmers', 2);
 
     const languageChangedAction = new LanguageChangedAction({ language: 'de'});
 
@@ -345,7 +345,7 @@ describe('CandidateSearchEffects', () => {
 
     const candidateSearchResult = { result, totalCount: 10 };
     const loadNextPageAction = new LoadNextPageAction();
-    const nextPageLoadedAction = new NextPageLoadedAction({ page: result });
+    const nextPageLoadedAction = new NextPageLoadedAction({pageNumber: 1, page: result});
 
     /*
      * action : dispatched loadNextPageAction after 20 F delay
@@ -379,8 +379,8 @@ describe('CandidateSearchEffects', () => {
       actions$ = hot('-a-a---a--a-', { a: loadNextPageAction });
       // response
       candidateRepository.searchCandidateProfiles.and.returnValues(
-          cold('-#', {}, httpError),
-          cold('-b', { b: candidateSearchResult })
+        cold('-#', {}, httpError),
+        cold('-b', { b: candidateSearchResult })
       );
       // expected
       const expected = cold('-------e------c', {
@@ -424,7 +424,7 @@ describe('CandidateSearchEffects', () => {
       const result = [ candidateProfile as CandidateProfile];
 
       const loadNextCandidateProfileDetailAction = new LoadNextCandidateProfileDetailAction();
-      const nextPageLoadedAction = new NextPageLoadedAction({ page: result });
+      const nextPageLoadedAction = new NextPageLoadedAction({pageNumber: 1, page: result});
 
       // action
       actions$ = hot('-a---b', { a: loadNextCandidateProfileDetailAction, b: nextPageLoadedAction });

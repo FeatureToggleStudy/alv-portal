@@ -22,9 +22,10 @@ import { I18nService } from './core/i18n.service';
 import { CoreState } from './core/state-management/state/core.state.ts';
 import { Store } from '@ngrx/store';
 import { ToggleMainNavigationAction } from './core/state-management/actions/core.actions';
-import { TrackingService } from './shared/tracking/tracking.service';
+import { GATrackingService } from './shared/tracking/g-a-tracking.service';
 import { ScrollService } from './core/scroll.service';
 import { Observable } from 'rxjs';
+import { ProfileInfoService } from './shared/layout/header/profile-info.service';
 
 const FALLBACK_TITLE_KEY = 'global.title';
 
@@ -43,9 +44,10 @@ export class AppComponent implements OnInit {
               private titleService: Title,
               private router: Router,
               private store: Store<CoreState>,
-              private trackingService: TrackingService,
+              private trackingService: GATrackingService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
+              private profileInfoService: ProfileInfoService,
               private scrollService: ScrollService) {
   }
 
@@ -56,6 +58,8 @@ export class AppComponent implements OnInit {
     this.i18nService.init();
 
     this.authenticationService.init();
+
+    this.profileInfoService.init();
 
     this.handleGuardErrors();
 

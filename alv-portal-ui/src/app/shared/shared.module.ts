@@ -14,7 +14,7 @@ import { IconsModule } from './icons/icons.module';
 import { LegalTermsDirective } from './legal-terms/legal-terms.directive';
 import { LegalTermsModalComponent } from './legal-terms/legal-terms-modal/legal-terms-modal.component';
 import { IsoCountryService } from './localities/iso-country.service';
-import { TrackingEventDirective } from './tracking/tracking-event.directive';
+import { GATrackingEventDirective } from './tracking/g-a-tracking-event.directive';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { CompanyContactManagementComponent } from './user-settings/company-contact-management/company-contact-management.component';
 import { UploadProgressbarComponent } from './progress/upload-progressbar/upload-progressbar.component';
@@ -25,7 +25,7 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
     DummyComponent,
     LegalTermsDirective,
     LegalTermsModalComponent,
-    TrackingEventDirective,
+    GATrackingEventDirective,
     UserSettingsComponent,
     CompanyContactManagementComponent,
     UploadProgressbarComponent
@@ -57,7 +57,7 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
     SharedAuthModule,
     IconsModule,
     LegalTermsDirective,
-    TrackingEventDirective,
+    GATrackingEventDirective,
     UserSettingsComponent,
     CompanyContactManagementComponent,
     UploadProgressbarComponent

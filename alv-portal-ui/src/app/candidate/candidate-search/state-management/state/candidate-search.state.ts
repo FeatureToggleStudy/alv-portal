@@ -92,7 +92,7 @@ export const getSelectedOccupations = createSelector(getCandidateSearchState, (s
 
 export const getCandidateSearchProfile = createSelector(getCandidateSearchState, (state) => state.candidateSearchProfile);
 
-const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
+export const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
 
 const isDirtyResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.isDirtyResultList);
 

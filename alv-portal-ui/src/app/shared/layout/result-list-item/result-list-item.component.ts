@@ -39,6 +39,9 @@ export class ResultListItemComponent implements OnInit {
   constructor() {
   }
 
+  @Output()
+  resultClick = new EventEmitter<void>();
+
   private _result: ResultListItem;
 
   @Input() get result(): ResultListItem {
@@ -53,4 +56,7 @@ export class ResultListItemComponent implements OnInit {
     this.resultListItemId = composeResultListItemId(this.result.id);
   }
 
+  onClick() {
+    this.resultClick.emit();
+  }
 }

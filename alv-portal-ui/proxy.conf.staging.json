@@ -54,6 +54,11 @@
     "secure": false,
     "loglevel": "debug"
   },
+  "/trackingservice/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
   "/onlineform-service/*": {
     "target": "https://staging.job-room.ch",
     "secure": false,

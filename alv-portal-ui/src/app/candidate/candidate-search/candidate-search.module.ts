@@ -19,11 +19,12 @@ import { CandidateProfileBadgesMapperService } from './candidate-profile-badges-
 import { WidgetsModule } from '../../widgets/widgets.module';
 import { SaveSearchProfileModalComponent } from './candidate-search/candidate-search-profile/save-search-profile-modal/save-search-profile-modal.component';
 import { UpdateSearchProfileModalComponent } from './candidate-search/candidate-search-profile/update-search-profile-modal/update-search-profile-modal.component';
+import { CandidateSearchLoggingEffects } from './state-management/effects/candidate-search-logging-effects';
 
 @NgModule({
   imports: [
     StoreModule.forFeature('candidateSearch', candidateSearchReducer),
-    EffectsModule.forFeature([CandidateSearchEffects]),
+    EffectsModule.forFeature([CandidateSearchEffects, CandidateSearchLoggingEffects]),
     CommonModule,
     SharedModule,
     CandidateSearchRoutingModule,

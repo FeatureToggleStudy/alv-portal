@@ -6,6 +6,7 @@ import {
   CompanyContactTemplate
 } from '../../../shared/backend-services/user-info/user-info.types';
 import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
+import { ProfileInfo } from '../../../shared/layout/header/profile-info.service';
 
 export const LANGUAGE_CHANGED = 'CORE:LANGUAGE_CHANGED';
 export const LANGUAGE_INITIALIZED = 'CORE:LANGUAGE_INITIALIZED';
@@ -28,6 +29,9 @@ export const ADD_JOB_AD_FAVOURITE = 'CORE:ADD_JOB_AD_FAVOURITE';
 export const REMOVE_JOB_AD_FAVOURITE = 'CORE:REMOVE_JOB_AD_FAVOURITE';
 
 export const UPDATED_JOB_AD_FAVOURITE = 'CORE:UPDATED_JOB_AD_FAVOURITE';
+
+export const LOAD_PROFILE_INFO = 'CORE:LOAD_PROFILE_INFO';
+export const PROFILE_INFO_LOADED = 'CORE:PROFILE_INFO_LOADED';
 
 export const LAZY_LOADED_MODULE_DESTROYED = 'CORE:LAZY_LOADED_MODULE_DESTROYED';
 
@@ -170,6 +174,21 @@ export class RemovedJobAdFavouriteAction implements Action {
   constructor(public payload: { removedFavouriteItem: FavouriteItem }) {
   }
 }
+
+export class LoadProfileInfoAction implements Action {
+  readonly type = LOAD_PROFILE_INFO;
+
+  constructor(public payload: {}) {
+  }
+}
+
+export class ProfileInfoLoadedAction implements Action {
+  readonly type = PROFILE_INFO_LOADED;
+
+  constructor(public payload: { profileInfo?: ProfileInfo }) {
+  }
+}
+
 
 /**
  * Action that is used to reset a Lazy-Loaded Module state
