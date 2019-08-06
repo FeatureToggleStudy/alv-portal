@@ -2,34 +2,33 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { asyncScheduler, Observable } from 'rxjs';
 import {
-  APPLY_FILTER,
   ApplyFilterAction,
-  SELECT_CANDIDATE,
-  SELECT_CANDIDATE_PHONE,
   CANDIDATE_PROFILE_DETAIL_LOADED,
   CandidateClickedAction,
   CandidateProfileDetailLoadedAction,
+  CONTACT_CANDIDATE,
+  ContactCandidateAction,
   COPY_LINK,
-  SEND_LINK,
+  CopyLinkAction,
+  EXPAND_CONTACT_INFO,
+  ExpandContactInfoAction,
   FILTER_APPLIED,
   FilterAppliedAction,
   LOAD_NEXT_CANDIDATE_PROFILE_DETAIL,
   LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL,
+  LoadNextCandidateProfileDetailAction,
+  LoadPreviousCandidateProfileDetailAction,
   NEXT_PAGE_LOADED,
   NextPageLoadedAction,
   PRINT_PAGE,
-  SELECT_RAV_PHONE,
-  CONTACT_CANDIDATE,
-  EXPAND_CONTACT_INFO,
-  ExpandContactInfoAction,
-  CopyLinkAction,
-  SelectCandidatePhoneAction,
-  ContactCandidateAction,
-  SelectRavPhoneAction,
-  SendLinkAction,
   PrintPageAction,
-  LoadPreviousCandidateProfileDetailAction,
-  LoadNextCandidateProfileDetailAction
+  SELECT_CANDIDATE,
+  SELECT_CANDIDATE_PHONE,
+  SELECT_RAV_PHONE,
+  SelectCandidatePhoneAction,
+  SelectRavPhoneAction,
+  SEND_LINK,
+  SendLinkAction
 } from '../actions';
 import { debounceTime, switchMap, withLatestFrom } from 'rxjs/operators';
 import { KofTrackingService } from '../../../../shared/tracking/kof-tracking.service';
@@ -42,13 +41,17 @@ import { Action, select, Store } from '@ngrx/store';
 import {
   CandidateSearchResult,
   CandidateSearchState,
+  getCandidateSearchFilter,
   getCandidateSearchResults,
   getNextId,
   getPrevId,
   getSelectedCandidateProfile
 } from '../state';
 import { AsyncScheduler } from 'rxjs/internal/scheduler/AsyncScheduler';
-import { CANDIDATE_SEARCH_EFFECTS_DEBOUNCE, CANDIDATE_SEARCH_EFFECTS_SCHEDULER } from './index';
+import {
+  CANDIDATE_SEARCH_EFFECTS_DEBOUNCE,
+  CANDIDATE_SEARCH_EFFECTS_SCHEDULER
+} from './index';
 import { CandidateProfile } from '../../../../shared/backend-services/candidate/candidate.types';
 
 function pluckIds(items: CandidateProfile[]) {
@@ -63,11 +66,11 @@ const CDEvent = CandidateDetailsEventType;
 
 @Injectable()
 export class CandidateSearchLoggingEffects {
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logCandidateClicked: Observable<Object> = this.actions$.pipe(
     ofType<CandidateClickedAction>(SELECT_CANDIDATE),
     withLatestFrom(this.store.pipe(select(getCandidateSearchResults))),
-    switchMap(([action, searchResults] ) => {
+    switchMap(([action, searchResults]) => {
       const actionPayload = {
         id: action.payload.candidateProfile.externalId,
         index: findItemById(searchResults, action.payload.candidateProfile.id)
@@ -77,15 +80,16 @@ export class CandidateSearchLoggingEffects {
     })
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logSearchSubmitted$: Observable<Object> = this.actions$.pipe(
     ofType<ApplyFilterAction>(FILTER_APPLIED),
-    switchMap((action: ApplyFilterAction) => this.trackingService.logEvent(new TrackingEvent(CandidateSearchEventType.SEARCH_SUBMITTED, action.payload)))
+    withLatestFrom(this.store.pipe(select(getCandidateSearchFilter))),
+    switchMap(([action, filter]) => this.trackingService.logEvent(new TrackingEvent(CandidateSearchEventType.SEARCH_SUBMITTED, filter)))
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logSearchResultsLoaded$: Observable<Object> = this.actions$.pipe(
-    ofType<FilterAppliedAction | NextPageLoadedAction >(FILTER_APPLIED, NEXT_PAGE_LOADED),
+    ofType<FilterAppliedAction | NextPageLoadedAction>(FILTER_APPLIED, NEXT_PAGE_LOADED),
     switchMap((action: FilterAppliedAction | NextPageLoadedAction) => this.trackingService.logEvent(new TrackingEvent(CandidateSearchEventType.SEARCH_RESULTS_LOADED, {
       ...action.payload,
       page: pluckIds(action.payload.page),
@@ -93,38 +97,38 @@ export class CandidateSearchLoggingEffects {
     }))),
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logLoadNextCandidateProfile$ = this.logNextPrevAction<LoadNextCandidateProfileDetailAction>(LOAD_NEXT_CANDIDATE_PROFILE_DETAIL, CDEvent.NEXT_CANDIDATE_CLICKED, getNextId);
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logLoadPreviousCandidateProfile$ = this.logNextPrevAction<LoadPreviousCandidateProfileDetailAction>(LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL, CDEvent.PREVIOUS_CANDIDATE_CLICKED, getPrevId);
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logPrintCandidatePage$ = this.logIdByAction<PrintPageAction>(PRINT_PAGE, CDEvent.PRINT_PAGE_CLICKED);
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logEmailShare$ = this.logIdByAction<SendLinkAction>(SEND_LINK, CDEvent.EMAIL_LINK_CLICKED);
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logPhoneRav$ = this.logIdByAction<SelectRavPhoneAction>(SELECT_RAV_PHONE, CDEvent.RAV_PHONE_CLICKED);
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logCandidateContacted$ = this.logIdByAction<ContactCandidateAction>(CONTACT_CANDIDATE, CDEvent.CANDIDATE_CONTACT_CLICKED);
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logCandidatePhoneSelected$ = this.logIdByAction<SelectCandidatePhoneAction>(SELECT_CANDIDATE_PHONE, CDEvent.CANDIDATE_PHONE_CLICKED);
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logCandidateCopy$ = this.logIdByAction<CopyLinkAction>(COPY_LINK, CDEvent.COPY_LINK_CLICKED);
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logExpandContactInfo$ = this.logIdByAction<ExpandContactInfoAction>(EXPAND_CONTACT_INFO, CDEvent.CANDIDATE_CONTACT_INFO_EXPANDED);
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   logCandidateDetailsLoaded$: Observable<Object> = this.actions$.pipe(
     ofType<CandidateProfileDetailLoadedAction>(CANDIDATE_PROFILE_DETAIL_LOADED),
     switchMap((action: CandidateProfileDetailLoadedAction) => {
-      const eventData = {id: action.payload.candidateProfile.externalId};
+      const eventData = { id: action.payload.candidateProfile.externalId };
       const evt = new TrackingEvent(CDEvent.CANDIDATE_PROFILE_LOADED, eventData);
       return this.trackingService.logEvent(evt);
     })
