@@ -125,9 +125,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       })
     );
 
-    this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations)).pipe(
-      map((occupations) => occupations.map((b) => b.payload))
-    );
+    this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations));
 
     this.candidateSearchProfile$ = this.store.pipe(select(getCandidateSearchProfile));
 

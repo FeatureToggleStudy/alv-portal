@@ -10,7 +10,7 @@ import {
 } from '../../../../shared/backend-services/shared.types';
 import {
   CandidateProfile,
-  FilterLanguageSkill
+  FilterLanguageSkill, JobExperience
 } from '../../../../shared/backend-services/candidate/candidate.types';
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
@@ -88,7 +88,7 @@ export const getResultsAreLoading = createSelector(getCandidateSearchState, (sta
 
 export const getSelectedCandidateProfile = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.selectedCandidateProfile);
 
-export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations);
+export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations.map((b) => b.payload));
 
 export const getCandidateSearchProfile = createSelector(getCandidateSearchState, (state) => state.candidateSearchProfile);
 
