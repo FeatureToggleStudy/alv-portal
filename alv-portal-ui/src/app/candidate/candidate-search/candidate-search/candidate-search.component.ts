@@ -80,8 +80,6 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   searchMailToLink$: Observable<string>;
 
-  selectedOccupationCodes: Observable<OccupationCode[]>;
-
   disableSaveSearchProfileButton$: Observable<boolean>;
 
   detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
@@ -124,8 +122,6 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
         }
       })
     );
-
-    this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations));
 
     this.candidateSearchProfile$ = this.store.pipe(select(getCandidateSearchProfile));
 
