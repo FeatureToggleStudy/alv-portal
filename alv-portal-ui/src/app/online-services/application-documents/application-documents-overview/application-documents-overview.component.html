@@ -10,9 +10,10 @@
           {{ 'portal.application-documents.title' | translate }}
         </h2>
         <div ngbDropdown
+             class="sort-button"
              placement="bottom-right">
           <button type="button"
-                  class="btn btn-text sort-button no-dropdown-indicator"
+                  class="btn btn-text no-dropdown-indicator"
                   ngbDropdownToggle>
             <span class="d-none d-md-inline">
             {{'portal.application-documents.filter.' + selectedSortType | translate}}
@@ -67,7 +68,7 @@
       </alv-application-document>
     </div>
     <div class="d-none d-lg-block col-lg-3 col-xl-2">
-      <button class="add-button btn btn-primary btn-block position-sticky"
+      <button class="add-button btn btn-primary btn-block"
               (click)="openModal()">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
