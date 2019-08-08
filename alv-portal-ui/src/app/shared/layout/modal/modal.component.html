@@ -1,28 +1,33 @@
 <div class="modal-header">
 
-  <div class="d-flex flex-column">
-    <h2 class="modal-title">
-      <fa-icon *ngIf="icon"
-               class="mr-2 text-primary"
-               [icon]="icon">
-      </fa-icon>
-      {{modalTitle | translate}}
-    </h2>
+  <div class="d-flex flex-row align-items-start w-100">
+    <div class="d-flex flex-column w-100">
+      <h2 class="modal-title">
+        <fa-icon *ngIf="icon"
+                 class="mr-2 text-primary"
+                 [icon]="icon">
+        </fa-icon>
+        {{modalTitle | translate}}
+      </h2>
 
-    <div *ngIf="subtitle"
-         class="modal-subtitle">
-      {{subtitle | translate}}
+      <div *ngIf="subtitle"
+           class="modal-subtitle">
+        {{subtitle | translate}}
+      </div>
     </div>
+
+    <div class="flex-grow-1"></div>
+
+    <button *ngIf="showCloseButton"
+            type="button"
+            class="close"
+            [attr.aria-label]="'portal.global.close' | translate"
+            [disabled]="isLoading()"
+            (click)="handleCancelClick()">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
 
-  <button *ngIf="showCloseButton"
-          type="button"
-          class="close"
-          [attr.aria-label]="'portal.global.close' | translate"
-          [disabled]="isLoading()"
-          (click)="handleCancelClick()">
-    <span aria-hidden="true">&times;</span>
-  </button>
 </div>
 
 <!-- Surround the modal content with a form element if a formGroup is present to enable the form submit behaviour -->

@@ -2,6 +2,18 @@
   max-width: unset;
 }
 
-.add-button {
-  top: 160px;
+.sort-button {
+  position: absolute;
+  right: 0;
+  top: -0.3em;
 }
+
+.add-button {
+  top: 54px;
+  position: relative;
+  @supports (position: sticky) {
+    top: 154px;
+    position: sticky;
+  }
+}
+
