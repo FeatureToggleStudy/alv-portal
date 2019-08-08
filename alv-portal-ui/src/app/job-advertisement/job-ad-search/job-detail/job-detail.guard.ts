@@ -4,7 +4,7 @@ import {
   CanDeactivate,
   RouterStateSnapshot
 } from '@angular/router';
-import { forkJoin, Observable, of } from 'rxjs';
+import { EMPTY, forkJoin, Observable, of } from 'rxjs';
 import {
   FavouriteItemLoadedAction,
   JobAdSearchState,
@@ -12,13 +12,14 @@ import {
   JobAdvertisementDetailUnloadedAction
 } from '../state-management';
 import { Store } from '@ngrx/store';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { JobAdvertisementRepository } from '../../../shared/backend-services/job-advertisement/job-advertisement.repository';
 import { Injectable } from '@angular/core';
 import { isAuthenticatedUser } from '../../../core/auth/user.model';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { JobDetailComponent } from './job-detail.component';
+import { NotificationsService } from '../../../core/notifications.service';
 
 @Injectable()
 export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailComponent> {
@@ -26,6 +27,7 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
   constructor(
     private store: Store<JobAdSearchState>,
     private authenticationService: AuthenticationService,
+    private notificationService: NotificationsService,
     private jobAdFavouritesRepository: JobAdFavouritesRepository,
     private jobAdvertisementRepository: JobAdvertisementRepository) {
   }
@@ -51,6 +53,13 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
         if (favouriteItem !== undefined) {
           this.store.dispatch(new FavouriteItemLoadedAction({ favouriteItem: favouriteItem }));
         }
+      }),
+      catchError(err => {
+        if (err.status === 403) {
+          this.notificationService.error('bbla bla bla');
+          return EMPTY;
+        }
+        throw err;
       }),
       map(() => {
         return true;
