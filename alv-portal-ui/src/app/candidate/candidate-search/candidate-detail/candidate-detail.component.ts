@@ -129,11 +129,15 @@ export class CandidateDetailComponent extends AbstractSubscriber implements OnIn
   }
 
   openContactModal(candidateProfile: CandidateProfile): void {
-    this.store.dispatch(new ContactCandidateAction());
-
     this.appendCandidateToModalRef(candidateProfile)
-      .then(() => this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success'), () => {
-      });
+      .then(
+        () => {
+          this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success');
+          this.store.dispatch(new ContactCandidateAction());
+        },
+        () => {
+        }
+      );
   }
 
   appendCandidateToModalRef(candidateProfile: CandidateProfile) {
