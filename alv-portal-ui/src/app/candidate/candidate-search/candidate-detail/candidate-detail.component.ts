@@ -15,6 +15,7 @@ import {
   LoadPreviousCandidateProfileDetailAction,
   PrintPageAction,
   SelectCandidatePhoneAction,
+  SelectRavEmailAction,
   SelectRavPhoneAction,
   SendLinkAction
 } from '../state-management';
@@ -162,7 +163,10 @@ export class CandidateDetailComponent extends AbstractSubscriber implements OnIn
 
   logPhoneRav() {
     this.store.dispatch(new SelectRavPhoneAction());
+  }
 
+  logEmailRav() {
+    this.store.dispatch(new SelectRavEmailAction());
   }
 
   logSelectCandidatePhone() {

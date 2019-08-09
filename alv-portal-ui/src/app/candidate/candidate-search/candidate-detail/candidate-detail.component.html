@@ -104,6 +104,7 @@
                 </div>
                 <div *ngIf="contact.email">
                   <a class="link"
+                     (click)="logEmailRav()"
                      href="mailto:{{contact.email}}">{{contact.email}}</a>
                 </div>
               </div>

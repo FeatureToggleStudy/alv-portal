@@ -24,8 +24,10 @@ import {
   PrintPageAction,
   SELECT_CANDIDATE,
   SELECT_CANDIDATE_PHONE,
+  SELECT_RAV_EMAIL,
   SELECT_RAV_PHONE,
   SelectCandidatePhoneAction,
+  SelectRavEmailAction,
   SelectRavPhoneAction,
   SEND_LINK,
   SendLinkAction
@@ -111,6 +113,9 @@ export class CandidateSearchLoggingEffects {
 
   @Effect({ dispatch: false })
   logPhoneRav$ = this.logIdByAction<SelectRavPhoneAction>(SELECT_RAV_PHONE, CDEvent.RAV_PHONE_CLICKED);
+
+  @Effect({ dispatch: false })
+  logEmailRav$ = this.logIdByAction<SelectRavEmailAction>(SELECT_RAV_EMAIL, CDEvent.RAV_EMAIL_CLICKED);
 
   @Effect({ dispatch: false })
   logCandidateContacted$ = this.logIdByAction<ContactCandidateAction>(CONTACT_CANDIDATE, CDEvent.CANDIDATE_CONTACT_CLICKED);
