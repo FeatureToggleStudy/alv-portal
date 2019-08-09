@@ -22,6 +22,7 @@ export const PRINT_PAGE = 'CANDIDATES:PRINT_PAGE';
 export const COPY_LINK = 'CANDIDATES:COPY_LINK';
 export const SEND_LINK = 'CANDIDATES:SEND_LINK';
 export const SELECT_RAV_PHONE = 'CANDIDATES:SELECT_RAV_PHONE';
+export const SELECT_RAV_EMAIL = 'CANDIDATES:SELECT_RAV_EMAIL';
 export const EXPAND_CONTACT_INFO = 'CANDIDATES:EXPAND_CONTACT_INFO';
 export const SELECT_CANDIDATE_PHONE = 'CANDIDATES:SELECT_CANDIDATE_PHONE';
 export const CONTACT_CANDIDATE = 'CANDIDATES:CONTACT_CANDIDATE';
@@ -183,6 +184,13 @@ export class ResetAction implements Action {
 
 export class SelectRavPhoneAction implements Action {
   readonly type = SELECT_RAV_PHONE;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class SelectRavEmailAction implements Action {
+  readonly type = SELECT_RAV_EMAIL;
 
   constructor(public payload = {}) {
   }
