@@ -18,6 +18,9 @@ import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/st
 import { LocalityTypeaheadItem } from '../../../../shared/localities/locality-typeahead-item';
 import { ResolvedCandidateSearchProfile } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
 import { findRelevantJobExperience } from '../../candidate-rules';
+import * as xxhash from 'xxhashjs/build/xxhash.js';
+
+const HASH = xxhash.h32(0xABCDEF);
 
 export interface CandidateSearchState {
   totalCount: number;
@@ -77,6 +80,7 @@ export interface CandidateSearchResult {
   candidateProfile: CandidateProfile;
   relevantJobExperience: JobExperience;
   visited: boolean;
+  hashCode: string;
 }
 
 export const getCandidateSearchState = createFeatureSelector<CandidateSearchState>('candidateSearch');
@@ -109,11 +113,14 @@ export const getCandidateSearchResults = createSelector(
       return undefined;
     }
     return resultList.map((candidateProfile) => {
-      return {
+      const res: CandidateSearchResult = {
         candidateProfile: candidateProfile,
         visited: visitedCandidates[candidateProfile.id] || false,
-        relevantJobExperience: findRelevantJobExperience(candidateProfile, selectedOccupations)
+        relevantJobExperience: findRelevantJobExperience(candidateProfile, selectedOccupations),
+        hashCode: ''
       };
+      res.hashCode = HASH.update(JSON.stringify(res)).digest().toString(16);
+      return res;
     });
   });
 

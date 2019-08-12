@@ -17,14 +17,15 @@ import {
   CandidateSearchResult,
   CandidateSearchState,
   FILTER_APPLIED,
-  getCandidateSearchFilter, getCandidateSearchProfile,
+  getCandidateSearchFilter,
+  getCandidateSearchProfile,
   getCandidateSearchResults,
   getResultsAreLoading,
   getSelectedCandidateProfile,
-  getSelectedOccupations,
   getTotalCount,
   LoadNextPageAction,
-  ResetFilterAction, SearchProfileUpdatedAction
+  ResetFilterAction,
+  SearchProfileUpdatedAction
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
@@ -35,15 +36,12 @@ import { composeResultListItemId } from '../../../shared/layout/result-list-item
 import { CandidateSearchFilterParameterService } from './candidate-search-filter-parameter.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
-import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { WINDOW } from '../../../core/window.service';
 import { filter } from 'rxjs/internal/operators/filter';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { User, UserRole } from '../../../core/auth/user.model';
-import {
-  getCandidateDeleteConfirmModalConfig
-} from '../../../shared/search-profiles/modal-config.types';
+import { UserRole } from '../../../core/auth/user.model';
+import { getCandidateDeleteConfirmModalConfig } from '../../../shared/search-profiles/modal-config.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CandidateSearchProfilesRepository } from '../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.repository';
 import { NotificationsService } from '../../../core/notifications.service';
@@ -101,6 +99,10 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
               private cdRef: ChangeDetectorRef,
               @Inject(WINDOW) private window: Window) {
     super();
+  }
+
+  trackByHash(index: number, item: CandidateSearchResult ) {
+    return item.hashCode;
   }
 
   ngOnInit() {
@@ -215,7 +217,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       .then(
         (result) => {
           if (result) {
-            this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: result }));
+            this.store.dispatch(new SearchProfileUpdatedAction({searchProfile: result}));
           } else {
             this.createSearchProfile();
           }
@@ -228,7 +230,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
     const modalRef = this.modalService.openMedium(SaveSearchProfileModalComponent);
     modalRef.result
       .then((searchProfile) => {
-        this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: searchProfile }));
+        this.store.dispatch(new SearchProfileUpdatedAction({searchProfile: searchProfile}));
       })
       .catch(() => {
       });
@@ -245,7 +247,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
           .then(result => {
             this.candidateSearchProfilesRepository.delete(searchProfile.id)
               .subscribe(() => {
-                this.store.dispatch(new SearchProfileUpdatedAction({ searchProfile: undefined }));
+                this.store.dispatch(new SearchProfileUpdatedAction({searchProfile: undefined}));
                 this.notificationsService.success('portal.candidate-search-profiles.notification.profile-deleted');
               });
           })
