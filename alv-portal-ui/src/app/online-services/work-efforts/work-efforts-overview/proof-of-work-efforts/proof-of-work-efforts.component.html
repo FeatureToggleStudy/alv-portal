@@ -1,40 +1,33 @@
-<button class="alv-cells w-100 d-flex align-items-stretch text-left position-relative p-0 row no-gutters"
-        (click)="expanded = !expanded"
-        [ngClass]="expanded ? 'expanded' : 'collapsed'">
-  <span class="col-auto col-lg-3 cell name-cell"
-        [class.before-unemployment]="proofOfWorkEffortsModel.isBeforeEmployment">
-      <span class="cell-label">
-        {{'portal.work-efforts.proof-of-work-efforts.name-cell.before-unemployment.label' | translate}}
-      </span>
-      <h3 class="period-title mb-2 my-lg-0"
-          [class.mt-2]="!proofOfWorkEffortsModel.isBeforeEmployment">
-        <fa-icon [icon]="['fas', expanded ? 'caret-up' : 'caret-down']"
-                 class="mr-1"></fa-icon>
-        {{'portal.work-efforts.month.' + proofOfWorkEffortsModel.monthValue | translate}}
-        {{proofOfWorkEffortsModel.controlPeriodDateString | date:'yyyy'}}
-      </h3>
-  </span>
-  <span class="col-auto col-lg-3 cell pdf-cell">
-    <alv-file *ngIf="proofOfWorkEffortsModel.hasPdfDocument"
-              [fileName]="('portal.work-efforts.proof-of-work-efforts.pdf-file.name' | translate) + proofOfWorkEffortsModel.controlPeriodDateString + '.pdf'"
-              fileType="application/pdf"
-              [downloadFile$]="downloadPdf$"
-              (click)="$event.stopPropagation()"
-              class="d-block p-0 my-2 my-lg-0"
-              [class.mt-3]="proofOfWorkEffortsModel.isBeforeEmployment">
-    </alv-file>
-  </span>
-  <span class="col-12 col-lg-3 cell d-flex flex-column">
-    <span class="cell-label">
-      {{'portal.work-efforts.edit-status.label' | translate}}
+<div class="position-relative">
+  <button class="alv-cells w-100 d-flex align-items-stretch text-left position-relative p-0 row no-gutters"
+          (click)="expanded = !expanded"
+          [ngClass]="expanded ? 'expanded' : 'collapsed'">
+    <span class="col-auto col-lg-3 cell name-cell"
+          [class.before-unemployment]="proofOfWorkEffortsModel.isBeforeEmployment">
+        <span class="cell-label">
+          {{'portal.work-efforts.proof-of-work-efforts.name-cell.before-unemployment.label' | translate}}
+        </span>
+        <h3 class="period-title mb-2 my-lg-0"
+            [class.mt-2]="!proofOfWorkEffortsModel.isBeforeEmployment">
+          <fa-icon [icon]="['fas', expanded ? 'caret-up' : 'caret-down']"
+                   class="mr-1"></fa-icon>
+          {{'portal.work-efforts.month.' + proofOfWorkEffortsModel.monthValue | translate}}
+          {{proofOfWorkEffortsModel.controlPeriodDateString | date:'yyyy'}}
+        </h3>
     </span>
-    <div class="flex-grow-1">
-      {{'portal.work-efforts.proof-of-work-efforts.edit-status.text' | translate}}:
-      {{proofOfWorkEffortsModel.workEfforts.length}}
-    </div>
-  </span>
-  <span class="col-12 col-lg-3 cell d-flex flex-column"
-        [class.success]="proofOfWorkEffortsModel.isSentSuccessfully">
+    <span class="col-auto col-lg-3 cell pdf-cell positon-relative">
+    </span>
+    <span class="col-12 col-lg-3 cell d-flex flex-column">
+      <span class="cell-label">
+        {{'portal.work-efforts.edit-status.label' | translate}}
+      </span>
+      <div class="flex-grow-1">
+        {{'portal.work-efforts.proof-of-work-efforts.edit-status.text' | translate}}:
+        {{proofOfWorkEffortsModel.workEfforts.length}}
+      </div>
+    </span>
+    <span class="col-12 col-lg-3 cell d-flex flex-column"
+          [class.success]="proofOfWorkEffortsModel.isSentSuccessfully">
     <span class="cell-label">
       {{'portal.work-efforts.submit-status.label' | translate}}
     </span>
@@ -46,9 +39,19 @@
                class="w-100"></fa-icon>
     </div>
   </span>
-  <span class="expanded-indicator">
+    <span class="expanded-indicator">
   </span>
-</button>
+  </button>
+  <alv-file *ngIf="proofOfWorkEffortsModel.hasPdfDocument"
+            [fileName]="('portal.work-efforts.proof-of-work-efforts.pdf-file.name' | translate) + proofOfWorkEffortsModel.controlPeriodDateString + '.pdf'"
+            fileType="application/pdf"
+            [downloadFile$]="downloadPdf$"
+            (click)="$event.stopPropagation()"
+            class="file d-block p-0 my-2 my-lg-0"
+            [class.mt-3]="proofOfWorkEffortsModel.isBeforeEmployment">
+  </alv-file>
+</div>
+
 
 <!-- Collapse Panel -->
 <ng-container *ngIf="expanded">

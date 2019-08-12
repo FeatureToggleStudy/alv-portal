@@ -44,6 +44,12 @@
   }
 }
 
+.file {
+  position: absolute;
+  top: 1.5em;
+  left: calc(25% + .5em);
+}
+
 .no-work-efforts {
   border: 1px solid $color-medium-grey;
   background-color: white;
@@ -75,5 +81,11 @@
       display: flex;
       align-items: center;
     }
+  }
+  .file {
+    position: absolute;
+    top: .25em;
+    right: .5em;
+    left: initial;
   }
 }
