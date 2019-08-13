@@ -17,6 +17,7 @@ export class FileSaverService {
     } else {
       const element = this.document.createElement('a');
       element.href = URL.createObjectURL(blob);
+      element.target = '_blank';
       element.download = filename;
       this.document.body.appendChild(element);
       element.click();
