@@ -15,8 +15,10 @@
           {{proofOfWorkEffortsModel.controlPeriodDateString | date:'yyyy'}}
         </h3>
     </span>
+
     <span class="col-auto col-lg-3 cell pdf-cell positon-relative">
     </span>
+
     <span class="col-12 col-lg-3 cell d-flex flex-column">
       <span class="cell-label">
         {{'portal.work-efforts.edit-status.label' | translate}}
@@ -26,21 +28,23 @@
         {{proofOfWorkEffortsModel.workEfforts.length}}
       </div>
     </span>
+
     <span class="col-12 col-lg-3 cell d-flex flex-column"
           [class.success]="proofOfWorkEffortsModel.isSentSuccessfully">
-    <span class="cell-label">
-      {{'portal.work-efforts.submit-status.label' | translate}}
+      <span class="cell-label">
+        {{'portal.work-efforts.submit-status.label' | translate}}
+      </span>
+      <div class="flex-grow-1">
+            {{ proofOfWorkEffortsModel.statusLabel | translate:{dateTime: proofOfWorkEffortsModel.submissionDate | date: 'dd.MM.yyyy HH:mm'} }}
+      </div>
+      <div class="success-icon-container">
+        <fa-icon [icon]="['fas', 'check']"
+                 class="w-100"></fa-icon>
+      </div>
     </span>
-    <div class="flex-grow-1">
-          {{ proofOfWorkEffortsModel.statusLabel | translate:{dateTime: proofOfWorkEffortsModel.submissionDate | date: 'dd.MM.yyyy HH:mm'} }}
-    </div>
-    <div class="success-icon-container">
-      <fa-icon [icon]="['fas', 'check']"
-               class="w-100"></fa-icon>
-    </div>
-  </span>
+
     <span class="expanded-indicator">
-  </span>
+    </span>
   </button>
   <alv-file *ngIf="proofOfWorkEffortsModel.hasPdfDocument"
             [fileName]="('portal.work-efforts.proof-of-work-efforts.pdf-file.name' | translate) + proofOfWorkEffortsModel.controlPeriodDateString + '.pdf'"
