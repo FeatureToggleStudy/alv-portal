@@ -81,6 +81,9 @@
       display: flex;
       align-items: center;
     }
+    .name-cell {
+      min-height: 0;
+    }
   }
   .file {
     position: absolute;
