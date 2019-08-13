@@ -4,8 +4,9 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import {
+  CandidateContactedAction,
   CandidateSearchState,
-  ContactCandidateAction,
+  ContactCandidateDialogOpenedAction,
   CopyLinkAction,
   ExpandContactInfoAction,
   getSelectedCandidateProfile,
@@ -129,11 +130,12 @@ export class CandidateDetailComponent extends AbstractSubscriber implements OnIn
   }
 
   openContactModal(candidateProfile: CandidateProfile): void {
+    this.store.dispatch(new ContactCandidateDialogOpenedAction());
     this.appendCandidateToModalRef(candidateProfile)
       .then(
         () => {
+          this.store.dispatch(new CandidateContactedAction());
           this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success');
-          this.store.dispatch(new ContactCandidateAction());
         },
         () => {
         }
