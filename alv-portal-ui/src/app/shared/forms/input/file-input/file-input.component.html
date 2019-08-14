@@ -1,10 +1,7 @@
-<button class="upload-button btn btn-secondary p-2 w-100"
-        alvFileDragDrop
+<button class="upload-button btn btn-secondary p-2 mb-2 w-100"
         type="button"
-        [dragDropDisabled]="isFileSelectionDisabled()"
         [disabled]="isFileSelectionDisabled()"
-        (click)="fileInput.value = ''; fileInput.click();"
-        (fileDropped)="uploadFile($event); fileInput.value = ''">
+        (click)="fileInput.value = ''; fileInput.click();">
   {{ label | translate }}
   <input #fileInput
          hidden
@@ -14,6 +11,16 @@
          [accept]="accept"
          (change)="uploadFile(($event.target || $event.srcElement).files);">
 </button>
+<div class="upload-area d-flex align-items-center justify-content-center w-100"
+     alvFileDragDrop
+     [dragDropDisabled]="isFileSelectionDisabled()"
+     (fileDropped)="uploadFile($event); fileInput.value = ''">
+  <fa-icon [icon]="['fas', 'cloud-upload-alt']"
+           class="mr-1">
+  </fa-icon>
+  Drag & Drop Area
+</div>
+
 <alv-file-upload-preview *ngFor="let file of files; let index = index"
           [fileName]="file.name"
           [fileSize]="file.size"

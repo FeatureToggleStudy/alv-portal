@@ -5,8 +5,23 @@
   align-items: center;
   border: 1px solid $color-medium-grey;
   height: 46px;
+  alv-file {
+    max-width: calc(100% - 50px);
+    &.has-remove-button {
+      max-width: calc(100% - 70px);
+    }
+  }
   .file-size {
     color: $color-grey;
     white-space: nowrap;
+  }
+  .remove-button {
+    color: $color-dark-grey;
+    &:hover   {
+      color: $color-grey-black;
+    }
+    ::ng-deep svg {
+      vertical-align: initial;
+    }
   }
 }

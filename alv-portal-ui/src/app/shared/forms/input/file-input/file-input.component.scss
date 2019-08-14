@@ -1,11 +1,17 @@
 @import "../../../../../scss/common/colors";
 
-.upload-button {
+.upload-button, .upload-area {
   height: 46px;
+}
 
+.upload-area {
+  border: 1px dashed $color-medium-grey;
+  color: $color-dark-grey;
+  text-align: center;
   &.alv-dragover {
     opacity: 80%;
     background-color: $color-red-transparent;
-    border: 2px dashed $color-primary;
+    border: 1px dashed $color-primary;
+    color: $color-primary;
   }
 }

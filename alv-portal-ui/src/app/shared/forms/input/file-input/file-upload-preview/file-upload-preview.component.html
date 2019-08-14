@@ -2,6 +2,7 @@
   <alv-file [fileName]="fileName"
             [fileType]="fileType"
             [downloadFile$]="downloadFile$"
+            [class.has-remove-button]="showRemoveButton"
             iconSize="lg">
   </alv-file>
   <div class="file-size ml-2">
@@ -13,7 +14,10 @@
           class="btn btn-toggle-icon"
           [disabled]="isDisabled"
           (click)="remove()">
-    <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+    <fa-icon [icon]="['fas', 'times']"
+             size="xs"
+             class="remove-button">
+    </fa-icon>
   </button>
 </div>
 
