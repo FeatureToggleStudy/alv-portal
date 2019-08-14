@@ -6,9 +6,8 @@ import { I18nService } from '../../../../core/i18n.service';
 import { JobExperience } from '../../../../shared/backend-services/candidate/candidate.types';
 import { CandidateClickedAction, CandidateSearchResult, CandidateSearchState } from '../../state-management';
 import { GenderAwareOccupationLabel, OccupationService } from '../../../../shared/occupations/occupation.service';
-import { extractGenderNeutralTitle, findRelevantJobExperience } from '../../candidate-rules';
+import { extractGenderNeutralTitle } from '../../candidate-rules';
 import { CandidateProfileBadgesMapperService } from '../../candidate-profile-badges-mapper.service';
-import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -76,6 +75,3 @@ export class CandidateSearchResultComponent implements OnInit {
     };
   }
 }
-
-
-
