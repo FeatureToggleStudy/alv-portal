@@ -104,6 +104,7 @@
                 </div>
                 <div *ngIf="contact.email">
                   <a class="link"
+                     (click)="logEmailRav()"
                      href="mailto:{{contact.email}}">{{contact.email}}</a>
                 </div>
               </div>
@@ -125,7 +126,7 @@
     <div class="main-column">
 
       <!-----------------Title-->
-      <h2 class="mt-1 mb-4 candidate-title"><strong>{{candidateDetailModel.lastJobExperience?.occupationLabel}}</strong></h2>
+      <h2 class="mt-1 mb-4 candidate-occupation"><strong>{{candidateDetailModel.lastJobExperience?.occupationLabel}}</strong></h2>
 
       <!--Badges-->
       <div class="mb-4">
@@ -145,7 +146,7 @@
               'candidate-detail.job-experience.last-job.label' :
               'portal.candidate-detail.other-work-experience.label') | translate}}
             </strong>
-            <h3 class="text-primary text-capitalize">{{jobExperience.occupationLabel}}</h3>
+            <h3 class="text-primary candidate-occupation">{{jobExperience.occupationLabel}}</h3>
             <ul class="alv-list">
               <alv-list-item-content *ngIf="jobExperience.jobExperience.remark as remark"
                                      label="candidate-detail.job-experience.description.label">

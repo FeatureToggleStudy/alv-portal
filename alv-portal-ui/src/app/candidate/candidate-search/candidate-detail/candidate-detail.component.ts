@@ -4,8 +4,9 @@ import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import {
+  CandidateContactedAction,
   CandidateSearchState,
-  ContactCandidateAction,
+  ContactCandidateDialogOpenedAction,
   CopyLinkAction,
   ExpandContactInfoAction,
   getSelectedCandidateProfile,
@@ -15,6 +16,7 @@ import {
   LoadPreviousCandidateProfileDetailAction,
   PrintPageAction,
   SelectCandidatePhoneAction,
+  SelectRavEmailAction,
   SelectRavPhoneAction,
   SendLinkAction
 } from '../state-management';
@@ -128,11 +130,16 @@ export class CandidateDetailComponent extends AbstractSubscriber implements OnIn
   }
 
   openContactModal(candidateProfile: CandidateProfile): void {
-    this.store.dispatch(new ContactCandidateAction());
-
+    this.store.dispatch(new ContactCandidateDialogOpenedAction());
     this.appendCandidateToModalRef(candidateProfile)
-      .then(() => this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success'), () => {
-      });
+      .then(
+        () => {
+          this.store.dispatch(new CandidateContactedAction());
+          this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success');
+        },
+        () => {
+        }
+      );
   }
 
   appendCandidateToModalRef(candidateProfile: CandidateProfile) {
@@ -162,7 +169,10 @@ export class CandidateDetailComponent extends AbstractSubscriber implements OnIn
 
   logPhoneRav() {
     this.store.dispatch(new SelectRavPhoneAction());
+  }
 
+  logEmailRav() {
+    this.store.dispatch(new SelectRavEmailAction());
   }
 
   logSelectCandidatePhone() {

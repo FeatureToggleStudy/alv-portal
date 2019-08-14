@@ -4,8 +4,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { TrackingEvent } from './tracking.types';
 import { I18nService } from '../../core/i18n.service';
 import { HttpClient } from '@angular/common/http';
-import { combineLatest, Observable, of } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, switchMap, take } from 'rxjs/operators';
 import { AuthenticationService } from '../../core/auth/authentication.service';
 import { ProfileInfoService } from '../layout/header/profile-info.service';
 
@@ -38,10 +38,9 @@ export class KofTrackingService {
    * @param event
    */
   logEvent(event: TrackingEvent): Observable<Object> {
-    return combineLatest(this.i18nService.currentLanguage$, this.profileInfoService.getProfileInfo()).pipe(
-      switchMap(([currentLanguage, profileInfo]) => {
-        return !profileInfo.inProduction ? this.submitRequest(event, currentLanguage, this.trackingId) : of({});
-      }),
+    return this.i18nService.currentLanguage$.pipe(
+      take(1),
+      switchMap((currentLanguage) => this.submitRequest(event, currentLanguage, this.trackingId)),
       catchError(x => {
         console.error(`Error during logging for the event for the event ${event}, trackingId: ${this.trackingId}`);
         return of({});

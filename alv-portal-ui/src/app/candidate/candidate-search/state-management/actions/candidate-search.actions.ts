@@ -22,9 +22,11 @@ export const PRINT_PAGE = 'CANDIDATES:PRINT_PAGE';
 export const COPY_LINK = 'CANDIDATES:COPY_LINK';
 export const SEND_LINK = 'CANDIDATES:SEND_LINK';
 export const SELECT_RAV_PHONE = 'CANDIDATES:SELECT_RAV_PHONE';
+export const SELECT_RAV_EMAIL = 'CANDIDATES:SELECT_RAV_EMAIL';
 export const EXPAND_CONTACT_INFO = 'CANDIDATES:EXPAND_CONTACT_INFO';
 export const SELECT_CANDIDATE_PHONE = 'CANDIDATES:SELECT_CANDIDATE_PHONE';
-export const CONTACT_CANDIDATE = 'CANDIDATES:CONTACT_CANDIDATE';
+export const CONTACT_CANDIDATE_DIALOG_OPENED = 'CANDIDATES:CONTACT_CANDIDATE_DIALOG_OPENED';
+export const CANDIDATE_CONTACTED = 'CANDIDATES:CANDIDATE_CONTACTED';
 export const APPLY_FILTER_VALUES = 'CANDIDATES:APPLY_FILTER_VALUES';
 export const APPLY_QUERY_VALUES = 'CANDIDATES:APPLY_QUERY_VALUES';
 export const RESET_FILTER = 'CANDIDATES:RESET_FILTER';
@@ -188,6 +190,13 @@ export class SelectRavPhoneAction implements Action {
   }
 }
 
+export class SelectRavEmailAction implements Action {
+  readonly type = SELECT_RAV_EMAIL;
+
+  constructor(public payload = {}) {
+  }
+}
+
 export class ExpandContactInfoAction implements Action {
   readonly type = EXPAND_CONTACT_INFO;
 
@@ -195,8 +204,14 @@ export class ExpandContactInfoAction implements Action {
   }
 }
 
-export class ContactCandidateAction implements Action {
-  readonly type = CONTACT_CANDIDATE;
+export class ContactCandidateDialogOpenedAction implements Action {
+  readonly type = CONTACT_CANDIDATE_DIALOG_OPENED;
+
+  constructor(public payload = {}) {
+  }
+}
+export class CandidateContactedAction implements Action {
+  readonly type = CANDIDATE_CONTACTED;
 
   constructor(public payload = {}) {
   }

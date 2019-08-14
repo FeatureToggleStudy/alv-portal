@@ -2,12 +2,12 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { asyncScheduler, Observable } from 'rxjs';
 import {
-  ApplyFilterAction,
+  ApplyFilterAction, CANDIDATE_CONTACTED,
   CANDIDATE_PROFILE_DETAIL_LOADED,
-  CandidateClickedAction,
+  CandidateClickedAction, CandidateContactedAction,
   CandidateProfileDetailLoadedAction,
-  CONTACT_CANDIDATE,
-  ContactCandidateAction,
+  CONTACT_CANDIDATE_DIALOG_OPENED,
+  ContactCandidateDialogOpenedAction,
   COPY_LINK,
   CopyLinkAction,
   EXPAND_CONTACT_INFO,
@@ -24,8 +24,10 @@ import {
   PrintPageAction,
   SELECT_CANDIDATE,
   SELECT_CANDIDATE_PHONE,
+  SELECT_RAV_EMAIL,
   SELECT_RAV_PHONE,
   SelectCandidatePhoneAction,
+  SelectRavEmailAction,
   SelectRavPhoneAction,
   SEND_LINK,
   SendLinkAction
@@ -113,7 +115,13 @@ export class CandidateSearchLoggingEffects {
   logPhoneRav$ = this.logIdByAction<SelectRavPhoneAction>(SELECT_RAV_PHONE, CDEvent.RAV_PHONE_CLICKED);
 
   @Effect({ dispatch: false })
-  logCandidateContacted$ = this.logIdByAction<ContactCandidateAction>(CONTACT_CANDIDATE, CDEvent.CANDIDATE_CONTACT_CLICKED);
+  logEmailRav$ = this.logIdByAction<SelectRavEmailAction>(SELECT_RAV_EMAIL, CDEvent.RAV_EMAIL_CLICKED);
+
+  @Effect({ dispatch: false })
+  logContactCandidateDialogOpened$ = this.logIdByAction<CandidateContactedAction>(CANDIDATE_CONTACTED, CDEvent.CONTACT_CANDIDATE_DIALOG_OPENED);
+
+  @Effect({ dispatch: false })
+  logCandidateContacted$ = this.logIdByAction<ContactCandidateDialogOpenedAction>(CONTACT_CANDIDATE_DIALOG_OPENED, CDEvent.CANDIDATE_CONTACTED);
 
   @Effect({ dispatch: false })
   logCandidatePhoneSelected$ = this.logIdByAction<SelectCandidatePhoneAction>(SELECT_CANDIDATE_PHONE, CDEvent.CANDIDATE_PHONE_CLICKED);

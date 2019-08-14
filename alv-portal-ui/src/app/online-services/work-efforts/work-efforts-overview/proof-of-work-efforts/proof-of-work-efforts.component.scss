@@ -23,6 +23,7 @@
 
     padding-top: 1.5em;
     display: block;
+    min-height: 74px;
 
     .period-title {
       font-size: 1.1em;
@@ -73,6 +74,9 @@
       border-left: none;
       display: flex;
       align-items: center;
+    }
+    .name-cell {
+      min-height: 0;
     }
   }
 }
