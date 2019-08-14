@@ -1,4 +1,5 @@
-<div class="file p-2 mt-2">
+<div class="file p-2 mt-2"
+     [class.disabled]="isDisabled">
   <alv-file [fileName]="fileName"
             [fileType]="fileType"
             [downloadFile$]="downloadFile$"

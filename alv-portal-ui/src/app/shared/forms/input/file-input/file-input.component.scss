@@ -2,6 +2,11 @@
 
 .upload-button, .upload-area {
   height: 46px;
+
+  &.invalid {
+    border-color: $color-red;
+    color: $color-red;
+  }
 }
 
 .upload-area {
@@ -14,4 +19,9 @@
     border: 2px dashed $color-primary;
     color: $color-primary;
   }
+}
+
+.disabled {
+  opacity: .7;
+  pointer-events: none;
 }

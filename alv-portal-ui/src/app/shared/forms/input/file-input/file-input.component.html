@@ -1,6 +1,8 @@
 <button class="upload-button btn btn-secondary p-2 mb-2 w-100"
+        *ngIf="!isUploadLimitReached()"
+        [disabled]="control.disabled"
+        [class.invalid]="isTouched() && isInvalid()"
         type="button"
-        [disabled]="isFileSelectionDisabled()"
         (click)="fileInput.value = ''; fileInput.click();">
   {{ label | translate }}
   <input #fileInput
@@ -11,38 +13,42 @@
          [accept]="accept"
          (change)="uploadFile(($event.target || $event.srcElement).files);">
 </button>
-<div class="upload-area d-flex align-items-center justify-content-center w-100"
-     alvFileDragDrop
-     [dragDropDisabled]="isFileSelectionDisabled()"
-     (fileDropped)="uploadFile($event); fileInput.value = ''">
-  <fa-icon [icon]="['fas', 'cloud-upload-alt']"
-           class="mr-1">
-  </fa-icon>
-  Drag & Drop Area
-</div>
 
-<alv-file-upload-preview *ngFor="let file of files; let index = index"
-          [fileName]="file.name"
-          [fileSize]="file.size"
-          [fileType]="file.type"
-          [showRemoveButton]="showRemoveButton"
-          [isDisabled]="control.disabled"
-          [downloadFile$]="downloadFile(file)"
-          (removeFile)="removeFile(index)">
-</alv-file-upload-preview>
-<div *ngIf="!(isTouched() && isInvalid())"
-     class="help-text">
-  <small *ngIf="helpText"
-         class="mt-1">{{helpText | translate}}
-  </small>
+<div [class.disabled]="control.disabled">
+  <div class="upload-area d-flex align-items-center justify-content-center w-100"
+       alvFileDragDrop
+       *ngIf="!isUploadLimitReached()"
+       [dragDropDisabled]="control.disabled"
+       (fileDropped)="uploadFile($event)">
+    <fa-icon [icon]="['fas', 'cloud-upload-alt']"
+             class="mr-1">
+    </fa-icon>
+    {{uploadAreaLabel | translate}}
+  </div>
+
+  <alv-file-upload-preview *ngFor="let file of files; let index = index"
+                           [fileName]="file.name"
+                           [fileSize]="file.size"
+                           [fileType]="file.type"
+                           [showRemoveButton]="showRemoveButton"
+                           [isDisabled]="control.disabled"
+                           [downloadFile$]="downloadFile(file)"
+                           (removeFile)="removeFile(index)">
+  </alv-file-upload-preview>
+  <div *ngIf="!(isTouched() && isInvalid())"
+       class="help-text">
+    <small *ngIf="helpText"
+           class="mt-1">{{helpText | translate}}
+    </small>
+  </div>
+  <alv-validation-messages *ngIf="!readonly"
+                           [control]="control"
+                           [attr.id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
+  <alv-validation-messages *ngIf="!readonly && showGroupErrors"
+                           [control]="control.parent"
+                           [attr.id]="validationId"
+                           [customValidationMessages]="validationMessages">
+  </alv-validation-messages>
 </div>
-<alv-validation-messages *ngIf="!readonly"
-                         [control]="control"
-                         [attr.id]="validationId"
-                         [customValidationMessages]="validationMessages">
-</alv-validation-messages>
-<alv-validation-messages *ngIf="!readonly && showGroupErrors"
-                         [control]="control.parent"
-                         [attr.id]="validationId"
-                         [customValidationMessages]="validationMessages">
-</alv-validation-messages>

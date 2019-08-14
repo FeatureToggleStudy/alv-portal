@@ -5,6 +5,7 @@
   align-items: center;
   border: 1px solid $color-medium-grey;
   height: 46px;
+
   alv-file {
     max-width: calc(100% - 50px);
     &.has-remove-button {
@@ -22,6 +23,16 @@
     }
     ::ng-deep svg {
       vertical-align: initial;
+    }
+  }
+
+  &.disabled {
+    border-color: tint($color-medium-grey, 20%);
+    .file-size {
+      color: tint($color-grey, 30%);
+    }
+    .remove-button {
+      color: tint($color-dark-grey, 30%);
     }
   }
 }
