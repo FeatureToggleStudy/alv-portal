@@ -230,13 +230,13 @@ export class MenuEntryService {
         return {
           mainMenuEntries: userMenuDefinition.mainMenuEntryKeys.map(value => {
             return mainMenuEntries.find(m => m.id === value);
-          }),
+          }).filter(entry => entry),
           onlineFormsMenuEntries: userMenuDefinition.onlineFormsMenuEntryKeys.map(value => {
             return onlineFormsMenuEntries.find(m => m.id === value);
-          }),
+          }).filter(entry => entry),
           settingsMenuEntries: userMenuDefinition.settingsMenuEntryKeys.map(value => {
             return settingsMenuEntries.find(m => m.id === value);
-          })
+          }).filter(entry => entry)
         };
       })
     );
