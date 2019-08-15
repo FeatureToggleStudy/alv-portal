@@ -21,7 +21,7 @@
 
 <div class="child-nav-container"
      tabindex="-1"
-  [routerLink]="menuEntry.path"
+  [routerLink]="menuEntry?.path"
      routerLinkActive="expanded">
   <ng-container *ngFor="let subMenuEntry of menuEntry?.entries">
     <alv-menu-entry [isChild]="true"
