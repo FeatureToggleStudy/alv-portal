@@ -75,4 +75,7 @@ export class JobDetailModel {
     return this.jobAdvertisement.stellennummerEgov;
   }
 
+  get workForm(): string[] {
+    return this.jobAdvertisement.jobContent.employment.workForms;
+  }
 }
