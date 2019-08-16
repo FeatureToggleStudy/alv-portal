@@ -82,6 +82,11 @@ export class CandidateSearchEffects {
                 page: response.result,
                 totalCount: response.totalCount
               })),
+              //here we need to put the following logic:
+              //* if there's no occupations in the search - resolve the first occupation
+              //* if there are occupations in the search, but no categories - we need to only resolve occupation names.
+              // Maybe we even can get them from the latest lookup
+              // if there are categories in the search - we will need to resolve matched occupations for all candidates
               catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
             );
         } else {

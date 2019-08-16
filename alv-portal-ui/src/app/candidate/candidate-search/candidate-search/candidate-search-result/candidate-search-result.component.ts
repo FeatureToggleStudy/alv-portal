@@ -44,7 +44,7 @@ export class CandidateSearchResultComponent implements OnInit {
       return EMPTY;
     }
     return this.i18nService.currentLanguage$.pipe(
-      switchMap((lang) => this.resolveOccupation(candidateSearchResult.relevantJobExperience, lang)),
+      switchMap((lang) => this.resolveOccupation(candidateSearchResult.relevantJobExperience, lang)), // move this to effects
       map(occupationLabel => this.map(candidateSearchResult, candidateSearchResult.relevantJobExperience, occupationLabel))
     );
   }

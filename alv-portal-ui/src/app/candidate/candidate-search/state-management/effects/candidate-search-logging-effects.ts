@@ -84,7 +84,7 @@ export class CandidateSearchLoggingEffects {
 
   @Effect({ dispatch: false })
   logSearchSubmitted$: Observable<Object> = this.actions$.pipe(
-    ofType<ApplyFilterAction>(FILTER_APPLIED),
+    ofType<FilterAppliedAction>(FILTER_APPLIED),
     withLatestFrom(this.store.pipe(select(getCandidateSearchFilter))),
     switchMap(([action, filter]) => this.trackingService.logEvent(new TrackingEvent(CandidateSearchEventType.SEARCH_SUBMITTED, filter)))
   );
