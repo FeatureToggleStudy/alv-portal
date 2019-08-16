@@ -22,9 +22,6 @@ export class CandidateSearchResultComponent implements OnInit {
   @Input()
   candidateSearchResult: CandidateSearchResult;
 
-  @Input()
-  selectedOccupationCodes: OccupationCode[];
-
   resultListItem$: Observable<ResultListItem>;
 
   constructor(private i18nService: I18nService,
@@ -43,14 +40,13 @@ export class CandidateSearchResultComponent implements OnInit {
 
   private candidateSearchResultToResultListItemMapper(candidateSearchResult: CandidateSearchResult): Observable<ResultListItem> {
     const candidateProfile = candidateSearchResult.candidateProfile;
-    const relevantJobExperience = findRelevantJobExperience(candidateProfile, this.selectedOccupationCodes);
-    if (!relevantJobExperience) {
+    if (!candidateSearchResult.relevantJobExperience) {
       console.warn('Could not find a relevantJobExperience for candidate profile: ', candidateProfile.id);
       return EMPTY;
     }
     return this.i18nService.currentLanguage$.pipe(
-      switchMap((lang) => this.resolveOccupation(relevantJobExperience, lang)),
-      map(occupationLabel => this.map(candidateSearchResult, relevantJobExperience, occupationLabel))
+      switchMap((lang) => this.resolveOccupation(candidateSearchResult.relevantJobExperience, lang)),
+      map(occupationLabel => this.map(candidateSearchResult, candidateSearchResult.relevantJobExperience, occupationLabel))
     );
   }
 
