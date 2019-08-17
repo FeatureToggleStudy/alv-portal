@@ -44,6 +44,12 @@
   }
 }
 
+.file {
+  position: absolute;
+  top: 1.5em;
+  left: calc(25% + .6em);
+}
+
 .no-work-efforts {
   border: 1px solid $color-medium-grey;
   background-color: white;
@@ -78,5 +84,11 @@
     .name-cell {
       min-height: 0;
     }
+  }
+  .file {
+    position: absolute;
+    top: .25em;
+    right: .6em;
+    left: initial;
   }
 }
