@@ -11,3 +11,4 @@ node_modules
 /src/assets/i18n/fr.json
 /src/assets/i18n/it.json
 
+/out-tsc
