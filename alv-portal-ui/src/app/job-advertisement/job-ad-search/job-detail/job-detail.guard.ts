@@ -2,9 +2,10 @@ import {
   ActivatedRouteSnapshot,
   CanActivate,
   CanDeactivate,
+  Router,
   RouterStateSnapshot
 } from '@angular/router';
-import { EMPTY, forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import {
   FavouriteItemLoadedAction,
   JobAdSearchState,
@@ -26,6 +27,7 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
 
   constructor(
     private store: Store<JobAdSearchState>,
+    private router: Router,
     private authenticationService: AuthenticationService,
     private notificationService: NotificationsService,
     private jobAdFavouritesRepository: JobAdFavouritesRepository,
@@ -55,9 +57,11 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
         }
       }),
       catchError(err => {
+        // Handle job ad restricted error (meldepflichtige Stelle)
         if (err.status === 403) {
-          this.notificationService.error('bbla bla bla');
-          return EMPTY;
+          this.notificationService.error('job-detail.notification.restricted', true);
+          this.router.navigate(['/home']);
+          return of(false);
         }
         throw err;
       }),
