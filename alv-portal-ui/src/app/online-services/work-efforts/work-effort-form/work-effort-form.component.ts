@@ -254,7 +254,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       catchError(error => {
         this.isSubmitting = false;
         this.cdRef.detectChanges(); // needed because of changeDetectionStrategy.OnPush
-        if (this.hasNotFoundError(error)) {
+        if (this.hasNoProofOfWorkEffortsFoundError(error)) {
           this.notificationsService.error('portal.work-efforts.edit-form.error.control-period', true);
           return EMPTY;
         }
@@ -403,7 +403,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
   }
 
-  private hasNotFoundError(error): boolean {
+  private hasNoProofOfWorkEffortsFoundError(error): boolean {
     return error.error && error.error.businessExceptionType === ProofOfWorkEffortsErrors.NO_PROOF_OF_WORK_EFFORT_FOUND;
   }
 
