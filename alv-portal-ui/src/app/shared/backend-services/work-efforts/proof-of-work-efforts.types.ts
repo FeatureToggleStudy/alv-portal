@@ -80,3 +80,7 @@ export enum WorkEffortApplyStatus {
   EMPLOYED = 'EMPLOYED',
   REJECTED = 'REJECTED'
 }
+
+export enum ProofOfWorkEffortsErrors {
+  NO_PROOF_OF_WORK_EFFORT_FOUND = 'NO_PROOF_OF_WORK_EFFORT_FOUND'
+}

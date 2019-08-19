@@ -54,7 +54,10 @@ import { mapToWorkEffortBackendValue } from './work-effort-form.mapper';
 import { requiredIfValidator } from '../../../shared/forms/input/validators/required-if.validator';
 import { conditionalValidator } from '../../../shared/forms/input/validators/conditional.validator';
 import { zipCityInputSettings } from '../../../shared/forms/input/zip-city-input/zip-city-input.component';
-import { ProofOfWorkEfforts } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
+import {
+  ProofOfWorkEfforts,
+  ProofOfWorkEffortsErrors
+} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ScrollService } from '../../../core/scroll.service';
 import { NotificationsService } from '../../../core/notifications.service';
 
@@ -251,7 +254,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       catchError(error => {
         this.isSubmitting = false;
         this.cdRef.detectChanges(); // needed because of changeDetectionStrategy.OnPush
-        if (this.hasApplyDateError(error)) {
+        if (this.hasNotFoundError(error)) {
           this.notificationsService.error('portal.work-efforts.edit-form.error.control-period', true);
           return EMPTY;
         }
@@ -400,9 +403,8 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
     this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));
   }
 
-  private hasApplyDateError(error): boolean {
-    return error.error && error.error.message === 'error.validation' && error.error.fieldErrors &&
-    error.error.fieldErrors.find(fieldError => fieldError.field === 'applyDate');
+  private hasNotFoundError(error): boolean {
+    return error.error && error.error.businessExceptionType === ProofOfWorkEffortsErrors.NO_PROOF_OF_WORK_EFFORT_FOUND;
   }
 
   /**
