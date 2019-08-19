@@ -80,6 +80,13 @@
                                label="portal.job-detail.workForm.label">
           {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
         </alv-list-item-content>
+
+        <alv-list-item-content *ngIf="jobDetailModel.workForm.length"
+                               label="portal.job-detail.workload.label">
+          <ng-container *ngFor="let workForm of jobDetailModel.workForm | keys; last as isLast">
+            {{('global.workForm.' + workForm.value | translate) + (isLast ? '' : ', ')}}
+          </ng-container>
+        </alv-list-item-content>
       </ul>
     </alv-collapse-panel>
 

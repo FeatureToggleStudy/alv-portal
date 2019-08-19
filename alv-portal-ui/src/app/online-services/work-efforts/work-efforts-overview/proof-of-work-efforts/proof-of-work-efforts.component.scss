@@ -23,6 +23,7 @@
 
     padding-top: 1.5em;
     display: block;
+    min-height: 74px;
 
     .period-title {
       font-size: 1.1em;
@@ -41,6 +42,12 @@
       }
     }
   }
+}
+
+.file {
+  position: absolute;
+  top: 1.5em;
+  left: calc(25% + .6em);
 }
 
 .no-work-efforts {
@@ -74,5 +81,14 @@
       display: flex;
       align-items: center;
     }
+    .name-cell {
+      min-height: 0;
+    }
+  }
+  .file {
+    position: absolute;
+    top: .25em;
+    right: .6em;
+    left: initial;
   }
 }

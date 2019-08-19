@@ -100,7 +100,7 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
   /**
    * Reference to textarea element
    */
-  @ViewChild('textarea', {static: false}) textareaElement: ElementRef<HTMLTextAreaElement>;
+  @ViewChild('textarea', { static: false }) textareaElement: ElementRef<HTMLTextAreaElement>;
 
   private readonly MULTILINE_MIN_HEIGHT = 96; // = 3 rows
 
@@ -113,7 +113,9 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
 
   ngAfterViewInit() {
     if (this.multiline) {
-      this.calculateMultilineElementHeight();
+      setTimeout(() => {
+        this.calculateMultilineElementHeight();
+      });
     }
   }
 

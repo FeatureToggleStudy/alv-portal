@@ -6,7 +6,8 @@
            [icon]="['fas', 'sticky-note']"
            primaryLabel="portal.job-ad-favourites.note-modal.action.save"
            [cancelLabel]="'portal.job-ad-favourites.note-modal.action.cancel'"
-           [secondaryLabel]="!isCreateNote ? 'portal.job-ad-favourites.note-modal.action.delete' : ''">
+           [secondaryLabel]="!isCreateNote ? 'portal.job-ad-favourites.note-modal.action.delete' : ''"
+           [loadingSubscription]="loadingSubscription">
 
   <alv-input-field [autofocus]="true"
                    [maxLength]="MAX_LENGTH_1000"

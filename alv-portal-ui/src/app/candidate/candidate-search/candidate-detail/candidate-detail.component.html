@@ -104,6 +104,7 @@
                 </div>
                 <div *ngIf="contact.email">
                   <a class="link"
+                     (click)="logEmailRav()"
                      href="mailto:{{contact.email}}">{{contact.email}}</a>
                 </div>
               </div>
@@ -125,7 +126,7 @@
     <div class="main-column">
 
       <!-----------------Title-->
-      <h2 class="mt-1 mb-4 candidate-title"><strong>{{candidateDetailModel.lastJobExperience?.occupationLabel}}</strong></h2>
+      <h2 class="mt-1 mb-4 candidate-occupation"><strong>{{candidateDetailModel.lastJobExperience?.occupationLabel}}</strong></h2>
 
       <!--Badges-->
       <div class="mb-4">
