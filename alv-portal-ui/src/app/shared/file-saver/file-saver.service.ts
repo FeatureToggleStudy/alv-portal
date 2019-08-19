@@ -17,11 +17,11 @@ export class FileSaverService {
     } else {
       const element = this.document.createElement('a');
       element.href = URL.createObjectURL(blob);
-      element.target = '_blank';
       element.download = filename;
       this.document.body.appendChild(element);
       element.click();
-      URL.revokeObjectURL(element.href);
+      // URL.revokeObjectURL has to be delayed to make it work on iOS Safari
+      setTimeout(() => URL.revokeObjectURL(element.href), 4E4); // 40s
       element.parentElement.removeChild(element);
     }
   }
