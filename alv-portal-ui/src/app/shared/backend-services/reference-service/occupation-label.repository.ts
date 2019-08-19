@@ -1,13 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import {
-  OccupationLabelAutocomplete,
-  OccupationLabelData
-} from './occupation-label.types';
-import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { OccupationLabelAutocomplete, OccupationLabelData } from './occupation-label.types';
+import { shareReplay } from 'rxjs/operators';
 
 const DEFAULT_RESPONSE_SIZE = '10';
+const CACHE_SIZE = 1;
 
 const OCCUPATION_LABEL_RESOURCE_SEARCH_URL = '/referenceservice/api/_search/occupations/label';
 
@@ -20,24 +18,23 @@ export enum OccupationTypes {
   SBN5 = 'SBN5',
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class OccupationLabelRepository {
 
-  private occupationLabelDataCache: { [key: string]: OccupationLabelData } = {};
+  private occupationLabelDataCache: { [key: string]: Observable<OccupationLabelData> } = {};
 
   constructor(private http: HttpClient) {
   }
 
   getOccupationLabelsByKey(type: string, value: string, language: string): Observable<OccupationLabelData> {
     const cacheKey = `${type}_${value}_${language}`;
-    if (this.occupationLabelDataCache[cacheKey]) {
-      return of(this.occupationLabelDataCache[cacheKey]);
+    if (!this.occupationLabelDataCache[cacheKey]) {
+      // we cache the observable itself instead of the resolved value because the function is likely to be called in a loop
+      this.occupationLabelDataCache[cacheKey] = this.http.get<OccupationLabelData>(`${OCCUPATION_LABEL_RESOURCE_URL}/${type}/${value}`).pipe(
+        shareReplay(CACHE_SIZE)
+      );
     }
-    return this.http.get<OccupationLabelData>(`${OCCUPATION_LABEL_RESOURCE_URL}/${type}/${value}`).pipe(
-      tap((label) => {
-        this.occupationLabelDataCache[cacheKey] = label;
-      })
-    );
+    return this.occupationLabelDataCache[cacheKey];
   }
 
   /**
@@ -50,6 +47,6 @@ export class OccupationLabelRepository {
       .set('prefix', query)
       .set('types', types.join(','))
       .set('resultSize', DEFAULT_RESPONSE_SIZE);
-    return this.http.get<OccupationLabelAutocomplete>(OCCUPATION_LABEL_RESOURCE_SEARCH_URL, { params });
+    return this.http.get<OccupationLabelAutocomplete>(OCCUPATION_LABEL_RESOURCE_SEARCH_URL, {params});
   }
 }
