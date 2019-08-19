@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   OccupationLabelAutocomplete,
   OccupationLabelData
 } from './occupation-label.types';
-import { shareReplay, tap } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 const DEFAULT_RESPONSE_SIZE = '10';
-const CACHE_SIZE = 1;
+const BUFFER_SIZE = 1;
 
 const OCCUPATION_LABEL_RESOURCE_SEARCH_URL = '/referenceservice/api/_search/occupations/label';
 
@@ -32,8 +32,9 @@ export class OccupationLabelRepository {
   getOccupationLabelsByKey(type: string, value: string, language: string): Observable<OccupationLabelData> {
     const cacheKey = `${type}_${value}_${language}`;
     if (!this.occupationLabelDataCache[cacheKey]) {
+      // we cache the observable itself instead of the resolved value because the function is likely to be called in a loop
       this.occupationLabelDataCache[cacheKey] = this.http.get<OccupationLabelData>(`${OCCUPATION_LABEL_RESOURCE_URL}/${type}/${value}`).pipe(
-        shareReplay(CACHE_SIZE)
+        shareReplay(BUFFER_SIZE)
       );
     }
     return this.occupationLabelDataCache[cacheKey];
