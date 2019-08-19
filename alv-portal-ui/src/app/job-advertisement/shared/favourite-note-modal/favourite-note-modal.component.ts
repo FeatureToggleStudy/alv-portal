@@ -8,6 +8,7 @@ import { JobAdFavouritesRepository } from '../../../shared/backend-services/favo
 import { NotificationsService } from '../../../core/notifications.service';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
 
   isCreateNote: boolean;
 
+  loadingSubscription: Subscription;
+
   readonly MAX_LENGTH_1000 = 1000;
 
   constructor(public activeModal: NgbActiveModal,
@@ -38,7 +41,7 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
 
   ngOnInit() {
     this.form = this.fb.group({
-      note: [this.favouriteItem ? this.favouriteItem.note : '', [Validators.maxLength(this.MAX_LENGTH_1000)]]
+      note: [this.favouriteItem ? this.favouriteItem.note : '', [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]]
     });
 
     this.isCreateNote = !this.favouriteItem || !this.favouriteItem.note;
@@ -46,13 +49,13 @@ export class FavouriteNoteModalComponent extends AbstractSubscriber implements O
 
   onSubmit() {
     if (this.favouriteItem) {
-      this.jobAdFavouritesRepository.editNote(this.favouriteItem, this.form.value.note)
+      this.loadingSubscription = this.jobAdFavouritesRepository.editNote(this.favouriteItem, this.form.value.note)
         .subscribe((updatedFavouriteItem) => {
           this.activeModal.close(updatedFavouriteItem);
           this.notificationsService.success('portal.job-ad-favourites.notification.favourite-note-saved');
         });
     } else {
-      this.authenticationService.getCurrentUser().pipe(
+      this.loadingSubscription = this.authenticationService.getCurrentUser().pipe(
         switchMap(currentUser => {
           return this.jobAdFavouritesRepository.addFavourite(this.jobAdvertisementId, currentUser.id, this.form.value.note);
         }),

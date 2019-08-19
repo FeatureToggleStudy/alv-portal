@@ -129,7 +129,7 @@ const ONLINE_FORMS_MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     id: 'application-documents',
-    iconClass: 'award',
+    iconClass: 'file-certificate',
     labelKey: 'portal.navigation.menu-entry.application-documents',
     path: ['application-documents'],
     userPredicate: (u) => isAuthenticatedUser(u)
@@ -230,13 +230,13 @@ export class MenuEntryService {
         return {
           mainMenuEntries: userMenuDefinition.mainMenuEntryKeys.map(value => {
             return mainMenuEntries.find(m => m.id === value);
-          }),
+          }).filter(entry => entry),
           onlineFormsMenuEntries: userMenuDefinition.onlineFormsMenuEntryKeys.map(value => {
             return onlineFormsMenuEntries.find(m => m.id === value);
-          }),
+          }).filter(entry => entry),
           settingsMenuEntries: userMenuDefinition.settingsMenuEntryKeys.map(value => {
             return settingsMenuEntries.find(m => m.id === value);
-          })
+          }).filter(entry => entry)
         };
       })
     );

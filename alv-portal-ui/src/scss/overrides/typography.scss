@@ -1,4 +1,7 @@
 @import "../../scss/common/colors";
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
 
 body {
   font-family: "Open Sans", Calibri, sans-serif;
@@ -30,4 +33,20 @@ h4, .h4 {
 small, .small {
   font-size: 0.75em;
   font-weight: 400;
+}
+
+@include media-breakpoint-down(md) {
+
+  h1, .h1 {
+    font-size: 2em;
+  }
+
+  h2, .h2 {
+    font-size: 1.25em;
+  }
+
+  h3, .h3 {
+    font-size: 1.1em;
+  }
+
 }
