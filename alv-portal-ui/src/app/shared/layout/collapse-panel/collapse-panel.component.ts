@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 // Angular animations have problems with animating the transition between display:none and display:block, so we couldn't
 // implement the animation the simple way. Instead, the following hack was used:
@@ -15,20 +15,19 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   animations: [
     trigger('expandCollapse', [
       state('open', style({
+        display: 'block',
         'max-height': '100%',
-        visibility: 'visible',
-        'padding-top': '0.5em',
-        'padding-bottom': '0.5em'
+        transform: 'scaleY(1)',
+        opacity: 1
       })),
       state('closed', style({
-        height: '9px',
-        'max-height': '1px',
-        visibility: 'hidden',
-        'padding-top': '0',
-        'padding-bottom': '0'
-
+        display: 'none',
+        height: 0,
+        'max-height': 0,
+        transform: 'scaleY(0)',
+        opacity: 0
       })),
-      transition('* => *', [animate('200ms')])
+      transition('* <=> *', [animate('200ms')])
     ])
   ]
 })
@@ -41,24 +40,27 @@ export class CollapsePanelComponent {
   @Input()
   isCollapsed = false;
 
+  @Output()
+  collapsed = new EventEmitter<boolean>(); // true if isCollapsed===true
+
   @Input()
   isAlwaysExpanded = false;
 
   toggle() {
-    if (!this.isAlwaysExpanded) {
-      this.isCollapsed = !this.isCollapsed;
-    } else {
-      this.expand();
-    }
+    this.isCollapsed ? this.expand() : this.collapse();
   }
 
   expand() {
     this.isCollapsed = false;
+    this.emitCollapseEvent();
   }
 
   collapse() {
-    if (!this.isAlwaysExpanded) {
-      this.isCollapsed = true;
-    }
+    this.isCollapsed = true;
+    this.emitCollapseEvent();
+  }
+
+  private emitCollapseEvent() {
+    this.collapsed.emit(this.isCollapsed);
   }
 }

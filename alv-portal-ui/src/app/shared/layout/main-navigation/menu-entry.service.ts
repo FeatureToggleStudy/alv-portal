@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { Observable } from 'rxjs';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import {
   hasAnyAuthorities,
   isAnyUser,
@@ -129,7 +129,7 @@ const ONLINE_FORMS_MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     id: 'application-documents',
-    iconClass: 'award',
+    iconClass: 'file-certificate',
     labelKey: 'portal.navigation.menu-entry.application-documents',
     path: ['application-documents'],
     userPredicate: (u) => isAuthenticatedUser(u)
@@ -211,8 +211,9 @@ export class MenuEntryService {
   }
 
   public prepareEntries(): Observable<MenuDefinition> {
-    return this.authenticationService.getCurrentUser().pipe(
-      withLatestFrom(this.profileInfoService.getProfileInfo()),
+    return combineLatest(
+      this.authenticationService.getCurrentUser(),
+      this.profileInfoService.getProfileInfo()).pipe(
       map(([user, profileInfo]) => {
         const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => e.userPredicate(user));
         const mainMenuEntries = MAIN_MENU_ENTRIES.filter(m => m.userPredicate(user));
@@ -229,13 +230,13 @@ export class MenuEntryService {
         return {
           mainMenuEntries: userMenuDefinition.mainMenuEntryKeys.map(value => {
             return mainMenuEntries.find(m => m.id === value);
-          }),
+          }).filter(entry => entry),
           onlineFormsMenuEntries: userMenuDefinition.onlineFormsMenuEntryKeys.map(value => {
             return onlineFormsMenuEntries.find(m => m.id === value);
-          }),
+          }).filter(entry => entry),
           settingsMenuEntries: userMenuDefinition.settingsMenuEntryKeys.map(value => {
             return settingsMenuEntries.find(m => m.id === value);
-          })
+          }).filter(entry => entry)
         };
       })
     );

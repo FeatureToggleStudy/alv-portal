@@ -81,7 +81,7 @@ export class ProofOfWorkEffortsModel {
       this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.RE_OPENED) {
       return baseLabel + 'open';
     } else {
-      return baseLabel + 'closed';
+      return baseLabel + 'submitted';
     }
   }
 }

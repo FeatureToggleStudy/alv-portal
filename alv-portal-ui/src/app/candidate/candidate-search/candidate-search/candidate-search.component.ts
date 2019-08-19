@@ -80,8 +80,6 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   searchMailToLink$: Observable<string>;
 
-  selectedOccupationCodes: Observable<OccupationCode[]>;
-
   disableSaveSearchProfileButton$: Observable<boolean>;
 
   detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
@@ -89,6 +87,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   searchPanelHeight = 0;
 
   @ViewChild('searchPanel', {static: false}) searchPanelElement: ElementRef<Element>;
+
 
   @BlockUI() blockUI: NgBlockUI;
 
@@ -124,15 +123,11 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       })
     );
 
-    this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations)).pipe(
-      map((occupations) => occupations.map((b) => b.payload))
-    );
-
     this.candidateSearchProfile$ = this.store.pipe(select(getCandidateSearchProfile));
 
     this.searchMailToLink$ = this.candidateSearchFilter$.pipe(
       map((candidateSearchFilter: CandidateSearchFilter) => this.candidateSearchFilterParameterService.encode(candidateSearchFilter)),
-      map((filterParam) => `${window.location.href}?filter=${filterParam}`),
+      map((filterParam) => `${this.window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
 

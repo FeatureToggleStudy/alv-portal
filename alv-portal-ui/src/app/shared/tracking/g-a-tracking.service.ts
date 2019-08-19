@@ -58,7 +58,7 @@ interface ExceptionTrack {
 @Injectable({
   providedIn: 'root'
 })
-export class TrackingService {
+export class GATrackingService {
 
   private readonly gaTrackingId: string;
 

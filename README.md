@@ -8,6 +8,10 @@ See [Development Setup](docs/SETUP.md).
 
 See [Guidelines](docs/GUIDELINES.md).
 
+## Update Guide
+
+See [Update Guide](docs/UPDATE-GUIDE.md).
+
 ## Debugging Helpers
 
 See [Debugging Helpers](docs/DEBUGGING-HELPERS.md).

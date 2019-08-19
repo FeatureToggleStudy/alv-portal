@@ -5,10 +5,7 @@ import { FALLBACK_LANGUAGE, Languages } from './languages.constants';
 import { Observable } from 'rxjs';
 import { CoreState, getCurrentLanguage } from './state-management/state/core.state.ts';
 import { select, Store } from '@ngrx/store';
-import {
-  LanguageChangedAction,
-  LanguageInitializedAction
-} from './state-management/actions/core.actions';
+import { LanguageChangedAction, LanguageInitializedAction } from './state-management/actions/core.actions';
 
 export const LANGUAGE_KEY = 'NG_TRANSLATE_LANG_KEY';
 

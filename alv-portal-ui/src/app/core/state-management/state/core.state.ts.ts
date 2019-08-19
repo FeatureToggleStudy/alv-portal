@@ -5,6 +5,7 @@ import {
   CompanyContactTemplate
 } from '../../../shared/backend-services/user-info/user-info.types';
 import { CompanyContactTemplateModel } from '../../auth/company-contact-template-model';
+import { ProfileInfo } from '../../../shared/layout/header/profile-info.service';
 
 export const initialState: CoreState = {
   currentLanguage: null,
@@ -13,7 +14,8 @@ export const initialState: CoreState = {
   currentAccountability: undefined,
   accountabilities: undefined,
   mainNavigationExpanded: false,
-  mobileNavigationExpanded: false
+  mobileNavigationExpanded: false,
+  profileInfo: undefined
 };
 
 export interface CoreState {
@@ -24,6 +26,7 @@ export interface CoreState {
   accountabilities: Accountability[];
   mainNavigationExpanded: boolean;
   mobileNavigationExpanded: boolean;
+  profileInfo: ProfileInfo;
 }
 
 const getCoreState = createFeatureSelector<CoreState>('coreState');
@@ -35,6 +38,7 @@ export const getMainNavigationExpanded = createSelector(getCoreState, (state: Co
 export const getMobileNavigationExpanded = createSelector(getCoreState, (state: CoreState) => state.mobileNavigationExpanded);
 export const getCurrentAccountability = createSelector(getCoreState, (state: CoreState) => state.currentAccountability);
 export const getAccountabilities = createSelector(getCoreState, (state: CoreState) => state.accountabilities);
+export const getProfileInfo = createSelector(getCoreState, (state: CoreState) => state.profileInfo);
 export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUser, getCurrentCompany, getCurrentAccountability, (user, companyContactTemplate, accountability) => {
   if (user === undefined || accountability === undefined || companyContactTemplate === undefined) {
     return undefined;

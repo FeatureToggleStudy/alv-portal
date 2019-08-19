@@ -1,17 +1,17 @@
 import { AfterViewInit, Directive, ElementRef, Input, Renderer2 } from '@angular/core';
-import { TrackingService } from './tracking.service';
+import { GATrackingService } from './g-a-tracking.service';
 
 @Directive({
   selector: '[alvTrackingEvent]'
 })
-export class TrackingEventDirective implements AfterViewInit {
+export class GATrackingEventDirective implements AfterViewInit {
 
   @Input() trackOn: string;
   @Input() action: string;
   @Input() category: string;
   @Input() params: any;
 
-  constructor(private trackingService: TrackingService,
+  constructor(private gaTrackingService: GATrackingService,
               private renderer: Renderer2,
               private el: ElementRef) {
   }
@@ -19,7 +19,7 @@ export class TrackingEventDirective implements AfterViewInit {
   ngAfterViewInit() {
     try {
       this.renderer.listen(this.el.nativeElement, this.trackOn, () => {
-        this.trackingService.trackEvent(this.action || this.trackOn, {
+        this.gaTrackingService.trackEvent(this.action || this.trackOn, {
           event_category: this.category,
           ...this.params
         });

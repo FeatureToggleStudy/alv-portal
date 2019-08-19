@@ -63,5 +63,10 @@
     "target": "https://dev.job-room.ch",
     "secure": false,
     "loglevel": "debug"
+  },
+  "/trackingservice/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
   }
 }

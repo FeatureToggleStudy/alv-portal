@@ -51,10 +51,10 @@
                     ngxClipboard>
               {{'candidate-detail.candidate-copy-link' | translate}}
             </button>
-            <a [href]="'mailto:?body=' + getEncodedUrl()"
+            <button (click)="sendEmail()"
                class="dropdown-item">
               {{'portal.candidate-detail.action.sendLink' | translate}}
-            </a>
+            </button>
             <button (click)="printCandidate()"
                     class="dropdown-item">
               {{'candidate-detail.candidate-print' | translate}}
@@ -99,10 +99,12 @@
                 </div>
                 <div *ngIf="contact.phone">
                   <a class="link"
+                     (click)="logPhoneRav()"
                      href="tel:{{contact.phone}}">{{contact.phone | phoneNumber}}</a>
                 </div>
                 <div *ngIf="contact.email">
                   <a class="link"
+                     (click)="logEmailRav()"
                      href="mailto:{{contact.email}}">{{contact.email}}</a>
                 </div>
               </div>
@@ -124,7 +126,7 @@
     <div class="main-column">
 
       <!-----------------Title-->
-      <h2 class="mt-1 mb-4 text-capitalize"><strong>{{candidateDetailModel.lastJobExperience?.occupationLabel}}</strong></h2>
+      <h2 class="mt-1 mb-4 candidate-occupation"><strong>{{candidateDetailModel.lastJobExperience?.occupationLabel}}</strong></h2>
 
       <!--Badges-->
       <div class="mb-4">
@@ -144,7 +146,7 @@
               'candidate-detail.job-experience.last-job.label' :
               'portal.candidate-detail.other-work-experience.label') | translate}}
             </strong>
-            <h3 class="text-primary text-capitalize">{{jobExperience.occupationLabel}}</h3>
+            <h3 class="text-primary candidate-occupation">{{jobExperience.occupationLabel}}</h3>
             <ul class="alv-list">
               <alv-list-item-content *ngIf="jobExperience.jobExperience.remark as remark"
                                      label="candidate-detail.job-experience.description.label">
@@ -211,6 +213,8 @@
 
         <alv-collapse-panel *ngIf="candidateDetailModel.protectedData as candidateProtectedData"
                             [panelId]="candidateDetailPanelId.CANDIDATE_CONTACT_DETAILS"
+                            [isCollapsed]="isProtectedDataCollapsed"
+                            (collapsed)="onCandidateProtectedDataCollapsed($event)"
                             panelTitle="candidate-detail.personal-information.title">
           <ul class="alv-list">
             <alv-list-item-content *ngIf="candidateProtectedData.firstName || candidateProtectedData.lastName"
@@ -235,12 +239,14 @@
             <alv-list-item-content *ngIf="candidateProtectedData.phone"
                                    label="candidate-detail.personal-information.phone.label">
               <a class="link"
+                 (click)="logSelectCandidatePhone()"
                  href="tel:{{candidateProtectedData.phone}}">{{candidateProtectedData.phone | phoneNumber}}</a>
             </alv-list-item-content>
 
             <alv-list-item-content *ngIf="candidateProtectedData.mobile"
                                    label="candidate-detail.personal-information.mobile.label">
               <a class="link"
+                 (click)="logSelectCandidatePhone()"
                  href="tel:{{candidateProtectedData.mobile}}">{{candidateProtectedData.mobile | phoneNumber}}</a>
             </alv-list-item-content>
 
@@ -288,11 +294,11 @@
           </button>
         </li>
         <li>
-          <a [href]="'mailto:?body=' + getEncodedUrl()"
+          <button (click)="sendEmail()"
              class="btn btn-text btn-text-icon btn-truncate">
             <fa-icon class="mr-1" [icon]="['fas', 'share']"></fa-icon>
             {{'portal.candidate-detail.action.sendLink' | translate}}
-          </a>
+          </button>
         </li>
         <li class="d-none d-lg-block">
           <button (click)="printCandidate()"

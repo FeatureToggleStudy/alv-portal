@@ -1,33 +1,37 @@
-<button class="alv-cells">
+<div class="position-relative">
+  <button class="alv-cells">
 
-  <span class="cell col-12 col-lg-4">
-    <span class="cell-label">
-      {{'portal.application-documents.document-type.label' | translate}}
+    <span class="cell col-12 col-lg-4">
+      <span class="cell-label">
+        {{'portal.application-documents.document-type.label' | translate}}
+      </span>
+      {{ 'portal.application-documents.document-type.' + applicationDocument.documentType | translate}}
     </span>
-    {{ 'portal.application-documents.document-type.' + applicationDocument.documentType | translate}}
-  </span>
-
-  <span class="cell col-12 col-lg-4">
-    <span class="cell-label">
-      {{'portal.application-documents.file-name.label' | translate}}
+    
+    <span class="cell col-12 col-lg-4">
+      <span class="cell-label">
+        {{'portal.application-documents.file-name.label' | translate}}
+      </span>
     </span>
-    <alv-file (click)="$event.stopPropagation()"
-              [fileName]="applicationDocument.documentMetadata.fileName"
-              [fileType]="applicationDocument.documentMetadata.mimeType"
-              [downloadFile$]="downloadDocument$">
-    </alv-file>
 
-  </span>
-
-  <span class="cell success col-12 col-lg-4">
-    <span class="cell-label">
-      {{'portal.application-documents.submission.label' | translate}}
+    <span class="cell success col-12 col-lg-4">
+      <span class="cell-label">
+        {{'portal.application-documents.submission.label' | translate}}
+      </span>
+      {{ applicationDocument.updatedAt | date: 'dd.MM.yyyy HH:mm' }}h
+      <span class="success-icon-container">
+        <fa-icon [icon]="['fas', 'check']"></fa-icon>
+      </span>
     </span>
-    {{ applicationDocument.updatedAt | date: 'dd.MM.yyyy HH:mm' }}h
-    <span class="success-icon-container">
-      <fa-icon [icon]="['fas', 'check']"></fa-icon>
-    </span>
-  </span>
 
-  <span class="expanded-indicator"></span>
-</button>
+    <span class="expanded-indicator"></span>
+  </button>
+
+
+  <alv-file class="file"
+            (click)="$event.stopPropagation()"
+            [fileName]="applicationDocument.documentMetadata.fileName"
+            [fileType]="applicationDocument.documentMetadata.mimeType"
+            [downloadFile$]="downloadDocument$">
+  </alv-file>
+</div>
