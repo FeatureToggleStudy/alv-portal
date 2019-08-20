@@ -4,7 +4,7 @@ import { CandidateProfile } from '../../../../shared/backend-services/candidate/
 import { FilterPanelValues } from '../../candidate-search/filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
-import { CandidateSearchFilter } from '../state';
+import { CandidateSearchFilter, CandidateSearchResult } from '../state';
 import { EffectErrorOccurredAction } from '../../../../core/state-management/actions/core.actions';
 import { ResolvedCandidateSearchProfile } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
 
@@ -73,7 +73,7 @@ export class ApplyFilterAction implements Action {
 export class FilterAppliedAction implements Action {
   readonly type = FILTER_APPLIED;
 
-  constructor(public payload: { page: CandidateProfile[], totalCount: number }) {
+  constructor(public payload: { page: CandidateSearchResult[], totalCount: number }) {
   }
 }
 
@@ -121,7 +121,7 @@ export class NextPageLoadedAction implements Action {
 
   constructor(public payload: {
     pageNumber: number,
-    page: CandidateProfile[]
+    page: CandidateSearchResult[]
   }) {
   }
 }

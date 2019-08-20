@@ -56,8 +56,8 @@ import {
 } from './index';
 import { CandidateProfile } from '../../../../shared/backend-services/candidate/candidate.types';
 
-function pluckIds(items: CandidateProfile[]) {
-  return items.map(item => item.externalId);
+function pluckIds(items: CandidateSearchResult[]) {
+  return items.map(item => item.candidateProfile.externalId);
 }
 
 function findItemById(searchResults, id) {

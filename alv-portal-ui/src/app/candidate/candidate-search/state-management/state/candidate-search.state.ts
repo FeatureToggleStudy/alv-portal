@@ -17,16 +17,13 @@ import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupati
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import { LocalityTypeaheadItem } from '../../../../shared/localities/locality-typeahead-item';
 import { ResolvedCandidateSearchProfile } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
-import { findRelevantJobExperience } from '../../candidate-rules';
-import * as xxhash from 'xxhashjs/build/xxhash.js';
 
-const HASH = xxhash.h32(0xABCDEF);
 
 export interface CandidateSearchState {
   totalCount: number;
   page: number;
   candidateSearchFilter: CandidateSearchFilter;
-  resultList: CandidateProfile[];
+  resultList: CandidateSearchResult[];
   selectedCandidateProfile: CandidateProfile;
   resultsAreLoading: boolean;
   visitedCandidates: { [id: string]: boolean; };
@@ -112,21 +109,12 @@ export const getCandidateSearchResults = createSelector(
     if (dirty) {
       return undefined;
     }
-    return resultList.map((candidateProfile) => {
-      const res: CandidateSearchResult = {
-        candidateProfile: candidateProfile,
-        visited: visitedCandidates[candidateProfile.id] || false,
-        relevantJobExperience: findRelevantJobExperience(candidateProfile, selectedOccupations),
-        hashCode: ''
-      };
-      res.hashCode = HASH.update(JSON.stringify(res)).digest().toString(16);
-      return res;
-    });
+    return resultList;
   });
 
 export const getPrevId = createSelector(getResultList, getSelectedCandidateProfile, (resultList, current) => {
   if (current) {
-    const ids = resultList.map((item) => item.id);
+    const ids = resultList.map((item) => item.candidateProfile.id);
     const idx = ids.findIndex(id => id === current.id);
 
     return idx > 0 ? ids[idx - 1] : null;
@@ -137,7 +125,7 @@ export const getPrevId = createSelector(getResultList, getSelectedCandidateProfi
 
 export const getNextId = createSelector(getResultList, getSelectedCandidateProfile, (resultList, current) => {
   if (current) {
-    const ids = resultList.map((item) => item.id);
+    const ids = resultList.map((item) => item.candidateProfile.id);
     const idx = ids.findIndex(id => id === current.id);
 
     return idx < ids.length - 1 ? ids[idx + 1] : null;
@@ -149,7 +137,7 @@ export const getNextId = createSelector(getResultList, getSelectedCandidateProfi
 export const isPrevVisible = createSelector(getResultList, getSelectedCandidateProfile, (resultList, selectedCandidateProfile) => {
   if (selectedCandidateProfile) {
     return resultList
-      .map((item) => item.id)
+      .map((item) => item.candidateProfile.id)
       .findIndex(id => id === selectedCandidateProfile.id) > 0;
   }
 
@@ -159,7 +147,7 @@ export const isPrevVisible = createSelector(getResultList, getSelectedCandidateP
 export const isNextVisible = createSelector(getResultList, getSelectedCandidateProfile, getTotalCount, (resultList, current, totalCount) => {
   if (current) {
     return resultList
-      .map((item) => item.id)
+      .map((item) => item.candidateProfile.id)
       .findIndex(id => id === current.id) < totalCount - 1;
   }
 

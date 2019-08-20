@@ -46,13 +46,21 @@ import {
 import { Router } from '@angular/router';
 import { OccupationSuggestionService } from '../../../../shared/occupations/occupation-suggestion.service';
 import {
+  CandidateSearchResult,
   CandidateSearchState,
   getCandidateSearchFilter,
   getCandidateSearchState,
   getNextId,
-  getPrevId
+  getPrevId,
+  getSelectedOccupations,
+  getVisitedCandidates
 } from '../state';
 import { CandidateSearchRequestMapper } from './candidate-search-request.mapper';
+import { findRelevantJobExperience } from '../../candidate-rules';
+import * as xxhash from 'xxhashjs/build/xxhash.js';
+import { CandidateSearchResponse } from '../../../../shared/backend-services/candidate/candidate.types';
+
+const HASH = xxhash.h32(0xABCDEF);
 
 export const CANDIDATE_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('CANDIDATE_SEARCH_EFFECTS_DEBOUNCE');
 export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('CANDIDATE_SEARCH_EFFECTS_SCHEDULER');
@@ -73,15 +81,16 @@ export class CandidateSearchEffects {
   @Effect()
   initCandidateSearch$ = this.actions$.pipe(
     ofType(INITIALIZE_RESULT_LIST),
-    withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
-    switchMap(([a, state]) => {
+    withLatestFrom(
+      this.store.pipe(select(getCandidateSearchState)),
+      this.store.pipe(select(getVisitedCandidates)),
+      this.store.pipe(select(getSelectedOccupations)),
+    ),
+    switchMap(([a, state, visitedCandidates, selectedOccupations]) => {
         if (state.isDirtyResultList) {
           return this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
             .pipe(
-              map((response) => new FilterAppliedAction({
-                page: response.result,
-                totalCount: response.totalCount
-              })),
+              this.getCandidateMapper(visitedCandidates, selectedOccupations),
               //here we need to put the following logic:
               //* if there's no occupations in the search - resolve the first occupation
               //* if there are occupations in the search, but no categories - we need to only resolve occupation names.
@@ -101,12 +110,13 @@ export class CandidateSearchEffects {
     ofType(APPLY_FILTER),
     map((action: ApplyFilterAction) => action.payload),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
-    switchMap(([candidateSearchFilter, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(candidateSearchFilter, state.page)).pipe(
-      map((response) => new FilterAppliedAction({
-        page: response.result,
-        totalCount: response.totalCount
-      })),
+    withLatestFrom(
+      this.store.pipe(select(getCandidateSearchState)),
+      this.store.pipe(select(getVisitedCandidates)),
+      this.store.pipe(select(getSelectedOccupations))
+    ),
+    switchMap(([candidateSearchFilter, state, visitedCandidates, selectedOccupations]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(candidateSearchFilter, state.page)).pipe(
+      this.getCandidateMapper(visitedCandidates, selectedOccupations),
       catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
     )),
   );
@@ -155,10 +165,17 @@ export class CandidateSearchEffects {
   loadNextPage$: Observable<Action> = this.actions$.pipe(
     ofType(LOAD_NEXT_PAGE),
     debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
-    withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
-    concatMap(([action, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
+    withLatestFrom(
+      this.store.pipe(select(getCandidateSearchState)),
+      this.store.pipe(select(getVisitedCandidates)),
+      this.store.pipe(select(getSelectedOccupations))
+    ),
+    concatMap(([action, state, visitedCandidates, selectedOccupations]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
       .pipe(
-        map((response) => new NextPageLoadedAction({pageNumber: state.page + 1, page: response.result })),
+        map((response) => new NextPageLoadedAction({
+          pageNumber: state.page + 1,
+          page: response.result.map(this.getProfileToSearchResultMapperFn(visitedCandidates, selectedOccupations))
+        })),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       ))
   );
@@ -190,7 +207,7 @@ export class CandidateSearchEffects {
           ofType(NEXT_PAGE_LOADED),
           take(1),
           map((nextPageLoadedAction: NextPageLoadedAction) => {
-            return nextPageLoadedAction.payload.page[0].id;
+            return nextPageLoadedAction.payload.page[0].candidateProfile.id;
           })
         );
       }
@@ -212,5 +229,25 @@ export class CandidateSearchEffects {
     @Optional() @Inject(CANDIDATE_SEARCH_EFFECTS_DEBOUNCE) private debounce,
     @Optional() @Inject(CANDIDATE_SEARCH_EFFECTS_SCHEDULER) private scheduler: AsyncScheduler
   ) {
+  }
+
+  private getCandidateMapper(visitedCandidates, selectedOccupations) {
+    return map((response: CandidateSearchResponse) => new FilterAppliedAction({
+      page: response.result.map(this.getProfileToSearchResultMapperFn(visitedCandidates, selectedOccupations)),
+      totalCount: response.totalCount
+    }));
+  }
+
+  private getProfileToSearchResultMapperFn(visitedCandidates, selectedOccupations) {
+    return (candidateProfile) => {
+      const res: CandidateSearchResult = {
+        candidateProfile: candidateProfile,
+        visited: visitedCandidates[candidateProfile.id] || false,
+        relevantJobExperience: findRelevantJobExperience(candidateProfile, selectedOccupations),
+        hashCode: ''
+      };
+      res.hashCode = HASH.update(JSON.stringify(res)).digest().toString(16);
+      return res;
+    };
   }
 }
