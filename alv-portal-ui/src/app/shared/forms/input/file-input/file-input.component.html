@@ -15,7 +15,7 @@
 </button>
 
 <div [class.disabled]="control.disabled">
-  <div class="upload-area d-flex align-items-center justify-content-center w-100"
+  <div class="upload-area d-none d-md-flex align-items-center justify-content-center w-100"
        alvFileDragDrop
        *ngIf="!isUploadLimitReached()"
        [dragDropDisabled]="control.disabled"
