@@ -57,6 +57,8 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
   uploadProgressSubscription: Subscription;
 
+  showUploadInstruction = true;
+
   documentTypes$ = of(Object.keys(ApplicationDocumentType).map(documentType => {
       return {
         value: documentType,
@@ -142,6 +144,10 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
   cancel() {
     this.activeModal.dismiss();
+  }
+
+  dismissUploadInstruction() {
+    this.showUploadInstruction = false;
   }
 
   private createApplicationDocument() {
