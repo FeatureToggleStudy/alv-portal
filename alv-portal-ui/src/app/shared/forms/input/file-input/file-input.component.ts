@@ -4,7 +4,7 @@ import { AbstractInput } from '../abstract-input';
 import { ControlContainer } from '@angular/forms';
 import { InputIdGenerationService } from '../input-id-generation.service';
 import { InputType } from '../input-type.enum';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'alv-file-input',
@@ -14,6 +14,11 @@ import { of } from 'rxjs';
 export class FileInputComponent extends AbstractInput {
 
   private readonly ALL_FILE_TYPES = '*/*';
+
+  /**
+   * Label for the upload area
+   */
+  @Input() uploadAreaLabel: string;
 
   /**
    * Limit the allowed number of files (default: 1)
@@ -87,11 +92,11 @@ export class FileInputComponent extends AbstractInput {
     this.control.setValue(this.getFiles(this.files));
   }
 
-  isFileSelectionDisabled(): boolean {
-    return this.showRemoveButton && this.files.length >= this.maxFilesCount || this.control.disabled;
+  isUploadLimitReached(): boolean {
+    return this.showRemoveButton && this.files.length >= this.maxFilesCount;
   }
 
-  downloadFile(file: File) {
+  downloadFile(file: File): Observable<Blob> {
     return of(file);
   }
 

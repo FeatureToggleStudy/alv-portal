@@ -1,11 +1,27 @@
 @import "../../../../../scss/common/colors";
 
-.upload-button {
+.upload-button, .upload-area {
   height: 46px;
 
+  &.invalid {
+    border-color: $color-red;
+    color: $color-red;
+  }
+}
+
+.upload-area {
+  border: 1px dashed $color-medium-grey;
+  color: $color-dark-grey;
+  text-align: center;
   &.alv-dragover {
     opacity: 80%;
     background-color: $color-red-transparent;
     border: 2px dashed $color-primary;
+    color: $color-primary;
   }
+}
+
+.disabled {
+  opacity: .7;
+  pointer-events: none;
 }
