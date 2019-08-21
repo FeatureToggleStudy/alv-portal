@@ -36,7 +36,7 @@ export class OccupationLabelRepository {
       this.occupationLabelDataCache[cacheKey] = this.http.get<OccupationLabelData>(`${OCCUPATION_LABEL_RESOURCE_URL}/${type}/${value}`).pipe(
         shareReplay(BUFFER_SIZE),
         catchError(err => {
-          this.occupationLabelDataCache[cacheKey] = undefined;
+          delete this.occupationLabelDataCache[cacheKey];
           return EMPTY;
         })
       );
