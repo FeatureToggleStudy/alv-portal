@@ -109,7 +109,7 @@ describe('FileInputComponent', () => {
         //then
         expect(component.control.hasError('maxFilesCount')).toBeTruthy();
         expect(component.control.value.length).toBe(2);
-        expect(component.isFileSelectionDisabled()).toBeTruthy();
+        expect(component.isUploadLimitReached()).toBeTruthy();
         done();
       });
 

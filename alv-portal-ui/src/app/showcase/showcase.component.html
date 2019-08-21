@@ -96,17 +96,14 @@
 
   <alv-file-input label="Choose files"
                    accept="*/*"
-                   helpText="Max. 3 files of 2 MB"
+                   uploadAreaLabel="Drag & Drop"
+                   [helpText]="(fileInputControl.value?.length || 0) + ' of 3 files selected'"
                    [maxFilesCount]="3"
                    [showRemoveButton]="true"
                    [maxFileSize]="2 * 1024 * 1024"
                    [alvControl]="fileInputControl">
   </alv-file-input>
 
-  <div>
-    <h3>Result:</h3>
-    <pre>{{fileInputControl.value | json}}</pre>
-  </div>
   <h1 class="mt-2">Buttons</h1>
   <div class="d-flex mb-2">
     <button class="btn btn-primary btn-icon mr-2">
