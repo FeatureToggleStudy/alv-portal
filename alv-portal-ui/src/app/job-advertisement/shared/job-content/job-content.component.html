@@ -68,17 +68,15 @@
 
         <alv-list-item-content *ngIf="jobDetailModel.isTemporary()"
                                label="portal.job-detail.employmentEndDate.label">
-          {{'job-search.job-search-list-item.badge.temporary' | translate}}
+          <span>{{'job-search.job-search-list-item.badge.temporary' | translate}}</span>
+          <span *ngIf="jobDetailModel.isShortEmployment()">,
+            {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
+          </span>
         </alv-list-item-content>
 
         <alv-list-item-content *ngIf="jobDetailModel.isPermanent()"
                                label="portal.job-detail.employmentEndDate.label">
           {{'job-search.job-search-list-item.badge.permanent' | translate}}
-        </alv-list-item-content>
-
-        <alv-list-item-content *ngIf="jobDetailModel.isShortEmployment()"
-                               label="portal.job-detail.workForm.label">
-          {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
         </alv-list-item-content>
 
         <alv-list-item-content *ngIf="jobDetailModel.workForm.length"
