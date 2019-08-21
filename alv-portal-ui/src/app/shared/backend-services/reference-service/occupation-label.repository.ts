@@ -1,11 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import {
   OccupationLabelAutocomplete,
   OccupationLabelData
 } from './occupation-label.types';
-import { shareReplay } from 'rxjs/operators';
+import { catchError, shareReplay } from 'rxjs/operators';
 
 const DEFAULT_RESPONSE_SIZE = '10';
 const BUFFER_SIZE = 1;
@@ -34,7 +34,11 @@ export class OccupationLabelRepository {
     if (!this.occupationLabelDataCache[cacheKey]) {
       // we cache the observable itself instead of the resolved value because the function is likely to be called in a loop
       this.occupationLabelDataCache[cacheKey] = this.http.get<OccupationLabelData>(`${OCCUPATION_LABEL_RESOURCE_URL}/${type}/${value}`).pipe(
-        shareReplay(BUFFER_SIZE)
+        shareReplay(BUFFER_SIZE),
+        catchError(err => {
+          delete this.occupationLabelDataCache[cacheKey];
+          return EMPTY;
+        })
       );
     }
     return this.occupationLabelDataCache[cacheKey];
