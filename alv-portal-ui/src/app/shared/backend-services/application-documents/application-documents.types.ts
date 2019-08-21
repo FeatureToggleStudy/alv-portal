@@ -26,3 +26,7 @@ export enum ApplicationDocumentType {
   TESTIMONIAL = 'TESTIMONIAL',
   CERTIFICATES = 'CERTIFICATES'
 }
+
+export enum ApplicationDocumentErrors {
+  VIRUS_FOUND = 'http://www.job-room.ch/online-form-service/problem/upload-file-contains-virus'
+}
