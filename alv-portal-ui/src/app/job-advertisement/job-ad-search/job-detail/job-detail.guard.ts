@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot
 } from '@angular/router';
-import { forkJoin, Observable, of } from 'rxjs';
+import { EMPTY, forkJoin, Observable, of } from 'rxjs';
 import {
   FavouriteItemLoadedAction,
   JobAdSearchState,
@@ -36,14 +36,24 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const id = route.params['id'];
-    const jobAdvertisement$ = this.jobAdvertisementRepository.findById(id);
+    const jobAdvertisement$ = this.jobAdvertisementRepository.findById(id).pipe(
+      catchError(err => {
+        // Handle job ad restricted error (meldepflichtige Stelle)
+        if (err.status === 403) {
+          this.notificationService.error('job-detail.notification.restricted', true);
+          this.router.navigate(['/home']);
+          return EMPTY;
+        }
+        throw err;
+      })
+    );
     const favouriteItem$ = this.authenticationService.getCurrentUser().pipe(
       take(1),
       switchMap(currentUser => {
         if (isAuthenticatedUser(currentUser)) {
           return this.jobAdFavouritesRepository.getFavourite(id, currentUser.id);
         } else {
-          return of(undefined);
+          return EMPTY;
         }
       })
     );
@@ -51,22 +61,16 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
       tap(results => {
         const jobAdvertisement = results[0];
         const favouriteItem = results[1];
-        this.store.dispatch(new JobAdvertisementDetailLoadedAction({ jobAdvertisement: jobAdvertisement }));
+
+        if (jobAdvertisement !== undefined) {
+          this.store.dispatch(new JobAdvertisementDetailLoadedAction({ jobAdvertisement: jobAdvertisement }));
+        }
         if (favouriteItem !== undefined) {
           this.store.dispatch(new FavouriteItemLoadedAction({ favouriteItem: favouriteItem }));
         }
       }),
-      catchError(err => {
-        // Handle job ad restricted error (meldepflichtige Stelle)
-        if (err.status === 403) {
-          this.notificationService.error('job-detail.notification.restricted', true);
-          this.router.navigate(['/home']);
-          return of(false);
-        }
-        throw err;
-      }),
-      map(() => {
-        return true;
+      map(results => {
+        return results[0] !== undefined;
       })
     );
   }
