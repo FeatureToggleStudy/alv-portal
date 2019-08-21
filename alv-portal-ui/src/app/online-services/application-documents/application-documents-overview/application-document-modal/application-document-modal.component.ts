@@ -8,15 +8,15 @@ import {
   ValidatorFn,
   Validators
 } from '@angular/forms';
-import { Observable, of, Subscription } from 'rxjs';
+import { EMPTY, Observable, of, Subscription } from 'rxjs';
 import { ApplicationDocumentsRepository } from '../../../../shared/backend-services/application-documents/application-documents.repository';
 import { AuthenticationService } from '../../../../core/auth/authentication.service';
-import { finalize, flatMap, take } from 'rxjs/operators';
+import { catchError, finalize, flatMap, take } from 'rxjs/operators';
 import { deleteApplicationDocumentModalConfig } from '../modal-config.types';
 import { ModalService } from '../../../../shared/layout/modal/modal.service';
 import { NotificationsService } from '../../../../core/notifications.service';
 import {
-  ApplicationDocument,
+  ApplicationDocument, ApplicationDocumentErrors,
   ApplicationDocumentType
 } from '../../../../shared/backend-services/application-documents/application-documents.types';
 import { ValidationMessage } from '../../../../shared/forms/input/validation-messages/validation-message.model';
@@ -56,6 +56,8 @@ export class ApplicationDocumentModalComponent implements OnInit {
   downloadFile$: Observable<Blob>;
 
   uploadProgressSubscription: Subscription;
+
+  showUploadInstruction = true;
 
   documentTypes$ = of(Object.keys(ApplicationDocumentType).map(documentType => {
       return {
@@ -144,6 +146,10 @@ export class ApplicationDocumentModalComponent implements OnInit {
     this.activeModal.dismiss();
   }
 
+  dismissUploadInstruction() {
+    this.showUploadInstruction = false;
+  }
+
   private createApplicationDocument() {
     this.uploadedBytes = 1;
     this.uploadProgressSubscription = this.authenticationService.getCurrentUser()
@@ -153,13 +159,21 @@ export class ApplicationDocumentModalComponent implements OnInit {
           documentType: this.form.value.documentType,
           ownerUserId: user.id
         }, this.form.value.file)),
+        catchError(error => {
+          // Handle virus found exception
+          if (this.hasVirusFoundException(error)) {
+            this.notificationsService.error('portal.application-documents.notification.virus-found');
+            return EMPTY;
+          }
+          throw error;
+        }),
         finalize(() => this.uploadedBytes = 0)
       ).subscribe((event: HttpEvent<ApplicationDocument>) => {
-        if (event.type === HttpEventType.UploadProgress) {
+        if (event && event.type === HttpEventType.UploadProgress) {
           this.totalBytes = event.total;
           this.uploadedBytes = event.loaded;
         }
-        if (event.type === HttpEventType.Response) {
+        if (event && event.type === HttpEventType.Response) {
           this.notificationsService.success('portal.application-documents.success-notification.submitted');
           this.activeModal.close();
         }
@@ -173,6 +187,10 @@ export class ApplicationDocumentModalComponent implements OnInit {
         this.notificationsService.success('portal.application-documents.success-notification.submitted');
         this.activeModal.close();
       });
+  }
+
+  private hasVirusFoundException(error): boolean {
+    return error.status === 422 && error.error && error.error.type === ApplicationDocumentErrors.VIRUS_FOUND;
   }
 
   private validateDocumentTypes(invalidDocumentTypes: ApplicationDocumentType[]): ValidatorFn {
