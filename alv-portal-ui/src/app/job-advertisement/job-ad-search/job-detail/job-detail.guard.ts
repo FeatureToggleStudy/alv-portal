@@ -53,7 +53,7 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
         if (isAuthenticatedUser(currentUser)) {
           return this.jobAdFavouritesRepository.getFavourite(id, currentUser.id);
         } else {
-          return EMPTY;
+          return of(undefined);
         }
       })
     );
@@ -62,15 +62,13 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
         const jobAdvertisement = results[0];
         const favouriteItem = results[1];
 
-        if (jobAdvertisement !== undefined) {
-          this.store.dispatch(new JobAdvertisementDetailLoadedAction({ jobAdvertisement: jobAdvertisement }));
-        }
+        this.store.dispatch(new JobAdvertisementDetailLoadedAction({ jobAdvertisement: jobAdvertisement }));
         if (favouriteItem !== undefined) {
           this.store.dispatch(new FavouriteItemLoadedAction({ favouriteItem: favouriteItem }));
         }
       }),
-      map(results => {
-        return results[0] !== undefined;
+      map(() => {
+        return true;
       })
     );
   }
