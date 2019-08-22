@@ -61,7 +61,6 @@ export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailCompo
       tap(results => {
         const jobAdvertisement = results[0];
         const favouriteItem = results[1];
-
         this.store.dispatch(new JobAdvertisementDetailLoadedAction({ jobAdvertisement: jobAdvertisement }));
         if (favouriteItem !== undefined) {
           this.store.dispatch(new FavouriteItemLoadedAction({ favouriteItem: favouriteItem }));
