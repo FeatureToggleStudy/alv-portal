@@ -249,7 +249,9 @@ export class CandidateSearchEffects {
   }
 
 
-  private getCandidateSearchResults(response: CandidateSearchResponse, visitedCandidates: { [p: string]: boolean }, selectedOccupations: OccupationCode[]) {
+  private getCandidateSearchResults(response: CandidateSearchResponse,
+                                    visitedCandidates: { [p: string]: boolean },
+                                    selectedOccupations: OccupationCode[]): CandidateSearchResult[] {
     return response.result.map((candidateProfile: CandidateProfile) => {
       const res: CandidateSearchResult = {
         candidateProfile: candidateProfile,
