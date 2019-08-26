@@ -1,26 +1,50 @@
 import {
   Directive,
+  ElementRef,
   EventEmitter,
   HostBinding,
-  HostListener,
+  Inject,
   Input,
+  OnDestroy,
+  OnInit,
   Output
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[alvFileDragDrop]'
 })
-export class FileDragDropDirective {
-
-  constructor() { }
+export class FileDragDropDirective implements OnInit, OnDestroy {
 
   @Output() fileDropped = new EventEmitter<File[]>();
 
   @Input() dragDropDisabled: boolean;
 
+  @Input() parentDragDropAreaId?: string;
+
   @HostBinding('class.alv-dragover') private dragover: boolean;
 
-  @HostListener('dragover', ['$event']) onDragOver(evt) {
+  private onDragOverFn = this.onDragOver.bind(this);
+
+  private onDragLeaveFn = this.onDragLeave.bind(this);
+
+  private onDropFn = this.ondrop.bind(this);
+
+  private dragDropArea: Element;
+
+  constructor(@Inject(DOCUMENT) private document: any,
+              private element: ElementRef) {
+  }
+
+  ngOnInit() {
+    this.setupDragDropArea();
+  }
+
+  ngOnDestroy() {
+    this.teardownDragDropArea();
+  }
+
+  onDragOver(evt) {
     if (!this.dragDropDisabled) {
       evt.preventDefault();
       evt.stopPropagation();
@@ -28,7 +52,7 @@ export class FileDragDropDirective {
     }
   }
 
-  @HostListener('dragleave', ['$event']) onDragLeave(evt) {
+  onDragLeave(evt) {
     if (!this.dragDropDisabled) {
       evt.preventDefault();
       evt.stopPropagation();
@@ -36,7 +60,7 @@ export class FileDragDropDirective {
     }
   }
 
-  @HostListener('drop', ['$event']) ondrop(evt) {
+  ondrop(evt) {
     if (!this.dragDropDisabled) {
       evt.preventDefault();
       evt.stopPropagation();
@@ -47,4 +71,22 @@ export class FileDragDropDirective {
       }
     }
   }
+
+  private setupDragDropArea() {
+    this.dragDropArea = this.document.querySelector('#' + this.parentDragDropAreaId) || this.element.nativeElement;
+    if (this.dragDropArea) {
+      this.dragDropArea.addEventListener('dragover', this.onDragOverFn);
+      this.dragDropArea.addEventListener('dragleave', this.onDragLeaveFn);
+      this.dragDropArea.addEventListener('drop', this.onDropFn);
+    }
+  }
+
+  private teardownDragDropArea() {
+    if (this.dragDropArea) {
+      this.dragDropArea.removeEventListener('dragover', this.onDragOverFn);
+      this.dragDropArea.removeEventListener('dragleave', this.onDragLeaveFn);
+      this.dragDropArea.removeEventListener('drop', this.onDropFn);
+    }
+  }
+
 }

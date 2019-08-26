@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthenticationService } from './core/auth/authentication.service';
 import {
   filter,
@@ -26,6 +26,7 @@ import { GATrackingService } from './shared/tracking/g-a-tracking.service';
 import { ScrollService } from './core/scroll.service';
 import { Observable } from 'rxjs';
 import { ProfileInfoService } from './shared/layout/header/profile-info.service';
+import { DOCUMENT } from '@angular/common';
 
 const FALLBACK_TITLE_KEY = 'global.title';
 
@@ -48,7 +49,8 @@ export class AppComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private profileInfoService: ProfileInfoService,
-              private scrollService: ScrollService) {
+              private scrollService: ScrollService,
+              @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {
@@ -71,6 +73,7 @@ export class AppComponent implements OnInit {
 
     this.handleTitle(activatedRoute$);
 
+    this.disableFileDragDropGlobally();
   }
 
   private handleGuardErrors() {
@@ -165,4 +168,20 @@ export class AppComponent implements OnInit {
     });
   }
 
+  private disableFileDragDropGlobally() {
+    const disabledDragDropArea = this.document.body;
+    disabledDragDropArea.addEventListener('dragover', this.preventDefault);
+    disabledDragDropArea.addEventListener('dragleave', this.preventDefault);
+    disabledDragDropArea.addEventListener('drop', this.preventDefault);
+  }
+
+  private preventDefault(event: DragEvent) {
+    for (let i = 0; i < event.dataTransfer.items.length; i++) {
+      if (event.dataTransfer.items[i].kind === 'file') {
+        event.stopPropagation();
+        event.preventDefault();
+        return;
+      }
+    }
+  }
 }
