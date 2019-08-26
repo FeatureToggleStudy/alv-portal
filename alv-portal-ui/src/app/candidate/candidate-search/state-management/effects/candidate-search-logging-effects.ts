@@ -118,10 +118,10 @@ export class CandidateSearchLoggingEffects {
   logEmailRav$ = this.logIdByAction<SelectRavEmailAction>(SELECT_RAV_EMAIL, CDEvent.RAV_EMAIL_CLICKED);
 
   @Effect({ dispatch: false })
-  logContactCandidateDialogOpened$ = this.logIdByAction<ContactCandidateDialogSubmittedAction>(CONTACT_CANDIDATE_DIALOG_OPENED, CDEvent.CONTACT_CANDIDATE_DIALOG_OPENED);
+  logContactCandidateDialogOpened$ = this.logIdByAction<ContactCandidateDialogOpenedAction>(CONTACT_CANDIDATE_DIALOG_OPENED, CDEvent.CONTACT_CANDIDATE_DIALOG_OPENED);
 
   @Effect({ dispatch: false })
-  logContactCandidateDialogSubmitted$ = this.logIdByAction<ContactCandidateDialogOpenedAction>(CONTACT_CANDIDATE_DIALOG_SUBMITTED, CDEvent.CONTACT_CANDIDATE_DIALOG_SUBMITTED);
+  logContactCandidateDialogSubmitted$ = this.logIdByAction<ContactCandidateDialogSubmittedAction>(CONTACT_CANDIDATE_DIALOG_SUBMITTED, CDEvent.CONTACT_CANDIDATE_DIALOG_SUBMITTED);
 
   @Effect({ dispatch: false })
   logCandidatePhoneSelected$ = this.logIdByAction<SelectCandidatePhoneAction>(SELECT_CANDIDATE_PHONE, CDEvent.CANDIDATE_PHONE_CLICKED);
