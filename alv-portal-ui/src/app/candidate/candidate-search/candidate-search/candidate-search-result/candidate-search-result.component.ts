@@ -26,7 +26,7 @@ export class CandidateSearchResultComponent implements OnInit {
   constructor(private i18nService: I18nService,
               private store: Store<CandidateSearchState>,
               private candidateProfileBadgesMapperService: CandidateProfileBadgesMapperService,
-              private occupationService: OccupationService) {
+              ) {
   }
 
   ngOnInit() {
@@ -44,8 +44,7 @@ export class CandidateSearchResultComponent implements OnInit {
       return EMPTY;
     }
     return this.i18nService.currentLanguage$.pipe(
-      switchMap((lang) => this.resolveOccupation(candidateSearchResult.relevantJobExperience, lang)), // move this to effects
-      map(occupationLabel => this.map(candidateSearchResult, candidateSearchResult.relevantJobExperience, occupationLabel))
+      map(occupationLabel => this.map(candidateSearchResult, candidateSearchResult.relevantJobExperience, candidateSearchResult.occupationLabel))
     );
   }
 
@@ -63,15 +62,4 @@ export class CandidateSearchResultComponent implements OnInit {
     };
   }
 
-  private resolveOccupation(jobExperience: JobExperience, lang: string): Observable<GenderAwareOccupationLabel> {
-    const extractProfessionCode = this.extractProfessionCode(jobExperience);
-    return this.occupationService.findLabel(extractProfessionCode, lang);
-  }
-
-  private extractProfessionCode(jobExperience: JobExperience) {
-    return {
-      value: String(jobExperience.occupation.avamCode),
-      type: 'AVAM'
-    };
-  }
 }

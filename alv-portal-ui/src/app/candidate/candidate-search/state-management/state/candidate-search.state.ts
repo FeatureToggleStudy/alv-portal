@@ -17,6 +17,7 @@ import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupati
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import { LocalityTypeaheadItem } from '../../../../shared/localities/locality-typeahead-item';
 import { ResolvedCandidateSearchProfile } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
+import { GenderAwareOccupationLabel } from '../../../../shared/occupations/occupation.service';
 
 
 export interface CandidateSearchState {
@@ -76,6 +77,7 @@ export interface CandidateSearchFilter {
 export interface CandidateSearchResult {
   candidateProfile: CandidateProfile;
   relevantJobExperience: JobExperience;
+  occupationLabel: GenderAwareOccupationLabel;
   visited: boolean;
   hashCode: string;
 }

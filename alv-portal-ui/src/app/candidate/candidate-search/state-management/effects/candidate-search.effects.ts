@@ -16,7 +16,13 @@ import {
 } from 'rxjs/operators';
 import { Action, select, Store } from '@ngrx/store';
 import { CandidateRepository } from '../../../../shared/backend-services/candidate/candidate.repository';
-import { asyncScheduler, Observable, of, OperatorFunction } from 'rxjs/index';
+import {
+  asyncScheduler,
+  combineLatest,
+  Observable,
+  of,
+  OperatorFunction
+} from 'rxjs/index';
 import {
   EffectErrorOccurredAction,
   LANGUAGE_CHANGED,
@@ -61,9 +67,15 @@ import { findRelevantJobExperience } from '../../candidate-rules';
 import * as xxhash from 'xxhashjs/build/xxhash.js';
 import {
   CandidateProfile,
-  CandidateSearchResponse
+  CandidateSearchResponse,
+  JobExperience
 } from '../../../../shared/backend-services/candidate/candidate.types';
 import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
+import {
+  GenderAwareOccupationLabel,
+  OccupationService
+} from '../../../../shared/occupations/occupation.service';
+import { I18nService } from '../../../../core/i18n.service';
 
 const HASH = xxhash.h32(0xABCDEF);
 
@@ -122,7 +134,7 @@ export class CandidateSearchEffects {
     switchMap(([candidateSearchFilter, state, visitedCandidates, selectedOccupations]) =>
       this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(candidateSearchFilter, state.page)).pipe(
         this.getCandidateMapper(visitedCandidates, selectedOccupations),
-        tap(x => {
+        tap(x => { //todo remove
           console.log(x);
           return x;
         }),
@@ -181,10 +193,14 @@ export class CandidateSearchEffects {
     ),
     concatMap(([action, state, visitedCandidates, selectedOccupations]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
       .pipe(
-        map((response) => new NextPageLoadedAction({
-          pageNumber: state.page + 1,
-          page: this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations),
-        })),
+        flatMap((response: CandidateSearchResponse) => {
+          return this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations).pipe(
+            map(page => new NextPageLoadedAction({
+              page: page,
+              pageNumber: state.page + 1,
+            }))
+          );
+        }),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       ))
   );
@@ -235,6 +251,8 @@ export class CandidateSearchEffects {
     private store: Store<CandidateSearchState>,
     private candidateRepository: CandidateRepository,
     private router: Router,
+    private occupationService: OccupationService,
+    private i18nService: I18nService,
     @Optional() @Inject(CANDIDATE_SEARCH_EFFECTS_DEBOUNCE) private debounce,
     @Optional() @Inject(CANDIDATE_SEARCH_EFFECTS_SCHEDULER) private scheduler: AsyncScheduler
   ) {
@@ -242,25 +260,51 @@ export class CandidateSearchEffects {
 
   private getCandidateMapper(visitedCandidates: { [id: string]: boolean },
                              selectedOccupations: OccupationCode[]): OperatorFunction<CandidateSearchResponse, FilterAppliedAction> {
-    return flatMap((response: CandidateSearchResponse) => of(new FilterAppliedAction({
-      page: this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations),
-      totalCount: response.totalCount
-    })));
+    return flatMap((response: CandidateSearchResponse) => {
+      return this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations).pipe(
+        map(page => new FilterAppliedAction({
+          page,
+          totalCount: response.totalCount
+        }))
+      );
+    });
   }
 
 
   private getCandidateSearchResults(response: CandidateSearchResponse,
                                     visitedCandidates: { [p: string]: boolean },
-                                    selectedOccupations: OccupationCode[]): CandidateSearchResult[] {
-    return response.result.map((candidateProfile: CandidateProfile) => {
-      const res: CandidateSearchResult = {
-        candidateProfile: candidateProfile,
-        visited: visitedCandidates[candidateProfile.id] || false,
-        relevantJobExperience: findRelevantJobExperience(candidateProfile, selectedOccupations),
-        hashCode: ''
-      };
-      res.hashCode = computeHashCode(res);
-      return res;
+                                    selectedOccupations: OccupationCode[]): Observable<CandidateSearchResult[]> {
+    const candidateSearchResults$ = response.result.map((candidateProfile: CandidateProfile) => {
+      const relevantJobExperience = findRelevantJobExperience(candidateProfile, selectedOccupations);
+      return this.i18nService.currentLanguage$.pipe(
+        switchMap((lang) => this.resolveOccupation(relevantJobExperience, lang)),
+        map((occupationLabel: GenderAwareOccupationLabel) => {
+          const res: CandidateSearchResult = {
+            candidateProfile,
+            relevantJobExperience,
+            occupationLabel,
+            visited: visitedCandidates[candidateProfile.id] || false,
+            hashCode: '',
+          };
+          res.hashCode = computeHashCode(res);
+          return res;
+        })
+      );
     });
+    return combineLatest(candidateSearchResults$);
   }
+
+
+  private resolveOccupation(jobExperience: JobExperience, language: string): Observable<GenderAwareOccupationLabel> {
+    const extractProfessionCode = this.extractProfessionCode(jobExperience);
+    return this.occupationService.findLabel(extractProfessionCode, language);
+  }
+
+  private extractProfessionCode(jobExperience: JobExperience) {
+    return {
+      value: String(jobExperience.occupation.avamCode),
+      type: 'AVAM'
+    };
+  }
+
 }
