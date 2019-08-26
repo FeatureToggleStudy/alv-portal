@@ -170,12 +170,12 @@ export class AppComponent implements OnInit {
 
   private disableFileDragDropGlobally() {
     const disabledDragDropArea = this.document.body;
-    disabledDragDropArea.addEventListener('dragover', this.preventDefault);
-    disabledDragDropArea.addEventListener('dragleave', this.preventDefault);
-    disabledDragDropArea.addEventListener('drop', this.preventDefault);
+    disabledDragDropArea.addEventListener('dragover', this.preventDefaultForFiles);
+    disabledDragDropArea.addEventListener('dragleave', this.preventDefaultForFiles);
+    disabledDragDropArea.addEventListener('drop', this.preventDefaultForFiles);
   }
 
-  private preventDefault(event: DragEvent) {
+  private preventDefaultForFiles(event: DragEvent) {
     for (let i = 0; i < event.dataTransfer.items.length; i++) {
       if (event.dataTransfer.items[i].kind === 'file') {
         event.stopPropagation();
