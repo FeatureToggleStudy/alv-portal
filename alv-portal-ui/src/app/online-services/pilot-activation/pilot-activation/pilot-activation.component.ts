@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { EMPTY, Subscription } from 'rxjs';
 import { FeatureCodeListRepository } from '../../../shared/backend-services/feature-code-list/feature-code-list.repository';
+import { Router } from '@angular/router';
+import { catchError, flatMap } from 'rxjs/operators';
+import { FeatureCodeListErrors } from '../../../shared/backend-services/feature-code-list/feature-code-list.types';
+import { NotificationsService } from '../../../core/notifications.service';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-pilot-activation',
@@ -15,7 +20,11 @@ export class PilotActivationComponent implements OnInit {
   loadingSubscription: Subscription;
 
   constructor(private fb: FormBuilder,
-              private featureCodeListRepository: FeatureCodeListRepository) { }
+              private router: Router,
+              private notificationsService: NotificationsService,
+              private authenticationService: AuthenticationService,
+              private featureCodeListRepository: FeatureCodeListRepository) {
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -24,9 +33,23 @@ export class PilotActivationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.featureCodeListRepository.activateFeature(this.form.value.activationCode).subscribe(result => {
+    this.featureCodeListRepository.activateFeature(this.form.value.activationCode).pipe(
+      catchError(err => {
+        if (err.status === 412 && err.error.type === FeatureCodeListErrors.NOT_FOUND_OR_ALREADY_TAKEN) {
+          this.notificationsService.error('portal.online-forms.pilot-activation.notification.code-invalid');
+          return EMPTY;
+        }
+        throw err;
+      }),
+      flatMap(() => this.authenticationService.reloadCurrentUser())
+    )
+      .subscribe(() => {
+        this.router.navigate(['home']);
+      });
+  }
 
-    });
+  onCancel() {
+    this.router.navigate(['home']);
   }
 
   isLoading(): boolean {
