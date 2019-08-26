@@ -6,7 +6,7 @@ import {
   catchError,
   concatMap,
   debounceTime,
-  filter,
+  filter, flatMap,
   map,
   switchMap,
   take,
@@ -58,7 +58,10 @@ import {
 import { CandidateSearchRequestMapper } from './candidate-search-request.mapper';
 import { findRelevantJobExperience } from '../../candidate-rules';
 import * as xxhash from 'xxhashjs/build/xxhash.js';
-import { CandidateSearchResponse } from '../../../../shared/backend-services/candidate/candidate.types';
+import {
+  CandidateProfile,
+  CandidateSearchResponse
+} from '../../../../shared/backend-services/candidate/candidate.types';
 import { OccupationCode } from '../../../../shared/backend-services/reference-service/occupation-label.types';
 
 const HASH = xxhash.h32(0xABCDEF);
@@ -236,15 +239,17 @@ export class CandidateSearchEffects {
   ) {
   }
 
-  private getCandidateMapper(visitedCandidates: {[id: string]: boolean}, selectedOccupations: OccupationCode[]): OperatorFunction<CandidateSearchResponse, FilterAppliedAction> {
-    return map((response: CandidateSearchResponse) => new FilterAppliedAction({
+  private getCandidateMapper(visitedCandidates: {[id: string]: boolean},
+                             selectedOccupations: OccupationCode[]): OperatorFunction<CandidateSearchResponse, FilterAppliedAction> {
+    return flatMap((response: CandidateSearchResponse) => of(new FilterAppliedAction({
       page: response.result.map(this.getProfileToSearchResultMapperFn(visitedCandidates, selectedOccupations)),
       totalCount: response.totalCount
-    }));
+    })));
   }
 
-  private getProfileToSearchResultMapperFn(visitedCandidates, selectedOccupations) {
-    return (candidateProfile) => {
+  private getProfileToSearchResultMapperFn(visitedCandidates:  {[id: string]: boolean},
+                                           selectedOccupations: OccupationCode[]): (candidateProfile: CandidateProfile) => CandidateSearchResult {
+    return (candidateProfile: CandidateProfile) => {
       const res: CandidateSearchResult = {
         candidateProfile: candidateProfile,
         visited: visitedCandidates[candidateProfile.id] || false,
