@@ -8,9 +8,9 @@ import {
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { defaultLanguageSkill } from './languages-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
-import { I18nService } from '../../../../core/i18n.service';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { map, startWith, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { LanguagesService } from '../../../../shared/languages/languages.service';
+import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 
 
 const DEFAULT_LANGUAGE_SKILL = defaultLanguageSkill();
@@ -20,7 +20,7 @@ const DEFAULT_LANGUAGE_SKILL = defaultLanguageSkill();
   templateUrl: './languages.component.html',
   styleUrls: ['./languages.component.scss']
 })
-export class LanguagesComponent implements OnInit {
+export class LanguagesComponent extends AbstractSubscriber implements OnInit {
 
   @Input()
   parentForm: FormGroup;
@@ -41,11 +41,13 @@ export class LanguagesComponent implements OnInit {
     })
   );
 
+  private languageSkillFormArrayChanges$;
+
   private readonly MAX_LANGUAGE_OPTIONS_NUM = 5;
 
   constructor(private fb: FormBuilder,
-              private languagesService: LanguagesService,
-              private i8nService: I18nService) {
+              private languagesService: LanguagesService) {
+    super();
   }
 
   ngOnInit() {
@@ -55,7 +57,8 @@ export class LanguagesComponent implements OnInit {
     this.languageSkillFormArray = this.fb.array(languageSkillGroups);
     this.parentForm.addControl(JobPublicationFormValueKeys.LANGUAGE_SKILLS, this.languageSkillFormArray);
 
-    this.languageOptions$ = this.languagesService.getLanguages(true);
+    this.languageSkillFormArrayChanges$ = this.languageSkillFormArray.valueChanges.pipe(startWith(this.languageSkillFormArray.value));
+
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {
@@ -82,6 +85,27 @@ export class LanguagesComponent implements OnInit {
       writtenLevel: DEFAULT_LANGUAGE_SKILL.writtenLevel,
       spokenLevel: DEFAULT_LANGUAGE_SKILL.spokenLevel
     }, { emitEvent: false });
+  }
+
+  getLanguageOptions(languageSkillFormGroup: FormGroup): Observable<SelectableOption[]> {
+    return this.languageSkillFormArrayChanges$.pipe(
+      withLatestFrom(this.languagesService.getLanguages(true)),
+      takeUntil(this.ngUnsubscribe),
+      map(([selectedLanguages, languages]) => {
+        console.log('log: ' + languageSkillFormGroup.value.languageIsoCode + '  ' + languages.filter(language => {
+            return (language.value && language.value === languageSkillFormGroup.value.languageIsoCode) || !selectedLanguages.find(selectedLanguage => selectedLanguage.languageIsoCode && selectedLanguage.languageIsoCode === language.value);
+          }
+        ).length);
+        
+        return languages.filter(language => {
+            return (language.value && language.value === languageSkillFormGroup.value.languageIsoCode) ||
+              !selectedLanguages.find(selectedLanguage => {
+                return selectedLanguage.languageIsoCode && selectedLanguage.languageIsoCode === language.value;
+              });
+          }
+        );
+      })
+    );
   }
 
   private createNewLanguageSkillFormGroup(languageSkill = DEFAULT_LANGUAGE_SKILL): FormGroup {

@@ -11,7 +11,7 @@
           label="candidate-search.languageSkills.label"
           alvFormControlName="languageIsoCode"
           (change)="onLanguageSkillCodeChanged(languageSkill)"
-          [options$]="languageOptions$">
+          [options$]="getLanguageOptions(languageSkill)">
         </alv-select>
       </div>
       <div class="col-auto delete-col p-0">
