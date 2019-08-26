@@ -6,7 +6,8 @@ import {
   catchError,
   concatMap,
   debounceTime,
-  filter, flatMap,
+  filter,
+  flatMap,
   map,
   switchMap,
   take,
@@ -182,7 +183,7 @@ export class CandidateSearchEffects {
       .pipe(
         map((response) => new NextPageLoadedAction({
           pageNumber: state.page + 1,
-          page: response.result.map(this.getProfileToSearchResultMapperFn(visitedCandidates, selectedOccupations))
+          page: this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations),
         })),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       ))
@@ -239,17 +240,17 @@ export class CandidateSearchEffects {
   ) {
   }
 
-  private getCandidateMapper(visitedCandidates: {[id: string]: boolean},
+  private getCandidateMapper(visitedCandidates: { [id: string]: boolean },
                              selectedOccupations: OccupationCode[]): OperatorFunction<CandidateSearchResponse, FilterAppliedAction> {
     return flatMap((response: CandidateSearchResponse) => of(new FilterAppliedAction({
-      page: response.result.map(this.getProfileToSearchResultMapperFn(visitedCandidates, selectedOccupations)),
+      page: this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations),
       totalCount: response.totalCount
     })));
   }
 
-  private getProfileToSearchResultMapperFn(visitedCandidates:  {[id: string]: boolean},
-                                           selectedOccupations: OccupationCode[]): (candidateProfile: CandidateProfile) => CandidateSearchResult {
-    return (candidateProfile: CandidateProfile) => {
+
+  private getCandidateSearchResults(response: CandidateSearchResponse, visitedCandidates: { [p: string]: boolean }, selectedOccupations: OccupationCode[]) {
+    return response.result.map((candidateProfile: CandidateProfile) => {
       const res: CandidateSearchResult = {
         candidateProfile: candidateProfile,
         visited: visitedCandidates[candidateProfile.id] || false,
@@ -258,6 +259,6 @@ export class CandidateSearchEffects {
       };
       res.hashCode = computeHashCode(res);
       return res;
-    };
+    });
   }
 }
