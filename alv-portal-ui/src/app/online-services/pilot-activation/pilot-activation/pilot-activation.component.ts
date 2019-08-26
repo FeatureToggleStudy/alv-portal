@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { FeatureCodeListRepository } from '../../../shared/backend-services/feature-code-list/feature-code-list.repository';
 
 @Component({
   selector: 'alv-pilot-activation',
@@ -13,7 +14,8 @@ export class PilotActivationComponent implements OnInit {
 
   loadingSubscription: Subscription;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private featureCodeListRepository: FeatureCodeListRepository) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -22,7 +24,9 @@ export class PilotActivationComponent implements OnInit {
   }
 
   onSubmit() {
+    this.featureCodeListRepository.activateFeature(this.form.value.activationCode).subscribe(result => {
 
+    });
   }
 
   isLoading(): boolean {
