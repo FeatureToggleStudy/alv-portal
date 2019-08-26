@@ -76,6 +76,10 @@ import {
   OccupationService
 } from '../../../../shared/occupations/occupation.service';
 import { I18nService } from '../../../../core/i18n.service';
+import {
+  CoreState,
+  getCurrentLanguage
+} from '../../../../core/state-management/state/core.state.ts';
 
 const HASH = xxhash.h32(0xABCDEF);
 
@@ -106,12 +110,13 @@ export class CandidateSearchEffects {
       this.store.pipe(select(getCandidateSearchState)),
       this.store.pipe(select(getVisitedCandidates)),
       this.store.pipe(select(getSelectedOccupations)),
+      this.coreStore.pipe(select(getCurrentLanguage))
     ),
-    switchMap(([a, state, visitedCandidates, selectedOccupations]) => {
+    switchMap(([a, state, visitedCandidates, selectedOccupations, language]) => {
         if (state.isDirtyResultList) {
           return this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page))
             .pipe(
-              this.getCandidateMapper(visitedCandidates, selectedOccupations),
+              this.getCandidateMapper(visitedCandidates, selectedOccupations, language),
               catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
             );
         } else {
@@ -129,15 +134,12 @@ export class CandidateSearchEffects {
     withLatestFrom(
       this.store.pipe(select(getCandidateSearchState)),
       this.store.pipe(select(getVisitedCandidates)),
-      this.store.pipe(select(getSelectedOccupations))
+      this.store.pipe(select(getSelectedOccupations)),
+      this.coreStore.pipe(select(getCurrentLanguage))
     ),
-    switchMap(([candidateSearchFilter, state, visitedCandidates, selectedOccupations]) =>
+    switchMap(([candidateSearchFilter, state, visitedCandidates, selectedOccupations, language]) =>
       this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(candidateSearchFilter, state.page)).pipe(
-        this.getCandidateMapper(visitedCandidates, selectedOccupations),
-        tap(x => { //todo remove
-          console.log(x);
-          return x;
-        }),
+        this.getCandidateMapper(visitedCandidates, selectedOccupations, language),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       )),
   );
@@ -189,20 +191,22 @@ export class CandidateSearchEffects {
     withLatestFrom(
       this.store.pipe(select(getCandidateSearchState)),
       this.store.pipe(select(getVisitedCandidates)),
-      this.store.pipe(select(getSelectedOccupations))
+      this.store.pipe(select(getSelectedOccupations)),
+      this.coreStore.pipe(select(getCurrentLanguage))
     ),
-    concatMap(([action, state, visitedCandidates, selectedOccupations]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
+    tap(x => console.log('loadNextPage$')),
+    concatMap(([action, state, visitedCandidates, selectedOccupations, language]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
       .pipe(
-        flatMap((response: CandidateSearchResponse) => {
-          return this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations).pipe(
+        flatMap((response: CandidateSearchResponse) =>
+          this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations, language).pipe(
             map(page => new NextPageLoadedAction({
               page: page,
               pageNumber: state.page + 1,
             }))
-          );
-        }),
+          )),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
-      ))
+      )
+    )
   );
 
   @Effect()
@@ -249,6 +253,7 @@ export class CandidateSearchEffects {
     private occupationSuggestionService: OccupationSuggestionService,
     private actions$: Actions,
     private store: Store<CandidateSearchState>,
+    private coreStore: Store<CoreState>,
     private candidateRepository: CandidateRepository,
     private router: Router,
     private occupationService: OccupationService,
@@ -259,9 +264,10 @@ export class CandidateSearchEffects {
   }
 
   private getCandidateMapper(visitedCandidates: { [id: string]: boolean },
-                             selectedOccupations: OccupationCode[]): OperatorFunction<CandidateSearchResponse, FilterAppliedAction> {
+                             selectedOccupations: OccupationCode[],
+                             language: string): OperatorFunction<CandidateSearchResponse, FilterAppliedAction> {
     return flatMap((response: CandidateSearchResponse) => {
-      return this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations).pipe(
+      return this.getCandidateSearchResults(response, visitedCandidates, selectedOccupations, language).pipe(
         map(page => new FilterAppliedAction({
           page,
           totalCount: response.totalCount
@@ -273,11 +279,11 @@ export class CandidateSearchEffects {
 
   private getCandidateSearchResults(response: CandidateSearchResponse,
                                     visitedCandidates: { [p: string]: boolean },
-                                    selectedOccupations: OccupationCode[]): Observable<CandidateSearchResult[]> {
+                                    selectedOccupations: OccupationCode[],
+                                    language: string): Observable<CandidateSearchResult[]> {
     const candidateSearchResults$ = response.result.map((candidateProfile: CandidateProfile) => {
       const relevantJobExperience = findRelevantJobExperience(candidateProfile, selectedOccupations);
-      return this.i18nService.currentLanguage$.pipe(
-        switchMap((lang) => this.resolveOccupation(relevantJobExperience, lang)),
+      return this.resolveOccupation(relevantJobExperience, language).pipe(
         map((occupationLabel: GenderAwareOccupationLabel) => {
           const res: CandidateSearchResult = {
             candidateProfile,
@@ -288,8 +294,7 @@ export class CandidateSearchEffects {
           };
           res.hashCode = computeHashCode(res);
           return res;
-        })
-      );
+        }));
     });
     return combineLatest(candidateSearchResults$);
   }
