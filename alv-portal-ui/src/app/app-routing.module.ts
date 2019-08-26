@@ -108,6 +108,7 @@ const appRoutes: Routes = [
   {
     path: 'application-documents',
     loadChildren: './online-services/application-documents/application-documents.module#ApplicationDocumentsModule',
+    canActivateChild: [HasAnyAuthoritiesGuard],
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {
       authorities: [UserRole.ROLE_JOB_SEEKER],
@@ -153,6 +154,16 @@ const appRoutes: Routes = [
     data: {
       titleKey: 'portal.dashboard.user-settings.browser-title',
       scrollToTop: true
+    }
+  },
+  {
+    path: 'pilot',
+    loadChildren: './online-services/pilot-activation/pilot-activation.module#PilotActivationModule',
+    canActivateChild: [HasAnyAuthoritiesGuard],
+    canDeactivate: [LazyModuleDeactivateGuard],
+    data: {
+      titleKey: 'portal.pilot.browser-title',
+      authorities: [UserRole.ROLE_JOB_SEEKER]
     }
   },
   {
