@@ -4,6 +4,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   hasAnyAuthorities,
+  hasPilotFeature,
   isAnyUser,
   isAuthenticatedUser,
   isNotAuthenticatedUser,
@@ -13,6 +14,7 @@ import {
 import { MenuDefinition, MenuEntry } from './menu-entry.type';
 import { IconKey } from '../../icons/custom-icon/custom-icon.component';
 import { ProfileInfoService } from '../header/profile-info.service';
+import { FeatureCode } from '../../backend-services/feature-code-list/feature-code-list.types';
 
 interface UserMenuDefinition {
   id: string;
@@ -125,14 +127,14 @@ const ONLINE_FORMS_MENU_ENTRIES: Array<MenuEntry> = [
     iconKey: IconKey.WORK_EFFORTS,
     labelKey: 'portal.navigation.menu-entry.work-efforts',
     path: ['work-efforts'],
-    userPredicate: (u) => isAuthenticatedUser(u)
+    userPredicate: (u) => hasPilotFeature(u, FeatureCode.NPA)
   },
   {
     id: 'application-documents',
     iconClass: 'file-certificate',
     labelKey: 'portal.navigation.menu-entry.application-documents',
     path: ['application-documents'],
-    userPredicate: (u) => isAuthenticatedUser(u)
+    userPredicate: (u) => hasPilotFeature(u, FeatureCode.BU)
   }
 ];
 

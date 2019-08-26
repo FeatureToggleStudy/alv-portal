@@ -33,7 +33,7 @@ export class PilotActivationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.featureCodeListRepository.activateFeature(this.form.value.activationCode).pipe(
+    this.loadingSubscription = this.featureCodeListRepository.activateFeature(this.form.value.activationCode).pipe(
       catchError(err => {
         if (err.status === 412 && err.error.type === FeatureCodeListErrors.NOT_FOUND_OR_ALREADY_TAKEN) {
           this.notificationsService.error('portal.online-forms.pilot-activation.notification.code-invalid');
@@ -54,5 +54,9 @@ export class PilotActivationComponent implements OnInit {
 
   isLoading(): boolean {
     return this.loadingSubscription && !this.loadingSubscription.closed;
+  }
+
+  toUppercase() {
+    this.form.get('activationCode').setValue(this.form.value.activationCode.toUpperCase(), {emitEvent: false});
   }
 }

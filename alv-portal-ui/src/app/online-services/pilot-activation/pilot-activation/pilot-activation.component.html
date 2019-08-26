@@ -16,12 +16,13 @@
             [formGroup]="form"
             alvFormSubmitValidation>
         <alv-input-field label="portal.online-forms.pilot-activation.code.label"
+                         (input)="toUppercase()"
                          alvFormControlName="activationCode">
         </alv-input-field>
 
         <div class="d-flex justify-content-end">
           <button type="button"
-                  class="btn btn-text mr-0 mr-md-1 mb-1 mb-md-0"
+                  class="btn btn-text"
                   (click)="onCancel()"
                   [disabled]="isLoading()">
             {{'portal.online-forms.pilot-activation.cancel-button.label' | translate}}

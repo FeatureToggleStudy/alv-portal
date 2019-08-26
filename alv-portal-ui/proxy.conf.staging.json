@@ -64,6 +64,11 @@
     "secure": false,
     "loglevel": "debug"
   },
+  "/feature-code-list/*": {
+    "target": "https://staging.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
   "/zuul/*": {
     "target": "https://staging.job-room.ch",
     "secure": false,

@@ -1,4 +1,6 @@
 import { UserDto } from './authentication.service';
+import { FeatureCode } from '../../shared/backend-services/feature-code-list/feature-code-list.types';
+import { FeatureCodeListRepository } from '../../shared/backend-services/feature-code-list/feature-code-list.repository';
 
 export enum RegistrationStatus {
   UNREGISTERED = <any>'UNREGISTERED',
@@ -40,6 +42,10 @@ export function hasAnyAuthorities(user: User, authorities: Array<UserRole>) {
   return !!user && user.hasAnyAuthorities(authorities);
 }
 
+export function hasPilotFeature(user: User, featureCode: FeatureCode) {
+  return !!user && user.hasPilotFeature(featureCode);
+}
+
 export class User {
 
   id: string;
@@ -61,6 +67,8 @@ export class User {
   displayName: string;
 
   legalTermsAccepted: boolean;
+
+  activeFeatures: FeatureCode[];
 
   public static toUser(userDto: UserDto) {
     const user = new User();
@@ -101,5 +109,9 @@ export class User {
 
   isLegalTermAcceptanceRequired() {
     return !this.legalTermsAccepted && this.isRegistered();
+  }
+
+  hasPilotFeature(featureCode: FeatureCode): boolean {
+    return this.activeFeatures && this.activeFeatures.includes(featureCode);
   }
 }
