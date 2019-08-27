@@ -19,7 +19,7 @@ import { Observable, of } from 'rxjs';
   templateUrl: './file-input.component.html',
   styleUrls: ['./file-input.component.scss']
 })
-export class FileInputComponent extends AbstractInput implements AfterViewInit {
+export class FileInputComponent extends AbstractInput {
 
   private readonly ALL_FILE_TYPES = '*/*';
 

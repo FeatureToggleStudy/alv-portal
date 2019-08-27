@@ -28,7 +28,7 @@ export class FileDragDropDirective implements OnInit, OnDestroy {
 
   private onDragLeaveFn = this.onDragLeave.bind(this);
 
-  private onDropFn = this.ondrop.bind(this);
+  private onDropFn = this.onDrop.bind(this);
 
   private dragDropArea: Element;
 
@@ -60,7 +60,7 @@ export class FileDragDropDirective implements OnInit, OnDestroy {
     }
   }
 
-  ondrop(evt) {
+  onDrop(evt) {
     if (!this.dragDropDisabled) {
       evt.preventDefault();
       evt.stopPropagation();
