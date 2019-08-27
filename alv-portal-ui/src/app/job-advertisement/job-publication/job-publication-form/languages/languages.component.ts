@@ -41,8 +41,6 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
     })
   );
 
-  private languageSkillFormArrayChanges$;
-
   private readonly MAX_LANGUAGE_OPTIONS_NUM = 5;
 
   constructor(private fb: FormBuilder,
@@ -56,8 +54,6 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
       : [this.createNewLanguageSkillFormGroup()];
     this.languageSkillFormArray = this.fb.array(languageSkillGroups);
     this.parentForm.addControl(JobPublicationFormValueKeys.LANGUAGE_SKILLS, this.languageSkillFormArray);
-
-    this.languageSkillFormArrayChanges$ = this.languageSkillFormArray.valueChanges.pipe(startWith(this.languageSkillFormArray.value));
 
     languageSkillGroups.forEach(group => this.languageOptionsArray.push(this.getLanguageOptions(group)));
   }
@@ -107,9 +103,9 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
       );
   }
 
-  private filterLanguages(availableLanguages: SelectableOption[], filteredLanguages: string[], allowedLanguage: string) {
-    return availableLanguages.filter(language => language.value && language.value === allowedLanguage ||
-      !filteredLanguages.find(selectedLanguage => selectedLanguage === language.value)
+  private filterLanguages(availableLanguageOptions: SelectableOption[], filteredLanguages: string[], allowedLanguage: string) {
+    return availableLanguageOptions.filter(languageOption => languageOption.value && languageOption.value === allowedLanguage ||
+      !filteredLanguages.find(selectedLanguage => selectedLanguage === languageOption.value)
     );
   }
 
