@@ -8,9 +8,8 @@ import {
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { defaultLanguageSkill } from './languages-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
-import { map, startWith, takeUntil } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { LanguagesService } from '../../../../shared/languages/languages.service';
-import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 
 
 const DEFAULT_LANGUAGE_SKILL = defaultLanguageSkill();
@@ -20,7 +19,7 @@ const DEFAULT_LANGUAGE_SKILL = defaultLanguageSkill();
   templateUrl: './languages.component.html',
   styleUrls: ['./languages.component.scss']
 })
-export class LanguagesComponent extends AbstractSubscriber implements OnInit {
+export class LanguagesComponent implements OnInit {
 
   @Input()
   parentForm: FormGroup;
@@ -45,7 +44,6 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
 
   constructor(private fb: FormBuilder,
               private languagesService: LanguagesService) {
-    super();
   }
 
   ngOnInit() {
@@ -94,7 +92,6 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
       this.languageSkillFormArray.valueChanges.pipe(startWith(this.languageSkillFormArray.value))
     )
       .pipe(
-        takeUntil(this.ngUnsubscribe),
         map(([languages, selectedLanguages]) => {
           return this.filterLanguages(languages,
             selectedLanguages.map(selectedLanguage => selectedLanguage.languageIsoCode),
