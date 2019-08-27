@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import {
   CEFR_Level,
   LanguageSkill
 } from '../../../../shared/backend-services/shared.types';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { defaultLanguageSkill } from './languages-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
-import { map, startWith, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 import { LanguagesService } from '../../../../shared/languages/languages.service';
 import { AbstractSubscriber } from '../../../../core/abstract-subscriber';
 
@@ -30,7 +30,7 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
 
   languageSkillFormArray: FormArray;
 
-  languageOptions$: Observable<SelectableOption[]>;
+  languageOptionsArray: Observable<SelectableOption[]>[] = [];
 
   languageLevelOptions$: Observable<SelectableOption[]> = of(
     Object.values(CEFR_Level).map(level => {
@@ -59,14 +59,19 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
 
     this.languageSkillFormArrayChanges$ = this.languageSkillFormArray.valueChanges.pipe(startWith(this.languageSkillFormArray.value));
 
+    languageSkillGroups.forEach(group => this.languageOptionsArray.push(this.getLanguageOptions(group)));
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {
-    this.languageSkillFormArray.removeAt(this.parentForm.value.languageSkills.indexOf(languageSkill));
+    const indexToRemove = this.parentForm.value.languageSkills.indexOf(languageSkill);
+    this.languageSkillFormArray.removeAt(indexToRemove);
+    this.languageOptionsArray.splice(indexToRemove, 1);
   }
 
   addNewLanguageSkill() {
-    this.languageSkillFormArray.push(this.createNewLanguageSkillFormGroup());
+    const languageSkillFormGroup = this.createNewLanguageSkillFormGroup();
+    this.languageSkillFormArray.push(languageSkillFormGroup);
+    this.languageOptionsArray.push(this.getLanguageOptions(languageSkillFormGroup));
     // focusing on added language for nice tabbing experience
     setTimeout(() => {
       const s: HTMLElement = document.querySelector('.language-skill:last-child [alvformcontrolname=languageIsoCode] select');
@@ -80,7 +85,7 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
     return maxNotReached && lastValid;
   }
 
-  onLanguageSkillCodeChanged(languageSkillFormGroup: FormGroup) {
+  onLanguageSkillCodeChanged(languageSkillFormGroup: AbstractControl) {
     languageSkillFormGroup.patchValue({
       writtenLevel: DEFAULT_LANGUAGE_SKILL.writtenLevel,
       spokenLevel: DEFAULT_LANGUAGE_SKILL.spokenLevel
@@ -88,23 +93,23 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
   }
 
   getLanguageOptions(languageSkillFormGroup: FormGroup): Observable<SelectableOption[]> {
-    return this.languageSkillFormArrayChanges$.pipe(
-      withLatestFrom(this.languagesService.getLanguages(true)),
-      takeUntil(this.ngUnsubscribe),
-      map(([selectedLanguages, languages]) => {
-        console.log('log: ' + languageSkillFormGroup.value.languageIsoCode + '  ' + languages.filter(language => {
-            return (language.value && language.value === languageSkillFormGroup.value.languageIsoCode) || !selectedLanguages.find(selectedLanguage => selectedLanguage.languageIsoCode && selectedLanguage.languageIsoCode === language.value);
-          }
-        ).length);
-        
-        return languages.filter(language => {
-            return (language.value && language.value === languageSkillFormGroup.value.languageIsoCode) ||
-              !selectedLanguages.find(selectedLanguage => {
-                return selectedLanguage.languageIsoCode && selectedLanguage.languageIsoCode === language.value;
-              });
-          }
-        );
-      })
+    return combineLatest(
+      this.languagesService.getLanguages(true),
+      this.languageSkillFormArray.valueChanges.pipe(startWith(this.languageSkillFormArray.value))
+    )
+      .pipe(
+        takeUntil(this.ngUnsubscribe),
+        map(([languages,  selectedLanguages]) => {
+          return this.filterLanguages(languages,
+            selectedLanguages.map(selectedLanguage => selectedLanguage.languageIsoCode),
+            languageSkillFormGroup.value.languageIsoCode);
+        })
+      );
+  }
+
+  private filterLanguages(availableLanguages: SelectableOption[], filteredLanguages: string[], allowedLanguage: string) {
+    return availableLanguages.filter(language => language.value && language.value === allowedLanguage ||
+      !filteredLanguages.find(selectedLanguage => selectedLanguage === language.value)
     );
   }
 
