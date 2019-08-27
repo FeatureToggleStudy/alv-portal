@@ -95,7 +95,7 @@ export class LanguagesComponent extends AbstractSubscriber implements OnInit {
     )
       .pipe(
         takeUntil(this.ngUnsubscribe),
-        map(([languages,  selectedLanguages]) => {
+        map(([languages, selectedLanguages]) => {
           return this.filterLanguages(languages,
             selectedLanguages.map(selectedLanguage => selectedLanguage.languageIsoCode),
             languageSkillFormGroup.value.languageIsoCode);
