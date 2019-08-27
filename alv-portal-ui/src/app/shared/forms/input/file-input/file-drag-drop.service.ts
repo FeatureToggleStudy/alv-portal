@@ -7,7 +7,6 @@ import { DOCUMENT } from '@angular/common';
 export class FileDragDropService {
 
   constructor(@Inject(DOCUMENT) private document: any) {
-    this.disableFileDragDropGlobally();
   }
 
   disableFileDragDropGlobally() {
