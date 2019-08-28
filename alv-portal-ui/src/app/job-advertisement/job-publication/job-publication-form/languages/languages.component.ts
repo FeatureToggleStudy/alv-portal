@@ -29,7 +29,7 @@ export class LanguagesComponent implements OnInit {
 
   languageSkillFormArray: FormArray;
 
-  languageOptionsArray: Observable<SelectableOption[]>[] = [];
+  languageOptionsArray$: Observable<SelectableOption[]>[] = [];
 
   languageLevelOptions$: Observable<SelectableOption[]> = of(
     Object.values(CEFR_Level).map(level => {
@@ -53,19 +53,19 @@ export class LanguagesComponent implements OnInit {
     this.languageSkillFormArray = this.fb.array(languageSkillGroups);
     this.parentForm.addControl(JobPublicationFormValueKeys.LANGUAGE_SKILLS, this.languageSkillFormArray);
 
-    languageSkillGroups.forEach(group => this.languageOptionsArray.push(this.getLanguageOptions(group)));
+    languageSkillGroups.forEach(group => this.languageOptionsArray$.push(this.getLanguageOptions(group)));
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {
     const indexToRemove = this.parentForm.value.languageSkills.indexOf(languageSkill);
     this.languageSkillFormArray.removeAt(indexToRemove);
-    this.languageOptionsArray.splice(indexToRemove, 1);
+    this.languageOptionsArray$.splice(indexToRemove, 1);
   }
 
   addNewLanguageSkill() {
     const languageSkillFormGroup = this.createNewLanguageSkillFormGroup();
     this.languageSkillFormArray.push(languageSkillFormGroup);
-    this.languageOptionsArray.push(this.getLanguageOptions(languageSkillFormGroup));
+    this.languageOptionsArray$.push(this.getLanguageOptions(languageSkillFormGroup));
     // focusing on added language for nice tabbing experience
     setTimeout(() => {
       const s: HTMLElement = document.querySelector('.language-skill:last-child [alvformcontrolname=languageIsoCode] select');
