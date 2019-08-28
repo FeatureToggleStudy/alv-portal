@@ -9,7 +9,7 @@ export class FeatureCodeListRepository {
 
   private readonly resourceUrl = '/api/feature-code-list';
 
-  private readonly actionUrl =  `${this.resourceUrl}/_action`;
+  private readonly actionUrl =  `${this.resourceUrl}/_actions`;
 
   constructor(private http: HttpClient) {
   }
