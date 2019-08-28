@@ -6,6 +6,7 @@
            cancelLabel="portal.application-documents.edit-create-modal.cancel-button.label"
            (cancelAction)="cancel()"
            [formGroup]="form"
+           id="applicationDocumentDragDropArea"
            [loadingSubscription]="uploadProgressSubscription">
   <alv-alert *ngIf="showUploadInstruction"
              (dismiss)="dismissUploadInstruction()"
@@ -40,6 +41,7 @@
                   [accept]="ACCEPTED_FILE_TYPES"
                   [maxFileSize]="MAX_FILE_SIZE"
                   [showRemoveButton]="true"
+                  parentDragDropAreaId="applicationDocumentDragDropArea"
                   [validationMessages]="fileValidationMessages">
   </alv-file-input>
 
