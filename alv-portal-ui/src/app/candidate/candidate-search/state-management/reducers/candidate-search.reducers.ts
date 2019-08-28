@@ -12,9 +12,11 @@ import {
   OCCUPATION_LANGUAGE_CHANGED_ACTION,
   RESET,
   RESET_FILTER,
-  RESULT_LIST_INITIALIZED, SEARCH_PROFILE_UPDATED
+  RESULT_LIST_INITIALIZED,
+  SEARCH_PROFILE_UPDATED
 } from '../actions';
 import { EFFECT_ERROR_OCCURRED } from '../../../../core/state-management/actions/core.actions';
+import { computeHashCode } from '../effects';
 
 export function candidateSearchReducer(state = initialState, action: Actions): CandidateSearchState {
   let newState: CandidateSearchState;
@@ -95,6 +97,14 @@ export function candidateSearchReducer(state = initialState, action: Actions): C
     case OCCUPATION_LANGUAGE_CHANGED_ACTION:
       newState = {
         ...state,
+        resultList: state.resultList.map((result, index) => {
+          const resultWithNewTranslation = {
+            ...result,
+            occupationLabel: action.payload.occupationsForSearchResults[index],
+          };
+          resultWithNewTranslation.hashCode = computeHashCode(resultWithNewTranslation);
+          return resultWithNewTranslation;
+        }),
         candidateSearchFilter: {
           ...state.candidateSearchFilter,
           occupations: action.payload.occupations,

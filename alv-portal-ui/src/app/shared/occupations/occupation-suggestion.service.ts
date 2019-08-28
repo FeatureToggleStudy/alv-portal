@@ -25,6 +25,9 @@ export class OccupationSuggestionService {
   }
 
   translateAll(occupations: OccupationTypeaheadItem[], language: string): Observable<OccupationTypeaheadItem[]> {
+    if (!occupations || !occupations.length) {
+      return of([]);
+    }
     return forkJoin(occupations.map((o) => this.translate(o, language)));
   }
 

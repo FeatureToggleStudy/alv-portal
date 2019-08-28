@@ -7,6 +7,7 @@ import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupati
 import { CandidateSearchFilter, CandidateSearchResult } from '../state';
 import { EffectErrorOccurredAction } from '../../../../core/state-management/actions/core.actions';
 import { ResolvedCandidateSearchProfile } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
+import { GenderAwareOccupationLabel } from '../../../../shared/occupations/occupation.service';
 
 export const INITIALIZE_RESULT_LIST = 'CANDIDATES:INITIALIZE_RESULT_LIST';
 export const RESULT_LIST_INITIALIZED = 'CANDIDATES:RESULT_LIST_INITIALIZED';
@@ -104,7 +105,10 @@ export class FilterResetAction implements Action {
 export class OccupationLanguageChangedAction implements Action {
   readonly type = OCCUPATION_LANGUAGE_CHANGED_ACTION;
 
-  constructor(public payload: { occupations: OccupationTypeaheadItem[] }) {
+  constructor(public payload: {
+    occupations: OccupationTypeaheadItem[],
+    occupationsForSearchResults: GenderAwareOccupationLabel[]
+  }) {
   }
 }
 

@@ -59,6 +59,7 @@ import {
   getCandidateSearchState,
   getNextId,
   getPrevId,
+  getResultList,
   getSelectedOccupations,
   getVisitedCandidates
 } from '../state';
@@ -86,7 +87,7 @@ const HASH = xxhash.h32(0xABCDEF);
 export const CANDIDATE_SEARCH_EFFECTS_DEBOUNCE = new InjectionToken<number>('CANDIDATE_SEARCH_EFFECTS_DEBOUNCE');
 export const CANDIDATE_SEARCH_EFFECTS_SCHEDULER = new InjectionToken<SchedulerLike>('CANDIDATE_SEARCH_EFFECTS_SCHEDULER');
 
-function computeHashCode(res: CandidateSearchResult) {
+export function computeHashCode(res: CandidateSearchResult) {
   return HASH.update(JSON.stringify(res)).digest().toString(16);
 }
 
@@ -173,14 +174,21 @@ export class CandidateSearchEffects {
   translateOccupationsOnLanguageChanged$: Observable<Action> = this.actions$.pipe(
     ofType(LANGUAGE_CHANGED),
     map((a: LanguageChangedAction) => a),
-    withLatestFrom(this.store.pipe(select(getCandidateSearchFilter))),
-    filter(([action, candidateSearchFilter]) => !!candidateSearchFilter.occupations),
-    filter(([action, candidateSearchFilter]) => candidateSearchFilter.occupations.length > 0),
-    switchMap(([action, candidateSearchFilter]) => {
-      return this.occupationSuggestionService.translateAll(candidateSearchFilter.occupations, action.payload.language);
+    withLatestFrom(
+      this.store.pipe(select(getCandidateSearchFilter)),
+      this.store.pipe(select(getResultList))),
+    map(([action, candidateSearchFilter, resultList]) => ({
+      occupationsInSearch: this.occupationSuggestionService.translateAll(candidateSearchFilter.occupations, action.payload.language),
+      resultListOccupations: this.translateAllOccupationsInResultList(resultList, action.payload.language)
+    })),
+    switchMap((observableMap) => {
+      return combineLatest(observableMap.occupationsInSearch, observableMap.resultListOccupations);
     }),
-    map((updatedOccupations) => {
-      return new OccupationLanguageChangedAction({ occupations: updatedOccupations });
+    map(([occupationsTypeaheadItems, occupationsForSearchResults]) => {
+      return new OccupationLanguageChangedAction({
+        occupations: occupationsTypeaheadItems,
+        occupationsForSearchResults
+      });
     })
   );
 
@@ -312,4 +320,7 @@ export class CandidateSearchEffects {
     };
   }
 
+  private translateAllOccupationsInResultList(resultList: CandidateSearchResult[], language: string): Observable<GenderAwareOccupationLabel[]> {
+    return combineLatest(resultList.map(result => this.resolveOccupation(result.relevantJobExperience, language)));
+  }
 }
