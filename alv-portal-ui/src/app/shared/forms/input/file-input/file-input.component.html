@@ -11,7 +11,7 @@
          name="files"
          [attr.multiple]="maxFilesCount > 1 ? true : null"
          [accept]="accept"
-         (change)="uploadFile(($event.target || $event.srcElement).files);">
+         (change)="uploadFile(($event.target || $event.srcElement)['files']);">
 </button>
 
 <div [class.disabled]="control.disabled">
@@ -19,6 +19,7 @@
        alvFileDragDrop
        *ngIf="!isUploadLimitReached()"
        [dragDropDisabled]="control.disabled"
+       [parentDragDropAreaId]="parentDragDropAreaId"
        (fileDropped)="uploadFile($event)">
     <fa-icon [icon]="['fas', 'cloud-upload-alt']"
              class="mr-1">
