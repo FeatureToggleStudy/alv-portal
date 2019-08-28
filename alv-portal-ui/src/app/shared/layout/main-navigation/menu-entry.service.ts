@@ -82,7 +82,7 @@ const MAIN_MENU_ENTRIES: Array<MenuEntry> = [
     iconKey: IconKey.CANDIDATE_SEARCH_PROFILES,
     labelKey: 'portal.navigation.menu-entry.candidate-search-profiles',
     path: ['candidate-search-profiles'],
-    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_SYSADMIN])
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'job-publication',
