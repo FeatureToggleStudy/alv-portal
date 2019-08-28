@@ -208,8 +208,7 @@ const SETTINGS_MENU_ENTRIES: Array<MenuEntry> = [
 @Injectable()
 export class MenuEntryService {
 
-  constructor(private authenticationService: AuthenticationService,
-              private profileInfoService: ProfileInfoService) {
+  constructor(private authenticationService: AuthenticationService) {
   }
 
   public prepareEntries(): Observable<MenuDefinition> {
