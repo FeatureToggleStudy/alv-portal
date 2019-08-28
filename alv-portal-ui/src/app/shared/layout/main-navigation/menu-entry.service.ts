@@ -4,7 +4,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
   hasAnyAuthorities,
-  hasPilotFeature,
+  hasFeature,
   isAnyUser,
   isAuthenticatedUser,
   isNotAuthenticatedUser,
@@ -14,7 +14,7 @@ import {
 import { MenuDefinition, MenuEntry } from './menu-entry.type';
 import { IconKey } from '../../icons/custom-icon/custom-icon.component';
 import { ProfileInfoService } from '../header/profile-info.service';
-import { FeatureCode } from '../../backend-services/feature-code-list/feature-code-list.types';
+import { FeatureName } from '../../backend-services/feature-code-list/feature-code-list.types';
 
 interface UserMenuDefinition {
   id: string;
@@ -127,14 +127,14 @@ const ONLINE_FORMS_MENU_ENTRIES: Array<MenuEntry> = [
     iconKey: IconKey.WORK_EFFORTS,
     labelKey: 'portal.navigation.menu-entry.work-efforts',
     path: ['work-efforts'],
-    userPredicate: (u) => hasPilotFeature(u, FeatureCode.NPA)
+    userPredicate: (u) => hasFeature(u, FeatureName.NPA)
   },
   {
     id: 'application-documents',
     iconClass: 'file-certificate',
     labelKey: 'portal.navigation.menu-entry.application-documents',
     path: ['application-documents'],
-    userPredicate: (u) => hasPilotFeature(u, FeatureCode.BU)
+    userPredicate: (u) => hasFeature(u, FeatureName.BU)
   }
 ];
 
@@ -213,14 +213,11 @@ export class MenuEntryService {
   }
 
   public prepareEntries(): Observable<MenuDefinition> {
-    return combineLatest(
-      this.authenticationService.getCurrentUser(),
-      this.profileInfoService.getProfileInfo()).pipe(
-      map(([user, profileInfo]) => {
+    return this.authenticationService.getCurrentUser().pipe(
+      map((user: User) => {
         const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => e.userPredicate(user));
         const mainMenuEntries = MAIN_MENU_ENTRIES.filter(m => m.userPredicate(user));
-        const onlineFormsMenuEntries = profileInfo.inProduction ? [] :
-          ONLINE_FORMS_MENU_ENTRIES.filter(m => m.userPredicate(user));
+        const onlineFormsMenuEntries = ONLINE_FORMS_MENU_ENTRIES.filter(m => m.userPredicate(user));
         const settingsMenuEntries = SETTINGS_MENU_ENTRIES.filter(m => m.userPredicate(user));
         if (!userMenuDefinition) {
           return {

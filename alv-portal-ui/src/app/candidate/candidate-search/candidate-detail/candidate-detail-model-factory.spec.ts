@@ -16,7 +16,7 @@ import {
 } from '../../../shared/backend-services/candidate/candidate.mock';
 import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
 import { of } from 'rxjs';
-import { FeatureCode } from '../../../shared/backend-services/feature-code-list/feature-code-list.types';
+import { FeatureName } from '../../../shared/backend-services/feature-code-list/feature-code-list.types';
 
 describe('CandidateDetailModelFactory', () => {
   let candidateDetailModelFactory: CandidateDetailModelFactory;
@@ -76,7 +76,7 @@ describe('CandidateDetailModelFactory', () => {
     isLegalTermAcceptanceRequired(): boolean {
       return false;
     },
-    hasPilotFeature(featureCode: FeatureCode): boolean {
+    hasFeature(featureName: FeatureName): boolean {
       return false;
     }
   };

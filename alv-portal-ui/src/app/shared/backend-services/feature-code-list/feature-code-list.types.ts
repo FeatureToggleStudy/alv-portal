@@ -1,5 +1,5 @@
 
-export enum FeatureCode {
+export enum FeatureName {
   BU = 'BU',
   NPA = 'NPA'
 }

@@ -11,8 +11,8 @@ import { HasAnyAuthoritiesGuard } from './core/auth/has-any-authorities-guard.se
 import { UserSettingsComponent } from './shared/user-settings/user-settings.component';
 import { LazyModuleDeactivateGuard } from './core/lazy-module-deactivate.guard';
 import { ModuleName } from './core/state-management/actions/core.actions';
-import { HasPilotFeatureGuard } from './core/auth/has-pilot-feature-guard.service';
-import { FeatureCode } from './shared/backend-services/feature-code-list/feature-code-list.types';
+import { HasFeatureGuard } from './core/auth/has-feature-guard.service';
+import { FeatureName } from './shared/backend-services/feature-code-list/feature-code-list.types';
 
 const appRoutes: Routes = [
   {
@@ -98,10 +98,10 @@ const appRoutes: Routes = [
   {
     path: 'work-efforts',
     loadChildren: './online-services/work-efforts/work-efforts.module#WorkEffortsModule',
-    canActivateChild: [HasPilotFeatureGuard],
+    canActivateChild: [HasFeatureGuard],
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {
-      featureCode: FeatureCode.NPA,
+      featureName: FeatureName.NPA,
       moduleName: ModuleName.WORK_EFFORTS,
       titleKey: 'portal.work-efforts.browser-title',
       scrollToTop: true
@@ -110,10 +110,10 @@ const appRoutes: Routes = [
   {
     path: 'application-documents',
     loadChildren: './online-services/application-documents/application-documents.module#ApplicationDocumentsModule',
-    canActivateChild: [HasPilotFeatureGuard],
+    canActivateChild: [HasFeatureGuard],
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {
-      featureCode: FeatureCode.BU,
+      featureName: FeatureName.BU,
       moduleName: ModuleName.APPLICATION_DOCUMENTS,
       titleKey: 'portal.application-documents.browser-title',
       scrollToTop: true
