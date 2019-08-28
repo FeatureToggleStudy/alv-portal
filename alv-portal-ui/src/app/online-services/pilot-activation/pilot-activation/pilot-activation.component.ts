@@ -28,7 +28,7 @@ export class PilotActivationComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      activationCode: ['', [Validators.required]] // TODO: validation? max length? min length?
+      activationCode: ['', [Validators.required]]
     });
   }
 

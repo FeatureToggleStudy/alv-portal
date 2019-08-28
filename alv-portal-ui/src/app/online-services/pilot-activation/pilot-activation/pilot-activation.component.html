@@ -16,6 +16,7 @@
             [formGroup]="form"
             alvFormSubmitValidation>
         <alv-input-field label="portal.online-forms.pilot-activation.code.label"
+                         [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
                          (input)="toUppercase()"
                          alvFormControlName="activationCode">
         </alv-input-field>
