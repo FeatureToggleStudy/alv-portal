@@ -20,6 +20,7 @@ import { map, skipWhile, switchMap } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
 import { CompanyContactTemplateModel } from './company-contact-template-model';
 import { CompanyContactTemplate } from '../../shared/backend-services/user-info/user-info.types';
+import { FeatureName } from '../../shared/backend-services/feature-code-list/feature-code-list.types';
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +96,7 @@ export class UserDto {
   authorities: UserRole[];
   registrationStatus: RegistrationStatus;
   legalTermsAccepted: boolean;
+  activeFeatures?: FeatureName[];
 }
 
 

@@ -15,9 +15,7 @@ export class FeatureCodeListRepository {
   }
 
   activateFeature(activationCode: string): Observable<null> {
-    return this.http.post<null>(`${this.actionUrl}/activate`, {
-      activationCode: activationCode
-    });
+    return this.http.post<null>(`${this.actionUrl}/activate`, activationCode);
   }
 
 }

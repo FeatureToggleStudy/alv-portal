@@ -1,6 +1,5 @@
 import { UserDto } from './authentication.service';
 import { FeatureName } from '../../shared/backend-services/feature-code-list/feature-code-list.types';
-import { FeatureCodeListRepository } from '../../shared/backend-services/feature-code-list/feature-code-list.repository';
 
 export enum RegistrationStatus {
   UNREGISTERED = <any>'UNREGISTERED',
@@ -82,6 +81,7 @@ export class User {
     user.langKey = userDto.langKey;
     user.email = userDto.email;
     user.legalTermsAccepted = userDto.legalTermsAccepted;
+    user.activeFeatures = userDto.activeFeatures;
     return user;
   }
 
