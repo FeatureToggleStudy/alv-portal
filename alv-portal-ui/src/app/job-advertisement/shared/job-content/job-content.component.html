@@ -66,6 +66,11 @@
           {{[jobDetailModel.employment?.workloadPercentageMin, jobDetailModel.employment?.workloadPercentageMax] | workingTimeRange}}
         </alv-list-item-content>
 
+        <alv-list-item-content *ngIf="jobDetailModel.hasEndDate()"
+                               label="portal.job-detail.employmentEndDate.label">
+          {{jobDetailModel.employment.endDate | localeAwareDate}}
+        </alv-list-item-content>
+
         <alv-list-item-content *ngIf="jobDetailModel.isTemporary()"
                                label="portal.job-detail.employmentEndDate.label">
           <span>{{'job-search.job-search-list-item.badge.temporary' | translate}}</span>
