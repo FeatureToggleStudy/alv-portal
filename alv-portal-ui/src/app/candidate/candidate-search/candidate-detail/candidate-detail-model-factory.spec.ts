@@ -64,6 +64,7 @@ describe('CandidateDetailModelFactory', () => {
     authorities: [UserRole.ROLE_PAV],
     registrationStatus: RegistrationStatus.REGISTERED,
     legalTermsAccepted: true,
+    activeFeatures: [],
     hasAnyAuthorities(authorities: Array<UserRole>): boolean {
       return true;
     },

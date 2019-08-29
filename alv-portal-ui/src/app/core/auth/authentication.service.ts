@@ -96,7 +96,7 @@ export class UserDto {
   authorities: UserRole[];
   registrationStatus: RegistrationStatus;
   legalTermsAccepted: boolean;
-  activeFeatures?: FeatureName[];
+  activeFeatures: FeatureName[];
 }
 
 

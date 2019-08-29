@@ -67,7 +67,7 @@ export class User {
 
   legalTermsAccepted: boolean;
 
-  activeFeatures?: FeatureName[];
+  activeFeatures: FeatureName[];
 
   public static toUser(userDto: UserDto) {
     const user = new User();
