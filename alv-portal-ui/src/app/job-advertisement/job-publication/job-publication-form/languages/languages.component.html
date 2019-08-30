@@ -1,7 +1,7 @@
 <fieldset>
   <legend class="sr-only">{{'portal.job-publication.language-skills.label' | translate }}</legend>
 
-  <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first"
+  <div *ngFor="let languageSkill of languageSkillFormArray.controls; let first = first; let index = index"
        [formGroup]="languageSkill"
        class="alv-light-panel p-2 mb-2 language-skill">
     <div class="form-row">
@@ -11,11 +11,12 @@
           label="candidate-search.languageSkills.label"
           alvFormControlName="languageIsoCode"
           (change)="onLanguageSkillCodeChanged(languageSkill)"
-          [options$]="languageOptions$">
+          [options$]="languageOptionsArray$[index]">
         </alv-select>
       </div>
       <div class="col-auto delete-col p-0">
         <button *ngIf="!first"
+                type="button"
                 class="btn btn-text btn-icon text-primary w-100 h-100"
                 [attr.aria-label]="'global.button.remove.title'| translate"
                 (click)="removeLanguageSkill(languageSkill.value)">
@@ -49,6 +50,7 @@
     </div>
   </div>
   <button class="btn btn-primary btn-sm"
+          type="button"
           (click)="addNewLanguageSkill()"
           *ngIf="isAddLanguageSkillEnabled()">
     {{'portal.job-publication.language-skills.add'| translate}}
