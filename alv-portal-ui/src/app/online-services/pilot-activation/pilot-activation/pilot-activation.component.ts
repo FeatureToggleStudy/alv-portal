@@ -36,6 +36,7 @@ export class PilotActivationComponent implements OnInit {
     this.loadingSubscription = this.featureCodeListRepository.activateFeature(this.form.value.activationCode).pipe(
       catchError(err => {
         if (err.status === 412 && err.error.type === FeatureCodeListErrors.NOT_FOUND_OR_ALREADY_TAKEN) {
+          this.form.reset();
           this.notificationsService.error('portal.online-forms.pilot-activation.notification.code-invalid');
           return EMPTY;
         }
