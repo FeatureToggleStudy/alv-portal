@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthenticationService } from './core/auth/authentication.service';
 import {
   filter,
@@ -26,6 +26,8 @@ import { GATrackingService } from './shared/tracking/g-a-tracking.service';
 import { ScrollService } from './core/scroll.service';
 import { Observable } from 'rxjs';
 import { ProfileInfoService } from './shared/layout/header/profile-info.service';
+import { DOCUMENT } from '@angular/common';
+import { FileDragDropService } from './shared/forms/input/file-input/file-drag-drop.service';
 
 const FALLBACK_TITLE_KEY = 'global.title';
 
@@ -48,7 +50,9 @@ export class AppComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private profileInfoService: ProfileInfoService,
-              private scrollService: ScrollService) {
+              private scrollService: ScrollService,
+              private fileDragDropService: FileDragDropService,
+              @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {
@@ -71,6 +75,7 @@ export class AppComponent implements OnInit {
 
     this.handleTitle(activatedRoute$);
 
+    this.fileDragDropService.disableFileDragDropGlobally();
   }
 
   private handleGuardErrors() {
@@ -164,5 +169,4 @@ export class AppComponent implements OnInit {
       this.trackingService.trackCurrentPage(title);
     });
   }
-
 }
