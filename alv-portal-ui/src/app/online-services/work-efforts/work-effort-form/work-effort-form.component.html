@@ -57,6 +57,7 @@
               <alv-date-input alvFormControlName="date"
                               [minDate]="minDate"
                               [maxDate]="maxDate"
+                              [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
                               label="portal.work-efforts.edit-form.application-date.label"
                               container="body">
               </alv-date-input>
@@ -159,6 +160,7 @@
 
             <alv-input-field alvFormControlName="contactPerson"
                              [isRequired]="isContactPersonRequired()"
+                             [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
                              label="portal.work-efforts.edit-form.contact-person">
             </alv-input-field>
 
@@ -191,6 +193,7 @@
                              alvFormControlName="phone"
                              label="portal.work-efforts.edit-form.phone"
                              [isRequired]="isPhoneRequired()"
+                             [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
                              placeholder="portal.work-efforts.edit-form.phone-swiss-example"
                              type="tel">
             </alv-input-field>
