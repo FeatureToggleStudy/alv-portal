@@ -80,7 +80,7 @@ export class ProofOfWorkEffortsModel {
     if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.OPEN ||
       this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.RE_OPENED) {
       return baseLabel + 'open';
-    } else if (this.isSentSuccessfully && this.proofOfWorkEfforts.workEfforts.length === 0) {
+    } else if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.SUBMITTED && this.proofOfWorkEfforts.workEfforts.length === 0) {
       return baseLabel + 'submitted_without_work_effort';
     } else {
       return baseLabel + 'submitted';
