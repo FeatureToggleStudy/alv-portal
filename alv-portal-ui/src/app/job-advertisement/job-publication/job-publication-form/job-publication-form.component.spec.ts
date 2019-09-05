@@ -43,7 +43,7 @@ describe('JobPublicationFormComponent', () => {
   };
 
   const mockIsoCountryService = {
-    countryOptions$: of([
+    getSortedCountryOptions: () => of([
       { value: 'CH', label: 'CH' },
       { value: 'DE', label: 'DE' },
     ])

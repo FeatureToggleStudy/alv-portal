@@ -13,7 +13,7 @@ describe('PostAddressFormComponent', () => {
   let fixture: ComponentFixture<PostAddressFormComponent>;
 
   const mockIsoCountryService = {
-    countryOptions$: of([
+    getSortedCountryOptions: () => of([
       { value: 'CH', label: 'CH' },
       { value: 'DE', label: 'DE' },
     ])

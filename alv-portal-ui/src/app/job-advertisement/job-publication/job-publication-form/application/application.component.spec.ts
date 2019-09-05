@@ -5,12 +5,18 @@ import { FormGroup } from '@angular/forms';
 import { IsoCountryService } from '../../../../shared/localities/iso-country.service';
 import { ApplicationComponent } from './application.component';
 import { emptyApplicationFormValue } from './application-form-value.types';
+import { of } from 'rxjs';
 
 describe('ApplicationComponent', () => {
 
   let component: ApplicationComponent;
   let fixture: ComponentFixture<ApplicationComponent>;
-
+  const mockIsoCountryService = {
+    getSortedCountryOptions: () => of([
+      { value: 'CH', label: 'CH' },
+      { value: 'DE', label: 'DE' },
+    ])
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -19,7 +25,7 @@ describe('ApplicationComponent', () => {
       ],
       providers: [{
         provide: IsoCountryService,
-        useValue: jasmine.createSpyObj('mockIsoCountryService', ['countryOptions$'])
+        useValue: mockIsoCountryService
       }],
       declarations: [ApplicationComponent],
     })
