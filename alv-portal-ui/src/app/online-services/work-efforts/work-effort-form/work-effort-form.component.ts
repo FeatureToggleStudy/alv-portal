@@ -404,7 +404,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   private hasNoProofOfWorkEffortsFoundError(error): boolean {
-    return error.error && error.error.businessExceptionType === ProofOfWorkEffortsErrors.NO_PROOF_OF_WORK_EFFORT_FOUND;
+    return error.error && error.error.businessExceptionType === ProofOfWorkEffortsErrors.NO_MATCHING_PROOF_OF_WORK_EFFORT_FOUND;
   }
 
   /**
