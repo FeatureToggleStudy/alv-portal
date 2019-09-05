@@ -18,7 +18,7 @@ import { EMPTY, Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
-import { catchError, filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, filter, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 import { ProofOfWorkEffortsRepository } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.repository';
@@ -60,6 +60,8 @@ import {
 } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ScrollService } from '../../../core/scroll.service';
 import { NotificationsService } from '../../../core/notifications.service';
+import { I18nService } from '../../../core/i18n.service';
+import { Languages } from '../../../core/languages.constants';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads.';
 const appliedThroughRavPrefix = 'portal.work-efforts.edit-form.applied-through-rav.';
@@ -141,13 +143,13 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
               private authenticationService: AuthenticationService,
               private notificationsService: NotificationsService,
               private route: ActivatedRoute,
+              private i18nService: I18nService,
               public router: Router,
               private cdRef: ChangeDetectorRef,
               private scrollService: ScrollService,
               private modalService: ModalService) {
 
     super();
-    this.countryOptions$ = this.isoCountryService.countryOptions$;
   }
 
   get applyChannelsValue(): ApplyChannelsFormValue {
@@ -155,6 +157,9 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   }
 
   ngOnInit() {
+    this.countryOptions$ = this.isoCountryService.getSortedCountryOptions(this.i18nService.currentLanguage$.pipe(
+      map(lang => this.isoCountryService.getCountryOptions(lang === Languages.EN ? Languages.DE : lang))
+    ));
 
     this.setInitialFormState();
 

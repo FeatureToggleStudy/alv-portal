@@ -32,7 +32,7 @@ describe('IsoCountryService', () => {
       const numberOfCountries = 250;
       let countryOptions: SelectableOption[];
 
-      service.countryOptions$.subscribe((countries: SelectableOption[]) => countryOptions = countries);
+      service.getSortedCountryOptions().subscribe((countries: SelectableOption[]) => countryOptions = countries);
 
       expect(countryOptions).toBeArray();
       expect(countryOptions).toBeArrayOfSize(numberOfCountries);

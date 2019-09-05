@@ -31,7 +31,7 @@ export class EmployerComponent implements OnInit, OnDestroy {
   constructor(private isoCountryService: IsoCountryService,
               private fb: FormBuilder) {
 
-    this.countryOptions$ = this.isoCountryService.countryOptions$;
+    this.countryOptions$ = this.isoCountryService.getSortedCountryOptions();
   }
 
   ngOnInit(): void {

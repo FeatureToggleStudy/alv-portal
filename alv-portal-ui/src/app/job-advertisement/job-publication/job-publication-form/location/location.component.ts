@@ -33,7 +33,7 @@ export class LocationComponent extends AbstractSubscriber implements OnInit {
               private isoCountryService: IsoCountryService) {
     super();
 
-    this.countryOptions$ = this.isoCountryService.countryOptions$;
+    this.countryOptions$ = this.isoCountryService.getSortedCountryOptions();
   }
 
   ngOnInit(): void {

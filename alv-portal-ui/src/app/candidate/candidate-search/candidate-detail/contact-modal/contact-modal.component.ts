@@ -92,7 +92,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
 
     this.form = this.prepareForm();
 
-    this.countryOptions$ = this.isoCountryService.countryOptions$;
+    this.countryOptions$ = this.isoCountryService.getSortedCountryOptions();
 
     combineLatest(this.authenticationService.getCurrentCompany(), this.i18nService.stream(this.LABEL_VALUES)).pipe(
       takeUntil(this.ngUnsubscribe))

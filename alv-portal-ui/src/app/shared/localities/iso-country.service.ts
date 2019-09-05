@@ -18,7 +18,7 @@ export class IsoCountryService {
     IT: 5
   };
 
-  private readonly _countryOptions$: Observable<SelectableOption[]>;
+  private readonly defaultCountryOptions$: Observable<SelectableOption[]>;
 
   constructor(private i18nService: I18nService) {
     countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
@@ -26,17 +26,20 @@ export class IsoCountryService {
     countries.registerLocale(require('i18n-iso-countries/langs/de.json'));
     countries.registerLocale(require('i18n-iso-countries/langs/it.json'));
 
-    this._countryOptions$ = this.i18nService.currentLanguage$.pipe(
-      map((lang: string) => {
-          const countryNames = countries.getNames(lang);
-          return Object.keys(countryNames)
-            .map((value) => ({ value, label: countryNames[value] }));
-        }
-      ));
+    this.defaultCountryOptions$ = this.i18nService.currentLanguage$.pipe(
+      map(this.getCountryOptions)
+    );
   }
 
-  get countryOptions$(): Observable<SelectableOption[]> {
-    return this._countryOptions$.pipe(
+  getCountryOptions(lang: string): SelectableOption[] {
+    const countryNames = countries.getNames(lang);
+    return Object.keys(countryNames)
+      .map((value) => ({ value, label: countryNames[value] }));
+  }
+
+  getSortedCountryOptions(customCountryOptions$?: Observable<SelectableOption[]>): Observable<SelectableOption[]> {
+    const countryOptions = customCountryOptions$ || this.defaultCountryOptions$;
+    return countryOptions.pipe(
       map(c => {
         c.sort((a, b) => {
           const aWeight = IsoCountryService.MAIN_COUNTRIES_ISO_CODES_ORDER[a.value];

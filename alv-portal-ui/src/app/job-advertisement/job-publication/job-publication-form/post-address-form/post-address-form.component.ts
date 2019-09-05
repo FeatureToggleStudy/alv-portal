@@ -6,7 +6,10 @@ import { Observable } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
 import { PostAddressFormValue } from './post-address-form-value.types';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
-import { HOUSE_NUMBER_REGEX, POSITIVE_INTEGER_REGEX } from '../../../../shared/forms/regex-patterns';
+import {
+  HOUSE_NUMBER_REGEX,
+  POSITIVE_INTEGER_REGEX
+} from '../../../../shared/forms/regex-patterns';
 import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
 
 
@@ -43,7 +46,7 @@ export class PostAddressFormComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
               private isoCountryService: IsoCountryService) {
 
-    this.countryOptions$ = this.isoCountryService.countryOptions$;
+    this.countryOptions$ = this.isoCountryService.getSortedCountryOptions();
   }
 
   ngOnInit(): void {
