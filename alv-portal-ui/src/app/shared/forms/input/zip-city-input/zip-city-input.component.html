@@ -1,5 +1,5 @@
 <ng-container *ngIf="isCityZipAutocomplete()" [formGroup]="zipAndCity">
-  <alv-single-typeahead label="home.tools.job-publication.locality.zipcode"
+  <alv-single-typeahead [label]="zipCityLabel"
                         alvFormControlName="zipCityAutoComplete"
                         [isRequired]="isRequired"
                         [loadItems]="loadLocations.bind(this)"
@@ -9,7 +9,7 @@
 
 <div class="form-row" *ngIf="!isCityZipAutocomplete()" [formGroup]="zipAndCity">
   <div class="col-4">
-    <alv-input-field label="home.tools.job-publication.locality.zip"
+    <alv-input-field [label]="zipLabel"
                      alvFormControlName="zipCode"
                      [isRequired]="isRequired"
                      [maxLength]="ZIP_CODE_MAX_LENGTH"
@@ -18,7 +18,7 @@
   </div>
 
   <div class="col-8">
-    <alv-input-field label="home.tools.job-publication.locality.city"
+    <alv-input-field [label]="cityLabel"
                      alvFormControlName="city"
                      [isRequired]="isRequired"
                      [maxLength]="CITY_MAX_LENGTH"

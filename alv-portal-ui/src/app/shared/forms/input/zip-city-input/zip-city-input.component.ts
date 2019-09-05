@@ -46,6 +46,15 @@ export class ZipCityInputComponent implements OnInit {
   @Input()
   validators = zipCityDefaultValidators;
 
+  @Input()
+  zipCityLabel: string;
+
+  @Input()
+  zipLabel: string;
+
+  @Input()
+  cityLabel: string;
+
   zipAndCity: FormGroup;
 
   constructor(private fb: FormBuilder,

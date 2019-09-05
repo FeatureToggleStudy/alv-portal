@@ -61,8 +61,8 @@ import {
 import { ScrollService } from '../../../core/scroll.service';
 import { NotificationsService } from '../../../core/notifications.service';
 
-const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
-const appliedThroughRavPrefix = 'portal.global';
+const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads.';
+const appliedThroughRavPrefix = 'portal.work-efforts.edit-form.applied-through-rav.';
 
 @Component({
   selector: 'alv-work-effort-form',
@@ -107,14 +107,14 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   };
   workLoadOptions$ = of(Object.values(WorkLoadFormOption).map(value => ({
     value: value,
-    label: workLoadPrefix + '.' + value
+    label: workLoadPrefix + value
   })));
   appliedThroughRavOptions$ = of([{
     value: false,
-    label: appliedThroughRavPrefix + '.' + 'no'
+    label: appliedThroughRavPrefix + 'no'
   }, {
     value: true,
-    label: appliedThroughRavPrefix + '.' + 'yes'
+    label: appliedThroughRavPrefix + 'yes'
   }]);
   initialZipAndCity: ZipCityFormValue;
   minDate: NgbDate;

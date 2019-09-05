@@ -6,7 +6,7 @@
          routerLink="/work-efforts">
         <fa-icon class="mr-1"
                  [icon]="['fas', 'caret-left']"></fa-icon>
-        {{'entity.action.back' | translate}}
+        {{'portal.work-efforts.edit-form.button.back' | translate}}
       </a>
       <alv-assistant-link [isActive]="true"
                           class="d-none d-lg-block d-print-none"
@@ -36,14 +36,14 @@
           </button>
         </div>
       </div>
-      <h2>
-        <alv-custom-icon class="text-primary"
+      <h2 class="d-flex">
+        <alv-custom-icon class="text-primary mr-1"
                          aria-hidden="true"
                          [iconKey]="IconKey.WORK_EFFORTS">
         </alv-custom-icon>
         {{'portal.work-efforts.edit-form.title' | translate}}
       </h2>
-      <hr class="mb-4">
+      <hr class="mt-0 mb-4">
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
             class="mb-4"
@@ -57,7 +57,7 @@
               <alv-date-input alvFormControlName="date"
                               [minDate]="minDate"
                               [maxDate]="maxDate"
-                              label="portal.global.date"
+                              label="portal.work-efforts.edit-form.application-date.label"
                               container="body">
               </alv-date-input>
             </div>
@@ -104,7 +104,8 @@
 
             <alv-input-field [maxLength]="NAME_MAX_LENGTH"
                              alvFormControlName="companyName"
-                             label="home.tools.job-publication.company.name">
+                             [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
+                             label="portal.work-efforts.edit-form.address.company">
             </alv-input-field>
             <fieldset formGroupName="companyAddress">
               <div formGroupName="postOfficeBoxNumberOrStreet"
@@ -114,16 +115,16 @@
                                  [isRequired]="isStreetRequired()"
                                  [validationMessages]="[{
                                 error: 'atLeastOneRequired',
-                                message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
+                                message: 'portal.work-efforts.edit-form.error.at-least-one-required-street-or-pobox'
                                 }]"
                                  alvFormControlName="street"
                                  class="col-8"
-                                 label="home.tools.job-publication.company.street">
+                                 label="portal.work-efforts.edit-form.address.street">
                 </alv-input-field>
                 <alv-input-field [maxLength]="HOUSE_NUMBER_MAX_LENGTH"
                                  alvFormControlName="houseNumber"
                                  class="col-4"
-                                 label="home.tools.job-publication.company.house-number">
+                                 label="portal.work-efforts.edit-form.address.house-number">
                 </alv-input-field>
 
                 <alv-input-field [maxLength]="PO_BOX_MAX_LENGTH"
@@ -131,10 +132,10 @@
                                  [isRequired]="isPoBoxRequired()"
                                  [validationMessages]="[{
                               error: 'atLeastOneRequired',
-                              message: 'home.tools.job-publication.messages.validate.at-least-one-required-street-or-pobox'
+                              message: 'portal.work-efforts.edit-form.error.at-least-one-required-street-or-pobox'
                      }]"
                                  alvFormControlName="postOfficeBoxNumber"
-                                 label="home.tools.job-publication.company.postbox-number"
+                                 label="portal.work-efforts.edit-form.address.postbox-number"
                                  class="col-12">
                 </alv-input-field>
               </div>
@@ -143,12 +144,15 @@
                                   [zipCityFormValue]="initialZipAndCity"
                                   [validators]="zipCityValidators"
                                   [countryIsoCode]="countryIsoCode$ | async"
-                                  [isRequired]="isCompanyAddressRequired()">
+                                  [isRequired]="isCompanyAddressRequired()"
+                                  zipCityLabel="portal.work-efforts.edit-form.address.zip-and-city"
+                                  cityLabel="portal.work-efforts.edit-form.address.city"
+                                  zipLabel="portal.work-efforts.edit-form.address.zip">
               </alv-zip-city-input>
 
               <alv-select [options$]="countryOptions$"
                           alvFormControlName="countryIsoCode"
-                          label="home.tools.job-publication.company.country">
+                          label="portal.work-efforts.edit-form.address.country">
               </alv-select>
 
             </fieldset>
@@ -167,7 +171,7 @@
                                 ]"
                                [isRequired]="isCompanyEmailRequired()"
                                placeholder="portal.work-efforts.edit-form.email.placeholder"
-                               label="portal.global.email">
+                               label="portal.work-efforts.edit-form.address.email">
               </alv-input-field>
               <alv-input-field [showGroupErrors]="true"
                                alvFormControlName="url"
@@ -185,9 +189,9 @@
 
             <alv-input-field class="mb-0"
                              alvFormControlName="phone"
-                             label="portal.global.phone"
+                             label="portal.work-efforts.edit-form.phone"
                              [isRequired]="isPhoneRequired()"
-                             placeholder="portal.global.phone-swiss-example"
+                             placeholder="portal.work-efforts.edit-form.phone-swiss-example"
                              type="tel">
             </alv-input-field>
           </fieldset>
@@ -206,7 +210,8 @@
             <legend class="sr-only">{{'portal.work-efforts.edit-form.occupation-panel-label' | translate}}</legend>
             <alv-input-field alvFormControlName="occupation"
                              class="mb-0"
-                             label="portal.global.job-title">
+                             [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
+                             label="portal.work-efforts.edit-form.job-title">
             </alv-input-field>
           </fieldset>
         </alv-collapse-panel>
@@ -224,6 +229,7 @@
               [options$]="appliedThroughRavOptions$"
               alvFormControlName="appliedThroughRav"
               class="narrow-form"
+              [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
               radioButtonClass="alv-light-panel p-2 mb-1">
             </alv-radio-button>
           </fieldset>
@@ -241,6 +247,7 @@
               [options$]="workLoadOptions$"
               alvFormControlName="workload"
               class="narrow-form"
+              [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
               radioButtonClass="alv-light-panel p-2 mb-1">
             </alv-radio-button>
           </fieldset>
@@ -295,10 +302,10 @@
             <button (click)="goToWorkEffortsList()"
                     [disabled]="isSubmitting"
                     type="button"
-                    class="btn btn-text">{{('portal.global.cancel') | translate}}</button>
+                    class="btn btn-text">{{('portal.work-efforts.edit-form.button.cancel') | translate}}</button>
             <button type="submit"
                     [disabled]="isSubmitting"
-                    class="btn btn-primary ml-1">{{'entity.action.save' | translate}}</button>
+                    class="btn btn-primary ml-1">{{'portal.work-efforts.edit-form.button.save' | translate}}</button>
           </ng-container>
 
           <button *ngIf="readonly"
