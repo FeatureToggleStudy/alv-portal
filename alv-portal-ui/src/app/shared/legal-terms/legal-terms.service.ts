@@ -33,12 +33,12 @@ export class LegalTermsService {
 function extractUrl(currentLanguage: string, legalTerms: LegalTerms): string {
   switch (currentLanguage) {
     case 'en':
-      return legalTerms.linkEn;
+      return legalTerms.termsOfUsageLinkEn;
     case 'fr':
-      return legalTerms.linkFr;
+      return legalTerms.termsOfUsageLinkFr;
     case 'it':
-      return legalTerms.linkIt;
+      return legalTerms.termsOfUsageLinkIt;
     default:
-      return legalTerms.linkDe;
+      return legalTerms.termsOfUsageLinkDe;
   }
 }

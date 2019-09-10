@@ -64,10 +64,14 @@ export class LegalTermsDetailModalComponent implements OnInit {
     return {
       id: (this.legalTerm == null) ? null : this.legalTerm.id,
       effectiveAt: toISOLocalDate(value.effectiveAt),
-      linkDe: value.linkDe,
-      linkEn: value.linkEn,
-      linkFr: value.linkFr,
-      linkIt: value.linkIt
+      termsOfUsageLinkDe: value.termsOfUsageLinkDe,
+      termsOfUsageLinkEn: value.termsOfUsageLinkEn,
+      termsOfUsageLinkFr: value.termsOfUsageLinkFr,
+      termsOfUsageLinkIt: value.termsOfUsageLinkIt,
+      privacyStatementLinkDe: value.privacyStatementLinkDe,
+      privacyStatementLinkEn: value.privacyStatementLinkEn,
+      privacyStatementLinkFr: value.privacyStatementLinkFr,
+      privacyStatementLinkIt: value.privacyStatementLinkIt
     };
   }
 
@@ -79,10 +83,14 @@ export class LegalTermsDetailModalComponent implements OnInit {
     };
     this.form = this.fb.group({
       effectiveAt: [null, [Validators.required]],
-      linkDe: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
-      linkEn: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
-      linkFr: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
-      linkIt: [null, [Validators.required, patternInputValidator(URL_REGEX)]]
+      termsOfUsageLinkDe: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      termsOfUsageLinkEn: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      termsOfUsageLinkFr: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      termsOfUsageLinkIt: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      privacyStatementLinkDe: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      privacyStatementLinkEn: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      privacyStatementLinkFr: [null, [Validators.required, patternInputValidator(URL_REGEX)]],
+      privacyStatementLinkIt: [null, [Validators.required, patternInputValidator(URL_REGEX)]]
     }, {
       validator: [effectiveAtValidator]
     });
@@ -95,10 +103,14 @@ export class LegalTermsDetailModalComponent implements OnInit {
   private patchFormValues() {
     this.form.patchValue({
       effectiveAt: (this.readonly) ? this.legalTerm.effectiveAt : fromISODate(this.legalTerm.effectiveAt),
-      linkDe: this.legalTerm.linkDe,
-      linkEn: this.legalTerm.linkEn,
-      linkFr: this.legalTerm.linkFr,
-      linkIt: this.legalTerm.linkIt
+      termsOfUsageLinkDe: this.legalTerm.termsOfUsageLinkDe,
+      termsOfUsageLinkEn: this.legalTerm.termsOfUsageLinkEn,
+      termsOfUsageLinkFr: this.legalTerm.termsOfUsageLinkFr,
+      termsOfUsageLinkIt: this.legalTerm.termsOfUsageLinkIt,
+      privacyStatementLinkDe: this.legalTerm.privacyStatementLinkDe,
+      privacyStatementLinkEn: this.legalTerm.privacyStatementLinkEn,
+      privacyStatementLinkFr: this.legalTerm.privacyStatementLinkFr,
+      privacyStatementLinkIt: this.legalTerm.privacyStatementLinkIt
     });
   }
 

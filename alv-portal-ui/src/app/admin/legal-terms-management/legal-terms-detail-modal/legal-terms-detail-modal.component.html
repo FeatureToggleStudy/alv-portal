@@ -6,64 +6,64 @@
            (cancelAction)="onDismiss()"
            [formGroup]="form">
   <fieldset *ngIf="!readonly; else readonlyView">
-    <alv-date-input label="portal.admin.legal-terms-management.header.effectiveAt"
+    <alv-date-input label="portal.admin.legal-terms-management.header.effective_at"
                     alvFormControlName="effectiveAt"
                     [minDate]="minEffectiveAt"
-                    [validationMessages]="[{ error: 'pastEffectiveAt', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.pastEffectiveAt' }]"
+                    [validationMessages]="[{ error: 'pastEffectiveAt', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.past_effective_at' }]"
                     showGroupErrors="true"
                     placement="bottom-right">
     </alv-date-input>
-    <alv-input-field label="portal.admin.legal-terms-management.header.linkDe"
-                     alvFormControlName="linkDe">
+    <alv-input-field label="portal.admin.legal-terms-management.header.terms_of_usage_link_de"
+                     alvFormControlName="termsOfUsageLinkDe">
     </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.linkEn"
-                     alvFormControlName="linkEn">
+    <alv-input-field label="portal.admin.legal-terms-management.header.terms_of_usage_link_en"
+                     alvFormControlName="termsOfUsageLinkEn">
     </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.linkFr"
-                     alvFormControlName="linkFr">
+    <alv-input-field label="portal.admin.legal-terms-management.header.terms_of_usage_link_fr"
+                     alvFormControlName="termsOfUsageLinkFr">
     </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.linkIt"
-                     alvFormControlName="linkIt">
+    <alv-input-field label="portal.admin.legal-terms-management.header.terms_of_usage_link_it"
+                     alvFormControlName="termsOfUsageLinkIt">
     </alv-input-field>
   </fieldset>
 
   <ng-template #readonlyView>
     <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.effectiveAt' | translate}}
+      {{'portal.admin.legal-terms-management.header.effective_at' | translate}}
     </small>
     <p>
       {{ form.get('effectiveAt').value | date: 'dd.MM.yyyy' }}
     </p>
     <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.linkDe' | translate}}
+      {{'portal.admin.legal-terms-management.header.terms_of_usage_link_de' | translate}}
     </small>
     <p>
-      <a class="url-break" href="{{ form.get('linkDe').value }}" target="_blank">
-        {{ form.get('linkDe').value }}
+      <a class="url-break" href="{{ form.get('termsOfUsageLinkDe').value }}" target="_blank">
+        {{ form.get('termsOfUsageLinkDe').value }}
       </a>
     </p>
     <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.linkEn' | translate}}
+      {{'portal.admin.legal-terms-management.header.terms_of_usage_link_en' | translate}}
     </small>
     <p>
-      <a class="url-break" href="{{ form.get('linkEn').value }}" target="_blank">
-        {{ form.get('linkEn').value }}
+      <a class="url-break" href="{{ form.get('termsOfUsageLinkEn').value }}" target="_blank">
+        {{ form.get('termsOfUsageLinkEn').value }}
       </a>
     </p>
     <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.linkFr' | translate}}
+      {{'portal.admin.legal-terms-management.header.terms_of_usage_link_fr' | translate}}
     </small>
     <p>
-      <a class="url-break" href="{{ form.get('linkFr').value }}" target="_blank">
-        {{ form.get('linkFr').value }}
+      <a class="url-break" href="{{ form.get('termsOfUsageLinkFr').value }}" target="_blank">
+        {{ form.get('termsOfUsageLinkFr').value }}
       </a>
     </p>
     <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.linkIt' | translate}}
+      {{'portal.admin.legal-terms-management.header.terms_of_usage_link_it' | translate}}
     </small>
     <p>
-      <a class="url-break" href="{{ form.get('linkIt').value }}" target="_blank">
-        {{ form.get('linkIt').value }}
+      <a class="url-break" href="{{ form.get('termsOfUsageLinkIt').value }}" target="_blank">
+        {{ form.get('termsOfUsageLinkIt').value }}
       </a>
     </p>
   </ng-template>
