@@ -25,6 +25,18 @@
     <alv-input-field label="portal.admin.legal-terms-management.header.terms_of_usage_link_it"
                      alvFormControlName="termsOfUsageLinkIt">
     </alv-input-field>
+    <alv-input-field label="portal.admin.legal-terms-management.header.privacy_statement_link_de"
+                     alvFormControlName="privacyStatementLinkDe">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.legal-terms-management.header.privacy_statement_link_en"
+                     alvFormControlName="privacyStatementLinkEn">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.legal-terms-management.header.privacy_statement_link_fr"
+                     alvFormControlName="privacyStatementLinkFr">
+    </alv-input-field>
+    <alv-input-field label="portal.admin.legal-terms-management.header.privacy_statement_link_it"
+                     alvFormControlName="privacyStatementLinkIt">
+    </alv-input-field>
   </fieldset>
 
   <ng-template #readonlyView>
@@ -64,6 +76,38 @@
     <p>
       <a class="url-break" href="{{ form.get('termsOfUsageLinkIt').value }}" target="_blank">
         {{ form.get('termsOfUsageLinkIt').value }}
+      </a>
+    </p>
+    <small class="text-truncate">
+      {{'portal.admin.legal-terms-management.header.privacy_statement_link_de' | translate}}
+    </small>
+    <p>
+      <a class="url-break" href="{{ form.get('privacyStatementLinkDe').value }}" target="_blank">
+        {{ form.get('privacyStatementLinkDe').value }}
+      </a>
+    </p>
+    <small class="text-truncate">
+      {{'portal.admin.legal-terms-management.header.privacy_statement_link_en' | translate}}
+    </small>
+    <p>
+      <a class="url-break" href="{{ form.get('privacyStatementLinkEn').value }}" target="_blank">
+        {{ form.get('privacyStatementLinkEn').value }}
+      </a>
+    </p>
+    <small class="text-truncate">
+      {{'portal.admin.legal-terms-management.header.privacy_statement_link_fr' | translate}}
+    </small>
+    <p>
+      <a class="url-break" href="{{ form.get('privacyStatementLinkFr').value }}" target="_blank">
+        {{ form.get('privacyStatementLinkFr').value }}
+      </a>
+    </p>
+    <small class="text-truncate">
+      {{'portal.admin.legal-terms-management.header.privacy_statement_link_it' | translate}}
+    </small>
+    <p>
+      <a class="url-break" href="{{ form.get('privacyStatementLinkIt').value }}" target="_blank">
+        {{ form.get('privacyStatementLinkIt').value }}
       </a>
     </p>
   </ng-template>
