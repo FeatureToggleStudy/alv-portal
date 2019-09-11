@@ -20,19 +20,25 @@
 
   <div class="panel-divider border-top mb-2"></div>
 
-  <a [href]="legalTermsUrl$ | async"
+  <a [href]="termsOfUsageUrl$ | async"
      class="link legal-terms mt-3 mb-3"
      target="_blank">
     <fa-icon class="link-icon"
              [icon]="['fas', 'caret-right']"></fa-icon>
     {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
   </a>
-  <!-- TODO add privacy statement here -->
-    <alv-checkbox alvFormControlName="termsAndConditions"
-                  label="global.legal-terms-dialog.body.accept-label"
-                  class="d-block mb-2">
-    </alv-checkbox>
-
+  <a [href]="privacyStatementUrl$ | async"
+     class="link legal-terms mt-3 mb-3"
+     target="_blank">
+    <fa-icon class="link-icon"
+             [icon]="['fas', 'caret-right']"></fa-icon>
+    {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
+  </a>
+  <!-- TODO add correct translations -->
+  <alv-checkbox alvFormControlName="termsAndConditions"
+                label="global.legal-terms-dialog.body.accept-label"
+                class="d-block mb-2">
+  </alv-checkbox>
 
 
 </alv-modal>

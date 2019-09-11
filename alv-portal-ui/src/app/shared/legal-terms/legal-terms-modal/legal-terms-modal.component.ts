@@ -21,15 +21,19 @@ export class LegalTermsModalComponent {
 
   form: FormGroup;
 
-  legalTermsUrl$: Observable<string>;
+  termsOfUsageUrl$: Observable<string>;
+
+  privacyStatementUrl$: Observable<string>;
 
   constructor(private activeModal: NgbActiveModal,
               private legalTermsService: LegalTermsService,
               private authenticationService: AuthenticationService,
-              private loginSerivce: LoginService,
+              private loginService: LoginService,
               private fb: FormBuilder) {
 
-    this.legalTermsUrl$ = this.legalTermsService.getLegalTermsUrl();
+    this.termsOfUsageUrl$ = this.legalTermsService.getTermsOfUsageUrl();
+
+    this.privacyStatementUrl$ = this.legalTermsService.getPrivacyStatementUrl();
 
     this.form = this.fb.group({
       termsAndConditions: [false, Validators.requiredTrue]
@@ -42,6 +46,6 @@ export class LegalTermsModalComponent {
   }
 
   rejectLegalTerms() {
-    this.loginSerivce.logout();
+    this.loginService.logout();
   }
 }

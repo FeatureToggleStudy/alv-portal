@@ -16,21 +16,31 @@ export class LegalTermsService {
               private registrationRepository: RegistrationRepository) {
   }
 
-  getLegalTermsUrl(): Observable<string> {
+  getTermsOfUsageUrl(): Observable<string> {
     return combineLatest(
       this.i18nService.currentLanguage$,
       this.legalTermsManagementRepository.getCurrentLegalTerms()
     ).pipe(
-      map(([currentLanguage, legalTerms]) => extractUrl(currentLanguage, legalTerms))
+      map(([currentLanguage, legalTerms]) => extractTermsOfUsageUrl(currentLanguage, legalTerms))
+    );
+  }
+
+  getPrivacyStatementUrl(): Observable<string> {
+    return combineLatest(
+      this.i18nService.currentLanguage$,
+      this.legalTermsManagementRepository.getCurrentLegalTerms()
+    ).pipe(
+      map(([currentLanguage, legalTerms]) => extractPrivacyStatementUrl(currentLanguage, legalTerms))
     );
   }
 
   acceptLegalTerms(): Observable<void> {
     return this.registrationRepository.acceptLegalTerms();
   }
+
 }
 
-function extractUrl(currentLanguage: string, legalTerms: LegalTerms): string {
+function extractTermsOfUsageUrl(currentLanguage: string, legalTerms: LegalTerms): string {
   switch (currentLanguage) {
     case 'en':
       return legalTerms.termsOfUsageLinkEn;
@@ -42,3 +52,16 @@ function extractUrl(currentLanguage: string, legalTerms: LegalTerms): string {
       return legalTerms.termsOfUsageLinkDe;
   }
 }
+
+  function extractPrivacyStatementUrl(currentLanguage: string, legalTerms: LegalTerms): string {
+    switch (currentLanguage) {
+      case 'en':
+        return legalTerms.privacyStatementLinkEn;
+      case 'fr':
+        return legalTerms.privacyStatementLinkFr;
+      case 'it':
+        return legalTerms.privacyStatementLinkIt;
+      default:
+        return legalTerms.privacyStatementLinkDe;
+    }
+  }

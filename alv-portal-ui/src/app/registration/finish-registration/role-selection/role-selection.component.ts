@@ -30,7 +30,9 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
     }
   ]);
 
-  legalTermsUrl$: Observable<string>;
+  termsOfUsageUrl$: Observable<string>;
+
+  privacyStatementUrl$: Observable<string>;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -44,7 +46,9 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
       termsAndConditions: [false, Validators.requiredTrue]
     });
 
-    this.legalTermsUrl$ = this.legalTermsService.getLegalTermsUrl();
+    this.termsOfUsageUrl$ = this.legalTermsService.getTermsOfUsageUrl();
+
+    this.privacyStatementUrl$ = this.legalTermsService.getPrivacyStatementUrl();
   }
 
   selectRole() {
