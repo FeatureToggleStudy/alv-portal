@@ -12,6 +12,6 @@ export interface LegalTerms {
 }
 
 export interface LegalTermsUrls {
-  termsOfUsageLink: string,
+  termsOfUsageLink: string;
   privacyStatementLink: string;
 }

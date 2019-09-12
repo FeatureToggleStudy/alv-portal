@@ -32,8 +32,8 @@ export class LegalTermsService {
 }
 
 function extractLegalTermsUrls(currentLanguage: string, legalTerms: LegalTerms): LegalTermsUrls {
-  let termsOfUsage: string = '';
-  let privacyStatement: string = '';
+  let termsOfUsage: string;
+  let privacyStatement: string;
   switch (currentLanguage) {
     case 'en':
       termsOfUsage = legalTerms.termsOfUsageLinkEn;
