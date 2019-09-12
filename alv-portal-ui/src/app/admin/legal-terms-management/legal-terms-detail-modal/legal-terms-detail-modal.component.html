@@ -6,108 +6,35 @@
            (cancelAction)="onDismiss()"
            [formGroup]="form">
   <fieldset *ngIf="!readonly; else readonlyView">
-    <alv-date-input label="portal.admin.legal-terms-management.header.effective_at"
+    <alv-date-input label="portal.admin.legal-terms-management.header.effectiveAt"
                     alvFormControlName="effectiveAt"
                     [minDate]="minEffectiveAt"
-                    [validationMessages]="[{ error: 'pastEffectiveAt', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.past_effective_at' }]"
+                    [validationMessages]="[{ error: 'pastEffectiveAt', message: 'portal.admin.legal-terms-management.legal-terms-details.validate.pastEffectiveAt' }]"
                     showGroupErrors="true"
                     placement="bottom-right">
     </alv-date-input>
-    <alv-input-field label="portal.admin.legal-terms-management.header.terms_of_usage_link_de"
-                     alvFormControlName="termsOfUsageLinkDe">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.terms_of_usage_link_en"
-                     alvFormControlName="termsOfUsageLinkEn">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.terms_of_usage_link_fr"
-                     alvFormControlName="termsOfUsageLinkFr">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.terms_of_usage_link_it"
-                     alvFormControlName="termsOfUsageLinkIt">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.privacy_statement_link_de"
-                     alvFormControlName="privacyStatementLinkDe">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.privacy_statement_link_en"
-                     alvFormControlName="privacyStatementLinkEn">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.privacy_statement_link_fr"
-                     alvFormControlName="privacyStatementLinkFr">
-    </alv-input-field>
-    <alv-input-field label="portal.admin.legal-terms-management.header.privacy_statement_link_it"
-                     alvFormControlName="privacyStatementLinkIt">
-    </alv-input-field>
+    <ng-container *ngFor="let link of LEGAL_TERMS_LINKS">
+      <alv-input-field label="portal.admin.legal-terms-management.header.{{ link }}"
+                       alvFormControlName="{{ link }}">
+      </alv-input-field>
+    </ng-container>
   </fieldset>
 
   <ng-template #readonlyView>
     <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.effective_at' | translate}}
+      {{'portal.admin.legal-terms-management.header.effectiveAt' | translate}}
     </small>
     <p>
       {{ form.get('effectiveAt').value | date: 'dd.MM.yyyy' }}
     </p>
+  </ng-template>
+  <ng-template #readonlyView *ngFor="let link of LEGAL_TERMS_LINKS">
     <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.terms_of_usage_link_de' | translate}}
+      {{'portal.admin.legal-terms-management.header.' + link | translate}}
     </small>
     <p>
-      <a class="url-break" href="{{ form.get('termsOfUsageLinkDe').value }}" target="_blank">
-        {{ form.get('termsOfUsageLinkDe').value }}
-      </a>
-    </p>
-    <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.terms_of_usage_link_en' | translate}}
-    </small>
-    <p>
-      <a class="url-break" href="{{ form.get('termsOfUsageLinkEn').value }}" target="_blank">
-        {{ form.get('termsOfUsageLinkEn').value }}
-      </a>
-    </p>
-    <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.terms_of_usage_link_fr' | translate}}
-    </small>
-    <p>
-      <a class="url-break" href="{{ form.get('termsOfUsageLinkFr').value }}" target="_blank">
-        {{ form.get('termsOfUsageLinkFr').value }}
-      </a>
-    </p>
-    <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.terms_of_usage_link_it' | translate}}
-    </small>
-    <p>
-      <a class="url-break" href="{{ form.get('termsOfUsageLinkIt').value }}" target="_blank">
-        {{ form.get('termsOfUsageLinkIt').value }}
-      </a>
-    </p>
-    <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.privacy_statement_link_de' | translate}}
-    </small>
-    <p>
-      <a class="url-break" href="{{ form.get('privacyStatementLinkDe').value }}" target="_blank">
-        {{ form.get('privacyStatementLinkDe').value }}
-      </a>
-    </p>
-    <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.privacy_statement_link_en' | translate}}
-    </small>
-    <p>
-      <a class="url-break" href="{{ form.get('privacyStatementLinkEn').value }}" target="_blank">
-        {{ form.get('privacyStatementLinkEn').value }}
-      </a>
-    </p>
-    <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.privacy_statement_link_fr' | translate}}
-    </small>
-    <p>
-      <a class="url-break" href="{{ form.get('privacyStatementLinkFr').value }}" target="_blank">
-        {{ form.get('privacyStatementLinkFr').value }}
-      </a>
-    </p>
-    <small class="text-truncate">
-      {{'portal.admin.legal-terms-management.header.privacy_statement_link_it' | translate}}
-    </small>
-    <p>
-      <a class="url-break" href="{{ form.get('privacyStatementLinkIt').value }}" target="_blank">
-        {{ form.get('privacyStatementLinkIt').value }}
+      <a class="url-break" href="{{ form.get(link).value }}" target="_blank">
+        {{ form.get(link).value }}
       </a>
     </p>
   </ng-template>

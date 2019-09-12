@@ -19,3 +19,14 @@ export function mapToDateTime(dateStruct: NgbDateStruct): number {
 export function todayDateTime(): number {
   return new Date().getTime();
 }
+
+export const LEGAL_TERMS_LINKS = [
+  'termsOfUsageLinkDe',
+  'termsOfUsageLinkEn',
+  'termsOfUsageLinkFr',
+  'termsOfUsageLinkIt',
+  'privacyStatementLinkDe',
+  'privacyStatementLinkEn',
+  'privacyStatementLinkFr',
+  'privacyStatementLinkIt'
+];

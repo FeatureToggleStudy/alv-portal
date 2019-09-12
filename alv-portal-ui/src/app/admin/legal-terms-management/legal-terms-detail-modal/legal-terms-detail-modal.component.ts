@@ -7,6 +7,7 @@ import { LegalTermsManagementRepository } from '../../../shared/backend-services
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import {
   LEGAL_ACTIONS,
+  LEGAL_TERMS_LINKS,
   mapToDateTime,
   todayDateTime
 } from '../legal-terms-management.types';
@@ -18,6 +19,8 @@ import { fromISODate, toISOLocalDate, tomorrow } from '../../../shared/forms/inp
   styleUrls: ['./legal-terms-detail-modal.component.scss']
 })
 export class LegalTermsDetailModalComponent implements OnInit {
+
+  readonly LEGAL_TERMS_LINKS = LEGAL_TERMS_LINKS;
 
   @Input()
   legalTerm: LegalTerms;

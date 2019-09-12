@@ -23,39 +23,12 @@
     <tr role="row">
       <th scope="col"
           role="columnheader">
-        {{ 'portal.admin.legal-terms-management.header.effective_at' | translate }}
+        {{ 'portal.admin.legal-terms-management.header.effectiveAt' | translate }}
       </th>
       <th scope="col"
+          *ngFor="let link of LEGAL_TERMS_LINKS"
           role="columnheader">
-        {{ 'portal.admin.legal-terms-management.header.terms_of_usage_link_de' | translate }}
-      </th>
-      <th scope="col"
-          role="columnheader">
-        {{ 'portal.admin.legal-terms-management.header.terms_of_usage_link_en' | translate }}
-      </th>
-      <th scope="col"
-          role="columnheader">
-        {{ 'portal.admin.legal-terms-management.header.terms_of_usage_link_fr' | translate }}
-      </th>
-      <th scope="col"
-          role="columnheader">
-        {{ 'portal.admin.legal-terms-management.header.terms_of_usage_link_it' | translate }}
-      </th>
-      <th scope="col"
-          role="columnheader">
-        {{ 'portal.admin.legal-terms-management.header.privacy_statement_link_de' | translate }}
-      </th>
-      <th scope="col"
-          role="columnheader">
-        {{ 'portal.admin.legal-terms-management.header.privacy_statement_link_en' | translate }}
-      </th>
-      <th scope="col"
-          role="columnheader">
-        {{ 'portal.admin.legal-terms-management.header.privacy_statement_link_fr' | translate }}
-      </th>
-      <th scope="col"
-          role="columnheader">
-        {{ 'portal.admin.legal-terms-management.header.privacy_statement_link_it' | translate }}
+        {{ 'portal.admin.legal-terms-management.header.' + link | translate }}
       </th>
       <th scope="col"
           role="columnheader"

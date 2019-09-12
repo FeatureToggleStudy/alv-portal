@@ -5,7 +5,7 @@ import { LegalTermsManagementRepository } from '../../shared/backend-services/le
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { LegalTermsDetailModalComponent } from './legal-terms-detail-modal/legal-terms-detail-modal.component';
 import { NotificationsService } from '../../core/notifications.service';
-import { CONFIRM_DELETE_MODAL, LEGAL_ACTIONS } from './legal-terms-management.types';
+import { CONFIRM_DELETE_MODAL, LEGAL_ACTIONS, LEGAL_TERMS_LINKS } from './legal-terms-management.types';
 
 @Component({
   selector: 'alv-legal-terms-management',
@@ -13,6 +13,8 @@ import { CONFIRM_DELETE_MODAL, LEGAL_ACTIONS } from './legal-terms-management.ty
   styleUrls: ['./legal-terms-management.component.scss']
 })
 export class LegalTermsManagementComponent implements OnInit {
+
+  readonly LEGAL_TERMS_LINKS = LEGAL_TERMS_LINKS;
 
   legalTermsEntries$ = new Subject<LegalTerms[]>();
 
