@@ -4,6 +4,8 @@ group: stable
 sudo: required
 language: java
 jdk: openjdk8
+node_js:
+  - "10.9"
 services:
 - docker
 env:
@@ -27,7 +29,7 @@ cache:
   - "$HOME/.m2"
   - alv-portal-ui/node_modules
 install:
-- ".ci-travis/install-nodejs.sh ${NODE_VERSION}"
+#- ".ci-travis/install-nodejs.sh ${NODE_VERSION}"
 - ".ci-travis/install-chrome.sh"
 script:
 - export BRANCH_VERSION_SUFFIX=$([ "$TRAVIS_BRANCH" == "master" ] && echo "" || echo
