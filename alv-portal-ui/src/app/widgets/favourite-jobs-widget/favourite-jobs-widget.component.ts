@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IconKey } from '../../shared/icons/custom-icon/custom-icon.component';
 import { JobAdFavouritesRepository } from '../../shared/backend-services/favourites/job-ad-favourites.repository';
-import { map, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { JobSearchResult } from '../../job-advertisement/shared/job-search-result/job-search-result.component';
 import { NotificationsService } from '../../core/notifications.service';
 import { AuthenticationService } from '../../core/auth/authentication.service';
@@ -47,7 +47,9 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
   }
 
   ngOnInit() {
-    const currentUser$ = this.authenticationService.getCurrentUser();
+    const currentUser$ = this.authenticationService.getCurrentUser().pipe(
+      filter(currentUser => !!currentUser)
+    );
 
     const actions$: Observable<Action> = this.actionsSubject.pipe(
       ofType(REMOVED_JOB_AD_FAVOURITE, UPDATED_JOB_AD_FAVOURITE),
