@@ -3,7 +3,7 @@ import { I18nService } from '../../core/i18n.service';
 import { combineLatest, Observable } from 'rxjs';
 import { LegalTermsManagementRepository } from '../backend-services/legal-terms-management/legal-terms-management-repository';
 import { map } from 'rxjs/operators';
-import { LegalTerms } from '../backend-services/legal-terms-management/legal-terms-management.types';
+import { LegalTerms, LegalTermsUrls } from '../backend-services/legal-terms-management/legal-terms-management.types';
 import { RegistrationRepository } from '../backend-services/registration/registration.repository';
 
 @Injectable({
@@ -16,21 +16,12 @@ export class LegalTermsService {
               private registrationRepository: RegistrationRepository) {
   }
 
-  getTermsOfUsageUrl(): Observable<string> {
+  getLegalTermsUrls(): Observable<LegalTermsUrls> {
     return combineLatest(
       this.i18nService.currentLanguage$,
       this.legalTermsManagementRepository.getCurrentLegalTerms()
     ).pipe(
-      map(([currentLanguage, legalTerms]) => extractTermsOfUsageUrl(currentLanguage, legalTerms))
-    );
-  }
-
-  getPrivacyStatementUrl(): Observable<string> {
-    return combineLatest(
-      this.i18nService.currentLanguage$,
-      this.legalTermsManagementRepository.getCurrentLegalTerms()
-    ).pipe(
-      map(([currentLanguage, legalTerms]) => extractPrivacyStatementUrl(currentLanguage, legalTerms))
+      map(([currentLanguage, legalTerms]) => extractLegalTermsUrls(currentLanguage, legalTerms))
     );
   }
 
@@ -40,28 +31,29 @@ export class LegalTermsService {
 
 }
 
-function extractTermsOfUsageUrl(currentLanguage: string, legalTerms: LegalTerms): string {
+function extractLegalTermsUrls(currentLanguage: string, legalTerms: LegalTerms): LegalTermsUrls {
+  let termsOfUsage: string = '';
+  let privacyStatement: string = '';
   switch (currentLanguage) {
     case 'en':
-      return legalTerms.termsOfUsageLinkEn;
+      termsOfUsage = legalTerms.termsOfUsageLinkEn;
+      privacyStatement = legalTerms.privacyStatementLinkEn;
+      break;
     case 'fr':
-      return legalTerms.termsOfUsageLinkFr;
+      termsOfUsage = legalTerms.termsOfUsageLinkFr;
+      privacyStatement = legalTerms.privacyStatementLinkFr;
+      break;
     case 'it':
-      return legalTerms.termsOfUsageLinkIt;
+      termsOfUsage = legalTerms.termsOfUsageLinkIt;
+      privacyStatement = legalTerms.privacyStatementLinkIt;
+      break;
     default:
-      return legalTerms.termsOfUsageLinkDe;
+      termsOfUsage = legalTerms.termsOfUsageLinkDe;
+      privacyStatement = legalTerms.privacyStatementLinkDe;
+      break;
   }
+  return {
+    termsOfUsageLink: termsOfUsage,
+    privacyStatementLink: privacyStatement
+  };
 }
-
-  function extractPrivacyStatementUrl(currentLanguage: string, legalTerms: LegalTerms): string {
-    switch (currentLanguage) {
-      case 'en':
-        return legalTerms.privacyStatementLinkEn;
-      case 'fr':
-        return legalTerms.privacyStatementLinkFr;
-      case 'it':
-        return legalTerms.privacyStatementLinkIt;
-      default:
-        return legalTerms.privacyStatementLinkDe;
-    }
-  }

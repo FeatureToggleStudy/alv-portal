@@ -10,3 +10,8 @@ export interface LegalTerms {
   privacyStatementLinkFr: string;
   privacyStatementLinkIt: string;
 }
+
+export interface LegalTermsUrls {
+  termsOfUsageLink: string,
+  privacyStatementLink: string;
+}

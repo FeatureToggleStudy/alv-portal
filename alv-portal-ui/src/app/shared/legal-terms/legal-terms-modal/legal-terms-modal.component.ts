@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { LoginService } from '../../auth/login.service';
 import { NotificationType } from '../../layout/notifications/notification.model';
+import { LegalTermsUrls } from '../../backend-services/legal-terms-management/legal-terms-management.types';
 
 @Component({
   selector: 'alv-legal-terms-modal',
@@ -21,9 +22,7 @@ export class LegalTermsModalComponent {
 
   form: FormGroup;
 
-  termsOfUsageUrl$: Observable<string>;
-
-  privacyStatementUrl$: Observable<string>;
+  legalTermsUrls$: Observable<LegalTermsUrls>;
 
   constructor(private activeModal: NgbActiveModal,
               private legalTermsService: LegalTermsService,
@@ -31,9 +30,7 @@ export class LegalTermsModalComponent {
               private loginService: LoginService,
               private fb: FormBuilder) {
 
-    this.termsOfUsageUrl$ = this.legalTermsService.getTermsOfUsageUrl();
-
-    this.privacyStatementUrl$ = this.legalTermsService.getPrivacyStatementUrl();
+    this.legalTermsUrls$ = this.legalTermsService.getLegalTermsUrls();
 
     this.form = this.fb.group({
       termsAndConditions: [false, Validators.requiredTrue]

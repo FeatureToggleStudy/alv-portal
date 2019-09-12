@@ -20,20 +20,22 @@
 
   <div class="panel-divider border-top mb-2"></div>
 
-  <a [href]="termsOfUsageUrl$ | async"
-     class="link legal-terms mt-3 mb-3"
-     target="_blank">
-    <fa-icon class="link-icon"
-             [icon]="['fas', 'caret-right']"></fa-icon>
-    {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
-  </a>
-  <a [href]="privacyStatementUrl$ | async"
-     class="link legal-terms mt-3 mb-3"
-     target="_blank">
-    <fa-icon class="link-icon"
-             [icon]="['fas', 'caret-right']"></fa-icon>
-    {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
-  </a>
+  <ng-container *ngIf="(legalTermsUrls$ | async) as legalTermsUrls">
+    <a [href]="legalTermsUrls.termsOfUsageLink"
+       class="link legal-terms mt-3 mb-3"
+       target="_blank">
+      <fa-icon class="link-icon"
+               [icon]="['fas', 'caret-right']"></fa-icon>
+      {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
+    </a>
+    <a [href]="legalTermsUrls.privacyStatementLink"
+       class="link legal-terms mt-3 mb-3"
+       target="_blank">
+      <fa-icon class="link-icon"
+               [icon]="['fas', 'caret-right']"></fa-icon>
+      {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
+    </a>
+  </ng-container>
   <!-- TODO add correct translations -->
   <alv-checkbox alvFormControlName="termsAndConditions"
                 label="global.legal-terms-dialog.body.accept-label"

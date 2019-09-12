@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { AbstractRegistrationStep } from '../../abstract-registration-step';
 import { Router } from '@angular/router';
 import { LegalTermsService } from '../../../shared/legal-terms/legal-terms.service';
+import { LegalTermsUrls } from '../../../shared/backend-services/legal-terms-management/legal-terms-management.types';
 
 @Component({
   selector: 'alv-role-selection',
@@ -30,9 +31,7 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
     }
   ]);
 
-  termsOfUsageUrl$: Observable<string>;
-
-  privacyStatementUrl$: Observable<string>;
+  legalTermsUrls$: Observable<LegalTermsUrls>;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -46,9 +45,7 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
       termsAndConditions: [false, Validators.requiredTrue]
     });
 
-    this.termsOfUsageUrl$ = this.legalTermsService.getTermsOfUsageUrl();
-
-    this.privacyStatementUrl$ = this.legalTermsService.getPrivacyStatementUrl();
+    this.legalTermsUrls$ = this.legalTermsService.getLegalTermsUrls();
   }
 
   selectRole() {

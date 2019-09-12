@@ -17,21 +17,22 @@
                 class="d-block mb-2">
   </alv-checkbox>
 
-  <a [href]="termsOfUsageUrl$ | async"
-     class="link terms-of-use mt-2"
-     target="_blank">
-    <fa-icon class="link-icon"
-             [icon]="['fas', 'caret-right']"></fa-icon>
-    {{'portal.registration.termsOfUse.label' | translate}}
-  </a>
-  <a [href]="privacyStatementUrl$ | async"
-     class="link terms-of-use mt-2"
-     target="_blank">
-    <fa-icon class="link-icon"
-             [icon]="['fas', 'caret-right']"></fa-icon>
-    {{'portal.registration.termsOfUse.label' | translate}}
-  </a>
+  <ng-container *ngIf="(legalTermsUrls$ | async) as legalTermsUrls">
+    <a [href]="legalTermsUrls.termsOfUsageLink"
+       class="link legal-terms mt-2"
+       target="_blank">
+      <fa-icon class="link-icon"
+               [icon]="['fas', 'caret-right']"></fa-icon>
+      {{'portal.registration.termsOfUse.label' | translate}}
+    </a>
+    <a [href]="legalTermsUrls.privacyStatementLink"
+       class="link legal-terms mt-2"
+       target="_blank">
+      <fa-icon class="link-icon"
+               [icon]="['fas', 'caret-right']"></fa-icon>
+      {{'portal.registration.termsOfUse.label' | translate}}
+    </a>
+  </ng-container>
   <!-- TODO add correct translations -->
-
 
 </alv-registration-panel>
