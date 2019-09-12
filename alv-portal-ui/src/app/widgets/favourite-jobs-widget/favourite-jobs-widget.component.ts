@@ -47,7 +47,7 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
   }
 
   ngOnInit() {
-    const currentUser$ = this.authenticationService.getCurrentUser().pipe(
+    this.currentUser$ = this.authenticationService.getCurrentUser().pipe(
       filter(currentUser => !!currentUser)
     );
 
@@ -56,7 +56,7 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
       startWith({ type: 'WIDGET_INIT_ACTION' })
     );
 
-    this.jobFavourites$ = combineLatest(currentUser$, actions$)
+    this.jobFavourites$ = combineLatest(this.currentUser$, actions$)
       .pipe(
         switchMap(([currentUser]) => {
           return this.jobAdFavouritesRepository.searchFavourites({
@@ -72,8 +72,6 @@ export class FavouriteJobsWidgetComponent extends AbstractSubscriber implements 
         map(results => results.filter(jobFavourite => jobFavourite.favouriteItem).slice(0, 3)),
         takeUntil(this.ngUnsubscribe)
       );
-
-    this.currentUser$ = this.authenticationService.getCurrentUser();
   }
 
   removeFromFavourites(jobSearchResult: JobSearchResult) {
