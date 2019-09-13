@@ -6,6 +6,7 @@
     "ng-update": "ng update @angular/cli @angular/core --allow-dirty",
     "start": "npm run start:staging",
     "start:dev": "npm run i18n && ng serve --base-href / --watch --proxy-config proxy.conf.dev.json",
+    "start:local": "npm run i18n && ng serve --base-href / --watch --proxy-config proxy.conf.local.json --host 0.0.0.0",
     "start:staging": "npm run i18n && ng serve --base-href / --watch --proxy-config proxy.conf.staging.json --host 0.0.0.0",
     "start:prod": "npm run i18n && ng serve --base-href / --watch --prod --aot --proxy-config proxy.conf.staging.json",
     "build": "npm run build:dev",
