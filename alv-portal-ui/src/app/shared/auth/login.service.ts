@@ -32,19 +32,19 @@ export class LoginService {
   }
 
   login(): void {
-    this.appContextService.isCompetenceCatalog()
-      .pipe(take(1))
-      .subscribe(isCompetenceCatalog => {
-        if (isCompetenceCatalog) {
-          this.loginCompetenceCatalog();
-        } else {
-          if (this.noEiam) {
-            this.loginLocal();
+    if (this.noEiam) {
+      this.loginLocal();
+    } else {
+      this.appContextService.isCompetenceCatalog()
+        .pipe(take(1))
+        .subscribe(isCompetenceCatalog => {
+          if (isCompetenceCatalog) {
+            this.loginCompetenceCatalog();
           } else {
             this.loginEiam();
           }
-        }
-      });
+        });
+    }
   }
 
   private loginEiam() {

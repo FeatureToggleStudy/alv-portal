@@ -74,9 +74,10 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
     this.menuDefinition$ = this.menuEntryService.prepareEntries();
 
-    combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.isCompetenceCatalog()).pipe(
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe(([user, isCompetenceCatalog]) => {
+    combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.isCompetenceCatalog())
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe(([user, isCompetenceCatalog]) => {
       this.hideDesktopMenu = !isAuthenticatedUser(user) && !isCompetenceCatalog;
       this.currentUser = user;
     });
