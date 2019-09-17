@@ -7,6 +7,7 @@ import {
 } from '../../../shared/backend-services/user-info/user-info.types';
 import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { ProfileInfo } from '../../../shared/layout/header/profile-info.service';
+import { AppContext } from '../../app-context/app-context.enum';
 
 export const LANGUAGE_CHANGED = 'CORE:LANGUAGE_CHANGED';
 export const LANGUAGE_INITIALIZED = 'CORE:LANGUAGE_INITIALIZED';
@@ -191,10 +192,10 @@ export class ProfileInfoLoadedAction implements Action {
   }
 }
 
-export class SetIsCompetenceCatalogAction implements Action {
+export class SetAppContextAction implements Action {
   readonly type = SET_IS_COMPETENCE_CATALOG;
 
-  constructor(public payload: {isCompetenceCatalog: boolean}) {
+  constructor(public payload: {appContext: AppContext}) {
   }
 }
 
@@ -218,7 +219,8 @@ export enum ModuleName {
   JOB_SEARCH_PROFILES = <any>'JOB_SEARCH_PROFILES',
   CANDIDATE_SEARCH_PROFILES = <any>'CANDIDATE_SEARCH_PROFILES',
   WORK_EFFORTS = <any>'WORK_EFFORTS',
-  APPLICATION_DOCUMENTS = <any>'APPLICATION_DOCUMENTS'
+  APPLICATION_DOCUMENTS = <any>'APPLICATION_DOCUMENTS',
+  COMPETENCE_CATALOG = <any>'COMPETENCE_CATALOG'
 }
 
 export interface CompanySelection {

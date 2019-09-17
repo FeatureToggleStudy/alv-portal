@@ -27,7 +27,8 @@ import { isAuthenticatedUser, User, UserRole } from '../../../core/auth/user.mod
 import { LoginService } from '../../auth/login.service';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { WINDOW } from '../../../core/window.service';
-import { AppContextService } from '../../../core/auth/app-context.service';
+import { AppContextService } from '../../../core/app-context/app-context.service';
+import { AppContext } from '../../../core/app-context/app-context.enum';
 
 @Component({
   selector: 'alv-main-navigation',
@@ -74,10 +75,10 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
     this.menuDefinition$ = this.menuEntryService.prepareEntries();
 
-    combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.isCompetenceCatalog()).pipe(
+    combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.getAppContext()).pipe(
       takeUntil(this.ngUnsubscribe)
-    ).subscribe(([user, isCompetenceCatalog]) => {
-      this.hideDesktopMenu = !isAuthenticatedUser(user) && !isCompetenceCatalog;
+    ).subscribe(([user, appContext]) => {
+      this.hideDesktopMenu = !isAuthenticatedUser(user) && appContext !== AppContext.COMPETENCE_CATALOG;
       this.currentUser = user;
     });
 

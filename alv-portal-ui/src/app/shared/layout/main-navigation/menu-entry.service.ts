@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import {
   hasAnyAuthorities,
   hasFeature,
@@ -14,15 +14,21 @@ import {
 import { MenuDefinition, MenuEntry } from './menu-entry.type';
 import { IconKey } from '../../icons/custom-icon/custom-icon.component';
 import { FeatureName } from '../../backend-services/feature-code-list/feature-code-list.types';
-import { AppContextService } from '../../../core/auth/app-context.service';
+import { AppContext } from '../../../core/app-context/app-context.enum';
+import {
+  isAnyContext,
+  AppContextService,
+  isCompetenceCatalog,
+  isDefault
+} from '../../../core/app-context/app-context.service';
 
 interface UserMenuDefinition {
   id: string;
   mainMenuEntryKeys: string[];
   onlineFormsMenuEntryKeys?: string[];
   settingsMenuEntryKeys?: string[];
-  isCompetenceCatalogEntry?: boolean;
   userPredicate: (user: User) => boolean;
+  appContextPredicate: (appContext: AppContext) => boolean;
 }
 
 const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
@@ -31,44 +37,48 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
     mainMenuEntryKeys: ['home', 'job-search', 'candidate-search', 'job-publication'],
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: [],
-    userPredicate: isNotAuthenticatedUser
+    userPredicate: isNotAuthenticatedUser,
+    appContextPredicate: isDefault
   },
   {
     id: 'STES',
     mainMenuEntryKeys: ['dashboard', 'job-search', 'job-search-profiles', 'job-favourites'],
     onlineFormsMenuEntryKeys: ['work-efforts', 'application-documents'],
     settingsMenuEntryKeys: ['user-settings'],
-    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_JOB_SEEKER])
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_JOB_SEEKER]),
+    appContextPredicate: isAnyContext
   },
   {
     id: 'PAV',
     mainMenuEntryKeys: ['dashboard', 'candidate-search', 'candidate-search-profiles', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites'],
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: ['user-settings'],
-    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_PAV])
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_PAV]),
+    appContextPredicate: isAnyContext
   },
   {
     id: 'COMPANY',
     mainMenuEntryKeys: ['dashboard', 'candidate-search', 'candidate-search-profiles', 'job-publication', 'manage-job-ads', 'job-search', 'job-search-profiles', 'job-favourites'],
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: ['user-settings'],
-    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY])
+    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY]),
+    appContextPredicate: isAnyContext
   },
   {
-    id: 'KK-ANONYM',
-    mainMenuEntryKeys: ['kk-home', 'kk-search'],
+    id: 'CC-ANONYM',
+    mainMenuEntryKeys: ['cc-home', 'cc-search'],
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: [],
-    userPredicate: (u) => isNotAuthenticatedUser(u),
-    isCompetenceCatalogEntry: true
+    userPredicate: isNotAuthenticatedUser,
+    appContextPredicate: isCompetenceCatalog
   },
   {
-    id: 'KK-EDITOR',
-    mainMenuEntryKeys: ['kk-home', 'kk-search'],
+    id: 'CC-EDITOR',
+    mainMenuEntryKeys: ['cc-home', 'cc-search'],
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: [],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_KK_EDITOR]),
-    isCompetenceCatalogEntry: true
+    appContextPredicate: isAnyContext
   }
 ];
 
@@ -137,14 +147,14 @@ const MAIN_MENU_ENTRIES: Array<MenuEntry> = [
     userPredicate: (u) => isAuthenticatedUser(u)
   },
   {
-    id: 'kk-home',
+    id: 'cc-home',
     iconClass: 'home',
     labelKey: 'KK Home',
     path: ['kk', 'home'],
     userPredicate: (u) => isAnyUser()
   },
   {
-    id: 'kk-search',
+    id: 'cc-search',
     iconClass: 'search',
     labelKey: 'KK Search',
     path: ['kk', 'search'],
@@ -244,9 +254,9 @@ export class MenuEntryService {
   }
 
   public prepareEntries(): Observable<MenuDefinition> {
-    return combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.isCompetenceCatalog()).pipe(
-      map(([user, isCompetenceCatalog]) => {
-        const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => e.userPredicate(user) && isCompetenceCatalog === !!e.isCompetenceCatalogEntry);
+    return combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.getAppContext()).pipe(
+      map(([user, appContext]) => {
+        const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => e.userPredicate(user) && e.appContextPredicate(appContext));
         const mainMenuEntries = MAIN_MENU_ENTRIES.filter(m => m.userPredicate(user));
         const onlineFormsMenuEntries = ONLINE_FORMS_MENU_ENTRIES.filter(m => m.userPredicate(user));
         const settingsMenuEntries = SETTINGS_MENU_ENTRIES.filter(m => m.userPredicate(user));

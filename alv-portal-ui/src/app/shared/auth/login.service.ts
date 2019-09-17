@@ -6,7 +6,9 @@ import { map, take } from 'rxjs/operators';
 import { ModalService } from '../layout/modal/modal.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import { AppContextService } from '../../core/auth/app-context.service';
+import { AppContextService } from '../../core/app-context/app-context.service';
+import { homeUrlMap } from '../../core/app-context/app-context.types';
+import { AppContext } from '../../core/app-context/app-context.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,11 @@ import { AppContextService } from '../../core/auth/app-context.service';
 export class LoginService {
 
   noEiam = false;
+
+  private redirectUrlMap = {
+    [AppContext.DEFAULT]: `${this.baseHref}landing`,
+    [AppContext.COMPETENCE_CATALOG]: `${this.baseHref}kk/landing`
+  };
 
   constructor(@Inject(APP_BASE_HREF) private baseHref: string,
               @Inject(DOCUMENT) private document: any,
@@ -35,43 +42,27 @@ export class LoginService {
     if (this.noEiam) {
       this.loginLocal();
     } else {
-      this.appContextService.isCompetenceCatalog()
-        .pipe(take(1))
-        .subscribe(isCompetenceCatalog => {
-          if (isCompetenceCatalog) {
-            this.loginEiamCompetenceCatalog();
-          } else {
-            this.loginEiamDefault();
-          }
+      this.appContextService.getLatestAppContext()
+        .subscribe(appContext => {
+          this.loginEiam(this.redirectUrlMap[appContext]);
         });
     }
   }
 
-  private loginEiamDefault() {
-    this.document.location.href = `/login?redirectUrl=${this.baseHref}landing`;
-  }
-
-  private loginEiamCompetenceCatalog() {
-    this.document.location.href = `/login?redirectUrl=${this.baseHref}kk/landing`;
+  private loginEiam(redirectUrl: string) {
+    this.document.location.href = `/login?redirectUrl=${redirectUrl}`;
   }
 
   private loginLocal() {
     this.modalService.openMedium(LocalLoginComponent, true);
   }
 
-
-
   logout(): void {
     this.authenticationService.logout();
     if (this.noEiam) {
-      this.appContextService.isCompetenceCatalog()
-        .pipe(take(1))
-        .subscribe(isCompetenceCatalog => {
-          if (isCompetenceCatalog) {
-            this.router.navigate(['kk']);
-          } else {
-            this.router.navigate(['']);
-          }
+      this.appContextService.getLatestAppContext()
+        .subscribe(appContext => {
+          this.router.navigate(homeUrlMap[appContext]);
         });
     } else {
       this.document.location.href = '/authentication/logout';

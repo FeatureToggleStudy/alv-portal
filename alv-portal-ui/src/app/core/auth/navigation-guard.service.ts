@@ -7,8 +7,7 @@ import {
 import { AuthenticationService } from './authentication.service';
 import { LandingNavigationService } from '../landing-navigation.service';
 import { User } from './user.model';
-import { switchMap, take } from 'rxjs/operators';
-import { from } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +21,7 @@ export class NavigationGuard implements CanActivate {
     this.authenticationService.getCurrentUser()
       .pipe(
         take(1),
-        switchMap((user: User) => {
-          return from(this.landingNavigationService.navigateUser(user));
-        })
+        tap((user: User) => this.landingNavigationService.navigateUser(user))
       )
       .subscribe();
     // it looks like we can not return the observable since the navigationUser observable is swallowed

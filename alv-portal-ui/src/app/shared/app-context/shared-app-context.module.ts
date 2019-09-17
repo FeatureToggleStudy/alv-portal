@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IsCompetenceCatalogDirective } from './is-competence-catalog.directive';
+import { AppContextDefaultDirective } from './app-context-default.directive';
+import { AppContextCompetenceCatalogDirective } from './app-context-competence-catalog.directive';
 
 
 @NgModule({
   declarations: [
-    IsCompetenceCatalogDirective
+    AppContextDefaultDirective,
+    AppContextCompetenceCatalogDirective
   ],
   imports: [
     CommonModule
   ],
   entryComponents: [],
   exports: [
-    IsCompetenceCatalogDirective
+    AppContextDefaultDirective,
+    AppContextCompetenceCatalogDirective
   ],
   providers: []
 })

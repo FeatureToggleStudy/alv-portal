@@ -18,7 +18,7 @@ import {
   PROFILE_INFO_LOADED,
   ProfileInfoLoadedAction,
   SET_IS_COMPETENCE_CATALOG,
-  SetIsCompetenceCatalogAction,
+  SetAppContextAction,
   TOGGLE_MAIN_NAVIGATION,
   TOGGLE_MOBILE_NAVIGATION,
   ToggleMainNavigationAction,
@@ -91,7 +91,7 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
     case SET_IS_COMPETENCE_CATALOG:
       newState = {
         ...state,
-        isCompetenceCatalog: action.payload.isCompetenceCatalog
+        appContext: action.payload.appContext
       };
       break;
     default:
@@ -114,5 +114,5 @@ export type Actions =
   | CompanySelectedAction
   | AccountabilitySelectedAction
   | ProfileInfoLoadedAction
-  | SetIsCompetenceCatalogAction;
+  | SetAppContextAction;
 

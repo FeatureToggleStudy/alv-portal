@@ -6,7 +6,8 @@ import { EMPTY } from 'rxjs/internal/observable/empty';
 import { Router } from '@angular/router';
 import { Notification, NotificationType } from '../notifications/notification.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AppContextService } from '../../../core/auth/app-context.service';
+import { AppContextService } from '../../../core/app-context/app-context.service';
+import { homeUrlMap } from '../../../core/app-context/app-context.types';
 
 const ERRORS = {
   invalidUsernamePassword: {
@@ -52,11 +53,11 @@ export class LocalLoginComponent implements OnInit {
         this.errorMessage = ERRORS.invalidUsernamePassword;
         return EMPTY;
       }),
-      withLatestFrom(this.appContextService.isCompetenceCatalog())
-    ).subscribe(([user, isCompetenceCatalog]) => {
+      withLatestFrom(this.appContextService.getAppContext())
+    ).subscribe(([user, appContext]) => {
       if (user) {
         this.modal.close();
-        this.router.navigate(isCompetenceCatalog ? ['kk', 'landing'] : ['landing']);
+        this.router.navigate(homeUrlMap[appContext]);
       }
     });
   }

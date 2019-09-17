@@ -175,7 +175,8 @@ const appRoutes: Routes = [
     canActivate: [CompetenceCatalogGuard],
     canDeactivate: [LazyModuleDeactivateGuard, CompetenceCatalogGuard],
     data: {
-      titleKey: 'missing translation'
+      titleKey: 'missing translation',
+      moduleName: ModuleName.COMPETENCE_CATALOG,
     }
   },
   {

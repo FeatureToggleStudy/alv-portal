@@ -12,7 +12,8 @@ import { Store } from '@ngrx/store';
 import { ToggleMobileNavigationsAction } from '../../../core/state-management/actions/core.actions';
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 import { LoginService } from '../../auth/login.service';
-import { AppContextService } from '../../../core/auth/app-context.service';
+import { AppContextService } from '../../../core/app-context/app-context.service';
+import { homeUrlMap } from '../../../core/app-context/app-context.types';
 
 @Component({
   selector: 'alv-header',
@@ -33,7 +34,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   logoUrl$: Observable<string>;
 
-  homeUrl$: Observable<string>;
+  homeUrl$: Observable<string[]>;
 
   private readonly FILENAME_TRANSLATION_KEY = 'portal.home.logo-filename';
 
@@ -68,9 +69,9 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
         takeUntil(this.ngUnsubscribe)
       );
 
-    this.homeUrl$ = this.appContextService.isCompetenceCatalog()
+    this.homeUrl$ = this.appContextService.getAppContext()
       .pipe(
-        map(isCompetenceCatalog => isCompetenceCatalog ? '/kk' : '/'),
+        map(appContext => homeUrlMap[appContext]),
         takeUntil(this.ngUnsubscribe)
       );
 
