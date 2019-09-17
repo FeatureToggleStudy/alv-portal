@@ -4,7 +4,6 @@ import { CompetenceCatalogHomeComponent } from './competence-catalog-home/compet
 import { SharedModule } from '../shared/shared.module';
 import { CompetenceCatalogRoutingModule } from './competence-catalog-routing.module';
 import { ModalService } from '../shared/layout/modal/modal.service';
-import { CompetenceCatalogGuard } from './competence-catalog.guard';
 import { CompetenceCatalogSearchComponent } from './competence-catalog-search/competence-catalog-search.component';
 
 @NgModule({
@@ -19,8 +18,7 @@ import { CompetenceCatalogSearchComponent } from './competence-catalog-search/co
   ],
   entryComponents: [],
   providers: [
-    ModalService,
-    CompetenceCatalogGuard
+    ModalService
   ]
 })
 export class CompetenceCatalogModule {

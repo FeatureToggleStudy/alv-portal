@@ -246,9 +246,7 @@ export class MenuEntryService {
   public prepareEntries(): Observable<MenuDefinition> {
     return combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.isCompetenceCatalog()).pipe(
       map(([user, isCompetenceCatalog]) => {
-        const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => {
-          return e.userPredicate(user) && isCompetenceCatalog === !!e.isCompetenceCatalogEntry;
-        });
+        const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => e.userPredicate(user) && isCompetenceCatalog === !!e.isCompetenceCatalogEntry);
         const mainMenuEntries = MAIN_MENU_ENTRIES.filter(m => m.userPredicate(user));
         const onlineFormsMenuEntries = ONLINE_FORMS_MENU_ENTRIES.filter(m => m.userPredicate(user));
         const settingsMenuEntries = SETTINGS_MENU_ENTRIES.filter(m => m.userPredicate(user));

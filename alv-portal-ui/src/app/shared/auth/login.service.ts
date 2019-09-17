@@ -48,16 +48,18 @@ export class LoginService {
   }
 
   private loginEiamDefault() {
-    document.location.href = `/login?redirectUrl=${this.baseHref}landing`;
+    this.document.location.href = `/login?redirectUrl=${this.baseHref}landing`;
+  }
+
+  private loginEiamCompetenceCatalog() {
+    this.document.location.href = `/login?redirectUrl=${this.baseHref}kk/landing`;
   }
 
   private loginLocal() {
     this.modalService.openMedium(LocalLoginComponent, true);
   }
 
-  private loginEiamCompetenceCatalog() {
-    document.location.href = `/login?redirectUrl=${this.baseHref}kk/landing`;
-  }
+
 
   logout(): void {
     this.authenticationService.logout();
