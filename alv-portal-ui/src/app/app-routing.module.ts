@@ -175,7 +175,7 @@ const appRoutes: Routes = [
     canActivate: [CompetenceCatalogGuard],
     canDeactivate: [LazyModuleDeactivateGuard, CompetenceCatalogGuard],
     data: {
-      titleKey: 'portal.online-forms.pilot-activation.browser-title'
+      titleKey: 'missing translation'
     }
   },
   {
