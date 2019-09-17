@@ -17,8 +17,8 @@ import {
   LogoutUserAction,
   PROFILE_INFO_LOADED,
   ProfileInfoLoadedAction,
-  SET_KK_FRONTEND,
-  SetKkFrontendAction,
+  SET_IS_COMPETENCE_CATALOG,
+  SetIsCompetenceCatalogAction,
   TOGGLE_MAIN_NAVIGATION,
   TOGGLE_MOBILE_NAVIGATION,
   ToggleMainNavigationAction,
@@ -88,10 +88,10 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
         profileInfo: action.payload.profileInfo
       };
       break;
-    case SET_KK_FRONTEND:
+    case SET_IS_COMPETENCE_CATALOG:
       newState = {
         ...state,
-        isCompetenceCatalog: action.payload.isKkFrontend
+        isCompetenceCatalog: action.payload.isCompetenceCatalog
       };
       break;
     default:
@@ -114,5 +114,5 @@ export type Actions =
   | CompanySelectedAction
   | AccountabilitySelectedAction
   | ProfileInfoLoadedAction
-  | SetKkFrontendAction;
+  | SetIsCompetenceCatalogAction;
 
