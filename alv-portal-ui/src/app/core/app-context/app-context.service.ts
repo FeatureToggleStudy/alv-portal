@@ -20,13 +20,11 @@ export class AppContextService {
   }
 
   getAppContext(): Observable<AppContext> {
-    return this.appContext$.pipe(
-      distinctUntilChanged()
-    );
+    return this.appContext$.pipe(distinctUntilChanged());
   }
 
   getLatestAppContext(): Observable<AppContext> {
-    return this.getAppContext().pipe(take(1));
+    return this.appContext$.pipe(take(1));
   }
 }
 
