@@ -33,6 +33,8 @@ export const UPDATED_JOB_AD_FAVOURITE = 'CORE:UPDATED_JOB_AD_FAVOURITE';
 export const LOAD_PROFILE_INFO = 'CORE:LOAD_PROFILE_INFO';
 export const PROFILE_INFO_LOADED = 'CORE:PROFILE_INFO_LOADED';
 
+export const SET_KK_FRONTEND = 'CORE:SET_KK_FRONTEND';
+
 export const LAZY_LOADED_MODULE_DESTROYED = 'CORE:LAZY_LOADED_MODULE_DESTROYED';
 
 export class LanguageChangedAction implements Action {
@@ -186,6 +188,14 @@ export class ProfileInfoLoadedAction implements Action {
   readonly type = PROFILE_INFO_LOADED;
 
   constructor(public payload: { profileInfo?: ProfileInfo }) {
+  }
+}
+
+
+export class SetKkFrontendAction implements Action {
+  readonly type = SET_KK_FRONTEND;
+
+  constructor(public payload: {isKkFrontend: boolean}) {
   }
 }
 

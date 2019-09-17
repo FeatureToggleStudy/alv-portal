@@ -8,10 +8,15 @@
            src="assets/img/logo_arbeit_swiss_without_text.svg"
            [attr.alt]="'portal.home.logo-alttext' | translate"
            height="22">
-      Job-Room
+      <ng-container *alvIsCompetenceCatalog="true">
+        Kompetenzkatalog
+      </ng-container>
+      <ng-container *alvIsCompetenceCatalog="false">
+        Job-Room
+      </ng-container>
     </div>
 
-    <a routerLink="/">
+    <a [routerLink]="homeUrl$ | async">
       <div class="logo d-none d-lg-flex">
         <img *ngIf="logoUrl$ | async as logoUrl"
              [src]="logoUrl"
@@ -31,13 +36,14 @@
 
     <div class="header-buttons d-none d-lg-flex align-items-center">
       <a class="btn mr-3"
-         routerLink="home"
+         [routerLink]="homeUrl$ | async"
          [attr.aria-label]="'global.menu.home' | translate"
          placement="bottom"
          [ngbTooltip]="'global.menu.home' | translate">
         <fa-icon [icon]="['fas', 'home']"></fa-icon>
       </a>
       <a class="btn mr-3"
+         *alvIsCompetenceCatalog="false"
          [href]="'home.contactform.url' | translate"
          target="_blank"
          rel="noopener">
@@ -48,13 +54,17 @@
                      [user]="user"
                      [company]="company">
       </alv-user-menu>
-      <a class="btn mr-3"
-         *alvIsAnonymous
-         [href]="'home.registration.url' | translate"
-         target="_blank"
-         rel="noopener">
-        {{'global.menu.account.registration.text' | translate}}
-      </a>
+
+      <ng-container *alvIsCompetenceCatalog="false">
+        <a class="btn mr-3"
+           *alvIsAnonymous
+           [href]="'home.registration.url' | translate"
+           target="_blank"
+           rel="noopener">
+          {{'global.menu.account.registration.text' | translate}}
+        </a>
+      </ng-container>
+
     </div>
 
     <button *alvIsAnonymous
@@ -66,12 +76,16 @@
     <div *ngIf="currentLanguage$ | async as currentLanguage"
          class="language-switchers">
       <div class="header-buttons d-none d-lg-flex align-items-center">
-        <a class="mx-3"
+        <a *alvIsCompetenceCatalog="false"
+           class="mx-3"
            [href]="'home.title.portal-url' | translate"
            target="_blank"
            [innerHTML]="'home.title.cms'| translate "
            rel="noopener">
         </a>
+        <div *alvIsCompetenceCatalog="true"
+             class="mr-3">
+        </div>
         <ng-container *ngFor="let language of languages">
           <button (click)="changeLanguage(language)"
                   class="language-switch-button text-uppercase"

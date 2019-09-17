@@ -15,7 +15,8 @@ export const initialState: CoreState = {
   accountabilities: undefined,
   mainNavigationExpanded: false,
   mobileNavigationExpanded: false,
-  profileInfo: undefined
+  profileInfo: undefined,
+  isCompetenceCatalog: false
 };
 
 export interface CoreState {
@@ -27,6 +28,7 @@ export interface CoreState {
   mainNavigationExpanded: boolean;
   mobileNavigationExpanded: boolean;
   profileInfo: ProfileInfo;
+  isCompetenceCatalog: boolean;
 }
 
 const getCoreState = createFeatureSelector<CoreState>('coreState');
@@ -39,6 +41,7 @@ export const getMobileNavigationExpanded = createSelector(getCoreState, (state: 
 export const getCurrentAccountability = createSelector(getCoreState, (state: CoreState) => state.currentAccountability);
 export const getAccountabilities = createSelector(getCoreState, (state: CoreState) => state.accountabilities);
 export const getProfileInfo = createSelector(getCoreState, (state: CoreState) => state.profileInfo);
+export const isCompetenceCatalog = createSelector(getCoreState, (state: CoreState) => state.isCompetenceCatalog);
 export const getCurrentCompanyContactTemplateModel = createSelector(getCurrentUser, getCurrentCompany, getCurrentAccountability, (user, companyContactTemplate, accountability) => {
   if (user === undefined || accountability === undefined || companyContactTemplate === undefined) {
     return undefined;

@@ -45,6 +45,10 @@ export class LandingNavigationService {
       return this.router.navigate(['dashboard', 'admin']);
     }
 
+    if (user.hasAnyAuthorities([UserRole.ROLE_KK_EDITOR])) {
+      return this.router.navigate(['kk']);
+    }
+
     return this.router.navigate(['home']);
   }
 }

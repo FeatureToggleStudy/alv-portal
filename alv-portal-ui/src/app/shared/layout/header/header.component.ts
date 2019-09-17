@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { ToggleMobileNavigationsAction } from '../../../core/state-management/actions/core.actions';
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 import { LoginService } from '../../auth/login.service';
+import { AppContextService } from '../../../core/auth/app-context.service';
 
 @Component({
   selector: 'alv-header',
@@ -32,12 +33,15 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   logoUrl$: Observable<string>;
 
+  homeUrl$: Observable<string>;
+
   private readonly FILENAME_TRANSLATION_KEY = 'portal.home.logo-filename';
 
   private readonly LOGO_BASE_PATH = 'assets/img/logo/';
 
   constructor(private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
+              private appContextService: AppContextService,
               private loginService: LoginService,
               private router: Router,
               private i18nService: I18nService) {
@@ -62,6 +66,12 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
       .pipe(
         map((filename) => this.LOGO_BASE_PATH + filename),
         takeUntil(this.ngUnsubscribe)
+      );
+
+    this.homeUrl$ = this.appContextService.isCompetenceCatalog()
+      .pipe(
+        takeUntil(this.ngUnsubscribe),
+        map(isCompetenceCatalog => isCompetenceCatalog ? '/kk' : '/')
       );
 
     this.noEiam = this.loginService.noEiam;

@@ -1,11 +1,18 @@
-import { AfterViewInit, Component, HostBinding, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostBinding,
+  Inject,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, withLatestFrom } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   CoreState,
   getMainNavigationExpanded,
-  getMobileNavigationExpanded
+  getMobileNavigationExpanded, isCompetenceCatalog
 } from '../../../core/state-management/state/core.state.ts';
 import { select, Store } from '@ngrx/store';
 import {
@@ -13,13 +20,19 @@ import {
   ToggleMobileNavigationsAction
 } from '../../../core/state-management/actions/core.actions';
 import { MenuEntryService } from './menu-entry.service';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { MenuDefinition } from './menu-entry.type';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { isAuthenticatedUser, User, UserRole } from '../../../core/auth/user.model';
+import {
+  hasAnyAuthorities,
+  isAuthenticatedUser,
+  User,
+  UserRole
+} from '../../../core/auth/user.model';
 import { LoginService } from '../../auth/login.service';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { WINDOW } from '../../../core/window.service';
+import { getCandidateSearchFilter } from '../../../candidate/candidate-search/state-management/state';
 
 @Component({
   selector: 'alv-main-navigation',
@@ -37,7 +50,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   mainNavigationCollapsed = true;
 
   @HostBinding('class.d-lg-none')
-  isAnonymous = true;
+  hideDesktopMenu = true;
 
   mobileMenuExpanded: boolean;
 
@@ -65,10 +78,10 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
     this.menuDefinition$ = this.menuEntryService.prepareEntries();
 
-    this.authenticationService.getCurrentUser().pipe(
+    combineLatest(this.authenticationService.getCurrentUser(), this.store.pipe(select(isCompetenceCatalog))).pipe(
       takeUntil(this.ngUnsubscribe)
-    ).subscribe(user => {
-      this.isAnonymous = !isAuthenticatedUser(user);
+    ).subscribe(([user, kkFrontend]) => {
+      this.hideDesktopMenu = !isAuthenticatedUser(user) && !kkFrontend;
       this.currentUser = user;
     });
 

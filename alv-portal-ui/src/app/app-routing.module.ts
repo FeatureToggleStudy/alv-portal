@@ -13,6 +13,7 @@ import { LazyModuleDeactivateGuard } from './core/lazy-module-deactivate.guard';
 import { ModuleName } from './core/state-management/actions/core.actions';
 import { HasFeatureGuard } from './core/auth/has-feature-guard.service';
 import { FeatureName } from './shared/backend-services/feature-code-list/feature-code-list.types';
+import { CompetenceCatalogGuard } from './competence-catalog/competence-catalog.guard';
 
 const appRoutes: Routes = [
   {
@@ -166,6 +167,15 @@ const appRoutes: Routes = [
     data: {
       titleKey: 'portal.online-forms.pilot-activation.browser-title',
       authorities: [UserRole.ROLE_JOB_SEEKER]
+    }
+  },
+  {
+    path: 'kk',
+    loadChildren: './competence-catalog/competence-catalog.module#CompetenceCatalogModule',
+    canActivate: [CompetenceCatalogGuard],
+    canDeactivate: [LazyModuleDeactivateGuard, CompetenceCatalogGuard],
+    data: {
+      titleKey: 'portal.online-forms.pilot-activation.browser-title'
     }
   },
   {

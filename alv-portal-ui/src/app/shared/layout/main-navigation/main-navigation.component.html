@@ -54,7 +54,8 @@
     </ng-container>
   </ng-container>
 
-  <a class="nav-item"
+  <a *alvIsCompetenceCatalog="false"
+     class="nav-item"
      target="_blank"
      rel="noopener"
      [ngbTooltip]="mainNavigationCollapsed ? cmsTooltipContent: ''"
@@ -138,7 +139,8 @@
     </ng-container>
   </ng-container>
 
-  <a class="nav-item"
+  <a *alvIsCompetenceCatalog="false"
+     class="nav-item"
      target="_blank"
      rel="noopener"
      [href]="'home.title.portal-url' | translate">
