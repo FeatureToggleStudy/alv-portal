@@ -245,7 +245,6 @@ export class MenuEntryService {
 
   public prepareEntries(): Observable<MenuDefinition> {
     return combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.isCompetenceCatalog()).pipe(
-      filter(([user, isCompetenceCatalog]) => isCompetenceCatalog !== undefined),
       map(([user, isCompetenceCatalog]) => {
         const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => {
           return e.userPredicate(user) && isCompetenceCatalog === !!e.isCompetenceCatalogEntry;
