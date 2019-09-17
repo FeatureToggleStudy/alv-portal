@@ -7,12 +7,12 @@ import {
   OnInit
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { takeUntil, withLatestFrom } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   CoreState,
   getMainNavigationExpanded,
-  getMobileNavigationExpanded, isCompetenceCatalog
+  getMobileNavigationExpanded
 } from '../../../core/state-management/state/core.state.ts';
 import { select, Store } from '@ngrx/store';
 import {
@@ -23,16 +23,11 @@ import { MenuEntryService } from './menu-entry.service';
 import { combineLatest, Observable } from 'rxjs';
 import { MenuDefinition } from './menu-entry.type';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import {
-  hasAnyAuthorities,
-  isAuthenticatedUser,
-  User,
-  UserRole
-} from '../../../core/auth/user.model';
+import { isAuthenticatedUser, User, UserRole } from '../../../core/auth/user.model';
 import { LoginService } from '../../auth/login.service';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { WINDOW } from '../../../core/window.service';
-import { getCandidateSearchFilter } from '../../../candidate/candidate-search/state-management/state';
+import { AppContextService } from '../../../core/auth/app-context.service';
 
 @Component({
   selector: 'alv-main-navigation',
@@ -69,6 +64,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   constructor(private router: Router,
               private loginService: LoginService,
               private authenticationService: AuthenticationService,
+              private appContextService: AppContextService,
               private store: Store<CoreState>,
               private menuEntryService: MenuEntryService,
               @Inject(WINDOW) private window: Window) {
@@ -78,10 +74,10 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
     this.menuDefinition$ = this.menuEntryService.prepareEntries();
 
-    combineLatest(this.authenticationService.getCurrentUser(), this.store.pipe(select(isCompetenceCatalog))).pipe(
+    combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.isCompetenceCatalog()).pipe(
       takeUntil(this.ngUnsubscribe)
-    ).subscribe(([user, kkFrontend]) => {
-      this.hideDesktopMenu = !isAuthenticatedUser(user) && !kkFrontend;
+    ).subscribe(([user, isCompetenceCatalog]) => {
+      this.hideDesktopMenu = !isAuthenticatedUser(user) && !isCompetenceCatalog;
       this.currentUser = user;
     });
 
