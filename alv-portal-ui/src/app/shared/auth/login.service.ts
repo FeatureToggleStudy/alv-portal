@@ -39,15 +39,15 @@ export class LoginService {
         .pipe(take(1))
         .subscribe(isCompetenceCatalog => {
           if (isCompetenceCatalog) {
-            this.loginCompetenceCatalog();
+            this.loginEiamCompetenceCatalog();
           } else {
-            this.loginEiam();
+            this.loginEiamDefault();
           }
         });
     }
   }
 
-  private loginEiam() {
+  private loginEiamDefault() {
     document.location.href = `/login?redirectUrl=${this.baseHref}landing`;
   }
 
@@ -55,7 +55,7 @@ export class LoginService {
     this.modalService.openMedium(LocalLoginComponent, true);
   }
 
-  private loginCompetenceCatalog() {
+  private loginEiamCompetenceCatalog() {
     document.location.href = `/login?redirectUrl=${this.baseHref}kk/landing`;
   }
 
