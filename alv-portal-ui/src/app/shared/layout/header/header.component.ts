@@ -70,8 +70,8 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
     this.homeUrl$ = this.appContextService.isCompetenceCatalog()
       .pipe(
-        takeUntil(this.ngUnsubscribe),
-        map(isCompetenceCatalog => isCompetenceCatalog ? '/kk' : '/')
+        map(isCompetenceCatalog => isCompetenceCatalog ? '/kk' : '/'),
+        takeUntil(this.ngUnsubscribe)
       );
 
     this.noEiam = this.loginService.noEiam;
