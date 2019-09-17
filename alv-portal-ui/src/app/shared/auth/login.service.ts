@@ -6,6 +6,7 @@ import { map, take } from 'rxjs/operators';
 import { ModalService } from '../layout/modal/modal.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../core/auth/authentication.service';
+import { AppContextService } from '../../core/auth/app-context.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class LoginService {
               private modalService: ModalService,
               private profileInfoService: ProfileInfoService,
               private authenticationService: AuthenticationService,
+              private appContextService: AppContextService,
               private router: Router) {
 
     this.profileInfoService.getProfileInfo().pipe(
@@ -30,17 +32,45 @@ export class LoginService {
   }
 
   login(): void {
-    if (this.noEiam) {
-      this.modalService.openMedium(LocalLoginComponent, true);
-    } else {
-      document.location.href = `/login?redirectUrl=${this.baseHref}landing`;
-    }
+    this.appContextService.isCompetenceCatalog()
+      .pipe(take(1))
+      .subscribe(isCompetenceCatalog => {
+        if (isCompetenceCatalog) {
+          this.loginCompetenceCatalog();
+        } else {
+          if (this.noEiam) {
+            this.loginLocal();
+          } else {
+            this.loginEiam();
+          }
+        }
+      });
+  }
+
+  private loginEiam() {
+    document.location.href = `/login?redirectUrl=${this.baseHref}landing`;
+  }
+
+  private loginLocal() {
+    this.modalService.openMedium(LocalLoginComponent, true);
+  }
+
+  private loginCompetenceCatalog() {
+    document.location.href = `/login?redirectUrl=${this.baseHref}kk/landing`;
   }
 
   logout(): void {
     this.authenticationService.logout();
     if (this.noEiam) {
-      this.router.navigate(['']);
+      this.appContextService.isCompetenceCatalog()
+        .pipe(take(1))
+        .subscribe(isCompetenceCatalog => {
+          if (isCompetenceCatalog) {
+            this.router.navigate(['kk']);
+          } else {
+            this.router.navigate(['']);
+          }
+        });
     } else {
       this.document.location.href = '/authentication/logout';
     }

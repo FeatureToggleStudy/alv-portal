@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { combineLatest, Observable } from 'rxjs';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import {
   hasAnyAuthorities,
   hasFeature,
@@ -14,8 +14,6 @@ import {
 import { MenuDefinition, MenuEntry } from './menu-entry.type';
 import { IconKey } from '../../icons/custom-icon/custom-icon.component';
 import { FeatureName } from '../../backend-services/feature-code-list/feature-code-list.types';
-import { Store } from '@ngrx/store';
-import { CoreState } from '../../../core/state-management/state/core.state.ts';
 import { AppContextService } from '../../../core/auth/app-context.service';
 
 interface UserMenuDefinition {
@@ -68,7 +66,7 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
     id: 'KK-EDITOR',
     mainMenuEntryKeys: ['kk-home', 'kk-search'],
     onlineFormsMenuEntryKeys: [],
-    settingsMenuEntryKeys: ['user-settings'],
+    settingsMenuEntryKeys: [],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_KK_EDITOR]),
     isCompetenceCatalogEntry: true
   }
@@ -242,15 +240,15 @@ const SETTINGS_MENU_ENTRIES: Array<MenuEntry> = [
 export class MenuEntryService {
 
   constructor(private authenticationService: AuthenticationService,
-              private appContextService: AppContextService,
-              private store: Store<CoreState>) {
+              private appContextService: AppContextService) {
   }
 
   public prepareEntries(): Observable<MenuDefinition> {
     return combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.isCompetenceCatalog()).pipe(
+      filter(([user, isCompetenceCatalog]) => isCompetenceCatalog !== undefined),
       map(([user, isCompetenceCatalog]) => {
         const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => {
-          return e.userPredicate(user) && !!isCompetenceCatalog === !!e.isCompetenceCatalogEntry;
+          return e.userPredicate(user) && isCompetenceCatalog === !!e.isCompetenceCatalogEntry;
         });
         const mainMenuEntries = MAIN_MENU_ENTRIES.filter(m => m.userPredicate(user));
         const onlineFormsMenuEntries = ONLINE_FORMS_MENU_ENTRIES.filter(m => m.userPredicate(user));

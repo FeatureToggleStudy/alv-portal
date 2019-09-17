@@ -46,7 +46,7 @@ export class LandingNavigationService {
     }
 
     if (user.hasAnyAuthorities([UserRole.ROLE_KK_EDITOR])) {
-      return this.router.navigate(['kk']);
+      return this.router.navigate(['kk', 'home']);
     }
 
     return this.router.navigate(['home']);

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, withLatestFrom } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
 import { Router } from '@angular/router';
 import { Notification, NotificationType } from '../notifications/notification.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppContextService } from '../../../core/auth/app-context.service';
 
 const ERRORS = {
   invalidUsernamePassword: {
@@ -28,6 +29,7 @@ export class LocalLoginComponent implements OnInit {
 
   constructor(public modal: NgbActiveModal,
               private authenticationService: AuthenticationService,
+              private appContextService: AppContextService,
               private fb: FormBuilder,
               private router: Router) {
   }
@@ -49,11 +51,12 @@ export class LocalLoginComponent implements OnInit {
       catchError(err => {
         this.errorMessage = ERRORS.invalidUsernamePassword;
         return EMPTY;
-      })
-    ).subscribe(user => {
+      }),
+      withLatestFrom(this.appContextService.isCompetenceCatalog())
+    ).subscribe(([user, isCompetenceCatalog]) => {
       if (user) {
         this.modal.close();
-        this.router.navigate(['/landing']);
+        this.router.navigate(isCompetenceCatalog ? ['kk', 'landing'] : ['landing']);
       }
     });
   }
