@@ -42,7 +42,7 @@ export class RoleSelectionComponent extends AbstractRegistrationStep implements 
   ngOnInit() {
     this.roleSelectionForm = this.fb.group({
       role: ['', Validators.required],
-      termsAndConditions: [false, Validators.requiredTrue]
+      legalTerms: [false, Validators.requiredTrue]
     });
 
     this.legalTermsUrls$ = this.legalTermsService.getLegalTermsUrls();

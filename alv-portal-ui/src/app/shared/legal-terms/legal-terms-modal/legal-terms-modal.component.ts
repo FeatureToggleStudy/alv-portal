@@ -33,7 +33,7 @@ export class LegalTermsModalComponent {
     this.legalTermsUrls$ = this.legalTermsService.getLegalTermsUrls();
 
     this.form = this.fb.group({
-      termsAndConditions: [false, Validators.requiredTrue]
+      legalTerms: [false, Validators.requiredTrue]
     });
   }
 

@@ -12,8 +12,8 @@
 
   <div class="panel-divider"></div>
 
-  <alv-checkbox alvFormControlName="termsAndConditions"
-                label="registrationQuestionnaire.termsOfUse.accept"
+  <alv-checkbox alvFormControlName="legalTerms"
+                label="registrationQuestionnaire.legalTerms.accept"
                 class="d-block mb-2">
   </alv-checkbox>
 
@@ -30,9 +30,8 @@
        target="_blank">
       <fa-icon class="link-icon"
                [icon]="['fas', 'caret-right']"></fa-icon>
-      {{'portal.registration.termsOfUse.label' | translate}}
+      {{'portal.registration.privacyStatement.label' | translate}}
     </a>
   </ng-container>
-  <!-- TODO add correct translations -->
 
 </alv-registration-panel>

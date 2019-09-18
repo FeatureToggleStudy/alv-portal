@@ -26,18 +26,17 @@
        target="_blank">
       <fa-icon class="link-icon"
                [icon]="['fas', 'caret-right']"></fa-icon>
-      {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
+      {{'global.legal-terms-dialog.body.accept-terms-of-use.text' | translate}}
     </a>
     <a [href]="legalTermsUrls.privacyStatementLink"
        class="link legal-terms mt-3 mb-3"
        target="_blank">
       <fa-icon class="link-icon"
                [icon]="['fas', 'caret-right']"></fa-icon>
-      {{'global.legal-terms-dialog.body.accept-link.text' | translate}}
+      {{'global.legal-terms-dialog.body.accept-privacy-statement.text' | translate}}
     </a>
   </ng-container>
-  <!-- TODO add correct translations -->
-  <alv-checkbox alvFormControlName="termsAndConditions"
+  <alv-checkbox alvFormControlName="legalTerms"
                 label="global.legal-terms-dialog.body.accept-label"
                 class="d-block mb-2">
   </alv-checkbox>
