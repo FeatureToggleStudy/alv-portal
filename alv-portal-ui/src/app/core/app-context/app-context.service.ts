@@ -16,12 +16,26 @@ export class AppContextService {
 
   private readonly appContext$: Observable<AppContext>;
 
-  private appContextStrategies: AppContextStrategy[];
+  private appContextStrategies = [
+    {
+      matches: appContext => appContext === AppContext.EALV,
+      isDesktopMenuShown: user => isAuthenticatedUser(user),
+      appTitle: 'portal.context.ealv.app-title',
+      logoUrl: 'portal.context.ealv.logo-filename',
+      homeUrl: ['home']
+    },
+    {
+      matches: appContext => appContext === AppContext.COMPETENCE_CATALOG,
+      isDesktopMenuShown: user => true,
+      appTitle: 'portal.context.competence-catalog.app-title',
+      logoUrl: 'portal.context.competence-catalog.logo-filename',
+      homeUrl: ['kk', 'home']
+    }
+  ];
 
   constructor(private store: Store<CoreState>,
               private i18nService: I18nService,
               @Inject(APP_BASE_HREF) private baseHref: string) {
-    this.createAppContextStrategies();
     this.appContext$ = this.store.pipe(
       select(getAppContext)
     );
@@ -36,7 +50,7 @@ export class AppContextService {
       map(appContext => this.findStrategy(appContext).isDesktopMenuShown(user))
     );
   }
-  
+
   getHomeUrl(): Observable<string[]> {
     return this.getAppContext().pipe(
       map(appContext => this.findStrategy(appContext).homeUrl)
@@ -58,25 +72,6 @@ export class AppContextService {
 
   private findStrategy(appContext: AppContext): AppContextStrategy {
     return this.appContextStrategies.find(strategy => strategy.matches(appContext));
-  }
-
-  private createAppContextStrategies() {
-    this.appContextStrategies = [
-      {
-        matches: appContext => appContext === AppContext.EALV,
-        isDesktopMenuShown: user => isAuthenticatedUser(user),
-        appTitle: 'portal.context.ealv.app-title',
-        logoUrl: 'portal.context.ealv.logo-filename',
-        homeUrl: ['home']
-      },
-      {
-        matches: appContext => appContext === AppContext.COMPETENCE_CATALOG,
-        isDesktopMenuShown: user => true,
-        appTitle: 'portal.context.competence-catalog.app-title',
-        logoUrl: 'portal.context.competence-catalog.logo-filename',
-        homeUrl: ['kk', 'home']
-      }
-    ];
   }
 }
 
