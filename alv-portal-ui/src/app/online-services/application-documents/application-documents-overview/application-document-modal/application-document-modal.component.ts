@@ -165,6 +165,10 @@ export class ApplicationDocumentModalComponent implements OnInit {
             this.notificationsService.error('portal.application-documents.notification.virus-found');
             return EMPTY;
           }
+          if (this.hasInvalidMimeTypeException(error)) {
+            this.notificationsService.error('portal.application-documents.edit-create-modal.file.validation.invalidFileType');
+            return EMPTY;
+          }
           throw error;
         }),
         finalize(() => this.uploadedBytes = 0)
@@ -191,6 +195,10 @@ export class ApplicationDocumentModalComponent implements OnInit {
 
   private hasVirusFoundException(error): boolean {
     return error.status === 422 && error.error && error.error.type === ApplicationDocumentErrors.VIRUS_FOUND;
+  }
+
+  private hasInvalidMimeTypeException(error): boolean {
+    return error.status === 400 && error.error && error.error.detail.startsWith(ApplicationDocumentErrors.INVALID_MIME_TYPE);
   }
 
   private validateDocumentTypes(invalidDocumentTypes: ApplicationDocumentType[]): ValidatorFn {

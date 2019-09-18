@@ -28,5 +28,6 @@ export enum ApplicationDocumentType {
 }
 
 export enum ApplicationDocumentErrors {
-  VIRUS_FOUND = 'http://www.job-room.ch/online-form-service/problem/upload-file-contains-virus'
+  VIRUS_FOUND = 'http://www.job-room.ch/online-form-service/problem/upload-file-contains-virus',
+  INVALID_MIME_TYPE = 'Invalid MIME type'
 }
