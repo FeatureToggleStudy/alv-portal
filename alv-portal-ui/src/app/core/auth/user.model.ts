@@ -101,11 +101,17 @@ export class User {
   }
 
   isRegistered(): boolean {
-    return this.registrationStatus === RegistrationStatus.REGISTERED || this.isAdmin();
+    return this.registrationStatus === RegistrationStatus.REGISTERED ||
+      this.isAdmin() ||
+      this.isCompetenceCatalogEditor();
   }
 
   isAdmin() {
     return this.hasAnyAuthorities([UserRole.ROLE_ADMIN]);
+  }
+
+  isCompetenceCatalogEditor() {
+    return this.hasAnyAuthorities([UserRole.ROLE_KK_EDITOR]);
   }
 
   isLegalTermAcceptanceRequired() {

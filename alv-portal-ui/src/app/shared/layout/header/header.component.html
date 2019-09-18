@@ -8,12 +8,7 @@
            src="assets/img/logo_arbeit_swiss_without_text.svg"
            [attr.alt]="'portal.home.logo-alttext' | translate"
            height="22">
-      <ng-container *alvAppContextCompetenceCatalog>
-        Kompetenzkatalog
-      </ng-container>
-      <ng-container *alvAppContextEalv>
-        Job-Room
-      </ng-container>
+      {{appTitle$ | async | translate}}
     </div>
 
     <a [routerLink]="homeUrl$ | async">
