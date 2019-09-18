@@ -7,6 +7,7 @@ import { distinctUntilChanged, flatMap, map } from 'rxjs/operators';
 import { APP_BASE_HREF } from '@angular/common';
 import { AppContextStrategy } from './app-context.strategy';
 import { I18nService } from '../i18n.service';
+import { isAuthenticatedUser, User } from '../auth/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,13 @@ export class AppContextService {
   getAppContext(): Observable<AppContext> {
     return this.appContext$.pipe(distinctUntilChanged());
   }
+
+  isDesktopMenuShown(user: User): Observable<boolean> {
+    return this.getAppContext().pipe(
+      map(appContext => this.findStrategy(appContext).isDesktopMenuShown(user))
+    );
+  }
+
 
   getHomeUrl(): Observable<string[]> {
     return this.getAppContext().pipe(
@@ -54,18 +62,22 @@ export class AppContextService {
   }
 
   private createAppContextStrategies() {
-    this.appContextStrategies = [{
-      matches: appContext => appContext === AppContext.EALV,
-      appTitle: 'portal.context.ealv.app-title',
-      logoUrl: 'portal.context.ealv.logo-filename',
-      homeUrl: ['home']
-    },
+    this.appContextStrategies = [
+      {
+        matches: appContext => appContext === AppContext.EALV,
+        isDesktopMenuShown: user => isAuthenticatedUser(user),
+        appTitle: 'portal.context.ealv.app-title',
+        logoUrl: 'portal.context.ealv.logo-filename',
+        homeUrl: ['home']
+      },
       {
         matches: appContext => appContext === AppContext.COMPETENCE_CATALOG,
+        isDesktopMenuShown: user => true,
         appTitle: 'portal.context.competence-catalog.app-title',
         logoUrl: 'portal.context.competence-catalog.logo-filename',
         homeUrl: ['kk', 'home']
-      }];
+      }
+    ];
   }
 }
 

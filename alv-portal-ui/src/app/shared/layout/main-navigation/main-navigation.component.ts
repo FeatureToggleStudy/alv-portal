@@ -7,7 +7,7 @@ import {
   OnInit
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { flatMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   CoreState,
@@ -20,7 +20,7 @@ import {
   ToggleMobileNavigationsAction
 } from '../../../core/state-management/actions/core.actions';
 import { MenuEntryService } from './menu-entry.service';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MenuDefinition } from './menu-entry.type';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { isAuthenticatedUser, User, UserRole } from '../../../core/auth/user.model';
@@ -46,7 +46,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   mainNavigationCollapsed = true;
 
   @HostBinding('class.d-lg-none')
-  hideDesktopMenu = true;
+  isDesktopMenuHidden = true;
 
   mobileMenuExpanded: boolean;
 
@@ -75,12 +75,12 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
     this.menuDefinition$ = this.menuEntryService.prepareEntries();
 
-    // Suggestion: this.appContextService.showDesktopMenu(user);
-    combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.getAppContext()).pipe(
+    this.authenticationService.getCurrentUser().pipe(
+      tap(user => this.currentUser = user),
+      flatMap(user => this.appContextService.isDesktopMenuShown(user)),
       takeUntil(this.ngUnsubscribe)
-    ).subscribe(([user, appContext]) => {
-      this.hideDesktopMenu = !isAuthenticatedUser(user) && appContext !== AppContext.COMPETENCE_CATALOG;
-      this.currentUser = user;
+    ).subscribe((isDesktopMenuShown) => {
+      this.isDesktopMenuHidden = !isDesktopMenuShown;
     });
 
     this.currentCompany$ = this.authenticationService.getCurrentCompany();
