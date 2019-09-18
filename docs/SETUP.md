@@ -76,7 +76,9 @@ Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.pr
 
 ### Run development server with Angular CLI
 
-Run `npm run start:dev` for a dev server. Navigate to `http://127.0.0.1:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run start:staging` for a dev server which connects to staging. Navigate to `http://127.0.0.1:4200/`. The app will automatically reload if you change any of the source files.
+
+Run `npm run start:local` for a dev server which connects to local instances of the different microservices. Navigate to `http://127.0.0.1:4200/`. The app will automatically reload if you change any of the source files.
 
 ### Use local development server with User from Staging
 In order to use the local development server running under `http://localhost:4200/` with an user from staging environment that has a certain role you have to do following steps: 
