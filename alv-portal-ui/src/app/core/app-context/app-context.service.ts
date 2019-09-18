@@ -36,8 +36,7 @@ export class AppContextService {
       map(appContext => this.findStrategy(appContext).isDesktopMenuShown(user))
     );
   }
-
-
+  
   getHomeUrl(): Observable<string[]> {
     return this.getAppContext().pipe(
       map(appContext => this.findStrategy(appContext).homeUrl)
