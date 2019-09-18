@@ -3,7 +3,6 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 import { User } from '../../../core/auth/user.model';
 import { map, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { Router } from '@angular/router';
 import { I18nService } from '../../../core/i18n.service';
 import { Languages } from '../../../core/languages.constants';
 import { Observable } from 'rxjs';
@@ -13,7 +12,6 @@ import { ToggleMobileNavigationsAction } from '../../../core/state-management/ac
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 import { LoginService } from '../../auth/login.service';
 import { AppContextService } from '../../../core/app-context/app-context.service';
-import { homeUrlMap } from '../../../core/app-context/app-context.types';
 
 @Component({
   selector: 'alv-header',
@@ -44,7 +42,6 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
               private authenticationService: AuthenticationService,
               private appContextService: AppContextService,
               private loginService: LoginService,
-              private router: Router,
               private i18nService: I18nService) {
     super();
     this.currentLanguage$ = this.i18nService.currentLanguage$;
@@ -69,11 +66,7 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
         takeUntil(this.ngUnsubscribe)
       );
 
-    this.homeUrl$ = this.appContextService.getAppContext()
-      .pipe(
-        map(appContext => homeUrlMap[appContext]),
-        takeUntil(this.ngUnsubscribe)
-      );
+    this.homeUrl$ = this.appContextService.getHomeUrl();
 
     this.noEiam = this.loginService.noEiam;
   }

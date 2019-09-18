@@ -17,7 +17,7 @@ import {
   LogoutUserAction,
   PROFILE_INFO_LOADED,
   ProfileInfoLoadedAction,
-  SET_IS_COMPETENCE_CATALOG,
+  SET_APP_CONTEXT,
   SetAppContextAction,
   TOGGLE_MAIN_NAVIGATION,
   TOGGLE_MOBILE_NAVIGATION,
@@ -88,7 +88,7 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
         profileInfo: action.payload.profileInfo
       };
       break;
-    case SET_IS_COMPETENCE_CATALOG:
+    case SET_APP_CONTEXT:
       newState = {
         ...state,
         appContext: action.payload.appContext

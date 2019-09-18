@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { catchError, withLatestFrom } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
-import { Router } from '@angular/router';
 import { Notification, NotificationType } from '../notifications/notification.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppContextService } from '../../../core/app-context/app-context.service';
-import { homeUrlMap } from '../../../core/app-context/app-context.types';
+import { LandingNavigationService } from '../../../core/landing-navigation.service';
 
 const ERRORS = {
   invalidUsernamePassword: {
@@ -32,7 +31,7 @@ export class LocalLoginComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private appContextService: AppContextService,
               private fb: FormBuilder,
-              private router: Router) {
+              private landingNavigationService: LandingNavigationService) {
   }
 
   ngOnInit() {
@@ -52,12 +51,11 @@ export class LocalLoginComponent implements OnInit {
       catchError(err => {
         this.errorMessage = ERRORS.invalidUsernamePassword;
         return EMPTY;
-      }),
-      withLatestFrom(this.appContextService.getAppContext())
-    ).subscribe(([user, appContext]) => {
+      })
+    ).subscribe((user) => {
       if (user) {
         this.modal.close();
-        this.router.navigate(homeUrlMap[appContext]);
+        this.landingNavigationService.navigateHome();
       }
     });
   }

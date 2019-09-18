@@ -34,7 +34,7 @@ export const UPDATED_JOB_AD_FAVOURITE = 'CORE:UPDATED_JOB_AD_FAVOURITE';
 export const LOAD_PROFILE_INFO = 'CORE:LOAD_PROFILE_INFO';
 export const PROFILE_INFO_LOADED = 'CORE:PROFILE_INFO_LOADED';
 
-export const SET_IS_COMPETENCE_CATALOG = 'CORE:SET_IS_COMPETENCE_CATALOG';
+export const SET_APP_CONTEXT = 'CORE:SET_APP_CONTEXT';
 
 export const LAZY_LOADED_MODULE_DESTROYED = 'CORE:LAZY_LOADED_MODULE_DESTROYED';
 
@@ -193,7 +193,7 @@ export class ProfileInfoLoadedAction implements Action {
 }
 
 export class SetAppContextAction implements Action {
-  readonly type = SET_IS_COMPETENCE_CATALOG;
+  readonly type = SET_APP_CONTEXT;
 
   constructor(public payload: {appContext: AppContext}) {
   }
