@@ -18,14 +18,14 @@ export class AppContextService {
 
   private appContextStrategies = [
     {
-      matches: appContext => appContext === AppContext.EALV,
+      matches: appContext => isEalv(appContext),
       isDesktopMenuShown: user => isAuthenticatedUser(user),
       appTitle: 'portal.context.ealv.app-title',
       logoUrl: 'portal.context.ealv.logo-filename',
       homeUrl: ['home']
     },
     {
-      matches: appContext => appContext === AppContext.COMPETENCE_CATALOG,
+      matches: appContext => isCompetenceCatalog(appContext),
       isDesktopMenuShown: user => true,
       appTitle: 'portal.context.competence-catalog.app-title',
       logoUrl: 'portal.context.competence-catalog.logo-filename',
