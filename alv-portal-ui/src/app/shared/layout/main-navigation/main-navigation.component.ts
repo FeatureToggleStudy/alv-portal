@@ -75,6 +75,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   ngOnInit() {
     this.menuDefinition$ = this.menuEntryService.prepareEntries();
 
+    // Suggestion: this.appContextService.showDesktopMenu(user);
     combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.getAppContext()).pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe(([user, appContext]) => {

@@ -1,11 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
 import { ProfileInfoService } from '../layout/header/profile-info.service';
 import { LocalLoginComponent } from '../layout/local-login/local-login.component';
 import { map, take } from 'rxjs/operators';
 import { ModalService } from '../layout/modal/modal.service';
 import { AuthenticationService } from '../../core/auth/authentication.service';
-import { AppContextService } from '../../core/app-context/app-context.service';
 import { LandingNavigationService } from '../../core/landing-navigation.service';
 
 @Injectable({
@@ -15,11 +14,11 @@ export class LoginService {
 
   noEiam = false;
 
-  constructor(@Inject(DOCUMENT) private document: any,
+  constructor(@Inject(APP_BASE_HREF) private baseHref: string,
+              @Inject(DOCUMENT) private document: any,
               private modalService: ModalService,
               private profileInfoService: ProfileInfoService,
               private authenticationService: AuthenticationService,
-              private appContextService: AppContextService,
               private landingNavigationService: LandingNavigationService) {
 
     this.profileInfoService.getProfileInfo().pipe(
@@ -34,11 +33,7 @@ export class LoginService {
     if (this.noEiam) {
       this.loginLocal();
     } else {
-      this.appContextService.getEiamRedirectUrl()
-        .pipe(take(1))
-        .subscribe(eiamRedirectUrl => {
-          this.loginEiam(eiamRedirectUrl);
-        });
+      this.loginEiam(`${this.baseHref}landing`);
     }
   }
 

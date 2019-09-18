@@ -17,7 +17,7 @@ export const initialState: CoreState = {
   mainNavigationExpanded: false,
   mobileNavigationExpanded: false,
   profileInfo: undefined,
-  appContext: AppContext.DEFAULT
+  appContext: AppContext.EALV
 };
 
 export interface CoreState {

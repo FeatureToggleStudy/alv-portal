@@ -1,8 +1,10 @@
 import { Directive, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../core/abstract-subscriber';
-import { AppContextService } from '../../core/app-context/app-context.service';
-import { AppContext } from '../../core/app-context/app-context.enum';
+import {
+  AppContextService,
+  isCompetenceCatalog
+} from '../../core/app-context/app-context.service';
 
 @Directive({
   selector: '[alvAppContextCompetenceCatalog]'
@@ -20,7 +22,7 @@ export class AppContextCompetenceCatalogDirective extends AbstractSubscriber imp
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(appContext => {
         this.viewContainerRef.clear();
-        if (appContext === AppContext.COMPETENCE_CATALOG) {
+        if (isCompetenceCatalog(appContext)) {
           this.viewContainerRef.createEmbeddedView(this.templateRef);
         }
       });

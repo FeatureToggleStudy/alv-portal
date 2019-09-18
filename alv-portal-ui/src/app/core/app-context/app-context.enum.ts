@@ -1,4 +1,4 @@
 export enum AppContext {
-  DEFAULT = 'DEFAULT',
+  EALV = 'EALV',
   COMPETENCE_CATALOG = 'COMPETENCE_CATALOG'
 }

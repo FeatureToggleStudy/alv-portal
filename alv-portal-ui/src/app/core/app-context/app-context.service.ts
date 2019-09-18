@@ -10,17 +10,13 @@ import { APP_BASE_HREF } from '@angular/common';
   providedIn: 'root'
 })
 export class AppContextService {
+  // TODO: Suggestion maybe we can use a strategy pattern
 
   private readonly appContext$: Observable<AppContext>;
 
   private readonly homeUrlMap = {
-    [AppContext.DEFAULT]: ['home'],
+    [AppContext.EALV]: ['home'],
     [AppContext.COMPETENCE_CATALOG]: ['kk', 'home']
-  };
-
-  private readonly eiamRedirectUrlMap = {
-    [AppContext.DEFAULT]: 'landing',
-    [AppContext.COMPETENCE_CATALOG]: 'kk/landing'
   };
 
   constructor(private store: Store<CoreState>,
@@ -40,16 +36,10 @@ export class AppContextService {
       map(appContext => this.homeUrlMap[appContext])
     );
   }
-
-  getEiamRedirectUrl(): Observable<string> {
-    return this.getAppContext().pipe(
-      map(appContext => this.baseHref + this.eiamRedirectUrlMap[appContext])
-    );
-  }
 }
 
-export function isDefault(appContext: AppContext) {
-  return appContext === AppContext.DEFAULT;
+export function isEalv(appContext: AppContext) {
+  return appContext === AppContext.EALV;
 }
 
 export function isCompetenceCatalog(appContext: AppContext) {

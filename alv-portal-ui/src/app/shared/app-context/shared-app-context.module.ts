@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppContextDefaultDirective } from './app-context-default.directive';
+import { AppContextEalvDirective } from './app-context-ealv.directive';
 import { AppContextCompetenceCatalogDirective } from './app-context-competence-catalog.directive';
 
 
 @NgModule({
   declarations: [
-    AppContextDefaultDirective,
+    AppContextEalvDirective,
     AppContextCompetenceCatalogDirective
   ],
   imports: [
@@ -14,7 +14,7 @@ import { AppContextCompetenceCatalogDirective } from './app-context-competence-c
   ],
   entryComponents: [],
   exports: [
-    AppContextDefaultDirective,
+    AppContextEalvDirective,
     AppContextCompetenceCatalogDirective
   ],
   providers: []

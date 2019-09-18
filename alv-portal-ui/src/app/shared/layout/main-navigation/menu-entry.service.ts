@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { combineLatest, Observable } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import {
   hasAnyAuthorities,
   hasFeature,
@@ -16,10 +16,9 @@ import { IconKey } from '../../icons/custom-icon/custom-icon.component';
 import { FeatureName } from '../../backend-services/feature-code-list/feature-code-list.types';
 import { AppContext } from '../../../core/app-context/app-context.enum';
 import {
-  isAnyContext,
   AppContextService,
   isCompetenceCatalog,
-  isDefault
+  isEalv
 } from '../../../core/app-context/app-context.service';
 
 interface UserMenuDefinition {
@@ -38,7 +37,7 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: [],
     userPredicate: isNotAuthenticatedUser,
-    appContextPredicate: isDefault
+    appContextPredicate: isEalv
   },
   {
     id: 'STES',
@@ -46,7 +45,7 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
     onlineFormsMenuEntryKeys: ['work-efforts', 'application-documents'],
     settingsMenuEntryKeys: ['user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_JOB_SEEKER]),
-    appContextPredicate: isAnyContext
+    appContextPredicate: isEalv
   },
   {
     id: 'PAV',
@@ -54,7 +53,7 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: ['user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_PAV]),
-    appContextPredicate: isAnyContext
+    appContextPredicate: isEalv
   },
   {
     id: 'COMPANY',
@@ -62,23 +61,15 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: ['user-settings'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_COMPANY]),
-    appContextPredicate: isAnyContext
+    appContextPredicate: isEalv
   },
   {
-    id: 'CC-ANONYM',
+    id: 'CC',
     mainMenuEntryKeys: ['cc-home', 'cc-search'],
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: [],
-    userPredicate: isNotAuthenticatedUser,
+    userPredicate: (u) => true,
     appContextPredicate: isCompetenceCatalog
-  },
-  {
-    id: 'CC-EDITOR',
-    mainMenuEntryKeys: ['cc-home', 'cc-search'],
-    onlineFormsMenuEntryKeys: [],
-    settingsMenuEntryKeys: [],
-    userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_KK_EDITOR]),
-    appContextPredicate: isAnyContext
   }
 ];
 
@@ -257,26 +248,31 @@ export class MenuEntryService {
     return combineLatest(this.authenticationService.getCurrentUser(), this.appContextService.getAppContext()).pipe(
       map(([user, appContext]) => {
         const userMenuDefinition = USER_MENU_DEFINITIONS.find(e => e.userPredicate(user) && e.appContextPredicate(appContext));
-        const mainMenuEntries = MAIN_MENU_ENTRIES.filter(m => m.userPredicate(user));
-        const onlineFormsMenuEntries = ONLINE_FORMS_MENU_ENTRIES.filter(m => m.userPredicate(user));
-        const settingsMenuEntries = SETTINGS_MENU_ENTRIES.filter(m => m.userPredicate(user));
         if (!userMenuDefinition) {
           return {
-            mainMenuEntries: mainMenuEntries,
-            onlineFormsMenuEntries: onlineFormsMenuEntries,
-            settingsMenuEntries: settingsMenuEntries
+            mainMenuEntries: [],
+            onlineFormsMenuEntries: [],
+            settingsMenuEntries: []
           };
         }
+        const mainMenuEntries = MAIN_MENU_ENTRIES
+          .filter(m => userMenuDefinition.mainMenuEntryKeys.includes(m.id))
+          .filter(m => m.userPredicate(user))
+          .filter(entry => entry);
+
+        const onlineFormsMenuEntries = ONLINE_FORMS_MENU_ENTRIES
+          .filter(m => userMenuDefinition.onlineFormsMenuEntryKeys.includes(m.id))
+          .filter(m => m.userPredicate(user))
+          .filter(entry => entry);
+
+        const settingsMenuEntries = SETTINGS_MENU_ENTRIES
+          .filter(m => userMenuDefinition.settingsMenuEntryKeys.includes(m.id))
+          .filter(m => m.userPredicate(user))
+          .filter(entry => entry);
         return {
-          mainMenuEntries: userMenuDefinition.mainMenuEntryKeys.map(value => {
-            return mainMenuEntries.find(m => m.id === value);
-          }).filter(entry => entry),
-          onlineFormsMenuEntries: userMenuDefinition.onlineFormsMenuEntryKeys.map(value => {
-            return onlineFormsMenuEntries.find(m => m.id === value);
-          }).filter(entry => entry),
-          settingsMenuEntries: userMenuDefinition.settingsMenuEntryKeys.map(value => {
-            return settingsMenuEntries.find(m => m.id === value);
-          }).filter(entry => entry)
+          mainMenuEntries: mainMenuEntries,
+          onlineFormsMenuEntries: onlineFormsMenuEntries,
+          settingsMenuEntries: settingsMenuEntries
         };
       })
     );

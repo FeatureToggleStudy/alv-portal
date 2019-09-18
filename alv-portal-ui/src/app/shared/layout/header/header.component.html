@@ -11,7 +11,7 @@
       <ng-container *alvAppContextCompetenceCatalog>
         Kompetenzkatalog
       </ng-container>
-      <ng-container *alvAppContextDefault>
+      <ng-container *alvAppContextEalv>
         Job-Room
       </ng-container>
     </div>
@@ -43,7 +43,7 @@
         <fa-icon [icon]="['fas', 'home']"></fa-icon>
       </a>
       <a class="btn mr-3"
-         *alvAppContextDefault
+         *alvAppContextEalv
          [href]="'home.contactform.url' | translate"
          target="_blank"
          rel="noopener">
@@ -55,7 +55,7 @@
                      [company]="company">
       </alv-user-menu>
 
-      <ng-container *alvAppContextDefault>
+      <ng-container *alvAppContextEalv>
         <a class="btn mr-3"
            *alvIsAnonymous
            [href]="'home.registration.url' | translate"
@@ -76,7 +76,7 @@
     <div *ngIf="currentLanguage$ | async as currentLanguage"
          class="language-switchers">
       <div class="header-buttons d-none d-lg-flex align-items-center">
-        <a *alvAppContextDefault
+        <a *alvAppContextEalv
            class="mx-3"
            [href]="'home.title.portal-url' | translate"
            target="_blank"
