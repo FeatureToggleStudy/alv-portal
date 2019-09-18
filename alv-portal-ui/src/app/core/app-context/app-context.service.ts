@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { select, Store } from '@ngrx/store';
 import { CoreState, getAppContext, } from '../state-management/state/core.state.ts';
 import { AppContext } from './app-context.enum';
-import { distinctUntilChanged, map, take } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { APP_BASE_HREF } from '@angular/common';
 
 @Injectable({
@@ -13,16 +13,15 @@ export class AppContextService {
 
   private readonly appContext$: Observable<AppContext>;
 
-  private homeUrlMap = {
+  private readonly homeUrlMap = {
     [AppContext.DEFAULT]: ['home'],
     [AppContext.COMPETENCE_CATALOG]: ['kk', 'home']
   };
 
-  private eiamRedirectUrlMap = {
+  private readonly eiamRedirectUrlMap = {
     [AppContext.DEFAULT]: 'landing',
     [AppContext.COMPETENCE_CATALOG]: 'kk/landing'
   };
-
 
   constructor(private store: Store<CoreState>,
               @Inject(APP_BASE_HREF) private baseHref: string) {
@@ -36,10 +35,6 @@ export class AppContextService {
     return this.appContext$.pipe(distinctUntilChanged());
   }
 
-  getLatestAppContext(): Observable<AppContext> {
-    return this.appContext$.pipe(take(1));
-  }
-
   getHomeUrl(): Observable<string[]> {
     return this.getAppContext().pipe(
       map(appContext => this.homeUrlMap[appContext])
@@ -47,7 +42,7 @@ export class AppContextService {
   }
 
   getEiamRedirectUrl(): Observable<string> {
-    return this.getLatestAppContext().pipe(
+    return this.getAppContext().pipe(
       map(appContext => this.baseHref + this.eiamRedirectUrlMap[appContext])
     );
   }

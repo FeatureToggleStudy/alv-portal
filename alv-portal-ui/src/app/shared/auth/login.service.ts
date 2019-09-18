@@ -34,9 +34,11 @@ export class LoginService {
     if (this.noEiam) {
       this.loginLocal();
     } else {
-      this.appContextService.getEiamRedirectUrl().subscribe(eiamRedirectUrl => {
-        this.loginEiam(eiamRedirectUrl);
-      });
+      this.appContextService.getEiamRedirectUrl()
+        .pipe(take(1))
+        .subscribe(eiamRedirectUrl => {
+          this.loginEiam(eiamRedirectUrl);
+        });
     }
   }
 
