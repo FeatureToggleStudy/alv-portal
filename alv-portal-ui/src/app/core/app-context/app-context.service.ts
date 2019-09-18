@@ -7,7 +7,7 @@ import { distinctUntilChanged, flatMap, map } from 'rxjs/operators';
 import { APP_BASE_HREF } from '@angular/common';
 import { AppContextStrategy } from './app-context.strategy';
 import { I18nService } from '../i18n.service';
-import { isAuthenticatedUser, User } from '../auth/user.model';
+import { isAnyUser, isAuthenticatedUser, User } from '../auth/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,15 @@ export class AppContextService {
 
   private appContextStrategies = [
     {
-      matches: appContext => isEalv(appContext),
-      isDesktopMenuShown: user => isAuthenticatedUser(user),
+      matches: isEalv,
+      isDesktopMenuShown: isAuthenticatedUser,
       appTitle: 'portal.context.ealv.app-title',
       logoUrl: 'portal.context.ealv.logo-filename',
       homeUrl: ['home']
     },
     {
-      matches: appContext => isCompetenceCatalog(appContext),
-      isDesktopMenuShown: user => true,
+      matches: isCompetenceCatalog,
+      isDesktopMenuShown: isAnyUser,
       appTitle: 'portal.context.competence-catalog.app-title',
       logoUrl: 'portal.context.competence-catalog.logo-filename',
       homeUrl: ['kk', 'home']
