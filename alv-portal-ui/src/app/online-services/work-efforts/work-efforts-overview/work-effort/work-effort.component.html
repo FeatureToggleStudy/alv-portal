@@ -9,28 +9,15 @@
       <div>{{workEffortModel.companyName}}</div>
       <div>{{workEffortModel.occupation}}</div>
     </div>
-    <div #actionsMenu="ngbDropdown"
-         *ngIf="!workEffortModel.isSentSuccessfully"
+    <div *ngIf="!workEffortModel.isSentSuccessfully"
          (click)="$event.preventDefault();$event.stopPropagation()"
-         class="actions-dropdown"
-         ngbDropdown
-         placement="left">
-      <button (click)="actionsMenu.toggle()"
-              class="btn btn-text actions-button no-dropdown-indicator h-100"
-              [ngbTooltip]="'portal.global.actions' | translate"
-              placement="left"
-              ngbDropdownAnchor
-              [attr.aria-label]="'portal.global.actions' | translate">
-        <fa-icon [icon]="['fas', 'ellipsis-v']"></fa-icon>
+         class="actions-dropdown">
+      <button (click)="deleteWorkEffort()"
+              class="btn btn-text actions-button h-100"
+              [ngbTooltip]="'portal.work-efforts.work-effort.actions.delete' | translate"
+              [attr.aria-label]="'portal.work-efforts.work-effort.actions.delete' | translate">
+        <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
       </button>
-      <div aria-label="Work effort actions"
-           ngbDropdownMenu>
-        <button (click)="deleteWorkEffort()"
-                ngbDropdownItem
-                class="dropdown-item">
-          {{'portal.work-efforts.work-effort.actions.delete' | translate}}
-        </button>
-      </div>
     </div>
   </div>
   <div class="col-12 col-lg-3 cell">
