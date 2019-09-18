@@ -201,8 +201,7 @@ const appRoutes: Routes = [
   {
     path: 'pilot',
     loadChildren: './online-services/pilot-activation/pilot-activation.module#PilotActivationModule',
-    canActivate: [AppContextGuard],
-    canActivateChild: [HasAnyAuthoritiesGuard],
+    canActivate: [HasAnyAuthoritiesGuard, AppContextGuard],
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {
       titleKey: 'portal.online-forms.pilot-activation.browser-title',
