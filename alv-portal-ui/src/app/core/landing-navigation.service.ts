@@ -1,14 +1,60 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RegistrationStatus, User, UserRole } from './auth/user.model';
+import {
+  isAnonymous, isAnyUser, isInValidation,
+  isNotAuthenticatedUser, isUnregistered,
+  RegistrationStatus,
+  User,
+  UserRole
+} from './auth/user.model';
 import { AppContextService } from './app-context/app-context.service';
 import { flatMap } from 'rxjs/operators';
 import { fromPromise } from 'rxjs/internal-compatibility';
+import { UserNavigationStrategy } from './user-navigation.strategy';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LandingNavigationService {
+
+  private userNavigationStrategies: UserNavigationStrategy[] = [
+    {
+      matches: isAnonymous,
+      navigate: () => this.navigateHome()
+    },
+    {
+      matches: isUnregistered,
+      navigate: () => this.router.navigate(['registration', 'finish'])
+    },
+    {
+      matches: isInValidation,
+      navigate: () => this.router.navigate(['registration', 'access-code'])
+    },
+    {
+      matches: user => user.hasAnyAuthorities([UserRole.ROLE_JOB_SEEKER]),
+      navigate: () => this.router.navigate(['dashboard', 'job-seeker'])
+    },
+    {
+      matches: user => user.hasAnyAuthorities([UserRole.ROLE_PAV]),
+      navigate: () => this.router.navigate(['dashboard', 'company'])
+    },
+    {
+      matches: user => user.hasAnyAuthorities([UserRole.ROLE_PAV]),
+      navigate: () => this.router.navigate(['dashboard', 'pav'])
+    },
+    {
+      matches: user => user.hasAnyAuthorities([UserRole.ROLE_ADMIN]),
+      navigate: () => this.router.navigate(['dashboard', 'admin'])
+    },
+    {
+      matches: user => user.hasAnyAuthorities([UserRole.ROLE_KK_EDITOR]),
+      navigate: () => this.router.navigate(['kk', 'home'])
+    },
+    {
+      matches: isAnyUser,
+      navigate: () => this.navigateHome()
+    }
+  ];
 
   constructor(private router: Router,
               private appContextService: AppContextService) {
@@ -23,44 +69,9 @@ export class LandingNavigationService {
   }
 
   navigateUser(user: User): Promise<boolean> {
-    if (user === null) {
-      return this.navigateHome();
-    }
-
-    if (!user.isRegistered()) {
-      // For authorised user without permissions - navigate to finish registration page:
-      if (user.registrationStatus === RegistrationStatus.UNREGISTERED) {
-        return this.router.navigate(['registration', 'finish']);
-      }
-      // For PAV and companies with open validation - navigate to access code page
-      if (user.registrationStatus === RegistrationStatus.VALIDATION_PAV ||
-        user.registrationStatus === RegistrationStatus.VALIDATION_EMP) {
-        return this.router.navigate(['registration', 'access-code']);
-      }
-    }
-
-    // For jobseekers: to dashboard page for jobseeker
-    if (user.hasAnyAuthorities([UserRole.ROLE_JOB_SEEKER])) {
-      return this.router.navigate(['dashboard', 'job-seeker']);
-    }
-    // For company: to dashboard page for companies
-    if (user.hasAnyAuthorities([UserRole.ROLE_COMPANY])) {
-      return this.router.navigate(['dashboard', 'company']);
-    }
-    // For PAVs: to page for headhunters
-    if (user.hasAnyAuthorities([UserRole.ROLE_PAV])) {
-      return this.router.navigate(['dashboard', 'pav']);
-    }
-
-    if (user.hasAnyAuthorities([UserRole.ROLE_ADMIN])) {
-      return this.router.navigate(['dashboard', 'admin']);
-    }
-
-    if (user.hasAnyAuthorities([UserRole.ROLE_KK_EDITOR])) {
-      return this.router.navigate(['kk', 'home']);
-    }
-
-    return this.router.navigate(['home']);
+    return this.userNavigationStrategies
+      .find(strategy => strategy.matches(user))
+      .navigate();
   }
 }
 

@@ -10,7 +10,7 @@ Technically, an app context is just a set of specific properties:
 - the "home" URL
 - whether to show the desktop menu or not
 
-## How they work
+## 1. Add route(s) with context
 
 An app context is applied on routes in `app-routing.module.ts` - the lowest route level.
 You have to add the `AppContextGuard` and set the `appContext` property:
@@ -29,4 +29,8 @@ You have to add the `AppContextGuard` and set the `appContext` property:
   },
 ```
 
-An app context is activated as soon as the corresponding route (or child routes) is activated (e.g. `/context-demo`). 
+An app context is activated in the `AppContextGuard` as soon as the corresponding route (or child routes) is activated (e.g. `/context-demo`). 
+
+## New User Role
+If you add a new app context you should NOT use the existing user roles, because the landing navigation (see `landing-navigation.service.ts`) would break.
+For proper forwarding you have to add som
