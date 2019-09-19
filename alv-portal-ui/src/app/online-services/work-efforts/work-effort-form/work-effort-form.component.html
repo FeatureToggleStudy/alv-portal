@@ -104,6 +104,7 @@
             <legend class="sr-only">{{'portal.work-efforts.edit-form.company-panel-label' | translate}}</legend>
 
             <alv-input-field [maxLength]="NAME_MAX_LENGTH"
+                             [showCharacterCounter]="true"
                              alvFormControlName="companyName"
                              label="home.tools.job-publication.company.name">
             </alv-input-field>
@@ -156,6 +157,8 @@
 
             <alv-input-field alvFormControlName="contactPerson"
                              [isRequired]="isContactPersonRequired()"
+                             [maxLength]="CONTACT_PERSON_MAX_LENGTH"
+                             [showCharacterCounter]="true"
                              label="portal.work-efforts.edit-form.contact-person">
             </alv-input-field>
 
@@ -167,6 +170,8 @@
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
                                [isRequired]="isCompanyEmailRequired()"
+                               [maxLength]="EMAIL_MAX_LENGTH"
+                               [showCharacterCounter]="true"
                                placeholder="portal.work-efforts.edit-form.email.placeholder"
                                label="portal.global.email">
               </alv-input-field>
@@ -207,7 +212,9 @@
             <legend class="sr-only">{{'portal.work-efforts.edit-form.occupation-panel-label' | translate}}</legend>
             <alv-input-field alvFormControlName="occupation"
                              class="mb-0"
-                             label="portal.global.job-title">
+                             label="portal.global.job-title"
+                             [maxLength]="OCCUPATION_MAX_LENGTH"
+                             [showCharacterCounter]="true">
             </alv-input-field>
           </fieldset>
         </alv-collapse-panel>
