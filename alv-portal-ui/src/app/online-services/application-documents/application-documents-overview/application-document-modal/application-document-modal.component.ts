@@ -198,7 +198,7 @@ export class ApplicationDocumentModalComponent implements OnInit {
   }
 
   private hasInvalidMimeTypeException(error): boolean {
-    return error.status === 400 && error.error && error.error.detail.startsWith(ApplicationDocumentErrors.INVALID_MIME_TYPE);
+    return error.status === 400 && error.error && error.error.type === ApplicationDocumentErrors.INVALID_MIME_TYPE;
   }
 
   private validateDocumentTypes(invalidDocumentTypes: ApplicationDocumentType[]): ValidatorFn {
