@@ -65,7 +65,7 @@ Basically, every context has its own user menu definitions. Add new entries in `
 ...
 {
   id: 'CONTEXT-DEMO',
-  mainMenuEntryKeys: ['cd-home'],
+  mainMenuEntryKeys: ['cd-home', 'cd-dashboard'],
   onlineFormsMenuEntryKeys: [],
   settingsMenuEntryKeys: [],
   userPredicate: isAnyUser,
