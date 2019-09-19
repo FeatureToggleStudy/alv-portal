@@ -70,10 +70,8 @@ import {
   faStickyNote as farStickyNote,
 } from '@fortawesome/pro-regular-svg-icons';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class IconLibraryService {
+@Injectable()
+export class IconsLibraryService {
 
   constructor(private library: FaIconLibrary) {
   }

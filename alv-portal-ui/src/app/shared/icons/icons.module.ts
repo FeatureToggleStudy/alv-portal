@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SvgFixingDirective } from './svg-fixing.directive';
 import { CustomIconComponent } from './custom-icon/custom-icon.component';
-import { IconLibraryService } from '../../core/icon-library.service';
+import { IconsLibraryService } from './icons-library.service';
 
 @NgModule({
   declarations: [
@@ -18,10 +18,13 @@ import { IconLibraryService } from '../../core/icon-library.service';
     SvgFixingDirective,
     CustomIconComponent,
     FontAwesomeModule
+  ],
+  providers: [
+    IconsLibraryService
   ]
 })
 export class IconsModule {
-  constructor(library: FaIconLibrary, iconLibraryService: IconLibraryService) {
-    iconLibraryService.init();
+  constructor(library: FaIconLibrary, iconsLibraryService: IconsLibraryService) {
+    iconsLibraryService.init();
   }
 }
