@@ -9,7 +9,7 @@
     "start:local": "npm run i18n && ng serve --base-href / --watch --proxy-config proxy.conf.local.json --host 0.0.0.0",
     "start:staging": "npm run i18n && ng serve --base-href / --watch --proxy-config proxy.conf.staging.json --host 0.0.0.0",
     "start:training": "npm run i18n && ng serve --base-href / --watch --proxy-config proxy.conf.training.json --host 0.0.0.0",
-    "start:prod": "npm run i18n && ng serve --base-href / --watch --prod --aot --proxy-config proxy.conf.staging.json",
+    "start:prod": "npm run i18n && ng serve --base-href / --prod --aot --proxy-config proxy.conf.staging.json",
     "build": "npm run build:dev",
     "build:dev": "npm run i18n && ng build --base-href /",
     "build:prod": "npm run i18n && ng build --base-href / --aot --prod --stats-json",
