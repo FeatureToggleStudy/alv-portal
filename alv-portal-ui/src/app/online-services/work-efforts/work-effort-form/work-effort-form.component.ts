@@ -77,7 +77,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly HOUSE_NUMBER_MAX_LENGTH = 10;
   readonly STREET_MAX_LENGTH = 60;
   readonly NAME_MAX_LENGTH = 100;
-  readonly REJECTION_REASON_MAX_LENGTH = 120;
+  readonly REJECTION_REASON_MAX_LENGTH = 250;
   readonly OCCUPATION_MAX_LENGTH = 100;
   readonly CONTACT_PERSON_MAX_LENGTH = 100;
   readonly EMAIL_MAX_LENGTH = 100;
