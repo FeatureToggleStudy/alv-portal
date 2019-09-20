@@ -57,6 +57,7 @@
               <alv-date-input alvFormControlName="date"
                               [minDate]="minDate"
                               [maxDate]="maxDate"
+                              [validationMessages]="dateValidationMessages"
                               label="portal.global.date"
                               container="body">
               </alv-date-input>
@@ -283,8 +284,11 @@
                 <div class="arrow-down">
                 </div>
               </div>
-              <alv-input-field [isRequired]="workEffortFormGroup?.get('applyStatus')?.get('REJECTED')?.value"
-                               alvFormControlName="rejectionReason"
+              <alv-input-field alvFormControlName="rejectionReason"
+                               [isRequired]="workEffortFormGroup?.get('applyStatus')?.get('REJECTED')?.value"
+                               [multiline]="true"
+                               [maxLength]="REJECTION_REASON_MAX_LENGTH"
+                               [showCharacterCounter]="true"
                                label="portal.work-efforts.edit-form.rejection-reason">
               </alv-input-field>
             </ng-container>

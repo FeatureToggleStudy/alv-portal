@@ -60,6 +60,7 @@ import {
 } from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { ScrollService } from '../../../core/scroll.service';
 import { NotificationsService } from '../../../core/notifications.service';
+import { ValidationMessage } from '../../../shared/forms/input/validation-messages/validation-message.model';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -76,12 +77,12 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly HOUSE_NUMBER_MAX_LENGTH = 10;
   readonly STREET_MAX_LENGTH = 60;
   readonly NAME_MAX_LENGTH = 100;
-  readonly REJECTION_REASON_MAX_LENGTH = 120;
+  readonly REJECTION_REASON_MAX_LENGTH = 250;
   readonly OCCUPATION_MAX_LENGTH = 100;
   readonly CONTACT_PERSON_MAX_LENGTH = 100;
   readonly EMAIL_MAX_LENGTH = 100;
   readonly FORM_URL_MAX_LENGTH = 255;
-  readonly MIN_MONTHS_DIFF = -5;
+  readonly MIN_MONTHS_DIFF = -6;
   readonly MAX_DAYS_DIFF = 5;
   readonly LinkPanelId = LinkPanelId;
   readonly IconKey = IconKey;
@@ -92,6 +93,14 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   applyStatusCheckboxNames = formPossibleApplyStatus;
   applyChannelsCheckboxNames = formPossibleApplyChannels;
   countryOptions$: Observable<SelectableOption[]>;
+  dateValidationMessages: ValidationMessage[] = [
+    {
+      error: 'ngbDate',
+      message: 'portal.work-efforts.edit-form.error.date-format',
+      requiredAfter: 'portal.work-efforts.edit-form.error.date-required-after',
+      requiredBefore: 'portal.work-efforts.edit-form.error.date-required-before'
+    }
+  ];
   toolbarButtons = [
     {
       label: 'entity.action.back',
