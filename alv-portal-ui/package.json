@@ -13,6 +13,7 @@
     "build": "npm run build:dev",
     "build:dev": "npm run i18n && ng build --base-href /",
     "build:prod": "npm run i18n && ng build --base-href / --aot --prod --stats-json",
+    "analyze": "npm run build:prod && npm run bundle-report",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e --host=127.0.0.1",
@@ -123,7 +124,8 @@
     "tslint": "5.17.0",
     "tslint-angular": "3.0.2",
     "typescript": "3.4.5",
-    "webpack-bundle-analyzer": "3.3.2"
+    "webpack-bundle-analyzer": "3.5.0",
+    "webpack-bundle-size-analyzer": "3.0.0"
   },
   "repository": {
     "type": "git",
