@@ -6,6 +6,7 @@
            cancelLabel="portal.application-documents.edit-create-modal.cancel-button.label"
            (cancelAction)="cancel()"
            [formGroup]="form"
+           [primaryButtonDisabled]="form.pristine"
            id="applicationDocumentDragDropArea"
            [loadingSubscription]="uploadProgressSubscription">
   <alv-alert *ngIf="showUploadInstruction"
