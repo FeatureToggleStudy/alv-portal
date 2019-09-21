@@ -1,0 +1,45 @@
+<alv-modal (cancelAction)="cancel()"
+           (primaryAction)="submit()"
+           cancelLabel="portal.global.cancel"
+           [modalTitle]="isEdit ? 'Bearbeiten' : 'Erfassen'"
+           primaryLabel="portal.global.save"
+           [formGroup]="form">
+  <fieldset>
+    <legend *ngIf="!competenceElement">Was möchten Sie erfassen?</legend>
+    <alv-select alvFormControlName="type"
+                label="Typ"
+                [readonly]="competenceElement"
+                [options$]="typeOptions$">
+    </alv-select>
+  </fieldset>
+
+  <fieldset formGroupName="description">
+    <legend>Bitte erfassen Sie je Sprache nur einen Bestandteil</legend>
+    <alv-input-field label="Bezeichnung Deutsch"
+                     alvFormControlName="textDe"
+                     [multiline]="true"
+                     [multilineMinRows]="1"
+                     [showGroupErrors]="true">
+    </alv-input-field>
+    <alv-input-field label="Bezeichnung Französisch"
+                     alvFormControlName="textFr"
+                     [multiline]="true"
+                     [multilineMinRows]="1"
+                     [showGroupErrors]="true">
+    </alv-input-field>
+    <alv-input-field label="Bezeichnung Italienisch"
+                     alvFormControlName="textIt"
+                     [multiline]="true"
+                     [multilineMinRows]="1"
+                     [showGroupErrors]="true">
+    </alv-input-field>
+    <alv-input-field label="Bezeichnung Englisch"
+                     alvFormControlName="textEn"
+                     [multiline]="true"
+                     [multilineMinRows]="1"
+                     [showGroupErrors]="true">
+    </alv-input-field>
+
+  </fieldset>
+
+</alv-modal>

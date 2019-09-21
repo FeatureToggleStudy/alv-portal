@@ -64,6 +64,14 @@
     "secure": false,
     "loglevel": "debug"
   },
+  "/competencecatalog-service/*": {
+    "target": "http://localhost:7654",
+    "secure": false,
+    "loglevel": "debug",
+    "pathRewrite": {
+      "^/competencecatalog-service": ""
+    }
+  },
   "/zuul/*": {
     "target": "https://staging.job-room.ch",
     "secure": false,

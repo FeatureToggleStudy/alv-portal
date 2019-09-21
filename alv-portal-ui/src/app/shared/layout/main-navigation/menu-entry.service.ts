@@ -65,7 +65,7 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
   },
   {
     id: 'CC',
-    mainMenuEntryKeys: ['cc-home', 'cc-search'],
+    mainMenuEntryKeys: ['competence-sets', 'competence-elements'],
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: [],
     userPredicate: (u) => true,
@@ -76,14 +76,14 @@ const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
 const MAIN_MENU_ENTRIES: Array<MenuEntry> = [
   {
     id: 'home',
-    iconClass: 'home',
+    iconProp: ['fas', 'home'],
     labelKey: 'global.menu.home',
     path: ['home'],
     userPredicate: isNotAuthenticatedUser
   },
   {
     id: 'dashboard',
-    iconClass: 'home',
+    iconProp: ['fas', 'home'],
     labelKey: 'global.menu.home',
     path: ['dashboard'],
     userPredicate: isAuthenticatedUser
@@ -138,17 +138,17 @@ const MAIN_MENU_ENTRIES: Array<MenuEntry> = [
     userPredicate: (u) => isAuthenticatedUser(u)
   },
   {
-    id: 'cc-home',
-    iconClass: 'home',
-    labelKey: 'KK Home',
-    path: ['kk', 'home'],
+    id: 'competence-sets',
+    iconProp: ['far', 'list-alt'],
+    labelKey: 'Kompetenz-Sets',
+    path: ['kk', 'sets'],
     userPredicate: (u) => isAnyUser()
   },
   {
-    id: 'cc-search',
-    iconClass: 'search',
-    labelKey: 'KK Search',
-    path: ['kk', 'search'],
+    id: 'competence-elements',
+    iconProp: ['fas', 'list-ul'],
+    labelKey: 'Kompetenz-Bestandteile',
+    path: ['kk', 'elements'],
     userPredicate: (u) => isAnyUser()
   }
 ];
@@ -163,7 +163,7 @@ const ONLINE_FORMS_MENU_ENTRIES: Array<MenuEntry> = [
   },
   {
     id: 'application-documents',
-    iconClass: 'file-certificate',
+    iconProp: ['fas', 'file-certificate'],
     labelKey: 'portal.navigation.menu-entry.application-documents',
     path: ['application-documents'],
     userPredicate: (u) => hasFeature(u, FeatureName.BU)
@@ -173,63 +173,63 @@ const ONLINE_FORMS_MENU_ENTRIES: Array<MenuEntry> = [
 const SETTINGS_MENU_ENTRIES: Array<MenuEntry> = [
   {
     id: 'user-settings',
-    iconClass: 'cog',
+    iconProp: ['fas', 'cog'],
     labelKey: 'portal.navigation.menu-entry.user-settings',
     path: ['user-settings'],
     userPredicate: isAuthenticatedUser
   },
   {
     id: 'user-info',
-    iconClass: 'user',
+    iconProp: ['fas', 'user'],
     labelKey: 'portal.navigation.menu-entry.admin.user-info',
     path: ['admin', 'user-info'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'system-notifications',
-    iconClass: 'comment-alt',
+    iconProp: ['fas', 'comment-alt'],
     labelKey: 'portal.navigation.menu-entry.admin.system-notifications',
     path: ['admin', 'system-notifications'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'legal-terms-management',
-    iconClass: 'balance-scale',
+    iconProp: ['fas', 'balance-scale'],
     labelKey: 'portal.navigation.menu-entry.admin.legal-terms',
     path: ['admin', 'legal-terms-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'api-user-management',
-    iconClass: 'users',
+    iconProp: ['fas', 'users'],
     labelKey: 'portal.navigation.menu-entry.admin.api-user-management',
     path: ['admin', 'api-user-management'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'blacklist',
-    iconClass: 'ban',
+    iconProp: ['fas', 'ban'],
     labelKey: 'portal.navigation.menu-entry.admin.blacklist',
     path: ['admin', 'blacklist'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'api-doc',
-    iconClass: 'book',
+    iconProp: ['fas', 'book'],
     labelKey: 'portal.navigation.menu-entry.admin.api-doc',
     path: ['admin', 'api-doc'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'elastic-search-reindex',
-    iconClass: 'sync',
+    iconProp: ['fas', 'sync'],
     labelKey: 'portal.navigation.menu-entry.admin.elastic-search-reindex',
     path: ['admin', 'elastic-search-reindex'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
   },
   {
     id: 'audits',
-    iconClass: 'bell',
+    iconProp: ['fas', 'bell'],
     labelKey: 'portal.admin.audits.title',
     path: ['admin', 'audits'],
     userPredicate: (u) => hasAnyAuthorities(u, [UserRole.ROLE_SYSADMIN])
