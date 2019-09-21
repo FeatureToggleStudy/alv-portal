@@ -2,16 +2,6 @@
 @import '../../../../../node_modules/bootstrap/scss/variables';
 @import '../../../../../node_modules/bootstrap/scss/mixins';
 
-
-.add-set-button {
-  top: 53px;
-  position: relative;
-  @supports (position: sticky) {
-    top: 153px;
-    position: sticky;
-  }
-}
-
 @include media-breakpoint-up(lg) {
   .container-fluid {
     max-width: 1200px;

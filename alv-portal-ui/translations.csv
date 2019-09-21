@@ -815,6 +815,7 @@ portal.global.phone-swiss-example,031 999 99 99 oder +41 31 999 99 99,031 999 99
 portal.global.job-title,Stellenbezeichnung,Job title,Désignation du poste,Denominazione del posto,
 portal.global.cancel,Abbrechen,Cancel,Annuler,Annullare,
 portal.global.save,Speichern,Save,Sauvegarder,Salvare,
+portal.global.add,Hinzufügen,Add,Ajouter,Aggiungere,
 portal.global.no,Nein,No,Non,No,
 portal.global.yes,Ja,Yes,Oui,Sì,
 portal.context.ealv.logo-filename,assets/img/logo/logo_job_room_de.svg,assets/img/logo/logo_job_room_en.svg,assets/img/logo/logo_job_room_fr.svg,assets/img/logo/logo_job_room_it.svg,

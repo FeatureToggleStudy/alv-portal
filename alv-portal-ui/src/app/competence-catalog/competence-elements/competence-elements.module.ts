@@ -6,7 +6,6 @@ import { ModalService } from '../../shared/layout/modal/modal.service';
 import { CompetenceElementsOverviewComponent } from './competence-elements-overview/competence-elements-overview.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedCompetenceCatalogModule } from '../shared/shared-competence-catalog.module';
-import { CompetenceElementModalComponent } from './competence-element-modal/competence-element-modal.component';
 
 @NgModule({
   imports: [
@@ -17,11 +16,9 @@ import { CompetenceElementModalComponent } from './competence-element-modal/comp
     SharedCompetenceCatalogModule
   ],
   declarations: [
-    CompetenceElementsOverviewComponent,
-    CompetenceElementModalComponent
+    CompetenceElementsOverviewComponent
   ],
   entryComponents: [
-    CompetenceElementModalComponent
   ],
   providers: [
     ModalService

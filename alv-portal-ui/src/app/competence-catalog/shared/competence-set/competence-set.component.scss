@@ -1,0 +1,42 @@
+@import "../../../../scss/common/colors";
+
+button.title-bar {
+  color: $color-white;
+  background-color: $color-dark-grey;
+  text-align: left;
+  font-size: 1rem;
+  min-height: 41px;
+  padding: 0.5rem 1.25rem;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  &:hover {
+    background: darken($color-dark-grey, 20%);
+  }
+}
+
+.edit-button {
+  position: absolute;
+  right: 7px;
+  top: 5px;
+}
+
+.panel-content {
+  transform-origin: top;
+}
+
+.animate {
+  display: block;
+}
+
+.alv-bar {
+  font-size: 1em;
+  height: 51px;
+  &:focus {
+    box-shadow: none;
+  }
+  border-bottom: 1px solid $color-medium-grey;
+  padding-left: 50px;
+}

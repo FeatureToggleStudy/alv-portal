@@ -39,4 +39,5 @@ export interface PagedSearchRequest {
   page: number;
   size: number;
   sort?: string | Array<string>;
+  body?: {[p: string]: any};
 }

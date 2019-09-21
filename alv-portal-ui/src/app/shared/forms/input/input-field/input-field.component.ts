@@ -151,9 +151,11 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit,
   }
 
   private calculateMultilineElementHeight() {
-    const element = this.textareaElement.nativeElement;
-    element.style.height = this.MULTILINE_MIN_HEIGHT + 'px';
-    element.style.height = Math.max(element.scrollHeight, this.MULTILINE_MIN_HEIGHT) + 'px';
+    if (!this.readonly) {
+      const element = this.textareaElement.nativeElement;
+      element.style.height = this.MULTILINE_MIN_HEIGHT + 'px';
+      element.style.height = Math.max(element.scrollHeight, this.MULTILINE_MIN_HEIGHT) + 'px';
+    }
   }
 
   private formatPhoneNumber(phoneNumber: string) {

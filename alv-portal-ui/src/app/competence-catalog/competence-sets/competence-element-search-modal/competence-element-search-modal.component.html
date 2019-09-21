@@ -1,43 +1,43 @@
 <alv-modal (cancelAction)="cancel()"
            (primaryAction)="submit()"
            cancelLabel="portal.global.cancel"
-           [modalTitle]="isEdit ? 'Bearbeiten' : 'Erfassen'"
-           primaryLabel="portal.global.save"
+           modalTitle="Bestandteile hinzufügen"
+           primaryLabel="portal.global.add"
            [formGroup]="form">
   <fieldset>
-    <legend *ngIf="!competenceElement">Was möchten Sie erfassen?</legend>
-    <alv-select alvFormControlName="type"
-                label="Typ"
-                [readonly]="competenceElement"
-                [options$]="typeOptions$">
-    </alv-select>
+    <legend>Bestehendes Bestandteil suchen</legend>
+    <alv-single-typeahead alvFormControlName="competenceElement"
+                          label="Suche"
+                          [loadItems]="searchCompetenceElementsFn"
+                          (itemSelected)="itemSelected($event)"
+                          [autofocus]="true">
+    </alv-single-typeahead>
   </fieldset>
 
   <fieldset formGroupName="description">
-    <legend>Bitte erfassen Sie je Sprache nur einen Bestandteil</legend>
     <alv-input-field label="Bezeichnung Deutsch"
                      alvFormControlName="textDe"
                      [multiline]="true"
                      [multilineMinRows]="1"
-                     [showGroupErrors]="true">
+                     [readonly]="true">
     </alv-input-field>
     <alv-input-field label="Bezeichnung Französisch"
                      alvFormControlName="textFr"
                      [multiline]="true"
                      [multilineMinRows]="1"
-                     [showGroupErrors]="true">
+                     [readonly]="true">
     </alv-input-field>
     <alv-input-field label="Bezeichnung Italienisch"
                      alvFormControlName="textIt"
                      [multiline]="true"
                      [multilineMinRows]="1"
-                     [showGroupErrors]="true">
+                     [readonly]="true">
     </alv-input-field>
     <alv-input-field label="Bezeichnung Englisch"
                      alvFormControlName="textEn"
                      [multiline]="true"
                      [multilineMinRows]="1"
-                     [showGroupErrors]="true">
+                     [readonly]="true">
     </alv-input-field>
 
   </fieldset>

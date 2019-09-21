@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
-import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { CompetenceElementModalComponent } from '../../competence-elements/competence-element-modal/competence-element-modal.component';
 import { Observable } from 'rxjs';
 import { I18nService } from '../../../core/i18n.service';
 import { map } from 'rxjs/operators';
@@ -15,7 +13,11 @@ export class CompetenceElementComponent implements OnInit {
 
   @Input() competenceElement: CompetenceElement;
 
+  @Input() showUnlinkAction: boolean;
+
   @Output() elementClick = new EventEmitter<CompetenceElement>();
+
+  @Output() unlinkClick = new EventEmitter<CompetenceElement>();
 
   description$: Observable<string>;
 
@@ -29,5 +31,9 @@ export class CompetenceElementComponent implements OnInit {
 
   onElementClick() {
     this.elementClick.emit(this.competenceElement);
+  }
+
+  onUnlinkClick() {
+    this.unlinkClick.emit(this.competenceElement);
   }
 }

@@ -75,6 +75,23 @@ button.btn, a.btn {
     width: 40px;
     height: 42px;
   }
+  &.btn-icon-sm {
+    font-size: 1em !important;
+    padding: 2px !important;
+    height: 32px;
+    width: 32px;
+    &.light {
+      color: $color-white;
+    }
+    &:hover {
+      border: 1px solid $color-primary;
+      color: $color-primary;
+      &.light {
+        color: $color-white;
+        border: 1px solid $color-white;
+      }
+    }
+  }
   // Icon with text button
   &.btn-text-icon {
     padding: 8px 10px;

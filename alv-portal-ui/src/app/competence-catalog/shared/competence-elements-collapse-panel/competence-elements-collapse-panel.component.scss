@@ -1,0 +1,33 @@
+@import "../../../../scss/common/colors";
+
+.panel-content {
+  display: block;
+  transform-origin: top;
+}
+
+.alv-bar {
+  height: 51px;
+  &:focus {
+    box-shadow: none;
+  }
+  border-bottom: 1px solid transparent;
+  &.collapsed {
+    border-bottom: 1px solid $color-medium-grey;
+  }
+  &.empty {
+    pointer-events: none;
+    fa-icon {
+      color: transparent;
+    }
+  }
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.add-button {
+  position: absolute;
+  right: 7px;
+  top: 9px;
+  z-index: 2;
+}

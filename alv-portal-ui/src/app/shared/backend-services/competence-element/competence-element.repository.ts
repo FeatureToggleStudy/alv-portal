@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { createPageableURLSearchParams } from '../request-util';
+import { createPageableURLSearchParams, PagedSearchRequest } from '../request-util';
 import {
   CompetenceElement,
-  CompetenceElementsSearchRequest,
   CreateCompetenceElement,
   UpdateCompetenceElement
 } from './competence-element.types';
@@ -26,11 +25,11 @@ export class CompetenceElementRepository {
     return this.http.get<CompetenceElement>(`${this.resourceUrl}/${id}`);
   }
 
-  findByIds(ids: string[]): Observable<CompetenceElement> {
-    return this.http.post<CompetenceElement>(`${this.findUrl}/byIds`, ids);
+  findByIds(ids: string[]): Observable<CompetenceElement[]> {
+    return this.http.post<CompetenceElement[]>(`${this.findUrl}/byIds`, ids);
   }
 
-  search(request: CompetenceElementsSearchRequest): Observable<Page<CompetenceElement>> {
+  search(request: PagedSearchRequest): Observable<Page<CompetenceElement>> {
     const params = createPageableURLSearchParams(request);
     return this.http.post<Page<CompetenceElement>>(this.searchUrl, request.body, {
       params

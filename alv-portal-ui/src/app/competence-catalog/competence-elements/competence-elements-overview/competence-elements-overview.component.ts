@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { CompetenceElementModalComponent } from '../competence-element-modal/competence-element-modal.component';
 import { CompetenceElementRepository } from '../../../shared/backend-services/competence-element/competence-element.repository';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
+import { CompetenceElementModalComponent } from '../../shared/competence-element-modal/competence-element-modal.component';
 
 @Component({
   selector: 'alv-competence-elements-overview',

@@ -5,18 +5,26 @@ import { SharedModule } from '../../shared/shared.module';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { CompetenceSetsOverviewComponent } from './competence-sets-overview/competence-sets-overview.component';
 import { SharedCompetenceCatalogModule } from '../shared/shared-competence-catalog.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CompetenceSetDetailComponent } from './competence-set-detail/competence-set-detail.component';
+import { CompetenceElementSearchModalComponent } from './competence-element-search-modal/competence-element-search-modal.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     CompetenceSetsRoutingModule,
-    SharedCompetenceCatalogModule
+    SharedCompetenceCatalogModule,
+    InfiniteScrollModule
   ],
   declarations: [
-    CompetenceSetsOverviewComponent
+    CompetenceSetsOverviewComponent,
+    CompetenceSetDetailComponent,
+    CompetenceElementSearchModalComponent
   ],
-  entryComponents: [],
+  entryComponents: [
+    CompetenceElementSearchModalComponent
+  ],
   providers: [
     ModalService
   ]
