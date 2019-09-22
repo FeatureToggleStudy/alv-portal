@@ -16,6 +16,7 @@
   }
   &.empty {
     pointer-events: none;
+    border-bottom: 1px solid $color-medium-grey;
     fa-icon {
       color: transparent;
     }

@@ -3,12 +3,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import {
   CompetenceElement,
-  ElementType
+  ElementType,
+  getTranslatedString
 } from '../../../shared/backend-services/competence-element/competence-element.types';
 import { CompetenceElementRepository } from '../../../shared/backend-services/competence-element/competence-element.repository';
+import { I18nService } from '../../../core/i18n.service';
 
 @Component({
   selector: 'alv-competence-element-search-modal',
@@ -19,12 +21,17 @@ export class CompetenceElementSearchModalComponent implements OnInit {
 
   @Input() elementType: ElementType;
 
+  @Input() existingElementIds: string[];
+
   form: FormGroup;
 
   searchCompetenceElementsFn = this.searchCompetenceElements.bind(this);
 
+  private currentLang: string;
+
   constructor(private modal: NgbActiveModal,
               private fb: FormBuilder,
+              private i18nService: I18nService,
               private competenceElementRepository: CompetenceElementRepository) { }
 
   ngOnInit() {
@@ -37,6 +44,8 @@ export class CompetenceElementSearchModalComponent implements OnInit {
         textEn: ['']
       })
     });
+    this.i18nService.currentLanguage$.pipe(take(1))
+      .subscribe(lang => this.currentLang = lang);
   }
 
   submit() {
@@ -54,7 +63,11 @@ export class CompetenceElementSearchModalComponent implements OnInit {
 
   private searchCompetenceElements(term: string): Observable<TypeaheadItem<CompetenceElement>[]> {
     return this.competenceElementRepository.search({page: 0, size: 20, body: {query: term}}).pipe(
-      map(competenceElementPage => competenceElementPage.content.filter(item => item.type === this.elementType).map(this.mapToItem))
+      map(competenceElementPage => competenceElementPage
+        .content
+        .filter(item => item.type === this.elementType)
+        .filter(item => this.existingElementIds ? !this.existingElementIds.includes(item.id) : true)
+        .map(this.mapToItem.bind(this)))
     );
   }
 
@@ -62,7 +75,7 @@ export class CompetenceElementSearchModalComponent implements OnInit {
     return new TypeaheadItem<CompetenceElement>(
       competenceElement.type,
       competenceElement,
-      competenceElement.description.textDe,
+      getTranslatedString(competenceElement.description, this.currentLang),
       index
     );
   }

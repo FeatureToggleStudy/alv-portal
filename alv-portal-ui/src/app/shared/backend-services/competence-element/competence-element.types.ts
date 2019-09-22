@@ -29,3 +29,7 @@ export interface TranslatedString {
   textIt: string;
   textEn: string;
 }
+
+export const getTranslatedString = (description: TranslatedString, lang: string) => {
+  return description['text' + lang[0].toUpperCase() + lang[1]];
+};

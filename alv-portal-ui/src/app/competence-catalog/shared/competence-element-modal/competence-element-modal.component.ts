@@ -9,6 +9,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CompetenceElementRepository } from '../../../shared/backend-services/competence-element/competence-element.repository';
+import { NotificationsService } from '../../../core/notifications.service';
 
 @Component({
   selector: 'alv-competence-element-modal',
@@ -37,6 +38,7 @@ export class CompetenceElementModalComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private competenceElementRepository: CompetenceElementRepository,
+              private notificationsService: NotificationsService,
               private modal: NgbActiveModal) {
   }
 
@@ -54,7 +56,7 @@ export class CompetenceElementModalComponent implements OnInit {
     });
     if (this.competenceElement) {
       this.form.patchValue(this.competenceElement);
-      this.form.get('type').disable();
+      //this.form.get('type').disable();
       this.isEdit = true;
     }
   }
@@ -78,6 +80,7 @@ export class CompetenceElementModalComponent implements OnInit {
       published: this.competenceElement.published
     })
       .subscribe(result => {
+        this.notificationsService.success('Kompetenz-Element erfolgreich gespeichert.')
         this.modal.close(result);
       });
   }

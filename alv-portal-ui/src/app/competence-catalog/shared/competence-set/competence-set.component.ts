@@ -38,9 +38,13 @@ export class CompetenceSetComponent implements OnInit {
   };
 
   constructor(private competenceElementRepository: CompetenceElementRepository,
-              private modalService: ModalService) { }
+              private modalService: ModalService) {
+  }
 
   ngOnInit() {
+    if (!this.isCollapsed) {
+      this.loadCompetenceElements().subscribe();
+    }
   }
 
   toggle() {
@@ -50,23 +54,35 @@ export class CompetenceSetComponent implements OnInit {
     }
   }
 
-  openUpdateElementModal(competenceElement: CompetenceElement) {
-    const createModalRef = this.modalService.openLarge(CompetenceElementModalComponent, true);
+  openUpdateElementModal(competenceElement: CompetenceElement, type: ElementType) {
+    const createModalRef = this.modalService.openMedium(CompetenceElementModalComponent, true);
     createModalRef.componentInstance.competenceElement = competenceElement;
     createModalRef.result
       .then(updatedCompetenceElement => {
-        this.loadCompetenceElements().subscribe();
+        if (type === ElementType.ACTION_TO_KNOW) {
+          this.competenceSet.actionToKnow = updatedCompetenceElement;
+        } else {
+          this.loadCompetenceElements().subscribe();
+        }
       })
       .catch(() => {
       });
   }
 
   unlinkCompetenceElement(competenceElement: CompetenceElement) {
-
+    this.openUnlinkConfirmModal().then(result => {
+      const indexToRemove = this.competenceSet.competenceElementIds.indexOf(competenceElement.id);
+      this.competenceSet.competenceElementIds.splice(indexToRemove, 1);
+      this.loadCompetenceElements().subscribe();
+    }).catch(err => {
+    });
   }
 
   unlinkActionToKnow(competenceElement: CompetenceElement) {
-
+    this.openUnlinkConfirmModal().then(result => {
+      this.competenceSet.actionToKnow = null;
+    }).catch(err => {
+    });
   }
 
   addActionToKnow() {
@@ -88,9 +104,17 @@ export class CompetenceSetComponent implements OnInit {
     this.addCompetenceElement(ElementType.KNOWLEDGE);
   }
 
+  private openUnlinkConfirmModal(): Promise<CompetenceElement> {
+    return this.modalService.openConfirm({
+      title: 'Verknüpfung entfernen',
+      content: 'Wollen Sie diese Verknüpfung wirklich entfernen?'
+    }).result;
+  }
+
   private addCompetenceElement(type: ElementType) {
     const modalRef = this.modalService.openMedium(CompetenceElementSearchModalComponent);
     modalRef.componentInstance.elementType = type;
+    modalRef.componentInstance.existingElementIds = this.competenceSet.competenceElementIds;
     modalRef.result
       .then((competenceElement) => {
         this.competenceSet.competenceElementIds.push(competenceElement.id);
@@ -103,14 +127,14 @@ export class CompetenceSetComponent implements OnInit {
   }
 
   private loadCompetenceElements(): Observable<CompetenceElement[]> {
-    if (this.competenceSet.competenceElementIds.length) {
-      return this.competenceElementRepository.findByIds(this.competenceSet.competenceElementIds).pipe(
-        tap(competenceElements => {
-          this.actionToKnowIndicators = competenceElements.filter(element => element.type === ElementType.ACTION_TO_KNOW_INDICATOR);
-          this.knowledgeItems = competenceElements.filter(element => element.type === ElementType.KNOWLEDGE);
-        })
-      );
-    }
-    return of([]);
+    const result = this.competenceSet.competenceElementIds.length ?
+      this.competenceElementRepository.findByIds(this.competenceSet.competenceElementIds) :
+      of([]);
+    return result.pipe(
+      tap(competenceElements => {
+        this.actionToKnowIndicators = competenceElements.filter(element => element.type === ElementType.ACTION_TO_KNOW_INDICATOR);
+        this.knowledgeItems = competenceElements.filter(element => element.type === ElementType.KNOWLEDGE);
+      })
+    );
   }
 }

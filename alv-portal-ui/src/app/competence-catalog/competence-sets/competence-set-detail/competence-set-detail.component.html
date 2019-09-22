@@ -7,7 +7,7 @@
                    class="text-primary mr-1"
                    [fixedWidth]="true">
           </fa-icon>
-          {{ 'Kompetenz-Set ' | translate }}
+          {{ 'Kompetenz-Set - ' + (this.isEdit ? 'Bearbeiten' : 'Erstellen') | translate }}
         </h2>
       </div>
 
@@ -21,10 +21,12 @@
            routerLink="../">
           {{'portal.global.cancel' | translate}}
         </a>
+        <!--
         <button class="btn btn-secondary ml-1"
                 *ngIf="isEdit">
           {{'portal.global.delete' | translate}}
         </button>
+        -->
         <button class="btn btn-primary ml-1"
                 (click)="saveCompetenceSet()">
           {{'portal.global.save' | translate}}

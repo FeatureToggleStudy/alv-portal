@@ -52,7 +52,7 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
   }
 
   openCreateModal() {
-    const createModalRef = this.modalService.openLarge(CompetenceElementModalComponent, true);
+    const createModalRef = this.modalService.openMedium(CompetenceElementModalComponent, true);
     createModalRef.result
       .then(competenceElement => {
         this.reload();
@@ -62,7 +62,7 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
   }
 
   openUpdateModal(competenceElement: CompetenceElement) {
-    const createModalRef = this.modalService.openLarge(CompetenceElementModalComponent, true);
+    const createModalRef = this.modalService.openMedium(CompetenceElementModalComponent, true);
     createModalRef.componentInstance.competenceElement = competenceElement;
     createModalRef.result
       .then(updatedCompetenceElement => {

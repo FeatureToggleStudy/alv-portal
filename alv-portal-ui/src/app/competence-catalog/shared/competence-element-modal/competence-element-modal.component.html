@@ -8,6 +8,7 @@
     <legend *ngIf="!isEdit">Was möchten Sie erfassen?</legend>
     <alv-select alvFormControlName="type"
                 label="Typ"
+                [autofocus]="true"
                 [readonly]="isEdit"
                 [options$]="typeOptions$">
     </alv-select>
