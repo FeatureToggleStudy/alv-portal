@@ -1,3 +1,6 @@
 .file-name, .download-link {
   max-width: 100%;
 }
+:host {
+  overflow: hidden;
+}
