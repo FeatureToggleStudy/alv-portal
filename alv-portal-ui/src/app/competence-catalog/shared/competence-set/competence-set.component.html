@@ -14,14 +14,14 @@
   </button>
   <a class="edit-button btn btn-icon-sm light"
      [routerLink]="'./edit/' + competenceSet.id"
-     *ngIf="!isEditable">
+     *ngIf="isEditable">
     <fa-icon [icon]="['fas', 'pen']"></fa-icon>
   </a>
 </div>
 
 
 <alv-competence-element *ngIf="competenceSet.actionToKnow; else actionToKnowPlaceholder"
-                        [isEditable]="!isEditable"
+                        [isEditable]="isEditable"
                         [competenceElement]="competenceSet.actionToKnow"
                         [showUnlinkAction]="isEditable"
                         (elementClick)="openUpdateElementModal($event, elementType.ACTION_TO_KNOW)"
