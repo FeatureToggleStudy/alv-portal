@@ -14,7 +14,22 @@ import { map } from 'rxjs/operators';
 })
 export class CompetenceElementComponent implements OnInit {
 
+  @Input() showUnlinkAction: boolean;
+  @Output() elementClick = new EventEmitter<CompetenceElement>();
+  @Output() unlinkClick = new EventEmitter<CompetenceElement>();
+  description$: Observable<string>;
+
+  @Input()
+  isEditable = true;
+
+  constructor(private i18nService: I18nService) {
+  }
+
   private _competenceElement: CompetenceElement;
+
+  get competenceElement(): CompetenceElement {
+    return this._competenceElement;
+  }
 
   @Input()
   set competenceElement(value: CompetenceElement) {
@@ -22,29 +37,19 @@ export class CompetenceElementComponent implements OnInit {
     this.setDescription();
   }
 
-  get competenceElement(): CompetenceElement {
-    return this._competenceElement;
-  }
-
-  @Input() showUnlinkAction: boolean;
-
-  @Output() elementClick = new EventEmitter<CompetenceElement>();
-
-  @Output() unlinkClick = new EventEmitter<CompetenceElement>();
-
-  description$: Observable<string>;
-
-  constructor(private i18nService: I18nService) { }
-
   ngOnInit() {
   }
 
   onElementClick() {
-    this.elementClick.emit(this.competenceElement);
+    if (this.isEditable) {
+      this.elementClick.emit(this.competenceElement);
+    }
   }
 
   onUnlinkClick() {
-    this.unlinkClick.emit(this.competenceElement);
+    if (this.isEditable) {
+      this.unlinkClick.emit(this.competenceElement);
+    }
   }
 
   private setDescription() {

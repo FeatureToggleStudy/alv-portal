@@ -22,7 +22,7 @@ export class CompetenceSetComponent implements OnInit {
 
   @Input() competenceSet: CompetenceSetSearchResult;
 
-  @Input() isEdit: boolean;
+  @Input() isEditable: boolean;
 
   @Input() isCollapsed = true;
 
@@ -55,6 +55,9 @@ export class CompetenceSetComponent implements OnInit {
   }
 
   openUpdateElementModal(competenceElement: CompetenceElement, type: ElementType) {
+    if (!this.isEditable) {
+      return;
+    }
     const createModalRef = this.modalService.openMedium(CompetenceElementModalComponent, true);
     createModalRef.componentInstance.competenceElement = competenceElement;
     createModalRef.result

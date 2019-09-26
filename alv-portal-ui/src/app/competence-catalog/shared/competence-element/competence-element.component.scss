@@ -4,35 +4,43 @@
   border-top: 1px solid $color-medium-grey;
   display: block;
 }
-
 .competence-element {
   background-color: $color-white;
-  border-bottom: 1px solid $color-medium-grey;
   border-top: none;
   border-left: none;
   border-right: none;
   text-decoration: none;
   color: $color-grey-black;
-  padding-left: 51px;
-  .hover-indicator {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 5px;
-  }
-  &:hover {
-    cursor: pointer;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
-    color: $color-primary;
+
+  &:not(.disabled) {
+    border-bottom: 1px solid $color-medium-grey;
+    padding-left: 51px;
+
     .hover-indicator {
-      background-color: $color-primary;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 5px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+      color: $color-primary;
+
+      .hover-indicator {
+        background-color: $color-primary;
+      }
+    }
+
+    &:hover, &:focus {
+      z-index: 1;
     }
   }
-  &:hover, &:focus {
-    z-index: 1;
+  &.disabled {
+    cursor: default;
   }
 }
-
 .unlink-button {
   position: absolute;
   right: 7px;

@@ -14,15 +14,16 @@
   </button>
   <a class="edit-button btn btn-icon-sm light"
      [routerLink]="'./edit/' + competenceSet.id"
-     *ngIf="!isEdit">
+     *ngIf="!isEditable">
     <fa-icon [icon]="['fas', 'pen']"></fa-icon>
   </a>
 </div>
 
 
 <alv-competence-element *ngIf="competenceSet.actionToKnow; else actionToKnowPlaceholder"
+                        [isEditable]="!isEditable"
                         [competenceElement]="competenceSet.actionToKnow"
-                        [showUnlinkAction]="isEdit"
+                        [showUnlinkAction]="isEditable"
                         (elementClick)="openUpdateElementModal($event, elementType.ACTION_TO_KNOW)"
                         (unlinkClick)="unlinkActionToKnow($event)">
 </alv-competence-element>
@@ -43,26 +44,26 @@
      [@expandCollapse]="isCollapsed ? 'closed' : 'open'">
   <alv-competence-elements-collapse-panel [competenceSetId]="competenceSet.id"
                                           [elementType]="elementType.ACTION_TO_KNOW_INDICATOR"
-                                          [showAddButton]="isEdit"
+                                          [showAddButton]="isEditable"
                                           [isEmpty]="!actionToKnowIndicators?.length"
                                           [isCollapsed]="collapsed[elementType.ACTION_TO_KNOW_INDICATOR]"
                                           (addClicked)="addActionToKnowIndicator()">
     <alv-competence-element *ngFor="let indicator of actionToKnowIndicators"
                             [competenceElement]="indicator"
-                            [showUnlinkAction]="isEdit"
+                            [showUnlinkAction]="isEditable"
                             (elementClick)="openUpdateElementModal($event, elementType.ACTION_TO_KNOW_INDICATOR)"
                             (unlinkClick)="unlinkCompetenceElement($event)">
     </alv-competence-element>
   </alv-competence-elements-collapse-panel>
   <alv-competence-elements-collapse-panel [competenceSetId]="competenceSet.id"
                                           [elementType]="elementType.KNOWLEDGE"
-                                          [showAddButton]="isEdit"
+                                          [showAddButton]="isEditable"
                                           [isEmpty]="!knowledgeItems?.length"
                                           [isCollapsed]="collapsed[elementType.KNOWLEDGE]"
                                           (addClicked)="addKnowledgeItem()">
     <alv-competence-element *ngFor="let knowledgeItem of knowledgeItems"
                             [competenceElement]="knowledgeItem"
-                            [showUnlinkAction]="isEdit"
+                            [showUnlinkAction]="isEditable"
                             (elementClick)="openUpdateElementModal($event, elementType.KNOWLEDGE)"
                             (unlinkClick)="unlinkCompetenceElement($event)">
     </alv-competence-element>
