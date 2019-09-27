@@ -80,7 +80,7 @@ export class CompetenceElementModalComponent implements OnInit {
       published: this.competenceElement.published
     })
       .subscribe(result => {
-        this.notificationsService.success('Kompetenz-Element erfolgreich gespeichert.')
+        this.notificationsService.success('Kompetenz-Element erfolgreich gespeichert.');
         this.modal.close(result);
       });
   }
