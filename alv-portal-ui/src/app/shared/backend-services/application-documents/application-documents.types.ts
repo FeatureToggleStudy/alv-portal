@@ -21,10 +21,10 @@ export interface DocumentMetadata {
 }
 
 export enum ApplicationDocumentType {
-  LETTER_OF_APPLICATION = 'LETTER_OF_APPLICATION',
   CV = 'CV',
-  TESTIMONIAL = 'TESTIMONIAL',
-  CERTIFICATES = 'CERTIFICATES'
+  LETTER_OF_APPLICATION = 'LETTER_OF_APPLICATION',
+  CERTIFICATES = 'CERTIFICATES',
+  TESTIMONIAL = 'TESTIMONIAL'
 }
 
 export enum ApplicationDocumentErrors {
