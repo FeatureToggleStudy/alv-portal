@@ -82,5 +82,5 @@ export enum WorkEffortApplyStatus {
 }
 
 export enum ProofOfWorkEffortsErrors {
-  NO_PROOF_OF_WORK_EFFORT_FOUND = 'NO_PROOF_OF_WORK_EFFORT_FOUND'
+  NO_MATCHING_PROOF_OF_WORK_EFFORT_FOUND = 'NO_MATCHING_PROOF_OF_WORK_EFFORT_FOUND'
 }

@@ -135,6 +135,9 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
 
   getInputWidth(): string {
     const value = this.inputValue || '';
+    if (value.length > 10) {
+      return '100%';
+    }
     if (value.length > 0) {
       return `${value.length}em`;
     }

@@ -1,7 +1,6 @@
-import {hasImmediately, hasStartDate, isPermanent, isShortEmployment, isTemporary} from './job-ad-rules';
-import {JobCenter} from '../../shared/backend-services/reference-service/job-center.types';
+import { hasEndDate, hasImmediately, hasStartDate, isPermanent, isShortEmployment, isTemporary } from './job-ad-rules';
+import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
 import {
-  FavouriteItem,
   JobAdvertisement,
   JobDescription
 } from '../../shared/backend-services/job-advertisement/job-advertisement.types';
@@ -19,6 +18,10 @@ export class JobDetailModel {
 
   hasStartDate() {
     return hasStartDate(this.jobAdvertisement);
+  }
+
+  hasEndDate() {
+    return hasEndDate(this.jobAdvertisement);
   }
 
   hasImmediately() {

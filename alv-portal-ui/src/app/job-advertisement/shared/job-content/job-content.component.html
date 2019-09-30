@@ -52,6 +52,10 @@
           {{jobDetailModel.jobContent.location | jobLocation}}
         </alv-list-item-content>
 
+        <alv-list-item-content label="portal.job-detail.workload.label">
+          {{[jobDetailModel.employment?.workloadPercentageMin, jobDetailModel.employment?.workloadPercentageMax] | workingTimeRange}}
+        </alv-list-item-content>
+
         <alv-list-item-content *ngIf="jobDetailModel.hasStartDate()"
                                label="portal.job-detail.employmentStartDate.label">
           {{jobDetailModel.employment.startDate | localeAwareDate}}
@@ -62,8 +66,9 @@
           {{'job-detail.startsImmediately.' + jobDetailModel.employment.immediately | translate}}
         </alv-list-item-content>
 
-        <alv-list-item-content label="portal.job-detail.workload.label">
-          {{[jobDetailModel.employment?.workloadPercentageMin, jobDetailModel.employment?.workloadPercentageMax] | workingTimeRange}}
+        <alv-list-item-content *ngIf="jobDetailModel.hasEndDate()"
+                               label="portal.job-detail.employmentEndDate.label">
+          {{jobDetailModel.employment.endDate | localeAwareDate}}
         </alv-list-item-content>
 
         <alv-list-item-content *ngIf="jobDetailModel.isTemporary()"

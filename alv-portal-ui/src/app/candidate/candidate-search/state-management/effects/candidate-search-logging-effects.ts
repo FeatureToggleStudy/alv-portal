@@ -2,12 +2,14 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { asyncScheduler, Observable } from 'rxjs';
 import {
-  ApplyFilterAction, CONTACT_CANDIDATE_DIALOG_SUBMITTED,
+  ApplyFilterAction,
   CANDIDATE_PROFILE_DETAIL_LOADED,
-  CandidateClickedAction, ContactCandidateDialogSubmittedAction,
+  CandidateClickedAction,
   CandidateProfileDetailLoadedAction,
   CONTACT_CANDIDATE_DIALOG_OPENED,
+  CONTACT_CANDIDATE_DIALOG_SUBMITTED,
   ContactCandidateDialogOpenedAction,
+  ContactCandidateDialogSubmittedAction,
   COPY_LINK,
   CopyLinkAction,
   EXPAND_CONTACT_INFO,
@@ -170,7 +172,11 @@ export class CandidateSearchLoggingEffects {
       debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
       switchMap(([a, id, searchResults]) => {
         const index = findItemById(searchResults, id);
-        const externalId = searchResults[index].candidateProfile.externalId;
+        const searchResultItem = searchResults[index];
+        const externalId = searchResultItem
+          ? searchResultItem.candidateProfile.externalId
+          : 'UNKNOWN';
+
         return this.trackingService.logEvent(new TrackingEvent(trackingEventType, {
           id: externalId,
           index: index

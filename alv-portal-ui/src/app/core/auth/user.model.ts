@@ -1,4 +1,5 @@
 import { UserDto } from './authentication.service';
+import { FeatureName } from '../../shared/backend-services/feature-code-list/feature-code-list.types';
 
 export enum RegistrationStatus {
   UNREGISTERED = <any>'UNREGISTERED',
@@ -40,6 +41,10 @@ export function hasAnyAuthorities(user: User, authorities: Array<UserRole>) {
   return !!user && user.hasAnyAuthorities(authorities);
 }
 
+export function hasFeature(user: User, featureName: FeatureName) {
+  return !!user && user.hasFeature(featureName);
+}
+
 export class User {
 
   id: string;
@@ -62,6 +67,8 @@ export class User {
 
   legalTermsAccepted: boolean;
 
+  activeFeatures: FeatureName[];
+
   public static toUser(userDto: UserDto) {
     const user = new User();
     user.id = userDto.id;
@@ -74,6 +81,7 @@ export class User {
     user.langKey = userDto.langKey;
     user.email = userDto.email;
     user.legalTermsAccepted = userDto.legalTermsAccepted;
+    user.activeFeatures = userDto.activeFeatures;
     return user;
   }
 
@@ -101,5 +109,9 @@ export class User {
 
   isLegalTermAcceptanceRequired() {
     return !this.legalTermsAccepted && this.isRegistered();
+  }
+
+  hasFeature(featureName: FeatureName): boolean {
+    return this.activeFeatures && this.activeFeatures.includes(featureName);
   }
 }
