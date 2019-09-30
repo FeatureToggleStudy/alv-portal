@@ -11,18 +11,29 @@ export class FileDragDropService {
 
   disableFileDragDropGlobally() {
     const disabledDragDropArea = this.document.body;
-    disabledDragDropArea.addEventListener('dragover', this.preventDefaultForFiles);
-    disabledDragDropArea.addEventListener('dragleave', this.preventDefaultForFiles);
-    disabledDragDropArea.addEventListener('drop', this.preventDefaultForFiles);
+    disabledDragDropArea.addEventListener('dragover', this.preventDefaultForFiles.bind(this));
+    disabledDragDropArea.addEventListener('dragleave', this.preventDefaultForFiles.bind(this));
+    disabledDragDropArea.addEventListener('drop', this.preventDefaultForFiles.bind(this));
   }
 
   private preventDefaultForFiles(event: DragEvent) {
-    for (let i = 0; i < event.dataTransfer.items.length; i++) {
-      if (event.dataTransfer.items[i].kind === 'file') {
-        event.stopPropagation();
-        event.preventDefault();
-        return;
-      }
+    if (this.isFileDragDropEvent(event.dataTransfer.types)) {
+      event.stopPropagation();
+      event.preventDefault();
+      return;
     }
   }
+
+  private isFileDragDropEvent(types: any): boolean {
+    // Chrome & Firefox
+    if (types.includes) {
+      return types.includes('Files');
+    }
+    // IE11, Edge & Safari
+    if (types.contains) {
+      return types.contains('Files');
+    }
+    return false;
+  }
 }
+

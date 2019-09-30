@@ -22,7 +22,7 @@
             type="button"
             class="close"
             [attr.aria-label]="'portal.global.close' | translate"
-            [disabled]="isLoading() || primaryButtonDisabled"
+            [disabled]="isLoading()"
             (click)="handleCancelClick()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -59,7 +59,7 @@
     </button>
     <button *ngIf="showPrimaryButton"
             [attr.type]="formGroup ? 'submit' : 'button'"
-            [disabled]="isLoading() || formGroup?.pristine"
+            [disabled]="isLoading() || primaryButtonDisabled"
             (click)="handlePrimaryClick()"
             class="btn btn-primary mb-1 mb-md-0 ml-0">
       {{primaryLabel | translate}}
