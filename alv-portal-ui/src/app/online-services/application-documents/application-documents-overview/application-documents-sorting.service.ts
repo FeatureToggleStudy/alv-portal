@@ -7,10 +7,10 @@ import { ApplicationDocument } from '../../../shared/backend-services/applicatio
 export class ApplicationDocumentsSortingService {
 
   private readonly DOCUMENT_TYPE_SORT_ORDER = {
-    LETTER_OF_APPLICATION: 1,
-    CV: 2,
-    TESTIMONIAL: 3,
-    CERTIFICATES: 4
+    CV: 1,
+    LETTER_OF_APPLICATION: 2,
+    CERTIFICATES: 3,
+    TESTIMONIAL: 4
   };
 
   constructor() { }
