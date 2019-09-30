@@ -39,6 +39,11 @@ export class ModalComponent {
   @Input() showPrimaryButton = true;
 
   /**
+   * (optional) attribute to set disabled state of primary action
+   */
+  @Input() primaryButtonDisabled?: boolean;
+
+  /**
    * Emitted event on primary button click.
    */
   @Output() primaryAction = new EventEmitter<void>();

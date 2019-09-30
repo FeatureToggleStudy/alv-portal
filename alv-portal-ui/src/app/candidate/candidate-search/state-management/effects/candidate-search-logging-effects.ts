@@ -2,12 +2,14 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { asyncScheduler, Observable } from 'rxjs';
 import {
-  ApplyFilterAction, CANDIDATE_CONTACTED,
+  ApplyFilterAction,
   CANDIDATE_PROFILE_DETAIL_LOADED,
-  CandidateClickedAction, CandidateContactedAction,
+  CandidateClickedAction,
   CandidateProfileDetailLoadedAction,
   CONTACT_CANDIDATE_DIALOG_OPENED,
+  CONTACT_CANDIDATE_DIALOG_SUBMITTED,
   ContactCandidateDialogOpenedAction,
+  ContactCandidateDialogSubmittedAction,
   COPY_LINK,
   CopyLinkAction,
   EXPAND_CONTACT_INFO,
@@ -118,10 +120,10 @@ export class CandidateSearchLoggingEffects {
   logEmailRav$ = this.logIdByAction<SelectRavEmailAction>(SELECT_RAV_EMAIL, CDEvent.RAV_EMAIL_CLICKED);
 
   @Effect({ dispatch: false })
-  logContactCandidateDialogOpened$ = this.logIdByAction<CandidateContactedAction>(CANDIDATE_CONTACTED, CDEvent.CONTACT_CANDIDATE_DIALOG_OPENED);
+  logContactCandidateDialogOpened$ = this.logIdByAction<ContactCandidateDialogOpenedAction>(CONTACT_CANDIDATE_DIALOG_OPENED, CDEvent.CONTACT_CANDIDATE_DIALOG_OPENED);
 
   @Effect({ dispatch: false })
-  logCandidateContacted$ = this.logIdByAction<ContactCandidateDialogOpenedAction>(CONTACT_CANDIDATE_DIALOG_OPENED, CDEvent.CANDIDATE_CONTACTED);
+  logContactCandidateDialogSubmitted$ = this.logIdByAction<ContactCandidateDialogSubmittedAction>(CONTACT_CANDIDATE_DIALOG_SUBMITTED, CDEvent.CONTACT_CANDIDATE_DIALOG_SUBMITTED);
 
   @Effect({ dispatch: false })
   logCandidatePhoneSelected$ = this.logIdByAction<SelectCandidatePhoneAction>(SELECT_CANDIDATE_PHONE, CDEvent.CANDIDATE_PHONE_CLICKED);
@@ -170,7 +172,11 @@ export class CandidateSearchLoggingEffects {
       debounceTime(this.debounce || 300, this.scheduler || asyncScheduler),
       switchMap(([a, id, searchResults]) => {
         const index = findItemById(searchResults, id);
-        const externalId = searchResults[index].candidateProfile.externalId;
+        const searchResultItem = searchResults[index];
+        const externalId = searchResultItem
+          ? searchResultItem.candidateProfile.externalId
+          : 'UNKNOWN';
+
         return this.trackingService.logEvent(new TrackingEvent(trackingEventType, {
           id: externalId,
           index: index

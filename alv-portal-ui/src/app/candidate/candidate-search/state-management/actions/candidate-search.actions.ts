@@ -26,7 +26,7 @@ export const SELECT_RAV_EMAIL = 'CANDIDATES:SELECT_RAV_EMAIL';
 export const EXPAND_CONTACT_INFO = 'CANDIDATES:EXPAND_CONTACT_INFO';
 export const SELECT_CANDIDATE_PHONE = 'CANDIDATES:SELECT_CANDIDATE_PHONE';
 export const CONTACT_CANDIDATE_DIALOG_OPENED = 'CANDIDATES:CONTACT_CANDIDATE_DIALOG_OPENED';
-export const CANDIDATE_CONTACTED = 'CANDIDATES:CANDIDATE_CONTACTED';
+export const CONTACT_CANDIDATE_DIALOG_SUBMITTED = 'CANDIDATES:CONTACT_CANDIDATE_DIALOG_SUBMITTED';
 export const APPLY_FILTER_VALUES = 'CANDIDATES:APPLY_FILTER_VALUES';
 export const APPLY_QUERY_VALUES = 'CANDIDATES:APPLY_QUERY_VALUES';
 export const RESET_FILTER = 'CANDIDATES:RESET_FILTER';
@@ -210,8 +210,9 @@ export class ContactCandidateDialogOpenedAction implements Action {
   constructor(public payload = {}) {
   }
 }
-export class CandidateContactedAction implements Action {
-  readonly type = CANDIDATE_CONTACTED;
+
+export class ContactCandidateDialogSubmittedAction implements Action {
+  readonly type = CONTACT_CANDIDATE_DIALOG_SUBMITTED;
 
   constructor(public payload = {}) {
   }

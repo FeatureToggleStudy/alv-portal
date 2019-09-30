@@ -11,6 +11,8 @@ import { HasAnyAuthoritiesGuard } from './core/auth/has-any-authorities-guard.se
 import { UserSettingsComponent } from './shared/user-settings/user-settings.component';
 import { LazyModuleDeactivateGuard } from './core/lazy-module-deactivate.guard';
 import { ModuleName } from './core/state-management/actions/core.actions';
+import { HasFeatureGuard } from './core/auth/has-feature-guard.service';
+import { FeatureName } from './shared/backend-services/feature-code-list/feature-code-list.types';
 
 const appRoutes: Routes = [
   {
@@ -96,10 +98,10 @@ const appRoutes: Routes = [
   {
     path: 'work-efforts',
     loadChildren: './online-services/work-efforts/work-efforts.module#WorkEffortsModule',
-    canActivateChild: [HasAnyAuthoritiesGuard],
+    canActivateChild: [HasFeatureGuard],
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {
-      authorities: [UserRole.ROLE_JOB_SEEKER],
+      featureName: FeatureName.NPA,
       moduleName: ModuleName.WORK_EFFORTS,
       titleKey: 'portal.work-efforts.browser-title',
       scrollToTop: true
@@ -108,9 +110,10 @@ const appRoutes: Routes = [
   {
     path: 'application-documents',
     loadChildren: './online-services/application-documents/application-documents.module#ApplicationDocumentsModule',
+    canActivateChild: [HasFeatureGuard],
     canDeactivate: [LazyModuleDeactivateGuard],
     data: {
-      authorities: [UserRole.ROLE_JOB_SEEKER],
+      featureName: FeatureName.BU,
       moduleName: ModuleName.APPLICATION_DOCUMENTS,
       titleKey: 'portal.application-documents.browser-title',
       scrollToTop: true
@@ -125,7 +128,7 @@ const appRoutes: Routes = [
       moduleName: ModuleName.CANDIDATE_SEARCH_PROFILES,
       titleKey: 'portal.candidate-search-profiles.browser-title',
       scrollToTop: true,
-      authorities: [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_SYSADMIN]
+      authorities: [UserRole.ROLE_COMPANY, UserRole.ROLE_PAV, UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN]
     }
   },
   {
@@ -153,6 +156,16 @@ const appRoutes: Routes = [
     data: {
       titleKey: 'portal.dashboard.user-settings.browser-title',
       scrollToTop: true
+    }
+  },
+  {
+    path: 'pilot',
+    loadChildren: './online-services/pilot-activation/pilot-activation.module#PilotActivationModule',
+    canActivateChild: [HasAnyAuthoritiesGuard],
+    canDeactivate: [LazyModuleDeactivateGuard],
+    data: {
+      titleKey: 'portal.online-forms.pilot-activation.browser-title',
+      authorities: [UserRole.ROLE_JOB_SEEKER]
     }
   },
   {

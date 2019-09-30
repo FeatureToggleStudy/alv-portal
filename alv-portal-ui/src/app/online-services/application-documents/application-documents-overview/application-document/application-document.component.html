@@ -7,7 +7,7 @@
       </span>
       {{ 'portal.application-documents.document-type.' + applicationDocument.documentType | translate}}
     </span>
-    
+
     <span class="cell col-12 col-lg-4">
       <span class="cell-label">
         {{'portal.application-documents.file-name.label' | translate}}
@@ -18,7 +18,7 @@
       <span class="cell-label">
         {{'portal.application-documents.submission.label' | translate}}
       </span>
-      {{ applicationDocument.updatedAt | date: 'dd.MM.yyyy HH:mm' }}h
+      {{ applicationDocument.updatedAt | date: 'dd.MM.yyyy HH:mm' }}
       <span class="success-icon-container">
         <fa-icon [icon]="['fas', 'check']"></fa-icon>
       </span>

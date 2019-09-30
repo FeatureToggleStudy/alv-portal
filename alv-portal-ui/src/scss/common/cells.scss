@@ -16,6 +16,8 @@
   margin-left: 0;
   margin-right: 0;
   .cell {
+    hyphens: auto;
+    word-wrap: break-word;
     color: $color-grey-black;
     line-height: 20px;
     padding: 0.25em 0.5em 0.5em 0.5em;

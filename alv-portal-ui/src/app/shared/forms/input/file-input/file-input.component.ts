@@ -1,4 +1,12 @@
-import { Component, Host, Input, Optional, SkipSelf } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Host,
+  Inject,
+  Input,
+  Optional,
+  SkipSelf
+} from '@angular/core';
 import { BytesPipe } from '../../../pipes/bytes.pipe';
 import { AbstractInput } from '../abstract-input';
 import { ControlContainer } from '@angular/forms';
@@ -40,6 +48,8 @@ export class FileInputComponent extends AbstractInput {
    * If set to false, the remove button will be hidden and selected files will be overridden
    */
   @Input() showRemoveButton = true;
+
+  @Input() parentDragDropAreaId?: string;
 
   files: File[] = [];
 

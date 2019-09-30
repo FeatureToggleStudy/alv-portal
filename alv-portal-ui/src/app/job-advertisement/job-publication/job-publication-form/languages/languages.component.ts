@@ -1,15 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import {
   CEFR_Level,
   LanguageSkill
 } from '../../../../shared/backend-services/shared.types';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { defaultLanguageSkill } from './languages-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
-import { I18nService } from '../../../../core/i18n.service';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { LanguagesService } from '../../../../shared/languages/languages.service';
 
 
@@ -30,7 +29,7 @@ export class LanguagesComponent implements OnInit {
 
   languageSkillFormArray: FormArray;
 
-  languageOptions$: Observable<SelectableOption[]>;
+  languageOptionsArray$: Observable<SelectableOption[]>[] = [];
 
   languageLevelOptions$: Observable<SelectableOption[]> = of(
     Object.values(CEFR_Level).map(level => {
@@ -44,8 +43,7 @@ export class LanguagesComponent implements OnInit {
   private readonly MAX_LANGUAGE_OPTIONS_NUM = 5;
 
   constructor(private fb: FormBuilder,
-              private languagesService: LanguagesService,
-              private i8nService: I18nService) {
+              private languagesService: LanguagesService) {
   }
 
   ngOnInit() {
@@ -55,15 +53,19 @@ export class LanguagesComponent implements OnInit {
     this.languageSkillFormArray = this.fb.array(languageSkillGroups);
     this.parentForm.addControl(JobPublicationFormValueKeys.LANGUAGE_SKILLS, this.languageSkillFormArray);
 
-    this.languageOptions$ = this.languagesService.getLanguages(true);
+    languageSkillGroups.forEach(group => this.languageOptionsArray$.push(this.getLanguageOptions(group)));
   }
 
   removeLanguageSkill(languageSkill: LanguageSkill) {
-    this.languageSkillFormArray.removeAt(this.parentForm.value.languageSkills.indexOf(languageSkill));
+    const indexToRemove = this.parentForm.value.languageSkills.indexOf(languageSkill);
+    this.languageSkillFormArray.removeAt(indexToRemove);
+    this.languageOptionsArray$.splice(indexToRemove, 1);
   }
 
   addNewLanguageSkill() {
-    this.languageSkillFormArray.push(this.createNewLanguageSkillFormGroup());
+    const languageSkillFormGroup = this.createNewLanguageSkillFormGroup();
+    this.languageSkillFormArray.push(languageSkillFormGroup);
+    this.languageOptionsArray$.push(this.getLanguageOptions(languageSkillFormGroup));
     // focusing on added language for nice tabbing experience
     setTimeout(() => {
       const s: HTMLElement = document.querySelector('.language-skill:last-child [alvformcontrolname=languageIsoCode] select');
@@ -77,11 +79,31 @@ export class LanguagesComponent implements OnInit {
     return maxNotReached && lastValid;
   }
 
-  onLanguageSkillCodeChanged(languageSkillFormGroup: FormGroup) {
+  onLanguageSkillCodeChanged(languageSkillFormGroup: AbstractControl) {
     languageSkillFormGroup.patchValue({
       writtenLevel: DEFAULT_LANGUAGE_SKILL.writtenLevel,
       spokenLevel: DEFAULT_LANGUAGE_SKILL.spokenLevel
     }, { emitEvent: false });
+  }
+
+  getLanguageOptions(languageSkillFormGroup: FormGroup): Observable<SelectableOption[]> {
+    return combineLatest(
+      this.languagesService.getLanguages(true),
+      this.languageSkillFormArray.valueChanges.pipe(startWith(this.languageSkillFormArray.value))
+    )
+      .pipe(
+        map(([languages, selectedLanguages]) => {
+          return this.filterLanguages(languages,
+            selectedLanguages.map(selectedLanguage => selectedLanguage.languageIsoCode),
+            languageSkillFormGroup.value.languageIsoCode);
+        })
+      );
+  }
+
+  private filterLanguages(availableLanguageOptions: SelectableOption[], filteredLanguages: string[], allowedLanguage: string) {
+    return availableLanguageOptions.filter(languageOption => languageOption.value && languageOption.value === allowedLanguage ||
+      !filteredLanguages.find(selectedLanguage => selectedLanguage === languageOption.value)
+    );
   }
 
   private createNewLanguageSkillFormGroup(languageSkill = DEFAULT_LANGUAGE_SKILL): FormGroup {
