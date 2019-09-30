@@ -18,6 +18,19 @@ import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/st
 import { LocalityTypeaheadItem } from '../../../../shared/localities/locality-typeahead-item';
 import { ResolvedCandidateSearchProfile } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
 import { findRelevantJobExperience } from '../../candidate-rules';
+import * as xxhash from 'xxhashjs/build/xxhash.js';
+
+
+const HASH = xxhash.h32(0xABCDEF);
+
+/**
+ * Calculate a hashCode that is used for the track-by-fn for angular ngFor
+ *
+ * @param result
+ */
+function hashCode(result: CandidateSearchResult) {
+  return HASH.update(JSON.stringify(result)).digest().toString(16);
+}
 
 export interface CandidateSearchState {
   totalCount: number;
@@ -73,10 +86,16 @@ export interface CandidateSearchFilter {
   languageSkills: FilterLanguageSkill[];
 }
 
-export interface CandidateSearchResult {
-  candidateProfile: CandidateProfile;
-  relevantJobExperience: JobExperience;
-  visited: boolean;
+export class CandidateSearchResult {
+  hashCode: string;
+
+  constructor(public candidateProfile: CandidateProfile,
+              public relevantJobExperience: JobExperience,
+              public visited: boolean = false) {
+    this.hashCode = hashCode(this);
+
+  }
+
 }
 
 export const getCandidateSearchState = createFeatureSelector<CandidateSearchState>('candidateSearch');
@@ -108,13 +127,11 @@ export const getCandidateSearchResults = createSelector(
     if (dirty) {
       return undefined;
     }
-    return resultList.map((candidateProfile) => {
-      return {
-        candidateProfile: candidateProfile,
-        visited: visitedCandidates[candidateProfile.id] || false,
-        relevantJobExperience: findRelevantJobExperience(candidateProfile, selectedOccupations)
-      };
-    });
+    return resultList.map((candidateProfile) =>
+      new CandidateSearchResult(candidateProfile,
+        findRelevantJobExperience(candidateProfile, selectedOccupations),
+        visitedCandidates[candidateProfile.id] || false)
+    );
   });
 
 export const getPrevId = createSelector(getResultList, getSelectedCandidateProfile, (resultList, current) => {
