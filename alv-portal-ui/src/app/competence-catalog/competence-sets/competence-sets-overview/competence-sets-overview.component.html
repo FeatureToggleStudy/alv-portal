@@ -31,7 +31,9 @@
 
       <alv-competence-set *ngFor="let competenceSet of competenceSets"
                           [competenceSet]="competenceSet"
-                          [isEditable]="false">
+                          [isEditable]="false"
+                          [showEditSetButton]="true"
+      >
       </alv-competence-set>
 
     </div>

@@ -24,6 +24,8 @@ export class CompetenceSetComponent implements OnInit {
 
   @Input() isEditable: boolean;
 
+  @Input() showEditSetButton: boolean;
+
   @Input() isCollapsed = true;
 
   elementType = ElementType;

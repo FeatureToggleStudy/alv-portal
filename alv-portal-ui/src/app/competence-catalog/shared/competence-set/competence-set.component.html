@@ -14,7 +14,7 @@
   </button>
   <a class="edit-button btn btn-icon-sm light"
      [routerLink]="'./edit/' + competenceSet.id"
-     *ngIf="isEditable">
+     *ngIf="showEditSetButton">
     <fa-icon [icon]="['fas', 'pen']"></fa-icon>
   </a>
 </div>
