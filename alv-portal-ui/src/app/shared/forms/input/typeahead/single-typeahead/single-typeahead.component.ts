@@ -91,7 +91,7 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
 
   handleInput(): void {
     if (this.control.value) {
-      this.control.setValue(null, { emitEvent: false });
+      this.control.setValue('', { emitEvent: true });
     }
   }
 
