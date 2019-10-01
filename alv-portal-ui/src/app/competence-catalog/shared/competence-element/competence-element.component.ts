@@ -14,13 +14,13 @@ import { map } from 'rxjs/operators';
 })
 export class CompetenceElementComponent implements OnInit {
 
-  @Input() showUnlinkAction: boolean;
-  @Output() elementClick = new EventEmitter<CompetenceElement>();
-  @Output() unlinkClick = new EventEmitter<CompetenceElement>();
-  description$: Observable<string>;
+  @Input() isEditable: boolean;
 
-  @Input()
-  isEditable = true;
+  @Output() elementClick = new EventEmitter<CompetenceElement>();
+
+  @Output() unlinkClick = new EventEmitter<CompetenceElement>();
+
+  description$: Observable<string>;
 
   constructor(private i18nService: I18nService) {
   }

@@ -31,6 +31,7 @@
 
       <alv-competence-element *ngFor="let competenceElement of competenceElements"
                               [competenceElement]="competenceElement"
+                              [isEditable]="true"
                               (elementClick)="openUpdateModal($event)">
       </alv-competence-element>
 

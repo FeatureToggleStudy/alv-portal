@@ -1,6 +1,6 @@
 <div class="position-relative">
   <button class="competence-element d-flex align-items-center position-relative py-1 pr-3 w-100"
-          [ngClass]="{disabled: !isEditable}"
+          [class.disabled]="!isEditable"
           (click)="onElementClick()">
     <span class="hover-indicator h-100"></span>
     <span class="d-flex flex-column align-items-start">
@@ -11,7 +11,7 @@
     <span class="flex-grow-1"></span>
   </button>
   <button class="unlink-button btn btn-icon-sm"
-          *ngIf="showUnlinkAction"
+          *ngIf="isEditable"
           (click)="onUnlinkClick()">
     <fa-icon [icon]="['fas', 'unlink']"></fa-icon>
   </button>

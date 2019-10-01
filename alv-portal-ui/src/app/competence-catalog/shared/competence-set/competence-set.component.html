@@ -23,7 +23,6 @@
 <alv-competence-element *ngIf="competenceSet.actionToKnow; else actionToKnowPlaceholder"
                         [isEditable]="isEditable"
                         [competenceElement]="competenceSet.actionToKnow"
-                        [showUnlinkAction]="isEditable"
                         (elementClick)="openUpdateElementModal($event, elementType.ACTION_TO_KNOW)"
                         (unlinkClick)="unlinkActionToKnow($event)">
 </alv-competence-element>
@@ -50,7 +49,7 @@
                                           (addClicked)="addActionToKnowIndicator()">
     <alv-competence-element *ngFor="let indicator of actionToKnowIndicators"
                             [competenceElement]="indicator"
-                            [showUnlinkAction]="isEditable"
+                            [isEditable]="isEditable"
                             (elementClick)="openUpdateElementModal($event, elementType.ACTION_TO_KNOW_INDICATOR)"
                             (unlinkClick)="unlinkCompetenceElement($event)">
     </alv-competence-element>
@@ -63,7 +62,7 @@
                                           (addClicked)="addKnowledgeItem()">
     <alv-competence-element *ngFor="let knowledgeItem of knowledgeItems"
                             [competenceElement]="knowledgeItem"
-                            [showUnlinkAction]="isEditable"
+                            [isEditable]="isEditable"
                             (elementClick)="openUpdateElementModal($event, elementType.KNOWLEDGE)"
                             (unlinkClick)="unlinkCompetenceElement($event)">
     </alv-competence-element>
