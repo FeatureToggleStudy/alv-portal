@@ -4,19 +4,19 @@ export interface CompetenceSet {
   id: string;
   draft: boolean;
   published: boolean;
-  actionToKnowId: string;
+  knowHowId: string;
   competenceElementIds: string[];
 }
 
 export interface CreateCompetenceSet {
-  actionToKnowId: string;
+  knowHowId: string;
   competenceElementIds: string[];
 }
 
 export interface UpdateCompetenceSet {
   draft: boolean;
   published: boolean;
-  actionToKnowId: string;
+  knowHowId: string;
   competenceElementIds: string[];
 }
 
@@ -24,7 +24,7 @@ export interface CompetenceSetSearchResult {
   id: string;
   draft: boolean;
   published: boolean;
-  actionToKnow: CompetenceElement;
+  knowHow: CompetenceElement;
   competenceElementIds: string[];
 }
 

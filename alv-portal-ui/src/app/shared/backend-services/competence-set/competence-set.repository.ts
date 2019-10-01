@@ -27,12 +27,12 @@ export class CompetenceSetRepository {
   findById(id: string): Observable<CompetenceSetSearchResult> {
     return this.http.get<CompetenceSet>(this.resourceUrl + id).pipe(
       flatMap(competenceSet => {
-        return this.competenceElementRepository.findById(competenceSet.actionToKnowId).pipe(
+        return this.competenceElementRepository.findById(competenceSet.knowHowId).pipe(
           map(competenceElement => {
             return <CompetenceSetSearchResult>{
               id: competenceSet.id,
               competenceElementIds: competenceSet.competenceElementIds,
-              actionToKnow: competenceElement,
+              knowHow: competenceElement,
               draft: competenceSet.draft,
               published: competenceSet.published
             };

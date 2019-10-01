@@ -39,14 +39,14 @@ export class CompetenceSetDetailComponent implements OnInit {
 
   private createCompetenceSet() {
     this.competenceSetRepository.create({
-      actionToKnowId: this.competenceSet.actionToKnow.id,
+      knowHowId: this.competenceSet.knowHow.id,
       competenceElementIds: this.competenceSet.competenceElementIds
     }).subscribe(this.handleSuccess.bind(this));
   }
 
   private updateCompetenceSet() {
     this.competenceSetRepository.update(this.competenceSet.id, {
-      actionToKnowId: this.competenceSet.actionToKnow.id,
+      knowHowId: this.competenceSet.knowHow.id,
       competenceElementIds: this.competenceSet.competenceElementIds,
       draft: this.competenceSet.draft,
       published: this.competenceSet.published

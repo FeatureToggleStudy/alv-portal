@@ -67,7 +67,7 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
               id: '676575-567567-klj8767',
               published: false,
               draft: false,
-              type: ElementType.ACTION_TO_KNOW,
+              type: ElementType.KNOW_HOW,
               description: {
                 textDe: 'Deutsch',
                 textFr: 'Franz',
@@ -79,7 +79,7 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
               id: '676575-567567-klj8767',
               published: false,
               draft: false,
-              type: ElementType.ACTION_TO_KNOW,
+              type: ElementType.KNOW_HOW,
               description: {
                 textDe: 'Deutsch',
                 textFr: 'Franz',

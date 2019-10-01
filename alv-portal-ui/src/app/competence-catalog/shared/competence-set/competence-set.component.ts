@@ -30,12 +30,12 @@ export class CompetenceSetComponent implements OnInit {
 
   elementType = ElementType;
 
-  actionToKnowIndicators: CompetenceElement[];
+  knowHowIndicators: CompetenceElement[];
 
   knowledgeItems: CompetenceElement[];
 
   collapsed = {
-    [ElementType.ACTION_TO_KNOW_INDICATOR]: true,
+    [ElementType.KNOW_HOW_INDICATOR]: true,
     [ElementType.KNOWLEDGE]: true
   };
 
@@ -64,8 +64,8 @@ export class CompetenceSetComponent implements OnInit {
     createModalRef.componentInstance.competenceElement = competenceElement;
     createModalRef.result
       .then(updatedCompetenceElement => {
-        if (type === ElementType.ACTION_TO_KNOW) {
-          this.competenceSet.actionToKnow = updatedCompetenceElement;
+        if (type === ElementType.KNOW_HOW) {
+          this.competenceSet.knowHow = updatedCompetenceElement;
         } else {
           this.loadCompetenceElements().subscribe();
         }
@@ -83,26 +83,26 @@ export class CompetenceSetComponent implements OnInit {
     });
   }
 
-  unlinkActionToKnow(competenceElement: CompetenceElement) {
+  unlinkKnowHow(competenceElement: CompetenceElement) {
     this.openUnlinkConfirmModal().then(result => {
-      this.competenceSet.actionToKnow = null;
+      this.competenceSet.knowHow = null;
     }).catch(err => {
     });
   }
 
-  addActionToKnow() {
+  addKnowHow() {
     const modalRef = this.modalService.openMedium(CompetenceElementSearchModalComponent);
-    modalRef.componentInstance.elementType = ElementType.ACTION_TO_KNOW;
+    modalRef.componentInstance.elementType = ElementType.KNOW_HOW;
     modalRef.result
       .then((competenceElement) => {
-        this.competenceSet.actionToKnow = competenceElement;
+        this.competenceSet.knowHow = competenceElement;
       })
       .catch(() => {
       });
   }
 
-  addActionToKnowIndicator() {
-    this.addCompetenceElement(ElementType.ACTION_TO_KNOW_INDICATOR);
+  addKnowHowIndicator() {
+    this.addCompetenceElement(ElementType.KNOW_HOW_INDICATOR);
   }
 
   addKnowledgeItem() {
@@ -137,7 +137,7 @@ export class CompetenceSetComponent implements OnInit {
       of([]);
     return result.pipe(
       tap(competenceElements => {
-        this.actionToKnowIndicators = competenceElements.filter(element => element.type === ElementType.ACTION_TO_KNOW_INDICATOR);
+        this.knowHowIndicators = competenceElements.filter(element => element.type === ElementType.KNOW_HOW_INDICATOR);
         this.knowledgeItems = competenceElements.filter(element => element.type === ElementType.KNOWLEDGE);
       })
     );
