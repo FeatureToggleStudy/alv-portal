@@ -14,23 +14,38 @@
   text-decoration: none;
   color: $color-grey-black;
   padding-left: 51px;
+
   .hover-indicator {
     position: absolute;
     left: 0;
     top: 0;
     width: 5px;
   }
+
+  .title-container, .title {
+    max-width: 100%;
+  }
+
+  &.unlink-button-shown {
+    .title-container {
+      max-width: calc(100% - 1em);
+    }
+  }
+
   &:hover {
     cursor: pointer;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
     color: $color-primary;
+
     .hover-indicator {
       background-color: $color-primary;
     }
   }
+
   &:hover, &:focus {
     z-index: 1;
   }
+
   &.disabled {
     pointer-events: none;
   }
