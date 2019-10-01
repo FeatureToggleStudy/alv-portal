@@ -11,7 +11,7 @@
     <span class="flex-grow-1"></span>
   </button>
   <button class="unlink-button btn btn-icon-sm"
-          *ngIf="isEditable"
+          *ngIf="showUnlinkAction"
           (click)="onUnlinkClick()">
     <fa-icon [icon]="['fas', 'unlink']"></fa-icon>
   </button>

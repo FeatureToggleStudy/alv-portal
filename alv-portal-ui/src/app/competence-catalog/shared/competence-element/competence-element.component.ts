@@ -16,6 +16,8 @@ export class CompetenceElementComponent implements OnInit {
 
   @Input() isEditable: boolean;
 
+  @Input() showUnlinkAction: boolean;
+
   @Output() elementClick = new EventEmitter<CompetenceElement>();
 
   @Output() unlinkClick = new EventEmitter<CompetenceElement>();
