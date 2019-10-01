@@ -74,6 +74,14 @@ export class SingleTypeaheadComponent extends AbstractInput implements OnInit {
       map(this.formatResultItem),
       distinctUntilChanged()
     );
+
+    this.validationMessages = this.validationMessages || [];
+    if (!this.validationMessages || !this.validationMessages.find(validationMessage => validationMessage.error === 'required')) {
+      this.validationMessages.push({
+        error: 'required',
+        message: 'entity.validation.single-typeahead.required'
+      });
+    }
   }
 
   formatResultItem(item: TypeaheadItem<any>): string {
