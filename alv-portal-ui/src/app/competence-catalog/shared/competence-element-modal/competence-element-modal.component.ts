@@ -22,7 +22,7 @@ export class CompetenceElementModalComponent implements OnInit {
 
   typeOptions$: Observable<SelectableOption[]> = of([{
       value: null,
-      label: 'Bitte wählen'
+      label: 'portal.competence-catalog.competence-elements.add-modal.choose-type'
     }
     ].concat(Object.values(ElementType).map(type => {
       return {

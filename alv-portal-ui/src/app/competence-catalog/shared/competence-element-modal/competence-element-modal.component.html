@@ -1,13 +1,13 @@
 <alv-modal (cancelAction)="cancel()"
            (primaryAction)="submit()"
            cancelLabel="portal.global.cancel"
-           [modalTitle]="isEdit ? 'Bearbeiten' : 'Erfassen'"
+           [modalTitle]="isEdit ? 'entity.action.edit' : 'portal.competence-catalog.competence-elements.overview.create.label'"
            primaryLabel="portal.global.save"
            [formGroup]="form">
   <fieldset>
-    <legend *ngIf="!isEdit">Was möchten Sie erfassen?</legend>
+    <legend *ngIf="!isEdit">{{'portal.competence-catalog.competence-elements.add-modal.what-to-enter-label' | translate}}</legend>
     <alv-select alvFormControlName="type"
-                label="Typ"
+                label="portal.competence-catalog.competence-elements.add-modal.type"
                 [autofocus]="true"
                 [readonly]="isEdit"
                 [options$]="typeOptions$">
@@ -15,26 +15,26 @@
   </fieldset>
 
   <fieldset formGroupName="description">
-    <legend>Bitte erfassen Sie je Sprache nur einen Bestandteil</legend>
-    <alv-input-field label="Bezeichnung Deutsch"
+    <legend>{{'portal.competence-catalog.competence-elements.add-modal.one-component-per-lang-label' | translate}}</legend>
+    <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.german-title"
                      alvFormControlName="textDe"
                      [multiline]="true"
                      [multilineMinRows]="1"
                      [showGroupErrors]="true">
     </alv-input-field>
-    <alv-input-field label="Bezeichnung Französisch"
+    <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.french-title"
                      alvFormControlName="textFr"
                      [multiline]="true"
                      [multilineMinRows]="1"
                      [showGroupErrors]="true">
     </alv-input-field>
-    <alv-input-field label="Bezeichnung Italienisch"
+    <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.italian-title"
                      alvFormControlName="textIt"
                      [multiline]="true"
                      [multilineMinRows]="1"
                      [showGroupErrors]="true">
     </alv-input-field>
-    <alv-input-field label="Bezeichnung Englisch"
+    <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.english-title"
                      alvFormControlName="textEn"
                      [multiline]="true"
                      [multilineMinRows]="1"
