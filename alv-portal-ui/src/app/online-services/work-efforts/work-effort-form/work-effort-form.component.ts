@@ -151,7 +151,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
               private authenticationService: AuthenticationService,
               private notificationsService: NotificationsService,
               private route: ActivatedRoute,
-              public router: Router,
+              private router: Router,
               private cdRef: ChangeDetectorRef,
               private scrollService: ScrollService,
               private modalService: ModalService) {
