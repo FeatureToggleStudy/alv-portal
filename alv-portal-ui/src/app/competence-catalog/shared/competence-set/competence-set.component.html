@@ -8,7 +8,7 @@
           [attr.aria-controls]="competenceSet.id">
     <fa-icon class="collapse-icon"
              [icon]="['fas', isCollapsed ? 'chevron-down' : 'chevron-up']"></fa-icon>
-    <span class="mx-3">{{ 'Kompetenz-Set' | translate }}</span>
+    <span class="mx-3">{{ 'portal.competence-catalog.competence-sets.overview.competence-set-panel-header' | translate }}</span>
     <span class="mx-3">ID {{ competenceSet.id | slice:0:6 }}</span>
     <span class="flex-grow-1"></span>
   </button>
@@ -29,7 +29,7 @@
 </alv-competence-element>
 <ng-template #actionToKnowPlaceholder>
   <div class="alv-bar d-flex align-items-center w-100">
-    {{'Handlungswissen' | translate}}
+    {{'portal.competence-catalog.element-type.ACTION_TO_KNOW' | translate}}
 
     <div class="flex-grow-1"></div>
     <button class="btn btn-icon-sm"
