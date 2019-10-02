@@ -12,19 +12,19 @@
                    class="text-primary mr-1"
                    [fixedWidth]="true">
           </fa-icon>
-          {{ 'portal.competence-elements.overview.title' | translate }}
+          {{ 'portal.competence-catalog.competence-elements.overview.title' | translate }}
         </h2>
       </div>
 
       <alv-input-field [alvControl]="query"
-                       label="portal.competence-elements.overview.search.placeholder">
+                       label="portal.competence-catalog.competence-elements.overview.search.placeholder">
       </alv-input-field>
 
       <button (click)="openCreateModal()"
               class="btn btn-text btn-text-icon btn-block btn-truncate my-3 d-block d-lg-none">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
-        {{'portal.competence-elements.overview.create.label' | translate}}
+        {{'portal.competence-catalog.competence-elements.overview.create.label' | translate}}
       </button>
 
       <alv-competence-element *ngFor="let competenceElement of competenceElements"
@@ -39,7 +39,7 @@
          class="add-element-button btn btn-text btn-text-icon btn-block btn-truncate">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
-        {{'portal.competence-elements.overview.create.label' | translate}}
+        {{'portal.competence-catalog.competence-elements.overview.create.label' | translate}}
       </button>
 
     </div>
