@@ -135,21 +135,21 @@ const MAIN_MENU_ENTRIES: Array<MenuEntry> = [
     iconKey: IconKey.JOB_AD_FAVOURITES,
     labelKey: 'portal.navigation.menu-entry.job-ad-favourites',
     path: ['job-favourites'],
-    userPredicate: (u) => isAuthenticatedUser(u)
+    userPredicate: isAuthenticatedUser
   },
   {
     id: 'cc-home',
     iconClass: 'home',
     labelKey: 'KK Home',
     path: ['kk', 'home'],
-    userPredicate: (u) => isAnyUser()
+    userPredicate: isAnyUser
   },
   {
     id: 'cc-search',
     iconClass: 'search',
     labelKey: 'KK Search',
     path: ['kk', 'search'],
-    userPredicate: (u) => isAnyUser()
+    userPredicate: isAnyUser
   }
 ];
 
