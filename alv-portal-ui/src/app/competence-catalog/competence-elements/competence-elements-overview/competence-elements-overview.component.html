@@ -12,21 +12,19 @@
                    class="text-primary mr-1"
                    [fixedWidth]="true">
           </fa-icon>
-          {{ 'Kompetenz-Bestandteile' | translate }}
+          {{ 'portal.competence-elements.overview.title' | translate }}
         </h2>
       </div>
 
-      <!--<hr class="mt-0 mb-3">-->
-
       <alv-input-field [alvControl]="query"
-                       [label]="'Suche nach Bezeichnung, ID'">
+                       label="portal.competence-elements.overview.search.placeholder">
       </alv-input-field>
 
       <button (click)="openCreateModal()"
               class="btn btn-text btn-text-icon btn-block btn-truncate my-3 d-block d-lg-none">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
-        {{'Erfassen' | translate}}
+        {{'portal.competence-elements.overview.create.label' | translate}}
       </button>
 
       <alv-competence-element *ngFor="let competenceElement of competenceElements"
@@ -41,7 +39,7 @@
          class="add-element-button btn btn-text btn-text-icon btn-block btn-truncate">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
-        {{'Erfassen' | translate}}
+        {{'portal.competence-elements.overview.create.label' | translate}}
       </button>
 
     </div>
