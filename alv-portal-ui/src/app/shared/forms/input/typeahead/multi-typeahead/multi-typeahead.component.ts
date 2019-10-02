@@ -107,6 +107,14 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
       };
     }
     this.allyHelpId = `${this.id}-ally-help`;
+
+    this.validationMessages = this.validationMessages || [];
+    if (!this.validationMessages.find(validationMessage => validationMessage.error === 'required')) {
+      this.validationMessages.push({
+        error: 'required',
+        message: 'entity.validation.multi-typeahead.required'
+      });
+    }
   }
 
   ngAfterViewInit() {
