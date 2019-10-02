@@ -123,6 +123,8 @@ entity.validation.datetimelocal,Dieses Feld muss eine Datums- und Zeitangabe ent
 entity.validation.max,Dieses Feld muss kleiner als {{max}} sein.,This field cannot be more than {{ max }}.,Ce champ doit être inférieur à {{max}}.,Questo campo deve essere inferiore a {{ max }}.,
 entity.validation.min,Dieses Feld muss grösser als {{min}} sein.,This field must be at least {{ min }}.,Ce champ doit être supérieur à {{min}}.,Questo campo deve essere superiore a {{ min }}.,
 entity.validation.required,Pflichtfeld,This field is required.,Ce champ est obligatoire.,Questo campo è obbligatorio.,
+entity.validation.single-typeahead.required,Starten Sie Ihre Eingabe und wählen Sie einen Begriff aus der Liste.,Start typing and choose a term from the list.,Commencez votre saisie et choisissez un terme de la liste.,Cominciate a digitare e selezionate un termine dalla lista.,
+entity.validation.multi-typeahead.required,Mehrfachauswahl möglich. Starten Sie Ihre Eingabe und wählen Sie einen Begriff aus der Liste.,Multiple selection possible. Start typing and choose a term from the list.,Sélection multiple possible. Commencez votre saisie et choisissez un terme de la liste ou appuyez sur la touche « Enter ».,Selezione multipla possibile. Cominciate a digitare e selezionate un termine dalla lista.,
 global.button.add.title,Hinzufügen,Add,Ajouter,Aggiungere,
 global.button.remove.title,Entfernen,Remove,Supprimer,Rimuovere,
 global.common-phrases.no-results-found,Ihre Sucheingabe hat keine Treffer ergeben.,No result found for your search.,Aucun résultat pour votre recherche.,Nessun risultato per la ricerca.,
