@@ -28,6 +28,8 @@ export class CompetenceSetComponent implements OnInit {
 
   @Input() isCollapsed = true;
 
+  @Input() showErrors: boolean;
+
   elementType = ElementType;
 
   actionToKnowIndicators: CompetenceElement[];
