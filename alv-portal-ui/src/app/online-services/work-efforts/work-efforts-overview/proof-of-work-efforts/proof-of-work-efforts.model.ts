@@ -8,9 +8,12 @@ import {
   ProofOfWorkEffortsStatus
 } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortModel } from '../work-effort/work-effort.model';
+import { deltaDate } from '../../../../shared/forms/input/ngb-date-utils';
 
 
 export class ProofOfWorkEffortsModel {
+
+  readonly WORK_EFFORT_MONTH_LIMIT = -6;
 
   id: string;
 
@@ -80,11 +83,17 @@ export class ProofOfWorkEffortsModel {
     if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.OPEN ||
       this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.RE_OPENED) {
       return baseLabel + 'open';
-    } else if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.SUBMITTED && this.proofOfWorkEfforts.workEfforts.length === 0) {
-      return baseLabel + 'submitted-without-work-effort';
-    } else {
-      return baseLabel + 'submitted';
     }
+    if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.SUBMITTED && this.proofOfWorkEfforts.workEfforts.length === 0) {
+      const minDate = deltaDate(new Date(), 0, this.WORK_EFFORT_MONTH_LIMIT, 0);
+      minDate.setDate(1);
+      const endDate = new Date(this.proofOfWorkEfforts.endDate);
+      if (endDate < minDate) {
+        return baseLabel + 'closed';
+      }
+      return baseLabel + 'submitted-without-work-effort';
+    }
+    return baseLabel + 'submitted';
   }
 }
 
