@@ -5,10 +5,16 @@ const routes: Routes = [
   {
     path: 'sets',
     loadChildren: './competence-sets/competence-sets.module#CompetenceSetsModule',
+    data: {
+      titleKey: 'portal.competence-catalog.competence-sets.browser-title',
+    }
   },
   {
     path: 'elements',
     loadChildren: './competence-elements/competence-elements.module#CompetenceElementsModule',
+    data: {
+      titleKey: 'portal.competence-catalog.competence-elements.browser-title',
+    }
   },
   {
     path: '**',

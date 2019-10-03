@@ -1156,6 +1156,8 @@ portal.application-documents.document-type.CV,Lebenslauf,Lebenslauf,Curriculum v
 portal.application-documents.document-type.LETTER_OF_APPLICATION,Bewerbungsschreiben,Bewerbungsschreiben,Lettre de motivation,Domande d'impiego,
 portal.application-documents.document-type.TESTIMONIAL,Arbeitszeugnisse,Arbeitszeugnisse,Certificats de travail,Certificati di lavoro,
 portal.application-documents.document-type.CERTIFICATES,Diplome / Zertifikate,Diplome / Zertifikate,Diplômes/certificats,Diplomi / Certificati,
+portal.competence-catalog.competence-elements.browser-title,Kompetenz-Bestandteile,Skill components,Composants de compétence,Elementi della competenza,
+portal.competence-catalog.competence-sets.browser-title,Kompetenz-Sets,Skill sets,Ensembles de compétences,Set di competenze,
 portal.competence-catalog.element-type.KNOW_HOW,Handlungswissen,Know-how,Savoirs-faire,Competenze operative,
 portal.competence-catalog.element-type.KNOW_HOW_INDICATOR,Handlungswissen Indikator,Know-how indicator,Indicateur des savoirs-faire,Indicatore delle competenze operative,
 portal.competence-catalog.element-type.KNOWLEDGE,Wissen,Knowledge,Savoirs,Conoscenze,
@@ -1181,7 +1183,8 @@ portal.competence-catalog.competence-sets.overview.competence-set-panel-header,K
 portal.competence-catalog.competence-sets.overview.header,Kompetenz-Sets,Skill sets,Ensembles de compétences,Set di competenze,
 portal.competence-catalog.competence-sets.overview.search-label,"Suche nach Handlungswissen, ID Handlungswissen, ID Kompetenz-Set","Search by know-how, know-how ID, skill set ID","Recherche par savoirs-faire, ID savoirs-faire, ID ensemble de compétences","Ricerca per competenze operative, ID competenze operative, ID set di competenze"
 portal.competence-catalog.competence-sets.edit.title-edit-create,Kompetenz-Set - Erfassen/Bearbeiten, Skill set - enter/edit, Saisir/modifier ensemble de compétences, Registrare/elaborare set di competenze,
-portal.competence-catalog.menu-entries.competence-sets,Kompetenz-Sets,Skill sets,Ensembles de compétences,Set di competenze
+portal.competence-catalog.competence-sets.edit-button.tooltip,Bearbeiten,Edit,Éditer/modifier,Elaborare,
+portal.competence-catalog.menu-entries.competence-sets,Kompetenz-Sets,Skill sets,Ensembles de compétences,Set di competenze,
 portal.competence-catalog.menu-entries.competence-elements,Kompetenz-Bestandteile,Skill components,Composants de compétence,Elementi della competenza,
 register.title,Registrierung,Registration,Enregistrement,Registrazione,
 registration.customer.birthdate.label,Geburtsdatum,Date of Birth,Date de naissance,Data di nascita,
