@@ -59,7 +59,7 @@ export class CompetenceSetDetailComponent implements OnInit {
   }
 
   private handleSuccess(result: CompetenceSet) {
-    this.notificationsService.success('Kompetenz-Set erfolgreich gespeichert.');
+    this.notificationsService.success('portal.competence-catalog.competence-sets.added-success-notification.');
     this.router.navigate(['kk', 'sets']);
   }
 }
