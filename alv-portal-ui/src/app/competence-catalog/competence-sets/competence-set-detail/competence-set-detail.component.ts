@@ -19,6 +19,8 @@ export class CompetenceSetDetailComponent implements OnInit {
 
   isEdit: boolean;
 
+  isTouched: boolean;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private notificationsService: NotificationsService,
@@ -30,10 +32,13 @@ export class CompetenceSetDetailComponent implements OnInit {
   }
 
   saveCompetenceSet() {
-    if (this.isEdit) {
-      this.updateCompetenceSet();
-    } else {
-      this.createCompetenceSet();
+    this.isTouched = true;
+    if (this.competenceSet.actionToKnow) {
+      if (this.isEdit) {
+        this.updateCompetenceSet();
+      } else {
+        this.createCompetenceSet();
+      }
     }
   }
 

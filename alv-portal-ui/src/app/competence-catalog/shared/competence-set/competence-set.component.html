@@ -14,11 +14,13 @@
   </button>
   <a class="edit-button btn btn-icon-sm light"
      [routerLink]="'./edit/' + competenceSet.id"
-     *ngIf="showEditSetButton">
+     *ngIf="showEditSetButton"
+     [ngbTooltip]="'Bearbeiten' | translate"
+     container="body"
+     placement="top">
     <fa-icon [icon]="['fas', 'pen']"></fa-icon>
   </a>
 </div>
-
 
 <alv-competence-element *ngIf="competenceSet.knowHow; else knowHowPlaceholder"
                         [isEditable]="isEditable"
@@ -27,10 +29,14 @@
                         (elementClick)="openUpdateElementModal($event, elementType.KNOW_HOW)"
                         (unlinkClick)="unlinkKnowHow($event)">
 </alv-competence-element>
-<ng-template #knowHowPlaceholder>
-  <div class="alv-bar d-flex align-items-center w-100">
-    {{'Handlungswissen' | translate}}
 
+<ng-template #knowHowPlaceholder>
+  <div class="alv-bar d-flex align-items-center w-100 position-relative"
+       [class.invalid]="showErrors">
+    {{'Handlungswissen' | translate}}
+    <span *ngIf="showErrors">
+      &nbsp;- {{'entity.validation.required' | translate}}
+    </span>
     <div class="flex-grow-1"></div>
     <button class="btn btn-icon-sm"
             (click)="addKnowHow()">
@@ -38,6 +44,7 @@
     </button>
   </div>
 </ng-template>
+
 <div class="panel-content"
      [id]="competenceSet.id"
      [alvCollapse]="isCollapsed"
