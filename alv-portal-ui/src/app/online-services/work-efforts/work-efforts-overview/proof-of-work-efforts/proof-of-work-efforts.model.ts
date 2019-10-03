@@ -85,15 +85,20 @@ export class ProofOfWorkEffortsModel {
       return baseLabel + 'open';
     }
     if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.SUBMITTED && this.proofOfWorkEfforts.workEfforts.length === 0) {
-      const minDate = deltaDate(new Date(), 0, this.WORK_EFFORT_MONTH_LIMIT, 0);
-      minDate.setDate(1);
-      const endDate = new Date(this.proofOfWorkEfforts.endDate);
-      if (endDate < minDate) {
+      if (this.isWorkEffortLimitReached()) {
         return baseLabel + 'closed';
       }
       return baseLabel + 'submitted-without-work-effort';
     }
     return baseLabel + 'submitted';
   }
+
+  private isWorkEffortLimitReached() {
+    const minDate = deltaDate(new Date(), 0, this.WORK_EFFORT_MONTH_LIMIT, 0);
+    minDate.setDate(1);
+    const endDate = new Date(this.proofOfWorkEfforts.endDate);
+    return endDate < minDate;
+  }
+
 }
 
