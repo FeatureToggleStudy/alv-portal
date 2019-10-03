@@ -14,45 +14,53 @@
   </button>
   <a class="edit-button btn btn-icon-sm light"
      [routerLink]="'./edit/' + competenceSet.id"
-     *ngIf="showEditSetButton">
+     *ngIf="showEditSetButton"
+     [ngbTooltip]="'Bearbeiten' | translate"
+     container="body"
+     placement="top">
     <fa-icon [icon]="['fas', 'pen']"></fa-icon>
   </a>
 </div>
 
-
-<alv-competence-element *ngIf="competenceSet.actionToKnow; else actionToKnowPlaceholder"
+<alv-competence-element *ngIf="competenceSet.knowHow; else knowHowPlaceholder"
                         [isEditable]="isEditable"
                         [showUnlinkAction]="isEditable"
-                        [competenceElement]="competenceSet.actionToKnow"
-                        (elementClick)="openUpdateElementModal($event, elementType.ACTION_TO_KNOW)"
-                        (unlinkClick)="unlinkActionToKnow($event)">
+                        [competenceElement]="competenceSet.knowHow"
+                        (elementClick)="openUpdateElementModal($event, elementType.KNOW_HOW)"
+                        (unlinkClick)="unlinkKnowHow($event)">
 </alv-competence-element>
-<ng-template #actionToKnowPlaceholder>
-  <div class="alv-bar d-flex align-items-center w-100">
-    {{'portal.competence-catalog.element-type.ACTION_TO_KNOW' | translate}}
 
+
+<ng-template #knowHowPlaceholder>
+  <div class="alv-bar d-flex align-items-center w-100 position-relative"
+       [class.invalid]="showErrors">
+    {{'portal.competence-catalog.element-type.KNOW_HOW'  | translate}}
+    <span *ngIf="showErrors">
+      &nbsp;- {{'entity.validation.required' | translate}}
+    </span>
     <div class="flex-grow-1"></div>
     <button class="btn btn-icon-sm"
-            (click)="addActionToKnow()">
+            (click)="addKnowHow()">
       <fa-icon [icon]="['fas', 'search-plus']"></fa-icon>
     </button>
   </div>
 </ng-template>
+
 <div class="panel-content"
      [id]="competenceSet.id"
      [alvCollapse]="isCollapsed"
      [@expandCollapse]="isCollapsed ? 'closed' : 'open'">
   <alv-competence-elements-collapse-panel [competenceSetId]="competenceSet.id"
-                                          [elementType]="elementType.ACTION_TO_KNOW_INDICATOR"
+                                          [elementType]="elementType.KNOW_HOW_INDICATOR"
                                           [showAddButton]="isEditable"
-                                          [isEmpty]="!actionToKnowIndicators?.length"
-                                          [isCollapsed]="collapsed[elementType.ACTION_TO_KNOW_INDICATOR]"
-                                          (addClicked)="addActionToKnowIndicator()">
-    <alv-competence-element *ngFor="let indicator of actionToKnowIndicators"
+                                          [isEmpty]="!knowHowIndicators?.length"
+                                          [isCollapsed]="collapsed[elementType.KNOW_HOW_INDICATOR]"
+                                          (addClicked)="addKnowHowIndicator()">
+    <alv-competence-element *ngFor="let indicator of knowHowIndicators"
                             [competenceElement]="indicator"
                             [isEditable]="isEditable"
                             [showUnlinkAction]="isEditable"
-                            (elementClick)="openUpdateElementModal($event, elementType.ACTION_TO_KNOW_INDICATOR)"
+                            (elementClick)="openUpdateElementModal($event, elementType.KNOW_HOW_INDICATOR)"
                             (unlinkClick)="unlinkCompetenceElement($event)">
     </alv-competence-element>
   </alv-competence-elements-collapse-panel>
