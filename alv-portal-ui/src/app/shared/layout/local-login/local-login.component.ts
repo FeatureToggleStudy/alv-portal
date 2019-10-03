@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs/internal/observable/empty';
-import { Router } from '@angular/router';
 import { Notification, NotificationType } from '../notifications/notification.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppContextService } from '../../../core/app-context/app-context.service';
+import { LandingNavigationService } from '../../../core/landing-navigation.service';
 
 const ERRORS = {
   invalidUsernamePassword: {
@@ -28,8 +29,9 @@ export class LocalLoginComponent implements OnInit {
 
   constructor(public modal: NgbActiveModal,
               private authenticationService: AuthenticationService,
+              private appContextService: AppContextService,
               private fb: FormBuilder,
-              private router: Router) {
+              private landingNavigationService: LandingNavigationService) {
   }
 
   ngOnInit() {
@@ -50,10 +52,10 @@ export class LocalLoginComponent implements OnInit {
         this.errorMessage = ERRORS.invalidUsernamePassword;
         return EMPTY;
       })
-    ).subscribe(user => {
+    ).subscribe((user) => {
       if (user) {
         this.modal.close();
-        this.router.navigate(['/landing']);
+        this.landingNavigationService.navigateUser(user);
       }
     });
   }

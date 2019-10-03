@@ -28,6 +28,7 @@ import { Observable } from 'rxjs';
 import { ProfileInfoService } from './shared/layout/header/profile-info.service';
 import { DOCUMENT } from '@angular/common';
 import { FileDragDropService } from './shared/forms/input/file-input/file-drag-drop.service';
+import { LandingNavigationService } from './core/landing-navigation.service';
 
 const FALLBACK_TITLE_KEY = 'global.title';
 
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit {
   constructor(private i18nService: I18nService,
               private titleService: Title,
               private router: Router,
+              private landingNavigationService: LandingNavigationService,
               private store: Store<CoreState>,
               private trackingService: GATrackingService,
               private activatedRoute: ActivatedRoute,
@@ -97,7 +99,7 @@ export class AppComponent implements OnInit {
       withLatestFrom(lastUrl$)
     ).subscribe(([navigationError, lastUrl]) => {
       if (lastUrl === EMPTY_URL) {
-        this.router.navigate(['home']);
+        this.landingNavigationService.navigateHome();
       }
     });
   }

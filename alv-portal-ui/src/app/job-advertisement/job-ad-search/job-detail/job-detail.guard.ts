@@ -21,6 +21,7 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
 import { JobDetailComponent } from './job-detail.component';
 import { NotificationsService } from '../../../core/notifications.service';
+import { LandingNavigationService } from '../../../core/landing-navigation.service';
 
 @Injectable()
 export class JobDetailGuard implements CanActivate, CanDeactivate<JobDetailComponent> {
