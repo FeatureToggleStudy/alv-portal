@@ -33,7 +33,7 @@ export class CompetenceSetDetailComponent implements OnInit {
 
   saveCompetenceSet() {
     this.isTouched = true;
-    if (this.competenceSet.actionToKnow) {
+    if (this.competenceSet.knowHow) {
       if (this.isEdit) {
         this.updateCompetenceSet();
       } else {
