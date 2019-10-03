@@ -140,16 +140,16 @@ const MAIN_MENU_ENTRIES: Array<MenuEntry> = [
   {
     id: 'competence-sets',
     iconProp: ['far', 'list-alt'],
-    labelKey: 'Kompetenz-Sets',
+    labelKey: 'portal.competence-catalog.menu-entries.competence-sets',
     path: ['kk', 'sets'],
-    userPredicate: (u) => isAnyUser()
+    userPredicate: (u) => isAnyUser() //fixme should be only user with kk rights
   },
   {
     id: 'competence-elements',
     iconProp: ['fas', 'list-ul'],
-    labelKey: 'Kompetenz-Bestandteile',
+    labelKey: 'portal.competence-catalog.menu-entries.competence-elements',
     path: ['kk', 'elements'],
-    userPredicate: (u) => isAnyUser()
+    userPredicate: (u) => isAnyUser() //fixme should be only user with kk rights
   }
 ];
 

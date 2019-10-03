@@ -22,7 +22,7 @@ export class CompetenceElementModalComponent implements OnInit {
 
   typeOptions$: Observable<SelectableOption[]> = of([{
       value: null,
-      label: 'Bitte wählen'
+      label: 'portal.competence-catalog.competence-elements.add-modal.choose-type'
     }
     ].concat(Object.values(ElementType).map(type => {
       return {
@@ -80,7 +80,7 @@ export class CompetenceElementModalComponent implements OnInit {
       published: this.competenceElement.published
     })
       .subscribe(result => {
-        this.notificationsService.success('Kompetenz-Element erfolgreich gespeichert.');
+        this.notificationsService.success('portal.competence-catalog.competence-elements.add-modal.added-success-notification');
         this.modal.close(result);
       });
   }

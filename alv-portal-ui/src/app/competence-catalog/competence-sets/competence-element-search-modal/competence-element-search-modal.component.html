@@ -1,13 +1,13 @@
 <alv-modal (cancelAction)="cancel()"
            (primaryAction)="submit()"
            cancelLabel="portal.global.cancel"
-           modalTitle="Bestandteile hinzufügen"
+           modalTitle="portal.competence-catalog.competence-elements.add-modal.title"
            primaryLabel="portal.global.add"
            [formGroup]="form">
   <fieldset>
-    <legend>Bestehendes Bestandteil suchen</legend>
+    <legend>{{'portal.competence-catalog.competence-elements.add-modal.search-existing-label' | translate}}</legend>
     <alv-single-typeahead alvFormControlName="competenceElement"
-                          label="Suche"
+                          label="portal.global.search"
                           [loadItems]="searchCompetenceElementsFn"
                           (itemSelected)="itemSelected($event)"
                           [autofocus]="true">
@@ -15,25 +15,25 @@
   </fieldset>
 
   <fieldset formGroupName="description">
-    <alv-input-field label="Bezeichnung Deutsch"
+    <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.german-title"
                      alvFormControlName="textDe"
                      [multiline]="true"
                      [multilineMinRows]="1"
                      [readonly]="true">
     </alv-input-field>
-    <alv-input-field label="Bezeichnung Französisch"
+    <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.french-title"
                      alvFormControlName="textFr"
                      [multiline]="true"
                      [multilineMinRows]="1"
                      [readonly]="true">
     </alv-input-field>
-    <alv-input-field label="Bezeichnung Italienisch"
+    <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.italian-title"
                      alvFormControlName="textIt"
                      [multiline]="true"
                      [multilineMinRows]="1"
                      [readonly]="true">
     </alv-input-field>
-    <alv-input-field label="Bezeichnung Englisch"
+    <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.english-title"
                      alvFormControlName="textEn"
                      [multiline]="true"
                      [multilineMinRows]="1"

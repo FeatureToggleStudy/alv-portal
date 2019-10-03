@@ -8,14 +8,14 @@
           [attr.aria-controls]="competenceSet.id">
     <fa-icon class="collapse-icon"
              [icon]="['fas', isCollapsed ? 'chevron-down' : 'chevron-up']"></fa-icon>
-    <span class="mx-3">{{ 'Kompetenz-Set' | translate }}</span>
+    <span class="mx-3">{{ 'portal.competence-catalog.competence-sets.overview.competence-set-panel-header' | translate }}</span>
     <span class="mx-3">ID {{ competenceSet.id | slice:0:6 }}</span>
     <span class="flex-grow-1"></span>
   </button>
   <a class="edit-button btn btn-icon-sm light"
      [routerLink]="'./edit/' + competenceSet.id"
      *ngIf="showEditSetButton"
-     [ngbTooltip]="'Bearbeiten' | translate"
+     [ngbTooltip]="'portal.competence-catalog.competence-sets.edit-button.tooltip' | translate"
      container="body"
      placement="top">
     <fa-icon [icon]="['fas', 'pen']"></fa-icon>
@@ -30,10 +30,11 @@
                         (unlinkClick)="unlinkKnowHow($event)">
 </alv-competence-element>
 
+
 <ng-template #knowHowPlaceholder>
   <div class="alv-bar d-flex align-items-center w-100 position-relative"
        [class.invalid]="showErrors">
-    {{'Handlungswissen' | translate}}
+    {{'portal.competence-catalog.element-type.KNOW_HOW'  | translate}}
     <span *ngIf="showErrors">
       &nbsp;- {{'entity.validation.required' | translate}}
     </span>
