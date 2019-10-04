@@ -9,11 +9,10 @@ import {
 } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortModel } from '../work-effort/work-effort.model';
 import { deltaDate } from '../../../../shared/forms/input/ngb-date-utils';
+import { WORK_EFFORT_MONTHS_DIFF } from '../../work-effort-form/work-effort-form.types';
 
 
 export class ProofOfWorkEffortsModel {
-
-  readonly WORK_EFFORT_MONTH_LIMIT = -6;
 
   id: string;
 
@@ -94,7 +93,7 @@ export class ProofOfWorkEffortsModel {
   }
 
   private isWorkEffortLimitReached() {
-    const minDate = deltaDate(new Date(), 0, this.WORK_EFFORT_MONTH_LIMIT, 0);
+    const minDate = deltaDate(new Date(), 0, WORK_EFFORT_MONTHS_DIFF, 0);
     minDate.setDate(1);
     const endDate = new Date(this.proofOfWorkEfforts.endDate);
     return endDate < minDate;
