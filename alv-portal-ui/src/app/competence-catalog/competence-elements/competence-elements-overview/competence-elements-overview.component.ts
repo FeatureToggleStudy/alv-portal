@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CompetenceElementRepository } from '../../../shared/backend-services/competence-element/competence-element.repository';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
 import { CompetenceElementModalComponent } from '../../shared/competence-element-modal/competence-element-modal.component';
+import { UserRole } from '../../../core/auth/user.model';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'alv-competence-elements-overview',
@@ -18,9 +21,12 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
 
   competenceElements: CompetenceElement[] = [];
 
+  isCompetenceCatalogEditor$: Observable<boolean>;
+
   private page = 0;
 
   constructor(private modalService: ModalService,
+              private authenticationService: AuthenticationService,
               private competenceElementRepository: CompetenceElementRepository) {
     super();
   }
@@ -35,6 +41,9 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
         this.reload();
       });
 
+    this.isCompetenceCatalogEditor$ = this.authenticationService.getCurrentUser().pipe(
+      map(user => user && user.isCompetenceCatalogEditor())
+    );
   }
 
   onScroll() {

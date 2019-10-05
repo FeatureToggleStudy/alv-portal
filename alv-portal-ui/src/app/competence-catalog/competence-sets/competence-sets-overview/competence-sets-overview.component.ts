@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
 import { FormControl } from '@angular/forms';
-import { ElementType } from '../../../shared/backend-services/competence-element/competence-element.types';
-import {
-  CompetenceSet,
-  CompetenceSetSearchResult
-} from '../../../shared/backend-services/competence-set/competence-set.types';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
+import { debounceTime, map, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-competence-sets-overview',
@@ -20,9 +18,12 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
 
   competenceSets: CompetenceSetSearchResult[] = [];
 
+  isCompetenceCatalogEditor$: Observable<boolean>;
+
   private page = 0;
 
-  constructor(private competenceSetRepository: CompetenceSetRepository) {
+  constructor(private competenceSetRepository: CompetenceSetRepository,
+              private authenticationService: AuthenticationService) {
     super();
   }
 
@@ -35,6 +36,10 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
       .subscribe(value => {
         this.reload();
       });
+
+    this.isCompetenceCatalogEditor$ = this.authenticationService.getCurrentUser().pipe(
+      map(user => user && user.isCompetenceCatalogEditor())
+    );
   }
 
   onScroll() {

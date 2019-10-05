@@ -20,7 +20,8 @@
                        label="portal.competence-catalog.competence-elements.overview.search.placeholder">
       </alv-input-field>
 
-      <button (click)="openCreateModal()"
+      <button *ngIf="isCompetenceCatalogEditor$ | async"
+              (click)="openCreateModal()"
               class="btn btn-text btn-text-icon btn-block btn-truncate my-3 d-block d-lg-none">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
@@ -29,13 +30,14 @@
 
       <alv-competence-element *ngFor="let competenceElement of competenceElements"
                               [competenceElement]="competenceElement"
-                              [isEditable]="true"
+                              [isEditable]="isCompetenceCatalogEditor$ | async"
                               (elementClick)="openUpdateModal($event)">
       </alv-competence-element>
 
     </div>
     <div class="mt-5 d-none d-lg-block col-lg-3 col-xl-2">
-      <button (click)="openCreateModal()"
+      <button *ngIf="isCompetenceCatalogEditor$ | async"
+              (click)="openCreateModal()"
          class="add-element-button btn btn-text btn-text-icon btn-block btn-truncate">
         <fa-icon [icon]="['fas', 'plus']"
                  class="mr-1"></fa-icon>
