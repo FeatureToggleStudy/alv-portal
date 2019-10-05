@@ -6,6 +6,7 @@ import {
 import { Observable } from 'rxjs';
 import { I18nService } from '../../../core/i18n.service';
 import { map } from 'rxjs/operators';
+import { Languages } from '../../../core/languages.constants';
 
 @Component({
   selector: 'alv-competence-element',
@@ -56,7 +57,16 @@ export class CompetenceElementComponent implements OnInit {
 
   private setDescription() {
     this.description$ = this.i18nService.currentLanguage$.pipe(
-      map(lang => getTranslatedString(this.competenceElement.description, lang) || `<placeholder-${lang}>`)
+      map(lang => getTranslatedString(this.competenceElement.description, lang) || this.getPlaceholderDescription())
     );
+  }
+
+  private getPlaceholderDescription() {
+    for (const lang of Object.values(Languages)) {
+      const description = getTranslatedString(this.competenceElement.description, lang);
+      if (description) {
+        return description;
+      }
+    }
   }
 }
