@@ -84,3 +84,4 @@ export const emptyWorkEffortFormValue: WorkEffortFormValue = {
   occupation: ''
 };
 
+export const WORK_EFFORT_MONTHS_DIFF = -6;
