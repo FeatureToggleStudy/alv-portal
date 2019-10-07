@@ -46,16 +46,12 @@ export class CompetenceSetComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.isCollapsed) {
-      this.loadCompetenceElements().subscribe();
-    }
+    this.loadCompetenceElementsIfRequired();
   }
 
   toggle() {
     this.isCollapsed = !this.isCollapsed;
-    if (!this.isCollapsed) {
-      this.loadCompetenceElements().subscribe();
-    }
+    this.loadCompetenceElementsIfRequired();
   }
 
   openUpdateElementModal(competenceElement: CompetenceElement, type: ElementType) {
@@ -131,6 +127,12 @@ export class CompetenceSetComponent implements OnInit {
       })
       .catch(() => {
       });
+  }
+
+  private loadCompetenceElementsIfRequired() {
+    if (!this.isCollapsed) {
+      this.loadCompetenceElements().subscribe();
+    }
   }
 
   private loadCompetenceElements(): Observable<CompetenceElement[]> {

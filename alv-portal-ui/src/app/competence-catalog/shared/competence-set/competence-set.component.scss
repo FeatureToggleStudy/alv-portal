@@ -5,7 +5,6 @@ button.title-bar {
   background-color: $color-dark-grey;
   text-align: left;
   font-size: 1rem;
-  min-height: 41px;
   padding: 0.5rem 1.25rem;
 
   &:focus {
@@ -27,13 +26,9 @@ button.title-bar {
   transform-origin: top;
 }
 
-.animate {
-  display: block;
-}
-
 .alv-bar {
   font-size: 1em;
-  height: 51px;
+  height: 50px;
   &:focus {
     box-shadow: none;
   }

@@ -19,7 +19,7 @@ export class CompetenceSetDetailComponent implements OnInit {
 
   isEdit: boolean;
 
-  isTouched: boolean;
+  showErrors: boolean;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -32,7 +32,7 @@ export class CompetenceSetDetailComponent implements OnInit {
   }
 
   saveCompetenceSet() {
-    this.isTouched = true;
+    this.showErrors = true;
     if (this.competenceSet.knowHow) {
       if (this.isEdit) {
         this.updateCompetenceSet();

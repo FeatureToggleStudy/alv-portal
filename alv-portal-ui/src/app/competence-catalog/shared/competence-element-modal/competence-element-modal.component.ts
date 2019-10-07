@@ -56,13 +56,12 @@ export class CompetenceElementModalComponent implements OnInit {
     });
     if (this.competenceElement) {
       this.form.patchValue(this.competenceElement);
-      //this.form.get('type').disable();
       this.isEdit = true;
     }
   }
 
   submit() {
-    if (this.competenceElement) {
+    if (this.isEdit) {
       this.updateElement();
     } else {
       this.createElement();
@@ -79,16 +78,16 @@ export class CompetenceElementModalComponent implements OnInit {
       draft: this.competenceElement.draft,
       published: this.competenceElement.published
     })
-      .subscribe(result => {
-        this.notificationsService.success('portal.competence-catalog.competence-elements.add-modal.added-success-notification');
-        this.modal.close(result);
-      });
+      .subscribe(this.handleSuccess.bind(this));
   }
 
   private createElement() {
     this.competenceElementRepository.create(this.form.value)
-      .subscribe(result => {
-        this.modal.close(result);
-      });
+      .subscribe(this.handleSuccess.bind(this));
+  }
+
+  private handleSuccess(result) {
+    this.notificationsService.success('portal.competence-catalog.competence-elements.add-modal.added-success-notification');
+    this.modal.close(result);
   }
 }

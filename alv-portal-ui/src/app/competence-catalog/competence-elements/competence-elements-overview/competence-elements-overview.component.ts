@@ -6,7 +6,6 @@ import { debounceTime, map, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
 import { CompetenceElementModalComponent } from '../../shared/competence-element-modal/competence-element-modal.component';
-import { UserRole } from '../../../core/auth/user.model';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { Observable } from 'rxjs';
 
@@ -24,6 +23,8 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
   isCompetenceCatalogEditor$: Observable<boolean>;
 
   private page = 0;
+
+  private readonly DEFAULT_PAGE_SIZE = 20;
 
   constructor(private modalService: ModalService,
               private authenticationService: AuthenticationService,
@@ -52,10 +53,10 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
         query: this.query.value || ''
       },
       page: this.page++,
-      size: 20
+      size: this.DEFAULT_PAGE_SIZE
     }).pipe(
-    ).subscribe(competenceElements => {
-      this.competenceElements = [...(this.competenceElements || []), ...competenceElements.content];
+    ).subscribe(response => {
+      this.competenceElements = [...(this.competenceElements || []), ...response.content];
     });
 
   }

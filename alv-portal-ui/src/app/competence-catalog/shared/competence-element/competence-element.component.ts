@@ -57,11 +57,14 @@ export class CompetenceElementComponent implements OnInit {
 
   private setDescription() {
     this.description$ = this.i18nService.currentLanguage$.pipe(
-      map(lang => getTranslatedString(this.competenceElement.description, lang) || this.getPlaceholderDescription())
+      map(lang => getTranslatedString(this.competenceElement.description, lang) || this.getNextAvailableDescription())
     );
   }
 
-  private getPlaceholderDescription() {
+  /*
+   * Get description in the next available language if current language is not available
+   */
+  private getNextAvailableDescription() {
     for (const lang of Object.values(Languages)) {
       const description = getTranslatedString(this.competenceElement.description, lang);
       if (description) {

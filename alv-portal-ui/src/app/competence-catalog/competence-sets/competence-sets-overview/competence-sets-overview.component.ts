@@ -22,6 +22,8 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
 
   private page = 0;
 
+  private readonly DEFAULT_PAGE_SIZE = 20;
+
   constructor(private competenceSetRepository: CompetenceSetRepository,
               private authenticationService: AuthenticationService) {
     super();
@@ -48,15 +50,11 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
         query: this.query.value || ''
       },
       page: this.page++,
-      size: 20
+      size: this.DEFAULT_PAGE_SIZE
     }).pipe(
-    ).subscribe(competenceElements => {
-      this.competenceSets = [...(this.competenceSets || []), ...competenceElements.content];
+    ).subscribe(response => {
+      this.competenceSets = [...(this.competenceSets || []), ...response.content];
     });
-  }
-
-  trackBy(competenceSet: CompetenceSetSearchResult): string {
-    return competenceSet.id;
   }
 
   private reload() {
@@ -65,32 +63,3 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
     this.onScroll();
   }
 }
-
-/*
-[
-            {
-              id: '676575-567567-klj8767',
-              published: false,
-              draft: false,
-              type: ElementType.KNOW_HOW,
-              description: {
-                textDe: 'Deutsch',
-                textFr: 'Franz',
-                textIt: 'Josef',
-                textEn: 'Pippen'
-              }
-            },
-            {
-              id: '676575-567567-klj8767',
-              published: false,
-              draft: false,
-              type: ElementType.KNOW_HOW,
-              description: {
-                textDe: 'Deutsch',
-                textFr: 'Franz',
-                textIt: 'Josef',
-                textEn: 'Pippen'
-              }
-            }
-          ]
- */
