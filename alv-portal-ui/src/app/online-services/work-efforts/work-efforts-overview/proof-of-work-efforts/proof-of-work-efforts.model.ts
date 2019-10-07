@@ -28,6 +28,8 @@ export class ProofOfWorkEffortsModel {
 
   submissionDate: Date;
 
+  submissionDateFormat: string;
+
   hasPdfDocument: boolean;
 
   statusLabel: string;
@@ -53,6 +55,8 @@ export class ProofOfWorkEffortsModel {
       parseInt(this.proofOfWorkEfforts.controlPeriod.value.split('-')[1], 10) : null;
 
     this.submissionDate = this.buildSubmissionDate();
+
+    this.submissionDateFormat = this.isSentSuccessfully ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:mm';
 
     this.hasPdfDocument = !!this.proofOfWorkEfforts.documentId;
 
