@@ -75,14 +75,14 @@ export class JobSearchProfileService {
         id: occupation.id,
         value: occupation.code,
         type: occupation.type,
-        mapping: occupation.mappings ? this.convertOccupationMappings(occupation.mappings) : null
+        mapping: occupation.mappings ? this.extractAvamMapping(occupation.mappings) : null
       },
       occupation.label,
       index
     ));
   }
 
-  private convertOccupationMappings(mappings) {
+  private extractAvamMapping(mappings) {
     if (!mappings.hasOwnProperty('AVAM')) {
       return null;
     }
