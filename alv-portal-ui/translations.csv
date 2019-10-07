@@ -1185,6 +1185,8 @@ portal.competence-catalog.competence-sets.overview.search-label,"Suche nach Hand
 portal.competence-catalog.competence-sets.edit.title-edit-create,Kompetenz-Set - Erfassen/Bearbeiten, Skill set - enter/edit, Saisir/modifier ensemble de compétences, Registrare/elaborare set di competenze,
 portal.competence-catalog.competence-sets.edit-button.tooltip,Bearbeiten,Edit,Éditer/modifier,Elaborare,
 portal.competence-catalog.competence-sets.added-success-notification,Kompetenz-Set wurde erfolgreich gespeichert.,Skill set was successfully saved.,Ensemble de compétences a été sauvegardée avec succès.,Set di competenze è stato salvate con successo.,
+portal.competence-catalog.competence-sets.overview.delete-confirmation.title,Verknüpfung aufheben,Remove link,Annuler la connexion,Sopprimere collegamento,
+portal.competence-catalog.competence-sets.overview.delete-confirmation.text,Wollen Sie diese Verknüpfung wirklich aufheben?,Do you really want to remove this link?,Voulez-vous vraiment annuler cette connexion?,Vuoi davvero sopprimere questo collegamento?,
 portal.competence-catalog.menu-entries.competence-sets,Kompetenz-Sets,Skill sets,Ensembles de compétences,Set di competenze,
 portal.competence-catalog.menu-entries.competence-elements,Kompetenz-Bestandteile,Skill components,Composants de compétence,Elementi della competenza,
 register.title,Registrierung,Registration,Enregistrement,Registrazione,

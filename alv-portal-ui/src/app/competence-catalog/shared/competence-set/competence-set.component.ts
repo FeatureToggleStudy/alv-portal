@@ -113,8 +113,8 @@ export class CompetenceSetComponent implements OnInit {
 
   private openUnlinkConfirmModal(): Promise<CompetenceElement> {
     return this.modalService.openConfirm({
-      title: 'Verknüpfung entfernen',
-      content: 'Wollen Sie diese Verknüpfung wirklich entfernen?'
+      title: 'portal.competence-catalog.competence-sets.overview.delete-confirmation.title',
+      content: 'portal.competence-catalog.competence-sets.overview.delete-confirmation.text'
     }).result;
   }
 
