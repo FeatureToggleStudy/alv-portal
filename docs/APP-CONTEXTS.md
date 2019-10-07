@@ -11,6 +11,8 @@ Technically, an app context is just a set of specific properties:
 - the "home" URL
 - whether to show the desktop menu or not
 
+The following section will explain how to create a new app context called `CONTEXT_DEMO` (just an example name).
+
 ## Create a new App Context
 Besides adding the new context name to the enum `app-context.enum.ts`, you have to edit the following files.
 ### 1. Add new AppContextStrategy
