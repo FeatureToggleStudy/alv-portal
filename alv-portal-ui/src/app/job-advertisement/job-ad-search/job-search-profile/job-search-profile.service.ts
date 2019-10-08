@@ -75,14 +75,22 @@ export class JobSearchProfileService {
         id: occupation.id,
         value: occupation.code,
         type: occupation.type,
-        mapping: occupation.mappings ? {
-          value: occupation.mappings[Object.keys(occupation.mappings)[0]],
-          type: Object.keys(occupation.mappings)[0]
-        } : null
+        mapping: occupation.mappings ? this.extractAvamMapping(occupation.mappings) : null
       },
       occupation.label,
       index
     ));
+  }
+
+  private extractAvamMapping(mappings) {
+    if (!mappings.hasOwnProperty('AVAM')) {
+      return null;
+    }
+
+    return {
+      type: 'AVAM',
+      value: mappings['AVAM']
+    };
   }
 
   private mapLocalitiesFromRequest(localities: Location[], cantons: CantonSuggestion[]): LocalityTypeaheadItem[] {

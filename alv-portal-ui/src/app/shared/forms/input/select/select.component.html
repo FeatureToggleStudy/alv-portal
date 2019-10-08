@@ -17,6 +17,7 @@
             [alvAutofocus]="autofocus"
             (change)="control.markAsTouched()"
             [class.placeholder-shown]="control.value === ''">
+      <option *ngIf="control.value === ''" disabled selected value hidden></option>
       <option *ngFor="let option of options$ | async"
               [ngValue]="option.value">{{option.label | translate}}
       </option>

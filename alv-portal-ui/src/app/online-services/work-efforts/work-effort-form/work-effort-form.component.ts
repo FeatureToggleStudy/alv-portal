@@ -43,6 +43,7 @@ import {
   emptyWorkEffortFormValue,
   formPossibleApplyChannels,
   formPossibleApplyStatus,
+  WORK_EFFORT_MONTHS_DIFF,
   WorkEffortFormValue,
   WorkLoadFormOption
 } from './work-effort-form.types';
@@ -82,7 +83,6 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
   readonly CONTACT_PERSON_MAX_LENGTH = 100;
   readonly EMAIL_MAX_LENGTH = 100;
   readonly FORM_URL_MAX_LENGTH = 255;
-  readonly MIN_MONTHS_DIFF = -6;
   readonly MAX_DAYS_DIFF = 5;
   readonly LinkPanelId = LinkPanelId;
   readonly IconKey = IconKey;
@@ -151,7 +151,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
               private authenticationService: AuthenticationService,
               private notificationsService: NotificationsService,
               private route: ActivatedRoute,
-              public router: Router,
+              private router: Router,
               private cdRef: ChangeDetectorRef,
               private scrollService: ScrollService,
               private modalService: ModalService) {
@@ -407,7 +407,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
 
   private setupMinMaxDate() {
     const today = new Date();
-    const minDate = deltaDate(today, 0, this.MIN_MONTHS_DIFF, 0);
+    const minDate = deltaDate(today, 0, WORK_EFFORT_MONTHS_DIFF, 0);
     minDate.setDate(1);
     this.minDate = mapDateToNgbDate(minDate);
     this.maxDate = mapDateToNgbDate(deltaDate(today, this.MAX_DAYS_DIFF, 0, 0));

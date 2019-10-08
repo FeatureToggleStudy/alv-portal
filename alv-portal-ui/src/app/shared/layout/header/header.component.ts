@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { User } from '../../../core/auth/user.model';
-import { map, takeUntil } from 'rxjs/operators';
+import { flatMap, map, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { Router } from '@angular/router';
 import { I18nService } from '../../../core/i18n.service';
 import { Languages } from '../../../core/languages.constants';
 import { Observable } from 'rxjs';
@@ -12,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { ToggleMobileNavigationsAction } from '../../../core/state-management/actions/core.actions';
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
 import { LoginService } from '../../auth/login.service';
+import { AppContextService } from '../../../core/app-context/app-context.service';
 
 @Component({
   selector: 'alv-header',
@@ -32,14 +32,14 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
 
   logoUrl$: Observable<string>;
 
-  private readonly FILENAME_TRANSLATION_KEY = 'portal.home.logo-filename';
+  homeUrl$: Observable<string[]>;
 
-  private readonly LOGO_BASE_PATH = 'assets/img/logo/';
+  appTitle$: Observable<string>;
 
   constructor(private store: Store<CoreState>,
               private authenticationService: AuthenticationService,
+              private appContextService: AppContextService,
               private loginService: LoginService,
-              private router: Router,
               private i18nService: I18nService) {
     super();
     this.currentLanguage$ = this.i18nService.currentLanguage$;
@@ -58,11 +58,11 @@ export class HeaderComponent extends AbstractSubscriber implements OnInit {
         this.company = company;
       });
 
-    this.logoUrl$ = this.i18nService.stream(this.FILENAME_TRANSLATION_KEY)
-      .pipe(
-        map((filename) => this.LOGO_BASE_PATH + filename),
-        takeUntil(this.ngUnsubscribe)
-      );
+    this.logoUrl$ = this.appContextService.getLogoUrl();
+
+    this.homeUrl$ = this.appContextService.getHomeUrl();
+
+    this.appTitle$ = this.appContextService.getAppTitle();
 
     this.noEiam = this.loginService.noEiam;
   }

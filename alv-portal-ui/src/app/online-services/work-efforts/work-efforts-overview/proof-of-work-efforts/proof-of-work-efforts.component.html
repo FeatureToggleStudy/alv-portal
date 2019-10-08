@@ -35,7 +35,7 @@
         {{'portal.work-efforts.submit-status.label' | translate}}
       </span>
       <div class="flex-grow-1">
-            {{ proofOfWorkEffortsModel.statusLabel | translate:{dateTime: proofOfWorkEffortsModel.submissionDate | date: 'dd.MM.yyyy HH:mm'} }}
+            {{ proofOfWorkEffortsModel.statusLabel | translate:{dateTime: proofOfWorkEffortsModel.submissionDate | date: (proofOfWorkEffortsModel.submissionDateFormat)} }}
       </div>
       <div class="success-icon-container">
         <fa-icon [icon]="['fas', 'check']"
