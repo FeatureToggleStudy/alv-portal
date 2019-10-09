@@ -33,8 +33,8 @@ export interface UpdateChFiche {
 
 export interface Occupation {
   bfsCode: string;
-  chIsco5: string;
-  chIsco3: string;
+  chIsco5?: string;
+  chIsco3?: string;
 }
 
 export interface Competence {

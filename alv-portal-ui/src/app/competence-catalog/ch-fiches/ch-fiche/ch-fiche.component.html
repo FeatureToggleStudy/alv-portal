@@ -1,4 +1,3 @@
-
 <alv-competence-items-collapse-panel label="portal.competence-catalog.ch-fiches.label.occupations"
                                      [id]="chFiche.id"
                                      [isCollapsed]="collapsed.OCCUPATIONS"
@@ -8,7 +7,12 @@
                                      (addClick)="addOccupation()">
   <alv-competence-item *ngFor="let occupation of chFiche.occupations; let index = index"
                        type="CH-ISCO"
-
+                       [title]="{
+                         textDe: occupation.bfsCode,
+                         textFr: occupation.bfsCode,
+                         textIt: occupation.bfsCode,
+                         textEn: occupation.bfsCode
+                         }"
                        [superTitle]="occupation.chIsco5"
                        [isItemClickable]="false"
                        [showActionButton]="true"
@@ -28,6 +32,7 @@
                                      (toggleClick)="toggleCompetences(competenceType, $event)">
   <alv-competence-set *ngFor="let competenceSet of competences[competenceType]; let index = index"
                       [competenceSet]="competenceSet"
+
                       [isEditable]="false">
   </alv-competence-set>
 </alv-competence-items-collapse-panel>

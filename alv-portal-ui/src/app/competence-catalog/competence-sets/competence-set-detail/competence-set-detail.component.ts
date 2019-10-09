@@ -28,7 +28,7 @@ export class CompetenceSetDetailComponent implements OnInit {
 
   ngOnInit() {
     this.isEdit = !!this.route.snapshot.data.competenceSet;
-    this.competenceSet = this.route.snapshot.data.competenceSet || {...initialCompetenceSet};
+    this.competenceSet = this.route.snapshot.data.competenceSet || initialCompetenceSet();
   }
 
   saveCompetenceSet() {

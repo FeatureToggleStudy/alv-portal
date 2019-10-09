@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  CompetenceSet,
-  CompetenceSetSearchResult,
-  initialCompetenceSet
-} from '../../../shared/backend-services/competence-set/competence-set.types';
-import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
+import { CompetenceSet } from '../../../shared/backend-services/competence-set/competence-set.types';
 import { NotificationsService } from '../../../core/notifications.service';
 import {
   ChFiche,

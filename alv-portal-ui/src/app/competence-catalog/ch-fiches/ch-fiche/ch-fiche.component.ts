@@ -11,6 +11,7 @@ import { CompetenceSetSearchModalComponent } from '../competence-set-search-moda
 import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
 import { forkJoin } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { OccupationSearchModalComponent } from '../occupation-search-modal/occupation-search-modal.component';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -45,6 +46,17 @@ export class ChFicheComponent implements OnInit {
   }
 
   addOccupation() {
+    const modalRef = this.modalService.openMedium(OccupationSearchModalComponent);
+    modalRef.componentInstance.existingOccupations = this.chFiche.occupations.map(occupation => occupation.bfsCode);
+    modalRef.result
+      .then((bfsCode) => {
+        this.chFiche.occupations.push({
+          bfsCode
+        });
+        this.collapsed.OCCUPATIONS = false;
+      })
+      .catch(() => {
+      });
   }
 
   unlinkOccupation(index: number) {

@@ -4,18 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-item';
 import { map, take } from 'rxjs/operators';
-import {
-  CompetenceElement,
-  ElementType
-} from '../../../shared/backend-services/competence-element/competence-element.types';
-import { CompetenceElementRepository } from '../../../shared/backend-services/competence-element/competence-element.repository';
+import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
 import { I18nService } from '../../../core/i18n.service';
 import { getTranslatedString } from '../../../shared/backend-services/shared.types';
 import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
-import {
-  CompetenceSet,
-  CompetenceSetSearchResult
-} from '../../../shared/backend-services/competence-set/competence-set.types';
+import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
 import { DEFAULT_PAGE_SIZE } from 'src/app/shared/backend-services/request-util';
 
 @Component({

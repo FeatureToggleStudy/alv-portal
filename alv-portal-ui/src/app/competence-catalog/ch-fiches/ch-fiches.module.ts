@@ -9,6 +9,7 @@ import { ChFichesOverviewComponent } from './ch-fiches-overview/ch-fiches-overvi
 import { ChFicheDetailComponent } from './ch-fiche-detail/ch-fiche-detail.component';
 import { ChFicheComponent } from './ch-fiche/ch-fiche.component';
 import { CompetenceSetSearchModalComponent } from './competence-set-search-modal/competence-set-search-modal.component';
+import { OccupationSearchModalComponent } from './occupation-search-modal/occupation-search-modal.component';
 
 @NgModule({
   imports: [
@@ -22,10 +23,12 @@ import { CompetenceSetSearchModalComponent } from './competence-set-search-modal
     ChFichesOverviewComponent,
     ChFicheDetailComponent,
     ChFicheComponent,
-    CompetenceSetSearchModalComponent
+    CompetenceSetSearchModalComponent,
+    OccupationSearchModalComponent
   ],
   entryComponents: [
-    CompetenceSetSearchModalComponent
+    CompetenceSetSearchModalComponent,
+    OccupationSearchModalComponent
   ],
   providers: [
     ModalService
