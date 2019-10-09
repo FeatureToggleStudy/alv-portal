@@ -9,7 +9,7 @@
     <fa-icon class="collapse-icon"
              [icon]="['fas', isCollapsed ? 'chevron-down' : 'chevron-up']"></fa-icon>
     <span class="mx-3">{{ 'portal.competence-catalog.competence-sets.overview.competence-set-panel-header' | translate }}</span>
-    <span class="mx-3">ID {{ competenceSet.id | slice:0:6 }}</span>
+    <span class="mx-3">ID {{ competenceSet.id }}</span>
     <span class="flex-grow-1"></span>
   </button>
   <a class="edit-button btn btn-icon-sm light"
@@ -48,32 +48,21 @@
      [id]="competenceSet.id"
      [alvCollapse]="isCollapsed"
      [@expandCollapse]="isCollapsed ? 'closed' : 'open'">
-  <alv-competence-elements-collapse-panel [competenceSetId]="competenceSet.id"
-                                          [elementType]="elementType.KNOW_HOW_INDICATOR"
-                                          [showAddButton]="isEditable"
-                                          [isEmpty]="!knowHowIndicators?.length"
-                                          [isCollapsed]="collapsed[elementType.KNOW_HOW_INDICATOR]"
-                                          (addClicked)="addKnowHowIndicator()">
-    <alv-competence-element *ngFor="let indicator of knowHowIndicators"
-                            [competenceElement]="indicator"
+
+  <alv-competence-items-collapse-panel *ngFor="let subElementType of subElementTypes"
+                                       [id]="competenceSet.id"
+                                       [label]="'portal.competence-catalog.element-type.' + subElementType"
+                                       [showAddButton]="isEditable"
+                                       [isEmpty]="!getElementsByType(subElementType)?.length"
+                                       [isCollapsed]="collapsed[subElementType]"
+                                       (addClick)="addCompetenceElement(subElementType)">
+    <alv-competence-element *ngFor="let element of getElementsByType(subElementType)"
+                            [competenceElement]="element"
                             [isEditable]="isEditable"
                             [showUnlinkAction]="isEditable"
-                            (elementClick)="openUpdateElementModal($event, elementType.KNOW_HOW_INDICATOR)"
+                            (elementClick)="openUpdateElementModal($event, subElementType)"
                             (unlinkClick)="unlinkCompetenceElement($event)">
     </alv-competence-element>
-  </alv-competence-elements-collapse-panel>
-  <alv-competence-elements-collapse-panel [competenceSetId]="competenceSet.id"
-                                          [elementType]="elementType.KNOWLEDGE"
-                                          [showAddButton]="isEditable"
-                                          [isEmpty]="!knowledgeItems?.length"
-                                          [isCollapsed]="collapsed[elementType.KNOWLEDGE]"
-                                          (addClicked)="addKnowledgeItem()">
-    <alv-competence-element *ngFor="let knowledgeItem of knowledgeItems"
-                            [competenceElement]="knowledgeItem"
-                            [isEditable]="isEditable"
-                            [showUnlinkAction]="isEditable"
-                            (elementClick)="openUpdateElementModal($event, elementType.KNOWLEDGE)"
-                            (unlinkClick)="unlinkCompetenceElement($event)">
-    </alv-competence-element>
-  </alv-competence-elements-collapse-panel>
+  </alv-competence-items-collapse-panel>
+
 </div>

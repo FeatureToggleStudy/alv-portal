@@ -4,9 +4,10 @@ import { CompetenceElementComponent } from './competence-element/competence-elem
 import { SharedModule } from '../../shared/shared.module';
 import { CompetenceSetComponent } from './competence-set/competence-set.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { CompetenceElementsCollapsePanelComponent } from './competence-elements-collapse-panel/competence-elements-collapse-panel.component';
+import { CompetenceItemsCollapsePanelComponent } from './competence-items-collapse-panel/competence-items-collapse-panel.component';
 import { RouterModule } from '@angular/router';
 import { CompetenceElementModalComponent } from './competence-element-modal/competence-element-modal.component';
+import { CompetenceItemComponent } from './competence-item/competence-item.component';
 
 @NgModule({
   imports: [
@@ -18,8 +19,9 @@ import { CompetenceElementModalComponent } from './competence-element-modal/comp
   declarations: [
     CompetenceElementComponent,
     CompetenceSetComponent,
-    CompetenceElementsCollapsePanelComponent,
-    CompetenceElementModalComponent
+    CompetenceItemsCollapsePanelComponent,
+    CompetenceElementModalComponent,
+    CompetenceItemComponent
   ],
   providers: [],
   entryComponents: [
@@ -27,7 +29,9 @@ import { CompetenceElementModalComponent } from './competence-element-modal/comp
   ],
   exports: [
     CompetenceElementComponent,
-    CompetenceSetComponent
+    CompetenceSetComponent,
+    CompetenceItemComponent,
+    CompetenceItemsCollapsePanelComponent
   ]
 })
 export class SharedCompetenceCatalogModule {

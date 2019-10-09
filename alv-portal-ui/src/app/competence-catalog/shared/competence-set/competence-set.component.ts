@@ -32,6 +32,11 @@ export class CompetenceSetComponent implements OnInit {
 
   elementType = ElementType;
 
+  subElementTypes = [
+    ElementType.KNOW_HOW_INDICATOR,
+    ElementType.KNOWLEDGE
+  ];
+
   knowHowIndicators: CompetenceElement[];
 
   knowledgeItems: CompetenceElement[];
@@ -99,12 +104,13 @@ export class CompetenceSetComponent implements OnInit {
       });
   }
 
-  addKnowHowIndicator() {
-    this.addCompetenceElement(ElementType.KNOW_HOW_INDICATOR);
-  }
-
-  addKnowledgeItem() {
-    this.addCompetenceElement(ElementType.KNOWLEDGE);
+  getElementsByType(elementType: ElementType): CompetenceElement[] {
+    if (elementType === ElementType.KNOW_HOW_INDICATOR) {
+      return this.knowHowIndicators;
+    }
+    if (elementType === ElementType.KNOWLEDGE) {
+      return this.knowledgeItems;
+    }
   }
 
   private openUnlinkConfirmModal(): Promise<CompetenceElement> {

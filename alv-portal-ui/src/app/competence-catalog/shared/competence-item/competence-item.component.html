@@ -1,0 +1,22 @@
+<div class="position-relative">
+  <button class="competence-item d-flex align-items-center position-relative py-1 pr-3 w-100"
+          [class.disabled]="!isItemClickable"
+          [class.action-button-shown]="showActionButton"
+          (click)="onItemClick()">
+    <span class="hover-indicator h-100"></span>
+    <span class="title-container d-flex flex-column align-items-start">
+      <small class="super-title">
+        {{ type }} - {{ superTitle }}
+      </small>
+      <strong class="title text-truncate">
+        {{ translatedTitle$ | async }}
+      </strong>
+    </span>
+    <span class="flex-grow-1"></span>
+  </button>
+  <button class="action-button btn btn-icon-sm"
+          *ngIf="showActionButton"
+          (click)="onActionClick()">
+    <fa-icon [icon]="actionButtonIcon"></fa-icon>
+  </button>
+</div>

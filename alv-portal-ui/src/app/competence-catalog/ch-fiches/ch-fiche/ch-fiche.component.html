@@ -1,0 +1,33 @@
+
+<alv-competence-items-collapse-panel label="portal.competence-catalog.ch-fiches.label.occupations"
+                                     [id]="chFiche.id"
+                                     [isCollapsed]="collapsed.OCCUPATIONS"
+                                     [isEmpty]="!chFiche.occupations.length"
+                                     [showAddButton]="true"
+                                     [darkMode]="true"
+                                     (addClick)="addOccupation()">
+  <alv-competence-item *ngFor="let occupation of chFiche.occupations; let index = index"
+                       type="CH-ISCO"
+
+                       [superTitle]="occupation.chIsco5"
+                       [isItemClickable]="false"
+                       [showActionButton]="true"
+                       [actionButtonIcon]="['fas', 'unlink']"
+                       (actionClick)="unlinkOccupation(index)">
+  </alv-competence-item>
+</alv-competence-items-collapse-panel>
+
+<alv-competence-items-collapse-panel *ngFor="let competenceType of competenceTypes"
+                                     [id]="chFiche.id + competenceType"
+                                     [label]="'portal.competence-catalog.ch-fiches.label.' + competenceType"
+                                     [showAddButton]="true"
+                                     [isCollapsed]="collapsed[competenceType]"
+                                     [isEmpty]="!getCompetencesByType(competenceType).length"
+                                     [darkMode]="true"
+                                     (addClick)="addCompetence(competenceType)"
+                                     (toggleClick)="toggleCompetences(competenceType, $event)">
+  <alv-competence-set *ngFor="let competenceSet of competences[competenceType]; let index = index"
+                      [competenceSet]="competenceSet"
+                      [isEditable]="false">
+  </alv-competence-set>
+</alv-competence-items-collapse-panel>

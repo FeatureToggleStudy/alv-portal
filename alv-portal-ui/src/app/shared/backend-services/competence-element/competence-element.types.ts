@@ -1,3 +1,5 @@
+import { TranslatedString } from '../shared.types';
+
 export enum ElementType {
   KNOW_HOW = 'KNOW_HOW',
   KNOW_HOW_INDICATOR = 'KNOW_HOW_INDICATOR',
@@ -22,14 +24,3 @@ export interface UpdateCompetenceElement {
   published: boolean;
   description: TranslatedString;
 }
-
-export interface TranslatedString {
-  textDe: string;
-  textFr: string;
-  textIt: string;
-  textEn: string;
-}
-
-export const getTranslatedString = (description: TranslatedString, lang: string) => {
-  return description['text' + lang[0].toUpperCase() + lang[1]];
-};
