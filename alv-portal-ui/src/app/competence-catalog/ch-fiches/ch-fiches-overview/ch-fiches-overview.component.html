@@ -29,7 +29,7 @@
       </a>
 
       <alv-competence-item *ngFor="let chFiche of chFiches"
-                           [title]="chFiche.title"
+                           [multiLanguageTitle]="chFiche.title"
                            [type]="'portal.competence-catalog.ch-fiches.type' | translate"
                            [superTitle]="'ID ' + chFiche.id"
                            [actionButtonIcon]="['fas', 'unlink']"

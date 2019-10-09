@@ -20,16 +20,16 @@ import { I18nService } from '../../../core/i18n.service';
 })
 export class CompetenceItemComponent implements OnInit {
 
-  private _title: TranslatedString;
+  private _multiLanguageTitle: TranslatedString;
 
-  get title(): TranslatedString {
-    return this._title;
+  get multiLanguageTitle(): TranslatedString {
+    return this._multiLanguageTitle;
   }
 
   @Input()
-  set title(value: TranslatedString) {
-    this._title = value;
-    this.setDescription();
+  set multiLanguageTitle(value: TranslatedString) {
+    this._multiLanguageTitle = value;
+    this.setMultiLanguageTitle();
   }
 
   @Input() superTitle: string;
@@ -62,9 +62,9 @@ export class CompetenceItemComponent implements OnInit {
     this.actionClick.emit();
   }
 
-  private setDescription() {
+  private setMultiLanguageTitle() {
     this.translatedTitle$ = this.i18nService.currentLanguage$.pipe(
-      map(lang => getTranslatedString(this.title, lang) || this.getNextAvailableTitle())
+      map(lang => getTranslatedString(this.multiLanguageTitle, lang) || this.getNextAvailableTitle())
     );
   }
 
@@ -73,7 +73,7 @@ export class CompetenceItemComponent implements OnInit {
    */
   private getNextAvailableTitle() {
     for (const lang of Object.values(Languages)) {
-      const description = getTranslatedString(this.title, lang);
+      const description = getTranslatedString(this.multiLanguageTitle, lang);
       if (description) {
         return description;
       }

@@ -28,7 +28,7 @@ export class ChFicheDetailComponent implements OnInit {
 
   ngOnInit() {
     this.isEdit = !!this.route.snapshot.data.chFiche;
-    this.chFiche = this.route.snapshot.data.chFiche || {...initialChFiche};
+    this.chFiche = this.route.snapshot.data.chFiche || initialChFiche();
   }
 
   saveChFiche() {

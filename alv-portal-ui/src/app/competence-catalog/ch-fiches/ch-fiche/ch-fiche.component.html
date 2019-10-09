@@ -7,7 +7,7 @@
                                      (addClick)="addOccupation()">
   <alv-competence-item *ngFor="let occupation of chFiche.occupations; let index = index"
                        type="CH-ISCO"
-                       [title]="{
+                       [multiLanguageTitle]="{
                          textDe: occupation.bfsCode,
                          textFr: occupation.bfsCode,
                          textIt: occupation.bfsCode,

@@ -34,9 +34,6 @@ export class ChFicheComponent implements OnInit {
     [CompetenceType.BASIC]: [],
     [CompetenceType.SPECIALIST]: []
   };
-  basicCompetences: CompetenceSetSearchResult[];
-
-  specialistCompetences: CompetenceSetSearchResult[];
 
   constructor(private modalService: ModalService,
               private competenceSetRepository: CompetenceSetRepository) {

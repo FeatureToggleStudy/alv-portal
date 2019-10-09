@@ -5,14 +5,8 @@ export enum CompetenceType {
   SPECIALIST = 'SPECIALIST'
 }
 
-export interface ChFiche {
+export interface ChFiche extends UpdateChFiche {
   id: string;
-  draft: boolean;
-  published: boolean;
-  title: TranslatedString;
-  description: TranslatedString;
-  occupations: Occupation[];
-  competences: Competence[];
 }
 
 export interface CreateChFiche {
@@ -22,13 +16,9 @@ export interface CreateChFiche {
   competences: Competence[];
 }
 
-export interface UpdateChFiche {
+export interface UpdateChFiche extends CreateChFiche {
   draft: boolean;
   published: boolean;
-  title: TranslatedString;
-  description: TranslatedString;
-  occupations: Occupation[];
-  competences: Competence[];
 }
 
 export interface Occupation {
@@ -42,7 +32,9 @@ export interface Competence {
   competenceSetId: string;
 }
 
-export const initialChFiche = {
-  occupations: [],
-  competences: []
+export const initialChFiche = () => {
+  return {
+    occupations: [],
+    competences: []
+  };
 };
