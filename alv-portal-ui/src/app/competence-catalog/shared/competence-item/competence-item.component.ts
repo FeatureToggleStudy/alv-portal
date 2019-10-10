@@ -1,8 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  CompetenceElement,
-  ElementType
-} from '../../../shared/backend-services/competence-element/competence-element.types';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   getTranslatedString,
@@ -20,6 +16,18 @@ import { I18nService } from '../../../core/i18n.service';
 })
 export class CompetenceItemComponent implements OnInit {
 
+  @Input() superTitle: string;
+  @Input() type: string;
+  @Input() showActionButton: boolean;
+  @Input() actionButtonIcon: IconProp;
+  @Input() isItemClickable: boolean;
+  @Output() itemClick = new EventEmitter<void>();
+  @Output() actionClick = new EventEmitter<void>();
+  translatedTitle$: Observable<{isWrongLanguage: boolean, value: string}>;
+
+  constructor(private i18nService: I18nService) {
+  }
+
   private _multiLanguageTitle: TranslatedString;
 
   get multiLanguageTitle(): TranslatedString {
@@ -30,25 +38,6 @@ export class CompetenceItemComponent implements OnInit {
   set multiLanguageTitle(value: TranslatedString) {
     this._multiLanguageTitle = value;
     this.setMultiLanguageTitle();
-  }
-
-  @Input() superTitle: string;
-
-  @Input() type: string;
-
-  @Input() showActionButton: boolean;
-
-  @Input() actionButtonIcon: IconProp;
-
-  @Input() isItemClickable: boolean;
-
-  @Output() itemClick = new EventEmitter<void>();
-
-  @Output() actionClick = new EventEmitter<void>();
-
-  translatedTitle$: Observable<string>;
-
-  constructor(private i18nService: I18nService) {
   }
 
   ngOnInit() {
@@ -64,7 +53,19 @@ export class CompetenceItemComponent implements OnInit {
 
   private setMultiLanguageTitle() {
     this.translatedTitle$ = this.i18nService.currentLanguage$.pipe(
-      map(lang => getTranslatedString(this.multiLanguageTitle, lang) || this.getNextAvailableTitle())
+      map(lang => {
+        const translatedString = getTranslatedString(this.multiLanguageTitle, lang);
+        if (!translatedString) {
+          return {
+            isWrongLanguage: true,
+            value: this.getNextAvailableTitle()
+          };
+        }
+        return {
+          isWrongLanguage: false,
+          value: translatedString
+        };
+      })
     );
   }
 
