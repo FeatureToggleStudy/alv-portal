@@ -289,7 +289,7 @@ export interface TranslatedString {
 }
 
 export interface TranslatedStringToCurrentLanguage {
-  value: TranslatedString;
+  value: string;
   isWrongLanguage: boolean;
 }
 
@@ -297,7 +297,7 @@ export interface TranslatedStringToCurrentLanguage {
 /*
  * Get description in the next available language if current language is not available
  */
-function getNextAvailableTitle() {
+function getNextAvailableTitle(): string {
   for (const lang of Object.values(Languages)) {
     const description = findStringForLanguage(this.multiLanguageTitle, lang);
     if (description) {
