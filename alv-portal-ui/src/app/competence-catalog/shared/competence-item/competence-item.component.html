@@ -10,7 +10,7 @@
         {{ type }} - {{ superTitle }}
       </small>
       <strong class="title text-truncate"
-              [ngClass]="{'text-muted': translatedTitle.isWrongLanguage}">
+              [class.text-muted]="translatedTitle.isWrongLanguage">
         {{ translatedTitle.value }}
       </strong>
     </span>

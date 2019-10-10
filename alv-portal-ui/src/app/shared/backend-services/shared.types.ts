@@ -1,3 +1,5 @@
+import { Languages } from '../../core/languages.constants';
+
 export enum Gender {
   MALE = 'MALE',
   FEMALE = 'FEMALE'
@@ -286,6 +288,38 @@ export interface TranslatedString {
   textEn: string;
 }
 
-export const getTranslatedString = (description: TranslatedString, lang: string) => {
+export interface TranslatedStringToCurrentLanguage {
+  value: TranslatedString;
+  isWrongLanguage: boolean;
+}
+
+
+/*
+ * Get description in the next available language if current language is not available
+ */
+function getNextAvailableTitle() {
+  for (const lang of Object.values(Languages)) {
+    const description = findStringForLanguage(this.multiLanguageTitle, lang);
+    if (description) {
+      return description;
+    }
+  }
+}
+
+export function getTranslatedString (description: TranslatedString, lang: string): TranslatedStringToCurrentLanguage{
+  const translatedString = findStringForLanguage(description, lang);
+  if (!translatedString) {
+    return {
+      isWrongLanguage: true,
+      value: getNextAvailableTitle()
+    };
+  }
+  return {
+    isWrongLanguage: false,
+    value: translatedString
+  };
+}
+
+function findStringForLanguage (description: TranslatedString, lang: string) {
   return description['text' + lang[0].toUpperCase() + lang[1]];
-};
+}

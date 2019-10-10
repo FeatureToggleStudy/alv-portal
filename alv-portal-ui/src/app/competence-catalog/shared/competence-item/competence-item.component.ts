@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   getTranslatedString,
-  TranslatedString
+  TranslatedString, TranslatedStringToCurrentLanguage
 } from '../../../shared/backend-services/shared.types';
 import { map } from 'rxjs/operators';
 import { Languages } from '../../../core/languages.constants';
@@ -17,13 +17,20 @@ import { I18nService } from '../../../core/i18n.service';
 export class CompetenceItemComponent implements OnInit {
 
   @Input() superTitle: string;
+
   @Input() type: string;
+
   @Input() showActionButton: boolean;
+
   @Input() actionButtonIcon: IconProp;
+
   @Input() isItemClickable: boolean;
+
   @Output() itemClick = new EventEmitter<void>();
+
   @Output() actionClick = new EventEmitter<void>();
-  translatedTitle$: Observable<{isWrongLanguage: boolean, value: string}>;
+
+  translatedTitle$: Observable<TranslatedStringToCurrentLanguage>;
 
   constructor(private i18nService: I18nService) {
   }
@@ -53,31 +60,8 @@ export class CompetenceItemComponent implements OnInit {
 
   private setMultiLanguageTitle() {
     this.translatedTitle$ = this.i18nService.currentLanguage$.pipe(
-      map(lang => {
-        const translatedString = getTranslatedString(this.multiLanguageTitle, lang);
-        if (!translatedString) {
-          return {
-            isWrongLanguage: true,
-            value: this.getNextAvailableTitle()
-          };
-        }
-        return {
-          isWrongLanguage: false,
-          value: translatedString
-        };
-      })
+      map(lang => getTranslatedString(this.multiLanguageTitle, lang))
     );
   }
 
-  /*
-   * Get description in the next available language if current language is not available
-   */
-  private getNextAvailableTitle() {
-    for (const lang of Object.values(Languages)) {
-      const description = getTranslatedString(this.multiLanguageTitle, lang);
-      if (description) {
-        return description;
-      }
-    }
-  }
 }
