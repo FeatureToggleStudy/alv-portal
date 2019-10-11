@@ -165,7 +165,7 @@ export function candidateContact(candidateProfile: CandidateProfile, jobCenter: 
 }
 
 export function canViewCandidateProtectedData(candidateProfile: CandidateProfile, currentUser: User): boolean {
-  return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_ADMIN]) && candidateProfile.showProtectedData);
+  return Boolean(currentUser && currentUser.hasAnyAuthorities([UserRole.ROLE_PAV, UserRole.ROLE_SYSADMIN]) && candidateProfile.showProtectedData);
 }
 
 export function hasEmailContactType(candidateProfile: CandidateProfile): boolean {
