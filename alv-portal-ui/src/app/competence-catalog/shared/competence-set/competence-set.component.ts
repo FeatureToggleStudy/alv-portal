@@ -63,9 +63,9 @@ export class CompetenceSetComponent implements OnInit {
     if (!this.isEditable) {
       return;
     }
-    const createModalRef = this.modalService.openMedium(CompetenceElementModalComponent, true);
-    createModalRef.componentInstance.competenceElement = competenceElement;
-    createModalRef.result
+    const modalRef = this.modalService.openMedium(CompetenceElementModalComponent, true);
+    modalRef.componentInstance.competenceElement = competenceElement;
+    modalRef.result
       .then(updatedCompetenceElement => {
         if (type === ElementType.KNOW_HOW) {
           this.competenceSet.knowHow = updatedCompetenceElement;
