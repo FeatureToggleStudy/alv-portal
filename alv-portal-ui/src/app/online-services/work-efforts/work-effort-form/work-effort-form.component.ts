@@ -62,6 +62,7 @@ import {
 import { ScrollService } from '../../../core/scroll.service';
 import { NotificationsService } from '../../../core/notifications.service';
 import { ValidationMessage } from '../../../shared/forms/input/validation-messages/validation-message.model';
+import { emailInputValidator } from '../../../shared/forms/input/input-field/email-input.validator';
 
 const workLoadPrefix = 'portal.work-efforts.edit-form.work-loads';
 const appliedThroughRavPrefix = 'portal.global';
@@ -190,7 +191,7 @@ export class WorkEffortFormComponent extends AbstractSubscriber implements OnIni
       companyEmailAndUrl: this.fb.group(
         {
           email: ['', [
-            patternInputValidator(EMAIL_REGEX),
+            emailInputValidator(),
             Validators.maxLength(this.EMAIL_MAX_LENGTH)
           ]],
           url: ['', [
