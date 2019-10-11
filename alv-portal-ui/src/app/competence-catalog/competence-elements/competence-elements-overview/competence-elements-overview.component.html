@@ -36,13 +36,15 @@
 
     </div>
     <div class="mt-5 d-none d-lg-block col-lg-3 col-xl-2">
-      <button *ngIf="isCompetenceCatalogEditor$ | async"
-              (click)="openCreateModal()"
-         class="add-element-button btn btn-text btn-text-icon btn-block btn-truncate">
-        <fa-icon [icon]="['fas', 'plus']"
-                 class="mr-1"></fa-icon>
-        {{'portal.global.enter' | translate}}
-      </button>
+      <div class="actions-container">
+        <button *ngIf="isCompetenceCatalogEditor$ | async"
+                (click)="openCreateModal()"
+                class="add-element-button btn btn-text btn-text-icon btn-block btn-truncate mb-1">
+          <fa-icon [icon]="['fas', 'plus']"
+                   class="mr-1"></fa-icon>
+          {{'portal.global.enter' | translate}}
+        </button>
+      </div>
 
     </div>
   </div>
