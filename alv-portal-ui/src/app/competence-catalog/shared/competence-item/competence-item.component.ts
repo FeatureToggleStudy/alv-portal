@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
+  CompetenceCatalogAction,
   getTranslatedString,
   TranslatedString, TranslatedStringToCurrentLanguage
 } from '../../../shared/backend-services/shared.types';
@@ -23,6 +24,8 @@ export class CompetenceItemComponent implements OnInit {
   @Input() showActionButton: boolean;
 
   @Input() actionButtonIcon: IconProp;
+
+  @Input() actions: CompetenceCatalogAction[];
 
   @Input() isItemClickable: boolean;
 

@@ -1,4 +1,5 @@
 import { Languages } from '../../core/languages.constants';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 export enum Gender {
   MALE = 'MALE',
@@ -293,7 +294,6 @@ export interface TranslatedStringToCurrentLanguage {
   isWrongLanguage: boolean;
 }
 
-
 /*
  * Get description in the next available language if current language is not available
  */
@@ -322,4 +322,17 @@ export function getTranslatedString (description: TranslatedString, lang: string
 
 function findStringForLanguage (description: TranslatedString, lang: string) {
   return description['text' + lang[0].toUpperCase() + lang[1]];
+}
+
+
+export interface CompetenceCatalogAction {
+  name: CompetenceCatalogActions;
+  icon: IconProp;
+}
+
+export enum CompetenceCatalogActions {
+  LINK = 'LINK',
+  UNLINK = 'UNLINK',
+  ADD = 'ADD',
+  DELETE = 'DELETE'
 }
