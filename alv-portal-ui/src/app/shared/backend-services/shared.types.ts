@@ -306,7 +306,7 @@ function getNextAvailableTitle(): string {
   }
 }
 
-export function getTranslatedString (description: TranslatedString, lang: string): TranslatedStringToCurrentLanguage{
+export function getTranslatedString (description: TranslatedString, lang: string): TranslatedStringToCurrentLanguage {
   const translatedString = findStringForLanguage(description, lang);
   if (!translatedString) {
     return {
