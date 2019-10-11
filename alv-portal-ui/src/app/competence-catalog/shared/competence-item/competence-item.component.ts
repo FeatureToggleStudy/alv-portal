@@ -1,12 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  CompetenceElement,
-  ElementType
-} from '../../../shared/backend-services/competence-element/competence-element.types';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   getTranslatedString,
-  TranslatedString
+  TranslatedString, TranslatedStringToCurrentLanguage
 } from '../../../shared/backend-services/shared.types';
 import { map } from 'rxjs/operators';
 import { Languages } from '../../../core/languages.constants';
@@ -19,18 +15,6 @@ import { I18nService } from '../../../core/i18n.service';
   styleUrls: ['./competence-item.component.scss']
 })
 export class CompetenceItemComponent implements OnInit {
-
-  private _multiLanguageTitle: TranslatedString;
-
-  get multiLanguageTitle(): TranslatedString {
-    return this._multiLanguageTitle;
-  }
-
-  @Input()
-  set multiLanguageTitle(value: TranslatedString) {
-    this._multiLanguageTitle = value;
-    this.setMultiLanguageTitle();
-  }
 
   @Input() superTitle: string;
 
@@ -46,9 +30,21 @@ export class CompetenceItemComponent implements OnInit {
 
   @Output() actionClick = new EventEmitter<void>();
 
-  translatedTitle$: Observable<string>;
+  translatedTitle$: Observable<TranslatedStringToCurrentLanguage>;
 
   constructor(private i18nService: I18nService) {
+  }
+
+  private _multiLanguageTitle: TranslatedString;
+
+  get multiLanguageTitle(): TranslatedString {
+    return this._multiLanguageTitle;
+  }
+
+  @Input()
+  set multiLanguageTitle(value: TranslatedString) {
+    this._multiLanguageTitle = value;
+    this.setMultiLanguageTitle();
   }
 
   ngOnInit() {
@@ -64,19 +60,8 @@ export class CompetenceItemComponent implements OnInit {
 
   private setMultiLanguageTitle() {
     this.translatedTitle$ = this.i18nService.currentLanguage$.pipe(
-      map(lang => getTranslatedString(this.multiLanguageTitle, lang) || this.getNextAvailableTitle())
+      map(lang => getTranslatedString(this.multiLanguageTitle, lang))
     );
   }
 
-  /*
-   * Get description in the next available language if current language is not available
-   */
-  private getNextAvailableTitle() {
-    for (const lang of Object.values(Languages)) {
-      const description = getTranslatedString(this.multiLanguageTitle, lang);
-      if (description) {
-        return description;
-      }
-    }
-  }
 }

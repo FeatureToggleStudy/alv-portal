@@ -1,4 +1,5 @@
-<div class="position-relative">
+<div class="position-relative"
+     *ngIf="translatedTitle$ | async as translatedTitle">
   <button class="competence-item d-flex align-items-center position-relative py-1 pr-3 w-100"
           [class.disabled]="!isItemClickable"
           [class.action-button-shown]="showActionButton"
@@ -8,8 +9,9 @@
       <small class="super-title">
         {{ type }} - {{ superTitle }}
       </small>
-      <strong class="title text-truncate">
-        {{ translatedTitle$ | async }}
+      <strong class="title text-truncate"
+              [class.text-muted]="translatedTitle.isWrongLanguage">
+        {{ translatedTitle.value }}
       </strong>
     </span>
     <span class="flex-grow-1"></span>
