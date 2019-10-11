@@ -82,14 +82,14 @@ export const CC_MAIN_MENU_ENTRIES: MenuEntry[] = [
     id: 'competence-sets',
     iconProp: ['far', 'list-alt'],
     labelKey: 'portal.competence-catalog.menu-entries.competence-sets',
-    path: ['kk', 'sets'],
+    path: ['kk', 'competence-sets'],
     userPredicate: (u) => isAnyUser()
   },
   {
     id: 'competence-elements',
     iconProp: ['fas', 'list-ul'],
     labelKey: 'portal.competence-catalog.menu-entries.competence-elements',
-    path: ['kk', 'elements'],
+    path: ['kk', 'competence-elements'],
     userPredicate: (u) => isAnyUser()
   }
 ];
