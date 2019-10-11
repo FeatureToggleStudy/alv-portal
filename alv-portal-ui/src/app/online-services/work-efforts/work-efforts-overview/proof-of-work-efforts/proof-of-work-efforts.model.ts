@@ -8,6 +8,8 @@ import {
   ProofOfWorkEffortsStatus
 } from '../../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 import { WorkEffortModel } from '../work-effort/work-effort.model';
+import { deltaDate } from '../../../../shared/forms/input/ngb-date-utils';
+import { WORK_EFFORT_MONTHS_DIFF } from '../../work-effort-form/work-effort-form.types';
 
 
 export class ProofOfWorkEffortsModel {
@@ -25,6 +27,8 @@ export class ProofOfWorkEffortsModel {
   monthValue: number;
 
   submissionDate: Date;
+
+  submissionDateFormat: string;
 
   hasPdfDocument: boolean;
 
@@ -51,6 +55,8 @@ export class ProofOfWorkEffortsModel {
       parseInt(this.proofOfWorkEfforts.controlPeriod.value.split('-')[1], 10) : null;
 
     this.submissionDate = this.buildSubmissionDate();
+
+    this.submissionDateFormat = this.isSentSuccessfully ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:mm';
 
     this.hasPdfDocument = !!this.proofOfWorkEfforts.documentId;
 
@@ -80,11 +86,22 @@ export class ProofOfWorkEffortsModel {
     if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.OPEN ||
       this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.RE_OPENED) {
       return baseLabel + 'open';
-    } else if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.SUBMITTED && this.proofOfWorkEfforts.workEfforts.length === 0) {
-      return baseLabel + 'submitted-without-work-effort';
-    } else {
-      return baseLabel + 'submitted';
     }
+    if (this.proofOfWorkEfforts.status === ProofOfWorkEffortsStatus.SUBMITTED && this.proofOfWorkEfforts.workEfforts.length === 0) {
+      if (this.isWorkEffortLimitReached()) {
+        return baseLabel + 'closed';
+      }
+      return baseLabel + 'submitted-without-work-effort';
+    }
+    return baseLabel + 'submitted';
   }
+
+  private isWorkEffortLimitReached() {
+    const minDate = deltaDate(new Date(), 0, WORK_EFFORT_MONTHS_DIFF, 0);
+    minDate.setDate(1);
+    const endDate = new Date(this.proofOfWorkEfforts.endDate);
+    return endDate < minDate;
+  }
+
 }
 

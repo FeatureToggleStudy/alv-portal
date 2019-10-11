@@ -7,6 +7,7 @@ import {
 } from '../../../shared/backend-services/user-info/user-info.types';
 import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { ProfileInfo } from '../../../shared/layout/header/profile-info.service';
+import { AppContext } from '../../app-context/app-context.enum';
 
 export const LANGUAGE_CHANGED = 'CORE:LANGUAGE_CHANGED';
 export const LANGUAGE_INITIALIZED = 'CORE:LANGUAGE_INITIALIZED';
@@ -32,6 +33,8 @@ export const UPDATED_JOB_AD_FAVOURITE = 'CORE:UPDATED_JOB_AD_FAVOURITE';
 
 export const LOAD_PROFILE_INFO = 'CORE:LOAD_PROFILE_INFO';
 export const PROFILE_INFO_LOADED = 'CORE:PROFILE_INFO_LOADED';
+
+export const SET_APP_CONTEXT = 'CORE:SET_APP_CONTEXT';
 
 export const LAZY_LOADED_MODULE_DESTROYED = 'CORE:LAZY_LOADED_MODULE_DESTROYED';
 
@@ -189,6 +192,12 @@ export class ProfileInfoLoadedAction implements Action {
   }
 }
 
+export class SetAppContextAction implements Action {
+  readonly type = SET_APP_CONTEXT;
+
+  constructor(public payload: {appContext: AppContext}) {
+  }
+}
 
 /**
  * Action that is used to reset a Lazy-Loaded Module state
@@ -210,7 +219,8 @@ export enum ModuleName {
   JOB_SEARCH_PROFILES = <any>'JOB_SEARCH_PROFILES',
   CANDIDATE_SEARCH_PROFILES = <any>'CANDIDATE_SEARCH_PROFILES',
   WORK_EFFORTS = <any>'WORK_EFFORTS',
-  APPLICATION_DOCUMENTS = <any>'APPLICATION_DOCUMENTS'
+  APPLICATION_DOCUMENTS = <any>'APPLICATION_DOCUMENTS',
+  COMPETENCE_CATALOG = <any>'COMPETENCE_CATALOG'
 }
 
 export interface CompanySelection {

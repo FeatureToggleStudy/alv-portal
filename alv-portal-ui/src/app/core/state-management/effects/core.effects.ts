@@ -50,6 +50,7 @@ import {
   ProfileInfo,
   ProfileInfoResource
 } from '../../../shared/layout/header/profile-info.service';
+import { LandingNavigationService } from '../../landing-navigation.service';
 
 @Injectable()
 export class CoreEffects {
@@ -172,7 +173,7 @@ export class CoreEffects {
     ofType(SESSION_EXPIRED),
     tap(() => {
       this.notificationsService.info('portal.authentication.notification.expired', true);
-      this.router.navigate(['/home']);
+      this.landingNavigationService.navigateHome();
     }),
     map(() => {
       return new LogoutUserAction({});
@@ -236,12 +237,12 @@ export class CoreEffects {
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
               private companyRepository: CompanyRepository,
-              private router: Router,
               private store: Store<CoreState>,
               private userInfoRepository: UserInfoRepository,
               private notificationsService: NotificationsService,
               private errorHandlerService: ErrorHandlerService,
               private sessionManagerService: SessionManagerService,
+              private landingNavigationService: LandingNavigationService,
               private jobAdFavouritesRepository: JobAdFavouritesRepository
   ) {
 

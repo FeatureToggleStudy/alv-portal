@@ -55,6 +55,7 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
 import { AssistantLayoutComponent } from './column-layout/assistant-layout/assistant-layout.component';
 import { EnvironmentRibbonComponent } from './environment-ribbon/environment-ribbon.component';
 import { SearchProfileItemComponent } from './search-profile-item/search-profile-item.component';
+import { SharedAppContextModule } from '../app-context/shared-app-context.module';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { SearchProfileItemComponent } from './search-profile-item/search-profile
     RouterModule,
     IconsModule,
     SharedAuthModule,
+    SharedAppContextModule,
     FormsModule,
     TranslateModule,
     NgbDropdownModule,
