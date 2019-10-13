@@ -4,14 +4,18 @@ import {
   Competence,
   CompetenceType
 } from '../../../shared/backend-services/ch-fiche/ch-fiche.types';
-import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
+import {
+  CompetenceElement,
+  ElementType
+} from '../../../shared/backend-services/competence-element/competence-element.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
 import { CompetenceSetSearchModalComponent } from '../competence-set-search-modal/competence-set-search-modal.component';
 import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
 import { forkJoin } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { OccupationSearchModalComponent } from '../occupation-search-modal/occupation-search-modal.component';
+import { CompetenceElementModalComponent } from '../../shared/competence-element-modal/competence-element-modal.component';
+import { ChFicheTitleModalComponent } from '../ch-fiche-title-modal/ch-fiche-title-modal.component';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -97,6 +101,16 @@ export class ChFicheComponent implements OnInit {
     return this.chFiche.competences.filter(competence => competence.type === competenceType);
   }
 
+  addFicheName() {
+    const modalRef = this.modalService.openMedium(ChFicheTitleModalComponent);
+    modalRef.result
+      .then((competenceElement) => {
+        // this.competenceSet.knowHow = competenceElement;
+      })
+      .catch(() => {
+      });
+  }
+
   private loadCompetences(competenceType: CompetenceType) {
     return forkJoin(
       this.chFiche.competences
@@ -116,5 +130,4 @@ export class ChFicheComponent implements OnInit {
       content: 'portal.competence-catalog.competence-sets.overview.delete-confirmation.text'
     }).result;
   }
-
 }

@@ -21,7 +21,7 @@ import { CompetenceItemComponent } from './competence-item/competence-item.compo
     CompetenceSetComponent,
     CompetenceItemsCollapsePanelComponent,
     CompetenceElementModalComponent,
-    CompetenceItemComponent
+    CompetenceItemComponent,
   ],
   providers: [],
   entryComponents: [

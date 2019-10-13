@@ -5,7 +5,6 @@ import {
   TranslatedString, TranslatedStringToCurrentLanguage
 } from '../../../shared/backend-services/shared.types';
 import { map } from 'rxjs/operators';
-import { Languages } from '../../../core/languages.constants';
 import { Observable } from 'rxjs';
 import { I18nService } from '../../../core/i18n.service';
 
