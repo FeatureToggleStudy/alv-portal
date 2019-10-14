@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
-  CompetenceCatalogAction,
+  CompetenceCatalogAction, CompetenceCatalogActions,
   getTranslatedString,
   TranslatedString, TranslatedStringToCurrentLanguage
 } from '../../../shared/backend-services/shared.types';
@@ -21,17 +21,15 @@ export class CompetenceItemComponent implements OnInit {
 
   @Input() type: string;
 
-  @Input() showActionButton: boolean;
+  @Input() isItemClickable: boolean;
 
-  @Input() actionButtonIcon: IconProp;
+  @Input() showActionButtons: boolean;
 
   @Input() actions: CompetenceCatalogAction[];
 
-  @Input() isItemClickable: boolean;
-
   @Output() itemClick = new EventEmitter<void>();
 
-  @Output() actionClick = new EventEmitter<void>();
+  @Output() actionClick = new EventEmitter<CompetenceCatalogActions>();
 
   translatedTitle$: Observable<TranslatedStringToCurrentLanguage>;
 
@@ -57,8 +55,8 @@ export class CompetenceItemComponent implements OnInit {
     this.itemClick.emit();
   }
 
-  onActionClick() {
-    this.actionClick.emit();
+  onActionClick(action: CompetenceCatalogActions) {
+    this.actionClick.emit(action);
   }
 
   private setMultiLanguageTitle() {

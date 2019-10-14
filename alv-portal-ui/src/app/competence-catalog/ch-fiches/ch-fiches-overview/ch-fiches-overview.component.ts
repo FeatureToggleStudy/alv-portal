@@ -6,6 +6,10 @@ import { Observable } from 'rxjs';
 import { ChFicheRepository } from '../../../shared/backend-services/ch-fiche/ch-fiche.repository';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { ChFiche } from '../../../shared/backend-services/ch-fiche/ch-fiche.types';
+import {
+  CompetenceCatalogAction,
+  CompetenceCatalogActions
+} from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-ch-fiches-overview',
@@ -19,6 +23,13 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
   isCompetenceCatalogEditor$: Observable<boolean>;
 
   chFiches: ChFiche[];
+
+  chFicheActions: CompetenceCatalogAction[] = [
+    {
+      name: CompetenceCatalogActions.UNLINK,
+      icon: ['fas', 'unlink']
+    }
+  ];
 
   private page = 0;
 

@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
+import {
+  CompetenceCatalogAction,
+  CompetenceCatalogActions
+} from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-competence-element',
@@ -17,6 +21,13 @@ export class CompetenceElementComponent implements OnInit {
   @Output() elementClick = new EventEmitter<CompetenceElement>();
 
   @Output() unlinkClick = new EventEmitter<CompetenceElement>();
+
+  competenceElementActions: CompetenceCatalogAction[] = [
+    {
+      name: CompetenceCatalogActions.UNLINK,
+      icon: ['fas', 'unlink']
+    }
+  ];
 
   constructor() {
   }

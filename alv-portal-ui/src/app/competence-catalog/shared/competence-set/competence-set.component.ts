@@ -11,6 +11,10 @@ import { CompetenceElementSearchModalComponent } from '../../competence-sets/com
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CompetenceElementModalComponent } from '../competence-element-modal/competence-element-modal.component';
+import {
+  CompetenceCatalogAction,
+  CompetenceCatalogActions
+} from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-competence-set',
@@ -46,6 +50,13 @@ export class CompetenceSetComponent implements OnInit {
     [ElementType.KNOWLEDGE]: true
   };
 
+  competenceElementActions: CompetenceCatalogAction[] = [
+    {
+      name: CompetenceCatalogActions.UNLINK,
+      icon: ['fas', 'unlink']
+    }
+  ];
+
   constructor(private competenceElementRepository: CompetenceElementRepository,
               private modalService: ModalService) {
   }
@@ -59,7 +70,7 @@ export class CompetenceSetComponent implements OnInit {
     this.loadCompetenceElementsIfRequired();
   }
 
-  openUpdateElementModal(competenceElement: CompetenceElement, type: ElementType) {
+  openUpdateElementModal(competenceElement: CompetenceElement) {
     if (!this.isEditable) {
       return;
     }
@@ -67,7 +78,7 @@ export class CompetenceSetComponent implements OnInit {
     modalRef.componentInstance.competenceElement = competenceElement;
     modalRef.result
       .then(updatedCompetenceElement => {
-        if (type === ElementType.KNOW_HOW) {
+        if (competenceElement.type === ElementType.KNOW_HOW) {
           this.competenceSet.knowHow = updatedCompetenceElement;
         } else {
           this.loadCompetenceElements().subscribe();
@@ -75,22 +86,6 @@ export class CompetenceSetComponent implements OnInit {
       })
       .catch(() => {
       });
-  }
-
-  unlinkCompetenceElement(competenceElement: CompetenceElement) {
-    this.openUnlinkConfirmModal().then(result => {
-      const indexToRemove = this.competenceSet.competenceElementIds.indexOf(competenceElement.id);
-      this.competenceSet.competenceElementIds.splice(indexToRemove, 1);
-      this.loadCompetenceElements().subscribe();
-    }).catch(err => {
-    });
-  }
-
-  unlinkKnowHow(competenceElement: CompetenceElement) {
-    this.openUnlinkConfirmModal().then(result => {
-      this.competenceSet.knowHow = null;
-    }).catch(err => {
-    });
   }
 
   addKnowHow() {
@@ -111,6 +106,34 @@ export class CompetenceSetComponent implements OnInit {
     if (elementType === ElementType.KNOWLEDGE) {
       return this.knowledgeItems;
     }
+  }
+
+  handleSubElementsActionClick(action: CompetenceCatalogActions, competenceElement: CompetenceElement) {
+    if (action === CompetenceCatalogActions.UNLINK) {
+      this.unlinkCompetenceElement(competenceElement);
+    }
+  }
+
+  handleKnowHowActionClick(action: CompetenceCatalogActions, competenceElement: CompetenceElement) {
+    if (action === CompetenceCatalogActions.UNLINK) {
+      this.unlinkKnowHow(competenceElement);
+    }
+  }
+
+  private unlinkCompetenceElement(competenceElement: CompetenceElement) {
+    this.openUnlinkConfirmModal().then(result => {
+      const indexToRemove = this.competenceSet.competenceElementIds.indexOf(competenceElement.id);
+      this.competenceSet.competenceElementIds.splice(indexToRemove, 1);
+      this.loadCompetenceElements().subscribe();
+    }).catch(err => {
+    });
+  }
+
+  private unlinkKnowHow(competenceElement: CompetenceElement) {
+    this.openUnlinkConfirmModal().then(result => {
+      this.competenceSet.knowHow = null;
+    }).catch(err => {
+    });
   }
 
   private openUnlinkConfirmModal(): Promise<CompetenceElement> {

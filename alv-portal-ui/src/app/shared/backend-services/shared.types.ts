@@ -324,7 +324,6 @@ function findStringForLanguage (description: TranslatedString, lang: string) {
   return description['text' + lang[0].toUpperCase() + lang[1]];
 }
 
-
 export interface CompetenceCatalogAction {
   name: CompetenceCatalogActions;
   icon: IconProp;

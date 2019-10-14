@@ -12,6 +12,10 @@ import { CompetenceSetRepository } from '../../../shared/backend-services/compet
 import { forkJoin } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { OccupationSearchModalComponent } from '../occupation-search-modal/occupation-search-modal.component';
+import {
+  CompetenceCatalogAction,
+  CompetenceCatalogActions
+} from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -34,6 +38,13 @@ export class ChFicheComponent implements OnInit {
     [CompetenceType.BASIC]: [],
     [CompetenceType.SPECIALIST]: []
   };
+
+  chFicheActions: CompetenceCatalogAction[] = [
+    {
+      name: CompetenceCatalogActions.UNLINK,
+      icon: ['fas', 'unlink']
+    }
+  ];
 
   constructor(private modalService: ModalService,
               private competenceSetRepository: CompetenceSetRepository) {
