@@ -3,21 +3,21 @@ import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   {
-    path: 'fiches',
+    path: 'ch-fiches',
     loadChildren: './ch-fiches/ch-fiches.module#ChFichesModule',
     data: {
       titleKey: 'portal.competence-catalog.ch-fiches.browser-title',
     }
   },
   {
-    path: 'sets',
+    path: 'competence-sets',
     loadChildren: './competence-sets/competence-sets.module#CompetenceSetsModule',
     data: {
       titleKey: 'portal.competence-catalog.competence-sets.browser-title',
     }
   },
   {
-    path: 'elements',
+    path: 'competence-elements',
     loadChildren: './competence-elements/competence-elements.module#CompetenceElementsModule',
     data: {
       titleKey: 'portal.competence-catalog.competence-elements.browser-title',
@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'fiches'
+    redirectTo: 'ch-fiches'
   }
 ];
 

@@ -21,7 +21,7 @@
 
   <alv-select
     class="narrow-form d-block mb-1"
-    *alvHasAnyAuthority="[userRole.ROLE_JOB_SEEKER, userRole.ROLE_SYSADMIN]"
+    *alvHasAnyAuthority="[userRole.ROLE_JOB_SEEKER, userRole.ROLE_SYSADMIN, userRole.ROLE_ADMIN]"
     label="job-search.filter.restricted-jobs.label"
     alvFormControlName="displayRestricted"
     [options$]="restrictOptions$">

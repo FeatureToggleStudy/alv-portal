@@ -33,7 +33,8 @@ export class CompetenceElementSearchModalComponent implements OnInit {
   constructor(private modal: NgbActiveModal,
               private fb: FormBuilder,
               private i18nService: I18nService,
-              private competenceElementRepository: CompetenceElementRepository) { }
+              private competenceElementRepository: CompetenceElementRepository) {
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -63,10 +64,13 @@ export class CompetenceElementSearchModalComponent implements OnInit {
   }
 
   private searchCompetenceElements(term: string): Observable<TypeaheadItem<CompetenceElement>[]> {
-    return this.competenceElementRepository.search({page: 0, size: DEFAULT_PAGE_SIZE, body: {query: term}}).pipe(
+    return this.competenceElementRepository.search({
+      page: 0,
+      size: DEFAULT_PAGE_SIZE,
+      body: { query: term, types: [this.elementType] }
+    }).pipe(
       map(competenceElementPage => competenceElementPage
         .content
-        .filter(item => item.type === this.elementType)
         .filter(item => this.existingElementIds ? !this.existingElementIds.includes(item.id) : true)
         .map(this.mapToItem.bind(this)))
     );
