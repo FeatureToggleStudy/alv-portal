@@ -1,18 +1,9 @@
-import {
-  CandidateProfile,
-  JobExperience
-} from '../../shared/backend-services/candidate/candidate.types';
-import {
-  Contact,
-  Degree,
-  Experience,
-  Gender,
-  Graduation
-} from '../../shared/backend-services/shared.types';
-import { GenderAwareOccupationLabel } from '../../shared/occupations/occupation.service';
-import { OccupationCode } from '../../shared/backend-services/reference-service/occupation-label.types';
-import { isAuthenticatedUser, User, UserRole } from '../../core/auth/user.model';
-import { JobCenter } from '../../shared/backend-services/reference-service/job-center.types';
+import {CandidateProfile, JobExperience} from '../../shared/backend-services/candidate/candidate.types';
+import {Contact, Degree, Experience, Gender, Graduation} from '../../shared/backend-services/shared.types';
+import {GenderAwareOccupationLabel} from '../../shared/occupations/occupation.service';
+import {OccupationCode} from '../../shared/backend-services/reference-service/occupation-label.types';
+import {isAuthenticatedUser, User, UserRole} from '../../core/auth/user.model';
+import {JobCenter} from '../../shared/backend-services/reference-service/job-center.types';
 
 const SWISS_CANTONS_NUMBER = 26;
 
@@ -24,6 +15,7 @@ function matches(jobExperience: JobExperience, occupationCode: { value: string; 
   const { avamCode, bfsCode, sbn3Code, sbn5Code } = jobExperience.occupation;
   return (String(avamCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'avam')
     || (String(bfsCode) === occupationCode.value && occupationCode.type.toLowerCase() === 'bfs')
+    //TODO: figure out if we need CH-ISCO codes here already
     || (String(sbn3Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn3')
     || (String(sbn5Code) === occupationCode.value && occupationCode.type.toLowerCase() === 'sbn5');
 }
