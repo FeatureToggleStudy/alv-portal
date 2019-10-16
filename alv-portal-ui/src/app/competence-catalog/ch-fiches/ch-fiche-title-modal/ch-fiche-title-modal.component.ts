@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'alv-ch-fiche-title-modal',
@@ -10,9 +10,23 @@ export class ChFicheTitleModalComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      textDe: [''],
+      textFr: [''],
+      textIt: [''],
+      textEn: ['']
+    });
+  }
+
+  cancel() {
+
+  }
+
+  submit() {
+
   }
 }
