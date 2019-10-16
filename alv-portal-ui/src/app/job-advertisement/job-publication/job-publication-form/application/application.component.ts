@@ -9,6 +9,7 @@ import { startWith, takeUntil } from 'rxjs/operators';
 import { emptyPostAddressFormValue, PostAddressFormValue } from '../post-address-form/post-address-form-value.types';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
 import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
+import { emailInputValidator } from '../../../../shared/forms/input/input-field/email-input.validator';
 
 
 interface SelectedApplicationTypes {
@@ -68,7 +69,7 @@ export class ApplicationComponent extends AbstractSubscriber implements OnInit {
       ]],
       emailAddress: [emailAddress, [
         Validators.required,
-        patternInputValidator(EMAIL_REGEX),
+        emailInputValidator(),
         Validators.maxLength(this.EMAIL_MAX_LENGTH)
       ]],
       phoneNumber: [phoneNumber, [
