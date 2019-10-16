@@ -7,6 +7,7 @@ import { EMAIL_REGEX } from '../../../../shared/forms/regex-patterns';
 import { ContactFormValue } from './contact-form-value.types';
 import { patternInputValidator } from '../../../../shared/forms/input/input-field/pattern-input.validator';
 import { JobPublicationFormValueKeys } from '../job-publication-form-value.types';
+import { emailInputValidator } from '../../../../shared/forms/input/input-field/email-input.validator';
 
 @Component({
   selector: 'alv-contact',
@@ -80,7 +81,7 @@ export class ContactComponent implements OnInit {
         phoneInputValidator()
       ]],
       email: [email, [
-        Validators.required, patternInputValidator(EMAIL_REGEX),
+        Validators.required, emailInputValidator(),
         Validators.maxLength(this.EMAIL_MAX_LENGTH)
       ]]
     });
