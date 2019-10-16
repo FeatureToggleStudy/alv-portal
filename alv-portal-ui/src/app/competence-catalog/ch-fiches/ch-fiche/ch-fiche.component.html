@@ -32,7 +32,6 @@
                                      (toggleClick)="toggleCompetences(competenceType, $event)">
   <alv-competence-set *ngFor="let competenceSet of competences[competenceType]; let index = index"
                       [competenceSet]="competenceSet"
-
                       [isEditable]="false">
   </alv-competence-set>
 </alv-competence-items-collapse-panel>
