@@ -1,5 +1,6 @@
 import {
-  hasAnyAuthorities, isAnyUser,
+  hasAnyAuthorities,
+  isAnyUser,
   isNotAuthenticatedUser,
   User,
   UserRole
@@ -71,8 +72,8 @@ export const USER_MENU_DEFINITIONS: UserMenuDefinition[] = [
     appContextPredicate: isEalv
   },
   {
-    id: 'CC',
-    mainMenuEntryKeys: ['cc-home', 'cc-search'],
+    id: 'COMPETENCE-CATALOG',
+    mainMenuEntryKeys: ['competence-sets', 'competence-elements'],
     onlineFormsMenuEntryKeys: [],
     settingsMenuEntryKeys: [],
     userPredicate: isAnyUser,

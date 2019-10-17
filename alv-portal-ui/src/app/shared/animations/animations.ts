@@ -1,4 +1,11 @@
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  keyframes,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
 
 export const removeSearchProfileAnimation = trigger('removeProfile', [
   transition(':leave', [
@@ -17,3 +24,22 @@ export const removeSearchProfileAnimation = trigger('removeProfile', [
     ]))
   ])
 ]);
+
+export const collapseExpandAnimation = trigger('expandCollapse', [
+  state('open', style({
+    display: 'block',
+    'max-height': '100%',
+    transform: 'scaleY(1)',
+    opacity: 1
+  })),
+  state('closed', style({
+    display: 'none',
+    height: 0,
+    'max-height': 0,
+    transform: 'scaleY(0)',
+    opacity: 0
+  })),
+  transition('* <=> *', [animate('200ms')])
+]);
+
+

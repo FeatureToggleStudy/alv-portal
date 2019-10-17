@@ -54,17 +54,22 @@
     "secure": false,
     "loglevel": "debug"
   },
-  "/trackingservice/*": {
-    "target": "https://training.job-room.ch",
-    "secure": false,
-    "loglevel": "debug"
-  },
   "/onlineform-service/*": {
     "target": "https://training.job-room.ch",
     "secure": false,
     "loglevel": "debug"
   },
+  "/competencecatalog-service/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
   "/zuul/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/trackingservice/*": {
     "target": "https://training.job-room.ch",
     "secure": false,
     "loglevel": "debug"
