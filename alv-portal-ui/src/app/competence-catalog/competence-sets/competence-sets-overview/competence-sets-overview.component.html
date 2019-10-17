@@ -30,19 +30,22 @@
 
       <alv-competence-set *ngFor="let competenceSet of competenceSets"
                           [competenceSet]="competenceSet"
-                          [showEditSetButton]="isCompetenceCatalogEditor$ | async">
+                          [showActionButtons]="isCompetenceCatalogEditor$ | async"
+                          [actions]="[editCompetenceSetAction]"
+                          (actionClick)="handleCompetenceSetActionClick($event, competenceSet)">
       </alv-competence-set>
 
     </div>
     <div class="mt-5 d-none d-lg-block col-lg-3 col-xl-2">
-      <a *ngIf="isCompetenceCatalogEditor$ | async"
-         routerLink="./create"
-         class="add-set-button btn btn-text btn-text-icon btn-block btn-truncate">
-        <fa-icon [icon]="['fas', 'plus']"
-                 class="mr-1"></fa-icon>
-        {{'portal.global.enter' | translate}}
-      </a>
-
+      <div class="actions-container">
+        <a *ngIf="isCompetenceCatalogEditor$ | async"
+           routerLink="./create"
+           class="add-set-button btn btn-text btn-text-icon btn-block btn-truncate mb-1">
+          <fa-icon [icon]="['fas', 'plus']"
+                   class="mr-1"></fa-icon>
+          {{'portal.global.enter' | translate}}
+        </a>
+      </div>
     </div>
   </div>
 

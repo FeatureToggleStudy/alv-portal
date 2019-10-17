@@ -64,6 +64,6 @@ export class ChFicheDetailComponent implements OnInit {
 
   private handleSuccess(result: CompetenceSet) {
     this.notificationsService.success('portal.competence-catalog.ch-fiches.added-success-notification');
-    this.router.navigate(['kk', 'fiches']);
+    this.router.navigate(['kk', 'ch-fiches']);
   }
 }

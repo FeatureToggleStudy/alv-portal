@@ -32,22 +32,21 @@
                            [multiLanguageTitle]="chFiche.title"
                            [type]="'portal.competence-catalog.ch-fiches.type' | translate"
                            [superTitle]="'ID ' + chFiche.id"
-                           [actionButtonIcon]="['fas', 'unlink']"
                            (itemClick)="editChFiche(chFiche)"
-                           [isItemClickable]="isCompetenceCatalogEditor$ | async"
-                           [showActionButton]="false">
+                           [isItemClickable]="isCompetenceCatalogEditor$ | async">
       </alv-competence-item>
 
     </div>
     <div class="mt-5 d-none d-lg-block col-lg-3 col-xl-2">
-      <a *ngIf="isCompetenceCatalogEditor$ | async"
-         routerLink="./create"
-         class="add-fiche-button btn btn-text btn-text-icon btn-block btn-truncate">
-        <fa-icon [icon]="['fas', 'plus']"
-                 class="mr-1"></fa-icon>
-        {{'portal.global.enter' | translate}}
-      </a>
-
+      <div class="actions-container">
+        <a *ngIf="isCompetenceCatalogEditor$ | async"
+           routerLink="./create"
+           class="add-fiche-button btn btn-text btn-text-icon btn-block btn-truncate mb-1">
+          <fa-icon [icon]="['fas', 'plus']"
+                   class="mr-1"></fa-icon>
+          {{'portal.global.enter' | translate}}
+        </a>
+      </div>
     </div>
   </div>
 

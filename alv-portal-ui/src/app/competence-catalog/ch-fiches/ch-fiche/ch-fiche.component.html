@@ -8,9 +8,10 @@
                                      [id]="chFiche.id"
                                      [isCollapsed]="collapsed.OCCUPATIONS"
                                      [isEmpty]="!chFiche.occupations.length"
-                                     [showAddButton]="true"
                                      [darkMode]="true"
-                                     (addClick)="addOccupation()">
+                                     [showActionButtons]="true"
+                                     [actions]="[linkOccupationAction]"
+                                     (actionClick)="handleOccupationActionClick($event)">
   <alv-competence-item *ngFor="let occupation of chFiche.occupations; let index = index"
                        type="CH-ISCO"
                        [multiLanguageTitle]="{
@@ -21,8 +22,8 @@
                          }"
                        [superTitle]="occupation.chIsco5"
                        [isItemClickable]="false"
-                       [showActionButton]="true"
-                       [actionButtonIcon]="['fas', 'unlink']"
+                       [showActionButtons]="true"
+                       [actions]="[unlinkAction]"
                        (actionClick)="unlinkOccupation(index)">
   </alv-competence-item>
 </alv-competence-items-collapse-panel>
@@ -30,15 +31,17 @@
 <alv-competence-items-collapse-panel *ngFor="let competenceType of competenceTypes"
                                      [id]="chFiche.id + competenceType"
                                      [label]="'portal.competence-catalog.ch-fiches.label.' + competenceType"
-                                     [showAddButton]="true"
+                                     [showActionButtons]="true"
                                      [isCollapsed]="collapsed[competenceType]"
                                      [isEmpty]="!getCompetencesByType(competenceType).length"
                                      [darkMode]="true"
-                                     (addClick)="addCompetence(competenceType)"
+                                     [actions]="[linkCompetenceAction]"
+                                     (actionClick)="handleCompetenceSetActionClick($event, competenceType)"
                                      (toggleClick)="toggleCompetences(competenceType, $event)">
   <alv-competence-set *ngFor="let competenceSet of competences[competenceType]; let index = index"
                       [competenceSet]="competenceSet"
-
-                      [isEditable]="false">
+                      [actions]="[unlinkAction]"
+                      [showActionButtons]="true"
+                      (actionClick)="handleCompetenceSetActionClick($event, competenceType, competenceSet)">
   </alv-competence-set>
 </alv-competence-items-collapse-panel>
