@@ -1,0 +1,15 @@
+@import "../../../../../scss/common/colors";
+
+// todo remove duplication here
+.alv-bar {
+  font-size: 1em;
+  height: 50px;
+  &:focus {
+    box-shadow: none;
+  }
+  border-bottom: 1px solid $color-medium-grey;
+  padding-left: 50px;
+  &.invalid {
+    color: $color-red;
+  }
+}

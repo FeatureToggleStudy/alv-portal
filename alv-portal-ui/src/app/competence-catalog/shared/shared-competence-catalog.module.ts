@@ -31,7 +31,7 @@ import { CompetenceItemComponent } from './competence-item/competence-item.compo
     CompetenceElementComponent,
     CompetenceSetComponent,
     CompetenceItemComponent,
-    CompetenceItemsCollapsePanelComponent
+    CompetenceItemsCollapsePanelComponent,
   ]
 })
 export class SharedCompetenceCatalogModule {

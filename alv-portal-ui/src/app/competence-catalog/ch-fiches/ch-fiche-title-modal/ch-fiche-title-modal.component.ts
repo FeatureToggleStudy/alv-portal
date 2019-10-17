@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'alv-ch-fiche-title-modal',
@@ -10,7 +11,8 @@ export class ChFicheTitleModalComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private modal: NgbActiveModal,
+              private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -23,10 +25,11 @@ export class ChFicheTitleModalComponent implements OnInit {
   }
 
   cancel() {
-
+    this.modal.dismiss();
   }
 
   submit() {
-
+    console.log('closing with ', this.form.value);
+    this.modal.close(this.form.value);
   }
 }

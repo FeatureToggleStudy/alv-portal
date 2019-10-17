@@ -297,9 +297,9 @@ export interface TranslatedStringToCurrentLanguage {
 /*
  * Get description in the next available language if current language is not available
  */
-function getNextAvailableTitle(): string {
+function getNextAvailableTitle(multiLanguageTitle): string {
   for (const lang of Object.values(Languages)) {
-    const description = findStringForLanguage(this.multiLanguageTitle, lang);
+    const description = findStringForLanguage(multiLanguageTitle, lang);
     if (description) {
       return description;
     }
@@ -307,11 +307,17 @@ function getNextAvailableTitle(): string {
 }
 
 export function getTranslatedString (description: TranslatedString, lang: string): TranslatedStringToCurrentLanguage {
+  if (!description) {
+    return {
+      isWrongLanguage: false,
+      value: ''
+    };
+  }
   const translatedString = findStringForLanguage(description, lang);
   if (!translatedString) {
     return {
       isWrongLanguage: true,
-      value: getNextAvailableTitle()
+      value: getNextAvailableTitle(description)
     };
   }
   return {
