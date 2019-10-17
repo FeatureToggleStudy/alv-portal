@@ -16,7 +16,7 @@ import { ChFicheTitleModalComponent } from '../ch-fiche-title-modal/ch-fiche-tit
 @Component({
   selector: 'alv-ch-fiche',
   templateUrl: './ch-fiche.component.html',
-  styleUrls: ['./ch-fiche.component.scss']
+  styleUrls: ['./ch-fiche.component.scss', './alv-bar.scss']
 })
 export class ChFicheComponent implements OnInit {
 

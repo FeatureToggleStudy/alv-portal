@@ -11,7 +11,7 @@ import { I18nService } from '../../../../core/i18n.service';
 @Component({
   selector: 'alv-ch-fiche-title',
   templateUrl: './ch-fiche-title.component.html',
-  styleUrls: ['./ch-fiche-title.component.scss']
+  styleUrls: ['./ch-fiche-title.component.scss', '../alv-bar.scss']
 })
 export class ChFicheTitleComponent implements OnInit {
 
