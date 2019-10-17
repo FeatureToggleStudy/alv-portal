@@ -1,9 +1,0 @@
-<alv-competence-item [multiLanguageTitle]="competenceElement.description"
-                     [type]="'portal.competence-catalog.element-type.' + competenceElement.type | translate"
-                     [superTitle]="'ID ' + competenceElement.id"
-                     [actionButtonIcon]="['fas', 'unlink']"
-                     (itemClick)="onElementClick()"
-                     (actionClick)="onUnlinkClick()"
-                     [isItemClickable]="isEditable"
-                     [showActionButton]="showUnlinkAction">
-</alv-competence-item>

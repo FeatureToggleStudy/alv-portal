@@ -14,11 +14,17 @@
     <span class="flex-grow-1"></span>
   </button>
 
-  <button class="add-button btn btn-icon-sm"
-          *ngIf="showAddButton"
-          (click)="onAddClicked()">
-    <fa-icon [icon]="['fas', 'search-plus']"></fa-icon>
-  </button>
+  <div *ngIf="showActionButtons"
+       class="action-buttons">
+    <button *ngFor="let action of actions"
+            class="btn btn-icon-sm"
+            [ngbTooltip]="action.label | translate"
+            container="body"
+            placement="top"
+            (click)="actionClick.emit(action.name)">
+      <fa-icon [icon]="['fas', 'search-plus']"></fa-icon>
+    </button>
+  </div>
 </div>
 
 <div class="panel-content"

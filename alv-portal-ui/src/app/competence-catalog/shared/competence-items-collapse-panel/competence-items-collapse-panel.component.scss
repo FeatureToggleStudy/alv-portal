@@ -9,7 +9,7 @@
       background: darken($color-dark-grey, 20%);
     }
   }
-  .add-button {
+  .action-buttons button {
     color: $color-white;
     &:hover {
       border-color: $color-white;
@@ -38,7 +38,7 @@
   }
 }
 
-.add-button {
+.action-buttons {
   position: absolute;
   right: 7px;
   top: 9px;

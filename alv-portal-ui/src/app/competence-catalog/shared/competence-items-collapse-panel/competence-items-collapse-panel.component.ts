@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { collapseExpandAnimation } from '../../../shared/animations/animations';
+import {
+  CompetenceCatalogAction
+} from '../shared-competence-catalog.types';
+import { ActionDefinition } from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-competence-items-collapse-panel',
@@ -15,13 +19,15 @@ export class CompetenceItemsCollapsePanelComponent implements OnInit {
 
   @Input() isCollapsed = true;
 
-  @Input() showAddButton: boolean;
-
   @Input() isEmpty: boolean;
 
   @Input() darkMode: boolean;
 
-  @Output() addClick = new EventEmitter<void>();
+  @Input() showActionButtons: boolean;
+
+  @Input() actions: ActionDefinition<CompetenceCatalogAction>[];
+
+  @Output() actionClick = new EventEmitter<CompetenceCatalogAction>();
 
   @Output() toggleClick = new EventEmitter<boolean>();
 
@@ -37,7 +43,4 @@ export class CompetenceItemsCollapsePanelComponent implements OnInit {
     this.toggleClick.emit(this.isCollapsed);
   }
 
-  onAddClicked() {
-    this.addClick.emit();
-  }
 }

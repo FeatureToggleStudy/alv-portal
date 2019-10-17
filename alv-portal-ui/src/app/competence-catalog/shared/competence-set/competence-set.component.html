@@ -12,23 +12,29 @@
     <span class="mx-3">ID {{ competenceSet.id }}</span>
     <span class="flex-grow-1"></span>
   </button>
-  <a class="edit-button btn btn-icon-sm light"
-     [routerLink]="'./edit/' + competenceSet.id"
-     *ngIf="showEditSetButton"
-     [ngbTooltip]="'portal.competence-catalog.competence-sets.edit-button.tooltip' | translate"
-     container="body"
-     placement="top">
-    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-  </a>
+  <div *ngIf="showActionButtons"
+       class="action-buttons">
+    <button *ngFor="let action of actions"
+            class="btn btn-icon-sm light ml-1"
+            (click)="actionClick.emit(action.name)"
+            [ngbTooltip]="action.label | translate"
+            container="body"
+            placement="top">
+      <fa-icon [icon]="action.icon"></fa-icon>
+    </button>
+  </div>
 </div>
 
-<alv-competence-element *ngIf="competenceSet.knowHow; else knowHowPlaceholder"
-                        [isEditable]="isEditable"
-                        [showUnlinkAction]="isEditable"
-                        [competenceElement]="competenceSet.knowHow"
-                        (elementClick)="openUpdateElementModal($event, elementType.KNOW_HOW)"
-                        (unlinkClick)="unlinkKnowHow($event)">
-</alv-competence-element>
+<alv-competence-item *ngIf="competenceSet.knowHow; else knowHowPlaceholder"
+                     [type]="'portal.competence-catalog.element-type.' + competenceSet.knowHow.type | translate"
+                     [superTitle]="'ID ' + competenceSet.knowHow.id"
+                     [multiLanguageTitle]="competenceSet.knowHow.description"
+                     [isItemClickable]="isEditable"
+                     [showActionButtons]="isEditable"
+                     [actions]="[unlinkElementAction]"
+                     (itemClick)="openUpdateElementModal(competenceSet.knowHow)"
+                     (actionClick)="handleKnowHowActionClick($event, competenceSet.knowHow)">
+</alv-competence-item>
 <ng-template #knowHowPlaceholder>
   <div class="alv-bar d-flex align-items-center w-100 position-relative"
        [class.invalid]="showErrors">
@@ -52,17 +58,21 @@
   <alv-competence-items-collapse-panel *ngFor="let subElementType of subElementTypes"
                                        [id]="competenceSet.id"
                                        [label]="'portal.competence-catalog.element-type.' + subElementType"
-                                       [showAddButton]="isEditable"
+                                       [showActionButtons]="isEditable"
                                        [isEmpty]="!getElementsByType(subElementType)?.length"
                                        [isCollapsed]="collapsed[subElementType]"
-                                       (addClick)="addCompetenceElement(subElementType)">
-    <alv-competence-element *ngFor="let element of getElementsByType(subElementType)"
-                            [competenceElement]="element"
-                            [isEditable]="isEditable"
-                            [showUnlinkAction]="isEditable"
-                            (elementClick)="openUpdateElementModal($event, subElementType)"
-                            (unlinkClick)="unlinkCompetenceElement($event)">
-    </alv-competence-element>
+                                       [actions]="[linkElementAction]"
+                                       (actionClick)="addCompetenceElement(subElementType)">
+    <alv-competence-item *ngFor="let element of getElementsByType(subElementType)"
+                         [type]="'portal.competence-catalog.element-type.' + subElementType | translate"
+                         [superTitle]="'ID ' + element.id"
+                         [multiLanguageTitle]="element.description"
+                         [isItemClickable]="isEditable"
+                         [showActionButtons]="isEditable"
+                         [actions]="[unlinkElementAction]"
+                         (itemClick)="openUpdateElementModal(element)"
+                         (actionClick)="handleSubElementsActionClick($event, element)">
+    </alv-competence-item>
   </alv-competence-items-collapse-panel>
 
 </div>

@@ -32,10 +32,8 @@
                            [multiLanguageTitle]="chFiche.title"
                            [type]="'portal.competence-catalog.ch-fiches.type' | translate"
                            [superTitle]="'ID ' + chFiche.id"
-                           [actionButtonIcon]="['fas', 'unlink']"
                            (itemClick)="editChFiche(chFiche)"
-                           [isItemClickable]="isCompetenceCatalogEditor$ | async"
-                           [showActionButton]="false">
+                           [isItemClickable]="isCompetenceCatalogEditor$ | async">
       </alv-competence-item>
 
     </div>

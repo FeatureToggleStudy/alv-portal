@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CompetenceElementComponent } from './competence-element/competence-element.component';
 import { SharedModule } from '../../shared/shared.module';
 import { CompetenceSetComponent } from './competence-set/competence-set.component';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +16,6 @@ import { CompetenceItemComponent } from './competence-item/competence-item.compo
     RouterModule
   ],
   declarations: [
-    CompetenceElementComponent,
     CompetenceSetComponent,
     CompetenceItemsCollapsePanelComponent,
     CompetenceElementModalComponent,
@@ -28,7 +26,6 @@ import { CompetenceItemComponent } from './competence-item/competence-item.compo
     CompetenceElementModalComponent
   ],
   exports: [
-    CompetenceElementComponent,
     CompetenceSetComponent,
     CompetenceItemComponent,
     CompetenceItemsCollapsePanelComponent

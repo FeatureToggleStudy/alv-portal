@@ -82,7 +82,7 @@ export const CC_MAIN_MENU_ENTRIES: MenuEntry[] = [
     id: 'ch-fiches',
     iconProp: ['far', 'address-book'],
     labelKey: 'portal.competence-catalog.menu-entries.ch-fiches',
-    path: ['kk', 'fiches'],
+    path: ['kk', 'ch-fiches'],
     userPredicate: isAnyUser
   },
   {

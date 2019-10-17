@@ -1,4 +1,6 @@
 import { Languages } from '../../core/languages.constants';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { CompetenceCatalogAction } from '../../competence-catalog/shared/shared-competence-catalog.types';
 
 export enum Gender {
   MALE = 'MALE',
@@ -281,45 +283,8 @@ export interface SearchProfile {
   name: string;
 }
 
-export interface TranslatedString {
-  textDe: string;
-  textFr: string;
-  textIt: string;
-  textEn: string;
-}
-
-export interface TranslatedStringToCurrentLanguage {
-  value: string;
-  isWrongLanguage: boolean;
-}
-
-
-/*
- * Get description in the next available language if current language is not available
- */
-function getNextAvailableTitle(): string {
-  for (const lang of Object.values(Languages)) {
-    const description = findStringForLanguage(this.multiLanguageTitle, lang);
-    if (description) {
-      return description;
-    }
-  }
-}
-
-export function getTranslatedString (description: TranslatedString, lang: string): TranslatedStringToCurrentLanguage {
-  const translatedString = findStringForLanguage(description, lang);
-  if (!translatedString) {
-    return {
-      isWrongLanguage: true,
-      value: getNextAvailableTitle()
-    };
-  }
-  return {
-    isWrongLanguage: false,
-    value: translatedString
-  };
-}
-
-function findStringForLanguage (description: TranslatedString, lang: string) {
-  return description['text' + lang[0].toUpperCase() + lang[1]];
+export interface ActionDefinition<T> {
+  name: T;
+  icon?: IconProp;
+  label?: string;
 }

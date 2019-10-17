@@ -10,8 +10,8 @@ import {
 } from '../../../shared/backend-services/competence-element/competence-element.types';
 import { CompetenceElementRepository } from '../../../shared/backend-services/competence-element/competence-element.repository';
 import { I18nService } from '../../../core/i18n.service';
-import { getTranslatedString } from '../../../shared/backend-services/shared.types';
 import { DEFAULT_PAGE_SIZE } from '../../../shared/backend-services/request-util';
+import { getTranslatedString } from '../../shared/shared-competence-catalog.types';
 
 @Component({
   selector: 'alv-competence-element-search-modal',
