@@ -25,6 +25,8 @@ export class ChFicheComponent implements OnInit {
 
   @Input() chFiche: ChFiche;
 
+  @Input() showErrors: boolean;
+
   collapsed = {
     OCCUPATIONS: true,
     [CompetenceType.BASIC]: true,

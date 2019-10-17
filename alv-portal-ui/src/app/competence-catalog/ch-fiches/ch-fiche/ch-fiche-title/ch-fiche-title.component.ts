@@ -11,12 +11,17 @@ import {
 @Component({
   selector: 'alv-ch-fiche-title',
   templateUrl: './ch-fiche-title.component.html',
-  styleUrls: ['./ch-fiche-title.component.scss', '../alv-bar.scss']
+  styleUrls: ['../alv-bar.scss', './ch-fiche-title.component.scss', ]
 })
 export class ChFicheTitleComponent implements OnInit {
 
   @Output()
   editTitle = new EventEmitter();
+
+  @Input()
+  ficheId: string;
+  @Input()
+  showErrors: boolean;
   translatedTitle$: Observable<TranslatedStringToCurrentLanguage>;
 
   constructor(private i18nService: I18nService) {
