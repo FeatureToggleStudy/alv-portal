@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { I18nService } from '../../../../core/i18n.service';
 import {
   getTranslatedString,
   TranslatedString,
   TranslatedStringToCurrentLanguage
-} from '../../../../shared/backend-services/shared.types';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { I18nService } from '../../../../core/i18n.service';
+} from '../../../shared/shared-competence-catalog.types';
 
 @Component({
   selector: 'alv-ch-fiche-title',

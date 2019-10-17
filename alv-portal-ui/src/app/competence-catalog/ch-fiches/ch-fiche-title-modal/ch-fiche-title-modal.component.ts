@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { atLeastOneRequiredValidator } from '../../../shared/forms/input/validators/at-least-one-required.validator';
-import { TranslatedString } from '../../../shared/backend-services/shared.types';
+import { TranslatedString } from '../../shared/shared-competence-catalog.types';
 
 @Component({
   selector: 'alv-ch-fiche-title-modal',
