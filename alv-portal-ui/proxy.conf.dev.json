@@ -59,6 +59,11 @@
     "secure": false,
     "loglevel": "debug"
   },
+  "/competencecatalog-service/*": {
+    "target": "https://dev.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
   "/zuul/*": {
     "target": "https://dev.job-room.ch",
     "secure": false,

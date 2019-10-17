@@ -1,0 +1,28 @@
+<div class="position-relative">
+  <button class="alv-bar btn d-flex align-items-center w-100 pr-2"
+          type="button"
+          tabindex="-1"
+          [class.collapsed]="isCollapsed"
+          [class.empty]="isEmpty"
+          (click)="toggle()"
+          [attr.aria-expanded]="!isCollapsed"
+          [attr.aria-controls]="a11yId">
+    <fa-icon class="collapse-icon"
+             [icon]="['fas', isCollapsed ? 'chevron-down' : 'chevron-up']"></fa-icon>
+    <span class="ml-3">{{'portal.competence-catalog.element-type.' + elementType | translate}}</span>
+    <span class="flex-grow-1"></span>
+  </button>
+
+  <button class="add-button btn btn-icon-sm"
+          *ngIf="showAddButton"
+          (click)="onAddClicked()">
+    <fa-icon [icon]="['fas', 'search-plus']"></fa-icon>
+  </button>
+</div>
+
+<div class="panel-content"
+     [id]="a11yId"
+     [alvCollapse]="isCollapsed"
+     [@expandCollapse]="isCollapsed ? 'closed' : 'open'">
+  <ng-content></ng-content>
+</div>

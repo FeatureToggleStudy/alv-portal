@@ -56,6 +56,7 @@ import { AssistantLayoutComponent } from './column-layout/assistant-layout/assis
 import { EnvironmentRibbonComponent } from './environment-ribbon/environment-ribbon.component';
 import { SearchProfileItemComponent } from './search-profile-item/search-profile-item.component';
 import { SharedAppContextModule } from '../app-context/shared-app-context.module';
+import { CollapseDirective } from './collapse-panel/collapse.directive';
 
 @NgModule({
   imports: [
@@ -108,7 +109,8 @@ import { SharedAppContextModule } from '../app-context/shared-app-context.module
     LinkPanelComponent,
     AssistantLayoutComponent,
     EnvironmentRibbonComponent,
-    SearchProfileItemComponent
+    SearchProfileItemComponent,
+    CollapseDirective
   ],
   providers: [
     CandidateContactRepository
@@ -153,7 +155,8 @@ import { SharedAppContextModule } from '../app-context/shared-app-context.module
     AccountabilitySwitcherComponent,
     LinkPanelComponent,
     EnvironmentRibbonComponent,
-    SearchProfileItemComponent
+    SearchProfileItemComponent,
+    CollapseDirective
   ]
 })
 export class LayoutModule {
