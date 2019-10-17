@@ -6,10 +6,7 @@ import { Observable } from 'rxjs';
 import { ChFicheRepository } from '../../../shared/backend-services/ch-fiche/ch-fiche.repository';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { ChFiche } from '../../../shared/backend-services/ch-fiche/ch-fiche.types';
-import {
-  CompetenceCatalogAction,
-  CompetenceCatalogActions
-} from '../../../shared/backend-services/shared.types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'alv-ch-fiches-overview',
@@ -24,18 +21,12 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
 
   chFiches: ChFiche[];
 
-  chFicheActions: CompetenceCatalogAction[] = [
-    {
-      name: CompetenceCatalogActions.UNLINK,
-      icon: ['fas', 'unlink']
-    }
-  ];
-
   private page = 0;
 
   private readonly DEFAULT_PAGE_SIZE = 20;
 
   constructor(private chFicheRepository: ChFicheRepository,
+              private router: Router,
               private authenticationService: AuthenticationService) {
     super();
   }
@@ -69,7 +60,7 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
   }
 
   editChFiche(chFiche: ChFiche) {
-
+    this.router.navigate(['kk', 'ch-fiches', 'edit', chFiche.id]);
   }
 
   private reload() {

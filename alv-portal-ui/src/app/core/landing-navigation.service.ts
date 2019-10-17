@@ -52,7 +52,9 @@ export class LandingNavigationService {
     },
     {
       matches: isAnyUser,
-      navigate: () => this.navigateHome()
+      navigate: () => {
+        throw new Error('User could not be navigated because no matching USER_ROLE was found.');
+      }
     }
   ];
 

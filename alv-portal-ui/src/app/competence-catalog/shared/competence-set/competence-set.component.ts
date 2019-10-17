@@ -12,9 +12,9 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CompetenceElementModalComponent } from '../competence-element-modal/competence-element-modal.component';
 import {
-  CompetenceCatalogAction,
-  CompetenceCatalogActions
-} from '../../../shared/backend-services/shared.types';
+  CompetenceCatalogAction, unlinkActionDefinition
+} from '../shared-competence-catalog.types';
+import { ActionDefinition } from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-competence-set',
@@ -34,6 +34,8 @@ export class CompetenceSetComponent implements OnInit {
 
   @Input() showErrors: boolean;
 
+  @Input() actions: ActionDefinition<CompetenceCatalogAction>[];
+
   elementType = ElementType;
 
   subElementTypes = [
@@ -50,12 +52,17 @@ export class CompetenceSetComponent implements OnInit {
     [ElementType.KNOWLEDGE]: true
   };
 
-  competenceElementActions: CompetenceCatalogAction[] = [
-    {
-      name: CompetenceCatalogActions.UNLINK,
-      icon: ['fas', 'unlink']
-    }
-  ];
+  linkElementAction: ActionDefinition<CompetenceCatalogAction> = {
+    name: CompetenceCatalogAction.LINK,
+    icon: ['fas', 'search-plus'],
+    label: 'portal.competence-catalog.competence-sets.actions.search-and-add'
+  };
+
+  unlinkElementAction: ActionDefinition<CompetenceCatalogAction> = {
+    name: CompetenceCatalogAction.UNLINK,
+    icon: ['fas', 'unlink'],
+    label: 'portal.competence-catalog.competence-sets.actions.unlink'
+  };
 
   constructor(private competenceElementRepository: CompetenceElementRepository,
               private modalService: ModalService) {
@@ -108,14 +115,14 @@ export class CompetenceSetComponent implements OnInit {
     }
   }
 
-  handleSubElementsActionClick(action: CompetenceCatalogActions, competenceElement: CompetenceElement) {
-    if (action === CompetenceCatalogActions.UNLINK) {
+  handleSubElementsActionClick(action: CompetenceCatalogAction, competenceElement: CompetenceElement) {
+    if (action === CompetenceCatalogAction.UNLINK) {
       this.unlinkCompetenceElement(competenceElement);
     }
   }
 
-  handleKnowHowActionClick(action: CompetenceCatalogActions, competenceElement: CompetenceElement) {
-    if (action === CompetenceCatalogActions.UNLINK) {
+  handleKnowHowActionClick(action: CompetenceCatalogAction, competenceElement: CompetenceElement) {
+    if (action === CompetenceCatalogAction.UNLINK) {
       this.unlinkKnowHow(competenceElement);
     }
   }

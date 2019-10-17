@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import {
-  CompetenceCatalogAction, CompetenceCatalogActions,
-  getTranslatedString,
-  TranslatedString, TranslatedStringToCurrentLanguage
-} from '../../../shared/backend-services/shared.types';
+
 import { map } from 'rxjs/operators';
-import { Languages } from '../../../core/languages.constants';
 import { Observable } from 'rxjs';
 import { I18nService } from '../../../core/i18n.service';
+import {
+  CompetenceCatalogAction,
+  getTranslatedString,
+  TranslatedString,
+  TranslatedStringToCurrentLanguage
+} from '../shared-competence-catalog.types';
+import { ActionDefinition } from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-competence-item',
@@ -25,11 +26,11 @@ export class CompetenceItemComponent implements OnInit {
 
   @Input() showActionButtons: boolean;
 
-  @Input() actions: CompetenceCatalogAction[];
+  @Input() actions: ActionDefinition<CompetenceCatalogAction>[];
 
   @Output() itemClick = new EventEmitter<void>();
 
-  @Output() actionClick = new EventEmitter<CompetenceCatalogActions>();
+  @Output() actionClick = new EventEmitter<CompetenceCatalogAction>();
 
   translatedTitle$: Observable<TranslatedStringToCurrentLanguage>;
 
@@ -55,7 +56,7 @@ export class CompetenceItemComponent implements OnInit {
     this.itemClick.emit();
   }
 
-  onActionClick(action: CompetenceCatalogActions) {
+  onActionClick(action: CompetenceCatalogAction) {
     this.actionClick.emit(action);
   }
 

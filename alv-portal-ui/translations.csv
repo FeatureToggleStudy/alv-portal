@@ -1180,6 +1180,8 @@ portal.competence-catalog.competence-elements.add-modal.english-title,Bezeichnun
 portal.competence-catalog.competence-elements.add-modal.what-to-enter-label,Was möchten Sie erfassen?,What would you like to enter?,Que souhaitez-vous saisir?,Che cosa vuoi registrare?,
 portal.competence-catalog.competence-elements.add-modal.one-component-per-lang-label,Bitte erfassen Sie je Sprache nur ein Bestandteil,Please only enter one component per language,Veuillez saisir un seul composant par langue,Registrare soltanto un elemento per ciascuna lingua,
 portal.competence-catalog.competence-elements.add-modal.added-success-notification,Kompetenz-Element wurde erfolgreich gespeichert.,Skill component was successfully saved.,Composant de compétence a été sauvegardée avec succès.,Elemento della competenza è stato salvate con successo.,
+portal.competence-catalog.competence-sets.actions.search-and-add,Suchen & Hinzufügen,Search and add,Rechercher et ajouter,Cercare & aggiungere,
+portal.competence-catalog.competence-sets.actions.unlink,Verknüpfung aufheben,Remove link,Annuler la connexion,Sopprimere collegamento,
 portal.competence-catalog.competence-sets.overview.competence-set-panel-header,Kompetenz-Set,Skill set,Ensemble de compétences,Set di competenze,
 portal.competence-catalog.competence-sets.overview.header,Kompetenz-Sets,Skill sets,Ensembles de compétences,Set di competenze,
 portal.competence-catalog.competence-sets.overview.search-label,"Suche nach Handlungswissen, ID Handlungswissen, ID Kompetenz-Set","Search by know-how, know-how ID, skill set ID","Recherche par savoirs-faire, ID savoirs-faire, ID ensemble de compétences","Ricerca per competenze operative, ID competenze operative, ID set di competenze"
@@ -1190,6 +1192,8 @@ portal.competence-catalog.competence-sets.overview.delete-confirmation.title,Ver
 portal.competence-catalog.competence-sets.overview.delete-confirmation.text,Wollen Sie diese Verknüpfung wirklich aufheben?,Do you really want to remove this link?,Voulez-vous vraiment annuler cette connexion?,Vuoi davvero sopprimere questo collegamento?,
 portal.competence-catalog.competence-sets.search-modal.title,Kompetenz-Set hinzufügen,Add skill set,Ajouter ensemble de compétences,Aggiungere set di competenze,
 portal.competence-catalog.ch-fiches.browser-title,CH Fiche,CH Fiche,Fiche CH,Fiche CH,
+portal.competence-catalog.ch-fiches.actions.unlink,Verknüpfung aufheben,Remove link,Annuler la connexion,Sopprimere collegamento,
+portal.competence-catalog.ch-fiches.actions.search-and-add,Suchen & Hinzufügen,Search and add,Rechercher et ajouter,Cercare & aggiungere,
 portal.competence-catalog.ch-fiches.overview.search-label,"Suche nach CH-ISCO, ID CH Fiche, Titel CH Fiche","Search by CH-ISCO, CH Fiche ID, CH Fiche title","Recherche par CH-ISCO, ID fiche CH, titre fiche CH","Ricerca per CH-ISCO, ID Fiche CH, titolo Fiche CH",
 portal.competence-catalog.ch-fiches.overview.title,CH Fiche,CH Fiche,Fiche CH,Fiche CH,
 portal.competence-catalog.ch-fiches.type,CH Fiche,CH Fiche,Fiche CH,Fiche CH,

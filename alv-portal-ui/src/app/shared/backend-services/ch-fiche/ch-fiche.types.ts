@@ -1,4 +1,4 @@
-import { TranslatedString } from '../shared.types';
+import { TranslatedString } from '../../../competence-catalog/shared/shared-competence-catalog.types';
 
 export enum CompetenceType {
   BASIC = 'BASIC',

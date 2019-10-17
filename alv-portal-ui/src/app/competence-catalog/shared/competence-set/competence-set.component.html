@@ -12,14 +12,16 @@
     <span class="mx-3">ID {{ competenceSet.id }}</span>
     <span class="flex-grow-1"></span>
   </button>
-  <a class="edit-button btn btn-icon-sm light"
-     [routerLink]="'./edit/' + competenceSet.id"
-     *ngIf="showEditSetButton"
-     [ngbTooltip]="'portal.competence-catalog.competence-sets.edit-button.tooltip' | translate"
-     container="body"
-     placement="top">
-    <fa-icon [icon]="['fas', 'pen']"></fa-icon>
-  </a>
+  <div class="action-buttons">
+    <a class="edit-button btn btn-icon-sm light"
+       [routerLink]="'./edit/' + competenceSet.id"
+       *ngIf="showEditSetButton"
+       [ngbTooltip]="'portal.competence-catalog.competence-sets.edit-button.tooltip' | translate"
+       container="body"
+       placement="top">
+      <fa-icon [icon]="['fas', 'pen']"></fa-icon>
+    </a>
+  </div>
 </div>
 
 <alv-competence-item *ngIf="competenceSet.knowHow; else knowHowPlaceholder"
@@ -28,7 +30,7 @@
                      [multiLanguageTitle]="competenceSet.knowHow.description"
                      [isItemClickable]="isEditable"
                      [showActionButtons]="isEditable"
-                     [actions]="competenceElementActions"
+                     [actions]="[unlinkElementAction]"
                      (itemClick)="openUpdateElementModal(competenceSet.knowHow)"
                      (actionClick)="handleKnowHowActionClick($event, competenceSet.knowHow)">
 </alv-competence-item>
@@ -55,17 +57,18 @@
   <alv-competence-items-collapse-panel *ngFor="let subElementType of subElementTypes"
                                        [id]="competenceSet.id"
                                        [label]="'portal.competence-catalog.element-type.' + subElementType"
-                                       [showAddButton]="isEditable"
+                                       [showActionButtons]="isEditable"
                                        [isEmpty]="!getElementsByType(subElementType)?.length"
                                        [isCollapsed]="collapsed[subElementType]"
-                                       (addClick)="addCompetenceElement(subElementType)">
+                                       [actions]="[linkElementAction]"
+                                       (actionClick)="addCompetenceElement(subElementType)">
     <alv-competence-item *ngFor="let element of getElementsByType(subElementType)"
                          [type]="'portal.competence-catalog.element-type.' + subElementType | translate"
                          [superTitle]="'ID ' + element.id"
                          [multiLanguageTitle]="element.description"
                          [isItemClickable]="isEditable"
                          [showActionButtons]="isEditable"
-                         [actions]="competenceElementActions"
+                         [actions]="[unlinkElementAction]"
                          (itemClick)="openUpdateElementModal(element)"
                          (actionClick)="handleSubElementsActionClick($event, element)">
     </alv-competence-item>

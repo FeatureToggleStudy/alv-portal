@@ -6,10 +6,10 @@ import { TypeaheadItem } from '../../../shared/forms/input/typeahead/typeahead-i
 import { map, take } from 'rxjs/operators';
 import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
 import { I18nService } from '../../../core/i18n.service';
-import { getTranslatedString } from '../../../shared/backend-services/shared.types';
 import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
 import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
 import { DEFAULT_PAGE_SIZE } from 'src/app/shared/backend-services/request-util';
+import { getTranslatedString } from '../../shared/shared-competence-catalog.types';
 
 @Component({
   selector: 'alv-competence-set-search-modal',

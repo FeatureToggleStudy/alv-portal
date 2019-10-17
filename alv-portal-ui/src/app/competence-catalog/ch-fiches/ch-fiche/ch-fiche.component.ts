@@ -6,16 +6,15 @@ import {
 } from '../../../shared/backend-services/ch-fiche/ch-fiche.types';
 import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
-import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
 import { CompetenceSetSearchModalComponent } from '../competence-set-search-modal/competence-set-search-modal.component';
 import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
 import { forkJoin } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { OccupationSearchModalComponent } from '../occupation-search-modal/occupation-search-modal.component';
 import {
-  CompetenceCatalogAction,
-  CompetenceCatalogActions
-} from '../../../shared/backend-services/shared.types';
+  CompetenceCatalogAction, linkActionDefinition, unlinkActionDefinition
+} from '../../shared/shared-competence-catalog.types';
+import { ActionDefinition } from '../../../shared/backend-services/shared.types';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -39,12 +38,23 @@ export class ChFicheComponent implements OnInit {
     [CompetenceType.SPECIALIST]: []
   };
 
-  chFicheActions: CompetenceCatalogAction[] = [
-    {
-      name: CompetenceCatalogActions.UNLINK,
-      icon: ['fas', 'unlink']
-    }
-  ];
+  linkOccupationAction: ActionDefinition<CompetenceCatalogAction> = {
+    name: CompetenceCatalogAction.LINK,
+    icon: ['fas', 'search-plus'],
+    label: 'portal.competence-catalog.ch-fiches.actions.search-and-add'
+  };
+
+  linkCompetenceAction: ActionDefinition<CompetenceCatalogAction> = {
+    name: CompetenceCatalogAction.LINK,
+    icon: ['fas', 'search-plus'],
+    label: 'portal.competence-catalog.ch-fiches.actions.search-and-add'
+  };
+
+  unlinkAction: ActionDefinition<CompetenceCatalogAction> = {
+    name: CompetenceCatalogAction.UNLINK,
+    icon: ['fas', 'unlink'],
+    label: 'portal.competence-catalog.ch-fiches.actions.unlink'
+  };
 
   constructor(private modalService: ModalService,
               private competenceSetRepository: CompetenceSetRepository) {
@@ -76,7 +86,7 @@ export class ChFicheComponent implements OnInit {
 
   unlinkCompetence(type: CompetenceType, index: number) {
     this.openUnlinkConfirmModal().then(result => {
-      this.chFiche.occupations.splice(index, 1);
+      this.chFiche.competences.splice(index, 1);
     }).catch(err => {
     });
   }
@@ -106,6 +116,18 @@ export class ChFicheComponent implements OnInit {
 
   getCompetencesByType(competenceType: CompetenceType): Competence[] {
     return this.chFiche.competences.filter(competence => competence.type === competenceType);
+  }
+
+  handleOccupationActionClick(action: CompetenceCatalogAction) {
+    if (action === CompetenceCatalogAction.LINK) {
+      this.addOccupation();
+    }
+  }
+
+  handleCompetenceSetActionClick(competenceType: CompetenceType, action: CompetenceCatalogAction) {
+    if (action === CompetenceCatalogAction.LINK) {
+      this.addCompetence(competenceType);
+    }
   }
 
   private loadCompetences(competenceType: CompetenceType) {
