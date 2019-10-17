@@ -97,11 +97,13 @@ export class ChFicheComponent implements OnInit {
     return this.chFiche.competences.filter(competence => competence.type === competenceType);
   }
 
-  addFicheName() {
+  editFicheName() {
     const modalRef = this.modalService.openMedium(ChFicheTitleModalComponent);
+    if (this.chFiche.title) {
+      (<ChFicheTitleModalComponent> modalRef.componentInstance).chFicheTitle = this.chFiche.title;
+    }
     modalRef.result
       .then((multiLanguageTitle) => {
-        console.log('returned' , multiLanguageTitle);
         this.chFiche.title = multiLanguageTitle;
       })
       .catch(() => {
