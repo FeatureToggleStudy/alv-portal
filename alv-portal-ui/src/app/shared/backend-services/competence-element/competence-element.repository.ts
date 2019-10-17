@@ -22,7 +22,7 @@ export class CompetenceElementRepository {
   }
 
   findById(id: string): Observable<CompetenceElement> {
-    return this.http.get<CompetenceElement>(`${this.resourceUrl}/${id}`);
+    return this.http.get<CompetenceElement>(this.resourceUrl + id);
   }
 
   findByIds(ids: string[]): Observable<CompetenceElement[]> {
@@ -41,7 +41,7 @@ export class CompetenceElementRepository {
   }
 
   update(id, competenceElement: UpdateCompetenceElement): Observable<CompetenceElement> {
-    return this.http.put<CompetenceElement>(`${this.resourceUrl}/${id}`, competenceElement);
+    return this.http.put<CompetenceElement>(this.resourceUrl + id, competenceElement);
   }
 
 }
