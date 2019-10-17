@@ -8,13 +8,12 @@ import { CompetenceElement } from '../../../shared/backend-services/competence-e
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CompetenceSetSearchModalComponent } from '../competence-set-search-modal/competence-set-search-modal.component';
 import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { OccupationSearchModalComponent } from '../occupation-search-modal/occupation-search-modal.component';
-import {
-  CompetenceCatalogAction, linkActionDefinition, unlinkActionDefinition
-} from '../../shared/shared-competence-catalog.types';
+import { CompetenceCatalogAction } from '../../shared/shared-competence-catalog.types';
 import { ActionDefinition } from '../../../shared/backend-services/shared.types';
+import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -87,6 +86,7 @@ export class ChFicheComponent implements OnInit {
   unlinkCompetence(type: CompetenceType, index: number) {
     this.openUnlinkConfirmModal().then(result => {
       this.chFiche.competences.splice(index, 1);
+      this.loadCompetences(type).subscribe();
     }).catch(err => {
     });
   }
@@ -124,23 +124,25 @@ export class ChFicheComponent implements OnInit {
     }
   }
 
-  handleCompetenceSetActionClick(competenceType: CompetenceType, action: CompetenceCatalogAction) {
+  handleCompetenceSetActionClick(action: CompetenceCatalogAction, competenceType: CompetenceType, competenceSet?: CompetenceSetSearchResult) {
     if (action === CompetenceCatalogAction.LINK) {
       this.addCompetence(competenceType);
+    }
+    if (action === CompetenceCatalogAction.UNLINK) {
+      this.unlinkCompetence(competenceType, this.chFiche.competences.findIndex(competence => competence.competenceSetId === competenceSet.id));
     }
   }
 
   private loadCompetences(competenceType: CompetenceType) {
-    return forkJoin(
-      this.chFiche.competences
-        .filter(competence => competence.type === competenceType)
-        .map(competence => this.competenceSetRepository.findById(competence.competenceSetId))
-    )
-      .pipe(
-        tap(competenceSets => {
-          this.competences[competenceType] = competenceSets;
-        })
-      );
+    const competences = this.chFiche.competences
+      .filter(competence => competence.type === competenceType)
+      .map(competence => this.competenceSetRepository.findById(competence.competenceSetId));
+    const result = competences.length ? forkJoin(competences) : of([]);
+    return result.pipe(
+      tap(competenceSets => {
+        this.competences[competenceType] = competenceSets;
+      })
+    );
   }
 
   private openUnlinkConfirmModal(): Promise<CompetenceElement> {

@@ -30,9 +30,12 @@
                                      [isEmpty]="!getCompetencesByType(competenceType).length"
                                      [darkMode]="true"
                                      [actions]="[linkCompetenceAction]"
-                                     (actionClick)="handleCompetenceSetActionClick(competenceType, $event)"
+                                     (actionClick)="handleCompetenceSetActionClick($event, competenceType)"
                                      (toggleClick)="toggleCompetences(competenceType, $event)">
   <alv-competence-set *ngFor="let competenceSet of competences[competenceType]; let index = index"
-                      [competenceSet]="competenceSet">
+                      [competenceSet]="competenceSet"
+                      [actions]="[unlinkAction]"
+                      [showActionButtons]="true"
+                      (actionClick)="handleCompetenceSetActionClick($event, competenceType, competenceSet)">
   </alv-competence-set>
 </alv-competence-items-collapse-panel>

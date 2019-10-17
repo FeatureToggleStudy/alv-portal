@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
 import {
   CompetenceElement,
@@ -28,13 +28,15 @@ export class CompetenceSetComponent implements OnInit {
 
   @Input() isEditable: boolean;
 
-  @Input() showEditSetButton: boolean;
+  @Input() showActionButtons: boolean;
 
   @Input() isCollapsed = true;
 
   @Input() showErrors: boolean;
 
   @Input() actions: ActionDefinition<CompetenceCatalogAction>[];
+
+  @Output() actionClick = new EventEmitter<CompetenceCatalogAction>();
 
   elementType = ElementType;
 

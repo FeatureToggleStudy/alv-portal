@@ -45,7 +45,8 @@ function findStringForLanguage (description: TranslatedString, lang: string) {
 
 export enum CompetenceCatalogAction {
   LINK = 'LINK',
-  UNLINK = 'UNLINK'
+  UNLINK = 'UNLINK',
+  EDIT = 'EDIT'
 }
 
 export const linkActionDefinition: ActionDefinition<CompetenceCatalogAction> = {

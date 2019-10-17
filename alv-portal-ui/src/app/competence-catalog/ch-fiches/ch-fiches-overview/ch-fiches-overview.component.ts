@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { ChFicheRepository } from '../../../shared/backend-services/ch-fiche/ch-fiche.repository';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { ChFiche } from '../../../shared/backend-services/ch-fiche/ch-fiche.types';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'alv-ch-fiches-overview',
@@ -27,6 +27,7 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
 
   constructor(private chFicheRepository: ChFicheRepository,
               private router: Router,
+              private route: ActivatedRoute,
               private authenticationService: AuthenticationService) {
     super();
   }
@@ -60,7 +61,7 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
   }
 
   editChFiche(chFiche: ChFiche) {
-    this.router.navigate(['kk', 'ch-fiches', 'edit', chFiche.id]);
+    this.router.navigate(['edit', chFiche.id], { relativeTo: this.route });
   }
 
   private reload() {
