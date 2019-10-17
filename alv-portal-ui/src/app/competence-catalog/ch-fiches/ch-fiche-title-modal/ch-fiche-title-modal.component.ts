@@ -39,7 +39,6 @@ export class ChFicheTitleModalComponent implements OnInit {
   }
 
   submit() {
-    console.log('closing with ', this.form.value);
     this.modal.close(this.form.value);
   }
 }
