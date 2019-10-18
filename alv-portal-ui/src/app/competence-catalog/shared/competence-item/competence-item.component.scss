@@ -26,6 +26,10 @@
     max-width: 100%;
   }
 
+  &:not(:hover) .wrong-language {
+    color: $color-grey;
+  }
+
   &.action-buttons-shown {
     .title-container {
       max-width: calc(100% - 1em);

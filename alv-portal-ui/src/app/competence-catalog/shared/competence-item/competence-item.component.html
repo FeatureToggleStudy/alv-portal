@@ -10,7 +10,7 @@
         {{ type }} <ng-container *ngIf="superTitle">- {{ superTitle }}</ng-container>
       </small>
       <strong class="title text-truncate"
-              [class.text-muted]="translatedTitle.isWrongLanguage">
+              [class.wrong-language]="translatedTitle.isWrongLanguage">
         {{ translatedTitle.value }}
       </strong>
     </span>
