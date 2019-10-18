@@ -36,18 +36,11 @@
                      (actionClick)="handleKnowHowActionClick($event, competenceSet.knowHow)">
 </alv-competence-item>
 <ng-template #knowHowPlaceholder>
-  <div class="alv-bar d-flex align-items-center w-100 position-relative"
-       [class.invalid]="showErrors">
-    {{'portal.competence-catalog.element-type.KNOW_HOW'  | translate}}
-    <span *ngIf="showErrors">
-      &nbsp;- {{'entity.validation.required' | translate}}
-    </span>
-    <div class="flex-grow-1"></div>
-    <button class="btn btn-icon-sm"
-            (click)="addKnowHow()">
-      <fa-icon [icon]="['fas', 'search-plus']"></fa-icon>
-    </button>
-  </div>
+  <alv-competence-item-placeholder placeholder="portal.competence-catalog.element-type.KNOW_HOW"
+                                   [actionIcon]="['fas', 'search-plus']"
+                                   [showErrors]="showErrors"
+                                   (actionClick)="addKnowHow()">
+  </alv-competence-item-placeholder>
 </ng-template>
 
 <div class="panel-content"

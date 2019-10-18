@@ -1,0 +1,15 @@
+@import "../../../../scss/common/colors";
+
+.alv-bar {
+  font-size: 1em;
+  height: 50px;
+  &:focus {
+    box-shadow: none;
+  }
+  border-top: 1px solid $color-medium-grey;
+  border-bottom: 1px solid $color-medium-grey;
+  padding-left: 50px;
+  &.invalid {
+    color: $color-red;
+  }
+}

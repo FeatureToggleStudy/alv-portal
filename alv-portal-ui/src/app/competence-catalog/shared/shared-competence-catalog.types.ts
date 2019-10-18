@@ -16,9 +16,9 @@ export interface TranslatedStringToCurrentLanguage {
 /*
  * Get description in the next available language if current language is not available
  */
-function getNextAvailableTitle(): string {
+function getNextAvailableTitle(title: TranslatedString): string {
   for (const lang of Object.values(Languages)) {
-    const description = findStringForLanguage(this.multiLanguageTitle, lang);
+    const description = findStringForLanguage(title, lang);
     if (description) {
       return description;
     }
@@ -30,7 +30,7 @@ export function getTranslatedString (description: TranslatedString, lang: string
   if (!translatedString) {
     return {
       isWrongLanguage: true,
-      value: getNextAvailableTitle()
+      value: getNextAvailableTitle(description)
     };
   }
   return {
@@ -48,16 +48,3 @@ export enum CompetenceCatalogAction {
   UNLINK = 'UNLINK',
   EDIT = 'EDIT'
 }
-
-export const linkActionDefinition: ActionDefinition<CompetenceCatalogAction> = {
-  name: CompetenceCatalogAction.LINK,
-  icon: ['fas', 'search-plus'],
-  label: 'portal.competence-catalog.competence-sets.actions.LINK'
-};
-
-export const unlinkActionDefinition: ActionDefinition<CompetenceCatalogAction> = {
-  name: CompetenceCatalogAction.UNLINK,
-  icon: ['fas', 'unlink'],
-  label: 'portal.competence-catalog.competence-sets.actions.UNLINK'
-};
-

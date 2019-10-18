@@ -14,6 +14,7 @@ import { OccupationSearchModalComponent } from '../occupation-search-modal/occup
 import { CompetenceCatalogAction } from '../../shared/shared-competence-catalog.types';
 import { ActionDefinition } from '../../../shared/backend-services/shared.types';
 import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
+import { ChFicheTitleModalComponent } from '../ch-fiche-title-modal/ch-fiche-title-modal.component';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -23,6 +24,8 @@ import { CompetenceSetSearchResult } from '../../../shared/backend-services/comp
 export class ChFicheComponent implements OnInit {
 
   @Input() chFiche: ChFiche;
+
+  @Input() showErrors: boolean;
 
   collapsed = {
     OCCUPATIONS: true,
@@ -131,6 +134,19 @@ export class ChFicheComponent implements OnInit {
     if (action === CompetenceCatalogAction.UNLINK) {
       this.unlinkCompetence(competenceType, this.chFiche.competences.findIndex(competence => competence.competenceSetId === competenceSet.id));
     }
+  }
+
+  editFicheName() {
+    const modalRef = this.modalService.openMedium(ChFicheTitleModalComponent);
+    if (this.chFiche.title) {
+      (<ChFicheTitleModalComponent> modalRef.componentInstance).chFicheTitle = this.chFiche.title;
+    }
+    modalRef.result
+      .then((multiLanguageTitle) => {
+        this.chFiche.title = multiLanguageTitle;
+      })
+      .catch(() => {
+      });
   }
 
   private loadCompetences(competenceType: CompetenceType) {
