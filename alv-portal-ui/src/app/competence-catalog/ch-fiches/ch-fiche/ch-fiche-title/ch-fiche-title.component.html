@@ -9,7 +9,7 @@
 
     <h3 *ngIf="translatedTitle$ | async as translatedTitle"
         class="title mb-0"
-        [class.text-muted]="translatedTitle.isWrongLanguage">
+        [class.wrong-language]="translatedTitle.isWrongLanguage">
       {{ translatedTitle.value }}
     </h3>
   </div>
