@@ -31,7 +31,19 @@ Instead of nesting the buttons like this:
 ```
 
 ## Sticky Positioning
-
+Sticky positioning is not supported by the IE11 browser resulting in the property being ignored. But this can lead 
+to unpredictable behaviour, because the CSS property `top` may require different values depending on whether `sticky`
+is supported or not. To achieve this, you can use the following pattern using `@supports`:
+```
+.my-sticky-positioned-container {
+  top: 54px;
+  position: relative;
+  @supports (position: sticky) {
+    top: 154px;
+    position: sticky;
+  }
+}
+```
 
 ## Printing
 
