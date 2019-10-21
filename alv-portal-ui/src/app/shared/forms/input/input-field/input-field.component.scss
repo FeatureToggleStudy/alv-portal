@@ -1,3 +1,7 @@
 textarea {
   overflow: hidden;
 }
+
+.readonly-input.multiline {
+  white-space: pre-line;
+}

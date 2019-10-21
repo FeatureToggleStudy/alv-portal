@@ -1,0 +1,59 @@
+@import "../../../../scss/common/colors";
+
+:host:first-of-type {
+  border-top: 1px solid $color-medium-grey;
+  display: block;
+}
+
+.competence-element {
+  background-color: $color-white;
+  border-bottom: 1px solid $color-medium-grey;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  text-decoration: none;
+  color: $color-grey-black;
+  padding-left: 50px;
+
+  .hover-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+  }
+
+  .title-container, .title {
+    max-width: 100%;
+  }
+
+  &.unlink-button-shown {
+    .title-container {
+      max-width: calc(100% - 1em);
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+    color: $color-primary;
+
+    .hover-indicator {
+      background-color: $color-primary;
+    }
+  }
+
+  &:hover, &:focus {
+    z-index: 1;
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.unlink-button {
+  position: absolute;
+  right: 7px;
+  top: 9px;
+  z-index: 2;
+}

@@ -17,6 +17,7 @@ import { mapFormToDto } from './complaint-request-mapper';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { NotificationType } from '../../../shared/layout/notifications/notification.model';
 import { ComplaintType } from '../../../shared/backend-services/complaint/complaint.types';
+import { emailInputValidator } from '../../../shared/forms/input/input-field/email-input.validator';
 
 
 export interface ComplaintFormValue {
@@ -97,7 +98,7 @@ export class ComplaintModalComponent extends AbstractSubscriber implements OnIni
       salutation: [null, Validators.required],
       name: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255)]],
       phone: ['', [Validators.required, phoneInputValidator()]],
-      email: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255), patternInputValidator(EMAIL_REGEX)]],
+      email: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_255), emailInputValidator()]],
       complaintMessage: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH_1000)]]
     });
 

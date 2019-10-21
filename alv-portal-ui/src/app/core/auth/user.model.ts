@@ -124,7 +124,7 @@ export class User {
   }
 
   isLegalTermAcceptanceRequired() {
-    return !this.legalTermsAccepted && this.isRegistered();
+    return !this.legalTermsAccepted && this.isRegistered() && !this.isCompetenceCatalogEditor();
   }
 
   hasFeature(featureName: FeatureName): boolean {

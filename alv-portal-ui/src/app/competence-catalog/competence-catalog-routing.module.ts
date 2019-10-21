@@ -1,20 +1,24 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CompetenceCatalogHomeComponent } from './competence-catalog-home/competence-catalog-home.component';
-import { CompetenceCatalogSearchComponent } from './competence-catalog-search/competence-catalog-search.component';
 
 const routes: Routes = [
   {
-    path: 'home',
-    component: CompetenceCatalogHomeComponent
+    path: 'competence-sets',
+    loadChildren: './competence-sets/competence-sets.module#CompetenceSetsModule',
+    data: {
+      titleKey: 'portal.competence-catalog.competence-sets.browser-title',
+    }
   },
   {
-    path: 'search',
-    component: CompetenceCatalogSearchComponent
+    path: 'competence-elements',
+    loadChildren: './competence-elements/competence-elements.module#CompetenceElementsModule',
+    data: {
+      titleKey: 'portal.competence-catalog.competence-elements.browser-title',
+    }
   },
   {
     path: '**',
-    redirectTo: 'home'
+    redirectTo: 'competence-sets'
   }
 ];
 
