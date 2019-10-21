@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-competence-item-placeholder',
@@ -14,8 +15,11 @@ export class CompetenceItemPlaceholderComponent implements OnInit {
   showErrors: boolean;
   @Input()
   icon: IconProp;
+  @Input()
+  customIcon: IconKey;
   @Output()
   clickHandler = new EventEmitter();
+
 
   constructor() { }
 
