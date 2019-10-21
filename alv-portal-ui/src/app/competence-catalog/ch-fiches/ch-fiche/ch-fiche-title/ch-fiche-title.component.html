@@ -1,19 +1,25 @@
 <div class="alv-bar d-flex align-items-center w-100 position-relative"
      [class.invalid]="false">
-  <div class="d-flex flex-column mb-2 align-items-start title-container">
+  <div class="d-flex flex-column mb-2 align-items-start title-container"
+       *ngIf="ficheTitle; else noTitle"
+  >
     <small>
       {{'portal.competence-catalog.ch-fiches.type'  | translate}} &nbsp; {{ficheId}}
     </small>
-    <span *ngIf="!ficheTitle && showErrors"
-          class="text-danger">
-      {{'entity.validation.required' | translate}}
-  </span>
+
     <h3 *ngIf="translatedTitle$ | async as translatedTitle"
         class="title mb-0"
         [class.text-muted]="translatedTitle.isWrongLanguage">
       {{ translatedTitle.value }}
     </h3>
   </div>
+  <ng-template #noTitle>
+    {{'portal.competence-catalog.ch-fiches.type'  | translate}} &nbsp; {{ficheId}}
+    <span *ngIf="showErrors"
+          class="text-danger">
+      {{'entity.validation.required' | translate}}
+    </span>
+  </ng-template>
   <div class="flex-grow-1"></div>
   <button class="btn btn-icon-sm"
           (click)="onEditTitle()">
