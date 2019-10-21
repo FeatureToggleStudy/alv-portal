@@ -7,6 +7,7 @@ import {
   TranslatedString,
   TranslatedStringToCurrentLanguage
 } from '../../../shared/shared-competence-catalog.types';
+import { IconKey } from '../../../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-ch-fiche-title',
@@ -22,6 +23,7 @@ export class ChFicheTitleComponent implements OnInit {
   ficheId: string;
   @Input()
   showErrors: boolean;
+  IconKey = IconKey;
   translatedTitle$: Observable<TranslatedStringToCurrentLanguage>;
 
   constructor(private i18nService: I18nService) {
