@@ -19,7 +19,7 @@ import { CompetenceSetSearchResult } from '../../../shared/backend-services/comp
 @Component({
   selector: 'alv-ch-fiche',
   templateUrl: './ch-fiche.component.html',
-  styleUrls: ['./ch-fiche.component.scss', './alv-bar.scss']
+  styleUrls: ['./ch-fiche.component.scss']
 })
 export class ChFicheComponent implements OnInit {
 

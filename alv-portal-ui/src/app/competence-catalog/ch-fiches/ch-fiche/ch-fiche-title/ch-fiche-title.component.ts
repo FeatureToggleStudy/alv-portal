@@ -11,7 +11,7 @@ import {
 @Component({
   selector: 'alv-ch-fiche-title',
   templateUrl: './ch-fiche-title.component.html',
-  styleUrls: ['../alv-bar.scss', './ch-fiche-title.component.scss', ]
+  styleUrls: [ './ch-fiche-title.component.scss', ]
 })
 export class ChFicheTitleComponent implements OnInit {
 

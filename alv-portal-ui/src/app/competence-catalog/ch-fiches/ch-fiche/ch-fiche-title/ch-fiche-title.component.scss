@@ -1,7 +1,22 @@
+@import "../../../../../scss/common/colors";
+
 .title-container, .title {
   max-width: 100%;
 }
 
 .alv-bar {
-  height: 5em;
+  height: 3.5em;
+}
+
+.alv-bar {
+  font-size: 1em;
+  height: 50px;
+  &:focus {
+    box-shadow: none;
+  }
+  border-bottom: 1px solid $color-medium-grey;
+  padding-left: 50px;
+  &.invalid {
+    color: $color-red;
+  }
 }
