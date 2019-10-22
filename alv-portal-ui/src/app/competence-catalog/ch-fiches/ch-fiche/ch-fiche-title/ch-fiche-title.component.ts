@@ -1,18 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { I18nService } from '../../../../core/i18n.service';
-import {
-  getTranslatedString,
-  TranslatedString,
-  TranslatedStringToCurrentLanguage
-} from '../../../shared/shared-competence-catalog.types';
+import { TranslatedString } from '../../../shared/shared-competence-catalog.types';
 import { IconKey } from '../../../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-ch-fiche-title',
   templateUrl: './ch-fiche-title.component.html',
-  styleUrls: [ './ch-fiche-title.component.scss', ]
+  styleUrls: ['./ch-fiche-title.component.scss']
 })
 export class ChFicheTitleComponent implements OnInit {
 
@@ -23,22 +17,13 @@ export class ChFicheTitleComponent implements OnInit {
   ficheId: string;
   @Input()
   showErrors: boolean;
+  @Input()
+  ficheTitle: TranslatedString;
+
   IconKey = IconKey;
-  translatedTitle$: Observable<TranslatedStringToCurrentLanguage>;
+
 
   constructor(private i18nService: I18nService) {
-  }
-
-  private _ficheTitle: TranslatedString;
-
-  @Input()
-  set ficheTitle(value: TranslatedString) {
-    this._ficheTitle = value;
-    this.setMultiLanguageTitle();
-  }
-
-  get ficheTitle() {
-    return this._ficheTitle;
   }
 
   ngOnInit() {
@@ -48,14 +33,4 @@ export class ChFicheTitleComponent implements OnInit {
     this.editTitle.emit();
   }
 
-  private setMultiLanguageTitle() {
-    if (!this.ficheTitle) {
-      return;
-    }
-    this.translatedTitle$ = this.i18nService.currentLanguage$.pipe(
-      map(lang => {
-        return getTranslatedString(this.ficheTitle, lang);
-      })
-    );
-  }
 }

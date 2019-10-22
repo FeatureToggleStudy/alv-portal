@@ -1,25 +1,18 @@
-<div class="alv-bar d-flex align-items-center w-100 position-relative"
-     [class.invalid]="false">
-  <div class="d-flex flex-column mb-2 align-items-start title-container"
-       *ngIf="ficheTitle; else noTitle"
+<ng-container *ngIf="ficheTitle; else noTitle">
+  <alv-competence-item  [showActionButtons]="false"
+                       [isItemClickable]="true"
+                       (itemClick)="onEditTitle()"
+                       [multiLanguageTitle]="ficheTitle"
+                       [superTitle]="'ID ' + ficheId"
+                       [type]="'portal.competence-catalog.ch-fiches.type'  | translate">
+
+  </alv-competence-item>
+</ng-container>
+<ng-template #noTitle>
+  <alv-competence-item-placeholder [customIcon]="IconKey.EDIT_PLUS"
+                                   [mainText]="'portal.competence-catalog.ch-fiches.type'  | translate"
+                                   (clickHandler)="onEditTitle()"
+                                   [showErrors]="showErrors"
   >
-    <small>
-      {{'portal.competence-catalog.ch-fiches.type'  | translate}} &nbsp; {{ficheId}}
-    </small>
-
-    <h3 *ngIf="translatedTitle$ | async as translatedTitle"
-        class="title mb-0"
-        [class.wrong-language]="translatedTitle.isWrongLanguage">
-      {{ translatedTitle.value }}
-    </h3>
-  </div>
-  <ng-template #noTitle>
-    <alv-competence-item-placeholder [customIcon]="IconKey.EDIT_PLUS"
-                                     [mainText]="'portal.competence-catalog.ch-fiches.type'  | translate"
-                                     (clickHandler)="onEditTitle()"
-                                     [showErrors]="showErrors"
-    >
-
-    </alv-competence-item-placeholder>
-  </ng-template>
-</div>
+  </alv-competence-item-placeholder>
+</ng-template>
