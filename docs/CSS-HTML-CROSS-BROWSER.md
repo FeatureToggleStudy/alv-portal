@@ -2,6 +2,22 @@
 
 This document should provide some guidance when ...
 
+## Drag'n'Drop
+
+### Global blocking of drag'n'drop
+
+### Drag'n'Drop Area
+
+
+## Navigation Container
+
+### Scrolling
+To make the main content scroll on the page we don't explicitly set the `overflow-y: auto` on some element. We let the browser
+do the scrolling with the `body` tag. Only like that browsers can optimize the scrolling behaviour for mobile devices, e.g. remove the
+URL bar when scrolling down.
+
+## 
+
 ## Nested Buttons
 Nested buttons are not supported by the Firefox (ESR) browser (nested button is not clickable). To overcome that issue we use the following pattern.
 
