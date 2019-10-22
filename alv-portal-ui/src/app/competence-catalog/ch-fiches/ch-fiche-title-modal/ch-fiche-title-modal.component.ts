@@ -7,7 +7,6 @@ import { TranslatedString } from '../../shared/shared-competence-catalog.types';
 @Component({
   selector: 'alv-ch-fiche-title-modal',
   templateUrl: './ch-fiche-title-modal.component.html',
-  styleUrls: ['./ch-fiche-title-modal.component.scss']
 })
 export class ChFicheTitleModalComponent implements OnInit {
 
