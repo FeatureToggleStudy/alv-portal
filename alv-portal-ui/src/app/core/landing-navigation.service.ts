@@ -48,7 +48,7 @@ export class LandingNavigationService {
     },
     {
       matches: user => user.hasAnyAuthorities([UserRole.ROLE_KK_EDITOR]),
-      navigate: () => this.router.navigate(['kk', 'home'])
+      navigate: () => this.router.navigate(['kk', 'ch-fiches'])
     },
     {
       matches: isAnyUser,
