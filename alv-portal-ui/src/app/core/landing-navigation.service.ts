@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  isAnonymous, isAnyUser, isInValidation,
-  isNotAuthenticatedUser, isUnregistered,
-  RegistrationStatus,
+  isAnonymous,
+  isAnyUser,
+  isInValidation,
+  isUnregistered,
   User,
   UserRole
 } from './auth/user.model';
@@ -35,7 +36,7 @@ export class LandingNavigationService {
       navigate: () => this.router.navigate(['dashboard', 'job-seeker'])
     },
     {
-      matches: user => user.hasAnyAuthorities([UserRole.ROLE_PAV]),
+      matches: user => user.hasAnyAuthorities([UserRole.ROLE_COMPANY]),
       navigate: () => this.router.navigate(['dashboard', 'company'])
     },
     {
@@ -43,7 +44,7 @@ export class LandingNavigationService {
       navigate: () => this.router.navigate(['dashboard', 'pav'])
     },
     {
-      matches: user => user.hasAnyAuthorities([UserRole.ROLE_ADMIN]),
+      matches: user => user.hasAnyAuthorities([UserRole.ROLE_ADMIN, UserRole.ROLE_SYSADMIN]),
       navigate: () => this.router.navigate(['dashboard', 'admin'])
     },
     {
