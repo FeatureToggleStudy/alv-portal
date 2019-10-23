@@ -21,6 +21,9 @@
     font-weight: 300;
     color: $color-grey-black;
     animation: expandMainMenu 0.4s ease-out;
+    &.nav-app-title {
+      font-size: 1.25em;
+    }
   }
 
   /* Collapsed desktop menu style */
@@ -133,9 +136,13 @@
     border-right: none;
     border-bottom: none;
     color: $color-white;
+    height: 45px;
 
     i.fas, .svg-inline--fa {
       font-size: 26px;
+    }
+    .menu-toggle-icon {
+      margin-right: 1px;
     }
   }
 
