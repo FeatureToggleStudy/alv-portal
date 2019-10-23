@@ -16,9 +16,9 @@ export interface TranslatedStringToCurrentLanguage {
 /*
  * Get description in the next available language if current language is not available
  */
-function getNextAvailableTitle(title: TranslatedString): string {
+function getNextAvailableTitle(multiLanguageTitle: TranslatedString): string {
   for (const lang of Object.values(Languages)) {
-    const description = findStringForLanguage(title, lang);
+    const description = findStringForLanguage(multiLanguageTitle, lang);
     if (description) {
       return description;
     }

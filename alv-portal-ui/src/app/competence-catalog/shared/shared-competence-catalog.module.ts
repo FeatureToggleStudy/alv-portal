@@ -7,6 +7,7 @@ import { CompetenceItemsCollapsePanelComponent } from './competence-items-collap
 import { RouterModule } from '@angular/router';
 import { CompetenceElementModalComponent } from './competence-element-modal/competence-element-modal.component';
 import { CompetenceItemComponent } from './competence-item/competence-item.component';
+import { CompetenceItemPlaceholderComponent } from './competence-item-placeholder/competence-item-placeholder.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { CompetenceItemComponent } from './competence-item/competence-item.compo
     CompetenceSetComponent,
     CompetenceItemsCollapsePanelComponent,
     CompetenceElementModalComponent,
-    CompetenceItemComponent
+    CompetenceItemComponent,
+    CompetenceItemPlaceholderComponent,
   ],
   providers: [],
   entryComponents: [
@@ -28,7 +30,8 @@ import { CompetenceItemComponent } from './competence-item/competence-item.compo
   exports: [
     CompetenceSetComponent,
     CompetenceItemComponent,
-    CompetenceItemsCollapsePanelComponent
+    CompetenceItemsCollapsePanelComponent,
+    CompetenceItemPlaceholderComponent,
   ]
 })
 export class SharedCompetenceCatalogModule {
