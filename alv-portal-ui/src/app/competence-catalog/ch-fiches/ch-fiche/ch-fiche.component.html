@@ -8,7 +8,7 @@
                                      [actions]="[linkOccupationAction]"
                                      (actionClick)="handleOccupationActionClick($event)">
   <alv-competence-item *ngFor="let occupationLabel of occupationLabels; let index = index"
-                       type="CH-ISCO"
+                       type="CH-ISCO5"
                        [multiLanguageTitle]="{
                          textDe: occupationLabel.default,
                          textFr: occupationLabel.default,
