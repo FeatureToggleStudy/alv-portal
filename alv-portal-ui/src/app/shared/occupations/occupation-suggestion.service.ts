@@ -108,14 +108,13 @@ export class OccupationSuggestionService {
     return occupationCode;
   }
 
-  private toCatalogOccupationCode(occupation: OccupationLabelSuggestion) {
-    const occupationCode: CatalogOccupationCode = {
+  private toCatalogOccupationCode(occupation: OccupationLabelSuggestion): CatalogOccupationCode {
+    return {
       id: occupation.id,
       type: occupation.type,
       value: occupation.code,
       mappings: occupation.mappings
     };
-    return occupationCode;
   }
 
   private toCandidateSearchOccupationCode(occupation: OccupationLabelSuggestion) {
