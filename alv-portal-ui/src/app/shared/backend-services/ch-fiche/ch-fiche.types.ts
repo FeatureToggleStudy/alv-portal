@@ -24,7 +24,6 @@ export interface UpdateChFiche extends CreateChFiche {
 export interface Occupation {
   bfsCode: string;
   chIsco5?: string;
-  chIsco3?: string;
 }
 
 export interface Competence {

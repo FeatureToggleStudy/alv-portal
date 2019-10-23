@@ -6,18 +6,14 @@
            [formGroup]="form">
   <fieldset>
     <legend>{{'portal.competence-catalog.ch-fiches.occupation-modal.search-legend' | translate}}</legend>
-    <alv-input-field label="portal.competence-catalog.ch-fiches.occupation-modal.search-label"
-                     alvFormControlName="occupation">
 
-    </alv-input-field>
-    <!--
     <alv-single-typeahead alvFormControlName="occupation"
-                          label="portal.global.search"
-                          [loadItems]="searchOccupationsFn"
-                          (itemSelected)="itemSelected($event)"
-                          [autofocus]="true">
+                         label="portal.global.search"
+                         [focusFirst]="true"
+                         [loadItems]="searchOccupationsFn"
+                         [autofocus]="true">
     </alv-single-typeahead>
-    -->
+
   </fieldset>
 
 </alv-modal>
