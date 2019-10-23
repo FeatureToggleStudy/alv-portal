@@ -35,7 +35,7 @@ export interface OccupationCode {
   mapping?: { value: string; type: string };
 }
 
-export interface CatalogOccupationCode {
+export interface CompetenceCatalogOccupationCode {
   id?: string;
   value: string;
   type: string;

@@ -10,7 +10,7 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CompetenceSetSearchModalComponent } from '../competence-set-search-modal/competence-set-search-modal.component';
 import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
 import { forkJoin, Observable, of } from 'rxjs';
-import { flatMap, map, take, tap } from 'rxjs/operators';
+import { flatMap, map, take, takeUntil, tap } from 'rxjs/operators';
 import { OccupationSearchModalComponent } from '../occupation-search-modal/occupation-search-modal.component';
 import { ChFicheTitleModalComponent } from '../ch-fiche-title-modal/ch-fiche-title-modal.component';
 import { CompetenceCatalogAction } from '../../shared/shared-competence-catalog.types';
@@ -23,13 +23,14 @@ import {
 import { I18nService } from '../../../core/i18n.service';
 import { OccupationLabelData } from '../../../shared/backend-services/reference-service/occupation-label.types';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 @Component({
   selector: 'alv-ch-fiche',
   templateUrl: './ch-fiche.component.html',
   styleUrls: ['./ch-fiche.component.scss']
 })
-export class ChFicheComponent implements OnInit {
+export class ChFicheComponent extends AbstractSubscriber implements OnInit {
 
   @Input() chFiche: ChFiche;
 
@@ -75,12 +76,14 @@ export class ChFicheComponent implements OnInit {
               private i18nService: I18nService,
               private occupationLabelRepository: OccupationLabelRepository,
               private competenceSetRepository: CompetenceSetRepository) {
+    super();
   }
 
   ngOnInit() {
     // Translate all occupations initially and on language change
     this.i18nService.currentLanguage$.pipe(
-      flatMap(lang => this.translateOccupations(this.chFiche ? this.chFiche.occupations : [], lang))
+      flatMap(lang => this.translateOccupations(this.chFiche ? this.chFiche.occupations : [], lang)),
+      takeUntil(this.ngUnsubscribe)
     ).subscribe();
   }
 

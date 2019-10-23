@@ -47,7 +47,7 @@ export class OccupationSearchModalComponent implements OnInit {
   }
 
   searchOccupations(query: string): Observable<OccupationTypeaheadItem[]> {
-    return this.occupationSuggestionService.fetchCompetenceOccupations(query);
+    return this.occupationSuggestionService.fetchCompetenceCatalogOccupations(query);
   }
 
   /*

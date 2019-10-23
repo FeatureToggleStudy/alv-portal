@@ -10,7 +10,7 @@ import {
 } from './occupation-typeahead-item';
 import { map } from 'rxjs/operators';
 import {
-  CatalogOccupationCode,
+  CompetenceCatalogOccupationCode,
   OccupationCode,
   OccupationLabel,
   OccupationLabelSuggestion
@@ -53,8 +53,8 @@ export class OccupationSuggestionService {
     return this.fetch(query, [OccupationTypes.AVAM], this.toJobPublicationOccupations);
   }
 
-  fetchCompetenceOccupations(query: string): Observable<Array<OccupationTypeaheadItem>> {
-    return this.fetch(query, [OccupationTypes.BFS], this.toCatalogOccupationCode);
+  fetchCompetenceCatalogOccupations(query: string): Observable<Array<OccupationTypeaheadItem>> {
+    return this.fetch(query, [OccupationTypes.BFS], this.toCompetenceCatalogOccupationCode);
   }
 
   private fetch(query: string, occupationTypes: OccupationTypes[], occupationMapping: (o: OccupationLabelSuggestion) => OccupationCode): Observable<OccupationTypeaheadItem[]> {
@@ -108,7 +108,7 @@ export class OccupationSuggestionService {
     return occupationCode;
   }
 
-  private toCatalogOccupationCode(occupation: OccupationLabelSuggestion): CatalogOccupationCode {
+  private toCompetenceCatalogOccupationCode(occupation: OccupationLabelSuggestion): CompetenceCatalogOccupationCode {
     return {
       id: occupation.id,
       type: occupation.type,
