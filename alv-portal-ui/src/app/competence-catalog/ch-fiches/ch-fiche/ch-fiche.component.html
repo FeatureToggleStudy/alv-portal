@@ -26,15 +26,15 @@
                                      [showActionButtons]="true"
                                      [actions]="[linkOccupationAction]"
                                      (actionClick)="handleOccupationActionClick($event)">
-  <alv-competence-item *ngFor="let occupationLabel of occupationLabels; let index = index"
-                       type="CH-ISCO5"
+  <alv-competence-item *ngFor="let resolvedOccupation of resolvedOccupations; let index = index"
+                       [type]="'CH-ISCO5 ' + resolvedOccupation.occupation.chIsco5"
+                       [superTitle]="'BFS ' + resolvedOccupation.occupation.bfsCode"
                        [multiLanguageTitle]="{
-                         textDe: occupationLabel.default,
-                         textFr: occupationLabel.default,
-                         textIt: occupationLabel.default,
-                         textEn: occupationLabel.default
+                         textDe: resolvedOccupation.labelData.default,
+                         textFr: resolvedOccupation.labelData.default,
+                         textIt: resolvedOccupation.labelData.default,
+                         textEn: resolvedOccupation.labelData.default
                          }"
-                       [superTitle]="occupationLabel.default"
                        [isItemClickable]="false"
                        [showActionButtons]="true"
                        [actions]="[unlinkAction]"

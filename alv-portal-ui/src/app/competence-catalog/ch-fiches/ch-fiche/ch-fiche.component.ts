@@ -10,7 +10,7 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CompetenceSetSearchModalComponent } from '../competence-set-search-modal/competence-set-search-modal.component';
 import { CompetenceSetRepository } from '../../../shared/backend-services/competence-set/competence-set.repository';
 import { forkJoin, Observable, of } from 'rxjs';
-import { flatMap, take, tap } from 'rxjs/operators';
+import { flatMap, map, take, tap } from 'rxjs/operators';
 import { OccupationSearchModalComponent } from '../occupation-search-modal/occupation-search-modal.component';
 import { ChFicheTitleModalComponent } from '../ch-fiche-title-modal/ch-fiche-title-modal.component';
 import { CompetenceCatalogAction } from '../../shared/shared-competence-catalog.types';
@@ -46,7 +46,7 @@ export class ChFicheComponent implements OnInit {
 
   competenceTypes = Object.values(CompetenceType);
 
-  occupationLabels: OccupationLabelData[] = [];
+  resolvedOccupations: ResolvedOccupation[] = [];
 
   competences = {
     [CompetenceType.BASIC]: [],
@@ -78,6 +78,7 @@ export class ChFicheComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Translate all occupations initially and on language change
     this.i18nService.currentLanguage$.pipe(
       flatMap(lang => this.translateOccupations(this.chFiche ? this.chFiche.occupations : [], lang))
     ).subscribe();
@@ -90,7 +91,6 @@ export class ChFicheComponent implements OnInit {
       .then((result) => {
         this.chFiche.occupations.push({
           bfsCode: result.payload.mappings[OccupationTypes.BFS],
-          chIsco3: result.payload.mappings[OccupationTypes.CHISCO3],
           chIsco5: result.payload.mappings[OccupationTypes.CHISCO5]
         });
         this.updateOccupationLabels(this.chFiche.occupations)
@@ -173,23 +173,27 @@ export class ChFicheComponent implements OnInit {
     }
   }
 
-  private updateOccupationLabels(occupations: Occupation[]): Observable<OccupationLabelData[]> {
+  private updateOccupationLabels(occupations: Occupation[]): Observable<ResolvedOccupation[]> {
     return this.i18nService.currentLanguage$.pipe(
       take(1),
       flatMap(lang => this.translateOccupations(occupations, lang))
     );
   }
 
-  private translateOccupations(occupations: Occupation[], lang: string): Observable<OccupationLabelData[]> {
+  private translateOccupations(occupations: Occupation[], lang: string): Observable<ResolvedOccupation[]> {
     if (!occupations.length) {
-      this.occupationLabels = [];
-      return of(this.occupationLabels);
+      this.resolvedOccupations = [];
+      return of(this.resolvedOccupations);
     }
     return forkJoin(occupations.map(o => this.occupationLabelRepository.getOccupationLabelsByKey(OccupationTypes.BFS, o.bfsCode, lang)))
       .pipe(
-        tap((occupationLabels: OccupationLabelData[]) => {
-          this.occupationLabels = occupationLabels;
-          console.log(this.occupationLabels);
+        map((occupationLabels: OccupationLabelData[]) => {
+          return this.resolvedOccupations = occupationLabels.map((labelData, index) => {
+            return {
+              labelData: labelData,
+              occupation: occupations[index]
+            };
+          });
         })
       );
   }
@@ -213,3 +217,9 @@ export class ChFicheComponent implements OnInit {
     }).result;
   }
 }
+
+interface ResolvedOccupation {
+  occupation: Occupation;
+  labelData: OccupationLabelData;
+}
+
