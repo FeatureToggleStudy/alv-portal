@@ -13,12 +13,6 @@ export function patternInputValidator(regex: RegExp): ValidatorFn {
     if (control.value && regex) {
       if (!regex.test(control.value)) {
         switch (String(regex)) {
-          case String(EMAIL_REGEX):
-            return {
-              'emailValidator': {
-                value: control.value
-              }
-            };
           case String(HOUSE_NUMBER_REGEX):
             return {
               'houseNumValidator': {
