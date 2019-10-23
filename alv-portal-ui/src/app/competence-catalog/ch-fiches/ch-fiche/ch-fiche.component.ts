@@ -12,6 +12,7 @@ import { CompetenceSetRepository } from '../../../shared/backend-services/compet
 import { forkJoin, Observable, of } from 'rxjs';
 import { flatMap, take, tap } from 'rxjs/operators';
 import { OccupationSearchModalComponent } from '../occupation-search-modal/occupation-search-modal.component';
+import { ChFicheTitleModalComponent } from '../ch-fiche-title-modal/ch-fiche-title-modal.component';
 import { CompetenceCatalogAction } from '../../shared/shared-competence-catalog.types';
 import { ActionDefinition } from '../../../shared/backend-services/shared.types';
 import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
@@ -21,6 +22,7 @@ import {
 } from '../../../shared/backend-services/reference-service/occupation-label.repository';
 import { I18nService } from '../../../core/i18n.service';
 import { OccupationLabelData } from '../../../shared/backend-services/reference-service/occupation-label.types';
+import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -30,6 +32,11 @@ import { OccupationLabelData } from '../../../shared/backend-services/reference-
 export class ChFicheComponent implements OnInit {
 
   @Input() chFiche: ChFiche;
+
+  @Input() showErrors: boolean;
+
+  IconKey = IconKey;
+
 
   collapsed = {
     OCCUPATIONS: true,
@@ -138,6 +145,19 @@ export class ChFicheComponent implements OnInit {
     return this.chFiche.competences.filter(competence => competence.type === competenceType);
   }
 
+  editFicheName() {
+    const modalRef = this.modalService.openMedium(ChFicheTitleModalComponent);
+    if (this.chFiche.title) {
+      (<ChFicheTitleModalComponent> modalRef.componentInstance).chFicheTitle = this.chFiche.title;
+    }
+    modalRef.result
+      .then((multiLanguageTitle) => {
+        this.chFiche.title = multiLanguageTitle;
+      })
+      .catch(() => {
+      });
+  }
+
   handleOccupationActionClick(action: CompetenceCatalogAction) {
     if (action === CompetenceCatalogAction.LINK) {
       this.addOccupation();
@@ -192,5 +212,4 @@ export class ChFicheComponent implements OnInit {
       content: 'portal.competence-catalog.competence-sets.overview.delete-confirmation.text'
     }).result;
   }
-
 }
