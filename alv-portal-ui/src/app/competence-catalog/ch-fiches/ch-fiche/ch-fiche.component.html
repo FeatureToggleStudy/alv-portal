@@ -3,7 +3,7 @@
                      [isItemClickable]="true"
                      (itemClick)="editFicheName()"
                      [multiLanguageTitle]="chFiche.title"
-                     [superTitle]="'ID ' + chFiche.id"
+                     [superTitle]="chFiche.id ? 'ID ' + chFiche.id : ''"
                      [type]="'portal.competence-catalog.ch-fiches.type'  | translate">
 
 </alv-competence-item>
