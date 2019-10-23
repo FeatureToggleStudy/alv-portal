@@ -1,4 +1,24 @@
+<alv-competence-item *ngIf="chFiche.title; else noTitle"
+                     [showActionButtons]="false"
+                     [isItemClickable]="true"
+                     (itemClick)="editFicheName()"
+                     [multiLanguageTitle]="chFiche.title"
+                     [superTitle]="chFiche.id ? 'ID ' + chFiche.id : ''"
+                     [type]="'portal.competence-catalog.ch-fiches.type'  | translate">
+
+</alv-competence-item>
+<ng-template #noTitle>
+  <alv-competence-item-placeholder [customIcon]="IconKey.EDIT_PLUS"
+                                   [mainText]="'portal.competence-catalog.ch-fiches.type'  | translate"
+                                   (clickHandler)="editFicheName()"
+                                   [showErrors]="showErrors"
+  >
+  </alv-competence-item-placeholder>
+</ng-template>
+
+
 <alv-competence-items-collapse-panel label="portal.competence-catalog.ch-fiches.label.occupations"
+                                     class="d-block mt-2"
                                      [id]="chFiche.id"
                                      [isCollapsed]="collapsed.OCCUPATIONS"
                                      [isEmpty]="!chFiche.occupations.length"
@@ -6,15 +26,15 @@
                                      [showActionButtons]="true"
                                      [actions]="[linkOccupationAction]"
                                      (actionClick)="handleOccupationActionClick($event)">
-  <alv-competence-item *ngFor="let occupation of chFiche.occupations; let index = index"
-                       type="CH-ISCO"
+  <alv-competence-item *ngFor="let resolvedOccupation of resolvedOccupations; let index = index"
+                       [type]="'CH-ISCO5 ' + resolvedOccupation.occupation.chIsco5"
+                       [superTitle]="'BFS ' + resolvedOccupation.occupation.bfsCode"
                        [multiLanguageTitle]="{
-                         textDe: occupation.bfsCode,
-                         textFr: occupation.bfsCode,
-                         textIt: occupation.bfsCode,
-                         textEn: occupation.bfsCode
+                         textDe: resolvedOccupation.labelData.default,
+                         textFr: resolvedOccupation.labelData.default,
+                         textIt: resolvedOccupation.labelData.default,
+                         textEn: resolvedOccupation.labelData.default
                          }"
-                       [superTitle]="occupation.chIsco5"
                        [isItemClickable]="false"
                        [showActionButtons]="true"
                        [actions]="[unlinkAction]"
@@ -23,6 +43,7 @@
 </alv-competence-items-collapse-panel>
 
 <alv-competence-items-collapse-panel *ngFor="let competenceType of competenceTypes"
+                                     class="d-block mt-2"
                                      [id]="chFiche.id + competenceType"
                                      [label]="'portal.competence-catalog.ch-fiches.label.' + competenceType"
                                      [showActionButtons]="true"

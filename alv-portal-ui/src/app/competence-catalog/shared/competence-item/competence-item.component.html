@@ -7,7 +7,7 @@
     <span class="hover-indicator h-100"></span>
     <span class="title-container d-flex flex-column align-items-start">
       <small class="super-title">
-        {{ type }} - {{ superTitle }}
+        {{ type }} <span *ngIf="superTitle">- {{ superTitle }}</span>
       </small>
       <strong class="title text-truncate"
               [class.text-muted]="translatedTitle.isWrongLanguage">

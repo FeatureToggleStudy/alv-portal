@@ -10,6 +10,7 @@ import { ChFicheDetailComponent } from './ch-fiche-detail/ch-fiche-detail.compon
 import { ChFicheComponent } from './ch-fiche/ch-fiche.component';
 import { CompetenceSetSearchModalComponent } from './competence-set-search-modal/competence-set-search-modal.component';
 import { OccupationSearchModalComponent } from './occupation-search-modal/occupation-search-modal.component';
+import { ChFicheTitleModalComponent } from './ch-fiche-title-modal/ch-fiche-title-modal.component';
 
 @NgModule({
   imports: [
@@ -24,11 +25,13 @@ import { OccupationSearchModalComponent } from './occupation-search-modal/occupa
     ChFicheDetailComponent,
     ChFicheComponent,
     CompetenceSetSearchModalComponent,
-    OccupationSearchModalComponent
+    OccupationSearchModalComponent,
+    ChFicheTitleModalComponent,
   ],
   entryComponents: [
     CompetenceSetSearchModalComponent,
-    OccupationSearchModalComponent
+    OccupationSearchModalComponent,
+    ChFicheTitleModalComponent
   ],
   providers: [
     ModalService

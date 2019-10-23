@@ -1,0 +1,17 @@
+<alv-modal (cancelAction)="cancel()"
+           (primaryAction)="submit()"
+           cancelLabel="portal.global.cancel"
+           modalTitle="portal.competence-catalog.ch-fiches.add-modal.title"
+           primaryLabel="portal.global.add"
+           [formGroup]="form">
+  <ng-container *ngFor="let lang of ['De','Fr','It','En']">
+    <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.title-{{lang}}"
+                     alvFormControlName="text{{lang}}"
+                     [multiline]="true"
+                     [multilineMinRows]="1"
+                     [showGroupErrors]="true"
+                     [validationMessages]="[{ error: 'atLeastOneRequired', message: 'global.common-phrases.at-least-one-required' }]"
+                     [readonly]="false">
+    </alv-input-field>
+  </ng-container>
+</alv-modal>
