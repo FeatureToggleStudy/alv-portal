@@ -15,6 +15,7 @@ import { ChFicheTitleModalComponent } from '../ch-fiche-title-modal/ch-fiche-tit
 import { CompetenceCatalogAction } from '../../shared/shared-competence-catalog.types';
 import { ActionDefinition } from '../../../shared/backend-services/shared.types';
 import { CompetenceSetSearchResult } from '../../../shared/backend-services/competence-set/competence-set.types';
+import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -26,6 +27,9 @@ export class ChFicheComponent implements OnInit {
   @Input() chFiche: ChFiche;
 
   @Input() showErrors: boolean;
+
+  IconKey = IconKey;
+
 
   collapsed = {
     OCCUPATIONS: true,

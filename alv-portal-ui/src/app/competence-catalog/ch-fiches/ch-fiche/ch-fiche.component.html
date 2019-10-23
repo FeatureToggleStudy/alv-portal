@@ -1,8 +1,20 @@
-<alv-ch-fiche-title [ficheTitle]="chFiche.title"
-                    [ficheId] = "chFiche.id"
-                    [showErrors]="showErrors"
-                    (editTitle)="editFicheName()"
-> </alv-ch-fiche-title>
+<alv-competence-item *ngIf="chFiche.title; else noTitle"
+                     [showActionButtons]="false"
+                     [isItemClickable]="true"
+                     (itemClick)="editFicheName()"
+                     [multiLanguageTitle]="chFiche.title"
+                     [superTitle]="'ID ' + chFiche.id"
+                     [type]="'portal.competence-catalog.ch-fiches.type'  | translate">
+
+</alv-competence-item>
+<ng-template #noTitle>
+  <alv-competence-item-placeholder [customIcon]="IconKey.EDIT_PLUS"
+                                   [mainText]="'portal.competence-catalog.ch-fiches.type'  | translate"
+                                   (clickHandler)="editFicheName()"
+                                   [showErrors]="showErrors"
+  >
+  </alv-competence-item-placeholder>
+</ng-template>
 
 
 <alv-competence-items-collapse-panel label="portal.competence-catalog.ch-fiches.label.occupations"
