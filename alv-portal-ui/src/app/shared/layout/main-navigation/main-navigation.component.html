@@ -19,7 +19,10 @@
              [fixedWidth]="true"
              [icon]="['fas', mainNavigationCollapsed ? 'caret-right' : 'caret-left']">
     </fa-icon>
-    <span class="nav-text nav-app-title" *alvAppContextEalv="false">Kompetenzkatalog</span>
+    <span class="nav-text nav-app-title"
+          *alvAppContextCompetenceCatalog>
+      {{'portal.context.competence-catalog.app-title' | translate}}
+    </span>
   </button>
 
   <ng-container *ngIf="(menuDefinition$ | async) as menuDefinition">

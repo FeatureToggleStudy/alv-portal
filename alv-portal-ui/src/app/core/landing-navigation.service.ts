@@ -31,23 +31,38 @@ export class LandingNavigationService {
       navigate: () => this.router.navigate(['registration', 'access-code'])
     },
     {
-      matches: user => user.hasAnyAuthorities([UserRole.ROLE_JOB_SEEKER]),
+      matches: user => {
+        console.log('1');
+        return user.hasAnyAuthorities([UserRole.ROLE_JOB_SEEKER]);
+      },
       navigate: () => this.router.navigate(['dashboard', 'job-seeker'])
     },
     {
-      matches: user => user.hasAnyAuthorities([UserRole.ROLE_PAV]),
+      matches: user => {
+        console.log(2);
+        return user.hasAnyAuthorities([UserRole.ROLE_PAV])
+      },
       navigate: () => this.router.navigate(['dashboard', 'company'])
     },
     {
-      matches: user => user.hasAnyAuthorities([UserRole.ROLE_PAV]),
+      matches: user => {
+        console.log(3);
+        return user.hasAnyAuthorities([UserRole.ROLE_PAV]);
+      },
       navigate: () => this.router.navigate(['dashboard', 'pav'])
     },
     {
-      matches: user => user.hasAnyAuthorities([UserRole.ROLE_ADMIN]),
+      matches: user => {
+        console.log(4);
+        return user.hasAnyAuthorities([UserRole.ROLE_ADMIN]);
+      },
       navigate: () => this.router.navigate(['dashboard', 'admin'])
     },
     {
-      matches: user => user.hasAnyAuthorities([UserRole.ROLE_KK_EDITOR]),
+      matches: user => {
+        console.log(5);
+        return user.hasAnyAuthorities([UserRole.ROLE_KK_EDITOR])
+      },
       navigate: () => this.router.navigate(['kk', 'ch-fiches'])
     },
     {
