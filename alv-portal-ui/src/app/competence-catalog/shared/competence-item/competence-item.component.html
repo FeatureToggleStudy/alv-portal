@@ -9,10 +9,8 @@
       <small class="super-title">
         {{ type }} - {{ superTitle }}
       </small>
-      <strong class="title text-truncate"
-              [class.text-muted]="translatedTitle.isWrongLanguage">
-        {{ translatedTitle.value }}
-      </strong>
+      <pre class="title"
+              [class.text-muted]="translatedTitle.isWrongLanguage">{{ translatedTitle.value }}</pre>
     </span>
     <span class="flex-grow-1"></span>
   </button>

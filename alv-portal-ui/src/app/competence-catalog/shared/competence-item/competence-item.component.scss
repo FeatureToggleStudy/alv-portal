@@ -26,6 +26,14 @@
     max-width: 100%;
   }
 
+  pre {
+    font-weight: 700;
+    text-align: left;
+    font-family: "Open Sans", Calibri, sans-serif;
+    margin-bottom: 0;
+    white-space: pre-line;
+  }
+
   &.action-buttons-shown {
     .title-container {
       max-width: calc(100% - 1em);
