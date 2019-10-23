@@ -1,4 +1,5 @@
 <alv-competence-items-collapse-panel label="portal.competence-catalog.ch-fiches.label.occupations"
+                                     class="d-block mt-2"
                                      [id]="chFiche.id"
                                      [isCollapsed]="collapsed.OCCUPATIONS"
                                      [isEmpty]="!chFiche.occupations.length"
@@ -6,15 +7,15 @@
                                      [showActionButtons]="true"
                                      [actions]="[linkOccupationAction]"
                                      (actionClick)="handleOccupationActionClick($event)">
-  <alv-competence-item *ngFor="let occupation of chFiche.occupations; let index = index"
+  <alv-competence-item *ngFor="let occupationLabel of occupationLabels; let index = index"
                        type="CH-ISCO"
                        [multiLanguageTitle]="{
-                         textDe: occupation.bfsCode,
-                         textFr: occupation.bfsCode,
-                         textIt: occupation.bfsCode,
-                         textEn: occupation.bfsCode
+                         textDe: occupationLabel.default,
+                         textFr: occupationLabel.default,
+                         textIt: occupationLabel.default,
+                         textEn: occupationLabel.default
                          }"
-                       [superTitle]="occupation.chIsco5"
+                       [superTitle]="occupationLabel.default"
                        [isItemClickable]="false"
                        [showActionButtons]="true"
                        [actions]="[unlinkAction]"
@@ -23,6 +24,7 @@
 </alv-competence-items-collapse-panel>
 
 <alv-competence-items-collapse-panel *ngFor="let competenceType of competenceTypes"
+                                     class="d-block mt-2"
                                      [id]="chFiche.id + competenceType"
                                      [label]="'portal.competence-catalog.ch-fiches.label.' + competenceType"
                                      [showActionButtons]="true"
