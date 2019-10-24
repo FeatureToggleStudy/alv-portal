@@ -21,11 +21,7 @@ export class CompetenceElementsFilterModalComponent implements OnInit {
   constructor(private fb: FormBuilder,
               public activeModal: NgbActiveModal) {
   }
-/*
-  KNOW_HOW = 'KNOW_HOW',
-  KNOW_HOW_INDICATOR = 'KNOW_HOW_INDICATOR',
-  KNOWLEDGE = 'KNOWLEDGE'
- */
+
   ngOnInit() {
     const controlsConfig = Object.values(ElementType).reduce((prev, curr) => {
       prev[curr] = [this.currentFiltering.types.includes(curr)];
