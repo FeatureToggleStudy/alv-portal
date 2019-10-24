@@ -16,6 +16,8 @@ export class CompetenceElementsFilterModalComponent implements OnInit {
 
   currentFiltering: CompetenceElementFilterValues;
 
+  elementTypes = Object.values(ElementType);
+
   constructor(private fb: FormBuilder,
               public activeModal: NgbActiveModal) {
   }
@@ -25,21 +27,21 @@ export class CompetenceElementsFilterModalComponent implements OnInit {
   KNOWLEDGE = 'KNOWLEDGE'
  */
   ngOnInit() {
-    const controlsConfig = Object.values(ElementType).reduce((prev, curr, index) => {
-      prev[curr] = this.currentFiltering.types.includes(curr);
+    const controlsConfig = Object.values(ElementType).reduce((prev, curr) => {
+      prev[curr] = [this.currentFiltering.types.includes(curr)];
       return prev;
     }, {});
-    console.log(controlsConfig);
-    this.form = this.fb.group({
-      KNOW_HOW: [this.currentFiltering.types.includes(ElementType.KNOW_HOW)],
-      KNOW_HOW_INDICATOR: [this.currentFiltering.types.includes(ElementType.KNOW_HOW_INDICATOR)],
-      KNOWLEDGE: [this.currentFiltering.types.includes(ElementType.KNOWLEDGE)]
-    });
+    this.form = this.fb.group(controlsConfig);
   }
 
   filter() {
     const result: CompetenceElementFilterValues = {
-      types: this.form.get('period').value
+      types: Object.values(ElementType).reduce((prev, curr) => {
+        if (this.form.value[curr]) {
+          prev.push(curr);
+        }
+        return prev;
+      }, [])
     };
     this.activeModal.close(result);
   }

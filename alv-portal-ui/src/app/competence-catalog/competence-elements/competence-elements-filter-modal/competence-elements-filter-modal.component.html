@@ -2,18 +2,13 @@
            (primaryAction)="filter()"
            [formGroup]="form"
            cancelLabel="entity.action.cancel"
-           modalTitle="portal.work-efforts.filter-modal.title"
+           modalTitle="portal.competence-catalog.competence-elements.filter-modal.title"
            primaryLabel="entity.action.ok">
   <fieldset>
-    <alv-select
-      [alvControl]="form.get('period')"
-      [options$]="periodOptions$"
-      label="portal.work-efforts.filter-modal.period.label">
-    </alv-select>
-    <alv-select
-      [alvControl]="form.get('workEffortResult')"
-      [options$]="workEffortResultOptions$"
-      label="portal.work-efforts.filter-modal.result.label">
-    </alv-select>
+    <alv-checkbox *ngFor="let type of elementTypes"
+                  class="d-block mb-1"
+                  [alvFormControlName]="type"
+                  [label]="'portal.competence-catalog.element-type.' + type">
+    </alv-checkbox>
   </fieldset>
 </alv-modal>
