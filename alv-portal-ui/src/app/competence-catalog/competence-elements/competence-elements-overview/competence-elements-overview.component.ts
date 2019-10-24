@@ -8,6 +8,8 @@ import { CompetenceElement } from '../../../shared/backend-services/competence-e
 import { CompetenceElementModalComponent } from '../../shared/competence-element-modal/competence-element-modal.component';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { Observable } from 'rxjs';
+import { CompetenceElementsFilterModalComponent } from '../competence-elements-filter-modal/competence-elements-filter-modal.component';
+import { CompetenceElementFilterValues } from '../../shared/shared-competence-catalog.types';
 
 @Component({
   selector: 'alv-competence-elements-overview',
@@ -21,6 +23,8 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
   competenceElements: CompetenceElement[] = [];
 
   isCompetenceCatalogEditor$: Observable<boolean>;
+
+  filter: CompetenceElementFilterValues;
 
   private page = 0;
 
@@ -76,6 +80,17 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
     modalRef.result
       .then(updatedCompetenceElement => {
         this.reload();
+      })
+      .catch(() => {
+      });
+  }
+
+  onFilterClick() {
+    const modalRef = this.modalService.openMedium(CompetenceElementsFilterModalComponent, true);
+    modalRef.componentInstance.currentFiltering = this.filter;
+    modalRef.result
+      .then(updatedFilter => {
+        this.filter = updatedFilter;
       })
       .catch(() => {
       });
