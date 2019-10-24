@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,9 +12,9 @@ import { ElementType } from '../../../shared/backend-services/competence-element
 })
 export class CompetenceElementsFilterModalComponent implements OnInit {
 
+  @Input() currentFiltering: CompetenceElementFilterValues;
+  
   form: FormGroup;
-
-  currentFiltering: CompetenceElementFilterValues;
 
   elementTypes = Object.values(ElementType);
 
