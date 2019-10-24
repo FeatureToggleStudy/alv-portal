@@ -15,6 +15,8 @@ export class ChFicheTitleModalComponent implements OnInit {
   @Input()
   chFicheTitle: TranslatedString;
 
+  formFields = ['textDe', 'textFr', 'textIt', 'textEn'];
+
   constructor(private modal: NgbActiveModal,
               private fb: FormBuilder) {
   }
@@ -26,7 +28,7 @@ export class ChFicheTitleModalComponent implements OnInit {
       textIt: [''],
       textEn: ['']
     }, {
-      validators: [atLeastOneRequiredValidator(['textDe', 'textFr', 'textIt', 'textEn'])]
+      validators: [atLeastOneRequiredValidator(this.formFields)]
     });
     if (this.chFicheTitle) {
       this.form.patchValue(this.chFicheTitle);
