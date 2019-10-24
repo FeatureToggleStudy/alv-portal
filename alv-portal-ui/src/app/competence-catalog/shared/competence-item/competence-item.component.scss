@@ -6,7 +6,7 @@
   display: block;
 }
 
-.competence-element {
+.competence-item {
   background-color: $color-white;
   border-bottom: 1px solid $color-medium-grey;
   border-top: none;
@@ -27,7 +27,19 @@
     max-width: 100%;
   }
 
-  &.unlink-button-shown {
+  .wrong-language {
+    color: $color-grey;
+  }
+
+  pre {
+    font-weight: 700;
+    text-align: left;
+    font-family: "Open Sans", Calibri, sans-serif;
+    margin-bottom: 0;
+    white-space: pre-wrap;
+  }
+
+  &.action-buttons-shown {
     .title-container {
       max-width: calc(100% - 1em);
     }
@@ -37,6 +49,9 @@
     cursor: pointer;
     box-shadow: $box-shadow-default;
     color: $color-primary;
+    pre {
+      color: $color-primary !important;
+    }
 
     .hover-indicator {
       background-color: $color-primary;
@@ -52,7 +67,7 @@
   }
 }
 
-.unlink-button {
+.action-buttons {
   position: absolute;
   right: 7px;
   top: 9px;
