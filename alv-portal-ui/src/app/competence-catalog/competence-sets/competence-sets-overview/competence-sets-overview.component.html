@@ -30,7 +30,9 @@
 
       <alv-competence-set *ngFor="let competenceSet of competenceSets"
                           [competenceSet]="competenceSet"
-                          [showEditSetButton]="isCompetenceCatalogEditor$ | async">
+                          [showActionButtons]="isCompetenceCatalogEditor$ | async"
+                          [actions]="[editCompetenceSetAction]"
+                          (actionClick)="handleCompetenceSetActionClick($event, competenceSet)">
       </alv-competence-set>
 
     </div>

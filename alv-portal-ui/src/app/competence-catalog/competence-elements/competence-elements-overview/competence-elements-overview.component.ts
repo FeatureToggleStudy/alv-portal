@@ -58,7 +58,6 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
     ).subscribe(response => {
       this.competenceElements = [...(this.competenceElements || []), ...response.content];
     });
-
   }
 
   openCreateModal() {
