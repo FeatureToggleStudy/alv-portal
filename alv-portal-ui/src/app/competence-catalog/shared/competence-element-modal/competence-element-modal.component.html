@@ -14,17 +14,6 @@
     </alv-select>
   </fieldset>
 
-  <alv-alert *ngIf="isEnglishLanguageSelected$ | async"
-             [notification]="{type: 'WARNING'}"
-             [hideDismiss]="true">
-    Similar Elements:
-    <ul>
-      <li *ngFor="">
-
-      </li>
-    </ul>
-  </alv-alert>
-
   <fieldset formGroupName="description">
     <legend>{{'portal.competence-catalog.competence-elements.add-modal.one-component-per-lang-label' | translate}}</legend>
     <ng-container *ngFor="let lang of ['De','Fr','It','En']">
