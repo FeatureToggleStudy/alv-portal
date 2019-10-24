@@ -15,9 +15,9 @@
   </fieldset>
 
   <fieldset formGroupName="description">
-    <ng-container *ngFor="let lang of ['De','Fr','It','En']">
-      <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.title-{{lang}}"
-                       alvFormControlName="text{{lang}}"
+    <ng-container *ngFor="let formField of ['textDe','textFr','textIt','textEn']">
+      <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.title-{{formField}}"
+                       [alvFormControlName]="formField"
                        [multiline]="true"
                        [multilineMinRows]="1"
                        [showGroupErrors]="true"
