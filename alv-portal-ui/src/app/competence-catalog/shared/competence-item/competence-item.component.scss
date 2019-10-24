@@ -26,6 +26,10 @@
     max-width: 100%;
   }
 
+  .wrong-language {
+    color: $color-grey;
+  }
+
   pre {
     font-weight: 700;
     text-align: left;
@@ -44,6 +48,9 @@
     cursor: pointer;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
     color: $color-primary;
+    pre {
+      color: $color-primary !important;
+    }
 
     .hover-indicator {
       background-color: $color-primary;

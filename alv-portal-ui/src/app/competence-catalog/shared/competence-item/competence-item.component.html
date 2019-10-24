@@ -10,7 +10,7 @@
         {{ type }} <span *ngIf="superTitle">- {{ superTitle }}</span>
       </small>
       <pre class="title"
-              [class.text-muted]="translatedTitle.isWrongLanguage">{{ translatedTitle.value }}</pre>
+              [class.wrong-language]="translatedTitle.isWrongLanguage">{{ translatedTitle.value }}</pre>
     </span>
     <span class="flex-grow-1"></span>
   </button>
