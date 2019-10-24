@@ -4,7 +4,7 @@
            [modalTitle]="isEdit ? 'entity.action.edit' : 'portal.global.enter'"
            primaryLabel="portal.global.save"
            [formGroup]="form">
-  
+
   <fieldset>
     <legend *ngIf="!isEdit">{{'portal.competence-catalog.competence-elements.add-modal.what-to-enter-label' | translate}}</legend>
     <alv-select alvFormControlName="type"
