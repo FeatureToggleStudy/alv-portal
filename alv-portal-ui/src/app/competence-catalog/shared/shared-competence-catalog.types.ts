@@ -1,5 +1,6 @@
 import { Languages } from '../../core/languages.constants';
 import { ActionDefinition } from '../../shared/backend-services/shared.types';
+import { ElementType } from '../../shared/backend-services/competence-element/competence-element.types';
 
 export interface TranslatedString {
   textDe: string;
@@ -11,6 +12,10 @@ export interface TranslatedString {
 export interface TranslatedStringToCurrentLanguage {
   value: string;
   isWrongLanguage: boolean;
+}
+
+export interface CompetenceElementFilterValues {
+  types: ElementType[];
 }
 
 /*
@@ -49,15 +54,4 @@ export enum CompetenceCatalogAction {
   EDIT = 'EDIT'
 }
 
-export const linkActionDefinition: ActionDefinition<CompetenceCatalogAction> = {
-  name: CompetenceCatalogAction.LINK,
-  icon: ['fas', 'search-plus'],
-  label: 'portal.competence-catalog.competence-sets.actions.LINK'
-};
-
-export const unlinkActionDefinition: ActionDefinition<CompetenceCatalogAction> = {
-  name: CompetenceCatalogAction.UNLINK,
-  icon: ['fas', 'unlink'],
-  label: 'portal.competence-catalog.competence-sets.actions.UNLINK'
-};
 

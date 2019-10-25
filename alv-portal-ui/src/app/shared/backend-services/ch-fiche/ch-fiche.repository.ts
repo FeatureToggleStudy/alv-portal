@@ -13,20 +13,12 @@ export class ChFicheRepository {
 
   private readonly searchUrl = `${this.resourceUrl}_search`;
 
-  // private readonly findUrl = `${this.resourceUrl}_find`;
-
   constructor(private http: HttpClient) {
   }
 
   findById(id: string): Observable<ChFiche> {
-    return this.http.get<ChFiche>(`${this.resourceUrl}/${id}`);
+    return this.http.get<ChFiche>(this.resourceUrl + id);
   }
-
-  /*
-  findByIds(ids: string[]): Observable<CompetenceElement[]> {
-    return this.http.post<CompetenceElement[]>(`${this.findUrl}/byIds`, ids);
-  }
-  */
 
   search(request: PagedSearchRequest): Observable<Page<ChFiche>> {
     const params = createPageableURLSearchParams(request);
@@ -40,7 +32,7 @@ export class ChFicheRepository {
   }
 
   update(id: string, chFiche: UpdateChFiche): Observable<ChFiche> {
-    return this.http.put<ChFiche>(`${this.resourceUrl}/${id}`, chFiche);
+    return this.http.put<ChFiche>(this.resourceUrl + id, chFiche);
   }
 
 }
