@@ -6,7 +6,7 @@ export class HeaderPo {
   private elementFinder = $('alv-header');
 
   get loginRegisterButton() {
-    return this.elementFinder.$(getByTest('loginRegister'))
+    return this.elementFinder.$(getByTest('loginRegister'));
   }
 
   setLanguage(languageCode): wdpromise.Promise<any> {
