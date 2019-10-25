@@ -1,0 +1,32 @@
+<alv-modal (cancelAction)="cancel()"
+           (primaryAction)="submit()"
+           cancelLabel="portal.global.cancel"
+           [modalTitle]="isEdit ? 'entity.action.edit' : 'portal.global.enter'"
+           primaryLabel="portal.global.save"
+           [formGroup]="form">
+
+  <fieldset>
+    <legend *ngIf="!isEdit">{{'portal.competence-catalog.competence-elements.add-modal.what-to-enter-label' | translate}}</legend>
+    <alv-select alvFormControlName="type"
+                label="portal.competence-catalog.competence-elements.add-modal.type"
+                [autofocus]="true"
+                [readonly]="isEdit"
+                [options$]="typeOptions$">
+    </alv-select>
+  </fieldset>
+
+  <fieldset formGroupName="description">
+    <legend>{{'portal.competence-catalog.competence-elements.add-modal.one-component-per-lang-label' | translate}}</legend>
+    <ng-container *ngFor="let formField of ['textDe','textFr','textIt','textEn']">
+      <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.title-{{formField}}"
+                       [alvFormControlName]="formField"
+                       [multiline]="true"
+                       [multilineMinRows]="1"
+                       [showGroupErrors]="true"
+                       [validationMessages]="[{ error: 'atLeastOneRequired', message: 'global.common-phrases.at-least-one-required' }]"
+                       [readonly]="false">
+      </alv-input-field>
+    </ng-container>
+  </fieldset>
+
+</alv-modal>

@@ -12,6 +12,7 @@ export enum UserRole {
   ROLE_JOB_SEEKER = <any>'ROLE_JOBSEEKER_CLIENT',
   ROLE_PAV = <any>'ROLE_PRIVATE_EMPLOYMENT_AGENT',
   ROLE_COMPANY = <any>'ROLE_COMPANY',
+  ROLE_KK_EDITOR = <any>'ROLE_KK_EDITOR',
   ROLE_ADMIN = <any>'ROLE_ADMIN', // aka. Supporter
   ROLE_SYSADMIN = <any>'ROLE_SYSADMIN'
 }
@@ -35,6 +36,15 @@ export function isAuthenticatedUser(user: User) {
 
 export function isNotAuthenticatedUser(user: User) {
   return !isAuthenticatedUser(user);
+}
+
+export function isUnregistered(user: User) {
+  return user && !user.isRegistered() && user.registrationStatus === RegistrationStatus.UNREGISTERED;
+}
+
+export function isInValidation(user: User) {
+  return user && !user.isRegistered() &&
+    (user.registrationStatus === RegistrationStatus.VALIDATION_EMP || user.registrationStatus === RegistrationStatus.VALIDATION_PAV);
 }
 
 export function hasAnyAuthorities(user: User, authorities: Array<UserRole>) {
@@ -100,15 +110,21 @@ export class User {
   }
 
   isRegistered(): boolean {
-    return this.registrationStatus === RegistrationStatus.REGISTERED || this.isAdmin();
+    return this.registrationStatus === RegistrationStatus.REGISTERED ||
+      this.isAdmin() ||
+      this.isCompetenceCatalogEditor();
   }
 
   isAdmin() {
     return this.hasAnyAuthorities([UserRole.ROLE_ADMIN]);
   }
 
+  isCompetenceCatalogEditor() {
+    return this.hasAnyAuthorities([UserRole.ROLE_KK_EDITOR]);
+  }
+
   isLegalTermAcceptanceRequired() {
-    return !this.legalTermsAccepted && this.isRegistered();
+    return !this.legalTermsAccepted && this.isRegistered() && !this.isCompetenceCatalogEditor();
   }
 
   hasFeature(featureName: FeatureName): boolean {

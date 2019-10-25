@@ -1,0 +1,77 @@
+{
+  "/api/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/swagger-ui.html": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/swagger-resources/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/v2/api-docs/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/webjars/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/management/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/referenceservice/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/jobadservice/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/euresintegrationservice/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/jobdeskintegrationservice/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/candidateservice/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/onlineform-service/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/competencecatalog-service/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/zuul/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/trackingservice/*": {
+    "target": "https://training.job-room.ch",
+    "secure": false,
+    "loglevel": "debug"
+  }
+}

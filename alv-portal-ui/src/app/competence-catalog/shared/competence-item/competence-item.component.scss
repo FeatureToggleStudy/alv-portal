@@ -1,0 +1,75 @@
+@import "../../../../scss/common/colors";
+@import "../../../../scss/common/variables";
+
+:host:first-of-type {
+  border-top: 1px solid $color-medium-grey;
+  display: block;
+}
+
+.competence-item {
+  background-color: $color-white;
+  border-bottom: 1px solid $color-medium-grey;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  text-decoration: none;
+  color: $color-grey-black;
+  padding-left: 50px;
+
+  .hover-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+  }
+
+  .title-container, .title {
+    max-width: 100%;
+  }
+
+  .wrong-language {
+    color: $color-grey;
+  }
+
+  pre {
+    font-weight: 700;
+    text-align: left;
+    font-family: "Open Sans", Calibri, sans-serif;
+    margin-bottom: 0;
+    white-space: pre-wrap;
+  }
+
+  &.action-buttons-shown {
+    .title-container {
+      max-width: calc(100% - 1em);
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: $box-shadow-default;
+    color: $color-primary;
+    pre {
+      color: $color-primary !important;
+    }
+
+    .hover-indicator {
+      background-color: $color-primary;
+    }
+  }
+
+  &:hover, &:focus {
+    z-index: 1;
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.action-buttons {
+  position: absolute;
+  right: 7px;
+  top: 9px;
+  z-index: 2;
+}

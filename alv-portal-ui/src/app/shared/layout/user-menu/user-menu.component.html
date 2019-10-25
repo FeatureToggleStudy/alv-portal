@@ -42,15 +42,17 @@
       <hr>
     </div>
     <!-- User settings (eIAM profile, Contact information -->
-    <button *ngIf="isAuthenticated"
-            class="dropdown-item"
-            routerLink="user-settings">
-      <fa-icon class="mr-2"
-               [fixedWidth]="true"
-               [icon]="['fas', 'cog']">
-      </fa-icon>
-      {{ 'portal.navigation.menu-entry.user-settings' | translate }}
-    </button>
+    <ng-container *alvAppContextEalv>
+      <button *ngIf="isAuthenticated"
+              class="dropdown-item"
+              routerLink="user-settings">
+        <fa-icon class="mr-2"
+                 [fixedWidth]="true"
+                 [icon]="['fas', 'cog']">
+        </fa-icon>
+        {{ 'portal.navigation.menu-entry.user-settings' | translate }}
+      </button>
+    </ng-container>
     <!-- Logout -->
     <button class="dropdown-item"
             (click)="logout()">

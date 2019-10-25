@@ -35,6 +35,9 @@
       border-top: 1px solid $color-medium-grey;
     }
     .actions-cell {
+      padding-right: 0;
+    }
+    .main-cell.actions-cell {
       padding-right: 30px;
     }
     .actions-dropdown {

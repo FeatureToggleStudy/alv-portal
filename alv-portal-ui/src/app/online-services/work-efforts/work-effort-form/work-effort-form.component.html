@@ -57,8 +57,8 @@
               <alv-date-input alvFormControlName="date"
                               [minDate]="minDate"
                               [maxDate]="maxDate"
-                              [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
                               label="portal.work-efforts.edit-form.application-date.label"
+                              [validationMessages]="dateValidationMessages"
                               container="body">
               </alv-date-input>
             </div>
@@ -104,6 +104,7 @@
             <legend class="sr-only">{{'portal.work-efforts.edit-form.company-panel-label' | translate}}</legend>
 
             <alv-input-field [maxLength]="NAME_MAX_LENGTH"
+                             [showCharacterCounter]="true"
                              alvFormControlName="companyName"
                              [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
                              label="portal.work-efforts.edit-form.address.company">
@@ -161,6 +162,8 @@
             <alv-input-field alvFormControlName="contactPerson"
                              [isRequired]="isContactPersonRequired()"
                              [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
+                             [maxLength]="CONTACT_PERSON_MAX_LENGTH"
+                             [showCharacterCounter]="true"
                              label="portal.work-efforts.edit-form.contact-person">
             </alv-input-field>
 
@@ -172,6 +175,8 @@
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
                                [isRequired]="isCompanyEmailRequired()"
+                               [maxLength]="EMAIL_MAX_LENGTH"
+                               [showCharacterCounter]="true"
                                placeholder="portal.work-efforts.edit-form.email.placeholder"
                                label="portal.work-efforts.edit-form.address.email">
               </alv-input-field>
@@ -215,6 +220,8 @@
                              class="mb-0"
                              [validationMessages]="[{error: 'required', message: 'portal.online-forms.validation.required'}]"
                              label="portal.work-efforts.edit-form.job-title">
+                             [maxLength]="OCCUPATION_MAX_LENGTH"
+                             [showCharacterCounter]="true">
             </alv-input-field>
           </fieldset>
         </alv-collapse-panel>
@@ -286,8 +293,11 @@
                 <div class="arrow-down">
                 </div>
               </div>
-              <alv-input-field [isRequired]="workEffortFormGroup?.get('applyStatus')?.get('REJECTED')?.value"
-                               alvFormControlName="rejectionReason"
+              <alv-input-field alvFormControlName="rejectionReason"
+                               [isRequired]="workEffortFormGroup?.get('applyStatus')?.get('REJECTED')?.value"
+                               [multiline]="true"
+                               [maxLength]="REJECTION_REASON_MAX_LENGTH"
+                               [showCharacterCounter]="true"
                                label="portal.work-efforts.edit-form.rejection-reason">
               </alv-input-field>
             </ng-container>

@@ -1,5 +1,5 @@
 os: linux
-dist: trusty
+dist: xenial
 group: stable
 sudo: required
 language: java
@@ -11,7 +11,7 @@ services:
 env:
   global:
   - PROJECT_VERSION=0.0.1
-  - NODE_VERSION=10.9.0
+  - NODE_VERSION=v10.16.3
   # ARTIFACTORY_USERNAME
   - secure: ldlkDhRSNvMd4ZZAMBAl/BAPd/uPJEI5kSFW5RkKVFHmmXgGE49+Qu7NrySuG9gC0hxUu0s8nHeLCTajz3ovbhDZ6psHRfIofieIbVljdtfEtdSzWQx2BD4M3PWUe7/DLNth/Z/vWmfXnNUI/XMb+KUNOlaed8vLmb+V4zdI2Vt/S47rB8ndZH/k4p2kufAuYWekXDrb8VdiCFt1zrVvvp7Tls6Aj/x8737XJ01dQfVsJX/XsCmEPUHaHOeQD6f5aK1RtrkQsz5yKtZL5Zu9Q9jYUl7Dt5SU8YDZHLc6iGgXVjrafuK7ywLf6JmZYnNCR2TxzDCYx9RokkxX3JvBhcN/JrG+1M43S0azzNn3tjKZa+tZnvzmBq5w+Nbi/XxsTBUa2XA0sXuEXDVGWaW5r9sArd/onkQYIJjZq+N/nwwoVekL7FzckLjCc/yxKa4ddvSKoZIfq9tADZ9KAKcGQspCO5VsySOptCQE/nwOLYSL4Z3+MvOI+C6204JK1d3t2SfW5WRe74uLGEcHwTh84l+QG6ioEOlCEBD8nKq/whLJ2sPCfSxpp6e0Iid59p+cbGPtRoav9GVfZgp1eDbV6R6J2mQwBrGbNvnaOr/eprsAT7ukoJ+Pw2DEGmlLKF/Vr9bxDMrzJJCfLzcOzG5W3ZrfsVe67BnHD8caMrdoofs=
   # ARTIFACTORY_PASSWORD

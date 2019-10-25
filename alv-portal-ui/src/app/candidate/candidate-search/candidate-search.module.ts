@@ -24,7 +24,7 @@ import { CandidateSearchLoggingEffects } from './state-management/effects/candid
 @NgModule({
   imports: [
     StoreModule.forFeature('candidateSearch', candidateSearchReducer),
-    EffectsModule.forFeature([CandidateSearchEffects, CandidateSearchLoggingEffects]),
+    EffectsModule.forFeature([CandidateSearchLoggingEffects, CandidateSearchEffects]),
     CommonModule,
     SharedModule,
     CandidateSearchRoutingModule,

@@ -36,8 +36,8 @@ export class ValidationService {
       message: 'portal.forms.validation.ngbDate.format',
       // Attention: requiredBefore and requiredAfter are switched
       // see https://github.com/ng-bootstrap/ng-bootstrap/issues/2922
-      requiredBefore: 'portal.forms.validation.ngbDate.before',
-      requiredAfter: 'portal.forms.validation.ngbDate.after'
+      requiredBefore: 'portal.forms.validation.ngbDate.after',
+      requiredAfter: 'portal.forms.validation.ngbDate.before'
     },
     {
       error: 'houseNumValidator',

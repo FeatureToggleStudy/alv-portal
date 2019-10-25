@@ -1,0 +1,30 @@
+<alv-modal (cancelAction)="cancel()"
+           (primaryAction)="submit()"
+           cancelLabel="portal.global.cancel"
+           modalTitle="portal.competence-catalog.competence-elements.add-modal.title"
+           primaryLabel="portal.global.add"
+           [formGroup]="form">
+  <fieldset>
+    <legend>{{'portal.competence-catalog.competence-elements.add-modal.search-existing-label' | translate}}</legend>
+    <alv-single-typeahead alvFormControlName="competenceElement"
+                          label="portal.global.search"
+                          [loadItems]="searchCompetenceElementsFn"
+                          (itemSelected)="itemSelected($event)"
+                          [autofocus]="true">
+    </alv-single-typeahead>
+  </fieldset>
+
+  <fieldset formGroupName="description">
+    <ng-container *ngFor="let formField of ['textDe','textFr','textIt','textEn']">
+      <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.title-{{formField}}"
+                       [alvFormControlName]="formField"
+                       [multiline]="true"
+                       [multilineMinRows]="1"
+                       [showGroupErrors]="true"
+                       [validationMessages]="[{ error: 'atLeastOneRequired', message: 'global.common-phrases.at-least-one-required' }]"
+                       [readonly]="true">
+      </alv-input-field>
+    </ng-container>
+  </fieldset>
+
+</alv-modal>
