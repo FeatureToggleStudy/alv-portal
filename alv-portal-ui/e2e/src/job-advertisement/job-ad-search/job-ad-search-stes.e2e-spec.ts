@@ -2,7 +2,7 @@ import { JobSearchPo } from './job-search.po';
 import { HeaderPo } from '../../header.po';
 
 describe('Job search page for anonymous', () => {
-  let searchPage: JobSearchPo;
+  const searchPage: JobSearchPo;
 
   beforeEach(() => {
     const header = new HeaderPo();
