@@ -1,0 +1,14 @@
+@import "../../../../scss/common/colors";
+
+.progress-bar {
+  height: 46px;
+  border: 1px solid $color-medium-grey;
+  background-color: transparent;
+  padding-right: 2em !important;
+
+  .cancel-upload-button {
+    position: absolute;
+    right: 0.3em;
+    top: 0.4em;
+  }
+}

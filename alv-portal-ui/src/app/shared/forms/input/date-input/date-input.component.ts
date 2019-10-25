@@ -58,7 +58,7 @@ export class DateInputComponent extends AbstractInput {
    */
   @Input() container: string;
 
-  @ViewChild('datePicker') datePicker: any;
+  @ViewChild('datePicker', {static: false}) datePicker: any;
 
   constructor(@Optional() @Host() @SkipSelf()controlContainer: ControlContainer,
               inputIdGenerationService: InputIdGenerationService) {

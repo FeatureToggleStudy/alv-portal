@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 /**
  * Component to create custom modals after the styleguide
@@ -38,6 +39,11 @@ export class ModalComponent {
   @Input() showPrimaryButton = true;
 
   /**
+   * (optional) attribute to set disabled state of primary action
+   */
+  @Input() primaryButtonDisabled?: boolean;
+
+  /**
    * Emitted event on primary button click.
    */
   @Output() primaryAction = new EventEmitter<void>();
@@ -73,12 +79,19 @@ export class ModalComponent {
    */
   @Input() showCloseButton = true;
 
+  /**
+   * (optional) pass subscription to disable modal buttons while it is not completed
+   */
+  @Input() loadingSubscription?: Subscription;
+
   constructor() {
   }
 
   handlePrimaryClick() {
     if (!this.formGroup) {
       this.handleSubmitClick();
+    } else if (this.formGroup.invalid) {
+      this.formGroup.updateValueAndValidity();
     }
   }
 
@@ -94,4 +107,7 @@ export class ModalComponent {
     this.secondaryAction.emit();
   }
 
+  isLoading(): boolean {
+    return this.loadingSubscription && !this.loadingSubscription.closed;
+  }
 }

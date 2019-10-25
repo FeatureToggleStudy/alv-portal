@@ -93,7 +93,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
 
   disableSaveSearchProfileButton$: Observable<boolean>;
 
-  @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
+  @ViewChild('searchPanel', {static: false}) searchPanelElement: ElementRef<Element>;
 
   @BlockUI() blockUI: NgBlockUI;
 
@@ -178,6 +178,7 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   ngOnDestroy() {
     super.ngOnDestroy();
     this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
+    this.stopSpinner();
   }
 
   onQueryChange(queryPanelValues: JobQueryPanelValues) {
@@ -297,6 +298,10 @@ export class JobSearchComponent extends AbstractSubscriber implements OnInit, Af
   getTotalCountLabel(totalCount: string): string {
     return totalCount === '1' ? 'portal.job-ad-search.results-count.label.singular' :
       'portal.job-ad-search.results-count.label.plural';
+  }
+
+  private stopSpinner() {
+    this.blockUI.reset();
   }
 
 }

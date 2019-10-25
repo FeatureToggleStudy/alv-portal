@@ -7,10 +7,10 @@
    container="body"
    placement="right"
    routerLinkActive="active">
-  <ng-container *ngIf="menuEntry.iconClass; else customIcon ">
+  <ng-container *ngIf="menuEntry.iconProp; else customIcon ">
     <fa-icon class="nav-icon"
       [fixedWidth]="true"
-      [icon]="['fas', menuEntry.iconClass]"></fa-icon>
+      [icon]="menuEntry.iconProp"></fa-icon>
   </ng-container>
   <ng-template #customIcon>
     <alv-custom-icon
@@ -21,7 +21,7 @@
 
 <div class="child-nav-container"
      tabindex="-1"
-  [routerLink]="menuEntry.path"
+  [routerLink]="menuEntry?.path"
      routerLinkActive="expanded">
   <ng-container *ngFor="let subMenuEntry of menuEntry?.entries">
     <alv-menu-entry [isChild]="true"

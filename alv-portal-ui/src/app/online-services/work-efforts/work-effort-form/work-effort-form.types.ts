@@ -2,8 +2,10 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ZipCityFormValue } from '../../../shared/forms/input/zip-city-input/zip-city-form-value.types';
 import { now } from '../../../shared/forms/input/ngb-date-utils';
 import { IsoCountryService } from '../../../shared/localities/iso-country.service';
-
-type ArrayFromInterface<T> = (keyof (T))[];
+import {
+  WorkEffortApplyChannelType,
+  WorkEffortApplyStatus
+} from '../../../shared/backend-services/work-efforts/proof-of-work-efforts.types';
 
 export interface ApplyChannelsFormValue {
   ELECTRONIC: boolean;
@@ -12,17 +14,16 @@ export interface ApplyChannelsFormValue {
   PHONE: boolean;
 }
 
-export const formPossibleApplyChannels: ArrayFromInterface<ApplyChannelsFormValue> = ['ELECTRONIC', 'MAIL', 'PERSONAL', 'PHONE'];
+export const formPossibleApplyChannels: WorkEffortApplyChannelType[] = Object.values(WorkEffortApplyChannelType);
 
-
-export interface ResultsFormValue {
+export interface ApplyStatusFormValue {
   PENDING: boolean;
   REJECTED: boolean;
   EMPLOYED: boolean;
   INTERVIEW: boolean;
 }
 
-export const formPossibleResults: ArrayFromInterface<ResultsFormValue> = ['PENDING', 'INTERVIEW', 'EMPLOYED', 'REJECTED'];
+export const formPossibleApplyStatus: WorkEffortApplyStatus[] = Object.values(WorkEffortApplyStatus);
 
 export enum WorkLoadFormOption {
   FULLTIME = 'FULLTIME',
@@ -36,7 +37,7 @@ export interface WorkEffortFormValue {
   applyChannels: ApplyChannelsFormValue;
   companyAddress?: {
     countryIsoCode: string;
-    postOfficeBoxNumberOrStreet: {
+    postOfficeBoxNumberOrStreet?: {
       street?: string;
       houseNumber?: string;
       postOfficeBoxNumber?: string;
@@ -51,12 +52,17 @@ export interface WorkEffortFormValue {
   phone?: string;
   occupation: string;
   appliedThroughRav: boolean;
-  results: ResultsFormValue;
+  applyStatus: ApplyStatusFormValue;
   rejectionReason?: string;
-  workload: WorkLoadFormOption;
+  workload?: WorkLoadFormOption;
 }
 
-export const emptyWorkEffortFormValue = {
+export interface WorkEffortFormInfo {
+  workEffortFormValue: WorkEffortFormValue;
+  readonly: boolean;
+}
+
+export const emptyWorkEffortFormValue: WorkEffortFormValue = {
   companyName: '',
   date: now(),
   applyChannels: {
@@ -68,11 +74,14 @@ export const emptyWorkEffortFormValue = {
   companyAddress: {
     countryIsoCode: IsoCountryService.ISO_CODE_SWITZERLAND,
   },
-  results: {
+  appliedThroughRav: false,
+  applyStatus: {
     PENDING: false,
     REJECTED: false,
     EMPLOYED: false,
     INTERVIEW: false
-  }
+  },
+  occupation: ''
 };
 
+export const WORK_EFFORT_MONTHS_DIFF = -6;

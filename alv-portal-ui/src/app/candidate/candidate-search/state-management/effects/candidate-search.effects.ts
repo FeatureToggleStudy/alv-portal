@@ -153,7 +153,7 @@ export class CandidateSearchEffects {
     withLatestFrom(this.store.pipe(select(getCandidateSearchState))),
     concatMap(([action, state]) => this.candidateRepository.searchCandidateProfiles(CandidateSearchRequestMapper.mapToRequest(state.candidateSearchFilter, state.page + 1))
       .pipe(
-        map((response) => new NextPageLoadedAction({ page: response.result })),
+        map((response) => new NextPageLoadedAction({pageNumber: state.page + 1, page: response.result })),
         catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse })))
       ))
   );

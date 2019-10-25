@@ -1,0 +1,15 @@
+
+.filter-button {
+  position: absolute;
+  right: 0;
+  top: -0.3em;
+}
+
+.add-work-effort-button {
+  top: 54px;
+  position: relative;
+  @supports (position: sticky) {
+    top: 154px;
+    position: sticky;
+  }
+}

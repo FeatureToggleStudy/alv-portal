@@ -15,12 +15,13 @@
            [attr.aria-required]="!!required"
            [attr.id]="id"
            [attr.required]="required"
-           [class.placeholder-shown]="!inputField.value && !(controlValueChange$ | async)"
+           [class.placeholder-shown]="!inputField.value && (controlValueChange$ | async) === ''"
            [container]="'body'"
            [editable]="false"
            [focusFirst]="focusFirst"
            [value]="controlValueChange$ | async"
            [ngbTypeahead]="loadItemsGuardedFn"
+           [attr.disabled]="control.disabled ? true : null"
            [resultTemplate]="template"
            [inputFormatter]="formatResultItem"
            (input)="handleInput()"
@@ -44,7 +45,7 @@
     </div>
 
     <fa-icon class="search-icon"
-             [icon]="['fas', 'search']"></fa-icon>
+             [icon]="['fas', control.value ? 'check' : 'search']"></fa-icon>
 
     <ng-template #template
                  let-formatter="formatter"

@@ -1,0 +1,51 @@
+@import "../../../../scss/common/colors";
+
+.dark {
+  .alv-bar {
+    color: $color-white;
+    background-color: $color-dark-grey;
+    border-bottom: 1px solid $color-medium-grey;
+    &:hover {
+      background: darken($color-dark-grey, 20%);
+    }
+  }
+  .action-buttons button {
+    color: $color-white;
+    &:hover {
+      border-color: $color-white;
+    }
+  }
+}
+
+.alv-bar {
+  height: 50px;
+  &:focus {
+    box-shadow: none;
+  }
+  border-bottom: 1px solid transparent;
+  &.collapsed {
+    border-bottom: 1px solid $color-medium-grey;
+  }
+  &.empty {
+    pointer-events: none;
+    border-bottom: 1px solid $color-medium-grey;
+    fa-icon {
+      color: transparent;
+    }
+  }
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+.action-buttons {
+  position: absolute;
+  right: 7px;
+  top: 9px;
+  z-index: 2;
+}
+
+.panel-content {
+  display: block;
+  transform-origin: top;
+}

@@ -1,15 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { CandidateDetailPanelId } from './candidate-detail-panel-id.enum';
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import {
+  CONTACT_CANDIDATE_DIALOG_SUBMITTED,
   CandidateSearchState,
+  ContactCandidateDialogOpenedAction, ContactCandidateDialogSubmittedAction,
+  CopyLinkAction,
+  ExpandContactInfoAction,
   getSelectedCandidateProfile,
   isNextVisible,
   isPrevVisible,
   LoadNextCandidateProfileDetailAction,
-  LoadPreviousCandidateProfileDetailAction
+  LoadPreviousCandidateProfileDetailAction,
+  PrintPageAction,
+  SelectCandidatePhoneAction,
+  SelectRavEmailAction,
+  SelectRavPhoneAction,
+  SendLinkAction
 } from '../state-management';
 import {
   CandidateProfileBadge,
@@ -17,7 +26,7 @@ import {
 } from '../candidate-profile-badges-mapper.service';
 import { CandidateDetailModelFactory } from './candidate-detail-model-factory';
 import { CandidateDetailModel } from './candidate-detail-model';
-import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, switchMap, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { findRelevantJobExperience, hasEmailContactType } from '../candidate-rules';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { CandidateProfile } from '../../../shared/backend-services/candidate/candidate.types';
@@ -27,6 +36,9 @@ import { hasAnyAuthorities, UserRole } from '../../../core/auth/user.model';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { NotificationsService } from '../../../core/notifications.service';
 import { NotificationType } from '../../../shared/layout/notifications/notification.model';
+import { WINDOW } from '../../../core/window.service';
+import { ActivatedRoute } from '@angular/router';
+import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 
 
 @Component({
@@ -34,7 +46,7 @@ import { NotificationType } from '../../../shared/layout/notifications/notificat
   templateUrl: './candidate-detail.component.html',
   styleUrls: ['./candidate-detail.component.scss']
 })
-export class CandidateDetailComponent implements OnInit {
+export class CandidateDetailComponent extends AbstractSubscriber implements OnInit {
 
   private static readonly ALERTS = {
     copiedLinkToClipboard: {
@@ -48,6 +60,8 @@ export class CandidateDetailComponent implements OnInit {
 
   layoutConstants = LayoutConstants;
 
+  isProtectedDataCollapsed = true;
+
   candidateDetailModel$: Observable<CandidateDetailModel>;
 
   prevEnabled$: Observable<boolean>;
@@ -60,7 +74,7 @@ export class CandidateDetailComponent implements OnInit {
 
   candidateDetailPanelId = CandidateDetailPanelId;
 
-  @ViewChild(NgbTooltip)
+  @ViewChild(NgbTooltip, { static: false })
   clipboardTooltip: NgbTooltip;
 
   constructor(private store: Store<CandidateSearchState>,
@@ -68,7 +82,10 @@ export class CandidateDetailComponent implements OnInit {
               private candidateDetailModelFactory: CandidateDetailModelFactory,
               private candidateProfileBadgesMapperService: CandidateProfileBadgesMapperService,
               private modalService: ModalService,
-              private notificationsService: NotificationsService) {
+              private notificationsService: NotificationsService,
+              private activatedRoute: ActivatedRoute,
+              @Inject(WINDOW) private window: Window) {
+    super();
   }
 
   ngOnInit() {
@@ -92,6 +109,11 @@ export class CandidateDetailComponent implements OnInit {
         return rolePavOrCompany && emailContactType;
       })
     );
+
+    this.activatedRoute.params.pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.isProtectedDataCollapsed = true;
+      });
   }
 
   prev() {
@@ -103,13 +125,21 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   printCandidate() {
-    window.print();
+    this.store.dispatch(new PrintPageAction());
+    this.window.print();
   }
 
   openContactModal(candidateProfile: CandidateProfile): void {
+    this.store.dispatch(new ContactCandidateDialogOpenedAction());
     this.appendCandidateToModalRef(candidateProfile)
-      .then(() => this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success'), () => {
-      });
+      .then(
+        () => {
+          this.store.dispatch(new ContactCandidateDialogSubmittedAction());
+          this.notificationsService.success('candidate-detail.candidate-anonymous-contact.success');
+        },
+        () => {
+        }
+      );
   }
 
   appendCandidateToModalRef(candidateProfile: CandidateProfile) {
@@ -119,6 +149,8 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   onCopyLink(): void {
+    this.store.dispatch(new CopyLinkAction());
+
     this.notificationsService.add(CandidateDetailComponent.ALERTS.copiedLinkToClipboard);
   }
 
@@ -127,7 +159,32 @@ export class CandidateDetailComponent implements OnInit {
   }
 
   getCandidateUrl() {
-    return window.location.href;
+    return this.window.location.href;
+  }
+
+  sendEmail() {
+    this.store.dispatch(new SendLinkAction());
+    this.window.location.href = 'mailto:?body=' + this.getEncodedUrl();
+  }
+
+  logPhoneRav() {
+    this.store.dispatch(new SelectRavPhoneAction());
+  }
+
+  logEmailRav() {
+    this.store.dispatch(new SelectRavEmailAction());
+  }
+
+  logSelectCandidatePhone() {
+    this.store.dispatch(new SelectCandidatePhoneAction());
+
+  }
+
+  onCandidateProtectedDataCollapsed(isCollapsedAfterClick: boolean) {
+    this.isProtectedDataCollapsed = isCollapsedAfterClick;
+    if (!isCollapsedAfterClick) {
+      this.store.dispatch(new ExpandContactInfoAction());
+    }
   }
 
 }

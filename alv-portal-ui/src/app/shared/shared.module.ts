@@ -14,18 +14,22 @@ import { IconsModule } from './icons/icons.module';
 import { LegalTermsDirective } from './legal-terms/legal-terms.directive';
 import { LegalTermsModalComponent } from './legal-terms/legal-terms-modal/legal-terms-modal.component';
 import { IsoCountryService } from './localities/iso-country.service';
-import { TrackingEventDirective } from './tracking/tracking-event.directive';
+import { GATrackingEventDirective } from './tracking/g-a-tracking-event.directive';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { CompanyContactManagementComponent } from './user-settings/company-contact-management/company-contact-management.component';
+import { UploadProgressbarComponent } from './progress/upload-progressbar/upload-progressbar.component';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedAppContextModule } from './app-context/shared-app-context.module';
 
 @NgModule({
   declarations: [
     DummyComponent,
     LegalTermsDirective,
     LegalTermsModalComponent,
-    TrackingEventDirective,
+    GATrackingEventDirective,
     UserSettingsComponent,
-    CompanyContactManagementComponent
+    CompanyContactManagementComponent,
+    UploadProgressbarComponent
   ],
   imports: [
     TranslateModule.forChild(),
@@ -34,9 +38,11 @@ import { CompanyContactManagementComponent } from './user-settings/company-conta
     PrettyJsonModule,
     LayoutModule,
     SharedAuthModule,
+    SharedAppContextModule,
     ClipboardModule,
     PipesModule,
-    IconsModule
+    IconsModule,
+    NgbProgressbarModule
   ],
   entryComponents: [
     LegalTermsModalComponent
@@ -51,11 +57,13 @@ import { CompanyContactManagementComponent } from './user-settings/company-conta
     ClipboardModule,
     MarkdownModule,
     SharedAuthModule,
+    SharedAppContextModule,
     IconsModule,
     LegalTermsDirective,
-    TrackingEventDirective,
+    GATrackingEventDirective,
     UserSettingsComponent,
-    CompanyContactManagementComponent
+    CompanyContactManagementComponent,
+    UploadProgressbarComponent
   ],
   providers: [
     LandingPageGuard,

@@ -1,4 +1,5 @@
-<button class="collapse-button alv-bar btn d-flex align-items-center w-100"
+<button *ngIf="!isAlwaysExpanded"
+        class="collapse-button title-bar alv-bar btn d-flex align-items-center w-100"
         type="button"
         tabindex="-1"
         [class.collapsed]="isCollapsed"
@@ -14,6 +15,10 @@
              [icon]="['fas', 'chevron-down']"></fa-icon>
   </ng-container>
 </button>
+<div *ngIf="isAlwaysExpanded"
+     class="title-bar alv-bar w-100">
+  {{ panelTitle | translate }}
+</div>
 <div class="panel-content"
      [id]="panelId"
      [ngbCollapse]="isCollapsed"

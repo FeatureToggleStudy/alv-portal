@@ -10,12 +10,27 @@ import {
 } from '../../../../shared/backend-services/shared.types';
 import {
   CandidateProfile,
-  FilterLanguageSkill
+  FilterLanguageSkill,
+  JobExperience
 } from '../../../../shared/backend-services/candidate/candidate.types';
 import { OccupationTypeaheadItem } from '../../../../shared/occupations/occupation-typeahead-item';
 import { StringTypeaheadItem } from '../../../../shared/forms/input/typeahead/string-typeahead-item';
 import { LocalityTypeaheadItem } from '../../../../shared/localities/locality-typeahead-item';
 import { ResolvedCandidateSearchProfile } from '../../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.types';
+import { findRelevantJobExperience } from '../../candidate-rules';
+import * as xxhash from 'xxhashjs/build/xxhash.js';
+
+
+const HASH = xxhash.h32(0xABCDEF);
+
+/**
+ * Calculate a hashCode that is used for the track-by-fn for angular ngFor
+ *
+ * @param result
+ */
+function hashCode(result: CandidateSearchResult) {
+  return HASH.update(JSON.stringify(result)).digest().toString(16);
+}
 
 export interface CandidateSearchState {
   totalCount: number;
@@ -71,9 +86,16 @@ export interface CandidateSearchFilter {
   languageSkills: FilterLanguageSkill[];
 }
 
-export interface CandidateSearchResult {
-  candidateProfile: CandidateProfile;
-  visited: boolean;
+export class CandidateSearchResult {
+  hashCode: string;
+
+  constructor(public candidateProfile: CandidateProfile,
+              public relevantJobExperience: JobExperience,
+              public visited: boolean = false) {
+    this.hashCode = hashCode(this);
+
+  }
+
 }
 
 export const getCandidateSearchState = createFeatureSelector<CandidateSearchState>('candidateSearch');
@@ -88,25 +110,29 @@ export const getResultsAreLoading = createSelector(getCandidateSearchState, (sta
 
 export const getSelectedCandidateProfile = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.selectedCandidateProfile);
 
-export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations);
+export const getSelectedOccupations = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.candidateSearchFilter.occupations.map((b) => b.payload));
 
 export const getCandidateSearchProfile = createSelector(getCandidateSearchState, (state) => state.candidateSearchProfile);
 
-const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
+export const getResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.resultList);
 
 const isDirtyResultList = createSelector(getCandidateSearchState, (state: CandidateSearchState) => state.isDirtyResultList);
 
-export const getCandidateSearchResults = createSelector(isDirtyResultList, getResultList, getVisitedCandidates, (dirty, resultList, visitedCandidates) => {
-  if (dirty) {
-    return undefined;
-  }
-  return resultList.map((candidateProfile) => {
-    return {
-      candidateProfile: candidateProfile,
-      visited: visitedCandidates[candidateProfile.id] || false
-    };
+export const getCandidateSearchResults = createSelector(
+  isDirtyResultList,
+  getResultList,
+  getVisitedCandidates,
+  getSelectedOccupations,
+  (dirty, resultList, visitedCandidates, selectedOccupations) => {
+    if (dirty) {
+      return undefined;
+    }
+    return resultList.map((candidateProfile) =>
+      new CandidateSearchResult(candidateProfile,
+        findRelevantJobExperience(candidateProfile, selectedOccupations),
+        visitedCandidates[candidateProfile.id] || false)
+    );
   });
-});
 
 export const getPrevId = createSelector(getResultList, getSelectedCandidateProfile, (resultList, current) => {
   if (current) {

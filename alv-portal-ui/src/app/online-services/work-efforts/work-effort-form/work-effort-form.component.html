@@ -36,8 +36,8 @@
           </button>
         </div>
       </div>
-      <h2>
-        <alv-custom-icon class="text-primary"
+      <h2 class="d-flex">
+        <alv-custom-icon class="text-primary mr-1"
                          aria-hidden="true"
                          [iconKey]="IconKey.WORK_EFFORTS">
         </alv-custom-icon>
@@ -46,7 +46,7 @@
       <hr class="mb-4">
       <form (validSubmit)="submit()"
             [formGroup]="workEffortFormGroup"
-            class="mb-5"
+            class="mb-4"
             alvFormSubmitValidation>
         <!--      Date-->
         <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.application-date-panel-label"
@@ -57,6 +57,7 @@
               <alv-date-input alvFormControlName="date"
                               [minDate]="minDate"
                               [maxDate]="maxDate"
+                              [validationMessages]="dateValidationMessages"
                               label="portal.global.date"
                               container="body">
               </alv-date-input>
@@ -64,7 +65,7 @@
           </fieldset>
         </alv-collapse-panel>
 
-        <div class="arrow-container pt-0">
+        <div class="arrow-container">
           <div class="arrow-down secondary">
           </div>
         </div>
@@ -78,8 +79,7 @@
                  class="alv-light-panel p-2"
                  [class.mb-1]="!last">
               <alv-checkbox [alvFormControlName]="applyChannelCheckbox"
-                            [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox"
-              >
+                            [label]="'portal.work-efforts.edit-form.apply-channel.' + applyChannelCheckbox">
               </alv-checkbox>
             </div>
             <alv-validation-messages id="application-at-least-one-required-msg-id"
@@ -92,7 +92,7 @@
           </fieldset>
         </alv-collapse-panel>
 
-        <div class="arrow-container pt-0">
+        <div class="arrow-container">
           <div class="arrow-down secondary">
           </div>
         </div>
@@ -104,6 +104,7 @@
             <legend class="sr-only">{{'portal.work-efforts.edit-form.company-panel-label' | translate}}</legend>
 
             <alv-input-field [maxLength]="NAME_MAX_LENGTH"
+                             [showCharacterCounter]="true"
                              alvFormControlName="companyName"
                              label="home.tools.job-publication.company.name">
             </alv-input-field>
@@ -140,10 +141,6 @@
                 </alv-input-field>
               </div>
 
-              <alv-select [options$]="countryOptions$"
-                          alvFormControlName="countryIsoCode"
-                          label="home.tools.job-publication.company.country"></alv-select>
-
               <alv-zip-city-input [parentForm]="workEffortFormGroup.get('companyAddress')"
                                   [zipCityFormValue]="initialZipAndCity"
                                   [validators]="zipCityValidators"
@@ -151,10 +148,17 @@
                                   [isRequired]="isCompanyAddressRequired()">
               </alv-zip-city-input>
 
+              <alv-select [options$]="countryOptions$"
+                          alvFormControlName="countryIsoCode"
+                          label="home.tools.job-publication.company.country">
+              </alv-select>
+
             </fieldset>
 
             <alv-input-field alvFormControlName="contactPerson"
                              [isRequired]="isContactPersonRequired()"
+                             [maxLength]="CONTACT_PERSON_MAX_LENGTH"
+                             [showCharacterCounter]="true"
                              label="portal.work-efforts.edit-form.contact-person">
             </alv-input-field>
 
@@ -166,6 +170,8 @@
                                 message: 'portal.work-efforts.edit-form.group-errors.email-or-url-required'}
                                 ]"
                                [isRequired]="isCompanyEmailRequired()"
+                               [maxLength]="EMAIL_MAX_LENGTH"
+                               [showCharacterCounter]="true"
                                placeholder="portal.work-efforts.edit-form.email.placeholder"
                                label="portal.global.email">
               </alv-input-field>
@@ -194,7 +200,7 @@
 
         </alv-collapse-panel>
 
-        <div class="arrow-container pt-0">
+        <div class="arrow-container">
           <div class="arrow-down secondary">
           </div>
         </div>
@@ -206,12 +212,14 @@
             <legend class="sr-only">{{'portal.work-efforts.edit-form.occupation-panel-label' | translate}}</legend>
             <alv-input-field alvFormControlName="occupation"
                              class="mb-0"
-                             label="portal.global.job-title">
+                             label="portal.global.job-title"
+                             [maxLength]="OCCUPATION_MAX_LENGTH"
+                             [showCharacterCounter]="true">
             </alv-input-field>
           </fieldset>
         </alv-collapse-panel>
 
-        <div class="arrow-container pt-0">
+        <div class="arrow-container">
           <div class="arrow-down secondary">
           </div>
         </div>
@@ -228,7 +236,7 @@
             </alv-radio-button>
           </fieldset>
         </alv-collapse-panel>
-        <div class="arrow-container pt-0">
+        <div class="arrow-container">
           <div class="arrow-down secondary">
           </div>
         </div>
@@ -246,38 +254,41 @@
           </fieldset>
         </alv-collapse-panel>
 
-        <div class="arrow-container pt-0">
+        <div class="arrow-container">
           <div class="arrow-down secondary">
           </div>
         </div>
         <!--      Results and rejection reason -->
-        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.result"
+        <alv-collapse-panel panelTitle="portal.work-efforts.edit-form.apply-status.label"
                             [isAlwaysExpanded]="true">
           <fieldset>
-            <legend class="sr-only">{{'portal.work-efforts.edit-form.result' | translate}}</legend>
-            <div formGroupName="results">
-              <div *ngFor="let resultCheckbox of resultsCheckboxNames"
+            <legend class="sr-only">{{'portal.work-efforts.edit-form.apply-status' | translate}}</legend>
+            <div formGroupName="applyStatus">
+              <div *ngFor="let applyStatusCheckbox of applyStatusCheckboxNames"
                    class="alv-light-panel p-2 mb-1">
                 <alv-checkbox
-                  [alvFormControlName]="resultCheckbox"
-                  [label]="'portal.work-efforts.edit-form.results.' + resultCheckbox"
+                  [alvFormControlName]="applyStatusCheckbox"
+                  [label]="'portal.work-efforts.edit-form.apply-status.' + applyStatusCheckbox"
                   class="narrow-form">
                 </alv-checkbox>
               </div>
-              <alv-validation-messages [control]="workEffortFormGroup.get('results')"
+              <alv-validation-messages [control]="workEffortFormGroup.get('applyStatus')"
                                        [customValidationMessages]="[{
                                         error: 'atLeastOneRequired',
-                                        message: 'portal.work-efforts.edit-form.group-errors.at-least-one-result-required'
+                                        message: 'portal.work-efforts.edit-form.group-errors.at-least-one-apply-status-required'
                                       }]">
               </alv-validation-messages>
             </div>
-            <ng-container *ngIf="workEffortFormGroup?.get('results')?.get('REJECTED')?.value">
-              <div class="arrow-container pt-0">
+            <ng-container *ngIf="workEffortFormGroup?.get('applyStatus')?.get('REJECTED')?.value">
+              <div class="arrow-container">
                 <div class="arrow-down">
                 </div>
               </div>
-              <alv-input-field [isRequired]="workEffortFormGroup?.get('results')?.get('REJECTED')?.value"
-                               alvFormControlName="rejectionReason"
+              <alv-input-field alvFormControlName="rejectionReason"
+                               [isRequired]="workEffortFormGroup?.get('applyStatus')?.get('REJECTED')?.value"
+                               [multiline]="true"
+                               [maxLength]="REJECTION_REASON_MAX_LENGTH"
+                               [showCharacterCounter]="true"
                                label="portal.work-efforts.edit-form.rejection-reason">
               </alv-input-field>
             </ng-container>
@@ -291,17 +302,26 @@
           </div>
         </alv-alert>
         <div class="d-flex justify-content-end">
-          <button (click)="goToWorkEffortsList()"
-                  [disabled]="isSubmitting"
+          <ng-container *ngIf="!readonly">
+            <button (click)="goToWorkEffortsList()"
+                    [disabled]="isSubmitting"
+                    type="button"
+                    class="btn btn-text">{{('portal.global.cancel') | translate}}</button>
+            <button type="submit"
+                    [disabled]="isSubmitting"
+                    class="btn btn-primary ml-1">{{'entity.action.save' | translate}}</button>
+          </ng-container>
+
+          <button *ngIf="readonly"
+                  (click)="goToWorkEffortsList()"
                   type="button"
-                  class="btn btn-text">{{'portal.global.cancel' | translate}}</button>
-          <button type="submit"
-                  [disabled]="isSubmitting"
-                  class="btn btn-primary ml-1">{{'entity.action.save' | translate}}</button>
+                  class="btn btn-primary">
+            {{'entity.action.back' | translate}}
+          </button>
         </div>
       </form>
     </div>
-    <div class="right-column">
+    <div class="right-column mb-3">
       <alv-link-panel [linkPanelId]="LinkPanelId.WORK_EFFORT_EDIT"
                       class="info-panel"
                       [numberOfColumns]="1">

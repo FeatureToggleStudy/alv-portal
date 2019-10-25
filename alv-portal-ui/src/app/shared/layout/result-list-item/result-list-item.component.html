@@ -1,5 +1,6 @@
 <div class="result-list-item-container position-relative">
   <a [routerLink]="result.routerLink"
+     (click)="onClick()"
      class="d-block result-list-item flex-height position-relative"
      [ngClass]="{'visited' : result.visited}">
     <div class="selected-indicator h-100"></div>

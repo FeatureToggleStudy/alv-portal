@@ -3,3 +3,8 @@
   word-wrap: break-word;
   line-height: 1.75em;
 }
+
+// Capitalize the first letter of the candidate occupation
+.candidate-occupation:first-letter {
+  text-transform: capitalize;
+}

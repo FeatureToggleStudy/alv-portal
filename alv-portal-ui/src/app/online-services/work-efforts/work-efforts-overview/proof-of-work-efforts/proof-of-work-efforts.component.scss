@@ -1,0 +1,96 @@
+@import "../../../../../scss/common/colors";
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../../node_modules/bootstrap/scss/mixins';
+
+.alv-cells {
+
+  .pdf-cell {
+    padding-top: 1.5em;
+
+    .pdf-link {
+      color: $color-grey-black;
+      border: none;
+      background-color: transparent;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .name-cell {
+
+    padding-top: 1.5em;
+    display: block;
+    min-height: 74px;
+
+    .period-title {
+      font-size: 1.1em;
+    }
+
+    .cell-label {
+      display: none;
+    }
+
+    &.before-unemployment {
+      padding-top: 0.25em;
+
+      .cell-label {
+        padding-left: 1.5em;
+        display: block;
+      }
+    }
+  }
+}
+
+.file {
+  position: absolute;
+  top: 1.5em;
+  left: calc(25% + .6em);
+  width: calc(25% - 1.2em);
+}
+
+.no-work-efforts {
+  border: 1px solid $color-medium-grey;
+  background-color: white;
+  color: $color-dark-grey;
+}
+
+.collapse-panel {
+  .work-effort-divider {
+    width: 100%;
+    border-top: 3px solid $color-medium-grey;
+  }
+}
+
+:host.current-period {
+  .period-title {
+    font-weight: 600;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .alv-cells {
+    .cell.pdf-cell, .cell.name-cell {
+      border-top: none;
+      padding-top: 0.25em;
+    }
+
+    .cell.pdf-cell {
+      border-left: none;
+      display: flex;
+      align-items: center;
+    }
+    .name-cell {
+      min-height: 0;
+    }
+  }
+  .file {
+    position: absolute;
+    top: .25em;
+    right: .6em;
+    left: initial;
+    width: initial;
+  }
+}

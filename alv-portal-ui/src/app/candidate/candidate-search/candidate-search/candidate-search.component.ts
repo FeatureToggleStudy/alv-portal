@@ -17,14 +17,15 @@ import {
   CandidateSearchResult,
   CandidateSearchState,
   FILTER_APPLIED,
-  getCandidateSearchFilter, getCandidateSearchProfile,
+  getCandidateSearchFilter,
+  getCandidateSearchProfile,
   getCandidateSearchResults,
   getResultsAreLoading,
   getSelectedCandidateProfile,
-  getSelectedOccupations,
   getTotalCount,
   LoadNextPageAction,
-  ResetFilterAction, SearchProfileUpdatedAction
+  ResetFilterAction,
+  SearchProfileUpdatedAction
 } from '../state-management';
 import { ActionsSubject, select, Store } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
@@ -35,15 +36,12 @@ import { composeResultListItemId } from '../../../shared/layout/result-list-item
 import { CandidateSearchFilterParameterService } from './candidate-search-filter-parameter.service';
 import { FilterPanelValues } from './filter-panel/filter-panel.component';
 import { CandidateQueryPanelValues } from '../../../widgets/candidate-search-widget/candidate-query-panel/candidate-query-panel-values';
-import { OccupationCode } from '../../../shared/backend-services/reference-service/occupation-label.types';
 import { LayoutConstants } from '../../../shared/layout/layout-constants.enum';
 import { WINDOW } from '../../../core/window.service';
 import { filter } from 'rxjs/internal/operators/filter';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { User, UserRole } from '../../../core/auth/user.model';
-import {
-  getCandidateDeleteConfirmModalConfig
-} from '../../../shared/search-profiles/modal-config.types';
+import { UserRole } from '../../../core/auth/user.model';
+import { getCandidateDeleteConfirmModalConfig } from '../../../shared/search-profiles/modal-config.types';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CandidateSearchProfilesRepository } from '../../../shared/backend-services/candidate-search-profiles/candidate-search-profiles.repository';
 import { NotificationsService } from '../../../core/notifications.service';
@@ -80,15 +78,14 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
 
   searchMailToLink$: Observable<string>;
 
-  selectedOccupationCodes: Observable<OccupationCode[]>;
-
   disableSaveSearchProfileButton$: Observable<boolean>;
 
   detectSearchPanelHeightFn = this.detectSearchPanelHeight.bind(this);
 
   searchPanelHeight = 0;
 
-  @ViewChild('searchPanel') searchPanelElement: ElementRef<Element>;
+  @ViewChild('searchPanel', { static: false }) searchPanelElement: ElementRef<Element>;
+
 
   @BlockUI() blockUI: NgBlockUI;
 
@@ -124,15 +121,11 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
       })
     );
 
-    this.selectedOccupationCodes = this.store.pipe(select(getSelectedOccupations)).pipe(
-      map((occupations) => occupations.map((b) => b.payload))
-    );
-
     this.candidateSearchProfile$ = this.store.pipe(select(getCandidateSearchProfile));
 
     this.searchMailToLink$ = this.candidateSearchFilter$.pipe(
       map((candidateSearchFilter: CandidateSearchFilter) => this.candidateSearchFilterParameterService.encode(candidateSearchFilter)),
-      map((filterParam) => `${window.location.href}?filter=${filterParam}`),
+      map((filterParam) => `${this.window.location.href}?filter=${filterParam}`),
       map((link) => `mailto:?body=${link}`)
     );
 
@@ -170,6 +163,7 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   ngOnDestroy() {
     super.ngOnDestroy();
     this.window.removeEventListener('resize', this.detectSearchPanelHeightFn);
+    this.stopSpinner();
   }
 
   onScroll() {
@@ -262,5 +256,13 @@ export class CandidateSearchComponent extends AbstractSubscriber implements OnIn
   getTotalCountLabel(totalCount: string): string {
     return totalCount === '1' ? 'portal.candidate-search.results-count.label.singular' :
       'portal.candidate-search.results-count.label.plural';
+  }
+
+  trackByHash(index: number, item: CandidateSearchResult) {
+    return item.hashCode;
+  }
+
+  private stopSpinner() {
+    this.blockUI.reset();
   }
 }

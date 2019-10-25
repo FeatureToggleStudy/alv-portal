@@ -65,6 +65,7 @@ describe('ZipCityInputComponent', () => {
     describe('if autocomplete disabled', () => {
       beforeEach(() => {
         component.countryIsoCode = 'PL';
+        component.parentForm.enable();
       });
 
       describe('city field', () => {

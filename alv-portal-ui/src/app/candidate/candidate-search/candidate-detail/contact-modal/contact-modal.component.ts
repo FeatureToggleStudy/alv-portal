@@ -12,6 +12,7 @@ import {
   map,
   startWith,
   switchMap,
+  take,
   takeUntil,
   withLatestFrom
 } from 'rxjs/operators';
@@ -26,6 +27,7 @@ import { patternInputValidator } from '../../../../shared/forms/input/input-fiel
 import { atLeastOneRequiredValidator } from '../../../../shared/forms/input/validators/at-least-one-required.validator';
 import { SelectableOption } from '../../../../shared/forms/input/selectable-option.model';
 import { IsoCountryService } from '../../../../shared/localities/iso-country.service';
+import { emailInputValidator } from '../../../../shared/forms/input/input-field/email-input.validator';
 
 interface ContactCandidateFormValues {
   subject: string;
@@ -136,7 +138,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
       takeUntil(this.ngUnsubscribe))
       .subscribe(([emailCheckBoxEnabled, company]) => {
         if (emailCheckBoxEnabled) {
-          this.form.get('email').setValidators([Validators.required, patternInputValidator(EMAIL_REGEX)]);
+          this.form.get('email').setValidators([Validators.required, emailInputValidator()]);
           this.patchEmailValue(company.email);
         } else {
           this.form.get('email').clearValidators();
@@ -149,6 +151,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
   onSubmit() {
     const formValue = <ContactCandidateFormValues>this.form.value;
     this.mapEmailContent(formValue).pipe(
+      take(1),
       switchMap(emailContact =>
         this.candidateContactRepository.sendContactModalEmail(emailContact)
       )
@@ -248,7 +251,7 @@ export class ContactModalComponent extends AbstractSubscriber implements OnInit 
         if (formValue.company) {
           const companyFormValue = <ContactCandidateCompanyFormValues>formValue.company;
           const emailContactCompany = this.mapCompany(companyFormValue, countryOptions);
-          emailContact = {...emailContact, company: emailContactCompany};
+          emailContact = { ...emailContact, company: emailContactCompany };
         }
         return emailContact;
       })

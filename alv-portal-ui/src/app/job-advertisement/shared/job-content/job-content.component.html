@@ -37,7 +37,7 @@
 
   <div *ngIf="jobDescription.description"
        class="job-description">
-    <markdown [data]="jobDescription.description"
+    <markdown [data]="jobDescription.description | markdownPreprocess"
               ngPreserveWhitespaces>
     </markdown>
   </div>
@@ -52,6 +52,10 @@
           {{jobDetailModel.jobContent.location | jobLocation}}
         </alv-list-item-content>
 
+        <alv-list-item-content label="portal.job-detail.workload.label">
+          {{[jobDetailModel.employment?.workloadPercentageMin, jobDetailModel.employment?.workloadPercentageMax] | workingTimeRange}}
+        </alv-list-item-content>
+
         <alv-list-item-content *ngIf="jobDetailModel.hasStartDate()"
                                label="portal.job-detail.employmentStartDate.label">
           {{jobDetailModel.employment.startDate | localeAwareDate}}
@@ -62,13 +66,17 @@
           {{'job-detail.startsImmediately.' + jobDetailModel.employment.immediately | translate}}
         </alv-list-item-content>
 
-        <alv-list-item-content label="portal.job-detail.workload.label">
-          {{[jobDetailModel.employment?.workloadPercentageMin, jobDetailModel.employment?.workloadPercentageMax] | workingTimeRange}}
+        <alv-list-item-content *ngIf="jobDetailModel.hasEndDate()"
+                               label="portal.job-detail.employmentEndDate.label">
+          {{jobDetailModel.employment.endDate | localeAwareDate}}
         </alv-list-item-content>
 
         <alv-list-item-content *ngIf="jobDetailModel.isTemporary()"
                                label="portal.job-detail.employmentEndDate.label">
-          {{'job-search.job-search-list-item.badge.temporary' | translate}}
+          <span>{{'job-search.job-search-list-item.badge.temporary' | translate}}</span>
+          <span *ngIf="jobDetailModel.isShortEmployment()">,
+            {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
+          </span>
         </alv-list-item-content>
 
         <alv-list-item-content *ngIf="jobDetailModel.isPermanent()"
@@ -76,9 +84,11 @@
           {{'job-search.job-search-list-item.badge.permanent' | translate}}
         </alv-list-item-content>
 
-        <alv-list-item-content *ngIf="jobDetailModel.isShortEmployment()"
+        <alv-list-item-content *ngIf="jobDetailModel.workForm.length"
                                label="portal.job-detail.workForm.label">
-          {{'job-search.job-search-list-item.badge.shortEmployment' | translate}}
+          <ng-container *ngFor="let workForm of jobDetailModel.workForm | keys; last as isLast">
+            {{('global.workForm.' + workForm.value | translate) + (isLast ? '' : ', ')}}
+          </ng-container>
         </alv-list-item-content>
       </ul>
     </alv-collapse-panel>

@@ -1,6 +1,13 @@
-import { AfterViewInit, Component, HostBinding, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostBinding,
+  Inject,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { flatMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import {
   CoreState,
@@ -20,6 +27,8 @@ import { isAuthenticatedUser, User, UserRole } from '../../../core/auth/user.mod
 import { LoginService } from '../../auth/login.service';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { WINDOW } from '../../../core/window.service';
+import { AppContextService } from '../../../core/app-context/app-context.service';
+import { AppContext } from '../../../core/app-context/app-context.enum';
 
 @Component({
   selector: 'alv-main-navigation',
@@ -37,7 +46,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   mainNavigationCollapsed = true;
 
   @HostBinding('class.d-lg-none')
-  isAnonymous = true;
+  isDesktopMenuHidden = true;
 
   mobileMenuExpanded: boolean;
 
@@ -56,6 +65,7 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
   constructor(private router: Router,
               private loginService: LoginService,
               private authenticationService: AuthenticationService,
+              private appContextService: AppContextService,
               private store: Store<CoreState>,
               private menuEntryService: MenuEntryService,
               @Inject(WINDOW) private window: Window) {
@@ -66,10 +76,11 @@ export class MainNavigationComponent extends AbstractSubscriber implements OnIni
     this.menuDefinition$ = this.menuEntryService.prepareEntries();
 
     this.authenticationService.getCurrentUser().pipe(
+      tap(user => this.currentUser = user),
+      flatMap(user => this.appContextService.isDesktopMenuShown(user)),
       takeUntil(this.ngUnsubscribe)
-    ).subscribe(user => {
-      this.isAnonymous = !isAuthenticatedUser(user);
-      this.currentUser = user;
+    ).subscribe((isDesktopMenuShown) => {
+      this.isDesktopMenuHidden = !isDesktopMenuShown;
     });
 
     this.currentCompany$ = this.authenticationService.getCurrentCompany();

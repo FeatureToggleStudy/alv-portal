@@ -1,43 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { map, skipWhile } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { skipWhile } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+
+import {
+  CoreState,
+  getProfileInfo,
+  notFetched
+} from '../../../core/state-management/state/core.state.ts';
+import { LoadProfileInfoAction } from '../../../core/state-management/actions/core.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileInfoService {
 
-  private profileInfo$ = new Subject<ProfileInfo>();
+  private profileInfo$;
 
-  constructor(private httpClient: HttpClient) {
-    this.initProfileInfo();
+  constructor(private httpClient: HttpClient,
+              private store: Store<CoreState>) {
+
+    this.profileInfo$ = this.store.pipe(
+      select(getProfileInfo),
+      skipWhile(notFetched)
+    );
+  }
+
+  init() {
+    this.store.dispatch(new LoadProfileInfoAction({}));
   }
 
   getProfileInfo(): Observable<ProfileInfo> {
     return this.profileInfo$;
   }
-
-  private initProfileInfo() {
-    this.httpClient.get<ProfileInfoResource>('/api/profile-info').pipe(
-      skipWhile(profile => !profile),
-      map((data) => {
-        return <ProfileInfo>{
-          activeProfiles: data.activeProfiles,
-          ribbonEnv: data.ribbonEnv,
-          inProduction: data.activeProfiles.includes('prod'),
-          swaggerEnabled: data.activeProfiles.includes('swagger'),
-          noEiam: data.activeProfiles.includes('no-eiam')
-        };
-      })
-    ).subscribe(profileInfo => {
-      this.profileInfo$.next(profileInfo);
-    });
-  }
 }
 
-interface ProfileInfoResource {
+
+export interface ProfileInfoResource {
   activeProfiles: string[];
   ribbonEnv: string;
 }

@@ -33,3 +33,15 @@ a {
   }
 }
 
+button.download-link {
+  padding: 0;
+  color: $color-grey-black;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  &:hover {
+    color: $color-primary;
+  }
+}
+

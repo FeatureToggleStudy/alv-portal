@@ -23,7 +23,7 @@
     text-decoration: none;
     color: $color-black;
 
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+    box-shadow: $box-shadow-default;
     border-right: 1px solid $color-medium-grey;
     border-left: 1px solid $color-medium-grey;
     z-index: $z-index-result-list-item;
@@ -34,6 +34,9 @@
     .selected-indicator {
       background-color: $color-primary;
     }
+  }
+  &:focus {
+    z-index: $z-index-result-list-item;
   }
 
   &.visited {
@@ -49,11 +52,6 @@
     position: absolute;
     left: 0;
     top: 0;
-  }
-
-  em {
-    padding: 0 0.125rem;
-    background-color: $color-light-yellow;
   }
 
   .date {

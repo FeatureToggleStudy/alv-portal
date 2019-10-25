@@ -16,6 +16,7 @@ import {
 } from '../../../shared/backend-services/candidate/candidate.mock';
 import { CandidateDetailModel, JobExperienceModel } from './candidate-detail-model';
 import { of } from 'rxjs';
+import { FeatureName } from '../../../shared/backend-services/feature-code-list/feature-code-list.types';
 
 describe('CandidateDetailModelFactory', () => {
   let candidateDetailModelFactory: CandidateDetailModelFactory;
@@ -63,6 +64,7 @@ describe('CandidateDetailModelFactory', () => {
     authorities: [UserRole.ROLE_PAV],
     registrationStatus: RegistrationStatus.REGISTERED,
     legalTermsAccepted: true,
+    activeFeatures: [],
     hasAnyAuthorities(authorities: Array<UserRole>): boolean {
       return true;
     },
@@ -72,7 +74,13 @@ describe('CandidateDetailModelFactory', () => {
     isAdmin(): boolean {
       return false;
     },
+    isCompetenceCatalogEditor(): boolean {
+      return false;
+    },
     isLegalTermAcceptanceRequired(): boolean {
+      return false;
+    },
+    hasFeature(featureName: FeatureName): boolean {
       return false;
     }
   };

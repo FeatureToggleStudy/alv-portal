@@ -23,8 +23,6 @@ export function composeResultListItemId(id: string) {
   selector: 'alv-result-list-item',
   templateUrl: './result-list-item.component.html',
   styleUrls: ['./result-list-item.component.scss'],
-  /* tslint:disable:use-view-encapsulation */
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResultListItemComponent implements OnInit {
@@ -41,6 +39,9 @@ export class ResultListItemComponent implements OnInit {
   constructor() {
   }
 
+  @Output()
+  resultClick = new EventEmitter<void>();
+
   private _result: ResultListItem;
 
   @Input() get result(): ResultListItem {
@@ -55,4 +56,7 @@ export class ResultListItemComponent implements OnInit {
     this.resultListItemId = composeResultListItemId(this.result.id);
   }
 
+  onClick() {
+    this.resultClick.emit();
+  }
 }

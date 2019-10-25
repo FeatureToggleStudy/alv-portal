@@ -256,7 +256,7 @@ describe('candidateSearchReducer', () => {
       createCandidateProfile('cand10')
     ];
 
-    const action = new candidateActions.NextPageLoadedAction({ page: candidateProfilePageTwo });
+    const action = new candidateActions.NextPageLoadedAction({pageNumber: 1, page: candidateProfilePageTwo });
 
     // WHEN
     const newState = candidateSearchReducer(candidateStateChanged, action);

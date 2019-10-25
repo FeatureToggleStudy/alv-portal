@@ -8,15 +8,17 @@ $z-index-result-list-item: 10;
 $z-index-query-search-area: 15;
 $z-index-desktop-menu: 900;
 $z-index-header: 995;
-$z-index-notifications: 999;
+
 $z-index-scroll-to-top: 1000;
 $z-index-nav-item-focus: 1000;
 $z-index-modal-backdrop: 1040;
 $z-index-mobile-menu: 1050;
-$z-index-dropdown-menu: 1051;
+$z-index-notifications: 1051;
+$z-index-dropdown-menu: 1055;
 $z-index-footer: 100000;
 
 $z-index-typeahead-menu: $z-index-dropdown-menu;
 $z-index-tooltip: $z-index-typeahead-menu - 1;
 
-
+/* Global CSS values */
+$box-shadow-default: 1px 1px 5px rgba(0, 0, 0, 0.35);

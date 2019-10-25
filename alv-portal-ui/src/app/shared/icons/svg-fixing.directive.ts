@@ -5,10 +5,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { APP_BASE_HREF, Location } from '@angular/common';
 
 function isSafariBrowser() {
-  return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
-    navigator.userAgent &&
-    navigator.userAgent.indexOf('CriOS') === -1 &&
-    navigator.userAgent.indexOf('FxiOS') === -1;
+  return navigator.vendor && navigator.vendor.indexOf('Apple') > -1;
 }
 
 @Directive({

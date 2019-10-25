@@ -1,0 +1,60 @@
+<a class="alv-cells"
+   [routerLink]="workEffortModel.workEffortEditLink">
+  <div class="col-12 col-lg-3 cell main-cell actions-cell">
+      <span class="cell-label">
+        {{'portal.work-efforts.work-effort.cell-label.application-date' | translate}}
+        {{workEffortModel.applyDate | localeAwareDate}}
+      </span>
+    <div class="flex-grow-1">
+      <div>{{workEffortModel.companyName}}</div>
+      <div>{{workEffortModel.occupation}}</div>
+    </div>
+    <div *ngIf="!workEffortModel.isSentSuccessfully"
+         (click)="$event.preventDefault();$event.stopPropagation()"
+         class="actions-dropdown">
+      <button (click)="deleteWorkEffort()"
+              class="btn btn-text actions-button h-100"
+              placement="left"
+              container="body"
+              [ngbTooltip]="'portal.work-efforts.work-effort.actions.delete' | translate"
+              [attr.aria-label]="'portal.work-efforts.work-effort.actions.delete' | translate">
+        <fa-icon [icon]="['fas', 'trash-alt']"></fa-icon>
+      </button>
+    </div>
+  </div>
+  <div class="col-12 col-lg-3 cell">
+      <span class="cell-label">
+        {{'portal.work-efforts.work-effort.cell-label.application-result' | translate}}
+      </span>
+    <div class="flex-grow-1">
+      <alv-inline-badges [badges]="workEffortModel.applyStatusBadges"></alv-inline-badges>
+    </div>
+  </div>
+  <div class="col-12 col-lg-3 cell d-flex flex-column">
+      <span class="cell-label">
+        {{'portal.work-efforts.edit-status.label' | translate}}
+      </span>
+    <div class="flex-grow-1">
+      {{'portal.work-efforts.work-effort.cell-text.edited-at' | translate}}
+      {{workEffortModel.createdAt | localeAwareDate}}
+    </div>
+  </div>
+  <div class="col-12 col-lg-3 cell actions-cell d-flex flex-column"
+       [class.success]="workEffortModel.isSentSuccessfully">
+      <span class="cell-label">
+        {{'portal.work-efforts.submit-status.label' | translate}}
+      </span>
+    <div class="flex-grow-1">
+
+      {{ workEffortModel.statusLabel
+      | translate:{dateTime: workEffortModel.submissionDate | date: (workEffortModel.submissionDateFormat)} }}
+    </div>
+    <div class="success-icon-container">
+      <fa-icon [icon]="['fas', 'check']"
+               class="w-100"></fa-icon>
+    </div>
+  </div>
+  <span class="expanded-indicator">
+    </span>
+</a>
+

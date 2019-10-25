@@ -1,23 +1,33 @@
 @import "../../../../../scss/common/colors";
 
-.form-label-group:not(.readonly) {
+.form-label-group {
 
-  background-color: $color-white;
+  &:not(.readonly):not(.disabled) {
+    background-color: $color-white;
+    &.invalid {
+      border-color: $color-red;
+
+      .dropdown-icon {
+        color: $color-red;
+      }
+    }
+    select {
+      cursor: pointer;
+      background: transparent;
+    }
+    select.form-control {
+      border: none;
+    }
+  }
+  &.disabled {
+    background-color: $color-disabled-grey;
+  }
+
   border: 1px solid $color-medium-grey;
   border-radius: 0;
 
-  &.invalid {
-    border-color: $color-red;
-
-    .dropdown-icon {
-      color: $color-red;
-    }
-  }
-
   select {
-    background: transparent;
     border: none;
-    cursor: pointer;
     height: 44px;
     width: 100%;
   }
@@ -25,6 +35,10 @@
   /* override the default padding top of floating label */
   select:not(.placeholder-shown) ~ label {
     padding-top: 1px;
+  }
+  /* needed for IE11 */
+  select.placeholder-shown {
+    opacity: 0;
   }
 }
 select.form-control:focus {
@@ -44,5 +58,8 @@ select.form-control:focus {
   top: -1px;
   left: -1px;
   height: 46px;
+}
+.custom-select {
+  background: none;
 }
 

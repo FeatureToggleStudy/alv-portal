@@ -1,0 +1,76 @@
+<div class="container-fluid pt-4 pt-lg-5 px-lg-5"
+     (scrolled)="onScroll()"
+     [fromRoot]="true"
+     [infiniteScrollThrottle]="50"
+     [immediateCheck]="true"
+     infiniteScroll>
+  <div class="row">
+    <div class="col-12 col-lg-9 col-xl-10">
+      <div class="d-flex justify-content-between align-items-end position-relative">
+        <h2 class="pr-5 d-flex">
+          <alv-custom-icon class="text-primary mr-1"
+                           aria-hidden="true"
+                           [iconKey]="IconKey.WORK_EFFORTS">
+          </alv-custom-icon>
+          {{ 'portal.work-efforts.title' | translate }}
+
+          <!--
+          <button type="button"
+                  class="btn btn-text filter-button"
+                  (click)="openFilterModal()">
+            <fa-icon class="mr-0 mr-md-2"
+                     [icon]="['fas', 'filter']"></fa-icon>
+            <span class="d-none d-md-inline">
+            {{'portal.manage-job-ads.search.filter-button' | translate}}
+          </span>
+          </button>
+          -->
+        </h2>
+      </div>
+
+      <hr class="mt-0 mb-3">
+
+      <alv-alert *ngIf="isEnglishLanguageSelected$ | async"
+                 [notification]="englishNotSupportedNotification"
+                 [hideDismiss]="true"></alv-alert>
+
+      <!--
+      <alv-input-field [alvControl]="form?.get('query')"
+                       label="portal.work-efforts.search.query"
+                       [maxLength]="SEARCH_QUERY_MAX_LENGTH">
+      </alv-input-field>
+
+      <div class="d-flex justify-content-end mb-3"
+           *ngIf="currentBadges?.length">
+        <alv-inline-badges [badges]="currentBadges"
+                           (removed)="removeCurrentBadge($event)"
+                           [canRemove]="true">
+        </alv-inline-badges>
+      </div>
+      -->
+
+      <a [routerLink]="'/work-efforts/create'"
+              class="btn btn-primary btn-block my-3 d-block d-lg-none">
+        <fa-icon [icon]="['fas', 'plus']"
+                 class="mr-1"></fa-icon>
+        {{'portal.work-efforts.proof-of-work-efforts.add-work-effort.button.label' | translate}}
+      </a>
+
+      <alv-proof-of-work-efforts *ngFor="let proofOfWorkEffortsModel of proofOfWorkEffortsModels"
+                                 [proofOfWorkEffortsModel]="proofOfWorkEffortsModel"
+                                 (reload)="reloadProofOfWorkEfforts($event)"
+                                 class="d-block mb-4">
+      </alv-proof-of-work-efforts>
+    </div>
+    <div class="d-none d-lg-block col-lg-3 col-xl-2">
+        <a [routerLink]="'/work-efforts/create'"
+           class="add-work-effort-button btn btn-primary btn-block btn-truncate">
+          <fa-icon [icon]="['fas', 'plus']"
+                   class="mr-1"></fa-icon>
+          {{'portal.work-efforts.proof-of-work-efforts.add-work-effort.button.label' | translate}}
+        </a>
+    </div>
+  </div>
+
+
+</div>

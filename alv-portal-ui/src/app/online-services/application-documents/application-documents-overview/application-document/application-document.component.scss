@@ -1,0 +1,27 @@
+@import '../../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../../../node_modules/bootstrap/scss/mixins';
+
+.download-link {
+  max-width: 100%;
+}
+
+
+.file {
+  position: absolute;
+  top: 1.5em;
+  left: calc(33.3% + .6em);
+  max-width: calc(33.3% - 1em);
+}
+
+.cell {
+  min-height: 54px;
+}
+
+@include media-breakpoint-down(md) {
+  .file {
+    top: calc(54px + 1.5em);
+    left: .6em;
+    max-width: calc(100% - 1em);
+  }
+}

@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { WorkEffortsComponent } from './work-efforts/work-efforts.component';
+import { WorkEffortsOverviewComponent } from './work-efforts-overview/work-efforts-overview.component';
 import { WorkEffortFormComponent } from './work-effort-form/work-effort-form.component';
 import { WorkEffortFormGuard } from './work-effort-form/work-effort-form.guard';
 import { WorkEffortFormResolverService } from './work-effort-form/work-effort-form-resolver.service';
@@ -9,13 +9,13 @@ import { AuthenticatedGuard } from '../../core/auth/authenticated.guard';
 const routes: Routes = [
   {
     path: '',
-    component: WorkEffortsComponent,
+    component: WorkEffortsOverviewComponent,
     data: {
       collapseNavigation: true
     }
   },
   {
-    path: 'edit/:report-id/:id',
+    path: 'edit/:proof-id/:id',
     component: WorkEffortFormComponent,
     canActivate: [AuthenticatedGuard],
     canDeactivate: [WorkEffortFormGuard],
@@ -24,7 +24,7 @@ const routes: Routes = [
       scrollToTop: true
     },
     resolve: {
-      initialFormValue: WorkEffortFormResolverService
+      initialFormInfo: WorkEffortFormResolverService
     },
   },
   {

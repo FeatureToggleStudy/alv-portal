@@ -42,6 +42,8 @@ export class ShowcaseComponent implements OnInit {
     }
   ]);
 
+  fileInputControl = new FormControl();
+
   confirmModalDemoText: string;
 
   notifications = [
@@ -99,6 +101,9 @@ export class ShowcaseComponent implements OnInit {
       });
   }
 
+  logFiles(files: File[]) {
+    console.log(files);
+  }
   private confirmAction() {
     of('some backend request').subscribe(result => {
     });

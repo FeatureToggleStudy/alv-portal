@@ -19,10 +19,13 @@ import {
   EffectErrorOccurredAction,
   LOAD_ACCOUNTABILITIES,
   LOAD_CURRENT_USER,
+  LOAD_PROFILE_INFO,
   LoadAccountabilities,
   LoadCurrentUserAction,
+  LoadProfileInfoAction,
   LOGOUT_USER,
   LogoutUserAction,
+  ProfileInfoLoadedAction,
   REMOVE_JOB_AD_FAVOURITE,
   RemovedJobAdFavouriteAction,
   RemoveJobAdFavouriteAction,
@@ -43,6 +46,11 @@ import { CompanyRepository } from '../../../shared/backend-services/company/comp
 import { CompanyContactTemplate } from '../../../shared/backend-services/user-info/user-info.types';
 import { FavouriteItem } from '../../../shared/backend-services/job-advertisement/job-advertisement.types';
 import { JobAdFavouritesRepository } from '../../../shared/backend-services/favourites/job-ad-favourites.repository';
+import {
+  ProfileInfo,
+  ProfileInfoResource
+} from '../../../shared/layout/header/profile-info.service';
+import { LandingNavigationService } from '../../landing-navigation.service';
 
 @Injectable()
 export class CoreEffects {
@@ -165,7 +173,7 @@ export class CoreEffects {
     ofType(SESSION_EXPIRED),
     tap(() => {
       this.notificationsService.info('portal.authentication.notification.expired', true);
-      this.router.navigate(['/home']);
+      this.landingNavigationService.navigateHome();
     }),
     map(() => {
       return new LogoutUserAction({});
@@ -206,15 +214,35 @@ export class CoreEffects {
         }), catchError((errorResponse) => of(new EffectErrorOccurredAction({ httpError: errorResponse }))));
     }));
 
+  @Effect()
+  loadProfileInfo: Observable<Action> = this.actions$.pipe(
+    ofType(LOAD_PROFILE_INFO),
+    switchMap((action: LoadProfileInfoAction) => {
+      return this.httpClient.get<ProfileInfoResource>('/api/profile-info').pipe(
+        map((data) => {
+          return <ProfileInfo>{
+            activeProfiles: data.activeProfiles,
+            ribbonEnv: data.ribbonEnv,
+            inProduction: data.activeProfiles.includes('prod'),
+            swaggerEnabled: data.activeProfiles.includes('swagger'),
+            noEiam: data.activeProfiles.includes('no-eiam')
+          };
+        }),
+        map(profileInfo => new ProfileInfoLoadedAction({profileInfo: profileInfo})),
+        catchError<any, Observable<Action>>((err) => of(new EffectErrorOccurredAction({ httpError: err })))
+      );
+    })
+  );
+
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
               private companyRepository: CompanyRepository,
-              private router: Router,
               private store: Store<CoreState>,
               private userInfoRepository: UserInfoRepository,
               private notificationsService: NotificationsService,
               private errorHandlerService: ErrorHandlerService,
               private sessionManagerService: SessionManagerService,
+              private landingNavigationService: LandingNavigationService,
               private jobAdFavouritesRepository: JobAdFavouritesRepository
   ) {
 

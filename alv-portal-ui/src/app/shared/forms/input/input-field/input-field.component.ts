@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Host,
   HostBinding,
-  Input,
+  Input, OnInit,
   Optional,
   Output,
   SkipSelf,
@@ -40,7 +40,7 @@ import { IsoCountryService } from '../../../localities/iso-country.service';
   templateUrl: './input-field.component.html',
   styleUrls: ['../abstract-input.scss', './input-field.component.scss']
 })
-export class InputFieldComponent extends AbstractInput implements AfterViewInit {
+export class InputFieldComponent extends AbstractInput implements AfterViewInit, OnInit {
 
   /**
    * (readonly) CSS class of host element
@@ -93,6 +93,11 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
   @Input() placeholder?: string;
 
   /**
+   * (optional) defines the minimal height for multiline in rows
+   */
+  @Input() multilineMinRows = 3;
+
+  /**
    * Output event on input
    */
   @Output() input = new EventEmitter<Event>();
@@ -100,9 +105,9 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
   /**
    * Reference to textarea element
    */
-  @ViewChild('textarea') textareaElement: ElementRef<HTMLTextAreaElement>;
+  @ViewChild('textarea', { static: false }) textareaElement: ElementRef<HTMLTextAreaElement>;
 
-  private readonly MULTILINE_MIN_HEIGHT = 96; // = 3 rows
+  private MULTILINE_MIN_HEIGHT = 32;
 
   private readonly INPUT_TYPE_TELEPHONE = 'tel';
 
@@ -111,9 +116,16 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
     super(controlContainer, InputType.INPUT_FIELD, inputIdGenerationService);
   }
 
+  ngOnInit() {
+    super.ngOnInit();
+    this.MULTILINE_MIN_HEIGHT = this.multilineMinRows * 32;
+  }
+
   ngAfterViewInit() {
     if (this.multiline) {
-      this.calculateMultilineElementHeight();
+      setTimeout(() => {
+        this.calculateMultilineElementHeight();
+      });
     }
   }
 
@@ -139,9 +151,11 @@ export class InputFieldComponent extends AbstractInput implements AfterViewInit 
   }
 
   private calculateMultilineElementHeight() {
-    const element = this.textareaElement.nativeElement;
-    element.style.height = this.MULTILINE_MIN_HEIGHT + 'px';
-    element.style.height = Math.max(element.scrollHeight, this.MULTILINE_MIN_HEIGHT) + 'px';
+    if (!this.readonly) {
+      const element = this.textareaElement.nativeElement;
+      element.style.height = this.MULTILINE_MIN_HEIGHT + 'px';
+      element.style.height = Math.max(element.scrollHeight, this.MULTILINE_MIN_HEIGHT) + 'px';
+    }
   }
 
   private formatPhoneNumber(phoneNumber: string) {

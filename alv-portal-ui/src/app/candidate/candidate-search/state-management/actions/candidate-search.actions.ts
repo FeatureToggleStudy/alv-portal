@@ -15,8 +15,18 @@ export const FILTER_APPLIED = 'CANDIDATES:FILTER_APPLIED';
 export const LOAD_NEXT_PAGE = 'CANDIDATES:LOAD_NEXT_PAGE';
 export const NEXT_PAGE_LOADED = 'CANDIDATES:NEXT_PAGE_LOADED';
 export const CANDIDATE_PROFILE_DETAIL_LOADED = 'CANDIDATES:CANDIDATE_PROFILE_DETAIL_LOADED';
+export const SELECT_CANDIDATE = 'CANDIDATES:SELECT_CANDIDATE';
 export const LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL = 'CANDIDATES:LOAD_PREVIOUS_CANDIDATE_PROFILE_DETAIL';
 export const LOAD_NEXT_CANDIDATE_PROFILE_DETAIL = 'CANDIDATES:LOAD_NEXT_CANDIDATE_PROFILE_DETAIL';
+export const PRINT_PAGE = 'CANDIDATES:PRINT_PAGE';
+export const COPY_LINK = 'CANDIDATES:COPY_LINK';
+export const SEND_LINK = 'CANDIDATES:SEND_LINK';
+export const SELECT_RAV_PHONE = 'CANDIDATES:SELECT_RAV_PHONE';
+export const SELECT_RAV_EMAIL = 'CANDIDATES:SELECT_RAV_EMAIL';
+export const EXPAND_CONTACT_INFO = 'CANDIDATES:EXPAND_CONTACT_INFO';
+export const SELECT_CANDIDATE_PHONE = 'CANDIDATES:SELECT_CANDIDATE_PHONE';
+export const CONTACT_CANDIDATE_DIALOG_OPENED = 'CANDIDATES:CONTACT_CANDIDATE_DIALOG_OPENED';
+export const CONTACT_CANDIDATE_DIALOG_SUBMITTED = 'CANDIDATES:CONTACT_CANDIDATE_DIALOG_SUBMITTED';
 export const APPLY_FILTER_VALUES = 'CANDIDATES:APPLY_FILTER_VALUES';
 export const APPLY_QUERY_VALUES = 'CANDIDATES:APPLY_QUERY_VALUES';
 export const RESET_FILTER = 'CANDIDATES:RESET_FILTER';
@@ -109,7 +119,17 @@ export class LoadNextPageAction implements Action {
 export class NextPageLoadedAction implements Action {
   readonly type = NEXT_PAGE_LOADED;
 
-  constructor(public payload: { page: CandidateProfile[] }) {
+  constructor(public payload: {
+    pageNumber: number,
+    page: CandidateProfile[]
+  }) {
+  }
+}
+
+export class CandidateClickedAction implements Action {
+  readonly type = SELECT_CANDIDATE;
+
+  constructor(public payload: { candidateProfile: CandidateProfile }) {
   }
 }
 
@@ -134,8 +154,72 @@ export class LoadNextCandidateProfileDetailAction implements Action {
   }
 }
 
+export class PrintPageAction implements Action {
+  readonly type = PRINT_PAGE;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class CopyLinkAction implements Action {
+  readonly type = COPY_LINK;
+
+  constructor(public payload = {}) {
+  }
+}
+
+
+export class SendLinkAction implements Action {
+  readonly type = SEND_LINK;
+
+  constructor(public payload = {}) {
+  }
+}
+
 export class ResetAction implements Action {
   readonly type = RESET;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class SelectRavPhoneAction implements Action {
+  readonly type = SELECT_RAV_PHONE;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class SelectRavEmailAction implements Action {
+  readonly type = SELECT_RAV_EMAIL;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class ExpandContactInfoAction implements Action {
+  readonly type = EXPAND_CONTACT_INFO;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class ContactCandidateDialogOpenedAction implements Action {
+  readonly type = CONTACT_CANDIDATE_DIALOG_OPENED;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class ContactCandidateDialogSubmittedAction implements Action {
+  readonly type = CONTACT_CANDIDATE_DIALOG_SUBMITTED;
+
+  constructor(public payload = {}) {
+  }
+}
+
+export class SelectCandidatePhoneAction implements Action {
+  readonly type = SELECT_CANDIDATE_PHONE;
 
   constructor(public payload = {}) {
   }
@@ -165,4 +249,10 @@ export type Actions = InitializeResultListAction
   | ResetAction
   | EffectErrorOccurredAction
   | SearchProfileUpdatedAction
+  | PrintPageAction
+  | SendLinkAction
+  | SelectRavPhoneAction
+  | SelectCandidatePhoneAction
+  | CopyLinkAction
+  | ExpandContactInfoAction
   ;

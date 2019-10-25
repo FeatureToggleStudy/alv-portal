@@ -21,7 +21,7 @@
            [class.placeholder-shown]="!control.value && control.value !== 0"
            [alvAutofocus]="autofocus"
            (input)="onInput($event)"
-           (blur)="onBlur($event)"
+           (blur)="onBlur()"
            class="form-control">
 
     <textarea *ngIf="multiline && !readonly"
@@ -34,11 +34,12 @@
               [class.placeholder-shown]="!control.value"
               [alvAutofocus]="autofocus"
               (input)="onInput($event)"
-              (blur)="onBlur($event)"
+              (blur)="onBlur()"
               #textarea
               class="form-control">
     </textarea>
     <div *ngIf="readonly"
+         [class.multiline]="multiline"
          [class.placeholder-shown]="!control.value"
          class="readonly-input">
       {{control.value}}

@@ -27,7 +27,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 }
 
 export function LocaleIdFactory(translateService: TranslateService) {
-  return `${translateService.currentLang}-CH`;
+  return `${translateService.currentLang || 'de'}-CH`;
 }
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
@@ -58,7 +58,7 @@ export function getBaseHref(platformLocation: PlatformLocation): string {
     {
       provide: LOCALE_ID,
       useFactory: LocaleIdFactory,
-      deps: [TranslateService]
+      deps: [TranslateService],
     },
     CookieService,
     {

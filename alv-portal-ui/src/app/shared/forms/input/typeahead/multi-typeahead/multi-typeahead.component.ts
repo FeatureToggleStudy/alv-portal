@@ -79,10 +79,9 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
 
   @Output() itemSelected = new EventEmitter<TypeaheadItem<any>>();
 
+  @ViewChild(NgbTypeahead, {static: false}) ngbTypeahead: NgbTypeahead;
 
-  @ViewChild(NgbTypeahead) ngbTypeahead: NgbTypeahead;
-
-  @ViewChild(NgbTooltip) ngbTooltip: NgbTooltip;
+  @ViewChild(NgbTooltip, {static: false}) ngbTooltip: NgbTooltip;
 
   inputValue: string;
 
@@ -109,6 +108,13 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
     }
     this.allyHelpId = `${this.id}-ally-help`;
 
+    this.validationMessages = this.validationMessages || [];
+    if (!this.validationMessages.find(validationMessage => validationMessage.error === 'required')) {
+      this.validationMessages.push({
+        error: 'required',
+        message: 'entity.validation.multi-typeahead.required'
+      });
+    }
   }
 
   ngAfterViewInit() {
@@ -127,12 +133,19 @@ export class MultiTypeaheadComponent extends AbstractInput implements OnInit, Af
     return `badge-${item.type}`;
   }
 
-  hasFocus() {
-    return this.document.activeElement.id === this.id;
+  hasFocus(): boolean {
+    if (this.document.activeElement && this.id) {
+      //in IE11 if the tooltip is set, the activeElement can be null
+      return this.document.activeElement.id === this.id;
+    }
+    return false;
   }
 
   getInputWidth(): string {
     const value = this.inputValue || '';
+    if (value.length > 10) {
+      return '100%';
+    }
     if (value.length > 0) {
       return `${value.length}em`;
     }

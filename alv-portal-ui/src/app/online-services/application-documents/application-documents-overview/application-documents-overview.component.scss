@@ -1,0 +1,17 @@
+.dropdown-menu {
+  max-width: unset;
+}
+
+.sort-button {
+  margin-top: -.3em;
+}
+
+.add-button {
+  top: 54px;
+  position: relative;
+  @supports (position: sticky) {
+    top: 154px;
+    position: sticky;
+  }
+}
+
