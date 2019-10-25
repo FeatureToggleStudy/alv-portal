@@ -23,16 +23,12 @@ export class CompetenceElementsFilterModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    const controlsConfig = Object.values(ElementType).reduce((prev, curr) => {
-      prev[curr] = [this.currentFiltering.types.includes(curr)];
-      return prev;
-    }, {});
-    this.form = this.fb.group(controlsConfig);
+    this.form = this.fb.group(this.createControlsConfig());
   }
 
   filter() {
     const result: CompetenceElementFilterValues = {
-      types: Object.values(ElementType).reduce((prev, curr) => {
+      types: this.elementTypes.reduce((prev, curr) => {
         if (this.form.value[curr]) {
           prev.push(curr);
         }
@@ -44,5 +40,12 @@ export class CompetenceElementsFilterModalComponent implements OnInit {
 
   cancel() {
     this.activeModal.dismiss();
+  }
+
+  private createControlsConfig(): {[key: string]: any} {
+    return this.elementTypes.reduce((prev, curr) => {
+      prev[curr] = [this.currentFiltering.types.includes(curr)];
+      return prev;
+    }, {});
   }
 }
