@@ -13,7 +13,7 @@ import { ElementType } from '../../../shared/backend-services/competence-element
 export class CompetenceElementsFilterModalComponent implements OnInit {
 
   @Input() currentFiltering: CompetenceElementFilterValues;
-  
+
   form: FormGroup;
 
   elementTypes = Object.values(ElementType);
