@@ -101,7 +101,7 @@ describe('Job search page for anonymous', () => {
     browser.refresh();
     expect(detailsPage.previousButton.isEnabled()).toBe(false);
     expect(detailsPage.nextButton.isEnabled()).toBe(false);
-  })
+  });
 
 });
 
