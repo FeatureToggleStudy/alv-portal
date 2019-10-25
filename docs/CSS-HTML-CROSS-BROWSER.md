@@ -1,13 +1,22 @@
 # CSS HTML Cross-Browser
 
-This document should provide some guidance when ...
+This document should provide some guidance when some more sophisticated parts of the applications should be changed/refactored.
 
 ## Drag'n'Drop
 
-### Global blocking of drag'n'drop
+### Global blocking of file drag'n'drop
+The browser's default drag'n'drop behaviour for files (loading and showing the file) is blocked globally by default so the user cannot 
+accidentally drop files and leave the page.
+
+The implementation of the blocking algorithm is done in `file-drag-drop.service.ts`. If any of the drag'n'drop events `dragover`, `dragleave` 
+or `drop` contain files, the default behaviour will be prevented.
 
 ### Drag'n'Drop Area
+Only explicit drag'n'drop areas will receive the proper events. To create a drag'n'drop area, just apply the `file-drag-drop.directive.ts` to 
+the desired element. Look at the `file-input.component.html` to get an example of how it's integrated.
 
+The property `parentDragDropAreaId` enables you to define any parent element ID as the drag'n'drop area. E.g. in the `application-document.modal.ts`
+the parent drag'n'drop area spans over the whole modal (`id="applicationDocumentDragDropArea"`, not just over the `file-input-component.html`. 
 
 ## Navigation Container
 
@@ -16,7 +25,6 @@ To make the main content scroll on the page we don't explicitly set the `overflo
 do the scrolling with the `body` tag. Only like that browsers can optimize the scrolling behaviour for mobile devices, e.g. remove the
 URL bar when scrolling down.
 
-## 
 
 ## Nested Buttons
 Nested buttons are not supported by the Firefox (ESR) browser (nested button is not clickable). To overcome that issue we use the following pattern.
