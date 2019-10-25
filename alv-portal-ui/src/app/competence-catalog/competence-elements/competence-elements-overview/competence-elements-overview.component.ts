@@ -4,10 +4,15 @@ import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CompetenceElementRepository } from '../../../shared/backend-services/competence-element/competence-element.repository';
 import { debounceTime, map, takeUntil } from 'rxjs/operators';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { CompetenceElement } from '../../../shared/backend-services/competence-element/competence-element.types';
+import {
+  CompetenceElement,
+  ElementType
+} from '../../../shared/backend-services/competence-element/competence-element.types';
 import { CompetenceElementModalComponent } from '../../shared/competence-element-modal/competence-element-modal.component';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { Observable } from 'rxjs';
+import { CompetenceElementsFilterModalComponent } from '../competence-elements-filter-modal/competence-elements-filter-modal.component';
+import { CompetenceElementFilterValues } from '../../shared/shared-competence-catalog.types';
 
 @Component({
   selector: 'alv-competence-elements-overview',
@@ -21,6 +26,10 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
   competenceElements: CompetenceElement[] = [];
 
   isCompetenceCatalogEditor$: Observable<boolean>;
+
+  filter: CompetenceElementFilterValues = {
+    types: Object.values(ElementType)
+  };
 
   private page = 0;
 
@@ -50,7 +59,8 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
   onScroll() {
     this.competenceElementRepository.search({
       body: {
-        query: this.query.value || ''
+        query: this.query.value || '',
+        types: this.filter.types
       },
       page: this.page++,
       size: this.DEFAULT_PAGE_SIZE
@@ -75,6 +85,18 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
     modalRef.componentInstance.competenceElement = competenceElement;
     modalRef.result
       .then(updatedCompetenceElement => {
+        this.reload();
+      })
+      .catch(() => {
+      });
+  }
+
+  onFilterClick() {
+    const modalRef = this.modalService.openMedium(CompetenceElementsFilterModalComponent, true);
+    modalRef.componentInstance.currentFiltering = this.filter;
+    modalRef.result
+      .then(updatedFilter => {
+        this.filter = updatedFilter;
         this.reload();
       })
       .catch(() => {
