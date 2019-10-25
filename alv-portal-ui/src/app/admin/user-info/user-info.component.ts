@@ -16,6 +16,7 @@ import { Notification, NotificationType } from '../../shared/layout/notification
 import { UserInfoBadge, UserInfoBadgesMapperService } from './user-info-badges-mapper.service';
 import { ModalService } from '../../shared/layout/modal/modal.service';
 import { ConfirmModalConfig } from '../../shared/layout/modal/confirm-modal/confirm-modal-config.model';
+import { emailInputValidator } from '../../shared/forms/input/input-field/email-input.validator';
 
 const ALERTS = {
   userNotFoundByEmail: {
@@ -214,7 +215,7 @@ export class UserInfoComponent extends AbstractSubscriber implements OnInit {
     if (newValue === UserSearchParameterTypes.EMAIL) {
       this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.email';
       this.formLabel = 'portal.admin.user-info.user-info.email';
-      validator = patternInputValidator(EMAIL_REGEX);
+      validator = emailInputValidator();
     } else {
       this.formPlaceholder = 'portal.admin.user-info.use.search.placeholders.person-nr';
       this.formLabel = 'portal.admin.user-info.stes-info.pn';

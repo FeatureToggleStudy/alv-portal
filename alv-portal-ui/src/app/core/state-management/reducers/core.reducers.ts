@@ -14,9 +14,15 @@ import {
   LanguageInitializedAction,
   LoadCurrentUserAction,
   LOGOUT_USER,
-  LogoutUserAction, PROFILE_INFO_LOADED, ProfileInfoLoadedAction,
-  TOGGLE_MAIN_NAVIGATION, TOGGLE_MOBILE_NAVIGATION,
-  ToggleMainNavigationAction, ToggleMobileNavigationsAction
+  LogoutUserAction,
+  PROFILE_INFO_LOADED,
+  ProfileInfoLoadedAction,
+  SET_APP_CONTEXT,
+  SetAppContextAction,
+  TOGGLE_MAIN_NAVIGATION,
+  TOGGLE_MOBILE_NAVIGATION,
+  ToggleMainNavigationAction,
+  ToggleMobileNavigationsAction
 } from '../actions/core.actions';
 
 export function coreReducers(state: CoreState = initialState, action: Actions): CoreState {
@@ -82,6 +88,12 @@ export function coreReducers(state: CoreState = initialState, action: Actions): 
         profileInfo: action.payload.profileInfo
       };
       break;
+    case SET_APP_CONTEXT:
+      newState = {
+        ...state,
+        appContext: action.payload.appContext
+      };
+      break;
     default:
       newState = state;
   }
@@ -101,5 +113,6 @@ export type Actions =
   | AcountabilitiesLoaded
   | CompanySelectedAction
   | AccountabilitySelectedAction
-  | ProfileInfoLoadedAction;
+  | ProfileInfoLoadedAction
+  | SetAppContextAction;
 

@@ -19,6 +19,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { CompanyContactManagementComponent } from './user-settings/company-contact-management/company-contact-management.component';
 import { UploadProgressbarComponent } from './progress/upload-progressbar/upload-progressbar.component';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedAppContextModule } from './app-context/shared-app-context.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
     PrettyJsonModule,
     LayoutModule,
     SharedAuthModule,
+    SharedAppContextModule,
     ClipboardModule,
     PipesModule,
     IconsModule,
@@ -55,6 +57,7 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
     ClipboardModule,
     MarkdownModule,
     SharedAuthModule,
+    SharedAppContextModule,
     IconsModule,
     LegalTermsDirective,
     GATrackingEventDirective,

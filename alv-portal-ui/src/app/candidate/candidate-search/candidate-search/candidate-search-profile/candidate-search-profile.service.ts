@@ -107,10 +107,7 @@ export class CandidateSearchProfileService {
         id: occupation.id,
         value: occupation.code,
         type: occupation.type,
-        mapping: occupation.mappings ? {
-          value: occupation.mappings[Object.keys(occupation.mappings)[0]],
-          type: Object.keys(occupation.mappings)[0]
-        } : null
+        mapping: occupation.mappings ? this.extractBfsMapping(occupation.mappings) : null
       },
       occupation.label,
       index
@@ -158,4 +155,14 @@ export class CandidateSearchProfileService {
     return workplace && workplace.type === 'locality' ? workplace.payload.id : undefined;
   }
 
+  private extractBfsMapping(mappings: { [p: string]: string }) {
+    if (!mappings.hasOwnProperty('BFS')) {
+      return null;
+    }
+
+    return {
+      type: 'BFS',
+      value: mappings['BFS']
+    };
+  }
 }

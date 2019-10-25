@@ -91,7 +91,7 @@
 
     <ng-container class="main-column">
       <ng-container *ngIf="candidateSearchResults$ | async as candidateSearchResults">
-        <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults"
+        <alv-candidate-search-result *ngFor="let candidateSearchResult of candidateSearchResults; trackBy: trackByHash"
                                      [candidateSearchResult]="candidateSearchResult">
         </alv-candidate-search-result>
         <div *ngIf="!candidateSearchResults.length">

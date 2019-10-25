@@ -14,6 +14,7 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { CompanyContactTemplateModel } from '../../../core/auth/company-contact-template-model';
 import { CompanyContactTemplate } from '../../backend-services/user-info/user-info.types';
+import { emailInputValidator } from '../../forms/input/input-field/email-input.validator';
 
 interface CompanyContactFormValue {
   salutation: Salutation;
@@ -96,7 +97,7 @@ export class CompanyContactManagementComponent extends AbstractSubscriber implem
       firstName: [{value: null, disabled: true}, [Validators.required]],
       lastName: [{value: null, disabled: true}, [Validators.required]],
       phone: [null, [Validators.required, phoneInputValidator()]],
-      email: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
+      email: [null, [Validators.required, emailInputValidator()]],
       companyName: [null, [Validators.required]],
       companyStreet: [null, [Validators.required]],
       companyHouseNr: [null, [Validators.required, patternInputValidator(HOUSE_NUMBER_REGEX)]],

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { collapseExpandAnimation } from '../../animations/animations';
 // Angular animations have problems with animating the transition between display:none and display:block, so we couldn't
 // implement the animation the simple way. Instead, the following hack was used:
 // 1. We only collapse to 1 px, so that no optimizer can remove the panel content from the DOM
@@ -12,24 +13,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   selector: 'alv-collapse-panel',
   templateUrl: './collapse-panel.component.html',
   styleUrls: ['./collapse-panel.component.scss'],
-  animations: [
-    trigger('expandCollapse', [
-      state('open', style({
-        display: 'block',
-        'max-height': '100%',
-        transform: 'scaleY(1)',
-        opacity: 1
-      })),
-      state('closed', style({
-        display: 'none',
-        height: 0,
-        'max-height': 0,
-        transform: 'scaleY(0)',
-        opacity: 0
-      })),
-      transition('* <=> *', [animate('200ms')])
-    ])
-  ]
+  animations: [collapseExpandAnimation]
 })
 export class CollapsePanelComponent {
 

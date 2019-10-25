@@ -74,6 +74,9 @@ describe('CandidateDetailModelFactory', () => {
     isAdmin(): boolean {
       return false;
     },
+    isCompetenceCatalogEditor(): boolean {
+      return false;
+    },
     isLegalTermAcceptanceRequired(): boolean {
       return false;
     },

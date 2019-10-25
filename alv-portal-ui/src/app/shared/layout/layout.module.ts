@@ -21,7 +21,6 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NotificationComponent } from './notifications/notification/notification.component';
-import { HelpButtonComponent } from './help-button/help-button.component';
 import { SharedAuthModule } from '../auth/shared-auth.module';
 import { NotificationsComponent } from './notifications/notifications/notifications.component';
 import { AlertComponent } from './notifications/alert/alert.component';
@@ -55,6 +54,8 @@ import { LinkPanelComponent } from './link-panel/link-panel.component';
 import { AssistantLayoutComponent } from './column-layout/assistant-layout/assistant-layout.component';
 import { EnvironmentRibbonComponent } from './environment-ribbon/environment-ribbon.component';
 import { SearchProfileItemComponent } from './search-profile-item/search-profile-item.component';
+import { SharedAppContextModule } from '../app-context/shared-app-context.module';
+import { CollapseDirective } from './collapse-panel/collapse.directive';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { SearchProfileItemComponent } from './search-profile-item/search-profile
     RouterModule,
     IconsModule,
     SharedAuthModule,
+    SharedAppContextModule,
     FormsModule,
     TranslateModule,
     NgbDropdownModule,
@@ -80,7 +82,6 @@ import { SearchProfileItemComponent } from './search-profile-item/search-profile
     HeaderComponent,
     FooterComponent,
     NotificationComponent,
-    HelpButtonComponent,
     NotificationsComponent,
     AlertComponent,
     ModalComponent,
@@ -106,7 +107,8 @@ import { SearchProfileItemComponent } from './search-profile-item/search-profile
     LinkPanelComponent,
     AssistantLayoutComponent,
     EnvironmentRibbonComponent,
-    SearchProfileItemComponent
+    SearchProfileItemComponent,
+    CollapseDirective
   ],
   providers: [
     CandidateContactRepository
@@ -123,7 +125,6 @@ import { SearchProfileItemComponent } from './search-profile-item/search-profile
     HeaderComponent,
     FooterComponent,
     NotificationComponent,
-    HelpButtonComponent,
     NotificationsComponent,
     AlertComponent,
     ModalComponent,
@@ -151,7 +152,8 @@ import { SearchProfileItemComponent } from './search-profile-item/search-profile
     AccountabilitySwitcherComponent,
     LinkPanelComponent,
     EnvironmentRibbonComponent,
-    SearchProfileItemComponent
+    SearchProfileItemComponent,
+    CollapseDirective
   ]
 })
 export class LayoutModule {

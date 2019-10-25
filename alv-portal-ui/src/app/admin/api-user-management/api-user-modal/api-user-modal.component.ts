@@ -6,6 +6,7 @@ import { ApiUserManagementRepository } from '../../../shared/backend-services/ap
 import { patternInputValidator } from '../../../shared/forms/input/input-field/pattern-input.validator';
 import { EMAIL_REGEX } from '../../../shared/forms/regex-patterns';
 import { take } from 'rxjs/operators';
+import { emailInputValidator } from '../../../shared/forms/input/input-field/email-input.validator';
 
 @Component({
   selector: 'alv-api-user-modal',
@@ -33,9 +34,9 @@ export class ApiUserModalComponent implements OnInit {
     this.form = this.fb.group({
       username: [null, Validators.required],
       companyName: [null, Validators.required],
-      companyEmail: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]],
+      companyEmail: [null, [Validators.required, emailInputValidator()]],
       technicalContactName: [null, Validators.required],
-      technicalContactEmail: [null, [Validators.required, patternInputValidator(EMAIL_REGEX)]]
+      technicalContactEmail: [null, [Validators.required, emailInputValidator()]]
     });
 
     this.patchFormValues();

@@ -1,0 +1,35 @@
+<div class="position-relative"
+     [class.dark]="darkMode">
+  <button class="alv-bar btn d-flex align-items-center w-100 pr-2"
+          type="button"
+          tabindex="-1"
+          [class.collapsed]="isCollapsed"
+          [class.empty]="isEmpty"
+          (click)="toggle()"
+          [attr.aria-expanded]="!isCollapsed"
+          [attr.aria-controls]="a11yId">
+    <fa-icon class="collapse-icon"
+             [icon]="['fas', isCollapsed ? 'chevron-down' : 'chevron-up']"></fa-icon>
+    <span class="ml-3">{{label | translate}}</span>
+    <span class="flex-grow-1"></span>
+  </button>
+
+  <div *ngIf="showActionButtons"
+       class="action-buttons">
+    <button *ngFor="let action of actions"
+            class="btn btn-icon-sm"
+            [ngbTooltip]="action.label | translate"
+            container="body"
+            placement="top"
+            (click)="actionClick.emit(action.name)">
+      <fa-icon [icon]="['fas', 'search-plus']"></fa-icon>
+    </button>
+  </div>
+</div>
+
+<div class="panel-content"
+     [id]="a11yId"
+     [alvCollapse]="isCollapsed"
+     [@expandCollapse]="isCollapsed ? 'closed' : 'open'">
+  <ng-content></ng-content>
+</div>
