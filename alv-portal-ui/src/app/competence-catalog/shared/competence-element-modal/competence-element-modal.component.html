@@ -1,6 +1,7 @@
 <alv-modal (cancelAction)="cancel()"
            (primaryAction)="submit()"
-           cancelLabel="portal.global.cancel"
+           [cancelLabel]="isReadonly ? 'entity.action.back' : 'portal.global.cancel'"
+           [showPrimaryButton]="!isReadonly"
            [modalTitle]="isEdit ? 'entity.action.edit' : 'portal.global.enter'"
            primaryLabel="portal.global.save"
            [formGroup]="form">
