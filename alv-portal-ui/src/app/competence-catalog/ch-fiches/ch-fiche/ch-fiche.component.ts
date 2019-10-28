@@ -24,6 +24,7 @@ import { I18nService } from '../../../core/i18n.service';
 import { OccupationLabelData } from '../../../shared/backend-services/reference-service/occupation-label.types';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -71,9 +72,11 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
     icon: ['fas', 'unlink'],
     label: 'portal.competence-catalog.ch-fiches.actions.unlink'
   };
+  private isCompetenceCatalogEditor$: Observable<boolean>;
 
   constructor(private modalService: ModalService,
               private i18nService: I18nService,
+              private authenticationService: AuthenticationService,
               private occupationLabelRepository: OccupationLabelRepository,
               private competenceSetRepository: CompetenceSetRepository) {
     super();
@@ -85,6 +88,9 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
       flatMap(lang => this.translateOccupations(this.chFiche ? this.chFiche.occupations : [], lang)),
       takeUntil(this.ngUnsubscribe)
     ).subscribe();
+    this.isCompetenceCatalogEditor$ = this.authenticationService.getCurrentUser().pipe(
+      map(user => user && user.isCompetenceCatalogEditor())
+    );
   }
 
   addOccupation() {
@@ -151,7 +157,7 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
   editFicheName() {
     const modalRef = this.modalService.openMedium(ChFicheTitleModalComponent);
     if (this.chFiche.title) {
-      (<ChFicheTitleModalComponent> modalRef.componentInstance).chFicheTitle = this.chFiche.title;
+      (<ChFicheTitleModalComponent>modalRef.componentInstance).chFicheTitle = this.chFiche.title;
     }
     modalRef.result
       .then((multiLanguageTitle) => {
@@ -220,9 +226,6 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
     }).result;
   }
 
-  showOccupationDetails() {
-
-  }
 }
 
 interface ResolvedOccupation {
