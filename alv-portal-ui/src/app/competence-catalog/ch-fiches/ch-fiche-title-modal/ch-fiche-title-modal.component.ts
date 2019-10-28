@@ -13,7 +13,7 @@ export class ChFicheTitleModalComponent implements OnInit {
   form: FormGroup;
 
   @Input()
-  isReadonly: boolean = false;
+  isReadonly = false;
 
   @Input()
   chFicheTitle: TranslatedString;
