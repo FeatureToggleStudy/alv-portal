@@ -154,8 +154,11 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
     return this.chFiche.competences.filter(competence => competence.type === competenceType);
   }
 
-  editFicheName() {
+  editFicheName(isEdititngAllowed: boolean) {
     const modalRef = this.modalService.openMedium(ChFicheTitleModalComponent);
+    if (!isEdititngAllowed) {
+      (<ChFicheTitleModalComponent>modalRef.componentInstance).isReadonly = true;
+    }
     if (this.chFiche.title) {
       (<ChFicheTitleModalComponent>modalRef.componentInstance).chFicheTitle = this.chFiche.title;
     }

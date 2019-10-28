@@ -13,6 +13,9 @@ export class ChFicheTitleModalComponent implements OnInit {
   form: FormGroup;
 
   @Input()
+  isReadonly: boolean = false;
+
+  @Input()
   chFicheTitle: TranslatedString;
 
   formFields = ['textDe', 'textFr', 'textIt', 'textEn'];
