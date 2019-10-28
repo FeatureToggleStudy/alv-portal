@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CompetenceElementModalComponent } from '../competence-element-modal/competence-element-modal.component';
 import {
-  CompetenceCatalogAction, unlinkActionDefinition
+  CompetenceCatalogAction
 } from '../shared-competence-catalog.types';
 import { ActionDefinition } from '../../../shared/backend-services/shared.types';
 
