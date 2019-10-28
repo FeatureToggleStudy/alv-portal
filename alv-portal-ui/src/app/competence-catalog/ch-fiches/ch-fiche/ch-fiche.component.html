@@ -4,7 +4,7 @@
   <alv-competence-item *ngIf="chFiche.title; else noTitle"
                        [showActionButtons]="false"
                        [isItemClickable]="true"
-                       (itemClick)="editFicheName(observables.isCompetenceCatalogEditor)"
+                       (itemClick)="editFicheName(!observables.isCompetenceCatalogEditor)"
                        [multiLanguageTitle]="chFiche.title"
                        [superTitle]="chFiche.id ? 'ID ' + chFiche.id : ''"
                        [type]="'portal.competence-catalog.ch-fiches.type'  | translate">
