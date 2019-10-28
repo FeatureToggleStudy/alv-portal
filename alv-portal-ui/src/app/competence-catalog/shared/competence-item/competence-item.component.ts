@@ -26,7 +26,7 @@ export class CompetenceItemComponent implements OnInit {
 
   @Input() actions: ActionDefinition<CompetenceCatalogAction>[];
 
-  @Output() itemClick = new EventEmitter<void>();
+  @Output() itemClick = new EventEmitter<CompetenceItemComponent>();
 
   @Output() actionClick = new EventEmitter<CompetenceCatalogAction>();
 
@@ -51,7 +51,7 @@ export class CompetenceItemComponent implements OnInit {
   }
 
   onItemClick() {
-    this.itemClick.emit();
+    this.itemClick.emit(this);
   }
 
   onActionClick(action: CompetenceCatalogAction) {

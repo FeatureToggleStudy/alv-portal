@@ -35,7 +35,7 @@
                          textIt: resolvedOccupation.labelData.default,
                          textEn: resolvedOccupation.labelData.default
                          }"
-                       (itemClick)="showOccupationDetails()"
+                       (itemClick)="showOccupationDetails($event)"
                        [isItemClickable]="true"
                        [showActionButtons]="true"
                        [actions]="[unlinkAction]"

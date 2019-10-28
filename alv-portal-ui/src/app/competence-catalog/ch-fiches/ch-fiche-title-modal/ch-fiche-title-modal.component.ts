@@ -15,6 +15,9 @@ export class ChFicheTitleModalComponent implements OnInit {
   @Input()
   chFicheTitle: TranslatedString;
 
+  @Input()
+  isReadOnly = false;
+
   formFields = ['textDe', 'textFr', 'textIt', 'textEn'];
 
   constructor(private modal: NgbActiveModal,

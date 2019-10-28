@@ -24,6 +24,7 @@ import { I18nService } from '../../../core/i18n.service';
 import { OccupationLabelData } from '../../../shared/backend-services/reference-service/occupation-label.types';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
+import { CompetenceItemComponent } from '../../shared/competence-item/competence-item.component';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -220,7 +221,14 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
     }).result;
   }
 
-  showOccupationDetails() {
+  showOccupationDetails(occupation: CompetenceItemComponent) {
+    const modalRef = this.modalService.openMedium(ChFicheTitleModalComponent);
+    const componentModal = (<ChFicheTitleModalComponent> modalRef.componentInstance);
+    componentModal.chFicheTitle = occupation.multiLanguageTitle;
+    componentModal.isReadOnly = true;
+
+    console.log(occupation);
+
 
   }
 }
