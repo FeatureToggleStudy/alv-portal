@@ -35,7 +35,8 @@
                          textIt: resolvedOccupation.labelData.default,
                          textEn: resolvedOccupation.labelData.default
                          }"
-                       [isItemClickable]="false"
+                       (itemClick)="showOccupationDetails()"
+                       [isItemClickable]="true"
                        [showActionButtons]="true"
                        [actions]="[unlinkAction]"
                        (actionClick)="unlinkOccupation(index)">

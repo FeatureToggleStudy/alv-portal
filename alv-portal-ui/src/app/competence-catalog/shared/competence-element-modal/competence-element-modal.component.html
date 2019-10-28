@@ -21,10 +21,11 @@
       <alv-input-field label="portal.competence-catalog.competence-elements.add-modal.title-{{formField}}"
                        [alvFormControlName]="formField"
                        [multiline]="true"
+                       [readonly]="isReadonly"
                        [multilineMinRows]="1"
                        [showGroupErrors]="true"
                        [validationMessages]="[{ error: 'atLeastOneRequired', message: 'global.common-phrases.at-least-one-required' }]"
-                       [readonly]="false">
+                       >
       </alv-input-field>
     </ng-container>
   </fieldset>

@@ -219,6 +219,10 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
       content: 'portal.competence-catalog.competence-sets.overview.delete-confirmation.text'
     }).result;
   }
+
+  showOccupationDetails() {
+
+  }
 }
 
 interface ResolvedOccupation {

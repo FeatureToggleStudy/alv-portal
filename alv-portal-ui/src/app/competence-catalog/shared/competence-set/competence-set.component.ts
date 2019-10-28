@@ -80,11 +80,9 @@ export class CompetenceSetComponent implements OnInit {
   }
 
   openUpdateElementModal(competenceElement: CompetenceElement) {
-    if (!this.isEditable) {
-      return;
-    }
     const modalRef = this.modalService.openMedium(CompetenceElementModalComponent, true);
     modalRef.componentInstance.competenceElement = competenceElement;
+    modalRef.componentInstance.isReadonly = true;
     modalRef.result
       .then(updatedCompetenceElement => {
         if (competenceElement.type === ElementType.KNOW_HOW) {

@@ -29,10 +29,10 @@
                      [type]="'portal.competence-catalog.element-type.' + competenceSet.knowHow.type | translate"
                      [superTitle]="'ID ' + competenceSet.knowHow.id"
                      [multiLanguageTitle]="competenceSet.knowHow.description"
-                     [isItemClickable]="isEditable"
+                     [isItemClickable]="true"
                      [showActionButtons]="isEditable"
                      [actions]="[unlinkElementAction]"
-                     (itemClick)="openUpdateElementModal(competenceSet.knowHow)"
+                     (itemClick)=" openUpdateElementModal(competenceSet.knowHow) "
                      (actionClick)="handleKnowHowActionClick($event, competenceSet.knowHow)">
 </alv-competence-item>
 <ng-template #knowHowPlaceholder>

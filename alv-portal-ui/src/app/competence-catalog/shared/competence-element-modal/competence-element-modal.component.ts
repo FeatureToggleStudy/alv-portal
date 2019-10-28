@@ -20,6 +20,8 @@ export class CompetenceElementModalComponent implements OnInit {
 
   @Input() competenceElement: CompetenceElement;
 
+  @Input() isReadonly = false;
+
   typeOptions$: Observable<SelectableOption[]> = of([{
       value: null,
       label: 'portal.competence-catalog.competence-elements.add-modal.choose-type'
