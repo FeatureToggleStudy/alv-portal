@@ -79,7 +79,7 @@ export class CompetenceSetComponent implements OnInit {
     this.loadCompetenceElementsIfRequired();
   }
 
-  openUpdateElementModal(competenceElement: CompetenceElement) {
+  viewCompetenceElementModal(competenceElement: CompetenceElement) {
     const modalRef = this.modalService.openMedium(CompetenceElementModalComponent, true);
     modalRef.componentInstance.competenceElement = competenceElement;
     modalRef.componentInstance.isReadonly = true;
