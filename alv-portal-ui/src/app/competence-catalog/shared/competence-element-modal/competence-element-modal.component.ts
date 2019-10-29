@@ -63,7 +63,7 @@ export class CompetenceElementModalComponent implements OnInit {
       this.form.patchValue(this.competenceElement);
       this.isEdit = true;
     }
-    this.modalTitle = getModalTitle();
+    this.modalTitle = getModalTitle(this.isReadonly, this.isEdit);
   }
 
   submit() {

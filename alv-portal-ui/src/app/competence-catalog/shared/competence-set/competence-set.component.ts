@@ -26,7 +26,7 @@ export class CompetenceSetComponent implements OnInit {
 
   @Input() competenceSet: CompetenceSetSearchResult;
 
-  @Input() isReadonly = false;;
+  @Input() isReadonly = false;
 
   @Input() isInnerElementsReadonly = false;
 
