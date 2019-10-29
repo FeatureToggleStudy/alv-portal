@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { CompetenceElementModalComponent } from './competence-element-modal/competence-element-modal.component';
 import { CompetenceItemComponent } from './competence-item/competence-item.component';
 import { CompetenceItemPlaceholderComponent } from './competence-item-placeholder/competence-item-placeholder.component';
+import { SortButtonComponent } from './sort-button/sort-button.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { CompetenceItemPlaceholderComponent } from './competence-item-placeholde
     CompetenceElementModalComponent,
     CompetenceItemComponent,
     CompetenceItemPlaceholderComponent,
+    SortButtonComponent,
   ],
   providers: [],
   entryComponents: [
@@ -32,6 +34,7 @@ import { CompetenceItemPlaceholderComponent } from './competence-item-placeholde
     CompetenceItemComponent,
     CompetenceItemsCollapsePanelComponent,
     CompetenceItemPlaceholderComponent,
+    SortButtonComponent,
   ]
 })
 export class SharedCompetenceCatalogModule {

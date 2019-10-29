@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ModalService } from '../../../shared/layout/modal/modal.service';
 import { CompetenceElementRepository } from '../../../shared/backend-services/competence-element/competence-element.repository';
@@ -13,15 +13,19 @@ import { AuthenticationService } from '../../../core/auth/authentication.service
 import { Observable } from 'rxjs';
 import { CompetenceElementsFilterModalComponent } from '../competence-elements-filter-modal/competence-elements-filter-modal.component';
 import { CompetenceElementFilterValues } from '../../shared/shared-competence-catalog.types';
+import { SortButtonComponent } from '../../shared/sort-button/sort-button.component';
 
 @Component({
   selector: 'alv-competence-elements-overview',
   templateUrl: './competence-elements-overview.component.html',
   styleUrls: ['./competence-elements-overview.component.scss']
 })
-export class CompetenceElementsOverviewComponent extends AbstractSubscriber implements OnInit {
+export class CompetenceElementsOverviewComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
 
   query = new FormControl();
+
+  @ViewChild('sortButton', {static: false})
+  sortButton: SortButtonComponent;
 
   competenceElements: CompetenceElement[] = [];
 
@@ -39,6 +43,10 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
               private authenticationService: AuthenticationService,
               private competenceElementRepository: CompetenceElementRepository) {
     super();
+  }
+
+  ngAfterViewInit() {
+    this.sortButton.sortClicked.subscribe(x => console.log(x));
   }
 
   ngOnInit() {
