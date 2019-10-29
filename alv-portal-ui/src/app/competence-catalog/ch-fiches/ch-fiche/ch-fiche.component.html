@@ -1,10 +1,10 @@
-<ng-container *ngIf="{isCompetenceCatalogEditor: isCompetenceCatalogEditor$ | async } as observables">
+<ng-container >
 
 <!--   Title-->
   <alv-competence-item *ngIf="chFiche.title; else noTitle"
                        [showActionButtons]="false"
                        [isItemClickable]="true"
-                       (itemClick)="editFicheName(!observables.isCompetenceCatalogEditor)"
+                       (itemClick)="editFicheName(isReadonly)"
                        [multiLanguageTitle]="chFiche.title"
                        [superTitle]="chFiche.id ? 'ID ' + chFiche.id : ''"
                        [type]="'portal.competence-catalog.ch-fiches.type'  | translate">
@@ -13,7 +13,7 @@
   <ng-template #noTitle>
     <alv-competence-item-placeholder [customIcon]="IconKey.EDIT_PLUS"
                                      [mainText]="'portal.competence-catalog.ch-fiches.type'  | translate"
-                                     (clickHandler)="editFicheName(!observables.isCompetenceCatalogEditor)"
+                                     (clickHandler)="editFicheName(isReadonly)"
                                      [showErrors]="showErrors"
     >
     </alv-competence-item-placeholder>
@@ -26,7 +26,7 @@
                                        [isCollapsed]="collapsed.OCCUPATIONS"
                                        [isEmpty]="!chFiche.occupations.length"
                                        [darkMode]="true"
-                                       [showActionButtons]="observables.isCompetenceCatalogEditor"
+                                       [showActionButtons]="!isReadonly"
                                        [actions]="[linkOccupationAction]"
                                        (actionClick)="handleOccupationActionClick($event)">
     <alv-competence-item *ngFor="let resolvedOccupation of resolvedOccupations; let index = index"
@@ -39,7 +39,7 @@
                          textEn: resolvedOccupation.labelData.default
                          }"
                          [isItemClickable]="false"
-                         [showActionButtons]="observables.isCompetenceCatalogEditor"
+                         [showActionButtons]="!isReadonly"
                          [actions]="[unlinkAction]"
                          (actionClick)="unlinkOccupation(index)">
     </alv-competence-item>
@@ -50,7 +50,7 @@
                                        class="d-block mt-2"
                                        [id]="chFiche.id + competenceType"
                                        [label]="'portal.competence-catalog.ch-fiches.label.' + competenceType"
-                                       [showActionButtons]="observables.isCompetenceCatalogEditor"
+                                       [showActionButtons]="!isReadonly"
                                        [isCollapsed]="collapsed[competenceType]"
                                        [isEmpty]="!getCompetencesByType(competenceType).length"
                                        [darkMode]="true"
@@ -60,8 +60,8 @@
     <alv-competence-set *ngFor="let competenceSet of competences[competenceType]; let index = index"
                         [competenceSet]="competenceSet"
                         [actions]="[unlinkAction]"
-                        [isEditable]="observables.isCompetenceCatalogEditor"
-                        [showActionButtons]="observables.isCompetenceCatalogEditor"
+                        [isEditable]="!isReadonly"
+                        [showActionButtons]="!isReadonly"
                         (actionClick)="handleCompetenceSetActionClick($event, competenceType, competenceSet)">
     </alv-competence-set>
   </alv-competence-items-collapse-panel>

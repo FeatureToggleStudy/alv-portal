@@ -24,7 +24,6 @@ import { I18nService } from '../../../core/i18n.service';
 import { OccupationLabelData } from '../../../shared/backend-services/reference-service/occupation-label.types';
 import { IconKey } from '../../../shared/icons/custom-icon/custom-icon.component';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
-import { AuthenticationService } from '../../../core/auth/authentication.service';
 
 @Component({
   selector: 'alv-ch-fiche',
@@ -36,6 +35,9 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
   @Input() chFiche: ChFiche;
 
   @Input() showErrors: boolean;
+
+  @Input()
+  isReadonly = false;
 
   IconKey = IconKey;
 
@@ -72,11 +74,9 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
     icon: ['fas', 'unlink'],
     label: 'portal.competence-catalog.ch-fiches.actions.unlink'
   };
-  isCompetenceCatalogEditor$: Observable<boolean>; //todo remove and pass isReadonlyInstead
 
   constructor(private modalService: ModalService,
               private i18nService: I18nService,
-              private authenticationService: AuthenticationService,
               private occupationLabelRepository: OccupationLabelRepository,
               private competenceSetRepository: CompetenceSetRepository) {
     super();
@@ -88,9 +88,6 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
       flatMap(lang => this.translateOccupations(this.chFiche ? this.chFiche.occupations : [], lang)),
       takeUntil(this.ngUnsubscribe)
     ).subscribe();
-    this.isCompetenceCatalogEditor$ = this.authenticationService.getCurrentUser().pipe(
-      map(user => user && user.isCompetenceCatalogEditor())
-    );
   }
 
   addOccupation() {
