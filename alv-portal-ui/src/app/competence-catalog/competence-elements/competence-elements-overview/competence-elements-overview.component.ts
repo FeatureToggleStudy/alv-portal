@@ -108,4 +108,8 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
     this.competenceElements = [];
     this.onScroll();
   }
+
+  onSortClick() {
+
+  }
 }
