@@ -13,7 +13,7 @@
   <ng-template #noTitle>
     <alv-competence-item-placeholder [customIcon]="IconKey.EDIT_PLUS"
                                      [mainText]="'portal.competence-catalog.ch-fiches.type'  | translate"
-                                     (clickHandler)="editFicheName()"
+                                     (clickHandler)="editFicheName(!observables.isCompetenceCatalogEditor)"
                                      [showErrors]="showErrors"
     >
     </alv-competence-item-placeholder>

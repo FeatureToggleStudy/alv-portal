@@ -72,7 +72,7 @@ export class ChFicheComponent extends AbstractSubscriber implements OnInit {
     icon: ['fas', 'unlink'],
     label: 'portal.competence-catalog.ch-fiches.actions.unlink'
   };
-  private isCompetenceCatalogEditor$: Observable<boolean>;
+  isCompetenceCatalogEditor$: Observable<boolean>; //todo remove and pass isReadonlyInstead
 
   constructor(private modalService: ModalService,
               private i18nService: I18nService,
