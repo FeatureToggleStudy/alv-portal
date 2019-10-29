@@ -9,7 +9,10 @@
                    class="text-primary mr-1"
                    [fixedWidth]="true">
           </fa-icon>
-          {{ 'portal.competence-catalog.competence-sets.edit.title-edit-create' | translate }}
+          <span *ngIf="isEdit; else isEnter">
+            {{'portal.competence-catalog.competence-sets.edit.title-edit' | translate}}
+          </span>
+          <ng-template #isEnter>{{ 'portal.competence-catalog.competence-sets.edit.title-enter' | translate }}</ng-template>
         </h2>
       </div>
 
