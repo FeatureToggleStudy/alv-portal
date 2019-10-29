@@ -14,6 +14,15 @@
           </fa-icon>
           {{ 'portal.competence-catalog.competence-elements.overview.title' | translate }}
         </h2>
+        <button type="button"
+                class="btn btn-text filter-button"
+                (click)="onFilterClick()">
+          <fa-icon class="mr-0 mr-md-2"
+                   [icon]="['fas', 'filter']"></fa-icon>
+          <span class="d-none d-md-inline">
+        {{'portal.competence-catalog.competence-elements.overview.filter.label' | translate}}
+      </span>
+        </button>
       </div>
 
       <alv-input-field [alvControl]="query"
@@ -31,7 +40,7 @@
       <alv-competence-item *ngFor="let competenceElement of competenceElements"
                            [multiLanguageTitle]="competenceElement.description"
                            [type]="'portal.competence-catalog.element-type.' + competenceElement.type | translate"
-                           [superTitle]="'ID ' + competenceElement.id"
+                           [superTitle]="competenceElement.id"
                            [isItemClickable]="isCompetenceCatalogEditor$ | async"
                            (itemClick)="openUpdateModal(competenceElement)">
       </alv-competence-item>
