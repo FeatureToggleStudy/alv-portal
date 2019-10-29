@@ -60,7 +60,7 @@
     <alv-competence-set *ngFor="let competenceSet of competences[competenceType]; let index = index"
                         [competenceSet]="competenceSet"
                         [actions]="[unlinkAction]"
-                        [isEditable]="!isReadonly"
+                        [isReadonly]="isReadonly"
                         [showActionButtons]="!isReadonly"
                         (actionClick)="handleCompetenceSetActionClick($event, competenceType, competenceSet)">
     </alv-competence-set>

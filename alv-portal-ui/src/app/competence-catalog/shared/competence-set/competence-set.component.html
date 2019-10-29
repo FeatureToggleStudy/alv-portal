@@ -30,7 +30,7 @@
                      [superTitle]="'ID ' + competenceSet.knowHow.id"
                      [multiLanguageTitle]="competenceSet.knowHow.description"
                      [isItemClickable]="true"
-                     [showActionButtons]="isEditable"
+                     [showActionButtons]="!isReadonly"
                      [actions]="[unlinkElementAction]"
                      (itemClick)=" viewCompetenceElementModal(competenceSet.knowHow) "
                      (actionClick)="handleKnowHowActionClick($event, competenceSet.knowHow)">
@@ -52,7 +52,7 @@
   <alv-competence-items-collapse-panel *ngFor="let subElementType of subElementTypes"
                                        [id]="competenceSet.id"
                                        [label]="'portal.competence-catalog.element-type.' + subElementType"
-                                       [showActionButtons]="isEditable"
+                                       [showActionButtons]="!isReadonly"
                                        [isEmpty]="!getElementsByType(subElementType)?.length"
                                        [isCollapsed]="collapsed[subElementType]"
                                        [actions]="[linkElementAction]"
@@ -62,7 +62,7 @@
                          [superTitle]="'ID ' + element.id"
                          [multiLanguageTitle]="element.description"
                          [isItemClickable]="true"
-                         [showActionButtons]="isEditable"
+                         [showActionButtons]="!isReadonly"
                          [actions]="[unlinkElementAction]"
                          (itemClick)="viewCompetenceElementModal(element)"
                          (actionClick)="handleSubElementsActionClick($event, element)">

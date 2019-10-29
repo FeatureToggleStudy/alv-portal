@@ -26,7 +26,7 @@ export class CompetenceSetComponent implements OnInit {
 
   @Input() competenceSet: CompetenceSetSearchResult;
 
-  @Input() isEditable: boolean;
+  @Input() isReadonly: boolean;
 
   @Input() showActionButtons: boolean;
 

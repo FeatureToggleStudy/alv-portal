@@ -16,7 +16,7 @@
       <alv-competence-set [competenceSet]="competenceSet"
                           [isCollapsed]="false"
                           [showActionButtons]="false"
-                          [isEditable]="true"
+                          [isReadonly]="false"
                           [showErrors]="showErrors">
       </alv-competence-set>
 
@@ -27,7 +27,7 @@
         </a>
         <!--
         <button class="btn btn-secondary ml-1"
-                *ngIf="isEditable">
+                *ngIf="isReadonly">
           {{'portal.global.delete' | translate}}
         </button>
         -->
