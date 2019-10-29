@@ -33,7 +33,7 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
 
   private page = 0;
 
-  private readonly DEFAULT_PAGE_SIZE = 20;
+  private readonly DEFAULT_PAGE_SIZE = 50;
 
   constructor(private modalService: ModalService,
               private authenticationService: AuthenticationService,

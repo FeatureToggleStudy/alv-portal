@@ -34,7 +34,7 @@
       <alv-competence-item *ngFor="let chFiche of chFiches"
                            [multiLanguageTitle]="chFiche.title"
                            [type]="'portal.competence-catalog.ch-fiches.type' | translate"
-                           [superTitle]="'ID ' + chFiche.id"
+                           [superTitle]="chFiche.id"
                            (itemClick)="editChFiche(chFiche)"
                            [isItemClickable]="true">
       </alv-competence-item>
