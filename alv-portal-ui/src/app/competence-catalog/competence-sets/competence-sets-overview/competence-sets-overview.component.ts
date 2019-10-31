@@ -21,6 +21,8 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
 
   competenceSets: CompetenceSetSearchResult[] = [];
 
+  sortAsc = true;
+
   isCompetenceCatalogEditor$: Observable<boolean>;
 
   editCompetenceSetAction: ActionDefinition<CompetenceCatalogAction> = {
@@ -61,7 +63,8 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
         query: this.query.value || ''
       },
       page: this.page++,
-      size: this.DEFAULT_PAGE_SIZE
+      size: this.DEFAULT_PAGE_SIZE,
+      sort: this.sortAsc ? 'date_asc' : 'date_desc',
     }).pipe(
     ).subscribe(response => {
       this.competenceSets = [...(this.competenceSets || []), ...response.content];
@@ -72,6 +75,11 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
     if (action === CompetenceCatalogAction.EDIT) {
       this.router.navigate(['edit', competenceSet.id], { relativeTo: this.route });
     }
+  }
+
+  onSortClick() {
+    this.sortAsc = !this.sortAsc;
+    this.reload();
   }
 
   private reload() {

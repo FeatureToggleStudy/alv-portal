@@ -24,9 +24,6 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
 
   query = new FormControl();
 
-  @ViewChild('sortButton', { static: false })
-  sortButton: SortButtonComponent;
-
   sortAsc = true;
 
   competenceElements: CompetenceElement[] = [];
