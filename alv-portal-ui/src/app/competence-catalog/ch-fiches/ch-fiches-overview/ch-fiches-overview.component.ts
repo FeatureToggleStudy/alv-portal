@@ -17,6 +17,9 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
 
   query = new FormControl();
 
+  sortAsc = true;
+
+
   isCompetenceCatalogEditor$: Observable<boolean>;
 
   chFiches: ChFiche[];
@@ -53,7 +56,8 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
         query: this.query.value || ''
       },
       page: this.page++,
-      size: this.DEFAULT_PAGE_SIZE
+      size: this.DEFAULT_PAGE_SIZE,
+      sort: this.sortAsc ? 'date_asc' : 'date_desc'
     }).pipe(
     ).subscribe(response => {
       this.chFiches = [...(this.chFiches || []), ...response.content];
@@ -62,6 +66,11 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
 
   editChFiche(chFiche: ChFiche) {
     this.router.navigate(['edit', chFiche.id], { relativeTo: this.route });
+  }
+
+  onSortClick() {
+    this.sortAsc = !this.sortAsc;
+    this.reload();
   }
 
   private reload() {

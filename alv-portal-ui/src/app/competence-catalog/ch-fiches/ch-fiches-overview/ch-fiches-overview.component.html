@@ -17,6 +17,9 @@
           </fa-icon>
           {{ 'portal.competence-catalog.ch-fiches.overview.title' | translate }}
         </h2>
+        <div class="d-flex mb-3 flex-row justify-content-between">
+          <alv-sort-button (sortClicked)="onSortClick()"></alv-sort-button>
+        </div>
       </div>
 
       <alv-input-field [alvControl]="query"
