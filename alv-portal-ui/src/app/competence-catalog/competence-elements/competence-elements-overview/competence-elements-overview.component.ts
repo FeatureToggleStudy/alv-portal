@@ -10,7 +10,7 @@ import {
 } from '../../../shared/backend-services/competence-element/competence-element.types';
 import { CompetenceElementModalComponent } from '../../shared/competence-element-modal/competence-element-modal.component';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
-import { Observable } from 'rxjs';
+import { merge, Observable } from 'rxjs';
 import { CompetenceElementsFilterModalComponent } from '../competence-elements-filter-modal/competence-elements-filter-modal.component';
 import { CompetenceElementFilterValues } from '../../shared/shared-competence-catalog.types';
 import { SortButtonComponent } from '../../shared/sort-button/sort-button.component';
@@ -20,12 +20,14 @@ import { SortButtonComponent } from '../../shared/sort-button/sort-button.compon
   templateUrl: './competence-elements-overview.component.html',
   styleUrls: ['./competence-elements-overview.component.scss']
 })
-export class CompetenceElementsOverviewComponent extends AbstractSubscriber implements OnInit, AfterViewInit {
+export class CompetenceElementsOverviewComponent extends AbstractSubscriber implements OnInit {
 
   query = new FormControl();
 
-  @ViewChild('sortButton', {static: false})
+  @ViewChild('sortButton', { static: false })
   sortButton: SortButtonComponent;
+
+  sortAsc = true;
 
   competenceElements: CompetenceElement[] = [];
 
@@ -45,13 +47,12 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
     super();
   }
 
-  ngAfterViewInit() {
-    this.sortButton.sortClicked.subscribe(x => console.log(x));
-  }
-
   ngOnInit() {
     this.onScroll();
 
+    this.isCompetenceCatalogEditor$ = this.authenticationService.getCurrentUser().pipe(
+      map(user => user && user.isCompetenceCatalogEditor())
+    );
     this.query.valueChanges.pipe(
       debounceTime(300),
       takeUntil(this.ngUnsubscribe))
@@ -59,19 +60,17 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
         this.reload();
       });
 
-    this.isCompetenceCatalogEditor$ = this.authenticationService.getCurrentUser().pipe(
-      map(user => user && user.isCompetenceCatalogEditor())
-    );
   }
 
   onScroll() {
     this.competenceElementRepository.search({
       body: {
         query: this.query.value || '',
-        types: this.filter.types
+        types: this.filter.types,
       },
       page: this.page++,
-      size: this.DEFAULT_PAGE_SIZE
+      size: this.DEFAULT_PAGE_SIZE,
+      sort: this.sortAsc ? 'date_asc' : 'date_desc',
     }).pipe(
     ).subscribe(response => {
       this.competenceElements = [...(this.competenceElements || []), ...response.content];
@@ -113,13 +112,16 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
       });
   }
 
+  onSortClick() {
+    this.sortAsc = !this.sortAsc;
+    this.reload();
+  }
+
   private reload() {
     this.page = 0;
     this.competenceElements = [];
     this.onScroll();
   }
 
-  onSortClick() {
 
-  }
 }

@@ -22,10 +22,9 @@
             <fa-icon class="mr-0 mr-md-2"
                      [icon]="['fas', 'filter']"></fa-icon>
             <span class="d-none d-md-inline">
-        {{'portal.competence-catalog.competence-elements.overview.filter.label' | translate}}
       </span>
           </button>
-          <alv-sort-button #sortButton></alv-sort-button>
+          <alv-sort-button (sortClicked)="onSortClick()"></alv-sort-button>
         </div>
       </div>
 

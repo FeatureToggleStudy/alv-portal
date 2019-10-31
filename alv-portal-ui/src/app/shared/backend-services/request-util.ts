@@ -24,6 +24,7 @@ export function createRequestOption(req?: any): HttpParams {
 export function createPageableURLSearchParams(req?: PagedSearchRequest): HttpParams {
   let params = new HttpParams()
     .set('page', '' + req.page)
+    .set('sort', '' + req.sort)
     .set('size', '' + req.size);
   if (req.sort) {
     if (req.sort instanceof Array) {
