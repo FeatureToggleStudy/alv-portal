@@ -9,7 +9,7 @@
      infiniteScroll>
   <div class="row">
     <form class="col-12 col-lg-9 col-xl-10"
-    [formGroup]="searchForm">
+          [formGroup]="searchForm">
       <div class="d-flex justify-content-between align-items-end position-relative">
         <h2 class="pr-5 mb-4 d-flex">
           <fa-icon [icon]="['far', 'address-book']"
@@ -22,23 +22,24 @@
           <alv-sort-button (sortClicked)="onSortClick()"></alv-sort-button>
         </div>
       </div>
-
-      <alv-multi-typeahead alvFormControlName="occupations"
-                           [editable]="false"
-                           [loadItems]="loadOccupationsFn"
-                           class="narrow-form"
-                           label="portal.job-ad.search.query-panel.occupations.placeholder"
-                           [focusFirst]="true"
-                           tooltip="portal.job-ad.search.query-panel.occupations.tooltip"
-      >
-      </alv-multi-typeahead>
-      <div class="mb-5"></div>
-      <alv-input-field alvFormControlName="query"
-                       label="portal.competence-catalog.ch-fiches.overview.search-label">
-      </alv-input-field>
-
-
-
+      <div class="row">
+        <div class="col-12 col-lg-6 mb-1 mb-lg-0">
+          <alv-input-field alvFormControlName="query"
+                           label="portal.competence-catalog.ch-fiches.overview.search-label">
+          </alv-input-field>
+        </div>
+        <div class="col-12 col-lg-6 mb-1 mb-lg-0">
+          <alv-multi-typeahead alvFormControlName="occupations"
+                               [editable]="false"
+                               [loadItems]="loadOccupationsFn"
+                               class="narrow-form"
+                               label="portal.job-ad.search.query-panel.occupations.placeholder"
+                               [focusFirst]="true"
+                               tooltip="portal.job-ad.search.query-panel.occupations.tooltip"
+          >
+          </alv-multi-typeahead>
+        </div>
+      </div>
 
       <a *ngIf="observables.isCompetenceCatalogEditor"
          routerLink="./create"
