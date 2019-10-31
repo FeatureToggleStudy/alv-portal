@@ -8,7 +8,8 @@
      [immediateCheck]="true"
      infiniteScroll>
   <div class="row">
-    <div class="col-12 col-lg-9 col-xl-10">
+    <form class="col-12 col-lg-9 col-xl-10"
+    [formGroup]="searchForm">
       <div class="d-flex justify-content-between align-items-end position-relative">
         <h2 class="pr-5 mb-4 d-flex">
           <fa-icon [icon]="['far', 'address-book']"
@@ -22,9 +23,22 @@
         </div>
       </div>
 
-      <alv-input-field [alvControl]="query"
+      <alv-multi-typeahead alvFormControlName="occupations"
+                           [editable]="false"
+                           [loadItems]="loadOccupationsFn"
+                           class="narrow-form"
+                           label="portal.job-ad.search.query-panel.occupations.placeholder"
+                           [focusFirst]="true"
+                           tooltip="portal.job-ad.search.query-panel.occupations.tooltip"
+      >
+      </alv-multi-typeahead>
+      <div class="mb-5"></div>
+      <alv-input-field alvFormControlName="query"
                        label="portal.competence-catalog.ch-fiches.overview.search-label">
       </alv-input-field>
+
+
+
 
       <a *ngIf="observables.isCompetenceCatalogEditor"
          routerLink="./create"
@@ -42,7 +56,7 @@
                            [isItemClickable]="true">
       </alv-competence-item>
 
-    </div>
+    </form>
     <div class="mt-5 d-none d-lg-block col-lg-3 col-xl-2">
       <div class="actions-container">
         <a *ngIf="observables.isCompetenceCatalogEditor"

@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, map, takeUntil } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AbstractSubscriber } from '../../../core/abstract-subscriber';
 import { Observable } from 'rxjs';
 import { ChFicheRepository } from '../../../shared/backend-services/ch-fiche/ch-fiche.repository';
 import { AuthenticationService } from '../../../core/auth/authentication.service';
 import { ChFiche } from '../../../shared/backend-services/ch-fiche/ch-fiche.types';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OccupationTypeaheadItem } from '../../../shared/occupations/occupation-typeahead-item';
+import { OccupationSuggestionService } from '../../../shared/occupations/occupation-suggestion.service';
 
 @Component({
   selector: 'alv-ch-fiches-overview',
@@ -15,10 +17,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ChFichesOverviewComponent extends AbstractSubscriber implements OnInit {
 
-  query = new FormControl();
+
+  searchForm: FormGroup;
 
   sortAsc = true;
 
+  loadOccupationsFn = this.loadOccupations.bind(this);
 
   isCompetenceCatalogEditor$: Observable<boolean>;
 
@@ -29,16 +33,21 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
   private readonly DEFAULT_PAGE_SIZE = 50;
 
   constructor(private chFicheRepository: ChFicheRepository,
+              private fb: FormBuilder,
               private router: Router,
               private route: ActivatedRoute,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private occupationSuggestionService: OccupationSuggestionService) {
     super();
   }
 
   ngOnInit() {
-    this.onScroll();
+    this.searchForm = this.fb.group({
+      query: [''],
+      occupations: ['']
+    });
 
-    this.query.valueChanges.pipe(
+    this.searchForm.get('query').valueChanges.pipe(
       debounceTime(300),
       takeUntil(this.ngUnsubscribe))
       .subscribe(value => {
@@ -48,12 +57,13 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
     this.isCompetenceCatalogEditor$ = this.authenticationService.getCurrentUser().pipe(
       map(user => user && user.isCompetenceCatalogEditor())
     );
+    this.onScroll();
   }
 
   onScroll() {
     this.chFicheRepository.search({
       body: {
-        query: this.query.value || ''
+        query: this.searchForm.get('query').value || ''
       },
       page: this.page++,
       size: this.DEFAULT_PAGE_SIZE,
@@ -71,6 +81,10 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
   onSortClick() {
     this.sortAsc = !this.sortAsc;
     this.reload();
+  }
+
+  loadOccupations(query: string): Observable<OccupationTypeaheadItem[]> {
+    return this.occupationSuggestionService.fetchJobSearchOccupations(query);
   }
 
   private reload() {
