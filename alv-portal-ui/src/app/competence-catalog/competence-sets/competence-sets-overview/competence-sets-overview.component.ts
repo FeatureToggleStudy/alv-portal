@@ -64,7 +64,7 @@ export class CompetenceSetsOverviewComponent extends AbstractSubscriber implemen
       },
       page: this.page++,
       size: this.DEFAULT_PAGE_SIZE,
-      sort: this.sortAsc ? 'date_asc' : 'date_desc',
+      sort: this.sortAsc ? 'alphabetically_asc' : 'alphabetically_desc',
     }).pipe(
     ).subscribe(response => {
       this.competenceSets = [...(this.competenceSets || []), ...response.content];

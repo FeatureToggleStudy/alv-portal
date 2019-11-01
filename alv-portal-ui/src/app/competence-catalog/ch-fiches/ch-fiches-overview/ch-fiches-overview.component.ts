@@ -57,7 +57,7 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
       },
       page: this.page++,
       size: this.DEFAULT_PAGE_SIZE,
-      sort: this.sortAsc ? 'date_asc' : 'date_desc'
+      sort: this.sortAsc ? 'alphabetically_asc' : 'alphabetically_desc'
     }).pipe(
     ).subscribe(response => {
       this.chFiches = [...(this.chFiches || []), ...response.content];

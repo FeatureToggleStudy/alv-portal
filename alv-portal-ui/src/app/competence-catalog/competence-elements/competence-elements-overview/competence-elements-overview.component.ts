@@ -67,7 +67,7 @@ export class CompetenceElementsOverviewComponent extends AbstractSubscriber impl
       },
       page: this.page++,
       size: this.DEFAULT_PAGE_SIZE,
-      sort: this.sortAsc ? 'date_asc' : 'date_desc',
+      sort: this.sortAsc ? 'alphabetically_asc' : 'alphabetically_desc',
     }).pipe(
     ).subscribe(response => {
       this.competenceElements = [...(this.competenceElements || []), ...response.content];
