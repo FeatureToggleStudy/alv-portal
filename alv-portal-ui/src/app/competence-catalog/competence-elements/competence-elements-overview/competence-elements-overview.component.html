@@ -18,13 +18,16 @@
         <div class="d-flex mb-3 flex-row justify-content-between">
           <button type="button"
                   class="btn btn-text filter-button flex-row"
+                  [ngbTooltip]="'portal.global.filter' | translate "
                   (click)="onFilterClick()">
             <fa-icon class="mr-0 mr-md-2"
                      [icon]="['fas', 'filter']"></fa-icon>
             <span class="d-none d-md-inline">
       </span>
           </button>
-          <alv-sort-button (sortClicked)="onSortClick()"></alv-sort-button>
+          <alv-sort-button (sortClicked)="onSortClick()"
+                           [ngbTooltip]="'portal.global.sort' | translate "
+          ></alv-sort-button>
         </div>
       </div>
 
