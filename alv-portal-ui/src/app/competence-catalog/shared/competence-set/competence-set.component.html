@@ -29,10 +29,10 @@
                      [type]="'portal.competence-catalog.element-type.' + competenceSet.knowHow.type | translate"
                      [superTitle]="competenceSet.knowHow.id"
                      [multiLanguageTitle]="competenceSet.knowHow.description"
-                     [isItemClickable]="isEditable"
-                     [showActionButtons]="isEditable"
+                     [isItemClickable]="true"
+                     [showActionButtons]="!isReadonly && !isInnerElementsReadonly"
                      [actions]="[unlinkElementAction]"
-                     (itemClick)="openUpdateElementModal(competenceSet.knowHow)"
+                     (itemClick)=" viewCompetenceElementModal(competenceSet.knowHow) "
                      (actionClick)="handleKnowHowActionClick($event, competenceSet.knowHow)">
 </alv-competence-item>
 <ng-template #knowHowPlaceholder>
@@ -52,7 +52,7 @@
   <alv-competence-items-collapse-panel *ngFor="let subElementType of subElementTypes"
                                        [id]="competenceSet.id"
                                        [label]="'portal.competence-catalog.element-type.' + subElementType"
-                                       [showActionButtons]="isEditable"
+                                       [showActionButtons]="!isReadonly && !isInnerElementsReadonly"
                                        [isEmpty]="!getElementsByType(subElementType)?.length"
                                        [isCollapsed]="collapsed[subElementType]"
                                        [actions]="[linkElementAction]"
@@ -61,10 +61,10 @@
                          [type]="'portal.competence-catalog.element-type.' + subElementType | translate"
                          [superTitle]="element.id"
                          [multiLanguageTitle]="element.description"
-                         [isItemClickable]="isEditable"
-                         [showActionButtons]="isEditable"
+                         [isItemClickable]="true"
+                         [showActionButtons]="!isReadonly && !isInnerElementsReadonly"
                          [actions]="[unlinkElementAction]"
-                         (itemClick)="openUpdateElementModal(element)"
+                         (itemClick)="viewCompetenceElementModal(element)"
                          (actionClick)="handleSubElementsActionClick($event, element)">
     </alv-competence-item>
   </alv-competence-items-collapse-panel>
