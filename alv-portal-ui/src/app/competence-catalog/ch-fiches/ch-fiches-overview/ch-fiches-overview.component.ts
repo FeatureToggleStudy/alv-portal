@@ -47,7 +47,7 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
       occupations: ['']
     });
 
-    this.searchForm.get('query').valueChanges.pipe(
+    this.searchForm.valueChanges.pipe(
       debounceTime(300),
       takeUntil(this.ngUnsubscribe))
       .subscribe(value => {
@@ -63,7 +63,7 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
   onScroll() {
     this.chFicheRepository.search({
       body: {
-        query: this.searchForm.get('query').value || ''
+        query: this.searchForm.get('query').value || '' //TODO here search by occupation must be added
       },
       page: this.page++,
       size: this.DEFAULT_PAGE_SIZE,
@@ -84,7 +84,7 @@ export class ChFichesOverviewComponent extends AbstractSubscriber implements OnI
   }
 
   loadOccupations(query: string): Observable<OccupationTypeaheadItem[]> {
-    return this.occupationSuggestionService.fetchJobSearchOccupations(query);
+    return this.occupationSuggestionService.fetchCompetenceCatalogOccupations(query);
   }
 
   private reload() {
